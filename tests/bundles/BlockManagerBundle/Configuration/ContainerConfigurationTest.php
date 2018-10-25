@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Configuration;
 
 use Netgen\Bundle\BlockManagerBundle\Configuration\ContainerConfiguration;
+use Netgen\Bundle\BlockManagerBundle\Exception\ConfigurationException;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -108,11 +109,12 @@ final class ContainerConfigurationTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Configuration\ContainerConfiguration::getParameter
-     * @expectedException \Netgen\Bundle\BlockManagerBundle\Exception\ConfigurationException
-     * @expectedExceptionMessage Parameter "some_param" does not exist in configuration.
      */
     public function testGetParameterThrowsConfigurationException(): void
     {
+        $this->expectException(ConfigurationException::class);
+        $this->expectExceptionMessage('Parameter "some_param" does not exist in configuration.');
+
         $this->containerMock
             ->expects(self::once())
             ->method('hasParameter')

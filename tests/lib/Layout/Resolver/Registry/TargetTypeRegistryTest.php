@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Layout\Resolver\Registry;
 
 use ArrayIterator;
+use Netgen\BlockManager\Exception\Layout\TargetTypeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType1;
 use PHPUnit\Framework\TestCase;
@@ -47,11 +49,12 @@ final class TargetTypeRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::getTargetType
-     * @expectedException \Netgen\BlockManager\Exception\Layout\TargetTypeException
-     * @expectedExceptionMessage Target type "other" does not exist.
      */
     public function testGetTargetTypeThrowsTargetTypeException(): void
     {
+        $this->expectException(TargetTypeException::class);
+        $this->expectExceptionMessage('Target type "other" does not exist.');
+
         $this->registry->getTargetType('other');
     }
 
@@ -113,21 +116,23 @@ final class TargetTypeRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::offsetSet
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Method call not supported.
      */
     public function testOffsetSet(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
+
         $this->registry['target1'] = $this->targetType;
     }
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::offsetUnset
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Method call not supported.
      */
     public function testOffsetUnset(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
+
         unset($this->registry['target1']);
     }
 }

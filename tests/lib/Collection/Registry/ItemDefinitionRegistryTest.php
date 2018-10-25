@@ -7,6 +7,8 @@ namespace Netgen\BlockManager\Tests\Collection\Registry;
 use ArrayIterator;
 use Netgen\BlockManager\Collection\Item\ItemDefinition;
 use Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry;
+use Netgen\BlockManager\Exception\Collection\ItemDefinitionException;
+use Netgen\BlockManager\Exception\RuntimeException;
 use PHPUnit\Framework\TestCase;
 
 final class ItemDefinitionRegistryTest extends TestCase
@@ -47,11 +49,12 @@ final class ItemDefinitionRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry::getItemDefinition
-     * @expectedException \Netgen\BlockManager\Exception\Collection\ItemDefinitionException
-     * @expectedExceptionMessage Item definition for "other_item_definition" value type does not exist.
      */
     public function testGetItemDefinitionThrowsItemDefinitionException(): void
     {
+        $this->expectException(ItemDefinitionException::class);
+        $this->expectExceptionMessage('Item definition for "other_item_definition" value type does not exist.');
+
         $this->registry->getItemDefinition('other_item_definition');
     }
 
@@ -113,21 +116,23 @@ final class ItemDefinitionRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry::offsetSet
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Method call not supported.
      */
     public function testOffsetSet(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
+
         $this->registry['item_definition'] = $this->itemDefinition;
     }
 
     /**
      * @covers \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry::offsetUnset
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Method call not supported.
      */
     public function testOffsetUnset(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
+
         unset($this->registry['item_definition']);
     }
 }

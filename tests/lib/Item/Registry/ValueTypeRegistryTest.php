@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Item\Registry;
 
 use ArrayIterator;
+use Netgen\BlockManager\Exception\Item\ItemException;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
 use Netgen\BlockManager\Item\ValueType\ValueType;
 use PHPUnit\Framework\TestCase;
@@ -77,11 +79,12 @@ final class ValueTypeRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::getValueType
-     * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
-     * @expectedExceptionMessage Value type "other_value" does not exist.
      */
     public function testGetValueTypeThrowsInvalidArgumentException(): void
     {
+        $this->expectException(ItemException::class);
+        $this->expectExceptionMessage('Value type "other_value" does not exist.');
+
         $this->registry->getValueType('other_value');
     }
 
@@ -143,21 +146,23 @@ final class ValueTypeRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::offsetSet
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Method call not supported.
      */
     public function testOffsetSet(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
+
         $this->registry['value1'] = $this->valueType1;
     }
 
     /**
      * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::offsetUnset
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Method call not supported.
      */
     public function testOffsetUnset(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
+
         unset($this->registry['value1']);
     }
 }

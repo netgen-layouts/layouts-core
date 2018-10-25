@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Layout\Registry;
 
 use ArrayIterator;
+use Netgen\BlockManager\Exception\Layout\LayoutTypeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use PHPUnit\Framework\TestCase;
@@ -93,11 +95,12 @@ final class LayoutTypeRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::getLayoutType
-     * @expectedException \Netgen\BlockManager\Exception\Layout\LayoutTypeException
-     * @expectedExceptionMessage Layout type with "other_layout_type" identifier does not exist.
      */
     public function testGetLayoutTypeThrowsLayoutTypeException(): void
     {
+        $this->expectException(LayoutTypeException::class);
+        $this->expectExceptionMessage('Layout type with "other_layout_type" identifier does not exist.');
+
         $this->registry->getLayoutType('other_layout_type');
     }
 
@@ -143,21 +146,23 @@ final class LayoutTypeRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::offsetSet
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Method call not supported.
      */
     public function testOffsetSet(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
+
         $this->registry['layout_type1'] = $this->layoutType1;
     }
 
     /**
      * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::offsetUnset
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Method call not supported.
      */
     public function testOffsetUnset(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
+
         unset($this->registry['layout_type1']);
     }
 }

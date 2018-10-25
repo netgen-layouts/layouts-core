@@ -8,6 +8,7 @@ use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Collection\Item\NullItemDefinition;
 use Netgen\BlockManager\Collection\QueryType\NullQueryType;
+use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\Item\NullCmsItem;
 use Netgen\BlockManager\Persistence\Values\Collection\Collection;
@@ -124,11 +125,12 @@ abstract class CollectionMapperTest extends CoreTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::__construct
      * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::mapCollection
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find collection with identifier "42"
      */
     public function testMapCollectionWithLocalesAndAlwaysAvailableWithoutUsingMainLocale(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find collection with identifier "42"');
+
         $persistenceCollection = Collection::fromArray(
             [
                 'id' => 42,
@@ -144,11 +146,12 @@ abstract class CollectionMapperTest extends CoreTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::__construct
      * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::mapCollection
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find collection with identifier "42"
      */
     public function testMapCollectionWithLocalesAndNotAlwaysAvailable(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find collection with identifier "42"');
+
         $persistenceCollection = Collection::fromArray(
             [
                 'id' => 42,
@@ -399,11 +402,12 @@ abstract class CollectionMapperTest extends CoreTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::__construct
      * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::mapQuery
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find query with identifier "42"
      */
     public function testMapQueryWithLocalesAndAlwaysAvailableWithoutUsingMainLocale(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find query with identifier "42"');
+
         $persistenceQuery = Query::fromArray(
             [
                 'id' => 42,
@@ -421,11 +425,12 @@ abstract class CollectionMapperTest extends CoreTestCase
     /**
      * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::__construct
      * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::mapQuery
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find query with identifier "42"
      */
     public function testMapQueryWithLocalesAndNotAlwaysAvailable(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find query with identifier "42"');
+
         $persistenceQuery = Query::fromArray(
             [
                 'id' => 42,

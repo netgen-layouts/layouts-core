@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Layout\Resolver\Registry;
 
 use ArrayIterator;
+use Netgen\BlockManager\Exception\Layout\ConditionTypeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType1;
 use PHPUnit\Framework\TestCase;
@@ -47,11 +49,12 @@ final class ConditionTypeRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::getConditionType
-     * @expectedException \Netgen\BlockManager\Exception\Layout\ConditionTypeException
-     * @expectedExceptionMessage Condition type "other" does not exist.
      */
     public function testGetConditionTypeThrowsConditionTypeException(): void
     {
+        $this->expectException(ConditionTypeException::class);
+        $this->expectExceptionMessage('Condition type "other" does not exist.');
+
         $this->registry->getConditionType('other');
     }
 
@@ -113,21 +116,23 @@ final class ConditionTypeRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::offsetSet
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Method call not supported.
      */
     public function testOffsetSet(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
+
         $this->registry['condition1'] = $this->conditionType;
     }
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::offsetUnset
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Method call not supported.
      */
     public function testOffsetUnset(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
+
         unset($this->registry['condition1']);
     }
 }

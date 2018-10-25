@@ -6,6 +6,8 @@ namespace Netgen\BlockManager\Tests\Context;
 
 use ArrayIterator;
 use Netgen\BlockManager\Context\Context;
+use Netgen\BlockManager\Exception\Context\ContextException;
+use Netgen\BlockManager\Exception\RuntimeException;
 use PHPUnit\Framework\TestCase;
 
 final class ContextTest extends TestCase
@@ -60,11 +62,12 @@ final class ContextTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Context\Context::get
-     * @expectedException \Netgen\BlockManager\Exception\Context\ContextException
-     * @expectedExceptionMessage Variable "unknown" does not exist in the context.
      */
     public function testGetThrowsContextException(): void
     {
+        $this->expectException(ContextException::class);
+        $this->expectExceptionMessage('Variable "unknown" does not exist in the context.');
+
         $this->context->get('unknown');
     }
 
@@ -144,11 +147,12 @@ final class ContextTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Context\Context::offsetUnset
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Method call not supported.
      */
     public function testOffsetUnset(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
+
         unset($this->context['var']);
     }
 }

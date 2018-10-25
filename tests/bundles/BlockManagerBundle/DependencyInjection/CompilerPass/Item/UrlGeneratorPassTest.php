@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\CompilerPass\Item;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\UrlGeneratorPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -40,11 +41,12 @@ final class UrlGeneratorPassTest extends AbstractCompilerPassTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\UrlGeneratorPass::process
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Value type must begin with a letter and be followed by any combination of letters, digits and underscore.
      */
     public function testProcessThrowsRuntimeExceptionWithInvalidValueTypeTag(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Value type must begin with a letter and be followed by any combination of letters, digits and underscore.');
+
         $this->setDefinition('netgen_block_manager.item.url_generator', new Definition());
 
         $valueUrlGenerator = new Definition();
@@ -56,11 +58,12 @@ final class UrlGeneratorPassTest extends AbstractCompilerPassTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\UrlGeneratorPass::process
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Value URL generator service definition must have a 'value_type' attribute in its' tag.
      */
     public function testProcessThrowsRuntimeExceptionWithNoTagValueType(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Value URL generator service definition must have a \'value_type\' attribute in its\' tag.');
+
         $urlGenerator = new Definition();
         $urlGenerator->addArgument(null);
 

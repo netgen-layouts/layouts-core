@@ -7,6 +7,7 @@ namespace Netgen\BlockManager\Tests\Transfer\Output\Visitor\Integration;
 use Netgen\BlockManager\API\Values\Block\Placeholder;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Transfer\Output\Visitor\PlaceholderVisitor;
 use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
@@ -19,12 +20,11 @@ abstract class PlaceholderVisitorTest extends VisitorTest
         $this->blockService = $this->createBlockService();
     }
 
-    /**
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Implementation requires sub-visitor
-     */
     public function testVisitThrowsRuntimeExceptionWithoutSubVisitor(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Implementation requires sub-visitor');
+
         $this->getVisitor()->visit(new Placeholder());
     }
 

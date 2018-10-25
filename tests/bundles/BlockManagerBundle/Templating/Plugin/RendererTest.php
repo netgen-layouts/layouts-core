@@ -90,11 +90,12 @@ final class RendererTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Plugin\Renderer::renderPlugins
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception message
      */
     public function testRenderPluginsWithException(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception message');
+
         $this->twigMock
             ->expects(self::at(0))
             ->method('display')

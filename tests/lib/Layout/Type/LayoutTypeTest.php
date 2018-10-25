@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Layout\Type;
 
 use Netgen\BlockManager\Block\BlockDefinition;
+use Netgen\BlockManager\Exception\Layout\LayoutTypeException;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Layout\Type\Zone;
 use PHPUnit\Framework\TestCase;
@@ -138,11 +139,12 @@ final class LayoutTypeTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Type\LayoutType::getZone
-     * @expectedException \Netgen\BlockManager\Exception\Layout\LayoutTypeException
-     * @expectedExceptionMessage Zone "unknown" does not exist in "4_zones_a" layout type.
      */
     public function testGetZoneThrowsLayoutTypeException(): void
     {
+        $this->expectException(LayoutTypeException::class);
+        $this->expectExceptionMessage('Zone "unknown" does not exist in "4_zones_a" layout type.');
+
         $this->layoutType->getZone('unknown');
     }
 

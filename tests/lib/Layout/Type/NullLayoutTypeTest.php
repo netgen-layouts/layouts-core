@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Layout\Type;
 
 use Netgen\BlockManager\Block\BlockDefinition;
+use Netgen\BlockManager\Exception\Layout\LayoutTypeException;
 use Netgen\BlockManager\Layout\Type\NullLayoutType;
 use PHPUnit\Framework\TestCase;
 
@@ -79,11 +80,12 @@ final class NullLayoutTypeTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Type\NullLayoutType::getZone
-     * @expectedException \Netgen\BlockManager\Exception\Layout\LayoutTypeException
-     * @expectedExceptionMessage Zone "left" does not exist in "type" layout type.
      */
     public function testGetZone(): void
     {
+        $this->expectException(LayoutTypeException::class);
+        $this->expectExceptionMessage('Zone "left" does not exist in "type" layout type.');
+
         $this->layoutType->getZone('left');
     }
 

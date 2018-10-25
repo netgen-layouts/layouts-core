@@ -14,6 +14,7 @@ use Netgen\BlockManager\Validator\Structs\QueryUpdateStructValidator;
 use stdClass;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 final class QueryUpdateStructValidatorTest extends ValidatorTestCase
 {
@@ -44,33 +45,36 @@ final class QueryUpdateStructValidatorTest extends ValidatorTestCase
 
     /**
      * @covers \Netgen\BlockManager\Validator\Structs\QueryUpdateStructValidator::validate
-     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct", "Symfony\Component\Validator\Constraints\NotBlank" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
+        $this->expectException(UnexpectedTypeException::class);
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\BlockManager\\Validator\\Constraint\\Structs\\QueryUpdateStruct", "Symfony\\Component\\Validator\\Constraints\\NotBlank" given');
+
         $this->constraint = new NotBlank();
         $this->assertValid(true, new QueryUpdateStruct());
     }
 
     /**
      * @covers \Netgen\BlockManager\Validator\Structs\QueryUpdateStructValidator::validate
-     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\API\Values\Collection\Query", "stdClass" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidBlock(): void
     {
+        $this->expectException(UnexpectedTypeException::class);
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\BlockManager\\API\\Values\\Collection\\Query", "stdClass" given');
+
         $this->constraint->payload = new stdClass();
         $this->assertValid(true, new QueryUpdateStruct());
     }
 
     /**
      * @covers \Netgen\BlockManager\Validator\Structs\QueryUpdateStructValidator::validate
-     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct", "integer" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
+        $this->expectException(UnexpectedTypeException::class);
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\BlockManager\\API\\Values\\Collection\\QueryUpdateStruct", "integer" given');
+
         $this->constraint->payload = new Query();
         $this->assertValid(true, 42);
     }

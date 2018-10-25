@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\CompilerPass\Item;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueTypePass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -49,11 +50,12 @@ final class ValueTypePassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::buildValueTypes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::validateBrowserType
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Netgen Content Browser backend for "test" value type does not exist.
      */
     public function testProcessWithInvalidBrowserType(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Netgen Content Browser backend for "test" value type does not exist.');
+
         $this->setDefinition('netgen_content_browser.config.other', new Definition());
 
         $this->setParameter(

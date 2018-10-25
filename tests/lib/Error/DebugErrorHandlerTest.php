@@ -108,11 +108,12 @@ final class DebugErrorHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Error\DebugErrorHandler::handleError
      * @covers \Netgen\BlockManager\Error\DebugErrorHandler::logError
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test message
      */
     public function testHandleErrorThrowsError(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test message');
+
         $this->errorHandler = new DebugErrorHandler($this->loggerMock, true);
 
         $exception = new Exception('Test message');
@@ -131,11 +132,12 @@ final class DebugErrorHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Error\DebugErrorHandler::handleError
      * @covers \Netgen\BlockManager\Error\DebugErrorHandler::logError
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test message
      */
     public function testHandleErrorThrowsErrorWithCustomMessage(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test message');
+
         $this->errorHandler = new DebugErrorHandler($this->loggerMock, true);
 
         $exception = new Exception('Test message');
@@ -154,11 +156,12 @@ final class DebugErrorHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Error\DebugErrorHandler::handleError
      * @covers \Netgen\BlockManager\Error\DebugErrorHandler::logError
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test message
      */
     public function testHandleErrorThrowsErrorWithEmptyMessage(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test message');
+
         $this->errorHandler = new DebugErrorHandler($this->loggerMock, true);
 
         $exception = new Exception('Test message');
@@ -177,12 +180,12 @@ final class DebugErrorHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Error\DebugErrorHandler::handleError
      * @covers \Netgen\BlockManager\Error\DebugErrorHandler::logError
-     *
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test message
      */
     public function testHandleErrorThrowsErrorWithContext(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test message');
+
         $this->errorHandler = new DebugErrorHandler($this->loggerMock, true);
 
         $exception = new Exception('Test message');

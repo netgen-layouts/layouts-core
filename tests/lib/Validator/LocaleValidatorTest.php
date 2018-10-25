@@ -9,6 +9,7 @@ use Netgen\BlockManager\Validator\Constraint\Locale as LocaleConstraint;
 use Netgen\BlockManager\Validator\LocaleValidator;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 final class LocaleValidatorTest extends ValidatorTestCase
 {
@@ -30,22 +31,24 @@ final class LocaleValidatorTest extends ValidatorTestCase
 
     /**
      * @covers \Netgen\BlockManager\Validator\LocaleValidator::validate
-     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\Validator\Constraint\Locale", "Symfony\Component\Validator\Constraints\NotBlank" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
+        $this->expectException(UnexpectedTypeException::class);
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\BlockManager\\Validator\\Constraint\\Locale", "Symfony\\Component\\Validator\\Constraints\\NotBlank" given');
+
         $this->constraint = new NotBlank();
         $this->assertValid(true, 'hr_HR');
     }
 
     /**
      * @covers \Netgen\BlockManager\Validator\LocaleValidator::validate
-     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     * @expectedExceptionMessage Expected argument of type "string", "integer" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
+        $this->expectException(UnexpectedTypeException::class);
+        $this->expectExceptionMessage('Expected argument of type "string", "integer" given');
+
         $this->assertValid(true, 42);
     }
 

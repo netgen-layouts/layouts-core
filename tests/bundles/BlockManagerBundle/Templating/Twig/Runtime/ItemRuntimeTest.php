@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig\Runtime;
 
+use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\Item\CmsItemLoaderInterface;
 use Netgen\BlockManager\Item\UrlGeneratorInterface;
@@ -168,11 +169,12 @@ final class ItemRuntimeTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime::getItemPath
-     * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
-     * @expectedExceptionMessage Item "value" is not valid.
      */
     public function testGetItemPathWithInvalidValueThrowsItemExceptionInDebugMode(): void
     {
+        $this->expectException(ItemException::class);
+        $this->expectExceptionMessage('Item "value" is not valid.');
+
         $this->errorHandler->setThrow(true);
 
         $this->cmsItemLoaderMock
@@ -188,11 +190,12 @@ final class ItemRuntimeTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime::getItemPath
-     * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
-     * @expectedExceptionMessage Item could not be loaded.
      */
     public function testGetItemPathWithUnsupportedValueThrowsItemExceptionInDebugMode(): void
     {
+        $this->expectException(ItemException::class);
+        $this->expectExceptionMessage('Item could not be loaded.');
+
         $this->errorHandler->setThrow(true);
 
         $this->cmsItemLoaderMock

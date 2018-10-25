@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ParametersTypeExtensionTest extends TestCase
@@ -105,11 +106,12 @@ final class ParametersTypeExtensionTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "ngbm_parameter_definition" with value "parameter_definition" is expected to be of type "Netgen\BlockManager\Parameters\ParameterDefinition", but is of type "string".
      */
     public function testConfigureOptionsWithInvalidParameters(): void
     {
+        $this->expectException(InvalidOptionsException::class);
+        $this->expectExceptionMessage('The option "ngbm_parameter_definition" with value "parameter_definition" is expected to be of type "Netgen\\BlockManager\\Parameters\\ParameterDefinition", but is of type "string".');
+
         $optionsResolver = new OptionsResolver();
         $this->formTypeExtension->configureOptions($optionsResolver);
 

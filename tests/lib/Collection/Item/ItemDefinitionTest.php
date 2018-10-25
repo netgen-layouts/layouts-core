@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\Tests\Collection\Item;
 
 use Netgen\BlockManager\Collection\Item\ItemDefinition;
 use Netgen\BlockManager\Config\ConfigDefinition;
+use Netgen\BlockManager\Exception\Config\ConfigDefinitionException;
 use PHPUnit\Framework\TestCase;
 
 final class ItemDefinitionTest extends TestCase
@@ -53,11 +54,12 @@ final class ItemDefinitionTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Collection\Item\ItemDefinition::getConfigDefinition
-     * @expectedException \Netgen\BlockManager\Exception\Config\ConfigDefinitionException
-     * @expectedExceptionMessage Config definition with "unknown" config key does not exist.
      */
     public function testGetConfigDefinitionThrowsConfigDefinitionException(): void
     {
+        $this->expectException(ConfigDefinitionException::class);
+        $this->expectExceptionMessage('Config definition with "unknown" config key does not exist.');
+
         $this->itemDefinition->getConfigDefinition('unknown');
     }
 

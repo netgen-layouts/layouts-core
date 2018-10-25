@@ -7,6 +7,7 @@ namespace Netgen\BlockManager\Tests\Transfer\Output\Visitor;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\Zone;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Tests\Transfer\Output\Visitor\Stubs\VisitorStub;
 use Netgen\BlockManager\Transfer\Output\Visitor\AggregateVisitor;
 use PHPUnit\Framework\TestCase;
@@ -47,11 +48,12 @@ final class AggregateVisitorTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Transfer\Output\Visitor\AggregateVisitor::visit
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage No visitor available for value of type 'Netgen\BlockManager\API\Values\Block\Block'
      */
     public function testVisitWithNoAcceptedVisitorAndObjectValueThrowsRuntimeException(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('No visitor available for value of type \'Netgen\\BlockManager\\API\\Values\\Block\\Block\'');
+
         $this->visitor = new AggregateVisitor([]);
 
         $this->visitor->visit(new Block());
@@ -59,11 +61,12 @@ final class AggregateVisitorTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Transfer\Output\Visitor\AggregateVisitor::visit
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage No visitor available for value of type 'integer'
      */
     public function testVisitWithNoAcceptedVisitorAndScalarValueThrowsRuntimeException(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('No visitor available for value of type \'integer\'');
+
         $this->visitor = new AggregateVisitor([]);
 
         $this->visitor->visit(42);

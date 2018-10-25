@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\Tests\Core\Mapper;
 
 use Netgen\BlockManager\API\Values\Value;
 use Netgen\BlockManager\Block\NullBlockDefinition;
+use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Values\Block\Block;
 use Netgen\BlockManager\Tests\Core\CoreTestCase;
 
@@ -167,11 +168,12 @@ abstract class BlockMapperTest extends CoreTestCase
      * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::__construct
      * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::mapBlock
      * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::mapPlaceholders
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find block with identifier "42"
      */
     public function testMapBlockWithLocalesAndAlwaysAvailableWithoutUsingMainLocale(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find block with identifier "42"');
+
         $persistenceBlock = Block::fromArray(
             [
                 'id' => 42,
@@ -191,11 +193,12 @@ abstract class BlockMapperTest extends CoreTestCase
      * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::__construct
      * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::mapBlock
      * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::mapPlaceholders
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find block with identifier "42"
      */
     public function testMapBlockWithLocalesAndNotAlwaysAvailable(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find block with identifier "42"');
+
         $persistenceBlock = Block::fromArray(
             [
                 'id' => 42,

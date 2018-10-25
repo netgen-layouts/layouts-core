@@ -64,11 +64,12 @@ final class PluginRenderingRuntimeTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\PluginRenderingRuntime::renderPlugins
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testRenderPluginsThrowsExceptionInDebug(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->errorHandler->setThrow(true);
 
         $this->pluginRendererMock

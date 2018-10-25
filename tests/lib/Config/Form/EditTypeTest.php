@@ -16,6 +16,8 @@ use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler;
 use Netgen\BlockManager\Tests\Parameters\Stubs\FormMapper;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class EditTypeTest extends FormTestCase
@@ -200,11 +202,12 @@ final class EditTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Config\Form\EditType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
-     * @expectedExceptionMessage The required option "configurable" is missing.
      */
     public function testConfigureOptionsWithMissingValue(): void
     {
+        $this->expectException(MissingOptionsException::class);
+        $this->expectExceptionMessage('The required option "configurable" is missing.');
+
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
 
@@ -219,11 +222,12 @@ final class EditTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Config\Form\EditType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "configurable" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Config\ConfigAwareValue", but is of type "string".
      */
     public function testConfigureOptionsWithInvalidValue(): void
     {
+        $this->expectException(InvalidOptionsException::class);
+        $this->expectExceptionMessage('The option "configurable" with value "" is expected to be of type "Netgen\\BlockManager\\API\\Values\\Config\\ConfigAwareValue", but is of type "string".');
+
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
 
@@ -239,11 +243,12 @@ final class EditTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Config\Form\EditType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
-     * @expectedExceptionMessage The required option "label_prefix" is missing.
      */
     public function testConfigureOptionsWithMissingLabelPrefix(): void
     {
+        $this->expectException(MissingOptionsException::class);
+        $this->expectExceptionMessage('The required option "label_prefix" is missing.');
+
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
 
@@ -258,11 +263,12 @@ final class EditTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Config\Form\EditType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "label_prefix" with value 42 is expected to be of type "string", but is of type "integer".
      */
     public function testConfigureOptionsWithInvalidLabelPrefix(): void
     {
+        $this->expectException(InvalidOptionsException::class);
+        $this->expectExceptionMessage('The option "label_prefix" with value 42 is expected to be of type "string", but is of type "integer".');
+
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
 
@@ -278,11 +284,12 @@ final class EditTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Config\Form\EditType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "data" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Config\ConfigAwareStruct", but is of type "string".
      */
     public function testConfigureOptionsWithInvalidData(): void
     {
+        $this->expectException(InvalidOptionsException::class);
+        $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\\BlockManager\\API\\Values\\Config\\ConfigAwareStruct", but is of type "string".');
+
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
 

@@ -13,6 +13,7 @@ use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
 use stdClass;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
 {
@@ -55,44 +56,48 @@ final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
 
     /**
      * @covers \Netgen\BlockManager\Validator\BlockItemViewTypeValidator::validate
-     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\Validator\Constraint\BlockItemViewType", "Symfony\Component\Validator\Constraints\NotBlank" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
+        $this->expectException(UnexpectedTypeException::class);
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\BlockManager\\Validator\\Constraint\\BlockItemViewType", "Symfony\\Component\\Validator\\Constraints\\NotBlank" given');
+
         $this->constraint = new NotBlank();
         $this->assertValid(true, 'standard');
     }
 
     /**
      * @covers \Netgen\BlockManager\Validator\BlockItemViewTypeValidator::validate
-     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\Block\BlockDefinitionInterface", "stdClass" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidBlockDefinition(): void
     {
+        $this->expectException(UnexpectedTypeException::class);
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\BlockManager\\Block\\BlockDefinitionInterface", "stdClass" given');
+
         $this->constraint->definition = new stdClass();
         $this->assertValid(true, 'standard');
     }
 
     /**
      * @covers \Netgen\BlockManager\Validator\BlockItemViewTypeValidator::validate
-     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     * @expectedExceptionMessage Expected argument of type "string", "integer" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidViewType(): void
     {
+        $this->expectException(UnexpectedTypeException::class);
+        $this->expectExceptionMessage('Expected argument of type "string", "integer" given');
+
         $this->constraint->viewType = 42;
         $this->assertValid(true, 'standard');
     }
 
     /**
      * @covers \Netgen\BlockManager\Validator\BlockItemViewTypeValidator::validate
-     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     * @expectedExceptionMessage Expected argument of type "string", "integer" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
+        $this->expectException(UnexpectedTypeException::class);
+        $this->expectExceptionMessage('Expected argument of type "string", "integer" given');
+
         $this->constraint->viewType = 'large';
         $this->assertValid(true, 42);
     }

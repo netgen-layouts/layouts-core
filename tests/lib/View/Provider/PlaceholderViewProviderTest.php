@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\Tests\View\Provider;
 
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Block\Placeholder;
+use Netgen\BlockManager\Exception\View\ViewProviderException;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\View\Provider\PlaceholderViewProvider;
 use Netgen\BlockManager\View\View\PlaceholderViewInterface;
@@ -54,21 +55,23 @@ final class PlaceholderViewProviderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\Provider\PlaceholderViewProvider::provideView
-     * @expectedException \Netgen\BlockManager\Exception\View\ViewProviderException
-     * @expectedExceptionMessage To build the placeholder view, "block" parameter needs to be provided.
      */
     public function testProvideViewThrowsRuntimeExceptionOnMissingBlock(): void
     {
+        $this->expectException(ViewProviderException::class);
+        $this->expectExceptionMessage('To build the placeholder view, "block" parameter needs to be provided.');
+
         $this->placeholderViewProvider->provideView(new Placeholder());
     }
 
     /**
      * @covers \Netgen\BlockManager\View\Provider\PlaceholderViewProvider::provideView
-     * @expectedException \Netgen\BlockManager\Exception\View\ViewProviderException
-     * @expectedExceptionMessage To build the placeholder view, "block" parameter needs to be of "Netgen\BlockManager\API\Values\Block\Block" type.
      */
     public function testProvideViewThrowsRuntimeExceptionOnInvalidBlock(): void
     {
+        $this->expectException(ViewProviderException::class);
+        $this->expectExceptionMessage('To build the placeholder view, "block" parameter needs to be of "Netgen\\BlockManager\\API\\Values\\Block\\Block" type.');
+
         $this->placeholderViewProvider->provideView(new Placeholder(), ['block' => 42]);
     }
 

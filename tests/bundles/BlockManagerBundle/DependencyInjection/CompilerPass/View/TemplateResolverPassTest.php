@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\CompilerPass\View;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\View\TemplateResolverPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -39,11 +40,12 @@ final class TemplateResolverPassTest extends AbstractCompilerPassTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\View\TemplateResolverPass::process
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Matcher service definition must have an 'identifier' attribute in its' tag.
      */
     public function testProcessThrowsExceptionWithNoTagIdentifier(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Matcher service definition must have an \'identifier\' attribute in its\' tag.');
+
         $templateResolver = new Definition();
         $templateResolver->addArgument([]);
         $this->setDefinition('netgen_block_manager.view.template_resolver', $templateResolver);

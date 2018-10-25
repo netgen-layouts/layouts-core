@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Parameters\Registry;
 
 use ArrayIterator;
+use Netgen\BlockManager\Exception\Parameters\ParameterTypeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterType;
 use PHPUnit\Framework\TestCase;
@@ -65,11 +67,12 @@ final class ParameterTypeRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::getParameterType
-     * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterTypeException
-     * @expectedExceptionMessage Parameter type with "other_type" identifier does not exist.
      */
     public function testGetParameterTypeThrowsParameterTypeException(): void
     {
+        $this->expectException(ParameterTypeException::class);
+        $this->expectExceptionMessage('Parameter type with "other_type" identifier does not exist.');
+
         $this->registry->getParameterType('other_type');
     }
 
@@ -83,11 +86,12 @@ final class ParameterTypeRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::getParameterTypeByClass
-     * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterTypeException
-     * @expectedExceptionMessage Parameter type with class "SomeClass" does not exist.
      */
     public function testGetParameterTypeByClassThrowsParameterTypeException(): void
     {
+        $this->expectException(ParameterTypeException::class);
+        $this->expectExceptionMessage('Parameter type with class "SomeClass" does not exist.');
+
         $this->registry->getParameterTypeByClass('SomeClass');
     }
 
@@ -133,21 +137,23 @@ final class ParameterTypeRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::offsetSet
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Method call not supported.
      */
     public function testOffsetSet(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
+
         $this->registry['type'] = $this->parameterType;
     }
 
     /**
      * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::offsetUnset
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Method call not supported.
      */
     public function testOffsetUnset(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
+
         unset($this->registry['type']);
     }
 }

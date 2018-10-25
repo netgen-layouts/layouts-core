@@ -15,6 +15,7 @@ use Netgen\BlockManager\Parameters\Value\LinkValue;
 use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Validation;
 
 final class LinkTypeTest extends TestCase
@@ -67,11 +68,12 @@ final class LinkTypeTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
      * @dataProvider invalidOptionsProvider
      */
     public function testInvalidOptions(array $options): void
     {
+        $this->expectException(InvalidArgumentException::class);
+
         $this->getParameterDefinition($options);
     }
 

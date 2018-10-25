@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Validator;
 
 use Exception;
+use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Tests\Validator\Stubs\ValueValidator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints;
@@ -52,11 +53,12 @@ final class ValidatorTraitTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Validator\ValidatorTrait::validate
-     * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
-     * @expectedExceptionMessage There was an error validating "value": Value should not be blank
      */
     public function testValidateThrowsValidationException(): void
     {
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage('There was an error validating "value": Value should not be blank');
+
         $constraints = [new Constraints\NotBlank()];
         $this->validatorMock
             ->expects(self::once())
@@ -82,11 +84,12 @@ final class ValidatorTraitTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Validator\ValidatorTrait::validate
-     * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
-     * @expectedExceptionMessage Test exception text
      */
     public function testValidateThrowsValidationExceptionOnOtherException(): void
     {
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->validatorMock
             ->expects(self::once())
             ->method('validate')

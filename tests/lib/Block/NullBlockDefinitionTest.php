@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\Tests\Block;
 
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Block\NullBlockDefinition;
+use Netgen\BlockManager\Exception\Block\BlockDefinitionException;
 use Netgen\BlockManager\Tests\Block\Stubs\HandlerPlugin;
 use PHPUnit\Framework\TestCase;
 use stdClass;
@@ -73,11 +74,12 @@ final class NullBlockDefinitionTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getForm
-     * @expectedException \Netgen\BlockManager\Exception\Block\BlockDefinitionException
-     * @expectedExceptionMessage Form "content" does not exist in "definition" block definition.
      */
     public function testGetForm(): void
     {
+        $this->expectException(BlockDefinitionException::class);
+        $this->expectExceptionMessage('Form "content" does not exist in "definition" block definition.');
+
         $this->blockDefinition->getForm('content');
     }
 
@@ -99,11 +101,12 @@ final class NullBlockDefinitionTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getCollection
-     * @expectedException \Netgen\BlockManager\Exception\Block\BlockDefinitionException
-     * @expectedExceptionMessage Collection "collection" does not exist in "definition" block definition.
      */
     public function testGetCollection(): void
     {
+        $this->expectException(BlockDefinitionException::class);
+        $this->expectExceptionMessage('Collection "collection" does not exist in "definition" block definition.');
+
         $this->blockDefinition->getCollection('collection');
     }
 
@@ -133,11 +136,12 @@ final class NullBlockDefinitionTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getViewType
-     * @expectedException \Netgen\BlockManager\Exception\Block\BlockDefinitionException
-     * @expectedExceptionMessage View type "large" does not exist in "definition" block definition.
      */
     public function testGetViewType(): void
     {
+        $this->expectException(BlockDefinitionException::class);
+        $this->expectExceptionMessage('View type "large" does not exist in "definition" block definition.');
+
         $this->blockDefinition->getViewType('large');
     }
 

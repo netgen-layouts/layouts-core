@@ -17,6 +17,8 @@ use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class DesignEditTypeTest extends FormTestCase
@@ -231,11 +233,12 @@ final class DesignEditTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\Form\DesignEditType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
-     * @expectedExceptionMessage The required option "block" is missing.
      */
     public function testConfigureOptionsWithMissingBlock(): void
     {
+        $this->expectException(MissingOptionsException::class);
+        $this->expectExceptionMessage('The required option "block" is missing.');
+
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
 
@@ -246,11 +249,12 @@ final class DesignEditTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\Form\DesignEditType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "block" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Block\Block", but is of type "string".
      */
     public function testConfigureOptionsWithInvalidBlock(): void
     {
+        $this->expectException(InvalidOptionsException::class);
+        $this->expectExceptionMessage('The option "block" with value "" is expected to be of type "Netgen\\BlockManager\\API\\Values\\Block\\Block", but is of type "string".');
+
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
 
@@ -265,11 +269,12 @@ final class DesignEditTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\Form\DesignEditType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "data" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Block\BlockUpdateStruct", but is of type "string".
      */
     public function testConfigureOptionsWithInvalidData(): void
     {
+        $this->expectException(InvalidOptionsException::class);
+        $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\\BlockManager\\API\\Values\\Block\\BlockUpdateStruct", but is of type "string".');
+
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
 

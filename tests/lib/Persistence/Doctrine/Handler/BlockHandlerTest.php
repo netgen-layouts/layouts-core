@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 
 use Doctrine\DBAL\Types\Type;
+use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Values\Block\Block;
 use Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct;
@@ -99,11 +100,12 @@ final class BlockHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadBlockData
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find block with identifier "999999"
      */
     public function testLoadBlockThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find block with identifier "999999"');
+
         $this->blockHandler->loadBlock(999999, Value::STATUS_PUBLISHED);
     }
 
@@ -314,11 +316,12 @@ final class BlockHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadCollectionReference
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadCollectionReferencesData
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find collection reference with identifier "non_existing"
      */
     public function testLoadCollectionReferenceThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find collection reference with identifier "non_existing"');
+
         $this->blockHandler->loadCollectionReference(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
             'non_existing'
@@ -534,11 +537,12 @@ final class BlockHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlockTranslation
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "locale" has an invalid state. Block already has the provided locale.
      */
     public function testCreateBlockTranslationThrowsBadStateExceptionWithExistingLocale(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "locale" has an invalid state. Block already has the provided locale.');
+
         $this->blockHandler->createBlockTranslation(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
             'en',
@@ -549,11 +553,12 @@ final class BlockHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlockTranslation
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "locale" has an invalid state. Block does not have the provided source locale.
      */
     public function testCreateBlockTranslationThrowsBadStateExceptionWithNonExistingSourceLocale(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "locale" has an invalid state. Block does not have the provided source locale.');
+
         $this->blockHandler->createBlockTranslation(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
             'de',
@@ -690,11 +695,12 @@ final class BlockHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "targetBlock" has an invalid state. Target block is not in the provided layout.
      */
     public function testCreateBlockThrowsBadStateExceptionOnTargetBlockInDifferentLayout(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. Target block is not in the provided layout.');
+
         $blockCreateStruct = new BlockCreateStruct();
         $blockCreateStruct->isTranslatable = true;
         $blockCreateStruct->alwaysAvailable = true;
@@ -720,11 +726,12 @@ final class BlockHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "position" has an invalid state. Position cannot be negative.
      */
     public function testCreateBlockThrowsBadStateExceptionOnNegativePosition(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "position" has an invalid state. Position cannot be negative.');
+
         $blockCreateStruct = new BlockCreateStruct();
         $blockCreateStruct->isTranslatable = true;
         $blockCreateStruct->alwaysAvailable = true;
@@ -750,11 +757,12 @@ final class BlockHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlock
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
      */
     public function testCreateBlockThrowsBadStateExceptionOnTooLargePosition(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
+
         $blockCreateStruct = new BlockCreateStruct();
         $blockCreateStruct->isTranslatable = true;
         $blockCreateStruct->alwaysAvailable = true;
@@ -1012,11 +1020,12 @@ final class BlockHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::updateBlockTranslation
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::updateBlockTranslation
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "locale" has an invalid state. Block does not have the provided locale.
      */
     public function testUpdateBlockTranslationThrowsBadStateExceptionWithNonExistingLocale(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "locale" has an invalid state. Block does not have the provided locale.');
+
         $this->blockHandler->updateBlockTranslation(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
             'de',
@@ -1038,11 +1047,12 @@ final class BlockHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::setMainTranslation
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "mainLocale" has an invalid state. Block does not have the provided locale.
      */
     public function testSetMainTranslationThrowsBadStateExceptionWithNonExistingLocale(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "mainLocale" has an invalid state. Block does not have the provided locale.');
+
         $block = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
         $this->blockHandler->setMainTranslation($block, 'de');
     }
@@ -1319,11 +1329,12 @@ final class BlockHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "position" has an invalid state. Position cannot be negative.
      */
     public function testCopyBlockThrowsBadStateExceptionOnNegativePosition(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "position" has an invalid state. Position cannot be negative.');
+
         $this->blockHandler->copyBlock(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
             $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
@@ -1334,11 +1345,12 @@ final class BlockHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
      */
     public function testCopyBlockThrowsBadStateExceptionOnTooLargePosition(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
+
         $this->blockHandler->copyBlock(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
             $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
@@ -1506,11 +1518,12 @@ final class BlockHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "targetBlock" has an invalid state. Block cannot be copied below itself or its children.
      */
     public function testCopyBlockBelowSelf(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. Block cannot be copied below itself or its children.');
+
         $this->blockHandler->copyBlock(
             $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
             $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
@@ -1520,11 +1533,12 @@ final class BlockHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "targetBlock" has an invalid state. Block cannot be copied below itself or its children.
      */
     public function testCopyBlockBelowChildren(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. Block cannot be copied below itself or its children.');
+
         $this->blockHandler->copyBlock(
             $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
             $this->blockHandler->loadBlock(37, Value::STATUS_DRAFT),
@@ -1603,11 +1617,12 @@ final class BlockHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "targetBlock" has an invalid state. Block is already in specified target block and placeholder.
      */
     public function testMoveBlockThrowsBadStateExceptionOnMovingToSamePlace(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. Block is already in specified target block and placeholder.');
+
         $this->blockHandler->moveBlock(
             $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
             $this->blockHandler->loadBlock(7, Value::STATUS_DRAFT),
@@ -1618,11 +1633,12 @@ final class BlockHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "targetBlock" has an invalid state. Block cannot be moved below itself or its children.
      */
     public function testMoveBlockThrowsBadStateExceptionOnMovingToSelf(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. Block cannot be moved below itself or its children.');
+
         $this->blockHandler->moveBlock(
             $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
             $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
@@ -1633,11 +1649,12 @@ final class BlockHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "targetBlock" has an invalid state. Block cannot be moved below itself or its children.
      */
     public function testMoveBlockThrowsBadStateExceptionOnMovingToChildren(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. Block cannot be moved below itself or its children.');
+
         $this->blockHandler->moveBlock(
             $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
             $this->blockHandler->loadBlock(37, Value::STATUS_DRAFT),
@@ -1648,11 +1665,12 @@ final class BlockHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "position" has an invalid state. Position cannot be negative.
      */
     public function testMoveBlockThrowsBadStateExceptionOnNegativePosition(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "position" has an invalid state. Position cannot be negative.');
+
         $this->blockHandler->moveBlock(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
             $this->blockHandler->loadBlock(4, Value::STATUS_DRAFT),
@@ -1663,11 +1681,12 @@ final class BlockHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
      */
     public function testMoveBlockThrowsBadStateExceptionOnTooLargePosition(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
+
         $this->blockHandler->moveBlock(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
             $this->blockHandler->loadBlock(4, Value::STATUS_DRAFT),
@@ -1774,11 +1793,12 @@ final class BlockHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToPosition
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "position" has an invalid state. Root blocks cannot be moved.
      */
     public function testMoveBlockThrowsBadStateExceptionOnMovingRootBlock(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "position" has an invalid state. Root blocks cannot be moved.');
+
         $this->blockHandler->moveBlockToPosition(
             $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT),
             1
@@ -1788,11 +1808,12 @@ final class BlockHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToPosition
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "position" has an invalid state. Position cannot be negative.
      */
     public function testMoveBlockToPositionThrowsBadStateExceptionOnNegativePosition(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "position" has an invalid state. Position cannot be negative.');
+
         $this->blockHandler->moveBlockToPosition(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
             -1
@@ -1802,11 +1823,12 @@ final class BlockHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToPosition
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
      */
     public function testMoveBlockToPositionThrowsBadStateExceptionOnTooLargePosition(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
+
         $this->blockHandler->moveBlockToPosition(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
             9999
@@ -1923,11 +1945,12 @@ final class BlockHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::restoreBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "block" has an invalid state. Block is already in provided status.
      */
     public function testRestoreBlockThrowsBadStateExceptionWithSameState(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "block" has an invalid state. Block is already in provided status.');
+
         $block = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
 
         $this->blockHandler->restoreBlock($block, Value::STATUS_DRAFT);
@@ -2045,11 +2068,12 @@ final class BlockHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteBlockTranslation
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlockTranslations
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "locale" has an invalid state. Block does not have the provided locale.
      */
     public function testDeleteBlockTranslationWithNonExistingLocale(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "locale" has an invalid state. Block does not have the provided locale.');
+
         $this->blockHandler->deleteBlockTranslation(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
             'de'
@@ -2059,11 +2083,12 @@ final class BlockHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteBlockTranslation
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlockTranslations
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "locale" has an invalid state. Main translation cannot be removed from the block.
      */
     public function testDeleteBlockTranslationWithMainLocale(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "locale" has an invalid state. Main translation cannot be removed from the block.');
+
         $this->blockHandler->deleteBlockTranslation(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
             'en'

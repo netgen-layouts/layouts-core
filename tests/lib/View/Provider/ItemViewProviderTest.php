@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\View\Provider;
 
 use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\BlockManager\Exception\View\ViewProviderException;
 use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\View\Provider\ItemViewProvider;
@@ -47,21 +48,23 @@ final class ItemViewProviderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\Provider\ItemViewProvider::provideView
-     * @expectedException \Netgen\BlockManager\Exception\View\ViewProviderException
-     * @expectedExceptionMessage To build the item view, "view_type" parameter needs to be provided.
      */
     public function testProvideViewThrowsViewProviderExceptionOnMissingViewType(): void
     {
+        $this->expectException(ViewProviderException::class);
+        $this->expectExceptionMessage('To build the item view, "view_type" parameter needs to be provided.');
+
         $this->itemViewProvider->provideView(new CmsItem());
     }
 
     /**
      * @covers \Netgen\BlockManager\View\Provider\ItemViewProvider::provideView
-     * @expectedException \Netgen\BlockManager\Exception\View\ViewProviderException
-     * @expectedExceptionMessage To build the item view, "view_type" parameter needs to be of "string" type.
      */
     public function testProvideViewThrowsViewProviderExceptionOnInvalidViewType(): void
     {
+        $this->expectException(ViewProviderException::class);
+        $this->expectExceptionMessage('To build the item view, "view_type" parameter needs to be of "string" type.');
+
         $this->itemViewProvider->provideView(new CmsItem(), ['view_type' => 42]);
     }
 

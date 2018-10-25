@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\CompilerPass\Templating;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Templating\PluginRendererPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -51,11 +52,12 @@ final class PluginRendererPassTest extends AbstractCompilerPassTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Templating\PluginRendererPass::process
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Template plugin service definition must have an 'plugin' attribute in its' tag.
      */
     public function testProcessWithNoPluginNameInTag(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Template plugin service definition must have an \'plugin\' attribute in its\' tag.');
+
         $this->setDefinition('netgen_block_manager.templating.plugin_renderer', new Definition());
 
         $PluginRenderer1 = new Definition();

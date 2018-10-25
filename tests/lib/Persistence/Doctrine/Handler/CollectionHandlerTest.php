@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 
+use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
@@ -71,11 +72,12 @@ final class CollectionHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollection
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find collection with identifier "999999"
      */
     public function testLoadCollectionThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find collection with identifier "999999"');
+
         $this->collectionHandler->loadCollection(999999, Value::STATUS_PUBLISHED);
     }
 
@@ -105,11 +107,12 @@ final class CollectionHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadItem
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadItemData
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find item with identifier "999999"
      */
     public function testLoadItemThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find item with identifier "999999"');
+
         $this->collectionHandler->loadItem(999999, Value::STATUS_PUBLISHED);
     }
 
@@ -142,11 +145,12 @@ final class CollectionHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadItemWithPosition
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadItemWithPositionData
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find item in collection with ID "1" at position 9999
      */
     public function testLoadItemWithPositionThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find item in collection with ID "1" at position 9999');
+
         $this->collectionHandler->loadItemWithPosition(
             $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
             9999
@@ -208,11 +212,12 @@ final class CollectionHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadQueryData
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find query with identifier "999999"
      */
     public function testLoadQueryThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find query with identifier "999999"');
+
         $this->collectionHandler->loadQuery(999999, Value::STATUS_PUBLISHED);
     }
 
@@ -258,11 +263,12 @@ final class CollectionHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryData
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find query for collection with identifier "1"
      */
     public function testLoadCollectionQueryThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find query for collection with identifier "1"');
+
         $this->collectionHandler->loadCollectionQuery(
             $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT)
         );
@@ -483,11 +489,12 @@ final class CollectionHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollectionTranslation
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollectionTranslation
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "locale" has an invalid state. Collection already has the provided locale.
      */
     public function testCreateCollectionTranslationThrowsBadStateExceptionWithExistingLocale(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "locale" has an invalid state. Collection already has the provided locale.');
+
         $this->collectionHandler->createCollectionTranslation(
             $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED),
             'en',
@@ -498,11 +505,12 @@ final class CollectionHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollectionTranslation
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollectionTranslation
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "locale" has an invalid state. Collection does not have the provided source locale.
      */
     public function testCreateCollectionTranslationThrowsBadStateExceptionWithNonExistingSourceLocale(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "locale" has an invalid state. Collection does not have the provided source locale.');
+
         $this->collectionHandler->createCollectionTranslation(
             $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED),
             'de',
@@ -539,11 +547,12 @@ final class CollectionHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::setMainTranslation
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "mainLocale" has an invalid state. Collection does not have the provided locale.
      */
     public function testSetMainTranslationThrowsBadStateExceptionWithNonExistingLocale(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "mainLocale" has an invalid state. Collection does not have the provided locale.');
+
         $collection = $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED);
         $this->collectionHandler->setMainTranslation($collection, 'de');
     }
@@ -962,11 +971,12 @@ final class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionItems
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryIds
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find collection with identifier "3"
      */
     public function testDeleteCollection(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find collection with identifier "3"');
+
         $this->collectionHandler->deleteCollection(3);
 
         $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED);
@@ -978,11 +988,12 @@ final class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionItems
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryIds
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find collection with identifier "1"
      */
     public function testDeleteCollectionWithoutQuery(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find collection with identifier "1"');
+
         $this->collectionHandler->deleteCollection(1);
 
         $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT);
@@ -994,11 +1005,12 @@ final class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionItems
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryIds
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find collection with identifier "3"
      */
     public function testDeleteCollectionInOneStatus(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find collection with identifier "3"');
+
         $this->collectionHandler->deleteCollection(3, Value::STATUS_DRAFT);
 
         // First, verify that NOT all collection statuses are deleted
@@ -1092,11 +1104,12 @@ final class CollectionHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteCollectionTranslation
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionTranslations
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "locale" has an invalid state. Collection does not have the provided locale.
      */
     public function testDeleteCollectionTranslationWithNonExistingLocale(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "locale" has an invalid state. Collection does not have the provided locale.');
+
         $this->collectionHandler->deleteCollectionTranslation(
             $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED),
             'de'
@@ -1106,11 +1119,12 @@ final class CollectionHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteCollectionTranslation
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionTranslations
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "locale" has an invalid state. Main translation cannot be removed from the collection.
      */
     public function testDeleteCollectionTranslationWithMainLocale(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "locale" has an invalid state. Main translation cannot be removed from the collection.');
+
         $this->collectionHandler->deleteCollectionTranslation(
             $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED),
             'en'
@@ -1272,11 +1286,12 @@ final class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createItemPosition
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage When adding items to dynamic collections, position is mandatory.
      */
     public function testAddItemToDynamicCollectionWithoutPositionThrowsBadStateException(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('When adding items to dynamic collections, position is mandatory.');
+
         $itemCreateStruct = new ItemCreateStruct();
         $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'my_value_type';
@@ -1293,11 +1308,12 @@ final class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "position" has an invalid state. Position cannot be negative.
      */
     public function testAddItemThrowsBadStateExceptionOnNegativePosition(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "position" has an invalid state. Position cannot be negative.');
+
         $itemCreateStruct = new ItemCreateStruct();
         $itemCreateStruct->position = -1;
         $itemCreateStruct->value = '42';
@@ -1316,11 +1332,12 @@ final class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
      */
     public function testAddItemThrowsBadStateExceptionOnTooLargePosition(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
+
         $itemCreateStruct = new ItemCreateStruct();
         $itemCreateStruct->position = 9999;
         $itemCreateStruct->value = '42';
@@ -1610,11 +1627,12 @@ final class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItem
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "position" has an invalid state. Position cannot be negative.
      */
     public function testMoveItemThrowsBadStateExceptionOnNegativePosition(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "position" has an invalid state. Position cannot be negative.');
+
         $this->collectionHandler->moveItem(
             $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT),
             -1
@@ -1627,11 +1645,12 @@ final class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItem
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
      */
     public function testMoveItemThrowsBadStateExceptionOnTooLargePosition(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
+
         $this->collectionHandler->moveItem(
             $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT),
             9999
@@ -1659,11 +1678,12 @@ final class CollectionHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::switchItemPositions
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage First and second items are the same.
      */
     public function testSwitchItemPositionsThrowsBadStateExceptionWithSameItem(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('First and second items are the same.');
+
         $item1 = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
         $item2 = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
 
@@ -1672,11 +1692,12 @@ final class CollectionHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::switchItemPositions
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Positions can be switched only for items within the same collection.
      */
     public function testSwitchItemPositionsThrowsBadStateExceptionWithItemsFromDifferentCollections(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Positions can be switched only for items within the same collection.');
+
         $item1 = $this->collectionHandler->loadItem(2, Value::STATUS_DRAFT);
         $item2 = $this->collectionHandler->loadItem(7, Value::STATUS_DRAFT);
 
@@ -1787,11 +1808,12 @@ final class CollectionHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createQuery
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Provided collection already has a query.
      */
     public function testCreateQueryThrowsBadStateExceptionWithExistingQuery(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Provided collection already has a query.');
+
         $queryCreateStruct = new QueryCreateStruct();
         $queryCreateStruct->type = 'my_query_type';
         $queryCreateStruct->parameters = [
@@ -1896,11 +1918,12 @@ final class CollectionHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::updateQueryTranslation
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateQueryTranslation
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "locale" has an invalid state. Query does not have the provided locale.
      */
     public function testUpdateQueryTranslationThrowsBadStateExceptionWithNonExistingLocale(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "locale" has an invalid state. Query does not have the provided locale.');
+
         $this->collectionHandler->updateQueryTranslation(
             $this->collectionHandler->loadQuery(1, Value::STATUS_PUBLISHED),
             'de',
@@ -1912,11 +1935,12 @@ final class CollectionHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteCollectionQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryIds
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find query with identifier "2"
      */
     public function testDeleteCollectionQuery(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find query with identifier "2"');
+
         $this->collectionHandler->deleteCollectionQuery(
             $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED)
         );

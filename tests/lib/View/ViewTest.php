@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\View;
 
+use Netgen\BlockManager\Exception\View\ViewException;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use PHPUnit\Framework\TestCase;
@@ -125,11 +126,12 @@ final class ViewTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\View::addParameter
      * @covers \Netgen\BlockManager\View\View::getParameter
-     * @expectedException \Netgen\BlockManager\Exception\View\ViewException
-     * @expectedExceptionMessage Parameter with "other_param" name was not found in "Netgen\BlockManager\Tests\View\Stubs\View" view.
      */
     public function testGetParameterThrowsViewException(): void
     {
+        $this->expectException(ViewException::class);
+        $this->expectExceptionMessage('Parameter with "other_param" name was not found in "Netgen\\BlockManager\\Tests\\View\\Stubs\\View" view.');
+
         $this->view->addParameter('param', 'value');
 
         $this->view->getParameter('other_param');

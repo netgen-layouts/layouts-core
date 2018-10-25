@@ -8,6 +8,8 @@ use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
+use Netgen\BlockManager\Exception\BadStateException;
+use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Tests\Core\CoreTestCase;
 use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 
@@ -39,21 +41,23 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::loadBlock
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find block with identifier "999999"
      */
     public function testLoadBlockThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find block with identifier "999999"');
+
         $this->blockService->loadBlock(999999);
     }
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::loadBlock
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find block with identifier "1"
      */
     public function testLoadBlockThrowsNotFoundExceptionOnLoadingInternalBlock(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find block with identifier "1"');
+
         $this->blockService->loadBlock(1);
     }
 
@@ -70,21 +74,23 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::loadBlockDraft
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find block with identifier "999999"
      */
     public function testLoadBlockDraftThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find block with identifier "999999"');
+
         $this->blockService->loadBlockDraft(999999);
     }
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::loadBlockDraft
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find block with identifier "1"
      */
     public function testLoadBlockDraftThrowsNotFoundExceptionOnLoadingInternalBlock(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find block with identifier "1"');
+
         $this->blockService->loadBlockDraft(1);
     }
 
@@ -327,11 +333,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "targetBlock" has an invalid state. Blocks can only be created in blocks in draft status.
      */
     public function testCreateBlockThrowsBadStateExceptionWithNonDraftTargetBlock(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. Blocks can only be created in blocks in draft status.');
+
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('list')
         );
@@ -346,11 +353,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "targetBlock" has an invalid state. Target block is not a container.
      */
     public function testCreateBlockThrowsBadStateExceptionWithNonContainerTargetBlock(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. Target block is not a container.');
+
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('list')
         );
@@ -364,11 +372,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "placeholder" has an invalid state. Target block does not have the specified placeholder.
      */
     public function testCreateBlockThrowsBadStateExceptionWithNoPlaceholder(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "placeholder" has an invalid state. Target block does not have the specified placeholder.');
+
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('list')
         );
@@ -403,11 +412,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
      */
     public function testCreateBlockThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
+
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('list')
         );
@@ -422,11 +432,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "blockCreateStruct" has an invalid state. Containers cannot be placed inside containers.
      */
     public function testCreateBlockThrowsBadStateExceptionWithContainerInsideContainer(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "blockCreateStruct" has an invalid state. Containers cannot be placed inside containers.');
+
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('column')
         );
@@ -534,11 +545,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "zone" has an invalid state. Blocks can only be created in zones in draft status.
      */
     public function testCreateBlockInZoneThrowsBadStateExceptionWithNonDraftZone(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "zone" has an invalid state. Blocks can only be created in zones in draft status.');
+
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('title')
         );
@@ -592,11 +604,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
      */
     public function testCreateBlockInZoneThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
+
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('title')
         );
@@ -610,11 +623,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "zone" has an invalid state. Block is not allowed in specified zone.
      */
     public function testCreateBlockInZoneThrowsBadStateExceptionWithWithDisallowedIdentifier(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "zone" has an invalid state. Block is not allowed in specified zone.');
+
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
             $this->blockDefinitionRegistry->getBlockDefinition('gallery')
         );
@@ -790,11 +804,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "block" has an invalid state. Only draft blocks can be updated.
      */
     public function testUpdateBlockThrowsBadStateExceptionWithNonDraftBlock(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "block" has an invalid state. Only draft blocks can be updated.');
+
         $block = $this->blockService->loadBlock(31);
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('en');
@@ -808,11 +823,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "block" has an invalid state. Block does not have the specified translation.
      */
     public function testUpdateBlockThrowsBadStateExceptionWithNonExistingLocale(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "block" has an invalid state. Block does not have the specified translation.');
+
         $block = $this->blockService->loadBlockDraft(31);
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('de');
@@ -885,11 +901,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
      */
     public function testCopyBlockThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
+
         $this->blockService->copyBlock(
             $this->blockService->loadBlockDraft(34),
             $this->blockService->loadBlockDraft(33),
@@ -900,11 +917,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "block" has an invalid state. Only draft blocks can be copied.
      */
     public function testCopyBlockThrowsBadStateExceptionWithNonDraftBlock(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "block" has an invalid state. Only draft blocks can be copied.');
+
         $this->blockService->copyBlock(
             $this->blockService->loadBlock(34),
             $this->blockService->loadBlockDraft(33),
@@ -914,11 +932,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "targetBlock" has an invalid state. You can only copy blocks to draft blocks.
      */
     public function testCopyBlockThrowsBadStateExceptionWithNonDraftTargetBlock(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. You can only copy blocks to draft blocks.');
+
         $this->blockService->copyBlock(
             $this->blockService->loadBlockDraft(34),
             $this->blockService->loadBlock(33),
@@ -928,11 +947,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "targetBlock" has an invalid state. Target block is not a container.
      */
     public function testCopyBlockThrowsBadStateExceptionWithNonContainerTargetBlock(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. Target block is not a container.');
+
         $this->blockService->copyBlock(
             $this->blockService->loadBlockDraft(34),
             $this->blockService->loadBlockDraft(37),
@@ -942,11 +962,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "placeholder" has an invalid state. Target block does not have the specified placeholder.
      */
     public function testCopyBlockThrowsBadStateExceptionWithNoPlaceholder(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "placeholder" has an invalid state. Target block does not have the specified placeholder.');
+
         $this->blockService->copyBlock(
             $this->blockService->loadBlockDraft(34),
             $this->blockService->loadBlockDraft(33),
@@ -956,11 +977,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "block" has an invalid state. Containers cannot be placed inside containers.
      */
     public function testCopyBlockThrowsBadStateExceptionWithContainerInsideContainer(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "block" has an invalid state. Containers cannot be placed inside containers.');
+
         $this->blockService->copyBlock(
             $this->blockService->loadBlockDraft(33),
             $this->blockService->loadBlockDraft(38),
@@ -970,11 +992,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "targetBlock" has an invalid state. You can only copy block to blocks in the same layout.
      */
     public function testCopyBlockThrowsBadStateExceptionWhenTargetBlockIsInDifferentLayout(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. You can only copy block to blocks in the same layout.');
+
         $this->blockService->copyBlock(
             $this->blockService->loadBlockDraft(31),
             $this->blockService->loadBlockDraft(33),
@@ -1099,11 +1122,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
      */
     public function testCopyBlockToZoneThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
+
         $this->blockService->copyBlockToZone(
             $this->blockService->loadBlockDraft(31),
             $this->layoutService->loadZoneDraft(1, 'right'),
@@ -1113,11 +1137,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "block" has an invalid state. Only draft blocks can be copied.
      */
     public function testCopyBlockToZoneThrowsBadStateExceptionWithNonDraftBlock(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "block" has an invalid state. Only draft blocks can be copied.');
+
         $this->blockService->copyBlockToZone(
             $this->blockService->loadBlock(31),
             $this->layoutService->loadZoneDraft(1, 'left')
@@ -1126,11 +1151,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "zone" has an invalid state. You can only copy blocks in draft zones.
      */
     public function testCopyBlockToZoneThrowsBadStateExceptionWithNonDraftZone(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "zone" has an invalid state. You can only copy blocks in draft zones.');
+
         $this->blockService->copyBlockToZone(
             $this->blockService->loadBlockDraft(31),
             $this->layoutService->loadZone(1, 'left')
@@ -1139,11 +1165,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "zone" has an invalid state. Block is not allowed in specified zone.
      */
     public function testCopyBlockToZoneThrowsBadStateExceptionWithDisallowedIdentifier(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "zone" has an invalid state. Block is not allowed in specified zone.');
+
         $this->blockService->copyBlockToZone(
             $this->blockService->loadBlockDraft(31),
             $this->layoutService->loadZoneDraft(1, 'bottom')
@@ -1152,11 +1179,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "zone" has an invalid state. You can only copy block to zone in the same layout.
      */
     public function testCopyBlockToZoneThrowsBadStateExceptionWhenZoneIsInDifferentLayout(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "zone" has an invalid state. You can only copy block to zone in the same layout.');
+
         $this->blockService->copyBlockToZone(
             $this->blockService->loadBlockDraft(32),
             $this->layoutService->loadZoneDraft(4, 'bottom')
@@ -1236,11 +1264,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "block" has an invalid state. Only draft blocks can be moved.
      */
     public function testMoveBlockThrowsBadStateExceptionWithNonDraftBlock(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "block" has an invalid state. Only draft blocks can be moved.');
+
         $this->blockService->moveBlock(
             $this->blockService->loadBlock(31),
             $this->blockService->loadBlockDraft(33),
@@ -1251,11 +1280,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "targetBlock" has an invalid state. You can only move blocks to draft blocks.
      */
     public function testMoveBlockThrowsBadStateExceptionWithNonDraftTargetBlock(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. You can only move blocks to draft blocks.');
+
         $this->blockService->moveBlock(
             $this->blockService->loadBlockDraft(31),
             $this->blockService->loadBlock(33),
@@ -1266,11 +1296,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "targetBlock" has an invalid state. Target block is not a container.
      */
     public function testMoveBlockThrowsBadStateExceptionWhenTargetBlockIsNotContainer(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. Target block is not a container.');
+
         $this->blockService->moveBlock(
             $this->blockService->loadBlockDraft(32),
             $this->blockService->loadBlockDraft(31),
@@ -1281,11 +1312,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "placeholder" has an invalid state. Target block does not have the specified placeholder.
      */
     public function testMoveBlockThrowsBadStateExceptionWithNoPlaceholder(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "placeholder" has an invalid state. Target block does not have the specified placeholder.');
+
         $this->blockService->moveBlock(
             $this->blockService->loadBlockDraft(34),
             $this->blockService->loadBlockDraft(33),
@@ -1296,11 +1328,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "block" has an invalid state. Containers cannot be placed inside containers.
      */
     public function testMoveBlockThrowsBadStateExceptionWithContainerInsideContainer(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "block" has an invalid state. Containers cannot be placed inside containers.');
+
         $this->blockService->moveBlock(
             $this->blockService->loadBlockDraft(33),
             $this->blockService->loadBlockDraft(38),
@@ -1311,11 +1344,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
      */
     public function testMoveBlockThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
+
         $this->blockService->moveBlock(
             $this->blockService->loadBlockDraft(34),
             $this->blockService->loadBlockDraft(33),
@@ -1326,11 +1360,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "targetBlock" has an invalid state. You can only move block to blocks in the same layout.
      */
     public function testMoveBlockThrowsBadStateExceptionWhenTargetBlockIsInDifferentLayout(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. You can only move block to blocks in the same layout.');
+
         $this->blockService->moveBlock(
             $this->blockService->loadBlockDraft(31),
             $this->blockService->loadBlockDraft(33),
@@ -1383,11 +1418,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "block" has an invalid state. Only draft blocks can be moved.
      */
     public function testMoveBlockToZoneThrowsBadStateExceptionWithNonDraftBlock(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "block" has an invalid state. Only draft blocks can be moved.');
+
         $this->blockService->moveBlockToZone(
             $this->blockService->loadBlock(31),
             $this->layoutService->loadZoneDraft(1, 'left'),
@@ -1397,11 +1433,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "zone" has an invalid state. You can only move blocks in draft zones.
      */
     public function testMoveBlockToZoneThrowsBadStateExceptionWithNonDraftZone(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "zone" has an invalid state. You can only move blocks in draft zones.');
+
         $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(31),
             $this->layoutService->loadZone(1, 'left'),
@@ -1411,11 +1448,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
      */
     public function testMoveBlockToZoneThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
+
         $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(31),
             $this->layoutService->loadZoneDraft(1, 'left'),
@@ -1425,11 +1463,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "zone" has an invalid state. You can only move block to zone in the same layout.
      */
     public function testMoveBlockToZoneThrowsBadStateExceptionWhenZoneIsInDifferentLayout(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "zone" has an invalid state. You can only move block to zone in the same layout.');
+
         $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(32),
             $this->layoutService->loadZoneDraft(2, 'bottom'),
@@ -1439,11 +1478,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "zone" has an invalid state. Block is not allowed in specified zone.
      */
     public function testMoveBlockToZoneThrowsBadStateExceptionWithDisallowedIdentifier(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "zone" has an invalid state. Block is not allowed in specified zone.');
+
         $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(31),
             $this->layoutService->loadZoneDraft(1, 'bottom'),
@@ -1518,11 +1558,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::restoreBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "block" has an invalid state. Only draft blocks can be restored.
      */
     public function testRestoreBlockThrowsBadStateExceptionWithNonDraftBlock(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "block" has an invalid state. Only draft blocks can be restored.');
+
         $block = $this->blockService->loadBlock(31);
 
         $this->blockService->restoreBlock($block);
@@ -1547,11 +1588,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::enableTranslations
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "block" has an invalid state. You can only enable translations for draft blocks.
      */
     public function testEnableTranslationsThrowsBadStateExceptionWithNonDraftBlock(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "block" has an invalid state. You can only enable translations for draft blocks.');
+
         $block = $this->blockService->loadBlock(35);
 
         $this->blockService->enableTranslations($block);
@@ -1559,11 +1601,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::enableTranslations
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "block" has an invalid state. Block is already translatable.
      */
     public function testEnableTranslationsThrowsBadStateExceptionWithEnabledTranslations(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "block" has an invalid state. Block is already translatable.');
+
         $block = $this->blockService->loadBlockDraft(31);
 
         $this->blockService->enableTranslations($block);
@@ -1571,11 +1614,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::enableTranslations
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage You can only enable translations if parent block is also translatable.
      */
     public function testEnableTranslationsThrowsBadStateExceptionWithNonTranslatableParentBlock(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('You can only enable translations if parent block is also translatable.');
+
         $parentBlock = $this->blockService->loadBlockDraft(33);
         $this->blockService->disableTranslations($parentBlock);
 
@@ -1627,11 +1671,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::disableTranslations
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "block" has an invalid state. You can only disable translations for draft blocks.
      */
     public function testDisableTranslationsThrowsBadStateExceptionWithNonDraftBlock(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "block" has an invalid state. You can only disable translations for draft blocks.');
+
         $block = $this->blockService->loadBlock(31);
 
         $this->blockService->disableTranslations($block);
@@ -1639,11 +1684,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::disableTranslations
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "block" has an invalid state. Block is not translatable.
      */
     public function testDisableTranslationsThrowsBadStateExceptionWithDisabledTranslations(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "block" has an invalid state. Block is not translatable.');
+
         $block = $this->blockService->loadBlockDraft(35);
 
         $this->blockService->disableTranslations($block);
@@ -1651,11 +1697,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::deleteBlock
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find block with identifier "31"
      */
     public function testDeleteBlock(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find block with identifier "31"');
+
         $block = $this->blockService->loadBlockDraft(31);
         $this->blockService->deleteBlock($block);
 
@@ -1664,11 +1711,12 @@ abstract class BlockServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::deleteBlock
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "block" has an invalid state. Only draft blocks can be deleted.
      */
     public function testDeleteThrowsBadStateExceptionBlockWithNonDraftBlock(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "block" has an invalid state. Only draft blocks can be deleted.');
+
         $block = $this->blockService->loadBlock(31);
         $this->blockService->deleteBlock($block);
     }

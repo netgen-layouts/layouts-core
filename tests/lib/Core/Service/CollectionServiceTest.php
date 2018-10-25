@@ -9,6 +9,7 @@ use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
 use Netgen\BlockManager\API\Values\Config\ConfigStruct;
 use Netgen\BlockManager\Collection\Item\ItemDefinition;
+use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Core\CoreTestCase;
@@ -38,11 +39,12 @@ abstract class CollectionServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadCollection
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find collection with identifier "999999"
      */
     public function testLoadCollectionThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find collection with identifier "999999"');
+
         $this->collectionService->loadCollection(999999);
     }
 
@@ -59,11 +61,12 @@ abstract class CollectionServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadCollectionDraft
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find collection with identifier "999999"
      */
     public function testLoadCollectionDraftThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find collection with identifier "999999"');
+
         $this->collectionService->loadCollectionDraft(999999);
     }
 
@@ -107,11 +110,12 @@ abstract class CollectionServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateCollection
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "collection" has an invalid state. Only draft collections can be updated.
      */
     public function testUpdateCollectionThrowsBadStateExceptionWithNonDraftCollection(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "collection" has an invalid state. Only draft collections can be updated.');
+
         $collection = $this->collectionService->loadCollection(3);
 
         $collectionUpdateStruct = $this->collectionService->newCollectionUpdateStruct();
@@ -134,11 +138,12 @@ abstract class CollectionServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadItem
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find item with identifier "999999"
      */
     public function testLoadItemThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find item with identifier "999999"');
+
         $this->collectionService->loadItem(999999);
     }
 
@@ -154,11 +159,12 @@ abstract class CollectionServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadItemDraft
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find item with identifier "999999"
      */
     public function testLoadItemDraftThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find item with identifier "999999"');
+
         $this->collectionService->loadItem(999999);
     }
 
@@ -174,11 +180,12 @@ abstract class CollectionServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadQuery
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find query with identifier "999999"
      */
     public function testLoadQueryThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find query with identifier "999999"');
+
         $this->collectionService->loadQuery(999999);
     }
 
@@ -194,11 +201,12 @@ abstract class CollectionServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadQueryDraft
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find query with identifier "999999"
      */
     public function testLoadQueryDraftThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find query with identifier "999999"');
+
         $this->collectionService->loadQueryDraft(999999);
     }
 
@@ -247,11 +255,12 @@ abstract class CollectionServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::changeCollectionType
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "collection" has an invalid state. Type can be changed only for draft collections.
      */
     public function testChangeCollectionTypeThrowsBadStateExceptionWithNonDraftCollection(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "collection" has an invalid state. Type can be changed only for draft collections.');
+
         $collection = $this->collectionService->loadCollection(4);
 
         $this->collectionService->changeCollectionType(
@@ -262,11 +271,12 @@ abstract class CollectionServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::changeCollectionType
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "newType" has an invalid state. New collection type must be manual or dynamic.
      */
     public function testChangeCollectionTypeThrowsBadStateExceptionWithInvalidType(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "newType" has an invalid state. New collection type must be manual or dynamic.');
+
         $collection = $this->collectionService->loadCollectionDraft(1);
 
         $this->collectionService->changeCollectionType(
@@ -280,11 +290,12 @@ abstract class CollectionServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::changeCollectionType
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "queryCreateStruct" has an invalid state. Query create struct must be defined when converting to dynamic collection.
      */
     public function testChangeCollectionTypeThrowsBadStateExceptionOnChangingToDynamicCollectionWithoutQueryCreateStruct(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "queryCreateStruct" has an invalid state. Query create struct must be defined when converting to dynamic collection.');
+
         $collection = $this->collectionService->loadCollectionDraft(1);
 
         $this->collectionService->changeCollectionType(
@@ -316,11 +327,12 @@ abstract class CollectionServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::addItem
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "collection" has an invalid state. Items can only be added to draft collections.
      */
     public function testAddItemThrowsBadStateExceptionWithNonDraftCollection(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "collection" has an invalid state. Items can only be added to draft collections.');
+
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
             ItemDefinition::fromArray(['valueType' => 'my_value_type']),
             '66'
@@ -337,11 +349,12 @@ abstract class CollectionServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::addItem
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
      */
     public function testAddItemThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
+
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
             ItemDefinition::fromArray(['valueType' => 'my_value_type']),
             '66'
@@ -378,11 +391,12 @@ abstract class CollectionServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateItem
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "item" has an invalid state. Only draft items can be updated.
      */
     public function testUpdateItemThrowsBadStateExceptionWithNonDraftItem(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "item" has an invalid state. Only draft items can be updated.');
+
         $itemUpdateStruct = $this->collectionService->newItemUpdateStruct();
         $item = $this->collectionService->loadItem(4);
 
@@ -408,11 +422,12 @@ abstract class CollectionServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveItem
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "item" has an invalid state. Only draft items can be moved.
      */
     public function testMoveItemThrowsBadStateExceptionWithNonDraftItem(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "item" has an invalid state. Only draft items can be moved.');
+
         $this->collectionService->moveItem(
             $this->collectionService->loadItem(4),
             1
@@ -421,11 +436,12 @@ abstract class CollectionServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveItem
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "position" has an invalid state. Position is out of range.
      */
     public function testMoveItemThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
+
         $this->collectionService->moveItem(
             $this->collectionService->loadItemDraft(1),
             9999
@@ -453,11 +469,12 @@ abstract class CollectionServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteItem
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "item" has an invalid state. Only draft items can be deleted.
      */
     public function testDeleteItemThrowsBadStateExceptionWithNonDraftItem(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "item" has an invalid state. Only draft items can be deleted.');
+
         $item = $this->collectionService->loadItem(4);
         $this->collectionService->deleteItem($item);
     }
@@ -475,11 +492,12 @@ abstract class CollectionServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteItems
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "collection" has an invalid state. Only items in draft collections can be deleted.
      */
     public function testDeleteItemsThrowsBadStateExceptionWithNonDraftCollection(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "collection" has an invalid state. Only items in draft collections can be deleted.');
+
         $collection = $this->collectionService->loadCollection(3);
         $this->collectionService->deleteItems($collection);
     }
@@ -544,11 +562,12 @@ abstract class CollectionServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQuery
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "query" has an invalid state. Only draft queries can be updated.
      */
     public function testUpdateQueryThrowsBadStateExceptionWithNonDraftQuery(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "query" has an invalid state. Only draft queries can be updated.');
+
         $query = $this->collectionService->loadQuery(2);
 
         $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct('en');
@@ -560,11 +579,12 @@ abstract class CollectionServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQuery
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "query" has an invalid state. Query does not have the specified translation.
      */
     public function testUpdateQueryThrowsBadStateExceptionWithNonExistingLocale(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "query" has an invalid state. Query does not have the specified translation.');
+
         $query = $this->collectionService->loadQueryDraft(2);
 
         $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct('non-existing');

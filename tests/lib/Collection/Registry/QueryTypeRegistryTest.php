@@ -6,6 +6,8 @@ namespace Netgen\BlockManager\Tests\Collection\Registry;
 
 use ArrayIterator;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
+use Netgen\BlockManager\Exception\Collection\QueryTypeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
@@ -77,11 +79,12 @@ final class QueryTypeRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::getQueryType
-     * @expectedException \Netgen\BlockManager\Exception\Collection\QueryTypeException
-     * @expectedExceptionMessage Query type with "other_query_type" identifier does not exist.
      */
     public function testGetQueryTypeThrowsQueryTypeException(): void
     {
+        $this->expectException(QueryTypeException::class);
+        $this->expectExceptionMessage('Query type with "other_query_type" identifier does not exist.');
+
         $this->registry->getQueryType('other_query_type');
     }
 
@@ -143,21 +146,23 @@ final class QueryTypeRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::offsetSet
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Method call not supported.
      */
     public function testOffsetSet(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
+
         $this->registry['query_type1'] = $this->queryType1;
     }
 
     /**
      * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::offsetUnset
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Method call not supported.
      */
     public function testOffsetUnset(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
+
         unset($this->registry['query_type1']);
     }
 }

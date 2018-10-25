@@ -11,6 +11,7 @@ use Netgen\BlockManager\Validator\Constraint\DateTime as DateTimeConstraint;
 use Netgen\BlockManager\Validator\DateTimeValidator;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 final class DateTimeValidatorTest extends ValidatorTestCase
 {
@@ -36,32 +37,35 @@ final class DateTimeValidatorTest extends ValidatorTestCase
 
     /**
      * @covers \Netgen\BlockManager\Validator\DateTimeValidator::validate
-     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\Validator\Constraint\DateTime", "Symfony\Component\Validator\Constraints\NotBlank" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
+        $this->expectException(UnexpectedTypeException::class);
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\BlockManager\\Validator\\Constraint\\DateTime", "Symfony\\Component\\Validator\\Constraints\\NotBlank" given');
+
         $this->constraint = new NotBlank();
         $this->assertValid(true, new DateTimeImmutable());
     }
 
     /**
      * @covers \Netgen\BlockManager\Validator\DateTimeValidator::validate
-     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     * @expectedExceptionMessage Expected argument of type "DateTimeInterface or array", "integer" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
+        $this->expectException(UnexpectedTypeException::class);
+        $this->expectExceptionMessage('Expected argument of type "DateTimeInterface or array", "integer" given');
+
         $this->assertValid(true, 42);
     }
 
     /**
      * @covers \Netgen\BlockManager\Validator\DateTimeValidator::validate
-     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     * @expectedExceptionMessage Expected argument of type "DateTimeInterface", "integer" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValueAndDisabledArray(): void
     {
+        $this->expectException(UnexpectedTypeException::class);
+        $this->expectExceptionMessage('Expected argument of type "DateTimeInterface", "integer" given');
+
         $this->constraint->allowArray = false;
 
         $this->assertValid(true, 42);
@@ -69,11 +73,12 @@ final class DateTimeValidatorTest extends ValidatorTestCase
 
     /**
      * @covers \Netgen\BlockManager\Validator\DateTimeValidator::validate
-     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     * @expectedExceptionMessage Expected argument of type "DateTimeInterface", "array" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithArrayValueAndDisabledArray(): void
     {
+        $this->expectException(UnexpectedTypeException::class);
+        $this->expectExceptionMessage('Expected argument of type "DateTimeInterface", "array" given');
+
         $this->constraint->allowArray = false;
 
         $this->assertValid(true, []);

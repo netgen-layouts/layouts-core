@@ -8,6 +8,7 @@ use DateTimeImmutable;
 use Netgen\BlockManager\Form\DateTimeType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class DateTimeTypeTest extends FormTestCase
@@ -112,11 +113,12 @@ final class DateTimeTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Form\DateTimeTYpe::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "use_datetime" with value 42 is expected to be of type "bool", but is of type "integer".
      */
     public function testConfigureOptionsWithInvalidUseDateTime(): void
     {
+        $this->expectException(InvalidOptionsException::class);
+        $this->expectExceptionMessage('The option "use_datetime" with value 42 is expected to be of type "bool", but is of type "integer".');
+
         $optionsResolver = new OptionsResolver();
 
         $this->formType->configureOptions($optionsResolver);

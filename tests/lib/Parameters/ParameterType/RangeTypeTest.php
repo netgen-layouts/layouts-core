@@ -7,6 +7,7 @@ namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType\RangeType;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Validation;
 
 final class RangeTypeTest extends TestCase
@@ -54,11 +55,12 @@ final class RangeTypeTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\RangeType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
      * @dataProvider invalidOptionsProvider
      */
     public function testInvalidOptions(array $options): void
     {
+        $this->expectException(InvalidArgumentException::class);
+
         $this->getParameterDefinition($options);
     }
 

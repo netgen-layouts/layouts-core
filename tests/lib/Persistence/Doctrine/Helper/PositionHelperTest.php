@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Helper;
 
 use Doctrine\DBAL\Types\Type;
+use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
@@ -77,31 +78,34 @@ final class PositionHelperTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::createPosition
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Position is out of range.
      */
     public function testCreatePositionThrowsBadStateExceptionOnTooLargePosition(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Position is out of range.');
+
         $this->positionHelper->createPosition($this->getPositionHelperConditions(), 9999);
     }
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::createPosition
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Position cannot be negative.
      */
     public function testCreatePositionThrowsBadStateExceptionOnNegativePosition(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Position cannot be negative.');
+
         $this->positionHelper->createPosition($this->getPositionHelperConditions(), -1);
     }
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::createPosition
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage When creating a position, end position needs to be greater or equal than start position.
      */
     public function testCreatePositionThrowsBadStateExceptionOnInvalidEndPosition(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('When creating a position, end position needs to be greater or equal than start position.');
+
         $this->positionHelper->createPosition($this->getPositionHelperConditions(), 1, 0);
     }
 
@@ -135,21 +139,23 @@ final class PositionHelperTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::moveToPosition
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Position is out of range.
      */
     public function testMoveToPositionBadStateExceptionOnTooLargePosition(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Position is out of range.');
+
         $this->positionHelper->moveToPosition($this->getPositionHelperConditions(), 1, 9999);
     }
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::moveToPosition
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Position cannot be negative.
      */
     public function testMoveToPositionBadStateExceptionOnNegativePosition(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Position cannot be negative.');
+
         $this->positionHelper->moveToPosition($this->getPositionHelperConditions(), 1, -1);
     }
 

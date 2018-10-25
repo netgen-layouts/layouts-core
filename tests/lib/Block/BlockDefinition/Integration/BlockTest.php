@@ -76,10 +76,11 @@ abstract class BlockTest extends CoreTestCase
 
     /**
      * @dataProvider invalidParametersDataProvider
-     * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
      */
     public function testCreateBlockWithInvalidParameters(array $parameters, array $testedParams = []): void
     {
+        $this->expectException(ValidationException::class);
+
         if (empty($parameters)) {
             throw ValidationException::validationFailed('parameters', 'Invalid parameters');
         }

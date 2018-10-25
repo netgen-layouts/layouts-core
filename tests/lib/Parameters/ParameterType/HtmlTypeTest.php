@@ -7,6 +7,7 @@ namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\ParameterType\HtmlType;
 use Netgen\BlockManager\Utils\HtmlPurifier;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Validation;
 
 final class HtmlTypeTest extends TestCase
@@ -58,11 +59,12 @@ HTML;
 
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\HtmlType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
      * @dataProvider invalidOptionsProvider
      */
     public function testInvalidOptions(array $options): void
     {
+        $this->expectException(InvalidArgumentException::class);
+
         $this->getParameterDefinition($options);
     }
 

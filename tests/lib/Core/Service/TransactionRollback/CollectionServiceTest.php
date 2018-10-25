@@ -29,11 +29,12 @@ final class CollectionServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::changeCollectionType
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testChangeCollectionType(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->collectionHandlerMock
             ->expects(self::at(0))
             ->method('loadCollection')
@@ -60,11 +61,12 @@ final class CollectionServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::addItem
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testAddItem(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->collectionHandlerMock
             ->expects(self::at(0))
             ->method('loadCollection')
@@ -94,11 +96,12 @@ final class CollectionServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::addItem
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testUpdateItem(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->collectionHandlerMock
             ->expects(self::at(0))
             ->method('loadItem')
@@ -125,11 +128,12 @@ final class CollectionServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveItem
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testMoveItem(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->collectionHandlerMock
             ->expects(self::at(0))
             ->method('loadItem')
@@ -149,11 +153,12 @@ final class CollectionServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteItem
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testDeleteItem(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->collectionHandlerMock
             ->expects(self::at(0))
             ->method('loadItem')
@@ -173,11 +178,12 @@ final class CollectionServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteItem
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testDeleteItems(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->collectionHandlerMock
             ->expects(self::at(0))
             ->method('loadCollection')
@@ -197,11 +203,12 @@ final class CollectionServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQuery
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testUpdateQuery(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $persistenceQuery = PersistenceQuery::fromArray(
             [
                 'mainLocale' => 'en',

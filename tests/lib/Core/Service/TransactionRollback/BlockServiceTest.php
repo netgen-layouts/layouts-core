@@ -38,11 +38,12 @@ final class BlockServiceTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testCreateBlock(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutHandlerMock
             ->expects(self::at(0))
             ->method('loadLayout')
@@ -81,11 +82,12 @@ final class BlockServiceTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testCreateBlockInZone(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutServiceMock
             ->expects(self::at(0))
             ->method('loadLayoutDraft')
@@ -132,11 +134,12 @@ final class BlockServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testUpdateBlock(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $persistenceBlock = PersistenceBlock::fromArray(
             [
                 'config' => [],
@@ -177,11 +180,12 @@ final class BlockServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testCopyBlock(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->blockHandlerMock
             ->expects(self::at(0))
             ->method('loadBlock')
@@ -219,11 +223,12 @@ final class BlockServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testCopyBlockToZone(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutServiceMock
             ->expects(self::at(0))
             ->method('loadLayoutDraft')
@@ -262,11 +267,12 @@ final class BlockServiceTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testMoveBlock(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->blockHandlerMock
             ->expects(self::at(0))
             ->method('loadBlock')
@@ -306,11 +312,12 @@ final class BlockServiceTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
      * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testMoveBlockToZone(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutServiceMock
             ->expects(self::at(0))
             ->method('loadLayoutDraft')
@@ -349,11 +356,12 @@ final class BlockServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::restoreBlock
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testRestoreBlock(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->blockHandlerMock
             ->expects(self::at(0))
             ->method('loadBlock')
@@ -378,11 +386,12 @@ final class BlockServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::enableTranslations
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testEnableTranslations(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->blockHandlerMock
             ->expects(self::at(0))
             ->method('loadBlock')
@@ -412,11 +421,12 @@ final class BlockServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::disableTranslations
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testDisableTranslations(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->blockHandlerMock
             ->expects(self::at(0))
             ->method('loadBlock')
@@ -436,11 +446,12 @@ final class BlockServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::deleteBlock
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testDeleteBlock(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->blockHandlerMock
             ->expects(self::at(0))
             ->method('loadBlock')

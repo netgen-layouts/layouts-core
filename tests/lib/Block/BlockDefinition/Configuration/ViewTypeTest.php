@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Configuration;
 
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
+use Netgen\BlockManager\Exception\Block\BlockDefinitionException;
 use PHPUnit\Framework\TestCase;
 
 final class ViewTypeTest extends TestCase
@@ -106,11 +107,12 @@ final class ViewTypeTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType::getItemViewType
-     * @expectedException \Netgen\BlockManager\Exception\Block\BlockDefinitionException
-     * @expectedExceptionMessage Item view type "unknown" does not exist in "large" view type.
      */
     public function testGetItemViewTypeThrowsBlockDefinitionException(): void
     {
+        $this->expectException(BlockDefinitionException::class);
+        $this->expectExceptionMessage('Item view type "unknown" does not exist in "large" view type.');
+
         $this->viewType->getItemViewType('unknown');
     }
 

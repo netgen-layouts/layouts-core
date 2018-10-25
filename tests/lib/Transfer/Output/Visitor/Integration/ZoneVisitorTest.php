@@ -7,6 +7,7 @@ namespace Netgen\BlockManager\Tests\Transfer\Output\Visitor\Integration;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\Zone;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Transfer\Output\Visitor\ZoneVisitor;
 use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
@@ -20,12 +21,11 @@ abstract class ZoneVisitorTest extends VisitorTest
         $this->layoutService = $this->createLayoutService();
     }
 
-    /**
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Implementation requires sub-visitor
-     */
     public function testVisitThrowsRuntimeExceptionWithoutSubVisitor(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Implementation requires sub-visitor');
+
         $this->getVisitor()->visit(new Zone());
     }
 

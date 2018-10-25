@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Item;
 
+use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\Item\NullCmsItem;
 use Netgen\BlockManager\Item\UrlGenerator;
@@ -59,11 +60,12 @@ final class UrlGeneratorTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Item\UrlGenerator::generate
-     * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
-     * @expectedExceptionMessage Value type "unknown" does not exist.
      */
     public function testGenerateWithNoUrlGenerator(): void
     {
+        $this->expectException(ItemException::class);
+        $this->expectExceptionMessage('Value type "unknown" does not exist.');
+
         $this->urlGenerator->generate(
             CmsItem::fromArray(
                 ['valueType' => 'unknown', 'object' => new stdClass()]

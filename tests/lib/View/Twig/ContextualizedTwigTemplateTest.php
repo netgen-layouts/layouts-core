@@ -79,11 +79,12 @@ final class ContextualizedTwigTemplateTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate::renderBlock
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testRenderBlockWithException(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $templateMock = $this->createMock(Template::class);
 
         $templateMock

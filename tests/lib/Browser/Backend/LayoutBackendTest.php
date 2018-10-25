@@ -11,6 +11,7 @@ use Netgen\BlockManager\Browser\Backend\LayoutBackend;
 use Netgen\BlockManager\Browser\Item\Layout\LayoutInterface;
 use Netgen\BlockManager\Browser\Item\Layout\RootLocation;
 use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\ContentBrowser\Exceptions\NotFoundException as ContentBrowserNotFoundException;
 use Netgen\ContentBrowser\Item\ItemInterface;
 use PHPUnit\Framework\TestCase;
 
@@ -85,11 +86,12 @@ final class LayoutBackendTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::loadItem
-     * @expectedException \Netgen\ContentBrowser\Exceptions\NotFoundException
-     * @expectedExceptionMessage Item with value "1" not found.
      */
     public function testLoadItemThrowsNotFoundException(): void
     {
+        $this->expectException(ContentBrowserNotFoundException::class);
+        $this->expectExceptionMessage('Item with value "1" not found.');
+
         $this->layoutServiceMock
             ->expects(self::once())
             ->method('loadLayout')

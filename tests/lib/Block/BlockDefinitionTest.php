@@ -12,6 +12,8 @@ use Netgen\BlockManager\Block\BlockDefinition\Configuration\Form;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Block\DynamicParameters;
 use Netgen\BlockManager\Config\ConfigDefinition;
+use Netgen\BlockManager\Exception\Block\BlockDefinitionException;
+use Netgen\BlockManager\Exception\Config\ConfigDefinitionException;
 use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
 use Netgen\BlockManager\Tests\Block\Stubs\HandlerPlugin;
 use PHPUnit\Framework\TestCase;
@@ -155,11 +157,12 @@ final class BlockDefinitionTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::getForm
-     * @expectedException \Netgen\BlockManager\Exception\Block\BlockDefinitionException
-     * @expectedExceptionMessage Form "unknown" does not exist in "block_definition" block definition.
      */
     public function testGetFormThrowsBlockDefinitionException(): void
     {
+        $this->expectException(BlockDefinitionException::class);
+        $this->expectExceptionMessage('Form "unknown" does not exist in "block_definition" block definition.');
+
         $this->blockDefinition->getForm('unknown');
     }
 
@@ -198,11 +201,12 @@ final class BlockDefinitionTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::getCollection
-     * @expectedException \Netgen\BlockManager\Exception\Block\BlockDefinitionException
-     * @expectedExceptionMessage Collection "unknown" does not exist in "block_definition" block definition.
      */
     public function testGetCollectionThrowsBlockDefinitionException(): void
     {
+        $this->expectException(BlockDefinitionException::class);
+        $this->expectExceptionMessage('Collection "unknown" does not exist in "block_definition" block definition.');
+
         $this->blockDefinition->getCollection('unknown');
     }
 
@@ -253,11 +257,12 @@ final class BlockDefinitionTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::getViewType
-     * @expectedException \Netgen\BlockManager\Exception\Block\BlockDefinitionException
-     * @expectedExceptionMessage View type "unknown" does not exist in "block_definition" block definition.
      */
     public function testGetViewTypeThrowsBlockDefinitionException(): void
     {
+        $this->expectException(BlockDefinitionException::class);
+        $this->expectExceptionMessage('View type "unknown" does not exist in "block_definition" block definition.');
+
         $this->blockDefinition->getViewType('unknown');
     }
 
@@ -306,11 +311,12 @@ final class BlockDefinitionTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\BlockDefinition::getConfigDefinition
-     * @expectedException \Netgen\BlockManager\Exception\Config\ConfigDefinitionException
-     * @expectedExceptionMessage Config definition with "unknown" config key does not exist.
      */
     public function testGetConfigDefinitionThrowsConfigDefinitionException(): void
     {
+        $this->expectException(ConfigDefinitionException::class);
+        $this->expectExceptionMessage('Config definition with "unknown" config key does not exist.');
+
         $this->blockDefinition->getConfigDefinition('unknown');
     }
 

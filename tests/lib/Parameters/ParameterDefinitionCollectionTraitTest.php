@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Parameters;
 
+use Netgen\BlockManager\Exception\Parameters\ParameterException;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinitionCollection;
 use PHPUnit\Framework\TestCase;
@@ -26,11 +27,12 @@ final class ParameterDefinitionCollectionTraitTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionTrait::getParameterDefinition
-     * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterException
-     * @expectedExceptionMessage Parameter definition with "test" name does not exist.
      */
     public function testGetParameterDefinitionWithNonExistingDefinition(): void
     {
+        $this->expectException(ParameterException::class);
+        $this->expectExceptionMessage('Parameter definition with "test" name does not exist.');
+
         $parameterDefinitions = new ParameterDefinitionCollection(
             ['name' => new ParameterDefinition()]
         );

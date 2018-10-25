@@ -10,6 +10,7 @@ use Netgen\Bundle\BlockManagerBundle\Security\CsrfTokenValidatorInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
@@ -78,11 +79,12 @@ final class ApiCsrfValidationListenerTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\ApiCsrfValidationListener::onKernelRequest
-     * @expectedException \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
-     * @expectedExceptionMessage Missing or invalid CSRF token
      */
     public function testOnKernelRequestThrowsAccessDeniedExceptionOnInvalidToken(): void
     {
+        $this->expectException(AccessDeniedHttpException::class);
+        $this->expectExceptionMessage('Missing or invalid CSRF token');
+
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Item;
 
+use Netgen\BlockManager\Exception\Item\ValueException;
 use Netgen\BlockManager\Item\CmsItemBuilder;
 use Netgen\BlockManager\Tests\Item\Stubs\UnsupportedValueConverter;
 use Netgen\BlockManager\Tests\Item\Stubs\Value;
@@ -42,11 +43,12 @@ final class CmsItemBuilderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Item\CmsItemBuilder::build
-     * @expectedException \Netgen\BlockManager\Exception\Item\ValueException
-     * @expectedExceptionMessage Value converter for "Netgen\BlockManager\Tests\Item\Stubs\Value" type does not exist.
      */
     public function testBuildThrowsValueException(): void
     {
+        $this->expectException(ValueException::class);
+        $this->expectExceptionMessage('Value converter for "Netgen\\BlockManager\\Tests\\Item\\Stubs\\Value" type does not exist.');
+
         $builder = new CmsItemBuilder([new UnsupportedValueConverter()]);
 
         $builder->build(new Value(42, 'abc'));

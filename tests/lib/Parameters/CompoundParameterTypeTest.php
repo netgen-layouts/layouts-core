@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Parameters;
 
+use Netgen\BlockManager\Exception\Parameters\ParameterTypeException;
 use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
@@ -82,11 +83,12 @@ final class CompoundParameterTypeTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::getConstraints
-     * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterTypeException
-     * @expectedExceptionMessage Parameter with "compound_boolean" type is not supported
      */
     public function testGetConstraintsThrowsParameterTypeException(): void
     {
+        $this->expectException(ParameterTypeException::class);
+        $this->expectExceptionMessage('Parameter with "compound_boolean" type is not supported');
+
         $this->parameterType->getConstraints(
             CompoundParameterDefinition::fromArray(['type' => new BooleanType()]),
             42

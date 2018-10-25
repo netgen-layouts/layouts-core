@@ -9,6 +9,7 @@ use Netgen\BlockManager\API\Values\Layout\LayoutList;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearLayoutsCacheType;
 use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ClearLayoutsCacheTypeTest extends FormTestCase
@@ -91,11 +92,12 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearLayoutsCacheType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "layouts" with value 42 is expected to be of type "Netgen\BlockManager\API\Values\Layout\LayoutList", but is of type "integer".
      */
     public function testConfigureOptionsWithInvalidLayouts(): void
     {
+        $this->expectException(InvalidOptionsException::class);
+        $this->expectExceptionMessage('The option "layouts" with value 42 is expected to be of type "Netgen\\BlockManager\\API\\Values\\Layout\\LayoutList", but is of type "integer".');
+
         $optionsResolver = new OptionsResolver();
 
         $this->formType->configureOptions($optionsResolver);

@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\Encoder\DecoderInterface;
@@ -149,11 +150,12 @@ final class RequestBodyListenerTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener::onKernelRequest
-     * @expectedException \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
-     * @expectedExceptionMessage Request body has an invalid format
      */
     public function testOnKernelRequestWithInvalidJson(): void
     {
+        $this->expectException(BadRequestHttpException::class);
+        $this->expectExceptionMessage('Request body has an invalid format');
+
         $this->decoderMock
             ->expects(self::once())
             ->method('decode')
@@ -171,11 +173,12 @@ final class RequestBodyListenerTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\EventListener\RequestBodyListener::onKernelRequest
-     * @expectedException \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
-     * @expectedExceptionMessage Request body has an invalid format
      */
     public function testOnKernelRequestWithNonArrayJson(): void
     {
+        $this->expectException(BadRequestHttpException::class);
+        $this->expectExceptionMessage('Request body has an invalid format');
+
         $this->decoderMock
             ->expects(self::once())
             ->method('decode')

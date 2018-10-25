@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Transfer\Output;
 
+use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\Tests\Transfer\Output\Visitor\Stubs\ValueVisitor;
 use PHPUnit\Framework\TestCase;
@@ -31,11 +32,12 @@ final class StatusStringTraitTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Transfer\Output\StatusStringTrait::getStatusString
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Unknown status '9999'
      */
     public function testVisitThrowsRuntimeExceptionWithInvalidStatus(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Unknown status \'9999\'');
+
         $this->visitor->visit(Value::fromArray(['status' => 9999]));
     }
 

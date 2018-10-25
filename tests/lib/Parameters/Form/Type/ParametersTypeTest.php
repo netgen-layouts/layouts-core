@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Parameters\Form\Type;
 
+use Netgen\BlockManager\Exception\Parameters\ParameterTypeException;
 use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
 use Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension;
 use Netgen\BlockManager\Parameters\Form\Mapper\Compound\BooleanMapper;
@@ -18,6 +19,8 @@ use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ParametersTypeTest extends FormTestCase
@@ -142,11 +145,12 @@ final class ParametersTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::buildForm
-     * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterTypeException
-     * @expectedExceptionMessage Form mapper for "text" parameter type does not exist.
      */
     public function testBuildFormWithNoMapper(): void
     {
+        $this->expectException(ParameterTypeException::class);
+        $this->expectExceptionMessage('Form mapper for "text" parameter type does not exist.');
+
         $parentForm = $this->factory->create(
             FormType::class,
             new ParameterStruct()
@@ -270,11 +274,12 @@ final class ParametersTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
-     * @expectedExceptionMessage The required options "label_prefix", "parameter_definitions" are missing.
      */
     public function testConfigureOptionsWithMissingParameters(): void
     {
+        $this->expectException(MissingOptionsException::class);
+        $this->expectExceptionMessage('The required options "label_prefix", "parameter_definitions" are missing.');
+
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
 
@@ -285,11 +290,12 @@ final class ParametersTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "parameter_definitions" with value null is expected to be of type "Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface", but is of type "NULL".
      */
     public function testConfigureOptionsWithInvalidParameters(): void
     {
+        $this->expectException(InvalidOptionsException::class);
+        $this->expectExceptionMessage('The option "parameter_definitions" with value null is expected to be of type "Netgen\\BlockManager\\Parameters\\ParameterDefinitionCollectionInterface", but is of type "NULL".');
+
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
 
@@ -305,11 +311,12 @@ final class ParametersTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "groups" with value array is invalid.
      */
     public function testConfigureOptionsWithInvalidGroup(): void
     {
+        $this->expectException(InvalidOptionsException::class);
+        $this->expectExceptionMessage('The option "groups" with value array is invalid.');
+
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
 

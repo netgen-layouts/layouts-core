@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\CompilerPass\Layout;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -49,11 +50,12 @@ final class LayoutTypePassTest extends AbstractCompilerPassTestCase
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass::buildLayoutTypes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass::process
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Layout\LayoutTypePass::validateLayoutTypes
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Block definition "title" used in "test" layout type does not exist.
      */
     public function testProcessThrowsRuntimeExceptionWithNoBlockDefinition(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Block definition "title" used in "test" layout type does not exist.');
+
         $this->setParameter('netgen_block_manager.block_definitions', []);
         $this->setParameter(
             'netgen_block_manager.layout_types',

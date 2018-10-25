@@ -236,11 +236,12 @@ final class RenderingRuntimeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::renderBlock
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testRenderBlockThrowsExceptionInDebug(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->errorHandler->setThrow(true);
         $block = Block::fromArray(['definition' => new BlockDefinition()]);
 
@@ -482,11 +483,12 @@ final class RenderingRuntimeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::renderPlaceholder
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testRenderPlaceholderThrowsExceptionInDebug(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->errorHandler->setThrow(true);
         $block = Block::fromArray(['placeholders' => ['main' => new Placeholder()]]);
 
@@ -623,11 +625,12 @@ final class RenderingRuntimeTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::renderItem
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testRenderItemThrowsExceptionInDebug(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->errorHandler->setThrow(true);
 
         $cmsItem = CmsItem::fromArray(['valueType' => 'value_type']);
@@ -768,11 +771,12 @@ final class RenderingRuntimeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::getViewContext
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::renderValue
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testRenderValueThrowsExceptionInDebug(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->errorHandler->setThrow(true);
 
         $condition = new Condition();

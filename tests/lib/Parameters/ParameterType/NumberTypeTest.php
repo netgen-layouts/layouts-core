@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
 
 use Netgen\BlockManager\Parameters\ParameterType\NumberType;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Validation;
 
 final class NumberTypeTest extends TestCase
@@ -53,11 +54,12 @@ final class NumberTypeTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\NumberType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidArgumentException
      * @dataProvider invalidOptionsProvider
      */
     public function testInvalidOptions(array $options): void
     {
+        $this->expectException(InvalidArgumentException::class);
+
         $this->getParameterDefinition($options);
     }
 

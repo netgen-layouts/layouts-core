@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig\Runtime;
 
 use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\CollectionPagerRuntime;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\View\ViewInterface;
@@ -125,12 +126,13 @@ final class CollectionPagerRuntimeTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\CollectionPagerRuntime::getCollectionPageUrl
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
-     * @expectedExceptionMessageRegExp /^Argument "page" has an invalid value\. Page -?\d+ is out of bounds$/
      * @dataProvider invalidPageProvider
      */
     public function testGetCollectionPageUrlThrowsInvalidArgumentExceptionWithInvalidPage(int $page): void
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessageRegExp('/^Argument "page" has an invalid value\\. Page -?\\d+ is out of bounds$/');
+
         $pagerfanta = $this->createMock(Pagerfanta::class);
         $pagerfanta->expects(self::any())
             ->method('getNbPages')

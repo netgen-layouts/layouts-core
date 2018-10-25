@@ -78,11 +78,12 @@ final class LayoutResolverHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRule
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleData
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find rule with identifier "999999"
      */
     public function testLoadRuleThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find rule with identifier "999999"');
+
         $this->handler->loadRule(999999, Value::STATUS_PUBLISHED);
     }
 
@@ -179,11 +180,12 @@ final class LayoutResolverHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::loadTarget
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadTargetData
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find target with identifier "999999"
      */
     public function testLoadTargetThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find target with identifier "999999"');
+
         $this->handler->loadTarget(999999, Value::STATUS_PUBLISHED);
     }
 
@@ -241,11 +243,12 @@ final class LayoutResolverHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::loadCondition
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadConditionData
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find condition with identifier "999999"
      */
     public function testLoadConditionThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find condition with identifier "999999"');
+
         $this->handler->loadCondition(999999, Value::STATUS_PUBLISHED);
     }
 
@@ -634,11 +637,12 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRule
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleConditions
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleTargets
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find rule with identifier "3"
      */
     public function testDeleteRule(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find rule with identifier "3"');
+
         $this->handler->deleteRule(3);
 
         $this->handler->loadRule(3, Value::STATUS_PUBLISHED);
@@ -649,11 +653,12 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRule
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleConditions
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleTargets
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find rule with identifier "5"
      */
     public function testDeleteRuleInOneStatus(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find rule with identifier "5"');
+
         $this->handler->deleteRule(5, Value::STATUS_DRAFT);
 
         // First, verify that NOT all rule statuses are deleted
@@ -722,11 +727,12 @@ final class LayoutResolverHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::deleteTarget
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteTarget
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find target with identifier "2"
      */
     public function testDeleteTarget(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find target with identifier "2"');
+
         $target = $this->handler->loadTarget(2, Value::STATUS_PUBLISHED);
 
         $this->handler->deleteTarget($target);
@@ -790,11 +796,12 @@ final class LayoutResolverHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::deleteCondition
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteCondition
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find condition with identifier "2"
      */
     public function testDeleteCondition(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find condition with identifier "2"');
+
         $this->handler->deleteCondition(
             $this->handler->loadCondition(2, Value::STATUS_PUBLISHED)
         );

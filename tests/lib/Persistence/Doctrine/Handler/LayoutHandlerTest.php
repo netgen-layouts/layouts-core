@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
 
+use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout;
 use Netgen\BlockManager\Persistence\Values\Layout\LayoutCopyStruct;
@@ -85,11 +86,12 @@ final class LayoutHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayout
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutData
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find layout with identifier "999999"
      */
     public function testLoadLayoutThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find layout with identifier "999999"');
+
         $this->layoutHandler->loadLayout(999999, Value::STATUS_PUBLISHED);
     }
 
@@ -118,11 +120,12 @@ final class LayoutHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadZone
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadZoneData
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find zone with identifier "non_existing"
      */
     public function testLoadZoneThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find zone with identifier "non_existing"');
+
         $this->layoutHandler->loadZone(1, Value::STATUS_PUBLISHED, 'non_existing');
     }
 
@@ -713,11 +716,12 @@ final class LayoutHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createLayoutTranslation
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutTranslation
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "locale" has an invalid state. Layout already has the provided locale.
      */
     public function testCreateLayoutTranslationThrowsBadStateExceptionWithExistingLocale(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "locale" has an invalid state. Layout already has the provided locale.');
+
         $this->layoutHandler->createLayoutTranslation(
             $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
             'en',
@@ -728,11 +732,12 @@ final class LayoutHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createLayoutTranslation
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutTranslation
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "sourceLocale" has an invalid state. Layout does not have the provided source locale.
      */
     public function testCreateLayoutTranslationThrowsBadStateExceptionWithNonExistingSourceLocale(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "sourceLocale" has an invalid state. Layout does not have the provided source locale.');
+
         $this->layoutHandler->createLayoutTranslation(
             $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
             'de',
@@ -760,11 +765,12 @@ final class LayoutHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::setMainTranslation
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "mainLocale" has an invalid state. Layout does not have the provided locale.
      */
     public function testSetMainTranslationThrowsBadStateExceptionWithNonExistingLocale(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "mainLocale" has an invalid state. Layout does not have the provided locale.');
+
         $layout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
         $this->layoutHandler->setMainTranslation($layout, 'de');
     }
@@ -1466,11 +1472,12 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::deleteLayout
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayout
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutZones
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find layout with identifier "1"
      */
     public function testDeleteLayout(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find layout with identifier "1"');
+
         $this->layoutHandler->deleteLayout(1);
 
         // Verify that we don't have the collections that were related to the layout
@@ -1564,11 +1571,12 @@ final class LayoutHandlerTest extends TestCase
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::deleteLayoutTranslation
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::updateLayoutModifiedDate
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutTranslations
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find block with identifier "31"
      */
     public function testDeleteLayoutTranslationWithInconsistentBlock(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find block with identifier "31"');
+
         $layout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
 
         $block = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
@@ -1590,11 +1598,12 @@ final class LayoutHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::deleteLayoutTranslation
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutTranslations
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "locale" has an invalid state. Layout does not have the provided locale.
      */
     public function testDeleteLayoutTranslationWithNonExistingLocale(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "locale" has an invalid state. Layout does not have the provided locale.');
+
         $this->layoutHandler->deleteLayoutTranslation(
             $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
             'de'
@@ -1604,11 +1613,12 @@ final class LayoutHandlerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::deleteLayoutTranslation
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutTranslations
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "locale" has an invalid state. Main translation cannot be removed from the layout.
      */
     public function testDeleteLayoutTranslationWithMainLocale(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "locale" has an invalid state. Main translation cannot be removed from the layout.');
+
         $this->layoutHandler->deleteLayoutTranslation(
             $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
             'en'

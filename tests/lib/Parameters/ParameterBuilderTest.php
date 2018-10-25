@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Parameters;
 
+use Netgen\BlockManager\Exception\BadMethodCallException;
+use Netgen\BlockManager\Exception\Parameters\ParameterBuilderException;
 use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
 use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
@@ -13,6 +15,7 @@ use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 use stdClass;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 final class ParameterBuilderTest extends TestCase
@@ -130,11 +133,12 @@ final class ParameterBuilderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getOption
-     * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterBuilderException
-     * @expectedExceptionMessage Option "unknown" does not exist in the builder for "test" parameter.
      */
     public function testGetOptionThrowsParameterBuilderException(): void
     {
+        $this->expectException(ParameterBuilderException::class);
+        $this->expectExceptionMessage('Option "unknown" does not exist in the builder for "test" parameter.');
+
         $this->builder->add(
             'test',
             ParameterType\Compound\BooleanType::class,
@@ -263,11 +267,12 @@ final class ParameterBuilderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setOption
-     * @expectedException \Netgen\BlockManager\Exception\BadMethodCallException
-     * @expectedExceptionMessage Setting the options is not possible after parameters have been built.
      */
     public function testSetOptionAfterBuildingParameters(): void
     {
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('Setting the options is not possible after parameters have been built.');
+
         $this->builder->buildParameterDefinitions();
         $this->builder->setOption('required', true);
     }
@@ -290,11 +295,12 @@ final class ParameterBuilderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setRequired
-     * @expectedException \Netgen\BlockManager\Exception\BadMethodCallException
-     * @expectedExceptionMessage Setting the required flag is not possible after parameters have been built.
      */
     public function testSetRequiredAfterBuildingParameters(): void
     {
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('Setting the required flag is not possible after parameters have been built.');
+
         $this->builder->buildParameterDefinitions();
         $this->builder->setRequired(true);
     }
@@ -317,11 +323,12 @@ final class ParameterBuilderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setDefaultValue
-     * @expectedException \Netgen\BlockManager\Exception\BadMethodCallException
-     * @expectedExceptionMessage Setting the default value is not possible after parameters have been built.
      */
     public function testSetDefaultValueAfterBuildingParameters(): void
     {
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('Setting the default value is not possible after parameters have been built.');
+
         $this->builder->buildParameterDefinitions();
         $this->builder->setDefaultValue('test');
     }
@@ -344,11 +351,12 @@ final class ParameterBuilderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setLabel
-     * @expectedException \Netgen\BlockManager\Exception\BadMethodCallException
-     * @expectedExceptionMessage Setting the label is not possible after parameters have been built.
      */
     public function testSetLabelAfterBuildingParameters(): void
     {
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('Setting the label is not possible after parameters have been built.');
+
         $this->builder->buildParameterDefinitions();
         $this->builder->setLabel('test');
     }
@@ -407,21 +415,23 @@ final class ParameterBuilderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setConstraints
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::validateConstraints
-     * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterBuilderException
-     * @expectedExceptionMessage Parameter constraints need to be either a Symfony constraint or a closure.
      */
     public function testSetConstraintsWithInvalidConstraints(): void
     {
+        $this->expectException(ParameterBuilderException::class);
+        $this->expectExceptionMessage('Parameter constraints need to be either a Symfony constraint or a closure.');
+
         $this->builder->setConstraints([new stdClass()]);
     }
 
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setConstraints
-     * @expectedException \Netgen\BlockManager\Exception\BadMethodCallException
-     * @expectedExceptionMessage Setting the constraints is not possible after parameters have been built.
      */
     public function testSetConstraintsAfterBuildingParameters(): void
     {
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('Setting the constraints is not possible after parameters have been built.');
+
         $this->builder->buildParameterDefinitions();
         $this->builder->setConstraints([]);
     }
@@ -455,11 +465,12 @@ final class ParameterBuilderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setGroups
-     * @expectedException \Netgen\BlockManager\Exception\BadMethodCallException
-     * @expectedExceptionMessage Setting the groups is not possible after parameters have been built.
      */
     public function testSetGroupsAfterBuildingParameters(): void
     {
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('Setting the groups is not possible after parameters have been built.');
+
         $this->builder->buildParameterDefinitions();
         $this->builder->setGroups([]);
     }
@@ -496,11 +507,12 @@ final class ParameterBuilderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
-     * @expectedException \Netgen\BlockManager\Exception\BadMethodCallException
-     * @expectedExceptionMessage Parameters cannot be added after they have been built.
      */
     public function testAddAfterBuildingParameters(): void
     {
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('Parameters cannot be added after they have been built.');
+
         $this->builder->add(
             'test',
             ParameterType\TextType::class,
@@ -526,11 +538,12 @@ final class ParameterBuilderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
-     * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterBuilderException
-     * @expectedExceptionMessage Parameters cannot be added to non-compound parameters.
      */
     public function testAddThrowsParameterBuilderExceptionOnAddingParameterToNonCompoundParameter(): void
     {
+        $this->expectException(ParameterBuilderException::class);
+        $this->expectExceptionMessage('Parameters cannot be added to non-compound parameters.');
+
         $this->builder->add(
             'test',
             ParameterType\TextType::class,
@@ -554,11 +567,12 @@ final class ParameterBuilderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
-     * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterBuilderException
-     * @expectedExceptionMessage Compound parameters cannot be added to compound parameters.
      */
     public function testAddThrowsParameterBuilderExceptionOnAddingCompoundParameterToCompoundParameter(): void
     {
+        $this->expectException(ParameterBuilderException::class);
+        $this->expectExceptionMessage('Compound parameters cannot be added to compound parameters.');
+
         $this->builder->add(
             'test',
             ParameterType\Compound\BooleanType::class
@@ -625,11 +639,12 @@ final class ParameterBuilderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::get
-     * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterBuilderException
-     * @expectedExceptionMessage Parameter with "unknown" name does not exist in the builder.
      */
     public function testGetThrowsParameterBuilderExceptionWithNonExistingParameter(): void
     {
+        $this->expectException(ParameterBuilderException::class);
+        $this->expectExceptionMessage('Parameter with "unknown" name does not exist in the builder.');
+
         $this->builder->add(
             'test',
             ParameterType\Compound\BooleanType::class,
@@ -646,11 +661,12 @@ final class ParameterBuilderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::get
-     * @expectedException \Netgen\BlockManager\Exception\BadMethodCallException
-     * @expectedExceptionMessage Accessing parameter builders is not possible after parameters have been built.
      */
     public function testGetAfterBuildingParameters(): void
     {
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('Accessing parameter builders is not possible after parameters have been built.');
+
         $this->builder->add(
             'test',
             ParameterType\Compound\BooleanType::class,
@@ -726,11 +742,12 @@ final class ParameterBuilderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::all
-     * @expectedException \Netgen\BlockManager\Exception\BadMethodCallException
-     * @expectedExceptionMessage Accessing parameter builders is not possible after parameters have been built.
      */
     public function testAllAfterBuildingParameters(): void
     {
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('Accessing parameter builders is not possible after parameters have been built.');
+
         $this->builder->add('test', ParameterType\TextType::class);
 
         $this->builder->buildParameterDefinitions();
@@ -763,11 +780,12 @@ final class ParameterBuilderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::remove
-     * @expectedException \Netgen\BlockManager\Exception\BadMethodCallException
-     * @expectedExceptionMessage Removing parameters is not possible after parameters have been built.
      */
     public function testRemoveAfterBuildingParameters(): void
     {
+        $this->expectException(BadMethodCallException::class);
+        $this->expectExceptionMessage('Removing parameters is not possible after parameters have been built.');
+
         $this->builder->add(
             'test',
             ParameterType\TextType::class,
@@ -972,11 +990,12 @@ final class ParameterBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::validateConstraints
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "required" with value "true" is expected to be of type "bool", but is of type "string".
      */
     public function testBuildParameterDefinitionsWithInvalidRequiredOption(): void
     {
+        $this->expectException(InvalidOptionsException::class);
+        $this->expectExceptionMessage('The option "required" with value "true" is expected to be of type "bool", but is of type "string".');
+
         $this->builder->add(
             'test',
             ParameterType\TextType::class,
@@ -994,11 +1013,12 @@ final class ParameterBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::validateConstraints
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "groups" with value "group" is expected to be of type "array", but is of type "string".
      */
     public function testBuildParameterDefinitionsWithInvalidGroupsOption(): void
     {
+        $this->expectException(InvalidOptionsException::class);
+        $this->expectExceptionMessage('The option "groups" with value "group" is expected to be of type "array", but is of type "string".');
+
         $this->builder->add(
             'test',
             ParameterType\TextType::class,
@@ -1016,11 +1036,12 @@ final class ParameterBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::validateConstraints
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "groups" with value array is invalid.
      */
     public function testBuildParameterDefinitionsWithInvalidGroup(): void
     {
+        $this->expectException(InvalidOptionsException::class);
+        $this->expectExceptionMessage('The option "groups" with value array is invalid.');
+
         $this->builder->add(
             'test',
             ParameterType\TextType::class,
@@ -1038,11 +1059,12 @@ final class ParameterBuilderTest extends TestCase
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
      * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::validateConstraints
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "label" with value true is invalid.
      */
     public function testBuildParameterDefinitionsWithInvalidLabel(): void
     {
+        $this->expectException(InvalidOptionsException::class);
+        $this->expectExceptionMessage('The option "label" with value true is invalid.');
+
         $this->builder->add(
             'test',
             ParameterType\TextType::class,

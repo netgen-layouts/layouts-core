@@ -33,11 +33,12 @@ final class LayoutResolverServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::createRule
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testCreateRule(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutResolverHandlerMock
             ->expects(self::at(0))
             ->method('createRule')
@@ -52,11 +53,12 @@ final class LayoutResolverServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateRule
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testUpdateRule(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutResolverHandlerMock
             ->expects(self::at(0))
             ->method('loadRule')
@@ -79,11 +81,12 @@ final class LayoutResolverServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateRuleMetadata
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testUpdateRuleMetadata(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutResolverHandlerMock
             ->expects(self::at(0))
             ->method('loadRule')
@@ -106,11 +109,12 @@ final class LayoutResolverServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::copyRule
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testCopyRule(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutResolverHandlerMock
             ->expects(self::at(0))
             ->method('loadRule')
@@ -130,11 +134,12 @@ final class LayoutResolverServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::createDraft
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testCreateDraft(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutResolverHandlerMock
             ->expects(self::at(0))
             ->method('loadRule')
@@ -159,11 +164,12 @@ final class LayoutResolverServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::discardDraft
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testDiscardDraft(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutResolverHandlerMock
             ->expects(self::at(0))
             ->method('loadRule')
@@ -183,11 +189,12 @@ final class LayoutResolverServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::publishRule
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testPublishRule(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutResolverHandlerMock
             ->expects(self::at(0))
             ->method('loadRule')
@@ -207,11 +214,12 @@ final class LayoutResolverServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::restoreFromArchive
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testRestoreFromArchive(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutResolverHandlerMock
             ->expects(self::at(0))
             ->method('loadRule')
@@ -236,11 +244,12 @@ final class LayoutResolverServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteRule
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testDeleteRule(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutResolverHandlerMock
             ->expects(self::at(0))
             ->method('loadRule')
@@ -260,11 +269,12 @@ final class LayoutResolverServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::enableRule
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testEnableRule(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutResolverHandlerMock
             ->expects(self::at(0))
             ->method('loadRule')
@@ -298,11 +308,12 @@ final class LayoutResolverServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::disableRule
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testDisableRule(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutResolverHandlerMock
             ->expects(self::at(0))
             ->method('loadRule')
@@ -330,11 +341,12 @@ final class LayoutResolverServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::addTarget
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testAddTarget(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutResolverHandlerMock
             ->expects(self::at(0))
             ->method('loadRule')
@@ -365,11 +377,12 @@ final class LayoutResolverServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateTarget
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testUpdateTarget(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutResolverHandlerMock
             ->expects(self::at(0))
             ->method('loadTarget')
@@ -392,11 +405,12 @@ final class LayoutResolverServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteTarget
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testDeleteTarget(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutResolverHandlerMock
             ->expects(self::at(0))
             ->method('loadTarget')
@@ -416,11 +430,12 @@ final class LayoutResolverServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::addCondition
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testAddCondition(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutResolverHandlerMock
             ->expects(self::at(0))
             ->method('loadRule')
@@ -446,11 +461,12 @@ final class LayoutResolverServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateCondition
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testUpdateCondition(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutResolverHandlerMock
             ->expects(self::at(0))
             ->method('loadCondition')
@@ -473,11 +489,12 @@ final class LayoutResolverServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteCondition
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testDeleteCondition(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutResolverHandlerMock
             ->expects(self::at(0))
             ->method('loadCondition')

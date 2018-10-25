@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\ParamConverter;
 
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\Bundle\BlockManagerBundle\Tests\Stubs\ParamConverter;
 use Netgen\Bundle\BlockManagerBundle\Tests\Stubs\Value;
 use PHPUnit\Framework\TestCase;
@@ -199,11 +200,12 @@ final class ParamConverterTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\ParamConverter\ParamConverter::apply
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
-     * @expectedExceptionMessage Required request attribute is empty.
      */
     public function testApplyWithEmptyAndNonOptionalAttribute(): void
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Required request attribute is empty.');
+
         $request = Request::create('/');
         $request->attributes->set('id', '');
         $configuration = new ParamConverterConfiguration([]);

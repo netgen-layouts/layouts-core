@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Values\Block\BlockList;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\Zone;
+use Netgen\BlockManager\Exception\View\ViewProviderException;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\View\Provider\ZoneViewProvider;
 use Netgen\BlockManager\View\View\ZoneView\ZoneReference;
@@ -63,21 +64,23 @@ final class ZoneViewProviderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\Provider\ZoneViewProvider::provideView
-     * @expectedException \Netgen\BlockManager\Exception\View\ViewProviderException
-     * @expectedExceptionMessage To build the zone view, "blocks" parameter needs to be provided.
      */
     public function testProvideViewThrowsViewProviderExceptionOnMissingBlocks(): void
     {
+        $this->expectException(ViewProviderException::class);
+        $this->expectExceptionMessage('To build the zone view, "blocks" parameter needs to be provided.');
+
         $this->ZoneViewProvider->provideView(new ZoneReference(new Layout(), 'zone'));
     }
 
     /**
      * @covers \Netgen\BlockManager\View\Provider\ZoneViewProvider::provideView
-     * @expectedException \Netgen\BlockManager\Exception\View\ViewProviderException
-     * @expectedExceptionMessage To build the zone view, "blocks" parameter needs to be of "Netgen\BlockManager\API\Values\Block\BlockList" type.
      */
     public function testProvideViewThrowsViewProviderExceptionOnInvalidBlocks(): void
     {
+        $this->expectException(ViewProviderException::class);
+        $this->expectExceptionMessage('To build the zone view, "blocks" parameter needs to be of "Netgen\\BlockManager\\API\\Values\\Block\\BlockList" type.');
+
         $this->ZoneViewProvider->provideView(new ZoneReference(new Layout(), 'zone'), ['blocks' => 42]);
     }
 

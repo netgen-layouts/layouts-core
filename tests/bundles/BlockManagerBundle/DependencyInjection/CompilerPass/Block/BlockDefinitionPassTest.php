@@ -11,6 +11,7 @@ use Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandlerInterfac
 use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 use Netgen\BlockManager\Block\ContainerDefinition;
 use Netgen\BlockManager\Block\TwigBlockDefinition;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass;
 use stdClass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -121,11 +122,12 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::process
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Block definition handler for "block_definition" block definition does not exist.
      */
     public function testProcessThrowsExceptionWithNoTagIdentifier(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Block definition handler for "block_definition" block definition does not exist.');
+
         $this->setParameter(
             'netgen_block_manager.block_definitions',
             ['block_definition' => ['enabled' => true]]
@@ -143,11 +145,12 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::getConfigHandlers
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::process
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Block config handler definition must have an 'config_key' attribute in its' tag.
      */
     public function testProcessThrowsExceptionWithNoConfigKeyInTag(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Block config handler definition must have an \'config_key\' attribute in its\' tag.');
+
         $this->setParameter(
             'netgen_block_manager.block_definitions',
             ['block_definition' => ['enabled' => true]]
@@ -176,11 +179,12 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::process
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Block definition handler for "block_definition" block definition does not exist.
      */
     public function testProcessThrowsExceptionWithNoHandler(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Block definition handler for "block_definition" block definition does not exist.');
+
         $this->setParameter(
             'netgen_block_manager.block_definitions',
             ['block_definition' => ['enabled' => true]]
@@ -193,11 +197,12 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::process
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Block definition handler for "block_definition" block definition does not exist.
      */
     public function testProcessThrowsExceptionWithNoCustomHandler(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Block definition handler for "block_definition" block definition does not exist.');
+
         $this->setParameter(
             'netgen_block_manager.block_definitions',
             ['block_definition' => ['enabled' => true, 'handler' => 'custom']]

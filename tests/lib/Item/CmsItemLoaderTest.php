@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Item;
 
+use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\Item\CmsItemBuilderInterface;
 use Netgen\BlockManager\Item\CmsItemLoader;
@@ -77,11 +78,12 @@ final class CmsItemLoaderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Item\CmsItemLoader::load
-     * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
-     * @expectedExceptionMessage Value type "value" does not exist.
      */
     public function testLoadItemThrowsItemException(): void
     {
+        $this->expectException(ItemException::class);
+        $this->expectExceptionMessage('Value type "value" does not exist.');
+
         $this->cmsItemLoader = new CmsItemLoader($this->cmsItemBuilderMock, []);
 
         $this->cmsItemLoader->load(42, 'value');
@@ -134,11 +136,12 @@ final class CmsItemLoaderTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Item\CmsItemLoader::loadByRemoteId
-     * @expectedException \Netgen\BlockManager\Exception\Item\ItemException
-     * @expectedExceptionMessage Value type "value" does not exist.
      */
     public function testLoadByRemoteIdItemThrowsItemException(): void
     {
+        $this->expectException(ItemException::class);
+        $this->expectExceptionMessage('Value type "value" does not exist.');
+
         $this->cmsItemLoader = new CmsItemLoader($this->cmsItemBuilderMock, []);
 
         $this->cmsItemLoader->loadByRemoteId(42, 'value');

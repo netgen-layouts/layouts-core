@@ -7,6 +7,8 @@ namespace Netgen\BlockManager\Tests\Block\Registry;
 use ArrayIterator;
 use Netgen\BlockManager\Block\BlockType\BlockType;
 use Netgen\BlockManager\Block\Registry\BlockTypeRegistry;
+use Netgen\BlockManager\Exception\Block\BlockTypeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 use PHPUnit\Framework\TestCase;
 
 final class BlockTypeRegistryTest extends TestCase
@@ -93,11 +95,12 @@ final class BlockTypeRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::getBlockType
-     * @expectedException \Netgen\BlockManager\Exception\Block\BlockTypeException
-     * @expectedExceptionMessage Block type with "other_block_type" identifier does not exist.
      */
     public function testGetBlockTypeThrowsBlockTypeException(): void
     {
+        $this->expectException(BlockTypeException::class);
+        $this->expectExceptionMessage('Block type with "other_block_type" identifier does not exist.');
+
         $this->registry->getBlockType('other_block_type');
     }
 
@@ -143,21 +146,23 @@ final class BlockTypeRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::offsetSet
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Method call not supported.
      */
     public function testOffsetSet(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
+
         $this->registry['block_type'] = $this->blockType;
     }
 
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockTypeRegistry::offsetUnset
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Method call not supported.
      */
     public function testOffsetUnset(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
+
         unset($this->registry['block_type']);
     }
 }

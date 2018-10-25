@@ -5,11 +5,14 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Layout\Resolver\Form;
 
 use Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct;
+use Netgen\BlockManager\Exception\Layout\ConditionTypeException;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType as ConditionTypeForm;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType1;
 use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionTypeMapper;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
+use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ConditionTypeTest extends FormTestCase
@@ -29,11 +32,12 @@ final class ConditionTypeTest extends FormTestCase
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::__construct
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::buildForm
-     * @expectedException \Netgen\BlockManager\Exception\Layout\ConditionTypeException
-     * @expectedExceptionMessage Form mapper for "condition1" condition type does not exist.
      */
     public function testBuildFormThrowsConditionTypeException(): void
     {
+        $this->expectException(ConditionTypeException::class);
+        $this->expectExceptionMessage('Form mapper for "condition1" condition type does not exist.');
+
         $this->factory->create(
             ConditionTypeForm::class,
             new ConditionCreateStruct(),
@@ -66,11 +70,12 @@ final class ConditionTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\MissingOptionsException
-     * @expectedExceptionMessage The required option "condition_type" is missing.
      */
     public function testConfigureOptionsWithMissingConditionType(): void
     {
+        $this->expectException(MissingOptionsException::class);
+        $this->expectExceptionMessage('The required option "condition_type" is missing.');
+
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
 
@@ -81,11 +86,12 @@ final class ConditionTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "condition_type" with value "" is expected to be of type "Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface", but is of type "string".
      */
     public function testConfigureOptionsWithInvalidConditionType(): void
     {
+        $this->expectException(InvalidOptionsException::class);
+        $this->expectExceptionMessage('The option "condition_type" with value "" is expected to be of type "Netgen\\BlockManager\\Layout\\Resolver\\ConditionTypeInterface", but is of type "string".');
+
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
 
@@ -100,11 +106,12 @@ final class ConditionTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "data" with value "" is expected to be of type "Netgen\BlockManager\API\Values\LayoutResolver\ConditionStruct", but is of type "string".
      */
     public function testConfigureOptionsWithInvalidData(): void
     {
+        $this->expectException(InvalidOptionsException::class);
+        $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\\BlockManager\\API\\Values\\LayoutResolver\\ConditionStruct", but is of type "string".');
+
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
 

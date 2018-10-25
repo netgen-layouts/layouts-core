@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
 use Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\Stubs\ExtensionPlugin;
+use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
 /**
  * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::getConfiguration
@@ -60,11 +62,12 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::addPlugin
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::getPlugin
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Extension plugin "unknown" does not exist
      */
     public function testGetPluginThrowsRuntimeException(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Extension plugin "unknown" does not exist');
+
         $this->extension->getPlugin('unknown');
     }
 
@@ -107,11 +110,12 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::load
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension::validateCurrentDesign
-     * @expectedException \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException
-     * @expectedExceptionMessage Design "non_existing" does not exist. Available designs are: standard
      */
     public function testNonExistingCurrentDesign(): void
     {
+        $this->expectException(InvalidConfigurationException::class);
+        $this->expectExceptionMessage('Design "non_existing" does not exist. Available designs are: standard');
+
         $this->load($this->minimalConfig + ['design' => 'non_existing']);
     }
 

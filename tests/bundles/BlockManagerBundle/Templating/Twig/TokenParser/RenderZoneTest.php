@@ -8,6 +8,7 @@ use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Node\RenderZone as RenderZo
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
+use Twig\Error\SyntaxError;
 use Twig\Loader\LoaderInterface;
 use Twig\Node\Expression\ConstantExpression;
 use Twig\Node\Expression\NameExpression;
@@ -57,11 +58,12 @@ final class RenderZoneTest extends TestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone::getTag
      * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\TokenParser\RenderZone::parse
-     * @expectedException \Twig\Error\SyntaxError
-     * @expectedExceptionMessage Unexpected token "name" of value "foo" at line 1.
      */
     public function testCompileThrowsTwigErrorSyntaxException(): void
     {
+        $this->expectException(SyntaxError::class);
+        $this->expectExceptionMessage('Unexpected token "name" of value "foo" at line 1.');
+
         $stream = $this->environment->tokenize(
             new Source('{% ngbm_render_zone zone foo=\'bar\' %}', '')
         );

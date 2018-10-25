@@ -11,6 +11,7 @@ use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\BlockManager\API\Values\Layout\Zone;
 use Netgen\BlockManager\Core\Validator\LayoutValidator;
+use Netgen\BlockManager\Exception\API\LayoutException;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
@@ -133,11 +134,12 @@ final class LayoutValidatorTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Validator\LayoutValidator::validateChangeLayoutType
-     * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
-     * @expectedExceptionMessage Zone "unknown" does not exist in "type" layout type.
      */
     public function testValidateChangeLayoutTypeWithNonExistingZoneInLayoutType(): void
     {
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage('Zone "unknown" does not exist in "type" layout type.');
+
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
             $this->getLayoutType(),
@@ -147,11 +149,12 @@ final class LayoutValidatorTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Validator\LayoutValidator::validateChangeLayoutType
-     * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
-     * @expectedExceptionMessage The list of mapped zones for "left" zone must be an array.
      */
     public function testValidateChangeLayoutTypeWithInvalidMappedZones(): void
     {
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage('The list of mapped zones for "left" zone must be an array.');
+
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
             $this->getLayoutType(),
@@ -161,11 +164,12 @@ final class LayoutValidatorTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Validator\LayoutValidator::validateChangeLayoutType
-     * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
-     * @expectedExceptionMessage Zone "top" is specified more than once.
      */
     public function testValidateChangeLayoutTypeWithDuplicateZones(): void
     {
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage('Zone "top" is specified more than once.');
+
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
             $this->getLayoutType(),
@@ -175,11 +179,12 @@ final class LayoutValidatorTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Validator\LayoutValidator::validateChangeLayoutType
-     * @expectedException \Netgen\BlockManager\Exception\API\LayoutException
-     * @expectedExceptionMessage Zone with "unknown" identifier does not exist in the layout.
      */
     public function testValidateChangeLayoutTypeWithNonExistingLayoutZone(): void
     {
+        $this->expectException(LayoutException::class);
+        $this->expectExceptionMessage('Zone with "unknown" identifier does not exist in the layout.');
+
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
             $this->getLayoutType(),
@@ -189,11 +194,12 @@ final class LayoutValidatorTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Validator\LayoutValidator::validateChangeLayoutType
-     * @expectedException \Netgen\BlockManager\Exception\Validation\ValidationException
-     * @expectedExceptionMessage When preserving shared layout zones, mapping for zone "left" needs to be 1:1.
      */
     public function testValidateChangeLayoutTypeWithNonOneOnOneSharedZoneMapping(): void
     {
+        $this->expectException(ValidationException::class);
+        $this->expectExceptionMessage('When preserving shared layout zones, mapping for zone "left" needs to be 1:1.');
+
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
             $this->getLayoutType(),

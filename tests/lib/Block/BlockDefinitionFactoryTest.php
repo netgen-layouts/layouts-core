@@ -12,6 +12,7 @@ use Netgen\BlockManager\Block\BlockDefinitionFactory;
 use Netgen\BlockManager\Block\Registry\HandlerPluginRegistry;
 use Netgen\BlockManager\Config\ConfigDefinitionFactory;
 use Netgen\BlockManager\Config\ConfigDefinitionInterface;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
 use Netgen\BlockManager\Parameters\ParameterType\TextLineType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
@@ -295,11 +296,12 @@ final class BlockDefinitionFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::buildBlockDefinition
      * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::getCommonBlockDefinitionData
      * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::processConfig
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage You need to specify at least one enabled view type for "definition" block definition.
      */
     public function testBuildConfigWithNoViewTypes(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('You need to specify at least one enabled view type for "definition" block definition.');
+
         $this->handlerMock = $this->createMock(BlockDefinitionHandlerInterface::class);
 
         $this->factory->buildBlockDefinition(
@@ -321,11 +323,12 @@ final class BlockDefinitionFactoryTest extends TestCase
      * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::buildBlockDefinition
      * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::getCommonBlockDefinitionData
      * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::processConfig
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage You need to specify at least one enabled item view type for "large" view type and "definition" block definition.
      */
     public function testBuildConfigWithNoItemViewTypes(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('You need to specify at least one enabled item view type for "large" view type and "definition" block definition.');
+
         $this->handlerMock = $this->createMock(BlockDefinitionHandlerInterface::class);
 
         $this->factory->buildBlockDefinition(

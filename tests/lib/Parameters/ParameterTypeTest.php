@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Parameters;
 
+use Netgen\BlockManager\Exception\Parameters\ParameterTypeException;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType\TextType;
 use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterType;
@@ -66,11 +67,12 @@ final class ParameterTypeTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType::getConstraints
-     * @expectedException \Netgen\BlockManager\Exception\Parameters\ParameterTypeException
-     * @expectedExceptionMessage Parameter with "text" type is not supported
      */
     public function testGetConstraintsThrowsParameterTypeException(): void
     {
+        $this->expectException(ParameterTypeException::class);
+        $this->expectExceptionMessage('Parameter with "text" type is not supported');
+
         $this->parameterType->getConstraints(
             ParameterDefinition::fromArray(['type' => new TextType()]),
             42

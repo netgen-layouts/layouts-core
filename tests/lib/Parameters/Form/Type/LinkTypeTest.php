@@ -21,6 +21,7 @@ use Netgen\ContentBrowser\Registry\BackendRegistry;
 use Netgen\ContentBrowser\Registry\ConfigRegistry;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class LinkTypeTest extends FormTestCase
@@ -231,11 +232,12 @@ final class LinkTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\LinkType::configureOptions
-     * @expectedException @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "value_types" with value array is invalid.
      */
     public function testConfigureOptionsWithInvalidValueType(): void
     {
+        $this->expectException(InvalidOptionsException::class);
+        $this->expectExceptionMessage('The option "value_types" with value array is invalid.');
+
         $optionsResolver = new OptionsResolver();
 
         $this->formType->configureOptions($optionsResolver);
@@ -265,11 +267,12 @@ final class LinkTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Parameters\Form\Type\LinkType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "value_types" with value 42 is expected to be of type "array", but is of type "integer".
      */
     public function testConfigureOptionsWithInvalidParameters(): void
     {
+        $this->expectException(InvalidOptionsException::class);
+        $this->expectExceptionMessage('The option "value_types" with value 42 is expected to be of type "array", but is of type "integer".');
+
         $optionsResolver = new OptionsResolver();
 
         $this->formType->configureOptions($optionsResolver);

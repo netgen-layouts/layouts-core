@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\View;
 
+use Netgen\BlockManager\Exception\View\TemplateResolverException;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\Matcher\MatcherInterface;
@@ -198,22 +199,24 @@ final class TemplateResolverTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
-     * @expectedException \Netgen\BlockManager\Exception\View\TemplateResolverException
-     * @expectedExceptionMessage No template match could be found for "stub_view" view and context "context".
      */
     public function testResolveTemplateThrowsTemplateResolverExceptionIfNoContext(): void
     {
+        $this->expectException(TemplateResolverException::class);
+        $this->expectExceptionMessage('No template match could be found for "stub_view" view and context "context".');
+
         $templateResolver = new TemplateResolver([], ['stub_view' => []]);
         $templateResolver->resolveTemplate($this->view);
     }
 
     /**
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
-     * @expectedException \Netgen\BlockManager\Exception\View\TemplateResolverException
-     * @expectedExceptionMessage No template match could be found for "stub_view" view and context "context".
      */
     public function testResolveTemplateThrowsTemplateResolverExceptionIfEmptyContext(): void
     {
+        $this->expectException(TemplateResolverException::class);
+        $this->expectExceptionMessage('No template match could be found for "stub_view" view and context "context".');
+
         $templateResolver = new TemplateResolver(
             [],
             ['stub_view' => ['context' => []]]
@@ -225,11 +228,12 @@ final class TemplateResolverTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\TemplateResolver::matches
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
-     * @expectedException \Netgen\BlockManager\Exception\View\TemplateResolverException
-     * @expectedExceptionMessage No template match could be found for "stub_view" view and context "context".
      */
     public function testResolveTemplateThrowsTemplateResolverExceptionIfNoMatch(): void
     {
+        $this->expectException(TemplateResolverException::class);
+        $this->expectExceptionMessage('No template match could be found for "stub_view" view and context "context".');
+
         $matcherMock = $this->createMock(MatcherInterface::class);
         $matcherMock
             ->expects(self::once())
@@ -263,11 +267,12 @@ final class TemplateResolverTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\View\TemplateResolver::matches
      * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
-     * @expectedException \Netgen\BlockManager\Exception\View\TemplateResolverException
-     * @expectedExceptionMessage No template matcher could be found with identifier "matcher".
      */
     public function testResolveTemplateThrowsTemplateResolverExceptionIfNoMatcher(): void
     {
+        $this->expectException(TemplateResolverException::class);
+        $this->expectExceptionMessage('No template matcher could be found with identifier "matcher".');
+
         $viewConfiguration = [
             'stub_view' => [
                 'context' => [

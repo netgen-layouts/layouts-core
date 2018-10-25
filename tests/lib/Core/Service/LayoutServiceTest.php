@@ -8,6 +8,7 @@ use DateTimeImmutable;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\API\Values\Layout\Zone;
+use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Tests\Core\CoreTestCase;
@@ -38,11 +39,12 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayout
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find layout with identifier "999999"
      */
     public function testLoadLayoutThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find layout with identifier "999999"');
+
         $this->layoutService->loadLayout(999999);
     }
 
@@ -59,11 +61,12 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayoutDraft
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find layout with identifier "999999"
      */
     public function testLoadLayoutDraftThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find layout with identifier "999999"');
+
         $this->layoutService->loadLayoutDraft(999999);
     }
 
@@ -80,11 +83,12 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayoutArchive
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find layout with identifier "999999"
      */
     public function testLoadLayoutArchiveThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find layout with identifier "999999"');
+
         $this->layoutService->loadLayoutArchive(999999);
     }
 
@@ -183,22 +187,24 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadRelatedLayouts
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Related layouts can only be loaded for published shared layouts.
      */
     public function testLoadRelatedLayoutsThrowsBadStateExceptionWithNonPublishedSharedLayout(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Related layouts can only be loaded for published shared layouts.');
+
         $sharedLayout = $this->layoutService->loadLayoutDraft(3);
         $this->layoutService->loadRelatedLayouts($sharedLayout);
     }
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadRelatedLayouts
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Related layouts can only be loaded for shared layouts.
      */
     public function testLoadRelatedLayoutsThrowsBadStateExceptionWithNonSharedLayout(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Related layouts can only be loaded for shared layouts.');
+
         $sharedLayout = $this->layoutService->loadLayout(2);
         $this->layoutService->loadRelatedLayouts($sharedLayout);
     }
@@ -216,22 +222,24 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::getRelatedLayoutsCount
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Count of related layouts can only be loaded for published shared layouts.
      */
     public function testGetRelatedLayoutsCountThrowsBadStateExceptionWithNonPublishedSharedLayout(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Count of related layouts can only be loaded for published shared layouts.');
+
         $sharedLayout = $this->layoutService->loadLayoutDraft(3);
         $this->layoutService->getRelatedLayoutsCount($sharedLayout);
     }
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::getRelatedLayoutsCount
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Count of related layouts can only be loaded for shared layouts.
      */
     public function testGetRelatedLayoutsCountThrowsBadStateExceptionWithNonSharedLayout(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Count of related layouts can only be loaded for shared layouts.');
+
         $sharedLayout = $this->layoutService->loadLayout(2);
         $this->layoutService->getRelatedLayoutsCount($sharedLayout);
     }
@@ -264,21 +272,23 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadZone
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find zone with identifier "bottom"
      */
     public function testLoadZoneThrowsNotFoundExceptionOnNonExistingLayout(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find zone with identifier "bottom"');
+
         $this->layoutService->loadZone(999999, 'bottom');
     }
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadZone
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find zone with identifier "non_existing"
      */
     public function testLoadZoneThrowsNotFoundExceptionOnNonExistingZone(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find zone with identifier "non_existing"');
+
         $this->layoutService->loadZone(1, 'non_existing');
     }
 
@@ -294,21 +304,23 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadZoneDraft
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find zone with identifier "bottom"
      */
     public function testLoadZoneDraftThrowsNotFoundExceptionOnNonExistingLayout(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find zone with identifier "bottom"');
+
         $this->layoutService->loadZoneDraft(999999, 'bottom');
     }
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadZoneDraft
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find zone with identifier "non_existing"
      */
     public function testLoadZoneDraftThrowsNotFoundExceptionOnNonExistingZoneDraft(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find zone with identifier "non_existing"');
+
         $this->layoutService->loadZoneDraft(1, 'non_existing');
     }
 
@@ -354,11 +366,12 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "zone" has an invalid state. Zone cannot be in the shared layout.
      */
     public function testLinkZoneThrowsBadStateExceptionWhenInSharedLayout(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "zone" has an invalid state. Zone cannot be in the shared layout.');
+
         $zone = $this->layoutService->loadZoneDraft(3, 'left');
         $linkedZone = $this->layoutService->loadZone(5, 'left');
 
@@ -367,11 +380,12 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "zone" has an invalid state. Only draft zones can be linked.
      */
     public function testLinkZoneThrowsBadStateExceptionWithNonDraftZone(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "zone" has an invalid state. Only draft zones can be linked.');
+
         $zone = $this->layoutService->loadZone(2, 'left');
         $linkedZone = $this->layoutService->loadZone(3, 'left');
 
@@ -380,11 +394,12 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "linkedZone" has an invalid state. Zones can only be linked to published zones.
      */
     public function testLinkZoneThrowsBadStateExceptionWithNonPublishedLinkedZone(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "linkedZone" has an invalid state. Zones can only be linked to published zones.');
+
         $zone = $this->layoutService->loadZoneDraft(2, 'left');
         $linkedZone = $this->layoutService->loadZoneDraft(3, 'left');
 
@@ -393,11 +408,12 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "linkedZone" has an invalid state. Linked zone is not in the shared layout.
      */
     public function testLinkZoneThrowsBadStateExceptionWhenLinkedZoneNotInSharedLayout(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "linkedZone" has an invalid state. Linked zone is not in the shared layout.');
+
         $zone = $this->layoutService->loadZoneDraft(2, 'left');
         $linkedZone = $this->layoutService->loadZone(1, 'left');
 
@@ -406,11 +422,12 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "linkedZone" has an invalid state. Linked zone needs to be in a different layout.
      */
     public function testLinkZoneThrowsBadStateExceptionWhenInTheSameLayout(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "linkedZone" has an invalid state. Linked zone needs to be in a different layout.');
+
         $zone = $this->layoutService->loadZoneDraft(2, 'left');
         $linkedZone = $this->layoutService->loadZone(2, 'top');
 
@@ -431,11 +448,12 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::unlinkZone
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "zone" has an invalid state. Only draft zones can be unlinked.
      */
     public function testUnlinkZoneThrowsBadStateExceptionWithNonDraftZone(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "zone" has an invalid state. Only draft zones can be unlinked.');
+
         $zone = $this->layoutService->loadZone(2, 'top');
 
         $this->layoutService->unlinkZone($zone);
@@ -462,11 +480,12 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "name" has an invalid state. Layout with provided name already exists.
      */
     public function testCreateLayoutThrowsBadStateExceptionOnExistingName(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "name" has an invalid state. Layout with provided name already exists.');
+
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
             $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
             'My layout',
@@ -503,11 +522,12 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::addTranslation
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "layout" has an invalid state. You can only add translation to draft layouts.
      */
     public function testAddTranslationThrowsBadStateExceptionWithNonDraftLayout(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "layout" has an invalid state. You can only add translation to draft layouts.');
+
         $layout = $this->layoutService->loadLayout(1);
 
         $this->layoutService->addTranslation($layout, 'de', 'en');
@@ -515,11 +535,12 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::addTranslation
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "locale" has an invalid state. Layout already has the provided locale.
      */
     public function testAddTranslationThrowsBadStateExceptionWithExistingLocale(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "locale" has an invalid state. Layout already has the provided locale.');
+
         $layout = $this->layoutService->loadLayoutDraft(1);
 
         $this->layoutService->addTranslation($layout, 'en', 'hr');
@@ -548,11 +569,12 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::setMainTranslation
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "layout" has an invalid state. You can only set main translation in draft layouts.
      */
     public function testSetMainTranslationThrowsBadStateExceptionWithNonDraftLayout(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "layout" has an invalid state. You can only set main translation in draft layouts.');
+
         $layout = $this->layoutService->loadLayout(1);
 
         $this->layoutService->setMainTranslation($layout, 'hr');
@@ -560,11 +582,12 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::setMainTranslation
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "mainLocale" has an invalid state. Layout does not have the provided locale.
      */
     public function testSetMainTranslationThrowsBadStateExceptionWithNonExistingLocale(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "mainLocale" has an invalid state. Layout does not have the provided locale.');
+
         $layout = $this->layoutService->loadLayoutDraft(1);
 
         $this->layoutService->setMainTranslation($layout, 'de');
@@ -591,11 +614,12 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::removeTranslation
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "layout" has an invalid state. You can only remove translations from draft layouts.
      */
     public function testRemoveTranslationThrowsBadStateExceptionWithNonDraftLayout(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "layout" has an invalid state. You can only remove translations from draft layouts.');
+
         $layout = $this->layoutService->loadLayout(1);
 
         $this->layoutService->removeTranslation($layout, 'hr');
@@ -603,11 +627,12 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::removeTranslation
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "locale" has an invalid state. Layout does not have the provided locale.
      */
     public function testRemoveTranslationThrowsBadStateExceptionWithNonExistingLocale(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "locale" has an invalid state. Layout does not have the provided locale.');
+
         $layout = $this->layoutService->loadLayoutDraft(1);
 
         $this->layoutService->removeTranslation($layout, 'de');
@@ -615,11 +640,12 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::removeTranslation
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "locale" has an invalid state. Main translation cannot be removed from the layout.
      */
     public function testRemoveTranslationThrowsBadStateExceptionWithMainLocale(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "locale" has an invalid state. Main translation cannot be removed from the layout.');
+
         $layout = $this->layoutService->loadLayoutDraft(1);
 
         $this->layoutService->removeTranslation($layout, 'en');
@@ -648,11 +674,12 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::updateLayout
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "layout" has an invalid state. Only draft layouts can be updated.
      */
     public function testUpdateLayoutThrowsBadStateExceptionWithNonDraftLayout(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "layout" has an invalid state. Only draft layouts can be updated.');
+
         $layout = $this->layoutService->loadLayout(1);
 
         $layoutUpdateStruct = $this->layoutService->newLayoutUpdateStruct();
@@ -663,11 +690,12 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::updateLayout
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "name" has an invalid state. Layout with provided name already exists.
      */
     public function testUpdateLayoutThrowsBadStateExceptionWithExistingLayoutName(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "name" has an invalid state. Layout with provided name already exists.');
+
         $layout = $this->layoutService->loadLayoutDraft(2);
 
         $layoutUpdateStruct = $this->layoutService->newLayoutUpdateStruct();
@@ -703,11 +731,12 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::copyLayout
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "layoutCopyStruct" has an invalid state. Layout with provided name already exists.
      */
     public function testCopyLayoutThrowsBadStateExceptionOnExistingLayoutName(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "layoutCopyStruct" has an invalid state. Layout with provided name already exists.');
+
         $copyStruct = new LayoutCopyStruct();
         $copyStruct->name = 'My other layout';
 
@@ -1007,11 +1036,12 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::changeLayoutType
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "layout" has an invalid state. Layout type can only be changed for draft layouts.
      */
     public function testChangeLayoutTypeThrowsBadStateExceptionOnNonDraftLayout(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "layout" has an invalid state. Layout type can only be changed for draft layouts.');
+
         $layout = $this->layoutService->loadLayout(1);
 
         $this->layoutService->changeLayoutType(
@@ -1051,33 +1081,36 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::createDraft
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "layout" has an invalid state. Drafts can only be created from published layouts.
      */
     public function testCreateDraftThrowsBadStateExceptionWithNonPublishedLayout(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "layout" has an invalid state. Drafts can only be created from published layouts.');
+
         $layout = $this->layoutService->loadLayoutDraft(3);
         $this->layoutService->createDraft($layout);
     }
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::createDraft
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "layout" has an invalid state. The provided layout already has a draft.
      */
     public function testCreateDraftThrowsBadStateExceptionIfDraftAlreadyExists(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "layout" has an invalid state. The provided layout already has a draft.');
+
         $layout = $this->layoutService->loadLayout(1);
         $this->layoutService->createDraft($layout);
     }
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::discardDraft
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find layout with identifier "1"
      */
     public function testDiscardDraft(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find layout with identifier "1"');
+
         $layout = $this->layoutService->loadLayoutDraft(1);
         $this->layoutService->discardDraft($layout);
 
@@ -1086,11 +1119,12 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::discardDraft
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "layout" has an invalid state. Only drafts can be discarded.
      */
     public function testDiscardDraftThrowsBadStateExceptionWithNonDraftLayout(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "layout" has an invalid state. Only drafts can be discarded.');
+
         $layout = $this->layoutService->loadLayout(1);
         $this->layoutService->discardDraft($layout);
     }
@@ -1122,11 +1156,12 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::publishLayout
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "layout" has an invalid state. Only drafts can be published.
      */
     public function testPublishLayoutThrowsBadStateExceptionWithNonDraftLayout(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "layout" has an invalid state. Only drafts can be published.');
+
         $layout = $this->layoutService->loadLayout(1);
         $this->layoutService->publishLayout($layout);
     }
@@ -1168,11 +1203,12 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::restoreFromArchive
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Only archived layouts can be restored.
      */
     public function testRestoreFromArchiveThrowsBadStateExceptionOnNonArchivedLayout(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Only archived layouts can be restored.');
+
         $this->layoutService->restoreFromArchive(
             $this->layoutService->loadLayout(2)
         );
@@ -1180,11 +1216,12 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::restoreFromArchive
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find layout with identifier "2"
      */
     public function testRestoreFromArchiveThrowsNotFoundExceptionOnNonExistingPublishedVersion(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find layout with identifier "2"');
+
         $this->persistenceHandler->getLayoutHandler()->deleteLayout(2, Layout::STATUS_PUBLISHED);
         $this->layoutService->restoreFromArchive(
             $this->layoutService->loadLayoutArchive(2)
@@ -1193,11 +1230,12 @@ abstract class LayoutServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::deleteLayout
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find layout with identifier "1"
      */
     public function testDeleteLayout(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find layout with identifier "1"');
+
         $layout = $this->layoutService->loadLayout(1);
         $this->layoutService->deleteLayout($layout);
 

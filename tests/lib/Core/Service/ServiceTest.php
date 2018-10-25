@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Core\Service;
 
+use Exception;
 use Netgen\BlockManager\Core\Service\Service;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Persistence\HandlerInterface;
 use PHPUnit\Framework\TestCase;
-use RuntimeException;
 
 final class ServiceTest extends TestCase
 {
@@ -60,11 +61,12 @@ final class ServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\Service::transaction
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception
      */
     public function testTransactionWithException(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception');
+
         $this->persistenceHandlerMock
             ->expects(self::once())
             ->method('beginTransaction');
@@ -110,11 +112,12 @@ final class ServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\Service::commitTransaction
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Test exception text
      */
     public function testCommitTransactionThrowsRuntimeException(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->persistenceHandlerMock
             ->expects(self::once())
             ->method('commitTransaction')
@@ -137,11 +140,12 @@ final class ServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\Service::rollbackTransaction
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Test exception text
      */
     public function testRollbackTransactionThrowsRuntimeException(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->persistenceHandlerMock
             ->expects(self::once())
             ->method('rollbackTransaction')

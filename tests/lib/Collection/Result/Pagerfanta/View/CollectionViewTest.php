@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\Tests\Collection\Result\Pagerfanta\View;
 
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Collection\Result\Pagerfanta\View\CollectionView;
+use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Pagerfanta\Pagerfanta;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
@@ -109,11 +110,12 @@ final class CollectionViewTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\View\CollectionView::render
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
-     * @expectedExceptionMessage To render the collection view, "block" option must be an instance of Netgen\BlockManager\API\Values\Block\Block
      */
     public function testRenderThrowsInvalidArgumentExceptionWithNoBlock(): void
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('To render the collection view, "block" option must be an instance of Netgen\\BlockManager\\API\\Values\\Block\\Block');
+
         $pagerMock = $this->createMock(Pagerfanta::class);
 
         $this->twigMock->expects(self::never())
@@ -130,11 +132,12 @@ final class CollectionViewTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\View\CollectionView::render
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
-     * @expectedExceptionMessage To render the collection view, "block" option must be an instance of Netgen\BlockManager\API\Values\Block\Block
      */
     public function testRenderThrowsInvalidArgumentExceptionWithInvalidBlock(): void
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('To render the collection view, "block" option must be an instance of Netgen\\BlockManager\\API\\Values\\Block\\Block');
+
         $pagerMock = $this->createMock(Pagerfanta::class);
 
         $this->twigMock->expects(self::never())
@@ -152,11 +155,12 @@ final class CollectionViewTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\View\CollectionView::render
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
-     * @expectedExceptionMessage To render the collection view, "collection_identifier" option must be a string
      */
     public function testRenderThrowsInvalidArgumentExceptionWithNoCollectionIdentifier(): void
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('To render the collection view, "collection_identifier" option must be a string');
+
         $pagerMock = $this->createMock(Pagerfanta::class);
 
         $this->twigMock->expects(self::never())
@@ -173,11 +177,12 @@ final class CollectionViewTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\View\CollectionView::render
-     * @expectedException \Netgen\BlockManager\Exception\InvalidArgumentException
-     * @expectedExceptionMessage To render the collection view, "collection_identifier" option must be a string
      */
     public function testRenderThrowsInvalidArgumentExceptionWithInvalidCollectionIdentifier(): void
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('To render the collection view, "collection_identifier" option must be a string');
+
         $pagerMock = $this->createMock(Pagerfanta::class);
 
         $this->twigMock->expects(self::never())

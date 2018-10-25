@@ -17,6 +17,7 @@ use Netgen\BlockManager\Validator\Structs\BlockUpdateStructValidator;
 use stdClass;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 final class BlockUpdateStructValidatorTest extends ValidatorTestCase
 {
@@ -63,33 +64,36 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
 
     /**
      * @covers \Netgen\BlockManager\Validator\Structs\BlockUpdateStructValidator::validate
-     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct", "Symfony\Component\Validator\Constraints\NotBlank" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
+        $this->expectException(UnexpectedTypeException::class);
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\BlockManager\\Validator\\Constraint\\Structs\\BlockUpdateStruct", "Symfony\\Component\\Validator\\Constraints\\NotBlank" given');
+
         $this->constraint = new NotBlank();
         $this->assertValid(true, new BlockUpdateStruct());
     }
 
     /**
      * @covers \Netgen\BlockManager\Validator\Structs\BlockUpdateStructValidator::validate
-     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\API\Values\Block\Block", "stdClass" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidBlock(): void
     {
+        $this->expectException(UnexpectedTypeException::class);
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\BlockManager\\API\\Values\\Block\\Block", "stdClass" given');
+
         $this->constraint->payload = new stdClass();
         $this->assertValid(true, new BlockUpdateStruct());
     }
 
     /**
      * @covers \Netgen\BlockManager\Validator\Structs\BlockUpdateStructValidator::validate
-     * @expectedException \Symfony\Component\Validator\Exception\UnexpectedTypeException
-     * @expectedExceptionMessage Expected argument of type "Netgen\BlockManager\API\Values\Block\BlockUpdateStruct", "integer" given
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
+        $this->expectException(UnexpectedTypeException::class);
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\BlockManager\\API\\Values\\Block\\BlockUpdateStruct", "integer" given');
+
         $this->constraint->payload = new Block();
         $this->assertValid(true, 42);
     }

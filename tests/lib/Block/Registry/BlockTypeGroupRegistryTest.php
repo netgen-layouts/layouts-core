@@ -7,6 +7,8 @@ namespace Netgen\BlockManager\Tests\Block\Registry;
 use ArrayIterator;
 use Netgen\BlockManager\Block\BlockType\BlockTypeGroup;
 use Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistry;
+use Netgen\BlockManager\Exception\Block\BlockTypeException;
+use Netgen\BlockManager\Exception\RuntimeException;
 use PHPUnit\Framework\TestCase;
 
 final class BlockTypeGroupRegistryTest extends TestCase
@@ -93,11 +95,12 @@ final class BlockTypeGroupRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistry::getBlockTypeGroup
-     * @expectedException \Netgen\BlockManager\Exception\Block\BlockTypeException
-     * @expectedExceptionMessage Block type group with "other_block_type_group" identifier does not exist.
      */
     public function testGetBlockTypeGroupThrowsBlockTypeException(): void
     {
+        $this->expectException(BlockTypeException::class);
+        $this->expectExceptionMessage('Block type group with "other_block_type_group" identifier does not exist.');
+
         $this->registry->getBlockTypeGroup('other_block_type_group');
     }
 
@@ -143,21 +146,23 @@ final class BlockTypeGroupRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistry::offsetSet
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Method call not supported.
      */
     public function testOffsetSet(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
+
         $this->registry['block_type_group'] = $this->blockTypeGroup;
     }
 
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistry::offsetUnset
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Method call not supported.
      */
     public function testOffsetUnset(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
+
         unset($this->registry['block_type_group']);
     }
 }

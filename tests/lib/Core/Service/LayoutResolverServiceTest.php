@@ -7,6 +7,7 @@ namespace Netgen\BlockManager\Tests\Core\Service;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
 use Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct;
+use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Tests\Core\CoreTestCase;
 use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
@@ -37,11 +38,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadRule
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find rule with identifier "999999"
      */
     public function testLoadRuleThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find rule with identifier "999999"');
+
         $this->layoutResolverService->loadRule(999999);
     }
 
@@ -58,11 +60,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadRuleDraft
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find rule with identifier "999999"
      */
     public function testLoadRuleDraftThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find rule with identifier "999999"');
+
         $this->layoutResolverService->loadRuleDraft(999999);
     }
 
@@ -81,11 +84,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadRuleArchive
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find rule with identifier "999999"
      */
     public function testLoadRuleArchiveThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find rule with identifier "999999"');
+
         $this->layoutResolverService->loadRuleArchive(999999);
     }
 
@@ -121,11 +125,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadRules
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "layout" has an invalid state. Only published layouts can be used in rules.
      */
     public function testLoadRulesWithDraftLayoutThrowsBadStateException(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "layout" has an invalid state. Only published layouts can be used in rules.');
+
         $this->layoutResolverService->loadRules(
             $this->layoutService->loadLayoutDraft(1)
         );
@@ -155,11 +160,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::getRuleCount
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "layout" has an invalid state. Only published layouts can be used in rules.
      */
     public function testGetRuleCountThrowsBadStateExceptionWithNonPublishedLayout(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "layout" has an invalid state. Only published layouts can be used in rules.');
+
         $this->layoutResolverService->getRuleCount(
             $this->layoutService->loadLayoutDraft(1)
         );
@@ -191,11 +197,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadTarget
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find target with identifier "999999"
      */
     public function testLoadTargetThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find target with identifier "999999"');
+
         $this->layoutResolverService->loadTarget(999999);
     }
 
@@ -211,11 +218,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadTargetDraft
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find target with identifier "999999"
      */
     public function testLoadTargetDraftThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find target with identifier "999999"');
+
         $this->layoutResolverService->loadTargetDraft(999999);
     }
 
@@ -231,11 +239,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadCondition
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find condition with identifier "999999"
      */
     public function testLoadConditionThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find condition with identifier "999999"');
+
         $this->layoutResolverService->loadCondition(999999);
     }
 
@@ -251,11 +260,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadConditionDraft
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find condition with identifier "999999"
      */
     public function testLoadConditionDraftThrowsNotFoundException(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find condition with identifier "999999"');
+
         $this->layoutResolverService->loadConditionDraft(999999);
     }
 
@@ -368,11 +378,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateRule
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "rule" has an invalid state. Only draft rules can be updated.
      */
     public function testUpdateRuleThrowsBadStateExceptionWithNonDraftRule(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "rule" has an invalid state. Only draft rules can be updated.');
+
         $rule = $this->layoutResolverService->loadRule(5);
 
         $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
@@ -403,11 +414,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateRuleMetadata
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "rule" has an invalid state. Metadata can be updated only for published rules.
      */
     public function testUpdateRuleMetadataThrowsBadStateExceptionWithNonPublishedRule(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "rule" has an invalid state. Metadata can be updated only for published rules.');
+
         $rule = $this->layoutResolverService->loadRuleDraft(7);
 
         $struct = new RuleMetadataUpdateStruct();
@@ -455,11 +467,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::createDraft
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "rule" has an invalid state. Drafts can only be created from published rules.
      */
     public function testCreateDraftThrowsBadStateExceptionWithNonPublishedRule(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "rule" has an invalid state. Drafts can only be created from published rules.');
+
         $rule = $this->layoutResolverService->loadRuleDraft(7);
 
         $this->layoutResolverService->createDraft($rule);
@@ -467,11 +480,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::createDraft
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "rule" has an invalid state. The provided rule already has a draft.
      */
     public function testCreateDraftThrowsBadStateExceptionIfDraftAlreadyExists(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "rule" has an invalid state. The provided rule already has a draft.');
+
         $rule = $this->layoutResolverService->loadRule(3);
         $this->layoutResolverService->createDraft($rule);
 
@@ -480,11 +494,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::discardDraft
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find rule with identifier "5"
      */
     public function testDiscardDraft(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find rule with identifier "5"');
+
         $rule = $this->layoutResolverService->loadRuleDraft(5);
         $this->layoutResolverService->discardDraft($rule);
 
@@ -493,11 +508,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::discardDraft
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "rule" has an invalid state. Only draft rules can be discarded.
      */
     public function testDiscardDraftThrowsBadStateExceptionWithNonDraftRule(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "rule" has an invalid state. Only draft rules can be discarded.');
+
         $rule = $this->layoutResolverService->loadRule(5);
         $this->layoutResolverService->discardDraft($rule);
     }
@@ -575,11 +591,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::publishRule
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "rule" has an invalid state. Only draft rules can be published.
      */
     public function testPublishRuleThrowsBadStateExceptionWithNonDraftRule(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "rule" has an invalid state. Only draft rules can be published.');
+
         $rule = $this->layoutResolverService->loadRule(5);
         $this->layoutResolverService->publishRule($rule);
     }
@@ -598,11 +615,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::restoreFromArchive
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Only archived rules can be restored.
      */
     public function testRestoreFromArchiveThrowsBadStateExceptionOnNonArchivedLayout(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Only archived rules can be restored.');
+
         $this->layoutResolverService->restoreFromArchive(
             $this->layoutResolverService->loadRule(2)
         );
@@ -610,11 +628,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteRule
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find rule with identifier "5"
      */
     public function testDeleteRule(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find rule with identifier "5"');
+
         $rule = $this->layoutResolverService->loadRule(5);
 
         $this->layoutResolverService->deleteRule($rule);
@@ -637,11 +656,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::enableRule
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "rule" has an invalid state. Only published rules can be enabled.
      */
     public function testEnableRuleThrowsBadStateExceptionWithNonPublishedRule(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "rule" has an invalid state. Only published rules can be enabled.');
+
         $rule = $this->layoutResolverService->loadRuleDraft(7);
 
         $this->layoutResolverService->enableRule($rule);
@@ -649,11 +669,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::enableRule
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "rule" has an invalid state. Rule is already enabled.
      */
     public function testEnableRuleThrowsBadStateExceptionIfRuleIsAlreadyEnabled(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "rule" has an invalid state. Rule is already enabled.');
+
         $rule = $this->layoutResolverService->loadRule(1);
 
         $this->layoutResolverService->enableRule($rule);
@@ -661,11 +682,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::enableRule
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "rule" has an invalid state. Rule is missing a layout and cannot be enabled.
      */
     public function testEnableRuleThrowsBadStateExceptionIfRuleHasNoLayout(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "rule" has an invalid state. Rule is missing a layout and cannot be enabled.');
+
         $rule = $this->layoutResolverService->loadRule(11);
 
         $this->layoutResolverService->enableRule($rule);
@@ -673,11 +695,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::enableRule
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "rule" has an invalid state. Rule is missing targets and cannot be enabled.
      */
     public function testEnableRuleThrowsBadStateExceptionIfRuleHasNoTargets(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "rule" has an invalid state. Rule is missing targets and cannot be enabled.');
+
         $rule = $this->layoutResolverService->loadRule(12);
 
         $this->layoutResolverService->enableRule($rule);
@@ -698,11 +721,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::disableRule
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "rule" has an invalid state. Only published rules can be disabled.
      */
     public function testDisableRuleThrowsBadStateExceptionWithNonPublishedRule(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "rule" has an invalid state. Only published rules can be disabled.');
+
         $rule = $this->layoutResolverService->loadRuleDraft(7);
 
         $this->layoutResolverService->disableRule($rule);
@@ -710,11 +734,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::disableRule
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "rule" has an invalid state. Rule is already disabled.
      */
     public function testDisableRuleThrowsBadStateExceptionIfRuleIsAlreadyDisabled(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "rule" has an invalid state. Rule is already disabled.');
+
         $rule = $this->layoutResolverService->loadRule(4);
 
         $this->layoutResolverService->disableRule($rule);
@@ -743,11 +768,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::addTarget
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "rule" has an invalid state. Targets can be added only to draft rules.
      */
     public function testAddTargetThrowsBadStateExceptionOnNonDraftRule(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "rule" has an invalid state. Targets can be added only to draft rules.');
+
         $targetCreateStruct = $this->layoutResolverService->newTargetCreateStruct(
             'route_prefix'
         );
@@ -764,11 +790,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::addTarget
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "rule" has an invalid state. Rule with ID "5" only accepts targets with "route_prefix" target type.
      */
     public function testAddTargetOfDifferentKindThrowsBadStateException(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "rule" has an invalid state. Rule with ID "5" only accepts targets with "route_prefix" target type.');
+
         $targetCreateStruct = $this->layoutResolverService->newTargetCreateStruct(
             'route'
         );
@@ -801,11 +828,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateTarget
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "target" has an invalid state. Only draft targets can be updated.
      */
     public function testUpdateTargetThrowsBadStateExceptionOnNonDraftTarget(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "target" has an invalid state. Only draft targets can be updated.');
+
         $target = $this->layoutResolverService->loadTarget(9);
 
         $targetUpdateStruct = $this->layoutResolverService->newTargetUpdateStruct();
@@ -816,11 +844,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteTarget
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find target with identifier "9"
      */
     public function testDeleteTarget(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find target with identifier "9"');
+
         $target = $this->layoutResolverService->loadTargetDraft(9);
 
         $this->layoutResolverService->deleteTarget($target);
@@ -830,11 +859,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteTarget
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "target" has an invalid state. Only draft targets can be deleted.
      */
     public function testDeleteTargetThrowsBadStateExceptionOnNonDraftTarget(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "target" has an invalid state. Only draft targets can be deleted.');
+
         $target = $this->layoutResolverService->loadTarget(9);
 
         $this->layoutResolverService->deleteTarget($target);
@@ -863,11 +893,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::addCondition
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "rule" has an invalid state. Conditions can be added only to draft rules.
      */
     public function testAddConditionThrowsBadStateExceptionOnNonDraftRule(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "rule" has an invalid state. Conditions can be added only to draft rules.');
+
         $conditionCreateStruct = $this->layoutResolverService->newConditionCreateStruct(
             'condition1'
         );
@@ -900,11 +931,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateCondition
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "condition" has an invalid state. Only draft conditions can be updated.
      */
     public function testUpdateConditionThrowsBadStateExceptionOnNonDraftCondition(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "condition" has an invalid state. Only draft conditions can be updated.');
+
         $condition = $this->layoutResolverService->loadCondition(4);
 
         $conditionUpdateStruct = $this->layoutResolverService->newConditionUpdateStruct();
@@ -915,11 +947,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteCondition
-     * @expectedException \Netgen\BlockManager\Exception\NotFoundException
-     * @expectedExceptionMessage Could not find condition with identifier "4"
      */
     public function testDeleteCondition(): void
     {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find condition with identifier "4"');
+
         $condition = $this->layoutResolverService->loadConditionDraft(4);
         $this->layoutResolverService->deleteCondition($condition);
 
@@ -928,11 +961,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteCondition
-     * @expectedException \Netgen\BlockManager\Exception\BadStateException
-     * @expectedExceptionMessage Argument "condition" has an invalid state. Only draft conditions can be deleted.
      */
     public function testDeleteConditionThrowsBadStateExceptionOnNonDraftCondition(): void
     {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "condition" has an invalid state. Only draft conditions can be deleted.');
+
         $condition = $this->layoutResolverService->loadCondition(4);
         $this->layoutResolverService->deleteCondition($condition);
     }

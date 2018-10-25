@@ -6,6 +6,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\CompilerPas
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Netgen\BlockManager\Collection\Item\ItemDefinition;
+use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\ItemDefinitionPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -63,11 +64,12 @@ final class ItemDefinitionPassTest extends AbstractCompilerPassTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\ItemDefinitionPass::getConfigHandlers
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Collection\ItemDefinitionPass::process
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Collection item config handler definition must have an 'config_key' attribute in its' tag.
      */
     public function testProcessThrowsExceptionWithNoConfigKeyInTag(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Collection item config handler definition must have an \'config_key\' attribute in its\' tag.');
+
         $this->setParameter(
             'netgen_block_manager.value_types',
             [

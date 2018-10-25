@@ -8,6 +8,7 @@ use Netgen\BlockManager\Parameters\ParameterType;
 use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 
 final class TranslatableParameterBuilderTest extends TestCase
 {
@@ -152,11 +153,12 @@ final class TranslatableParameterBuilderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilder::add
      * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilder::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage Parameter "test2" cannot be translatable, since its parent parameter "test" is not translatable
      */
     public function testAddThrowsInvalidOptionsExceptionOnAddingTranslatableParameterToNonTranslatableCompoundParameter(): void
     {
+        $this->expectException(InvalidOptionsException::class);
+        $this->expectExceptionMessage('Parameter "test2" cannot be translatable, since its parent parameter "test" is not translatable');
+
         $this->builder->add(
             'test',
             ParameterType\Compound\BooleanType::class,
@@ -174,11 +176,12 @@ final class TranslatableParameterBuilderTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilder::add
      * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilder::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage Parameter "test2" needs to be translatable, since its parent parameter "test" is translatable
      */
     public function testAddThrowsInvalidOptionsExceptionOnAddingNonTranslatableParameterToTranslatableCompoundParameter(): void
     {
+        $this->expectException(InvalidOptionsException::class);
+        $this->expectExceptionMessage('Parameter "test2" needs to be translatable, since its parent parameter "test" is translatable');
+
         $this->builder->add(
             'test',
             ParameterType\Compound\BooleanType::class

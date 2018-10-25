@@ -10,6 +10,7 @@ use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
+use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class CreateTypeTest extends FormTestCase
@@ -115,11 +116,12 @@ final class CreateTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\BlockManager\Layout\Form\CreateType::configureOptions
-     * @expectedException \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
-     * @expectedExceptionMessage The option "data" with value "" is expected to be of type "Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct", but is of type "string".
      */
     public function testConfigureOptionsWithInvalidData(): void
     {
+        $this->expectException(InvalidOptionsException::class);
+        $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\\BlockManager\\API\\Values\\Layout\\LayoutCreateStruct", but is of type "string".');
+
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
 

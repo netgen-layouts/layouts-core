@@ -7,6 +7,8 @@ namespace Netgen\BlockManager\Tests\Block\Registry;
 use ArrayIterator;
 use Netgen\BlockManager\Block\BlockDefinition;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
+use Netgen\BlockManager\Exception\Block\BlockDefinitionException;
+use Netgen\BlockManager\Exception\RuntimeException;
 use PHPUnit\Framework\TestCase;
 
 final class BlockDefinitionRegistryTest extends TestCase
@@ -47,11 +49,12 @@ final class BlockDefinitionRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::getBlockDefinition
-     * @expectedException \Netgen\BlockManager\Exception\Block\BlockDefinitionException
-     * @expectedExceptionMessage Block definition with "title" identifier does not exist.
      */
     public function testGetBlockDefinitionThrowsBlockDefinitionException(): void
     {
+        $this->expectException(BlockDefinitionException::class);
+        $this->expectExceptionMessage('Block definition with "title" identifier does not exist.');
+
         $this->registry->getBlockDefinition('title');
     }
 
@@ -113,21 +116,23 @@ final class BlockDefinitionRegistryTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::offsetSet
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Method call not supported.
      */
     public function testOffsetSet(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
+
         $this->registry['block_definition'] = $this->blockDefinition;
     }
 
     /**
      * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::offsetUnset
-     * @expectedException \Netgen\BlockManager\Exception\RuntimeException
-     * @expectedExceptionMessage Method call not supported.
      */
     public function testOffsetUnset(): void
     {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
+
         unset($this->registry['block_definition']);
     }
 }

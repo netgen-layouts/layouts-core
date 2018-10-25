@@ -26,11 +26,12 @@ final class LayoutServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testLinkZone(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutHandlerMock
             ->expects(self::at(0))
             ->method('loadLayout')
@@ -68,11 +69,12 @@ final class LayoutServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::unlinkZone
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testUnlinkZone(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutHandlerMock
             ->expects(self::at(0))
             ->method('loadZone')
@@ -92,11 +94,12 @@ final class LayoutServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testCreateLayout(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutHandlerMock
             ->expects(self::at(0))
             ->method('layoutNameExists')
@@ -121,11 +124,12 @@ final class LayoutServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::addTranslation
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testAddTranslation(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutHandlerMock
             ->expects(self::at(0))
             ->method('loadLayout')
@@ -154,11 +158,12 @@ final class LayoutServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::removeTranslation
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testRemoveTranslation(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutHandlerMock
             ->expects(self::at(0))
             ->method('loadLayout')
@@ -187,11 +192,12 @@ final class LayoutServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::updateLayout
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testUpdateLayout(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutHandlerMock
             ->expects(self::at(0))
             ->method('loadLayout')
@@ -222,11 +228,12 @@ final class LayoutServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::copyLayout
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testCopyLayout(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutHandlerMock
             ->expects(self::at(0))
             ->method('layoutNameExists')
@@ -257,11 +264,12 @@ final class LayoutServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::copyLayout
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testChangeLayoutType(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutHandlerMock
             ->expects(self::at(0))
             ->method('loadLayout')
@@ -290,11 +298,12 @@ final class LayoutServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::createDraft
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testCreateDraft(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutHandlerMock
             ->expects(self::at(0))
             ->method('loadLayout')
@@ -319,11 +328,12 @@ final class LayoutServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::discardDraft
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testDiscardDraft(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutHandlerMock
             ->expects(self::at(0))
             ->method('loadLayout')
@@ -343,11 +353,12 @@ final class LayoutServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::publishLayout
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testPublishLayout(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutHandlerMock
             ->expects(self::at(0))
             ->method('loadLayout')
@@ -367,11 +378,12 @@ final class LayoutServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::restoreFromArchive
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testRestoreFromArchive(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutHandlerMock
             ->expects(self::at(0))
             ->method('loadLayout')
@@ -401,11 +413,12 @@ final class LayoutServiceTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::deleteLayout
-     * @expectedException \Exception
-     * @expectedExceptionMessage Test exception text
      */
     public function testDeleteLayout(): void
     {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
         $this->layoutHandlerMock
             ->expects(self::at(0))
             ->method('loadLayout')
