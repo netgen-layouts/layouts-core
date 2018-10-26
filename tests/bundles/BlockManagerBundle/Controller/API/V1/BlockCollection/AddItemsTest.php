@@ -7,6 +7,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1\BlockCollecti
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Kernel;
 
 final class AddItemsTest extends JsonApiTestCase
 {
@@ -173,7 +174,9 @@ final class AddItemsTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "items": Expected argument of type "array or Traversable", "integer" given'
+            Kernel::VERSION_ID >= 40200 ?
+                'There was an error validating "items": This value should be of type array.' :
+                'There was an error validating "items": Expected argument of type "array or Traversable", "integer" given'
         );
     }
 
