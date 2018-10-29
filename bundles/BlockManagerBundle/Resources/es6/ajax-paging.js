@@ -21,8 +21,8 @@ const templateEngine = (html, options) => {
 class AjaxPaging {
     constructor(el) {
         this.el = el;
-        this.container = el.querySelector('.ajax-container');
-        this.nav = el.querySelector('.ajax-navigation');
+        this.container = el.getElementsByClassName('ajax-container')[0];
+        this.nav = [...el.getElementsByClassName('ajax-navigation')];
         this.loadInitial = this.el.hasAttribute('data-load-initial');
         this.baseUrl = this.el.dataset.baseUrl;
 
@@ -31,24 +31,30 @@ class AjaxPaging {
 
     init() {
         this.loadInitial && this.getPage(this.baseUrl);
-        this.nav && this.initPaging();
+        this.nav.length && this.initPaging();
     }
 
     initPaging() {
-        this.pagerData = { ...this.nav.dataset };
+        this.pagerData = { ...this.nav[0].dataset };
         this.page = parseInt(this.pagerData.page, 10);
         this.totalPages = parseInt(this.pagerData.totalPages, 10);
-        this.nav.removeAttribute('data-template');
 
         if (this.totalPages > 1) {
             this.renderNavigation();
+        } else {
+            this.nav.forEach((pager) => {
+                pager.removeAttribute('data-template');
+            });
         }
 
         this.setupEvents();
     }
 
     renderNavigation() {
-        this.nav.innerHTML = templateEngine(this.pagerData.template, { pages: this.totalPages, page: this.page, url: this.generateUrl.bind(this) });
+        this.nav.forEach((pager) => {
+            pager.removeAttribute('data-template');
+            pager.innerHTML = templateEngine(this.pagerData.template, { pages: this.totalPages, page: this.page, url: this.generateUrl.bind(this) });
+        });
     }
 
     generateUrl(page) {
@@ -56,11 +62,13 @@ class AjaxPaging {
     }
 
     setupEvents() {
-        this.nav.addEventListener('click', (e) => {
-            if (e.target.tagName === 'A') {
-                e.preventDefault();
-                this.getPage(e.target.href);
-            }
+        this.nav.forEach((pager) => {
+            pager.addEventListener('click', (e) => {
+                if (e.target.tagName === 'A') {
+                    e.preventDefault();
+                    this.getPage(e.target.href);
+                }
+            });
         });
     }
 
@@ -100,7 +108,7 @@ class AjaxPaging {
             default:
                 this.container.innerHTML = html;
         }
-        this.el.dispatchEvent(new CustomEvent('ajax-paging-added', { bubbles: true, cancelable: true }));
+        this.el.dispatchEvent(new CustomEvent('ajax-paging-added', { bubbles: true, cancelable: true, detail: { instance: this } }));
     }
 
     loadingStart() {
