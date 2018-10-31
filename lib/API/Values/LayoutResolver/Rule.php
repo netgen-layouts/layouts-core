@@ -102,8 +102,6 @@ final class Rule implements Value
 
     /**
      * Returns all the targets in the rule.
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\TargetList
      */
     public function getTargets(): TargetList
     {
@@ -112,8 +110,6 @@ final class Rule implements Value
 
     /**
      * Returns all conditions in the rule.
-     *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\ConditionList
      */
     public function getConditions(): ConditionList
     {

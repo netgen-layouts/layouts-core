@@ -163,8 +163,6 @@ final class Layout implements Value, ArrayAccess, IteratorAggregate, Countable
 
     /**
      * Returns all zones from the layout.
-     *
-     * @return \Netgen\BlockManager\API\Values\Layout\ZoneList
      */
     public function getZones(): ZoneList
     {

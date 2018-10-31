@@ -46,8 +46,6 @@ final class Placeholder implements ArrayAccess, IteratorAggregate, Countable
 
     /**
      * Returns all blocks in this placeholder.
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\BlockList
      */
     public function getBlocks(): BlockList
     {

@@ -142,8 +142,6 @@ final class Collection implements Value
 
     /**
      * Returns all collection items.
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\ItemList
      */
     public function getItems(): ItemList
     {

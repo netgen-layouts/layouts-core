@@ -16,8 +16,6 @@ trait ConfigAwareValueTrait
 
     /**
      * Returns all available configs.
-     *
-     * @return \Netgen\BlockManager\API\Values\Config\ConfigList
      */
     public function getConfigs(): ConfigList
     {

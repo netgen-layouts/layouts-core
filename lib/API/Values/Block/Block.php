@@ -167,8 +167,6 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
 
     /**
      * Returns all placeholders from this block.
-     *
-     * @return \Netgen\BlockManager\API\Values\Block\PlaceholderList
      */
     public function getPlaceholders(): PlaceholderList
     {
@@ -199,8 +197,6 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
 
     /**
      * Returns all collections from this block.
-     *
-     * @return \Netgen\BlockManager\API\Values\Collection\CollectionList
      */
     public function getCollections(): CollectionList
     {
