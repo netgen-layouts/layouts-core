@@ -22,8 +22,6 @@ abstract class ItemVisitorTest extends VisitorTest
             ->expects(self::any())
             ->method('load')
             ->will(self::returnValue(CmsItem::fromArray(['remoteId' => 'abc'])));
-
-        $this->collectionService = $this->createCollectionService();
     }
 
     public function testVisitThrowsRuntimeExceptionWithoutSubVisitor(): void

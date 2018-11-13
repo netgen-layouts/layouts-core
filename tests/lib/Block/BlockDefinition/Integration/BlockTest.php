@@ -11,9 +11,6 @@ use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
-use Netgen\BlockManager\Core\Validator\BlockValidator;
-use Netgen\BlockManager\Core\Validator\CollectionValidator;
-use Netgen\BlockManager\Core\Validator\LayoutValidator;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory;
 use Netgen\BlockManager\Tests\Core\CoreTestCase;
@@ -24,44 +21,20 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 abstract class BlockTest extends CoreTestCase
 {
     /**
-     * @var \Netgen\BlockManager\Core\Validator\BlockValidator
-     */
-    private $blockValidator;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $validator = $this->getValidator();
-
-        $collectionValidator = new CollectionValidator();
-        $collectionValidator->setValidator($validator);
-
-        $layoutValidator = new LayoutValidator();
-        $layoutValidator->setValidator($validator);
-
-        $this->layoutService = $this->createLayoutService($layoutValidator);
-
-        $this->blockValidator = new BlockValidator($collectionValidator);
-        $this->blockValidator->setValidator($validator);
-
-        $this->blockService = $this->createBlockService($this->blockValidator);
-    }
-
-    /**
      * @dataProvider parametersDataProvider
      */
     public function testCreateBlock(array $parameters, array $expectedParameters): void
     {
         $blockDefinition = $this->createBlockDefinition(array_keys($expectedParameters));
+
+        // We need to recreate the service due to recreating the block definition
+        // registry in $this->createBlockDefinition() call
+        $this->blockService = $this->createBlockService();
+
         $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
         $blockCreateStruct->viewType = 'default';
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->fillParametersFromHash($parameters);
-
-        // We need to recreate the service due to recreating the block definition
-        // registry in $this->createBlockDefinition() call
-        $this->blockService = $this->createBlockService($this->blockValidator);
 
         $zone = $this->layoutService->loadZoneDraft(1, 'left');
         $createdBlock = $this->blockService->createBlockInZone($blockCreateStruct, $zone);
@@ -91,7 +64,7 @@ abstract class BlockTest extends CoreTestCase
 
         // We need to recreate the service due to recreating the block definition
         // registry in $this->createBlockDefinition() call
-        $this->blockService = $this->createBlockService($this->blockValidator);
+        $this->blockService = $this->createBlockService();
 
         $blockCreateStruct = $this->blockService->newBlockCreateStruct($blockDefinition);
         $blockCreateStruct->viewType = 'default';
@@ -113,7 +86,7 @@ abstract class BlockTest extends CoreTestCase
 
     abstract protected function createBlockDefinitionHandler(): BlockDefinitionHandlerInterface;
 
-    protected function getValidator(): ValidatorInterface
+    protected function createValidator(): ValidatorInterface
     {
         return Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(new ValidatorFactory($this))

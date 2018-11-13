@@ -6,19 +6,19 @@ namespace Netgen\BlockManager\Core\Service;
 
 use Netgen\BlockManager\API\Service\Service as APIService;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Persistence\HandlerInterface;
+use Netgen\BlockManager\Persistence\TransactionHandlerInterface;
 use Throwable;
 
 abstract class Service implements APIService
 {
     /**
-     * @var \Netgen\BlockManager\Persistence\HandlerInterface
+     * @var \Netgen\BlockManager\Persistence\TransactionHandlerInterface
      */
-    private $persistenceHandler;
+    private $transactionHandler;
 
-    public function __construct(HandlerInterface $persistenceHandler)
+    public function __construct(TransactionHandlerInterface $transactionHandler)
     {
-        $this->persistenceHandler = $persistenceHandler;
+        $this->transactionHandler = $transactionHandler;
     }
 
     public function transaction(callable $callable)
@@ -39,13 +39,13 @@ abstract class Service implements APIService
 
     public function beginTransaction(): void
     {
-        $this->persistenceHandler->beginTransaction();
+        $this->transactionHandler->beginTransaction();
     }
 
     public function commitTransaction(): void
     {
         try {
-            $this->persistenceHandler->commitTransaction();
+            $this->transactionHandler->commitTransaction();
         } catch (Throwable $t) {
             throw new RuntimeException($t->getMessage(), 0, $t);
         }
@@ -54,7 +54,7 @@ abstract class Service implements APIService
     public function rollbackTransaction(): void
     {
         try {
-            $this->persistenceHandler->rollbackTransaction();
+            $this->transactionHandler->rollbackTransaction();
         } catch (Throwable $t) {
             throw new RuntimeException($t->getMessage(), 0, $t);
         }

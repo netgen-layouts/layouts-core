@@ -17,13 +17,6 @@ use Netgen\BlockManager\Persistence\Values\Layout\Zone as PersistenceZone;
 
 final class LayoutServiceTest extends TestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->layoutService = $this->createLayoutService();
-    }
-
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
      */
@@ -32,32 +25,32 @@ final class LayoutServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(0))
             ->method('loadLayout')
             ->will(self::returnValue(PersistenceLayout::fromArray(['shared' => false])));
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(1))
             ->method('loadZone')
             ->will(self::returnValue(PersistenceZone::fromArray(['layoutId' => 1])));
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(2))
             ->method('loadLayout')
             ->will(self::returnValue(PersistenceLayout::fromArray(['shared' => true])));
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(3))
             ->method('loadZone')
             ->will(self::returnValue(PersistenceZone::fromArray(['layoutId' => 2])));
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(4))
             ->method('updateZone')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -75,17 +68,17 @@ final class LayoutServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(0))
             ->method('loadZone')
             ->will(self::returnValue(new PersistenceZone()));
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(1))
             ->method('updateZone')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -100,17 +93,17 @@ final class LayoutServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(0))
             ->method('layoutNameExists')
             ->will(self::returnValue(false));
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(1))
             ->method('createLayout')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -130,7 +123,7 @@ final class LayoutServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(0))
             ->method('loadLayout')
             ->will(
@@ -144,12 +137,12 @@ final class LayoutServiceTest extends TestCase
                 )
             );
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(1))
             ->method('createLayoutTranslation')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -164,7 +157,7 @@ final class LayoutServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(0))
             ->method('loadLayout')
             ->will(
@@ -178,12 +171,12 @@ final class LayoutServiceTest extends TestCase
                 )
             );
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(1))
             ->method('deleteLayoutTranslation')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -198,22 +191,22 @@ final class LayoutServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(0))
             ->method('loadLayout')
             ->will(self::returnValue(new PersistenceLayout()));
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(1))
             ->method('layoutNameExists')
             ->will(self::returnValue(false));
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(2))
             ->method('updateLayout')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -234,22 +227,22 @@ final class LayoutServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(0))
             ->method('layoutNameExists')
             ->will(self::returnValue(false));
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(1))
             ->method('loadLayout')
             ->will(self::returnValue(new PersistenceLayout()));
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(2))
             ->method('copyLayout')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -270,22 +263,22 @@ final class LayoutServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(0))
             ->method('loadLayout')
             ->will(self::returnValue(new PersistenceLayout()));
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(1))
             ->method('loadLayoutZones')
             ->will(self::returnValue([]));
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(2))
             ->method('changeLayoutType')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -304,22 +297,22 @@ final class LayoutServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(0))
             ->method('loadLayout')
             ->will(self::returnValue(new PersistenceLayout()));
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(1))
             ->method('layoutExists')
             ->will(self::returnValue(false));
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(2))
             ->method('deleteLayout')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -334,17 +327,17 @@ final class LayoutServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(0))
             ->method('loadLayout')
             ->will(self::returnValue(new PersistenceLayout()));
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(1))
             ->method('deleteLayout')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -359,17 +352,17 @@ final class LayoutServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(0))
             ->method('loadLayout')
             ->will(self::returnValue(new PersistenceLayout()));
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(1))
             ->method('deleteLayout')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -384,27 +377,27 @@ final class LayoutServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(0))
             ->method('loadLayout')
             ->will(self::returnValue(new PersistenceLayout()));
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(1))
             ->method('loadLayout')
             ->will(self::returnValue(new PersistenceLayout()));
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(2))
             ->method('loadLayout')
             ->will(self::returnValue(new PersistenceLayout()));
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(3))
             ->method('deleteLayout')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -419,17 +412,17 @@ final class LayoutServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(0))
             ->method('loadLayout')
             ->will(self::returnValue(new PersistenceLayout()));
 
-        $this->layoutHandlerMock
+        $this->layoutHandler
             ->expects(self::at(1))
             ->method('deleteLayout')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 

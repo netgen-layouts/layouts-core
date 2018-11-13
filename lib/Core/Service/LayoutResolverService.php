@@ -23,7 +23,9 @@ use Netgen\BlockManager\Core\StructBuilder\LayoutResolverStructBuilder;
 use Netgen\BlockManager\Core\Validator\LayoutResolverValidator;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\HandlerInterface;
+use Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface;
+use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandlerInterface;
+use Netgen\BlockManager\Persistence\TransactionHandlerInterface;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition as PersistenceCondition;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
@@ -55,7 +57,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandlerInterface
      */
-    private $handler;
+    private $layoutResolverHandler;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface
@@ -63,19 +65,20 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
     private $layoutHandler;
 
     public function __construct(
-        HandlerInterface $persistenceHandler,
+        TransactionHandlerInterface $transactionHandler,
         LayoutResolverValidator $validator,
         LayoutResolverMapper $mapper,
-        LayoutResolverStructBuilder $structBuilder
+        LayoutResolverStructBuilder $structBuilder,
+        LayoutResolverHandlerInterface $layoutResolverHandler,
+        LayoutHandlerInterface $layoutHandler
     ) {
-        parent::__construct($persistenceHandler);
+        parent::__construct($transactionHandler);
 
         $this->validator = $validator;
         $this->mapper = $mapper;
         $this->structBuilder = $structBuilder;
-
-        $this->handler = $persistenceHandler->getLayoutResolverHandler();
-        $this->layoutHandler = $persistenceHandler->getLayoutHandler();
+        $this->layoutResolverHandler = $layoutResolverHandler;
+        $this->layoutHandler = $layoutHandler;
     }
 
     public function loadRule($ruleId): Rule
@@ -83,7 +86,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         $this->validator->validateId($ruleId, 'ruleId');
 
         return $this->mapper->mapRule(
-            $this->handler->loadRule(
+            $this->layoutResolverHandler->loadRule(
                 $ruleId,
                 Value::STATUS_PUBLISHED
             )
@@ -95,7 +98,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         $this->validator->validateId($ruleId, 'ruleId');
 
         return $this->mapper->mapRule(
-            $this->handler->loadRule(
+            $this->layoutResolverHandler->loadRule(
                 $ruleId,
                 Value::STATUS_DRAFT
             )
@@ -107,7 +110,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         $this->validator->validateId($ruleId, 'ruleId');
 
         return $this->mapper->mapRule(
-            $this->handler->loadRule(
+            $this->layoutResolverHandler->loadRule(
                 $ruleId,
                 Value::STATUS_ARCHIVED
             )
@@ -130,7 +133,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
             );
         }
 
-        $persistenceRules = $this->handler->loadRules(
+        $persistenceRules = $this->layoutResolverHandler->loadRules(
             Value::STATUS_PUBLISHED,
             $persistenceLayout,
             $offset,
@@ -161,7 +164,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
             );
         }
 
-        return $this->handler->getRuleCount($persistenceLayout);
+        return $this->layoutResolverHandler->getRuleCount($persistenceLayout);
     }
 
     public function matchRules(string $targetType, $targetValue): RuleList
@@ -171,7 +174,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
                 function (PersistenceRule $rule): Rule {
                     return $this->mapper->mapRule($rule);
                 },
-                $this->handler->matchRules($targetType, $targetValue)
+                $this->layoutResolverHandler->matchRules($targetType, $targetValue)
             )
         );
     }
@@ -181,7 +184,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         $this->validator->validateId($targetId, 'targetId');
 
         return $this->mapper->mapTarget(
-            $this->handler->loadTarget(
+            $this->layoutResolverHandler->loadTarget(
                 $targetId,
                 Value::STATUS_PUBLISHED
             )
@@ -193,7 +196,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         $this->validator->validateId($targetId, 'targetId');
 
         return $this->mapper->mapTarget(
-            $this->handler->loadTarget(
+            $this->layoutResolverHandler->loadTarget(
                 $targetId,
                 Value::STATUS_DRAFT
             )
@@ -205,7 +208,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         $this->validator->validateId($conditionId, 'conditionId');
 
         return $this->mapper->mapCondition(
-            $this->handler->loadCondition(
+            $this->layoutResolverHandler->loadCondition(
                 $conditionId,
                 Value::STATUS_PUBLISHED
             )
@@ -217,7 +220,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         $this->validator->validateId($conditionId, 'conditionId');
 
         return $this->mapper->mapCondition(
-            $this->handler->loadCondition(
+            $this->layoutResolverHandler->loadCondition(
                 $conditionId,
                 Value::STATUS_DRAFT
             )
@@ -230,7 +233,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
 
         $createdRule = $this->transaction(
             function () use ($ruleCreateStruct): PersistenceRule {
-                return $this->handler->createRule(
+                return $this->layoutResolverHandler->createRule(
                     RuleCreateStruct::fromArray(
                         [
                             'layoutId' => $ruleCreateStruct->layoutId,
@@ -253,13 +256,13 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
             throw new BadStateException('rule', 'Only draft rules can be updated.');
         }
 
-        $persistenceRule = $this->handler->loadRule($rule->getId(), Value::STATUS_DRAFT);
+        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), Value::STATUS_DRAFT);
 
         $this->validator->validateRuleUpdateStruct($ruleUpdateStruct);
 
         $updatedRule = $this->transaction(
             function () use ($persistenceRule, $ruleUpdateStruct): PersistenceRule {
-                return $this->handler->updateRule(
+                return $this->layoutResolverHandler->updateRule(
                     $persistenceRule,
                     RuleUpdateStruct::fromArray(
                         [
@@ -280,13 +283,13 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
             throw new BadStateException('rule', 'Metadata can be updated only for published rules.');
         }
 
-        $persistenceRule = $this->handler->loadRule($rule->getId(), Value::STATUS_PUBLISHED);
+        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), Value::STATUS_PUBLISHED);
 
         $this->validator->validateRuleMetadataUpdateStruct($ruleUpdateStruct);
 
         $updatedRule = $this->transaction(
             function () use ($persistenceRule, $ruleUpdateStruct): PersistenceRule {
-                return $this->handler->updateRuleMetadata(
+                return $this->layoutResolverHandler->updateRuleMetadata(
                     $persistenceRule,
                     RuleMetadataUpdateStruct::fromArray(
                         [
@@ -302,11 +305,11 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
 
     public function copyRule(Rule $rule): Rule
     {
-        $persistenceRule = $this->handler->loadRule($rule->getId(), $rule->getStatus());
+        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), $rule->getStatus());
 
         $copiedRule = $this->transaction(
             function () use ($persistenceRule): PersistenceRule {
-                return $this->handler->copyRule($persistenceRule);
+                return $this->layoutResolverHandler->copyRule($persistenceRule);
             }
         );
 
@@ -319,17 +322,17 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
             throw new BadStateException('rule', 'Drafts can only be created from published rules.');
         }
 
-        $persistenceRule = $this->handler->loadRule($rule->getId(), Value::STATUS_PUBLISHED);
+        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), Value::STATUS_PUBLISHED);
 
-        if (!$discardExisting && $this->handler->ruleExists($persistenceRule->id, Value::STATUS_DRAFT)) {
+        if (!$discardExisting && $this->layoutResolverHandler->ruleExists($persistenceRule->id, Value::STATUS_DRAFT)) {
             throw new BadStateException('rule', 'The provided rule already has a draft.');
         }
 
         $ruleDraft = $this->transaction(
             function () use ($persistenceRule): PersistenceRule {
-                $this->handler->deleteRule($persistenceRule->id, Value::STATUS_DRAFT);
+                $this->layoutResolverHandler->deleteRule($persistenceRule->id, Value::STATUS_DRAFT);
 
-                return $this->handler->createRuleStatus($persistenceRule, Value::STATUS_DRAFT);
+                return $this->layoutResolverHandler->createRuleStatus($persistenceRule, Value::STATUS_DRAFT);
             }
         );
 
@@ -342,11 +345,11 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
             throw new BadStateException('rule', 'Only draft rules can be discarded.');
         }
 
-        $persistenceRule = $this->handler->loadRule($rule->getId(), Value::STATUS_DRAFT);
+        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), Value::STATUS_DRAFT);
 
         $this->transaction(
             function () use ($persistenceRule): void {
-                $this->handler->deleteRule(
+                $this->layoutResolverHandler->deleteRule(
                     $persistenceRule->id,
                     Value::STATUS_DRAFT
                 );
@@ -360,29 +363,29 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
             throw new BadStateException('rule', 'Only draft rules can be published.');
         }
 
-        $persistenceRule = $this->handler->loadRule($rule->getId(), Value::STATUS_DRAFT);
+        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), Value::STATUS_DRAFT);
 
         $publishedRule = $this->transaction(
             function () use ($persistenceRule): PersistenceRule {
-                $this->handler->deleteRule($persistenceRule->id, Value::STATUS_ARCHIVED);
+                $this->layoutResolverHandler->deleteRule($persistenceRule->id, Value::STATUS_ARCHIVED);
 
-                if ($this->handler->ruleExists($persistenceRule->id, Value::STATUS_PUBLISHED)) {
-                    $this->handler->createRuleStatus(
-                        $this->handler->loadRule(
+                if ($this->layoutResolverHandler->ruleExists($persistenceRule->id, Value::STATUS_PUBLISHED)) {
+                    $this->layoutResolverHandler->createRuleStatus(
+                        $this->layoutResolverHandler->loadRule(
                             $persistenceRule->id,
                             Value::STATUS_PUBLISHED
                         ),
                         Value::STATUS_ARCHIVED
                     );
 
-                    $this->handler->deleteRule($persistenceRule->id, Value::STATUS_PUBLISHED);
+                    $this->layoutResolverHandler->deleteRule($persistenceRule->id, Value::STATUS_PUBLISHED);
                 }
 
-                $publishedRule = $this->handler->createRuleStatus($persistenceRule, Value::STATUS_PUBLISHED);
-                $this->handler->deleteRule($persistenceRule->id, Value::STATUS_DRAFT);
+                $publishedRule = $this->layoutResolverHandler->createRuleStatus($persistenceRule, Value::STATUS_PUBLISHED);
+                $this->layoutResolverHandler->deleteRule($persistenceRule->id, Value::STATUS_DRAFT);
 
-                if ($publishedRule->layoutId === null || $this->handler->getTargetCount($publishedRule) === 0) {
-                    $publishedRule = $this->handler->updateRuleMetadata(
+                if ($publishedRule->layoutId === null || $this->layoutResolverHandler->getTargetCount($publishedRule) === 0) {
+                    $publishedRule = $this->layoutResolverHandler->updateRuleMetadata(
                         $publishedRule,
                         RuleMetadataUpdateStruct::fromArray(
                             [
@@ -405,11 +408,11 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
             throw new BadStateException('rule', 'Only archived rules can be restored.');
         }
 
-        $archivedRule = $this->handler->loadRule($rule->getId(), Value::STATUS_ARCHIVED);
+        $archivedRule = $this->layoutResolverHandler->loadRule($rule->getId(), Value::STATUS_ARCHIVED);
 
         $draftRule = null;
         try {
-            $draftRule = $this->handler->loadRule($rule->getId(), Value::STATUS_DRAFT);
+            $draftRule = $this->layoutResolverHandler->loadRule($rule->getId(), Value::STATUS_DRAFT);
         } catch (NotFoundException $e) {
             // Do nothing
         }
@@ -417,10 +420,10 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         $draftRule = $this->transaction(
             function () use ($draftRule, $archivedRule): PersistenceRule {
                 if ($draftRule instanceof PersistenceRule) {
-                    $this->handler->deleteRule($draftRule->id, $draftRule->status);
+                    $this->layoutResolverHandler->deleteRule($draftRule->id, $draftRule->status);
                 }
 
-                return $this->handler->createRuleStatus($archivedRule, Value::STATUS_DRAFT);
+                return $this->layoutResolverHandler->createRuleStatus($archivedRule, Value::STATUS_DRAFT);
             }
         );
 
@@ -429,11 +432,11 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
 
     public function deleteRule(Rule $rule): void
     {
-        $persistenceRule = $this->handler->loadRule($rule->getId(), $rule->getStatus());
+        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), $rule->getStatus());
 
         $this->transaction(
             function () use ($persistenceRule): void {
-                $this->handler->deleteRule(
+                $this->layoutResolverHandler->deleteRule(
                     $persistenceRule->id
                 );
             }
@@ -446,7 +449,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
             throw new BadStateException('rule', 'Only published rules can be enabled.');
         }
 
-        $persistenceRule = $this->handler->loadRule($rule->getId(), Value::STATUS_PUBLISHED);
+        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), Value::STATUS_PUBLISHED);
 
         if ($persistenceRule->enabled) {
             throw new BadStateException('rule', 'Rule is already enabled.');
@@ -456,13 +459,13 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
             throw new BadStateException('rule', 'Rule is missing a layout and cannot be enabled.');
         }
 
-        if ($this->handler->getTargetCount($persistenceRule) === 0) {
+        if ($this->layoutResolverHandler->getTargetCount($persistenceRule) === 0) {
             throw new BadStateException('rule', 'Rule is missing targets and cannot be enabled.');
         }
 
         $updatedRule = $this->transaction(
             function () use ($persistenceRule): PersistenceRule {
-                return $this->handler->updateRuleMetadata(
+                return $this->layoutResolverHandler->updateRuleMetadata(
                     $persistenceRule,
                     RuleMetadataUpdateStruct::fromArray(
                         [
@@ -482,7 +485,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
             throw new BadStateException('rule', 'Only published rules can be disabled.');
         }
 
-        $persistenceRule = $this->handler->loadRule($rule->getId(), Value::STATUS_PUBLISHED);
+        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), Value::STATUS_PUBLISHED);
 
         if (!$persistenceRule->enabled) {
             throw new BadStateException('rule', 'Rule is already disabled.');
@@ -490,7 +493,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
 
         $updatedRule = $this->transaction(
             function () use ($persistenceRule): PersistenceRule {
-                return $this->handler->updateRuleMetadata(
+                return $this->layoutResolverHandler->updateRuleMetadata(
                     $persistenceRule,
                     RuleMetadataUpdateStruct::fromArray(
                         [
@@ -510,8 +513,8 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
             throw new BadStateException('rule', 'Targets can be added only to draft rules.');
         }
 
-        $persistenceRule = $this->handler->loadRule($rule->getId(), Value::STATUS_DRAFT);
-        $ruleTargets = $this->handler->loadRuleTargets($persistenceRule);
+        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), Value::STATUS_DRAFT);
+        $ruleTargets = $this->layoutResolverHandler->loadRuleTargets($persistenceRule);
 
         if (!empty($ruleTargets) && $ruleTargets[0]->type !== $targetCreateStruct->type) {
             throw new BadStateException(
@@ -528,7 +531,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
 
         $createdTarget = $this->transaction(
             function () use ($persistenceRule, $targetCreateStruct): PersistenceTarget {
-                return $this->handler->addTarget(
+                return $this->layoutResolverHandler->addTarget(
                     $persistenceRule,
                     TargetCreateStruct::fromArray(
                         [
@@ -549,13 +552,13 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
             throw new BadStateException('target', 'Only draft targets can be updated.');
         }
 
-        $persistenceTarget = $this->handler->loadTarget($target->getId(), Value::STATUS_DRAFT);
+        $persistenceTarget = $this->layoutResolverHandler->loadTarget($target->getId(), Value::STATUS_DRAFT);
 
         $this->validator->validateTargetUpdateStruct($target, $targetUpdateStruct);
 
         $updatedTarget = $this->transaction(
             function () use ($persistenceTarget, $targetUpdateStruct): PersistenceTarget {
-                return $this->handler->updateTarget(
+                return $this->layoutResolverHandler->updateTarget(
                     $persistenceTarget,
                     TargetUpdateStruct::fromArray(
                         [
@@ -575,11 +578,11 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
             throw new BadStateException('target', 'Only draft targets can be deleted.');
         }
 
-        $persistenceTarget = $this->handler->loadTarget($target->getId(), Value::STATUS_DRAFT);
+        $persistenceTarget = $this->layoutResolverHandler->loadTarget($target->getId(), Value::STATUS_DRAFT);
 
         $this->transaction(
             function () use ($persistenceTarget): void {
-                $this->handler->deleteTarget($persistenceTarget);
+                $this->layoutResolverHandler->deleteTarget($persistenceTarget);
             }
         );
     }
@@ -590,13 +593,13 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
             throw new BadStateException('rule', 'Conditions can be added only to draft rules.');
         }
 
-        $persistenceRule = $this->handler->loadRule($rule->getId(), Value::STATUS_DRAFT);
+        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), Value::STATUS_DRAFT);
 
         $this->validator->validateConditionCreateStruct($conditionCreateStruct);
 
         $createdCondition = $this->transaction(
             function () use ($persistenceRule, $conditionCreateStruct): PersistenceCondition {
-                return $this->handler->addCondition(
+                return $this->layoutResolverHandler->addCondition(
                     $persistenceRule,
                     ConditionCreateStruct::fromArray(
                         [
@@ -617,13 +620,13 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
             throw new BadStateException('condition', 'Only draft conditions can be updated.');
         }
 
-        $persistenceCondition = $this->handler->loadCondition($condition->getId(), Value::STATUS_DRAFT);
+        $persistenceCondition = $this->layoutResolverHandler->loadCondition($condition->getId(), Value::STATUS_DRAFT);
 
         $this->validator->validateConditionUpdateStruct($condition, $conditionUpdateStruct);
 
         $updatedCondition = $this->transaction(
             function () use ($persistenceCondition, $conditionUpdateStruct): PersistenceCondition {
-                return $this->handler->updateCondition(
+                return $this->layoutResolverHandler->updateCondition(
                     $persistenceCondition,
                     ConditionUpdateStruct::fromArray(
                         [
@@ -643,11 +646,11 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
             throw new BadStateException('condition', 'Only draft conditions can be deleted.');
         }
 
-        $persistenceCondition = $this->handler->loadCondition($condition->getId(), Value::STATUS_DRAFT);
+        $persistenceCondition = $this->layoutResolverHandler->loadCondition($condition->getId(), Value::STATUS_DRAFT);
 
         $this->transaction(
             function () use ($persistenceCondition): void {
-                $this->handler->deleteCondition($persistenceCondition);
+                $this->layoutResolverHandler->deleteCondition($persistenceCondition);
             }
         );
     }

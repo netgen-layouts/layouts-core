@@ -13,13 +13,6 @@ use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 abstract class BlockVisitorTest extends VisitorTest
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->blockService = $this->createBlockService();
-    }
-
     public function testVisitThrowsRuntimeExceptionWithoutSubVisitor(): void
     {
         $this->expectException(RuntimeException::class);

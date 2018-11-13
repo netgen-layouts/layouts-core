@@ -25,8 +25,6 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
     {
         parent::setUp();
 
-        $this->collectionService = $this->createCollectionService();
-
         $this->structBuilder = new CollectionStructBuilder(new ConfigStructBuilder());
     }
 

@@ -15,12 +15,4 @@ final class LayoutResolverStructBuilderTest extends BaseLayoutResolverStructBuil
     {
         $this->closeDatabase();
     }
-
-    /**
-     * Prepares the prerequisites for using services in tests.
-     */
-    protected function preparePersistence(): void
-    {
-        $this->persistenceHandler = $this->createPersistenceHandler();
-    }
 }

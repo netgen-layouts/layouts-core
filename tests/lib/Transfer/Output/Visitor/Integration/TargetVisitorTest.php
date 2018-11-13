@@ -12,13 +12,6 @@ use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 abstract class TargetVisitorTest extends VisitorTest
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->layoutResolverService = $this->createLayoutResolverService();
-    }
-
     public function getVisitor(): VisitorInterface
     {
         return new TargetVisitor();

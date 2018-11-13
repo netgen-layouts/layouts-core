@@ -13,13 +13,6 @@ use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 abstract class QueryVisitorTest extends VisitorTest
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->collectionService = $this->createCollectionService();
-    }
-
     public function testVisitThrowsRuntimeExceptionWithoutSubVisitor(): void
     {
         $this->expectException(RuntimeException::class);

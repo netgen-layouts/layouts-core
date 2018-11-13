@@ -17,17 +17,6 @@ abstract class BlockServiceTest extends CoreTestCase
 {
     use ExportObjectTrait;
 
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->blockService = $this->createBlockService();
-
-        $this->layoutService = $this->createLayoutService();
-
-        $this->collectionService = $this->createCollectionService();
-    }
-
     /**
      * @covers \Netgen\BlockManager\Core\Service\BlockService::__construct
      * @covers \Netgen\BlockManager\Core\Service\BlockService::loadBlock
@@ -1496,15 +1485,13 @@ abstract class BlockServiceTest extends CoreTestCase
      */
     public function testRestoreBlock(): void
     {
-        $blockHandler = $this->persistenceHandler->getBlockHandler();
-
         $block = $this->blockService->loadBlockDraft(31);
 
         // Move block so we can make sure position is kept while restoring the block.
 
         $zone = $this->layoutService->loadZoneDraft($block->getLayoutId(), 'left');
         $movedBlock = $this->blockService->moveBlockToZone($block, $zone, 1);
-        $movedPersistenceBlock = $blockHandler->loadBlock($movedBlock->getId(), $movedBlock->getStatus());
+        $movedPersistenceBlock = $this->blockHandler->loadBlock($movedBlock->getId(), $movedBlock->getStatus());
 
         $restoredBlock = $this->blockService->restoreBlock($movedBlock);
 
@@ -1524,7 +1511,7 @@ abstract class BlockServiceTest extends CoreTestCase
         self::assertSame(2, $collections['default']->getId());
         self::assertSame(3, $collections['featured']->getId());
 
-        $restoredPersistenceBlock = $blockHandler->loadBlock($restoredBlock->getId(), $restoredBlock->getStatus());
+        $restoredPersistenceBlock = $this->blockHandler->loadBlock($restoredBlock->getId(), $restoredBlock->getStatus());
 
         // Make sure the position is not moved.
 

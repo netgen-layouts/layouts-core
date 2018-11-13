@@ -22,11 +22,7 @@ abstract class BlockStructBuilderTest extends CoreTestCase
     {
         parent::setUp();
 
-        $this->blockService = $this->createBlockService();
-
-        $this->structBuilder = new BlockStructBuilder(
-            new ConfigStructBuilder()
-        );
+        $this->structBuilder = new BlockStructBuilder(new ConfigStructBuilder());
     }
 
     /**

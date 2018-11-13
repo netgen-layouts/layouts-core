@@ -7,7 +7,7 @@ namespace Netgen\BlockManager\Tests\Core\Service;
 use Exception;
 use Netgen\BlockManager\Core\Service\Service;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Persistence\HandlerInterface;
+use Netgen\BlockManager\Persistence\TransactionHandlerInterface;
 use PHPUnit\Framework\TestCase;
 
 final class ServiceTest extends TestCase
@@ -15,7 +15,7 @@ final class ServiceTest extends TestCase
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
-    private $persistenceHandlerMock;
+    private $transactionHandlerMock;
 
     /**
      * @var \Netgen\BlockManager\Core\Service\Service
@@ -24,11 +24,11 @@ final class ServiceTest extends TestCase
 
     public function setUp(): void
     {
-        $this->persistenceHandlerMock = $this->createMock(HandlerInterface::class);
+        $this->transactionHandlerMock = $this->createMock(TransactionHandlerInterface::class);
 
         $this->service = $this->getMockForAbstractClass(
             Service::class,
-            [$this->persistenceHandlerMock]
+            [$this->transactionHandlerMock]
         );
     }
 
@@ -38,15 +38,15 @@ final class ServiceTest extends TestCase
      */
     public function testTransaction(): void
     {
-        $this->persistenceHandlerMock
+        $this->transactionHandlerMock
             ->expects(self::once())
             ->method('beginTransaction');
 
-        $this->persistenceHandlerMock
+        $this->transactionHandlerMock
             ->expects(self::never())
             ->method('rollbackTransaction');
 
-        $this->persistenceHandlerMock
+        $this->transactionHandlerMock
             ->expects(self::once())
             ->method('commitTransaction');
 
@@ -67,15 +67,15 @@ final class ServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception');
 
-        $this->persistenceHandlerMock
+        $this->transactionHandlerMock
             ->expects(self::once())
             ->method('beginTransaction');
 
-        $this->persistenceHandlerMock
+        $this->transactionHandlerMock
             ->expects(self::once())
             ->method('rollbackTransaction');
 
-        $this->persistenceHandlerMock
+        $this->transactionHandlerMock
             ->expects(self::never())
             ->method('commitTransaction');
 
@@ -91,7 +91,7 @@ final class ServiceTest extends TestCase
      */
     public function testBeginTransaction(): void
     {
-        $this->persistenceHandlerMock
+        $this->transactionHandlerMock
             ->expects(self::once())
             ->method('beginTransaction');
 
@@ -103,7 +103,7 @@ final class ServiceTest extends TestCase
      */
     public function testCommitTransaction(): void
     {
-        $this->persistenceHandlerMock
+        $this->transactionHandlerMock
             ->expects(self::once())
             ->method('commitTransaction');
 
@@ -118,7 +118,7 @@ final class ServiceTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->persistenceHandlerMock
+        $this->transactionHandlerMock
             ->expects(self::once())
             ->method('commitTransaction')
             ->will(self::throwException(new RuntimeException('Test exception text')));
@@ -131,7 +131,7 @@ final class ServiceTest extends TestCase
      */
     public function testRollbackTransaction(): void
     {
-        $this->persistenceHandlerMock
+        $this->transactionHandlerMock
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -146,7 +146,7 @@ final class ServiceTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->persistenceHandlerMock
+        $this->transactionHandlerMock
             ->expects(self::once())
             ->method('rollbackTransaction')
             ->will(self::throwException(new RuntimeException('Test exception text')));

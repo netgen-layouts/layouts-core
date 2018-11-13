@@ -20,13 +20,6 @@ use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 
 final class CollectionServiceTest extends TestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->collectionService = $this->createCollectionService();
-    }
-
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::changeCollectionType
      */
@@ -35,7 +28,7 @@ final class CollectionServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->collectionHandlerMock
+        $this->collectionHandler
             ->expects(self::at(0))
             ->method('loadCollection')
             ->will(
@@ -44,12 +37,12 @@ final class CollectionServiceTest extends TestCase
                 )
             );
 
-        $this->collectionHandlerMock
+        $this->collectionHandler
             ->expects(self::at(1))
             ->method('deleteCollectionQuery')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -67,7 +60,7 @@ final class CollectionServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->collectionHandlerMock
+        $this->collectionHandler
             ->expects(self::at(0))
             ->method('loadCollection')
             ->will(
@@ -76,12 +69,12 @@ final class CollectionServiceTest extends TestCase
                 )
             );
 
-        $this->collectionHandlerMock
+        $this->collectionHandler
             ->expects(self::at(1))
             ->method('addItem')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -102,7 +95,7 @@ final class CollectionServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->collectionHandlerMock
+        $this->collectionHandler
             ->expects(self::at(0))
             ->method('loadItem')
             ->will(
@@ -111,12 +104,12 @@ final class CollectionServiceTest extends TestCase
                 )
             );
 
-        $this->collectionHandlerMock
+        $this->collectionHandler
             ->expects(self::at(1))
             ->method('updateItem')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -134,17 +127,17 @@ final class CollectionServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->collectionHandlerMock
+        $this->collectionHandler
             ->expects(self::at(0))
             ->method('loadItem')
             ->will(self::returnValue(new PersistenceItem()));
 
-        $this->collectionHandlerMock
+        $this->collectionHandler
             ->expects(self::at(1))
             ->method('moveItem')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -159,17 +152,17 @@ final class CollectionServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->collectionHandlerMock
+        $this->collectionHandler
             ->expects(self::at(0))
             ->method('loadItem')
             ->will(self::returnValue(new PersistenceItem()));
 
-        $this->collectionHandlerMock
+        $this->collectionHandler
             ->expects(self::at(1))
             ->method('deleteItem')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -184,17 +177,17 @@ final class CollectionServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->collectionHandlerMock
+        $this->collectionHandler
             ->expects(self::at(0))
             ->method('loadCollection')
             ->will(self::returnValue(new PersistenceCollection()));
 
-        $this->collectionHandlerMock
+        $this->collectionHandler
             ->expects(self::at(1))
             ->method('deleteItems')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -217,17 +210,17 @@ final class CollectionServiceTest extends TestCase
             ]
         );
 
-        $this->collectionHandlerMock
+        $this->collectionHandler
             ->expects(self::at(0))
             ->method('loadQuery')
             ->will(self::returnValue($persistenceQuery));
 
-        $this->collectionHandlerMock
+        $this->collectionHandler
             ->expects(self::at(1))
             ->method('updateQueryTranslation')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 

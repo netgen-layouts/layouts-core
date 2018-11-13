@@ -12,6 +12,7 @@ use Netgen\BlockManager\Block\BlockDefinition\Handler\CommonParametersPlugin;
 use Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
 use Netgen\BlockManager\Block\BlockDefinitionFactory;
 use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
+use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\BlockManager\Block\Registry\HandlerPluginRegistry;
 use Netgen\BlockManager\Config\ConfigDefinitionFactory;
 use Netgen\BlockManager\Exception\RuntimeException;
@@ -54,13 +55,6 @@ abstract class ImporterTest extends CoreTestCase
     public function setUp(): void
     {
         parent::setUp();
-
-        $this->prepareBlockDefinitionRegistry();
-
-        $this->blockService = $this->createBlockService();
-        $this->collectionService = $this->createCollectionService();
-        $this->layoutService = $this->createLayoutService();
-        $this->layoutResolverService = $this->createLayoutResolverService();
 
         $this->cmsItemLoaderMock
             ->expects(self::any())
@@ -265,7 +259,7 @@ abstract class ImporterTest extends CoreTestCase
         self::assertSame('Missing data for zone "right"', $result[0]->getError()->getMessage());
     }
 
-    private function prepareBlockDefinitionRegistry(): void
+    protected function createBlockDefinitionRegistry(): BlockDefinitionRegistryInterface
     {
         $data = ['translatable' => true, 'view_types' => ['view_type' => ['enabled' => true]]];
         $configHandlers = ['key' => new ConfigHandler()];
@@ -279,12 +273,12 @@ abstract class ImporterTest extends CoreTestCase
 
         $blockDefinitionFactory = new BlockDefinitionFactory(
             new TranslatableParameterBuilderFactory(
-                $this->parameterTypeRegistry
+                $this->createParameterTypeRegistry()
             ),
             $handlerPluginRegistry,
             new ConfigDefinitionFactory(
                 new ParameterBuilderFactory(
-                    $this->parameterTypeRegistry
+                    $this->createParameterTypeRegistry()
                 )
             )
         );
@@ -325,7 +319,7 @@ abstract class ImporterTest extends CoreTestCase
             $configHandlers
         );
 
-        $this->blockDefinitionRegistry = new BlockDefinitionRegistry(
+        return new BlockDefinitionRegistry(
             [
                 'title' => $blockDefinition1,
                 'text' => $blockDefinition2,

@@ -8,66 +8,40 @@ use Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface;
 use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandlerInterface;
-use Netgen\BlockManager\Persistence\HandlerInterface;
+use Netgen\BlockManager\Persistence\TransactionHandlerInterface;
 use Netgen\BlockManager\Tests\Core\CoreTestCase;
 
-abstract class TestCase extends CoreTestCase
+/**
+ * @property \PHPUnit\Framework\MockObject\MockObject $transactionHandler
+ * @property \PHPUnit\Framework\MockObject\MockObject $layoutHandler
+ * @property \PHPUnit\Framework\MockObject\MockObject $blockHandler
+ * @property \PHPUnit\Framework\MockObject\MockObject $collectionHandler
+ * @property \PHPUnit\Framework\MockObject\MockObject $layoutResolverHandler
+ */
+class TestCase extends CoreTestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $persistenceHandler;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $blockHandlerMock;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $layoutHandlerMock;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $collectionHandlerMock;
-
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $layoutResolverHandlerMock;
-
-    /**
-     * Prepares the prerequisites for using services in tests.
-     */
-    protected function preparePersistence(): void
+    protected function createTransactionHandler(): TransactionHandlerInterface
     {
-        $this->persistenceHandler = $this->createMock(HandlerInterface::class);
+        return $this->createMock(TransactionHandlerInterface::class);
+    }
 
-        $this->blockHandlerMock = $this->createMock(BlockHandlerInterface::class);
-        $this->layoutHandlerMock = $this->createMock(LayoutHandlerInterface::class);
-        $this->collectionHandlerMock = $this->createMock(CollectionHandlerInterface::class);
-        $this->layoutResolverHandlerMock = $this->createMock(LayoutResolverHandlerInterface::class);
+    protected function createLayoutHandler(): LayoutHandlerInterface
+    {
+        return $this->createMock(LayoutHandlerInterface::class);
+    }
 
-        $this->persistenceHandler
-            ->expects(self::any())
-            ->method('getBlockHandler')
-            ->will(self::returnValue($this->blockHandlerMock));
+    protected function createBlockHandler(): BlockHandlerInterface
+    {
+        return $this->createMock(BlockHandlerInterface::class);
+    }
 
-        $this->persistenceHandler
-            ->expects(self::any())
-            ->method('getLayoutHandler')
-            ->will(self::returnValue($this->layoutHandlerMock));
+    protected function createCollectionHandler(): CollectionHandlerInterface
+    {
+        return $this->createMock(CollectionHandlerInterface::class);
+    }
 
-        $this->persistenceHandler
-            ->expects(self::any())
-            ->method('getCollectionHandler')
-            ->will(self::returnValue($this->collectionHandlerMock));
-
-        $this->persistenceHandler
-            ->expects(self::any())
-            ->method('getLayoutResolverHandler')
-            ->will(self::returnValue($this->layoutResolverHandlerMock));
+    protected function createLayoutResolverHandler(): LayoutResolverHandlerInterface
+    {
+        return $this->createMock(LayoutResolverHandlerInterface::class);
     }
 }

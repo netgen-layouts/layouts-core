@@ -16,15 +16,6 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 {
     use ExportObjectTrait;
 
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->layoutService = $this->createLayoutService();
-
-        $this->layoutResolverService = $this->createLayoutResolverService();
-    }
-
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::__construct
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadRule

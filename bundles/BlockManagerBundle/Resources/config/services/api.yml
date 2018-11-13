@@ -1,13 +1,9 @@
 services:
-    netgen_block_manager.persistence.doctrine.handler:
-        class: Netgen\BlockManager\Persistence\Doctrine\Handler
+    netgen_block_manager.persistence.doctrine.transaction_handler:
+        class: Netgen\BlockManager\Persistence\Doctrine\TransactionHandler
         public: false
         arguments:
             - "@database_connection"
-            - "@netgen_block_manager.persistence.doctrine.layout.handler"
-            - "@netgen_block_manager.persistence.doctrine.block.handler"
-            - "@netgen_block_manager.persistence.doctrine.collection.handler"
-            - "@netgen_block_manager.persistence.doctrine.layout_resolver.handler"
 
     # Persistence helpers
 
@@ -131,10 +127,11 @@ services:
         class: Netgen\BlockManager\Core\Service\LayoutService
         public: false
         arguments:
-            - "@netgen_block_manager.persistence.handler"
+            - "@netgen_block_manager.persistence.transaction_handler"
             - "@netgen_block_manager.core.validator.layout"
             - "@netgen_block_manager.core.mapper.layout"
             - "@netgen_block_manager.core.struct_builder.layout"
+            - "@netgen_block_manager.persistence.layout.handler"
 
     # Block related APIs
 
@@ -167,13 +164,16 @@ services:
         class: Netgen\BlockManager\Core\Service\BlockService
         public: false
         arguments:
-            - "@netgen_block_manager.persistence.handler"
+            - "@netgen_block_manager.persistence.transaction_handler"
             - "@netgen_block_manager.core.validator.block"
             - "@netgen_block_manager.core.mapper.block"
             - "@netgen_block_manager.core.struct_builder.block"
             - "@netgen_block_manager.core.mapper.parameter"
             - "@netgen_block_manager.core.mapper.config"
             - "@netgen_block_manager.core.service.layout"
+            - "@netgen_block_manager.persistence.block.handler"
+            - "@netgen_block_manager.persistence.layout.handler"
+            - "@netgen_block_manager.persistence.collection.handler"
 
     # Collection related APIs
 
@@ -204,12 +204,13 @@ services:
         class: Netgen\BlockManager\Core\Service\CollectionService
         public: false
         arguments:
-            - "@netgen_block_manager.persistence.handler"
+            - "@netgen_block_manager.persistence.transaction_handler"
             - "@netgen_block_manager.core.validator.collection"
             - "@netgen_block_manager.core.mapper.collection"
             - "@netgen_block_manager.core.struct_builder.collection"
             - "@netgen_block_manager.core.mapper.parameter"
             - "@netgen_block_manager.core.mapper.config"
+            - "@netgen_block_manager.persistence.collection.handler"
 
     # Layout resolver related APIs
 
@@ -239,10 +240,12 @@ services:
         class: Netgen\BlockManager\Core\Service\LayoutResolverService
         public: false
         arguments:
-            - "@netgen_block_manager.persistence.handler"
+            - "@netgen_block_manager.persistence.transaction_handler"
             - "@netgen_block_manager.core.validator.layout_resolver"
             - "@netgen_block_manager.core.mapper.layout_resolver"
             - "@netgen_block_manager.core.struct_builder.layout_resolver"
+            - "@netgen_block_manager.persistence.layout_resolver.handler"
+            - "@netgen_block_manager.persistence.layout.handler"
 
     # Config API services
 
@@ -280,8 +283,8 @@ services:
         alias: netgen_block_manager.core.service.layout_resolver
         public: true
 
-    netgen_block_manager.persistence.handler:
-        alias: netgen_block_manager.persistence.doctrine.handler
+    netgen_block_manager.persistence.transaction_handler:
+        alias: netgen_block_manager.persistence.doctrine.transaction_handler
         public: false
 
     netgen_block_manager.persistence.layout.handler:

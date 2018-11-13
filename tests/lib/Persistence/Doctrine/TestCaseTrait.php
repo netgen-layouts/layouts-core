@@ -6,7 +6,6 @@ namespace Netgen\BlockManager\Tests\Persistence\Doctrine;
 
 use Doctrine\DBAL\Connection;
 use Netgen\BlockManager\Layout\Resolver\TargetHandler;
-use Netgen\BlockManager\Persistence\Doctrine\Handler;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler;
@@ -21,11 +20,12 @@ use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler;
 use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler;
+use Netgen\BlockManager\Persistence\Doctrine\TransactionHandler;
 use Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface;
 use Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface;
 use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandlerInterface;
-use Netgen\BlockManager\Persistence\HandlerInterface;
+use Netgen\BlockManager\Persistence\TransactionHandlerInterface;
 
 trait TestCaseTrait
 {
@@ -34,7 +34,7 @@ trait TestCaseTrait
     /**
      * Returns the persistence handler under test.
      */
-    private function createPersistenceHandler(?Connection $connection = null): HandlerInterface
+    protected function createTransactionHandler(?Connection $connection = null): TransactionHandlerInterface
     {
         $this->databaseConnection = $connection ?? $this->createDatabaseConnection();
 
@@ -42,19 +42,13 @@ trait TestCaseTrait
             $this->createDatabase();
         }
 
-        return new Handler(
-            $this->databaseConnection,
-            $this->createLayoutHandler(),
-            $this->createBlockHandler(),
-            $this->createCollectionHandler(),
-            $this->createLayoutResolverHandler()
-        );
+        return new TransactionHandler($this->databaseConnection);
     }
 
     /**
      * Returns the layout handler under test.
      */
-    private function createLayoutHandler(): LayoutHandlerInterface
+    protected function createLayoutHandler(): LayoutHandlerInterface
     {
         $connectionHelper = new ConnectionHelper($this->databaseConnection);
 
@@ -71,7 +65,7 @@ trait TestCaseTrait
     /**
      * Returns the block handler under test.
      */
-    private function createBlockHandler(): BlockHandlerInterface
+    protected function createBlockHandler(): BlockHandlerInterface
     {
         return new BlockHandler(
             new BlockQueryHandler(
@@ -87,7 +81,7 @@ trait TestCaseTrait
     /**
      * Returns the collection handler under test.
      */
-    private function createCollectionHandler(): CollectionHandlerInterface
+    protected function createCollectionHandler(): CollectionHandlerInterface
     {
         return new CollectionHandler(
             new CollectionQueryHandler(
@@ -102,7 +96,7 @@ trait TestCaseTrait
     /**
      * Returns the layout resolver handler under test.
      */
-    private function createLayoutResolverHandler(): LayoutResolverHandlerInterface
+    protected function createLayoutResolverHandler(): LayoutResolverHandlerInterface
     {
         return new LayoutResolverHandler(
             new LayoutResolverQueryHandler(

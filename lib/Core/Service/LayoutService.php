@@ -18,7 +18,8 @@ use Netgen\BlockManager\Core\Validator\LayoutValidator;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
-use Netgen\BlockManager\Persistence\HandlerInterface;
+use Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface;
+use Netgen\BlockManager\Persistence\TransactionHandlerInterface;
 use Netgen\BlockManager\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Netgen\BlockManager\Persistence\Values\Layout\LayoutCopyStruct;
 use Netgen\BlockManager\Persistence\Values\Layout\LayoutCreateStruct;
@@ -50,18 +51,18 @@ final class LayoutService extends Service implements LayoutServiceInterface
     private $layoutHandler;
 
     public function __construct(
-        HandlerInterface $persistenceHandler,
+        TransactionHandlerInterface $transactionHandler,
         LayoutValidator $validator,
         LayoutMapper $mapper,
-        LayoutStructBuilder $structBuilder
+        LayoutStructBuilder $structBuilder,
+        LayoutHandlerInterface $layoutHandler
     ) {
-        parent::__construct($persistenceHandler);
+        parent::__construct($transactionHandler);
 
         $this->validator = $validator;
         $this->mapper = $mapper;
         $this->structBuilder = $structBuilder;
-
-        $this->layoutHandler = $persistenceHandler->getLayoutHandler();
+        $this->layoutHandler = $layoutHandler;
     }
 
     public function loadLayout($layoutId): Layout

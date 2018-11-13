@@ -24,13 +24,6 @@ use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target as PersistenceT
 
 final class LayoutResolverServiceTest extends TestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->layoutResolverService = $this->createLayoutResolverService();
-    }
-
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::createRule
      */
@@ -39,12 +32,12 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(0))
             ->method('createRule')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -59,17 +52,17 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(0))
             ->method('loadRule')
             ->will(self::returnValue(new PersistenceRule()));
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(1))
             ->method('updateRule')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -87,17 +80,17 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(0))
             ->method('loadRule')
             ->will(self::returnValue(new PersistenceRule()));
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(1))
             ->method('updateRuleMetadata')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -115,17 +108,17 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(0))
             ->method('loadRule')
             ->will(self::returnValue(new PersistenceRule()));
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(1))
             ->method('copyRule')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -140,22 +133,22 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(0))
             ->method('loadRule')
             ->will(self::returnValue(new PersistenceRule()));
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(1))
             ->method('ruleExists')
             ->will(self::returnValue(false));
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(2))
             ->method('deleteRule')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -170,17 +163,17 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(0))
             ->method('loadRule')
             ->will(self::returnValue(new PersistenceRule()));
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(1))
             ->method('deleteRule')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -195,17 +188,17 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(0))
             ->method('loadRule')
             ->will(self::returnValue(new PersistenceRule()));
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(1))
             ->method('deleteRule')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -220,22 +213,22 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(0))
             ->method('loadRule')
             ->will(self::returnValue(new PersistenceRule()));
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(1))
             ->method('loadRule')
             ->will(self::returnValue(new PersistenceRule()));
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(2))
             ->method('deleteRule')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -250,17 +243,17 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(0))
             ->method('loadRule')
             ->will(self::returnValue(new PersistenceRule()));
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(1))
             ->method('deleteRule')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -275,7 +268,7 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(0))
             ->method('loadRule')
             ->will(
@@ -289,17 +282,17 @@ final class LayoutResolverServiceTest extends TestCase
                 )
             );
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(1))
             ->method('getTargetCount')
             ->will(self::returnValue(2));
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(2))
             ->method('updateRuleMetadata')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -314,7 +307,7 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(0))
             ->method('loadRule')
             ->will(
@@ -327,12 +320,12 @@ final class LayoutResolverServiceTest extends TestCase
                 )
             );
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(1))
             ->method('updateRuleMetadata')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -347,22 +340,22 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(0))
             ->method('loadRule')
             ->will(self::returnValue(new PersistenceRule()));
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(1))
             ->method('loadRuleTargets')
             ->will(self::returnValue([]));
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(2))
             ->method('addTarget')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -383,17 +376,17 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(0))
             ->method('loadTarget')
             ->will(self::returnValue(new PersistenceTarget()));
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(1))
             ->method('updateTarget')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -411,17 +404,17 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(0))
             ->method('loadTarget')
             ->will(self::returnValue(new PersistenceTarget()));
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(1))
             ->method('deleteTarget')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -436,17 +429,17 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(0))
             ->method('loadRule')
             ->will(self::returnValue(new PersistenceRule()));
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(1))
             ->method('addCondition')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -467,17 +460,17 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(0))
             ->method('loadCondition')
             ->will(self::returnValue(new PersistenceCondition()));
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(1))
             ->method('updateCondition')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 
@@ -495,17 +488,17 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(0))
             ->method('loadCondition')
             ->will(self::returnValue(new PersistenceCondition()));
 
-        $this->layoutResolverHandlerMock
+        $this->layoutResolverHandler
             ->expects(self::at(1))
             ->method('deleteCondition')
             ->will(self::throwException(new Exception('Test exception text')));
 
-        $this->persistenceHandler
+        $this->transactionHandler
             ->expects(self::once())
             ->method('rollbackTransaction');
 

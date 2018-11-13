@@ -13,14 +13,6 @@ use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 abstract class ZoneVisitorTest extends VisitorTest
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->blockService = $this->createBlockService();
-        $this->layoutService = $this->createLayoutService();
-    }
-
     public function testVisitThrowsRuntimeExceptionWithoutSubVisitor(): void
     {
         $this->expectException(RuntimeException::class);

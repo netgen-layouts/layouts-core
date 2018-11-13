@@ -18,12 +18,4 @@ final class LayoutVisitorTest extends BaseLayoutVisitorTest
     {
         $this->closeDatabase();
     }
-
-    /**
-     * Prepares the persistence handler used in tests.
-     */
-    protected function preparePersistence(): void
-    {
-        $this->persistenceHandler = $this->createPersistenceHandler();
-    }
 }

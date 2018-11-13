@@ -22,8 +22,6 @@ abstract class LayoutStructBuilderTest extends CoreTestCase
     {
         parent::setUp();
 
-        $this->layoutService = $this->createLayoutService();
-
         $this->structBuilder = new LayoutStructBuilder();
     }
 

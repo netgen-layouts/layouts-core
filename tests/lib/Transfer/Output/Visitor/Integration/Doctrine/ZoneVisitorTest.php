@@ -18,12 +18,4 @@ final class ZoneVisitorTest extends BaseZoneVisitorTest
     {
         $this->closeDatabase();
     }
-
-    /**
-     * Prepares the persistence handler used in tests.
-     */
-    protected function preparePersistence(): void
-    {
-        $this->persistenceHandler = $this->createPersistenceHandler();
-    }
 }

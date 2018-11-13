@@ -18,14 +18,6 @@ abstract class LayoutServiceTest extends CoreTestCase
 {
     use ExportObjectTrait;
 
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->layoutService = $this->createLayoutService();
-        $this->blockService = $this->createBlockService();
-    }
-
     /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::__construct
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayout
@@ -1222,7 +1214,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find layout with identifier "2"');
 
-        $this->persistenceHandler->getLayoutHandler()->deleteLayout(2, Layout::STATUS_PUBLISHED);
+        $this->layoutHandler->deleteLayout(2, Layout::STATUS_PUBLISHED);
         $this->layoutService->restoreFromArchive(
             $this->layoutService->loadLayoutArchive(2)
         );

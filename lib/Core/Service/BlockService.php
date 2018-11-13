@@ -24,7 +24,10 @@ use Netgen\BlockManager\Core\StructBuilder\BlockStructBuilder;
 use Netgen\BlockManager\Core\Validator\BlockValidator;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\HandlerInterface;
+use Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface;
+use Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface;
+use Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface;
+use Netgen\BlockManager\Persistence\TransactionHandlerInterface;
 use Netgen\BlockManager\Persistence\Values\Block\Block as PersistenceBlock;
 use Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct;
 use Netgen\BlockManager\Persistence\Values\Block\BlockTranslationUpdateStruct;
@@ -80,15 +83,18 @@ final class BlockService extends Service implements BlockServiceInterface
     private $layoutService;
 
     public function __construct(
-        HandlerInterface $persistenceHandler,
+        TransactionHandlerInterface $transactionHandler,
         BlockValidator $validator,
         BlockMapper $mapper,
         BlockStructBuilder $structBuilder,
         ParameterMapper $parameterMapper,
         ConfigMapper $configMapper,
-        APILayoutService $layoutService
+        APILayoutService $layoutService,
+        BlockHandlerInterface $blockHandler,
+        LayoutHandlerInterface $layoutHandler,
+        CollectionHandlerInterface $collectionHandler
     ) {
-        parent::__construct($persistenceHandler);
+        parent::__construct($transactionHandler);
 
         $this->validator = $validator;
         $this->mapper = $mapper;
@@ -96,10 +102,9 @@ final class BlockService extends Service implements BlockServiceInterface
         $this->parameterMapper = $parameterMapper;
         $this->configMapper = $configMapper;
         $this->layoutService = $layoutService;
-
-        $this->blockHandler = $persistenceHandler->getBlockHandler();
-        $this->layoutHandler = $persistenceHandler->getLayoutHandler();
-        $this->collectionHandler = $persistenceHandler->getCollectionHandler();
+        $this->blockHandler = $blockHandler;
+        $this->layoutHandler = $layoutHandler;
+        $this->collectionHandler = $collectionHandler;
     }
 
     public function loadBlock($blockId, ?array $locales = null, bool $useMainLocale = true): Block

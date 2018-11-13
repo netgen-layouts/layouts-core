@@ -13,13 +13,6 @@ use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 
 abstract class LayoutVisitorTest extends VisitorTest
 {
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->layoutService = $this->createLayoutService();
-    }
-
     public function testVisitThrowsRuntimeExceptionWithoutSubVisitor(): void
     {
         $this->expectException(RuntimeException::class);

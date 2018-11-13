@@ -19,13 +19,6 @@ abstract class CollectionServiceTest extends CoreTestCase
 {
     use ExportObjectTrait;
 
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->collectionService = $this->createCollectionService();
-    }
-
     /**
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::__construct
      * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadCollection
