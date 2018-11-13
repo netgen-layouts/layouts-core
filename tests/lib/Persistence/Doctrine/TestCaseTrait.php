@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine;
 
-use Doctrine\DBAL\Connection;
 use Netgen\BlockManager\Layout\Resolver\TargetHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler;
 use Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler;
@@ -34,13 +33,9 @@ trait TestCaseTrait
     /**
      * Returns the persistence handler under test.
      */
-    protected function createTransactionHandler(?Connection $connection = null): TransactionHandlerInterface
+    protected function createTransactionHandler(): TransactionHandlerInterface
     {
-        $this->databaseConnection = $connection ?? $this->createDatabaseConnection();
-
-        if ($connection === null) {
-            $this->createDatabase();
-        }
+        $this->createDatabase();
 
         return new TransactionHandler($this->databaseConnection);
     }

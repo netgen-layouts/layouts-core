@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Persistence\Doctrine;
 
 use Doctrine\DBAL\Connection;
+use Netgen\BlockManager\Persistence\Doctrine\TransactionHandler;
 use PHPUnit\Framework\TestCase;
 
 final class TransactionHandlerTest extends TestCase
 {
-    use TestCaseTrait;
-
     /**
      * @var \Doctrine\DBAL\Connection&\PHPUnit\Framework\MockObject\MockObject
      */
@@ -25,7 +24,7 @@ final class TransactionHandlerTest extends TestCase
     {
         $this->connectionMock = $this->createMock(Connection::class);
 
-        $this->handler = $this->createTransactionHandler($this->connectionMock);
+        $this->handler = new TransactionHandler($this->connectionMock);
     }
 
     /**
