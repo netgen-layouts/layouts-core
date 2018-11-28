@@ -101,7 +101,7 @@ final class LayoutValidator extends Validator
     }
 
     /**
-     * Validates the provided layout create struct.
+     * Validates the provided layout copy struct.
      *
      * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
      */
