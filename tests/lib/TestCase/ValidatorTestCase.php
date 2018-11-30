@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\TestCase;
 
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Translation\Translator;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Context\ExecutionContext;
 use Symfony\Component\Validator\Validation;
@@ -16,6 +16,7 @@ abstract class ValidatorTestCase extends TestCase
      * @var mixed
      */
     protected $constraint;
+
     /**
      * @var \Symfony\Component\Validator\Context\ExecutionContextInterface
      */
@@ -32,11 +33,7 @@ abstract class ValidatorTestCase extends TestCase
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
             ->getValidator();
 
-        $this->executionContext = new ExecutionContext(
-            $validator,
-            'root',
-            $this->createMock(TranslatorInterface::class)
-        );
+        $this->executionContext = new ExecutionContext($validator, 'root', new Translator('en'));
 
         $this->validator = $this->getValidator();
         $this->validator->initialize($this->executionContext);
