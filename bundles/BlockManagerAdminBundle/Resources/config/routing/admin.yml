@@ -5,14 +5,6 @@ _ngbm_admin_redirect:
 
 # Regular routes follow
 
-ngbm_admin:
-    path: /admin/
-    methods: [GET]
-    defaults:
-        _controller: "Symfony\\Bundle\\FrameworkBundle\\Controller\\RedirectController::redirectAction"
-        route: ngbm_admin_layout_resolver_index
-        permanent: true
-
 _ngbm_admin_layout_resolver:
     resource: "admin/layout_resolver.yml"
     prefix: /admin/layout_resolver

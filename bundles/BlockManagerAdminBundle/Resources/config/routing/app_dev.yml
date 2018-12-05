@@ -1,13 +1,13 @@
-ngbm_dev_app_no_slash:
+ngbm_dev_app:
     path: /dev/app
+    methods: [GET]
+    defaults:
+        _controller: "netgen_block_manager.controller.app.index"
+
+ngbm_dev_app_slash:
+    path: /dev/app/
     methods: [GET]
     defaults:
         _controller: "Symfony\\Bundle\\FrameworkBundle\\Controller\\RedirectController::redirectAction"
         route: ngbm_dev_app
         permanent: true
-
-ngbm_dev_app:
-    path: /dev/app/
-    methods: [GET]
-    defaults:
-        _controller: "netgen_block_manager.controller.app.index"
