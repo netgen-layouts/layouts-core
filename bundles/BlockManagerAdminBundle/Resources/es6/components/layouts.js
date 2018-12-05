@@ -17,7 +17,7 @@ export default class NlLayouts {
         this.$exportLayoutsBtn = this.$el.find('.js-export-layouts');
         this.$toggleAllCheckbox = this.$el.find('#toggleSelectAll');
         this.shared = typeof this.$el.data('shared') !== 'undefined';
-        this.baseUrl = $('meta[name=ngbm-admin-base-path]').attr('content') + (this.shared ? 'shared_layouts/' : 'layouts/');
+        this.baseUrl = $('meta[name=ngbm-admin-base-path]').attr('content') + (this.shared ? '/shared_layouts/' : '/layouts/');
         this.sorting = JSON.parse(localStorage.getItem(this.shared ? 'ngSharedLayoutsSorting' : 'ngLayoutsSorting')) || {
             sort: 'name',
             direction: 'asc',

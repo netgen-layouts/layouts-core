@@ -12,7 +12,7 @@ export default class NlLayout {
         this.published = !!this.attributes.published;
         this.csrf = $('meta[name=ngbm-admin-csrf-token]').attr('content');
         this.shared = this.$el.parent().hasClass('nl-shared-layouts');
-        this.baseUrl = $('meta[name=ngbm-admin-base-path]').attr('content') + (this.shared ? 'shared_layouts/' : 'layouts/');
+        this.baseUrl = $('meta[name=ngbm-admin-base-path]').attr('content') + (this.shared ? '/shared_layouts/' : '/layouts/');
         this.$selectExport = this.$el.find(`#exportLayout${this.id}`);
         this.selected = this.$selectExport.prop('checked');
         this.layouts = this.$el.data('layouts');

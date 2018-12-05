@@ -11,7 +11,7 @@ export default class NlRule {
         this.attributes = this.$el.find('.nl-rule-content').data();
         if (!this.attributes.targetType || this.attributes.targetType === 'null') this.attributes.targetType = 'undefined';
         this.id = this.attributes.id;
-        this.baseUrl = `${$('meta[name=ngbm-admin-base-path]').attr('content')}layout_resolver/`;
+        this.baseUrl = `${$('meta[name=ngbm-admin-base-path]').attr('content')}/layout_resolver/`;
 
         this.$el.data('rule', this);
         this.setupEvents();
