@@ -36,13 +36,13 @@ matrix:
       php: 7.1
       env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~2.8.0" DEPS="low"
     -
-      php: 7.2
+      php: 7.3
       env: RUN_PHPSTAN="yes"
-    - php: 7.2
+    - php: 7.3
       env: RUN_BEHAT="yes"
-    - php: 7.2
+    - php: 7.3
       env: RUN_MIGRATIONS="yes" DB="mysql"
-    - php: 7.2
+    - php: 7.3
       env: RUN_COVERAGE="yes"
     -
       env: ~
