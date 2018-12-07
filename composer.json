@@ -60,7 +60,7 @@
     },
     "require-dev": {
         "netgen/layouts-standard": "~0.13.0",
-        "phpunit/phpunit": "^5.7 || ^7.4",
+        "phpunit/phpunit": "^5.7 || ^7.5",
         "symfony/phpunit-bridge": "^4.2",
         "symfony/var-dumper": "^2.8.16 || ^3.4.4 || ^4.2",
         "symfony/web-server-bundle": "^3.4.4 || ^4.2",
