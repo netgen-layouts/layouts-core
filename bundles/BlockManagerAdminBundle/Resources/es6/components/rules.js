@@ -13,7 +13,7 @@ export default class NlRules {
         this.$noRulesMsg = this.$el.find('.nl-no-items');
         this.$sortBtn = this.$el.find('.js-sort-start');
         this.csrf = $('meta[name=ngbm-admin-csrf-token]').attr('content');
-        this.baseUrl = `${$('meta[name=ngbm-admin-base-path]').attr('content')}/layout_resolver/`;
+        this.baseUrl = `${$('meta[name=ngbm-admin-base-path]').attr('content')}/mappings/`;
         this.filter = JSON.parse(localStorage.getItem('ngMappingFilters')) || [];
 
         this.initialize();

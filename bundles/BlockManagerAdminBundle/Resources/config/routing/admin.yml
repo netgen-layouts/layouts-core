@@ -7,7 +7,7 @@ _ngbm_admin_redirect:
 
 _ngbm_admin_layout_resolver:
     resource: "admin/layout_resolver.yml"
-    prefix: /admin/layout_resolver
+    prefix: /admin/mappings
 
 _ngbm_admin_layouts:
     resource: "admin/layouts.yml"
