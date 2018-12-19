@@ -9,7 +9,6 @@ parameters:
         # Doctrine DBAL
         - '#Cannot call method fetchAll\(\) on Doctrine\\DBAL\\Driver\\Statement\|int#'
         - '#expects string\|null, Doctrine\\DBAL\\Query\\Expression\\CompositeExpression given#'
-        - '#Doctrine\\DBAL\\Schema\\Table::(addIndex|setPrimaryKey)\(\) expects array<array>, array<int, string> given.#'
 
         # Compatibility with Symfony 2.8
         - '#Call to function method_exists\(\) with .* will always evaluate to false.#'
