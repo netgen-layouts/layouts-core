@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerDebugBundle\DependencyInjection;
 
-use Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
@@ -14,7 +13,7 @@ final class NetgenBlockManagerDebugExtension extends Extension
 {
     public function load(array $configs, ContainerBuilder $container): void
     {
-        if (!in_array(WebProfilerBundle::class, $container->getParameter('kernel.bundles'), true)) {
+        if (!$this->debugEnabled($container)) {
             return;
         }
 
@@ -24,5 +23,10 @@ final class NetgenBlockManagerDebugExtension extends Extension
         );
 
         $loader->load('services.yml');
+    }
+
+    private function debugEnabled(ContainerBuilder $container): bool
+    {
+        return array_key_exists('WebProfilerBundle', $container->getParameter('kernel.bundles'));
     }
 }
