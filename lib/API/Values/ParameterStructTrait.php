@@ -127,12 +127,15 @@ trait ParameterStructTrait
         array $values,
         bool $doImport = false
     ): void {
-        $importMethod = $doImport ? 'import' : 'fromHash';
-
         foreach ($definitionCollection->getParameterDefinitions() as $name => $definition) {
-            $value = array_key_exists($name, $values) ?
-                $definition->getType()->{$importMethod}($definition, $values[$name]) :
-                $definition->getDefaultValue();
+            $value = $definition->getDefaultValue();
+            $parameterType = $definition->getType();
+
+            if (array_key_exists($name, $values)) {
+                $value = $doImport ?
+                    $parameterType->import($definition, $values[$name]) :
+                    $parameterType->fromHash($definition, $values[$name]);
+            }
 
             $this->setParameterValue($name, $value);
 
