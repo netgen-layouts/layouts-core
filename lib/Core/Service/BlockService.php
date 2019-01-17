@@ -700,7 +700,7 @@ final class BlockService extends Service implements BlockServiceInterface
                         $this->blockHandler->createCollectionReference(
                             $createdBlock,
                             $createdCollection,
-                            $identifier
+                            (string) $identifier
                         );
                     }
                 }

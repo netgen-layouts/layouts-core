@@ -18,11 +18,21 @@ final class ValueConverter implements ValueConverterInterface
         return 'value';
     }
 
+    /**
+     * @param \Netgen\BlockManager\Tests\Item\Stubs\Value $object
+     *
+     * @return int|string
+     */
     public function getId($object)
     {
         return $object->getId();
     }
 
+    /**
+     * @param \Netgen\BlockManager\Tests\Item\Stubs\Value $object
+     *
+     * @return int|string
+     */
     public function getRemoteId($object)
     {
         return $object->getRemoteId();
@@ -33,6 +43,9 @@ final class ValueConverter implements ValueConverterInterface
         return 'Some value';
     }
 
+    /**
+     * @param \Netgen\BlockManager\Tests\Item\Stubs\Value $object
+     */
     public function getIsVisible($object): bool
     {
         return $object->isVisible();

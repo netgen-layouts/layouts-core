@@ -174,6 +174,7 @@ final class BlockNormalizerTest extends TestCase
 
         $data = $this->normalizer->normalize(new VersionedValue($block, 1));
 
+        self::assertInternalType('array', $data);
         self::assertTrue($data['is_container']);
     }
 

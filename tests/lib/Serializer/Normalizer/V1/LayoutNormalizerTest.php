@@ -264,6 +264,7 @@ final class LayoutNormalizerTest extends TestCase
 
         $data = $this->normalizer->normalize(new VersionedValue($layout, 1));
 
+        self::assertInternalType('array', $data);
         self::assertTrue($data['has_archived_state']);
         self::assertSame($archivedLayout->getCreated()->format(DateTime::ISO8601), $data['archive_created_at']);
         self::assertSame($archivedLayout->getModified()->format(DateTime::ISO8601), $data['archive_updated_at']);

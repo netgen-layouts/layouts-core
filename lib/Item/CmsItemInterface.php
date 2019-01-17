@@ -11,16 +11,16 @@ namespace Netgen\BlockManager\Item;
 interface CmsItemInterface
 {
     /**
-     * Returns the ID of the value from CMS that this item wraps.
+     * Returns the scalar ID of the value from CMS that this item wraps.
      *
-     * @return int|string
+     * @return mixed
      */
     public function getValue();
 
     /**
-     * Returns the remote ID of the value from CMS that this item wraps.
+     * Returns the scalar remote ID of the value from CMS that this item wraps.
      *
-     * @return int|string
+     * @return mixed
      */
     public function getRemoteId();
 

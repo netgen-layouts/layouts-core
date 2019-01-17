@@ -48,7 +48,7 @@ class ParameterBuilder implements ParameterBuilderInterface
     private $defaultValue;
 
     /**
-     * @var string|null
+     * @var bool|string|null
      */
     private $label;
 

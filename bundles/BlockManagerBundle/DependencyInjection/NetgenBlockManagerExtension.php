@@ -152,6 +152,9 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
         }
     }
 
+    /**
+     * @return \Symfony\Component\Config\Definition\ConfigurationInterface
+     */
     public function getConfiguration(array $config, ContainerBuilder $container)
     {
         return new Configuration($this);

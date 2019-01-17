@@ -334,7 +334,9 @@ final class BlockHandler implements BlockHandlerInterface
         $this->copyBlockCollections($block, $newBlock);
 
         foreach ($this->loadChildBlocks($block) as $childBlock) {
-            $this->copyBlock($childBlock, $newBlock, $childBlock->placeholder);
+            if (is_string($childBlock->placeholder)) {
+                $this->copyBlock($childBlock, $newBlock, $childBlock->placeholder);
+            }
         }
 
         return $newBlock;

@@ -87,6 +87,7 @@ final class BlockTypeNormalizerTest extends TestCase
 
         $data = $this->normalizer->normalize(new VersionedValue($blockType, 1));
 
+        self::assertInternalType('array', $data);
         self::assertTrue($data['is_container']);
     }
 

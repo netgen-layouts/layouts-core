@@ -46,7 +46,7 @@ final class CreateForm extends Controller
         }
 
         $createStruct = new LayoutCreateStruct();
-        $createStruct->mainLocale = array_keys($availableLocales)[0];
+        $createStruct->mainLocale = (string) array_key_first($availableLocales);
 
         $form = $this->createForm(
             CreateType::class,

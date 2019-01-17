@@ -68,14 +68,17 @@ abstract class Page
 
     public function verifyFragment(string $fragment): void
     {
-        $url = $this->getDriver()->getCurrentUrl();
-        $urlFragment = parse_url($url)['fragment'];
+        $parsedUrl = parse_url($this->getDriver()->getCurrentUrl());
 
-        if (mb_strpos($urlFragment, $fragment) !== false) {
+        if (!is_array($parsedUrl) || !array_key_exists('fragment', $parsedUrl)) {
+            throw new PageException(sprintf('%s URL is not valid or does not contain a fragment', $this->getDriver()->getCurrentUrl()));
+        }
+
+        if (mb_strpos($parsedUrl['fragment'], $fragment) !== false) {
             return;
         }
 
-        throw new PageException(sprintf('Expected to have "%s" fragment but found "%s" instead', $fragment, $urlFragment));
+        throw new PageException(sprintf('Expected to have "%s" fragment but found "%s" instead', $fragment, $parsedUrl['fragment']));
     }
 
     abstract protected function getUrl(array $urlParameters = []): string;

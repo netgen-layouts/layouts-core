@@ -203,10 +203,8 @@ final class CompoundBooleanTypeTest extends FormTestCase
         $children = $view->children;
 
         self::assertArrayHasKey('main_checkbox', $children);
-
-        foreach (array_keys($submittedData['main_checkbox']) as $key) {
-            self::assertArrayHasKey($key, $children['main_checkbox']->children);
-        }
+        self::assertArrayHasKey('css_class', $children['main_checkbox']->children);
+        self::assertArrayHasKey('css_id', $children['main_checkbox']->children);
     }
 
     /**
