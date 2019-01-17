@@ -24,16 +24,11 @@ final class ViewNormalizer extends Normalizer implements NormalizerInterface
         $this->viewRenderer = $viewRenderer;
     }
 
-    /**
-     * @param \Netgen\BlockManager\Serializer\Values\View $object
-     * @param string $format
-     * @param array $context
-     *
-     * @return mixed
-     */
     public function normalize($object, $format = null, array $context = [])
     {
         /** @var array $normalizedData */
+        /** @var \Netgen\BlockManager\Serializer\Values\View $object */
+
         $normalizedData = $this->normalizer->normalize(
             new VersionedValue(
                 $object->getValue(),
