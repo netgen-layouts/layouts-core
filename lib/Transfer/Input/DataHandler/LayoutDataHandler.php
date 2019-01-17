@@ -248,10 +248,7 @@ final class LayoutDataHandler
     {
         $linkedZoneLayout = $this->layoutService->loadLayout($zoneData['layout_id']);
         $linkedZone = $linkedZoneLayout->getZone($zoneData['identifier']);
-
-        if ($linkedZone instanceof Zone) {
-            $this->layoutService->linkZone($zone, $linkedZone);
-        }
+        $this->layoutService->linkZone($zone, $linkedZone);
     }
 
     /**
