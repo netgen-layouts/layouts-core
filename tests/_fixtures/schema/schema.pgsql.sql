@@ -121,39 +121,59 @@ CREATE TABLE IF NOT EXISTS "ngbm_block_collection" (
   FOREIGN KEY ("collection_id", "collection_status") REFERENCES ngbm_collection ("id", "status")
 );
 
+CREATE TABLE IF NOT EXISTS "ngbm_role" (
+  "id" integer NOT NULL,
+  "status" integer NOT NULL,
+  "name" character varying(255) NOT NULL,
+  "identifier" character varying(255) NOT NULL,
+  "description" text NOT NULL,
+  PRIMARY KEY ("id", "status")
+);
+
+CREATE TABLE IF NOT EXISTS "ngbm_role_policy" (
+  "id" integer NOT NULL,
+  "status" integer NOT NULL,
+  "role_id" integer NOT NULL,
+  "component" character varying(255),
+  "permission" character varying(255),
+  "limitations" text NOT NULL,
+  PRIMARY KEY ("id", "status"),
+  FOREIGN KEY ("role_id", "status") REFERENCES ngbm_role ("id", "status")
+);
+
 CREATE TABLE IF NOT EXISTS "ngbm_rule" (
-    "id" integer NOT NULL,
-    "status" integer NOT NULL,
-    "layout_id" integer,
-    "comment" text NOT NULL,
-    PRIMARY KEY ("id", "status")
+  "id" integer NOT NULL,
+  "status" integer NOT NULL,
+  "layout_id" integer,
+  "comment" text NOT NULL,
+  PRIMARY KEY ("id", "status")
 );
 
 CREATE TABLE IF NOT EXISTS "ngbm_rule_data" (
-    "rule_id" integer NOT NULL,
-    "enabled" boolean NOT NULL,
-    "priority" integer NOT NULL,
-    PRIMARY KEY ("rule_id")
+  "rule_id" integer NOT NULL,
+  "enabled" boolean NOT NULL,
+  "priority" integer NOT NULL,
+  PRIMARY KEY ("rule_id")
 );
 
 CREATE TABLE IF NOT EXISTS "ngbm_rule_target" (
-    "id" integer NOT NULL,
-    "status" integer NOT NULL,
-    "rule_id" integer NOT NULL,
-    "type" character varying(255) NOT NULL,
-    "value" text,
-    PRIMARY KEY ("id", "status"),
-    FOREIGN KEY ("rule_id", "status") REFERENCES ngbm_rule ("id", "status")
+  "id" integer NOT NULL,
+  "status" integer NOT NULL,
+  "rule_id" integer NOT NULL,
+  "type" character varying(255) NOT NULL,
+  "value" text,
+  PRIMARY KEY ("id", "status"),
+  FOREIGN KEY ("rule_id", "status") REFERENCES ngbm_rule ("id", "status")
 );
 
 CREATE TABLE IF NOT EXISTS "ngbm_rule_condition" (
-    "id" integer NOT NULL,
-    "status" integer NOT NULL,
-    "rule_id" integer NOT NULL,
-    "type" character varying(255) NOT NULL,
-    "value" text,
-    PRIMARY KEY ("id", "status"),
-    FOREIGN KEY ("rule_id", "status") REFERENCES ngbm_rule ("id", "status")
+  "id" integer NOT NULL,
+  "status" integer NOT NULL,
+  "rule_id" integer NOT NULL,
+  "type" character varying(255) NOT NULL,
+  "value" text,
+  PRIMARY KEY ("id", "status"),
+  FOREIGN KEY ("rule_id", "status") REFERENCES ngbm_rule ("id", "status")
 );
 
 DELETE FROM "ngbm_block_collection";
@@ -167,6 +187,8 @@ DELETE FROM "ngbm_block_translation";
 DELETE FROM "ngbm_block";
 DELETE FROM "ngbm_layout_translation";
 DELETE FROM "ngbm_layout";
+DELETE FROM "ngbm_role_policy";
+DELETE FROM "ngbm_role";
 DELETE FROM "ngbm_rule_target";
 DELETE FROM "ngbm_rule_condition";
 DELETE FROM "ngbm_rule_data";
@@ -191,6 +213,14 @@ ALTER TABLE ONLY ngbm_collection_item ALTER COLUMN id SET DEFAULT nextval('ngbm_
 CREATE SEQUENCE IF NOT EXISTS ngbm_collection_query_id_seq;
 ALTER SEQUENCE ngbm_collection_query_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY ngbm_collection_query ALTER COLUMN id SET DEFAULT nextval('ngbm_collection_query_id_seq'::regclass);
+
+CREATE SEQUENCE IF NOT EXISTS ngbm_role_id_seq;
+ALTER SEQUENCE ngbm_role_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
+ALTER TABLE ONLY ngbm_role ALTER COLUMN id SET DEFAULT nextval('ngbm_role_id_seq'::regclass);
+
+CREATE SEQUENCE IF NOT EXISTS ngbm_role_policy_id_seq;
+ALTER SEQUENCE ngbm_role_policy_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
+ALTER TABLE ONLY ngbm_role_policy ALTER COLUMN id SET DEFAULT nextval('ngbm_role_policy_id_seq'::regclass);
 
 CREATE SEQUENCE IF NOT EXISTS ngbm_rule_id_seq;
 ALTER SEQUENCE ngbm_rule_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;

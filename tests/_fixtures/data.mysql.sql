@@ -330,6 +330,34 @@ INSERT INTO `ngbm_layout_translation` VALUES (7,0,'en');
 UNLOCK TABLES;
 
 --
+-- Dumping data for table `ngbm_role`
+--
+
+LOCK TABLES `ngbm_role` WRITE;
+/*!40000 ALTER TABLE `ngbm_role` DISABLE KEYS */;
+INSERT INTO `ngbm_role` VALUES (1,1,'Admin','admin','Admin role');
+INSERT INTO `ngbm_role` VALUES (2,0,'Editor','editor','Editor role');
+INSERT INTO `ngbm_role` VALUES (2,1,'Editor','editor','Editor role');
+/*!40000 ALTER TABLE `ngbm_role` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `ngbm_role_policy`
+--
+
+LOCK TABLES `ngbm_role_policy` WRITE;
+/*!40000 ALTER TABLE `ngbm_role_policy` DISABLE KEYS */;
+INSERT INTO `ngbm_role_policy` VALUES (1,1,1,NULL,NULL,'{}');
+INSERT INTO `ngbm_role_policy` VALUES (2,0,2,'block','add','{}');
+INSERT INTO `ngbm_role_policy` VALUES (2,1,2,'block','add','{}');
+INSERT INTO `ngbm_role_policy` VALUES (3,0,2,'block','edit','{\"block_definition\": [\"title\",\"list\"]}');
+INSERT INTO `ngbm_role_policy` VALUES (3,1,2,'block','edit','{\"block_definition\": [\"title\",\"list\"]}');
+INSERT INTO `ngbm_role_policy` VALUES (4,0,2,'layout',NULL,'{}');
+INSERT INTO `ngbm_role_policy` VALUES (4,1,2,'layout',NULL,'{}');
+/*!40000 ALTER TABLE `ngbm_role_policy` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping data for table `ngbm_rule`
 --
 

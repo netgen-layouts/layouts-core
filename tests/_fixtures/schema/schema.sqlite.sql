@@ -13,6 +13,8 @@ DROP TABLE IF EXISTS `ngbm_block_translation`;
 DROP TABLE IF EXISTS `ngbm_block`;
 DROP TABLE IF EXISTS `ngbm_layout_translation`;
 DROP TABLE IF EXISTS `ngbm_layout`;
+DROP TABLE IF EXISTS `ngbm_role_policy`;
+DROP TABLE IF EXISTS `ngbm_role`;
 DROP TABLE IF EXISTS `ngbm_rule_target`;
 DROP TABLE IF EXISTS `ngbm_rule_condition`;
 DROP TABLE IF EXISTS `ngbm_rule_data`;
@@ -150,6 +152,27 @@ CREATE TABLE `ngbm_block_collection` (
     REFERENCES `ngbm_block` (`id`, `status`),
   FOREIGN KEY (`collection_id`, `collection_status`)
     REFERENCES `ngbm_collection` (`id`, `status`)
+);
+
+CREATE TABLE `ngbm_role_policy` (
+  `id` integer NOT NULL,
+  `status` integer NOT NULL,
+  `role_id` integer NOT NULL,
+  `component` text(255) DEFAULT NULL,
+  `permission` text(255) DEFAULT NULL,
+  `limitations` text NOT NULL,
+  PRIMARY KEY (`id`, `status`),
+  FOREIGN KEY (`role_id`, `status`)
+    REFERENCES `ngbm_role` (`id`, `status`)
+);
+
+CREATE TABLE `ngbm_role` (
+  `id` integer NOT NULL,
+  `status` integer NOT NULL,
+  `name` text(255) NOT NULL,
+  `identifier` text(255) NOT NULL,
+  `description` text NOT NULL,
+  PRIMARY KEY (`id`, `status`)
 );
 
 CREATE TABLE `ngbm_rule_data` (

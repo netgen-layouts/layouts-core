@@ -132,6 +132,27 @@ CREATE TABLE IF NOT EXISTS `ngbm_block_collection` (
     REFERENCES ngbm_collection (`id`, `status`)
 ) ENGINE=InnoDB;
 
+CREATE TABLE IF NOT EXISTS `ngbm_role` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `status` int(11) NOT NULL,
+  `name` varchar(191) NOT NULL,
+  `identifier` varchar(191) NOT NULL,
+  `description` text NOT NULL,
+  PRIMARY KEY (`id`, `status`)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS `ngbm_role_policy` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `status` int(11) NOT NULL,
+  `role_id` int(11) NOT NULL,
+  `component` varchar(191) DEFAULT NULL,
+  `permission` varchar(191) DEFAULT NULL,
+  `limitations` text NOT NULL,
+  PRIMARY KEY (`id`, `status`),
+  FOREIGN KEY (`role_id`, `status`)
+    REFERENCES `ngbm_role` (`id`, `status`)
+) ENGINE=InnoDB;
+
 CREATE TABLE IF NOT EXISTS `ngbm_rule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
@@ -195,6 +216,12 @@ DELETE FROM `ngbm_layout_translation`;
 
 DELETE FROM `ngbm_layout`;
 ALTER TABLE `ngbm_layout` AUTO_INCREMENT = 1;
+
+DELETE FROM `ngbm_role_policy`;
+ALTER TABLE `ngbm_role_policy` AUTO_INCREMENT = 1;
+
+DELETE FROM `ngbm_role`;
+ALTER TABLE `ngbm_role` AUTO_INCREMENT = 1;
 
 DELETE FROM `ngbm_rule_target`;
 ALTER TABLE `ngbm_rule_target` AUTO_INCREMENT = 1;

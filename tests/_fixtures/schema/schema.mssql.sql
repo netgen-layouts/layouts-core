@@ -9,6 +9,8 @@ IF OBJECT_ID('dbo.ngbm_block_translation', 'U') IS NOT NULL DROP TABLE dbo.ngbm_
 IF OBJECT_ID('dbo.ngbm_block', 'U') IS NOT NULL DROP TABLE dbo.ngbm_block;
 IF OBJECT_ID('dbo.ngbm_layout_translation', 'U') IS NOT NULL DROP TABLE dbo.ngbm_layout_translation;
 IF OBJECT_ID('dbo.ngbm_layout', 'U') IS NOT NULL DROP TABLE dbo.ngbm_layout;
+IF OBJECT_ID('dbo.ngbm_role_policy', 'U') IS NOT NULL DROP TABLE dbo.ngbm_role_policy;
+IF OBJECT_ID('dbo.ngbm_role', 'U') IS NOT NULL DROP TABLE dbo.ngbm_role;
 IF OBJECT_ID('dbo.ngbm_rule_target', 'U') IS NOT NULL DROP TABLE dbo.ngbm_rule_target;
 IF OBJECT_ID('dbo.ngbm_rule_condition', 'U') IS NOT NULL DROP TABLE dbo.ngbm_rule_condition;
 IF OBJECT_ID('dbo.ngbm_rule_data', 'U') IS NOT NULL DROP TABLE dbo.ngbm_rule_data;
@@ -146,6 +148,27 @@ CREATE TABLE ngbm_block_collection (
     REFERENCES ngbm_block (id, status),
   FOREIGN KEY (collection_id, collection_status)
     REFERENCES ngbm_collection (id, status)
+);
+
+CREATE TABLE ngbm_role (
+  id int IDENTITY(1, 1),
+  status int NOT NULL,
+  name nvarchar(255) NOT NULL,
+  identifier nvarchar(255) NOT NULL,
+  description nvarchar(max) NOT NULL,
+  PRIMARY KEY (id, status)
+);
+
+CREATE TABLE ngbm_role_policy (
+  id int IDENTITY(1, 1),
+  status int NOT NULL,
+  role_id int NOT NULL,
+  component nvarchar(255) DEFAULT NULL,
+  permission nvarchar(255) DEFAULT NULL,
+  limitations nvarchar(max) NOT NULL,
+  PRIMARY KEY (id, status),
+  FOREIGN KEY (role_id, status)
+    REFERENCES ngbm_role (id, status)
 );
 
 CREATE TABLE ngbm_rule (
