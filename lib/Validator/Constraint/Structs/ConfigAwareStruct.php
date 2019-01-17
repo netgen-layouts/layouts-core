@@ -8,6 +8,9 @@ use Symfony\Component\Validator\Constraint;
 
 final class ConfigAwareStruct extends Constraint
 {
+    /**
+     * @var string
+     */
     public $noConfigDefinitionMessage = 'netgen_block_manager.config_aware_struct.missing_definition';
 
     /**

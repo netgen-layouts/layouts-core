@@ -16,6 +16,9 @@ final class DateTime extends Constraint
      */
     public $allowArray = false;
 
+    /**
+     * @var string
+     */
     public $invalidTimeZoneMessage = 'netgen_block_manager.datetime.invalid_timezone';
 
     public function validatedBy(): string
