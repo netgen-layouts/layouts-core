@@ -36,7 +36,7 @@ final class RenderZone extends AbstractTokenParser
                     $token->getValue()
                 ),
                 $token->getLine(),
-                $stream->getSourceContext()->getName()
+                $stream->getSourceContext()
             );
         }
 
