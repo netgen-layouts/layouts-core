@@ -25,24 +25,24 @@ final class RuleVisitor implements VisitorInterface
         return $value instanceof Rule;
     }
 
-    public function visit($rule, ?VisitorInterface $subVisitor = null)
+    public function visit($value, ?VisitorInterface $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
         }
 
-        /** @var \Netgen\BlockManager\API\Values\LayoutResolver\Rule $rule */
-        $layout = $rule->getLayout();
+        /** @var \Netgen\BlockManager\API\Values\LayoutResolver\Rule $value */
+        $layout = $value->getLayout();
 
         return [
-            'id' => $rule->getId(),
-            'status' => $this->getStatusString($rule),
+            'id' => $value->getId(),
+            'status' => $this->getStatusString($value),
             'layout_id' => $layout instanceof Layout ? $layout->getId() : null,
-            'is_enabled' => $rule->isEnabled(),
-            'priority' => $rule->getPriority(),
-            'comment' => $rule->getComment(),
-            'targets' => iterator_to_array($this->visitTargets($rule, $subVisitor)),
-            'conditions' => iterator_to_array($this->visitConditions($rule, $subVisitor)),
+            'is_enabled' => $value->isEnabled(),
+            'priority' => $value->getPriority(),
+            'comment' => $value->getComment(),
+            'targets' => iterator_to_array($this->visitTargets($value, $subVisitor)),
+            'conditions' => iterator_to_array($this->visitConditions($value, $subVisitor)),
         ];
     }
 

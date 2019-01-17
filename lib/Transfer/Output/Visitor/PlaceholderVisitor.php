@@ -21,17 +21,17 @@ final class PlaceholderVisitor implements VisitorInterface
         return $value instanceof Placeholder;
     }
 
-    public function visit($placeholder, ?VisitorInterface $subVisitor = null)
+    public function visit($value, ?VisitorInterface $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
         }
 
-        /* @var \Netgen\BlockManager\API\Values\Block\Placeholder $placeholder */
+        /** @var \Netgen\BlockManager\API\Values\Block\Placeholder $value */
 
         return [
-            'identifier' => $placeholder->getIdentifier(),
-            'blocks' => iterator_to_array($this->visitBlocks($placeholder, $subVisitor)),
+            'identifier' => $value->getIdentifier(),
+            'blocks' => iterator_to_array($this->visitBlocks($value, $subVisitor)),
         ];
     }
 

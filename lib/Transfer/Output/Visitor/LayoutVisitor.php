@@ -24,27 +24,27 @@ final class LayoutVisitor implements VisitorInterface
         return $value instanceof Layout;
     }
 
-    public function visit($layout, ?VisitorInterface $subVisitor = null)
+    public function visit($value, ?VisitorInterface $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
         }
 
-        /* @var \Netgen\BlockManager\API\Values\Layout\Layout $layout */
+        /** @var \Netgen\BlockManager\API\Values\Layout\Layout $value */
 
         return [
             '__type' => 'layout',
-            'id' => $layout->getId(),
-            'type_identifier' => $layout->getLayoutType()->getIdentifier(),
-            'name' => $layout->getName(),
-            'description' => $layout->getDescription(),
-            'status' => $this->getStatusString($layout),
-            'main_locale' => $layout->getMainLocale(),
-            'available_locales' => $layout->getAvailableLocales(),
-            'creation_date' => $layout->getCreated()->getTimestamp(),
-            'modification_date' => $layout->getModified()->getTimestamp(),
-            'is_shared' => $layout->isShared(),
-            'zones' => iterator_to_array($this->visitZones($layout, $subVisitor)),
+            'id' => $value->getId(),
+            'type_identifier' => $value->getLayoutType()->getIdentifier(),
+            'name' => $value->getName(),
+            'description' => $value->getDescription(),
+            'status' => $this->getStatusString($value),
+            'main_locale' => $value->getMainLocale(),
+            'available_locales' => $value->getAvailableLocales(),
+            'creation_date' => $value->getCreated()->getTimestamp(),
+            'modification_date' => $value->getModified()->getTimestamp(),
+            'is_shared' => $value->isShared(),
+            'zones' => iterator_to_array($this->visitZones($value, $subVisitor)),
         ];
     }
 

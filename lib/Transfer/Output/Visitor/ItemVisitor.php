@@ -21,20 +21,20 @@ final class ItemVisitor implements VisitorInterface
         return $value instanceof Item;
     }
 
-    public function visit($collectionItem, ?VisitorInterface $subVisitor = null)
+    public function visit($value, ?VisitorInterface $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
         }
 
-        /* @var \Netgen\BlockManager\API\Values\Collection\Item $collectionItem */
+        /** @var \Netgen\BlockManager\API\Values\Collection\Item $value */
 
         return [
-            'id' => $collectionItem->getId(),
-            'position' => $collectionItem->getPosition(),
-            'value' => $collectionItem->getCmsItem()->getRemoteId(),
-            'value_type' => $collectionItem->getDefinition()->getValueType(),
-            'configuration' => iterator_to_array($this->visitConfiguration($collectionItem, $subVisitor)),
+            'id' => $value->getId(),
+            'position' => $value->getPosition(),
+            'value' => $value->getCmsItem()->getRemoteId(),
+            'value_type' => $value->getDefinition()->getValueType(),
+            'configuration' => iterator_to_array($this->visitConfiguration($value, $subVisitor)),
         ];
     }
 

@@ -32,18 +32,18 @@ final class ZoneVisitor implements VisitorInterface
         return $value instanceof Zone;
     }
 
-    public function visit($zone, ?VisitorInterface $subVisitor = null)
+    public function visit($value, ?VisitorInterface $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
         }
 
-        /* @var \Netgen\BlockManager\API\Values\Layout\Zone $zone */
+        /** @var \Netgen\BlockManager\API\Values\Layout\Zone $value */
 
         return [
-            'identifier' => $zone->getIdentifier(),
-            'linked_zone' => $this->visitLinkedZone($zone),
-            'blocks' => iterator_to_array($this->visitBlocks($zone, $subVisitor)),
+            'identifier' => $value->getIdentifier(),
+            'linked_zone' => $this->visitLinkedZone($value),
+            'blocks' => iterator_to_array($this->visitBlocks($value, $subVisitor)),
         ];
     }
 

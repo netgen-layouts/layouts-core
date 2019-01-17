@@ -32,22 +32,22 @@ final class QueryVisitor implements VisitorInterface
         return $value instanceof Query;
     }
 
-    public function visit($query, ?VisitorInterface $subVisitor = null)
+    public function visit($value, ?VisitorInterface $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
         }
 
-        /* @var \Netgen\BlockManager\API\Values\Collection\Query $query */
+        /** @var \Netgen\BlockManager\API\Values\Collection\Query $value */
 
         return [
-            'id' => $query->getId(),
-            'is_translatable' => $query->isTranslatable(),
-            'is_always_available' => $query->isAlwaysAvailable(),
-            'main_locale' => $query->getMainLocale(),
-            'available_locales' => $query->getAvailableLocales(),
-            'parameters' => $this->visitParameters($query, $subVisitor),
-            'query_type' => $query->getQueryType()->getType(),
+            'id' => $value->getId(),
+            'is_translatable' => $value->isTranslatable(),
+            'is_always_available' => $value->isAlwaysAvailable(),
+            'main_locale' => $value->getMainLocale(),
+            'available_locales' => $value->getAvailableLocales(),
+            'parameters' => $this->visitParameters($value, $subVisitor),
+            'query_type' => $value->getQueryType()->getType(),
         ];
     }
 

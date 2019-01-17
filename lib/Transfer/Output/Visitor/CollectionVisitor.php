@@ -22,24 +22,24 @@ final class CollectionVisitor implements VisitorInterface
         return $value instanceof Collection;
     }
 
-    public function visit($collection, ?VisitorInterface $subVisitor = null)
+    public function visit($value, ?VisitorInterface $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
         }
 
-        /* @var \Netgen\BlockManager\API\Values\Collection\Collection $collection */
+        /** @var \Netgen\BlockManager\API\Values\Collection\Collection $value */
 
         return [
-            'id' => $collection->getId(),
-            'offset' => $collection->getOffset(),
-            'limit' => $collection->getLimit(),
-            'is_translatable' => $collection->isTranslatable(),
-            'is_always_available' => $collection->isAlwaysAvailable(),
-            'main_locale' => $collection->getMainLocale(),
-            'available_locales' => $collection->getAvailableLocales(),
-            'items' => iterator_to_array($this->visitItems($collection->getItems(), $subVisitor)),
-            'query' => $this->visitQuery($collection, $subVisitor),
+            'id' => $value->getId(),
+            'offset' => $value->getOffset(),
+            'limit' => $value->getLimit(),
+            'is_translatable' => $value->isTranslatable(),
+            'is_always_available' => $value->isAlwaysAvailable(),
+            'main_locale' => $value->getMainLocale(),
+            'available_locales' => $value->getAvailableLocales(),
+            'items' => iterator_to_array($this->visitItems($value->getItems(), $subVisitor)),
+            'query' => $this->visitQuery($value, $subVisitor),
         ];
     }
 

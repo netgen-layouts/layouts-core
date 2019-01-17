@@ -21,19 +21,19 @@ final class ConfigVisitor implements VisitorInterface
         return $value instanceof Config;
     }
 
-    public function visit($config, ?VisitorInterface $subVisitor = null)
+    public function visit($value, ?VisitorInterface $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
         }
 
-        /* @var \Netgen\BlockManager\API\Values\Config\Config $config */
+        /** @var \Netgen\BlockManager\API\Values\Config\Config $value */
 
         return array_map(
             function (Parameter $parameter) use ($subVisitor) {
                 return $subVisitor->visit($parameter);
             },
-            $config->getParameters()
+            $value->getParameters()
         );
     }
 }

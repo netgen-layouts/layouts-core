@@ -19,14 +19,14 @@ final class TargetVisitor implements VisitorInterface
         return $value instanceof Target;
     }
 
-    public function visit($target, ?VisitorInterface $subVisitor = null)
+    public function visit($value, ?VisitorInterface $subVisitor = null)
     {
-        /* @var \Netgen\BlockManager\API\Values\LayoutResolver\Target $target */
+        /** @var \Netgen\BlockManager\API\Values\LayoutResolver\Target $value */
 
         return [
-            'id' => $target->getId(),
-            'type' => $target->getTargetType()::getType(),
-            'value' => $target->getValue(),
+            'id' => $value->getId(),
+            'type' => $value->getTargetType()::getType(),
+            'value' => $value->getValue(),
         ];
     }
 }

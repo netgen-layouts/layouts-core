@@ -32,28 +32,28 @@ final class BlockVisitor implements VisitorInterface
         return $value instanceof Block;
     }
 
-    public function visit($block, ?VisitorInterface $subVisitor = null)
+    public function visit($value, ?VisitorInterface $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
         }
 
-        /* @var \Netgen\BlockManager\API\Values\Block\Block $block */
+        /** @var \Netgen\BlockManager\API\Values\Block\Block $value */
 
         return [
-            'id' => $block->getId(),
-            'definition_identifier' => $block->getDefinition()->getIdentifier(),
-            'is_translatable' => $block->isTranslatable(),
-            'is_always_available' => $block->isAlwaysAvailable(),
-            'main_locale' => $block->getMainLocale(),
-            'available_locales' => $block->getAvailableLocales(),
-            'view_type' => $block->getViewType(),
-            'item_view_type' => $block->getItemViewType(),
-            'name' => $block->getName(),
-            'placeholders' => iterator_to_array($this->visitPlaceholders($block, $subVisitor)),
-            'parameters' => $this->visitParameters($block, $subVisitor),
-            'configuration' => iterator_to_array($this->visitConfiguration($block, $subVisitor)),
-            'collections' => iterator_to_array($this->visitCollections($block, $subVisitor)),
+            'id' => $value->getId(),
+            'definition_identifier' => $value->getDefinition()->getIdentifier(),
+            'is_translatable' => $value->isTranslatable(),
+            'is_always_available' => $value->isAlwaysAvailable(),
+            'main_locale' => $value->getMainLocale(),
+            'available_locales' => $value->getAvailableLocales(),
+            'view_type' => $value->getViewType(),
+            'item_view_type' => $value->getItemViewType(),
+            'name' => $value->getName(),
+            'placeholders' => iterator_to_array($this->visitPlaceholders($value, $subVisitor)),
+            'parameters' => $this->visitParameters($value, $subVisitor),
+            'configuration' => iterator_to_array($this->visitConfiguration($value, $subVisitor)),
+            'collections' => iterator_to_array($this->visitCollections($value, $subVisitor)),
         ];
     }
 

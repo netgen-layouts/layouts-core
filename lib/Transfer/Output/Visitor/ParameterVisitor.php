@@ -19,11 +19,11 @@ final class ParameterVisitor implements VisitorInterface
         return $value instanceof Parameter;
     }
 
-    public function visit($parameter, ?VisitorInterface $subVisitor = null)
+    public function visit($value, ?VisitorInterface $subVisitor = null)
     {
-        /** @var \Netgen\BlockManager\Parameters\Parameter $parameter */
-        $parameterDefinition = $parameter->getParameterDefinition();
+        /** @var \Netgen\BlockManager\Parameters\Parameter $value */
+        $valueDefinition = $value->getParameterDefinition();
 
-        return $parameterDefinition->getType()->export($parameterDefinition, $parameter->getValue());
+        return $valueDefinition->getType()->export($valueDefinition, $value->getValue());
     }
 }

@@ -19,14 +19,14 @@ final class ConditionVisitor implements VisitorInterface
         return $value instanceof Condition;
     }
 
-    public function visit($condition, ?VisitorInterface $subVisitor = null)
+    public function visit($value, ?VisitorInterface $subVisitor = null)
     {
-        /* @var \Netgen\BlockManager\API\Values\LayoutResolver\Condition $condition */
+        /** @var \Netgen\BlockManager\API\Values\LayoutResolver\Condition $value */
 
         return [
-            'id' => $condition->getId(),
-            'type' => $condition->getConditionType()::getType(),
-            'value' => $condition->getValue(),
+            'id' => $value->getId(),
+            'type' => $value->getConditionType()::getType(),
+            'value' => $value->getValue(),
         ];
     }
 }
