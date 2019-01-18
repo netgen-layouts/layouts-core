@@ -170,8 +170,8 @@ abstract class ImporterTest extends CoreTestCase
             }
         }
 
-        // Fake assertion to disable risky flag
-        self::assertTrue(true);
+        // We fake the assertion count to disable risky warning
+        $this->addToAssertionCount(1);
     }
 
     /**

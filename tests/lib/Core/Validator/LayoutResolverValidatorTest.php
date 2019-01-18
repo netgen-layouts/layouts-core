@@ -78,8 +78,8 @@ final class LayoutResolverValidatorTest extends TestCase
         $struct = new RuleCreateStruct();
         (new Hydrator())->hydrate($params, $struct);
 
-        // Fake assertion to fix coverage on tests which do not perform assertions
-        self::assertTrue(true);
+        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
+        $this->addToAssertionCount(1);
 
         $this->layoutResolverValidator->validateRuleCreateStruct($struct);
     }
@@ -97,8 +97,8 @@ final class LayoutResolverValidatorTest extends TestCase
         $struct = new RuleUpdateStruct();
         (new Hydrator())->hydrate($params, $struct);
 
-        // Fake assertion to fix coverage on tests which do not perform assertions
-        self::assertTrue(true);
+        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
+        $this->addToAssertionCount(1);
 
         $this->layoutResolverValidator->validateRuleUpdateStruct($struct);
     }
@@ -116,8 +116,8 @@ final class LayoutResolverValidatorTest extends TestCase
         $struct = new RuleMetadataUpdateStruct();
         (new Hydrator())->hydrate($params, $struct);
 
-        // Fake assertion to fix coverage on tests which do not perform assertions
-        self::assertTrue(true);
+        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
+        $this->addToAssertionCount(1);
 
         $this->layoutResolverValidator->validateRuleMetadataUpdateStruct($struct);
     }
@@ -135,8 +135,8 @@ final class LayoutResolverValidatorTest extends TestCase
         $struct = new TargetCreateStruct();
         (new Hydrator())->hydrate($params, $struct);
 
-        // Fake assertion to fix coverage on tests which do not perform assertions
-        self::assertTrue(true);
+        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
+        $this->addToAssertionCount(1);
 
         $this->layoutResolverValidator->validateTargetCreateStruct($struct);
     }
@@ -154,8 +154,8 @@ final class LayoutResolverValidatorTest extends TestCase
         $struct = new TargetUpdateStruct();
         (new Hydrator())->hydrate($params, $struct);
 
-        // Fake assertion to fix coverage on tests which do not perform assertions
-        self::assertTrue(true);
+        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
+        $this->addToAssertionCount(1);
 
         $this->layoutResolverValidator->validateTargetUpdateStruct(
             Target::fromArray(['targetType' => new TargetType1()]),
@@ -176,8 +176,8 @@ final class LayoutResolverValidatorTest extends TestCase
         $struct = new ConditionCreateStruct();
         (new Hydrator())->hydrate($params, $struct);
 
-        // Fake assertion to fix coverage on tests which do not perform assertions
-        self::assertTrue(true);
+        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
+        $this->addToAssertionCount(1);
 
         $this->layoutResolverValidator->validateConditionCreateStruct($struct);
     }
@@ -195,8 +195,8 @@ final class LayoutResolverValidatorTest extends TestCase
         $struct = new ConditionUpdateStruct();
         (new Hydrator())->hydrate($params, $struct);
 
-        // Fake assertion to fix coverage on tests which do not perform assertions
-        self::assertTrue(true);
+        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
+        $this->addToAssertionCount(1);
 
         $this->layoutResolverValidator->validateConditionUpdateStruct(
             Condition::fromArray(['conditionType' => new ConditionType1()]),

@@ -11,7 +11,7 @@ final class ValueWithLazyProperty
     use LazyPropertyTrait;
 
     /**
-     * @var callable
+     * @var mixed
      */
     public $value;
 
@@ -20,6 +20,9 @@ final class ValueWithLazyProperty
         $this->value = $callable;
     }
 
+    /**
+     * @return mixed
+     */
     public function getValue()
     {
         return $this->getLazyProperty($this->value);

@@ -60,8 +60,8 @@ final class CollectionValidatorTest extends TestCase
         $struct = new CollectionCreateStruct();
         (new Hydrator())->hydrate($params, $struct);
 
-        // Fake assertion to fix coverage on tests which do not perform assertions
-        self::assertTrue(true);
+        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
+        $this->addToAssertionCount(1);
 
         $this->collectionValidator->validateCollectionCreateStruct($struct);
     }
@@ -79,8 +79,8 @@ final class CollectionValidatorTest extends TestCase
         $struct = new CollectionUpdateStruct();
         (new Hydrator())->hydrate($params, $struct);
 
-        // Fake assertion to fix coverage on tests which do not perform assertions
-        self::assertTrue(true);
+        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
+        $this->addToAssertionCount(1);
 
         $this->collectionValidator->validateCollectionUpdateStruct(
             Collection::fromArray(['query' => $isDynamic ? new Query() : null]),
@@ -101,8 +101,8 @@ final class CollectionValidatorTest extends TestCase
         $struct = new ItemCreateStruct();
         (new Hydrator())->hydrate($params, $struct);
 
-        // Fake assertion to fix coverage on tests which do not perform assertions
-        self::assertTrue(true);
+        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
+        $this->addToAssertionCount(1);
 
         $this->collectionValidator->validateItemCreateStruct($struct);
     }
@@ -120,8 +120,8 @@ final class CollectionValidatorTest extends TestCase
         $struct = new ItemUpdateStruct();
         (new Hydrator())->hydrate($params, $struct);
 
-        // Fake assertion to fix coverage on tests which do not perform assertions
-        self::assertTrue(true);
+        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
+        $this->addToAssertionCount(1);
 
         $this->collectionValidator->validateItemUpdateStruct(
             Item::fromArray(
@@ -184,8 +184,8 @@ final class CollectionValidatorTest extends TestCase
         $queryCreateStruct = new QueryCreateStruct($params['queryType']);
         (new Hydrator())->hydrate($params, $queryCreateStruct);
 
-        // Fake assertion to fix coverage on tests which do not perform assertions
-        self::assertTrue(true);
+        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
+        $this->addToAssertionCount(1);
 
         $this->collectionValidator->validateQueryCreateStruct($queryCreateStruct);
     }
@@ -203,8 +203,8 @@ final class CollectionValidatorTest extends TestCase
         $queryUpdateStruct = new QueryUpdateStruct();
         (new Hydrator())->hydrate($params, $queryUpdateStruct);
 
-        // Fake assertion to fix coverage on tests which do not perform assertions
-        self::assertTrue(true);
+        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
+        $this->addToAssertionCount(1);
 
         $this->collectionValidator->validateQueryUpdateStruct(
             Query::fromArray(['queryType' => new QueryType('query_type')]),

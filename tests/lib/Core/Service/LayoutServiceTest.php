@@ -874,7 +874,6 @@ abstract class LayoutServiceTest extends CoreTestCase
         self::assertTrue($topZone->hasLinkedZone());
 
         $newTopZone = $layout->getZone('top');
-        self::assertInstanceOf(Zone::class, $newTopZone);
 
         self::assertInstanceOf(Zone::class, $topZone->getLinkedZone());
         self::assertInstanceOf(Zone::class, $newTopZone->getLinkedZone());
@@ -927,7 +926,6 @@ abstract class LayoutServiceTest extends CoreTestCase
         self::assertTrue($topZone->hasLinkedZone());
 
         $newTopZone = $layout->getZone('top');
-        self::assertInstanceOf(Zone::class, $newTopZone);
 
         self::assertInstanceOf(Zone::class, $topZone->getLinkedZone());
         self::assertInstanceOf(Zone::class, $newTopZone->getLinkedZone());

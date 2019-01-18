@@ -45,8 +45,8 @@ final class ValidatorTest extends TestCase
             $this->expectException(ValidationException::class);
         }
 
-        // Fake assertion to fix coverage on tests which do not perform assertions
-        self::assertTrue(true);
+        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
+        $this->addToAssertionCount(1);
 
         $this->validator->validateId($id);
     }
@@ -64,8 +64,8 @@ final class ValidatorTest extends TestCase
             $this->expectException(ValidationException::class);
         }
 
-        // Fake assertion to fix coverage on tests which do not perform assertions
-        self::assertTrue(true);
+        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
+        $this->addToAssertionCount(1);
 
         $this->validator->validateIdentifier($identifier);
     }
@@ -84,8 +84,8 @@ final class ValidatorTest extends TestCase
             $this->expectException(ValidationException::class);
         }
 
-        // Fake assertion to fix coverage on tests which do not perform assertions
-        self::assertTrue(true);
+        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
+        $this->addToAssertionCount(1);
 
         $this->validator->validatePosition($position, null, $isRequired);
     }
@@ -97,8 +97,8 @@ final class ValidatorTest extends TestCase
     {
         $this->validator->validatePosition(null);
 
-        // Fake assertion to fix coverage on tests which do not perform assertions
-        self::assertTrue(true);
+        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
+        $this->addToAssertionCount(1);
     }
 
     /**
@@ -115,8 +115,8 @@ final class ValidatorTest extends TestCase
             $this->expectException(ValidationException::class);
         }
 
-        // Fake assertion to fix coverage on tests which do not perform assertions
-        self::assertTrue(true);
+        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
+        $this->addToAssertionCount(1);
 
         $this->validator->validateOffsetAndLimit($offset, $limit);
     }
@@ -131,8 +131,8 @@ final class ValidatorTest extends TestCase
             $this->expectException(ValidationException::class);
         }
 
-        // Fake assertion to fix coverage on tests which do not perform assertions
-        self::assertTrue(true);
+        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
+        $this->addToAssertionCount(1);
 
         $this->validator->validateLocale($locale);
     }

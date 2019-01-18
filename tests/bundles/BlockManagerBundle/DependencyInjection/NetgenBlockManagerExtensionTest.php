@@ -127,8 +127,8 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
     {
         $this->load($this->minimalConfig + ['design' => 'standard']);
 
-        // Avoids a warning in test runner about tests which do not assert anything
-        self::assertTrue(true);
+        // We fake the assertion count to disable risky warning
+        $this->addToAssertionCount(1);
     }
 
     /**
@@ -142,8 +142,8 @@ final class NetgenBlockManagerExtensionTest extends AbstractExtensionTestCase
 
         $this->load($designList + ['design' => 'custom']);
 
-        // Avoids a warning in test runner about tests which do not assert anything
-        self::assertTrue(true);
+        // We fake the assertion count to disable risky warning
+        $this->addToAssertionCount(1);
     }
 
     protected function getContainerExtensions(): array

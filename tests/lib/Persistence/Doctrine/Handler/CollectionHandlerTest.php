@@ -1960,6 +1960,6 @@ final class CollectionHandlerTest extends TestCase
             $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT)
         );
 
-        self::assertTrue(true);
+        $this->addToAssertionCount(1);
     }
 }

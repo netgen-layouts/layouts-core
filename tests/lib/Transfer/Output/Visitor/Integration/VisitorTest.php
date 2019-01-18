@@ -84,8 +84,8 @@ abstract class VisitorTest extends CoreTestCase
             self::fail($matcher->getError() . PHP_EOL . $diff->render(new Diff_Renderer_Text_Unified()));
         }
 
-        // Fake assertion to disable risky flag
-        self::assertTrue(true);
+        // We fake the assertion count to disable risky warning
+        $this->addToAssertionCount(1);
     }
 
     /**

@@ -56,8 +56,8 @@ final class LayoutValidatorTest extends TestCase
         $struct = new LayoutCreateStruct();
         (new Hydrator())->hydrate($params, $struct);
 
-        // Fake assertion to fix coverage on tests which do not perform assertions
-        self::assertTrue(true);
+        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
+        $this->addToAssertionCount(1);
 
         $this->layoutValidator->validateLayoutCreateStruct($struct);
     }
@@ -75,8 +75,8 @@ final class LayoutValidatorTest extends TestCase
         $struct = new LayoutUpdateStruct();
         (new Hydrator())->hydrate($params, $struct);
 
-        // Fake assertion to fix coverage on tests which do not perform assertions
-        self::assertTrue(true);
+        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
+        $this->addToAssertionCount(1);
 
         $this->layoutValidator->validateLayoutUpdateStruct($struct);
     }
@@ -94,8 +94,8 @@ final class LayoutValidatorTest extends TestCase
         $struct = new LayoutCopyStruct();
         (new Hydrator())->hydrate($params, $struct);
 
-        // Fake assertion to fix coverage on tests which do not perform assertions
-        self::assertTrue(true);
+        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
+        $this->addToAssertionCount(1);
 
         $this->layoutValidator->validateLayoutCopyStruct($struct);
     }
@@ -106,8 +106,8 @@ final class LayoutValidatorTest extends TestCase
      */
     public function testValidateChangeLayoutType(array $zoneMapping): void
     {
-        // Fake assertion to fix coverage on tests which do not perform assertions
-        self::assertTrue(true);
+        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
+        $this->addToAssertionCount(1);
 
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
@@ -121,8 +121,8 @@ final class LayoutValidatorTest extends TestCase
      */
     public function testValidateChangeLayoutTypeWhenNotPreservingSharedZones(): void
     {
-        // Fake assertion to fix coverage on tests which do not perform assertions
-        self::assertTrue(true);
+        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
+        $this->addToAssertionCount(1);
 
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),

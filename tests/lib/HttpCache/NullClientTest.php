@@ -26,8 +26,8 @@ final class NullClientTest extends TestCase
     {
         $this->client->invalidateLayouts([24, 42]);
 
-        // Fake assertion to disable risky warning
-        self::assertTrue(true);
+        // We fake the assertion count to disable risky warning
+        $this->addToAssertionCount(1);
     }
 
     /**
@@ -37,8 +37,8 @@ final class NullClientTest extends TestCase
     {
         $this->client->invalidateAllLayouts();
 
-        // Fake assertion to disable risky warning
-        self::assertTrue(true);
+        // We fake the assertion count to disable risky warning
+        $this->addToAssertionCount(1);
     }
 
     /**
@@ -48,8 +48,8 @@ final class NullClientTest extends TestCase
     {
         $this->client->invalidateBlocks([24, 42]);
 
-        // Fake assertion to disable risky warning
-        self::assertTrue(true);
+        // We fake the assertion count to disable risky warning
+        $this->addToAssertionCount(1);
     }
 
     /**
@@ -59,8 +59,8 @@ final class NullClientTest extends TestCase
     {
         $this->client->invalidateLayoutBlocks([24, 42]);
 
-        // Fake assertion to disable risky warning
-        self::assertTrue(true);
+        // We fake the assertion count to disable risky warning
+        $this->addToAssertionCount(1);
     }
 
     /**
@@ -70,8 +70,8 @@ final class NullClientTest extends TestCase
     {
         $this->client->invalidateAllBlocks();
 
-        // Fake assertion to disable risky warning
-        self::assertTrue(true);
+        // We fake the assertion count to disable risky warning
+        $this->addToAssertionCount(1);
     }
 
     /**

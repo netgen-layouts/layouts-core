@@ -2225,7 +2225,7 @@ final class BlockHandlerTest extends TestCase
             // Do nothing
         }
 
-        // Fake assertion to disable risky warning
-        self::assertTrue(true);
+        // We fake the assertion count to disable risky warning
+        $this->addToAssertionCount(1);
     }
 }
