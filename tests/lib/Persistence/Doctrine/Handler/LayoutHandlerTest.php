@@ -16,12 +16,14 @@ use Netgen\BlockManager\Persistence\Values\Layout\ZoneUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
+use Netgen\BlockManager\Tests\TestCase\LegacyTestCaseTrait;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutHandlerTest extends TestCase
 {
     use TestCaseTrait;
     use ExportObjectTrait;
+    use LegacyTestCaseTrait;
 
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface
@@ -684,10 +686,10 @@ final class LayoutHandlerTest extends TestCase
         self::assertTrue($createdLayout->shared);
         self::assertSame('en', $createdLayout->mainLocale);
 
-        self::assertInternalType('int', $createdLayout->created);
+        self::assertIsInt($createdLayout->created);
         self::assertGreaterThan(0, $createdLayout->created);
 
-        self::assertInternalType('int', $createdLayout->modified);
+        self::assertIsInt($createdLayout->modified);
         self::assertGreaterThan(0, $createdLayout->modified);
     }
 

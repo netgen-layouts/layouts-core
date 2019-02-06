@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1\Config;
 
+use Netgen\BlockManager\Tests\TestCase\LegacyTestCaseTrait;
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class LoadBlockTypesTest extends JsonApiTestCase
 {
+    use LegacyTestCaseTrait;
+
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Config\LoadBlockTypes::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Config\LoadBlockTypes::__invoke
@@ -24,14 +27,14 @@ final class LoadBlockTypesTest extends JsonApiTestCase
 
         $responseContent = json_decode($response->getContent(), true);
 
-        self::assertInternalType('array', $responseContent);
+        self::assertIsArray($responseContent);
         self::assertArrayHasKey('block_types', $responseContent);
         self::assertArrayHasKey('block_type_groups', $responseContent);
 
-        self::assertInternalType('array', $responseContent['block_types']);
+        self::assertIsArray($responseContent['block_types']);
         self::assertNotEmpty($responseContent['block_types']);
 
-        self::assertInternalType('array', $responseContent['block_type_groups']);
+        self::assertIsArray($responseContent['block_type_groups']);
         self::assertNotEmpty($responseContent['block_type_groups']);
     }
 }

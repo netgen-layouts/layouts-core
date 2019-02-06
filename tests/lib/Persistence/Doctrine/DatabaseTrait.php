@@ -14,6 +14,10 @@ use Netgen\BlockManager\Exception\RuntimeException;
 trait DatabaseTrait
 {
     /**
+     * @var \Doctrine\DBAL\Connection
+     */
+    protected $databaseConnection;
+    /**
      * @var string
      */
     private $inMemoryDsn = 'sqlite:///:memory:';
@@ -27,11 +31,6 @@ trait DatabaseTrait
      * @var string
      */
     private $databaseServer;
-
-    /**
-     * @var \Doctrine\DBAL\Connection
-     */
-    private $databaseConnection;
 
     /**
      * Inserts database fixtures.

@@ -10,3 +10,6 @@ parameters:
     ignoreErrors:
         # Doctrine DBAL
         - '#Cannot call method fetchAll\(\) on Doctrine\\DBAL\\Driver\\Statement\|int#'
+        -
+            message: '#Call to function method_exists#'
+            path: tests/lib/TestCase/LegacyTestCaseTrait.php

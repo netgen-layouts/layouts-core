@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\API\Values;
 
 use Netgen\BlockManager\Tests\API\Stubs\ValueWithLazyProperty;
+use Netgen\BlockManager\Tests\TestCase\LegacyTestCaseTrait;
 use PHPUnit\Framework\TestCase;
 
 final class LazyPropertyTraitTest extends TestCase
 {
+    use LegacyTestCaseTrait;
+
     /**
      * @var \Netgen\BlockManager\Tests\API\Stubs\ValueWithLazyProperty
      */
@@ -24,14 +27,14 @@ final class LazyPropertyTraitTest extends TestCase
      */
     public function testGetLazyProperty(): void
     {
-        self::assertInternalType('callable', $this->value->value);
+        self::assertIsCallable($this->value->value);
 
         self::assertSame(42, $this->value->getValue());
 
         /** @var int $newValue */
         $newValue = $this->value->value;
 
-        self::assertInternalType('int', $newValue);
+        self::assertIsInt($newValue);
         self::assertSame(42, $newValue);
     }
 }

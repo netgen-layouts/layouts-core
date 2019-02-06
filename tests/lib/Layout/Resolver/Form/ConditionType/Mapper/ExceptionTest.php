@@ -42,11 +42,11 @@ final class ExceptionTest extends TestCase
 
         self::assertTrue($options['multiple']);
         self::assertFalse($options['required']);
-        self::assertInternalType('array', $options['choices']);
+        self::assertIsArray($options['choices']);
 
         foreach ($options['choices'] as $choiceLabel => $choice) {
-            self::assertInternalType('string', $choiceLabel);
-            self::assertInternalType('int', $choice);
+            self::assertIsString($choiceLabel);
+            self::assertIsInt($choice);
             self::assertGreaterThanOrEqual(400, $choice);
             self::assertLessThan(600, $choice);
         }

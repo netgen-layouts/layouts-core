@@ -11,10 +11,13 @@ use Netgen\BlockManager\Serializer\Normalizer\V1\BlockTypeNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
+use Netgen\BlockManager\Tests\TestCase\LegacyTestCaseTrait;
 use PHPUnit\Framework\TestCase;
 
 final class BlockTypeNormalizerTest extends TestCase
 {
+    use LegacyTestCaseTrait;
+
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\V1\BlockTypeNormalizer
      */
@@ -87,7 +90,7 @@ final class BlockTypeNormalizerTest extends TestCase
 
         $data = $this->normalizer->normalize(new VersionedValue($blockType, 1));
 
-        self::assertInternalType('array', $data);
+        self::assertIsArray($data);
         self::assertTrue($data['is_container']);
     }
 

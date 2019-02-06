@@ -6,10 +6,13 @@ namespace Netgen\BlockManager\Tests\Collection\QueryType;
 
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Collection\QueryType\NullQueryType;
+use Netgen\BlockManager\Tests\TestCase\LegacyTestCaseTrait;
 use PHPUnit\Framework\TestCase;
 
 final class NullQueryTypeTest extends TestCase
 {
+    use LegacyTestCaseTrait;
+
     /**
      * @var \Netgen\BlockManager\Collection\QueryType\NullQueryType
      */
@@ -52,7 +55,7 @@ final class NullQueryTypeTest extends TestCase
     {
         $values = $this->queryType->getValues(new Query());
 
-        self::assertInternalType('array', $values);
+        self::assertIsArray($values);
         self::assertEmpty($values);
     }
 

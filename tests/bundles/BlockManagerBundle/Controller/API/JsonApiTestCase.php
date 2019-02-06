@@ -11,11 +11,13 @@ use Netgen\BlockManager\Tests\Bundle\FixturesBundle\Item\Value;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Kernel\MockerContainer;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\DatabaseTrait;
+use Netgen\BlockManager\Tests\TestCase\LegacyTestCaseTrait;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class JsonApiTestCase extends BaseJsonApiTestCase
 {
     use DatabaseTrait;
+    use LegacyTestCaseTrait;
 
     public function setUp(): void
     {
@@ -94,7 +96,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
     protected function assertExceptionResponse(Response $response, int $statusCode = Response::HTTP_BAD_REQUEST, ?string $message = null): void
     {
         $responseContent = json_decode($response->getContent(), true);
-        self::assertInternalType('array', $responseContent);
+        self::assertIsArray($responseContent);
 
         self::assertArrayHasKey('status_code', $responseContent);
         self::assertArrayHasKey('status_text', $responseContent);

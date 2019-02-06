@@ -7,12 +7,15 @@ namespace Netgen\BlockManager\Tests\Serializer\Normalizer;
 use Exception;
 use Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
+use Netgen\BlockManager\Tests\TestCase\LegacyTestCaseTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class ExceptionNormalizerTest extends TestCase
 {
+    use LegacyTestCaseTrait;
+
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer
      */
@@ -51,7 +54,7 @@ final class ExceptionNormalizerTest extends TestCase
         $exception = new Exception('Exception message', 123, $previousException);
         $data = $this->exceptionNormalizer->normalize($exception);
 
-        self::assertInternalType('array', $data);
+        self::assertIsArray($data);
         self::assertArrayHasKey('code', $data);
         self::assertArrayHasKey('message', $data);
         self::assertArrayHasKey('debug', $data);

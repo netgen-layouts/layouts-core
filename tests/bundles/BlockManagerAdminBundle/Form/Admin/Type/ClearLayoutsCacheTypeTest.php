@@ -7,6 +7,7 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Tests\Form\Admin\Type;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\Layout\LayoutList;
 use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Netgen\BlockManager\Tests\TestCase\LegacyTestCaseTrait;
 use Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearLayoutsCacheType;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
@@ -14,6 +15,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ClearLayoutsCacheTypeTest extends FormTestCase
 {
+    use LegacyTestCaseTrait;
+
     /**
      * @var \Netgen\BlockManager\API\Values\Layout\LayoutList
      */
@@ -51,7 +54,7 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
 
         self::assertTrue($form->isSynchronized());
 
-        self::assertInternalType('array', $form->getData());
+        self::assertIsArray($form->getData());
         self::assertArrayHasKey('layouts', $form->getData());
 
         self::assertInstanceOf(LayoutList::class, $form->getData()['layouts']);

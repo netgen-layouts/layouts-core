@@ -6,6 +6,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\CompilerPas
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Tests\TestCase\LegacyTestCaseTrait;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -14,6 +15,8 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class BlockTypePassTest extends AbstractCompilerPassTestCase
 {
+    use LegacyTestCaseTrait;
+
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::buildBlockTypes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::generateBlockTypeConfig
@@ -99,7 +102,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
 
         $blockTypes = $this->container->getParameter('netgen_block_manager.block_types');
 
-        self::assertInternalType('array', $blockTypes);
+        self::assertIsArray($blockTypes);
         self::assertArrayHasKey('test', $blockTypes);
 
         self::assertSame(
@@ -154,7 +157,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
 
         $blockTypes = $this->container->getParameter('netgen_block_manager.block_types');
 
-        self::assertInternalType('array', $blockTypes);
+        self::assertIsArray($blockTypes);
         self::assertArrayHasKey('test', $blockTypes);
 
         self::assertSame(
@@ -262,7 +265,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
 
         $blockTypes = $this->container->getParameter('netgen_block_manager.block_types');
 
-        self::assertInternalType('array', $blockTypes);
+        self::assertIsArray($blockTypes);
         self::assertArrayHasKey('type', $blockTypes);
 
         self::assertSame(
@@ -321,7 +324,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
 
         $blockTypes = $this->container->getParameter('netgen_block_manager.block_types');
 
-        self::assertInternalType('array', $blockTypes);
+        self::assertIsArray($blockTypes);
         self::assertArrayHasKey('title', $blockTypes);
 
         self::assertSame(
@@ -380,7 +383,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
 
         $blockTypes = $this->container->getParameter('netgen_block_manager.block_types');
 
-        self::assertInternalType('array', $blockTypes);
+        self::assertIsArray($blockTypes);
         self::assertArrayHasKey('type', $blockTypes);
 
         self::assertSame(

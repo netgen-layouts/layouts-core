@@ -18,11 +18,14 @@ use Netgen\BlockManager\Layout\Type\LayoutTypeFactory;
 use Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
+use Netgen\BlockManager\Tests\TestCase\LegacyTestCaseTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Serializer;
 
 final class LayoutNormalizerTest extends TestCase
 {
+    use LegacyTestCaseTrait;
+
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
@@ -264,7 +267,7 @@ final class LayoutNormalizerTest extends TestCase
 
         $data = $this->normalizer->normalize(new VersionedValue($layout, 1));
 
-        self::assertInternalType('array', $data);
+        self::assertIsArray($data);
         self::assertTrue($data['has_archived_state']);
         self::assertSame($archivedLayout->getCreated()->format(DateTime::ISO8601), $data['archive_created_at']);
         self::assertSame($archivedLayout->getModified()->format(DateTime::ISO8601), $data['archive_updated_at']);

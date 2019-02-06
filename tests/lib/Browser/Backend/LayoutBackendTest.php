@@ -11,12 +11,15 @@ use Netgen\BlockManager\Browser\Backend\LayoutBackend;
 use Netgen\BlockManager\Browser\Item\Layout\LayoutInterface;
 use Netgen\BlockManager\Browser\Item\Layout\RootLocation;
 use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Tests\TestCase\LegacyTestCaseTrait;
 use Netgen\ContentBrowser\Exceptions\NotFoundException as ContentBrowserNotFoundException;
 use Netgen\ContentBrowser\Item\ItemInterface;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutBackendTest extends TestCase
 {
+    use LegacyTestCaseTrait;
+
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
@@ -108,7 +111,7 @@ final class LayoutBackendTest extends TestCase
     {
         $locations = $this->backend->getSubLocations(new RootLocation());
 
-        self::assertInternalType('array', $locations);
+        self::assertIsArray($locations);
         self::assertEmpty($locations);
     }
 
@@ -194,7 +197,7 @@ final class LayoutBackendTest extends TestCase
     {
         $items = $this->backend->search('test');
 
-        self::assertInternalType('array', $items);
+        self::assertIsArray($items);
         self::assertEmpty($items);
     }
 
@@ -205,7 +208,7 @@ final class LayoutBackendTest extends TestCase
     {
         $items = $this->backend->search('test', 5, 10);
 
-        self::assertInternalType('array', $items);
+        self::assertIsArray($items);
         self::assertEmpty($items);
     }
 
