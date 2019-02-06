@@ -28,7 +28,6 @@ final class ViewNormalizer extends Normalizer implements NormalizerInterface
     {
         /** @var array $normalizedData */
         /** @var \Netgen\BlockManager\Serializer\Values\View $object */
-
         $normalizedData = $this->normalizer->normalize(
             new VersionedValue(
                 $object->getValue(),

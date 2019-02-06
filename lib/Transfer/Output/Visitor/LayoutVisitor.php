@@ -30,7 +30,7 @@ final class LayoutVisitor implements VisitorInterface
             throw new RuntimeException('Implementation requires sub-visitor');
         }
 
-        /** @var \Netgen\BlockManager\API\Values\Layout\Layout $value */
+        /* @var \Netgen\BlockManager\API\Values\Layout\Layout $value */
 
         return [
             '__type' => 'layout',

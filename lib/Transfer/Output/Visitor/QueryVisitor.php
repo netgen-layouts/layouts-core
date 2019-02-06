@@ -38,7 +38,7 @@ final class QueryVisitor implements VisitorInterface
             throw new RuntimeException('Implementation requires sub-visitor');
         }
 
-        /** @var \Netgen\BlockManager\API\Values\Collection\Query $value */
+        /* @var \Netgen\BlockManager\API\Values\Collection\Query $value */
 
         return [
             'id' => $value->getId(),

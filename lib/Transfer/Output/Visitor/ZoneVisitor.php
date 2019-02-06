@@ -38,7 +38,7 @@ final class ZoneVisitor implements VisitorInterface
             throw new RuntimeException('Implementation requires sub-visitor');
         }
 
-        /** @var \Netgen\BlockManager\API\Values\Layout\Zone $value */
+        /* @var \Netgen\BlockManager\API\Values\Layout\Zone $value */
 
         return [
             'identifier' => $value->getIdentifier(),

@@ -21,7 +21,7 @@ final class TargetVisitor implements VisitorInterface
 
     public function visit($value, ?VisitorInterface $subVisitor = null)
     {
-        /** @var \Netgen\BlockManager\API\Values\LayoutResolver\Target $value */
+        /* @var \Netgen\BlockManager\API\Values\LayoutResolver\Target $value */
 
         return [
             'id' => $value->getId(),

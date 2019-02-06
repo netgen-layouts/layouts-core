@@ -27,7 +27,7 @@ final class PlaceholderVisitor implements VisitorInterface
             throw new RuntimeException('Implementation requires sub-visitor');
         }
 
-        /** @var \Netgen\BlockManager\API\Values\Block\Placeholder $value */
+        /* @var \Netgen\BlockManager\API\Values\Block\Placeholder $value */
 
         return [
             'identifier' => $value->getIdentifier(),

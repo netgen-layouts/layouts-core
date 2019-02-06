@@ -27,7 +27,7 @@ final class ItemVisitor implements VisitorInterface
             throw new RuntimeException('Implementation requires sub-visitor');
         }
 
-        /** @var \Netgen\BlockManager\API\Values\Collection\Item $value */
+        /* @var \Netgen\BlockManager\API\Values\Collection\Item $value */
 
         return [
             'id' => $value->getId(),

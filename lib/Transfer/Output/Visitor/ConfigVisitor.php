@@ -27,7 +27,7 @@ final class ConfigVisitor implements VisitorInterface
             throw new RuntimeException('Implementation requires sub-visitor');
         }
 
-        /** @var \Netgen\BlockManager\API\Values\Config\Config $value */
+        /* @var \Netgen\BlockManager\API\Values\Config\Config $value */
 
         return array_map(
             function (Parameter $parameter) use ($subVisitor) {

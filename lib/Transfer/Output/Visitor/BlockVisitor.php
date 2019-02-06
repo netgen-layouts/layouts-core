@@ -38,7 +38,7 @@ final class BlockVisitor implements VisitorInterface
             throw new RuntimeException('Implementation requires sub-visitor');
         }
 
-        /** @var \Netgen\BlockManager\API\Values\Block\Block $value */
+        /* @var \Netgen\BlockManager\API\Values\Block\Block $value */
 
         return [
             'id' => $value->getId(),

@@ -28,7 +28,7 @@ final class CollectionVisitor implements VisitorInterface
             throw new RuntimeException('Implementation requires sub-visitor');
         }
 
-        /** @var \Netgen\BlockManager\API\Values\Collection\Collection $value */
+        /* @var \Netgen\BlockManager\API\Values\Collection\Collection $value */
 
         return [
             'id' => $value->getId(),

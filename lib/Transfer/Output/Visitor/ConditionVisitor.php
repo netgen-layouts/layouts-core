@@ -21,7 +21,7 @@ final class ConditionVisitor implements VisitorInterface
 
     public function visit($value, ?VisitorInterface $subVisitor = null)
     {
-        /** @var \Netgen\BlockManager\API\Values\LayoutResolver\Condition $value */
+        /* @var \Netgen\BlockManager\API\Values\LayoutResolver\Condition $value */
 
         return [
             'id' => $value->getId(),
