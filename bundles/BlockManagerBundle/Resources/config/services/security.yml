@@ -4,3 +4,11 @@ services:
         public: false
         arguments:
             - "@security.csrf.token_manager"
+
+    netgen_block_manager.security.voter.policy_to_role_map:
+        class: Netgen\BlockManager\Security\Authorization\Voter\PolicyToRoleMapVoter
+        public: false
+        arguments:
+            - "@security.helper"
+        tags:
+            - { name: security.voter, priority: 0 }
