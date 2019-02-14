@@ -39,10 +39,10 @@ view:
                 match:
                     form\type: Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearLayoutsCacheType
             condition\type:
-                template: "@NetgenBlockManagerAdmin/admin/layout_resolver/form/edit_condition_type.html.twig"
+                template: "@NetgenBlockManagerAdmin/admin/layout_resolver/form/edit_condition.html.twig"
                 match:
                     form\type: Netgen\BlockManager\Layout\Resolver\Form\ConditionType
             target\type:
-                template: "@NetgenBlockManagerAdmin/admin/layout_resolver/form/edit_target_type.html.twig"
+                template: "@NetgenBlockManagerAdmin/admin/layout_resolver/form/edit_target.html.twig"
                 match:
                     form\type: Netgen\BlockManager\Layout\Resolver\Form\TargetType
