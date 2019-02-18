@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API;
 
-use Lakion\ApiTestCase\JsonApiTestCase as BaseJsonApiTestCase;
+use ApiTestCase\JsonApiTestCase as BaseJsonApiTestCase;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Tests\Bundle\FixturesBundle\Item\Value;
