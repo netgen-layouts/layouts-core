@@ -113,7 +113,7 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
 
         if (Kernel::VERSION_ID < 30000) {
             $container->findDefinition('netgen_block_manager.security.voter.policy_to_role_map')
-                ->setArgument(0, 'security.authorization_checker');
+                ->replaceArgument(0, 'security.authorization_checker');
         }
     }
 
