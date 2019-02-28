@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
+use ApiTestCase\JsonApiTestCase;
+use Lakion\ApiTestCase\JsonApiTestCase as LegacyJsonApiTestCase;
 use Netgen\BlockManager\Utils\DateTimeUtils;
 use Symfony\Bridge\PhpUnit\ClockMock;
-use Lakion\ApiTestCase\JsonApiTestCase as LegacyJsonApiTestCase;
-use ApiTestCase\JsonApiTestCase;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
