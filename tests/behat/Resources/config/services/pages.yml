@@ -8,8 +8,8 @@ services:
         abstract: true
         public: false
         arguments:
-            - "@mink.default_session"
-            - "%__behat__.mink.parameters%"
+            - "@behat.mink.default_session"
+            - "@behat.mink.parameters"
 
     netgen_block_manager.behat.symfony_page:
         class: Netgen\BlockManager\Behat\Page\SymfonyPage
@@ -17,4 +17,4 @@ services:
         abstract: true
         public: false
         arguments:
-            - "@__symfony_shared__.router"
+            - "@router"

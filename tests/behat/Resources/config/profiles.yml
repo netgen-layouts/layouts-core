@@ -1,3 +1,0 @@
-imports:
-    - profiles/default.yml
-    - profiles/headless.yml

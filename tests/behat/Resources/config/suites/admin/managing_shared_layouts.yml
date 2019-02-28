@@ -1,7 +1,7 @@
 default:
     suites:
         admin_managing_shared_layouts:
-            contexts_services:
+            contexts:
                 # This service is responsible for clearing and recreating the database before each scenario,
                 # so that only data from the current scenario and its background is available
                 - netgen_block_manager.behat.context.hook.doctrine_database
@@ -19,5 +19,6 @@ default:
                 # Those contexts are essential here we are placing all action steps like
                 # When I duplicate a layout called "Example layout" Then a layout called "Copy of example layout" should exist"
                 - netgen_block_manager.behat.context.admin.managing_shared_layouts
+
             filters:
                 tags: "@admin && @managing_shared_layouts"

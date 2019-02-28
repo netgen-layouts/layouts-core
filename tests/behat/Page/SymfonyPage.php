@@ -15,9 +15,9 @@ abstract class SymfonyPage extends Page
      */
     private $router;
 
-    public function __construct(Session $session, array $parameters, RouterInterface $router)
+    public function __construct(Session $session, $minkParameters, RouterInterface $router)
     {
-        parent::__construct($session, $parameters);
+        parent::__construct($session, $minkParameters);
 
         $this->router = $router;
     }

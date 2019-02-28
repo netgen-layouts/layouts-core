@@ -1,20 +1,16 @@
 services:
     netgen_block_manager.behat.context.admin.managing_layouts:
         class: Netgen\BlockManager\Behat\Context\Admin\ManagingLayoutsContext
-        public: false
+        public: true
         arguments:
             - "@netgen_block_manager.behat.page.admin.layouts.index"
             - "@netgen_block_manager.behat.page.app.index"
             - "@netgen_block_manager.behat.context.transform.layout"
-        tags:
-            - { name: fob.context_service }
 
     netgen_block_manager.behat.context.admin.managing_shared_layouts:
         class: Netgen\BlockManager\Behat\Context\Admin\ManagingSharedLayoutsContext
-        public: false
+        public: true
         arguments:
             - "@netgen_block_manager.behat.page.admin.shared_layouts.index"
             - "@netgen_block_manager.behat.page.app.index"
             - "@netgen_block_manager.behat.context.transform.layout"
-        tags:
-            - { name: fob.context_service }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Kernel;
 
+use FriendsOfBehat\SymfonyExtension\Bundle\FriendsOfBehatSymfonyExtensionBundle;
 use Symfony\Bundle\WebServerBundle\WebServerBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -42,7 +43,12 @@ final class AppKernel extends Kernel
             new \Netgen\BlockManager\Tests\Bundle\FixturesBundle\FixturesBundle(),
         ];
 
-        // @deprecated Remove class_exists check when support for Symfony 2.8 ends
+        // @deprecated Remove class_exists checks when support for Symfony 2.8 ends
+
+        if (class_exists(FriendsOfBehatSymfonyExtensionBundle::class)) {
+            $bundles[] = new FriendsOfBehatSymfonyExtensionBundle();
+        }
+
         if (class_exists(WebServerBundle::class)) {
             $bundles[] = new WebServerBundle();
         }
@@ -77,6 +83,12 @@ final class AppKernel extends Kernel
     public function registerContainerConfiguration(LoaderInterface $loader): void
     {
         $loader->load(__DIR__ . '/config/config.yml');
+
+        // @deprecated Symfony 2.8 is not compatible with Behat config, remove
+        // the check for kernel version when support for Symfony 2.8 ends
+        if ($this->getEnvironment() === 'test' && Kernel::VERSION_ID >= 30400) {
+            $loader->load(__DIR__ . '/config/test/services.yml');
+        }
     }
 
     protected function getContainerBaseClass(): string

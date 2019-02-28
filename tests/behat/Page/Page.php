@@ -23,19 +23,19 @@ abstract class Page
     private $session;
 
     /**
-     * @var array
+     * @var array|\ArrayAccess
      */
-    private $parameters;
+    private $minkParameters;
 
     /**
      * @var \Behat\Mink\Element\DocumentElement|null
      */
     private $document;
 
-    public function __construct(Session $session, array $parameters = [])
+    public function __construct(Session $session, $minkParameters = [])
     {
         $this->session = $session;
-        $this->parameters = $parameters;
+        $this->minkParameters = $minkParameters;
     }
 
     public function open(array $urlParameters = []): void
@@ -121,7 +121,7 @@ abstract class Page
      */
     protected function getParameter(string $name)
     {
-        return $this->parameters[$name] ?? null;
+        return $this->minkParameters[$name] ?? null;
     }
 
     /**

@@ -1,3 +1,48 @@
 imports:
-    - Resources/config/profiles.yml
     - Resources/config/suites.yml
+
+default:
+    extensions:
+        Behat\MinkExtension:
+            base_url: "http://admin:admin@127.0.0.1:4242"
+            default_session: symfony
+            javascript_session: chrome
+            show_auto: false
+            sessions:
+                symfony:
+                    symfony: ~
+                chrome:
+                    selenium2:
+                        browser: chrome
+                        wd_host: http://127.0.0.1:9515
+                        capabilities:
+                            browserName: chrome
+                            browser: chrome
+                            version: ""
+                            chrome:
+                                switches:
+                                    - "no-sandbox"
+                                    - "disable-extensions"
+                                    - "disable-infobars"
+                                    - "start-fullscreen"
+
+        FriendsOfBehat\SymfonyExtension:
+            kernel:
+                class: Netgen\BlockManager\Tests\Kernel\AppKernel
+
+        FriendsOfBehat\VariadicExtension: ~
+
+        FriendsOfBehat\SuiteSettingsExtension:
+            paths:
+                - Resources/features
+
+headless:
+    extensions:
+        Behat\MinkExtension:
+            sessions:
+                chrome:
+                    selenium2:
+                        capabilities:
+                            chrome:
+                                switches:
+                                    - "headless"
