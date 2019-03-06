@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
- * Votes on Netgen Layouts permissions (nglayouts:*) by mapping the permissions to built-in roles (NGBM_ROLE_*).
+ * Votes on Netgen Layouts permissions (nglayouts:*) by mapping the permissions to built-in roles (ROLE_NGBM_*).
  */
 final class PolicyToRoleMapVoter extends Voter
 {
@@ -25,13 +25,13 @@ final class PolicyToRoleMapVoter extends Voter
      * The identifier of the admin role. Users having this role
      * have full and unrestricted access to the entire system.
      */
-    private const ROLE_ADMIN = 'NGBM_ROLE_ADMIN';
+    private const ROLE_ADMIN = 'ROLE_NGBM_ADMIN';
 
     /**
      * The identifier of the editor role. Users having this role
      * have full access only to the layout editing interface.
      */
-    private const ROLE_EDITOR = 'NGBM_ROLE_EDITOR';
+    private const ROLE_EDITOR = 'ROLE_NGBM_EDITOR';
 
     /**
      * @var \Symfony\Component\Security\Core\Security|\Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface
