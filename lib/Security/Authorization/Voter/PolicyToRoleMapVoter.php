@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
- * Votes on Netgen Layouts permissions (ngbm:*) by mapping the permissions to built-in roles (NGBM_ROLE_*).
+ * Votes on Netgen Layouts permissions (nglayouts:*) by mapping the permissions to built-in roles (NGBM_ROLE_*).
  */
 final class PolicyToRoleMapVoter extends Voter
 {
@@ -17,8 +17,8 @@ final class PolicyToRoleMapVoter extends Voter
      * Map of supported permissions to their respective roles.
      */
     private const POLICY_TO_ROLE_MAP = [
-        'ngbm:layout:add' => self::ROLE_ADMIN,
-        'ngbm:block:add' => self::ROLE_EDITOR,
+        'nglayouts:layout:add' => self::ROLE_ADMIN,
+        'nglayouts:block:add' => self::ROLE_EDITOR,
     ];
 
     /**
@@ -51,7 +51,7 @@ final class PolicyToRoleMapVoter extends Voter
 
     protected function supports($attribute, $subject): bool
     {
-        return is_string($attribute) && mb_strpos($attribute, 'ngbm:') === 0;
+        return is_string($attribute) && mb_strpos($attribute, 'nglayouts:') === 0;
     }
 
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
