@@ -9,6 +9,7 @@ use Knp\Menu\ItemInterface;
 use Knp\Menu\MenuFactory;
 use Netgen\Bundle\BlockManagerAdminBundle\Menu\MainMenuBuilder;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
@@ -43,7 +44,11 @@ final class MainMenuBuilderTest extends TestCase
 
         $this->authorizationCheckerMock = $this->createMock(AuthorizationCheckerInterface::class);
 
-        $this->builder = new MainMenuBuilder($menuFactory, $this->authorizationCheckerMock);
+        $this->builder = new MainMenuBuilder(
+            $menuFactory,
+            $this->authorizationCheckerMock,
+            $this->createMock(EventDispatcherInterface::class)
+        );
     }
 
     /**
