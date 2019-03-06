@@ -19,6 +19,9 @@
                 padding: .5em .85em;
                 margin: 0 0 0 -1px;
                 border: 1px solid hsl(0, 0, 90);
+                > * {
+                    pointer-events: none;
+                }
             }
             span {
                 border: 0;
