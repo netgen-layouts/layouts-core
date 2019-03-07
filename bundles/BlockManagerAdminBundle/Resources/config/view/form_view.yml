@@ -38,11 +38,11 @@ view:
                 template: "@NetgenBlockManagerAdmin/admin/shared_layouts/form/clear_related_layouts_cache.html.twig"
                 match:
                     form\type: Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearLayoutsCacheType
-            condition\type:
+            condition\edit:
                 template: "@NetgenBlockManagerAdmin/admin/layout_resolver/form/edit_condition.html.twig"
                 match:
                     form\type: Netgen\BlockManager\Layout\Resolver\Form\ConditionType
-            target\type:
+            target\edit:
                 template: "@NetgenBlockManagerAdmin/admin/layout_resolver/form/edit_target.html.twig"
                 match:
                     form\type: Netgen\BlockManager\Layout\Resolver\Form\TargetType
