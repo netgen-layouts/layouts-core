@@ -6,9 +6,9 @@ namespace Netgen\BlockManager\Tests\Persistence\Doctrine;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
-use Doctrine\DBAL\Migrations\Configuration\YamlConfiguration;
-use Doctrine\DBAL\Migrations\Migration;
 use Doctrine\DBAL\Types\Type;
+use Doctrine\Migrations\Configuration\YamlConfiguration;
+use Doctrine\Migrations\DependencyFactory;
 use Netgen\BlockManager\Exception\RuntimeException;
 
 trait DatabaseTrait
@@ -147,8 +147,10 @@ trait DatabaseTrait
         $configuration = new YamlConfiguration($this->databaseConnection);
         $configuration->load(__DIR__ . '/../../../../migrations/doctrine.yml');
 
-        $migration = new Migration($configuration);
-        $migration->migrate('0');
-        $migration->migrate();
+        $dependencyFactory = new DependencyFactory($configuration);
+
+        $migrator = $dependencyFactory->getMigrator();
+        $migrator->migrate('0');
+        $migrator->migrate();
     }
 }

@@ -6,9 +6,10 @@ parameters:
         - '#Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::addDefaultsIfNotSet\(\)#'
         - '#Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::children\(\)#'
 
-        # Doctrine DBAL
+        # Doctrine DBAL & Migrations
         - '#Cannot call method fetchAll\(\) on Doctrine\\DBAL\\Driver\\Statement\|int#'
         - '#expects string\|null, Doctrine\\DBAL\\Query\\Expression\\CompositeExpression given#'
+        - '#Class Doctrine\\DBAL\\Migrations\\AbstractMigration not found.#'
 
         # Compatibility with Symfony 2.8
         - '#Call to function method_exists\(\) with .* will always evaluate to false.#'
