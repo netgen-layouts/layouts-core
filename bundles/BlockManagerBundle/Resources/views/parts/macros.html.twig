@@ -11,11 +11,9 @@
 {% endmacro %}
 
 {% macro inline_template(string, parameters) %}
-{% spaceless %}
     {% if '{{' in string and '}}' in string and '{%' not in string and '{#' not in string %}
         {{ ngbm_render_template(string, parameters) }}
     {% else %}
         {{ string }}
     {% endif %}
-{% endspaceless %}
 {% endmacro %}
