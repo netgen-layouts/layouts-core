@@ -61,6 +61,16 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
     private $position;
 
     /**
+     * @var int|string|null
+     */
+    private $parentBlockId;
+
+    /**
+     * @var string|null
+     */
+    private $parentPlaceholder;
+
+    /**
      * @var \Netgen\BlockManager\API\Values\Block\Placeholder[]
      */
     private $placeholders = [];
@@ -163,6 +173,28 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
     public function getPosition(): int
     {
         return $this->position;
+    }
+
+    /**
+     * Returns the ID of the parent block where this block is located.
+     *
+     * If block does not have a parent block, null is returned.
+     *
+     * @return int|string|null
+     */
+    public function getParentBlockId()
+    {
+        return $this->parentBlockId;
+    }
+
+    /**
+     * Returns the placeholder identifier in the parent block where this block is located.
+     *
+     * If block does not have a parent block, null is returned.
+     */
+    public function getParentPlaceholder(): ?string
+    {
+        return $this->parentPlaceholder;
     }
 
     /**

@@ -40,6 +40,8 @@ abstract class BlockMapperTest extends CoreTestCase
                 'itemViewType' => 'standard',
                 'name' => 'My block',
                 'position' => 3,
+                'parentId' => 42,
+                'placeholder' => 'main',
                 'alwaysAvailable' => false,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
@@ -73,6 +75,8 @@ abstract class BlockMapperTest extends CoreTestCase
         self::assertSame('standard', $block->getItemViewType());
         self::assertSame('My block', $block->getName());
         self::assertSame(3, $block->getPosition());
+        self::assertSame(42, $block->getParentBlockId());
+        self::assertSame('main', $block->getParentPlaceholder());
         self::assertTrue($block->isPublished());
         self::assertSame('test', $block->getParameter('css_class')->getValue());
         self::assertNull($block->getParameter('css_id')->getValue());

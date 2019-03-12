@@ -115,6 +115,8 @@ final class BlockMapper
             'itemViewType' => $block->itemViewType,
             'name' => $block->name,
             'position' => $block->position,
+            'parentBlockId' => $block->parentId,
+            'parentPlaceholder' => $block->placeholder,
             'status' => $block->status,
             'placeholders' => iterator_to_array($this->mapPlaceholders($block, $blockDefinition, $locales)),
             'collections' => new LazyCollection(

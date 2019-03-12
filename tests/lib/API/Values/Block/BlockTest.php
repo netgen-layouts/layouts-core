@@ -48,8 +48,11 @@ final class BlockTest extends TestCase
      * @covers \Netgen\BlockManager\API\Values\Block\Block::getLocale
      * @covers \Netgen\BlockManager\API\Values\Block\Block::getMainLocale
      * @covers \Netgen\BlockManager\API\Values\Block\Block::getName
+     * @covers \Netgen\BlockManager\API\Values\Block\Block::getParentBlockId
+     * @covers \Netgen\BlockManager\API\Values\Block\Block::getParentPlaceholder
      * @covers \Netgen\BlockManager\API\Values\Block\Block::getPlaceholder
      * @covers \Netgen\BlockManager\API\Values\Block\Block::getPlaceholders
+     * @covers \Netgen\BlockManager\API\Values\Block\Block::getPosition
      * @covers \Netgen\BlockManager\API\Values\Block\Block::getViewType
      * @covers \Netgen\BlockManager\API\Values\Block\Block::hasCollection
      * @covers \Netgen\BlockManager\API\Values\Block\Block::hasPlaceholder
@@ -72,6 +75,8 @@ final class BlockTest extends TestCase
                 'itemViewType' => 'standard',
                 'name' => 'My block',
                 'position' => 3,
+                'parentBlockId' => 50,
+                'parentPlaceholder' => 'main',
                 'placeholders' => [
                     'main' => $placeholder,
                 ],
@@ -100,6 +105,8 @@ final class BlockTest extends TestCase
         self::assertSame('standard', $block->getItemViewType());
         self::assertSame('My block', $block->getName());
         self::assertSame(3, $block->getPosition());
+        self::assertSame(50, $block->getParentBlockId());
+        self::assertSame('main', $block->getParentPlaceholder());
         self::assertTrue($block->isTranslatable());
         self::assertSame('en', $block->getMainLocale());
         self::assertTrue($block->isAlwaysAvailable());
