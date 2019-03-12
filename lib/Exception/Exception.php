@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Exception;
 
-interface Exception
+use Throwable;
+
+interface Exception extends Throwable
 {
 }
