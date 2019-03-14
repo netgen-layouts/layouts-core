@@ -3,7 +3,7 @@ import NlLayouts from './components/layouts';
 import NlRules from './components/rules';
 import './components/plugins';
 
-const $ = NetgenCore.$;
+const { $ } = NetgenCore;
 
 NetgenCore.ngLayoutsInit = () => {
     const layoutsEl = document.getElementById('layouts');

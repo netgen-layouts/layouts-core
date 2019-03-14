@@ -85,7 +85,8 @@
         input[type="number"],
         input[type="url"],
         input[type="email"],
-        textarea {
+        textarea,
+        select {
             display:block;
             margin:0 0 1em;
             border-radius:2px;
@@ -97,6 +98,17 @@
             background: #fff;
             &::placeholder {
                 color:hsl(0, 0, 70);
+            }
+        }
+        select {
+            appearance: none;
+            padding-right: 2em;
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEuNDEiPjxwYXRoIGQ9Ik01LjUzIDcuNDlMLjIgMi4xNWEuNjYuNjYgMCAwIDEgMC0uOTNMLjgyLjU5YS42Ni42NiAwIDAgMSAuOTMgMEw2IDQuODIgMTAuMjUuNmEuNjYuNjYgMCAwIDEgLjkzIDBsLjYzLjYzYy4yNS4yNS4yNS42NyAwIC45M0w2LjQ3IDcuNDlhLjY2LjY2IDAgMCAxLS45NCAweiIgZmlsbC1ydWxlPSJub256ZXJvIi8+PC9zdmc+');
+            background-repeat: no-repeat;
+            background-position: right .75em center;
+            background-size: .75em auto;
+            &::-ms-expand {
+                display: none;
             }
         }
         textarea {
