@@ -17,6 +17,10 @@ final class HelpersExtension extends AbstractExtension
                 'ngbm_locale_name',
                 [HelpersRuntime::class, 'getLocaleName']
             ),
+            new TwigFilter(
+                'ngbm_layout_name',
+                [HelpersRuntime::class, 'getLayoutName']
+            ),
         ];
     }
 }

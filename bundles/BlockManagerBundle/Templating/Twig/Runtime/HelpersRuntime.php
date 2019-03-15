@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime;
 
+use Netgen\BlockManager\API\Service\LayoutService;
 use Symfony\Component\Intl\Intl;
+use Throwable;
 
 final class HelpersRuntime
 {
@@ -13,9 +15,15 @@ final class HelpersRuntime
      */
     private $localeBundle;
 
-    public function __construct()
+    /**
+     * @var \Netgen\BlockManager\API\Service\LayoutService
+     */
+    private $layoutService;
+
+    public function __construct(LayoutService $layoutService)
     {
         $this->localeBundle = Intl::getLocaleBundle();
+        $this->layoutService = $layoutService;
     }
 
     /**
@@ -26,5 +34,21 @@ final class HelpersRuntime
     public function getLocaleName(string $locale, ?string $displayLocale = null): ?string
     {
         return $this->localeBundle->getLocaleName($locale, $displayLocale);
+    }
+
+    /**
+     * Returns the layout name for specified layout ID.
+     *
+     * @param int|string $layoutId
+     */
+    public function getLayoutName($layoutId): string
+    {
+        try {
+            $layout = $this->layoutService->loadLayout($layoutId);
+
+            return $layout->getName();
+        } catch (Throwable $t) {
+            return '';
+        }
     }
 }

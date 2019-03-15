@@ -108,6 +108,8 @@ services:
     netgen_block_manager.templating.twig.runtime.helpers:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\HelpersRuntime
         # public: false
+        arguments:
+            - "@netgen_block_manager.api.service.layout"
         tags:
             - { name: twig.runtime }
             - { name: netgen_block_manager.twig.runtime }

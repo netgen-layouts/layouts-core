@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig\Runtime;
 
+use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\HelpersRuntime;
 use PHPUnit\Framework\TestCase;
 
@@ -14,9 +17,16 @@ final class HelpersRuntimeTest extends TestCase
      */
     private $runtime;
 
+    /**
+     * @var \PHPUnit\Framework\MockObject\MockObject
+     */
+    private $layoutServiceMock;
+
     public function setUp(): void
     {
-        $this->runtime = new HelpersRuntime();
+        $this->layoutServiceMock = $this->createMock(LayoutService::class);
+
+        $this->runtime = new HelpersRuntime($this->layoutServiceMock);
     }
 
     /**
@@ -28,5 +38,41 @@ final class HelpersRuntimeTest extends TestCase
         $localeName = $this->runtime->getLocaleName('hr_HR', 'hr_HR');
 
         self::assertSame('hrvatski (Hrvatska)', $localeName);
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\HelpersRuntime::getLayoutName
+     */
+    public function testGetLayoutName(): void
+    {
+        $this->layoutServiceMock
+            ->expects(self::once())
+            ->method('loadLayout')
+            ->with(self::equalTo(42))
+            ->will(
+                self::returnValue(
+                    Layout::fromArray(['name' => 'Test layout'])
+                )
+            );
+
+        self::assertSame('Test layout', $this->runtime->getLayoutName(42));
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\HelpersRuntime::getLayoutName
+     */
+    public function testGetLayoutNameWithNonExistingLayout(): void
+    {
+        $this->layoutServiceMock
+            ->expects(self::once())
+            ->method('loadLayout')
+            ->with(self::equalTo(42))
+            ->will(
+                self::throwException(
+                    new NotFoundException('layout', 42)
+                )
+            );
+
+        self::assertSame('', $this->runtime->getLayoutName(42));
     }
 }
