@@ -1,5 +1,3 @@
-{% form_theme form '@NetgenBlockManagerAdmin/form/theme/ngbm.html.twig' %}
-
 {% if show_close_button is not defined %}
     {% set show_close_button = true %}
 {% endif %}
@@ -24,11 +22,7 @@
                 {{ form_start(form) }}
                     {{ form_errors(form) }}
 
-                    {% block children %}
-                        {% for child in form %}
-                            {{ form_row(child) }}
-                        {% endfor %}
-                    {% endblock %}
+                    {% block children %}{% endblock %}
 
                     {{ form_rest(form) }}
                 {{ form_end(form) }}

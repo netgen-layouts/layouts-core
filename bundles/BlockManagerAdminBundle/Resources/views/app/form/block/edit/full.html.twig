@@ -1,5 +1,7 @@
 {% extends '@NetgenBlockManagerAdmin/app/form/block/edit.html.twig' %}
 
+{% form_theme form '@NetgenBlockManagerAdmin/form/theme/ngbm.html.twig' %}
+
 {% block children %}
     {{ form_row(form.name) }}
 

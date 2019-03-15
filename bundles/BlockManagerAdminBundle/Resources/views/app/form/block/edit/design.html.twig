@@ -1,5 +1,7 @@
 {% extends '@NetgenBlockManagerAdmin/app/form/block/edit.html.twig' %}
 
+{% form_theme form '@NetgenBlockManagerAdmin/form/theme/ngbm.html.twig' %}
+
 {% block children %}
     <div class="master-slave-selects">
         {{ form_row(form.view_type, {attr: {class: 'master view-type'}}) }}

@@ -1,5 +1,3 @@
-{% form_theme form '@NetgenBlockManagerAdmin/form/theme/ngbm.html.twig' %}
-
 {{ form_start(form) }}
     {{ form_errors(form) }}
 
@@ -11,11 +9,7 @@
         </div>
 
         <div class="nl-modal-body">
-            {% block children %}
-                {% for child in form %}
-                    {{ form_row(child) }}
-                {% endfor %}
-            {% endblock %}
+            {% block children %}{% endblock %}
         </div>
 
         {% block actions %}

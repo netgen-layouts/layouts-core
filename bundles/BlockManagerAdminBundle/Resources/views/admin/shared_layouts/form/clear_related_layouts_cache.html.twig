@@ -1,8 +1,9 @@
 {% extends '@NetgenBlockManagerAdmin/form/modal.html.twig' %}
 
-{% trans_default_domain 'ngbm_admin' %}
-
+{% form_theme form '@NetgenBlockManagerAdmin/form/theme/ngbm.html.twig' %}
 {% form_theme form.layouts _self %}
+
+{% trans_default_domain 'ngbm_admin' %}
 
 {% block header %}
     {{ 'shared_layouts.cache.related_layouts.title'|trans }}: <strong>{{ layout.name }}</strong>

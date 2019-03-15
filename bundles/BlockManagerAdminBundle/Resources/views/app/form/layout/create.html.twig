@@ -1,8 +1,9 @@
 {% extends '@NetgenBlockManagerAdmin/app/form/modal.html.twig' %}
 
-{% trans_default_domain 'ngbm_forms' %}
-
+{% form_theme form '@NetgenBlockManagerAdmin/form/theme/ngbm.html.twig' %}
 {% form_theme form.layoutType _self %}
+
+{% trans_default_domain 'ngbm_forms' %}
 
 {% block _create_layoutType_widget %}
     <div {{ block('widget_container_attributes') }}>
