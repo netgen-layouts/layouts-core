@@ -90,7 +90,7 @@ before_script:
   - |
     if [ "$SYMFONY_VERSION" = "~2.8.0" ] ; then
       composer remove --dev --no-update friends-of-behat/symfony-extension friends-of-behat/variadic-extension friends-of-behat/suite-settings-extension
-      composer remove --dev --no-update phpstan/phpstan phpstan/phpstan-phpunit symfony/web-server-bundle
+      composer remove --dev --no-update phpstan/phpstan phpstan/phpstan-phpunit
       composer remove --dev --no-update symfony/web-server-bundle
     fi
 
