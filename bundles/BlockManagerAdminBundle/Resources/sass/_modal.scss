@@ -110,6 +110,14 @@
             &::-ms-expand {
                 display: none;
             }
+            &[multiple] {
+                background-image: none;
+                height: auto;
+                padding: .25em 0;
+                option {
+                    padding: .25em .5em;
+                }
+            }
         }
         textarea {
             height:auto;
