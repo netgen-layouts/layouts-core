@@ -39,6 +39,7 @@ abstract class BlockMapperTest extends CoreTestCase
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',
+                'depth' => 2,
                 'position' => 3,
                 'parentId' => 42,
                 'placeholder' => 'main',
@@ -96,6 +97,32 @@ abstract class BlockMapperTest extends CoreTestCase
 
         self::assertSame('test', $block->getParameter('css_class')->getValue());
         self::assertNull($block->getParameter('css_id')->getValue());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::mapBlock
+     */
+    public function testMapBlockWithNoParent(): void
+    {
+        $persistenceBlock = Block::fromArray(
+            [
+                'definitionIdentifier' => 'text',
+                'depth' => 1,
+                'position' => 3,
+                'parentId' => 42,
+                'placeholder' => 'main',
+                'mainLocale' => 'en',
+                'availableLocales' => ['en'],
+                'parameters' => ['en' => []],
+                'config' => [],
+            ]
+        );
+
+        $block = $this->mapper->mapBlock($persistenceBlock);
+
+        self::assertSame(3, $block->getPosition());
+        self::assertNull($block->getParentBlockId());
+        self::assertNull($block->getParentPlaceholder());
     }
 
     /**
