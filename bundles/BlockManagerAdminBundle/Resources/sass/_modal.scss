@@ -26,6 +26,14 @@
         display:flex;
         flex-direction:column;
         animation:modalSlide 0.4s ease-out;
+        .nl-grid {
+            margin-left:-$gutter/2;
+            margin-right:-$gutter/2;
+            > [class^='col-'] {
+                padding-left:$gutter/2;
+                padding-right:$gutter/2;
+            }
+        }
         .close-modal {
             position:absolute;
             right:15px;
