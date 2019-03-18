@@ -1,3 +1,4 @@
+import './helpers/closestPolyfill';
 import NetgenCore from '@netgen/layouts-ui-core';
 import NlLayouts from './components/layouts';
 import NlRules from './components/rules';

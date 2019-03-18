@@ -99,6 +99,11 @@
             &::placeholder {
                 color:hsl(0, 0, 70);
             }
+            &[disabled] {
+                color: hsl(0, 0, 60);
+                border-color: hsl(0, 0, 80);
+                cursor: not-allowed;
+            }
         }
         select {
             appearance: none;
