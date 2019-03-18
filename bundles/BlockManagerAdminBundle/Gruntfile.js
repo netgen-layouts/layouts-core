@@ -39,7 +39,7 @@ module.exports = function (grunt) {
             },
             sass: {
                 files: ['<%= config.resources %>/sass/{,*/}*.{scss,sass}'],
-                tasks: ['sass:dist', 'postcss:dist'],
+                tasks: ['sass:dev', 'postcss:dev'],
             },
         },
 
@@ -84,6 +84,16 @@ module.exports = function (grunt) {
                 includePaths: ['.'],
             },
 
+            dev: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= config.resources %>/sass',
+                    src: ['*.{scss,sass}'],
+                    dest: '.tmp/css',
+                    ext: '.css',
+                }],
+            },
+
             dist: {
                 files: [{
                     expand: true,
@@ -104,6 +114,15 @@ module.exports = function (grunt) {
                         browsers: ['> 1%', 'last 3 versions', 'Firefox ESR', 'Opera 12.1'],
                     }),
                 ],
+            },
+
+            dev: {
+                files: [{
+                    expand: true,
+                    cwd: '.tmp/css/',
+                    src: '{,*/}*.css',
+                    dest: '<%= config.dev %>/css',
+                }],
             },
 
             dist: {
@@ -127,11 +146,17 @@ module.exports = function (grunt) {
 
     grunt.registerTask('server', function () {
         grunt.task.run([
-            'lockfile',
-            'sass:dist',
-            'postcss:dist',
-            'browserify:dev',
+            'fast_build',
             'watch',
+        ]);
+    });
+
+    grunt.registerTask('fast_build', function () {
+        grunt.task.run([
+            'lockfile',
+            'sass:dev',
+            'postcss:dev',
+            'browserify:dev',
         ]);
     });
 
