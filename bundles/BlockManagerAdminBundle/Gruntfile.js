@@ -78,13 +78,15 @@ module.exports = function (grunt) {
         sass: {
             options: {
                 implementation: require('node-sass'),
-                sourceMap: true,
-                sourceMapEmbed: true,
-                sourceMapContents: true,
                 includePaths: ['.'],
             },
 
             dev: {
+                options: {
+                    sourceMap: true,
+                    sourceMapEmbed: true,
+                    sourceMapContents: true
+                },
                 files: [{
                     expand: true,
                     cwd: '<%= config.resources %>/sass',
@@ -95,6 +97,12 @@ module.exports = function (grunt) {
             },
 
             dist: {
+                options: {
+                    sourceMap: false,
+                    sourceMapEmbed: false,
+                    sourceMapContents: false,
+                    outputStyle: 'compressed'
+                },
                 files: [{
                     expand: true,
                     cwd: '<%= config.resources %>/sass',
@@ -142,6 +150,19 @@ module.exports = function (grunt) {
                 },
             },
         },
+
+        clean: {
+            dev: '<%= config.dev %>',
+        },
+
+        shell: {
+            dev: {
+                command: [
+                    'ln -s ../fonts <%= config.dev %>',
+                    'ln -s ../images <%= config.dev %>',
+                ].join('\n'),
+            },
+        },
     });
 
     grunt.registerTask('server', function () {
@@ -153,10 +174,12 @@ module.exports = function (grunt) {
 
     grunt.registerTask('fast_build', function () {
         grunt.task.run([
+            'clean:dev',
             'lockfile',
             'sass:dev',
             'postcss:dev',
             'browserify:dev',
+            'shell:dev',
         ]);
     });
 
