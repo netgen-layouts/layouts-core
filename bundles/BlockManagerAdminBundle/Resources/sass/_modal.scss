@@ -189,6 +189,17 @@
             display:none;
         }
     }
+    .nl-message {
+        padding: 1em;
+        margin: 1.4em 0;
+        font-size: .875em;
+        &-warning {
+            background: #f2e1c4;
+        }
+        &-info {
+            background: #d6eff7;
+        }
+    }
 }
 @keyframes maskFadeIn {
     from {
