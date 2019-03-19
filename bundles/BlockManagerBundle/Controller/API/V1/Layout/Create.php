@@ -10,22 +10,22 @@ use Netgen\BlockManager\Exception\Layout\LayoutTypeException;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
+use Netgen\BlockManager\Validator\Constraint\Locale as LocaleConstraint;
+use Netgen\BlockManager\Validator\ValidatorTrait;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\Controller;
-use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints;
 
 final class Create extends Controller
 {
+    use ValidatorTrait;
+
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService
      */
     private $layoutService;
-
-    /**
-     * @var \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator
-     */
-    private $createStructValidator;
 
     /**
      * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
@@ -34,11 +34,9 @@ final class Create extends Controller
 
     public function __construct(
         LayoutService $layoutService,
-        CreateStructValidator $createStructValidator,
         LayoutTypeRegistryInterface $layoutTypeRegistry
     ) {
         $this->layoutService = $layoutService;
-        $this->createStructValidator = $createStructValidator;
         $this->layoutTypeRegistry = $layoutTypeRegistry;
     }
 
@@ -51,7 +49,7 @@ final class Create extends Controller
     {
         $requestData = $request->attributes->get('data');
 
-        $this->createStructValidator->validateCreateLayout($requestData);
+        $this->validateCreateLayout($requestData);
 
         try {
             $layoutType = $this->layoutTypeRegistry->getLayoutType($requestData->get('layout_type'));
@@ -70,5 +68,32 @@ final class Create extends Controller
         $createdLayout = $this->layoutService->createLayout($layoutCreateStruct);
 
         return new View($createdLayout, Version::API_V1, Response::HTTP_CREATED);
+    }
+
+    /**
+     * Validates layout creation parameters from the request.
+     *
+     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If validation failed
+     */
+    private function validateCreateLayout(ParameterBag $data): void
+    {
+        $this->validate(
+            $data->get('layout_type'),
+            [
+                new Constraints\NotBlank(),
+                new Constraints\Type(['type' => 'string']),
+            ],
+            'layout_type'
+        );
+
+        $this->validate(
+            $data->get('locale'),
+            [
+                new Constraints\NotBlank(),
+                new Constraints\Type(['type' => 'string']),
+                new LocaleConstraint(),
+            ],
+            'locale'
+        );
     }
 }

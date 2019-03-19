@@ -9,12 +9,6 @@ services:
 
     ## Layout resolver controllers
 
-    netgen_block_manager.controller.admin.layout_resolver.priorities_validator:
-        class: Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\LayoutResolver\Utils\PrioritiesValidator
-        public: false
-        calls:
-            - [setValidator, ["@validator"]]
-
     netgen_block_manager.controller.admin.layout_resolver.index:
         class: Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\LayoutResolver\Index
         public: true
@@ -35,7 +29,8 @@ services:
         parent: netgen_block_manager.controller.admin.base
         arguments:
             - "@netgen_block_manager.api.service.layout_resolver"
-            - "@netgen_block_manager.controller.admin.layout_resolver.priorities_validator"
+        calls:
+            - [setValidator, ["@validator"]]
 
     netgen_block_manager.controller.admin.layout_resolver.update_rule:
         class: Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\LayoutResolver\UpdateRule

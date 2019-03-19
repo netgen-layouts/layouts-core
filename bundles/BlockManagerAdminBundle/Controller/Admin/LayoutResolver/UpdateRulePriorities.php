@@ -7,30 +7,25 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\LayoutResolver;
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\BlockManager\Validator\ValidatorTrait;
 use Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Controller;
-use Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\LayoutResolver\Utils\PrioritiesValidator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints;
 use Throwable;
 
 final class UpdateRulePriorities extends Controller
 {
+    use ValidatorTrait;
+
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutResolverService
      */
     private $layoutResolverService;
 
-    /**
-     * @var \Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\LayoutResolver\Utils\PrioritiesValidator
-     */
-    private $prioritiesValidator;
-
-    public function __construct(
-        LayoutResolverService $layoutResolverService,
-        PrioritiesValidator $prioritiesValidator
-    ) {
+    public function __construct(LayoutResolverService $layoutResolverService)
+    {
         $this->layoutResolverService = $layoutResolverService;
-        $this->prioritiesValidator = $prioritiesValidator;
     }
 
     /**
@@ -40,7 +35,7 @@ final class UpdateRulePriorities extends Controller
      */
     public function __invoke(Request $request): Response
     {
-        $this->prioritiesValidator->validatePriorities($request);
+        $this->validatePriorities($request);
 
         try {
             $this->layoutResolverService->transaction(
@@ -80,5 +75,30 @@ final class UpdateRulePriorities extends Controller
         }
 
         return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Validates list of rules from the request when updating priorities.
+     *
+     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If validation failed
+     */
+    private function validatePriorities(Request $request): void
+    {
+        $this->validate(
+            $request->request->get('rule_ids'),
+            [
+                new Constraints\NotBlank(),
+                new Constraints\Type(['type' => 'array']),
+                new Constraints\All(
+                    [
+                        'constraints' => [
+                            new Constraints\NotBlank(),
+                            new Constraints\Type(['type' => 'scalar']),
+                        ],
+                    ]
+                ),
+            ],
+            'rule_ids'
+        );
     }
 }

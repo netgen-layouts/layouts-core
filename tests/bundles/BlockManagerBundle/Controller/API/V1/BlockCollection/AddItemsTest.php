@@ -14,7 +14,7 @@ final class AddItemsTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::validateAddItems
      */
     public function testAddItems(): void
     {
@@ -48,7 +48,7 @@ final class AddItemsTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::validateAddItems
      */
     public function testAddItemsWithNonExistentBlock(): void
     {
@@ -86,7 +86,7 @@ final class AddItemsTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::validateAddItems
      */
     public function testAddItemsWithNonExistentCollection(): void
     {
@@ -124,7 +124,7 @@ final class AddItemsTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::validateAddItems
      */
     public function testAddItemsWithEmptyItems(): void
     {
@@ -152,7 +152,7 @@ final class AddItemsTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::validateAddItems
      */
     public function testAddItemsWithInvalidItems(): void
     {
@@ -182,7 +182,7 @@ final class AddItemsTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::validateAddItems
      */
     public function testAddItemsWithMissingItems(): void
     {
@@ -206,7 +206,7 @@ final class AddItemsTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::validateAddItems
      */
     public function testAddItemsWithInvalidValue(): void
     {
@@ -240,7 +240,7 @@ final class AddItemsTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::validateAddItems
      */
     public function testAddItemsWithMissingValue(): void
     {
@@ -273,7 +273,7 @@ final class AddItemsTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::validateAddItems
      */
     public function testAddItemsWithInvalidValueType(): void
     {
@@ -307,7 +307,7 @@ final class AddItemsTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::validateAddItems
      */
     public function testAddItemsWithMissingValueType(): void
     {
@@ -340,7 +340,7 @@ final class AddItemsTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::validateAddItems
      */
     public function testAddItemsWithInvalidPosition(): void
     {
@@ -374,7 +374,7 @@ final class AddItemsTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::validateAddItems
      */
     public function testAddItemsWithMissingPosition(): void
     {
@@ -407,7 +407,7 @@ final class AddItemsTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator::validateAddItems
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems::validateAddItems
      */
     public function testAddItemsWithOutOfRangePosition(): void
     {

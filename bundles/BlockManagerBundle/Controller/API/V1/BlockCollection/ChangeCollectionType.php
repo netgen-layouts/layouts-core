@@ -8,22 +8,21 @@ use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
+use Netgen\BlockManager\Exception\Validation\ValidationException;
+use Netgen\BlockManager\Validator\ValidatorTrait;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\Controller;
-use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\ChangeCollectionTypeValidator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints;
 
 final class ChangeCollectionType extends Controller
 {
+    use ValidatorTrait;
+
     /**
      * @var \Netgen\BlockManager\API\Service\CollectionService
      */
     private $collectionService;
-
-    /**
-     * @var \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\ChangeCollectionTypeValidator
-     */
-    private $validator;
 
     /**
      * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface
@@ -32,11 +31,9 @@ final class ChangeCollectionType extends Controller
 
     public function __construct(
         CollectionService $collectionService,
-        ChangeCollectionTypeValidator $validator,
         QueryTypeRegistryInterface $queryTypeRegistry
     ) {
         $this->collectionService = $collectionService;
-        $this->validator = $validator;
         $this->queryTypeRegistry = $queryTypeRegistry;
     }
 
@@ -53,7 +50,7 @@ final class ChangeCollectionType extends Controller
         $newType = $requestData->getInt('new_type');
         $queryType = $requestData->get('query_type', '');
 
-        $this->validator->validateChangeCollectionType($block, $collectionIdentifier, $newType, $queryType);
+        $this->validateChangeCollectionType($block, $collectionIdentifier, $newType, $queryType);
 
         $collection = $block->getCollection($collectionIdentifier);
         $queryCreateStruct = null;
@@ -72,5 +69,56 @@ final class ChangeCollectionType extends Controller
         $this->collectionService->changeCollectionType($collection, $newType, $queryCreateStruct);
 
         return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Validates block creation parameters from the request.
+     *
+     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If validation failed
+     */
+    private function validateChangeCollectionType(Block $block, string $collectionIdentifier, int $newType, string $queryType): void
+    {
+        $this->validate(
+            $newType,
+            [
+                new Constraints\NotBlank(),
+                new Constraints\Choice(
+                    [
+                        'choices' => [
+                            Collection::TYPE_MANUAL,
+                            Collection::TYPE_DYNAMIC,
+                        ],
+                        'strict' => true,
+                    ]
+                ),
+            ],
+            'new_type'
+        );
+
+        $blockDefinition = $block->getDefinition();
+        if (!$blockDefinition->hasCollection($collectionIdentifier)) {
+            return;
+        }
+
+        $collectionConfig = $blockDefinition->getCollection($collectionIdentifier);
+
+        if ($newType === Collection::TYPE_DYNAMIC) {
+            if (!$collectionConfig->isValidQueryType($queryType)) {
+                throw ValidationException::validationFailed(
+                    'new_type',
+                    sprintf(
+                        'Query type "%s" is not allowed in selected block.',
+                        $queryType
+                    )
+                );
+            }
+        } elseif ($newType === Collection::TYPE_MANUAL) {
+            if ($collectionConfig->getValidItemTypes() === []) {
+                throw ValidationException::validationFailed(
+                    'new_type',
+                    'Selected block does not allow manual collections.'
+                );
+            }
+        }
     }
 }

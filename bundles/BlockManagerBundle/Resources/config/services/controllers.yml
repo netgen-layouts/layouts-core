@@ -54,12 +54,6 @@ services:
 
     ## Layout controllers
 
-    netgen_block_manager.controller.api.v1.layout.create_struct_validator:
-        class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator
-        public: false
-        calls:
-            - [setValidator, ["@validator"]]
-
     netgen_block_manager.controller.api.v1.layout.load_shared_layouts:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadSharedLayouts
         public: true
@@ -107,8 +101,9 @@ services:
         parent: netgen_block_manager.controller.api.base
         arguments:
             - "@netgen_block_manager.api.service.layout"
-            - "@netgen_block_manager.controller.api.v1.layout.create_struct_validator"
             - "@netgen_block_manager.layout.registry.layout_type"
+        calls:
+            - [setValidator, ["@validator"]]
 
     netgen_block_manager.controller.api.v1.layout.copy:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Copy
@@ -246,26 +241,15 @@ services:
 
     ## Block collection controllers
 
-    netgen_block_manager.controller.api.v1.block_collection.add_items_validator:
-        class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\AddItemsValidator
-        public: false
-        calls:
-            - [setValidator, ["@validator"]]
-
-    netgen_block_manager.controller.api.v1.block_collection.change_collection_type_validator:
-        class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\ChangeCollectionTypeValidator
-        public: false
-        calls:
-            - [setValidator, ["@validator"]]
-
     netgen_block_manager.controller.api.v1.block_collection.add_items:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems
         public: true
         parent: netgen_block_manager.controller.api.base
         arguments:
             - "@netgen_block_manager.api.service.collection"
-            - "@netgen_block_manager.controller.api.v1.block_collection.add_items_validator"
             - "@netgen_block_manager.collection.registry.item_definition"
+        calls:
+            - [setValidator, ["@validator"]]
 
     netgen_block_manager.controller.api.v1.block_collection.change_collection_type:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\ChangeCollectionType
@@ -273,8 +257,10 @@ services:
         parent: netgen_block_manager.controller.api.base
         arguments:
             - "@netgen_block_manager.api.service.collection"
-            - "@netgen_block_manager.controller.api.v1.block_collection.change_collection_type_validator"
             - "@netgen_block_manager.collection.registry.query_type"
+        calls:
+            - [setValidator, ["@validator"]]
+
 
     netgen_block_manager.controller.api.v1.block_collection.load_collection_result:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\LoadCollectionResult

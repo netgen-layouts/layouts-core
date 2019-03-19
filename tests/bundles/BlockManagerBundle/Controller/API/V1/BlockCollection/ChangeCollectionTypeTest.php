@@ -13,7 +13,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\ChangeCollectionType::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\ChangeCollectionType::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\ChangeCollectionTypeValidator::validateChangeCollectionType
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\ChangeCollectionType::validateChangeCollectionType
      */
     public function testChangeCollectionTypeFromManualToManual(): void
     {
@@ -37,7 +37,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\ChangeCollectionType::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\ChangeCollectionTypeValidator::validateChangeCollectionType
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\ChangeCollectionType::validateChangeCollectionType
      */
     public function testChangeCollectionTypeFromManualToDynamic(): void
     {
@@ -62,7 +62,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\ChangeCollectionType::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\ChangeCollectionTypeValidator::validateChangeCollectionType
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\ChangeCollectionType::validateChangeCollectionType
      */
     public function testChangeCollectionTypeFromDynamicToManual(): void
     {
@@ -86,7 +86,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\ChangeCollectionType::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\Utils\ChangeCollectionTypeValidator::validateChangeCollectionType
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\ChangeCollectionType::validateChangeCollectionType
      */
     public function testChangeCollectionTypeFromDynamicToDynamic(): void
     {

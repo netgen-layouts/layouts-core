@@ -13,7 +13,7 @@ final class CreateTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::validateCreateLayout
      */
     public function testCreate(): void
     {
@@ -44,7 +44,7 @@ final class CreateTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::validateCreateLayout
      */
     public function testCreateWithMissingDescription(): void
     {
@@ -74,7 +74,7 @@ final class CreateTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::validateCreateLayout
      */
     public function testCreateWithEmptyDescription(): void
     {
@@ -105,7 +105,7 @@ final class CreateTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::validateCreateLayout
      */
     public function testCreateWithInvalidLayoutType(): void
     {
@@ -135,7 +135,7 @@ final class CreateTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::validateCreateLayout
      */
     public function testCreateWithMissingLayoutType(): void
     {
@@ -164,7 +164,7 @@ final class CreateTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::validateCreateLayout
      */
     public function testCreateWithInvalidDescription(): void
     {
@@ -195,7 +195,7 @@ final class CreateTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::validateCreateLayout
      */
     public function testCreateWithInvalidLocale(): void
     {
@@ -226,7 +226,7 @@ final class CreateTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::validateCreateLayout
      */
     public function testCreateWithMissingLocale(): void
     {
@@ -256,7 +256,7 @@ final class CreateTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::validateCreateLayout
      */
     public function testCreateWithNonExistentLocale(): void
     {
@@ -287,7 +287,7 @@ final class CreateTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::validateCreateLayout
      */
     public function testCreateWithNonExistingLayoutType(): void
     {
@@ -317,7 +317,7 @@ final class CreateTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Utils\CreateStructValidator::validateCreateLayout
+     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create::validateCreateLayout
      */
     public function testCreateWithExistingName(): void
     {
