@@ -1,3 +1,6 @@
+import 'whatwg-fetch';
+import './helpers/customEventPolyfill';
+
 const templateEngine = (html, options) => {
     const re = /<%=([^%>]+)?%>/g;
     const reExp = /(^( )?(if|for|else|switch|case|break|{|}))(.*)?/g;
