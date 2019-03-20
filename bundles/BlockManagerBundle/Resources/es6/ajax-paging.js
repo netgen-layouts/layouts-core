@@ -1,5 +1,5 @@
 import 'whatwg-fetch';
-import './helpers/customEventPolyfill';
+import './helpers/custom_event_polyfill';
 
 const templateEngine = (html, options) => {
     const re = /<%=([^%>]+)?%>/g;
