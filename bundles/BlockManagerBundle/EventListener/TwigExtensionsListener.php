@@ -6,6 +6,7 @@ namespace Netgen\Bundle\BlockManagerBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Twig\Environment;
 use Twig\Extension\ExtensionInterface;
@@ -33,7 +34,7 @@ class TwigExtensionsListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents(): array
     {
-        return [KernelEvents::REQUEST => ['onKernelRequest', 1024]];
+        return [KernelEvents::REQUEST => ['onKernelRequest', Kernel::VERSION_ID < 30400 ? 1024 : 0]];
     }
 
     /**
