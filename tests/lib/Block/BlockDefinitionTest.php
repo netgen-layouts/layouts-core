@@ -321,7 +321,7 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getConfigDefinition
+     * @covers \Netgen\BlockManager\Block\BlockDefinition::hasConfigDefinition
      */
     public function testHasConfigDefinition(): void
     {
@@ -329,7 +329,7 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getConfigDefinition
+     * @covers \Netgen\BlockManager\Block\BlockDefinition::hasConfigDefinition
      */
     public function testHasConfigDefinitionWithNonExistentDefinition(): void
     {

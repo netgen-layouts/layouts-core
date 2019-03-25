@@ -28,6 +28,7 @@ final class TransactionHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\TransactionHandler::__construct
      * @covers \Netgen\BlockManager\Persistence\Doctrine\TransactionHandler::beginTransaction
      */
     public function testBeginTransaction(): void

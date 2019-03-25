@@ -22,6 +22,7 @@ use Throwable;
 use Twig\Environment;
 use Twig\Loader\ArrayLoader;
 use Twig\Template;
+use Twig\TemplateWrapper;
 
 final class RenderingRuntime
 {
@@ -249,7 +250,7 @@ final class RenderingRuntime
         }
 
         foreach ($parameters as $name => $value) {
-            if ($value instanceof Template) {
+            if ($value instanceof Template || $value instanceof TemplateWrapper) {
                 continue;
             }
 

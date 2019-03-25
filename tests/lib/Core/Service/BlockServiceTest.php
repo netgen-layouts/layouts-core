@@ -84,6 +84,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::filterUntranslatedBlocks
      * @covers \Netgen\BlockManager\Core\Service\BlockService::loadZoneBlocks
      */
     public function testLoadZoneBlocks(): void
@@ -96,6 +97,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\BlockService::filterUntranslatedBlocks
      * @covers \Netgen\BlockManager\Core\Service\BlockService::loadLayoutBlocks
      */
     public function testLoadLayoutBlocks(): void

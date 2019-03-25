@@ -7,6 +7,7 @@ namespace Netgen\BlockManager\Tests\API\Values\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Item;
+use Netgen\BlockManager\API\Values\Collection\ItemList;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\API\Values\Value;
 use PHPUnit\Framework\TestCase;
@@ -107,5 +108,19 @@ final class CollectionTest extends TestCase
         );
 
         self::assertSame(0, $collection->getOffset());
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\API\Values\Collection\Collection::getItem
+     */
+    public function testGetItemWithNonExistingPosition(): void
+    {
+        $collection = Collection::fromArray(
+            [
+                'items' => new ItemList([Item::fromArray(['position' => 0])]),
+            ]
+        );
+
+        self::assertNull($collection->getItem(999));
     }
 }

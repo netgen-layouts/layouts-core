@@ -35,6 +35,7 @@ final class CollectionQueryNormalizerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Serializer\Normalizer::setSerializer
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionQueryNormalizer::buildVersionedValues
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionQueryNormalizer::normalize
      */
     public function testNormalize(): void

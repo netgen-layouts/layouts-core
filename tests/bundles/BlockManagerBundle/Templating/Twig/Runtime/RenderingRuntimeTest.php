@@ -19,7 +19,9 @@ use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Twig\Environment;
 use Twig\Template;
+use Twig\TemplateWrapper;
 
 final class RenderingRuntimeTest extends TestCase
 {
@@ -796,5 +798,52 @@ final class RenderingRuntimeTest extends TestCase
             $condition,
             ['param' => 'value']
         );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::getTemplateVariables
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::renderStringTemplate
+     */
+    public function testRenderStringTemplate(): void
+    {
+        $objectWithoutCast = Block::fromArray([]);
+        $objectWithCast = new class() {
+            public function __toString(): string
+            {
+                return 'foo';
+            }
+        };
+
+        $renderedTemplate = $this->runtime->renderStringTemplate(
+            '{{ foo }} {{ object }} {{ string }} {{ string2 }} {{ int }} {{ block }} {{ tpl1 }} {{ tpl2 }}',
+            [
+                'string' => 'bar',
+                'int' => 42,
+                'object' => $objectWithCast,
+                'block' => $objectWithoutCast,
+                'tpl3' => new ContextualizedTwigTemplate(
+                    $this->createMock(Template::class),
+                    ['string2' => 'baz']
+                ),
+                'tpl1' => $this->createMock(Template::class),
+                'tpl2' => new TemplateWrapper(
+                    $this->createMock(Environment::class),
+                    $this->createMock(Template::class)
+                ),
+            ]
+        );
+
+        self::assertSame(' foo bar baz 42   ', $renderedTemplate);
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::getTemplateVariables
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime::renderStringTemplate
+     */
+    public function testRenderStringTemplateWithAnError(): void
+    {
+        $renderedTemplate = $this->runtime->renderStringTemplate('abc{{ var ~ }}def', []);
+
+        self::assertSame('', $renderedTemplate);
     }
 }

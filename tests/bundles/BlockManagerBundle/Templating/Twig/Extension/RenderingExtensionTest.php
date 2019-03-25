@@ -6,6 +6,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Templating\Twig\Extension;
 
 use Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension;
 use PHPUnit\Framework\TestCase;
+use Twig\NodeVisitor\NodeVisitorInterface;
 use Twig\TokenParser\TokenParserInterface;
 use Twig\TwigFunction;
 
@@ -28,6 +29,15 @@ final class RenderingExtensionTest extends TestCase
     {
         self::assertNotEmpty($this->extension->getFunctions());
         self::assertContainsOnlyInstancesOf(TwigFunction::class, $this->extension->getFunctions());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension::getNodeVisitors
+     */
+    public function testGetNodeVisitors(): void
+    {
+        self::assertNotEmpty($this->extension->getNodeVisitors());
+        self::assertContainsOnlyInstancesOf(NodeVisitorInterface::class, $this->extension->getNodeVisitors());
     }
 
     /**

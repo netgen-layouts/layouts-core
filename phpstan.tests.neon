@@ -13,3 +13,6 @@ parameters:
         -
             message: '#Call to function method_exists#'
             path: tests/lib/TestCase/LegacyTestCaseTrait.php
+        -
+            message: '#Parameter \#\d+ \$object of method Netgen\\BlockManager\\Utils\\Hydrator::\w+\(\) expects object, string given\.#'
+            path: tests/lib/Utils/HydratorTest.php

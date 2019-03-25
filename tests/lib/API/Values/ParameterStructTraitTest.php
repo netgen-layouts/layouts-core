@@ -236,6 +236,58 @@ final class ParameterStructTraitTest extends TestCase
         );
     }
 
+    /**
+     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::fillFromHash
+     */
+    public function testFillFromHashWithImport(): void
+    {
+        $parameterDefinitions = $this->buildParameterDefinitionCollection();
+
+        $initialValues = [
+            'css_class' => 'css',
+            'css_id' => 'id',
+            'compound' => false,
+            'inner' => 'inner',
+        ];
+
+        $this->struct->fillParametersFromHash($parameterDefinitions, $initialValues, true);
+
+        self::assertSame(
+            [
+                'css_class' => 'css',
+                'css_id' => 'id',
+                'compound' => false,
+                'inner' => 'inner',
+            ],
+            $this->struct->getParameterValues()
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::fillFromHash
+     */
+    public function testFillFromHashWithImportAndMissingValues(): void
+    {
+        $parameterDefinitions = $this->buildParameterDefinitionCollection();
+
+        $initialValues = [
+            'css_class' => 'css',
+            'inner' => 'inner',
+        ];
+
+        $this->struct->fillParametersFromHash($parameterDefinitions, $initialValues, true);
+
+        self::assertSame(
+            [
+                'css_class' => 'css',
+                'css_id' => 'id_default',
+                'compound' => true,
+                'inner' => 'inner',
+            ],
+            $this->struct->getParameterValues()
+        );
+    }
+
     private function buildParameterDefinitionCollection(): ParameterDefinitionCollectionInterface
     {
         $compoundParameter = CompoundParameterDefinition::fromArray(

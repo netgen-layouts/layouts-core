@@ -54,6 +54,7 @@ final class BlockNormalizerTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Serializer\Normalizer::setSerializer
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer::__construct
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer::buildVersionedValues
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer::getBlockCollections
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer::normalize
      */
@@ -145,6 +146,7 @@ final class BlockNormalizerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer::buildVersionedValues
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer::normalize
      */
     public function testNormalizeWithContainerBlock(): void

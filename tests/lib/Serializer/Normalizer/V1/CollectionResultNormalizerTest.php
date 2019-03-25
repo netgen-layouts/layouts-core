@@ -44,6 +44,7 @@ final class CollectionResultNormalizerTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer::__construct
+     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer::buildVersionedValues
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer::normalize
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer::normalizeResultItem
      */

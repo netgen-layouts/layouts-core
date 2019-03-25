@@ -34,6 +34,14 @@ final class ParametersTypeExtensionTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension::getExtendedTypes
+     */
+    public function testGetExtendedTypes(): void
+    {
+        self::assertSame([FormType::class], $this->formTypeExtension::getExtendedTypes());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension::buildView
      */
     public function testBuildView(): void

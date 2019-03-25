@@ -64,7 +64,7 @@ final class ItemDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Item\ItemDefinition::getConfigDefinition
+     * @covers \Netgen\BlockManager\Collection\Item\ItemDefinition::hasConfigDefinition
      */
     public function testHasConfigDefinition(): void
     {
@@ -72,7 +72,7 @@ final class ItemDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Item\ItemDefinition::getConfigDefinition
+     * @covers \Netgen\BlockManager\Collection\Item\ItemDefinition::hasConfigDefinition
      */
     public function testHasConfigDefinitionWithNonExistentDefinition(): void
     {

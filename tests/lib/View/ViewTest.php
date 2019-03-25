@@ -127,6 +127,17 @@ final class ViewTest extends TestCase
      * @covers \Netgen\BlockManager\View\View::addParameter
      * @covers \Netgen\BlockManager\View\View::getParameter
      */
+    public function testGetParameterWithBuiltInParameter(): void
+    {
+        $this->view->addParameter('value', 'custom');
+
+        self::assertSame($this->value, $this->view->getParameter('value'));
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\View\View::addParameter
+     * @covers \Netgen\BlockManager\View\View::getParameter
+     */
     public function testGetParameterThrowsViewException(): void
     {
         $this->expectException(ViewException::class);

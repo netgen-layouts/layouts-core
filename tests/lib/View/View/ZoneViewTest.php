@@ -57,7 +57,7 @@ final class ZoneViewTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\View\View\ZoneView::__construct
-     * @covers \Netgen\BlockManager\View\View\ZoneView::getZone
+     * @covers \Netgen\BlockManager\View\View\ZoneView::getLayout
      */
     public function testGetLayout(): void
     {
