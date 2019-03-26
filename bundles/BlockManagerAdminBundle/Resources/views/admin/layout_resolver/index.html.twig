@@ -33,10 +33,21 @@
                         </li>
                     </ul>
                 </div>
-                <button class="nl-btn nl-btn-white sorting-hide js-sort-start"><i class="material-icons">swap_vert</i> {{ 'layout_resolver.reorder_rules'|trans }}</button>
-                <button id="add-new-button" class="nl-btn nl-btn-primary js-add-rule"><i class="material-icons">add</i> {{ 'layout_resolver.add_new_rule'|trans }}</button>
-                <button class="nl-btn nl-btn sorting-show js-sort-cancel">{{ 'layout_resolver.cancel'|trans }}</button>
-                <button class="nl-btn nl-btn-primary sorting-show js-sort-save">{{ 'layout_resolver.save_order'|trans }}</button>
+
+                {% set can_reorder = is_granted('nglayouts:mapping:reorder') %}
+
+                {% if can_reorder %}
+                    <button class="nl-btn nl-btn-white sorting-hide js-sort-start"><i class="material-icons">swap_vert</i> {{ 'layout_resolver.reorder_rules'|trans }}</button>
+                {% endif %}
+
+                {% if is_granted('nglayouts:mapping:add') %}
+                    <button id="add-new-button" class="nl-btn nl-btn-primary js-add-rule"><i class="material-icons">add</i> {{ 'layout_resolver.add_new_rule'|trans }}</button>
+                {% endif %}
+
+                {% if can_reorder %}
+                    <button class="nl-btn nl-btn sorting-show js-sort-cancel">{{ 'layout_resolver.cancel'|trans }}</button>
+                    <button class="nl-btn nl-btn-primary sorting-show js-sort-save">{{ 'layout_resolver.save_order'|trans }}</button>
+                {% endif %}
             </div>
             <p>{{ 'layout_resolver.priority.notice'|trans }}</p>
         </div>

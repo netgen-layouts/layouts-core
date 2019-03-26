@@ -1,7 +1,18 @@
-<span class="settings-value editable-value js-setting-edit" data-setting-id="{{ target.id }}" data-setting-type="target">
+{% set can_edit = is_granted('nglayouts:mapping:edit') %}
+
+
+<span
+    {% if can_edit %}
+        class="settings-value editable-value js-setting-edit" data-setting-id="{{ target.id }}" data-setting-type="target"
+    {% else %}
+        class="settings-value"
+    {% endif %}
+>
     {{ ngbm_render_rule_target(target, {}, 'value') }}
 </span>
 
-<a href="#" class="remove-setting js-setting-delete" data-setting-id="{{ target.id }}" data-setting-type="target">
-    <i class="material-icons">clear</i>
-</a>
+{% if can_edit %}
+    <a href="#" class="remove-setting js-setting-delete" data-setting-id="{{ target.id }}" data-setting-type="target">
+        <i class="material-icons">clear</i>
+    </a>
+{% endif %}

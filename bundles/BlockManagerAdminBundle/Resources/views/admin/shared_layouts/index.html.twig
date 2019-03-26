@@ -13,7 +13,7 @@
             <div class="layouts-controls">
                 <a href="#" class="nl-btn js-export-layouts" title="{{ 'shared_layouts.export.title'|trans }}"><i class="material-icons">file_download</i></a>
                 <a href="#" class="nl-btn js-change-layouts-view"></a>
-                {% if is_granted('ROLE_NGBM_EDITOR') %}
+                {% if is_granted('nglayouts:layout:add') %}
                     <a href="{{ path('ngbm_app', {shared: true}) }}" id="add-new-button" class="nl-btn nl-btn-primary js-open-bm">
                         <i class="material-icons">add</i> {{ 'shared_layouts.new_layout'|trans }}
                     </a>

@@ -27,7 +27,7 @@
 
         <div class="nl-layout-text">
             <div class="nl-layout-name">
-                {% if is_granted('ROLE_NGBM_EDITOR') %}
+                {% if is_granted('nglayouts:layout:edit') %}
                     <a href="{{ macros.layout_path(layout.id) }}" class="js-open-bm">{{ layout.name }}</a>
                 {% else %}
                     {{ layout.name }}
@@ -61,14 +61,19 @@
                 <i class="material-icons">more_horiz</i>
             </button>
             <ul class="nl-dropdown-menu">
-                {% if is_granted('ROLE_NGBM_EDITOR') %}
+                {% if is_granted('nglayouts:layout:edit') %}
                     <li><a href="{{ macros.layout_path(layout.id) }}" class="js-layout-edit js-open-bm">{{ 'layouts.layout.edit_layout'|trans }}</a></li>
                 {% endif %}
 
-                <li><button class="js-layout-copy">{{ 'layouts.layout.copy_layout'|trans }}</button></li>
-                <li><button class="js-layout-delete">{{ 'layouts.layout.delete_layout'|trans }}</button></li>
+                {% if is_granted('nglayouts:layout:add') %}
+                    <li><button class="js-layout-copy">{{ 'layouts.layout.copy_layout'|trans }}</button></li>
+                {% endif %}
 
-                {% if layout.published %}
+                {% if is_granted('nglayouts:layout:delete') %}
+                    <li><button class="js-layout-delete">{{ 'layouts.layout.delete_layout'|trans }}</button></li>
+                {% endif %}
+
+                {% if layout.published and is_granted('nglayouts:layout:clear_cache') %}
                     <li>
                         <button class="js-layout-clear-cache" {% if not http_cache_enabled %}disabled="disabled"{% endif %}>
                             {{ 'layouts.layout.clear_cache'|trans }}

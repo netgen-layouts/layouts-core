@@ -41,13 +41,15 @@
             </div>
         </div>
 
-        <div class="nl-dropdown" data-position="right">
-            <button class="nl-btn nl-dropdown-toggle">
-                <i class="material-icons">more_horiz</i>
-            </button>
-            <ul class="nl-dropdown-menu">
-                <li><button class="js-layout-delete">{{ 'layouts.layout.delete_layout'|trans }}</button></li>
-            </ul>
-        </div>
+        {% if is_granted('nglayouts:layout:delete') %}
+            <div class="nl-dropdown" data-position="right">
+                <button class="nl-btn nl-dropdown-toggle">
+                    <i class="material-icons">more_horiz</i>
+                </button>
+                <ul class="nl-dropdown-menu">
+                    <li><button class="js-layout-delete">{{ 'layouts.layout.delete_layout'|trans }}</button></li>
+                </ul>
+            </div>
+        {% endif %}
     </div>
 </div>
