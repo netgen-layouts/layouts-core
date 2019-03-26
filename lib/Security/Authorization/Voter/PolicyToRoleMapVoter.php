@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Security\Authorization\Voter;
 
-use Netgen\BlockManager\Exception\Security\PolicyException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
@@ -71,7 +70,7 @@ final class PolicyToRoleMapVoter extends Voter
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
         if (!isset(self::POLICY_TO_ROLE_MAP[$attribute])) {
-            throw PolicyException::policyNotSupported($attribute);
+            return false;
         }
 
         return $this->security->isGranted(

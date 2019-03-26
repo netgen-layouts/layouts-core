@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Security\Authorization\Voter;
 
-use Netgen\BlockManager\Exception\Security\PolicyException;
 use Netgen\BlockManager\Security\Authorization\Voter\PolicyToRoleMapVoter;
 use PHPUnit\Framework\TestCase;
 use stdClass;
@@ -74,9 +73,7 @@ final class PolicyToRoleMapVoterTest extends TestCase
             ->expects(self::never())
             ->method('isGranted');
 
-        $this->expectException(PolicyException::class);
-        $this->expectExceptionMessage('Policy "nglayouts:unknown:unknown" is not supported.');
-
-        $this->voter->vote($this->createMock(TokenInterface::class), null, ['nglayouts:unknown:unknown']);
+        $vote = $this->voter->vote($this->createMock(TokenInterface::class), null, ['nglayouts:unknown:unknown']);
+        self::assertSame($vote, $this->voter::ACCESS_DENIED);
     }
 }
