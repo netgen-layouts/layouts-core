@@ -17,8 +17,22 @@ final class PolicyToRoleMapVoter extends Voter
      * Map of supported permissions to their respective roles.
      */
     private const POLICY_TO_ROLE_MAP = [
-        'nglayouts:layout:add' => self::ROLE_ADMIN,
         'nglayouts:block:add' => self::ROLE_EDITOR,
+        'nglayouts:block:edit' => self::ROLE_EDITOR,
+        'nglayouts:block:delete' => self::ROLE_EDITOR,
+        'nglayouts:block:reorder' => self::ROLE_EDITOR,
+        'nglayouts:layout:add' => self::ROLE_ADMIN,
+        'nglayouts:layout:edit' => self::ROLE_EDITOR,
+        'nglayouts:layout:delete' => self::ROLE_ADMIN,
+        'nglayouts:layout:clear_cache' => self::ROLE_ADMIN,
+        'nglayouts:mapping:add' => self::ROLE_ADMIN,
+        'nglayouts:mapping:edit' => self::ROLE_ADMIN,
+        'nglayouts:mapping:activate' => self::ROLE_ADMIN,
+        'nglayouts:mapping:delete' => self::ROLE_ADMIN,
+        'nglayouts:mapping:reorder' => self::ROLE_ADMIN,
+        'nglayouts:collection:edit' => self::ROLE_EDITOR,
+        'nglayouts:collection:items' => self::ROLE_EDITOR,
+        'nglayouts:ui:access' => self::ROLE_ADMIN,
     ];
 
     /**
