@@ -11,9 +11,9 @@ use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\Block\BlockTypeException;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
-use Netgen\Bundle\BlockManagerBundle\Controller\API\Controller;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructBuilder;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -58,6 +58,8 @@ final class Create extends Controller
      */
     public function __invoke(Block $block, Request $request): View
     {
+        $this->denyAccessUnlessGranted('nglayouts:block:add');
+
         $requestData = $request->attributes->get('data');
 
         $this->createStructValidator->validateCreateBlock($requestData);

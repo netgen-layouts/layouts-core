@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Collection\Form\CollectionEditType;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -31,6 +31,8 @@ final class EditCollectionForm extends Controller
      */
     public function __invoke(Collection $collection, Request $request)
     {
+        $this->denyAccessUnlessGranted('nglayouts:collection:edit');
+
         $updateStruct = $this->collectionService->newCollectionUpdateStruct($collection);
 
         $form = $this->createForm(

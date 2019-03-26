@@ -11,7 +11,7 @@ use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
-use Netgen\Bundle\BlockManagerBundle\Controller\API\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 
 final class LoadZoneBlocks extends Controller
 {
@@ -38,6 +38,8 @@ final class LoadZoneBlocks extends Controller
      */
     public function __invoke(Zone $zone, string $locale): Value
     {
+        $this->denyAccessUnlessGranted('ROLE_NGBM_API');
+
         $layout = $zone->isPublished() ?
             $this->layoutService->loadLayout($zone->getLayoutId()) :
             $this->layoutService->loadLayoutDraft($zone->getLayoutId());

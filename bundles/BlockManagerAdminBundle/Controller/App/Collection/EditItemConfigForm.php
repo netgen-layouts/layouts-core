@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\Config\Form\EditType;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -31,6 +31,8 @@ final class EditItemConfigForm extends Controller
      */
     public function __invoke(Request $request, Item $item, ?string $configKey = null)
     {
+        $this->denyAccessUnlessGranted('nglayouts:collection:items');
+
         $updateStruct = $this->collectionService->newItemUpdateStruct($item);
 
         $form = $this->createForm(

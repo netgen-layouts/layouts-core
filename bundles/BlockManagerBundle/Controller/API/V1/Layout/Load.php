@@ -7,7 +7,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
-use Netgen\Bundle\BlockManagerBundle\Controller\API\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 
 final class Load extends Controller
 {
@@ -19,6 +19,8 @@ final class Load extends Controller
      */
     public function __invoke(Layout $layout): View
     {
+        $this->denyAccessUnlessGranted('ROLE_NGBM_API');
+
         return new View($layout, Version::API_V1);
     }
 }

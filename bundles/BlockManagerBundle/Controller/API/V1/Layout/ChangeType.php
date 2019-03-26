@@ -9,7 +9,7 @@ use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
-use Netgen\Bundle\BlockManagerBundle\Controller\API\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 final class ChangeType extends Controller
@@ -35,6 +35,8 @@ final class ChangeType extends Controller
      */
     public function __invoke(Layout $layout, Request $request): View
     {
+        $this->denyAccessUnlessGranted('nglayouts:layout:edit');
+
         $requestData = $request->attributes->get('data');
 
         $zoneMappings = $requestData->get('zone_mappings');

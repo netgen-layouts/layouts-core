@@ -7,7 +7,7 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\LayoutResolver;
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 
 final class PublishRuleDraft extends Controller
 {
@@ -26,6 +26,8 @@ final class PublishRuleDraft extends Controller
      */
     public function __invoke(Rule $rule): ViewInterface
     {
+        $this->denyAccessUnlessGranted('nglayouts:mapping:edit');
+
         $publishedRule = $this->layoutResolverService->publishRule($rule);
 
         return $this->buildView($publishedRule, ViewInterface::CONTEXT_ADMIN);

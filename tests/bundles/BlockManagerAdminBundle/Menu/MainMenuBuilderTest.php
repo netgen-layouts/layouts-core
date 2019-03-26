@@ -60,7 +60,7 @@ final class MainMenuBuilderTest extends TestCase
         $this->authorizationCheckerMock
             ->expects(self::any())
             ->method('isGranted')
-            ->with(self::identicalTo('ROLE_NGBM_ADMIN'))
+            ->with(self::identicalTo('nglayouts:ui:access'))
             ->will(self::returnValue(true));
 
         $menu = $this->builder->createMenu();
@@ -94,7 +94,7 @@ final class MainMenuBuilderTest extends TestCase
         $this->authorizationCheckerMock
             ->expects(self::any())
             ->method('isGranted')
-            ->with(self::identicalTo('ROLE_NGBM_ADMIN'))
+            ->with(self::identicalTo('nglayouts:ui:access'))
             ->will(self::returnValue(false));
 
         $menu = $this->builder->createMenu();

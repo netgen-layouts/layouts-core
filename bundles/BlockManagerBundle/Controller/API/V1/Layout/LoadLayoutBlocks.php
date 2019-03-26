@@ -10,7 +10,7 @@ use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
-use Netgen\Bundle\BlockManagerBundle\Controller\API\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 
 final class LoadLayoutBlocks extends Controller
 {
@@ -31,6 +31,8 @@ final class LoadLayoutBlocks extends Controller
      */
     public function __invoke(Layout $layout, string $locale): Value
     {
+        $this->denyAccessUnlessGranted('ROLE_NGBM_API');
+
         if (!$layout->hasLocale($locale)) {
             throw new NotFoundException('layout', $layout->getId());
         }

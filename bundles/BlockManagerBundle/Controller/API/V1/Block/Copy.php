@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
-use Netgen\Bundle\BlockManagerBundle\Controller\API\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -29,6 +29,8 @@ final class Copy extends Controller
      */
     public function __invoke(Block $block, Request $request): View
     {
+        $this->denyAccessUnlessGranted('nglayouts:block:add');
+
         $requestData = $request->attributes->get('data');
 
         $targetBlock = $this->blockService->loadBlockDraft(

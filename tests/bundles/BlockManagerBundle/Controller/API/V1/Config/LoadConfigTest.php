@@ -16,7 +16,6 @@ final class LoadConfigTest extends JsonApiTestCase
     use LegacyTestCaseTrait;
 
     /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\Controller::checkPermissions
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Config\LoadConfig::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Config\LoadConfig::__invoke
      */

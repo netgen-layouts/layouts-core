@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Layout\Form\CopyType;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -29,6 +29,8 @@ final class CopyLayoutForm extends Controller
      */
     public function __invoke(Layout $layout, Request $request): ViewInterface
     {
+        $this->denyAccessUnlessGranted('nglayouts:layout:add');
+
         $copyStruct = $this->layoutService->newLayoutCopyStruct($layout);
 
         $form = $this->createForm(

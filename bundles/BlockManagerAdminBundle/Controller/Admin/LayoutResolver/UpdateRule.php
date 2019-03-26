@@ -10,7 +10,7 @@ use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 final class UpdateRule extends Controller
@@ -38,6 +38,8 @@ final class UpdateRule extends Controller
      */
     public function __invoke(Rule $rule, Request $request): ViewInterface
     {
+        $this->denyAccessUnlessGranted('nglayouts:mapping:edit');
+
         $layoutId = $request->request->get('layout_id');
         $layoutId = $layoutId !== null ? trim($layoutId) : null;
 

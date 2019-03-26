@@ -6,7 +6,7 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\LayoutResolver;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 
 final class CreateRule extends Controller
 {
@@ -25,6 +25,8 @@ final class CreateRule extends Controller
      */
     public function __invoke(): ViewInterface
     {
+        $this->denyAccessUnlessGranted('nglayouts:mapping:add');
+
         $createdRule = $this->layoutResolverService->createRule(
             $this->layoutResolverService->newRuleCreateStruct()
         );

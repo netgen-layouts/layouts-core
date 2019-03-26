@@ -9,7 +9,7 @@ use Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory;
 use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
-use Netgen\Bundle\BlockManagerBundle\Controller\API\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 
 final class LoadCollectionResult extends Controller
 {
@@ -28,6 +28,8 @@ final class LoadCollectionResult extends Controller
      */
     public function __invoke(Block $block, string $collectionIdentifier): VersionedValue
     {
+        $this->denyAccessUnlessGranted('ROLE_NGBM_API');
+
         $collection = $block->getCollection($collectionIdentifier);
 
         // In non AJAX scenarios, we're always rendering the first page of the collection

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\LayoutResolver;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService;
-use Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 final class Index extends Controller
@@ -25,6 +25,8 @@ final class Index extends Controller
      */
     public function __invoke(): Response
     {
+        $this->denyAccessUnlessGranted('nglayouts:ui:access');
+
         return $this->render(
             '@NetgenBlockManagerAdmin/admin/layout_resolver/index.html.twig',
             [

@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Config\Form\EditType;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -31,6 +31,8 @@ final class EditConfigForm extends Controller
      */
     public function __invoke(Request $request, Block $block, string $locale, ?string $configKey = null)
     {
+        $this->denyAccessUnlessGranted('nglayouts:block:edit_config');
+
         $updateStruct = $this->blockService->newBlockUpdateStruct($locale, $block);
 
         $form = $this->createForm(

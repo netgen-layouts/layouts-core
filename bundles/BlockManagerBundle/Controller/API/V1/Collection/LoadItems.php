@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
-use Netgen\Bundle\BlockManagerBundle\Controller\API\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 
 final class LoadItems extends Controller
 {
@@ -17,6 +17,8 @@ final class LoadItems extends Controller
      */
     public function __invoke(Collection $collection): Value
     {
+        $this->denyAccessUnlessGranted('ROLE_NGBM_API');
+
         $items = [];
         foreach ($collection->getItems() as $item) {
             $items[] = new VersionedValue($item, Version::API_V1);

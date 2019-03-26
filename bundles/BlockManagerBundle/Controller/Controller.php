@@ -12,20 +12,11 @@ use Symfony\Component\HttpFoundation\Response;
 abstract class Controller extends BaseController
 {
     /**
-     * Initializes the controller by setting the container and performing basic access checks.
+     * Initializes the controller by setting the container.
      */
     public function initialize(ContainerInterface $container): void
     {
         $this->setContainer($container);
-        $this->checkPermissions();
-    }
-
-    /**
-     * Performs access checks on the controller.
-     */
-    protected function checkPermissions(): void
-    {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
     }
 
     /**

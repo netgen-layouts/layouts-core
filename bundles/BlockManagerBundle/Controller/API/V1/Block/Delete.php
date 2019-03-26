@@ -6,7 +6,7 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\Bundle\BlockManagerBundle\Controller\API\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 final class Delete extends Controller
@@ -26,6 +26,8 @@ final class Delete extends Controller
      */
     public function __invoke(Block $block): Response
     {
+        $this->denyAccessUnlessGranted('nglayouts:block:delete');
+
         $this->blockService->deleteBlock($block);
 
         return new Response(null, Response::HTTP_NO_CONTENT);

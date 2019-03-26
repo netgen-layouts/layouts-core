@@ -9,7 +9,7 @@ use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Layout\Resolver\Form\TargetType;
 use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -38,6 +38,8 @@ final class CreateTargetForm extends Controller
      */
     public function __invoke(Rule $rule, string $type, Request $request): ViewInterface
     {
+        $this->denyAccessUnlessGranted('nglayouts:mapping:edit');
+
         $targetType = $this->targetTypeRegistry->getTargetType($type);
         $createStruct = $this->layoutResolverService->newTargetCreateStruct($type);
 

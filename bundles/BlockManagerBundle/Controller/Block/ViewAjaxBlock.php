@@ -56,8 +56,4 @@ final class ViewAjaxBlock extends Controller
 
         return new Response();
     }
-
-    protected function checkPermissions(): void
-    {
-    }
 }

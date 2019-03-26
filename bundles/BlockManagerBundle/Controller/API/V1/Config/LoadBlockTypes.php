@@ -9,7 +9,7 @@ use Netgen\BlockManager\Block\Registry\BlockTypeRegistryInterface;
 use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
-use Netgen\Bundle\BlockManagerBundle\Controller\API\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 
 final class LoadBlockTypes extends Controller
 {
@@ -36,6 +36,8 @@ final class LoadBlockTypes extends Controller
      */
     public function __invoke(): Value
     {
+        $this->denyAccessUnlessGranted('ROLE_NGBM_API');
+
         $blockTypeGroups = [];
         foreach ($this->blockTypeGroupRegistry->getBlockTypeGroups(true) as $blockTypeGroup) {
             if (!empty($blockTypeGroup->getBlockTypes(true))) {

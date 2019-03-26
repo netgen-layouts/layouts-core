@@ -6,7 +6,7 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Layouts;
 
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -27,6 +27,8 @@ final class DeleteLayout extends Controller
      */
     public function __invoke(Request $request, Layout $layout): Response
     {
+        $this->denyAccessUnlessGranted('nglayouts:layout:delete');
+
         if ($request->getMethod() !== Request::METHOD_DELETE) {
             return $this->render(
                 '@NetgenBlockManagerAdmin/admin/layouts/form/delete_layout.html.twig',

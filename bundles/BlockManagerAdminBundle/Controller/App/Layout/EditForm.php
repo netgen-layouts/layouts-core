@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Layout\Form\EditType;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -31,6 +31,8 @@ final class EditForm extends Controller
      */
     public function __invoke(Layout $layout, Request $request)
     {
+        $this->denyAccessUnlessGranted('nglayouts:layout:edit');
+
         $updateStruct = $this->layoutService->newLayoutUpdateStruct($layout);
 
         $form = $this->createForm(

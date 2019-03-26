@@ -9,7 +9,7 @@ use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -32,6 +32,8 @@ final class EditForm extends Controller
      */
     public function __invoke(Block $block, string $locale, string $formName, Request $request)
     {
+        $this->denyAccessUnlessGranted('nglayouts:block:edit');
+
         $updateStruct = $this->blockService->newBlockUpdateStruct($locale, $block);
 
         $form = $this->createForm(

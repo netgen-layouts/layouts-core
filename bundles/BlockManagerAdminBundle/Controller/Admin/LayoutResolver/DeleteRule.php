@@ -6,7 +6,7 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\LayoutResolver;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -27,6 +27,8 @@ final class DeleteRule extends Controller
      */
     public function __invoke(Request $request, Rule $rule): Response
     {
+        $this->denyAccessUnlessGranted('nglayouts:mapping:delete');
+
         if ($request->getMethod() !== Request::METHOD_DELETE) {
             return $this->render(
                 '@NetgenBlockManagerAdmin/admin/layout_resolver/form/delete_rule.html.twig',

@@ -21,18 +21,12 @@ services:
 
     # API controllers
 
-    netgen_block_manager.controller.api.base:
-        class: Netgen\Bundle\BlockManagerBundle\Controller\API\Controller
-        public: false
-        abstract: true
-        parent: netgen_block_manager.controller.base
-
     ## Config controllers
 
     netgen_block_manager.controller.api.v1.config.load_config:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Config\LoadConfig
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@security.csrf.token_manager"
             - "%netgen_block_manager.api.csrf_token_id%"
@@ -40,7 +34,7 @@ services:
     netgen_block_manager.controller.api.v1.config.load_block_types:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Config\LoadBlockTypes
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.block.registry.block_type"
             - "@netgen_block_manager.block.registry.block_type_group"
@@ -48,7 +42,7 @@ services:
     netgen_block_manager.controller.api.v1.config.load_layout_types:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Config\LoadLayoutTypes
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.layout.registry.layout_type"
 
@@ -57,26 +51,26 @@ services:
     netgen_block_manager.controller.api.v1.layout.load_shared_layouts:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadSharedLayouts
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.layout"
 
     netgen_block_manager.controller.api.v1.layout.load:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Load
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
 
     netgen_block_manager.controller.api.v1.layout.load_layout_blocks:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadLayoutBlocks
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.block"
 
     netgen_block_manager.controller.api.v1.layout.load_zone_blocks:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LoadZoneBlocks
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.layout"
             - "@netgen_block_manager.api.service.block"
@@ -84,21 +78,21 @@ services:
     netgen_block_manager.controller.api.v1.layout.link_zone:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\LinkZone
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.layout"
 
     netgen_block_manager.controller.api.v1.layout.unlink_zone:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\UnlinkZone
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.layout"
 
     netgen_block_manager.controller.api.v1.layout.create:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Create
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.layout"
             - "@netgen_block_manager.layout.registry.layout_type"
@@ -108,14 +102,14 @@ services:
     netgen_block_manager.controller.api.v1.layout.copy:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Copy
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.layout"
 
     netgen_block_manager.controller.api.v1.layout.change_type:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\ChangeType
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.layout"
             - "@netgen_block_manager.layout.registry.layout_type"
@@ -123,35 +117,35 @@ services:
     netgen_block_manager.controller.api.v1.layout.create_draft:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\CreateDraft
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.layout"
 
     netgen_block_manager.controller.api.v1.layout.discard_draft:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\DiscardDraft
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.layout"
 
     netgen_block_manager.controller.api.v1.layout.publish_draft:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\PublishDraft
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.layout"
 
     netgen_block_manager.controller.api.v1.layout.restore_from_archive:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\RestoreFromArchive
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.layout"
 
     netgen_block_manager.controller.api.v1.layout.delete:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout\Delete
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.layout"
 
@@ -172,12 +166,12 @@ services:
     netgen_block_manager.controller.api.v1.block.load:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Load
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
 
     netgen_block_manager.controller.api.v1.block.create:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Create
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.block"
             - "@netgen_block_manager.controller.api.v1.block.create_struct_builder"
@@ -187,7 +181,7 @@ services:
     netgen_block_manager.controller.api.v1.block.create_in_zone:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CreateInZone
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.block"
             - "@netgen_block_manager.api.service.layout"
@@ -198,14 +192,14 @@ services:
     netgen_block_manager.controller.api.v1.block.copy:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Copy
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.block"
 
     netgen_block_manager.controller.api.v1.block.copy_to_zone:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\CopyToZone
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.block"
             - "@netgen_block_manager.api.service.layout"
@@ -213,14 +207,14 @@ services:
     netgen_block_manager.controller.api.v1.block.move:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Move
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.block"
 
     netgen_block_manager.controller.api.v1.block.move_to_zone:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\MoveToZone
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.block"
             - "@netgen_block_manager.api.service.layout"
@@ -228,14 +222,14 @@ services:
     netgen_block_manager.controller.api.v1.block.restore:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Restore
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.block"
 
     netgen_block_manager.controller.api.v1.block.delete:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Delete
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.block"
 
@@ -244,7 +238,7 @@ services:
     netgen_block_manager.controller.api.v1.block_collection.add_items:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\AddItems
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.collection"
             - "@netgen_block_manager.collection.registry.item_definition"
@@ -254,7 +248,7 @@ services:
     netgen_block_manager.controller.api.v1.block_collection.change_collection_type:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\ChangeCollectionType
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.collection"
             - "@netgen_block_manager.collection.registry.query_type"
@@ -265,7 +259,7 @@ services:
     netgen_block_manager.controller.api.v1.block_collection.load_collection_result:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\BlockCollection\LoadCollectionResult
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.collection.result.pagerfanta.factory"
 
@@ -274,35 +268,35 @@ services:
     netgen_block_manager.controller.api.v1.collection.load_collection:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\LoadCollection
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
 
     netgen_block_manager.controller.api.v1.collection.load_items:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\LoadItems
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
 
     netgen_block_manager.controller.api.v1.collection.load_item:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\LoadItem
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
 
     netgen_block_manager.controller.api.v1.collection.move_item:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\MoveItem
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.collection"
 
     netgen_block_manager.controller.api.v1.collection.delete_item:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\DeleteItem
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.collection"
 
     netgen_block_manager.controller.api.v1.collection.delete_items:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection\DeleteItems
         public: true
-        parent: netgen_block_manager.controller.api.base
+        parent: netgen_block_manager.controller.base
         arguments:
             - "@netgen_block_manager.api.service.collection"

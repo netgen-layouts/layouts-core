@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Layout\Resolver\Form\TargetType;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -29,6 +29,8 @@ final class EditTargetForm extends Controller
      */
     public function __invoke(Target $target, Request $request): ViewInterface
     {
+        $this->denyAccessUnlessGranted('nglayouts:mapping:edit');
+
         $targetType = $target->getTargetType();
 
         $updateStruct = $this->layoutResolverService->newTargetUpdateStruct();

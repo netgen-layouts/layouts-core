@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -29,6 +29,8 @@ final class EditConditionForm extends Controller
      */
     public function __invoke(Condition $condition, Request $request): ViewInterface
     {
+        $this->denyAccessUnlessGranted('nglayouts:mapping:edit');
+
         $conditionType = $condition->getConditionType();
 
         $updateStruct = $this->layoutResolverService->newConditionUpdateStruct();

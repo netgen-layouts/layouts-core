@@ -8,8 +8,8 @@ use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\HttpCache\ClientInterface;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Controller;
 use Netgen\Bundle\BlockManagerAdminBundle\Form\Admin\Type\ClearLayoutsCacheType;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -38,6 +38,8 @@ final class ClearRelatedLayoutsCache extends Controller
      */
     public function __invoke(Layout $layout, Request $request)
     {
+        $this->denyAccessUnlessGranted('nglayouts:layout:clear_cache');
+
         $cacheCleared = true;
         $relatedLayouts = $this->layoutService->loadRelatedLayouts($layout);
 

@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
-use Netgen\Bundle\BlockManagerBundle\Controller\API\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 
 final class LoadSharedLayouts extends Controller
 {
@@ -27,6 +27,8 @@ final class LoadSharedLayouts extends Controller
      */
     public function __invoke(): Value
     {
+        $this->denyAccessUnlessGranted('ROLE_NGBM_API');
+
         $layouts = [];
         foreach ($this->layoutService->loadSharedLayouts() as $layout) {
             $layouts[] = new VersionedValue($layout, Version::API_V1);

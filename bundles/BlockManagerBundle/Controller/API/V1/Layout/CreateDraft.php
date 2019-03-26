@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
-use Netgen\Bundle\BlockManagerBundle\Controller\API\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 final class CreateDraft extends Controller
@@ -28,6 +28,8 @@ final class CreateDraft extends Controller
      */
     public function __invoke(Layout $layout): View
     {
+        $this->denyAccessUnlessGranted('nglayouts:layout:edit');
+
         $createdDraft = $this->layoutService->createDraft($layout, true);
 
         return new View($createdDraft, Version::API_V1, Response::HTTP_CREATED);

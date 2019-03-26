@@ -6,7 +6,7 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Layouts;
 
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\HttpCache\ClientInterface;
-use Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -27,6 +27,8 @@ final class ClearLayoutCache extends Controller
      */
     public function __invoke(Request $request, Layout $layout): Response
     {
+        $this->denyAccessUnlessGranted('nglayouts:layout:clear_cache');
+
         if ($request->getMethod() !== Request::METHOD_POST) {
             return $this->render(
                 '@NetgenBlockManagerAdmin/admin/layouts/form/clear_layout_cache.html.twig',

@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Validator\ValidatorTrait;
-use Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints;
@@ -35,6 +35,8 @@ final class UpdateRulePriorities extends Controller
      */
     public function __invoke(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('nglayouts:mapping:reorder');
+
         $this->validatePriorities($request);
 
         try {

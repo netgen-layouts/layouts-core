@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Layouts;
 
 use Netgen\BlockManager\Transfer\Output\SerializerInterface;
-use Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -27,6 +27,8 @@ final class ExportLayouts extends Controller
      */
     public function __invoke(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('nglayouts:ui:access');
+
         $serializedLayouts = $this->serializer->serializeLayouts(
             array_unique($request->request->get('layout_ids'))
         );

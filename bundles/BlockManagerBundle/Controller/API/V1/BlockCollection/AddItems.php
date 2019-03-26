@@ -9,7 +9,7 @@ use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistryInterface;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Validator\ValidatorTrait;
-use Netgen\Bundle\BlockManagerBundle\Controller\API\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints;
@@ -41,6 +41,8 @@ final class AddItems extends Controller
      */
     public function __invoke(Block $block, string $collectionIdentifier, Request $request): Response
     {
+        $this->denyAccessUnlessGranted('nglayouts:collection:items');
+
         $items = $request->attributes->get('data')->get('items');
 
         $this->validateAddItems($block, $collectionIdentifier, $items);

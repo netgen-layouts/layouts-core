@@ -8,7 +8,7 @@ use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
-use Netgen\Bundle\BlockManagerBundle\Controller\API\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 
 final class LoadLayoutTypes extends Controller
 {
@@ -27,6 +27,8 @@ final class LoadLayoutTypes extends Controller
      */
     public function __invoke(): Value
     {
+        $this->denyAccessUnlessGranted('ROLE_NGBM_API');
+
         $layoutTypes = [];
         foreach ($this->layoutTypeRegistry->getLayoutTypes(true) as $layoutType) {
             $layoutTypes[] = new View($layoutType, Version::API_V1);
