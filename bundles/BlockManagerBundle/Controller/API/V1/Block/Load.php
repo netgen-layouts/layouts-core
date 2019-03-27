@@ -16,7 +16,7 @@ final class Load extends Controller
      */
     public function __invoke(Block $block): View
     {
-        $this->denyAccessUnlessGranted('ROLE_NGBM_API');
+        $this->denyAccessUnlessGranted('nglayouts:api:read');
 
         return new View($block, Version::API_V1);
     }

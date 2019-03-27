@@ -19,7 +19,7 @@ final class Load extends Controller
      */
     public function __invoke(Layout $layout): View
     {
-        $this->denyAccessUnlessGranted('ROLE_NGBM_API');
+        $this->denyAccessUnlessGranted('nglayouts:api:read');
 
         return new View($layout, Version::API_V1);
     }

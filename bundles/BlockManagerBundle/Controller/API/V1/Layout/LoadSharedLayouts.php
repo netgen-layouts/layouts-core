@@ -27,7 +27,7 @@ final class LoadSharedLayouts extends Controller
      */
     public function __invoke(): Value
     {
-        $this->denyAccessUnlessGranted('ROLE_NGBM_API');
+        $this->denyAccessUnlessGranted('nglayouts:api:read');
 
         $layouts = [];
         foreach ($this->layoutService->loadSharedLayouts() as $layout) {

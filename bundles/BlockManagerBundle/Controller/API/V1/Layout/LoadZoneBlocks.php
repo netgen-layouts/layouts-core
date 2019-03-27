@@ -38,7 +38,7 @@ final class LoadZoneBlocks extends Controller
      */
     public function __invoke(Zone $zone, string $locale): Value
     {
-        $this->denyAccessUnlessGranted('ROLE_NGBM_API');
+        $this->denyAccessUnlessGranted('nglayouts:api:read');
 
         $layout = $zone->isPublished() ?
             $this->layoutService->loadLayout($zone->getLayoutId()) :

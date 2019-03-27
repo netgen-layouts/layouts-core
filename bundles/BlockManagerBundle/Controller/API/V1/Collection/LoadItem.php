@@ -16,7 +16,7 @@ final class LoadItem extends Controller
      */
     public function __invoke(Item $item): VersionedValue
     {
-        $this->denyAccessUnlessGranted('ROLE_NGBM_API');
+        $this->denyAccessUnlessGranted('nglayouts:api:read');
 
         return new VersionedValue($item, Version::API_V1);
     }

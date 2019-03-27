@@ -31,7 +31,7 @@ final class LoadLayoutBlocks extends Controller
      */
     public function __invoke(Layout $layout, string $locale): Value
     {
-        $this->denyAccessUnlessGranted('ROLE_NGBM_API');
+        $this->denyAccessUnlessGranted('nglayouts:api:read');
 
         if (!$layout->hasLocale($locale)) {
             throw new NotFoundException('layout', $layout->getId());

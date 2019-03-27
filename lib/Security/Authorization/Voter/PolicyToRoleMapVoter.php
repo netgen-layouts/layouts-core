@@ -31,6 +31,7 @@ final class PolicyToRoleMapVoter extends Voter
         'nglayouts:collection:edit' => self::ROLE_EDITOR,
         'nglayouts:collection:items' => self::ROLE_EDITOR,
         'nglayouts:ui:access' => self::ROLE_ADMIN,
+        'nglayouts:api:read' => self::ROLE_API,
     ];
 
     /**
@@ -44,6 +45,12 @@ final class PolicyToRoleMapVoter extends Voter
      * have full access only to the layout editing interface.
      */
     private const ROLE_EDITOR = 'ROLE_NGBM_EDITOR';
+
+    /**
+     * The identifier of the API role. Users having this role
+     * have access to read only data of the API endpoints.
+     */
+    private const ROLE_API = 'ROLE_NGBM_API';
 
     /**
      * @var \Symfony\Component\Security\Core\Security|\Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface

@@ -27,7 +27,7 @@ final class LoadLayoutTypes extends Controller
      */
     public function __invoke(): Value
     {
-        $this->denyAccessUnlessGranted('ROLE_NGBM_API');
+        $this->denyAccessUnlessGranted('nglayouts:api:read');
 
         $layoutTypes = [];
         foreach ($this->layoutTypeRegistry->getLayoutTypes(true) as $layoutType) {

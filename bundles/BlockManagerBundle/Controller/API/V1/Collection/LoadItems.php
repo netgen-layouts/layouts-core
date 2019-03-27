@@ -17,7 +17,7 @@ final class LoadItems extends Controller
      */
     public function __invoke(Collection $collection): Value
     {
-        $this->denyAccessUnlessGranted('ROLE_NGBM_API');
+        $this->denyAccessUnlessGranted('nglayouts:api:read');
 
         $items = [];
         foreach ($collection->getItems() as $item) {

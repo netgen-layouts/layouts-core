@@ -36,7 +36,7 @@ final class LoadBlockTypes extends Controller
      */
     public function __invoke(): Value
     {
-        $this->denyAccessUnlessGranted('ROLE_NGBM_API');
+        $this->denyAccessUnlessGranted('nglayouts:api:read');
 
         $blockTypeGroups = [];
         foreach ($this->blockTypeGroupRegistry->getBlockTypeGroups(true) as $blockTypeGroup) {

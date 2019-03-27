@@ -16,7 +16,7 @@ final class LoadCollection extends Controller
      */
     public function __invoke(Collection $collection): VersionedValue
     {
-        $this->denyAccessUnlessGranted('ROLE_NGBM_API');
+        $this->denyAccessUnlessGranted('nglayouts:api:read');
 
         return new VersionedValue($collection, Version::API_V1);
     }
