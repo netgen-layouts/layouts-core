@@ -25,7 +25,7 @@ final class CreateRule extends Controller
      */
     public function __invoke(): ViewInterface
     {
-        $this->denyAccessUnlessGranted('nglayouts:mapping:add');
+        $this->denyAccessUnlessGranted('nglayouts:mapping:edit');
 
         $createdRule = $this->layoutResolverService->createRule(
             $this->layoutResolverService->newRuleCreateStruct()

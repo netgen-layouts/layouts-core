@@ -24,7 +24,6 @@ final class PolicyToRoleMapVoter extends Voter
         'nglayouts:layout:edit' => self::ROLE_EDITOR,
         'nglayouts:layout:delete' => self::ROLE_ADMIN,
         'nglayouts:layout:clear_cache' => self::ROLE_ADMIN,
-        'nglayouts:mapping:add' => self::ROLE_ADMIN,
         'nglayouts:mapping:edit' => self::ROLE_ADMIN,
         'nglayouts:mapping:activate' => self::ROLE_ADMIN,
         'nglayouts:mapping:delete' => self::ROLE_ADMIN,
