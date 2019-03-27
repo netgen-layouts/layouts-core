@@ -25,6 +25,8 @@ final class Index extends Controller
      */
     public function __invoke(Request $request): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
         $appEnvironment = $request->attributes->get('_ngbm_environment');
 
         return $this->render(
