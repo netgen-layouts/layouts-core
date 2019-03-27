@@ -54,8 +54,6 @@ final class AdminCsrfValidationListener implements EventSubscriberInterface
             return;
         }
 
-        $event->getResponse()->headers->set('X-CSRF-Token-Failed', '1');
-
         throw new AccessDeniedHttpException('Missing or invalid CSRF token');
     }
 }
