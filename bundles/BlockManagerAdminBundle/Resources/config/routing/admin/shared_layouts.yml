@@ -22,13 +22,6 @@ ngbm_admin_shared_layouts_layout_delete:
     defaults:
         _controller: "netgen_block_manager.controller.admin.layouts.delete_layout"
 
-ngbm_admin_shared_layouts_cache_blocks:
-    path: /{layoutId}/cache/blocks
-    methods: [GET, POST]
-    defaults:
-        _controller: "netgen_block_manager.controller.admin.layouts.clear_blocks_cache"
-        _ngbm_status: published
-
 ngbm_admin_shared_layouts_cache_related_layouts:
     path: /{layoutId}/cache/related_layouts
     methods: [GET, POST]
