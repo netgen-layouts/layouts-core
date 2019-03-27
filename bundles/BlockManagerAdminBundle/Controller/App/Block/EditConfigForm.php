@@ -31,7 +31,13 @@ final class EditConfigForm extends Controller
      */
     public function __invoke(Request $request, Block $block, string $locale, ?string $configKey = null)
     {
-        $this->denyAccessUnlessGranted('nglayouts:block:edit_config');
+        $this->denyAccessUnlessGranted(
+            'nglayouts:block:edit_config',
+            [
+                'block_definition' => $block->getDefinition(),
+                'layout' => $block->getLayoutId(),
+            ]
+        );
 
         $updateStruct = $this->blockService->newBlockUpdateStruct($locale, $block);
 

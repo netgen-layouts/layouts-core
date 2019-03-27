@@ -32,7 +32,13 @@ final class EditForm extends Controller
      */
     public function __invoke(Block $block, string $locale, string $formName, Request $request)
     {
-        $this->denyAccessUnlessGranted('nglayouts:block:edit');
+        $this->denyAccessUnlessGranted(
+            'nglayouts:block:edit',
+            [
+                'block_definition' => $block->getDefinition(),
+                'layout' => $block->getLayoutId(),
+            ]
+        );
 
         $updateStruct = $this->blockService->newBlockUpdateStruct($locale, $block);
 

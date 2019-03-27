@@ -38,7 +38,7 @@ final class ClearRelatedLayoutsCache extends Controller
      */
     public function __invoke(Layout $layout, Request $request)
     {
-        $this->denyAccessUnlessGranted('nglayouts:layout:clear_cache');
+        $this->denyAccessUnlessGranted('nglayouts:layout:clear_cache', $layout);
 
         $cacheCleared = true;
         $relatedLayouts = $this->layoutService->loadRelatedLayouts($layout);

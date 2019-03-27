@@ -27,7 +27,7 @@ final class Move extends Controller
      */
     public function __invoke(Block $block, Request $request): Response
     {
-        $this->denyAccessUnlessGranted('nglayouts:block:reorder');
+        $this->denyAccessUnlessGranted('nglayouts:block:reorder', ['layout' => $block->getLayoutId()]);
 
         $requestData = $request->attributes->get('data');
 

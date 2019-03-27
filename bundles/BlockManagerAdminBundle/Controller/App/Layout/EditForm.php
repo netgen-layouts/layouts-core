@@ -31,7 +31,7 @@ final class EditForm extends Controller
      */
     public function __invoke(Layout $layout, Request $request)
     {
-        $this->denyAccessUnlessGranted('nglayouts:layout:edit');
+        $this->denyAccessUnlessGranted('nglayouts:layout:edit', $layout);
 
         $updateStruct = $this->layoutService->newLayoutUpdateStruct($layout);
 

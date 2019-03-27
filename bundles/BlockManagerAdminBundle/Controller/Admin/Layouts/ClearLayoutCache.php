@@ -27,7 +27,7 @@ final class ClearLayoutCache extends Controller
      */
     public function __invoke(Request $request, Layout $layout): Response
     {
-        $this->denyAccessUnlessGranted('nglayouts:layout:clear_cache');
+        $this->denyAccessUnlessGranted('nglayouts:layout:clear_cache', $layout);
 
         if ($request->getMethod() !== Request::METHOD_POST) {
             return $this->render(

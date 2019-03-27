@@ -27,7 +27,13 @@ final class Restore extends Controller
      */
     public function __invoke(Block $block): View
     {
-        $this->denyAccessUnlessGranted('nglayouts:block:edit');
+        $this->denyAccessUnlessGranted(
+            'nglayouts:block:edit',
+            [
+                'block_definition' => $block->getDefinition(),
+                'layout' => $block->getLayoutId(),
+            ]
+        );
 
         $restoredBlock = $this->blockService->restoreBlock($block);
 

@@ -26,7 +26,13 @@ final class Delete extends Controller
      */
     public function __invoke(Block $block): Response
     {
-        $this->denyAccessUnlessGranted('nglayouts:block:delete');
+        $this->denyAccessUnlessGranted(
+            'nglayouts:block:delete',
+            [
+                'block_definition' => $block->getDefinition(),
+                'layout' => $block->getLayoutId(),
+            ]
+        );
 
         $this->blockService->deleteBlock($block);
 

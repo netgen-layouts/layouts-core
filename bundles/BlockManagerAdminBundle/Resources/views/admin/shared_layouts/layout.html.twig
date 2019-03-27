@@ -27,7 +27,7 @@
 
         <div class="nl-layout-text">
             <div class="nl-layout-name">
-                {% if is_granted('nglayouts:layout:edit') %}
+                {% if is_granted('nglayouts:layout:edit', layout) %}
                     <a href="{{ macros.layout_path(layout.id) }}" class="js-open-bm">{{ layout.name }}</a>
                 {% else %}
                     {{ layout.name }}
@@ -63,7 +63,7 @@
                 <i class="material-icons">more_horiz</i>
             </button>
             <ul class="nl-dropdown-menu">
-                {% if is_granted('nglayouts:layout:edit') %}
+                {% if is_granted('nglayouts:layout:edit', layout) %}
                     <li><a href="{{ macros.layout_path(layout.id) }}" class="js-layout-edit js-open-bm">{{ 'layouts.layout.edit_layout'|trans }}</a></li>
                 {% endif %}
 
@@ -75,7 +75,7 @@
                     <li><button class="js-layout-delete">{{ 'layouts.layout.delete_layout'|trans }}</button></li>
                 {% endif %}
 
-                {% if layout.published and is_granted('nglayouts:layout:clear_cache') %}
+                {% if layout.published and is_granted('nglayouts:layout:clear_cache', layout) %}
                     <li>
                         <button class="js-layout-clear-related-layouts-caches" {% if not http_cache_enabled %}disabled="disabled"{% endif %}>
                             {{ 'shared_layouts.layout.clear_related_layouts_caches'|trans }}

@@ -35,7 +35,7 @@ final class ChangeType extends Controller
      */
     public function __invoke(Layout $layout, Request $request): View
     {
-        $this->denyAccessUnlessGranted('nglayouts:layout:edit');
+        $this->denyAccessUnlessGranted('nglayouts:layout:edit', $layout);
 
         $requestData = $request->attributes->get('data');
 

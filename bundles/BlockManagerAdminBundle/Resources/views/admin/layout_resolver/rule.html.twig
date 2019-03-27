@@ -127,7 +127,7 @@
                             <div class="rule-layout-info-text">
                                 <p><strong>{{ rule.layout.name }}</strong></p>
                                 <p>{{ rule.layout.description }}</p>
-                                {% if is_granted('nglayouts:layout:edit') %}
+                                {% if is_granted('nglayouts:layout:edit', rule.layout) %}
                                     <a href="{{ macros.layout_path(rule.layout.id) }}" class="js-open-bm">{{ 'layout_resolver.rule.edit_layout'|trans }}</a>
                                 {% endif %}
                             </div>

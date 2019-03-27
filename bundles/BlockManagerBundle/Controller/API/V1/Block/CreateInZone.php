@@ -65,8 +65,6 @@ final class CreateInZone extends Controller
      */
     public function __invoke(Request $request): View
     {
-        $this->denyAccessUnlessGranted('nglayouts:block:add');
-
         $requestData = $request->attributes->get('data');
 
         $this->createStructValidator->validateCreateBlock($requestData);
@@ -80,6 +78,14 @@ final class CreateInZone extends Controller
         $zone = $this->layoutService->loadZoneDraft(
             $requestData->get('layout_id'),
             $requestData->get('zone_identifier')
+        );
+
+        $this->denyAccessUnlessGranted(
+            'nglayouts:block:add',
+            [
+                'block_definition' => $blockType->getDefinition(),
+                'layout' => $zone->getLayoutId(),
+            ]
         );
 
         $blockCreateStruct = $this->createStructBuilder->buildCreateStruct($blockType);

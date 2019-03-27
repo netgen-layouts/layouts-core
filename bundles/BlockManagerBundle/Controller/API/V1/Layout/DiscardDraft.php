@@ -26,7 +26,7 @@ final class DiscardDraft extends Controller
      */
     public function __invoke(Layout $layout): Response
     {
-        $this->denyAccessUnlessGranted('nglayouts:layout:edit');
+        $this->denyAccessUnlessGranted('nglayouts:layout:edit', $layout);
 
         $this->layoutService->discardDraft($layout);
 

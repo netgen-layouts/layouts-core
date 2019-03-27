@@ -29,7 +29,13 @@ final class Copy extends Controller
      */
     public function __invoke(Block $block, Request $request): View
     {
-        $this->denyAccessUnlessGranted('nglayouts:block:add');
+        $this->denyAccessUnlessGranted(
+            'nglayouts:block:add',
+            [
+                'block_definition' => $block->getDefinition(),
+                'layout' => $block->getLayoutId(),
+            ]
+        );
 
         $requestData = $request->attributes->get('data');
 

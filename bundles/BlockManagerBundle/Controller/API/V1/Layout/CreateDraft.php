@@ -28,7 +28,7 @@ final class CreateDraft extends Controller
      */
     public function __invoke(Layout $layout): View
     {
-        $this->denyAccessUnlessGranted('nglayouts:layout:edit');
+        $this->denyAccessUnlessGranted('nglayouts:layout:edit', $layout);
 
         $createdDraft = $this->layoutService->createDraft($layout, true);
 

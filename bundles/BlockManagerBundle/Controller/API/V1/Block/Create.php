@@ -58,8 +58,6 @@ final class Create extends Controller
      */
     public function __invoke(Block $block, Request $request): View
     {
-        $this->denyAccessUnlessGranted('nglayouts:block:add');
-
         $requestData = $request->attributes->get('data');
 
         $this->createStructValidator->validateCreateBlock($requestData);
@@ -69,6 +67,14 @@ final class Create extends Controller
         } catch (BlockTypeException $e) {
             throw new BadStateException('block_type', 'Block type does not exist.', $e);
         }
+
+        $this->denyAccessUnlessGranted(
+            'nglayouts:block:add',
+            [
+                'block_definition' => $blockType->getDefinition(),
+                'layout' => $block->getLayoutId(),
+            ]
+        );
 
         $blockCreateStruct = $this->createStructBuilder->buildCreateStruct($blockType);
 

@@ -15,7 +15,13 @@ final class Edit extends Controller
      */
     public function __invoke(Block $block): Response
     {
-        $this->denyAccessUnlessGranted('nglayouts:block:edit');
+        $this->denyAccessUnlessGranted(
+            'nglayouts:block:edit',
+            [
+                'block_definition' => $block->getDefinition(),
+                'layout' => $block->getLayoutId(),
+            ]
+        );
 
         return $this->render(
             '@NetgenBlockManagerAdmin/app/block/edit.html.twig',

@@ -26,7 +26,7 @@ final class UnlinkZone extends Controller
      */
     public function __invoke(Zone $zone): Response
     {
-        $this->denyAccessUnlessGranted('nglayouts:layout:edit');
+        $this->denyAccessUnlessGranted('nglayouts:layout:edit', ['layout' => $zone->getLayoutId()]);
 
         $this->layoutService->unlinkZone($zone);
 
