@@ -39,7 +39,7 @@ final class LayoutQueryHandler extends QueryHandler
      * Loads all layout IDs for provided parameters. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
      */
-    public function loadLayoutIds(bool $includeDrafts, bool $shared, int $offset = 0, ?int $limit = null): array
+    public function loadLayoutIds(bool $includeDrafts, ?bool $shared = null, int $offset = 0, ?int $limit = null): array
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -58,9 +58,11 @@ final class LayoutQueryHandler extends QueryHandler
             );
         }
 
-        $query->where(
-            $query->expr()->eq('l.shared', ':shared')
-        );
+        if ($shared !== null) {
+            $query->where(
+                $query->expr()->eq('l.shared', ':shared')
+            );
+        }
 
         $statusExpr = $query->expr()->eq('l.status', ':status');
         if ($includeDrafts) {
@@ -72,7 +74,10 @@ final class LayoutQueryHandler extends QueryHandler
 
         $query->andWhere($statusExpr);
 
-        $query->setParameter('shared', $shared, Type::BOOLEAN);
+        if ($shared !== null) {
+            $query->setParameter('shared', $shared, Type::BOOLEAN);
+        }
+
         $query->setParameter('status', Value::STATUS_PUBLISHED, Type::INTEGER);
 
         $this->applyOffsetAndLimit($query, $offset, $limit);
@@ -87,7 +92,7 @@ final class LayoutQueryHandler extends QueryHandler
      * Loads all layout IDs for provided parameters. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
      */
-    public function getLayoutsCount(bool $includeDrafts, bool $shared): int
+    public function getLayoutsCount(bool $includeDrafts, ?bool $shared = null): int
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -106,9 +111,11 @@ final class LayoutQueryHandler extends QueryHandler
             );
         }
 
-        $query->where(
-            $query->expr()->eq('l.shared', ':shared')
-        );
+        if ($shared !== null) {
+            $query->where(
+                $query->expr()->eq('l.shared', ':shared')
+            );
+        }
 
         $statusExpr = $query->expr()->eq('l.status', ':status');
         if ($includeDrafts) {
@@ -120,7 +127,10 @@ final class LayoutQueryHandler extends QueryHandler
 
         $query->andWhere($statusExpr);
 
-        $query->setParameter('shared', $shared, Type::BOOLEAN);
+        if ($shared !== null) {
+            $query->setParameter('shared', $shared, Type::BOOLEAN);
+        }
+
         $query->setParameter('status', Value::STATUS_PUBLISHED, Type::INTEGER);
 
         $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);

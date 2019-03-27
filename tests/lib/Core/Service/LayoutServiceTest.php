@@ -162,6 +162,28 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadAllLayouts
+     */
+    public function testLoadAllLayouts(): void
+    {
+        $layouts = $this->layoutService->loadAllLayouts();
+
+        self::assertCount(5, $layouts);
+
+        foreach ($layouts as $layout) {
+            self::assertTrue($layout->isPublished());
+        }
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Core\Service\LayoutService::getAllLayoutsCount
+     */
+    public function testGetAllLayoutsCount(): void
+    {
+        self::assertSame(5, $this->layoutService->getAllLayoutsCount());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadRelatedLayouts
      */
     public function testLoadRelatedLayouts(): void

@@ -12,6 +12,7 @@ use Netgen\BlockManager\Browser\Item\Layout\Item;
 use Netgen\BlockManager\Browser\Item\Layout\RootLocation;
 use Netgen\BlockManager\Exception\NotFoundException as BaseNotFoundException;
 use Netgen\ContentBrowser\Backend\BackendInterface;
+use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\ContentBrowser\Item\LocationInterface;
@@ -23,9 +24,15 @@ final class LayoutBackend implements BackendInterface
      */
     private $layoutService;
 
-    public function __construct(LayoutService $layoutService)
+    /**
+     * @var \Netgen\ContentBrowser\Config\Configuration
+     */
+    private $config;
+
+    public function __construct(LayoutService $layoutService, Configuration $config)
     {
         $this->layoutService = $layoutService;
+        $this->config = $config;
     }
 
     public function getSections(): iterable
@@ -65,14 +72,18 @@ final class LayoutBackend implements BackendInterface
 
     public function getSubItems(LocationInterface $location, int $offset = 0, int $limit = 25): iterable
     {
-        $layouts = $this->layoutService->loadLayouts(false, $offset, $limit);
+        $layouts = $this->includeSharedLayouts() ?
+            $this->layoutService->loadAllLayouts(false, $offset, $limit) :
+            $this->layoutService->loadLayouts(false, $offset, $limit);
 
         return iterator_to_array($this->buildItems($layouts));
     }
 
     public function getSubItemsCount(LocationInterface $location): int
     {
-        return $this->layoutService->getLayoutsCount();
+        return $this->includeSharedLayouts() ?
+            $this->layoutService->getAllLayoutsCount() :
+            $this->layoutService->getLayoutsCount();
     }
 
     public function search(string $searchText, int $offset = 0, int $limit = 25): iterable
@@ -101,5 +112,17 @@ final class LayoutBackend implements BackendInterface
         foreach ($layouts as $layout) {
             yield $this->buildItem($layout);
         }
+    }
+
+    /**
+     * Returns if the backend should include shared layouts or not.
+     */
+    private function includeSharedLayouts(): bool
+    {
+        if (!$this->config->hasParameter('include_shared_layouts')) {
+            return false;
+        }
+
+        return $this->config->getParameter('include_shared_layouts') === 'true';
     }
 }

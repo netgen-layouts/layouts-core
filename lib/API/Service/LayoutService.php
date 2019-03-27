@@ -48,13 +48,13 @@ interface LayoutService extends Service
     public function loadLayoutArchive($layoutId): Layout;
 
     /**
-     * Loads all published layouts. If $includeDrafts is set to true, drafts which have no
+     * Loads all published non-shared layouts. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
      */
     public function loadLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): LayoutList;
 
     /**
-     * Returns the count of all published layouts. If $includeDrafts is set to true, drafts which have no
+     * Returns the count of all published non-shared layouts. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
      */
     public function getLayoutsCount(bool $includeDrafts = false): int;
@@ -70,6 +70,18 @@ interface LayoutService extends Service
      * published status will also be included.
      */
     public function getSharedLayoutsCount(bool $includeDrafts = false): int;
+
+    /**
+     * Loads all published layouts. If $includeDrafts is set to true, drafts which have no
+     * published status will also be included.
+     */
+    public function loadAllLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): LayoutList;
+
+    /**
+     * Returns the count of all published layouts. If $includeDrafts is set to true, drafts which have no
+     * published status will also be included.
+     */
+    public function getAllLayoutsCount(bool $includeDrafts = false): int;
 
     /**
      * Loads all published layouts related to provided shared layout.

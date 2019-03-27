@@ -434,6 +434,94 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadAllLayouts
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutIds
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutsData
+     */
+    public function testLoadAllLayouts(): void
+    {
+        $layouts = $this->layoutHandler->loadAllLayouts();
+
+        self::assertContainsOnlyInstancesOf(Layout::class, $layouts);
+
+        self::assertSame(
+            [
+                [
+                    'id' => 5,
+                    'type' => '4_zones_b',
+                    'name' => 'My fifth layout',
+                    'description' => 'My fifth layout description',
+                    'shared' => true,
+                    'created' => 1447065813,
+                    'modified' => 1447065813,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en'],
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+                [
+                    'id' => 1,
+                    'type' => '4_zones_a',
+                    'name' => 'My layout',
+                    'description' => 'My layout description',
+                    'shared' => false,
+                    'created' => 1447065813,
+                    'modified' => 1447065813,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en', 'hr'],
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+                [
+                    'id' => 2,
+                    'type' => '4_zones_b',
+                    'name' => 'My other layout',
+                    'description' => 'My other layout description',
+                    'shared' => false,
+                    'created' => 1447065813,
+                    'modified' => 1447065813,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en'],
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+                [
+                    'id' => 6,
+                    'type' => '4_zones_b',
+                    'name' => 'My sixth layout',
+                    'description' => 'My sixth layout description',
+                    'shared' => false,
+                    'created' => 1447065813,
+                    'modified' => 1447065813,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en'],
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+                [
+                    'id' => 3,
+                    'type' => '4_zones_b',
+                    'name' => 'My third layout',
+                    'description' => 'My third layout description',
+                    'shared' => true,
+                    'created' => 1447065813,
+                    'modified' => 1447065813,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en'],
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+            ],
+            $this->exportObjectList($layouts)
+        );
+    }
+
+    /**
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::getAllLayoutsCount
+     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutsCount
+     */
+    public function testGetAllLayoutsCount(): void
+    {
+        self::assertSame(5, $this->layoutHandler->getAllLayoutsCount());
+    }
+
+    /**
      * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadRelatedLayouts
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
      * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadRelatedLayoutsData

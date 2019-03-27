@@ -4,6 +4,7 @@ services:
         public: false
         arguments:
             - "@netgen_block_manager.api.service.layout"
+            - "@netgen_content_browser.config.ngbm_layout"
         tags:
             -  { name: netgen_content_browser.backend, item_type: ngbm_layout }
 

@@ -151,6 +151,31 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $this->layoutHandler->getSharedLayoutsCount($includeDrafts);
     }
 
+    public function loadAllLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): LayoutList
+    {
+        $this->validator->validateOffsetAndLimit($offset, $limit);
+
+        $persistenceLayouts = $this->layoutHandler->loadAllLayouts(
+            $includeDrafts,
+            $offset,
+            $limit
+        );
+
+        return new LayoutList(
+            array_map(
+                function (PersistenceLayout $layout): Layout {
+                    return $this->mapper->mapLayout($layout);
+                },
+                $persistenceLayouts
+            )
+        );
+    }
+
+    public function getAllLayoutsCount(bool $includeDrafts = false): int
+    {
+        return $this->layoutHandler->getAllLayoutsCount($includeDrafts);
+    }
+
     public function loadRelatedLayouts(Layout $sharedLayout): LayoutList
     {
         if (!$sharedLayout->isPublished()) {

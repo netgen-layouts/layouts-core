@@ -12,6 +12,7 @@ use Netgen\BlockManager\Browser\Item\Layout\LayoutInterface;
 use Netgen\BlockManager\Browser\Item\Layout\RootLocation;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Tests\TestCase\LegacyTestCaseTrait;
+use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\NotFoundException as ContentBrowserNotFoundException;
 use Netgen\ContentBrowser\Item\ItemInterface;
 use PHPUnit\Framework\TestCase;
@@ -34,7 +35,10 @@ final class LayoutBackendTest extends TestCase
     {
         $this->layoutServiceMock = $this->createMock(LayoutService::class);
 
-        $this->backend = new LayoutBackend($this->layoutServiceMock);
+        $this->backend = new LayoutBackend(
+            $this->layoutServiceMock,
+            new Configuration('ngbm_layout', 'Layout', [])
+        );
     }
 
     /**
@@ -129,6 +133,7 @@ final class LayoutBackendTest extends TestCase
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::buildItem
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::buildItems
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::getSubItems
+     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::includeSharedLayouts
      */
     public function testGetSubItems(): void
     {
@@ -152,6 +157,7 @@ final class LayoutBackendTest extends TestCase
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::buildItem
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::buildItems
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::getSubItems
+     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::includeSharedLayouts
      */
     public function testGetSubItemsWithOffsetAndLimit(): void
     {
@@ -177,6 +183,7 @@ final class LayoutBackendTest extends TestCase
 
     /**
      * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::getSubItemsCount
+     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::includeSharedLayouts
      */
     public function testGetSubItemsCount(): void
     {

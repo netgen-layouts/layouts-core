@@ -40,7 +40,7 @@ interface LayoutHandlerInterface
     public function loadZone($layoutId, int $status, string $identifier): Zone;
 
     /**
-     * Loads all layouts. If $includeDrafts is set to true, drafts which have no
+     * Loads all non-shared layouts. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
      *
      * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout[]
@@ -48,7 +48,7 @@ interface LayoutHandlerInterface
     public function loadLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): array;
 
     /**
-     * Returns the count of all layouts. If $includeDrafts is set to true, drafts which have no
+     * Returns the count of all non-shared layouts. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
      */
     public function getLayoutsCount(bool $includeDrafts = false): int;
@@ -66,6 +66,20 @@ interface LayoutHandlerInterface
      * published status will also be included.
      */
     public function getSharedLayoutsCount(bool $includeDrafts = false): int;
+
+    /**
+     * Loads all layouts. If $includeDrafts is set to true, drafts which have no
+     * published status will also be included.
+     *
+     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout[]
+     */
+    public function loadAllLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): array;
+
+    /**
+     * Returns the count of all layouts. If $includeDrafts is set to true, drafts which have no
+     * published status will also be included.
+     */
+    public function getAllLayoutsCount(bool $includeDrafts = false): int;
 
     /**
      * Loads all layouts related to provided shared layout.
