@@ -25,10 +25,6 @@ final class Index extends Controller
      */
     public function __invoke(Request $request): Response
     {
-        if (!$this->isGranted('nglayouts:layout:add') && !$this->isGranted('nglayouts:layout:edit')) {
-            throw $this->createAccessDeniedException();
-        }
-
         $appEnvironment = $request->attributes->get('_ngbm_environment');
 
         return $this->render(
