@@ -54,12 +54,12 @@ abstract class BlockTest extends CoreTestCase
     {
         $this->expectException(ValidationException::class);
 
-        if (empty($parameters)) {
+        if (count($parameters) === 0) {
             throw ValidationException::validationFailed('parameters', 'Invalid parameters');
         }
 
         $blockDefinition = $this->createBlockDefinition(
-            !empty($testedParams) ? $testedParams : array_keys($parameters)
+            count($testedParams) > 0 ? $testedParams : array_keys($parameters)
         );
 
         // We need to recreate the service due to recreating the block definition
@@ -103,7 +103,7 @@ abstract class BlockTest extends CoreTestCase
         $parameterDefinitions = $parameterBuilder->buildParameterDefinitions();
 
         $filteredParameterDefinitions = [];
-        if (!empty($parameterNames)) {
+        if (count($parameterNames) > 0) {
             foreach ($parameterDefinitions as $parameterName => $parameterDefinition) {
                 if (in_array($parameterName, $parameterNames, true)) {
                     $filteredParameterDefinitions[$parameterName] = $parameterDefinition;

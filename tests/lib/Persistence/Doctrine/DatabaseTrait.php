@@ -40,7 +40,7 @@ trait DatabaseTrait
         $data = require $fixturesPath . '/data.php';
 
         foreach ($data as $tableName => $tableData) {
-            if (!empty($tableData)) {
+            if (count($tableData) > 0) {
                 foreach ($tableData as $tableRow) {
                     $this->databaseConnection
                         ->createQueryBuilder()
@@ -64,7 +64,7 @@ trait DatabaseTrait
         $this->databaseUri = $this->inMemoryDsn;
 
         $databaseUri = getenv('DATABASE');
-        if (is_string($databaseUri) && !empty($databaseUri)) {
+        if (is_string($databaseUri) && $databaseUri !== '') {
             $this->databaseUri = $databaseUri;
         }
 
@@ -133,7 +133,7 @@ trait DatabaseTrait
 
         foreach ($sqlQueries as $sqlQuery) {
             $sqlQuery = trim($sqlQuery);
-            if (!empty($sqlQuery)) {
+            if ($sqlQuery !== '') {
                 $this->databaseConnection->query($sqlQuery);
             }
         }
