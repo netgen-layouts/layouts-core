@@ -113,7 +113,7 @@ final class BlockService extends Service implements BlockServiceInterface
 
         $block = $this->blockHandler->loadBlock($blockId, Value::STATUS_PUBLISHED);
 
-        if (empty($block->parentId)) {
+        if ($block->parentId === null) {
             // We do not allow loading root zone blocks
             throw new NotFoundException('block', $blockId);
         }
@@ -127,7 +127,7 @@ final class BlockService extends Service implements BlockServiceInterface
 
         $block = $this->blockHandler->loadBlock($blockId, Value::STATUS_DRAFT);
 
-        if (empty($block->parentId)) {
+        if ($block->parentId === null) {
             // We do not allow loading root zone blocks
             throw new NotFoundException('block', $blockId);
         }
@@ -172,7 +172,7 @@ final class BlockService extends Service implements BlockServiceInterface
         $persistenceBlocks = array_filter(
             $this->blockHandler->loadLayoutBlocks($persistenceLayout),
             function (PersistenceBlock $persistenceBlock): bool {
-                return !empty($persistenceBlock->parentId);
+                return $persistenceBlock->parentId !== null;
             }
         );
 
@@ -652,7 +652,7 @@ final class BlockService extends Service implements BlockServiceInterface
                 );
 
                 $collectionCreateStructs = $blockCreateStruct->getCollectionCreateStructs();
-                if (!empty($collectionCreateStructs)) {
+                if (count($collectionCreateStructs) > 0) {
                     foreach ($collectionCreateStructs as $identifier => $collectionCreateStruct) {
                         $createdCollection = $this->collectionHandler->createCollection(
                             CollectionCreateStruct::fromArray(

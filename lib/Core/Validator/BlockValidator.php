@@ -47,7 +47,7 @@ final class BlockValidator extends Validator
         );
 
         $collectionCreateStructs = $blockCreateStruct->getCollectionCreateStructs();
-        if (!empty($collectionCreateStructs)) {
+        if (count($collectionCreateStructs) > 0) {
             foreach ($collectionCreateStructs as $collectionCreateStruct) {
                 $this->collectionValidator->validateCollectionCreateStruct($collectionCreateStruct);
             }

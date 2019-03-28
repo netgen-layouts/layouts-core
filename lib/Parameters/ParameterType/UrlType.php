@@ -18,6 +18,11 @@ final class UrlType extends ParameterType
         return 'url';
     }
 
+    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value): bool
+    {
+        return $value === null || $value === '';
+    }
+
     protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array
     {
         return [

@@ -102,7 +102,7 @@ abstract class ParameterType implements ParameterTypeInterface
 
     public function isValueEmpty(ParameterDefinition $parameterDefinition, $value): bool
     {
-        return empty($value);
+        return $value === null;
     }
 
     /**

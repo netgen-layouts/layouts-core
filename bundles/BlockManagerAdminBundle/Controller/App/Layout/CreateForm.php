@@ -43,7 +43,7 @@ final class CreateForm extends Controller
         $this->denyAccessUnlessGranted('nglayouts:layout:add');
 
         $availableLocales = $this->localeProvider->getAvailableLocales();
-        if (empty($availableLocales)) {
+        if (count($availableLocales) === 0) {
             throw new RuntimeException('There are no available locales configured in the system.');
         }
 

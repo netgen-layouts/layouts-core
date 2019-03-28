@@ -232,7 +232,7 @@ final class BlockDefinitionFactory
                     );
                 }
 
-                if (empty($itemViewTypes)) {
+                if (count($itemViewTypes) === 0) {
                     throw new RuntimeException(
                         sprintf(
                             'You need to specify at least one enabled item view type for "%s" view type and "%s" block definition.',
@@ -253,7 +253,7 @@ final class BlockDefinitionFactory
             }
         }
 
-        if (empty($viewTypes)) {
+        if (count($viewTypes) === 0) {
             throw new RuntimeException(
                 sprintf(
                     'You need to specify at least one enabled view type for "%s" block definition.',

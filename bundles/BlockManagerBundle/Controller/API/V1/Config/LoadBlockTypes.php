@@ -40,7 +40,7 @@ final class LoadBlockTypes extends Controller
 
         $blockTypeGroups = [];
         foreach ($this->blockTypeGroupRegistry->getBlockTypeGroups(true) as $blockTypeGroup) {
-            if (!empty($blockTypeGroup->getBlockTypes(true))) {
+            if (count($blockTypeGroup->getBlockTypes(true)) > 0) {
                 $blockTypeGroups[] = new VersionedValue($blockTypeGroup, Version::API_V1);
             }
         }

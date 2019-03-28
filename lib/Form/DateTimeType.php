@@ -71,7 +71,7 @@ final class DateTimeType extends AbstractType
      */
     private function getTimeZoneList(): array
     {
-        if (empty($this->timeZoneList)) {
+        if (count($this->timeZoneList) === 0) {
             $this->timeZoneList = DateTimeUtils::getTimeZoneList();
         }
 

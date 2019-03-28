@@ -28,7 +28,7 @@ final class VarnishClient implements ClientInterface
 
     public function invalidateLayouts(array $layoutIds): void
     {
-        if (empty($layoutIds)) {
+        if (count($layoutIds) === 0) {
             return;
         }
 
@@ -55,7 +55,7 @@ final class VarnishClient implements ClientInterface
 
     public function invalidateBlocks(array $blockIds): void
     {
-        if (empty($blockIds)) {
+        if (count($blockIds) === 0) {
             return;
         }
 
@@ -68,7 +68,7 @@ final class VarnishClient implements ClientInterface
 
     public function invalidateLayoutBlocks(array $layoutIds): void
     {
-        if (empty($layoutIds)) {
+        if (count($layoutIds) === 0) {
             return;
         }
 

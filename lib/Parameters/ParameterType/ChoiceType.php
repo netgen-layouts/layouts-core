@@ -38,14 +38,14 @@ final class ChoiceType extends ParameterType
                     return true;
                 }
 
-                return !empty($value);
+                return count($value) > 0;
             }
         );
 
         $optionsResolver->setDefault(
             'default_value',
             function (Options $options, $previousValue) {
-                if ($options['required'] === true && !empty($options['options']) && !is_callable($options['options'])) {
+                if ($options['required'] === true && !is_callable($options['options']) && count($options['options']) > 0) {
                     $defaultValue = array_values($options['options'])[0];
 
                     return $options['multiple'] === true ? [$defaultValue] : $defaultValue;

@@ -25,7 +25,7 @@ final class LocaleProvider implements LocaleProviderInterface
 
         $enabledLocales = [];
 
-        if (!empty($this->enabledLocales)) {
+        if (count($this->enabledLocales) > 0) {
             foreach ($this->enabledLocales as $locale) {
                 if (isset($availableLocales[$locale])) {
                     $enabledLocales[$locale] = $availableLocales[$locale];
@@ -42,7 +42,7 @@ final class LocaleProvider implements LocaleProviderInterface
     {
         $requestLocale = $request->getLocale();
 
-        if (empty($this->enabledLocales) || in_array($requestLocale, $this->enabledLocales, true)) {
+        if (count($this->enabledLocales) === 0 || in_array($requestLocale, $this->enabledLocales, true)) {
             return [$requestLocale];
         }
 

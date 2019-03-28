@@ -27,7 +27,7 @@ final class HandlerPluginPass implements CompilerPassInterface
             $handlerPlugins[$priority][] = new Reference($handlerPlugin);
         }
 
-        if (!empty($handlerPlugins)) {
+        if (count($handlerPlugins) > 0) {
             krsort($handlerPlugins);
             $handlerPlugins = array_merge(...$handlerPlugins);
         }

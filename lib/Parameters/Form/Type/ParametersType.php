@@ -126,10 +126,10 @@ final class ParametersType extends AbstractType
     {
         $parameterGroups = $parameterDefinition->getGroups();
 
-        if (empty($parameterGroups) || empty($groups)) {
+        if (count($parameterGroups) === 0 || count($groups) === 0) {
             return true;
         }
 
-        return !empty(array_intersect($parameterGroups, $groups));
+        return count(array_intersect($parameterGroups, $groups)) > 0;
     }
 }

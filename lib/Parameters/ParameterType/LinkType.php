@@ -67,7 +67,7 @@ final class LinkType extends ParameterType
         $optionsResolver->setNormalizer(
             'value_types',
             function (Options $options, array $value): array {
-                if (!empty($value)) {
+                if (count($value) > 0) {
                     return $value;
                 }
 
@@ -94,7 +94,7 @@ final class LinkType extends ParameterType
 
     public function fromHash(ParameterDefinition $parameterDefinition, $value)
     {
-        if (!is_array($value) || empty($value['link_type'])) {
+        if (!is_array($value) || ($value['link_type'] ?? '') === '') {
             return new LinkValue();
         }
 
@@ -132,7 +132,7 @@ final class LinkType extends ParameterType
 
     public function import(ParameterDefinition $parameterDefinition, $value)
     {
-        if (!is_array($value) || empty($value['link_type'])) {
+        if (!is_array($value) || ($value['link_type'] ?? '') === '') {
             return new LinkValue();
         }
 
@@ -160,15 +160,15 @@ final class LinkType extends ParameterType
             return true;
         }
 
-        if (empty($value->getLinkType())) {
+        if (($value->getLinkType() ?? '') === '') {
             return true;
         }
 
         if ($value->getLinkType() === LinkValue::LINK_TYPE_URL) {
-            return empty($value->getLink()) && empty($value->getLinkSuffix());
+            return ($value->getLink() ?? '') === '' && ($value->getLinkSuffix() ?? '') === '';
         }
 
-        return empty($value->getLink());
+        return ($value->getLink() ?? '') === '';
     }
 
     protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array

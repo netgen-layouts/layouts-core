@@ -516,7 +516,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), Value::STATUS_DRAFT);
         $ruleTargets = $this->layoutResolverHandler->loadRuleTargets($persistenceRule);
 
-        if (!empty($ruleTargets) && $ruleTargets[0]->type !== $targetCreateStruct->type) {
+        if (count($ruleTargets) > 0 && $ruleTargets[0]->type !== $targetCreateStruct->type) {
             throw new BadStateException(
                 'rule',
                 sprintf(

@@ -51,7 +51,7 @@ final class CollectionHandler implements CollectionHandlerInterface
     {
         $data = $this->queryHandler->loadCollectionData($collectionId, $status);
 
-        if (empty($data)) {
+        if (count($data) === 0) {
             throw new NotFoundException('collection', $collectionId);
         }
 
@@ -62,7 +62,7 @@ final class CollectionHandler implements CollectionHandlerInterface
     {
         $data = $this->queryHandler->loadItemData($itemId, $status);
 
-        if (empty($data)) {
+        if (count($data) === 0) {
             throw new NotFoundException('item', $itemId);
         }
 
@@ -73,7 +73,7 @@ final class CollectionHandler implements CollectionHandlerInterface
     {
         $data = $this->queryHandler->loadItemWithPositionData($collection, $position);
 
-        if (empty($data)) {
+        if (count($data) === 0) {
             throw new NotFoundException(
                 sprintf(
                     'item in collection with ID "%d" at position %d',
@@ -97,7 +97,7 @@ final class CollectionHandler implements CollectionHandlerInterface
     {
         $data = $this->queryHandler->loadQueryData($queryId, $status);
 
-        if (empty($data)) {
+        if (count($data) === 0) {
             throw new NotFoundException('query', $queryId);
         }
 
@@ -116,7 +116,7 @@ final class CollectionHandler implements CollectionHandlerInterface
     {
         $data = $this->queryHandler->loadCollectionQueryData($collection);
 
-        if (empty($data)) {
+        if (count($data) === 0) {
             throw new NotFoundException('query for collection', $collection->id);
         }
 

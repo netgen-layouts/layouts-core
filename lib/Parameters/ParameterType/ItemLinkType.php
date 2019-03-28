@@ -65,7 +65,7 @@ final class ItemLinkType extends ParameterType
         $optionsResolver->setNormalizer(
             'value_types',
             function (Options $options, array $value): array {
-                if (!empty($value)) {
+                if (count($value) > 0) {
                     return $value;
                 }
 
@@ -105,7 +105,7 @@ final class ItemLinkType extends ParameterType
             return true;
         }
 
-        return empty($value['scheme']) || !isset($value['host']);
+        return ($value['scheme'] ?? '') === '' || !isset($value['host']);
     }
 
     protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array

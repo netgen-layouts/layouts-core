@@ -61,7 +61,7 @@ final class ItemRuntime
 
             if (is_string($value) && $valueType === null) {
                 $itemUri = parse_url($value);
-                if (!is_array($itemUri) || empty($itemUri['scheme']) || !isset($itemUri['host'])) {
+                if (!is_array($itemUri) || ($itemUri['scheme'] ?? '') === '' || !isset($itemUri['host'])) {
                     throw ItemException::invalidValue($value);
                 }
 

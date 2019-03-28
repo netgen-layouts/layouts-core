@@ -83,13 +83,13 @@ final class CollectionMapper
      */
     public function mapCollection(PersistenceCollection $collection, ?array $locales = null, bool $useMainLocale = true): Collection
     {
-        $locales = !empty($locales) ? $locales : [$collection->mainLocale];
+        $locales = is_array($locales) && count($locales) > 0 ? $locales : [$collection->mainLocale];
         if ($useMainLocale && $collection->alwaysAvailable) {
             $locales[] = $collection->mainLocale;
         }
 
         $validLocales = array_unique(array_intersect($locales, $collection->availableLocales));
-        if (empty($validLocales)) {
+        if (count($validLocales) === 0) {
             throw new NotFoundException('collection', $collection->id);
         }
 
@@ -180,13 +180,13 @@ final class CollectionMapper
             $queryType = new NullQueryType($query->type);
         }
 
-        $locales = !empty($locales) ? $locales : [$query->mainLocale];
+        $locales = is_array($locales) && count($locales) > 0 ? $locales : [$query->mainLocale];
         if ($useMainLocale && $query->alwaysAvailable) {
             $locales[] = $query->mainLocale;
         }
 
         $validLocales = array_unique(array_intersect($locales, $query->availableLocales));
-        if (empty($validLocales)) {
+        if (count($validLocales) === 0) {
             throw new NotFoundException('query', $query->id);
         }
 

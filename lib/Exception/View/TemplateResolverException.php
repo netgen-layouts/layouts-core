@@ -12,7 +12,7 @@ final class TemplateResolverException extends RuntimeException implements Except
 {
     public function __construct(string $message = '', int $code = 0, ?Throwable $previous = null)
     {
-        if (empty($message)) {
+        if ($message === '') {
             $message = 'An error occurred while resolving the view template.';
         }
 

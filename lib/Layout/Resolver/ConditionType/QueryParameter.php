@@ -52,7 +52,7 @@ final class QueryParameter implements ConditionTypeInterface
             return false;
         }
 
-        if (empty($value['parameter_name'])) {
+        if (($value['parameter_name'] ?? '') === '') {
             return false;
         }
 
@@ -63,7 +63,7 @@ final class QueryParameter implements ConditionTypeInterface
 
         $parameterValues = array_map('trim', $value['parameter_values']);
 
-        return empty($value['parameter_values']) || in_array(
+        return count($parameterValues) === 0 || in_array(
             $queryParameters->get($value['parameter_name']),
             $parameterValues,
             true

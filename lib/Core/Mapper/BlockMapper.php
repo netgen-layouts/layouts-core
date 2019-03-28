@@ -89,13 +89,13 @@ final class BlockMapper
             $blockDefinition = new NullBlockDefinition($block->definitionIdentifier);
         }
 
-        $locales = !empty($locales) ? $locales : [$block->mainLocale];
+        $locales = is_array($locales) && count($locales) > 0 ? $locales : [$block->mainLocale];
         if ($useMainLocale && $block->alwaysAvailable) {
             $locales[] = $block->mainLocale;
         }
 
         $validLocales = array_unique(array_intersect($locales, $block->availableLocales));
-        if (empty($validLocales)) {
+        if (count($validLocales) === 0) {
             throw new NotFoundException('block', $block->id);
         }
 

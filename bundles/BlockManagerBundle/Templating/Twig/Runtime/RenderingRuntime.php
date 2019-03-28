@@ -223,15 +223,7 @@ final class RenderingRuntime
      */
     private function getViewContext(array $context, ?string $viewContext = null): string
     {
-        if ($viewContext !== null) {
-            return $viewContext;
-        }
-
-        if (!empty($context['view_context'])) {
-            return $context['view_context'];
-        }
-
-        return ViewInterface::CONTEXT_DEFAULT;
+        return $viewContext ?? $context['view_context'] ?? ViewInterface::CONTEXT_DEFAULT;
     }
 
     /**

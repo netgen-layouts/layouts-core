@@ -37,7 +37,7 @@ final class Exception extends Mapper
      */
     private function buildErrorCodes(): array
     {
-        if (empty($this->statusCodes)) {
+        if (count($this->statusCodes) === 0) {
             foreach (Response::$statusTexts as $statusCode => $statusText) {
                 if ($statusCode >= 400 && $statusCode < 600) {
                     $this->statusCodes[sprintf('%d (%s)', $statusCode, $statusText)] = $statusCode;

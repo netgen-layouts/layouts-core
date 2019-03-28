@@ -20,7 +20,7 @@ final class Shared implements MatcherInterface
             return false;
         }
 
-        if (empty($config)) {
+        if (count($config) === 0) {
             return true;
         }
 

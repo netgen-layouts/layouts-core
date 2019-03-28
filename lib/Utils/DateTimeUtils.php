@@ -36,15 +36,18 @@ final class DateTimeUtils
      */
     public static function createFromArray(array $datetime): ?DateTimeInterface
     {
-        if (empty($datetime['datetime']) || !is_string($datetime['datetime'])) {
+        $dateAndTime = $datetime['datetime'] ?? '';
+        $timeZone = $datetime['timezone'] ?? '';
+
+        if ($dateAndTime === '' || !is_string($dateAndTime)) {
             return null;
         }
 
-        if (empty($datetime['timezone']) || !is_string($datetime['timezone'])) {
+        if ($timeZone === '' || !is_string($timeZone)) {
             return null;
         }
 
-        return new DateTimeImmutable($datetime['datetime'], new DateTimeZone($datetime['timezone']));
+        return new DateTimeImmutable($dateAndTime, new DateTimeZone($timeZone));
     }
 
     /**

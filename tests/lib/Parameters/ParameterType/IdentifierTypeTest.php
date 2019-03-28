@@ -100,4 +100,25 @@ final class IdentifierTypeTest extends TestCase
             ['123abcASD', false, false],
         ];
     }
+
+    /**
+     * @param mixed $value
+     * @param bool $isEmpty
+     *
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\IdentifierType::isValueEmpty
+     * @dataProvider emptyProvider
+     */
+    public function testIsValueEmpty($value, bool $isEmpty): void
+    {
+        self::assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
+    }
+
+    public function emptyProvider(): array
+    {
+        return [
+            [null, true],
+            ['foo', false],
+            ['', true],
+        ];
+    }
 }

@@ -36,7 +36,7 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                         ->defaultValue(null)
                         ->validate()
                             ->ifTrue(function ($v): bool {
-                                return !($v === null || (is_string($v) && !empty($v)));
+                                return !($v === null || (is_string($v) && $v !== ''));
                             })
                             ->thenInvalid('Icon path needs to be a non empty string or null.')
                         ->end()

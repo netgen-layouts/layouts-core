@@ -99,4 +99,25 @@ final class UrlTypeTest extends TestCase
             ['http://www.netgenlabs.com', true],
         ];
     }
+
+    /**
+     * @param mixed $value
+     * @param bool $isEmpty
+     *
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\UrlType::isValueEmpty
+     * @dataProvider emptyProvider
+     */
+    public function testIsValueEmpty($value, bool $isEmpty): void
+    {
+        self::assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
+    }
+
+    public function emptyProvider(): array
+    {
+        return [
+            [null, true],
+            ['https://www.google.com', false],
+            ['', true],
+        ];
+    }
 }

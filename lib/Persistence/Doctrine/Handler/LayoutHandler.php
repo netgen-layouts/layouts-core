@@ -50,7 +50,7 @@ final class LayoutHandler implements LayoutHandlerInterface
     {
         $data = $this->queryHandler->loadLayoutData($layoutId, $status);
 
-        if (empty($data)) {
+        if (count($data) === 0) {
             throw new NotFoundException('layout', $layoutId);
         }
 
@@ -61,7 +61,7 @@ final class LayoutHandler implements LayoutHandlerInterface
     {
         $data = $this->queryHandler->loadZoneData($layoutId, $status, $identifier);
 
-        if (empty($data)) {
+        if (count($data) === 0) {
             throw new NotFoundException('zone', $identifier);
         }
 
@@ -473,7 +473,7 @@ final class LayoutHandler implements LayoutHandlerInterface
 
             if (count($block->availableLocales) > 1) {
                 $this->blockHandler->deleteBlockTranslation($block, $locale);
-            } elseif (!empty($block->parentId)) {
+            } elseif ($block->parentId !== null) {
                 // This case should never happen (when block has only one translation,
                 // which is not the main one), but if it does, we will delete the block
                 // to preserve the data integrity.

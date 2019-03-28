@@ -43,10 +43,10 @@ final class LinkDataMapper implements DataMapperInterface
     public function mapFormsToData($forms, &$data): void
     {
         $forms = iterator_to_array($forms);
-        $linkType = $forms['link_type']->getData();
+        $linkType = $forms['link_type']->getData() ?? '';
 
         $data = null;
-        if (!empty($linkType)) {
+        if ($linkType !== '') {
             $data = [
                 'link_type' => $linkType,
                 'link' => isset($forms[$linkType]) ? $forms[$linkType]->getData() : null,

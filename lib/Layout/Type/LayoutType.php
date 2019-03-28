@@ -93,7 +93,7 @@ class LayoutType implements LayoutTypeInterface
         $zone = $this->getZone($zoneIdentifier);
 
         $allowedBlockDefinitions = $zone->getAllowedBlockDefinitions();
-        if (empty($allowedBlockDefinitions)) {
+        if (count($allowedBlockDefinitions) === 0) {
             return true;
         }
 

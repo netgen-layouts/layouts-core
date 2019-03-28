@@ -47,8 +47,8 @@ final class UpdateRule extends Controller
         $comment = $comment !== null ? trim($comment) : null;
 
         // null means we don't update the layout
-        // empty ("" or "0") means we remove the layout from the rule
-        if ($layoutId !== null && !empty($layoutId)) {
+        // empty ("0", 0, ""...) means we remove the layout from the rule
+        if (!in_array($layoutId, [0, 0.0, '0', '', false, null], true)) {
             try {
                 $this->layoutService->loadLayout($layoutId);
             } catch (NotFoundException $e) {
@@ -67,7 +67,7 @@ final class UpdateRule extends Controller
         $ruleUpdateStruct->comment = $comment;
 
         if ($layoutId !== null) {
-            $ruleUpdateStruct->layoutId = !empty($layoutId) ? $layoutId : 0;
+            $ruleUpdateStruct->layoutId = !in_array($layoutId, [0, 0.0, '0', '', false], true) ? $layoutId : 0;
         }
 
         $updatedRule = $this->layoutResolverService->updateRule(

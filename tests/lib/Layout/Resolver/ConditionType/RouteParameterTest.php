@@ -80,6 +80,7 @@ final class RouteParameterTest extends TestCase
             [['parameter_name' => 42, 'parameter_values' => [['one']]], false],
             [['parameter_name' => 42, 'parameter_values' => []], false],
             [['parameter_name' => 42], false],
+            [['parameter_name' => []], false],
             [['parameter_values' => ['one', 'two']], false],
             [['parameter_values' => ['one']], false],
             [['parameter_values' => ['']], false],
@@ -95,7 +96,6 @@ final class RouteParameterTest extends TestCase
         return [
             ['not_array', false],
             [[], false],
-            [['parameter_name' => []], false],
             [['parameter_values' => []], false],
             [['parameter_name' => null, 'parameter_values' => []], false],
             [['parameter_name' => null, 'parameter_values' => [42]], false],

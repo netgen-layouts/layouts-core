@@ -41,8 +41,8 @@ trait ValidatorTrait
             return;
         }
 
-        $propertyName = $violations[0]->getPropertyPath();
-        if (empty($propertyName)) {
+        $propertyName = $violations[0]->getPropertyPath() ?? '';
+        if ($propertyName === '') {
             $propertyName = $propertyPath ?? '';
         }
 

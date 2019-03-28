@@ -43,7 +43,9 @@ final class BlockTypePass implements CompilerPassInterface
     {
         foreach ($blockDefinitions as $identifier => $blockDefinition) {
             if (
-                !empty($blockTypes[$identifier]['definition_identifier']) &&
+                isset($blockTypes[$identifier]['definition_identifier']) &&
+                $blockTypes[$identifier]['definition_identifier'] !== '' &&
+                $blockTypes[$identifier]['definition_identifier'] !== null &&
                 $blockTypes[$identifier]['definition_identifier'] !== $identifier
             ) {
                 // We skip the block types which have been completely redefined

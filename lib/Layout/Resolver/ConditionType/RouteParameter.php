@@ -52,7 +52,7 @@ final class RouteParameter implements ConditionTypeInterface
             return false;
         }
 
-        if (empty($value['parameter_name'])) {
+        if (($value['parameter_name'] ?? '') === '') {
             return false;
         }
 
@@ -61,7 +61,7 @@ final class RouteParameter implements ConditionTypeInterface
             return false;
         }
 
-        return empty($value['parameter_values']) || in_array(
+        return count($value['parameter_values']) === 0 || in_array(
             $routeParameters[$value['parameter_name']],
             $value['parameter_values'],
             true

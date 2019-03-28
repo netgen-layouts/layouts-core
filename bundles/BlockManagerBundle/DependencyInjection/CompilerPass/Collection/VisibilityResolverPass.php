@@ -28,7 +28,7 @@ final class VisibilityResolverPass implements CompilerPassInterface
             $voters[$priority][] = new Reference($serviceName);
         }
 
-        if (!empty($voters)) {
+        if (count($voters) > 0) {
             krsort($voters);
             $voters = array_merge(...$voters);
         }

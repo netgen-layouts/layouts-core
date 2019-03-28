@@ -46,7 +46,7 @@ final class ItemLinkValidator extends ConstraintValidator
 
         $parsedValue = parse_url($value);
 
-        if (!is_array($parsedValue) || empty($parsedValue['scheme']) || !isset($parsedValue['host'])) {
+        if (!is_array($parsedValue) || ($parsedValue['scheme'] ?? '') === '' || !isset($parsedValue['host'])) {
             $this->context->buildViolation($constraint->invalidItemMessage)
                 ->addViolation();
 
@@ -64,7 +64,7 @@ final class ItemLinkValidator extends ConstraintValidator
                 return;
             }
 
-            if (!empty($constraint->valueTypes) && is_array($constraint->valueTypes)) {
+            if (is_array($constraint->valueTypes) && count($constraint->valueTypes) > 0) {
                 if (!in_array($valueType, $constraint->valueTypes, true)) {
                     $this->context->buildViolation($constraint->valueTypeNotAllowedMessage)
                         ->setParameter('%valueType%', $valueType)

@@ -135,8 +135,10 @@ final class LayoutNormalizer extends Normalizer implements NormalizerInterface
     {
         if ($layoutType->hasZone($zone->getIdentifier())) {
             $layoutTypeZone = $layoutType->getZone($zone->getIdentifier());
-            if (!empty($layoutTypeZone->getAllowedBlockDefinitions())) {
-                return $layoutTypeZone->getAllowedBlockDefinitions();
+            $allowedBlockDefinitions = $layoutTypeZone->getAllowedBlockDefinitions();
+
+            if (count($allowedBlockDefinitions) > 0) {
+                return $allowedBlockDefinitions;
             }
         }
 

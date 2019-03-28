@@ -31,7 +31,7 @@ final class Time implements ConditionTypeInterface
             return false;
         }
 
-        if (empty($value['from']) && empty($value['to'])) {
+        if (($value['from'] ?? '') === '' && ($value['to'] ?? '') === '') {
             return true;
         }
 

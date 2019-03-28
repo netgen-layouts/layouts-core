@@ -70,7 +70,7 @@ final class LayoutResolver implements LayoutResolverInterface
         foreach ($rule->getConditions() as $condition) {
             $conditionType = $condition->getConditionType();
 
-            if (!empty($enabledConditions) && !in_array($conditionType::getType(), $enabledConditions, true)) {
+            if (count($enabledConditions) > 0 && !in_array($conditionType::getType(), $enabledConditions, true)) {
                 continue;
             }
 

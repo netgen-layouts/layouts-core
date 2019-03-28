@@ -34,11 +34,6 @@ final class BooleanType extends ParameterType
         );
     }
 
-    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value): bool
-    {
-        return $value === null;
-    }
-
     protected function getRequiredConstraints(ParameterDefinition $parameterDefinition, $value): array
     {
         if ($parameterDefinition->isRequired()) {

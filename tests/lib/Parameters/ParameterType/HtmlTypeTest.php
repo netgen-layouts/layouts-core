@@ -118,4 +118,25 @@ HTML;
             [[], false],
         ];
     }
+
+    /**
+     * @param mixed $value
+     * @param bool $isEmpty
+     *
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\HtmlType::isValueEmpty
+     * @dataProvider emptyProvider
+     */
+    public function testIsValueEmpty($value, bool $isEmpty): void
+    {
+        self::assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
+    }
+
+    public function emptyProvider(): array
+    {
+        return [
+            [null, true],
+            ['foo', false],
+            ['', true],
+        ];
+    }
 }

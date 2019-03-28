@@ -48,6 +48,6 @@ final class Exception implements ConditionTypeInterface
             return false;
         }
 
-        return empty($value) || in_array($exception->getStatusCode(), $value, true);
+        return count($value) === 0 || in_array($exception->getStatusCode(), $value, true);
     }
 }

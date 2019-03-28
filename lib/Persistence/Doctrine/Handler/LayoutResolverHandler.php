@@ -43,7 +43,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
     {
         $data = $this->queryHandler->loadRuleData($ruleId, $status);
 
-        if (empty($data)) {
+        if (count($data) === 0) {
             throw new NotFoundException('rule', $ruleId);
         }
 
@@ -66,7 +66,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
     {
         $data = $this->queryHandler->matchRules($targetType, $targetValue);
 
-        if (empty($data)) {
+        if (count($data) === 0) {
             return [];
         }
 
@@ -79,7 +79,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
     {
         $data = $this->queryHandler->loadTargetData($targetId, $status);
 
-        if (empty($data)) {
+        if (count($data) === 0) {
             throw new NotFoundException('target', $targetId);
         }
 
@@ -102,7 +102,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
     {
         $data = $this->queryHandler->loadConditionData($conditionId, $status);
 
-        if (empty($data)) {
+        if (count($data) === 0) {
             throw new NotFoundException('condition', $conditionId);
         }
 
@@ -142,7 +142,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
         if (is_scalar($ruleUpdateStruct->layoutId)) {
             // Layout ID can be 0, to indicate removal of the linked layout
-            $updatedRule->layoutId = !empty($ruleUpdateStruct->layoutId) ?
+            $updatedRule->layoutId = !in_array($ruleUpdateStruct->layoutId, [0, 0.0, '0', '', false], true) ?
                 $ruleUpdateStruct->layoutId :
                 null;
         }

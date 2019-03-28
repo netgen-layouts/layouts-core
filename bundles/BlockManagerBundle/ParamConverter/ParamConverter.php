@@ -31,9 +31,9 @@ abstract class ParamConverter implements ParamConverterInterface
 
         $values = [];
         foreach ($sourceAttributeNames as $sourceAttributeName) {
-            $values[$sourceAttributeName] = $request->attributes->get($sourceAttributeName);
+            $values[$sourceAttributeName] = trim($request->attributes->get($sourceAttributeName));
 
-            if (empty($values[$sourceAttributeName])) {
+            if ($values[$sourceAttributeName] === '') {
                 if ($configuration->isOptional()) {
                     return false;
                 }

@@ -28,7 +28,7 @@ final class ViewBuilderPass implements CompilerPassInterface
             $viewProviders[$priority][] = new Reference($serviceName);
         }
 
-        if (!empty($viewProviders)) {
+        if (count($viewProviders) > 0) {
             krsort($viewProviders);
             $viewProviders = array_merge(...$viewProviders);
         }

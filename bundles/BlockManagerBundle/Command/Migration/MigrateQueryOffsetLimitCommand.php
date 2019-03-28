@@ -82,7 +82,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
             ->setDescription('Migrates the query offset and limit parameters to collection offset and limit after upgrade to version 0.10.');
 
         if (method_exists($this, 'setHidden')) {
-            // BC for Symfony 2.8, which does not have the setHidden method
+            // @deprecated BC for Symfony 2.8, which does not have the setHidden method
             $this->setHidden(true);
         }
     }
@@ -226,12 +226,12 @@ final class MigrateQueryOffsetLimitCommand extends Command
                 $limit = null;
 
                 $parameters = json_decode($queryDataItem['parameters'], true);
-                if (!empty($queryTypeParameters[$queryDataItem['type']]['offset'])) {
+                if ($queryTypeParameters[$queryDataItem['type']]['offset'] !== null) {
                     $offsetParameter = $queryTypeParameters[$queryDataItem['type']]['offset'];
                     $offset = (int) ($parameters[$offsetParameter] ?? 0);
                 }
 
-                if (!empty($queryTypeParameters[$queryDataItem['type']]['limit'])) {
+                if ($queryTypeParameters[$queryDataItem['type']]['limit'] !== null) {
                     $limitParameter = $queryTypeParameters[$queryDataItem['type']]['limit'];
                     $limit = isset($parameters[$limitParameter]) ? (int) $parameters[$limitParameter] : null;
                 }

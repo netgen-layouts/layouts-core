@@ -59,7 +59,7 @@ final class BlockHandler implements BlockHandlerInterface
     {
         $data = $this->queryHandler->loadBlockData($blockId, $status);
 
-        if (empty($data)) {
+        if (count($data) === 0) {
             throw new NotFoundException('block', $blockId);
         }
 
@@ -96,7 +96,7 @@ final class BlockHandler implements BlockHandlerInterface
     {
         $data = $this->queryHandler->loadCollectionReferencesData($block, $identifier);
 
-        if (empty($data)) {
+        if (count($data) === 0) {
             throw new NotFoundException('collection reference', $identifier);
         }
 

@@ -31,6 +31,11 @@ final class HtmlType extends ParameterType
         return 'html';
     }
 
+    public function isValueEmpty(ParameterDefinition $parameterDefinition, $value): bool
+    {
+        return $value === null || $value === '';
+    }
+
     public function toHash(ParameterDefinition $parameterDefinition, $value)
     {
         return $this->htmlPurifier->purify($value ?? '');

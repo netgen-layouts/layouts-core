@@ -41,11 +41,13 @@ final class LayoutTypeNormalizer extends Normalizer implements NormalizerInterfa
     private function getZones(LayoutTypeInterface $layoutType): Generator
     {
         foreach ($layoutType->getZones() as $zone) {
+            $allowedBlockDefinitions = $zone->getAllowedBlockDefinitions();
+
             yield [
                 'identifier' => $zone->getIdentifier(),
                 'name' => $zone->getName(),
-                'allowed_block_definitions' => !empty($zone->getAllowedBlockDefinitions()) ?
-                    $zone->getAllowedBlockDefinitions() :
+                'allowed_block_definitions' => count($allowedBlockDefinitions) > 0 ?
+                    $allowedBlockDefinitions :
                     true,
             ];
         }

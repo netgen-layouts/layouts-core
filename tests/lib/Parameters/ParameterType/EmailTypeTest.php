@@ -93,4 +93,25 @@ final class EmailTypeTest extends TestCase
             ['info@example.com', true],
         ];
     }
+
+    /**
+     * @param mixed $value
+     * @param bool $isEmpty
+     *
+     * @covers \Netgen\BlockManager\Parameters\ParameterType\EmailType::isValueEmpty
+     * @dataProvider emptyProvider
+     */
+    public function testIsValueEmpty($value, bool $isEmpty): void
+    {
+        self::assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
+    }
+
+    public function emptyProvider(): array
+    {
+        return [
+            [null, true],
+            ['info@example.com', false],
+            ['', true],
+        ];
+    }
 }

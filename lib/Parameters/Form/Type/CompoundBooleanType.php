@@ -38,7 +38,7 @@ final class CompoundBooleanType extends AbstractType
             function (FormEvent $event) use ($options): void {
                 $data = $event->getData();
 
-                if (empty($data)) {
+                if (!is_array($data) || count($data) === 0) {
                     return;
                 }
 

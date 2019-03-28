@@ -173,13 +173,13 @@ abstract class EditType extends AbstractType
             $validParameters = $viewType->getValidParameters();
             if (!is_array($validParameters)) {
                 $includedParameters = $blockDefinitionParameters;
-            } elseif (!empty($validParameters)) {
+            } elseif (count($validParameters) > 0) {
                 foreach ($validParameters as $validParameter) {
                     mb_strpos($validParameter, '!') === 0 ?
                         $excludedParameters[] = mb_substr($validParameter, 1) :
                         $includedParameters[] = $validParameter;
 
-                    if (empty($includedParameters)) {
+                    if (count($includedParameters) === 0) {
                         $includedParameters = $blockDefinitionParameters;
                     }
                 }
