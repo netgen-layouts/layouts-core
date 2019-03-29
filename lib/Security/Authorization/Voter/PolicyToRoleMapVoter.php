@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Security\Authorization\Voter;
 
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
@@ -53,19 +54,13 @@ final class PolicyToRoleMapVoter extends Voter
     private const ROLE_API = 'ROLE_NGBM_API';
 
     /**
-     * @var \Symfony\Component\Security\Core\Security|\Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface
+     * @var \Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface
      */
-    private $security;
+    private $accessDecisionManager;
 
-    /**
-     * @deprecated Injecting AuthorizationCheckerInterface is deprecated since it leads to circular
-     * reference exceptions in Symfony >= 4.0. Remove when support for Symfony 2.8 ends.
-     *
-     * @param \Symfony\Component\Security\Core\Security|\Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface $security
-     */
-    public function __construct($security)
+    public function __construct(AccessDecisionManagerInterface $accessDecisionManager)
     {
-        $this->security = $security;
+        $this->accessDecisionManager = $accessDecisionManager;
     }
 
     protected function supports($attribute, $subject): bool
@@ -79,8 +74,9 @@ final class PolicyToRoleMapVoter extends Voter
             return false;
         }
 
-        return $this->security->isGranted(
-            self::POLICY_TO_ROLE_MAP[$attribute],
+        return $this->accessDecisionManager->decide(
+            $token,
+            [self::POLICY_TO_ROLE_MAP[$attribute]],
             $subject
         );
     }

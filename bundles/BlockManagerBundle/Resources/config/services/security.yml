@@ -9,6 +9,6 @@ services:
         class: Netgen\BlockManager\Security\Authorization\Voter\PolicyToRoleMapVoter
         public: false
         arguments:
-            - "@security.helper"
+            - "@security.access.decision_manager"
         tags:
             - { name: security.voter, priority: 0 }
