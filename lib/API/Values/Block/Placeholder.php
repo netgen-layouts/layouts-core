@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use IteratorAggregate;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Utils\HydratorTrait;
+use Traversable;
 
 /**
  * Placeholder represents a set of blocks inside a container block.
@@ -52,32 +53,49 @@ final class Placeholder implements ArrayAccess, IteratorAggregate, Countable
         return new BlockList($this->blocks->toArray());
     }
 
-    public function getIterator()
+    public function getIterator(): Traversable
     {
         return $this->blocks->getIterator();
     }
 
-    public function count()
+    public function count(): int
     {
         return $this->blocks->count();
     }
 
-    public function offsetExists($offset)
+    /**
+     * @param mixed $offset
+     *
+     * @return bool
+     */
+    public function offsetExists($offset): bool
     {
         return $this->blocks->offsetExists($offset);
     }
 
+    /**
+     * @param mixed $offset
+     *
+     * @return mixed
+     */
     public function offsetGet($offset)
     {
         return $this->blocks->offsetGet($offset);
     }
 
-    public function offsetSet($offset, $value)
+    /**
+     * @param mixed $offset
+     * @param mixed $value
+     */
+    public function offsetSet($offset, $value): void
     {
         throw new RuntimeException('Method call not supported.');
     }
 
-    public function offsetUnset($offset)
+    /**
+     * @param mixed $offset
+     */
+    public function offsetUnset($offset): void
     {
         throw new RuntimeException('Method call not supported.');
     }

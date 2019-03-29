@@ -14,16 +14,26 @@ final class DynamicParameters implements ArrayAccess, Countable
      */
     private $dynamicParameters = [];
 
-    public function count()
+    public function count(): int
     {
         return count($this->dynamicParameters);
     }
 
-    public function offsetExists($offset)
+    /**
+     * @param mixed $offset
+     *
+     * @return bool
+     */
+    public function offsetExists($offset): bool
     {
         return array_key_exists($offset, $this->dynamicParameters);
     }
 
+    /**
+     * @param mixed $offset
+     *
+     * @return mixed
+     */
     public function offsetGet($offset)
     {
         if (!$this->offsetExists($offset)) {
@@ -37,12 +47,19 @@ final class DynamicParameters implements ArrayAccess, Countable
         return $this->dynamicParameters[$offset]();
     }
 
-    public function offsetSet($offset, $value)
+    /**
+     * @param mixed $offset
+     * @param mixed $value
+     */
+    public function offsetSet($offset, $value): void
     {
         $this->dynamicParameters[$offset] = $value;
     }
 
-    public function offsetUnset($offset)
+    /**
+     * @param mixed $offset
+     */
+    public function offsetUnset($offset): void
     {
         if (!$this->offsetExists($offset)) {
             return;

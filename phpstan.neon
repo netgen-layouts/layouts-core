@@ -1,3 +1,6 @@
+includes:
+    - vendor/phpstan/phpstan-strict-rules/rules.neon
+
 parameters:
     ignoreErrors:
         # Symfony Config component
@@ -12,7 +15,7 @@ parameters:
         - '#Class Doctrine\\DBAL\\Migrations\\AbstractMigration not found.#'
 
         # Compatibility with Symfony 2.8
-        - '#Call to function method_exists\(\) with .* will always evaluate to false.#'
+        - '#Call to function method_exists#'
 
         # Compatibility with Symfony 3.4
         - '#Netgen\\Bundle\\BlockManagerBundle\\DependencyInjection\\TreeBuilder::__construct\(\) does not call parent constructor#'
@@ -25,3 +28,17 @@ parameters:
         -
             message: '#Else branch is unreachable because ternary operator condition is always true.#'
             path: lib/Core/Validator/LayoutValidator.php
+
+        - '#Call to function is_string\(\) with string will always evaluate to true.#'
+        - '#Call to function is_array\(\) with array will always evaluate to true.#'
+        - '#Call to function is_object\(\) with object will always evaluate to true.#'
+        - '#Instanceof between Netgen\\BlockManager\\API\\Values\\ParameterStruct and Netgen\\BlockManager\\API\\Values\\ParameterStruct will always evaluate to true.#'
+        - '#Instanceof between Netgen\\BlockManager\\Block\\BlockDefinitionInterface and Netgen\\BlockManager\\Block\\BlockDefinitionInterface will always evaluate to true.#'
+
+        -
+            message: '#Property Netgen\\BlockManager\\Serializer\\Normalizer::\$normalizer has no typehint specified.#'
+            path: lib/Serializer/Normalizer.php
+
+        -
+            message: '#Variable property access on object.#'
+            path: lib/Utils/Hydrator.php

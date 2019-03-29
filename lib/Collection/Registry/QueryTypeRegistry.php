@@ -8,6 +8,7 @@ use ArrayIterator;
 use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
 use Netgen\BlockManager\Exception\Collection\QueryTypeException;
 use Netgen\BlockManager\Exception\RuntimeException;
+use Traversable;
 
 final class QueryTypeRegistry implements QueryTypeRegistryInterface
 {
@@ -57,32 +58,49 @@ final class QueryTypeRegistry implements QueryTypeRegistryInterface
         );
     }
 
-    public function getIterator()
+    public function getIterator(): Traversable
     {
         return new ArrayIterator($this->queryTypes);
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->queryTypes);
     }
 
-    public function offsetExists($offset)
+    /**
+     * @param mixed $offset
+     *
+     * @return bool
+     */
+    public function offsetExists($offset): bool
     {
         return $this->hasQueryType($offset);
     }
 
+    /**
+     * @param mixed $offset
+     *
+     * @return mixed
+     */
     public function offsetGet($offset)
     {
         return $this->getQueryType($offset);
     }
 
-    public function offsetSet($offset, $value)
+    /**
+     * @param mixed $offset
+     * @param mixed $value
+     */
+    public function offsetSet($offset, $value): void
     {
         throw new RuntimeException('Method call not supported.');
     }
 
-    public function offsetUnset($offset)
+    /**
+     * @param mixed $offset
+     */
+    public function offsetUnset($offset): void
     {
         throw new RuntimeException('Method call not supported.');
     }

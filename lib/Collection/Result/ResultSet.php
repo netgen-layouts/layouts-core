@@ -12,6 +12,7 @@ use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Utils\HydratorTrait;
+use Traversable;
 
 /**
  * Result set is a calculated result of the collection
@@ -129,32 +130,49 @@ final class ResultSet implements ArrayAccess, IteratorAggregate, Countable
         return $this->limit;
     }
 
-    public function getIterator()
+    public function getIterator(): Traversable
     {
         return new ArrayIterator($this->results);
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->results);
     }
 
-    public function offsetExists($offset)
+    /**
+     * @param mixed $offset
+     *
+     * @return bool
+     */
+    public function offsetExists($offset): bool
     {
         return isset($this->results[$offset]);
     }
 
+    /**
+     * @param mixed $offset
+     *
+     * @return mixed
+     */
     public function offsetGet($offset)
     {
         return $this->results[$offset];
     }
 
-    public function offsetSet($offset, $value)
+    /**
+     * @param mixed $offset
+     * @param mixed $value
+     */
+    public function offsetSet($offset, $value): void
     {
         throw new RuntimeException('Method call not supported.');
     }
 
-    public function offsetUnset($offset)
+    /**
+     * @param mixed $offset
+     */
+    public function offsetUnset($offset): void
     {
         throw new RuntimeException('Method call not supported.');
     }

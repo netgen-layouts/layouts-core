@@ -7,6 +7,7 @@ namespace Netgen\BlockManager\Context;
 use ArrayIterator;
 use Netgen\BlockManager\Exception\Context\ContextException;
 use Netgen\BlockManager\Exception\RuntimeException;
+use Traversable;
 
 final class Context implements ContextInterface
 {
@@ -44,32 +45,49 @@ final class Context implements ContextInterface
         return $this->contextVariables;
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->contextVariables);
     }
 
-    public function getIterator()
+    public function getIterator(): Traversable
     {
         return new ArrayIterator($this->contextVariables);
     }
 
-    public function offsetExists($offset)
+    /**
+     * @param mixed $offset
+     *
+     * @return bool
+     */
+    public function offsetExists($offset): bool
     {
         return $this->has($offset);
     }
 
+    /**
+     * @param mixed $offset
+     *
+     * @return mixed
+     */
     public function offsetGet($offset)
     {
         return $this->get($offset);
     }
 
-    public function offsetSet($offset, $value)
+    /**
+     * @param mixed $offset
+     * @param mixed $value
+     */
+    public function offsetSet($offset, $value): void
     {
         $this->set($offset, $value);
     }
 
-    public function offsetUnset($offset)
+    /**
+     * @param mixed $offset
+     */
+    public function offsetUnset($offset): void
     {
         throw new RuntimeException('Method call not supported.');
     }

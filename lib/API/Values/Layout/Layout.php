@@ -16,6 +16,7 @@ use Netgen\BlockManager\Exception\API\LayoutException;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
 use Netgen\BlockManager\Utils\HydratorTrait;
+use Traversable;
 
 final class Layout implements Value, ArrayAccess, IteratorAggregate, Countable
 {
@@ -191,32 +192,49 @@ final class Layout implements Value, ArrayAccess, IteratorAggregate, Countable
         return $this->zones->containsKey($zoneIdentifier);
     }
 
-    public function getIterator()
+    public function getIterator(): Traversable
     {
         return $this->zones->getIterator();
     }
 
-    public function count()
+    public function count(): int
     {
         return $this->zones->count();
     }
 
-    public function offsetExists($offset)
+    /**
+     * @param mixed $offset
+     *
+     * @return bool
+     */
+    public function offsetExists($offset): bool
     {
         return $this->zones->offsetExists($offset);
     }
 
+    /**
+     * @param mixed $offset
+     *
+     * @return mixed
+     */
     public function offsetGet($offset)
     {
         return $this->zones->offsetGet($offset);
     }
 
-    public function offsetSet($offset, $value)
+    /**
+     * @param mixed $offset
+     * @param mixed $value
+     */
+    public function offsetSet($offset, $value): void
     {
         throw new RuntimeException('Method call not supported.');
     }
 
-    public function offsetUnset($offset)
+    /**
+     * @param mixed $offset
+     */
+    public function offsetUnset($offset): void
     {
         throw new RuntimeException('Method call not supported.');
     }
