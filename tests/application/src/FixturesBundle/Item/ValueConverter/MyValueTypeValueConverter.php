@@ -19,31 +19,16 @@ final class MyValueTypeValueConverter implements ValueConverterInterface
         return 'my_value_type';
     }
 
-    /**
-     * @param \Netgen\BlockManager\Tests\Bundle\FixturesBundle\Item\Value $object
-     *
-     * @return int|string
-     */
     public function getId($object)
     {
         return $object->id;
     }
 
-    /**
-     * @param \Netgen\BlockManager\Tests\Bundle\FixturesBundle\Item\Value $object
-     *
-     * @return int|string
-     */
     public function getRemoteId($object)
     {
         return $object->id;
     }
 
-    /**
-     * @param \Netgen\BlockManager\Tests\Bundle\FixturesBundle\Item\Value $object
-     *
-     * @return string
-     */
     public function getName($object): string
     {
         return 'Value with ID #' . $object->id;

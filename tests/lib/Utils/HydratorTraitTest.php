@@ -17,7 +17,6 @@ final class HydratorTraitTest extends TestCase
     {
         $value = Value::fromArray(['a' => 'foo', 'b' => 'bar', 'c' => 'baz']);
 
-        self::assertInstanceOf(Value::class, $value);
         self::assertSame('foo', $value->getA());
         self::assertSame('bar', $value->getB());
         self::assertSame('baz', $value->getC());

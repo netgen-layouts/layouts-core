@@ -13,7 +13,6 @@ use Netgen\BlockManager\Exception\API\LayoutException;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Layout\Type\LayoutType;
 use PHPUnit\Framework\TestCase;
-use Traversable;
 
 final class LayoutTest extends TestCase
 {
@@ -106,7 +105,6 @@ final class LayoutTest extends TestCase
         self::assertSame($zones['left'], $layout->getZones()['left']);
         self::assertSame($zones['right'], $layout->getZones()['right']);
 
-        self::assertInstanceOf(Traversable::class, $layout->getIterator());
         self::assertSame($zones, iterator_to_array($layout->getIterator()));
 
         self::assertCount(2, $layout);

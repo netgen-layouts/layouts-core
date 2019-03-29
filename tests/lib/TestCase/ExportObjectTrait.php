@@ -26,7 +26,7 @@ trait ExportObjectTrait
     }
 
     /**
-     * @param object[] $objects
+     * @param mixed[] $objects
      * @param bool $recursive
      *
      * @return array

@@ -30,11 +30,6 @@ final class LazyPropertyTraitTest extends TestCase
         self::assertIsCallable($this->value->value);
 
         self::assertSame(42, $this->value->getValue());
-
-        /** @var int $newValue */
-        $newValue = $this->value->value;
-
-        self::assertIsInt($newValue);
-        self::assertSame(42, $newValue);
+        self::assertSame(42, $this->value->value);
     }
 }

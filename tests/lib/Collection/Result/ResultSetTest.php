@@ -12,7 +12,6 @@ use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
-use Traversable;
 
 final class ResultSetTest extends TestCase
 {
@@ -52,7 +51,6 @@ final class ResultSetTest extends TestCase
         self::assertSame(3, $result->getOffset());
         self::assertSame(5, $result->getLimit());
 
-        self::assertInstanceOf(Traversable::class, $result->getIterator());
         self::assertSame([$resultItem], iterator_to_array($result->getIterator()));
 
         self::assertCount(1, $result);

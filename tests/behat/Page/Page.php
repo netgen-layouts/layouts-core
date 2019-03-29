@@ -32,6 +32,10 @@ abstract class Page
      */
     private $document;
 
+    /**
+     * @param \Behat\Mink\Session $session
+     * @param array|\ArrayAccess $minkParameters
+     */
     public function __construct(Session $session, $minkParameters = [])
     {
         $this->session = $session;

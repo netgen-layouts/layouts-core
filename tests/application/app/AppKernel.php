@@ -12,7 +12,7 @@ use Symfony\Component\HttpKernel\Kernel;
 
 final class AppKernel extends Kernel
 {
-    public function registerBundles(): array
+    public function registerBundles(): iterable
     {
         $bundles = [
             // Symfony

@@ -9,7 +9,6 @@ use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Block\Placeholder;
 use Netgen\BlockManager\Exception\RuntimeException;
 use PHPUnit\Framework\TestCase;
-use Traversable;
 
 final class PlaceholderTest extends TestCase
 {
@@ -51,7 +50,6 @@ final class PlaceholderTest extends TestCase
         self::assertCount(1, $placeholder->getBlocks());
         self::assertSame($block, $placeholder->getBlocks()[0]);
 
-        self::assertInstanceOf(Traversable::class, $placeholder->getIterator());
         self::assertSame([$block], iterator_to_array($placeholder->getIterator()));
 
         self::assertCount(1, $placeholder);

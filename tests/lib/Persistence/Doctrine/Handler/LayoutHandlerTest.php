@@ -778,11 +778,7 @@ final class LayoutHandlerTest extends TestCase
         self::assertSame(Value::STATUS_DRAFT, $createdLayout->status);
         self::assertTrue($createdLayout->shared);
         self::assertSame('en', $createdLayout->mainLocale);
-
-        self::assertIsInt($createdLayout->created);
         self::assertGreaterThan(0, $createdLayout->created);
-
-        self::assertIsInt($createdLayout->modified);
         self::assertGreaterThan(0, $createdLayout->modified);
     }
 

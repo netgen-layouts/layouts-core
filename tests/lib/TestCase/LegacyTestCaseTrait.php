@@ -8,6 +8,10 @@ use PHPUnit\Framework\Assert;
 
 trait LegacyTestCaseTrait
 {
+    /**
+     * @param mixed $actual
+     * @param string $message
+     */
     public static function assertIsArray($actual, string $message = ''): void
     {
         if (method_exists(Assert::class, 'assertIsArray')) {
@@ -19,6 +23,10 @@ trait LegacyTestCaseTrait
         Assert::assertInternalType('array', $actual, $message);
     }
 
+    /**
+     * @param mixed $actual
+     * @param string $message
+     */
     public static function assertIsBool($actual, string $message = ''): void
     {
         if (method_exists(Assert::class, 'assertIsBool')) {
@@ -30,6 +38,10 @@ trait LegacyTestCaseTrait
         Assert::assertInternalType('bool', $actual, $message);
     }
 
+    /**
+     * @param mixed $actual
+     * @param string $message
+     */
     public static function assertIsFloat($actual, string $message = ''): void
     {
         if (method_exists(Assert::class, 'assertIsFloat')) {
@@ -41,6 +53,10 @@ trait LegacyTestCaseTrait
         Assert::assertInternalType('float', $actual, $message);
     }
 
+    /**
+     * @param mixed $actual
+     * @param string $message
+     */
     public static function assertIsInt($actual, string $message = ''): void
     {
         if (method_exists(Assert::class, 'assertIsInt')) {
@@ -52,6 +68,10 @@ trait LegacyTestCaseTrait
         Assert::assertInternalType('int', $actual, $message);
     }
 
+    /**
+     * @param mixed $actual
+     * @param string $message
+     */
     public static function assertIsNumeric($actual, string $message = ''): void
     {
         if (method_exists(Assert::class, 'assertIsNumeric')) {
@@ -63,6 +83,10 @@ trait LegacyTestCaseTrait
         Assert::assertInternalType('numeric', $actual, $message);
     }
 
+    /**
+     * @param mixed $actual
+     * @param string $message
+     */
     public static function assertIsObject($actual, string $message = ''): void
     {
         if (method_exists(Assert::class, 'assertIsObject')) {
@@ -74,6 +98,10 @@ trait LegacyTestCaseTrait
         Assert::assertInternalType('object', $actual, $message);
     }
 
+    /**
+     * @param mixed $actual
+     * @param string $message
+     */
     public static function assertIsResource($actual, string $message = ''): void
     {
         if (method_exists(Assert::class, 'assertIsResource')) {
@@ -85,6 +113,10 @@ trait LegacyTestCaseTrait
         Assert::assertInternalType('resource', $actual, $message);
     }
 
+    /**
+     * @param mixed $actual
+     * @param string $message
+     */
     public static function assertIsString($actual, string $message = ''): void
     {
         if (method_exists(Assert::class, 'assertIsString')) {
@@ -96,6 +128,10 @@ trait LegacyTestCaseTrait
         Assert::assertInternalType('string', $actual, $message);
     }
 
+    /**
+     * @param mixed $actual
+     * @param string $message
+     */
     public static function assertIsScalar($actual, string $message = ''): void
     {
         if (method_exists(Assert::class, 'assertIsScalar')) {
@@ -107,6 +143,10 @@ trait LegacyTestCaseTrait
         Assert::assertInternalType('scalar', $actual, $message);
     }
 
+    /**
+     * @param mixed $actual
+     * @param string $message
+     */
     public static function assertIsCallable($actual, string $message = ''): void
     {
         if (method_exists(Assert::class, 'assertIsCallable')) {
@@ -118,6 +158,10 @@ trait LegacyTestCaseTrait
         Assert::assertInternalType('callable', $actual, $message);
     }
 
+    /**
+     * @param mixed $actual
+     * @param string $message
+     */
     public static function assertIsIterable($actual, string $message = ''): void
     {
         if (method_exists(Assert::class, 'assertIsIterable')) {
