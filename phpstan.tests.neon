@@ -27,5 +27,3 @@ parameters:
             path: tests/lib/Item/Stubs/ValueConverter.php
 
         - '#Access to an undefined property object::\$id.#'
-
-        - '#Method .+::assertIs\w+\(\) has parameter \$actual with no typehint specified.#'
