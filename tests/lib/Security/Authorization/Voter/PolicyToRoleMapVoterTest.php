@@ -8,7 +8,7 @@ use Netgen\BlockManager\Security\Authorization\Voter\PolicyToRoleMapVoter;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 
 final class PolicyToRoleMapVoterTest extends TestCase
 {
@@ -20,13 +20,13 @@ final class PolicyToRoleMapVoterTest extends TestCase
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
-    private $authorizationCheckerMock;
+    private $accessDecisionManagerMock;
 
     public function setUp(): void
     {
-        $this->authorizationCheckerMock = $this->createMock(AuthorizationCheckerInterface::class);
+        $this->accessDecisionManagerMock = $this->createMock(AccessDecisionManagerInterface::class);
 
-        $this->voter = new PolicyToRoleMapVoter($this->authorizationCheckerMock);
+        $this->voter = new PolicyToRoleMapVoter($this->accessDecisionManagerMock);
     }
 
     /**
@@ -36,14 +36,16 @@ final class PolicyToRoleMapVoterTest extends TestCase
      */
     public function testVote(): void
     {
-        $this->authorizationCheckerMock
+        $token = $this->createMock(TokenInterface::class);
+
+        $this->accessDecisionManagerMock
             ->expects(self::once())
-            ->method('isGranted')
-            ->with(self::equalTo('ROLE_NGBM_ADMIN'))
+            ->method('decide')
+            ->with(self::equalTo($token), self::equalTo(['ROLE_NGBM_ADMIN']))
             ->will(self::returnValue(true));
 
         $vote = $this->voter->vote(
-            $this->createMock(TokenInterface::class),
+            $token,
             null,
             ['nglayouts:layout:add']
         );
@@ -56,9 +58,9 @@ final class PolicyToRoleMapVoterTest extends TestCase
      */
     public function testVoteWithUnsupportedAttribute(): void
     {
-        $this->authorizationCheckerMock
+        $this->accessDecisionManagerMock
             ->expects(self::never())
-            ->method('isGranted');
+            ->method('decide');
 
         $this->voter->vote($this->createMock(TokenInterface::class), null, [new stdClass()]);
     }
@@ -69,9 +71,9 @@ final class PolicyToRoleMapVoterTest extends TestCase
      */
     public function testVoteWithNonExistingRole(): void
     {
-        $this->authorizationCheckerMock
+        $this->accessDecisionManagerMock
             ->expects(self::never())
-            ->method('isGranted');
+            ->method('decide');
 
         $vote = $this->voter->vote($this->createMock(TokenInterface::class), null, ['nglayouts:unknown:unknown']);
         self::assertSame($vote, $this->voter::ACCESS_DENIED);
