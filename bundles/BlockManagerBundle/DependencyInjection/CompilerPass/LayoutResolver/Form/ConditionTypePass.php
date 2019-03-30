@@ -30,6 +30,7 @@ final class ConditionTypePass implements CompilerPassInterface
             foreach ($tags as $tag) {
                 if (isset($tag['condition_type'])) {
                     $mappers[$tag['condition_type']] = new Reference($mapperService);
+
                     continue 2;
                 }
             }
@@ -37,6 +38,7 @@ final class ConditionTypePass implements CompilerPassInterface
             $mapperClass = $this->getDefinitionClass($container, $mapperService);
             if (isset($mapperClass::$defaultConditionType)) {
                 $mappers[$mapperClass::$defaultConditionType] = new Reference($mapperService);
+
                 continue;
             }
         }

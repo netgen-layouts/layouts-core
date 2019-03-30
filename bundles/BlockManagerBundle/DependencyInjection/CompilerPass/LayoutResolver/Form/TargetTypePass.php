@@ -30,6 +30,7 @@ final class TargetTypePass implements CompilerPassInterface
             foreach ($tags as $tag) {
                 if (isset($tag['target_type'])) {
                     $mappers[$tag['target_type']] = new Reference($mapperService);
+
                     continue 2;
                 }
             }
@@ -37,6 +38,7 @@ final class TargetTypePass implements CompilerPassInterface
             $mapperClass = $this->getDefinitionClass($container, $mapperService);
             if (isset($mapperClass::$defaultTargetType)) {
                 $mappers[$mapperClass::$defaultTargetType] = new Reference($mapperService);
+
                 continue;
             }
         }

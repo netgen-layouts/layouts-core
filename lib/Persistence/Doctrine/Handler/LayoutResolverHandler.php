@@ -70,9 +70,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
             return [];
         }
 
-        $data = $this->mapper->mapRules($data);
-
-        return $data;
+        return $this->mapper->mapRules($data);
     }
 
     public function loadTarget($targetId, int $status): Target

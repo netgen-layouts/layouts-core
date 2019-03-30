@@ -628,6 +628,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         $publishedLayout = $this->layoutHandler->loadLayout($layout->getId(), Value::STATUS_PUBLISHED);
 
         $draftLayout = null;
+
         try {
             $draftLayout = $this->layoutHandler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
         } catch (NotFoundException $e) {

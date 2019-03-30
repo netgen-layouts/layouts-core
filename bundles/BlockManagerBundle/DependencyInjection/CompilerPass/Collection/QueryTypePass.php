@@ -40,6 +40,7 @@ final class QueryTypePass implements CompilerPassInterface
                 foreach ($tags as $tag) {
                     if (isset($tag['type']) && $tag['type'] === $handlerIdentifier) {
                         $foundHandler = $queryTypeHandler;
+
                         break 2;
                     }
                 }
@@ -47,6 +48,7 @@ final class QueryTypePass implements CompilerPassInterface
                 if (isset($handlerClass::$defaultType)) {
                     if ($handlerClass::$defaultType === $handlerIdentifier) {
                         $foundHandler = $queryTypeHandler;
+
                         break;
                     }
                 }

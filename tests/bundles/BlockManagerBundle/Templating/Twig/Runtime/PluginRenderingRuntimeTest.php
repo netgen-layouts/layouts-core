@@ -101,12 +101,6 @@ final class PluginRenderingRuntimeTest extends TestCase
             )
             ->will(self::throwException(new Exception('Test exception text')));
 
-        self::assertSame(
-            '',
-                $this->runtime->renderPlugins(
-                ['param' => 'value'],
-                'plugin_name'
-            )
-        );
+        self::assertSame('', $this->runtime->renderPlugins(['param' => 'value'], 'plugin_name'));
     }
 }

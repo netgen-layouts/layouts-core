@@ -174,6 +174,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         $this->queryHandler->createCollectionTranslation($collection, $locale);
 
         $query = null;
+
         try {
             $query = $this->loadCollectionQuery($collection);
         } catch (NotFoundException $e) {
@@ -256,6 +257,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         }
 
         $collectionQuery = null;
+
         try {
             $collectionQuery = $this->loadCollectionQuery($collection);
         } catch (NotFoundException $e) {
@@ -299,6 +301,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         }
 
         $collectionQuery = null;
+
         try {
             $collectionQuery = $this->loadCollectionQuery($collection);
         } catch (NotFoundException $e) {

@@ -29,6 +29,7 @@ final class DoctrineTargetHandlerPass implements CompilerPassInterface
             foreach ($tags as $tag) {
                 if (isset($tag['target_type'])) {
                     $targetHandlers[$tag['target_type']] = new Reference($targetHandler);
+
                     continue 2;
                 }
             }
@@ -36,6 +37,7 @@ final class DoctrineTargetHandlerPass implements CompilerPassInterface
             $handlerClass = $this->getDefinitionClass($container, $targetHandler);
             if (isset($handlerClass::$defaultTargetType)) {
                 $targetHandlers[$handlerClass::$defaultTargetType] = new Reference($targetHandler);
+
                 continue;
             }
         }

@@ -29,6 +29,7 @@ final class RenderZone extends AbstractTokenParser
             }
 
             $token = $stream->getCurrent();
+
             throw new SyntaxError(
                 sprintf(
                     'Unexpected token "%s" of value "%s".',

@@ -239,7 +239,8 @@ abstract class Page
         array_map(
             function (string $definedElement) use ($parameters): string {
                 return strtr($definedElement, $parameters);
-            }, $definedElements[$name]
+            },
+            $definedElements[$name]
         );
 
         return $definedElements[$name];

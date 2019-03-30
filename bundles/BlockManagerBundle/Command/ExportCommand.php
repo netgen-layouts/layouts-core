@@ -62,9 +62,11 @@ final class ExportCommand extends Command
         switch ($type) {
             case 'layout':
                 $hash = $this->serializer->serializeLayouts($ids);
+
                 break;
             case 'rule':
                 $hash = $this->serializer->serializeRules($ids);
+
                 break;
             default:
                 throw new RuntimeException(sprintf('Unhandled type %s', $type));

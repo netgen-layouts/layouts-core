@@ -411,6 +411,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         $archivedRule = $this->layoutResolverHandler->loadRule($rule->getId(), Value::STATUS_ARCHIVED);
 
         $draftRule = null;
+
         try {
             $draftRule = $this->layoutResolverHandler->loadRule($rule->getId(), Value::STATUS_DRAFT);
         } catch (NotFoundException $e) {

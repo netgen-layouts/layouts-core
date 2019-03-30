@@ -145,7 +145,7 @@ abstract class ImporterTest extends CoreTestCase
 
             // After we check that layout names are different, we remove them
             // from the data, so they don't kill the test
-            self::assertNotEquals($layoutData['name'], $exportedLayoutData['name']);
+            self::assertNotSame($layoutData['name'], $exportedLayoutData['name']);
             unset($layoutData['name'], $exportedLayoutData['name']);
 
             // Same goes for creation and modification date
@@ -285,8 +285,7 @@ abstract class ImporterTest extends CoreTestCase
 
         $blockDefinition1 = $blockDefinitionFactory->buildBlockDefinition(
             'title',
-            new TitleHandler(['h1' => 'h1', 'h2' => 'h2', 'h3' => 'h3'], []
-            ),
+            new TitleHandler(['h1' => 'h1', 'h2' => 'h2', 'h3' => 'h3'], []),
             $data,
             $configHandlers
         );

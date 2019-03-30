@@ -62,6 +62,7 @@ final class ExceptionConversionListener implements EventSubscriberInterface
         foreach ($this->exceptionMap as $sourceException => $targetException) {
             if (is_a($exception, $sourceException, true)) {
                 $exceptionClass = $targetException;
+
                 break;
             }
         }

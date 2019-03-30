@@ -10,14 +10,12 @@ final class TranslatableParameterBuilderFactory extends ParameterBuilderFactory
     {
         $config = $this->resolveOptions($config);
 
-        $parameterBuilder = new TranslatableParameterBuilder(
+        return new TranslatableParameterBuilder(
             $this,
             $config['name'],
             $config['type'],
             $config['options'],
             $config['parent']
         );
-
-        return $parameterBuilder;
     }
 }

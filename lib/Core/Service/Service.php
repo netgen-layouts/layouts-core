@@ -29,6 +29,7 @@ abstract class Service implements APIService
             $return = $callable();
         } catch (Throwable $t) {
             $this->rollbackTransaction();
+
             throw $t;
         }
 

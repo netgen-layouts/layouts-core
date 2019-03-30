@@ -44,7 +44,7 @@ abstract class BlockTest extends CoreTestCase
             $createdParameters[$parameterName] = $parameter->getValue();
         }
 
-        self::assertEquals($expectedParameters, $createdParameters);
+        self::assertSame($expectedParameters, $createdParameters);
     }
 
     /**

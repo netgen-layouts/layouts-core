@@ -24,15 +24,13 @@ class ParameterBuilderFactory implements ParameterBuilderFactoryInterface
     {
         $config = $this->resolveOptions($config);
 
-        $parameterBuilder = new ParameterBuilder(
+        return new ParameterBuilder(
             $this,
             $config['name'],
             $config['type'],
             $config['options'],
             $config['parent']
         );
-
-        return $parameterBuilder;
     }
 
     /**
@@ -65,8 +63,6 @@ class ParameterBuilderFactory implements ParameterBuilderFactoryInterface
             }
         );
 
-        $config = $optionsResolver->resolve($config);
-
-        return $config;
+        return $optionsResolver->resolve($config);
     }
 }

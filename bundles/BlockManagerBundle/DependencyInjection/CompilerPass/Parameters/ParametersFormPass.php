@@ -30,6 +30,7 @@ final class ParametersFormPass implements CompilerPassInterface
             foreach ($tags as $tag) {
                 if (isset($tag['type'])) {
                     $mappers[$tag['type']] = new Reference($formMapper);
+
                     continue 2;
                 }
             }
@@ -37,6 +38,7 @@ final class ParametersFormPass implements CompilerPassInterface
             $mapperClass = $this->getDefinitionClass($container, $formMapper);
             if (isset($mapperClass::$defaultParameterType)) {
                 $mappers[$mapperClass::$defaultParameterType] = new Reference($formMapper);
+
                 continue;
             }
         }

@@ -196,7 +196,7 @@ final class ResultBuilderTest extends TestCase
             );
         }
 
-        $collection = Collection::fromArray(
+        return Collection::fromArray(
             [
                 'items' => new ArrayCollection($items),
                 'query' => Query::fromArray(
@@ -211,8 +211,6 @@ final class ResultBuilderTest extends TestCase
                 ),
             ]
         );
-
-        return $collection;
     }
 
     /**
