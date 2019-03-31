@@ -32,13 +32,17 @@ final class BlockVisitor implements VisitorInterface
         return $value instanceof Block;
     }
 
+    /**
+     * @param \Netgen\BlockManager\API\Values\Block\Block $value
+     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface|null $subVisitor
+     *
+     * @return mixed
+     */
     public function visit($value, ?VisitorInterface $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
         }
-
-        /* @var \Netgen\BlockManager\API\Values\Block\Block $value */
 
         return [
             'id' => $value->getId(),

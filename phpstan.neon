@@ -42,3 +42,7 @@ parameters:
         -
             message: '#Variable property access on object.#'
             path: lib/Utils/Hydrator.php
+
+        -
+            message: '#should be contravariant with parameter \$value#'
+            path: lib/Transfer/Output/Visitor/

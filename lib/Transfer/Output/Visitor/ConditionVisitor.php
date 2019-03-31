@@ -19,10 +19,14 @@ final class ConditionVisitor implements VisitorInterface
         return $value instanceof Condition;
     }
 
+    /**
+     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Condition $value
+     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface|null $subVisitor
+     *
+     * @return mixed
+     */
     public function visit($value, ?VisitorInterface $subVisitor = null)
     {
-        /* @var \Netgen\BlockManager\API\Values\LayoutResolver\Condition $value */
-
         return [
             'id' => $value->getId(),
             'type' => $value->getConditionType()::getType(),

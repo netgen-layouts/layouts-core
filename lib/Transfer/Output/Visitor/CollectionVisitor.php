@@ -22,13 +22,17 @@ final class CollectionVisitor implements VisitorInterface
         return $value instanceof Collection;
     }
 
+    /**
+     * @param \Netgen\BlockManager\API\Values\Collection\Collection $value
+     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface|null $subVisitor
+     *
+     * @return mixed
+     */
     public function visit($value, ?VisitorInterface $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
         }
-
-        /* @var \Netgen\BlockManager\API\Values\Collection\Collection $value */
 
         return [
             'id' => $value->getId(),

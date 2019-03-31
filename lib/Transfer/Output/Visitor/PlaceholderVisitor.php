@@ -21,13 +21,17 @@ final class PlaceholderVisitor implements VisitorInterface
         return $value instanceof Placeholder;
     }
 
+    /**
+     * @param \Netgen\BlockManager\API\Values\Block\Placeholder $value
+     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface|null $subVisitor
+     *
+     * @return mixed
+     */
     public function visit($value, ?VisitorInterface $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
         }
-
-        /* @var \Netgen\BlockManager\API\Values\Block\Placeholder $value */
 
         return [
             'identifier' => $value->getIdentifier(),

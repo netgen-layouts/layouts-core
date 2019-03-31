@@ -32,13 +32,17 @@ final class QueryVisitor implements VisitorInterface
         return $value instanceof Query;
     }
 
+    /**
+     * @param \Netgen\BlockManager\API\Values\Collection\Query $value
+     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface|null $subVisitor
+     *
+     * @return mixed
+     */
     public function visit($value, ?VisitorInterface $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
         }
-
-        /* @var \Netgen\BlockManager\API\Values\Collection\Query $value */
 
         return [
             'id' => $value->getId(),

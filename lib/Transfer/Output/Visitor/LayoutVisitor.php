@@ -24,13 +24,17 @@ final class LayoutVisitor implements VisitorInterface
         return $value instanceof Layout;
     }
 
+    /**
+     * @param \Netgen\BlockManager\API\Values\Layout\Layout $value
+     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface|null $subVisitor
+     *
+     * @return mixed
+     */
     public function visit($value, ?VisitorInterface $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
         }
-
-        /* @var \Netgen\BlockManager\API\Values\Layout\Layout $value */
 
         return [
             '__type' => 'layout',
