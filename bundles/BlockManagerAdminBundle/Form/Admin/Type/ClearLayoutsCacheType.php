@@ -50,8 +50,8 @@ final class ClearLayoutsCacheType extends AbstractType
 
     public function finishView(FormView $view, FormInterface $form, array $options): void
     {
+        /** @var \Netgen\BlockManager\API\Values\Layout\Layout $layout */
         foreach ($options['layouts'] as $layout) {
-            /* @var \Netgen\BlockManager\API\Values\Layout\Layout $layout */
             $view['layouts'][$layout->getId()]->vars['layout'] = $layout;
         }
     }

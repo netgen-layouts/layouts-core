@@ -12,8 +12,6 @@ final class ValueNormalizer extends Normalizer implements NormalizerInterface
 {
     public function normalize($object, $format = null, array $context = [])
     {
-        /* @var \Netgen\BlockManager\Serializer\Values\Value $object */
-
         return $this->normalizer->normalize($object->getValue(), $format, $context);
     }
 
