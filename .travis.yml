@@ -17,7 +17,7 @@ addons:
 
 cache:
   directories:
-    - $HOME/.composer
+    - $HOME/.cache/composer
 
 env:
   - PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~3.4.0" DB="mysql"
