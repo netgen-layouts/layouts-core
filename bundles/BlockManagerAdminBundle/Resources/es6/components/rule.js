@@ -152,7 +152,6 @@ export default class NlRule {
         });
     }
     ruleDelete(e) {
-        console.log('DELETE');
         e.preventDefault();
         const url = `${this.baseUrl}rules/${this.id}/delete`;
         const modal = new NlModal({
