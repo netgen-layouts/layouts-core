@@ -25,7 +25,9 @@ export default class NlLayout {
 
     onRender() {
         this.$el.find('.nl-tt').tooltip();
-        this.$el.find('.nl-dropdown').dropdown();
+        this.$el.find('.nl-dropdown').each((i, el) => {
+            !el.getElementsByClassName('nl-dropdown-menu')[0].childElementCount ? el.parentElement.removeChild(el) : $(el).dropdown();
+        });
     }
 
     layoutDelete(e) {
