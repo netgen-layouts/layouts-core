@@ -31,8 +31,6 @@ final class EditQueryForm extends Controller
      */
     public function __invoke(Query $query, string $locale, Request $request)
     {
-        $this->denyAccessUnlessGranted('nglayouts:collection:edit');
-
         $updateStruct = $this->collectionService->newQueryUpdateStruct($locale, $query);
 
         $form = $this->createForm(
@@ -55,6 +53,8 @@ final class EditQueryForm extends Controller
         if (!$form->isSubmitted()) {
             return $this->buildView($form, ViewInterface::CONTEXT_API);
         }
+
+        $this->denyAccessUnlessGranted('nglayouts:collection:edit');
 
         if ($form->isValid()) {
             $this->collectionService->updateQuery($query, $form->getData());

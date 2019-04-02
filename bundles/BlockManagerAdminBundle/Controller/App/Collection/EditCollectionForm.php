@@ -31,8 +31,6 @@ final class EditCollectionForm extends Controller
      */
     public function __invoke(Collection $collection, Request $request)
     {
-        $this->denyAccessUnlessGranted('nglayouts:collection:edit');
-
         $updateStruct = $this->collectionService->newCollectionUpdateStruct($collection);
 
         $form = $this->createForm(
@@ -54,6 +52,8 @@ final class EditCollectionForm extends Controller
         if (!$form->isSubmitted()) {
             return $this->buildView($form, ViewInterface::CONTEXT_API);
         }
+
+        $this->denyAccessUnlessGranted('nglayouts:collection:edit');
 
         if ($form->isValid()) {
             $this->collectionService->updateCollection($collection, $form->getData());

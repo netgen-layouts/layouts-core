@@ -32,14 +32,6 @@ final class EditForm extends Controller
      */
     public function __invoke(Block $block, string $locale, string $formName, Request $request)
     {
-        $this->denyAccessUnlessGranted(
-            'nglayouts:block:edit',
-            [
-                'block_definition' => $block->getDefinition(),
-                'layout' => $block->getLayoutId(),
-            ]
-        );
-
         $updateStruct = $this->blockService->newBlockUpdateStruct($locale, $block);
 
         $form = $this->createForm(
@@ -63,6 +55,14 @@ final class EditForm extends Controller
         if (!$form->isSubmitted()) {
             return $this->buildView($form, ViewInterface::CONTEXT_API);
         }
+
+        $this->denyAccessUnlessGranted(
+            'nglayouts:block:edit',
+            [
+                'block_definition' => $block->getDefinition(),
+                'layout' => $block->getLayoutId(),
+            ]
+        );
 
         if ($form->isValid()) {
             $block = $this->blockService->updateBlock($block, $form->getData());
