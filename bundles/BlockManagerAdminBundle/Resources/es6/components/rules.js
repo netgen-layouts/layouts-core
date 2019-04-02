@@ -21,7 +21,6 @@ export default class NlRules {
 
     initialize() {
         this.$el.data('rules', this);
-        this.$el.find('.nl-dropdown').dropdown();
         this.initializeFilters();
         this.initializeRulePlugin();
         this.setupEvents();

@@ -29,9 +29,8 @@ export default class NlRule {
             this.draftCreated++;
         }
         this.$el.attr('data-id', this.$el.find('.nl-rule-content').data('id'));
-        this.$el.find('.nl-tt').tooltip();
         this.$el.find('.nl-dropdown').each((i, el) => {
-            !el.getElementsByClassName('nl-dropdown-menu')[0].childElementCount ? el.parentElement.removeChild(el) : $(el).dropdown();
+            !el.getElementsByClassName('nl-dropdown-menu')[0].childElementCount && el.parentElement.removeChild(el);
         });
     }
 
@@ -153,6 +152,7 @@ export default class NlRule {
         });
     }
     ruleDelete(e) {
+        console.log('DELETE');
         e.preventDefault();
         const url = `${this.baseUrl}rules/${this.id}/delete`;
         const modal = new NlModal({

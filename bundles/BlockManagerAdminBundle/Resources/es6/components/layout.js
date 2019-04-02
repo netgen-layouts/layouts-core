@@ -1,11 +1,13 @@
 import NetgenCore from '@netgen/layouts-ui-core';
 import NlModal from './modal';
+import Tooltip from '../helpers/tooltip';
 
-const $ = NetgenCore.$;
+const { $ } = NetgenCore;
 
 /* layout plugin */
 export default class NlLayout {
     constructor(el) {
+        this.el = el;
         this.$el = $(el);
         this.attributes = this.$el.find('.nl-layout-content').data();
         this.id = this.attributes.id;
@@ -24,9 +26,9 @@ export default class NlLayout {
     }
 
     onRender() {
-        this.$el.find('.nl-tt').tooltip();
+        [...this.el.getElementsByClassName('nl-tt')].forEach(el => new Tooltip(el));
         this.$el.find('.nl-dropdown').each((i, el) => {
-            !el.getElementsByClassName('nl-dropdown-menu')[0].childElementCount ? el.parentElement.removeChild(el) : $(el).dropdown();
+            !el.getElementsByClassName('nl-dropdown-menu')[0].childElementCount && el.parentElement.removeChild(el);
         });
     }
 
