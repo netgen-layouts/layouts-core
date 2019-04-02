@@ -2,8 +2,7 @@ import './helpers/closestPolyfill';
 import NetgenCore from '@netgen/layouts-ui-core';
 import NlLayouts from './components/layouts';
 import NlRules from './components/rules';
-// import './components/plugins';
-import initPlugins from './components/plugins';
+import dropdownInit from './helpers/dropdown';
 
 const { $ } = NetgenCore;
 
@@ -13,7 +12,7 @@ NetgenCore.ngLayoutsInit = () => {
     NetgenCore.nlLayouts = layoutsEl ? new NlLayouts(layoutsEl) : null;
     NetgenCore.nlRules = rulesEl ? new NlRules(rulesEl) : null;
 
-    initPlugins();
+    dropdownInit();
 
     $(document).on('click', '.js-open-bm', () => {
         localStorage.setItem('bm_referrer', window.location.href);
