@@ -17,10 +17,13 @@ final class HtmlPurifier
      */
     private $purifier;
 
-    public function __construct()
+    public function __construct(?HTMLPurifier_Config $config = null)
     {
-        $config = HTMLPurifier_Config::create(['Cache.DefinitionImpl' => null]);
-        $config->set('HTML.Doctype', 'XHTML 1.0 Strict');
+        if ($config === null) {
+            $config = HTMLPurifier_Config::create(['Cache.DefinitionImpl' => null]);
+            $config->set('HTML.Doctype', 'XHTML 1.0 Strict');
+        }
+
         $this->purifier = new BaseHTMLPurifier($config);
     }
 
