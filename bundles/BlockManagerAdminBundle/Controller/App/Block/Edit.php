@@ -15,6 +15,8 @@ final class Edit extends Controller
      */
     public function __invoke(Block $block): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_REMEMBERED');
+
         return $this->render(
             '@NetgenBlockManagerAdmin/app/block/edit.html.twig',
             [
