@@ -51,6 +51,8 @@ final class EditQueryForm extends Controller
         $form->handleRequest($request);
 
         if (!$form->isSubmitted()) {
+            $this->denyAccessUnlessGranted('nglayouts:api:read');
+
             return $this->buildView($form, ViewInterface::CONTEXT_API);
         }
 
