@@ -179,7 +179,7 @@ export default class NlRule {
             url,
             success: (data) => {
                 modal.insertModalHtml(data);
-                modal.$el.on('apply', formAction);
+                modal.el.addEventListener('apply', formAction);
             },
         });
     }

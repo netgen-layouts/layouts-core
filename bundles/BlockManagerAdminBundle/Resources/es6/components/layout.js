@@ -68,7 +68,7 @@ export default class NlLayout {
             url,
             success: (data) => {
                 modal.insertModalHtml(data);
-                modal.$el.on('apply', formAction);
+                modal.el.addEventListener('apply', formAction);
             },
         });
     }
@@ -109,7 +109,7 @@ export default class NlLayout {
             url,
             success: (data) => {
                 modal.insertModalHtml(data);
-                modal.$el.on('apply', formAction);
+                modal.el.addEventListener('apply', formAction);
             },
         });
     }
@@ -140,7 +140,7 @@ export default class NlLayout {
             url,
             success: (data) => {
                 modal.insertModalHtml(data);
-                modal.$el.on('apply', formAction);
+                modal.el.addEventListener('apply', formAction);
             },
         });
     }
@@ -175,7 +175,7 @@ export default class NlLayout {
             success: (data) => {
                 modal.insertModalHtml(data);
                 NlLayout.indeterminateCheckboxes(modal.$el);
-                modal.$el.on('apply', formAction);
+                modal.el.addEventListener('apply', formAction);
             },
         });
     }
@@ -210,7 +210,7 @@ export default class NlLayout {
             success: (data) => {
                 modal.insertModalHtml(data);
                 NlLayout.indeterminateCheckboxes(modal.$el);
-                modal.$el.on('apply', formAction);
+                modal.el.addEventListener('apply', formAction);
             },
         });
     }

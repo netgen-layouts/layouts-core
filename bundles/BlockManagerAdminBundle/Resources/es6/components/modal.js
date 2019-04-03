@@ -1,11 +1,7 @@
-import NetgenCore from '@netgen/layouts-ui-core';
-
-const $ = NetgenCore.$;
-
 /* modal plugin */
 export default class NlModal {
     constructor(opt) {
-        this.options = $.extend({
+        this.options = Object.assign({
             preload: false,
             cancelDisabled: false,
             autoClose: true,
@@ -14,22 +10,31 @@ export default class NlModal {
             cancelText: 'Cancel',
             applyText: 'OK',
         }, opt);
-        this.className = `nl-modal-mask ${this.options.className}`;
-        this.$el = $(`<div class="${this.className}">`);
-        this.$container = $('<div class="nl-modal-container">');
-        this.$loader = $('<div class="nl-modal-loader"><span></span></div>');
+        this.el = document.createElement('div');
+        this.el.className = 'nl-modal-mask';
+        if (this.options.className) this.el.classList.add(this.options.className);
+        this.container = document.createElement('div');
+        this.container.className = 'nl-modal-container';
+        this.loader = document.createElement('div');
+        this.loader.className = 'nl-modal-loader';
+        this.loader.innerHTML = '<span></span>';
+
+        this.onKeyDown = (e) => {
+            e.keyCode === 27 && this.close();
+        };
+
+        this.onKeyDown = this.onKeyDown.bind(this);
 
         this.loadModal();
         this.setupEvents();
     }
 
     loadModal() {
-        this.options.preload ? this.loadingStart() : this.$container.html(this.getHtml());
-        this.$el.append(this.$loader, this.$container);
-        $('body').append(this.$el);
-        $(document).on('keydown.closemodal', (e) => {
-            e.keyCode === 27 && this.close();
-        });
+        this.options.preload ? this.loadingStart() : this.container.innerHTML = this.getHtml();
+        this.el.appendChild(this.loader);
+        this.el.appendChild(this.container);
+        document.body.appendChild(this.el);
+        window.addEventListener('keydown', this.onKeyDown);
     }
 
     getHtml() {
@@ -45,44 +50,50 @@ export default class NlModal {
     }
 
     setupEvents() {
-        this.$el.on('click', '.close-modal', this.close.bind(this));
-        this.$el.on('click', '.action-apply', this.apply.bind(this));
-        this.$el.on('click', '.action-cancel', this.cancel.bind(this));
+        this.el.addEventListener('click', (e) => {
+            if (e.target.closest('.close-modal')) {
+                this.close(e);
+            } else if (e.target.closest('.action-apply')) {
+                this.apply(e);
+            } else if (e.target.closest('.action-cancel')) {
+                this.cancel(e);
+            }
+        });
     }
 
     apply(e) {
         e && e.preventDefault();
-        this.$el.trigger('apply');
+        this.el.dispatchEvent(new Event('apply'));
         this.options.autoClose && this.close();
     }
 
     cancel(e) {
         e && e.preventDefault();
-        this.$el.trigger('cancel');
+        this.el.dispatchEvent(new Event('cancel'));
         this.close();
     }
 
     close(e) {
         e && e.preventDefault();
-        this.$el.fadeOut(150, this.destroy.bind(this));
-        $(document).off('keydown.closemodal');
+        this.destroy();
+        window.removeEventListener('keydown', this.onKeyDown);
     }
 
     insertModalHtml(html) {
-        this.$container.html(html);
+        this.container.innerHTML = html;
         this.loadingStop();
     }
 
     loadingStart() {
-        this.$el.addClass('modal-loading');
+        this.el.classList.add('modal-loading');
     }
 
     loadingStop() {
-        this.$el.removeClass('modal-loading');
+        this.el.classList.remove('modal-loading');
     }
 
     destroy() {
-        this.$el.trigger('close');
-        this.$el.remove();
+        this.el.dispatchEvent(new Event('close'));
+        this.el.parentElement.removeChild(this.el);
     }
 }
