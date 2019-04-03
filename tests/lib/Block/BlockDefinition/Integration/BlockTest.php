@@ -14,12 +14,15 @@ use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory;
 use Netgen\BlockManager\Tests\Core\CoreTestCase;
+use Netgen\BlockManager\Tests\TestCase\LegacyTestCaseTrait;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class BlockTest extends CoreTestCase
 {
+    use LegacyTestCaseTrait;
+
     /**
      * @dataProvider parametersDataProvider
      */
@@ -44,7 +47,11 @@ abstract class BlockTest extends CoreTestCase
             $createdParameters[$parameterName] = $parameter->getValue();
         }
 
-        self::assertEquals($expectedParameters, $createdParameters);
+        self::assertSame(array_keys($expectedParameters), array_keys($createdParameters));
+
+        foreach ($expectedParameters as $key => $expectedParameter) {
+            self::assertContainsEquals($expectedParameter, $createdParameters);
+        }
     }
 
     /**

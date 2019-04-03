@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\TestCase;
 
 use PHPUnit\Framework\Assert;
+use PHPUnit\Framework\Constraint\LogicalNot;
+use PHPUnit\Framework\Constraint\TraversableContains;
 
 trait LegacyTestCaseTrait
 {
@@ -171,5 +173,45 @@ trait LegacyTestCaseTrait
         }
 
         Assert::assertInternalType('iterable', $actual, $message);
+    }
+
+    /**
+     * Note: The method is implemented in PHPUnit 8.1.
+     *
+     * @param mixed $needle
+     * @param iterable $haystack
+     * @param string $message
+     */
+    public static function assertContainsEquals($needle, iterable $haystack, string $message = ''): void
+    {
+        if (method_exists(Assert::class, 'assertContainsEquals')) {
+            Assert::assertContainsEquals($needle, $haystack, $message);
+
+            return;
+        }
+
+        $constraint = new TraversableContains($needle, false, false);
+
+        static::assertThat($haystack, $constraint, $message);
+    }
+
+    /**
+     * Note: The method is implemented in PHPUnit 8.1.
+     *
+     * @param mixed $needle
+     * @param iterable $haystack
+     * @param string $message
+     */
+    public static function assertNotContainsEquals($needle, iterable $haystack, string $message = ''): void
+    {
+        if (method_exists(Assert::class, 'assertNotContainsEquals')) {
+            Assert::assertNotContainsEquals($needle, $haystack, $message);
+
+            return;
+        }
+
+        $constraint = new LogicalNot(new TraversableContains($needle, false, false));
+
+        static::assertThat($haystack, $constraint, $message);
     }
 }
