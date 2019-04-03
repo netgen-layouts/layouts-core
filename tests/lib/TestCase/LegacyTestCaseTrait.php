@@ -190,7 +190,7 @@ trait LegacyTestCaseTrait
 
         $constraint = new TraversableContains($needle, false, false);
 
-        static::assertThat($haystack, $constraint, $message);
+        Assert::assertThat($haystack, $constraint, $message);
     }
 
     /**
@@ -208,6 +208,6 @@ trait LegacyTestCaseTrait
 
         $constraint = new LogicalNot(new TraversableContains($needle, false, false));
 
-        static::assertThat($haystack, $constraint, $message);
+        Assert::assertThat($haystack, $constraint, $message);
     }
 }
