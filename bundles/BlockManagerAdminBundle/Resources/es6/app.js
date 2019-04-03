@@ -4,8 +4,6 @@ import NlLayouts from './components/layouts';
 import NlRules from './components/rules';
 import dropdownInit from './helpers/dropdown';
 
-const { $ } = NetgenCore;
-
 NetgenCore.ngLayoutsInit = () => {
     const layoutsEl = document.getElementById('layouts');
     const rulesEl = document.getElementById('rules');
@@ -14,11 +12,11 @@ NetgenCore.ngLayoutsInit = () => {
 
     dropdownInit();
 
-    $(document).on('click', '.js-open-bm', () => {
+    [...document.getElementsByClassName('js-open-bm')].forEach(btn => btn.addEventListener('click', () => {
         localStorage.setItem('bm_referrer', window.location.href);
-    });
+    }));
 };
 
-$(document).ready(() => {
+window.addEventListener('load', () => {
     NetgenCore.ngLayoutsInit();
 });
