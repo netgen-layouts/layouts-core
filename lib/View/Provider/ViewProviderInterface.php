@@ -18,7 +18,7 @@ interface ViewProviderInterface
      * Provides the view.
      *
      * @param mixed $value
-     * @param array $parameters
+     * @param array<string, mixed> $parameters
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */

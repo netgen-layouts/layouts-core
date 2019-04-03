@@ -634,7 +634,7 @@ final class CollectionHandler implements CollectionHandlerInterface
      * @param int|string $collectionId
      * @param int $status
      *
-     * @return array
+     * @return array<string, mixed>
      */
     private function getPositionHelperItemConditions($collectionId, int $status): array
     {

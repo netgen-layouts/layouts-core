@@ -27,3 +27,4 @@ parameters:
             path: tests/lib/Item/Stubs/ValueConverter.php
 
         - '#Access to an undefined property object::\$id.#'
+        - '#Call to function is_object\(\) with object will always evaluate to true.#'

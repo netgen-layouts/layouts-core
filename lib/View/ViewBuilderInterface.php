@@ -11,7 +11,7 @@ interface ViewBuilderInterface
      *
      * @param mixed $value
      * @param string $context
-     * @param array $parameters
+     * @param array<string, mixed> $parameters
      *
      * @return \Netgen\BlockManager\View\ViewInterface
      */

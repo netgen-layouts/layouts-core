@@ -13,7 +13,7 @@ final class Hydrator
      *
      * @param object $object
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function extract($object): array
     {
@@ -29,7 +29,7 @@ final class Hydrator
     /**
      * Hydrate $object with the provided $data.
      *
-     * @param array $data
+     * @param array<string, mixed> $data
      * @param object $object
      *
      * @return mixed

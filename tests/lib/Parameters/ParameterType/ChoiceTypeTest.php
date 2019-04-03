@@ -30,7 +30,7 @@ final class ChoiceTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ChoiceType::configureOptions
      *
-     * @param array $options
+     * @param array<string, mixed> $options
      * @param bool $required
      * @param mixed $defaultValue
      * @param mixed $expected

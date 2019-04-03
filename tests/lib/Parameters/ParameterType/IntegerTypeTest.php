@@ -29,7 +29,7 @@ final class IntegerTypeTest extends TestCase
     /**
      * @covers \Netgen\BlockManager\Parameters\ParameterType\IntegerType::configureOptions
      *
-     * @param array $options
+     * @param array<string, mixed> $options
      * @param bool $required
      * @param mixed $defaultValue
      * @param mixed $expected

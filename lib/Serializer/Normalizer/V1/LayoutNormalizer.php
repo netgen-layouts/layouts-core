@@ -129,7 +129,7 @@ final class LayoutNormalizer extends Normalizer implements NormalizerInterface
      * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
      * @param \Netgen\BlockManager\Layout\Type\LayoutTypeInterface $layoutType
      *
-     * @return array|bool
+     * @return string[]|bool
      */
     private function getAllowedBlocks(Zone $zone, LayoutTypeInterface $layoutType)
     {

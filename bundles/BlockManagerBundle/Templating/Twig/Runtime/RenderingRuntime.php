@@ -92,9 +92,9 @@ final class RenderingRuntime
     /**
      * Renders the provided value.
      *
-     * @param array $context
+     * @param array<string, mixed> $context
      * @param mixed $value
-     * @param array $parameters
+     * @param array<string, mixed> $parameters
      * @param string $viewContext
      *
      * @return string

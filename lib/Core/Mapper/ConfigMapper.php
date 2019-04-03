@@ -23,7 +23,7 @@ final class ConfigMapper
     /**
      * Maps the provided config array to API values according to provided config definitions.
      *
-     * @param array $config
+     * @param array<string, array<string, mixed>> $config
      * @param \Netgen\BlockManager\Config\ConfigDefinitionInterface[] $configDefinitions
      *
      * @return \Generator
@@ -51,7 +51,7 @@ final class ConfigMapper
      *
      * @param \Netgen\BlockManager\API\Values\ParameterStruct[] $configStructs
      * @param \Netgen\BlockManager\Config\ConfigDefinitionInterface[] $configDefinitions
-     * @param array $fallbackValues
+     * @param array<string, array<string, mixed>> $fallbackValues
      *
      * @return \Generator
      */

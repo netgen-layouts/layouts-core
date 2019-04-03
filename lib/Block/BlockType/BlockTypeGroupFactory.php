@@ -10,7 +10,7 @@ final class BlockTypeGroupFactory
      * Builds the block type group.
      *
      * @param string $identifier
-     * @param array $config
+     * @param array<string, mixed> $config
      * @param \Netgen\BlockManager\Block\BlockType\BlockType[] $blockTypes
      *
      * @return \Netgen\BlockManager\Block\BlockType\BlockTypeGroup

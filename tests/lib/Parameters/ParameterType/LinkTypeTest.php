@@ -128,7 +128,7 @@ final class LinkTypeTest extends TestCase
     /**
      * @param mixed $value
      * @param bool $isRequired
-     * @param array $valueTypes
+     * @param string[] $valueTypes
      * @param bool $isValid
      *
      * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::getRequiredConstraints
@@ -236,8 +236,8 @@ final class LinkTypeTest extends TestCase
     }
 
     /**
-     * @param array $value
-     * @param array $expectedValue
+     * @param array<string, mixed> $value
+     * @param array<string, mixed> $expectedValue
      *
      * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::fromHash
      * @dataProvider fromHashProvider
@@ -422,7 +422,7 @@ final class LinkTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param array  $expectedValue
+     * @param array<string, mixed>  $expectedValue
      *
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::__construct
      * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId

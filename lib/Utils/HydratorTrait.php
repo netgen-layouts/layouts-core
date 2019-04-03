@@ -15,7 +15,7 @@ trait HydratorTrait
      * Creates a new instance of a class on which the method is called
      * and return the object hydrated with provided data.
      *
-     * @param array $data
+     * @param array<string, mixed> $data
      *
      * @return static
      */
@@ -29,7 +29,7 @@ trait HydratorTrait
     /**
      * Hydrates the object instance with provided data.
      *
-     * @param array $data
+     * @param array<string, mixed> $data
      *
      * @return static
      */

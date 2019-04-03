@@ -17,7 +17,7 @@ trait ParameterTypeTestTrait
     /**
      * Returns the parameter under test.
      *
-     * @param array $options
+     * @param array<string, mixed> $options
      * @param bool $required
      * @param mixed $defaultValue
      *

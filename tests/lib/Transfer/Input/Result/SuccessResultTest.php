@@ -24,7 +24,7 @@ final class SuccessResultTest extends TestCase
     {
         $this->entity = new Value();
 
-        $this->result = new SuccessResult('type', ['data'], 42, $this->entity);
+        $this->result = new SuccessResult('type', ['key' => 'value'], 42, $this->entity);
     }
 
     /**
@@ -41,7 +41,7 @@ final class SuccessResultTest extends TestCase
      */
     public function testGetData(): void
     {
-        self::assertSame(['data'], $this->result->getData());
+        self::assertSame(['key' => 'value'], $this->result->getData());
     }
 
     /**

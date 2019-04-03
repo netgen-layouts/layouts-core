@@ -583,7 +583,7 @@ final class BlockHandler implements BlockHandlerInterface
      * @param int $status
      * @param string $placeholder
      *
-     * @return array
+     * @return array<string, mixed>
      */
     private function getPositionHelperConditions($parentId, int $status, string $placeholder): array
     {

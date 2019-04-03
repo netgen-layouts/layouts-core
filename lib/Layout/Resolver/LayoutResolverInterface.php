@@ -32,7 +32,7 @@ interface LayoutResolverInterface
      * If $enabledConditions is not an empty array, only the conditions listed in the array will be enabled.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param array $enabledConditions
+     * @param string[] $enabledConditions
      *
      * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
      */

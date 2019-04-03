@@ -24,7 +24,7 @@ abstract class Controller extends BaseController
      *
      * @param mixed $value
      * @param string $context
-     * @param array $parameters
+     * @param array<string, mixed> $parameters
      * @param \Symfony\Component\HttpFoundation\Response $response
      *
      * @return \Netgen\BlockManager\View\ViewInterface

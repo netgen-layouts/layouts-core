@@ -48,7 +48,7 @@ final class BlockDefinitionFactory
      *
      * @param string $identifier
      * @param \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface $handler
-     * @param array $config
+     * @param array<string, mixed> $config
      * @param \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface[] $configDefinitionHandlers
      *
      * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
@@ -74,7 +74,7 @@ final class BlockDefinitionFactory
      *
      * @param string $identifier
      * @param \Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface $handler
-     * @param array $config
+     * @param array<string, mixed> $config
      * @param \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface[] $configDefinitionHandlers
      *
      * @return \Netgen\BlockManager\Block\TwigBlockDefinitionInterface
@@ -100,7 +100,7 @@ final class BlockDefinitionFactory
      *
      * @param string $identifier
      * @param \Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandlerInterface $handler
-     * @param array $config
+     * @param array<string, mixed> $config
      * @param \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface[] $configDefinitionHandlers
      *
      * @return \Netgen\BlockManager\Block\ContainerDefinitionInterface
@@ -126,10 +126,10 @@ final class BlockDefinitionFactory
      *
      * @param string $identifier
      * @param \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface $handler
-     * @param array $config
+     * @param array<string, mixed> $config
      * @param \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface[] $configDefinitionHandlers
      *
-     * @return array
+     * @return array<string, mixed>
      */
     private function getCommonBlockDefinitionData(
         string $identifier,

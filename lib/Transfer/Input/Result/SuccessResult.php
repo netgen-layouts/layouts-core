@@ -30,7 +30,7 @@ final class SuccessResult implements ResultInterface
 
     /**
      * @param string $entityType
-     * @param array $data
+     * @param array<string, mixed> $data
      * @param int|string $entityId
      * @param \Netgen\BlockManager\API\Values\Value $entity
      */

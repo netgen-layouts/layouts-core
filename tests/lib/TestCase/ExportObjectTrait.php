@@ -12,7 +12,7 @@ trait ExportObjectTrait
      * @param object $object
      * @param bool $recursive
      *
-     * @return array
+     * @return array<string, mixed>
      */
     private function exportObject($object, bool $recursive = false): array
     {
@@ -26,7 +26,7 @@ trait ExportObjectTrait
     }
 
     /**
-     * @param mixed[] $objects
+     * @param object[] $objects
      * @param bool $recursive
      *
      * @return array
