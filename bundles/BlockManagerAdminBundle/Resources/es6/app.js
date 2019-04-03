@@ -1,3 +1,4 @@
+import 'whatwg-fetch';
 import './helpers/closestPolyfill';
 import NetgenCore from '@netgen/layouts-ui-core';
 import NlLayouts from './components/layouts';
