@@ -176,8 +176,6 @@ trait LegacyTestCaseTrait
     }
 
     /**
-     * Note: The method is implemented in PHPUnit 8.1.
-     *
      * @param mixed $needle
      * @param iterable $haystack
      * @param string $message
@@ -196,8 +194,6 @@ trait LegacyTestCaseTrait
     }
 
     /**
-     * Note: The method is implemented in PHPUnit 8.1.
-     *
      * @param mixed $needle
      * @param iterable $haystack
      * @param string $message
