@@ -14,7 +14,7 @@ abstract class NodeTest extends NodeTestCase
         $line = $lineNo > 0 ? "// line {$lineNo}\n" : '';
 
         if (Environment::VERSION_ID >= 20000) {
-            return sprintf('%s(isset($context["%s"]) || array_key_exists("%s", $context) ? $context["%s"] : (function () { throw new Twig_Error_Runtime(\'Variable "%s" does not exist.\', 1, $this->source); })())', $line, $name, $name, $name, $name);
+            return sprintf('%s(isset($context["%s"]) || array_key_exists("%s", $context) ? $context["%s"] : (function () { throw new RuntimeError(\'Variable "%s" does not exist.\', 1, $this->source); })())', $line, $name, $name, $name, $name);
         }
 
         return sprintf('%s($context["%s"] ?? $this->getContext($context, "%s"))', $line, $name, $name);
