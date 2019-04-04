@@ -10,14 +10,18 @@ parameters:
 
     ignoreErrors:
         # Doctrine DBAL
-        - '#Cannot call method fetchAll\(\) on Doctrine\\DBAL\\Driver\\Statement\|int#'
+        -
+            message: '#Cannot call method fetchAll\(\) on Doctrine\\DBAL\\Driver\\Statement\|int#'
+            path: tests/lib/Persistence/Doctrine/Helper/PositionHelperTest.php
 
         -
             message: '#Call to function method_exists#'
             path: tests/lib/TestCase/LegacyTestCaseTrait.php
+
         -
             message: '#Parameter \#\d+ \$object of method Netgen\\BlockManager\\Utils\\Hydrator::\w+\(\) expects object, string given\.#'
             path: tests/lib/Utils/HydratorTest.php
+
         -
             message: '#should be contravariant with parameter \$object#'
             path: tests/lib/Item/Stubs/UnsupportedValueConverter.php
@@ -26,5 +30,8 @@ parameters:
             message: '#should be contravariant with parameter \$object#'
             path: tests/lib/Item/Stubs/ValueConverter.php
 
+        -
+            message: '#Call to function is_object\(\) with object will always evaluate to true.#'
+            path: tests/lib/TestCase/ExportObjectTrait.php
+
         - '#Access to an undefined property object::\$id.#'
-        - '#Call to function is_object\(\) with object will always evaluate to true.#'
