@@ -28,7 +28,7 @@ final class QueryEditType extends AbstractType
         $resolver->setAllowedTypes('query', Query::class);
         $resolver->setAllowedTypes('data', QueryUpdateStruct::class);
 
-        $resolver->setDefault('constraints', function (Options $options): array {
+        $resolver->setDefault('constraints', static function (Options $options): array {
             return [
                 new QueryUpdateStructConstraint(
                     [

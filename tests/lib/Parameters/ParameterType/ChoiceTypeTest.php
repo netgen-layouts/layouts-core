@@ -69,7 +69,7 @@ final class ChoiceTypeTest extends TestCase
      */
     public function defaultValueProvider(): array
     {
-        $optionsClosure = function (): array {
+        $optionsClosure = static function (): array {
             return ['Option' => 'option'];
         };
 
@@ -90,7 +90,7 @@ final class ChoiceTypeTest extends TestCase
      */
     public function validOptionsProvider(): array
     {
-        $closure = function (): void {};
+        $closure = static function (): void {};
 
         return [
             [
@@ -260,7 +260,7 @@ final class ChoiceTypeTest extends TestCase
      */
     public function testValidationWithClosure($value, bool $isValid): void
     {
-        $closure = function (): array {
+        $closure = static function (): array {
             return ['One' => 1, 'Two' => 2];
         };
 

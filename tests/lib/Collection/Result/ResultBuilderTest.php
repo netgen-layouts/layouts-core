@@ -221,7 +221,7 @@ final class ResultBuilderTest extends TestCase
     private function buildQueryValues(array $ids = []): array
     {
         return array_map(
-            function ($id): Value {
+            static function ($id): Value {
                 return new Value($id, '');
             },
             $ids

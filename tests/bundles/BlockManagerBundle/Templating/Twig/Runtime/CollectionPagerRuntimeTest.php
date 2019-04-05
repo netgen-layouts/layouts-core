@@ -30,7 +30,7 @@ final class CollectionPagerRuntimeTest extends TestCase
 
     public function setUp(): void
     {
-        $this->routeGenerator = function (Block $block, string $collectionIdentifier, int $page): string {
+        $this->routeGenerator = static function (Block $block, string $collectionIdentifier, int $page): string {
             return '/generated/uri' . '?page=' . $page;
         };
 

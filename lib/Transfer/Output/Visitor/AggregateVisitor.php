@@ -28,7 +28,7 @@ final class AggregateVisitor implements VisitorInterface
     {
         $this->visitors = array_filter(
             $visitors,
-            function (VisitorInterface $visitor): bool {
+            static function (VisitorInterface $visitor): bool {
                 return true;
             }
         );

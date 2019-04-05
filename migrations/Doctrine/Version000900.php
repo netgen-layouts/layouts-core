@@ -181,7 +181,7 @@ EOT
         return $io->ask(
             'Please input the default locale for existing layouts',
             '',
-            function (string $locale): string {
+            static function (string $locale): string {
                 if (Intl::getLocaleBundle()->getLocaleName($locale) === null) {
                     throw new RuntimeException('Specified locale is not valid');
                 }

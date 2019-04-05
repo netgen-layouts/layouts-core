@@ -392,7 +392,7 @@ final class ParameterBuilderTest extends TestCase
      */
     public function testGetSetConstraints(): void
     {
-        $constraints = [new NotBlank(), function (): void {}];
+        $constraints = [new NotBlank(), static function (): void {}];
 
         $this->builder->add(
             'test',
@@ -810,7 +810,7 @@ final class ParameterBuilderTest extends TestCase
      */
     public function testBuildParameterDefinitions(): void
     {
-        $constraints = [new NotBlank(), function (): void {}];
+        $constraints = [new NotBlank(), static function (): void {}];
 
         $this->builder->add(
             'test',

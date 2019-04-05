@@ -57,7 +57,7 @@ final class ManualCollectionRunnerTest extends TestCase
         self::assertSame($totalCount, $collectionRunner->count($collection));
 
         $result = array_map(
-            function (Result $result) {
+            static function (Result $result) {
                 return $result->getItem()->getValue();
             },
             iterator_to_array($collectionRunner->runCollection($collection, $offset, $limit, $flags))

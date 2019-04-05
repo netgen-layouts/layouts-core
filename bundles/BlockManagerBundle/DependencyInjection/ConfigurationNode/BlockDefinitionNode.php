@@ -35,9 +35,11 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                     ->scalarNode('icon')
                         ->defaultValue(null)
                         ->validate()
-                            ->ifTrue(function ($v): bool {
-                                return !($v === null || (is_string($v) && $v !== ''));
-                            })
+                            ->ifTrue(
+                                static function ($v): bool {
+                                    return !($v === null || (is_string($v) && $v !== ''));
+                                }
+                            )
                             ->thenInvalid('Icon path needs to be a non empty string or null.')
                         ->end()
                     ->end()
@@ -49,50 +51,60 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                             ->arrayNode('default')
                                 ->addDefaultsIfNotSet()
                                 ->validate()
-                                    ->ifTrue(function (array $v): bool {
-                                        if (!isset($v['valid_item_types'], $v['valid_query_types'])) {
-                                            return false;
-                                        }
+                                    ->ifTrue(
+                                        static function (array $v): bool {
+                                            if (!isset($v['valid_item_types'], $v['valid_query_types'])) {
+                                                return false;
+                                            }
 
-                                        return $v['valid_item_types'] === [] && $v['valid_query_types'] === [];
-                                    })
+                                            return $v['valid_item_types'] === [] && $v['valid_query_types'] === [];
+                                        }
+                                    )
                                     ->thenInvalid('Collections need to allow at least one item type or at least one query type.')
                                 ->end()
                                 ->children()
                                     ->variableNode('valid_item_types')
                                         ->defaultNull()
                                         ->validate()
-                                            ->ifTrue(function ($v): bool {
-                                                return $v !== null && !is_array($v);
-                                            })
+                                            ->ifTrue(
+                                                static function ($v): bool {
+                                                    return $v !== null && !is_array($v);
+                                                }
+                                            )
                                             ->thenInvalid('The value should be null or an array')
                                         ->end()
                                         ->validate()
-                                            ->always(function ($v) {
-                                                if (is_array($v)) {
-                                                    return array_values(array_unique($v));
-                                                }
+                                            ->always(
+                                                static function ($v) {
+                                                    if (is_array($v)) {
+                                                        return array_values(array_unique($v));
+                                                    }
 
-                                                return $v;
-                                            })
+                                                    return $v;
+                                                }
+                                            )
                                         ->end()
                                     ->end()
                                     ->variableNode('valid_query_types')
                                         ->defaultNull()
                                         ->validate()
-                                            ->ifTrue(function ($v): bool {
-                                                return $v !== null && !is_array($v);
-                                            })
+                                            ->ifTrue(
+                                                static function ($v): bool {
+                                                    return $v !== null && !is_array($v);
+                                                }
+                                            )
                                             ->thenInvalid('The value should be null or an array')
                                         ->end()
                                         ->validate()
-                                            ->always(function ($v) {
-                                                if (is_array($v)) {
-                                                    return array_values(array_unique($v));
-                                                }
+                                            ->always(
+                                                static function ($v) {
+                                                    if (is_array($v)) {
+                                                        return array_values(array_unique($v));
+                                                    }
 
-                                                return $v;
-                                            })
+                                                    return $v;
+                                                }
+                                            )
                                         ->end()
                                     ->end()
                                 ->end()
@@ -102,25 +114,27 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                     ->arrayNode('forms')
                         ->addDefaultsIfNotSet()
                         ->validate()
-                            ->always(function (array $v): array {
-                                $exception = new InvalidConfigurationException('Block definition must either have a full form or content and design forms.');
+                            ->always(
+                                static function (array $v): array {
+                                    $exception = new InvalidConfigurationException('Block definition must either have a full form or content and design forms.');
 
-                                if ($v['full']['enabled'] && ($v['design']['enabled'] || $v['content']['enabled'])) {
-                                    throw $exception;
-                                }
-
-                                if (!$v['full']['enabled']) {
-                                    if ($v['design']['enabled'] && !$v['content']['enabled']) {
+                                    if ($v['full']['enabled'] && ($v['design']['enabled'] || $v['content']['enabled'])) {
                                         throw $exception;
                                     }
 
-                                    if (!$v['design']['enabled'] && $v['content']['enabled']) {
-                                        throw $exception;
-                                    }
-                                }
+                                    if (!$v['full']['enabled']) {
+                                        if ($v['design']['enabled'] && !$v['content']['enabled']) {
+                                            throw $exception;
+                                        }
 
-                                return $v;
-                            })
+                                        if (!$v['design']['enabled'] && $v['content']['enabled']) {
+                                            throw $exception;
+                                        }
+                                    }
+
+                                    return $v;
+                                }
+                            )
                         ->end()
                         ->children()
                             ->arrayNode('full')
@@ -165,17 +179,21 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                         ->prototype('array')
                             ->canBeDisabled()
                             ->validate()
-                                ->ifTrue(function (array $v): bool {
-                                    return $v['enabled'] !== true;
-                                })
-                                ->then(function (array $v): array {
-                                    return [
-                                        'name' => 'Disabled',
-                                        'enabled' => false,
-                                        'item_view_types' => [],
-                                        'valid_parameters' => null,
-                                    ];
-                                })
+                                ->ifTrue(
+                                    static function (array $v): bool {
+                                        return $v['enabled'] !== true;
+                                    }
+                                )
+                                ->then(
+                                    static function (array $v): array {
+                                        return [
+                                            'name' => 'Disabled',
+                                            'enabled' => false,
+                                            'item_view_types' => [],
+                                            'valid_parameters' => null,
+                                        ];
+                                    }
+                                )
                             ->end()
                             ->children()
                                 ->scalarNode('name')
@@ -189,21 +207,27 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                                     ->prototype('array')
                                         ->canBeDisabled()
                                         ->validate()
-                                            ->ifTrue(function (array $v): bool {
-                                                return $v['enabled'] === true && !isset($v['name']);
-                                            })
+                                            ->ifTrue(
+                                                static function (array $v): bool {
+                                                    return $v['enabled'] === true && !isset($v['name']);
+                                                }
+                                            )
                                             ->thenInvalid('Item view type name must be specified')
                                         ->end()
                                         ->validate()
-                                            ->ifTrue(function (array $v): bool {
-                                                return $v['enabled'] !== true;
-                                            })
-                                            ->then(function (array $v): array {
-                                                return [
-                                                    'name' => 'Disabled',
-                                                    'enabled' => false,
-                                                ];
-                                            })
+                                            ->ifTrue(
+                                                static function (array $v): bool {
+                                                    return $v['enabled'] !== true;
+                                                }
+                                            )
+                                            ->then(
+                                                static function (array $v): array {
+                                                    return [
+                                                        'name' => 'Disabled',
+                                                        'enabled' => false,
+                                                    ];
+                                                }
+                                            )
                                         ->end()
                                         ->children()
                                             ->scalarNode('name')
@@ -215,19 +239,23 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                                 ->variableNode('valid_parameters')
                                     ->defaultNull()
                                     ->validate()
-                                        ->ifTrue(function ($v): bool {
-                                            return $v !== null && !is_array($v);
-                                        })
+                                        ->ifTrue(
+                                            static function ($v): bool {
+                                                return $v !== null && !is_array($v);
+                                            }
+                                        )
                                         ->thenInvalid('The value should be null or an array')
                                     ->end()
                                     ->validate()
-                                        ->always(function ($v) {
-                                            if (is_array($v)) {
-                                                return array_values(array_unique($v));
-                                            }
+                                        ->always(
+                                            static function ($v) {
+                                                if (is_array($v)) {
+                                                    return array_values(array_unique($v));
+                                                }
 
-                                            return $v;
-                                        })
+                                                return $v;
+                                            }
+                                        )
                                     ->end()
                                 ->end()
                             ->end()

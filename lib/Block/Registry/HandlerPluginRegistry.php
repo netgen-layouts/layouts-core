@@ -20,7 +20,7 @@ final class HandlerPluginRegistry implements HandlerPluginRegistryInterface
     {
         $this->handlerPlugins = array_filter(
             $handlerPlugins,
-            function (PluginInterface $handlerPlugin): bool {
+            static function (PluginInterface $handlerPlugin): bool {
                 return true;
             }
         );
@@ -31,7 +31,7 @@ final class HandlerPluginRegistry implements HandlerPluginRegistryInterface
         return array_values(
             array_filter(
                 $this->handlerPlugins,
-                function (PluginInterface $plugin) use ($handlerClass): bool {
+                static function (PluginInterface $plugin) use ($handlerClass): bool {
                     $extendedHandlers = $plugin::getExtendedHandlers();
                     foreach ($extendedHandlers as $extendedHandler) {
                         if (is_a($handlerClass, $extendedHandler, true)) {

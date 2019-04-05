@@ -158,7 +158,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
             ->expects(self::any())
             ->method('renderValue')
             ->willReturnCallback(
-                function (ZoneReference $zoneReference, string $context): string {
+                static function (ZoneReference $zoneReference, string $context): string {
                     if ($context === 'json') {
                         return '{"blocks":[{"id":1},{"id":2}]}';
                     }

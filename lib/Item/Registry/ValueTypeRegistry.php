@@ -24,7 +24,7 @@ final class ValueTypeRegistry implements ValueTypeRegistryInterface
     {
         $this->valueTypes = array_filter(
             $valueTypes,
-            function (ValueType $valueType): bool {
+            static function (ValueType $valueType): bool {
                 return true;
             }
         );
@@ -52,7 +52,7 @@ final class ValueTypeRegistry implements ValueTypeRegistryInterface
 
         return array_filter(
             $this->valueTypes,
-            function (ValueType $valueType): bool {
+            static function (ValueType $valueType): bool {
                 return $valueType->isEnabled();
             }
         );

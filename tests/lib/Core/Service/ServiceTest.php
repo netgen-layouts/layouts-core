@@ -51,7 +51,7 @@ final class ServiceTest extends TestCase
             ->method('commitTransaction');
 
         $return = $this->service->transaction(
-            function (): int {
+            static function (): int {
                 return 42;
             }
         );
@@ -80,7 +80,7 @@ final class ServiceTest extends TestCase
             ->method('commitTransaction');
 
         $this->service->transaction(
-            function (): void {
+            static function (): void {
                 throw new RuntimeException('Test exception');
             }
         );

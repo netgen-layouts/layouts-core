@@ -28,9 +28,11 @@ final class LayoutTypeNode implements ConfigurationNodeInterface
                     ->scalarNode('icon')
                         ->defaultValue(null)
                         ->validate()
-                            ->ifTrue(function ($v): bool {
-                                return !($v === null || (is_string($v) && $v !== ''));
-                            })
+                            ->ifTrue(
+                                static function ($v): bool {
+                                    return !($v === null || (is_string($v) && $v !== ''));
+                                }
+                            )
                             ->thenInvalid('Icon path needs to be a non empty string or null.')
                         ->end()
                     ->end()
@@ -46,9 +48,11 @@ final class LayoutTypeNode implements ConfigurationNodeInterface
                                 ->end()
                                 ->arrayNode('allowed_block_definitions')
                                     ->validate()
-                                        ->always(function (array $v): array {
-                                            return array_values(array_unique($v));
-                                        })
+                                        ->always(
+                                            static function (array $v): array {
+                                                return array_values(array_unique($v));
+                                            }
+                                        )
                                     ->end()
                                     ->requiresAtLeastOneElement()
                                     ->prototype('scalar')

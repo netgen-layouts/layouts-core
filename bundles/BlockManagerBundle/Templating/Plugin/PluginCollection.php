@@ -22,7 +22,7 @@ final class PluginCollection
 
         $this->plugins = array_filter(
             $plugins,
-            function (PluginInterface $plugin): bool {
+            static function (PluginInterface $plugin): bool {
                 return true;
             }
         );

@@ -27,9 +27,11 @@ final class BlockTypeGroupNode implements ConfigurationNodeInterface
                     ->end()
                     ->arrayNode('block_types')
                         ->validate()
-                            ->always(function (array $v): array {
-                                return array_values(array_unique($v));
-                            })
+                            ->always(
+                                static function (array $v): array {
+                                    return array_values(array_unique($v));
+                                }
+                            )
                         ->end()
                         ->requiresAtLeastOneElement()
                         ->prototype('scalar')

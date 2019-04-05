@@ -32,7 +32,7 @@ final class MainMenuBuilderTest extends TestCase
             ->expects(self::any())
             ->method('generate')
             ->willReturnCallback(
-                function (string $route): string {
+                static function (string $route): string {
                     return $route;
                 }
             );

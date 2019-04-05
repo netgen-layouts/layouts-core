@@ -40,7 +40,7 @@ final class CollectionMapper
 
         return array_values(
             array_map(
-                function (array $collectionData): Collection {
+                static function (array $collectionData): Collection {
                     sort($collectionData['availableLocales']);
 
                     return Collection::fromArray($collectionData);
@@ -102,7 +102,7 @@ final class CollectionMapper
 
         $queries = array_values(
             array_map(
-                function (array $queryData): Query {
+                static function (array $queryData): Query {
                     ksort($queryData['parameters']);
                     sort($queryData['availableLocales']);
 

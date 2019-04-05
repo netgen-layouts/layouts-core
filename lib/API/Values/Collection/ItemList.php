@@ -13,7 +13,7 @@ final class ItemList extends ArrayCollection
         parent::__construct(
             array_filter(
                 $items,
-                function (Item $item) {
+                static function (Item $item) {
                     return true;
                 }
             )
@@ -34,7 +34,7 @@ final class ItemList extends ArrayCollection
     public function getItemIds(): array
     {
         return array_map(
-            function (Item $item) {
+            static function (Item $item) {
                 return $item->getId();
             },
             $this->getItems()

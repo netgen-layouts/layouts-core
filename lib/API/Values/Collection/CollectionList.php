@@ -13,7 +13,7 @@ final class CollectionList extends ArrayCollection
         parent::__construct(
             array_filter(
                 $collections,
-                function (Collection $collection) {
+                static function (Collection $collection) {
                     return true;
                 }
             )
@@ -34,7 +34,7 @@ final class CollectionList extends ArrayCollection
     public function getCollectionIds(): array
     {
         return array_map(
-            function (Collection $collection) {
+            static function (Collection $collection) {
                 return $collection->getId();
             },
             $this->getCollections()

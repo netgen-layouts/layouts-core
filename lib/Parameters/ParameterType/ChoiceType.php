@@ -33,7 +33,7 @@ final class ChoiceType extends ParameterType
 
         $optionsResolver->setAllowedValues(
             'options',
-            function ($value): bool {
+            static function ($value): bool {
                 if (is_callable($value)) {
                     return true;
                 }
@@ -44,7 +44,7 @@ final class ChoiceType extends ParameterType
 
         $optionsResolver->setDefault(
             'default_value',
-            function (Options $options, $previousValue) {
+            static function (Options $options, $previousValue) {
                 if ($options['required'] === true && !is_callable($options['options']) && count($options['options']) > 0) {
                     $defaultValue = array_values($options['options'])[0];
 

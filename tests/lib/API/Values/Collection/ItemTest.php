@@ -39,7 +39,7 @@ final class ItemTest extends TestCase
                 'definition' => $definition,
                 'position' => 3,
                 'value' => 32,
-                'cmsItem' => function () use ($cmsItem): CmsItemInterface {
+                'cmsItem' => static function () use ($cmsItem): CmsItemInterface {
                     return $cmsItem;
                 },
             ]

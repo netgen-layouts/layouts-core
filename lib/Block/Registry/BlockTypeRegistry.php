@@ -24,7 +24,7 @@ final class BlockTypeRegistry implements BlockTypeRegistryInterface
     {
         $this->blockTypes = array_filter(
             $blockTypes,
-            function (BlockType $blockType): bool {
+            static function (BlockType $blockType): bool {
                 return true;
             }
         );
@@ -52,7 +52,7 @@ final class BlockTypeRegistry implements BlockTypeRegistryInterface
 
         return array_filter(
             $this->blockTypes,
-            function (BlockType $blockType): bool {
+            static function (BlockType $blockType): bool {
                 return $blockType->isEnabled();
             }
         );

@@ -20,7 +20,7 @@ final class CmsItemBuilder implements CmsItemBuilderInterface
     {
         $this->valueConverters = array_filter(
             $valueConverters,
-            function (ValueConverterInterface $valueConverter): bool {
+            static function (ValueConverterInterface $valueConverter): bool {
                 return true;
             }
         );

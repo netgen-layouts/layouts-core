@@ -32,7 +32,7 @@ final class IntegerType extends ParameterType
 
         $optionsResolver->setNormalizer(
             'max',
-            function (Options $options, ?int $value): ?int {
+            static function (Options $options, ?int $value): ?int {
                 if ($value === null || $options['min'] === null) {
                     return $value;
                 }
@@ -47,7 +47,7 @@ final class IntegerType extends ParameterType
 
         $optionsResolver->setDefault(
             'default_value',
-            function (Options $options, $previousValue) {
+            static function (Options $options, $previousValue) {
                 if ($options['required'] === true) {
                     return $options['min'];
                 }

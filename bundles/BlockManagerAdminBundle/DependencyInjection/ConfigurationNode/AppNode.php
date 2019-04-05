@@ -22,9 +22,11 @@ final class AppNode implements ConfigurationNodeInterface
                     ->prototype('scalar')
                         ->cannotBeEmpty()
                         ->validate()
-                            ->ifTrue(function ($v): bool {
-                                return !is_string($v);
-                            })
+                            ->ifTrue(
+                                static function ($v): bool {
+                                    return !is_string($v);
+                                }
+                            )
                             ->thenInvalid('The value should be a string')
                         ->end()
                     ->end()
@@ -33,9 +35,11 @@ final class AppNode implements ConfigurationNodeInterface
                     ->prototype('scalar')
                         ->cannotBeEmpty()
                         ->validate()
-                            ->ifTrue(function ($v): bool {
-                                return !is_string($v);
-                            })
+                            ->ifTrue(
+                                static function ($v): bool {
+                                    return !is_string($v);
+                                }
+                            )
                             ->thenInvalid('The value should be a string')
                         ->end()
                     ->end()

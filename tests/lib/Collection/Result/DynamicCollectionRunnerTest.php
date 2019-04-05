@@ -33,7 +33,7 @@ final class DynamicCollectionRunnerTest extends TestCase
             ->expects(self::any())
             ->method('build')
             ->willReturnCallback(
-                function ($value): CmsItemInterface {
+                static function ($value): CmsItemInterface {
                     return CmsItem::fromArray(['value' => $value, 'isVisible' => true]);
                 }
             );
@@ -81,7 +81,7 @@ final class DynamicCollectionRunnerTest extends TestCase
         self::assertSame($totalCount, $collectionRunner->count($collection));
 
         $result = array_map(
-            function (Result $result) {
+            static function (Result $result) {
                 return $result->getItem()->getValue();
             },
             iterator_to_array($collectionRunner->runCollection($collection, $offset, $limit))

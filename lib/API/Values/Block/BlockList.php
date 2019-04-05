@@ -13,7 +13,7 @@ final class BlockList extends ArrayCollection
         parent::__construct(
             array_filter(
                 $blocks,
-                function (Block $block) {
+                static function (Block $block) {
                     return true;
                 }
             )
@@ -34,7 +34,7 @@ final class BlockList extends ArrayCollection
     public function getBlockIds(): array
     {
         return array_map(
-            function (Block $block) {
+            static function (Block $block) {
                 return $block->getId();
             },
             $this->getBlocks()

@@ -19,7 +19,7 @@ final class DynamicParametersTest extends TestCase
         $this->dynamicParams = new DynamicParameters();
 
         $this->dynamicParams['test'] = 'some_value';
-        $this->dynamicParams['closure'] = function (): string {
+        $this->dynamicParams['closure'] = static function (): string {
             return 'closure_value';
         };
     }
@@ -59,7 +59,7 @@ final class DynamicParametersTest extends TestCase
     {
         $this->dynamicParams['new'] = 'new_value';
         $this->dynamicParams['test'] = 'value2';
-        $this->dynamicParams['closure'] = function (): string {
+        $this->dynamicParams['closure'] = static function (): string {
             return 'closure_value2';
         };
 

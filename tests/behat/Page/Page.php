@@ -237,7 +237,7 @@ abstract class Page
         }
 
         array_map(
-            function (string $definedElement) use ($parameters): string {
+            static function (string $definedElement) use ($parameters): string {
                 return strtr($definedElement, $parameters);
             },
             $definedElements[$name]

@@ -99,6 +99,7 @@ final class BlockMapper
             throw new NotFoundException('block', $block->id);
         }
 
+        /** @var string $blockLocale */
         $blockLocale = array_values($validLocales)[0];
         $untranslatableParams = iterator_to_array(
             $this->parameterMapper->extractUntranslatableParameters(

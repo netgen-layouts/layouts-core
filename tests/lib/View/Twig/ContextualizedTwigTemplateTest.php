@@ -43,7 +43,7 @@ final class ContextualizedTwigTemplateTest extends TestCase
             ->method('displayBlock')
             ->with(self::identicalTo('block_name'))
             ->willReturnCallback(
-                function (string $blockName): void {
+                static function (string $blockName): void {
                     echo 'rendered';
                 }
             );

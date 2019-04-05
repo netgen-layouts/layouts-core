@@ -28,7 +28,7 @@ final class CmsItemLoader implements CmsItemLoaderInterface
 
         $this->valueLoaders = array_filter(
             $valueLoaders,
-            function (ValueLoaderInterface $valueLoader): bool {
+            static function (ValueLoaderInterface $valueLoader): bool {
                 return true;
             }
         );

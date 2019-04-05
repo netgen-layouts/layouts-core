@@ -48,7 +48,7 @@ final class ItemLinkType extends ParameterType
         // @deprecated Replace with "string[]" allowed type when support for Symfony 2.8 ends
         $optionsResolver->setAllowedValues(
             'value_types',
-            function (array $valueTypes): bool {
+            static function (array $valueTypes): bool {
                 foreach ($valueTypes as $valueType) {
                     if (!is_string($valueType)) {
                         return false;

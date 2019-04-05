@@ -58,7 +58,7 @@ final class LayoutResolver implements LayoutResolverInterface
         return array_values(
             array_filter(
                 $resolvedRules,
-                function (Rule $rule): bool {
+                static function (Rule $rule): bool {
                     return $rule->getLayout() instanceof Layout;
                 }
             )
@@ -113,7 +113,7 @@ final class LayoutResolver implements LayoutResolverInterface
 
         usort(
             $resolvedRules,
-            function (Rule $a, Rule $b): int {
+            static function (Rule $a, Rule $b): int {
                 return $b->getPriority() <=> $a->getPriority();
             }
         );

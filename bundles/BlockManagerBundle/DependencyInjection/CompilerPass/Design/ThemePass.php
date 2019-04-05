@@ -45,7 +45,7 @@ final class ThemePass implements CompilerPassInterface
     private function getThemeDirs(ContainerBuilder $container, array $themeList): array
     {
         $paths = array_map(
-            function (array $bundleMetadata): string {
+            static function (array $bundleMetadata): string {
                 return $bundleMetadata['path'] . '/Resources/views/ngbm/themes';
             },
             // Reversing the list of bundles so bundles added at end have higher priority

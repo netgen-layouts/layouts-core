@@ -22,19 +22,21 @@ final class BlockTypeNode implements ConfigurationNodeInterface
             ->prototype('array')
                 ->canBeDisabled()
                 ->validate()
-                    ->always(function (array $v): array {
-                        if (isset($v['enabled']) && !$v['enabled']) {
+                    ->always(
+                        static function (array $v): array {
+                            if (isset($v['enabled']) && !$v['enabled']) {
+                                return $v;
+                            }
+
+                            if (isset($v['definition_identifier']) && !isset($v['name'])) {
+                                throw new InvalidConfigurationException(
+                                    'You must specify block type name if you specify block definition'
+                                );
+                            }
+
                             return $v;
                         }
-
-                        if (isset($v['definition_identifier']) && !isset($v['name'])) {
-                            throw new InvalidConfigurationException(
-                                'You must specify block type name if you specify block definition'
-                            );
-                        }
-
-                        return $v;
-                    })
+                    )
                 ->end()
                 ->children()
                     ->scalarNode('name')
@@ -43,9 +45,11 @@ final class BlockTypeNode implements ConfigurationNodeInterface
                     ->scalarNode('icon')
                         ->defaultValue(null)
                         ->validate()
-                            ->ifTrue(function ($v): bool {
-                                return !($v === null || (is_string($v) && $v !== ''));
-                            })
+                            ->ifTrue(
+                                static function ($v): bool {
+                                    return !($v === null || (is_string($v) && $v !== ''));
+                                }
+                            )
                             ->thenInvalid('Icon path needs to be a non empty string or null.')
                         ->end()
                     ->end()

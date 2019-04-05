@@ -28,7 +28,7 @@ final class ParametersType extends AbstractType
     {
         $this->mappers = array_filter(
             $mappers,
-            function (MapperInterface $mapper): bool {
+            static function (MapperInterface $mapper): bool {
                 return true;
             }
         );
@@ -54,7 +54,7 @@ final class ParametersType extends AbstractType
         // @deprecated Replace with "string[]" allowed type when support for Symfony 2.8 ends
         $resolver->setAllowedValues(
             'groups',
-            function (array $groups): bool {
+            static function (array $groups): bool {
                 foreach ($groups as $group) {
                     if (!is_string($group)) {
                         return false;

@@ -120,7 +120,7 @@ final class Collection implements Value
     public function hasItem(int $position): bool
     {
         return $this->items->exists(
-            function ($key, APIItem $item) use ($position): bool {
+            static function ($key, APIItem $item) use ($position): bool {
                 return $item->getPosition() === $position;
             }
         );

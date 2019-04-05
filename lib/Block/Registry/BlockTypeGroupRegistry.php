@@ -24,7 +24,7 @@ final class BlockTypeGroupRegistry implements BlockTypeGroupRegistryInterface
     {
         $this->blockTypeGroups = array_filter(
             $blockTypeGroups,
-            function (BlockTypeGroup $blockTypeGroup): bool {
+            static function (BlockTypeGroup $blockTypeGroup): bool {
                 return true;
             }
         );
@@ -52,7 +52,7 @@ final class BlockTypeGroupRegistry implements BlockTypeGroupRegistryInterface
 
         return array_filter(
             $this->blockTypeGroups,
-            function (BlockTypeGroup $blockTypeGroup): bool {
+            static function (BlockTypeGroup $blockTypeGroup): bool {
                 return $blockTypeGroup->isEnabled();
             }
         );

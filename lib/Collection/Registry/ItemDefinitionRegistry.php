@@ -24,7 +24,7 @@ final class ItemDefinitionRegistry implements ItemDefinitionRegistryInterface
     {
         $this->itemDefinitions = array_filter(
             $itemDefinitions,
-            function (ItemDefinitionInterface $itemDefinition): bool {
+            static function (ItemDefinitionInterface $itemDefinition): bool {
                 return true;
             }
         );

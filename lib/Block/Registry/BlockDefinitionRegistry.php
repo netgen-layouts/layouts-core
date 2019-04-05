@@ -24,7 +24,7 @@ final class BlockDefinitionRegistry implements BlockDefinitionRegistryInterface
     {
         $this->blockDefinitions = array_filter(
             $blockDefinitions,
-            function (BlockDefinitionInterface $blockDefinition): bool {
+            static function (BlockDefinitionInterface $blockDefinition): bool {
                 return true;
             }
         );

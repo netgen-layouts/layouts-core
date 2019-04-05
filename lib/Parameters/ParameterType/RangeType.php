@@ -30,7 +30,7 @@ final class RangeType extends ParameterType
 
         $optionsResolver->setNormalizer(
             'max',
-            function (Options $options, int $value): int {
+            static function (Options $options, int $value): int {
                 if ($value < $options['min']) {
                     return $options['min'];
                 }
@@ -41,7 +41,7 @@ final class RangeType extends ParameterType
 
         $optionsResolver->setDefault(
             'default_value',
-            function (Options $options, $previousValue) {
+            static function (Options $options, $previousValue) {
                 if ($options['required'] === true) {
                     return $options['min'];
                 }

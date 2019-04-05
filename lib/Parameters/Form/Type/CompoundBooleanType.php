@@ -35,7 +35,7 @@ final class CompoundBooleanType extends AbstractType
     {
         $builder->addEventListener(
             FormEvents::PRE_SUBMIT,
-            function (FormEvent $event) use ($options): void {
+            static function (FormEvent $event) use ($options): void {
                 $data = $event->getData();
 
                 if (!is_array($data) || count($data) === 0) {

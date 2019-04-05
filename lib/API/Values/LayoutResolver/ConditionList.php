@@ -13,7 +13,7 @@ final class ConditionList extends ArrayCollection
         parent::__construct(
             array_filter(
                 $conditions,
-                function (Condition $condition) {
+                static function (Condition $condition) {
                     return true;
                 }
             )
@@ -34,7 +34,7 @@ final class ConditionList extends ArrayCollection
     public function getConditionIds(): array
     {
         return array_map(
-            function (Condition $condition) {
+            static function (Condition $condition) {
                 return $condition->getId();
             },
             $this->getConditions()

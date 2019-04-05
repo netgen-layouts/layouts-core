@@ -200,7 +200,7 @@ final class CollectionViewTest extends TestCase
 
     private function getRouteGenerator(): callable
     {
-        return function (Block $block, string $collectionIdentifier, int $page): string {
+        return static function (Block $block, string $collectionIdentifier, int $page): string {
             return '/route/' . $page;
         };
     }

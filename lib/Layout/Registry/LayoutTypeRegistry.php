@@ -24,7 +24,7 @@ final class LayoutTypeRegistry implements LayoutTypeRegistryInterface
     {
         $this->layoutTypes = array_filter(
             $layoutTypes,
-            function (LayoutTypeInterface $layoutType): bool {
+            static function (LayoutTypeInterface $layoutType): bool {
                 return true;
             }
         );
@@ -52,7 +52,7 @@ final class LayoutTypeRegistry implements LayoutTypeRegistryInterface
 
         return array_filter(
             $this->layoutTypes,
-            function (LayoutTypeInterface $layoutType): bool {
+            static function (LayoutTypeInterface $layoutType): bool {
                 return $layoutType->isEnabled();
             }
         );

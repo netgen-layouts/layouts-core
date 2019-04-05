@@ -277,7 +277,7 @@ class ParameterBuilder implements ParameterBuilderInterface
 
         return array_filter(
             $this->unresolvedChildren,
-            function (ParameterBuilderInterface $builder) use ($group): bool {
+            static function (ParameterBuilderInterface $builder) use ($group): bool {
                 if ($group === null) {
                     return true;
                 }
@@ -391,7 +391,7 @@ class ParameterBuilder implements ParameterBuilderInterface
         // @deprecated Replace with "string[]" allowed type when support for Symfony 2.8 ends
         $optionsResolver->setAllowedValues(
             'groups',
-            function (array $groups): bool {
+            static function (array $groups): bool {
                 foreach ($groups as $group) {
                     if (!is_string($group)) {
                         return false;
@@ -426,7 +426,7 @@ class ParameterBuilder implements ParameterBuilderInterface
 
         $optionsResolver->setAllowedValues(
             'label',
-            function ($value): bool {
+            static function ($value): bool {
                 if (!is_bool($value)) {
                     return true;
                 }

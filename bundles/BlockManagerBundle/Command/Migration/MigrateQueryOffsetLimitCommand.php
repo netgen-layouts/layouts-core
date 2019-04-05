@@ -220,27 +220,29 @@ final class MigrateQueryOffsetLimitCommand extends Command
 
         $this->io->progressStart(count($queryData));
 
-        $this->connection->transactional(function () use ($queryTypeParameters, $queryData): void {
-            foreach ($queryData as $queryDataItem) {
-                $offset = 0;
-                $limit = null;
+        $this->connection->transactional(
+            function () use ($queryTypeParameters, $queryData): void {
+                foreach ($queryData as $queryDataItem) {
+                    $offset = 0;
+                    $limit = null;
 
-                $parameters = json_decode($queryDataItem['parameters'], true);
-                if ($queryTypeParameters[$queryDataItem['type']]['offset'] !== null) {
-                    $offsetParameter = $queryTypeParameters[$queryDataItem['type']]['offset'];
-                    $offset = (int) ($parameters[$offsetParameter] ?? 0);
+                    $parameters = json_decode($queryDataItem['parameters'], true);
+                    if ($queryTypeParameters[$queryDataItem['type']]['offset'] !== null) {
+                        $offsetParameter = $queryTypeParameters[$queryDataItem['type']]['offset'];
+                        $offset = (int) ($parameters[$offsetParameter] ?? 0);
+                    }
+
+                    if ($queryTypeParameters[$queryDataItem['type']]['limit'] !== null) {
+                        $limitParameter = $queryTypeParameters[$queryDataItem['type']]['limit'];
+                        $limit = isset($parameters[$limitParameter]) ? (int) $parameters[$limitParameter] : null;
+                    }
+
+                    $this->updateCollection($queryDataItem['id'], (int) $queryDataItem['status'], $offset, $limit);
+
+                    $this->io->progressAdvance();
                 }
-
-                if ($queryTypeParameters[$queryDataItem['type']]['limit'] !== null) {
-                    $limitParameter = $queryTypeParameters[$queryDataItem['type']]['limit'];
-                    $limit = isset($parameters[$limitParameter]) ? (int) $parameters[$limitParameter] : null;
-                }
-
-                $this->updateCollection($queryDataItem['id'], (int) $queryDataItem['status'], $offset, $limit);
-
-                $this->io->progressAdvance();
             }
-        });
+        );
 
         $this->io->progressFinish();
     }

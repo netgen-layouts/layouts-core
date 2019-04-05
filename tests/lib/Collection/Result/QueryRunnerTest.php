@@ -27,7 +27,7 @@ final class QueryRunnerTest extends TestCase
             ->expects(self::any())
             ->method('build')
             ->willReturnCallback(
-                function ($value): CmsItemInterface {
+                static function ($value): CmsItemInterface {
                     return CmsItem::fromArray(['value' => $value, 'isVisible' => true]);
                 }
             );

@@ -32,7 +32,7 @@ class TemplateResolver implements TemplateResolverInterface
     {
         $this->matchers = array_filter(
             $matchers,
-            function (MatcherInterface $matcher): bool {
+            static function (MatcherInterface $matcher): bool {
                 return true;
             }
         );

@@ -22,7 +22,7 @@ final class VisibilityResolver implements VisibilityResolverInterface
     {
         $this->voters = array_filter(
             $voters,
-            function (VisibilityVoterInterface $voter): bool {
+            static function (VisibilityVoterInterface $voter): bool {
                 return true;
             }
         );

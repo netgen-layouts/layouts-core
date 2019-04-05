@@ -13,7 +13,7 @@ final class LayoutList extends ArrayCollection
         parent::__construct(
             array_filter(
                 $layouts,
-                function (Layout $layout) {
+                static function (Layout $layout) {
                     return true;
                 }
             )
@@ -34,7 +34,7 @@ final class LayoutList extends ArrayCollection
     public function getLayoutIds(): array
     {
         return array_map(
-            function (Layout $layout) {
+            static function (Layout $layout) {
                 return $layout->getId();
             },
             $this->getLayouts()

@@ -42,7 +42,7 @@ final class KeyValuesType extends AbstractType
         // @deprecated Replace with "Constraint[]" allowed type when support for Symfony 2.8 ends
         $resolver->setAllowedValues(
             'values_constraints',
-            function (array $constraints): bool {
+            static function (array $constraints): bool {
                 foreach ($constraints as $constraint) {
                     if (!$constraint instanceof Constraint) {
                         return false;

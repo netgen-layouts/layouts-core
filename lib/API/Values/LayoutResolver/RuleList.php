@@ -13,7 +13,7 @@ final class RuleList extends ArrayCollection
         parent::__construct(
             array_filter(
                 $rules,
-                function (Rule $rule) {
+                static function (Rule $rule) {
                     return true;
                 }
             )
@@ -34,7 +34,7 @@ final class RuleList extends ArrayCollection
     public function getRuleIds(): array
     {
         return array_map(
-            function (Rule $rule) {
+            static function (Rule $rule) {
                 return $rule->getId();
             },
             $this->getRules()

@@ -31,12 +31,12 @@ final class EditType extends AbstractType
         $resolver->setAllowedTypes('data', ConfigAwareStruct::class);
 
         $resolver->setDefault('config_key', null);
-        $resolver->setDefault('constraints', function (Options $options): array {
+        $resolver->setDefault('constraints', static function (Options $options): array {
             return [
                 new ConfigAwareStructConstraint(
                     [
                         'payload' => array_map(
-                            function (Config $config): ConfigDefinitionInterface {
+                            static function (Config $config): ConfigDefinitionInterface {
                                 return $config->getDefinition();
                             },
                             $options['configurable']->getConfigs()->toArray()

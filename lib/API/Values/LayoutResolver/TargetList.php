@@ -13,7 +13,7 @@ final class TargetList extends ArrayCollection
         parent::__construct(
             array_filter(
                 $targets,
-                function (Target $target) {
+                static function (Target $target) {
                     return true;
                 }
             )
@@ -34,7 +34,7 @@ final class TargetList extends ArrayCollection
     public function getTargetIds(): array
     {
         return array_map(
-            function (Target $target) {
+            static function (Target $target) {
                 return $target->getId();
             },
             $this->getTargets()

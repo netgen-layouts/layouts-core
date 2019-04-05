@@ -24,7 +24,7 @@ final class QueryTypeRegistry implements QueryTypeRegistryInterface
     {
         $this->queryTypes = array_filter(
             $queryTypes,
-            function (QueryTypeInterface $queryType): bool {
+            static function (QueryTypeInterface $queryType): bool {
                 return true;
             }
         );
@@ -52,7 +52,7 @@ final class QueryTypeRegistry implements QueryTypeRegistryInterface
 
         return array_filter(
             $this->queryTypes,
-            function (QueryTypeInterface $queryType): bool {
+            static function (QueryTypeInterface $queryType): bool {
                 return $queryType->isEnabled();
             }
         );

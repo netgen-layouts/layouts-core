@@ -171,7 +171,7 @@ final class BlockService extends Service implements BlockServiceInterface
         // We filter out all root blocks, since we do not allow loading those
         $persistenceBlocks = array_filter(
             $this->blockHandler->loadLayoutBlocks($persistenceLayout),
-            function (PersistenceBlock $persistenceBlock): bool {
+            static function (PersistenceBlock $persistenceBlock): bool {
                 return $persistenceBlock->parentId !== null;
             }
         );

@@ -273,7 +273,7 @@ final class BlockDefinitionTest extends TestCase
     {
         $dynamicParameters = new DynamicParameters();
         $dynamicParameters['definition_param'] = 'definition_value';
-        $dynamicParameters['closure_param'] = function (): string {
+        $dynamicParameters['closure_param'] = static function (): string {
             return 'closure_value';
         };
 

@@ -34,7 +34,7 @@ final class NumberType extends ParameterType
 
         $optionsResolver->setNormalizer(
             'max',
-            function (Options $options, $value) {
+            static function (Options $options, $value) {
                 if ($value === null || $options['min'] === null) {
                     return $value;
                 }
@@ -49,7 +49,7 @@ final class NumberType extends ParameterType
 
         $optionsResolver->setDefault(
             'default_value',
-            function (Options $options, $previousValue) {
+            static function (Options $options, $previousValue) {
                 if ($options['required'] === true) {
                     return $options['min'];
                 }

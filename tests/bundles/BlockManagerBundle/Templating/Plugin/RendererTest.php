@@ -51,7 +51,7 @@ final class RendererTest extends TestCase
                 self::identicalTo(['param' => 'value'])
             )
             ->willReturnCallback(
-                function (): void {
+                static function (): void {
                     echo 'rendered1';
                 }
             );
@@ -64,7 +64,7 @@ final class RendererTest extends TestCase
                 self::identicalTo(['param2' => 'value2', 'param' => 'value3'])
             )
             ->willReturnCallback(
-                function (): void {
+                static function (): void {
                     echo 'rendered2';
                 }
             );

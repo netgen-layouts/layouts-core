@@ -70,7 +70,7 @@ final class DateTimeValidator extends ConstraintValidator
                 new Constraints\Type(['type' => 'string']),
                 new Constraints\Callback(
                     [
-                        'callback' => function (string $timeZoneName, ExecutionContextInterface $context) use ($constraint): void {
+                        'callback' => static function (string $timeZoneName, ExecutionContextInterface $context) use ($constraint): void {
                             if (in_array($timeZoneName, DateTimeZone::listIdentifiers(), true)) {
                                 return;
                             }

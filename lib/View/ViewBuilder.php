@@ -39,7 +39,7 @@ final class ViewBuilder implements ViewBuilderInterface
 
         $this->viewProviders = array_filter(
             $viewProviders,
-            function (ViewProviderInterface $viewProvider): bool {
+            static function (ViewProviderInterface $viewProvider): bool {
                 return true;
             }
         );

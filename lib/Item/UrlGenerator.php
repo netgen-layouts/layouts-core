@@ -20,7 +20,7 @@ final class UrlGenerator implements UrlGeneratorInterface
     {
         $this->valueUrlGenerators = array_filter(
             $valueUrlGenerators,
-            function (ValueUrlGeneratorInterface $valueUrlGenerator): bool {
+            static function (ValueUrlGeneratorInterface $valueUrlGenerator): bool {
                 return true;
             }
         );

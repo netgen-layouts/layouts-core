@@ -51,7 +51,7 @@ abstract class EditType extends AbstractType
         $resolver->setAllowedTypes('block', Block::class);
         $resolver->setAllowedTypes('data', BlockUpdateStruct::class);
 
-        $resolver->setDefault('constraints', function (Options $options): array {
+        $resolver->setDefault('constraints', static function (Options $options): array {
             return [
                 new BlockUpdateStructConstraint(
                     [

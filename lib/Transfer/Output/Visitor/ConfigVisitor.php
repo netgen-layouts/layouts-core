@@ -34,7 +34,7 @@ final class ConfigVisitor implements VisitorInterface
         }
 
         return array_map(
-            function (Parameter $parameter) use ($subVisitor) {
+            static function (Parameter $parameter) use ($subVisitor) {
                 return $subVisitor->visit($parameter);
             },
             $value->getParameters()

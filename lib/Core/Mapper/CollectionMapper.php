@@ -190,6 +190,7 @@ final class CollectionMapper
             throw new NotFoundException('query', $query->id);
         }
 
+        /** @var string $queryLocale */
         $queryLocale = array_values($validLocales)[0];
         $untranslatableParams = iterator_to_array(
             $this->parameterMapper->extractUntranslatableParameters(
