@@ -41,7 +41,6 @@ final class ImportCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setName('ngbm:import')
             ->setDescription('Imports Netgen Layouts entities')
             ->addArgument('file', InputArgument::REQUIRED, 'JSON file to import')
             ->setHelp('The command <info>%command.name%</info> imports Netgen Layouts entities.');
