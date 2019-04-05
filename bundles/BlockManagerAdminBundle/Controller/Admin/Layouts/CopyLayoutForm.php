@@ -8,11 +8,11 @@ use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Layout\Form\CopyType;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class CopyLayoutForm extends Controller
+final class CopyLayoutForm extends AbstractController
 {
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService

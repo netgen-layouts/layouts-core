@@ -11,13 +11,13 @@ use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\Block\BlockTypeException;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
+use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructBuilder;
 use Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class Create extends Controller
+final class Create extends AbstractController
 {
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService

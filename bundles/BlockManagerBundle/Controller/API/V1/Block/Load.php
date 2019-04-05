@@ -7,9 +7,9 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
 
-final class Load extends Controller
+final class Load extends AbstractController
 {
     /**
      * Loads a block.

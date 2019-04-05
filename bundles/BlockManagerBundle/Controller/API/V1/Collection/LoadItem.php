@@ -7,9 +7,9 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
 
-final class LoadItem extends Controller
+final class LoadItem extends AbstractController
 {
     /**
      * Loads the item.

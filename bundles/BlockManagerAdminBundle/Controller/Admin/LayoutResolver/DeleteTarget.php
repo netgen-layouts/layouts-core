@@ -7,9 +7,9 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\LayoutResolver;
 use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Values\LayoutResolver\Target;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
 
-final class DeleteTarget extends Controller
+final class DeleteTarget extends AbstractController
 {
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutResolverService

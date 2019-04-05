@@ -1,10 +1,4 @@
 services:
-    netgen_block_manager.templating.twig.runtime.container_loader:
-        class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\Loader\ContainerRuntimeLoader
-        public: false
-        arguments:
-            - "@service_container"
-
     netgen_block_manager.templating.plugin_renderer:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Plugin\Renderer
         public: false
@@ -40,7 +34,6 @@ services:
             - "@netgen_block_manager.error.handler"
         tags:
             - { name: twig.runtime }
-            - { name: netgen_block_manager.twig.runtime }
 
     netgen_block_manager.templating.twig.extension.plugin_rendering:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\PluginRenderingExtension
@@ -56,7 +49,6 @@ services:
             - "@netgen_block_manager.error.handler"
         tags:
             - { name: twig.runtime }
-            - { name: netgen_block_manager.twig.runtime }
 
     netgen_block_manager.templating.twig.extension.collection_pager:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\CollectionPagerExtension
@@ -72,7 +64,6 @@ services:
             - "@netgen_block_manager.collection.result.pagerfanta.view"
         tags:
             - { name: twig.runtime }
-            - { name: netgen_block_manager.twig.runtime }
 
     netgen_block_manager.templating.twig.runtime.collection_pager.route_generator:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\CollectionPager\RouteGenerator
@@ -97,7 +88,6 @@ services:
             - "@netgen_block_manager.error.handler"
         tags:
             - { name: twig.runtime }
-            - { name: netgen_block_manager.twig.runtime }
 
     netgen_block_manager.templating.twig.extension.helpers:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\HelpersExtension
@@ -112,7 +102,6 @@ services:
             - "@netgen_block_manager.api.service.layout"
         tags:
             - { name: twig.runtime }
-            - { name: netgen_block_manager.twig.runtime }
 
     netgen_block_manager.templating.pagelayout_resolver.default:
         class: Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolver

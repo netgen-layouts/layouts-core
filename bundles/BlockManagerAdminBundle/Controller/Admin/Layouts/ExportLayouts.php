@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\Layouts;
 
 use Netgen\BlockManager\Transfer\Output\SerializerInterface;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
-final class ExportLayouts extends Controller
+final class ExportLayouts extends AbstractController
 {
     /**
      * @var \Netgen\BlockManager\Transfer\Output\SerializerInterface

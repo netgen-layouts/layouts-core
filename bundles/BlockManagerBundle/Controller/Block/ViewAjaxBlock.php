@@ -7,11 +7,11 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\Block;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Error\ErrorHandlerInterface;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Throwable;
 
-final class ViewAjaxBlock extends Controller
+final class ViewAjaxBlock extends AbstractController
 {
     /**
      * @var \Netgen\BlockManager\Error\ErrorHandlerInterface

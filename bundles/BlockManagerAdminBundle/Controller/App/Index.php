@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\App;
 
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class Index extends Controller
+final class Index extends AbstractController
 {
     /**
      * @var string

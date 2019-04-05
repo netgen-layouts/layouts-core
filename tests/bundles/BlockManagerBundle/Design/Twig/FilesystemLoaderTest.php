@@ -7,13 +7,13 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Design\Twig;
 use Netgen\Bundle\BlockManagerBundle\Configuration\ConfigurationInterface;
 use Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader;
 use PHPUnit\Framework\TestCase;
-use Twig\Loader\FilesystemLoader as BaseFilesystemLoader;
+use Twig\Loader\LoaderInterface;
 use Twig\Source;
 
 final class FilesystemLoaderTest extends TestCase
 {
     /**
-     * @var \Twig\Loader\FilesystemLoader&\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $innerLoaderMock;
 
@@ -29,9 +29,7 @@ final class FilesystemLoaderTest extends TestCase
 
     public function setUp(): void
     {
-        // We mock \Twig\Loader\FilesystemLoader instead of the loader interface
-        // because it has all needed methods in both versions of Twig (1.x and 2.x)
-        $this->innerLoaderMock = $this->createMock(BaseFilesystemLoader::class);
+        $this->innerLoaderMock = $this->createMock(LoaderInterface::class);
         $this->configurationMock = $this->createMock(ConfigurationInterface::class);
 
         $this->configurationMock
@@ -44,46 +42,6 @@ final class FilesystemLoaderTest extends TestCase
             $this->innerLoaderMock,
             $this->configurationMock
         );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getRealName
-     * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getSource
-     */
-    public function testGetSource(): void
-    {
-        $this->innerLoaderMock = $this->createMock(LegacyFilesystemLoader::class);
-        $this->loader = new FilesystemLoader($this->innerLoaderMock, $this->configurationMock);
-
-        $this->innerLoaderMock
-            ->expects(self::once())
-            ->method('getSourceContext')
-            ->with(self::identicalTo('@ngbm_test/template.html.twig'))
-            ->willReturn(new Source('source code', '@ngbm_test/template.html.twig'));
-
-        $source = $this->loader->getSource('@ngbm/template.html.twig');
-
-        self::assertSame('source code', $source);
-    }
-
-    /**
-     * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getRealName
-     * @covers \Netgen\Bundle\BlockManagerBundle\Design\Twig\FilesystemLoader::getSource
-     */
-    public function testGetSourceWithNonLayoutsTwigFile(): void
-    {
-        $this->innerLoaderMock = $this->createMock(LegacyFilesystemLoader::class);
-        $this->loader = new FilesystemLoader($this->innerLoaderMock, $this->configurationMock);
-
-        $this->innerLoaderMock
-            ->expects(self::once())
-            ->method('getSourceContext')
-            ->with(self::identicalTo('@other/template.html.twig'))
-            ->willReturn(new Source('source code', '@other/template.html.twig'));
-
-        $source = $this->loader->getSource('@other/template.html.twig');
-
-        self::assertSame('source code', $source);
     }
 
     /**

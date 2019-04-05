@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Config;
 
 use Netgen\BlockManager\Serializer\Values\Value;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
-final class LoadConfig extends Controller
+final class LoadConfig extends AbstractController
 {
     /**
      * @var \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface

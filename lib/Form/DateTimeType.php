@@ -13,8 +13,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class DateTimeType extends AbstractType
 {
-    use ChoicesAsValuesTrait;
-
     private const HTML5_FORMAT = "yyyy-MM-dd'T'HH:mm";
 
     /**
@@ -57,7 +55,7 @@ final class DateTimeType extends AbstractType
                 'choices' => $this->getTimeZoneList(),
                 'choice_translation_domain' => false,
                 'property_path' => 'timezone',
-            ] + $this->getChoicesAsValuesOption()
+            ]
         );
     }
 

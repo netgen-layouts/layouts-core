@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\Admin\LayoutResolver;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
-final class Index extends Controller
+final class Index extends AbstractController
 {
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutResolverService

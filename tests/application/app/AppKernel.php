@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Kernel;
 
-use FriendsOfBehat\SymfonyExtension\Bundle\FriendsOfBehatSymfonyExtensionBundle;
-use Symfony\Bundle\WebServerBundle\WebServerBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
@@ -14,13 +12,14 @@ final class AppKernel extends Kernel
 {
     public function registerBundles(): iterable
     {
-        $bundles = [
+        return [
             // Symfony
 
             new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new \Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new \Symfony\Bundle\TwigBundle\TwigBundle(),
             new \Symfony\Bundle\MonologBundle\MonologBundle(),
+            new \Symfony\Bundle\WebServerBundle\WebServerBundle(),
 
             // Other dependencies
 
@@ -41,19 +40,8 @@ final class AppKernel extends Kernel
             // Test bundles
 
             new \Netgen\BlockManager\Tests\Bundle\FixturesBundle\FixturesBundle(),
+            new \FriendsOfBehat\SymfonyExtension\Bundle\FriendsOfBehatSymfonyExtensionBundle(),
         ];
-
-        // @deprecated Remove class_exists checks when support for Symfony 2.8 ends
-
-        if (class_exists(FriendsOfBehatSymfonyExtensionBundle::class)) {
-            $bundles[] = new FriendsOfBehatSymfonyExtensionBundle();
-        }
-
-        if (class_exists(WebServerBundle::class)) {
-            $bundles[] = new WebServerBundle();
-        }
-
-        return $bundles;
     }
 
     public function boot(): void
@@ -84,9 +72,7 @@ final class AppKernel extends Kernel
     {
         $loader->load(__DIR__ . '/config/config.yml');
 
-        // @deprecated Symfony 2.8 is not compatible with Behat config, remove
-        // the check for kernel version when support for Symfony 2.8 ends
-        if ($this->getEnvironment() === 'test' && Kernel::VERSION_ID >= 30400) {
+        if ($this->getEnvironment() === 'test') {
             $loader->load(__DIR__ . '/config/test/services.yml');
         }
     }
@@ -104,19 +90,5 @@ final class AppKernel extends Kernel
 
         $databaseCharset = mb_stripos($database, 'mysql://') === 0 ? 'utf8mb4' : 'utf8';
         $container->setParameter('database_charset', $databaseCharset);
-
-        if (Kernel::VERSION_ID < 30200) {
-            /*
-             * @deprecated Symfony 2.8 does not have kernel.project_dir parameter,
-             * so we need to set the parameter to the container manually
-             */
-            $container->setParameter('kernel.project_dir', $this->getProjectDir());
-
-            /*
-             * @deprecated Symfony 2.8 does not support runtime environment variables,
-             * so we need to set the database parameter to the container manually
-             */
-            $container->setParameter('env(DATABASE)', $database);
-        }
     }
 }

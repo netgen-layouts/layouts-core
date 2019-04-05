@@ -102,7 +102,7 @@ final class KeyValuesTypeTest extends FormTestCase
     public function testConfigureOptionsWithInvalidConstraint(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "values_constraints" with value array is invalid.');
+        $this->expectExceptionMessage('The option "values_constraints" with value array is expected to be of type "Symfony\Component\Validator\Constraint[]", but one of the elements is of type "string[]".');
 
         $optionsResolver = new OptionsResolver();
 

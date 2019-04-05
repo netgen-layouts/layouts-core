@@ -10,9 +10,9 @@ use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
 
-final class LoadLayoutBlocks extends Controller
+final class LoadLayoutBlocks extends AbstractController
 {
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService

@@ -6,10 +6,10 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block;
 
 use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
-final class Delete extends Controller
+final class Delete extends AbstractController
 {
     /**
      * @var \Netgen\BlockManager\API\Service\BlockService

@@ -8,9 +8,9 @@ use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
 
-final class LoadSharedLayouts extends Controller
+final class LoadSharedLayouts extends AbstractController
 {
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService

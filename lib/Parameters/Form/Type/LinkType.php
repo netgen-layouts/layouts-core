@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Parameters\Form\Type;
 
 use Netgen\BlockManager\Form\AbstractType;
-use Netgen\BlockManager\Form\ChoicesAsValuesTrait;
 use Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper;
 use Netgen\BlockManager\Parameters\Value\LinkValue;
 use Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType;
@@ -22,28 +21,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class LinkType extends AbstractType
 {
-    use ChoicesAsValuesTrait;
-
     public function configureOptions(OptionsResolver $resolver): void
     {
         parent::configureOptions($resolver);
 
         $resolver->setRequired(['value_types']);
         $resolver->setAllowedTypes('value_types', 'array');
-
-        // @deprecated Replace with "string[]" allowed type when support for Symfony 2.8 ends
-        $resolver->setAllowedValues(
-            'value_types',
-            static function (array $valueTypes): bool {
-                foreach ($valueTypes as $valueType) {
-                    if (!is_string($valueType)) {
-                        return false;
-                    }
-                }
-
-                return true;
-            }
-        );
+        $resolver->setAllowedTypes('value_types', 'string[]');
 
         $resolver->setDefault('value_types', []);
     }
@@ -63,7 +47,7 @@ final class LinkType extends AbstractType
                 ],
                 'required' => true,
                 'property_path' => 'linkType',
-            ] + $this->getChoicesAsValuesOption()
+            ]
         );
 
         $builder->add(

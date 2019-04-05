@@ -4,19 +4,18 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerBundle\Controller;
 
+use Netgen\BlockManager\View\ViewBuilderInterface;
 use Netgen\BlockManager\View\ViewInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller as BaseController;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController as BaseAbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
-abstract class Controller extends BaseController
+abstract class AbstractController extends BaseAbstractController
 {
-    /**
-     * Initializes the controller by setting the container.
-     */
-    public function initialize(ContainerInterface $container): void
+    public static function getSubscribedServices(): array
     {
-        $this->setContainer($container);
+        return [
+            'netgen_block_manager.view.view_builder' => ViewBuilderInterface::class,
+        ] + parent::getSubscribedServices();
     }
 
     /**

@@ -9,9 +9,9 @@ use Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory;
 use Netgen\BlockManager\Collection\Result\ResultSet;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
 
-final class LoadCollectionResult extends Controller
+final class LoadCollectionResult extends AbstractController
 {
     /**
      * @var \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory

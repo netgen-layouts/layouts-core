@@ -10,12 +10,12 @@ use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Layout\Form\CreateType;
 use Netgen\BlockManager\Locale\LocaleProviderInterface;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class CreateForm extends Controller
+final class CreateForm extends AbstractController
 {
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService

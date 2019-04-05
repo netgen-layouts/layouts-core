@@ -30,10 +30,10 @@ matrix:
   include:
     -
       php: 7.2
-      env: PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~2.8.0" DEPS="low"
+      env: PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~3.4.0" DEPS="low"
     -
       php: 7.2
-      env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~2.8.0" DEPS="low"
+      env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~3.4.0" DEPS="low"
     -
       php: 7.3
       env: RUN_PHPSTAN="yes"
@@ -84,14 +84,6 @@ before_script:
   - composer global require --no-scripts symfony/flex
 
   - if [ "$SYMFONY_VERSION" != "" ] ; then composer config extra.symfony.require $SYMFONY_VERSION ; fi
-
-  # Remove packages that cannot be installed on Symfony 2.8
-  - |
-    if [ "$SYMFONY_VERSION" = "~2.8.0" ] ; then
-      composer remove --dev --no-update friends-of-behat/symfony-extension friends-of-behat/variadic-extension friends-of-behat/suite-settings-extension
-      composer remove --dev --no-update phpstan/phpstan phpstan/phpstan-strict-rules phpstan/phpstan-phpunit
-      composer remove --dev --no-update symfony/web-server-bundle
-    fi
 
   - composer update --no-suggest --prefer-dist
 

@@ -8,9 +8,9 @@ use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
 
-final class LoadItems extends Controller
+final class LoadItems extends AbstractController
 {
     /**
      * Loads all collection items.

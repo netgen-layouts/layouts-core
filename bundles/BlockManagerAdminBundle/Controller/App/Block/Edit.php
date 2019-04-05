@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerAdminBundle\Controller\App\Block;
 
 use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
-final class Edit extends Controller
+final class Edit extends AbstractController
 {
     /**
      * Displays block edit interface.

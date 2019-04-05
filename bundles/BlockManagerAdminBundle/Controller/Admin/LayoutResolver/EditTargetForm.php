@@ -8,11 +8,11 @@ use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\BlockManager\API\Values\LayoutResolver\Target;
 use Netgen\BlockManager\Layout\Resolver\Form\TargetType;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class EditTargetForm extends Controller
+final class EditTargetForm extends AbstractController
 {
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutResolverService

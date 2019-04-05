@@ -1,10 +1,10 @@
 services:
     netgen_block_manager.controller.base:
-        class: Netgen\Bundle\BlockManagerBundle\Controller\Controller
+        class: Netgen\Bundle\BlockManagerBundle\Controller\AbstractController
         public: false
         abstract: true
         calls:
-            - [initialize, ["@service_container"]]
+            - [setContainer, ["@service_container"]]
 
     # Frontend controllers
 

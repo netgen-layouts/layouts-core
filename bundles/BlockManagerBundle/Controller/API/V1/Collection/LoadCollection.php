@@ -7,9 +7,9 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection;
 use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
 
-final class LoadCollection extends Controller
+final class LoadCollection extends AbstractController
 {
     /**
      * Loads the collection.

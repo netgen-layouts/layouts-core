@@ -9,12 +9,12 @@ use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistryInterface;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Validator\ValidatorTrait;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints;
 
-final class AddItems extends Controller
+final class AddItems extends AbstractController
 {
     use ValidatorTrait;
 

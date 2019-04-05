@@ -36,18 +36,6 @@ final class FilesystemLoader implements LoaderInterface
         return $this->innerLoader->getSourceContext($this->getRealName($name));
     }
 
-    /**
-     * @deprecated Used for compatibility with Twig 1.x
-     *
-     * @param mixed $name
-     *
-     * @return string
-     */
-    public function getSource($name): string
-    {
-        return $this->innerLoader->getSourceContext($this->getRealName($name))->getCode();
-    }
-
     public function getCacheKey($name): string
     {
         return $this->innerLoader->getCacheKey($this->getRealName($name));

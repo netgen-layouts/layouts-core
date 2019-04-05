@@ -78,15 +78,10 @@ final class ThemePass implements CompilerPassInterface
     }
 
     /**
-     * Returns the current app dir, abstracting Symfony 3.3+, where kernel.project_dir is available,
-     * and Symfony 2.8 support, where only kernel.root_dir exists.
+     * Returns the current app dir.
      */
     private function getAppDir(ContainerBuilder $container): string
     {
-        if ($container->hasParameter('kernel.project_dir')) {
-            return (string) $container->getParameter('kernel.project_dir') . '/' . (string) $container->getParameter('kernel.name');
-        }
-
-        return (string) $container->getParameter('kernel.root_dir');
+        return (string) $container->getParameter('kernel.project_dir') . '/' . (string) $container->getParameter('kernel.name');
     }
 }

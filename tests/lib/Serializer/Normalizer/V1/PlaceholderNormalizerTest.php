@@ -24,11 +24,10 @@ final class PlaceholderNormalizerTest extends TestCase
     public function setUp(): void
     {
         $this->normalizer = new PlaceholderNormalizer();
-        $this->normalizer->setSerializer(new Serializer([new NormalizerStub()]));
+        $this->normalizer->setNormalizer(new Serializer([new NormalizerStub()]));
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer::setSerializer
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\PlaceholderNormalizer::buildViewValues
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\PlaceholderNormalizer::normalize
      */

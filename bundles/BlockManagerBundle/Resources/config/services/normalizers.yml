@@ -1,13 +1,7 @@
 services:
-    netgen_block_manager.normalizer.base:
-        class: Netgen\BlockManager\Serializer\Normalizer
-        public: false
-        abstract: true
-
     netgen_block_manager.normalizer.value:
         class: Netgen\BlockManager\Serializer\Normalizer\ValueNormalizer
         public: false
-        parent: netgen_block_manager.normalizer.base
         tags:
             - { name: serializer.normalizer }
 
@@ -22,7 +16,6 @@ services:
     netgen_block_manager.normalizer.view:
         class: Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer
         public: false
-        parent: netgen_block_manager.normalizer.base
         arguments:
             - "@netgen_block_manager.view.renderer"
         tags:
@@ -37,7 +30,6 @@ services:
     netgen_block_manager.normalizer.v1.block:
         class: Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer
         public: false
-        parent: netgen_block_manager.normalizer.base
         arguments:
             - "@netgen_block_manager.api.service.block"
         tags:
@@ -46,14 +38,12 @@ services:
     netgen_block_manager.normalizer.v1.placeholder:
         class: Netgen\BlockManager\Serializer\Normalizer\V1\PlaceholderNormalizer
         public: false
-        parent: netgen_block_manager.normalizer.base
         tags:
             - { name: serializer.normalizer }
 
     netgen_block_manager.normalizer.v1.layout:
         class: Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer
         public: false
-        parent: netgen_block_manager.normalizer.base
         arguments:
             - "@netgen_block_manager.api.service.layout"
             - "@netgen_block_manager.api.service.block"
@@ -69,7 +59,6 @@ services:
     netgen_block_manager.normalizer.v1.collection_item:
         class: Netgen\BlockManager\Serializer\Normalizer\V1\CollectionItemNormalizer
         public: false
-        parent: netgen_block_manager.normalizer.base
         arguments:
             - "@netgen_block_manager.item.url_generator"
             - "@netgen_block_manager.collection.item_visibility_resolver"
@@ -79,21 +68,18 @@ services:
     netgen_block_manager.normalizer.v1.collection_query:
         class: Netgen\BlockManager\Serializer\Normalizer\V1\CollectionQueryNormalizer
         public: false
-        parent: netgen_block_manager.normalizer.base
         tags:
             - { name: serializer.normalizer }
 
     netgen_block_manager.normalizer.v1.collection_result_set:
         class: Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultSetNormalizer
         public: false
-        parent: netgen_block_manager.normalizer.base
         tags:
             - { name: serializer.normalizer }
 
     netgen_block_manager.normalizer.v1.collection_result:
         class: Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer
         public: false
-        parent: netgen_block_manager.normalizer.base
         arguments:
             - "@netgen_block_manager.item.url_generator"
             - "@netgen_block_manager.collection.item_visibility_resolver"
@@ -115,6 +101,5 @@ services:
     netgen_block_manager.normalizer.v1.layout_type:
         class: Netgen\BlockManager\Serializer\Normalizer\V1\LayoutTypeNormalizer
         public: false
-        parent: netgen_block_manager.normalizer.base
         tags:
             - { name: serializer.normalizer }

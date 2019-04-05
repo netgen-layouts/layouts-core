@@ -6,13 +6,16 @@ namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
 use Generator;
 use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
-use Netgen\BlockManager\Serializer\Normalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-final class LayoutTypeNormalizer extends Normalizer implements NormalizerInterface
+final class LayoutTypeNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
+    use NormalizerAwareTrait;
+
     public function normalize($object, $format = null, array $context = [])
     {
         /** @var \Netgen\BlockManager\Layout\Type\LayoutTypeInterface $layoutType */

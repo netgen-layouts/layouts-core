@@ -11,7 +11,6 @@ use stdClass;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Twig\Environment;
 use Twig\Extensions\IntlExtension;
@@ -50,7 +49,7 @@ final class TwigExtensionsListenerTest extends TestCase
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
-            [KernelEvents::REQUEST => ['onKernelRequest', Kernel::VERSION_ID < 30400 ? 1024 : 0]],
+            [KernelEvents::REQUEST => 'onKernelRequest'],
             $this->listener::getSubscribedEvents()
         );
     }

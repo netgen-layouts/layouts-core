@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Migrations\Doctrine;
 
 use Doctrine\DBAL\Schema\Schema;
+use Doctrine\Migrations\AbstractMigration;
 
 final class Version001000 extends AbstractMigration
 {

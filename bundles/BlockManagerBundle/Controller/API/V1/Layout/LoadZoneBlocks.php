@@ -11,9 +11,9 @@ use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
 
-final class LoadZoneBlocks extends Controller
+final class LoadZoneBlocks extends AbstractController
 {
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService

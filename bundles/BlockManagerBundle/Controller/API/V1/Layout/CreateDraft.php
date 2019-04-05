@@ -8,10 +8,10 @@ use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
-final class CreateDraft extends Controller
+final class CreateDraft extends AbstractController
 {
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService

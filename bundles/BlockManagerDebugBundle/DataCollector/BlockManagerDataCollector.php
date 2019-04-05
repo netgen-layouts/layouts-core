@@ -107,14 +107,14 @@ final class BlockManagerDataCollector extends DataCollector
         foreach ($rule->getTargets() as $target) {
             $this->data['rule']['targets'][] = [
                 'type' => $target->getTargetType()::getType(),
-                'value' => $this->formatVar($target->getValue()),
+                'value' => $this->cloneVar($target->getValue()),
             ];
         }
 
         foreach ($rule->getConditions() as $condition) {
             $this->data['rule']['conditions'][] = [
                 'type' => $condition->getConditionType()::getType(),
-                'value' => $this->formatVar($condition->getValue()),
+                'value' => $this->cloneVar($condition->getValue()),
             ];
         }
     }
@@ -165,24 +165,5 @@ final class BlockManagerDataCollector extends DataCollector
     private function getTemplateSource(string $name): Source
     {
         return $this->twig->load($name)->getSourceContext();
-    }
-
-    /**
-     * Formats the variable for safe dumping in the profiler.
-     *
-     * Used as the BC layer between Symfony 2.8 and Symfony 3.4.
-     *
-     * @param mixed $var
-     *
-     * @return mixed
-     */
-    private function formatVar($var)
-    {
-        if (method_exists($this, 'varToString')) {
-            // @deprecated Remove when support for Symfony 2.8 ends
-            return $this->varToString($var);
-        }
-
-        return $this->cloneVar($var);
     }
 }

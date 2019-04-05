@@ -6,14 +6,17 @@ namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 
 use Generator;
 use Netgen\BlockManager\API\Values\Block\Placeholder;
-use Netgen\BlockManager\Serializer\Normalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-final class PlaceholderNormalizer extends Normalizer implements NormalizerInterface
+final class PlaceholderNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
+    use NormalizerAwareTrait;
+
     public function normalize($object, $format = null, array $context = [])
     {
         /** @var \Netgen\BlockManager\API\Values\Block\Placeholder $placeholder */

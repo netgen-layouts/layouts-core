@@ -8,7 +8,6 @@ use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
 use Netgen\BlockManager\Block\BlockDefinitionInterface;
 use Netgen\BlockManager\Form\AbstractType;
-use Netgen\BlockManager\Form\ChoicesAsValuesTrait;
 use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
 use Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -21,8 +20,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 abstract class EditType extends AbstractType
 {
-    use ChoicesAsValuesTrait;
-
     /**
      * @var array
      */
@@ -88,7 +85,7 @@ abstract class EditType extends AbstractType
                 'label' => 'block.view_type',
                 'choices' => array_flip($this->viewTypes),
                 'property_path' => 'viewType',
-            ] + $this->getChoicesAsValuesOption()
+            ]
         );
 
         $builder->add(
@@ -103,7 +100,7 @@ abstract class EditType extends AbstractType
                     ];
                 },
                 'property_path' => 'itemViewType',
-            ] + $this->getChoicesAsValuesOption()
+            ]
         );
     }
 

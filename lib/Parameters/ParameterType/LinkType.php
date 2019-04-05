@@ -46,20 +46,7 @@ final class LinkType extends ParameterType
         $optionsResolver->setRequired(['value_types', 'allow_invalid_internal']);
         $optionsResolver->setAllowedTypes('value_types', 'array');
         $optionsResolver->setAllowedTypes('allow_invalid_internal', 'bool');
-
-        // @deprecated Replace with "string[]" allowed type when support for Symfony 2.8 ends
-        $optionsResolver->setAllowedValues(
-            'value_types',
-            static function (array $valueTypes): bool {
-                foreach ($valueTypes as $valueType) {
-                    if (!is_string($valueType)) {
-                        return false;
-                    }
-                }
-
-                return true;
-            }
-        );
+        $optionsResolver->setAllowedTypes('value_types', 'string[]');
 
         $optionsResolver->setDefault('value_types', []);
         $optionsResolver->setDefault('allow_invalid_internal', false);

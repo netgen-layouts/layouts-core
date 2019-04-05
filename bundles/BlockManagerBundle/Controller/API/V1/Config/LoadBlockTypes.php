@@ -9,9 +9,9 @@ use Netgen\BlockManager\Block\Registry\BlockTypeRegistryInterface;
 use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
 
-final class LoadBlockTypes extends Controller
+final class LoadBlockTypes extends AbstractController
 {
     /**
      * @var \Netgen\BlockManager\Block\Registry\BlockTypeRegistryInterface

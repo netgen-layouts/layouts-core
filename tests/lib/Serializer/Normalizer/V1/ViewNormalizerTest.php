@@ -9,10 +9,10 @@ use Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\Serializer\Stubs\SerializerInterface;
 use Netgen\BlockManager\View\RendererInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class ViewNormalizerTest extends TestCase
 {
@@ -34,14 +34,13 @@ final class ViewNormalizerTest extends TestCase
     public function setUp(): void
     {
         $this->viewRendererMock = $this->createMock(RendererInterface::class);
-        $this->normalizerMock = $this->createMock(SerializerInterface::class);
+        $this->normalizerMock = $this->createMock(NormalizerInterface::class);
 
         $this->normalizer = new ViewNormalizer($this->viewRendererMock);
-        $this->normalizer->setSerializer($this->normalizerMock);
+        $this->normalizer->setNormalizer($this->normalizerMock);
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer::setSerializer
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer::__construct
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer::normalize
      */
@@ -72,7 +71,6 @@ final class ViewNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer::setSerializer
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer::__construct
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer::normalize
      */
@@ -97,7 +95,6 @@ final class ViewNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer::setSerializer
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer::__construct
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer::normalize
      */

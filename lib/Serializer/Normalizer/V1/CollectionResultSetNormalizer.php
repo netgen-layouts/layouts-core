@@ -7,13 +7,16 @@ namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 use Generator;
 use Netgen\BlockManager\Collection\Result\ManualItem;
 use Netgen\BlockManager\Collection\Result\ResultSet;
-use Netgen\BlockManager\Serializer\Normalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
-final class CollectionResultSetNormalizer extends Normalizer implements NormalizerInterface
+final class CollectionResultSetNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {
+    use NormalizerAwareTrait;
+
     public function normalize($object, $format = null, array $context = [])
     {
         /** @var \Netgen\BlockManager\Collection\Result\ResultSet $resultSet */

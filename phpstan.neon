@@ -12,10 +12,6 @@ parameters:
         # Doctrine DBAL & Migrations
         - '#Cannot call method fetchAll\(\) on Doctrine\\DBAL\\Driver\\Statement\|int#'
         - '#expects string\|null, Doctrine\\DBAL\\Query\\Expression\\CompositeExpression given#'
-        - '#Class Doctrine\\DBAL\\Migrations\\AbstractMigration not found.#'
-
-        # Compatibility with Symfony 2.8
-        - '#Call to function method_exists#'
 
         # Compatibility with Symfony 3.4
         -
@@ -47,10 +43,6 @@ parameters:
         - '#Call to function is_array\(\) with array will always evaluate to true.#'
         - '#Instanceof between Netgen\\BlockManager\\API\\Values\\ParameterStruct and Netgen\\BlockManager\\API\\Values\\ParameterStruct will always evaluate to true.#'
         - '#Instanceof between Netgen\\BlockManager\\Block\\BlockDefinitionInterface and Netgen\\BlockManager\\Block\\BlockDefinitionInterface will always evaluate to true.#'
-
-        -
-            message: '#Property Netgen\\BlockManager\\Serializer\\Normalizer::\$normalizer has no typehint specified.#'
-            path: lib/Serializer/Normalizer.php
 
         -
             message: '#Variable property access on object.#'

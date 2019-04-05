@@ -8,9 +8,9 @@ use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
 
-final class LoadLayoutTypes extends Controller
+final class LoadLayoutTypes extends AbstractController
 {
     /**
      * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface

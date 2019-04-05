@@ -50,20 +50,7 @@ final class ParametersType extends AbstractType
         $resolver->setAllowedTypes('data', ParameterStruct::class);
         $resolver->setAllowedTypes('parameter_definitions', ParameterDefinitionCollectionInterface::class);
         $resolver->setAllowedTypes('label_prefix', 'string');
-
-        // @deprecated Replace with "string[]" allowed type when support for Symfony 2.8 ends
-        $resolver->setAllowedValues(
-            'groups',
-            static function (array $groups): bool {
-                foreach ($groups as $group) {
-                    if (!is_string($group)) {
-                        return false;
-                    }
-                }
-
-                return true;
-            }
-        );
+        $resolver->setAllowedTypes('groups', 'string[]');
 
         $resolver->setDefault('translation_domain', 'ngbm');
         $resolver->setDefault('groups', []);

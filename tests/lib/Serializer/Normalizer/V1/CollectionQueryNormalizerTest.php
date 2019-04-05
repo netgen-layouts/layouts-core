@@ -10,8 +10,8 @@ use Netgen\BlockManager\Serializer\Normalizer\V1\CollectionQueryNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
-use Netgen\BlockManager\Tests\Serializer\Stubs\SerializerInterface;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class CollectionQueryNormalizerTest extends TestCase
 {
@@ -27,14 +27,13 @@ final class CollectionQueryNormalizerTest extends TestCase
 
     public function setUp(): void
     {
-        $this->normalizerMock = $this->createMock(SerializerInterface::class);
+        $this->normalizerMock = $this->createMock(NormalizerInterface::class);
 
         $this->normalizer = new CollectionQueryNormalizer();
-        $this->normalizer->setSerializer($this->normalizerMock);
+        $this->normalizer->setNormalizer($this->normalizerMock);
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer::setSerializer
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionQueryNormalizer::buildVersionedValues
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionQueryNormalizer::normalize
      */

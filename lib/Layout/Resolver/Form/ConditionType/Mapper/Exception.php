@@ -4,15 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper;
 
-use Netgen\BlockManager\Form\ChoicesAsValuesTrait;
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Response;
 
 final class Exception extends Mapper
 {
-    use ChoicesAsValuesTrait;
-
     /**
      * @var array
      */
@@ -29,7 +26,7 @@ final class Exception extends Mapper
             'multiple' => true,
             'required' => false,
             'choices' => $this->buildErrorCodes(),
-        ] + $this->getChoicesAsValuesOption();
+        ];
     }
 
     /**

@@ -6,7 +6,6 @@ namespace Netgen\BlockManager\Layout\Form;
 
 use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
 use Netgen\BlockManager\Form\AbstractType;
-use Netgen\BlockManager\Form\ChoicesAsValuesTrait;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Validator\Constraint\LayoutName;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -21,8 +20,6 @@ use Symfony\Component\Validator\Constraints;
 
 final class CreateType extends AbstractType
 {
-    use ChoicesAsValuesTrait;
-
     /**
      * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
      */
@@ -58,7 +55,7 @@ final class CreateType extends AbstractType
                     new Constraints\NotBlank(),
                 ],
                 'property_path' => 'layoutType',
-            ] + $this->getChoicesAsValuesOption()
+            ]
         );
 
         $builder->add(

@@ -6,10 +6,10 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Collection;
 
 use Netgen\BlockManager\API\Service\CollectionService;
 use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
-final class DeleteItems extends Controller
+final class DeleteItems extends AbstractController
 {
     /**
      * @var \Netgen\BlockManager\API\Service\CollectionService

@@ -27,7 +27,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Yaml\Yaml;
 
 final class NetgenBlockManagerExtension extends Extension implements PrependExtensionInterface
@@ -107,9 +106,7 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
             }
         }
 
-        if (Kernel::VERSION_ID >= 30400) {
-            $this->registerAutoConfiguration($container);
-        }
+        $this->registerAutoConfiguration($container);
 
         $container->setParameter('netgen_block_manager.edition', 'Open Source Edition');
     }

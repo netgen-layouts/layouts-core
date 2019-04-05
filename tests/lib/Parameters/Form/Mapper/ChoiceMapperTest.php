@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Tests\Parameters\Form\Mapper;
 
-use Netgen\BlockManager\Form\ChoicesAsValuesTrait;
 use Netgen\BlockManager\Parameters\Form\Mapper\ChoiceMapper;
 use Netgen\BlockManager\Parameters\ParameterDefinition;
 use Netgen\BlockManager\Parameters\ParameterType\ChoiceType as ChoiceParameterType;
@@ -13,8 +12,6 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 final class ChoiceMapperTest extends TestCase
 {
-    use ChoicesAsValuesTrait;
-
     /**
      * @var \Netgen\BlockManager\Parameters\Form\Mapper\ChoiceMapper
      */
@@ -61,7 +58,7 @@ final class ChoiceMapperTest extends TestCase
                     'Option 1' => 'option1',
                     'Option 2' => 'option2',
                 ],
-            ] + $this->getChoicesAsValuesOption(),
+            ],
             $this->mapper->mapOptions($parameterDefinition)
         );
     }
@@ -96,7 +93,7 @@ final class ChoiceMapperTest extends TestCase
                     'Option 1' => 'option1',
                     'Option 2' => 'option2',
                 ],
-            ] + $this->getChoicesAsValuesOption(),
+            ],
             $this->mapper->mapOptions($parameterDefinition)
         );
     }

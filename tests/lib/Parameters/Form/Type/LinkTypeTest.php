@@ -236,7 +236,7 @@ final class LinkTypeTest extends FormTestCase
     public function testConfigureOptionsWithInvalidValueType(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "value_types" with value array is invalid.');
+        $this->expectExceptionMessage('The option "value_types" with value array is expected to be of type "string[]", but one of the elements is of type "integer[]".');
 
         $optionsResolver = new OptionsResolver();
 
@@ -271,7 +271,7 @@ final class LinkTypeTest extends FormTestCase
     public function testConfigureOptionsWithInvalidParameters(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "value_types" with value 42 is expected to be of type "array", but is of type "integer".');
+        $this->expectExceptionMessage('The option "value_types" with value 42 is expected to be of type "string[]", but is of type "integer".');
 
         $optionsResolver = new OptionsResolver();
 

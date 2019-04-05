@@ -9,10 +9,10 @@ use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
 use Netgen\BlockManager\Serializer\Values\View;
 use Netgen\BlockManager\Serializer\Version;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
-final class ChangeType extends Controller
+final class ChangeType extends AbstractController
 {
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService

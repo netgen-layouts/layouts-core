@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\Migrations\Doctrine;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Types\Type;
+use Doctrine\Migrations\AbstractMigration;
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Utils\BackwardsCompatibility\Locales;
 use PDO;

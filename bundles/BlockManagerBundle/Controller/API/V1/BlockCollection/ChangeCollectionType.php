@@ -10,12 +10,12 @@ use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Validator\ValidatorTrait;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints;
 
-final class ChangeCollectionType extends Controller
+final class ChangeCollectionType extends AbstractController
 {
     use ValidatorTrait;
 

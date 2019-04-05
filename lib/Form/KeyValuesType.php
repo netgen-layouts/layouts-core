@@ -38,20 +38,7 @@ final class KeyValuesType extends AbstractType
         $resolver->setAllowedTypes('values_type', 'string');
         $resolver->setAllowedTypes('values_options', 'array');
         $resolver->setAllowedTypes('values_constraints', 'array');
-
-        // @deprecated Replace with "Constraint[]" allowed type when support for Symfony 2.8 ends
-        $resolver->setAllowedValues(
-            'values_constraints',
-            static function (array $constraints): bool {
-                foreach ($constraints as $constraint) {
-                    if (!$constraint instanceof Constraint) {
-                        return false;
-                    }
-                }
-
-                return true;
-            }
-        );
+        $resolver->setAllowedTypes('values_constraints', sprintf('%s[]', Constraint::class));
 
         $resolver->setDefault('values_options', []);
         $resolver->setDefault('values_constraints', []);

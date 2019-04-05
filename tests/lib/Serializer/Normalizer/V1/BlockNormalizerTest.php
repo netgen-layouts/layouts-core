@@ -48,11 +48,10 @@ final class BlockNormalizerTest extends TestCase
         $this->blockServiceMock = $this->createMock(BlockService::class);
 
         $this->normalizer = new BlockNormalizer($this->blockServiceMock);
-        $this->normalizer->setSerializer(new Serializer([new NormalizerStub()]));
+        $this->normalizer->setNormalizer(new Serializer([new NormalizerStub()]));
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer::setSerializer
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer::__construct
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer::buildVersionedValues
      * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer::getBlockCollections

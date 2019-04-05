@@ -6,11 +6,11 @@ namespace Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Layout;
 
 use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\Bundle\BlockManagerBundle\Controller\Controller;
+use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class LinkZone extends Controller
+final class LinkZone extends AbstractController
 {
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService
