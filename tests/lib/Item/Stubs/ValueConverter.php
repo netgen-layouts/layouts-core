@@ -8,12 +8,12 @@ use Netgen\BlockManager\Item\ValueConverterInterface;
 
 final class ValueConverter implements ValueConverterInterface
 {
-    public function supports($object): bool
+    public function supports(object $object): bool
     {
         return $object instanceof Value;
     }
 
-    public function getValueType($object): string
+    public function getValueType(object $object): string
     {
         return 'value';
     }
@@ -23,7 +23,7 @@ final class ValueConverter implements ValueConverterInterface
      *
      * @return int|string
      */
-    public function getId($object)
+    public function getId(object $object)
     {
         return $object->getId();
     }
@@ -33,12 +33,12 @@ final class ValueConverter implements ValueConverterInterface
      *
      * @return int|string
      */
-    public function getRemoteId($object)
+    public function getRemoteId(object $object)
     {
         return $object->getRemoteId();
     }
 
-    public function getName($object): string
+    public function getName(object $object): string
     {
         return 'Some value';
     }
@@ -46,12 +46,12 @@ final class ValueConverter implements ValueConverterInterface
     /**
      * @param \Netgen\BlockManager\Tests\Item\Stubs\Value $object
      */
-    public function getIsVisible($object): bool
+    public function getIsVisible(object $object): bool
     {
         return $object->isVisible();
     }
 
-    public function getObject($object)
+    public function getObject(object $object): object
     {
         return $object;
     }

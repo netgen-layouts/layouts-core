@@ -41,8 +41,6 @@ interface CmsItemInterface
 
     /**
      * Returns the original value as supplied by the CMS or null if value does not exist.
-     *
-     * @return object|null
      */
-    public function getObject();
+    public function getObject(): ?object;
 }

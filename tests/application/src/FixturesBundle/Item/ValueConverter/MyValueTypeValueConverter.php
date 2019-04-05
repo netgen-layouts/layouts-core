@@ -9,37 +9,37 @@ use Netgen\BlockManager\Tests\Bundle\FixturesBundle\Item\Value;
 
 final class MyValueTypeValueConverter implements ValueConverterInterface
 {
-    public function supports($object): bool
+    public function supports(object $object): bool
     {
         return $object instanceof Value;
     }
 
-    public function getValueType($object): string
+    public function getValueType(object $object): string
     {
         return 'my_value_type';
     }
 
-    public function getId($object)
+    public function getId(object $object)
     {
         return $object->id;
     }
 
-    public function getRemoteId($object)
+    public function getRemoteId(object $object)
     {
         return $object->id;
     }
 
-    public function getName($object): string
+    public function getName(object $object): string
     {
         return 'Value with ID #' . $object->id;
     }
 
-    public function getIsVisible($object): bool
+    public function getIsVisible(object $object): bool
     {
         return true;
     }
 
-    public function getObject($object)
+    public function getObject(object $object): object
     {
         return $object;
     }

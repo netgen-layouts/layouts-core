@@ -8,13 +8,7 @@ use Netgen\BlockManager\Utils\Hydrator;
 
 trait ExportObjectTrait
 {
-    /**
-     * @param object $object
-     * @param bool $recursive
-     *
-     * @return array<string, mixed>
-     */
-    private function exportObject($object, bool $recursive = false): array
+    private function exportObject(object $object, bool $recursive = false): array
     {
         $data = (new Hydrator())->extract($object);
 

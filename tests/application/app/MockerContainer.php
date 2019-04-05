@@ -18,13 +18,7 @@ class MockerContainer extends Container
      */
     private $mockedServices = [];
 
-    /**
-     * @param string $id
-     * @param object $mock
-     *
-     * @return object
-     */
-    public function mock(string $id, $mock)
+    public function mock(string $id, object $mock): object
     {
         if (!array_key_exists($id, $this->mockedServices)) {
             $this->originalServices[$id] = $this->get($id);

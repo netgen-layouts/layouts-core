@@ -45,7 +45,6 @@ parameters:
 
         - '#Call to function is_string\(\) with string will always evaluate to true.#'
         - '#Call to function is_array\(\) with array will always evaluate to true.#'
-        - '#Call to function is_object\(\) with object will always evaluate to true.#'
         - '#Instanceof between Netgen\\BlockManager\\API\\Values\\ParameterStruct and Netgen\\BlockManager\\API\\Values\\ParameterStruct will always evaluate to true.#'
         - '#Instanceof between Netgen\\BlockManager\\Block\\BlockDefinitionInterface and Netgen\\BlockManager\\Block\\BlockDefinitionInterface will always evaluate to true.#'
 

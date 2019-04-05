@@ -33,17 +33,6 @@ final class HydratorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Utils\Hydrator::extract
-     */
-    public function testExtractThrowsRuntimeExceptionWithNonObject(): void
-    {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('extract expects the provided $object to be a PHP object');
-
-        $this->hydrator->extract('foo');
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Utils\Hydrator::hydrate
      */
     public function testHydrate(): void
@@ -55,17 +44,6 @@ final class HydratorTest extends TestCase
         self::assertSame('foo', $value->getA());
         self::assertSame('bar', $value->getB());
         self::assertSame('baz', $value->getC());
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Utils\Hydrator::hydrate
-     */
-    public function testHydrateThrowsRuntimeExceptionWithNonObject(): void
-    {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('hydrate expects the provided $object to be a PHP object');
-
-        $this->hydrator->hydrate(['a' => 'foo', 'b' => 'bar', 'c' => 'baz'], 'foo');
     }
 
     /**

@@ -22,7 +22,7 @@ interface ValueLoaderInterface
      *
      * @return object|null
      */
-    public function load($id);
+    public function load($id): ?object;
 
     /**
      * Loads the value from provided remote ID or null if value cannot be loaded.
@@ -35,5 +35,5 @@ interface ValueLoaderInterface
      *
      * @return object|null
      */
-    public function loadByRemoteId($remoteId);
+    public function loadByRemoteId($remoteId): ?object;
 }

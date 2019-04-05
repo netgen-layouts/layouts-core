@@ -53,7 +53,7 @@ final class ManualItem implements CmsItemInterface
         return $this->collectionItem->getCmsItem()->isVisible();
     }
 
-    public function getObject()
+    public function getObject(): ?object
     {
         return $this->collectionItem->getCmsItem()->getObject();
     }

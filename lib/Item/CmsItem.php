@@ -65,7 +65,7 @@ final class CmsItem implements CmsItemInterface
         return $this->isVisible;
     }
 
-    public function getObject()
+    public function getObject(): ?object
     {
         return $this->object;
     }

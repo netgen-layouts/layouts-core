@@ -9,6 +9,7 @@ use Netgen\BlockManager\Collection\Result\QueryRunner;
 use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\Item\CmsItemBuilderInterface;
 use Netgen\BlockManager\Item\CmsItemInterface;
+use Netgen\BlockManager\Tests\Collection\Result\Stubs\Value;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
@@ -40,11 +41,12 @@ final class QueryRunnerTest extends TestCase
      */
     public function testRunner(): void
     {
-        $queryType = new QueryType('query', [40, 41, 42]);
+        $queryType = new QueryType('query', [new Value(40), new Value(41), new Value(42)]);
         $query = Query::fromArray(['queryType' => $queryType]);
 
         $queryRunner = new QueryRunner($this->cmsItemBuilderMock);
 
+        /** @var \Netgen\BlockManager\Item\CmsItemInterface[] $items */
         $items = iterator_to_array($queryRunner->runQuery($query));
         self::assertContainsOnlyInstancesOf(CmsItemInterface::class, $items);
 
@@ -52,9 +54,9 @@ final class QueryRunnerTest extends TestCase
             self::assertTrue($item->isVisible());
         }
 
-        self::assertSame(40, $items[0]->getValue());
-        self::assertSame(41, $items[1]->getValue());
-        self::assertSame(42, $items[2]->getValue());
+        self::assertSame(40, $items[0]->getValue()->getValue());
+        self::assertSame(41, $items[1]->getValue()->getValue());
+        self::assertSame(42, $items[2]->getValue()->getValue());
 
         self::assertSame(3, $queryRunner->count($query));
     }

@@ -16,10 +16,6 @@ interface ValueUrlGeneratorInterface
      * but a full path, i.e. starting with /.
      *
      * If the path cannot be generated, this can return null.
-     *
-     * @param object $object
-     *
-     * @return string|null
      */
-    public function generate($object): ?string;
+    public function generate(object $object): ?string;
 }

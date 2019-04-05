@@ -13,21 +13,13 @@ interface ValueConverterInterface
 {
     /**
      * Returns if the converter supports the object.
-     *
-     * @param object $object
-     *
-     * @return bool
      */
-    public function supports($object): bool;
+    public function supports(object $object): bool;
 
     /**
      * Returns the value type for this object.
-     *
-     * @param object $object
-     *
-     * @return string
      */
-    public function getValueType($object): string;
+    public function getValueType(object $object): string;
 
     /**
      * Returns the object ID.
@@ -36,7 +28,7 @@ interface ValueConverterInterface
      *
      * @return int|string
      */
-    public function getId($object);
+    public function getId(object $object);
 
     /**
      * Returns the object remote ID.
@@ -45,34 +37,22 @@ interface ValueConverterInterface
      *
      * @return int|string
      */
-    public function getRemoteId($object);
+    public function getRemoteId(object $object);
 
     /**
      * Returns the object name.
-     *
-     * @param object $object
-     *
-     * @return string
      */
-    public function getName($object): string;
+    public function getName(object $object): string;
 
     /**
      * Returns if the object is visible.
-     *
-     * @param object $object
-     *
-     * @return bool
      */
-    public function getIsVisible($object): bool;
+    public function getIsVisible(object $object): bool;
 
     /**
      * Returns the object itself.
      *
      * This method can be used to enrich the object before it being rendered.
-     *
-     * @param object $object
-     *
-     * @return object
      */
-    public function getObject($object);
+    public function getObject(object $object): object;
 }

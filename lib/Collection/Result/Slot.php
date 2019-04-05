@@ -37,7 +37,7 @@ final class Slot implements CmsItemInterface
         return true;
     }
 
-    public function getObject()
+    public function getObject(): ?object
     {
         return null;
     }

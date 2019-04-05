@@ -10,19 +10,9 @@ final class Hydrator
 {
     /**
      * Extract values from an object.
-     *
-     * @param object $object
-     *
-     * @return array<string, mixed>
      */
-    public function extract($object): array
+    public function extract(object $object): array
     {
-        if (!is_object($object)) {
-            throw new RuntimeException(
-                sprintf('%s expects the provided $object to be a PHP object', __METHOD__)
-            );
-        }
-
         return (function (): array {
             return get_object_vars($this);
         })->call($object);
@@ -36,14 +26,8 @@ final class Hydrator
      *
      * @return mixed
      */
-    public function hydrate(array $data, $object)
+    public function hydrate(array $data, object $object)
     {
-        if (!is_object($object)) {
-            throw new RuntimeException(
-                sprintf('%s expects the provided $object to be a PHP object', __METHOD__)
-            );
-        }
-
         return (function (array $data) {
             foreach ($data as $property => $value) {
                 if (!property_exists($this, $property)) {

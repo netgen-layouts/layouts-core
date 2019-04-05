@@ -26,7 +26,7 @@ final class CmsItemBuilder implements CmsItemBuilderInterface
         );
     }
 
-    public function build($object): CmsItemInterface
+    public function build(object $object): CmsItemInterface
     {
         foreach ($this->valueConverters as $valueConverter) {
             if (!$valueConverter->supports($object)) {

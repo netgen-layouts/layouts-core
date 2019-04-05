@@ -13,11 +13,7 @@ interface CmsItemBuilderInterface
     /**
      * Builds the CMS item from provided value object coming from the CMS.
      *
-     * @param object $object
-     *
      * @throws \Netgen\BlockManager\Exception\Item\ValueException if value converter does not exist
-     *
-     * @return \Netgen\BlockManager\Item\CmsItemInterface
      */
-    public function build($object): CmsItemInterface;
+    public function build(object $object): CmsItemInterface;
 }

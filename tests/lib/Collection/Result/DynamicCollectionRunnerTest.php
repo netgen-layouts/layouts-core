@@ -15,6 +15,7 @@ use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\Item\CmsItemBuilderInterface;
 use Netgen\BlockManager\Item\CmsItemInterface;
 use Netgen\BlockManager\Item\NullCmsItem;
+use Netgen\BlockManager\Tests\Collection\Result\Stubs\Value;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
@@ -61,17 +62,19 @@ final class DynamicCollectionRunnerTest extends TestCase
     ): void {
         $items = [];
         foreach ($itemValues as $position => $itemValue) {
+            $itemValueObject = new Value($itemValue);
             $items[$position] = Item::fromArray(
                 [
-                    'value' => $itemValue,
+                    'value' => $itemValueObject,
                     'cmsItem' => $itemValue !== null ?
-                        CmsItem::fromArray(['value' => $itemValue, 'isVisible' => true]) :
+                        CmsItem::fromArray(['value' => $itemValueObject, 'isVisible' => true]) :
                         new NullCmsItem('value'),
                     'position' => $position,
                 ]
             );
         }
 
+        $queryItems = array_map(static function (?int $value): Value { return new Value($value); }, $queryItems);
         $query = Query::fromArray(['queryType' => new QueryType('my_query_type', $queryItems, $queryCount)]);
         $collection = Collection::fromArray(['items' => new ArrayCollection($items), 'query' => $query]);
 
@@ -80,14 +83,21 @@ final class DynamicCollectionRunnerTest extends TestCase
 
         self::assertSame($totalCount, $collectionRunner->count($collection));
 
+        $result = iterator_to_array($collectionRunner->runCollection($collection, $offset, $limit));
+
         $result = array_map(
-            static function (Result $result) {
-                return $result->getItem()->getValue();
+            static function (Result $resultItem) {
+                return $resultItem->getItem()->getValue();
             },
-            iterator_to_array($collectionRunner->runCollection($collection, $offset, $limit))
+            $result
         );
 
-        self::assertSame($expected, $result);
+        self::assertCount(count($expected), $result);
+
+        foreach ($result as $index => $resultItem) {
+            self::assertInstanceOf(Value::class, $resultItem);
+            self::assertSame($expected[$index], $resultItem->getValue());
+        }
     }
 
     /**

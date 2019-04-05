@@ -8,12 +8,12 @@ use Netgen\BlockManager\Item\ValueLoaderInterface;
 
 final class NullValueLoader implements ValueLoaderInterface
 {
-    public function load($id)
+    public function load($id): ?object
     {
         return null;
     }
 
-    public function loadByRemoteId($remoteId)
+    public function loadByRemoteId($remoteId): ?object
     {
         return null;
     }
