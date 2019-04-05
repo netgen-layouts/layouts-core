@@ -28,15 +28,18 @@ final class QueryEditType extends AbstractType
         $resolver->setAllowedTypes('query', Query::class);
         $resolver->setAllowedTypes('data', QueryUpdateStruct::class);
 
-        $resolver->setDefault('constraints', static function (Options $options): array {
-            return [
-                new QueryUpdateStructConstraint(
-                    [
-                        'payload' => $options['query'],
-                    ]
-                ),
-            ];
-        });
+        $resolver->setDefault(
+            'constraints',
+            static function (Options $options): array {
+                return [
+                    new QueryUpdateStructConstraint(
+                        [
+                            'payload' => $options['query'],
+                        ]
+                    ),
+                ];
+            }
+        );
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options): void

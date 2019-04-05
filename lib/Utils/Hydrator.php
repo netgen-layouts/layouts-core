@@ -23,7 +23,9 @@ final class Hydrator
             );
         }
 
-        return (function (): array { return get_object_vars($this); })->call($object);
+        return (function (): array {
+            return get_object_vars($this);
+        })->call($object);
     }
 
     /**

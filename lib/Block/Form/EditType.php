@@ -51,15 +51,18 @@ abstract class EditType extends AbstractType
         $resolver->setAllowedTypes('block', Block::class);
         $resolver->setAllowedTypes('data', BlockUpdateStruct::class);
 
-        $resolver->setDefault('constraints', static function (Options $options): array {
-            return [
-                new BlockUpdateStructConstraint(
-                    [
-                        'payload' => $options['block'],
-                    ]
-                ),
-            ];
-        });
+        $resolver->setDefault(
+            'constraints',
+            static function (Options $options): array {
+                return [
+                    new BlockUpdateStructConstraint(
+                        [
+                            'payload' => $options['block'],
+                        ]
+                    ),
+                ];
+            }
+        );
     }
 
     public function buildView(FormView $view, FormInterface $form, array $options): void

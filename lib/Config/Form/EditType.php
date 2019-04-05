@@ -31,20 +31,23 @@ final class EditType extends AbstractType
         $resolver->setAllowedTypes('data', ConfigAwareStruct::class);
 
         $resolver->setDefault('config_key', null);
-        $resolver->setDefault('constraints', static function (Options $options): array {
-            return [
-                new ConfigAwareStructConstraint(
-                    [
-                        'payload' => array_map(
-                            static function (Config $config): ConfigDefinitionInterface {
-                                return $config->getDefinition();
-                            },
-                            $options['configurable']->getConfigs()->toArray()
-                        ),
-                    ]
-                ),
-            ];
-        });
+        $resolver->setDefault(
+            'constraints',
+            static function (Options $options): array {
+                return [
+                    new ConfigAwareStructConstraint(
+                        [
+                            'payload' => array_map(
+                                static function (Config $config): ConfigDefinitionInterface {
+                                    return $config->getDefinition();
+                                },
+                                $options['configurable']->getConfigs()->toArray()
+                            ),
+                        ]
+                    ),
+                ];
+            }
+        );
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
