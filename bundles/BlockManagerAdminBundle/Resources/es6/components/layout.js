@@ -35,9 +35,7 @@ const fetchModal = (url, modal, formAction, afterSuccess) => {
     fetch(url, {
         method: 'GET',
     }).then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error, status ${response.status}`);
-        }
+        if (!response.ok) throw new Error(`HTTP error, status ${response.status}`);
         return response.text();
     }).then((data) => {
         modal.insertModalHtml(data);

@@ -1,173 +1,178 @@
 import NetgenCore from '@netgen/layouts-ui-core';
 import NlRule from './rule';
 
-const $ = NetgenCore.$;
+const { $ } = NetgenCore;
 
 /* nl rules app plugin */
 export default class NlRules {
     constructor(el) {
-        this.$el = $(el);
-        this.$rulesContainer = this.$el.find('.nl-rules');
+        this.el = el;
+        [this.rulesContainer] = this.el.getElementsByClassName('nl-rules');
         this.rules = [];
-        this.$rulesHeader = this.$el.find('.nl-rules-head');
-        this.$noRulesMsg = this.$el.find('.nl-no-items');
-        this.$sortBtn = this.$el.find('.js-sort-start');
-        this.csrf = $('meta[name=ngbm-admin-csrf-token]').attr('content');
-        this.baseUrl = `${$('meta[name=ngbm-admin-base-path]').attr('content')}/mappings/`;
+        [this.rulesHeader] = this.el.getElementsByClassName('nl-rules-head');
+        [this.noRulesMsg] = this.el.getElementsByClassName('nl-no-items');
+        [this.sortBtn] = this.el.getElementsByClassName('js-sort-start');
+        [this.appContainer] = document.getElementsByClassName('ng-layouts-app');
+        this.csrf = document.querySelector('meta[name=ngbm-admin-csrf-token]').getAttribute('content');
+        this.baseUrl = `${document.querySelector('meta[name=ngbm-admin-base-path]').getAttribute('content')}/mappings/`;
         this.filter = JSON.parse(localStorage.getItem('ngMappingFilters')) || [];
 
         this.initialize();
     }
 
     initialize() {
-        this.$el.data('rules', this);
         this.initializeFilters();
         this.initializeRulePlugin();
         this.setupEvents();
         this.setRulesTop();
         this.toggleUI();
-        this.$el.css('visibility', 'visible');
+        this.el.style.visibility = 'visible';
     }
+
     initializeRulePlugin() {
-        this.$el.find('.nl-rule').each((i, el) => {
-            const newRule = new NlRule(el);
+        [...this.el.getElementsByClassName('nl-rule')].forEach((el) => {
+            const newRule = new NlRule(el, this);
             this.rules.push(newRule);
         });
         this.filterMappings();
     }
-    deleteRule(id) {
-        for (let i = 0, len = this.rules.length; i < len; i++) {
-            if (this.rules[i].id === id) {
-                this.rules.splice(i, 1);
-                this.toggleUI();
-                return true;
-            }
-        }
-        return true;
-    }
+
     toggleUI() {
         if (!this.rules.length) {
-            this.$rulesHeader.hide();
-            this.$noRulesMsg.show();
+            this.rulesHeader.style.display = 'none';
+            this.noRulesMsg.style.display = 'block';
         } else {
-            this.$rulesHeader.css('display', 'flex');
-            this.$noRulesMsg.hide();
+            this.rulesHeader.style.display = 'flex';
+            this.noRulesMsg.style.display = 'none';
         }
-        this.rules.length < 2 ? this.$sortBtn.hide() : this.$sortBtn.show();
+        this.sortBtn.style.display = this.rules.length < 2 ? 'none' : 'inline-block';
     }
+
     setRulesTop() {
-        this.$rulesContainer.css('top', this.$rulesHeader.position().top + this.$rulesHeader.outerHeight());
+        this.rulesContainer.style.top = `${this.rulesHeader.offsetTop + this.rulesHeader.offsetHeight}px`;
     }
+
     setupEvents() {
-        const $appContainer = $('.ng-layouts-app');
-        const self = this;
+        this.el.getElementsByClassName('js-add-rule')[0].addEventListener('click', this.addRule.bind(this));
+        this.el.getElementsByClassName('js-sort-start')[0].addEventListener('click', this.sortStart.bind(this));
+        this.el.getElementsByClassName('js-sort-save')[0].addEventListener('click', this.sortSave.bind(this));
+        this.el.getElementsByClassName('js-sort-cancel')[0].addEventListener('click', this.sortCancel.bind(this));
+    }
 
-        $(document).bind('delete-rule', (e, data) => this.deleteRule(data.nlRule.id));
-
-        $(document).bind('ajaxSend', () => {
-            $appContainer.addClass('ajax-loading');
-        }).bind('ajaxComplete', (data, status) => {
-            $appContainer.removeClass('ajax-loading');
-            if (status.status === 401 || status.status === 403) {
-                location.reload();
-            }
-        });
-
-        $.ajaxPrefilter((options, originalOptions, jqXHR) => jqXHR.setRequestHeader('X-CSRF-Token', self.csrf));
-
-        this.$el.on('click', '.js-add-rule', (e) => {
-            e.preventDefault();
-            $.ajax({
-                type: 'POST',
-                url: `${this.baseUrl}rules`,
-                success: (data) => {
-                    const $newRule = $('<div class="nl-rule">');
-                    $newRule.html(data).addClass('show-body');
-                    this.$rulesContainer.append($newRule);
-                    const newRule = new NlRule($newRule);
-                    this.rules.push(newRule);
-                    this.toggleUI();
-                    $('.nl-rules').animate({ scrollTop: $('.nl-rules')[0].scrollHeight }, 750);
-                },
+    addRule(e) {
+        e.preventDefault();
+        this.appContainer.classList.add('ajax-loading');
+        fetch(`${this.baseUrl}rules`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'X-CSRF-Token': this.csrf,
+            },
+        }).then((response) => {
+            this.appContainer.classList.remove('ajax-loading');
+            if (!response.ok) throw new Error(`HTTP error, status ${response.status}`);
+            return response.text();
+        }).then((data) => {
+            const newRuleEl = document.createElement('div');
+            newRuleEl.className = 'nl-rule show-body';
+            newRuleEl.innerHTML = data;
+            this.rulesContainer.appendChild(newRuleEl);
+            const newRule = new NlRule(newRuleEl, this);
+            this.rules.push(newRule);
+            this.toggleUI();
+            newRuleEl.scrollIntoView({
+                behavior: 'smooth',
             });
+        }).catch((error) => {
+            console.log(error);
         });
+    }
 
-        this.$el.on('click', '.js-sort-start', () => {
-            $appContainer.addClass('sorting');
-            $('.nl-rule-between').remove();
-            this.$rulesContainer.sortable({
-                items: '> .nl-rule',
-                axis: 'y',
-            });
-            this.initialSort = this.$rulesContainer.sortable('toArray', { attribute: 'data-id' });
-            this.$rulesContainer.sortable({
-                update: () => {
-                    this.sorted = true;
-                },
-            });
+    sortStart() {
+        this.appContainer.classList.add('sorting');
+        [...document.getElementsByClassName('nl-rule-between')].forEach(el => el.parentElement.removeChild(el));
+        $(this.rulesContainer).sortable({
+            items: '> .nl-rule',
+            axis: 'y',
+            update: () => {
+                this.sorted = true;
+            },
         });
-        this.$el.on('click', '.js-sort-save', () => {
-            const sorted = this.$rulesContainer.sortable('toArray', { attribute: 'data-id' });
+    }
 
-            $.ajax({
-                type: 'POST',
-                url: `${this.baseUrl}rules/priorities`,
-                data: {
-                    rule_ids: sorted,
-                },
-                success: () => {
-                    location.reload(); /* reload to set new priority numbers */
-                },
-            });
+    sortSave() {
+        this.appContainer.classList.add('ajax-loading');
+        const sorted = $(this.rulesContainer).sortable('toArray', { attribute: 'data-id' });
+        const rules = sorted.map(rule => `rule_ids[]=${rule}`);
+        const body = new URLSearchParams(rules.join('&'));
+        fetch(`${this.baseUrl}rules/priorities`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'X-CSRF-Token': this.csrf,
+            },
+            body,
+        }).then((response) => {
+            if (!response.ok) throw new Error(`HTTP error, status ${response.status}`);
+            return response.text();
+        }).then(() => {
+            window.location.reload(); /* reload to set new priority numbers */
+        }).catch((error) => {
+            this.appContainer.classList.remove('ajax-loading');
+            console.log(error);
         });
-        this.$el.on('click', '.js-sort-cancel', () => {
-            if (this.sorted) {
-                const tempSort = [];
-                this.initialSort.forEach((t) => {
-                    tempSort.push(this.$rulesContainer.find(`.nl-rule[data-id=${t}]`).detach());
-                });
-                this.$rulesContainer.html(tempSort);
-            }
-            this.sorted = false;
+    }
 
-            $appContainer.removeClass('sorting');
-            this.$rulesContainer.sortable('destroy');
-            this.filterMappings();
-        });
+    sortCancel() {
+        if (this.sorted) this.rules.forEach(rule => this.rulesContainer.appendChild(rule.el));
+        this.sorted = false;
+
+        this.appContainer.classList.remove('sorting');
+        $(this.rulesContainer).sortable('destroy');
+        this.filterMappings();
     }
 
     /* mapping filtering */
     initializeFilters() {
         this.updateFilterInputs();
-        this.$el.on('change', 'input[name=filter-mappings]', this.updateFilter.bind(this));
-        this.$el.on('click', '.js-check-all', this.checkAllFilters.bind(this));
-        this.$el.on('click', '.js-check-none', this.checkNoneFilters.bind(this));
+        [...this.el.querySelectorAll('input[name=filter-mappings]')].forEach(el => el.addEventListener('change', this.updateFilter.bind(this)));
+        [...this.el.getElementsByClassName('js-check-all')].forEach(el => el.addEventListener('click', this.checkAllFilters.bind(this)));
+        [...this.el.getElementsByClassName('js-check-none')].forEach(el => el.addEventListener('click', this.checkNoneFilters.bind(this)));
     }
+
     updateFilterInputs() {
-        $('.nl-mappings-filter').find('input[name=filter-mappings]').each((i, el) => $(el).prop('checked', this.filter.includes(el.value)));
+        [...this.el.querySelectorAll('input[name=filter-mappings]')].forEach((el) => {
+            el.checked = this.filter.includes(el.value); // eslint-disable-line no-param-reassign
+        });
     }
+
     updateFilter(e) {
         e && e.preventDefault();
         e.target.checked ? this.filter.push(e.target.value) : (this.filter = this.filter.filter(item => item !== e.target.value));
         this.saveFilterToStorage();
         this.filterMappings();
     }
+
     filterMappings() {
         let hiddenItems = 0;
-        $('.nl-rule-between').remove();
-        const $filterAmount = this.$el.find('.filter-checked-amount');
+        [...document.getElementsByClassName('nl-rule-between')].forEach(el => el.parentElement.removeChild(el));
+        const filterAmountEl = this.el.getElementsByClassName('filter-checked-amount')[0];
         const addRuleBetween = (rule, amount) => {
-            rule.$el.before(`<div class="nl-rule-between"><i class="material-icons">more_vert</i><span class="hidden-amount">${amount}</span></div>`);
+            const newBetweenEl = document.createElement('div');
+            newBetweenEl.className = 'nl-rule-between';
+            newBetweenEl.innerHTML = `<i class="material-icons">more_vert</i><span class="hidden-amount">${amount}</span>`;
+            rule.el.parentElement.insertBefore(newBetweenEl, rule.el);
         };
         if (this.filter.length) {
-            $filterAmount.show().html(this.filter.length);
+            filterAmountEl.innerHTML = this.filter.length;
+            filterAmountEl.style.display = 'block';
         } else {
-            $filterAmount.hide();
+            filterAmountEl.style.display = 'none';
         }
         this.rules.forEach((rule, i) => {
             const isHidden = !!this.filter.length && !this.filter.includes(rule.attributes.targetType);
             rule.isHidden = isHidden; // eslint-disable-line no-param-reassign
-            rule.$el.toggleClass('nl-rule-hidden', isHidden);
+            rule.el.classList.toggle('nl-rule-hidden', isHidden);
             if (isHidden) {
                 hiddenItems++;
                 if (i === this.rules.length - 1) {
@@ -178,20 +183,23 @@ export default class NlRules {
                 hiddenItems = 0;
             }
         });
-        this.$el.toggleClass('no-filtered-items', !!this.rules.length && !this.rules.some(rule => !rule.isHidden));
+        this.el.classList.toggle('no-filtered-items', !!this.rules.length && !this.rules.some(rule => !rule.isHidden));
     }
+
     saveFilterToStorage() {
         localStorage.setItem('ngMappingFilters', JSON.stringify(this.filter));
     }
+
     checkAllFilters(e) {
         e && e.preventDefault();
         const newFilter = [];
-        $('.nl-mappings-filter').find('input[name=filter-mappings]').each((i, el) => newFilter.push(el.value));
+        [...this.el.querySelectorAll('input[name=filter-mappings]')].forEach(el => newFilter.push(el.value));
         this.filter = newFilter;
         this.updateFilterInputs();
         this.saveFilterToStorage();
         this.filterMappings();
     }
+
     checkNoneFilters(e) {
         e && e.preventDefault();
         this.filter = [];

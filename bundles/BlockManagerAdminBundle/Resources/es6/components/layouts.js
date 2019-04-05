@@ -128,9 +128,7 @@ export default class NlLayouts {
             },
             body,
         }).then((response) => {
-            if (!response.ok) {
-              throw new Error(`HTTP error, status ${response.status}`);
-            }
+            if (!response.ok) throw new Error(`HTTP error, status ${response.status}`);
             fileName = response.headers.get('X-Filename');
             return response.text();
         }).then((data) => {

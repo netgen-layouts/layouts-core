@@ -1,265 +1,332 @@
 import Browser from '@netgen/content-browser-ui';
 import NetgenCore from '@netgen/layouts-ui-core';
 import NlModal from './modal';
+import parser from '../helpers/parser';
 
-const $ = NetgenCore.$;
+const { $ } = NetgenCore;
+
+const addedFormInit = (form) => {
+    const cb = form.getElementsByClassName('js-input-browse')[0];
+    if (cb) {
+        form.style.visibility = 'hidden';
+        $(cb).input_browse();
+        $(cb).data('input_browse').$change();
+        $(cb).on('browser:change', () => {
+            form.querySelector('[type="submit"]').click();
+        }).on('browser:cancel', () => {
+            form.getElementsByClassName('js-cancel-add')[0].click();
+        });
+    }
+    if (form.getElementsByClassName('multientry').length) {
+        const showMsg = (el) => {
+            el.getElementsByClassName('multientry-item').length === 0 && el.classList.add('show-message');
+        };
+        $('.multientry').multientry();
+        showMsg(form.getElementsByClassName('multientry')[0]);
+        $('.multientry').on('multientry:remove', e => showMsg(e.currentTarget));
+        $('.multientry').on('multientry:add', e => e.currentTarget.classList.remove('show-message'));
+    }
+    [...form.querySelectorAll('select[multiple]')].forEach((el) => {
+        let l = el.childElementCount;
+        l > 10 && (l = 10);
+        el.setAttribute('size', l);
+    });
+    [...form.getElementsByClassName('datetimepicker')].forEach((el) => {
+        el.closest('form').classList.add('ngc');
+        return new NetgenCore.DateTimePicker({
+            el: $(el),
+            options: {
+                widgetPositioning: {
+                    vertical: 'bottom',
+                },
+            },
+        });
+    });
+};
 
 /* nl rule plugin */
 export default class NlRule {
-    constructor(el) {
-        this.$el = $(el);
-        this.attributes = this.$el.find('.nl-rule-content').data();
+    constructor(el, rules) {
+        this.el = el;
+        this.rules = rules;
+        this.attributes = this.el.getElementsByClassName('nl-rule-content')[0].dataset;
         if (!this.attributes.targetType || this.attributes.targetType === 'null') this.attributes.targetType = 'undefined';
         this.id = this.attributes.id;
-        this.baseUrl = `${$('meta[name=ngbm-admin-base-path]').attr('content')}/mappings/`;
+        this.draftCreated = false;
 
-        this.$el.data('rule', this);
+        this.el.dataset.id = this.id;
         this.setupEvents();
         this.onRender();
     }
 
     renderEl(html) {
-        this.$el.hide().html(html).fadeIn();
+        this.el.innerHTML = html;
         this.onRender();
     }
 
     onRender() {
-        if (this.draftCreated === 1) {
-            this.afterDraftCreate();
-            this.draftCreated++;
-        }
-        this.$el.attr('data-id', this.$el.find('.nl-rule-content').data('id'));
-        this.$el.find('.nl-dropdown').each((i, el) => {
+        if (this.draftCreated) this.afterDraftCreate();
+        [...this.el.getElementsByClassName('nl-dropdown')].forEach((el) => {
             !el.getElementsByClassName('nl-dropdown-menu')[0].childElementCount && el.parentElement.removeChild(el);
         });
     }
 
     createDraft(callback) {
-        $.ajax({
-            type: 'POST',
-            url: `${this.baseUrl}rules/${this.id}/draft`,
-            beforeSend: () => {
-                if (this.checkIfDraft()) {
-                    callback();
-                    return false;
-                }
-                return true;
-            },
-            success: () => {
-                this.draftCreated = 1;
-                callback();
-            },
-        });
-    }
-
-    static addedFormInit(form) {
-        const $cb = form.find('.js-input-browse');
-        if ($cb.length) {
-            form.css('visibility', 'hidden');
-            $cb.input_browse();
-            $cb.data('input_browse').$change();
-            $cb.on('browser:change', () => {
-                form.submit();
-            }).on('browser:cancel', () => {
-                form.find('.js-cancel-add').click();
-            });
+        if (this.draftCreated) {
+            callback();
+            return;
         }
-        if (form.find('.multientry').length) {
-            const showMsg = (el) => {
-                el.find('.multientry-item').length === 0 && el.addClass('show-message');
-            };
-            $('.multientry').multientry();
-            showMsg($('.multientry'));
-            $('.multientry').on('multientry:remove', e => showMsg($(e.currentTarget)));
-            $('.multientry').on('multientry:add', e => $(e.currentTarget).removeClass('show-message'));
-        }
-        form.find('select[multiple]').each((i, el) => {
-            let l = $(el).find('option').length;
-            l > 10 && (l = 10);
-            $(el).attr('size', l);
-        });
-        form.find('.datetimepicker').each((i, el) => {
-            $(el).closest('form').addClass('ngc');
-            return new NetgenCore.DateTimePicker({
-                el: $(el),
-                options: {
-                    widgetPositioning: {
-                        vertical: 'bottom',
-                    },
-                },
-            });
+        fetch(`${this.rules.baseUrl}rules/${this.id}/draft`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'X-CSRF-Token': this.rules.csrf,
+            },
+        }).then((response) => {
+            if (!response.ok) throw new Error(`HTTP error, status ${response.status}`);
+            return response.text();
+        }).then(() => {
+            this.draftCreated = 1;
+            callback();
+        }).catch((error) => {
+            console.log(error);
         });
     }
 
     addedFormAction(e) {
         e.preventDefault();
-        const $form = $(e.currentTarget);
-        $.ajax({
-            type: $form.attr('method'),
-            url: $form.attr('action'),
-            data: $form.serialize(),
-            success: data => this.renderEl(data),
-            error: (xhr) => {
-                $form.html(xhr.responseText);
-                NlRule.addedFormInit($form);
+        console.warn('ADDED FORM ACTION');
+        const formEl = e.currentTarget;
+        fetch(formEl.action, {
+            method: formEl.method,
+            credentials: 'include',
+            headers: {
+                'X-CSRF-Token': this.rules.csrf,
             },
+            body: new URLSearchParams(new FormData(formEl)),
+        }).then((response) => {
+            if (!response.ok) {
+                return response.text().then((data) => {
+                    formEl.innerHTML(data);
+                    addedFormInit(formEl);
+                    throw new Error(`HTTP error, status ${response.status}`);
+                });
+            }
+            return response.text();
+        }).then((data) => {
+            this.renderEl(data);
+        }).catch((error) => {
+            console.log(error);
         });
     }
 
 
     afterDraftCreate() {
-        this.$el.data('draft', 'true');
-        this.$el.addClass('show-actions');
-    }
-    afterDraftRemove() {
-        this.$el.data('draft', 'false');
-        this.$el.removeClass('show-actions');
-        this.draftCreated = 0;
+        this.el.classList.add('show-actions');
     }
 
-    checkIfDraft() {
-        return this.$el.data('draft') === 'true';
+    afterDraftRemove() {
+        this.el.classList.remove('show-actions');
+        this.draftCreated = false;
     }
 
     ruleEdit(e) {
         e.preventDefault();
-        const action = $(e.currentTarget).data('action');
-        const url = `rules/${this.id}/${action}`;
-        const getDraft = !!((action === 'disable' || action === 'enable') && this.checkIfDraft());
-        $.ajax({
-            type: 'POST',
-            url: this.baseUrl + url,
-            success: (data) => {
-                this.renderEl(data);
-                getDraft || this.afterDraftRemove();
+        const { action } = e.target.closest('.js-rule-edit').dataset;
+        const url = `${this.rules.baseUrl}rules/${this.id}/${action}`;
+        const getDraft = !!((action === 'disable' || action === 'enable') && this.draftCreated);
+        fetch(url, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {
+                'X-CSRF-Token': this.rules.csrf,
             },
+        }).then((response) => {
+            if (!response.ok) throw new Error(`HTTP error, status ${response.status}`);
+            return response.text();
+        }).then(() => {
+            getDraft || this.afterDraftRemove();
+        }).catch((error) => {
+            console.log(error);
         });
     }
+
     ruleUnlink(e) {
         e.preventDefault();
-        const url = `rules/${this.id}`;
+        const url = `${this.rules.baseUrl}rules/${this.id}`;
         this.createDraft(() => {
-            $.ajax({
-                type: 'POST',
-                data: {
-                    layout_id: 0,
+            fetch(url, {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                    'X-CSRF-Token': this.rules.csrf,
                 },
-                url: this.baseUrl + url,
-                success: (data) => {
-                    this.renderEl(data);
-                },
+                body: new URLSearchParams('layout_id=0'),
+            }).then((response) => {
+                if (!response.ok) throw new Error(`HTTP error, status ${response.status}`);
+                return response.text();
+            }).then((data) => {
+                this.renderEl(data);
+            }).catch((error) => {
+                console.log(error);
             });
         });
     }
+
     ruleDelete(e) {
         e.preventDefault();
-        const url = `${this.baseUrl}rules/${this.id}/delete`;
+        const url = `${this.rules.baseUrl}rules/${this.id}/delete`;
         const modal = new NlModal({
             preload: true,
             autoClose: false,
         });
         const formAction = (ev) => {
             ev.preventDefault();
-            $.ajax({
-                type: 'DELETE',
-                url,
-                beforeSend: () => modal.loadingStart(),
-                success: () => {
-                    modal.close();
-                    this.$el.remove();
-                    $(document).trigger('delete-rule', { nlRule: this });
+            modal.loadingStart();
+            fetch(url, {
+                method: 'DELETE',
+                credentials: 'include',
+                headers: {
+                    'X-CSRF-Token': this.rules.csrf,
                 },
-                error: (xhr) => {
-                    modal.insertModalHtml(xhr.responseText);
-                },
+            }).then((response) => {
+                if (!response.ok) {
+                    return response.text().then((data) => {
+                        modal.insertModalHtml(data);
+                        throw new Error(`HTTP error, status ${response.status}`);
+                    });
+                }
+                return response.text();
+            }).then(() => {
+                modal.close();
+                this.el.parentElement.removeChild(this.el);
+                for (let i = 0, len = this.rules.rules.length; i < len; i++) {
+                    if (this.rules.rules[i].id === this.id) {
+                        this.rules.rules.splice(i, 1);
+                        this.rules.toggleUI();
+                        return true;
+                    }
+                }
+                return true;
+            }).catch((error) => {
+                console.log(error);
             });
         };
-        $.ajax({
-            type: 'GET',
-            url,
-            success: (data) => {
-                modal.insertModalHtml(data);
-                modal.el.addEventListener('apply', formAction);
-            },
+        fetch(url, {
+            method: 'GET',
+        }).then((response) => {
+            if (!response.ok) throw new Error(`HTTP error, status ${response.status}`);
+            return response.text();
+        }).then((data) => {
+            modal.insertModalHtml(data);
+            modal.el.addEventListener('apply', formAction);
+        }).catch((error) => {
+            console.log(error);
         });
     }
+
     settingDelete(e) {
         e.preventDefault();
-        const url = `${$(e.currentTarget).data('setting-type')}s/${$(e.currentTarget).data('setting-id')}`;
+        const { dataset } = e.target.closest('.js-setting-delete');
+        const url = `${this.rules.baseUrl}${dataset.settingType}s/${dataset.settingId}`;
         this.createDraft(() => {
-            $.ajax({
-                type: 'DELETE',
-                url: this.baseUrl + url,
-                success: (data) => {
-                    this.renderEl(data);
+            fetch(url, {
+                method: 'DELETE',
+                credentials: 'include',
+                headers: {
+                    'X-CSRF-Token': this.rules.csrf,
                 },
+            }).then((response) => {
+                if (!response.ok) throw new Error(`HTTP error, status ${response.status}`);
+                return response.text();
+            }).then((data) => {
+                this.renderEl(data);
+            }).catch((error) => {
+                console.log(error);
             });
         });
     }
+
     settingEdit(e) {
         e.preventDefault();
-        const url = `${$(e.currentTarget).data('setting-type')}s/${$(e.currentTarget).data('setting-id')}/edit`;
-        const $condition = $(e.currentTarget).closest('li');
+        const { dataset } = e.target.closest('.js-setting-edit');
+        const url = `${this.rules.baseUrl}${dataset.settingType}s/${dataset.settingId}/edit`;
+        const conditionEl = e.target.closest('li');
         this.createDraft(() => {
-            $.ajax({
-                type: 'GET',
-                url: this.baseUrl + url,
-                success: (data) => {
-                    const $form = $(data);
-                    $condition.hide();
-                    $condition.before($form);
-                    NlRule.addedFormInit($form);
-                    $form.on('submit', this.addedFormAction.bind(this));
-                    this.$el.on('click', '.js-cancel-add', (ev) => {
-                        ev.preventDefault();
-                        $form.remove();
-                        $condition.show();
-                    });
+            fetch(url, {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'X-CSRF-Token': this.rules.csrf,
                 },
+            }).then((response) => {
+                if (!response.ok) throw new Error(`HTTP error, status ${response.status}`);
+                return response.text();
+            }).then((data) => {
+                const formEl = parser(data)[0];
+                conditionEl.style.display = 'none';
+                conditionEl.parentElement.insertBefore(formEl, conditionEl);
+                addedFormInit(formEl);
+                formEl.addEventListener('submit', this.addedFormAction.bind(this));
+                formEl.getElementsByClassName('js-cancel-add')[0].addEventListener('click', (ev) => {
+                    ev.preventDefault();
+                    formEl.parentElement.removeChild(formEl);
+                    conditionEl.style.display = 'block';
+                });
+            }).catch((error) => {
+                console.log(error);
             });
         });
     }
+
     settingAdd(e) {
         e.preventDefault();
-        const $actions = $(e.currentTarget).closest('.settings-action-add');
-        const $loader = $actions.siblings('.settings-loader');
-        const action = $(e.currentTarget).data('action');
+        const actionsEl = e.target.closest('.settings-action-add');
+        const loaderEl = actionsEl.parentElement.getElementsByClassName('settings-loader')[0];
+        const { action } = e.target.dataset;
         let url;
         let targetType;
         if (action === 'add-target') {
-            targetType = $(e.currentTarget).data('target-type') || $(e.currentTarget).siblings('.js-target-type').val();
-            url = `rules/${this.id}/target/new/${targetType}`;
+            targetType = e.target.dataset.targetType || e.target.parentElement.getElementsByClassName('js-target-type')[0].value;
+            url = `${this.rules.baseUrl}rules/${this.id}/target/new/${targetType}`;
         } else if (action === 'add-condition') {
-            targetType = $(e.currentTarget).siblings('.js-condition-type').val();
-            url = `rules/${this.id}/condition/new/${targetType}`;
+            targetType = e.target.parentElement.getElementsByClassName('js-condition-type')[0].value;
+            url = `${this.rules.baseUrl}rules/${this.id}/condition/new/${targetType}`;
         }
         this.createDraft(() => {
-            $.ajax({
-                type: 'GET',
-                url: this.baseUrl + url,
-                beforeSend: () => {
-                    $actions.hide();
-                    $loader.show();
-                },
-                success: (data) => {
-                    const $form = $(data);
-                    $loader.hide();
-                    $actions.before($form);
-                    NlRule.addedFormInit($form);
-                    $form.on('submit', this.addedFormAction.bind(this));
-                    this.$el.on('click', '.js-cancel-add', (ev) => {
+            this.createDraft(() => {
+                actionsEl.style.display = 'none';
+                loaderEl.style.display = 'block';
+                fetch(url, {
+                    method: 'GET',
+                    credentials: 'include',
+                    headers: {
+                        'X-CSRF-Token': this.rules.csrf,
+                    },
+                }).then((response) => {
+                    if (!response.ok) throw new Error(`HTTP error, status ${response.status}`);
+                    return response.text();
+                }).then((data) => {
+                    const formEl = parser(data)[0];
+                    loaderEl.style.display = 'none';
+                    actionsEl.parentElement.insertBefore(formEl, actionsEl);
+                    addedFormInit(formEl);
+                    formEl.addEventListener('submit', this.addedFormAction.bind(this));
+                    formEl.getElementsByClassName('js-cancel-add')[0].addEventListener('click', (ev) => {
                         ev.preventDefault();
-                        $form.remove();
-                        $actions.show();
+                        formEl.parentElement.removeChild(formEl);
+                        actionsEl.style.display = 'block';
                     });
-                },
+                }).catch((error) => {
+                    console.log(error);
+                });
             });
         });
     }
 
     linkLayout(e) {
         e.stopPropagation();
-        const dataset = e.currentTarget.dataset;
+        const { dataset } = e.target.closest('.js-link-layout');
         const browser = new Browser({
             disabled_item_values: [parseInt(dataset.linkedLayout, 10)],
             tree_config: {
@@ -273,32 +340,44 @@ export default class NlRule {
         browser.on('apply', () => {
             const newId = browser.selected_collection.first().id;
             this.createDraft(() => {
-                $.ajax({
-                    type: 'POST',
-                    data: {
-                        layout_id: newId,
+                fetch(`${this.rules.baseUrl}rules/${this.id}`, {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: {
+                        'X-CSRF-Token': this.rules.csrf,
                     },
-                    url: `${this.baseUrl}rules/${this.id}`,
-                    success: (data) => {
-                        this.renderEl(data);
-                    },
+                    body: new URLSearchParams(`layout_id=${newId}`),
+                }).then((response) => {
+                    if (!response.ok) throw new Error(`HTTP error, status ${response.status}`);
+                    return response.text();
+                }).then((data) => {
+                    this.renderEl(data);
+                }).catch((error) => {
+                    console.log(error);
                 });
             });
         }).load_and_open();
     }
 
     setupEvents() {
-        this.$el.on('click', '.nl-rule-head .nl-rule-cell', () => {
-            this.$el.toggleClass('show-body');
+        this.el.addEventListener('click', (e) => {
+            if (e.target.closest('.js-rule-edit')) {
+                this.ruleEdit(e);
+            } else if (e.target.closest('.js-rule-unlink')) {
+                this.ruleUnlink(e);
+            } else if (e.target.closest('.js-rule-delete')) {
+                this.ruleDelete(e);
+            } else if (e.target.closest('.js-setting-delete')) {
+                this.settingDelete(e);
+            } else if (e.target.closest('.js-setting-edit')) {
+                this.settingEdit(e);
+            } else if (e.target.closest('.js-setting-add')) {
+                this.settingAdd(e);
+            } else if (e.target.closest('.js-link-layout')) {
+                this.linkLayout(e);
+            } else if (e.target.closest('.nl-rule-head .nl-rule-cell')) {
+                this.el.classList.toggle('show-body');
+            }
         });
-
-        this.$el.on('click', '.js-rule-edit', this.ruleEdit.bind(this));
-        this.$el.on('click', '.js-rule-unlink', this.ruleUnlink.bind(this));
-        this.$el.on('click', '.js-setting-delete', this.settingDelete.bind(this));
-        this.$el.on('click', '.js-setting-edit', this.settingEdit.bind(this));
-        this.$el.on('click', '.js-setting-add', this.settingAdd.bind(this));
-        this.$el.on('click', '.js-rule-delete', this.ruleDelete.bind(this));
-
-        this.$el.on('click', '.js-link-layout', this.linkLayout.bind(this));
     }
 }
