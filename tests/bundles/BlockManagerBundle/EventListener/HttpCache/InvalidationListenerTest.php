@@ -50,8 +50,7 @@ final class InvalidationListenerTest extends TestCase
                 KernelEvents::TERMINATE => 'onKernelTerminate',
                 KernelEvents::EXCEPTION => 'onKernelException',
                 ConsoleEvents::TERMINATE => 'onConsoleTerminate',
-                'console.exception' => 'onConsoleTerminate',
-                'console.error' => 'onConsoleTerminate',
+                ConsoleEvents::ERROR => 'onConsoleTerminate',
             ],
             $this->listener::getSubscribedEvents()
         );
