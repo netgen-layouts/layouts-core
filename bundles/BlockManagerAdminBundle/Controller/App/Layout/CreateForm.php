@@ -11,7 +11,6 @@ use Netgen\BlockManager\Layout\Form\CreateType;
 use Netgen\BlockManager\Locale\LocaleProviderInterface;
 use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -69,7 +68,7 @@ final class CreateForm extends AbstractController
         if ($form->isValid()) {
             $createdLayout = $this->layoutService->createLayout($createStruct);
 
-            return new JsonResponse(
+            return $this->json(
                 [
                     'id' => $createdLayout->getId(),
                 ],
