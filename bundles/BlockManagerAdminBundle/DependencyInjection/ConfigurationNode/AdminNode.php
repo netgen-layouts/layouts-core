@@ -19,7 +19,7 @@ final class AdminNode implements ConfigurationNodeInterface
             ->addDefaultsIfNotSet()
             ->children()
                 ->arrayNode('javascripts')
-                    ->prototype('scalar')
+                    ->scalarPrototype()
                         ->cannotBeEmpty()
                         ->validate()
                             ->ifTrue(
@@ -32,7 +32,7 @@ final class AdminNode implements ConfigurationNodeInterface
                     ->end()
                 ->end()
                 ->arrayNode('stylesheets')
-                    ->prototype('scalar')
+                    ->scalarPrototype()
                         ->cannotBeEmpty()
                         ->validate()
                             ->ifTrue(

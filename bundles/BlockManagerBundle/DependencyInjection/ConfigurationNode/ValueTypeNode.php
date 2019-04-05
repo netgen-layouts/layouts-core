@@ -18,7 +18,7 @@ final class ValueTypeNode implements ConfigurationNodeInterface
         $node
             ->requiresAtLeastOneElement()
             ->useAttributeAsKey('value_type')
-            ->prototype('array')
+            ->arrayPrototype()
                 ->canBeDisabled()
                 ->children()
                     ->scalarNode('name')

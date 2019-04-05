@@ -19,7 +19,7 @@ final class BlockTypeNode implements ConfigurationNodeInterface
         $node
             ->requiresAtLeastOneElement()
             ->useAttributeAsKey('block_type')
-            ->prototype('array')
+            ->arrayPrototype()
                 ->canBeDisabled()
                 ->validate()
                     ->always(
@@ -73,7 +73,7 @@ final class BlockTypeNode implements ConfigurationNodeInterface
                                 ->performNoDeepMerging()
                                 ->requiresAtLeastOneElement()
                                 ->useAttributeAsKey('parameter')
-                                ->prototype('variable')
+                                ->variablePrototype()
                                 ->end()
                             ->end()
                         ->end()

@@ -22,7 +22,7 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
         $node
             ->requiresAtLeastOneElement()
             ->useAttributeAsKey('block_definition')
-            ->prototype('array')
+            ->arrayPrototype()
                 ->canBeDisabled()
                 ->children()
                     ->scalarNode('handler')
@@ -176,7 +176,7 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                         ->isRequired()
                         ->requiresAtLeastOneElement()
                         ->useAttributeAsKey('view_type')
-                        ->prototype('array')
+                        ->arrayPrototype()
                             ->canBeDisabled()
                             ->validate()
                                 ->ifTrue(
@@ -204,7 +204,7 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                                     ->defaultValue(['standard' => ['name' => 'Standard', 'enabled' => true]])
                                     ->requiresAtLeastOneElement()
                                     ->useAttributeAsKey('item_view_type')
-                                    ->prototype('array')
+                                    ->arrayPrototype()
                                         ->canBeDisabled()
                                         ->validate()
                                             ->ifTrue(

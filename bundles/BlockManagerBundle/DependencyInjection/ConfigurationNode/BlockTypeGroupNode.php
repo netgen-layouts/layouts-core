@@ -18,7 +18,7 @@ final class BlockTypeGroupNode implements ConfigurationNodeInterface
         $node
             ->requiresAtLeastOneElement()
             ->useAttributeAsKey('block_type_group')
-            ->prototype('array')
+            ->arrayPrototype()
                 ->canBeDisabled()
                 ->children()
                     ->scalarNode('name')
@@ -34,7 +34,7 @@ final class BlockTypeGroupNode implements ConfigurationNodeInterface
                             )
                         ->end()
                         ->requiresAtLeastOneElement()
-                        ->prototype('scalar')
+                        ->scalarPrototype()
                             ->cannotBeEmpty()
                         ->end()
                     ->end()

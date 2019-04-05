@@ -18,10 +18,10 @@ final class DefaultViewTemplatesNode implements ConfigurationNodeInterface
         $node
             ->requiresAtLeastOneElement()
             ->useAttributeAsKey('view')
-            ->prototype('array')
+            ->arrayPrototype()
                 ->requiresAtLeastOneElement()
                 ->useAttributeAsKey('context')
-                ->prototype('scalar')
+                ->scalarPrototype()
                     ->isRequired()
                     ->cannotBeEmpty()
                 ->end()

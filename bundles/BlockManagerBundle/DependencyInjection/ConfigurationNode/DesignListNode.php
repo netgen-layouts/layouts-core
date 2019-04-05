@@ -18,8 +18,8 @@ final class DesignListNode implements ConfigurationNodeInterface
         $node
             ->requiresAtLeastOneElement()
             ->useAttributeAsKey('design_name')
-            ->prototype('array')
-                ->prototype('scalar')
+            ->arrayPrototype()
+                ->scalarPrototype()
                     ->cannotBeEmpty()
                 ->end()
             ->end();
