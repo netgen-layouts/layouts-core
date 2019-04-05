@@ -74,14 +74,14 @@ final class CollectionResultNormalizerTest extends TestCase
         $this->normalizerMock
             ->expects(self::at(0))
             ->method('normalize')
-            ->will(self::returnValue($serializedConfig));
+            ->willReturn($serializedConfig);
 
         $result = new Result(3, new ManualItem($collectionItem));
         $this->urlGeneratorMock
             ->expects(self::any())
             ->method('generate')
             ->with(self::identicalTo($collectionItem->getCmsItem()))
-            ->will(self::returnValue('/some/url'));
+            ->willReturn('/some/url');
 
         self::assertSame(
             [
@@ -120,13 +120,13 @@ final class CollectionResultNormalizerTest extends TestCase
         $this->normalizerMock
             ->expects(self::at(0))
             ->method('normalize')
-            ->will(self::returnValue([]));
+            ->willReturn([]);
 
         $this->urlGeneratorMock
             ->expects(self::any())
             ->method('generate')
             ->with(self::identicalTo($item))
-            ->will(self::returnValue('/some/url'));
+            ->willReturn('/some/url');
 
         self::assertSame(
             [
@@ -178,19 +178,19 @@ final class CollectionResultNormalizerTest extends TestCase
         $this->normalizerMock
             ->expects(self::at(0))
             ->method('normalize')
-            ->will(self::returnValue([]));
+            ->willReturn([]);
 
         $this->normalizerMock
             ->expects(self::at(1))
             ->method('normalize')
-            ->will(self::returnValue($serializedConfig));
+            ->willReturn($serializedConfig);
 
         $result = new Result(3, new ManualItem($collectionItem), $item);
         $this->urlGeneratorMock
             ->expects(self::any())
             ->method('generate')
             ->with(self::identicalTo($collectionItem->getCmsItem()))
-            ->will(self::returnValue('/some/url'));
+            ->willReturn('/some/url');
 
         self::assertSame(
             [

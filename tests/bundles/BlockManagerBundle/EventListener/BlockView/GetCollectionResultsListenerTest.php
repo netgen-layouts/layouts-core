@@ -96,7 +96,7 @@ final class GetCollectionResultsListenerTest extends TestCase
                 self::identicalTo(5),
                 self::identicalTo(0)
             )
-            ->will(self::returnValue(ResultSet::fromArray(['collection' => $collection1, 'totalCount' => 0])));
+            ->willReturn(ResultSet::fromArray(['collection' => $collection1, 'totalCount' => 0]));
 
         $this->resultBuilderMock
             ->expects(self::at(1))
@@ -107,7 +107,7 @@ final class GetCollectionResultsListenerTest extends TestCase
                 self::identicalTo(10),
                 self::identicalTo(0)
             )
-            ->will(self::returnValue(ResultSet::fromArray(['collection' => $collection2, 'totalCount' => 0])));
+            ->willReturn(ResultSet::fromArray(['collection' => $collection2, 'totalCount' => 0]));
 
         $this->listener->onRenderView($event);
 
@@ -168,7 +168,7 @@ final class GetCollectionResultsListenerTest extends TestCase
                 self::identicalTo(5),
                 self::identicalTo(0)
             )
-            ->will(self::returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
+            ->willReturn(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]));
 
         $this->listener->onRenderView($event);
 
@@ -224,7 +224,7 @@ final class GetCollectionResultsListenerTest extends TestCase
                 self::identicalTo(5),
                 self::identicalTo(0)
             )
-            ->will(self::returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
+            ->willReturn(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]));
 
         $this->listener->onRenderView($event);
 
@@ -279,7 +279,7 @@ final class GetCollectionResultsListenerTest extends TestCase
                 self::identicalTo(5),
                 self::identicalTo(0)
             )
-            ->will(self::returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
+            ->willReturn(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]));
 
         $this->listener->onRenderView($event);
 
@@ -327,7 +327,7 @@ final class GetCollectionResultsListenerTest extends TestCase
                 self::identicalTo(5),
                 self::identicalTo(ResultSet::INCLUDE_UNKNOWN_ITEMS)
             )
-            ->will(self::returnValue(ResultSet::fromArray(['collection' => $collection1, 'totalCount' => 0])));
+            ->willReturn(ResultSet::fromArray(['collection' => $collection1, 'totalCount' => 0]));
 
         $this->listener->onRenderView($event);
 

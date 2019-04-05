@@ -66,12 +66,12 @@ final class GetTwigBlockContentListenerTest extends TestCase
         $twigTemplateMock
             ->expects(self::once())
             ->method('hasBlock')
-            ->will(self::returnValue(true));
+            ->willReturn(true);
 
         $twigTemplateMock
             ->expects(self::once())
             ->method('displayBlock')
-            ->will(self::returnCallback(function (): void { echo 'rendered twig block'; }));
+            ->willReturnCallback(function (): void { echo 'rendered twig block'; });
 
         $blockView->addParameter('twig_template', new ContextualizedTwigTemplate($twigTemplateMock));
 

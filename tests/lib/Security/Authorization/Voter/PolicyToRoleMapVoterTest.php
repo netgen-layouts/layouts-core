@@ -42,7 +42,7 @@ final class PolicyToRoleMapVoterTest extends TestCase
             ->expects(self::once())
             ->method('decide')
             ->with(self::equalTo($token), self::equalTo(['ROLE_NGBM_ADMIN']))
-            ->will(self::returnValue(true));
+            ->willReturn(true);
 
         $vote = $this->voter->vote(
             $token,

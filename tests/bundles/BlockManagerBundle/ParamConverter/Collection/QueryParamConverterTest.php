@@ -64,7 +64,7 @@ final class QueryParamConverterTest extends TestCase
             ->expects(self::once())
             ->method('loadQuery')
             ->with(self::identicalTo(42))
-            ->will(self::returnValue($query));
+            ->willReturn($query);
 
         self::assertSame(
             $query,
@@ -88,7 +88,7 @@ final class QueryParamConverterTest extends TestCase
             ->expects(self::once())
             ->method('loadQueryDraft')
             ->with(self::identicalTo(42))
-            ->will(self::returnValue($query));
+            ->willReturn($query);
 
         self::assertSame(
             $query,

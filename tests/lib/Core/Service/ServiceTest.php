@@ -121,7 +121,7 @@ final class ServiceTest extends TestCase
         $this->transactionHandlerMock
             ->expects(self::once())
             ->method('commitTransaction')
-            ->will(self::throwException(new RuntimeException('Test exception text')));
+            ->willThrowException(new RuntimeException('Test exception text'));
 
         $this->service->commitTransaction();
     }
@@ -149,7 +149,7 @@ final class ServiceTest extends TestCase
         $this->transactionHandlerMock
             ->expects(self::once())
             ->method('rollbackTransaction')
-            ->will(self::throwException(new RuntimeException('Test exception text')));
+            ->willThrowException(new RuntimeException('Test exception text'));
 
         $this->service->rollbackTransaction();
     }

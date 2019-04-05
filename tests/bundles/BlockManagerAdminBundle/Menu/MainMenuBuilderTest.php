@@ -31,12 +31,10 @@ final class MainMenuBuilderTest extends TestCase
         $urlGeneratorMock
             ->expects(self::any())
             ->method('generate')
-            ->will(
-                self::returnCallback(
-                    function (string $route): string {
-                        return $route;
-                    }
-                )
+            ->willReturnCallback(
+                function (string $route): string {
+                    return $route;
+                }
             );
 
         $menuFactory = new MenuFactory();
@@ -61,7 +59,7 @@ final class MainMenuBuilderTest extends TestCase
             ->expects(self::any())
             ->method('isGranted')
             ->with(self::identicalTo('nglayouts:ui:access'))
-            ->will(self::returnValue(true));
+            ->willReturn(true);
 
         $menu = $this->builder->createMenu();
 
@@ -95,7 +93,7 @@ final class MainMenuBuilderTest extends TestCase
             ->expects(self::any())
             ->method('isGranted')
             ->with(self::identicalTo('nglayouts:ui:access'))
-            ->will(self::returnValue(false));
+            ->willReturn(false);
 
         $menu = $this->builder->createMenu();
 

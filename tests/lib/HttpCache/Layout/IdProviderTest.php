@@ -40,14 +40,12 @@ final class IdProviderTest extends TestCase
             ->expects(self::once())
             ->method('loadLayout')
             ->with(self::identicalTo(42))
-            ->will(
-                self::returnValue(
-                    Layout::fromArray(
-                        [
-                            'id' => 42,
-                            'shared' => false,
-                        ]
-                    )
+            ->willReturn(
+                Layout::fromArray(
+                    [
+                        'id' => 42,
+                        'shared' => false,
+                    ]
                 )
             );
 
@@ -65,11 +63,7 @@ final class IdProviderTest extends TestCase
             ->expects(self::once())
             ->method('loadLayout')
             ->with(self::identicalTo(42))
-            ->will(
-                self::throwException(
-                    new NotFoundException('layout', 42)
-                )
-            );
+            ->willThrowException(new NotFoundException('layout', 42));
 
         $providedIds = $this->idProvider->provideIds(42);
 
@@ -92,28 +86,26 @@ final class IdProviderTest extends TestCase
             ->expects(self::at(0))
             ->method('loadLayout')
             ->with(self::identicalTo(42))
-            ->will(self::returnValue($sharedLayout));
+            ->willReturn($sharedLayout);
 
         $this->layoutServiceMock
             ->expects(self::at(1))
             ->method('loadRelatedLayouts')
             ->with(self::identicalTo($sharedLayout))
-            ->will(
-                self::returnValue(
-                    new LayoutList(
-                        [
-                            Layout::fromArray(
-                                [
-                                    'id' => 43,
-                                ]
-                            ),
-                            Layout::fromArray(
-                                [
-                                    'id' => 44,
-                                ]
-                            ),
-                        ]
-                    )
+            ->willReturn(
+                new LayoutList(
+                    [
+                        Layout::fromArray(
+                            [
+                                'id' => 43,
+                            ]
+                        ),
+                        Layout::fromArray(
+                            [
+                                'id' => 44,
+                            ]
+                        ),
+                    ]
                 )
             );
 

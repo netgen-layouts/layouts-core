@@ -60,13 +60,13 @@ final class ItemRuntimeTest extends TestCase
             ->expects(self::once())
             ->method('load')
             ->with(self::identicalTo(42), self::identicalTo('value'))
-            ->will(self::returnValue($cmsItem));
+            ->willReturn($cmsItem);
 
         $this->urlGeneratorMock
             ->expects(self::once())
             ->method('generate')
             ->with(self::identicalTo($cmsItem))
-            ->will(self::returnValue('/item/path'));
+            ->willReturn('/item/path');
 
         $itemPath = $this->runtime->getItemPath(42, 'value');
 
@@ -84,13 +84,13 @@ final class ItemRuntimeTest extends TestCase
             ->expects(self::once())
             ->method('load')
             ->with(self::identicalTo('42'), self::identicalTo('value'))
-            ->will(self::returnValue($cmsItem));
+            ->willReturn($cmsItem);
 
         $this->urlGeneratorMock
             ->expects(self::once())
             ->method('generate')
             ->with(self::identicalTo($cmsItem))
-            ->will(self::returnValue('/item/path'));
+            ->willReturn('/item/path');
 
         $itemPath = $this->runtime->getItemPath('value://42');
 
@@ -112,7 +112,7 @@ final class ItemRuntimeTest extends TestCase
             ->expects(self::once())
             ->method('generate')
             ->with(self::identicalTo($cmsItem))
-            ->will(self::returnValue('/item/path'));
+            ->willReturn('/item/path');
 
         $itemPath = $this->runtime->getItemPath($cmsItem);
 

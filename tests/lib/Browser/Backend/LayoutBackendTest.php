@@ -83,7 +83,7 @@ final class LayoutBackendTest extends TestCase
             ->expects(self::once())
             ->method('loadLayout')
             ->with(self::identicalTo(1))
-            ->will(self::returnValue($layout));
+            ->willReturn($layout);
 
         $item = $this->backend->loadItem(1);
 
@@ -103,7 +103,7 @@ final class LayoutBackendTest extends TestCase
             ->expects(self::once())
             ->method('loadLayout')
             ->with(self::identicalTo(1))
-            ->will(self::throwException(new NotFoundException('layout', 1)));
+            ->willThrowException(new NotFoundException('layout', 1));
 
         $this->backend->loadItem(1);
     }
@@ -145,7 +145,7 @@ final class LayoutBackendTest extends TestCase
                 self::identicalTo(0),
                 self::identicalTo(25)
             )
-            ->will(self::returnValue(new LayoutList([new Layout(), new Layout()])));
+            ->willReturn(new LayoutList([new Layout(), new Layout()]));
 
         $items = $this->backend->getSubItems(new RootLocation());
 
@@ -169,7 +169,7 @@ final class LayoutBackendTest extends TestCase
                 self::identicalTo(5),
                 self::identicalTo(10)
             )
-            ->will(self::returnValue(new LayoutList([new Layout(), new Layout()])));
+            ->willReturn(new LayoutList([new Layout(), new Layout()]));
 
         $items = $this->backend->getSubItems(
             new RootLocation(),
@@ -190,7 +190,7 @@ final class LayoutBackendTest extends TestCase
         $this->layoutServiceMock
             ->expects(self::once())
             ->method('getLayoutsCount')
-            ->will(self::returnValue(2));
+            ->willReturn(2);
 
         $count = $this->backend->getSubItemsCount(new RootLocation());
 

@@ -45,13 +45,13 @@ final class TemplateResolverTest extends TestCase
             ->expects(self::at(0))
             ->method('match')
             ->with(self::identicalTo($this->view), self::identicalTo(['value']))
-            ->will(self::returnValue(false));
+            ->willReturn(false);
 
         $matcherMock
             ->expects(self::at(1))
             ->method('match')
             ->with(self::identicalTo($this->view), self::identicalTo(['value2']))
-            ->will(self::returnValue(true));
+            ->willReturn(true);
 
         $viewConfiguration = [
             'stub_view' => [
@@ -239,7 +239,7 @@ final class TemplateResolverTest extends TestCase
             ->expects(self::once())
             ->method('match')
             ->with(self::identicalTo($this->view), self::identicalTo(['value']))
-            ->will(self::returnValue(false));
+            ->willReturn(false);
 
         $viewConfiguration = [
             'stub_view' => [

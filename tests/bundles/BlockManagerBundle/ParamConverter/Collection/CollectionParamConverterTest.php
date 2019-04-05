@@ -64,7 +64,7 @@ final class CollectionParamConverterTest extends TestCase
             ->expects(self::once())
             ->method('loadCollection')
             ->with(self::identicalTo(42))
-            ->will(self::returnValue($collection));
+            ->willReturn($collection);
 
         self::assertSame(
             $collection,
@@ -88,7 +88,7 @@ final class CollectionParamConverterTest extends TestCase
             ->expects(self::once())
             ->method('loadCollectionDraft')
             ->with(self::identicalTo(42))
-            ->will(self::returnValue($collection));
+            ->willReturn($collection);
 
         self::assertSame(
             $collection,

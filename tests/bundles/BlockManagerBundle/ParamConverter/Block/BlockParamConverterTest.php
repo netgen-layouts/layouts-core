@@ -64,7 +64,7 @@ final class BlockParamConverterTest extends TestCase
             ->expects(self::once())
             ->method('loadBlock')
             ->with(self::identicalTo(42))
-            ->will(self::returnValue($block));
+            ->willReturn($block);
 
         self::assertSame(
             $block,
@@ -88,7 +88,7 @@ final class BlockParamConverterTest extends TestCase
             ->expects(self::once())
             ->method('loadBlockDraft')
             ->with(self::identicalTo(42))
-            ->will(self::returnValue($block));
+            ->willReturn($block);
 
         self::assertSame(
             $block,

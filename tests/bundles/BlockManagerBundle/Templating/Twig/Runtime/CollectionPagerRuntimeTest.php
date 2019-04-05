@@ -58,7 +58,7 @@ final class CollectionPagerRuntimeTest extends TestCase
                 self::identicalTo($this->routeGenerator),
                 self::identicalTo(['block' => $block, 'collection_identifier' => 'default'])
             )
-            ->will(self::returnValue('rendered view'));
+            ->willReturn('rendered view');
 
         $renderedPagerfanta = $this->runtime->renderCollectionPager(
             $pagerfanta,
@@ -90,7 +90,7 @@ final class CollectionPagerRuntimeTest extends TestCase
                     ]
                 )
             )
-            ->will(self::returnValue('rendered view'));
+            ->willReturn('rendered view');
 
         $renderedPagerfanta = $this->runtime->renderCollectionPager(
             $pagerfanta,
@@ -112,7 +112,7 @@ final class CollectionPagerRuntimeTest extends TestCase
         $pagerfanta = $this->createMock(Pagerfanta::class);
         $pagerfanta->expects(self::any())
             ->method('getNbPages')
-            ->will(self::returnValue(5));
+            ->willReturn(5);
 
         $uri = $this->runtime->getCollectionPageUrl(
             $pagerfanta,
@@ -136,7 +136,7 @@ final class CollectionPagerRuntimeTest extends TestCase
         $pagerfanta = $this->createMock(Pagerfanta::class);
         $pagerfanta->expects(self::any())
             ->method('getNbPages')
-            ->will(self::returnValue(5));
+            ->willReturn(5);
 
         $this->runtime->getCollectionPageUrl(
             $pagerfanta,

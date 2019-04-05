@@ -48,13 +48,13 @@ final class VarnishClientTest extends TestCase
             ->expects(self::at(0))
             ->method('provideIds')
             ->with(self::identicalTo(24))
-            ->will(self::returnValue([24, 25, 26]));
+            ->willReturn([24, 25, 26]);
 
         $this->idProviderMock
             ->expects(self::at(1))
             ->method('provideIds')
             ->with(self::identicalTo(42))
-            ->will(self::returnValue([42]));
+            ->willReturn([42]);
 
         $this->fosInvalidatorMock
             ->expects(self::once())
@@ -210,7 +210,7 @@ final class VarnishClientTest extends TestCase
         $this->fosInvalidatorMock
             ->expects(self::once())
             ->method('flush')
-            ->will(self::throwException(new ExceptionCollection()));
+            ->willThrowException(new ExceptionCollection());
 
         self::assertFalse($this->client->commit());
     }

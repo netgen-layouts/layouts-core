@@ -56,7 +56,7 @@ final class RequestBodyListenerTest extends TestCase
             ->expects(self::once())
             ->method('decode')
             ->with(self::identicalTo('{"test": "value"}'))
-            ->will(self::returnValue(['test' => 'value']));
+            ->willReturn(['test' => 'value']);
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '{"test": "value"}');
@@ -160,7 +160,7 @@ final class RequestBodyListenerTest extends TestCase
             ->expects(self::once())
             ->method('decode')
             ->with(self::identicalTo('{]'))
-            ->will(self::throwException(new UnexpectedValueException()));
+            ->willThrowException(new UnexpectedValueException());
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '{]');
@@ -183,7 +183,7 @@ final class RequestBodyListenerTest extends TestCase
             ->expects(self::once())
             ->method('decode')
             ->with(self::identicalTo('42'))
-            ->will(self::returnValue(42));
+            ->willReturn(42);
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/', Request::METHOD_POST, [], [], [], [], '42');

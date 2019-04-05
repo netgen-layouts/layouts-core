@@ -59,33 +59,29 @@ abstract class ImporterTest extends CoreTestCase
         $this->cmsItemLoaderMock
             ->expects(self::any())
             ->method('loadByRemoteId')
-            ->will(
-                self::returnCallback(
-                    function ($remoteId): CmsItemInterface {
-                        return CmsItem::fromArray(
-                            [
-                                'value' => $remoteId,
-                                'remoteId' => $remoteId,
-                            ]
-                        );
-                    }
-                )
+            ->willReturnCallback(
+                function ($remoteId): CmsItemInterface {
+                    return CmsItem::fromArray(
+                        [
+                            'value' => $remoteId,
+                            'remoteId' => $remoteId,
+                        ]
+                    );
+                }
             );
 
         $this->cmsItemLoaderMock
             ->expects(self::any())
             ->method('load')
-            ->will(
-                self::returnCallback(
-                    function ($value): CmsItemInterface {
-                        return CmsItem::fromArray(
-                            [
-                                'value' => $value,
-                                'remoteId' => $value,
-                            ]
-                        );
-                    }
-                )
+            ->willReturnCallback(
+                function ($value): CmsItemInterface {
+                    return CmsItem::fromArray(
+                        [
+                            'value' => $value,
+                            'remoteId' => $value,
+                        ]
+                    );
+                }
             );
 
         $this->importer = new Importer(

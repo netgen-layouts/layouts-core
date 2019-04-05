@@ -64,7 +64,7 @@ final class LocaleProviderTest extends TestCase
         $requestMock = $this->createMock(Request::class);
         $requestMock->expects(self::any())
             ->method('getLocale')
-            ->will(self::returnValue('en'));
+            ->willReturn('en');
 
         self::assertSame(['en'], $localeProvider->getRequestLocales($requestMock));
     }
@@ -79,7 +79,7 @@ final class LocaleProviderTest extends TestCase
         $requestMock = $this->createMock(Request::class);
         $requestMock->expects(self::any())
             ->method('getLocale')
-            ->will(self::returnValue('en'));
+            ->willReturn('en');
 
         self::assertSame(['en'], $localeProvider->getRequestLocales($requestMock));
     }
@@ -94,7 +94,7 @@ final class LocaleProviderTest extends TestCase
         $requestMock = $this->createMock(Request::class);
         $requestMock->expects(self::any())
             ->method('getLocale')
-            ->will(self::returnValue('de'));
+            ->willReturn('de');
 
         self::assertSame([], $localeProvider->getRequestLocales($requestMock));
     }

@@ -75,13 +75,13 @@ final class CollectionItemNormalizerTest extends TestCase
         $this->normalizerMock
             ->expects(self::at(0))
             ->method('normalize')
-            ->will(self::returnValue($serializedConfig));
+            ->willReturn($serializedConfig);
 
         $this->urlGeneratorMock
             ->expects(self::any())
             ->method('generate')
             ->with(self::identicalTo($item->getCmsItem()))
-            ->will(self::returnValue('/some/url'));
+            ->willReturn('/some/url');
 
         self::assertSame(
             [

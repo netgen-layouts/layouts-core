@@ -36,18 +36,16 @@ final class ContextualizedTwigTemplateTest extends TestCase
             ->expects(self::any())
             ->method('hasBlock')
             ->with(self::identicalTo('block_name'))
-            ->will(self::returnValue(true));
+            ->willReturn(true);
 
         $templateMock
             ->expects(self::any())
             ->method('displayBlock')
             ->with(self::identicalTo('block_name'))
-            ->will(
-                self::returnCallback(
-                    function (string $blockName): void {
-                        echo 'rendered';
-                    }
-                )
+            ->willReturnCallback(
+                function (string $blockName): void {
+                    echo 'rendered';
+                }
             );
 
         $template = new ContextualizedTwigTemplate($templateMock);
@@ -66,7 +64,7 @@ final class ContextualizedTwigTemplateTest extends TestCase
             ->expects(self::any())
             ->method('hasBlock')
             ->with(self::identicalTo('block_name'))
-            ->will(self::returnValue(false));
+            ->willReturn(false);
 
         $templateMock
             ->expects(self::never())
@@ -91,13 +89,13 @@ final class ContextualizedTwigTemplateTest extends TestCase
             ->expects(self::any())
             ->method('hasBlock')
             ->with(self::identicalTo('block_name'))
-            ->will(self::returnValue(true));
+            ->willReturn(true);
 
         $templateMock
             ->expects(self::any())
             ->method('displayBlock')
             ->with(self::identicalTo('block_name'))
-            ->will(self::throwException(new Exception('Test exception text')));
+            ->willThrowException(new Exception('Test exception text'));
 
         $template = new ContextualizedTwigTemplate($templateMock);
         $template->renderBlock('block_name');

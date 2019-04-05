@@ -83,7 +83,7 @@ final class ViewRendererTest extends TestCase
                     ]
                 )
             )
-            ->will(self::returnValue('rendered template'));
+            ->willReturn('rendered template');
 
         $renderedTemplate = $this->viewRenderer->renderView($view);
 

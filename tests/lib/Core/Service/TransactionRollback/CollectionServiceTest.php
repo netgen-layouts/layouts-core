@@ -31,16 +31,12 @@ final class CollectionServiceTest extends TestCase
         $this->collectionHandler
             ->expects(self::at(0))
             ->method('loadCollection')
-            ->will(
-                self::returnValue(
-                    new PersistenceCollection()
-                )
-            );
+            ->willReturn(new PersistenceCollection());
 
         $this->collectionHandler
             ->expects(self::at(1))
             ->method('deleteCollectionQuery')
-            ->will(self::throwException(new Exception('Test exception text')));
+            ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
             ->expects(self::once())
@@ -63,16 +59,12 @@ final class CollectionServiceTest extends TestCase
         $this->collectionHandler
             ->expects(self::at(0))
             ->method('loadCollection')
-            ->will(
-                self::returnValue(
-                    new PersistenceCollection()
-                )
-            );
+            ->willReturn(new PersistenceCollection());
 
         $this->collectionHandler
             ->expects(self::at(1))
             ->method('addItem')
-            ->will(self::throwException(new Exception('Test exception text')));
+            ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
             ->expects(self::once())
@@ -98,16 +90,12 @@ final class CollectionServiceTest extends TestCase
         $this->collectionHandler
             ->expects(self::at(0))
             ->method('loadItem')
-            ->will(
-                self::returnValue(
-                    PersistenceItem::fromArray(['config' => []])
-                )
-            );
+            ->willReturn(PersistenceItem::fromArray(['config' => []]));
 
         $this->collectionHandler
             ->expects(self::at(1))
             ->method('updateItem')
-            ->will(self::throwException(new Exception('Test exception text')));
+            ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
             ->expects(self::once())
@@ -130,12 +118,12 @@ final class CollectionServiceTest extends TestCase
         $this->collectionHandler
             ->expects(self::at(0))
             ->method('loadItem')
-            ->will(self::returnValue(new PersistenceItem()));
+            ->willReturn(new PersistenceItem());
 
         $this->collectionHandler
             ->expects(self::at(1))
             ->method('moveItem')
-            ->will(self::throwException(new Exception('Test exception text')));
+            ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
             ->expects(self::once())
@@ -155,12 +143,12 @@ final class CollectionServiceTest extends TestCase
         $this->collectionHandler
             ->expects(self::at(0))
             ->method('loadItem')
-            ->will(self::returnValue(new PersistenceItem()));
+            ->willReturn(new PersistenceItem());
 
         $this->collectionHandler
             ->expects(self::at(1))
             ->method('deleteItem')
-            ->will(self::throwException(new Exception('Test exception text')));
+            ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
             ->expects(self::once())
@@ -180,12 +168,12 @@ final class CollectionServiceTest extends TestCase
         $this->collectionHandler
             ->expects(self::at(0))
             ->method('loadCollection')
-            ->will(self::returnValue(new PersistenceCollection()));
+            ->willReturn(new PersistenceCollection());
 
         $this->collectionHandler
             ->expects(self::at(1))
             ->method('deleteItems')
-            ->will(self::throwException(new Exception('Test exception text')));
+            ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
             ->expects(self::once())
@@ -213,12 +201,12 @@ final class CollectionServiceTest extends TestCase
         $this->collectionHandler
             ->expects(self::at(0))
             ->method('loadQuery')
-            ->will(self::returnValue($persistenceQuery));
+            ->willReturn($persistenceQuery);
 
         $this->collectionHandler
             ->expects(self::at(1))
             ->method('updateQueryTranslation')
-            ->will(self::throwException(new Exception('Test exception text')));
+            ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
             ->expects(self::once())

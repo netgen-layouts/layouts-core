@@ -26,12 +26,10 @@ final class QueryRunnerTest extends TestCase
         $this->cmsItemBuilderMock
             ->expects(self::any())
             ->method('build')
-            ->will(
-                self::returnCallback(
-                    function ($value): CmsItemInterface {
-                        return CmsItem::fromArray(['value' => $value, 'isVisible' => true]);
-                    }
-                )
+            ->willReturnCallback(
+                function ($value): CmsItemInterface {
+                    return CmsItem::fromArray(['value' => $value, 'isVisible' => true]);
+                }
             );
     }
 

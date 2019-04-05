@@ -55,7 +55,7 @@ final class CmsItemLoaderTest extends TestCase
         $this->cmsItemBuilderMock
             ->expects(self::any())
             ->method('build')
-            ->will(self::returnValue($item));
+            ->willReturn($item);
 
         self::assertSame($item, $this->cmsItemLoader->load(42, 'value'));
     }
@@ -113,7 +113,7 @@ final class CmsItemLoaderTest extends TestCase
         $this->cmsItemBuilderMock
             ->expects(self::any())
             ->method('build')
-            ->will(self::returnValue($item));
+            ->willReturn($item);
 
         self::assertSame($item, $this->cmsItemLoader->loadByRemoteId(42, 'value'));
     }

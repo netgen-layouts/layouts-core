@@ -38,7 +38,7 @@ final class LayoutNameValidatorTest extends ValidatorTestCase
                 ->expects(self::once())
                 ->method('layoutNameExists')
                 ->with(self::identicalTo($value))
-                ->will(self::returnValue(!$isValid));
+                ->willReturn(!$isValid);
         }
 
         $this->assertValid($isValid, $value);

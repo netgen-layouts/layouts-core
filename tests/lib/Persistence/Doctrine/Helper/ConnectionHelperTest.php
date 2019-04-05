@@ -34,7 +34,7 @@ final class ConnectionHelperTest extends TestCase
         $this->databaseConnectionMock
             ->expects(self::any())
             ->method('getDatabasePlatform')
-            ->will(self::returnValue($this->databasePlatformMock));
+            ->willReturn($this->databasePlatformMock);
 
         $this->connectionHelper = new ConnectionHelper($this->databaseConnectionMock);
     }
@@ -48,7 +48,7 @@ final class ConnectionHelperTest extends TestCase
         $this->databasePlatformMock
             ->expects(self::any())
             ->method('getName')
-            ->will(self::returnValue('mysql'));
+            ->willReturn('mysql');
 
         self::assertSame('null', $this->connectionHelper->getAutoIncrementValue('table'));
     }
@@ -63,13 +63,13 @@ final class ConnectionHelperTest extends TestCase
         $this->databasePlatformMock
             ->expects(self::any())
             ->method('getName')
-            ->will(self::returnValue('postgresql'));
+            ->willReturn('postgresql');
 
         $this->databasePlatformMock
             ->expects(self::once())
             ->method('getIdentitySequenceName')
             ->with(self::identicalTo('table'), self::identicalTo('id'))
-            ->will(self::returnValue('s_table_id'));
+            ->willReturn('s_table_id');
 
         self::assertSame("nextval('s_table_id')", $this->connectionHelper->getAutoIncrementValue('table'));
     }
@@ -83,13 +83,13 @@ final class ConnectionHelperTest extends TestCase
         $this->databasePlatformMock
             ->expects(self::any())
             ->method('getName')
-            ->will(self::returnValue('mysql'));
+            ->willReturn('mysql');
 
         $this->databaseConnectionMock
             ->expects(self::any())
             ->method('lastInsertId')
             ->with(self::identicalTo('table'))
-            ->will(self::returnValue(42));
+            ->willReturn(42);
 
         self::assertSame(42, $this->connectionHelper->lastInsertId('table'));
     }
@@ -104,19 +104,19 @@ final class ConnectionHelperTest extends TestCase
         $this->databasePlatformMock
             ->expects(self::any())
             ->method('getName')
-            ->will(self::returnValue('postgresql'));
+            ->willReturn('postgresql');
 
         $this->databasePlatformMock
             ->expects(self::once())
             ->method('getIdentitySequenceName')
             ->with(self::identicalTo('table'), self::identicalTo('id'))
-            ->will(self::returnValue('s_table_id'));
+            ->willReturn('s_table_id');
 
         $this->databaseConnectionMock
             ->expects(self::any())
             ->method('lastInsertId')
             ->with(self::identicalTo('s_table_id'))
-            ->will(self::returnValue(43));
+            ->willReturn(43);
 
         self::assertSame(43, $this->connectionHelper->lastInsertId('table'));
     }

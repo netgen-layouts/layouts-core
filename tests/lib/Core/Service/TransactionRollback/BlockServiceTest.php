@@ -37,17 +37,17 @@ final class BlockServiceTest extends TestCase
         $this->layoutHandler
             ->expects(self::at(0))
             ->method('loadLayout')
-            ->will(self::returnValue(PersistenceLayout::fromArray(['availableLocales' => ['en']])));
+            ->willReturn(PersistenceLayout::fromArray(['availableLocales' => ['en']]));
 
         $this->blockHandler
             ->expects(self::at(0))
             ->method('loadBlock')
-            ->will(self::returnValue(new PersistenceBlock()));
+            ->willReturn(new PersistenceBlock());
 
         $this->blockHandler
             ->expects(self::at(1))
             ->method('createBlock')
-            ->will(self::throwException(new Exception('Test exception text')));
+            ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
             ->expects(self::once())
@@ -81,36 +81,34 @@ final class BlockServiceTest extends TestCase
         $this->layoutService
             ->expects(self::at(0))
             ->method('loadLayoutDraft')
-            ->will(
-                self::returnValue(
-                    Layout::fromArray(
-                        [
-                            'availableLocales' => ['en'],
-                            'layoutType' => new LayoutType(),
-                        ]
-                    )
+            ->willReturn(
+                Layout::fromArray(
+                    [
+                        'availableLocales' => ['en'],
+                        'layoutType' => new LayoutType(),
+                    ]
                 )
             );
 
         $this->layoutHandler
             ->expects(self::at(0))
             ->method('loadZone')
-            ->will(self::returnValue(PersistenceZone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'right'])));
+            ->willReturn(PersistenceZone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'right']));
 
         $this->layoutHandler
             ->expects(self::at(1))
             ->method('loadLayout')
-            ->will(self::returnValue(new PersistenceLayout()));
+            ->willReturn(new PersistenceLayout());
 
         $this->blockHandler
             ->expects(self::at(0))
             ->method('loadBlock')
-            ->will(self::returnValue(new PersistenceBlock()));
+            ->willReturn(new PersistenceBlock());
 
         $this->blockHandler
             ->expects(self::at(1))
             ->method('createBlock')
-            ->will(self::throwException(new Exception('Test exception text')));
+            ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
             ->expects(self::once())
@@ -142,12 +140,12 @@ final class BlockServiceTest extends TestCase
         $this->blockHandler
             ->expects(self::at(0))
             ->method('loadBlock')
-            ->will(self::returnValue($persistenceBlock));
+            ->willReturn($persistenceBlock);
 
         $this->blockHandler
             ->expects(self::at(1))
             ->method('updateBlockTranslation')
-            ->will(self::throwException(new Exception('Test exception text')));
+            ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
             ->expects(self::once())
@@ -179,17 +177,17 @@ final class BlockServiceTest extends TestCase
         $this->blockHandler
             ->expects(self::at(0))
             ->method('loadBlock')
-            ->will(self::returnValue(new PersistenceBlock()));
+            ->willReturn(new PersistenceBlock());
 
         $this->blockHandler
             ->expects(self::at(1))
             ->method('loadBlock')
-            ->will(self::returnValue(new PersistenceBlock()));
+            ->willReturn(new PersistenceBlock());
 
         $this->blockHandler
             ->expects(self::at(2))
             ->method('copyBlock')
-            ->will(self::throwException(new Exception('Test exception text')));
+            ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
             ->expects(self::once())
@@ -222,27 +220,27 @@ final class BlockServiceTest extends TestCase
         $this->layoutService
             ->expects(self::at(0))
             ->method('loadLayoutDraft')
-            ->will(self::returnValue(Layout::fromArray(['layoutType' => new LayoutType()])));
+            ->willReturn(Layout::fromArray(['layoutType' => new LayoutType()]));
 
         $this->blockHandler
             ->expects(self::at(0))
             ->method('loadBlock')
-            ->will(self::returnValue(new PersistenceBlock()));
+            ->willReturn(new PersistenceBlock());
 
         $this->layoutHandler
             ->expects(self::at(0))
             ->method('loadZone')
-            ->will(self::returnValue(PersistenceZone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'right'])));
+            ->willReturn(PersistenceZone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'right']));
 
         $this->blockHandler
             ->expects(self::at(1))
             ->method('loadBlock')
-            ->will(self::returnValue(new PersistenceBlock()));
+            ->willReturn(new PersistenceBlock());
 
         $this->blockHandler
             ->expects(self::at(2))
             ->method('copyBlock')
-            ->will(self::throwException(new Exception('Test exception text')));
+            ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
             ->expects(self::once())
@@ -266,17 +264,17 @@ final class BlockServiceTest extends TestCase
         $this->blockHandler
             ->expects(self::at(0))
             ->method('loadBlock')
-            ->will(self::returnValue(PersistenceBlock::fromArray(['parentId' => 1, 'placeholder' => 'main'])));
+            ->willReturn(PersistenceBlock::fromArray(['parentId' => 1, 'placeholder' => 'main']));
 
         $this->blockHandler
             ->expects(self::at(1))
             ->method('loadBlock')
-            ->will(self::returnValue(PersistenceBlock::fromArray(['id' => 1])));
+            ->willReturn(PersistenceBlock::fromArray(['id' => 1]));
 
         $this->blockHandler
             ->expects(self::at(2))
             ->method('moveBlockToPosition')
-            ->will(self::throwException(new Exception('Test exception text')));
+            ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
             ->expects(self::once())
@@ -311,27 +309,27 @@ final class BlockServiceTest extends TestCase
         $this->layoutService
             ->expects(self::at(0))
             ->method('loadLayoutDraft')
-            ->will(self::returnValue(Layout::fromArray(['layoutType' => new LayoutType()])));
+            ->willReturn(Layout::fromArray(['layoutType' => new LayoutType()]));
 
         $this->blockHandler
             ->expects(self::at(0))
             ->method('loadBlock')
-            ->will(self::returnValue(PersistenceBlock::fromArray(['parentId' => 1, 'placeholder' => 'root'])));
+            ->willReturn(PersistenceBlock::fromArray(['parentId' => 1, 'placeholder' => 'root']));
 
         $this->layoutHandler
             ->expects(self::at(0))
             ->method('loadZone')
-            ->will(self::returnValue(PersistenceZone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'right'])));
+            ->willReturn(PersistenceZone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'right']));
 
         $this->blockHandler
             ->expects(self::at(1))
             ->method('loadBlock')
-            ->will(self::returnValue(PersistenceBlock::fromArray(['id' => 1])));
+            ->willReturn(PersistenceBlock::fromArray(['id' => 1]));
 
         $this->blockHandler
             ->expects(self::at(2))
             ->method('moveBlockToPosition')
-            ->will(self::throwException(new Exception('Test exception text')));
+            ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
             ->expects(self::once())
@@ -355,17 +353,17 @@ final class BlockServiceTest extends TestCase
         $this->blockHandler
             ->expects(self::at(0))
             ->method('loadBlock')
-            ->will(self::returnValue(new PersistenceBlock()));
+            ->willReturn(new PersistenceBlock());
 
         $this->layoutHandler
             ->expects(self::at(0))
             ->method('loadLayout')
-            ->will(self::returnValue(new PersistenceLayout()));
+            ->willReturn(new PersistenceLayout());
 
         $this->blockHandler
             ->expects(self::at(1))
             ->method('restoreBlock')
-            ->will(self::throwException(new Exception('Test exception text')));
+            ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
             ->expects(self::once())
@@ -385,22 +383,22 @@ final class BlockServiceTest extends TestCase
         $this->blockHandler
             ->expects(self::at(0))
             ->method('loadBlock')
-            ->will(self::returnValue(PersistenceBlock::fromArray(['isTranslatable' => false, 'parentId' => 42])));
+            ->willReturn(PersistenceBlock::fromArray(['isTranslatable' => false, 'parentId' => 42]));
 
         $this->blockHandler
             ->expects(self::at(1))
             ->method('loadBlock')
-            ->will(self::returnValue(PersistenceBlock::fromArray(['isTranslatable' => true, 'depth' => 1])));
+            ->willReturn(PersistenceBlock::fromArray(['isTranslatable' => true, 'depth' => 1]));
 
         $this->layoutHandler
             ->expects(self::at(0))
             ->method('loadLayout')
-            ->will(self::returnValue(new PersistenceLayout()));
+            ->willReturn(new PersistenceLayout());
 
         $this->blockHandler
             ->expects(self::at(2))
             ->method('updateBlock')
-            ->will(self::throwException(new Exception('Test exception text')));
+            ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
             ->expects(self::once())
@@ -420,12 +418,12 @@ final class BlockServiceTest extends TestCase
         $this->blockHandler
             ->expects(self::at(0))
             ->method('loadBlock')
-            ->will(self::returnValue(PersistenceBlock::fromArray(['isTranslatable' => true])));
+            ->willReturn(PersistenceBlock::fromArray(['isTranslatable' => true]));
 
         $this->blockHandler
             ->expects(self::at(1))
             ->method('updateBlock')
-            ->will(self::throwException(new Exception('Test exception text')));
+            ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
             ->expects(self::once())
@@ -445,12 +443,12 @@ final class BlockServiceTest extends TestCase
         $this->blockHandler
             ->expects(self::at(0))
             ->method('loadBlock')
-            ->will(self::returnValue(new PersistenceBlock()));
+            ->willReturn(new PersistenceBlock());
 
         $this->blockHandler
             ->expects(self::at(1))
             ->method('deleteBlock')
-            ->will(self::throwException(new Exception('Test exception text')));
+            ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
             ->expects(self::once())

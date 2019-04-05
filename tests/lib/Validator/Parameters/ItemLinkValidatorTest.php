@@ -41,7 +41,7 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
             $this->cmsItemLoaderMock
                 ->expects(self::once())
                 ->method('load')
-                ->will(self::returnValue(new CmsItem()));
+                ->willReturn(new CmsItem());
         }
 
         $this->assertValid($isValid, $value);
@@ -55,7 +55,7 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
         $this->cmsItemLoaderMock
             ->expects(self::once())
             ->method('load')
-            ->will(self::returnValue(new NullCmsItem('value')));
+            ->willReturn(new NullCmsItem('value'));
 
         $this->assertValid(false, 'value://42');
     }

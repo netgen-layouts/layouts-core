@@ -64,7 +64,7 @@ final class RuleParamConverterTest extends TestCase
             ->expects(self::once())
             ->method('loadRule')
             ->with(self::identicalTo(42))
-            ->will(self::returnValue($rule));
+            ->willReturn($rule);
 
         self::assertSame(
             $rule,
@@ -88,7 +88,7 @@ final class RuleParamConverterTest extends TestCase
             ->expects(self::once())
             ->method('loadRuleArchive')
             ->with(self::identicalTo(42))
-            ->will(self::returnValue($rule));
+            ->willReturn($rule);
 
         self::assertSame(
             $rule,
@@ -112,7 +112,7 @@ final class RuleParamConverterTest extends TestCase
             ->expects(self::once())
             ->method('loadRuleDraft')
             ->with(self::identicalTo(42))
-            ->will(self::returnValue($rule));
+            ->willReturn($rule);
 
         self::assertSame(
             $rule,

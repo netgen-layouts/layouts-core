@@ -64,25 +64,25 @@ final class SerializerTest extends TestCase
             ->expects(self::at(0))
             ->method('loadLayout')
             ->with(self::identicalTo(42))
-            ->will(self::returnValue($layout1));
+            ->willReturn($layout1);
 
         $this->layoutServiceMock
             ->expects(self::at(1))
             ->method('loadLayout')
             ->with(self::identicalTo(24))
-            ->will(self::returnValue($layout2));
+            ->willReturn($layout2);
 
         $this->visitorMock
             ->expects(self::at(0))
             ->method('visit')
             ->with(self::identicalTo($layout1))
-            ->will(self::returnValue('serialized_layout_42'));
+            ->willReturn('serialized_layout_42');
 
         $this->visitorMock
             ->expects(self::at(1))
             ->method('visit')
             ->with(self::identicalTo($layout2))
-            ->will(self::returnValue('serialized_layout_24'));
+            ->willReturn('serialized_layout_24');
 
         self::assertSame(
             [
@@ -109,19 +109,19 @@ final class SerializerTest extends TestCase
             ->expects(self::at(0))
             ->method('loadLayout')
             ->with(self::identicalTo(24))
-            ->will(self::throwException(new NotFoundException('layout', 24)));
+            ->willThrowException(new NotFoundException('layout', 24));
 
         $this->layoutServiceMock
             ->expects(self::at(1))
             ->method('loadLayout')
             ->with(self::identicalTo(42))
-            ->will(self::returnValue($layout));
+            ->willReturn($layout);
 
         $this->visitorMock
             ->expects(self::at(0))
             ->method('visit')
             ->with(self::identicalTo($layout))
-            ->will(self::returnValue('serialized_layout_42'));
+            ->willReturn('serialized_layout_42');
 
         self::assertSame(
             [
@@ -148,25 +148,25 @@ final class SerializerTest extends TestCase
             ->expects(self::at(0))
             ->method('loadRule')
             ->with(self::identicalTo(42))
-            ->will(self::returnValue($rule1));
+            ->willReturn($rule1);
 
         $this->layoutResolverServiceMock
             ->expects(self::at(1))
             ->method('loadRule')
             ->with(self::identicalTo(24))
-            ->will(self::returnValue($rule2));
+            ->willReturn($rule2);
 
         $this->visitorMock
             ->expects(self::at(0))
             ->method('visit')
             ->with(self::identicalTo($rule1))
-            ->will(self::returnValue('serialized_rule_42'));
+            ->willReturn('serialized_rule_42');
 
         $this->visitorMock
             ->expects(self::at(1))
             ->method('visit')
             ->with(self::identicalTo($rule2))
-            ->will(self::returnValue('serialized_rule_24'));
+            ->willReturn('serialized_rule_24');
 
         self::assertSame(
             [
@@ -193,19 +193,19 @@ final class SerializerTest extends TestCase
             ->expects(self::at(0))
             ->method('loadRule')
             ->with(self::identicalTo(24))
-            ->will(self::throwException(new NotFoundException('rule', 24)));
+            ->willThrowException(new NotFoundException('rule', 24));
 
         $this->layoutResolverServiceMock
             ->expects(self::at(1))
             ->method('loadRule')
             ->with(self::identicalTo(42))
-            ->will(self::returnValue($rule));
+            ->willReturn($rule);
 
         $this->visitorMock
             ->expects(self::at(0))
             ->method('visit')
             ->with(self::identicalTo($rule))
-            ->will(self::returnValue('serialized_rule_42'));
+            ->willReturn('serialized_rule_42');
 
         self::assertSame(
             [

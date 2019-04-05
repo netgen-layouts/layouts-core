@@ -136,29 +136,29 @@ final class LayoutNormalizerTest extends TestCase
         $this->blockServiceMock
             ->expects(self::at(0))
             ->method('loadZoneBlocks')
-            ->will(self::returnValue(new BlockList([$block])));
+            ->willReturn(new BlockList([$block]));
 
         $this->blockServiceMock
             ->expects(self::at(1))
             ->method('loadZoneBlocks')
-            ->will(self::returnValue(new BlockList()));
+            ->willReturn(new BlockList());
 
         $this->blockServiceMock
             ->expects(self::at(2))
             ->method('loadZoneBlocks')
-            ->will(self::returnValue(new BlockList()));
+            ->willReturn(new BlockList());
 
         $this->layoutServiceMock
             ->expects(self::at(0))
             ->method('hasStatus')
             ->with(self::identicalTo($layout->getId()), self::identicalTo(Layout::STATUS_PUBLISHED))
-            ->will(self::returnValue(true));
+            ->willReturn(true);
 
         $this->layoutServiceMock
             ->expects(self::at(1))
             ->method('loadLayoutArchive')
             ->with(self::identicalTo($layout->getId()))
-            ->will(self::throwException(new NotFoundException('layout')));
+            ->willThrowException(new NotFoundException('layout'));
 
         self::assertSame(
             [
@@ -257,13 +257,13 @@ final class LayoutNormalizerTest extends TestCase
             ->expects(self::at(0))
             ->method('hasStatus')
             ->with(self::identicalTo($layout->getId()), self::identicalTo(Layout::STATUS_PUBLISHED))
-            ->will(self::returnValue(true));
+            ->willReturn(true);
 
         $this->layoutServiceMock
             ->expects(self::at(1))
             ->method('loadLayoutArchive')
             ->with(self::identicalTo($layout->getId()))
-            ->will(self::returnValue($archivedLayout));
+            ->willReturn($archivedLayout);
 
         $data = $this->normalizer->normalize(new VersionedValue($layout, 1));
 

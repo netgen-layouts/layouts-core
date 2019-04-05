@@ -33,11 +33,7 @@ final class ConfigDefinitionFactoryTest extends TestCase
         $this->parameterBuilderFactoryMock
             ->expects(self::any())
             ->method('createParameterBuilder')
-            ->will(
-                self::returnValue(
-                    $this->createMock(ParameterBuilderInterface::class)
-                )
-            );
+            ->willReturn($this->createMock(ParameterBuilderInterface::class));
 
         $this->factory = new ConfigDefinitionFactory($this->parameterBuilderFactoryMock);
     }

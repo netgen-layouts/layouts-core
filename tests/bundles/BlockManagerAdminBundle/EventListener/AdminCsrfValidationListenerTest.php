@@ -69,7 +69,7 @@ final class AdminCsrfValidationListenerTest extends TestCase
             ->expects(self::once())
             ->method('validateCsrfToken')
             ->with(self::identicalTo($request), self::identicalTo($this->csrfTokenId))
-            ->will(self::returnValue(true));
+            ->willReturn(true);
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
 
@@ -92,7 +92,7 @@ final class AdminCsrfValidationListenerTest extends TestCase
             ->expects(self::once())
             ->method('validateCsrfToken')
             ->with(self::identicalTo($request), self::identicalTo($this->csrfTokenId))
-            ->will(self::returnValue(false));
+            ->willReturn(false);
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
 

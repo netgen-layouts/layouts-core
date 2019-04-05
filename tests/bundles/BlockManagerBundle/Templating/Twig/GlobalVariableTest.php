@@ -76,7 +76,7 @@ final class GlobalVariableTest extends TestCase
         $this->pageLayoutResolverMock
             ->expects(self::once())
             ->method('resolvePageLayout')
-            ->will(self::returnValue('pagelayout.html.twig'));
+            ->willReturn('pagelayout.html.twig');
 
         self::assertSame(
             'pagelayout.html.twig',
@@ -97,20 +97,12 @@ final class GlobalVariableTest extends TestCase
         $this->layoutResolverMock
             ->expects(self::once())
             ->method('resolveRule')
-            ->will(
-                self::returnValue(
-                    Rule::fromArray(['layout' => $layout])
-                )
-            );
+            ->willReturn(Rule::fromArray(['layout' => $layout]));
 
         $this->viewBuilderMock
             ->expects(self::once())
             ->method('buildView')
-            ->will(
-                self::returnValue(
-                    new LayoutView($layout)
-                )
-            );
+            ->willReturn(new LayoutView($layout));
 
         // This will trigger layout resolver
         $this->globalVariable->getLayoutTemplate();
@@ -129,7 +121,7 @@ final class GlobalVariableTest extends TestCase
         $this->layoutResolverMock
             ->expects(self::once())
             ->method('resolveRule')
-            ->will(self::returnValue(null));
+            ->willReturn(null);
 
         // This will trigger layout resolver
         $this->globalVariable->getLayoutTemplate();
@@ -162,16 +154,12 @@ final class GlobalVariableTest extends TestCase
         $this->layoutResolverMock
             ->expects(self::once())
             ->method('resolveRule')
-            ->will(
-                self::returnValue(
-                    Rule::fromArray(['layout' => $layout])
-                )
-            );
+            ->willReturn(Rule::fromArray(['layout' => $layout]));
 
         $this->viewBuilderMock
             ->expects(self::once())
             ->method('buildView')
-            ->will(self::returnValue($layoutView));
+            ->willReturn($layoutView);
 
         // This will trigger layout resolver
         $this->globalVariable->getLayoutTemplate();
@@ -213,16 +201,12 @@ final class GlobalVariableTest extends TestCase
         $this->layoutResolverMock
             ->expects(self::once())
             ->method('resolveRule')
-            ->will(
-                self::returnValue(
-                    Rule::fromArray(['layout' => $layout])
-                )
-            );
+            ->willReturn(Rule::fromArray(['layout' => $layout]));
 
         $this->viewBuilderMock
             ->expects(self::once())
             ->method('buildView')
-            ->will(self::returnValue($layoutView));
+            ->willReturn($layoutView);
 
         // This will trigger layout resolver
         $this->globalVariable->getLayoutTemplate();
@@ -241,7 +225,7 @@ final class GlobalVariableTest extends TestCase
         $this->layoutResolverMock
             ->expects(self::once())
             ->method('resolveRule')
-            ->will(self::returnValue(null));
+            ->willReturn(null);
 
         $this->viewBuilderMock
             ->expects(self::never())
@@ -278,11 +262,7 @@ final class GlobalVariableTest extends TestCase
         $this->layoutResolverMock
             ->expects(self::once())
             ->method('resolveRule')
-            ->will(
-                self::returnValue(
-                    Rule::fromArray(['layout' => $layout])
-                )
-            );
+            ->willReturn(Rule::fromArray(['layout' => $layout]));
 
         $layoutView = new LayoutView($layout);
         $layoutView->addParameter('rule', $rule);
@@ -290,7 +270,7 @@ final class GlobalVariableTest extends TestCase
         $this->viewBuilderMock
             ->expects(self::once())
             ->method('buildView')
-            ->will(self::returnValue($layoutView));
+            ->willReturn($layoutView);
 
         // This will trigger layout resolver
         $this->globalVariable->getLayoutTemplate();
@@ -309,7 +289,7 @@ final class GlobalVariableTest extends TestCase
         $this->layoutResolverMock
             ->expects(self::once())
             ->method('resolveRule')
-            ->will(self::returnValue(null));
+            ->willReturn(null);
 
         // This will trigger layout resolver
         $this->globalVariable->getLayoutTemplate();
@@ -341,11 +321,7 @@ final class GlobalVariableTest extends TestCase
         $this->layoutResolverMock
             ->expects(self::once())
             ->method('resolveRule')
-            ->will(
-                self::returnValue(
-                    Rule::fromArray(['layout' => $layout])
-                )
-            );
+            ->willReturn(Rule::fromArray(['layout' => $layout]));
 
         $layoutView = new LayoutView($layout);
         $layoutView->setTemplate('layout.html.twig');
@@ -354,7 +330,7 @@ final class GlobalVariableTest extends TestCase
             ->expects(self::once())
             ->method('buildView')
             ->with(self::identicalTo($layout))
-            ->will(self::returnValue($layoutView));
+            ->willReturn($layoutView);
 
         $this->pageLayoutResolverMock
             ->expects(self::never())
@@ -390,7 +366,7 @@ final class GlobalVariableTest extends TestCase
         $this->pageLayoutResolverMock
             ->expects(self::at(0))
             ->method('resolvePageLayout')
-            ->will(self::returnValue('pagelayout.html.twig'));
+            ->willReturn('pagelayout.html.twig');
 
         self::assertSame('pagelayout.html.twig', $this->globalVariable->getLayoutTemplate());
 
@@ -414,7 +390,7 @@ final class GlobalVariableTest extends TestCase
         $this->pageLayoutResolverMock
             ->expects(self::at(0))
             ->method('resolvePageLayout')
-            ->will(self::returnValue('pagelayout.html.twig'));
+            ->willReturn('pagelayout.html.twig');
 
         self::assertSame('pagelayout.html.twig', $this->globalVariable->getLayoutTemplate());
     }
@@ -434,11 +410,7 @@ final class GlobalVariableTest extends TestCase
         $this->layoutResolverMock
             ->expects(self::once())
             ->method('resolveRule')
-            ->will(
-                self::returnValue(
-                    Rule::fromArray(['layout' => $layout])
-                )
-            );
+            ->willReturn(Rule::fromArray(['layout' => $layout]));
 
         $layoutView = new LayoutView($layout);
         $layoutView->setTemplate('layout.html.twig');
@@ -447,7 +419,7 @@ final class GlobalVariableTest extends TestCase
             ->expects(self::once())
             ->method('buildView')
             ->with(self::identicalTo($layout))
-            ->will(self::returnValue($layoutView));
+            ->willReturn($layoutView);
 
         $this->pageLayoutResolverMock
             ->expects(self::never())
@@ -484,7 +456,7 @@ final class GlobalVariableTest extends TestCase
         $this->pageLayoutResolverMock
             ->expects(self::at(0))
             ->method('resolvePageLayout')
-            ->will(self::returnValue('pagelayout.html.twig'));
+            ->willReturn('pagelayout.html.twig');
 
         self::assertSame('pagelayout.html.twig', $this->globalVariable->getLayoutTemplate());
 
@@ -503,12 +475,12 @@ final class GlobalVariableTest extends TestCase
         $this->layoutResolverMock
             ->expects(self::once())
             ->method('resolveRule')
-            ->will(self::returnValue(null));
+            ->willReturn(null);
 
         $this->pageLayoutResolverMock
             ->expects(self::once())
             ->method('resolvePageLayout')
-            ->will(self::returnValue('pagelayout.html.twig'));
+            ->willReturn('pagelayout.html.twig');
 
         self::assertSame(
             'pagelayout.html.twig',

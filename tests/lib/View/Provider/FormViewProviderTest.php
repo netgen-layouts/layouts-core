@@ -33,7 +33,7 @@ final class FormViewProviderTest extends TestCase
         $form = $this->createMock(FormInterface::class);
         $form->expects(self::once())
             ->method('createView')
-            ->will(self::returnValue($formView));
+            ->willReturn($formView);
 
         $view = $this->formViewProvider->provideView($form);
 

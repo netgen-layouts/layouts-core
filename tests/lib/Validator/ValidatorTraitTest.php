@@ -46,7 +46,7 @@ final class ValidatorTraitTest extends TestCase
                 self::identicalTo('some value'),
                 self::identicalTo($constraints)
             )
-            ->will(self::returnValue(new ConstraintViolationList()));
+            ->willReturn(new ConstraintViolationList());
 
         $this->validator->validateValue('some value', $constraints);
     }
@@ -66,16 +66,14 @@ final class ValidatorTraitTest extends TestCase
             ->with(
                 self::identicalTo('some value'),
                 self::identicalTo($constraints)
-            )->will(
-                self::returnValue(
-                    new ConstraintViolationList(
-                        [
-                            $this->createConfiguredMock(
-                                ConstraintViolationInterface::class,
-                                ['getMessage' => 'Value should not be blank']
-                            ),
-                        ]
-                    )
+            )->willReturn(
+                new ConstraintViolationList(
+                    [
+                        $this->createConfiguredMock(
+                            ConstraintViolationInterface::class,
+                            ['getMessage' => 'Value should not be blank']
+                        ),
+                    ]
                 )
             );
 
@@ -93,9 +91,7 @@ final class ValidatorTraitTest extends TestCase
         $this->validatorMock
             ->expects(self::once())
             ->method('validate')
-            ->will(
-                self::throwException(new Exception('Test exception text'))
-            );
+            ->willThrowException(new Exception('Test exception text'));
 
         $this->validator->validateValue('some value', [new Constraints\NotBlank()]);
     }

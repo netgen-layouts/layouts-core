@@ -63,13 +63,13 @@ final class RendererTest extends TestCase
                 self::identicalTo(ViewInterface::CONTEXT_API),
                 self::identicalTo(['some_param' => 'some_value'])
             )
-            ->will(self::returnValue($view));
+            ->willReturn($view);
 
         $this->viewRendererMock
             ->expects(self::once())
             ->method('renderView')
             ->with(self::identicalTo($view))
-            ->will(self::returnValue('rendered template'));
+            ->willReturn('rendered template');
 
         $renderedTemplate = $this->renderer->renderValue(
             $value,

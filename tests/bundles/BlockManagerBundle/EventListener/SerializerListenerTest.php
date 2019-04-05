@@ -62,9 +62,7 @@ final class SerializerListenerTest extends TestCase
                 self::identicalTo('json'),
                 self::identicalTo([])
             )
-            ->will(
-                self::returnValue('serialized content')
-            );
+            ->willReturn('serialized content');
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
@@ -105,9 +103,7 @@ final class SerializerListenerTest extends TestCase
                 self::identicalTo('json'),
                 self::identicalTo(['disable_html' => true])
             )
-            ->will(
-                self::returnValue('serialized content')
-            );
+            ->willReturn('serialized content');
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');

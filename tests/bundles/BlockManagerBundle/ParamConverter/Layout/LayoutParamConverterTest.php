@@ -64,7 +64,7 @@ final class LayoutParamConverterTest extends TestCase
             ->expects(self::once())
             ->method('loadLayout')
             ->with(self::identicalTo(42))
-            ->will(self::returnValue($layout));
+            ->willReturn($layout);
 
         self::assertSame(
             $layout,
@@ -88,7 +88,7 @@ final class LayoutParamConverterTest extends TestCase
             ->expects(self::once())
             ->method('loadLayoutArchive')
             ->with(self::identicalTo(42))
-            ->will(self::returnValue($layout));
+            ->willReturn($layout);
 
         self::assertSame(
             $layout,
@@ -112,7 +112,7 @@ final class LayoutParamConverterTest extends TestCase
             ->expects(self::once())
             ->method('loadLayoutDraft')
             ->with(self::identicalTo(42))
-            ->will(self::returnValue($layout));
+            ->willReturn($layout);
 
         self::assertSame(
             $layout,

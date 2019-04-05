@@ -49,7 +49,7 @@ abstract class FormTestCase extends TestCase
         $this->validatorMock
             ->expects(self::any())
             ->method('validate')
-            ->will(self::returnValue(new ConstraintViolationList()));
+            ->willReturn(new ConstraintViolationList());
 
         $factoryBuilder = Forms::createFormFactoryBuilder()
             ->addType($this->formType)

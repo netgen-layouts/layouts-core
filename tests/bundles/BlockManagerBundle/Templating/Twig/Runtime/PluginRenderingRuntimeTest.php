@@ -51,7 +51,7 @@ final class PluginRenderingRuntimeTest extends TestCase
                 self::identicalTo('plugin_name'),
                 self::identicalTo(['param' => 'value'])
             )
-            ->will(self::returnValue('rendered plugin'));
+            ->willReturn('rendered plugin');
 
         self::assertSame(
             'rendered plugin',
@@ -79,7 +79,7 @@ final class PluginRenderingRuntimeTest extends TestCase
                 self::identicalTo('plugin_name'),
                 self::identicalTo(['param' => 'value'])
             )
-            ->will(self::throwException(new Exception('Test exception text')));
+            ->willThrowException(new Exception('Test exception text'));
 
         $this->runtime->renderPlugins(
             ['param' => 'value'],
@@ -99,7 +99,7 @@ final class PluginRenderingRuntimeTest extends TestCase
                 self::identicalTo('plugin_name'),
                 self::identicalTo(['param' => 'value'])
             )
-            ->will(self::throwException(new Exception('Test exception text')));
+            ->willThrowException(new Exception('Test exception text'));
 
         self::assertSame('', $this->runtime->renderPlugins(['param' => 'value'], 'plugin_name'));
     }

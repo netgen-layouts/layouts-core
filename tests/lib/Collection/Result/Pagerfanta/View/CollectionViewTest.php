@@ -59,7 +59,7 @@ final class CollectionViewTest extends TestCase
                     ]
                 )
             )
-            ->will(self::returnValue('rendered template'));
+            ->willReturn('rendered template');
 
         $renderedTemplate = $this->collectionView->render(
             $pagerMock,
@@ -93,7 +93,7 @@ final class CollectionViewTest extends TestCase
                     ]
                 )
             )
-            ->will(self::returnValue('rendered template'));
+            ->willReturn('rendered template');
 
         $renderedTemplate = $this->collectionView->render(
             $pagerMock,

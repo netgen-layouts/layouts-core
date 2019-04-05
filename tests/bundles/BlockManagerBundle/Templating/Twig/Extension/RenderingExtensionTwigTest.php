@@ -140,7 +140,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
                 ->expects(self::any())
                 ->method('getRequestLocales')
                 ->with(self::identicalTo($request))
-                ->will(self::returnValue(['en'])) :
+                ->willReturn(['en']) :
             $this->localeProviderMock
                 ->expects(self::never())
                 ->method('getRequestLocales');
@@ -152,21 +152,19 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
                 self::isInstanceOf(Zone::class),
                 self::identicalTo($request instanceof Request ? ['en'] : null)
             )
-            ->will(self::returnValue(new BlockList()));
+            ->willReturn(new BlockList());
 
         $this->rendererMock
             ->expects(self::any())
             ->method('renderValue')
-            ->will(
-                self::returnCallback(
-                    function (ZoneReference $zoneReference, string $context): string {
-                        if ($context === 'json') {
-                            return '{"blocks":[{"id":1},{"id":2}]}';
-                        }
-
-                        return 'block1 block2';
+            ->willReturnCallback(
+                function (ZoneReference $zoneReference, string $context): string {
+                    if ($context === 'json') {
+                        return '{"blocks":[{"id":1},{"id":2}]}';
                     }
-                )
+
+                    return 'block1 block2';
+                }
             );
     }
 }

@@ -47,7 +47,7 @@ final class ValueNormalizerTest extends TestCase
                 self::identicalTo('json'),
                 self::identicalTo(['context'])
             )
-            ->will(self::returnValue(['serialized']));
+            ->willReturn(['serialized']);
 
         $data = $this->normalizer->normalize(new Value($value), 'json', ['context']);
 

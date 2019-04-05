@@ -52,7 +52,7 @@ final class ViewNormalizerTest extends TestCase
             ->expects(self::once())
             ->method('normalize')
             ->with(self::equalTo(new VersionedValue($value, 1)))
-            ->will(self::returnValue(['id' => 42]));
+            ->willReturn(['id' => 42]);
 
         $this->viewRendererMock
             ->expects(self::once())
@@ -62,7 +62,7 @@ final class ViewNormalizerTest extends TestCase
                 self::identicalTo(ViewInterface::CONTEXT_API),
                 self::identicalTo(['api_version' => 1])
             )
-            ->will(self::returnValue('rendered view'));
+            ->willReturn('rendered view');
 
         $view = new View($value, 1);
 
@@ -83,7 +83,7 @@ final class ViewNormalizerTest extends TestCase
             ->expects(self::once())
             ->method('normalize')
             ->with(self::equalTo(new VersionedValue($value, 1)))
-            ->will(self::returnValue(['id' => 42]));
+            ->willReturn(['id' => 42]);
 
         $this->viewRendererMock
             ->expects(self::never())
@@ -109,7 +109,7 @@ final class ViewNormalizerTest extends TestCase
             ->expects(self::once())
             ->method('normalize')
             ->with(self::equalTo(new VersionedValue($value, 1)))
-            ->will(self::returnValue(['id' => 42]));
+            ->willReturn(['id' => 42]);
 
         $this->viewRendererMock
             ->expects(self::once())
@@ -119,7 +119,7 @@ final class ViewNormalizerTest extends TestCase
                 self::identicalTo(ViewInterface::CONTEXT_API),
                 self::identicalTo(['api_version' => 1])
             )
-            ->will(self::returnValue('rendered view'));
+            ->willReturn('rendered view');
 
         $view = new View($value, 1);
 

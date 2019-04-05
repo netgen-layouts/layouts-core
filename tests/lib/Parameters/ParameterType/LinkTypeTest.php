@@ -315,14 +315,12 @@ final class LinkTypeTest extends TestCase
             ->expects(self::any())
             ->method('load')
             ->with(self::identicalTo('42'), self::identicalTo('my_value_type'))
-            ->will(
-                self::returnValue(
-                    CmsItem::fromArray(
-                        [
-                            'value' => 42,
-                            'remoteId' => 'abc',
-                        ]
-                    )
+            ->willReturn(
+                CmsItem::fromArray(
+                    [
+                        'value' => 42,
+                        'remoteId' => 'abc',
+                    ]
                 )
             );
 
@@ -339,7 +337,7 @@ final class LinkTypeTest extends TestCase
             ->expects(self::any())
             ->method('load')
             ->with(self::identicalTo('24'), self::identicalTo('my_value_type'))
-            ->will(self::returnValue(new NullCmsItem('my_value_type')));
+            ->willReturn(new NullCmsItem('my_value_type'));
 
         self::assertSame(
             [
@@ -435,14 +433,12 @@ final class LinkTypeTest extends TestCase
             ->expects(self::any())
             ->method('loadByRemoteId')
             ->with(self::identicalTo('abc'), self::identicalTo('my_value_type'))
-            ->will(
-                self::returnValue(
-                    CmsItem::fromArray(
-                        [
-                            'value' => 42,
-                            'remoteId' => 'abc',
-                        ]
-                    )
+            ->willReturn(
+                CmsItem::fromArray(
+                    [
+                        'value' => 42,
+                        'remoteId' => 'abc',
+                    ]
                 )
             );
 
@@ -462,7 +458,7 @@ final class LinkTypeTest extends TestCase
             ->expects(self::any())
             ->method('loadByRemoteId')
             ->with(self::identicalTo('def'), self::identicalTo('my_value_type'))
-            ->will(self::returnValue(new NullCmsItem('my_value_type')));
+            ->willReturn(new NullCmsItem('my_value_type'));
 
         $importedValue = $this->type->import(
             $this->getParameterDefinition(),

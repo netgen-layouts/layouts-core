@@ -110,7 +110,7 @@ final class GetCollectionPagerListenerTest extends TestCase
                 self::identicalTo(0),
                 self::identicalTo(0)
             )
-            ->will(self::returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
+            ->willReturn(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]));
 
         $this->resultBuilderMock
             ->expects(self::at(1))
@@ -121,7 +121,7 @@ final class GetCollectionPagerListenerTest extends TestCase
                 self::identicalTo(5),
                 self::identicalTo(0)
             )
-            ->will(self::returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
+            ->willReturn(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]));
 
         $this->listener->onRenderView($event);
 
@@ -184,7 +184,7 @@ final class GetCollectionPagerListenerTest extends TestCase
                 self::identicalTo(0),
                 self::identicalTo(0)
             )
-            ->will(self::returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
+            ->willReturn(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]));
 
         $this->resultBuilderMock
             ->expects(self::at(1))
@@ -195,7 +195,7 @@ final class GetCollectionPagerListenerTest extends TestCase
                 self::identicalTo(5),
                 self::identicalTo(0)
             )
-            ->will(self::returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
+            ->willReturn(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]));
 
         $this->listener->onRenderView($event);
 
@@ -258,7 +258,7 @@ final class GetCollectionPagerListenerTest extends TestCase
                 self::identicalTo(0),
                 self::identicalTo(0)
             )
-            ->will(self::returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
+            ->willReturn(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]));
 
         $this->resultBuilderMock
             ->expects(self::at(1))
@@ -269,7 +269,7 @@ final class GetCollectionPagerListenerTest extends TestCase
                 self::identicalTo(5),
                 self::identicalTo(0)
             )
-            ->will(self::returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
+            ->willReturn(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]));
 
         $this->listener->onRenderView($event);
 
@@ -331,7 +331,7 @@ final class GetCollectionPagerListenerTest extends TestCase
                 self::identicalTo(0),
                 self::identicalTo(0)
             )
-            ->will(self::returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
+            ->willReturn(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]));
 
         $this->resultBuilderMock
             ->expects(self::at(1))
@@ -342,7 +342,7 @@ final class GetCollectionPagerListenerTest extends TestCase
                 self::identicalTo(5),
                 self::identicalTo(0)
             )
-            ->will(self::returnValue(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])));
+            ->willReturn(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]));
 
         $this->listener->onRenderView($event);
 

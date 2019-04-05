@@ -64,7 +64,7 @@ final class ConditionParamConverterTest extends TestCase
             ->expects(self::once())
             ->method('loadCondition')
             ->with(self::identicalTo(42))
-            ->will(self::returnValue($condition));
+            ->willReturn($condition);
 
         self::assertSame(
             $condition,
@@ -88,7 +88,7 @@ final class ConditionParamConverterTest extends TestCase
             ->expects(self::once())
             ->method('loadConditionDraft')
             ->with(self::identicalTo(42))
-            ->will(self::returnValue($condition));
+            ->willReturn($condition);
 
         self::assertSame(
             $condition,

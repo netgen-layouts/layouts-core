@@ -67,13 +67,13 @@ final class TwigExtensionsListenerTest extends TestCase
             ->expects(self::at(0))
             ->method('hasExtension')
             ->with(self::identicalTo(IntlExtension::class))
-            ->will(self::returnValue(true));
+            ->willReturn(true);
 
         $this->twigMock
             ->expects(self::at(1))
             ->method('hasExtension')
             ->with(self::identicalTo(VersionExtension::class))
-            ->will(self::returnValue(false));
+            ->willReturn(false);
 
         $this->twigMock
             ->expects(self::once())

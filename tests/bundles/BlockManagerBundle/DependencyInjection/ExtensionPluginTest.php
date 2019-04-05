@@ -62,7 +62,7 @@ final class ExtensionPluginTest extends TestCase
         $this->plugin
             ->expects(self::once())
             ->method('getConfigurationNodes')
-            ->will(self::returnValue([$node1, $node2]));
+            ->willReturn([$node1, $node2]);
 
         $rootNodeMock = $this->createMock(ArrayNodeDefinition::class);
         $nodeBuilderMock = $this->createMock(NodeBuilder::class);
@@ -70,7 +70,7 @@ final class ExtensionPluginTest extends TestCase
         $rootNodeMock
             ->expects(self::at(0))
             ->method('children')
-            ->will(self::returnValue($nodeBuilderMock));
+            ->willReturn($nodeBuilderMock);
 
         $nodeBuilderMock
             ->expects(self::at(0))

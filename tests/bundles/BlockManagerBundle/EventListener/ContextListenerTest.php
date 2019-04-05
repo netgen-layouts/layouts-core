@@ -103,7 +103,7 @@ final class ContextListenerTest extends TestCase
             ->expects(self::once())
             ->method('check')
             ->with(self::identicalTo($request->getRequestUri()))
-            ->will(self::returnValue(true));
+            ->willReturn(true);
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
@@ -156,7 +156,7 @@ final class ContextListenerTest extends TestCase
             ->expects(self::once())
             ->method('check')
             ->with(self::identicalTo($request->attributes->get('ngbmContextUri')))
-            ->will(self::returnValue(true));
+            ->willReturn(true);
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
@@ -184,7 +184,7 @@ final class ContextListenerTest extends TestCase
             ->expects(self::once())
             ->method('check')
             ->with(self::identicalTo($request->getRequestUri()))
-            ->will(self::returnValue(false));
+            ->willReturn(false);
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);

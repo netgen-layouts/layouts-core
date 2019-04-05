@@ -49,11 +49,7 @@ final class HelpersRuntimeTest extends TestCase
             ->expects(self::once())
             ->method('loadLayout')
             ->with(self::equalTo(42))
-            ->will(
-                self::returnValue(
-                    Layout::fromArray(['name' => 'Test layout'])
-                )
-            );
+            ->willReturn(Layout::fromArray(['name' => 'Test layout']));
 
         self::assertSame('Test layout', $this->runtime->getLayoutName(42));
     }
@@ -67,11 +63,7 @@ final class HelpersRuntimeTest extends TestCase
             ->expects(self::once())
             ->method('loadLayout')
             ->with(self::equalTo(42))
-            ->will(
-                self::throwException(
-                    new NotFoundException('layout', 42)
-                )
-            );
+            ->willThrowException(new NotFoundException('layout', 42));
 
         self::assertSame('', $this->runtime->getLayoutName(42));
     }

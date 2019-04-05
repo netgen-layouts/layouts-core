@@ -51,12 +51,12 @@ final class CsrfTokenValidatorTest extends TestCase
             ->expects(self::once())
             ->method('isTokenValid')
             ->with(self::equalTo(new CsrfToken('token_id', 'token')))
-            ->will(self::returnValue(true));
+            ->willReturn(true);
 
         $this->sessionMock
             ->expects(self::once())
             ->method('isStarted')
-            ->will(self::returnValue(true));
+            ->willReturn(true);
 
         $request = Request::create('/');
         $request->setMethod(Request::METHOD_POST);
@@ -75,12 +75,12 @@ final class CsrfTokenValidatorTest extends TestCase
             ->expects(self::once())
             ->method('isTokenValid')
             ->with(self::equalTo(new CsrfToken('token_id', 'token')))
-            ->will(self::returnValue(false));
+            ->willReturn(false);
 
         $this->sessionMock
             ->expects(self::once())
             ->method('isStarted')
-            ->will(self::returnValue(true));
+            ->willReturn(true);
 
         $request = Request::create('/');
         $request->setMethod(Request::METHOD_POST);
@@ -102,7 +102,7 @@ final class CsrfTokenValidatorTest extends TestCase
         $this->sessionMock
             ->expects(self::once())
             ->method('isStarted')
-            ->will(self::returnValue(true));
+            ->willReturn(true);
 
         $request = Request::create('/');
         $request->setMethod(Request::METHOD_POST);
@@ -123,7 +123,7 @@ final class CsrfTokenValidatorTest extends TestCase
         $this->sessionMock
             ->expects(self::once())
             ->method('isStarted')
-            ->will(self::returnValue(false));
+            ->willReturn(false);
 
         $request = Request::create('/');
         $request->setSession($this->sessionMock);
@@ -161,7 +161,7 @@ final class CsrfTokenValidatorTest extends TestCase
         $this->sessionMock
             ->expects(self::once())
             ->method('isStarted')
-            ->will(self::returnValue(true));
+            ->willReturn(true);
 
         $request = Request::create('/');
         $request->setSession($this->sessionMock);

@@ -89,7 +89,7 @@ final class RenderingRuntimeTest extends TestCase
                     ]
                 )
             )
-            ->will(self::returnValue('rendered block'));
+            ->willReturn('rendered block');
 
         self::assertSame(
             'rendered block',
@@ -124,7 +124,7 @@ final class RenderingRuntimeTest extends TestCase
                     ]
                 )
             )
-            ->will(self::returnValue('rendered block'));
+            ->willReturn('rendered block');
 
         self::assertSame(
             'rendered block',
@@ -158,7 +158,7 @@ final class RenderingRuntimeTest extends TestCase
                     ]
                 )
             )
-            ->will(self::returnValue('rendered block'));
+            ->willReturn('rendered block');
 
         self::assertSame(
             'rendered block',
@@ -195,7 +195,7 @@ final class RenderingRuntimeTest extends TestCase
                     ]
                 )
             )
-            ->will(self::returnValue('rendered block'));
+            ->willReturn('rendered block');
 
         self::assertSame(
             'rendered block',
@@ -221,7 +221,7 @@ final class RenderingRuntimeTest extends TestCase
         $this->rendererMock
             ->expects(self::once())
             ->method('renderValue')
-            ->will(self::throwException(new Exception()));
+            ->willThrowException(new Exception());
 
         $renderedBlock = $this->runtime->renderBlock(
             [
@@ -250,7 +250,7 @@ final class RenderingRuntimeTest extends TestCase
         $this->rendererMock
             ->expects(self::once())
             ->method('renderValue')
-            ->will(self::throwException(new Exception('Test exception text')));
+            ->willThrowException(new Exception('Test exception text'));
 
         $this->runtime->renderBlock(
             [
@@ -293,7 +293,7 @@ final class RenderingRuntimeTest extends TestCase
                     ]
                 )
             )
-            ->will(self::returnValue('rendered placeholder'));
+            ->willReturn('rendered placeholder');
 
         self::assertSame(
             'rendered placeholder',
@@ -340,7 +340,7 @@ final class RenderingRuntimeTest extends TestCase
                     ]
                 )
             )
-            ->will(self::returnValue('rendered placeholder'));
+            ->willReturn('rendered placeholder');
 
         self::assertSame(
             'rendered placeholder',
@@ -387,7 +387,7 @@ final class RenderingRuntimeTest extends TestCase
                     ]
                 )
             )
-            ->will(self::returnValue('rendered placeholder'));
+            ->willReturn('rendered placeholder');
 
         self::assertSame(
             'rendered placeholder',
@@ -437,7 +437,7 @@ final class RenderingRuntimeTest extends TestCase
                     ]
                 )
             )
-            ->will(self::returnValue('rendered placeholder'));
+            ->willReturn('rendered placeholder');
 
         self::assertSame(
             'rendered placeholder',
@@ -467,7 +467,7 @@ final class RenderingRuntimeTest extends TestCase
         $this->rendererMock
             ->expects(self::once())
             ->method('renderValue')
-            ->will(self::throwException(new Exception()));
+            ->willThrowException(new Exception());
 
         $renderedBlock = $this->runtime->renderPlaceholder(
             [
@@ -497,7 +497,7 @@ final class RenderingRuntimeTest extends TestCase
         $this->rendererMock
             ->expects(self::once())
             ->method('renderValue')
-            ->will(self::throwException(new Exception('Test exception text')));
+            ->willThrowException(new Exception('Test exception text'));
 
         $this->runtime->renderPlaceholder(
             [
@@ -525,7 +525,7 @@ final class RenderingRuntimeTest extends TestCase
                 self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
                 self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
             )
-            ->will(self::returnValue('rendered item'));
+            ->willReturn('rendered item');
 
         self::assertSame(
             'rendered item',
@@ -553,7 +553,7 @@ final class RenderingRuntimeTest extends TestCase
                 self::identicalTo(ViewInterface::CONTEXT_API),
                 self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
             )
-            ->will(self::returnValue('rendered item'));
+            ->willReturn('rendered item');
 
         self::assertSame(
             'rendered item',
@@ -582,7 +582,7 @@ final class RenderingRuntimeTest extends TestCase
                 self::identicalTo(ViewInterface::CONTEXT_API),
                 self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
             )
-            ->will(self::returnValue('rendered item'));
+            ->willReturn('rendered item');
 
         self::assertSame(
             'rendered item',
@@ -612,7 +612,7 @@ final class RenderingRuntimeTest extends TestCase
                 self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
                 self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
             )
-            ->will(self::throwException(new Exception()));
+            ->willThrowException(new Exception());
 
         self::assertSame(
             '',
@@ -645,7 +645,7 @@ final class RenderingRuntimeTest extends TestCase
                 self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
                 self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
             )
-            ->will(self::throwException(new Exception('Test exception text')));
+            ->willThrowException(new Exception('Test exception text'));
 
         $this->runtime->renderItem(
             [],
@@ -671,7 +671,7 @@ final class RenderingRuntimeTest extends TestCase
                 self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
                 self::identicalTo(['param' => 'value'])
             )
-            ->will(self::returnValue('rendered value'));
+            ->willReturn('rendered value');
 
         self::assertSame(
             'rendered value',
@@ -699,7 +699,7 @@ final class RenderingRuntimeTest extends TestCase
                 self::identicalTo(ViewInterface::CONTEXT_API),
                 self::identicalTo(['param' => 'value'])
             )
-            ->will(self::returnValue('rendered value'));
+            ->willReturn('rendered value');
 
         self::assertSame(
             'rendered value',
@@ -728,7 +728,7 @@ final class RenderingRuntimeTest extends TestCase
                 self::identicalTo(ViewInterface::CONTEXT_API),
                 self::identicalTo(['param' => 'value'])
             )
-            ->will(self::returnValue('rendered value'));
+            ->willReturn('rendered value');
 
         self::assertSame(
             'rendered value',
@@ -758,7 +758,7 @@ final class RenderingRuntimeTest extends TestCase
                 self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
                 self::identicalTo(['param' => 'value'])
             )
-            ->will(self::throwException(new Exception()));
+            ->willThrowException(new Exception());
 
         self::assertSame(
             '',
@@ -791,7 +791,7 @@ final class RenderingRuntimeTest extends TestCase
                 self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
                 self::identicalTo(['param' => 'value'])
             )
-            ->will(self::throwException(new Exception('Test exception text')));
+            ->willThrowException(new Exception('Test exception text'));
 
         $this->runtime->renderValue(
             [],

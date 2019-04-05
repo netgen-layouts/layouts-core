@@ -64,7 +64,7 @@ final class ItemParamConverterTest extends TestCase
             ->expects(self::once())
             ->method('loadItem')
             ->with(self::identicalTo(42))
-            ->will(self::returnValue($item));
+            ->willReturn($item);
 
         self::assertSame(
             $item,
@@ -88,7 +88,7 @@ final class ItemParamConverterTest extends TestCase
             ->expects(self::once())
             ->method('loadItemDraft')
             ->with(self::identicalTo(42))
-            ->will(self::returnValue($item));
+            ->willReturn($item);
 
         self::assertSame(
             $item,

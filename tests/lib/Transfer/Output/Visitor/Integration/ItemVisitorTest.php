@@ -21,7 +21,7 @@ abstract class ItemVisitorTest extends VisitorTest
         $this->cmsItemLoaderMock
             ->expects(self::any())
             ->method('load')
-            ->will(self::returnValue(CmsItem::fromArray(['remoteId' => 'abc'])));
+            ->willReturn(CmsItem::fromArray(['remoteId' => 'abc']));
     }
 
     public function testVisitThrowsRuntimeExceptionWithoutSubVisitor(): void

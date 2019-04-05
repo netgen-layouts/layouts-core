@@ -64,7 +64,7 @@ final class ZoneParamConverterTest extends TestCase
             ->expects(self::once())
             ->method('loadZone')
             ->with(self::identicalTo(42), self::identicalTo('left'))
-            ->will(self::returnValue($zone));
+            ->willReturn($zone);
 
         self::assertSame(
             $zone,
@@ -89,7 +89,7 @@ final class ZoneParamConverterTest extends TestCase
             ->expects(self::once())
             ->method('loadZoneDraft')
             ->with(self::identicalTo(42), self::identicalTo('left'))
-            ->will(self::returnValue($zone));
+            ->willReturn($zone);
 
         self::assertSame(
             $zone,

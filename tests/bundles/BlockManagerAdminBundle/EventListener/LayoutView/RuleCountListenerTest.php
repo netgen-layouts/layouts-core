@@ -60,7 +60,7 @@ final class RuleCountListenerTest extends TestCase
             ->expects(self::once())
             ->method('getRuleCount')
             ->with(self::identicalTo($layout))
-            ->will(self::returnValue(3));
+            ->willReturn(3);
 
         $this->listener->onBuildView($event);
 

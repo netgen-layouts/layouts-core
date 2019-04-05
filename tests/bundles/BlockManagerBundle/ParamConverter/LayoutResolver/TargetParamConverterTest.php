@@ -64,7 +64,7 @@ final class TargetParamConverterTest extends TestCase
             ->expects(self::once())
             ->method('loadTarget')
             ->with(self::identicalTo(42))
-            ->will(self::returnValue($target));
+            ->willReturn($target);
 
         self::assertSame(
             $target,
@@ -88,7 +88,7 @@ final class TargetParamConverterTest extends TestCase
             ->expects(self::once())
             ->method('loadTargetDraft')
             ->with(self::identicalTo(42))
-            ->will(self::returnValue($target));
+            ->willReturn($target);
 
         self::assertSame(
             $target,

@@ -38,7 +38,7 @@ final class FilesystemLoaderTest extends TestCase
             ->expects(self::any())
             ->method('getParameter')
             ->with(self::identicalTo('design'))
-            ->will(self::returnValue('test'));
+            ->willReturn('test');
 
         $this->loader = new FilesystemLoader(
             $this->innerLoaderMock,
@@ -59,7 +59,7 @@ final class FilesystemLoaderTest extends TestCase
             ->expects(self::once())
             ->method('getSourceContext')
             ->with(self::identicalTo('@ngbm_test/template.html.twig'))
-            ->will(self::returnValue(new Source('source code', '@ngbm_test/template.html.twig')));
+            ->willReturn(new Source('source code', '@ngbm_test/template.html.twig'));
 
         $source = $this->loader->getSource('@ngbm/template.html.twig');
 
@@ -79,7 +79,7 @@ final class FilesystemLoaderTest extends TestCase
             ->expects(self::once())
             ->method('getSourceContext')
             ->with(self::identicalTo('@other/template.html.twig'))
-            ->will(self::returnValue(new Source('source code', '@other/template.html.twig')));
+            ->willReturn(new Source('source code', '@other/template.html.twig'));
 
         $source = $this->loader->getSource('@other/template.html.twig');
 
@@ -99,7 +99,7 @@ final class FilesystemLoaderTest extends TestCase
             ->expects(self::once())
             ->method('getSourceContext')
             ->with(self::identicalTo('@ngbm_test/template.html.twig'))
-            ->will(self::returnValue($source));
+            ->willReturn($source);
 
         $sourceContext = $this->loader->getSourceContext('@ngbm/template.html.twig');
 
@@ -118,7 +118,7 @@ final class FilesystemLoaderTest extends TestCase
             ->expects(self::once())
             ->method('getSourceContext')
             ->with(self::identicalTo('@other/template.html.twig'))
-            ->will(self::returnValue($source));
+            ->willReturn($source);
 
         $sourceContext = $this->loader->getSourceContext('@other/template.html.twig');
 
@@ -135,7 +135,7 @@ final class FilesystemLoaderTest extends TestCase
             ->expects(self::once())
             ->method('getCacheKey')
             ->with(self::identicalTo('@ngbm_test/template.html.twig'))
-            ->will(self::returnValue('cache_key'));
+            ->willReturn('cache_key');
 
         $cacheKey = $this->loader->getCacheKey('@ngbm/template.html.twig');
 
@@ -152,7 +152,7 @@ final class FilesystemLoaderTest extends TestCase
             ->expects(self::once())
             ->method('getCacheKey')
             ->with(self::identicalTo('@other/template.html.twig'))
-            ->will(self::returnValue('cache_key'));
+            ->willReturn('cache_key');
 
         $cacheKey = $this->loader->getCacheKey('@other/template.html.twig');
 
@@ -169,7 +169,7 @@ final class FilesystemLoaderTest extends TestCase
             ->expects(self::once())
             ->method('isFresh')
             ->with(self::identicalTo('@ngbm_test/template.html.twig'), self::identicalTo(42))
-            ->will(self::returnValue(true));
+            ->willReturn(true);
 
         self::assertTrue($this->loader->isFresh('@ngbm/template.html.twig', 42));
     }
@@ -184,7 +184,7 @@ final class FilesystemLoaderTest extends TestCase
             ->expects(self::once())
             ->method('isFresh')
             ->with(self::identicalTo('@other/template.html.twig'), self::identicalTo(42))
-            ->will(self::returnValue(true));
+            ->willReturn(true);
 
         self::assertTrue($this->loader->isFresh('@other/template.html.twig', 42));
     }
@@ -199,7 +199,7 @@ final class FilesystemLoaderTest extends TestCase
             ->expects(self::once())
             ->method('exists')
             ->with(self::identicalTo('@ngbm_test/template.html.twig'))
-            ->will(self::returnValue(true));
+            ->willReturn(true);
 
         self::assertTrue($this->loader->exists('@ngbm/template.html.twig'));
     }
@@ -214,7 +214,7 @@ final class FilesystemLoaderTest extends TestCase
             ->expects(self::once())
             ->method('exists')
             ->with(self::identicalTo('@other/template.html.twig'))
-            ->will(self::returnValue(true));
+            ->willReturn(true);
 
         self::assertTrue($this->loader->exists('@other/template.html.twig'));
     }

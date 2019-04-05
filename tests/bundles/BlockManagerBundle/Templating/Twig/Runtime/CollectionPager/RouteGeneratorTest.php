@@ -62,7 +62,7 @@ final class RouteGeneratorTest extends TestCase
 
         $this->contextMock->expects(self::once())
             ->method('all')
-            ->will(self::returnValue(['var' => 'value']));
+            ->willReturn(['var' => 'value']);
 
         $this->urlGeneratorMock->expects(self::once())
             ->method('generate')
@@ -77,12 +77,12 @@ final class RouteGeneratorTest extends TestCase
                     ]
                 )
             )
-            ->will(self::returnValue('/generated/uri'));
+            ->willReturn('/generated/uri');
 
         $this->uriSignerMock->expects(self::once())
             ->method('sign')
             ->with(self::identicalTo('/generated/uri'))
-            ->will(self::returnValue($signedUri));
+            ->willReturn($signedUri);
 
         $url = call_user_func($this->routeGenerator, $block, 'default', $page);
 

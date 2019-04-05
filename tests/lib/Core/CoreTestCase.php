@@ -201,7 +201,7 @@ abstract class CoreTestCase extends TestCase
 
         $validator->expects(self::any())
             ->method('validate')
-            ->will(self::returnValue(new ConstraintViolationList()));
+            ->willReturn(new ConstraintViolationList());
 
         return $validator;
     }

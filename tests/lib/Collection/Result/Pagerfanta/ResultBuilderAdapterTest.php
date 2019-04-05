@@ -38,7 +38,7 @@ final class ResultBuilderAdapterTest extends TestCase
                 self::identicalTo(0),
                 self::identicalTo(0)
             )
-            ->will(self::returnValue(ResultSet::fromArray(['totalCount' => 3])));
+            ->willReturn(ResultSet::fromArray(['totalCount' => 3]));
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderMock, $collection);
 
@@ -61,7 +61,7 @@ final class ResultBuilderAdapterTest extends TestCase
                 self::identicalTo(0),
                 self::identicalTo(0)
             )
-            ->will(self::returnValue(ResultSet::fromArray(['totalCount' => 50])));
+            ->willReturn(ResultSet::fromArray(['totalCount' => 50]));
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderMock, $collection, 0, 10);
 
@@ -83,7 +83,7 @@ final class ResultBuilderAdapterTest extends TestCase
                 self::identicalTo(0),
                 self::identicalTo(0)
             )
-            ->will(self::returnValue(ResultSet::fromArray(['totalCount' => 6])));
+            ->willReturn(ResultSet::fromArray(['totalCount' => 6]));
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderMock, $collection, 3);
 
@@ -105,7 +105,7 @@ final class ResultBuilderAdapterTest extends TestCase
                 self::identicalTo(0),
                 self::identicalTo(0)
             )
-            ->will(self::returnValue(ResultSet::fromArray(['totalCount' => 10])));
+            ->willReturn(ResultSet::fromArray(['totalCount' => 10]));
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderMock, $collection, 3, 5);
 
@@ -129,7 +129,7 @@ final class ResultBuilderAdapterTest extends TestCase
                 self::identicalTo(10),
                 self::identicalTo(0)
             )
-            ->will(self::returnValue($resultSet));
+            ->willReturn($resultSet);
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderMock, $collection);
 
@@ -153,7 +153,7 @@ final class ResultBuilderAdapterTest extends TestCase
                 self::identicalTo(10),
                 self::identicalTo(0)
             )
-            ->will(self::returnValue($resultSet));
+            ->willReturn($resultSet);
 
         $adapter = new ResultBuilderAdapter($this->resultBuilderMock, $collection, 3);
 

@@ -50,12 +50,10 @@ final class RendererTest extends TestCase
                 self::identicalTo('template1.html.twig'),
                 self::identicalTo(['param' => 'value'])
             )
-            ->will(
-                self::returnCallback(
-                    function (): void {
-                        echo 'rendered1';
-                    }
-                )
+            ->willReturnCallback(
+                function (): void {
+                    echo 'rendered1';
+                }
             );
 
         $this->twigMock
@@ -65,12 +63,10 @@ final class RendererTest extends TestCase
                 self::identicalTo('template2.html.twig'),
                 self::identicalTo(['param2' => 'value2', 'param' => 'value3'])
             )
-            ->will(
-                self::returnCallback(
-                    function (): void {
-                        echo 'rendered2';
-                    }
-                )
+            ->willReturnCallback(
+                function (): void {
+                    echo 'rendered2';
+                }
             );
 
         self::assertSame('rendered1rendered2', $this->renderer->renderPlugins('plugin', ['param' => 'value']));
@@ -99,7 +95,7 @@ final class RendererTest extends TestCase
         $this->twigMock
             ->expects(self::at(0))
             ->method('display')
-            ->will(self::throwException(new Exception('Test exception message')));
+            ->willThrowException(new Exception('Test exception message'));
 
         $this->renderer->renderPlugins('plugin');
     }

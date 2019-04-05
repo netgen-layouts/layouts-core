@@ -71,9 +71,7 @@ final class ExceptionSerializerListenerTest extends TestCase
                 self::identicalTo($exception),
                 self::identicalTo('json')
             )
-            ->will(
-                self::returnValue('serialized content')
-            );
+            ->willReturn('serialized content');
 
         $this->loggerMock
             ->expects(self::at(0))
@@ -119,9 +117,7 @@ final class ExceptionSerializerListenerTest extends TestCase
                 self::identicalTo($exception),
                 self::identicalTo('json')
             )
-            ->will(
-                self::returnValue('serialized content')
-            );
+            ->willReturn('serialized content');
 
         $this->loggerMock
             ->expects($loggerCalled ? self::at(0) : self::never())

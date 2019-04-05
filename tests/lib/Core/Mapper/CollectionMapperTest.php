@@ -225,7 +225,7 @@ abstract class CollectionMapperTest extends CoreTestCase
             ->expects(self::any())
             ->method('load')
             ->with(self::identicalTo('12'), self::identicalTo('my_value_type'))
-            ->will(self::returnValue($cmsItem));
+            ->willReturn($cmsItem);
 
         $item = $this->mapper->mapItem($persistenceItem);
 
@@ -273,7 +273,7 @@ abstract class CollectionMapperTest extends CoreTestCase
             ->expects(self::any())
             ->method('load')
             ->with(self::identicalTo('12'), self::identicalTo('null'))
-            ->will(self::returnValue($cmsItem));
+            ->willReturn($cmsItem);
 
         $item = $this->mapper->mapItem($persistenceItem);
 

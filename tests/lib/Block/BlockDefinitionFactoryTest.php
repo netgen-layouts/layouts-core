@@ -258,7 +258,7 @@ final class BlockDefinitionFactoryTest extends TestCase
         $this->handlerMock
             ->expects(self::any())
             ->method('getPlaceholderIdentifiers')
-            ->will(self::returnValue(['left', 'right']));
+            ->willReturn(['left', 'right']);
 
         $blockDefinition = $this->factory->buildContainerDefinition(
             'definition',

@@ -111,7 +111,7 @@ final class BlockNormalizerTest extends TestCase
             ->expects(self::once())
             ->method('hasPublishedState')
             ->with(self::identicalTo($block))
-            ->will(self::returnValue(true));
+            ->willReturn(true);
 
         self::assertSame(
             [
