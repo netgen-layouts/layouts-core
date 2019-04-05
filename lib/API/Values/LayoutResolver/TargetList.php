@@ -13,7 +13,7 @@ final class TargetList extends ArrayCollection
         parent::__construct(
             array_filter(
                 $targets,
-                static function (Target $target) {
+                static function (Target $target): bool {
                     return true;
                 }
             )

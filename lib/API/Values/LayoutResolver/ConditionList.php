@@ -13,7 +13,7 @@ final class ConditionList extends ArrayCollection
         parent::__construct(
             array_filter(
                 $conditions,
-                static function (Condition $condition) {
+                static function (Condition $condition): bool {
                     return true;
                 }
             )

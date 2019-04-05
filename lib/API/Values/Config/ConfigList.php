@@ -13,7 +13,7 @@ final class ConfigList extends ArrayCollection
         parent::__construct(
             array_filter(
                 $configs,
-                static function (Config $config) {
+                static function (Config $config): bool {
                     return true;
                 }
             )
@@ -34,7 +34,7 @@ final class ConfigList extends ArrayCollection
     public function getConfigKeys(): array
     {
         return array_map(
-            static function (Config $config) {
+            static function (Config $config): string {
                 return $config->getConfigKey();
             },
             $this->getConfigs()

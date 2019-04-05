@@ -13,7 +13,7 @@ final class CollectionList extends ArrayCollection
         parent::__construct(
             array_filter(
                 $collections,
-                static function (Collection $collection) {
+                static function (Collection $collection): bool {
                     return true;
                 }
             )

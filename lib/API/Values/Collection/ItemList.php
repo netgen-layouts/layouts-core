@@ -13,7 +13,7 @@ final class ItemList extends ArrayCollection
         parent::__construct(
             array_filter(
                 $items,
-                static function (Item $item) {
+                static function (Item $item): bool {
                     return true;
                 }
             )

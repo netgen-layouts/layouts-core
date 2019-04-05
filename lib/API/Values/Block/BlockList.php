@@ -13,7 +13,7 @@ final class BlockList extends ArrayCollection
         parent::__construct(
             array_filter(
                 $blocks,
-                static function (Block $block) {
+                static function (Block $block): bool {
                     return true;
                 }
             )

@@ -13,7 +13,7 @@ final class RuleList extends ArrayCollection
         parent::__construct(
             array_filter(
                 $rules,
-                static function (Rule $rule) {
+                static function (Rule $rule): bool {
                     return true;
                 }
             )

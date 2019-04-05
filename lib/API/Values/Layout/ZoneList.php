@@ -13,7 +13,7 @@ final class ZoneList extends ArrayCollection
         parent::__construct(
             array_filter(
                 $zones,
-                static function (Zone $zone) {
+                static function (Zone $zone): bool {
                     return true;
                 }
             )
@@ -34,7 +34,7 @@ final class ZoneList extends ArrayCollection
     public function getZoneIdentifiers(): array
     {
         return array_map(
-            static function (Zone $zone) {
+            static function (Zone $zone): string {
                 return $zone->getIdentifier();
             },
             $this->getZones()

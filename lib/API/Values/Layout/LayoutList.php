@@ -13,7 +13,7 @@ final class LayoutList extends ArrayCollection
         parent::__construct(
             array_filter(
                 $layouts,
-                static function (Layout $layout) {
+                static function (Layout $layout): bool {
                     return true;
                 }
             )

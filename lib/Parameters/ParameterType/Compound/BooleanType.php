@@ -33,13 +33,16 @@ final class BooleanType extends CompoundParameterType
         $optionsResolver->setAllowedTypes('reverse', 'bool');
         $optionsResolver->setDefault('reverse', false);
 
-        $optionsResolver->setDefault('default_value', static function (Options $options, $previousValue) {
-            if ($options['required'] === true) {
-                return false;
-            }
+        $optionsResolver->setDefault(
+            'default_value',
+            static function (Options $options, $previousValue) {
+                if ($options['required'] === true) {
+                    return false;
+                }
 
-            return $previousValue;
-        });
+                return $previousValue;
+            }
+        );
     }
 
     protected function getRequiredConstraints(ParameterDefinition $parameterDefinition, $value): array
