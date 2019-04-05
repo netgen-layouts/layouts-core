@@ -75,7 +75,7 @@ final class DateTimeUtils
     {
         $timeZoneList = [];
         foreach (DateTimeZone::listIdentifiers() as $timeZone) {
-            list($region, $name) = self::parseTimeZone($timeZone);
+            [$region, $name] = self::parseTimeZone($timeZone);
 
             $offset = self::buildOffsetString($timeZone);
             $name = sprintf('%s (%s)', str_replace('_', ' ', $name), $offset);
