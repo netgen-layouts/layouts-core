@@ -15,7 +15,6 @@ services:
 
     netgen_block_manager.collection.result_builder:
         class: Netgen\BlockManager\Collection\Result\ResultBuilder
-        public: true
         arguments:
             - "@netgen_block_manager.collection.collection_runner_factory"
             - "%netgen_block_manager.collection.contextual_limit%"
@@ -42,7 +41,6 @@ services:
 
     netgen_block_manager.collection.registry.item_definition:
         class: Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry
-        public: true
         arguments:
             - []
 

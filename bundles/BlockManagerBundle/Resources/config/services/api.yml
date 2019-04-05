@@ -235,19 +235,15 @@ services:
 
     netgen_block_manager.api.service.layout:
         alias: netgen_block_manager.core.service.layout
-        public: true
 
     netgen_block_manager.api.service.block:
         alias: netgen_block_manager.core.service.block
-        public: true
 
     netgen_block_manager.api.service.collection:
         alias: netgen_block_manager.core.service.collection
-        public: true
 
     netgen_block_manager.api.service.layout_resolver:
         alias: netgen_block_manager.core.service.layout_resolver
-        public: true
 
     netgen_block_manager.persistence.transaction_handler:
         alias: netgen_block_manager.persistence.doctrine.transaction_handler

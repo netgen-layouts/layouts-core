@@ -9,7 +9,6 @@ services:
 
     netgen_block_manager.layout.resolver:
         class: Netgen\BlockManager\Layout\Resolver\LayoutResolver
-        public: true
         arguments:
             - "@netgen_block_manager.api.service.layout_resolver"
             - "@netgen_block_manager.layout.resolver.registry.target_type"

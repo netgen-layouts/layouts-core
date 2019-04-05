@@ -1,7 +1,6 @@
 services:
     netgen_block_manager.view.view_renderer:
         class: Netgen\BlockManager\View\ViewRenderer
-        public: true
         arguments:
             - "@event_dispatcher"
             - "@twig"
@@ -16,7 +15,6 @@ services:
 
     netgen_block_manager.view.renderer:
         class: Netgen\BlockManager\View\Renderer
-        public: true
         lazy: true
         arguments:
             - "@netgen_block_manager.view.view_builder"

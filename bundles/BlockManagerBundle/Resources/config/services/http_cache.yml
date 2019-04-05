@@ -1,11 +1,9 @@
 services:
     netgen_block_manager.http_cache.fos.cache_manager:
         synthetic: true
-        public: true
 
     netgen_block_manager.http_cache.client:
         alias: netgen_block_manager.http_cache.client.varnish
-        public: true
 
     netgen_block_manager.http_cache.client.varnish:
         class: Netgen\BlockManager\HttpCache\VarnishClient
