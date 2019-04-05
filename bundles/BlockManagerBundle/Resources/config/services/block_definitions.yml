@@ -9,7 +9,6 @@ parameters:
 services:
     netgen_block_manager.block.block_definition_factory:
         class: Netgen\BlockManager\Block\BlockDefinitionFactory
-        public: false
         arguments:
             - "@netgen_block_manager.parameters.translatable_parameter_builder_factory"
             - "@netgen_block_manager.block.registry.handler_plugin"
@@ -23,7 +22,6 @@ services:
 
     netgen_block_manager.block.registry.handler_plugin:
         class: Netgen\BlockManager\Block\Registry\HandlerPluginRegistry
-        public: false
         arguments:
             - []
 
@@ -43,7 +41,6 @@ services:
 
     netgen_block_manager.block.block_definition.handler.plugin.common:
         class: Netgen\BlockManager\Block\BlockDefinition\Handler\CommonParametersPlugin
-        public: false
         arguments:
             - "%netgen_block_manager.block.block_definition.handler.plugin.common.groups%"
         tags:
@@ -51,7 +48,6 @@ services:
 
     netgen_block_manager.block.block_definition.handler.plugin.paged_collections:
         class: Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsPlugin
-        public: false
         arguments:
             - "%netgen_block_manager.block.block_definition.handler.plugin.paged_collections.pager_types%"
             - "%netgen_block_manager.block.block_definition.handler.plugin.paged_collections.groups%"

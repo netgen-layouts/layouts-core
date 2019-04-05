@@ -2,13 +2,11 @@ services:
     # Services tagged with 'netgen_block_manager.transfer.serializer.visitor' register to this one
     netgen_block_manager.transfer.serializer.visitor.aggregate:
         class: Netgen\BlockManager\Transfer\Output\Visitor\AggregateVisitor
-        public: false
         arguments:
             - []
 
     netgen_block_manager.transfer.serializer.visitor.block:
         class: Netgen\BlockManager\Transfer\Output\Visitor\BlockVisitor
-        public: false
         arguments:
             - "@netgen_block_manager.api.service.block"
         tags:
@@ -16,49 +14,41 @@ services:
 
     netgen_block_manager.transfer.serializer.visitor.collection:
         class: Netgen\BlockManager\Transfer\Output\Visitor\CollectionVisitor
-        public: false
         tags:
             - { name: netgen_block_manager.transfer.serializer.visitor }
 
     netgen_block_manager.transfer.serializer.visitor.condition:
         class: Netgen\BlockManager\Transfer\Output\Visitor\ConditionVisitor
-        public: false
         tags:
             - { name: netgen_block_manager.transfer.serializer.visitor }
 
     netgen_block_manager.transfer.serializer.visitor.config:
         class: Netgen\BlockManager\Transfer\Output\Visitor\ConfigVisitor
-        public: false
         tags:
             - { name: netgen_block_manager.transfer.serializer.visitor }
 
     netgen_block_manager.transfer.serializer.visitor.item:
         class: Netgen\BlockManager\Transfer\Output\Visitor\ItemVisitor
-        public: false
         tags:
             - { name: netgen_block_manager.transfer.serializer.visitor }
 
     netgen_block_manager.transfer.serializer.visitor.layout:
         class: Netgen\BlockManager\Transfer\Output\Visitor\LayoutVisitor
-        public: false
         tags:
             - { name: netgen_block_manager.transfer.serializer.visitor }
 
     netgen_block_manager.transfer.serializer.visitor.parameter:
         class: Netgen\BlockManager\Transfer\Output\Visitor\ParameterVisitor
-        public: false
         tags:
             - { name: netgen_block_manager.transfer.serializer.visitor }
 
     netgen_block_manager.transfer.serializer.visitor.placeholder:
         class: Netgen\BlockManager\Transfer\Output\Visitor\PlaceholderVisitor
-        public: false
         tags:
             - { name: netgen_block_manager.transfer.serializer.visitor }
 
     netgen_block_manager.transfer.serializer.visitor.query:
         class: Netgen\BlockManager\Transfer\Output\Visitor\QueryVisitor
-        public: false
         arguments:
             - "@netgen_block_manager.api.service.collection"
         tags:
@@ -66,19 +56,16 @@ services:
 
     netgen_block_manager.transfer.serializer.visitor.rule:
         class: Netgen\BlockManager\Transfer\Output\Visitor\RuleVisitor
-        public: false
         tags:
             - { name: netgen_block_manager.transfer.serializer.visitor }
 
     netgen_block_manager.transfer.serializer.visitor.target:
         class: Netgen\BlockManager\Transfer\Output\Visitor\TargetVisitor
-        public: false
         tags:
             - { name: netgen_block_manager.transfer.serializer.visitor }
 
     netgen_block_manager.transfer.serializer.visitor.zone:
         class: Netgen\BlockManager\Transfer\Output\Visitor\ZoneVisitor
-        public: false
         arguments:
             - "@netgen_block_manager.api.service.block"
         tags:

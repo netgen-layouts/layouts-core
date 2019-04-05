@@ -9,21 +9,17 @@ services:
 
     netgen_block_manager.http_cache.client.varnish:
         class: Netgen\BlockManager\HttpCache\VarnishClient
-        public: false
         arguments:
             - "@netgen_block_manager.http_cache.fos.cache_manager"
             - "@netgen_block_manager.http_cache.layout.id_provider"
 
     netgen_block_manager.http_cache.client.null:
         class: Netgen\BlockManager\HttpCache\NullClient
-        public: false
 
     netgen_block_manager.http_cache.tagger:
         class: Netgen\BlockManager\HttpCache\Tagger
-        public: false
 
     netgen_block_manager.http_cache.layout.id_provider:
         class: Netgen\BlockManager\HttpCache\Layout\IdProvider
-        public: false
         arguments:
             - "@netgen_block_manager.api.service.layout"

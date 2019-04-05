@@ -1,7 +1,6 @@
 services:
     netgen_block_manager.menu.admin.main_menu_builder:
         class: Netgen\Bundle\BlockManagerAdminBundle\Menu\MainMenuBuilder
-        public: false
         arguments:
             - "@knp_menu.factory"
             - "@security.authorization_checker"
@@ -9,7 +8,6 @@ services:
 
     netgen_block_manager.menu.admin.main_menu:
         class: Knp\Menu\MenuItem
-        # public: false
         factory: ["@netgen_block_manager.menu.admin.main_menu_builder", "createMenu"]
         tags:
             - { name: knp_menu.menu, alias: ngbm.admin.main_menu }

@@ -1,7 +1,6 @@
 services:
     netgen_block_manager.controller.base:
         class: Netgen\Bundle\BlockManagerBundle\Controller\AbstractController
-        public: false
         abstract: true
         calls:
             - [setContainer, ["@service_container"]]
@@ -153,13 +152,11 @@ services:
 
     netgen_block_manager.controller.api.v1.block.create_struct_builder:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructBuilder
-        public: false
         arguments:
             - "@netgen_block_manager.api.service.block"
 
     netgen_block_manager.controller.api.v1.block.create_struct_validator:
         class: Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Block\Utils\CreateStructValidator
-        public: false
         calls:
             - [setValidator, ["@validator"]]
 

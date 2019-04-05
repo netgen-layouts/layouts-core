@@ -1,7 +1,6 @@
 services:
     netgen_block_manager.validator.layout_name:
         class: Netgen\BlockManager\Validator\LayoutNameValidator
-        # public: false
         arguments:
             - "@netgen_block_manager.api.service.layout"
         tags:
@@ -9,19 +8,16 @@ services:
 
     netgen_block_manager.validator.block_view_type:
         class: Netgen\BlockManager\Validator\BlockViewTypeValidator
-        # public: false
         tags:
             - { name: validator.constraint_validator, alias: ngbm_block_view_type }
 
     netgen_block_manager.validator.block_item_view_type:
         class: Netgen\BlockManager\Validator\BlockItemViewTypeValidator
-        # public: false
         tags:
             - { name: validator.constraint_validator, alias: ngbm_block_item_view_type }
 
     netgen_block_manager.validator.value_type:
         class: Netgen\BlockManager\Validator\ValueTypeValidator
-        # public: false
         arguments:
             - "@netgen_block_manager.item.registry.value_type"
         tags:
@@ -29,7 +25,6 @@ services:
 
     netgen_block_manager.validator.item_link:
         class: Netgen\BlockManager\Validator\Parameters\ItemLinkValidator
-        # public: false
         arguments:
             - "@netgen_block_manager.item.item_loader"
         tags:
@@ -37,54 +32,45 @@ services:
 
     netgen_block_manager.validator.link:
         class: Netgen\BlockManager\Validator\Parameters\LinkValidator
-        # public: false
         tags:
             - { name: validator.constraint_validator, alias: ngbm_link }
 
     netgen_block_manager.validator.datetime:
         class: Netgen\BlockManager\Validator\DateTimeValidator
-        # public: false
         tags:
             - { name: validator.constraint_validator, alias: ngbm_datetime }
 
     netgen_block_manager.validator.locale:
         class: Netgen\BlockManager\Validator\LocaleValidator
-        # public: false
         tags:
             - { name: validator.constraint_validator, alias: ngbm_locale }
 
     netgen_block_manager.validator.condition_type.time:
         class: Netgen\BlockManager\Validator\ConditionType\TimeValidator
-        # public: false
         tags:
             - { name: validator.constraint_validator, alias: ngbm_condition_type_time }
 
     netgen_block_manager.validator.parameter_struct:
         class: Netgen\BlockManager\Validator\Structs\ParameterStructValidator
-        # public: false
         tags:
             - { name: validator.constraint_validator, alias: ngbm_parameter_struct }
 
     netgen_block_manager.validator.config_aware_struct:
         class: Netgen\BlockManager\Validator\Structs\ConfigAwareStructValidator
-        # public: false
         tags:
             - { name: validator.constraint_validator, alias: ngbm_config_aware_struct }
 
     netgen_block_manager.validator.block_create_struct:
         class: Netgen\BlockManager\Validator\Structs\BlockCreateStructValidator
-        # public: false
         tags:
             - { name: validator.constraint_validator, alias: ngbm_block_create_struct }
 
     netgen_block_manager.validator.block_update_struct:
         class: Netgen\BlockManager\Validator\Structs\BlockUpdateStructValidator
-        # public: false
         tags:
             - { name: validator.constraint_validator, alias: ngbm_block_update_struct }
 
     netgen_block_manager.validator.query_update_struct:
         class: Netgen\BlockManager\Validator\Structs\QueryUpdateStructValidator
-        # public: false
         tags:
             - { name: validator.constraint_validator, alias: ngbm_query_update_struct }

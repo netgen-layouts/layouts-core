@@ -2,9 +2,7 @@ services:
     netgen_block_manager.behat.page.admin.layouts.index:
         class: Netgen\BlockManager\Behat\Page\Admin\Layouts\IndexPage
         parent: netgen_block_manager.behat.symfony_page
-        public: false
 
     netgen_block_manager.behat.page.admin.shared_layouts.index:
         class: Netgen\BlockManager\Behat\Page\Admin\SharedLayouts\IndexPage
         parent: netgen_block_manager.behat.symfony_page
-        public: false

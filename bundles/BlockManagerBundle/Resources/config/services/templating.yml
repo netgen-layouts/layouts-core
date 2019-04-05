@@ -1,14 +1,12 @@
 services:
     netgen_block_manager.templating.plugin_renderer:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Plugin\Renderer
-        public: false
         arguments:
             - "@twig"
             - []
 
     netgen_block_manager.templating.global_variable:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable
-        public: false
         arguments:
             - "@netgen_block_manager.configuration"
             - "@netgen_block_manager.layout.resolver"
@@ -19,13 +17,11 @@ services:
 
     netgen_block_manager.templating.twig.extension.rendering:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\RenderingExtension
-        public: false
         tags:
             - { name: twig.extension }
 
     netgen_block_manager.templating.twig.runtime.rendering:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\RenderingRuntime
-        # public: false
         arguments:
             - "@netgen_block_manager.api.service.block"
             - "@netgen_block_manager.view.renderer"
@@ -37,13 +33,11 @@ services:
 
     netgen_block_manager.templating.twig.extension.plugin_rendering:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\PluginRenderingExtension
-        public: false
         tags:
             - { name: twig.extension }
 
     netgen_block_manager.templating.twig.runtime.plugin_rendering:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\PluginRenderingRuntime
-        # public: false
         arguments:
             - "@netgen_block_manager.templating.plugin_renderer"
             - "@netgen_block_manager.error.handler"
@@ -52,13 +46,11 @@ services:
 
     netgen_block_manager.templating.twig.extension.collection_pager:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\CollectionPagerExtension
-        public: false
         tags:
             - { name: twig.extension }
 
     netgen_block_manager.templating.twig.runtime.collection_pager:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\CollectionPagerRuntime
-        # public: false
         arguments:
             - "@netgen_block_manager.templating.twig.runtime.collection_pager.route_generator"
             - "@netgen_block_manager.collection.result.pagerfanta.view"
@@ -67,7 +59,6 @@ services:
 
     netgen_block_manager.templating.twig.runtime.collection_pager.route_generator:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\CollectionPager\RouteGenerator
-        public: false
         arguments:
             - "@netgen_block_manager.context"
             - "@uri_signer"
@@ -75,13 +66,11 @@ services:
 
     netgen_block_manager.templating.twig.extension.item:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\ItemExtension
-        public: false
         tags:
             - { name: twig.extension }
 
     netgen_block_manager.templating.twig.runtime.item:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\ItemRuntime
-        # public: false
         arguments:
             - "@netgen_block_manager.item.item_loader"
             - "@netgen_block_manager.item.url_generator"
@@ -91,13 +80,11 @@ services:
 
     netgen_block_manager.templating.twig.extension.helpers:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Extension\HelpersExtension
-        public: false
         tags:
             - { name: twig.extension }
 
     netgen_block_manager.templating.twig.runtime.helpers:
         class: Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime\HelpersRuntime
-        # public: false
         arguments:
             - "@netgen_block_manager.api.service.layout"
         tags:
@@ -105,10 +92,8 @@ services:
 
     netgen_block_manager.templating.pagelayout_resolver.default:
         class: Netgen\Bundle\BlockManagerBundle\Templating\PageLayoutResolver
-        public: false
         arguments:
             - "%netgen_block_manager.pagelayout%"
 
     netgen_block_manager.templating.pagelayout_resolver:
         alias: netgen_block_manager.templating.pagelayout_resolver.default
-        public: false

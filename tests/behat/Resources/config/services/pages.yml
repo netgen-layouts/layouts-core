@@ -6,7 +6,6 @@ services:
     netgen_block_manager.behat.page:
         class: Netgen\BlockManager\Behat\Page\Page
         abstract: true
-        public: false
         arguments:
             - "@behat.mink.default_session"
             - "@behat.mink.parameters"
@@ -15,6 +14,5 @@ services:
         class: Netgen\BlockManager\Behat\Page\SymfonyPage
         parent: netgen_block_manager.behat.page
         abstract: true
-        public: false
         arguments:
             - "@router"

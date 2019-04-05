@@ -2,4 +2,3 @@ services:
     netgen_block_manager.behat.page.app.index:
         class: Netgen\BlockManager\Behat\Page\App\IndexPage
         parent: netgen_block_manager.behat.symfony_page
-        public: false

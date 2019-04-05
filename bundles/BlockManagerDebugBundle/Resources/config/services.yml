@@ -4,7 +4,6 @@ parameters:
 services:
     netgen_block_manager.debug.data_collector:
         class: Netgen\Bundle\BlockManagerDebugBundle\DataCollector\BlockManagerDataCollector
-        public: false
         arguments:
             - "@netgen_block_manager.templating.global_variable"
             - "@twig"
@@ -13,7 +12,6 @@ services:
 
     netgen_block_manager.event_listener.debug.data_collector.block_view:
         class: Netgen\Bundle\BlockManagerDebugBundle\EventListener\DataCollector\BlockViewListener
-        # public: false
         arguments:
             - "@netgen_block_manager.debug.data_collector"
             - "%netgen_block_manager.debug.block_collector.enabled_contexts%"

@@ -1,17 +1,14 @@
 services:
     netgen_block_manager.collection.item_definition_factory:
         class: Netgen\BlockManager\Collection\Item\ItemDefinitionFactory
-        public: false
         arguments:
             - "@netgen_block_manager.config.config_definition_factory"
 
     netgen_block_manager.collection.item_visibility_resolver:
         class: Netgen\BlockManager\Collection\Item\VisibilityResolver
-        public: false
 
     netgen_block_manager.collection.collection_runner_factory:
         class: Netgen\BlockManager\Collection\Result\CollectionRunnerFactory
-        public: false
         arguments:
             - "@netgen_block_manager.item.item_builder"
             - "@netgen_block_manager.collection.item_visibility_resolver"
@@ -26,14 +23,12 @@ services:
 
     netgen_block_manager.collection.result.pagerfanta.factory:
         class: Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory
-        public: false
         arguments:
             - "@netgen_block_manager.collection.result_builder"
             - "%netgen_block_manager.collection.max_limit%"
 
     netgen_block_manager.collection.result.pagerfanta.view:
         class: Netgen\BlockManager\Collection\Result\Pagerfanta\View\CollectionView
-        public: false
         arguments:
             - "@twig"
             - "%netgen_block_manager.collection.pager.template%"
@@ -42,7 +37,6 @@ services:
 
     netgen_block_manager.collection.query_type_factory:
         class: Netgen\BlockManager\Collection\QueryType\QueryTypeFactory
-        public: false
         arguments:
             - "@netgen_block_manager.parameters.translatable_parameter_builder_factory"
 

@@ -1,7 +1,6 @@
 services:
     netgen_block_manager.command.migration.query_offset_limit:
         class: Netgen\Bundle\BlockManagerBundle\Command\Migration\MigrateQueryOffsetLimitCommand
-        # public: false
         arguments:
             - "@netgen_block_manager.collection.registry.query_type"
             - "@database_connection"
@@ -10,7 +9,6 @@ services:
 
     netgen_block_manager.command.export:
         class: Netgen\Bundle\BlockManagerBundle\Command\ExportCommand
-        # public: false
         arguments:
             - "@netgen_block_manager.transfer.serializer"
         tags:
@@ -18,7 +16,6 @@ services:
 
     netgen_block_manager.command.import:
         class: Netgen\Bundle\BlockManagerBundle\Command\ImportCommand
-        # public: false
         arguments:
             - "@netgen_block_manager.transfer.input.importer"
         tags:
