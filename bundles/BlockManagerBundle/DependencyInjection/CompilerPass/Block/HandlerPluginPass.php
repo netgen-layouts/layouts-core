@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Reference;
 
 final class HandlerPluginPass implements CompilerPassInterface
 {
+    use PriorityTaggedServiceTrait;
+
     private const SERVICE_NAME = 'netgen_block_manager.block.registry.handler_plugin';
     private const TAG_NAME = 'netgen_block_manager.block.block_definition_handler.plugin';
 
@@ -20,17 +22,7 @@ final class HandlerPluginPass implements CompilerPassInterface
         }
 
         $handlerPluginRegistry = $container->findDefinition(self::SERVICE_NAME);
-
-        $handlerPlugins = [];
-        foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $handlerPlugin => $tag) {
-            $priority = (int) ($tag[0]['priority'] ?? 0);
-            $handlerPlugins[$priority][] = new Reference($handlerPlugin);
-        }
-
-        if (count($handlerPlugins) > 0) {
-            krsort($handlerPlugins);
-            $handlerPlugins = array_merge(...$handlerPlugins);
-        }
+        $handlerPlugins = $this->findAndSortTaggedServices(self::TAG_NAME, $container);
 
         $handlerPluginRegistry->replaceArgument(0, $handlerPlugins);
     }

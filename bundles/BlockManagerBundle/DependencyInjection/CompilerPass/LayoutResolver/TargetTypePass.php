@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\LayoutResolver;
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
+use Symfony\Component\DependencyInjection\Compiler\PriorityTaggedServiceTrait;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Reference;
 
 final class TargetTypePass implements CompilerPassInterface
 {
+    use PriorityTaggedServiceTrait;
+
     private const SERVICE_NAME = 'netgen_block_manager.layout.resolver.registry.target_type';
     private const TAG_NAME = 'netgen_block_manager.layout.resolver.target_type';
 
@@ -20,17 +22,7 @@ final class TargetTypePass implements CompilerPassInterface
         }
 
         $targetTypeRegistry = $container->findDefinition(self::SERVICE_NAME);
-
-        $targetTypes = [];
-        foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $targetType => $tag) {
-            $priority = (int) ($tag[0]['priority'] ?? 0);
-            $targetTypes[$priority][] = new Reference($targetType);
-        }
-
-        if (count($targetTypes) > 0) {
-            krsort($targetTypes);
-            $targetTypes = array_merge(...$targetTypes);
-        }
+        $targetTypes = $this->findAndSortTaggedServices(self::TAG_NAME, $container);
 
         foreach ($targetTypes as $targetType) {
             $targetTypeRegistry->addArgument($targetType);
