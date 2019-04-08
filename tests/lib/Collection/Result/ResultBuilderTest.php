@@ -168,7 +168,7 @@ final class ResultBuilderTest extends TestCase
     private function buildResultBuilder(int $maxLimit): ResultBuilderInterface
     {
         return new ResultBuilder(
-            new CollectionRunnerFactory($this->cmsItemBuilder, new VisibilityResolver()),
+            new CollectionRunnerFactory($this->cmsItemBuilder, new VisibilityResolver([])),
             12,
             $maxLimit
         );

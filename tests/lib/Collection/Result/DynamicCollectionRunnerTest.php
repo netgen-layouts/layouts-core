@@ -78,7 +78,7 @@ final class DynamicCollectionRunnerTest extends TestCase
         $query = Query::fromArray(['queryType' => new QueryType('my_query_type', $queryItems, $queryCount)]);
         $collection = Collection::fromArray(['items' => new ArrayCollection($items), 'query' => $query]);
 
-        $factory = new CollectionRunnerFactory($this->cmsItemBuilderMock, new VisibilityResolver());
+        $factory = new CollectionRunnerFactory($this->cmsItemBuilderMock, new VisibilityResolver([]));
         $collectionRunner = $factory->getCollectionRunner($collection);
 
         self::assertSame($totalCount, $collectionRunner->count($collection));

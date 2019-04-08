@@ -37,7 +37,7 @@ final class CollectionItemNormalizerTest extends TestCase
         $this->normalizerMock = $this->createMock(NormalizerInterface::class);
         $this->urlGeneratorMock = $this->createMock(UrlGeneratorInterface::class);
 
-        $this->normalizer = new CollectionItemNormalizer($this->urlGeneratorMock, new VisibilityResolver());
+        $this->normalizer = new CollectionItemNormalizer($this->urlGeneratorMock, new VisibilityResolver([]));
         $this->normalizer->setNormalizer($this->normalizerMock);
     }
 

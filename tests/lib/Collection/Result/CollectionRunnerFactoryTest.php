@@ -30,7 +30,7 @@ final class CollectionRunnerFactoryTest extends TestCase
     {
         $this->cmsItemBuilderMock = $this->createMock(CmsItemBuilderInterface::class);
 
-        $this->factory = new CollectionRunnerFactory($this->cmsItemBuilderMock, new VisibilityResolver());
+        $this->factory = new CollectionRunnerFactory($this->cmsItemBuilderMock, new VisibilityResolver([]));
     }
 
     /**

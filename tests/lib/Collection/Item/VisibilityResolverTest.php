@@ -11,17 +11,16 @@ use PHPUnit\Framework\TestCase;
 final class VisibilityResolverTest extends TestCase
 {
     /**
+     * @covers \Netgen\BlockManager\Collection\Item\VisibilityResolver::__construct
      * @covers \Netgen\BlockManager\Collection\Item\VisibilityResolver::isVisible
-     * @covers \Netgen\BlockManager\Collection\Item\VisibilityResolver::setVoters
      *
      * @dataProvider isVisibleProvider
      */
     public function testIsVisible(array $voters, bool $result): void
     {
-        $VisibilityResolver = new VisibilityResolver();
-        $VisibilityResolver->setVoters($voters);
+        $visibilityResolver = new VisibilityResolver($voters);
 
-        self::assertSame($result, $VisibilityResolver->isVisible(new Item()));
+        self::assertSame($result, $visibilityResolver->isVisible(new Item()));
     }
 
     public function isVisibleProvider(): array

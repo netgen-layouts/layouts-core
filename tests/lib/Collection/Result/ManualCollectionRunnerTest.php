@@ -51,7 +51,7 @@ final class ManualCollectionRunnerTest extends TestCase
         }
 
         $collection = Collection::fromArray(['items' => new ArrayCollection($items)]);
-        $factory = new CollectionRunnerFactory($this->cmsItemBuilderMock, new VisibilityResolver());
+        $factory = new CollectionRunnerFactory($this->cmsItemBuilderMock, new VisibilityResolver([]));
         $collectionRunner = $factory->getCollectionRunner($collection);
 
         self::assertSame($totalCount, $collectionRunner->count($collection));
