@@ -17,10 +17,12 @@ final class ConditionTypeRegistry implements ConditionTypeRegistryInterface
      */
     private $conditionTypes = [];
 
-    public function __construct(ConditionTypeInterface ...$conditionTypes)
+    public function __construct(iterable $conditionTypes)
     {
         foreach ($conditionTypes as $conditionType) {
-            $this->conditionTypes[$conditionType::getType()] = $conditionType;
+            if ($conditionType instanceof ConditionTypeInterface) {
+                $this->conditionTypes[$conditionType::getType()] = $conditionType;
+            }
         }
     }
 

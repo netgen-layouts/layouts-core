@@ -31,7 +31,7 @@ final class CompoundParameterTypeTest extends TestCase
      */
     public function testBuildParameters(): void
     {
-        $parameterBuilderFactory = new ParameterBuilderFactory(new ParameterTypeRegistry());
+        $parameterBuilderFactory = new ParameterBuilderFactory(new ParameterTypeRegistry([]));
 
         $parameterBuilder = $parameterBuilderFactory->createParameterBuilder();
         $this->parameterType->buildParameters($parameterBuilder);

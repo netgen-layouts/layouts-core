@@ -1,9 +1,8 @@
 services:
-    # Services tagged with 'netgen_block_manager.transfer.serializer.visitor' register to this one
     netgen_block_manager.transfer.serializer.visitor.aggregate:
         class: Netgen\BlockManager\Transfer\Output\Visitor\AggregateVisitor
         arguments:
-            - []
+            - !tagged netgen_block_manager.transfer.serializer.visitor
 
     netgen_block_manager.transfer.serializer.visitor.block:
         class: Netgen\BlockManager\Transfer\Output\Visitor\BlockVisitor

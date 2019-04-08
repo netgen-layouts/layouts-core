@@ -52,9 +52,9 @@ final class LayoutResolverValidatorTest extends TestCase
             ->setConstraintValidatorFactory(new ValidatorFactory($this))
             ->getValidator();
 
-        $this->targetTypeRegistry = new TargetTypeRegistry(new TargetType1(42));
+        $this->targetTypeRegistry = new TargetTypeRegistry([new TargetType1(42)]);
 
-        $this->conditionTypeRegistry = new ConditionTypeRegistry(new ConditionType1());
+        $this->conditionTypeRegistry = new ConditionTypeRegistry([new ConditionType1()]);
 
         $this->layoutResolverValidator = new LayoutResolverValidator(
             $this->targetTypeRegistry,

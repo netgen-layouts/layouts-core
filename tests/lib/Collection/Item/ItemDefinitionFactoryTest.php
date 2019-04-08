@@ -28,7 +28,7 @@ final class ItemDefinitionFactoryTest extends TestCase
     {
         $this->configDefinitionFactory = new ConfigDefinitionFactory(
             new ParameterBuilderFactory(
-                new ParameterTypeRegistry()
+                new ParameterTypeRegistry([])
             )
         );
 

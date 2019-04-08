@@ -560,21 +560,25 @@ abstract class CoreTestCase extends TestCase
     protected function createTargetTypeRegistry(): TargetTypeRegistryInterface
     {
         return new TargetTypeRegistry(
-            new TargetType1(),
-            new TargetType\Route(),
-            new TargetType\RoutePrefix(),
-            new TargetType\PathInfo(),
-            new TargetType\PathInfoPrefix(),
-            new TargetType\RequestUri(),
-            new TargetType\RequestUriPrefix()
+            [
+                new TargetType1(),
+                new TargetType\Route(),
+                new TargetType\RoutePrefix(),
+                new TargetType\PathInfo(),
+                new TargetType\PathInfoPrefix(),
+                new TargetType\RequestUri(),
+                new TargetType\RequestUriPrefix(),
+            ]
         );
     }
 
     protected function createConditionTypeRegistry(): ConditionTypeRegistryInterface
     {
         return new ConditionTypeRegistry(
-            new ConditionType1(),
-            new ConditionType\RouteParameter()
+            [
+                new ConditionType1(),
+                new ConditionType\RouteParameter(),
+            ]
         );
     }
 
@@ -583,21 +587,23 @@ abstract class CoreTestCase extends TestCase
         $remoteIdConverter = new RemoteIdConverter($this->cmsItemLoaderMock);
 
         return new ParameterTypeRegistry(
-            new ParameterType\TextLineType(),
-            new ParameterType\TextType(),
-            new ParameterType\UrlType(),
-            new ParameterType\RangeType(),
-            new ParameterType\NumberType(),
-            new ParameterType\LinkType(new ValueTypeRegistry([]), $remoteIdConverter),
-            new ParameterType\ItemLinkType(new ValueTypeRegistry([]), $remoteIdConverter),
-            new ParameterType\IntegerType(),
-            new ParameterType\IdentifierType(),
-            new ParameterType\HtmlType(new HtmlPurifier()),
-            new ParameterType\EmailType(),
-            new ParameterType\ChoiceType(),
-            new ParameterType\BooleanType(),
-            new ParameterType\DateTimeType(),
-            new ParameterType\Compound\BooleanType()
+            [
+                new ParameterType\TextLineType(),
+                new ParameterType\TextType(),
+                new ParameterType\UrlType(),
+                new ParameterType\RangeType(),
+                new ParameterType\NumberType(),
+                new ParameterType\LinkType(new ValueTypeRegistry([]), $remoteIdConverter),
+                new ParameterType\ItemLinkType(new ValueTypeRegistry([]), $remoteIdConverter),
+                new ParameterType\IntegerType(),
+                new ParameterType\IdentifierType(),
+                new ParameterType\HtmlType(new HtmlPurifier()),
+                new ParameterType\EmailType(),
+                new ParameterType\ChoiceType(),
+                new ParameterType\BooleanType(),
+                new ParameterType\DateTimeType(),
+                new ParameterType\Compound\BooleanType(),
+            ]
         );
     }
 }

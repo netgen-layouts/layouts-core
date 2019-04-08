@@ -27,7 +27,7 @@ final class TargetTypeRegistryTest extends TestCase
     {
         $this->targetType = new TargetType1('value');
 
-        $this->registry = new TargetTypeRegistry($this->targetType);
+        $this->registry = new TargetTypeRegistry([$this->targetType]);
     }
 
     /**

@@ -13,19 +13,13 @@ final class VisibilityResolver implements VisibilityResolverInterface
      */
     private $voters = [];
 
-    /**
-     * Sets the available voters.
-     *
-     * @param \Netgen\BlockManager\Collection\Item\VisibilityVoterInterface[] $voters
-     */
-    public function setVoters(array $voters): void
+    public function setVoters(iterable $voters): void
     {
-        $this->voters = array_filter(
-            $voters,
-            static function (VisibilityVoterInterface $voter): bool {
-                return true;
+        foreach ($voters as $key => $voter) {
+            if ($voter instanceof VisibilityVoterInterface) {
+                $this->voters[$key] = $voter;
             }
-        );
+        }
     }
 
     public function isVisible(Item $item): bool

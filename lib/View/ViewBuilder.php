@@ -26,24 +26,18 @@ final class ViewBuilder implements ViewBuilderInterface
     /**
      * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface[]
      */
-    private $viewProviders;
+    private $viewProviders = [];
 
-    /**
-     * @param \Netgen\BlockManager\View\TemplateResolverInterface $templateResolver
-     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher
-     * @param \Netgen\BlockManager\View\Provider\ViewProviderInterface[] $viewProviders
-     */
-    public function __construct(TemplateResolverInterface $templateResolver, EventDispatcherInterface $eventDispatcher, array $viewProviders)
+    public function __construct(TemplateResolverInterface $templateResolver, EventDispatcherInterface $eventDispatcher, iterable $viewProviders)
     {
         $this->templateResolver = $templateResolver;
         $this->eventDispatcher = new EventDispatcherProxy($eventDispatcher);
 
-        $this->viewProviders = array_filter(
-            $viewProviders,
-            static function (ViewProviderInterface $viewProvider): bool {
-                return true;
+        foreach ($viewProviders as $key => $viewProvider) {
+            if ($viewProvider instanceof ViewProviderInterface) {
+                $this->viewProviders[$key] = $viewProvider;
             }
-        );
+        }
     }
 
     public function buildView($value, string $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = []): ViewInterface

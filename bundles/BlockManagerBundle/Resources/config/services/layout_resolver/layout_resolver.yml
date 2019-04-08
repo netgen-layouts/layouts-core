@@ -2,10 +2,14 @@ services:
     netgen_block_manager.layout.resolver.registry.target_type:
         class: Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry
         public: true
+        arguments:
+            - !tagged netgen_block_manager.layout.resolver.target_type
 
     netgen_block_manager.layout.resolver.registry.condition_type:
         class: Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry
         public: true
+        arguments:
+            - !tagged netgen_block_manager.layout.resolver.condition_type
 
     netgen_block_manager.layout.resolver:
         class: Netgen\BlockManager\Layout\Resolver\LayoutResolver

@@ -34,8 +34,10 @@ final class PluginTest extends TestCase
         $this->plugin = $this->getMockForAbstractClass(Plugin::class);
 
         $this->parameterTypeRegistry = new ParameterTypeRegistry(
-            new ParameterType\TextLineType(),
-            new ParameterType\BooleanType()
+            [
+                new ParameterType\TextLineType(),
+                new ParameterType\BooleanType(),
+            ]
         );
 
         $this->parameterBuilderFactory = new ParameterBuilderFactory(

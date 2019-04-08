@@ -11,7 +11,7 @@ services:
         arguments:
             - "@netgen_block_manager.view.template_resolver"
             - "@event_dispatcher"
-            - []
+            - !tagged netgen_block_manager.view.provider
 
     netgen_block_manager.view.renderer:
         class: Netgen\BlockManager\View\Renderer

@@ -40,9 +40,11 @@ final class ParameterBuilderTest extends TestCase
     public function setUp(): void
     {
         $this->registry = new ParameterTypeRegistry(
-            new ParameterType\TextType(),
-            new ParameterType\IntegerType(),
-            new ParameterType\Compound\BooleanType()
+            [
+                new ParameterType\TextType(),
+                new ParameterType\IntegerType(),
+                new ParameterType\Compound\BooleanType(),
+            ]
         );
 
         $this->factory = new ParameterBuilderFactory($this->registry);

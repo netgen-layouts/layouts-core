@@ -11,19 +11,15 @@ final class CmsItemBuilder implements CmsItemBuilderInterface
     /**
      * @var \Netgen\BlockManager\Item\ValueConverterInterface[]
      */
-    private $valueConverters;
+    private $valueConverters = [];
 
-    /**
-     * @param \Netgen\BlockManager\Item\ValueConverterInterface[] $valueConverters
-     */
-    public function __construct(array $valueConverters)
+    public function __construct(iterable $valueConverters)
     {
-        $this->valueConverters = array_filter(
-            $valueConverters,
-            static function (ValueConverterInterface $valueConverter): bool {
-                return true;
+        foreach ($valueConverters as $key => $valueConverter) {
+            if ($valueConverter instanceof ValueConverterInterface) {
+                $this->valueConverters[$key] = $valueConverter;
             }
-        );
+        }
     }
 
     public function build(object $object): CmsItemInterface

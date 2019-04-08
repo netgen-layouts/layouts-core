@@ -11,19 +11,15 @@ final class HandlerPluginRegistry implements HandlerPluginRegistryInterface
     /**
      * @var \Netgen\BlockManager\Block\BlockDefinition\Handler\PluginInterface[]
      */
-    private $handlerPlugins;
+    private $handlerPlugins = [];
 
-    /**
-     * @param \Netgen\BlockManager\Block\BlockDefinition\Handler\PluginInterface[] $handlerPlugins
-     */
-    public function __construct(array $handlerPlugins)
+    public function __construct(iterable $handlerPlugins)
     {
-        $this->handlerPlugins = array_filter(
-            $handlerPlugins,
-            static function (PluginInterface $handlerPlugin): bool {
-                return true;
+        foreach ($handlerPlugins as $key => $handlerPlugin) {
+            if ($handlerPlugin instanceof PluginInterface) {
+                $this->handlerPlugins[$key] = $handlerPlugin;
             }
-        );
+        }
     }
 
     public function getPlugins(string $handlerClass): array

@@ -4,6 +4,8 @@ services:
     netgen_block_manager.parameters.registry.parameter_type:
         class: Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry
         public: true
+        arguments:
+            - !tagged netgen_block_manager.parameters.parameter_type
 
     # Builder factories
 

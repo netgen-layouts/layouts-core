@@ -27,9 +27,7 @@ final class ParameterTypeRegistryTest extends TestCase
     {
         $this->parameterType = new ParameterType();
 
-        $this->registry = new ParameterTypeRegistry(
-            $this->parameterType
-        );
+        $this->registry = new ParameterTypeRegistry([$this->parameterType]);
     }
 
     /**

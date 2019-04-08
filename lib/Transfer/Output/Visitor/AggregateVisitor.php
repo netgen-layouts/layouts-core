@@ -17,21 +17,15 @@ final class AggregateVisitor implements VisitorInterface
      *
      * @var \Netgen\BlockManager\Transfer\Output\VisitorInterface[]
      */
-    private $visitors;
+    private $visitors = [];
 
-    /**
-     * Construct from the optional array of $visitors.
-     *
-     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface[] $visitors
-     */
-    public function __construct(array $visitors)
+    public function __construct(iterable $visitors)
     {
-        $this->visitors = array_filter(
-            $visitors,
-            static function (VisitorInterface $visitor): bool {
-                return true;
+        foreach ($visitors as $key => $visitor) {
+            if ($visitor instanceof VisitorInterface) {
+                $this->visitors[$key] = $visitor;
             }
-        );
+        }
     }
 
     public function accept($value): bool

@@ -9,17 +9,21 @@ final class ContextBuilder implements ContextBuilderInterface
     /**
      * @var \Netgen\BlockManager\Context\ContextProviderInterface[]
      */
-    private $providers = [];
+    private $contextProviders = [];
 
-    public function registerProvider(ContextProviderInterface $contextProvider): void
+    public function __construct(iterable $contextProviders)
     {
-        $this->providers[] = $contextProvider;
+        foreach ($contextProviders as $key => $contextProvider) {
+            if ($contextProvider instanceof ContextProviderInterface) {
+                $this->contextProviders[$key] = $contextProvider;
+            }
+        }
     }
 
     public function buildContext(ContextInterface $context): void
     {
-        foreach ($this->providers as $provider) {
-            $provider->provideContext($context);
+        foreach ($this->contextProviders as $contextProvider) {
+            $contextProvider->provideContext($context);
         }
     }
 }

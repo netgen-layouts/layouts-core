@@ -23,7 +23,7 @@ services:
     netgen_block_manager.block.registry.handler_plugin:
         class: Netgen\BlockManager\Block\Registry\HandlerPluginRegistry
         arguments:
-            - []
+            - !tagged netgen_block_manager.block.block_definition_handler.plugin
 
     netgen_block_manager.block.registry.block_type:
         class: Netgen\BlockManager\Block\Registry\BlockTypeRegistry
