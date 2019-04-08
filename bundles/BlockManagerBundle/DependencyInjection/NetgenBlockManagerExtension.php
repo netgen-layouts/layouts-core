@@ -22,9 +22,12 @@ use Netgen\BlockManager\Transfer\Output\VisitorInterface;
 use Netgen\BlockManager\View\Provider\ViewProviderInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Config\Loader\DelegatingLoader;
+use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\PrependExtensionInterface;
+use Symfony\Component\DependencyInjection\Loader\GlobFileLoader;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\Yaml\Yaml;
@@ -164,52 +167,20 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
      */
     private function loadConfigFiles(ContainerBuilder $container): void
     {
-        $loader = new YamlFileLoader(
-            $container,
-            new FileLocator(__DIR__ . '/../Resources/config')
+        $locator = new FileLocator(__DIR__ . '/../Resources/config');
+
+        $loader = new DelegatingLoader(
+            new LoaderResolver(
+                [
+                    new GlobFileLoader($container, $locator),
+                    new YamlFileLoader($container, $locator),
+                ]
+            )
         );
 
         $loader->load('default_settings.yml');
-        $loader->load('services/errors.yml');
-        $loader->load('services/view/providers.yml');
-        $loader->load('services/view/matchers.yml');
-        $loader->load('services/view/view.yml');
-
-        $loader->load('services/items.yml');
-        $loader->load('services/block_definitions.yml');
-        $loader->load('services/config_definitions.yml');
-        $loader->load('services/forms.yml');
-        $loader->load('services/context.yml');
-        $loader->load('services/commands.yml');
-        $loader->load('services/design.yml');
-        $loader->load('services/security.yml');
-        $loader->load('services/utils.yml');
-
-        $loader->load('services/layout_resolver/layout_resolver.yml');
-        $loader->load('services/layout_resolver/condition_types.yml');
-        $loader->load('services/layout_resolver/target_handlers.yml');
-        $loader->load('services/layout_resolver/target_types.yml');
-        $loader->load('services/layout_resolver/forms.yml');
-
         $loader->load('browser/services.yml');
-        $loader->load('services/layouts.yml');
-        $loader->load('services/collections.yml');
-        $loader->load('services/param_converters.yml');
-        $loader->load('services/event_listeners.yml');
-
-        $loader->load('services/configuration.yml');
-        $loader->load('services/controllers.yml');
-        $loader->load('services/normalizers.yml');
-        $loader->load('services/validators.yml');
-        $loader->load('services/templating.yml');
-        $loader->load('services/parameters.yml');
-        $loader->load('services/http_cache.yml');
-        $loader->load('services/locale.yml');
-
-        $loader->load('services/transfer/serialization_visitors.yml');
-        $loader->load('services/transfer/services.yml');
-
-        $loader->load('services/api.yml');
+        $loader->load('services/**/*.yml', 'glob');
     }
 
     /**
