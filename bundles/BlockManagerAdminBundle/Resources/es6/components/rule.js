@@ -86,7 +86,7 @@ export default class NlRule {
             if (!response.ok) throw new Error(`HTTP error, status ${response.status}`);
             return response.text();
         }).then(() => {
-            this.draftCreated = 1;
+            this.draftCreated = true;
             callback();
         }).catch((error) => {
             console.log(error);
