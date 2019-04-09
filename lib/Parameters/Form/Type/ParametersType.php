@@ -46,7 +46,6 @@ final class ParametersType extends AbstractType
             ]
         );
 
-        $resolver->setAllowedTypes('groups', 'array');
         $resolver->setAllowedTypes('data', ParameterStruct::class);
         $resolver->setAllowedTypes('parameter_definitions', ParameterDefinitionCollectionInterface::class);
         $resolver->setAllowedTypes('label_prefix', 'string');

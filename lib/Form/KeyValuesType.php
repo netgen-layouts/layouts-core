@@ -37,7 +37,6 @@ final class KeyValuesType extends AbstractType
         $resolver->setAllowedTypes('values_label', 'string');
         $resolver->setAllowedTypes('values_type', 'string');
         $resolver->setAllowedTypes('values_options', 'array');
-        $resolver->setAllowedTypes('values_constraints', 'array');
         $resolver->setAllowedTypes('values_constraints', sprintf('%s[]', Constraint::class));
 
         $resolver->setDefault('values_options', []);

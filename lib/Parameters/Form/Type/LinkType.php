@@ -26,7 +26,6 @@ final class LinkType extends AbstractType
         parent::configureOptions($resolver);
 
         $resolver->setRequired(['value_types']);
-        $resolver->setAllowedTypes('value_types', 'array');
         $resolver->setAllowedTypes('value_types', 'string[]');
 
         $resolver->setDefault('value_types', []);

@@ -44,7 +44,6 @@ final class LinkType extends ParameterType
     public function configureOptions(OptionsResolver $optionsResolver): void
     {
         $optionsResolver->setRequired(['value_types', 'allow_invalid_internal']);
-        $optionsResolver->setAllowedTypes('value_types', 'array');
         $optionsResolver->setAllowedTypes('allow_invalid_internal', 'bool');
         $optionsResolver->setAllowedTypes('value_types', 'string[]');
 

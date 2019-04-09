@@ -42,7 +42,6 @@ final class ItemLinkType extends ParameterType
     public function configureOptions(OptionsResolver $optionsResolver): void
     {
         $optionsResolver->setRequired(['value_types', 'allow_invalid']);
-        $optionsResolver->setAllowedTypes('value_types', 'array');
         $optionsResolver->setAllowedTypes('allow_invalid', 'bool');
         $optionsResolver->setAllowedTypes('value_types', 'string[]');
 
