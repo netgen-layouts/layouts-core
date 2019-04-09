@@ -20,11 +20,6 @@ use Netgen\BlockManager\Item\CmsItem;
 use Netgen\BlockManager\Item\CmsItemInterface;
 use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
 use Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory;
-use Netgen\BlockManager\Standard\Block\BlockDefinition\Handler\Container\ColumnHandler;
-use Netgen\BlockManager\Standard\Block\BlockDefinition\Handler\Container\TwoColumnsHandler;
-use Netgen\BlockManager\Standard\Block\BlockDefinition\Handler\ListHandler;
-use Netgen\BlockManager\Standard\Block\BlockDefinition\Handler\TextHandler;
-use Netgen\BlockManager\Standard\Block\BlockDefinition\Handler\TitleHandler;
 use Netgen\BlockManager\Tests\Config\Stubs\Block\ConfigHandler;
 use Netgen\BlockManager\Tests\Core\CoreTestCase;
 use Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler;
@@ -34,6 +29,11 @@ use Netgen\BlockManager\Transfer\Input\Result\ErrorResult;
 use Netgen\BlockManager\Transfer\Input\Result\SuccessResult;
 use Netgen\BlockManager\Transfer\Output\Serializer;
 use Netgen\BlockManager\Transfer\Output\Visitor;
+use Netgen\Layouts\Standard\Block\BlockDefinition\Handler\Container\ColumnHandler;
+use Netgen\Layouts\Standard\Block\BlockDefinition\Handler\Container\TwoColumnsHandler;
+use Netgen\Layouts\Standard\Block\BlockDefinition\Handler\ListHandler;
+use Netgen\Layouts\Standard\Block\BlockDefinition\Handler\TextHandler;
+use Netgen\Layouts\Standard\Block\BlockDefinition\Handler\TitleHandler;
 
 abstract class ImporterTest extends CoreTestCase
 {
