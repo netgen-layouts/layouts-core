@@ -44,7 +44,7 @@ final class LayoutTypePass implements CompilerPassInterface
             $container->register($serviceIdentifier, LayoutType::class)
                 ->setArguments([$identifier, $layoutType])
                 ->setLazy(true)
-                ->setPublic(true)
+                ->setPublic(false)
                 ->setFactory([LayoutTypeFactory::class, 'buildLayoutType']);
 
             yield $identifier => new Reference($serviceIdentifier);

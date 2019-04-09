@@ -87,7 +87,7 @@ final class BlockDefinitionPass implements CompilerPassInterface
             $blockDefinitionService->setFactory([new Reference('netgen_block_manager.block.block_definition_factory'), $factoryMethod]);
 
             $blockDefinitionService->setLazy(true);
-            $blockDefinitionService->setPublic(true);
+            $blockDefinitionService->setPublic(false);
             $blockDefinitionService->addArgument($identifier);
             $blockDefinitionService->addArgument(new Reference($foundHandler));
             $blockDefinitionService->addArgument($blockDefinition);
