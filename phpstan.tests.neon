@@ -15,10 +15,6 @@ parameters:
             path: tests/lib/Persistence/Doctrine/Helper/PositionHelperTest.php
 
         -
-            message: '#Call to function method_exists#'
-            path: tests/lib/TestCase/LegacyTestCaseTrait.php
-
-        -
             message: '#should be contravariant with parameter \$object#'
             path: tests/lib/Item/Stubs/UnsupportedValueConverter.php
 

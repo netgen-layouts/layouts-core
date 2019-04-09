@@ -6,15 +6,12 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1\Config;
 
 use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Tests\Kernel\MockerContainer;
-use Netgen\BlockManager\Tests\TestCase\LegacyTestCaseTrait;
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class LoadConfigTest extends JsonApiTestCase
 {
-    use LegacyTestCaseTrait;
-
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Config\LoadConfig::__construct
      * @covers \Netgen\Bundle\BlockManagerBundle\Controller\API\V1\Config\LoadConfig::__invoke

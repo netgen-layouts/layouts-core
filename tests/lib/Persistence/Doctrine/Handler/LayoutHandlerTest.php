@@ -16,15 +16,12 @@ use Netgen\BlockManager\Persistence\Values\Layout\ZoneUpdateStruct;
 use Netgen\BlockManager\Persistence\Values\Value;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
-use Netgen\BlockManager\Tests\TestCase\LegacyTestCaseTrait;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutHandlerTest extends TestCase
 {
     use TestCaseTrait;
     use ExportObjectTrait;
-    use LegacyTestCaseTrait;
-
     /**
      * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface
      */

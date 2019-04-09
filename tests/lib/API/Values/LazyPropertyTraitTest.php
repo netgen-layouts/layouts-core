@@ -5,13 +5,10 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\API\Values;
 
 use Netgen\BlockManager\Tests\API\Stubs\ValueWithLazyProperty;
-use Netgen\BlockManager\Tests\TestCase\LegacyTestCaseTrait;
 use PHPUnit\Framework\TestCase;
 
 final class LazyPropertyTraitTest extends TestCase
 {
-    use LegacyTestCaseTrait;
-
     /**
      * @var \Netgen\BlockManager\Tests\API\Stubs\ValueWithLazyProperty
      */

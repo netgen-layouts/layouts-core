@@ -11,7 +11,6 @@ use Netgen\BlockManager\Browser\Backend\LayoutBackend;
 use Netgen\BlockManager\Browser\Item\Layout\LayoutInterface;
 use Netgen\BlockManager\Browser\Item\Layout\RootLocation;
 use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Tests\TestCase\LegacyTestCaseTrait;
 use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\NotFoundException as ContentBrowserNotFoundException;
 use Netgen\ContentBrowser\Item\ItemInterface;
@@ -19,8 +18,6 @@ use PHPUnit\Framework\TestCase;
 
 final class LayoutBackendTest extends TestCase
 {
-    use LegacyTestCaseTrait;
-
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */

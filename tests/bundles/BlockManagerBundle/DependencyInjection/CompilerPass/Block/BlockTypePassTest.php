@@ -6,7 +6,6 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\DependencyInjection\CompilerPas
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Tests\TestCase\LegacyTestCaseTrait;
 use Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -15,8 +14,6 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class BlockTypePassTest extends AbstractCompilerPassTestCase
 {
-    use LegacyTestCaseTrait;
-
     /**
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::buildBlockTypes
      * @covers \Netgen\Bundle\BlockManagerBundle\DependencyInjection\CompilerPass\Block\BlockTypePass::generateBlockTypeConfig

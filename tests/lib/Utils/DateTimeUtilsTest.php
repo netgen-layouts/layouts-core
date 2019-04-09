@@ -6,15 +6,12 @@ namespace Netgen\BlockManager\Tests\Utils;
 
 use DateTimeImmutable;
 use DateTimeInterface;
-use Netgen\BlockManager\Tests\TestCase\LegacyTestCaseTrait;
 use Netgen\BlockManager\Utils\DateTimeUtils;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\PhpUnit\ClockMock;
 
 final class DateTimeUtilsTest extends TestCase
 {
-    use LegacyTestCaseTrait;
-
     /**
      * @covers \Netgen\BlockManager\Utils\DateTimeUtils::createFromTimestamp
      */

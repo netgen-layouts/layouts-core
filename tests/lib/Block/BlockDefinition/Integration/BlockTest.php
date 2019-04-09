@@ -14,15 +14,12 @@ use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
 use Netgen\BlockManager\Exception\Validation\ValidationException;
 use Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory;
 use Netgen\BlockManager\Tests\Core\CoreTestCase;
-use Netgen\BlockManager\Tests\TestCase\LegacyTestCaseTrait;
 use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class BlockTest extends CoreTestCase
 {
-    use LegacyTestCaseTrait;
-
     /**
      * @dataProvider parametersDataProvider
      */

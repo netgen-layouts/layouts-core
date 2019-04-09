@@ -11,13 +11,10 @@ use Netgen\BlockManager\Serializer\Normalizer\V1\BlockTypeNormalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
-use Netgen\BlockManager\Tests\TestCase\LegacyTestCaseTrait;
 use PHPUnit\Framework\TestCase;
 
 final class BlockTypeNormalizerTest extends TestCase
 {
-    use LegacyTestCaseTrait;
-
     /**
      * @var \Netgen\BlockManager\Serializer\Normalizer\V1\BlockTypeNormalizer
      */

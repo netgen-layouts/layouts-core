@@ -5,14 +5,11 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Tests\Layout\Resolver\Form\ConditionType\Mapper;
 
 use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\Exception;
-use Netgen\BlockManager\Tests\TestCase\LegacyTestCaseTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 final class ExceptionTest extends TestCase
 {
-    use LegacyTestCaseTrait;
-
     /**
      * @var \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\MapperInterface
      */

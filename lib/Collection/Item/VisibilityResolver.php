@@ -9,12 +9,12 @@ use Netgen\BlockManager\API\Values\Collection\Item;
 final class VisibilityResolver implements VisibilityResolverInterface
 {
     /**
-     * @var \Netgen\BlockManager\Collection\Item\VisibilityVoterInterface[]
+     * @var iterable|\Netgen\BlockManager\Collection\Item\VisibilityVoterInterface[]
      */
     private $voters;
 
     /**
-     * @param \Netgen\BlockManager\Collection\Item\VisibilityVoterInterface[] $voters
+     * @param iterable|\Netgen\BlockManager\Collection\Item\VisibilityVoterInterface[] $voters
      */
     public function __construct(iterable $voters)
     {

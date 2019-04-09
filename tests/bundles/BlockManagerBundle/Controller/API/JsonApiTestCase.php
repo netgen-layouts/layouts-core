@@ -11,13 +11,11 @@ use Netgen\BlockManager\Tests\Bundle\FixturesBundle\Item\Value;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Kernel\MockerContainer;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\DatabaseTrait;
-use Netgen\BlockManager\Tests\TestCase\LegacyTestCaseTrait;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class JsonApiTestCase extends BaseJsonApiTestCase
 {
     use DatabaseTrait;
-    use LegacyTestCaseTrait;
 
     public function setUp(): void
     {

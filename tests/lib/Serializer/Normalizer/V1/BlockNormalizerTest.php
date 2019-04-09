@@ -18,15 +18,12 @@ use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Tests\API\Stubs\Value;
 use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
 use Netgen\BlockManager\Tests\Serializer\Stubs\NormalizerStub;
-use Netgen\BlockManager\Tests\TestCase\LegacyTestCaseTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Serializer;
 
 final class BlockNormalizerTest extends TestCase
 {
-    use LegacyTestCaseTrait;
-
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
