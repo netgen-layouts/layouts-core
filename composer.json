@@ -12,8 +12,8 @@
         "php": "^7.1",
         "ext-intl": "*",
         "ext-mbstring": "*",
-        "netgen/layouts-ui": "~0.13.0",
-        "netgen/content-browser": "~0.13.0",
+        "netgen/layouts-ui": "~1.0.0",
+        "netgen/content-browser": "~1.0.0",
         "symfony/asset": "^2.8.16 || ^3.4.4 || ^4.2",
         "symfony/config": "^2.8.16 || ^3.4.4 || ^4.2",
         "symfony/console": "^2.8.16 || ^3.4.4 || ^4.2",
@@ -61,7 +61,7 @@
         "nikolaposa/version": "^3.0.2"
     },
     "require-dev": {
-        "netgen/layouts-standard": "~0.13.0",
+        "netgen/layouts-standard": "~1.0.0",
         "phpunit/phpunit": "^5.7 || ^7.5 || ^8.0",
         "symfony/phpunit-bridge": "^4.2",
         "symfony/var-dumper": "^2.8.16 || ^3.4.4 || ^4.2",
@@ -134,7 +134,7 @@
     "prefer-stable": true,
     "extra": {
         "branch-alias": {
-            "dev-master": "0.13.x-dev"
+            "dev-master": "1.0.x-dev"
         }
     }
 }
