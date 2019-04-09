@@ -1,0 +1,23 @@
+netgen_block_manager:
+    view:
+        layout_view:
+            default:
+                4_zones_a:
+                    template: "layout/4_zones_a.html.twig"
+                    match:
+                        layout\type: 4_zones_a
+                4_zones_b:
+                    template: "layout/4_zones_b.html.twig"
+                    match:
+                        layout\type: 4_zones_b
+            api:
+                4_zones_a:
+                    template: "api/layout/4_zones_a.html.twig"
+                    match:
+                        layout\type: 4_zones_a
+                        api_version: 1
+                4_zones_b:
+                    template: "api/layout/4_zones_b.html.twig"
+                    match:
+                        layout\type: 4_zones_b
+                        api_version: 1

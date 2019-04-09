@@ -1,0 +1,2 @@
+imports:
+    - { resource: ../../behat/Resources/config/services.yml }

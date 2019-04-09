@@ -1,0 +1,5 @@
+netgen_block_manager:
+    query_types:
+        my_query_type:
+            name: 'My query type'
+            enabled: false

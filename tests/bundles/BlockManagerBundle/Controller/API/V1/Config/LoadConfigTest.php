@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\V1\Config;
 
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Tests\Kernel\MockerContainer;
+use Netgen\BlockManager\Tests\App\MockerContainer;
 use Netgen\Bundle\BlockManagerBundle\Tests\Controller\API\JsonApiTestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

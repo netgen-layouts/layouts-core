@@ -28,7 +28,7 @@ default:
 
         FriendsOfBehat\SymfonyExtension:
             kernel:
-                class: Netgen\BlockManager\Tests\Kernel\AppKernel
+                class: Netgen\BlockManager\Tests\App\Kernel
 
         FriendsOfBehat\VariadicExtension: ~
 

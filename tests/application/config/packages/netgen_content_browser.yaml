@@ -1,0 +1,11 @@
+netgen_content_browser:
+    item_types:
+        my_value_type:
+            name: item_types.my_value_type
+            preview: false
+            columns:
+                name:
+                    name: columns.name
+                    value_provider: name
+            default_columns:
+                - name

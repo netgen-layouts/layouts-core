@@ -1,7 +1,7 @@
 #!/bin/bash
 
 php tests/application/bin/console server:stop --no-debug --env=prod --quiet
-php tests/application/bin/console server:start --no-debug --env=prod 127.0.0.1:4242 -d tests/application/web
+php tests/application/bin/console server:start --no-debug --env=prod 127.0.0.1:4242
 
 if [ ! -f vendor/bin/chromedriver ]; then
     LATEST_CHROMEDRIVER=$(wget -qO- https://chromedriver.storage.googleapis.com/LATEST_RELEASE)

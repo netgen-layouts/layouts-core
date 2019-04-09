@@ -7,9 +7,9 @@ namespace Netgen\Bundle\BlockManagerBundle\Tests\Controller\API;
 use ApiTestCase\JsonApiTestCase as BaseJsonApiTestCase;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Tests\Bundle\FixturesBundle\Item\Value;
+use Netgen\BlockManager\Tests\App\Item\Value;
+use Netgen\BlockManager\Tests\App\MockerContainer;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
-use Netgen\BlockManager\Tests\Kernel\MockerContainer;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\DatabaseTrait;
 use Symfony\Component\HttpFoundation\Response;
 
