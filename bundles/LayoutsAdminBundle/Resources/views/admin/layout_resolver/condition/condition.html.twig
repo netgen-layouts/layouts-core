@@ -1,0 +1,21 @@
+{% trans_default_domain 'nglayouts_admin' %}
+
+{% set can_edit = is_granted('nglayouts:mapping:edit') %}
+
+<span
+    {% if can_edit %}
+        class="settings-value editable-value js-setting-edit" data-setting-id="{{ condition.id }}" data-setting-type="condition"
+    {% else %}
+        class="settings-value"
+    {% endif %}
+>
+    {{ ('layout_resolver.condition.' ~ condition.conditionType.type)|trans({}, 'ngbm') }}:
+
+    {{ ngbm_render_rule_condition(condition, {}, 'value') }}
+</span>
+
+{% if can_edit %}
+    <a href="#" class="remove-setting js-setting-delete" data-setting-id="{{ condition.id }}" data-setting-type="condition">
+        <i class="material-icons">clear</i>
+    </a>
+{% endif %}

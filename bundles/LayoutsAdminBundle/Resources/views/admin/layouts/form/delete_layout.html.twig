@@ -1,0 +1,22 @@
+{% extends '@NetgenLayoutsAdmin/admin/modal.html.twig' %}
+
+{% trans_default_domain 'nglayouts_admin' %}
+
+{% block header %}
+    {{ 'layouts.layout.delete.title'|trans }}: <strong>{{ layout.name }}</strong>
+{% endblock %}
+
+{% block body %}
+    {% if error %}
+        <ul class="errors">
+            <li>{{ 'layouts.layout.delete.error'|trans }}</li>
+        </ul>
+    {% endif %}
+
+    <p>{{ 'layouts.layout.delete.message'|trans }}</p>
+{% endblock %}
+
+{% block buttons %}
+    <button type="button" class="nl-btn action-cancel">{{ 'layouts.layout.delete.button.cancel'|trans }}</button>
+    <button type="submit" class="nl-btn nl-btn-primary action-apply">{{ 'layouts.layout.delete.button.delete'|trans }}</button>
+{% endblock %}

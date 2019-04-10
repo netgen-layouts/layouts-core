@@ -1,0 +1,18 @@
+# Redirect routes, must be specified BEFORE regular routes
+
+_nglayouts_admin_redirect:
+    resource: "admin/redirects.yml"
+
+# Regular routes follow
+
+_nglayouts_admin_layout_resolver:
+    resource: "admin/layout_resolver.yml"
+    prefix: /admin/mappings
+
+_nglayouts_admin_layouts:
+    resource: "admin/layouts.yml"
+    prefix: /admin/layouts
+
+_nglayouts_admin_shared_layouts:
+    resource: "admin/shared_layouts.yml"
+    prefix: /admin/shared_layouts

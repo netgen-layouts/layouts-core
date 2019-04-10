@@ -1,0 +1,28 @@
+{% extends '@NetgenLayoutsAdmin/admin/modal.html.twig' %}
+
+{% trans_default_domain 'nglayouts_admin' %}
+
+{% block header %}
+    {{ 'layouts.cache.layout.title'|trans }}: <strong>{{ layout.name }}</strong>
+{% endblock %}
+
+{% block body %}
+    {% if error %}
+        <ul class="errors">
+            <li>{{ 'layouts.cache.layout.error'|trans }}</li>
+        </ul>
+    {% endif %}
+
+    <p>{{ 'layouts.cache.layout.message'|trans }}</p>
+{% endblock %}
+
+{% block buttons %}
+    <button type="button" class="nl-btn action-cancel">{{ 'layouts.cache.layout.button.cancel'|trans }}</button>
+    <button type="submit" class="nl-btn nl-btn-primary action-apply">
+        {% if submitted or error %}
+            {{ 'layouts.cache.layout.button.try_again'|trans }}
+        {% else %}
+            {{ 'layouts.cache.layout.button.clear'|trans }}
+        {% endif %}
+    </button>
+{% endblock %}

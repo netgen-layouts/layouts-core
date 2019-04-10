@@ -1,0 +1,12 @@
+view:
+    rule_target_view:
+        value:
+            invalid:
+                template: "@NetgenLayoutsAdmin/admin/layout_resolver/target/value/invalid_target.html.twig"
+                match:
+                    rule_target\type: "null"
+        admin:
+            invalid:
+                template: "@NetgenLayoutsAdmin/admin/layout_resolver/target/invalid_target.html.twig"
+                match:
+                    rule_target\type: "null"

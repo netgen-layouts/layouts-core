@@ -1,0 +1,102 @@
+{% trans_default_domain 'nglayouts_app' %}
+
+{% set collection_identifier = collection_identifier|default('default') %}
+{% set query_types = ngbm.config.parameter('query_types') %}
+{% set value_types = ngbm.config.parameter('value_types') %}
+
+{% set allowed_query_types = [] %}
+{% set allowed_value_types = [] %}
+
+{% if block.definition.hasCollection(collection_identifier) %}
+    {% set collection_config = block.definition.collection(collection_identifier) %}
+
+    {% for query_type in query_types %}
+        {% if query_type.enabled and collection_config.validQueryType(query_type.type) %}
+            {% set allowed_query_types = allowed_query_types|merge([query_type]) %}
+        {% endif %}
+    {% endfor %}
+
+    {% for value_type in value_types %}
+        {% if value_type.enabled and collection_config.validItemType(value_type.identifier) %}
+            {% set allowed_value_types = allowed_value_types|merge([value_type]) %}
+        {% endif %}
+    {% endfor %}
+{% else %}
+    {% for query_type in query_types %}
+        {% if query_type.enabled %}
+            {% set allowed_query_types = allowed_query_types|merge([query_type]) %}
+        {% endif %}
+    {% endfor %}
+
+    {% for value_type in value_types %}
+        {% if value_type.enabled %}
+            {% set allowed_value_types = allowed_value_types|merge([value_type]) %}
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
+{% set can_change_collection = allowed_query_types|length > 0 or allowed_value_types|length > 0 %}
+
+{% if block.hasCollection(collection_identifier) and can_change_collection %}
+    {% set collection = block.collection(collection_identifier) %}
+
+    {% set type_manual = constant('TYPE_MANUAL', collection) %}
+    {% set type_dynamic = constant('TYPE_DYNAMIC', collection) %}
+
+    {% set collection_types = {
+        (type_manual): 'block.edit.collection_type.manual_collection'|trans,
+        (type_dynamic): 'block.edit.collection_type.dynamic_collection'|trans,
+    } %}
+
+    <div class="xeditable" data-input data-xeditable-name="collection_type" {% if block.locale != block.mainLocale %}data-disabled="true"{% endif %}>
+        <div class="current">
+            <label>{{ 'block.edit.collection_type'|trans }} <span class="bm-tooltip" title="{{ 'block.edit.collection_type.tooltip'|trans }}"><i class="material-icons">help</i></span></label>
+
+            <a href="#" class="js-edit">
+                <span class="text">{{ collection_types[collection.hasQuery ? type_dynamic : type_manual] }}</span>
+                <span class="icon">{{ 'block.edit.change'|trans }}</span>
+            </a>
+
+            {% if collection.hasQuery and allowed_query_types|length > 1 %}
+                <label>{{ 'block.edit.query_type'|trans }}</label>
+                <a href="#" class="js-edit"><span class="text">{{ collection.query.queryType.name }}</span><span class="icon">{{ 'block.edit.change'|trans }}</span></a>
+            {% endif %}
+        </div>
+
+        <div class="form js-dependable-selects-group">
+            <div>
+                <label for="collection-type">{{ 'block.edit.collection_type'|trans }} <span class="bm-tooltip" title="{{ 'block.edit.collection_type.tooltip'|trans }}"><i class="material-icons">help</i></span></label>
+                <select id="collection-type" name="block_collection[new_type]" class="js-skip-on-change js-master js-always-show">
+                    {% if allowed_value_types|length > 0 %}
+                        <option {% if not collection.hasQuery %} selected="selected" {% endif %} value="{{ type_manual }}">{{ collection_types[type_manual] }}</option>
+                    {% endif %}
+
+                    {% if allowed_query_types|length > 0 %}
+                        <option {% if collection.hasQuery %} selected="selected" {% endif %} value="{{ type_dynamic }}">{{ collection_types[type_dynamic] }}</option>
+                    {% endif %}
+                </select>
+                <p class="input-note">{{ 'block.edit.notice.change_collection_type'|trans }}</p>
+            </div>
+
+            {% if allowed_query_types|length > 0 %}
+                <div class="js-dependable" data-linked-value="{{ type_dynamic }}">
+                    <label for="query-types">{{ 'block.edit.query_type'|trans }}</label>
+                    <select id="query-types" name="block_collection[query_type]" class="js-skip-on-change">
+                        {% for query_type in query_types %}
+                            {% set is_selected = collection.hasQuery and collection.query.queryType.type == query_type.type %}
+
+                            {% if query_type in allowed_query_types %}
+                                <option {% if is_selected %} selected="selected" {% endif %} value="{{ query_type.type }}">{{ query_type.name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            {% endif %}
+
+            <div class="actions">
+                <a href="#" class="btn btn-link js-cancel">{{ 'block.edit.cancel'|trans }}</a>
+                <a href="#" class="btn btn-primary js-apply">{{ 'block.edit.apply'|trans }}</a>
+            </div>
+        </div>
+    </div>
+{% endif %}

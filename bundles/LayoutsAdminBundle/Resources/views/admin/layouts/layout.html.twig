@@ -1,0 +1,90 @@
+{% import '@NetgenLayoutsAdmin/admin/macros.html.twig' as macros %}
+
+{% trans_default_domain 'nglayouts_admin' %}
+
+<div class="nl-layout-content"
+    data-id="{{ layout.id }}"
+    {% if layout.published %}data-published="true"{% endif %}
+    data-name="{{ layout.name }}"
+    data-description="{{ layout.description }}"
+    data-modified="{{ layout.modified|date(constant('DateTime::ISO8601')) }}"
+    data-type="{{ layout.layoutType.name }}"
+    data-mappings="{{ rule_count }}"
+    >
+    <div class="nl-layout-info">
+
+        <div class="nl-layout-export-checkbox">
+            <input type="checkbox" id="exportLayout{{ layout.id }}" {% if not layout.published %}disabled{% endif %}>
+            <label for="exportLayout{{ layout.id }}"></label>
+        </div>
+
+        <div class="nl-layout-type">
+            <div class="nl-layout-icon">
+                <i class="layout-icon {{ layout.layoutType.identifier }}" title="{{ layout.layoutType.name }}" {% if layout.layoutType.icon is not null %}style="background-image:url({{ asset(layout.layoutType.icon) }})"{% endif %}></i>
+            </div>
+            <p>{{ layout.layoutType.name }}</p>
+        </div>
+
+        <div class="nl-layout-text">
+            <div class="nl-layout-name">
+                {% if is_granted('nglayouts:layout:edit', layout) %}
+                    <a href="{{ macros.layout_path(layout.id) }}" class="js-open-ngl">{{ layout.name }}</a>
+                {% else %}
+                    {{ layout.name }}
+                {% endif %}
+
+                {{ ngbm_template_plugin('admin.layout.name') }}
+            </div>
+
+            <div class="nl-layout-description">
+                <p>{{ layout.description }}</p>
+            </div>
+
+            {% if not layout.published %}
+                <span class="unpublished-label">{{ 'layouts.layout.unpublished_draft'|trans }}</span>
+            {% endif %}
+
+            <div class="nl-layout-modified">
+                <p>{{ layout.modified|localizeddate }}</p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="nl-layout-actions">
+        <div class="nl-layout-data">
+            <div class="meta-info nl-tt" title="{{ 'layouts.layout.number_of_rules'|trans }}">
+                <i class="material-icons" role="presentation">dns</i> <span class="meta-badge js-target-counter">{{ rule_count }}</span>
+            </div>
+        </div>
+
+        <div class="nl-dropdown" data-position="right">
+            <button class="nl-btn nl-dropdown-toggle">
+                <i class="material-icons">more_horiz</i>
+            </button>
+            <ul class="nl-dropdown-menu">
+                {% if is_granted('nglayouts:layout:edit', layout) %}
+                    <li><a href="{{ macros.layout_path(layout.id) }}" class="js-layout-edit js-open-ngl">{{ 'layouts.layout.edit_layout'|trans }}</a></li>
+                {% endif %}
+
+                {% if is_granted('nglayouts:layout:add') %}
+                    <li><button class="js-layout-copy">{{ 'layouts.layout.copy_layout'|trans }}</button></li>
+                {% endif %}
+
+                {% if is_granted('nglayouts:layout:delete') %}
+                    <li><button class="js-layout-delete">{{ 'layouts.layout.delete_layout'|trans }}</button></li>
+                {% endif %}
+
+                {% if layout.published and is_granted('nglayouts:layout:clear_cache', layout) %}
+                    <li>
+                        <button class="js-layout-clear-cache" {% if not http_cache_enabled %}disabled="disabled"{% endif %}>
+                            {{ 'layouts.layout.clear_cache'|trans }}
+                        </button>
+                    </li>
+                {% endif %}
+
+                {{ ngbm_template_plugin('admin.layout.controls') }}
+            </ul>
+        </div>
+    </div>
+</div>

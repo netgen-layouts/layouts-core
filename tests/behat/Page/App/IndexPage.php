@@ -12,7 +12,7 @@ final class IndexPage extends SymfonyPage
 {
     public function getRouteName(): string
     {
-        return 'ngbm_app';
+        return 'nglayouts_app';
     }
 
     public function verifyLayout(string $layoutName): void

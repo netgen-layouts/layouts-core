@@ -10,7 +10,7 @@ final class IndexPage extends AdminPage
 {
     public function getRouteName(): string
     {
-        return 'ngbm_admin_shared_layouts_index';
+        return 'nglayouts_admin_shared_layouts_index';
     }
 
     public function createLayout(): void

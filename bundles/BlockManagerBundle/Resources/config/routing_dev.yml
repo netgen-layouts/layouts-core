@@ -1,4 +1,4 @@
-_ngbm_dev_app:
-    resource: "@NetgenBlockManagerAdminBundle/Resources/config/routing/app_dev.yml"
+_nglayouts_dev_app:
+    resource: "@NetgenLayoutsAdminBundle/Resources/config/routing/app_dev.yml"
     defaults:
-        _ngbm_environment: dev
+        _nglayouts_environment: dev

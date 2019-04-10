@@ -1,0 +1,3 @@
+{% trans_default_domain 'nglayouts_admin' %}
+
+{{ condition.value is not empty ? condition.value|join(', ') : 'layout_resolver.condition_type.exception.all'|trans }}

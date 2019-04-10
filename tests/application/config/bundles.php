@@ -24,7 +24,7 @@ return [
     Netgen\Bundle\ContentBrowserUIBundle\NetgenContentBrowserUIBundle::class => ['all' => true],
     Netgen\Bundle\BlockManagerBundle\NetgenBlockManagerBundle::class => ['all' => true],
     Netgen\Bundle\BlockManagerUIBundle\NetgenBlockManagerUIBundle::class => ['all' => true],
-    Netgen\Bundle\BlockManagerAdminBundle\NetgenBlockManagerAdminBundle::class => ['all' => true],
+    Netgen\Bundle\LayoutsAdminBundle\NetgenLayoutsAdminBundle::class => ['all' => true],
     Netgen\Bundle\LayoutsStandardBundle\NetgenLayoutsStandardBundle::class => ['all' => true],
 
     // Test dependencies

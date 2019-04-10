@@ -1,0 +1,55 @@
+{% import '@NetgenLayoutsAdmin/admin/macros.html.twig' as macros %}
+
+{% trans_default_domain 'nglayouts_admin' %}
+
+<div class="nl-layout-content"
+    data-id="{{ layout.id }}"
+    {% if layout.published %}data-published="true"{% endif %}
+    data-name="{{ layout.name }}"
+    data-description="{{ layout.description }}"
+    data-modified="{{ layout.modified|date(constant('DateTime::ISO8601')) }}"
+    data-type="{{ layout.layoutType.name }}"
+    data-mappings="{{ rule_count }}"
+    >
+    <div class="nl-layout-info">
+        <div class="nl-layout-type">
+            <p>{{ layout.layoutType.name }}</p>
+        </div>
+
+        <div class="nl-layout-text">
+            <div class="nl-layout-name">{{ layout.name }}</div>
+
+            <div class="nl-layout-description">
+                <p>{{ layout.description }}</p>
+            </div>
+
+            {% if not layout.published %}
+                <span class="unpublished-label">{{ 'layouts.layout.unpublished_draft'|trans }}</span>
+            {% endif %}
+
+            <div class="nl-layout-modified">
+                <p>{{ layout.modified|localizeddate }}</p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="nl-layout-actions">
+        <div class="nl-layout-data">
+            <div class="meta-info nl-tt" title="{{ 'layouts.layout.number_of_rules'|trans }}">
+                <i class="material-icons" role="presentation">dns</i> <span class="meta-badge js-target-counter">{{ rule_count }}</span>
+            </div>
+        </div>
+
+        {% if is_granted('nglayouts:layout:delete') %}
+            <div class="nl-dropdown" data-position="right">
+                <button class="nl-btn nl-dropdown-toggle">
+                    <i class="material-icons">more_horiz</i>
+                </button>
+                <ul class="nl-dropdown-menu">
+                    <li><button class="js-layout-delete">{{ 'layouts.layout.delete_layout'|trans }}</button></li>
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+</div>

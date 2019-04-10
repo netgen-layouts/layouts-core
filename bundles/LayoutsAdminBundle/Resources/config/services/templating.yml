@@ -1,0 +1,5 @@
+services:
+    netgen_layouts.templating.admin_global_variable:
+        class: Netgen\Bundle\LayoutsAdminBundle\Templating\Twig\GlobalVariable
+        arguments:
+            - "%netgen_layouts.admin.pagelayout%"

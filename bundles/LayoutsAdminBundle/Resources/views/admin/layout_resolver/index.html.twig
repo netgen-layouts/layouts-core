@@ -1,0 +1,72 @@
+{% extends nglayouts_admin.pageLayoutTemplate %}
+
+{% trans_default_domain 'nglayouts_admin' %}
+
+{% set target_types = ngbm.config.parameter('target_types') %}
+
+{% block title %}
+    {{ 'layout_resolver.title'|trans }} - {{ 'pagelayout.title'|trans }}
+{% endblock %}
+
+{% block content %}
+    <div id="rules">
+        <div class="layouts-header">
+            <h2 class="layouts-title">{{ 'menu.main_menu.layout_resolver'|trans }}</h2>
+            <div class="layouts-controls">
+                <div class="nl-dropdown nl-filter-dropdown" data-position="right">
+                    <span class="filter-checked-amount"></span>
+                    <button class="nl-btn nl-btn-white nl-dropdown-toggle"><i class="material-icons">filter_list</i> {{ 'layout_resolver.filter_by_target'|trans }}</button>
+                    <ul class="nl-dropdown-menu nl-mappings-filter">
+                        <li><a href="#" class="js-check-all">{{ 'layout_resolver.select_all'|trans }}</a></li>
+                        <li><a href="#" class="js-check-none">{{ 'layout_resolver.clear_selection'|trans }}</a></li>
+                        {% for target_type in target_types %}
+                            <li>
+                                <div class="checkbox">
+                                    <input type="checkbox" value="{{ target_type.type }}" id="filter-{{ target_type.type }}" name="filter-mappings"><label for="filter-{{ target_type.type }}">{{ ('layout_resolver.target.' ~ target_type.type)|trans({}, 'ngbm') }}</label>
+                                </div>
+                            </li>
+                        {% endfor %}
+                        <li>
+                            <div class="checkbox">
+                                <input type="checkbox" value="undefined" id="filter-undefined" name="filter-mappings"><label for="filter-undefined">{{ 'layout_resolver.undefined_target'|trans }}</label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                {% set can_reorder = is_granted('nglayouts:mapping:reorder') %}
+
+                {% if can_reorder %}
+                    <button class="nl-btn nl-btn-white sorting-hide js-sort-start"><i class="material-icons">swap_vert</i> {{ 'layout_resolver.reorder_rules'|trans }}</button>
+                {% endif %}
+
+                {% if is_granted('nglayouts:mapping:edit') %}
+                    <button id="add-new-button" class="nl-btn nl-btn-primary js-add-rule"><i class="material-icons">add</i> {{ 'layout_resolver.add_new_rule'|trans }}</button>
+                {% endif %}
+
+                {% if can_reorder %}
+                    <button class="nl-btn nl-btn sorting-show js-sort-cancel">{{ 'layout_resolver.cancel'|trans }}</button>
+                    <button class="nl-btn nl-btn-primary sorting-show js-sort-save">{{ 'layout_resolver.save_order'|trans }}</button>
+                {% endif %}
+            </div>
+            <p>{{ 'layout_resolver.priority.notice'|trans }}</p>
+        </div>
+        <div class="nl-rules-head">
+            <div class="nl-rule-cell rule-priority">{{ 'layout_resolver.priority'|trans }}</div>
+            <div class="nl-rules-head-wrapper">
+                <div class="nl-rule-cell rule-layout">{{ 'layout_resolver.mapped_layout'|trans }}</div>
+                <div class="nl-rule-cell rule-targets">{{ 'layout_resolver.targets'|trans }}</div>
+                <div class="nl-rule-cell rule-conditions">{{ 'layout_resolver.conditions'|trans }}</div>
+            </div>
+        </div>
+        <div class="nl-rules">
+            {% for rule in rules %}
+                <div class="nl-rule">
+                    {{ ngbm_render_rule(rule, [], 'admin') }}
+                </div>
+            {% endfor %}
+        </div>
+        <p class="nl-no-items">{{ 'layout_resolver.no_rules'|trans }}</p>
+        <p class="nl-no-filtered-items">{{ 'layout_resolver.no_filtered_rules'|trans }}</p>
+    </div>
+{% endblock %}

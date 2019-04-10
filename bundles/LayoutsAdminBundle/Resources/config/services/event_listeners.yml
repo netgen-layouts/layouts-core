@@ -1,0 +1,55 @@
+services:
+    netgen_layouts.event_listener.layout_view.rule_count:
+        class: Netgen\Bundle\LayoutsAdminBundle\EventListener\LayoutView\RuleCountListener
+        arguments:
+            - "@netgen_block_manager.api.service.layout_resolver"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_layouts.event_listener.layout_view.cache_enabled:
+        class: Netgen\Bundle\LayoutsAdminBundle\EventListener\LayoutView\CacheEnabledListener
+        arguments:
+            - "@netgen_block_manager.http_cache.client"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_layouts.event_listener.layout_view.related_layouts_count:
+        class: Netgen\Bundle\LayoutsAdminBundle\EventListener\LayoutView\RelatedLayoutsCountListener
+        arguments:
+            - "@netgen_block_manager.api.service.layout"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_layouts.event_listener.rule_view.rule_count:
+        class: Netgen\Bundle\LayoutsAdminBundle\EventListener\RuleView\RuleCountListener
+        arguments:
+            - "@netgen_block_manager.api.service.layout_resolver"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_layouts.event_listener.admin_authentication_exception:
+        class: Netgen\Bundle\LayoutsAdminBundle\EventListener\AdminAuthenticationExceptionListener
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_layouts.event_listener.set_is_admin_request:
+        class: Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsAdminRequestListener
+        arguments:
+            - "@event_dispatcher"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_layouts.event_listener.set_admin_pagelayout:
+        class: Netgen\Bundle\LayoutsAdminBundle\EventListener\SetAdminPageLayoutListener
+        arguments:
+            - "@netgen_layouts.templating.admin_global_variable"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_layouts.event_listener.admin_csrf_validation:
+        class: Netgen\Bundle\LayoutsAdminBundle\EventListener\AdminCsrfValidationListener
+        arguments:
+            - "@netgen_block_manager.security.csrf_validator"
+            - "%netgen_block_manager.admin.csrf_token_id%"
+        tags:
+            - { name: kernel.event_subscriber }

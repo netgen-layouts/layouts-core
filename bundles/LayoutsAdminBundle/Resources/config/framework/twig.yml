@@ -1,0 +1,2 @@
+globals:
+    nglayouts_admin: "@netgen_layouts.templating.admin_global_variable"

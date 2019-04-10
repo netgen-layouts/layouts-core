@@ -1,0 +1,16 @@
+{% extends '@NetgenLayoutsAdmin/app/form/block/edit.html.twig' %}
+
+{% form_theme form '@NetgenLayoutsAdmin/form/theme/nglayouts.html.twig' %}
+
+{% block children %}
+    {{ form_row(form.name) }}
+
+    <div class="master-slave-selects">
+        {{ form_row(form.view_type, {attr: {class: 'master view-type'}}) }}
+        {{ form_row(form.item_view_type, {attr: {class: 'slave'}}) }}
+    </div>
+
+    {% block parameters %}
+        {{ parent() }}
+    {% endblock %}
+{% endblock %}

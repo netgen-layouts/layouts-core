@@ -11,7 +11,7 @@
     {% endif %}
 
     {% set icon %}
-        <img src="{{ asset('bundles/netgenblockmanageradmin/images/layouts-logo-silhouette.svg') }}" />
+        <img src="{{ asset('bundles/netgenlayoutsadmin/images/layouts-logo-silhouette.svg') }}" />
 
         <span class="sf-toolbar-value">
             {% if layout %}
@@ -24,7 +24,7 @@
 
     {% set text %}
         {% if layout %}
-            {% import '@NetgenBlockManagerAdmin/admin/macros.html.twig' as macros %}
+            {% import '@NetgenLayoutsAdmin/admin/macros.html.twig' as macros %}
 
             <div class="sf-toolbar-info-piece">
                 <b>Resolved layout</b>
@@ -86,7 +86,7 @@
 {% block menu %}
     <span class="label">
         <span class="icon">
-            <img src="{{ asset('bundles/netgenblockmanageradmin/images/layouts-logo-silhouette.svg') }}" />
+            <img src="{{ asset('bundles/netgenlayoutsadmin/images/layouts-logo-silhouette.svg') }}" />
         </span>
 
         <strong>Netgen Layouts</strong>
@@ -99,7 +99,7 @@
     {% set blocks = collector.data.blocks %}
 
     <div class="sf-tabs">
-        {% import '@NetgenBlockManagerAdmin/admin/macros.html.twig' as macros %}
+        {% import '@NetgenLayoutsAdmin/admin/macros.html.twig' as macros %}
 
         <div class="tab">
             <h3 class="tab-title">Rendered layout</h3>

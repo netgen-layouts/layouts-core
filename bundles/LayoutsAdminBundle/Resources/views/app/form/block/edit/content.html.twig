@@ -1,0 +1,11 @@
+{% extends '@NetgenLayoutsAdmin/app/form/block/edit.html.twig' %}
+
+{% form_theme form '@NetgenLayoutsAdmin/form/theme/nglayouts.html.twig' %}
+
+{% block children %}
+    {{ form_row(form.name) }}
+
+    {% block parameters %}
+        {{ form_row(form.parameters) }}
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,136 @@
+{% extends '@NetgenLayoutsAdmin/form/theme/reset.html.twig' %}
+
+{%- block form_errors -%}
+    {%- if errors|length > 0 -%}
+        <ul class="errors">
+            {%- for error in errors -%}
+                <li>{{ error.message }}</li>
+            {%- endfor -%}
+        </ul>
+    {%- endif -%}
+{%- endblock form_errors -%}
+
+{%- block form_row -%}
+    <div class="row-input{% if errors|length > 0 %} error-input{% endif %}{% if form.vars.disabled %} disabled-input{% endif %}">
+        {{- form_label(form) -}}
+        {{- form_widget(form) -}}
+        {{- form_errors(form) -}}
+    </div>
+{%- endblock form_row -%}
+
+{%- block range_widget -%}
+    {% set min = attr.min|default(null) %}
+    {% set max = attr.max|default(null) %}
+
+    <div class="range-range">
+        <span class="range-min">{% if min != null %}{{ min }}{% endif %}</span>
+        <span class="range-max">{% if max != null %}{{ max }}{% endif %}</span>
+    </div>
+
+    <input type="range" {{ block('widget_attributes') }} {% if value is not empty %} value="{{ value }}" {% endif %} />
+{%- endblock range_widget -%}
+
+{%- block ngbm_key_values_widget -%}
+    {% macro prototype(form) %}
+        <div class="multientry-item">
+            {{ form_widget(form) }}
+        </div>
+    {% endmacro %}
+
+    {% import _self as self %}
+
+    {% set key_form = form[key_name] %}
+    {% set values_form = form[values_name] %}
+
+    {{- form_row(key_form) -}}
+
+    <div class="multientry"
+         data-insert_first="{{ required or key_form.vars.value is empty ? 'true' : 'false' }}"
+         data-last_item_can_be_removed="{{ required ? 'false' : 'true' }}"
+         data-prototype="{{ self.prototype(values_form.vars.prototype)|e }}"
+    >
+        {{- form_label(values_form) -}}
+        {{- form_errors(values_form) -}}
+
+        <div class="no-items-msg">Any value is possible</div>
+
+        <div class="multientry-items">
+            {% for value_form in values_form %}
+                {{- form_errors(value_form) -}}
+                {{ self.prototype(value_form) }}
+            {% endfor %}
+        </div>
+
+        <a href="#" class="nl-btn nl-btn-link multientry_add">Add value</a>
+    </div>
+{%- endblock ngbm_key_values_widget -%}
+
+{%- block ngbm_link_widget -%}
+    <div {{ block('widget_container_attributes') }} class="js-dependable-selects-group">
+        <div class="js-master">
+            {{ form_row(form.children.link_type) }}
+        </div>
+
+        <div data-linked-value="url">
+            {{ form_row(form.children.url) }}
+        </div>
+
+        <div data-linked-value="email">
+            {{ form_row(form.children.email) }}
+        </div>
+
+        <div data-linked-value="phone">
+            {{ form_row(form.children.phone) }}
+        </div>
+
+        <div data-linked-value="internal">
+            {{ form_row(form.children.internal) }}
+        </div>
+
+        {{ form_row(form.children.link) }}
+        {{ form_row(form.children.link_suffix) }}
+        {{ form_row(form.children.new_window) }}
+    </div>
+{%- endblock ngbm_link_widget -%}
+
+{%- block ngbm_datetime_widget -%}
+    <div {{ block('widget_container_attributes') }}>
+        <div class="row">
+            <div class="col-md-7">
+                <div class="datetimepicker">
+                    <div class="datetime">
+                        <input type="text" class="datetime-input-locale" placeholder="{{ attr.placeholder ?? '' }}">
+                        <i class="material-icons input-icon">today</i>
+                    </div>
+                    {{ form_row(form.children.datetime, {attr: {placeholder: attr.placeholder ?? '', class: 'datetime-formatted'}}) }}
+                    <button class="js-clear-input"><i class="material-icons">close</i></button>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="timezone">
+                    {{ form_row(form.children.timezone) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{%- endblock ngbm_datetime_widget -%}
+
+{%- block ngbm_compound_boolean_row -%}
+<div>
+    <div
+        data-compound-checkbox="true"
+        {% if reverse %}data-compound-reverse="true"{% endif %}
+        {{ block('widget_container_attributes') }}
+    >
+        <div class="checkbox row-input{% if form.vars.disabled %} disabled-input{% endif %}">
+            {{- form_errors(form._self) -}}
+            {{- form_widget(form._self) -}}
+            {{- form_label(form._self) -}}
+
+            <div class="children">
+                {{- form_rest(form) -}}
+            </div>
+        </div>
+    </div>
+</div>
+{%- endblock ngbm_compound_boolean_row -%}

@@ -17,8 +17,8 @@
             <directory>tests/bundles/BlockManagerBundle</directory>
             <exclude>tests/bundles/BlockManagerBundle/Controller</exclude>
         </testsuite>
-        <testsuite name="Netgen\Bundle\BlockManagerAdminBundle">
-            <directory>tests/bundles/BlockManagerAdminBundle</directory>
+        <testsuite name="Netgen\Bundle\LayoutsAdminBundle">
+            <directory>tests/bundles/LayoutsAdminBundle</directory>
         </testsuite>
     </testsuites>
 
@@ -26,12 +26,12 @@
         <whitelist>
             <directory suffix=".php">lib</directory>
             <directory suffix=".php">bundles/BlockManagerBundle</directory>
-            <directory suffix=".php">bundles/BlockManagerAdminBundle</directory>
+            <directory suffix=".php">bundles/LayoutsAdminBundle</directory>
             <exclude>
                 <file>bundles/BlockManagerBundle/NetgenBlockManagerBundle.php</file>
-                <file>bundles/BlockManagerAdminBundle/NetgenBlockManagerAdminBundle.php</file>
-                <file>bundles/BlockManagerAdminBundle/DependencyInjection/ExtensionPlugin.php</file>
-                <file>bundles/BlockManagerAdminBundle/DependencyInjection/NetgenBlockManagerAdminExtension.php</file>
+                <file>bundles/LayoutsAdminBundle/NetgenLayoutsAdminBundle.php</file>
+                <file>bundles/LayoutsAdminBundle/DependencyInjection/ExtensionPlugin.php</file>
+                <file>bundles/LayoutsAdminBundle/DependencyInjection/NetgenLayoutsAdminExtension.php</file>
             </exclude>
             <exclude>
                 <directory>bundles/*Bundle/Command</directory>

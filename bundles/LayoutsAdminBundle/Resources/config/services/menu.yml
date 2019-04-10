@@ -1,0 +1,13 @@
+services:
+    netgen_layouts.menu.admin.main_menu_builder:
+        class: Netgen\Bundle\LayoutsAdminBundle\Menu\MainMenuBuilder
+        arguments:
+            - "@knp_menu.factory"
+            - "@security.authorization_checker"
+            - "@event_dispatcher"
+
+    netgen_layouts.menu.admin.main_menu:
+        class: Knp\Menu\MenuItem
+        factory: ["@netgen_layouts.menu.admin.main_menu_builder", "createMenu"]
+        tags:
+            - { name: knp_menu.menu, alias: nglayouts.admin.main_menu }

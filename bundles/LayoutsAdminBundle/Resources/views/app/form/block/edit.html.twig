@@ -1,0 +1,16 @@
+{% extends '@NetgenLayoutsAdmin/form/form.html.twig' %}
+
+{% form_theme form '@NetgenLayoutsAdmin/form/theme/nglayouts.html.twig' %}
+
+{% block parameters %}
+    {% set parameters = form.parameters %}
+
+    {% for key, parameter in parameters %}
+        {% set view_types = [] %}
+        {% if form.vars.parameter_view_types[key] is defined %}
+            {% set view_types = form.vars.parameter_view_types[key] %}
+        {% endif %}
+
+        {{ form_row(parameters[key], {attr: {'data-view-type': view_types|join(',')}}) }}
+    {% endfor %}
+{% endblock %}

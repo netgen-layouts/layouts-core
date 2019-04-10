@@ -1,0 +1,16 @@
+view:
+    layout_view:
+        admin:
+            invalid\shared:
+                template: "@NetgenLayoutsAdmin/admin/shared_layouts/invalid_layout.html.twig"
+                match:
+                    layout\shared: true
+                    layout\type: "null"
+            invalid:
+                template: "@NetgenLayoutsAdmin/admin/layouts/invalid_layout.html.twig"
+                match:
+                    layout\type: "null"
+            layout\shared:
+                template: "@NetgenLayoutsAdmin/admin/shared_layouts/layout.html.twig"
+                match:
+                    layout\shared: true
