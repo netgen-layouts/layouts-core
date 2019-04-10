@@ -1,0 +1,19 @@
+parameters:
+    netgen_layouts.debug.block_collector.enabled_contexts: ['default']
+
+services:
+    netgen_layouts.debug.data_collector:
+        class: Netgen\Bundle\LayoutsDebugBundle\DataCollector\LayoutsDataCollector
+        arguments:
+            - "@netgen_block_manager.templating.global_variable"
+            - "@twig"
+        tags:
+            - { name: data_collector, template: '@NetgenLayoutsDebug/data_collector/nglayouts.html.twig', id: nglayouts }
+
+    netgen_layouts.debug.event_listener.data_collector.block_view:
+        class: Netgen\Bundle\LayoutsDebugBundle\EventListener\DataCollector\BlockViewListener
+        arguments:
+            - "@netgen_layouts.debug.data_collector"
+            - "%netgen_layouts.debug.block_collector.enabled_contexts%"
+        tags:
+            - { name: kernel.event_subscriber }

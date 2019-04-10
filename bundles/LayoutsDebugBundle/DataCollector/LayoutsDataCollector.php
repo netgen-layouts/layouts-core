@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Bundle\BlockManagerDebugBundle\DataCollector;
+namespace Netgen\Bundle\LayoutsDebugBundle\DataCollector;
 
 use Exception;
 use Jean85\PrettyVersions;
@@ -18,7 +18,7 @@ use Twig\Source;
 use Version\Exception\InvalidVersionStringException;
 use Version\Version;
 
-final class BlockManagerDataCollector extends DataCollector
+final class LayoutsDataCollector extends DataCollector
 {
     /**
      * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable
@@ -159,7 +159,7 @@ final class BlockManagerDataCollector extends DataCollector
 
     public function getName(): string
     {
-        return 'ngbm';
+        return 'nglayouts';
     }
 
     private function getTemplateSource(string $name): Source

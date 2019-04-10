@@ -111,7 +111,7 @@
 
             "Netgen\\Bundle\\BlockManagerBundle\\": "bundles/BlockManagerBundle/",
             "Netgen\\Bundle\\BlockManagerAdminBundle\\": "bundles/BlockManagerAdminBundle/",
-            "Netgen\\Bundle\\BlockManagerDebugBundle\\": "bundles/BlockManagerDebugBundle/"
+            "Netgen\\Bundle\\LayoutsDebugBundle\\": "bundles/LayoutsDebugBundle/"
         }
     },
     "autoload-dev": {
