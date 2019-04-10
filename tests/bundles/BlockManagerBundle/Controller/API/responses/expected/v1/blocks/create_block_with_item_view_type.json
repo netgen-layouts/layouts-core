@@ -5,7 +5,7 @@
     "name": "",
     "parent_position": 0,
     "parameters": {
-        "number_of_columns": 2,
+        "number_of_columns": 3,
         "paged_collections:enabled": null,
         "paged_collections:type": null,
         "paged_collections:max_pages": null,
@@ -14,8 +14,8 @@
         "css_id": null,
         "set_container": null
     },
-    "view_type": "other_grid",
-    "item_view_type": "other_item",
+    "view_type": "grid",
+    "item_view_type": "standard",
     "published": false,
     "has_published_state": false,
     "locale": "en",

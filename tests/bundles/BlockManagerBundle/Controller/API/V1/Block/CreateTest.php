@@ -83,7 +83,7 @@ final class CreateTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'block_type' => 'other_grid',
+                'block_type' => 'grid',
                 'parent_placeholder' => 'left',
                 'parent_position' => 0,
             ]
