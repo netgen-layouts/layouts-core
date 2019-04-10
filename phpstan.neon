@@ -18,8 +18,12 @@ parameters:
         - '#Call to function method_exists#'
 
         # Compatibility with Symfony 3.4
-        - '#Netgen\\Bundle\\BlockManagerBundle\\DependencyInjection\\TreeBuilder::__construct\(\) does not call parent constructor#'
-        - '#Parameter \#(1|2) \$\w+ of method Symfony\\Component\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) expects .+, .+ given.#'
+        -
+            message: '#Call to function is_callable\(\) with .+ will always evaluate to true.#'
+            path: bundles/BlockManagerBundle/DependencyInjection/TreeBuilder.php
+        -
+            message: '#Parameter \#(1|2) \$\w+ of method Symfony\\Component\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) expects .+, .+ given.#'
+            path: lib/Utils/BackwardsCompatibility/EventDispatcherProxy.php 
 
         # Netgen Layouts specifics
         - '#Call to an undefined method Netgen\\BlockManager\\Block\\BlockDefinition\\BlockDefinitionHandlerInterface::getPlaceholderIdentifiers\(\).#'

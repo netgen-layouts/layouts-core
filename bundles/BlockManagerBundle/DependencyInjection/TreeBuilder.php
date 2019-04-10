@@ -16,6 +16,12 @@ final class TreeBuilder extends BaseTreeBuilder
 {
     public function __construct(string $name, string $type = 'array', ?NodeBuilder $builder = null)
     {
+        if (is_callable([BaseTreeBuilder::class, '__construct'])) {
+            parent::__construct($name, $type, $builder);
+
+            return;
+        }
+
         $this->root = $this->root($name, $type, $builder);
     }
 
