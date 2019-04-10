@@ -78,7 +78,7 @@ export default class NlRule {
         }
         fetch(`${this.rules.baseUrl}rules/${this.id}/draft`, {
             method: 'POST',
-            credentials: 'include',
+            credentials: 'same-origin',
             headers: {
                 'X-CSRF-Token': this.rules.csrf,
             },
@@ -98,7 +98,7 @@ export default class NlRule {
         const formEl = e.currentTarget;
         fetch(window.location.origin + formEl.getAttribute('action'), {
             method: formEl.method,
-            credentials: 'include',
+            credentials: 'same-origin',
             headers: {
                 'X-CSRF-Token': this.rules.csrf,
             },
@@ -136,7 +136,7 @@ export default class NlRule {
         const getDraft = !!((action === 'disable' || action === 'enable') && this.draftCreated);
         fetch(url, {
             method: 'POST',
-            credentials: 'include',
+            credentials: 'same-origin',
             headers: {
                 'X-CSRF-Token': this.rules.csrf,
             },
@@ -156,7 +156,7 @@ export default class NlRule {
         this.createDraft(() => {
             fetch(url, {
                 method: 'POST',
-                credentials: 'include',
+                credentials: 'same-origin',
                 headers: {
                     'X-CSRF-Token': this.rules.csrf,
                 },
@@ -184,7 +184,7 @@ export default class NlRule {
             modal.loadingStart();
             fetch(url, {
                 method: 'DELETE',
-                credentials: 'include',
+                credentials: 'same-origin',
                 headers: {
                     'X-CSRF-Token': this.rules.csrf,
                 },
@@ -231,7 +231,7 @@ export default class NlRule {
         this.createDraft(() => {
             fetch(url, {
                 method: 'DELETE',
-                credentials: 'include',
+                credentials: 'same-origin',
                 headers: {
                     'X-CSRF-Token': this.rules.csrf,
                 },
@@ -254,7 +254,7 @@ export default class NlRule {
         this.createDraft(() => {
             fetch(url, {
                 method: 'GET',
-                credentials: 'include',
+                credentials: 'same-origin',
                 headers: {
                     'X-CSRF-Token': this.rules.csrf,
                 },
@@ -298,7 +298,7 @@ export default class NlRule {
                 loaderEl.style.display = 'block';
                 fetch(url, {
                     method: 'GET',
-                    credentials: 'include',
+                    credentials: 'same-origin',
                     headers: {
                         'X-CSRF-Token': this.rules.csrf,
                     },
@@ -341,7 +341,7 @@ export default class NlRule {
             this.createDraft(() => {
                 fetch(`${this.rules.baseUrl}rules/${this.id}`, {
                     method: 'POST',
-                    credentials: 'include',
+                    credentials: 'same-origin',
                     headers: {
                         'X-CSRF-Token': this.rules.csrf,
                     },

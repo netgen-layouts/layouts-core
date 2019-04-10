@@ -64,7 +64,7 @@ export default class NlRules {
         this.appContainer.classList.add('ajax-loading');
         fetch(`${this.baseUrl}rules`, {
             method: 'POST',
-            credentials: 'include',
+            credentials: 'same-origin',
             headers: {
                 'X-CSRF-Token': this.csrf,
             },
@@ -107,7 +107,7 @@ export default class NlRules {
         const body = new URLSearchParams(rules.join('&'));
         fetch(`${this.baseUrl}rules/priorities`, {
             method: 'POST',
-            credentials: 'include',
+            credentials: 'same-origin',
             headers: {
                 'X-CSRF-Token': this.csrf,
             },
