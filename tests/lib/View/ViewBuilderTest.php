@@ -14,6 +14,7 @@ use Netgen\BlockManager\View\TemplateResolverInterface;
 use Netgen\BlockManager\View\ViewBuilder;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpKernel\Kernel;
 
 final class ViewBuilderTest extends TestCase
 {
@@ -66,21 +67,33 @@ final class ViewBuilderTest extends TestCase
             ->method('resolveTemplate')
             ->with(self::identicalTo($view));
 
+        $args = [
+            self::isInstanceOf(CollectViewParametersEvent::class),
+            self::identicalTo(BlockManagerEvents::BUILD_VIEW),
+        ];
+
+        if (Kernel::VERSION_ID < 40300) {
+            $args = array_reverse($args);
+        }
+
         $this->eventDispatcherMock
             ->expects(self::at(0))
             ->method('dispatch')
-            ->with(
-                self::identicalTo(BlockManagerEvents::BUILD_VIEW),
-                self::isInstanceOf(CollectViewParametersEvent::class)
-            );
+            ->with(...$args);
+
+        $args = [
+            self::isInstanceOf(CollectViewParametersEvent::class),
+            self::identicalTo(sprintf('%s.%s', BlockManagerEvents::BUILD_VIEW, 'stub')),
+        ];
+
+        if (Kernel::VERSION_ID < 40300) {
+            $args = array_reverse($args);
+        }
 
         $this->eventDispatcherMock
             ->expects(self::at(1))
             ->method('dispatch')
-            ->with(
-                self::identicalTo(sprintf('%s.%s', BlockManagerEvents::BUILD_VIEW, 'stub')),
-                self::isInstanceOf(CollectViewParametersEvent::class)
-            );
+            ->with(...$args);
 
         $viewBuilder = new ViewBuilder(
             $this->templateResolverMock,

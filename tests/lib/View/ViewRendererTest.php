@@ -11,6 +11,7 @@ use Netgen\BlockManager\Tests\View\Stubs\View;
 use Netgen\BlockManager\View\ViewRenderer;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpKernel\Kernel;
 use Twig\Environment;
 
 final class ViewRendererTest extends TestCase
@@ -55,21 +56,33 @@ final class ViewRendererTest extends TestCase
         $view->setTemplate('some_template.html.twig');
         $view->addParameter('some_param', 'some_value');
 
+        $args = [
+            self::isInstanceOf(CollectViewParametersEvent::class),
+            self::identicalTo(BlockManagerEvents::RENDER_VIEW),
+        ];
+
+        if (Kernel::VERSION_ID < 40300) {
+            $args = array_reverse($args);
+        }
+
         $this->eventDispatcherMock
             ->expects(self::at(0))
             ->method('dispatch')
-            ->with(
-                self::identicalTo(BlockManagerEvents::RENDER_VIEW),
-                self::isInstanceOf(CollectViewParametersEvent::class)
-            );
+            ->with(...$args);
+
+        $args = [
+            self::isInstanceOf(CollectViewParametersEvent::class),
+            self::identicalTo(sprintf('%s.%s', BlockManagerEvents::RENDER_VIEW, 'stub')),
+        ];
+
+        if (Kernel::VERSION_ID < 40300) {
+            $args = array_reverse($args);
+        }
 
         $this->eventDispatcherMock
             ->expects(self::at(1))
             ->method('dispatch')
-            ->with(
-                self::identicalTo(sprintf('%s.%s', BlockManagerEvents::RENDER_VIEW, 'stub')),
-                self::isInstanceOf(CollectViewParametersEvent::class)
-            );
+            ->with(...$args);
 
         $this->twigEnvironmentMock
             ->expects(self::once())
@@ -99,21 +112,33 @@ final class ViewRendererTest extends TestCase
         $view = new View(new Value());
         $view->addParameter('some_param', 'some_value');
 
+        $args = [
+            self::isInstanceOf(CollectViewParametersEvent::class),
+            self::identicalTo(BlockManagerEvents::RENDER_VIEW),
+        ];
+
+        if (Kernel::VERSION_ID < 40300) {
+            $args = array_reverse($args);
+        }
+
         $this->eventDispatcherMock
             ->expects(self::at(0))
             ->method('dispatch')
-            ->with(
-                self::identicalTo(BlockManagerEvents::RENDER_VIEW),
-                self::isInstanceOf(CollectViewParametersEvent::class)
-            );
+            ->with(...$args);
+
+        $args = [
+            self::isInstanceOf(CollectViewParametersEvent::class),
+            self::identicalTo(sprintf('%s.%s', BlockManagerEvents::RENDER_VIEW, 'stub')),
+        ];
+
+        if (Kernel::VERSION_ID < 40300) {
+            $args = array_reverse($args);
+        }
 
         $this->eventDispatcherMock
             ->expects(self::at(1))
             ->method('dispatch')
-            ->with(
-                self::identicalTo(sprintf('%s.%s', BlockManagerEvents::RENDER_VIEW, 'stub')),
-                self::isInstanceOf(CollectViewParametersEvent::class)
-            );
+            ->with(...$args);
 
         $this->twigEnvironmentMock
             ->expects(self::never())
