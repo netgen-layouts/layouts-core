@@ -49,7 +49,7 @@ const fetchModal = (url, modal, formAction, afterSuccess) => {
 const submitModal = (url, modal, method, csrf, body, afterSuccess, afterError) => {
     fetch(url, {
         method,
-        credentials: 'include',
+        credentials: 'same-origin',
         headers: {
             'X-CSRF-Token': csrf,
         },

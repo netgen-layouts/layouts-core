@@ -95,9 +95,8 @@ export default class NlRule {
 
     addedFormAction(e) {
         e.preventDefault();
-        console.warn('ADDED FORM ACTION');
         const formEl = e.currentTarget;
-        fetch(formEl.action, {
+        fetch(window.location.origin + formEl.getAttribute('action'), {
             method: formEl.method,
             credentials: 'include',
             headers: {

@@ -14,7 +14,7 @@ export default class NlRules {
         [this.sortBtn] = this.el.getElementsByClassName('js-sort-start');
         [this.appContainer] = document.getElementsByClassName('ng-layouts-app');
         this.csrf = document.querySelector('meta[name=ngbm-admin-csrf-token]').getAttribute('content');
-        this.baseUrl = `${document.querySelector('meta[name=ngbm-admin-base-path]').getAttribute('content')}/mappings/`;
+        this.baseUrl = `${window.location.origin}${document.querySelector('meta[name=ngbm-admin-base-path]').getAttribute('content')}/mappings/`;
         this.filter = JSON.parse(localStorage.getItem('ngMappingFilters')) || [];
 
         this.initialize();

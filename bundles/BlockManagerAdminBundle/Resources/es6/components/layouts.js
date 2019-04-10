@@ -20,7 +20,7 @@ export default class NlLayouts {
         this.toggleAllCheckbox = document.getElementById('toggleSelectAll');
         this.shared = typeof this.el.dataset.shared !== 'undefined';
         this.csrf = document.querySelector('meta[name=ngbm-admin-csrf-token]').getAttribute('content');
-        this.baseUrl = document.querySelector('meta[name=ngbm-admin-base-path]').getAttribute('content') + (this.shared ? '/shared_layouts/' : '/layouts/');
+        this.baseUrl = window.location.origin + document.querySelector('meta[name=ngbm-admin-base-path]').getAttribute('content') + (this.shared ? '/shared_layouts/' : '/layouts/');
         this.sorting = JSON.parse(localStorage.getItem(this.shared ? 'ngSharedLayoutsSorting' : 'ngLayoutsSorting')) || {
             sort: 'name',
             direction: 'asc',
@@ -122,7 +122,7 @@ export default class NlLayouts {
         let fileName = '';
         fetch(`${this.baseUrl}export`, {
             method: 'POST',
-            credentials: 'include',
+            credentials: 'same-origin',
             headers: {
                 'X-CSRF-Token': this.csrf,
             },
