@@ -19,6 +19,7 @@ parameters:
 
         # Compatibility with Symfony 3.4
         - '#Netgen\\Bundle\\BlockManagerBundle\\DependencyInjection\\TreeBuilder::__construct\(\) does not call parent constructor#'
+        - '#Parameter \#(1|2) \$\w+ of method Symfony\\Component\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) expects .+, .+ given.#'
 
         # Netgen Layouts specifics
         - '#Call to an undefined method Netgen\\BlockManager\\Block\\BlockDefinition\\BlockDefinitionHandlerInterface::getPlaceholderIdentifiers\(\).#'

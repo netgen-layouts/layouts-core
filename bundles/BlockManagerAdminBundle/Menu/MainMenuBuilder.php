@@ -6,6 +6,7 @@ namespace Netgen\Bundle\BlockManagerAdminBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
+use Netgen\BlockManager\Utils\BackwardsCompatibility\EventDispatcherProxy;
 use Netgen\Bundle\BlockManagerAdminBundle\Event\BlockManagerAdminEvents;
 use Netgen\Bundle\BlockManagerAdminBundle\Event\ConfigureMenuEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -24,7 +25,7 @@ final class MainMenuBuilder
     private $authorizationChecker;
 
     /**
-     * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
+     * @var \Netgen\BlockManager\Utils\BackwardsCompatibility\EventDispatcherProxy
      */
     private $eventDispatcher;
 
@@ -35,7 +36,7 @@ final class MainMenuBuilder
     ) {
         $this->factory = $factory;
         $this->authorizationChecker = $authorizationChecker;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventDispatcher = new EventDispatcherProxy($eventDispatcher);
     }
 
     /**
@@ -63,8 +64,8 @@ final class MainMenuBuilder
         }
 
         $this->eventDispatcher->dispatch(
-            BlockManagerAdminEvents::CONFIGURE_MENU,
-            new ConfigureMenuEvent($this->factory, $menu)
+            new ConfigureMenuEvent($this->factory, $menu),
+            BlockManagerAdminEvents::CONFIGURE_MENU
         );
 
         return $menu;

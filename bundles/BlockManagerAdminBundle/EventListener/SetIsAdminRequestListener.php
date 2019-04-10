@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\BlockManagerAdminBundle\EventListener;
 
+use Netgen\BlockManager\Utils\BackwardsCompatibility\EventDispatcherProxy;
 use Netgen\Bundle\BlockManagerAdminBundle\Event\AdminMatchEvent;
 use Netgen\Bundle\BlockManagerAdminBundle\Event\BlockManagerAdminEvents;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -18,13 +19,13 @@ final class SetIsAdminRequestListener implements EventSubscriberInterface
     private const ADMIN_ROUTE_PREFIX = 'ngbm_admin_';
 
     /**
-     * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
+     * @var \Netgen\BlockManager\Utils\BackwardsCompatibility\EventDispatcherProxy
      */
     private $eventDispatcher;
 
     public function __construct(EventDispatcherInterface $eventDispatcher)
     {
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventDispatcher = new EventDispatcherProxy($eventDispatcher);
     }
 
     public static function getSubscribedEvents(): array
@@ -50,6 +51,6 @@ final class SetIsAdminRequestListener implements EventSubscriberInterface
         $request->attributes->set(self::ADMIN_FLAG_NAME, true);
 
         $adminEvent = new AdminMatchEvent($event->getRequest(), $event->getRequestType());
-        $this->eventDispatcher->dispatch(BlockManagerAdminEvents::ADMIN_MATCH, $adminEvent);
+        $this->eventDispatcher->dispatch($adminEvent, BlockManagerAdminEvents::ADMIN_MATCH);
     }
 }

@@ -7,6 +7,7 @@ namespace Netgen\BlockManager\View;
 use Netgen\BlockManager\Event\BlockManagerEvents;
 use Netgen\BlockManager\Event\CollectViewParametersEvent;
 use Netgen\BlockManager\Exception\View\ViewProviderException;
+use Netgen\BlockManager\Utils\BackwardsCompatibility\EventDispatcherProxy;
 use Netgen\BlockManager\View\Provider\ViewProviderInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
@@ -18,7 +19,7 @@ final class ViewBuilder implements ViewBuilderInterface
     private $templateResolver;
 
     /**
-     * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
+     * @var \Netgen\BlockManager\Utils\BackwardsCompatibility\EventDispatcherProxy
      */
     private $eventDispatcher;
 
@@ -35,7 +36,7 @@ final class ViewBuilder implements ViewBuilderInterface
     public function __construct(TemplateResolverInterface $templateResolver, EventDispatcherInterface $eventDispatcher, array $viewProviders)
     {
         $this->templateResolver = $templateResolver;
-        $this->eventDispatcher = $eventDispatcher;
+        $this->eventDispatcher = new EventDispatcherProxy($eventDispatcher);
 
         $this->viewProviders = array_filter(
             $viewProviders,
@@ -57,11 +58,11 @@ final class ViewBuilder implements ViewBuilderInterface
         $this->templateResolver->resolveTemplate($view);
 
         $event = new CollectViewParametersEvent($view);
-        $this->eventDispatcher->dispatch(BlockManagerEvents::BUILD_VIEW, $event);
+        $this->eventDispatcher->dispatch($event, BlockManagerEvents::BUILD_VIEW);
         $view->addParameters($event->getParameters());
 
         $event = new CollectViewParametersEvent($view);
-        $this->eventDispatcher->dispatch(sprintf('%s.%s', BlockManagerEvents::BUILD_VIEW, $view::getIdentifier()), $event);
+        $this->eventDispatcher->dispatch($event, sprintf('%s.%s', BlockManagerEvents::BUILD_VIEW, $view::getIdentifier()));
         $view->addParameters($event->getParameters());
 
         return $view;
