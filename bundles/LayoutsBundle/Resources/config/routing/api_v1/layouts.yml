@@ -1,89 +1,89 @@
-ngbm_api_v1_layouts_shared:
+nglayouts_api_v1_layouts_shared:
     path: /layouts/shared
     methods: [GET]
     defaults:
         _controller: 'netgen_block_manager.controller.api.v1.layout.load_shared_layouts'
 
-ngbm_api_v1_layouts_load:
+nglayouts_api_v1_layouts_load:
     path: /layouts/{layoutId}
     methods: [GET]
     defaults:
         _controller: 'netgen_block_manager.controller.api.v1.layout.load'
 
-ngbm_api_v1_layouts_blocks:
+nglayouts_api_v1_layouts_blocks:
     path: /{locale}/layouts/{layoutId}/blocks
     methods: [GET]
     defaults:
         _controller: 'netgen_block_manager.controller.api.v1.layout.load_layout_blocks'
 
-ngbm_api_v1_layouts_zone_blocks:
+nglayouts_api_v1_layouts_zone_blocks:
     path: /{locale}/layouts/{layoutId}/zones/{zoneIdentifier}/blocks
     methods: [GET]
     defaults:
         _controller: 'netgen_block_manager.controller.api.v1.layout.load_zone_blocks'
 
-ngbm_api_v1_layouts_zone_link:
+nglayouts_api_v1_layouts_zone_link:
     path: /layouts/{layoutId}/zones/{zoneIdentifier}/link
     methods: [POST]
     defaults:
         _controller: 'netgen_block_manager.controller.api.v1.layout.link_zone'
         _ngbm_status: draft
 
-ngbm_api_v1_layouts_zone_unlink:
+nglayouts_api_v1_layouts_zone_unlink:
     path: /layouts/{layoutId}/zones/{zoneIdentifier}/link
     methods: [DELETE]
     defaults:
         _controller: 'netgen_block_manager.controller.api.v1.layout.unlink_zone'
         _ngbm_status: draft
 
-ngbm_api_v1_layouts_create:
+nglayouts_api_v1_layouts_create:
     path: /layouts
     methods: [POST]
     defaults:
         _controller: 'netgen_block_manager.controller.api.v1.layout.create'
 
-ngbm_api_v1_layouts_copy:
+nglayouts_api_v1_layouts_copy:
     path: /layouts/{layoutId}/copy
     methods: [POST]
     defaults:
         _controller: 'netgen_block_manager.controller.api.v1.layout.copy'
 
-ngbm_api_v1_layouts_change_type:
+nglayouts_api_v1_layouts_change_type:
     path: /layouts/{layoutId}/change_type
     methods: [POST]
     defaults:
         _controller: 'netgen_block_manager.controller.api.v1.layout.change_type'
         _ngbm_status: draft
 
-ngbm_api_v1_layouts_create_draft:
+nglayouts_api_v1_layouts_create_draft:
     path: /layouts/{layoutId}/draft
     methods: [POST]
     defaults:
         _controller: 'netgen_block_manager.controller.api.v1.layout.create_draft'
         _ngbm_status: published
 
-ngbm_api_v1_layouts_discard_draft:
+nglayouts_api_v1_layouts_discard_draft:
     path: /layouts/{layoutId}/draft
     methods: [DELETE]
     defaults:
         _controller: 'netgen_block_manager.controller.api.v1.layout.discard_draft'
         _ngbm_status: draft
 
-ngbm_api_v1_layouts_publish:
+nglayouts_api_v1_layouts_publish:
     path: /layouts/{layoutId}/publish
     methods: [POST]
     defaults:
         _controller: 'netgen_block_manager.controller.api.v1.layout.publish_draft'
         _ngbm_status: draft
 
-ngbm_api_v1_layouts_restore:
+nglayouts_api_v1_layouts_restore:
     path: /layouts/{layoutId}/restore
     methods: [POST]
     defaults:
         _controller: 'netgen_block_manager.controller.api.v1.layout.restore_from_archive'
         _ngbm_status: archived
 
-ngbm_api_v1_layouts_delete:
+nglayouts_api_v1_layouts_delete:
     path: /layouts/{layoutId}
     methods: [DELETE]
     defaults:

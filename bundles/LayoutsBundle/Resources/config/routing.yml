@@ -1,4 +1,4 @@
-_ngbm_api_v1:
+_nglayouts_api_v1:
     resource: "routing/api_v1.yml"
     prefix: /api/v1
 

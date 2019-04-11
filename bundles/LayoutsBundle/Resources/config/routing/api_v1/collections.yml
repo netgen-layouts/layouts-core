@@ -1,39 +1,39 @@
-ngbm_api_v1_collections_load:
+nglayouts_api_v1_collections_load:
     path: /collections/{collectionId}
     methods: [GET]
     defaults:
         _controller: 'netgen_block_manager.controller.api.v1.collection.load_collection'
         _ngbm_status: draft
 
-ngbm_api_v1_collections_items:
+nglayouts_api_v1_collections_items:
     path: /collections/{collectionId}/items
     methods: [GET]
     defaults:
         _controller: 'netgen_block_manager.controller.api.v1.collection.load_items'
         _ngbm_status: draft
 
-ngbm_api_v1_collections_load_item:
+nglayouts_api_v1_collections_load_item:
     path: /collections/items/{itemId}
     methods: [GET]
     defaults:
         _controller: 'netgen_block_manager.controller.api.v1.collection.load_item'
         _ngbm_status: draft
 
-ngbm_api_v1_collections_move_item:
+nglayouts_api_v1_collections_move_item:
     path: /collections/items/{itemId}/move
     methods: [POST]
     defaults:
         _controller: 'netgen_block_manager.controller.api.v1.collection.move_item'
         _ngbm_status: draft
 
-ngbm_api_v1_collections_delete_item:
+nglayouts_api_v1_collections_delete_item:
     path: /collections/items/{itemId}
     methods: [DELETE]
     defaults:
         _controller: 'netgen_block_manager.controller.api.v1.collection.delete_item'
         _ngbm_status: draft:deleteItem
 
-ngbm_api_v1_collections_delete_items:
+nglayouts_api_v1_collections_delete_items:
     path: /collections/{collectionId}/items
     methods: [DELETE]
     defaults:

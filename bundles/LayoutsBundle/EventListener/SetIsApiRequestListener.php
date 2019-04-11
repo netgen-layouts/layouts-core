@@ -12,7 +12,7 @@ final class SetIsApiRequestListener implements EventSubscriberInterface
 {
     public const API_FLAG_NAME = 'nglayouts_is_api_request';
 
-    private const API_ROUTE_PREFIX = 'ngbm_api_';
+    private const API_ROUTE_PREFIX = 'nglayouts_api_';
 
     public static function getSubscribedEvents(): array
     {

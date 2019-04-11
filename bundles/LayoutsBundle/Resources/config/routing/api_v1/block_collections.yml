@@ -1,18 +1,18 @@
-ngbm_api_v1_block_collections_result:
+nglayouts_api_v1_block_collections_result:
     path: /blocks/{blockId}/collections/{collectionIdentifier}/result
     methods: [GET]
     defaults:
         _controller: 'netgen_block_manager.controller.api.v1.block_collection.load_collection_result'
         _ngbm_status: draft
 
-ngbm_api_v1_block_collections_add_items:
+nglayouts_api_v1_block_collections_add_items:
     path: /blocks/{blockId}/collections/{collectionIdentifier}/items
     methods: [POST]
     defaults:
         _controller: 'netgen_block_manager.controller.api.v1.block_collection.add_items'
         _ngbm_status: draft
 
-ngbm_api_v1_block_collections_change_type:
+nglayouts_api_v1_block_collections_change_type:
     path: /blocks/{blockId}/collections/{collectionIdentifier}/change_type
     methods: [POST]
     defaults:

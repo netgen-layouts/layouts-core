@@ -1,16 +1,16 @@
-_ngbm_api_v1_config:
+_nglayouts_api_v1_config:
     resource: "api_v1/config.yml"
 
-_ngbm_api_v1_blocks:
+_nglayouts_api_v1_blocks:
     resource: "api_v1/blocks.yml"
     prefix: /{locale}
 
-_ngbm_api_v1_block_collections:
+_nglayouts_api_v1_block_collections:
     resource: "api_v1/block_collections.yml"
     prefix: /{locale}
 
-_ngbm_api_v1_collections:
+_nglayouts_api_v1_collections:
     resource: "api_v1/collections.yml"
 
-_ngbm_api_v1_layouts:
+_nglayouts_api_v1_layouts:
     resource: "api_v1/layouts.yml"
