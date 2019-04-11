@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
- * Votes on Netgen Layouts permissions (nglayouts:*) by mapping the permissions to built-in roles (ROLE_NGBM_*).
+ * Votes on Netgen Layouts permissions (nglayouts:*) by mapping the permissions to built-in roles (ROLE_NGLAYOUTS_*).
  */
 final class PolicyToRoleMapVoter extends Voter
 {
@@ -39,19 +39,19 @@ final class PolicyToRoleMapVoter extends Voter
      * The identifier of the admin role. Users having this role
      * have full and unrestricted access to the entire system.
      */
-    private const ROLE_ADMIN = 'ROLE_NGBM_ADMIN';
+    private const ROLE_ADMIN = 'ROLE_NGLAYOUTS_ADMIN';
 
     /**
      * The identifier of the editor role. Users having this role
      * have full access only to the layout editing interface.
      */
-    private const ROLE_EDITOR = 'ROLE_NGBM_EDITOR';
+    private const ROLE_EDITOR = 'ROLE_NGLAYOUTS_EDITOR';
 
     /**
      * The identifier of the API role. Users having this role
      * have access to read only data of the API endpoints.
      */
-    private const ROLE_API = 'ROLE_NGBM_API';
+    private const ROLE_API = 'ROLE_NGLAYOUTS_API';
 
     /**
      * @var \Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface

@@ -41,7 +41,7 @@ final class PolicyToRoleMapVoterTest extends TestCase
         $this->accessDecisionManagerMock
             ->expects(self::once())
             ->method('decide')
-            ->with(self::equalTo($token), self::equalTo(['ROLE_NGBM_ADMIN']))
+            ->with(self::equalTo($token), self::equalTo(['ROLE_NGLAYOUTS_ADMIN']))
             ->willReturn(true);
 
         $vote = $this->voter->vote(
