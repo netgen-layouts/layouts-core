@@ -58,7 +58,7 @@ final class ViewRendererListenerTest extends TestCase
         $view = new View(new Value());
 
         $response = new Response();
-        $response->headers->set('X-NGBM-Test', 'test');
+        $response->headers->set('X-Layouts-Test', 'test');
 
         $view->setResponse($response);
 
@@ -83,7 +83,7 @@ final class ViewRendererListenerTest extends TestCase
         self::assertInstanceOf(Response::class, $event->getResponse());
 
         // Verify that we use the response available in view object
-        self::assertSame($event->getResponse()->headers->get('X-NGBM-Test'), 'test');
+        self::assertSame($event->getResponse()->headers->get('X-Layouts-Test'), 'test');
 
         self::assertSame('rendered content', $event->getResponse()->getContent());
     }
@@ -96,7 +96,7 @@ final class ViewRendererListenerTest extends TestCase
         $view = new View(new Value());
 
         $response = new Response();
-        $response->headers->set('X-NGBM-Test', 'test');
+        $response->headers->set('X-Layouts-Test', 'test');
 
         $view->setResponse($response);
 
@@ -121,7 +121,7 @@ final class ViewRendererListenerTest extends TestCase
         self::assertInstanceOf(Response::class, $event->getResponse());
 
         // Verify that we use the response available in view object
-        self::assertSame($event->getResponse()->headers->get('X-NGBM-Test'), 'test');
+        self::assertSame($event->getResponse()->headers->get('X-Layouts-Test'), 'test');
 
         self::assertSame('', $event->getResponse()->getContent());
     }
