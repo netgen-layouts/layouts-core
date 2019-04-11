@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Behat\Page;
+namespace Netgen\Layouts\Behat\Page;
 
 use Behat\Mink\Session;
-use Netgen\BlockManager\Behat\Exception\PageException;
+use Netgen\Layouts\Behat\Exception\PageException;
 use Symfony\Component\Routing\RouterInterface;
 
 abstract class SymfonyPage extends Page
@@ -55,7 +55,7 @@ abstract class SymfonyPage extends Page
     }
 
     /**
-     * @throws \Netgen\BlockManager\Behat\Exception\PageException
+     * @throws \Netgen\Layouts\Behat\Exception\PageException
      */
     private function verifyRouteName(array $matchedRoute, string $url): void
     {
@@ -72,7 +72,7 @@ abstract class SymfonyPage extends Page
     }
 
     /**
-     * @throws \Netgen\BlockManager\Behat\Exception\PageException
+     * @throws \Netgen\Layouts\Behat\Exception\PageException
      */
     private function verifyRouteParameters(array $requiredUrlParameters, array $matchedRoute): void
     {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Behat\Page\Admin;
+namespace Netgen\Layouts\Behat\Page\Admin;
 
-use Netgen\BlockManager\Behat\Exception\PageException;
-use Netgen\BlockManager\Behat\Page\SymfonyPage;
+use Netgen\Layouts\Behat\Exception\PageException;
+use Netgen\Layouts\Behat\Page\SymfonyPage;
 
 abstract class AdminPage extends SymfonyPage
 {

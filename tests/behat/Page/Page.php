@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Behat\Page;
+namespace Netgen\Layouts\Behat\Page;
 
 use Behat\Mink\Driver\DriverInterface;
 use Behat\Mink\Element\DocumentElement;
@@ -12,7 +12,7 @@ use Behat\Mink\Exception\ElementNotFoundException;
 use Behat\Mink\Selector\SelectorsHandler;
 use Behat\Mink\Session;
 use InvalidArgumentException;
-use Netgen\BlockManager\Behat\Exception\PageException;
+use Netgen\Layouts\Behat\Exception\PageException;
 use Throwable;
 
 abstract class Page
@@ -90,7 +90,7 @@ abstract class Page
     /**
      * Overload to verify if the current url matches the expected one. Throw an exception otherwise.
      *
-     * @throws \Netgen\BlockManager\Behat\Exception\PageException
+     * @throws \Netgen\Layouts\Behat\Exception\PageException
      */
     protected function verifyUrl(array $urlParameters = []): void
     {
@@ -100,7 +100,7 @@ abstract class Page
     }
 
     /**
-     * @throws \Netgen\BlockManager\Behat\Exception\PageException
+     * @throws \Netgen\Layouts\Behat\Exception\PageException
      */
     protected function verifyStatusCode(): void
     {

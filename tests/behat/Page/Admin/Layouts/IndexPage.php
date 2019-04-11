@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Behat\Page\Admin\Layouts;
+namespace Netgen\Layouts\Behat\Page\Admin\Layouts;
 
-use Netgen\BlockManager\Behat\Page\Admin\AdminPage;
+use Netgen\Layouts\Behat\Page\Admin\AdminPage;
 
 final class IndexPage extends AdminPage
 {

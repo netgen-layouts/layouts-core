@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Behat\Context\Admin;
+namespace Netgen\Layouts\Behat\Context\Admin;
 
 use Behat\Behat\Context\Context;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Behat\Exception;
+namespace Netgen\Layouts\Behat\Exception;
 
 use Exception;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Behat\Context\Setup;
+namespace Netgen\Layouts\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
 use Netgen\BlockManager\API\Service\LayoutService;

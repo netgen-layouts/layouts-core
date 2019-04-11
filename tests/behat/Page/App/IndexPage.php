@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Behat\Page\App;
+namespace Netgen\Layouts\Behat\Page\App;
 
 use Behat\Mink\Element\NodeElement;
-use Netgen\BlockManager\Behat\Exception\PageException;
-use Netgen\BlockManager\Behat\Page\SymfonyPage;
+use Netgen\Layouts\Behat\Exception\PageException;
+use Netgen\Layouts\Behat\Page\SymfonyPage;
 
 final class IndexPage extends SymfonyPage
 {

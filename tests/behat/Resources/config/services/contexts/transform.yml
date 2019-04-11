@@ -1,6 +1,6 @@
 services:
     netgen_block_manager.behat.context.transform.layout:
-        class: Netgen\BlockManager\Behat\Context\Transform\LayoutContext
+        class: Netgen\Layouts\Behat\Context\Transform\LayoutContext
         public: true
         arguments:
             - "@netgen_block_manager.api.service.layout"

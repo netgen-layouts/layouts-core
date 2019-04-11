@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Behat\Context\Hook;
+namespace Netgen\Layouts\Behat\Context\Hook;
 
 use Behat\Behat\Context\Context;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;

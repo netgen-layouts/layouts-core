@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Behat\Context\Transform;
+namespace Netgen\Layouts\Behat\Context\Transform;
 
 use Behat\Behat\Context\Context;
 use Netgen\BlockManager\API\Service\LayoutService;

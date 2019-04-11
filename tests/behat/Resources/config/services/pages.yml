@@ -4,14 +4,14 @@ imports:
 
 services:
     netgen_block_manager.behat.page:
-        class: Netgen\BlockManager\Behat\Page\Page
+        class: Netgen\Layouts\Behat\Page\Page
         abstract: true
         arguments:
             - "@behat.mink.default_session"
             - "@behat.mink.parameters"
 
     netgen_block_manager.behat.symfony_page:
-        class: Netgen\BlockManager\Behat\Page\SymfonyPage
+        class: Netgen\Layouts\Behat\Page\SymfonyPage
         parent: netgen_block_manager.behat.page
         abstract: true
         arguments:

@@ -2,28 +2,28 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Behat\Context\Admin;
+namespace Netgen\Layouts\Behat\Context\Admin;
 
 use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\Behat\Context\Transform\LayoutContext;
-use Netgen\BlockManager\Behat\Page\Admin\SharedLayouts\IndexPage;
-use Netgen\BlockManager\Behat\Page\App\IndexPage as AppIndexPage;
+use Netgen\Layouts\Behat\Context\Transform\LayoutContext;
+use Netgen\Layouts\Behat\Page\Admin\SharedLayouts\IndexPage;
+use Netgen\Layouts\Behat\Page\App\IndexPage as AppIndexPage;
 use Webmozart\Assert\Assert;
 
 final class ManagingSharedLayoutsContext extends AdminContext
 {
     /**
-     * @var \Netgen\BlockManager\Behat\Page\Admin\SharedLayouts\IndexPage
+     * @var \Netgen\Layouts\Behat\Page\Admin\SharedLayouts\IndexPage
      */
     private $indexPage;
 
     /**
-     * @var \Netgen\BlockManager\Behat\Page\App\IndexPage
+     * @var \Netgen\Layouts\Behat\Page\App\IndexPage
      */
     private $appPage;
 
     /**
-     * @var \Netgen\BlockManager\Behat\Context\Transform\LayoutContext
+     * @var \Netgen\Layouts\Behat\Context\Transform\LayoutContext
      */
     private $layoutContext;
 
