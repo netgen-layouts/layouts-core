@@ -2,58 +2,58 @@ ngbm_api_v1_blocks_load:
     path: /blocks/{blockId}
     methods: [GET]
     defaults:
-        _controller: "netgen_block_manager.controller.api.v1.block.load"
+        _controller: 'netgen_block_manager.controller.api.v1.block.load'
 
 ngbm_api_v1_blocks_create:
     path: /blocks/{blockId}
     methods: [POST]
     defaults:
-        _controller: "netgen_block_manager.controller.api.v1.block.create"
+        _controller: 'netgen_block_manager.controller.api.v1.block.create'
 
 ngbm_api_v1_blocks_create_in_zone:
     path: /blocks
     methods: [POST]
     defaults:
-        _controller: "netgen_block_manager.controller.api.v1.block.create_in_zone"
+        _controller: 'netgen_block_manager.controller.api.v1.block.create_in_zone'
 
 ngbm_api_v1_blocks_copy:
     path: /blocks/{blockId}/copy
     methods: [POST]
     defaults:
-        _controller: "netgen_block_manager.controller.api.v1.block.copy"
+        _controller: 'netgen_block_manager.controller.api.v1.block.copy'
         _ngbm_status: draft
 
 ngbm_api_v1_blocks_copy_to_zone:
     path: /blocks/{blockId}/copy/zone
     methods: [POST]
     defaults:
-        _controller: "netgen_block_manager.controller.api.v1.block.copy_to_zone"
+        _controller: 'netgen_block_manager.controller.api.v1.block.copy_to_zone'
         _ngbm_status: draft
 
 ngbm_api_v1_blocks_move:
     path: /blocks/{blockId}/move
     methods: [POST]
     defaults:
-        _controller: "netgen_block_manager.controller.api.v1.block.move"
+        _controller: 'netgen_block_manager.controller.api.v1.block.move'
         _ngbm_status: draft
 
 ngbm_api_v1_blocks_move_to_zone:
     path: /blocks/{blockId}/move/zone
     methods: [POST]
     defaults:
-        _controller: "netgen_block_manager.controller.api.v1.block.move_to_zone"
+        _controller: 'netgen_block_manager.controller.api.v1.block.move_to_zone'
         _ngbm_status: draft
 
 ngbm_api_v1_blocks_restore:
     path: /blocks/{blockId}/restore
     methods: [POST]
     defaults:
-        _controller: "netgen_block_manager.controller.api.v1.block.restore"
+        _controller: 'netgen_block_manager.controller.api.v1.block.restore'
         _ngbm_status: draft
 
 ngbm_api_v1_blocks_delete:
     path: /blocks/{blockId}
     methods: [DELETE]
     defaults:
-        _controller: "netgen_block_manager.controller.api.v1.block.delete"
+        _controller: 'netgen_block_manager.controller.api.v1.block.delete'
         _ngbm_status: draft

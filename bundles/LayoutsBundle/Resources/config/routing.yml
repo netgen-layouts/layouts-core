@@ -12,7 +12,7 @@ ngbm_ajax_block:
     path: /ajax/block/{blockId}/{locale}/{collectionIdentifier}
     methods: [GET]
     defaults:
-        _controller: "ngbm_ajax_block"
+        _controller: 'ngbm_ajax_block'
         _ngbm_status: published
 
 ngbm_root:
