@@ -10,7 +10,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 final class SetIsApiRequestListener implements EventSubscriberInterface
 {
-    public const API_FLAG_NAME = 'ngbm_is_api_request';
+    public const API_FLAG_NAME = 'nglayouts_is_api_request';
 
     private const API_ROUTE_PREFIX = 'ngbm_api_';
 
