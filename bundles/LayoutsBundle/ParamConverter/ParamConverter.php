@@ -18,7 +18,7 @@ abstract class ParamConverter implements ParamConverterInterface
 
     protected const STATUS_ARCHIVED = 'archived';
 
-    private const ROUTE_STATUS_PARAM = '_ngbm_status';
+    private const ROUTE_STATUS_PARAM = '_nglayouts_status';
 
     public function apply(Request $request, ParamConverterConfiguration $configuration): bool
     {

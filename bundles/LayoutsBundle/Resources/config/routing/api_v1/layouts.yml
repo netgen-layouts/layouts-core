@@ -27,14 +27,14 @@ nglayouts_api_v1_layouts_zone_link:
     methods: [POST]
     defaults:
         _controller: 'netgen_block_manager.controller.api.v1.layout.link_zone'
-        _ngbm_status: draft
+        _nglayouts_status: draft
 
 nglayouts_api_v1_layouts_zone_unlink:
     path: /layouts/{layoutId}/zones/{zoneIdentifier}/link
     methods: [DELETE]
     defaults:
         _controller: 'netgen_block_manager.controller.api.v1.layout.unlink_zone'
-        _ngbm_status: draft
+        _nglayouts_status: draft
 
 nglayouts_api_v1_layouts_create:
     path: /layouts
@@ -53,39 +53,39 @@ nglayouts_api_v1_layouts_change_type:
     methods: [POST]
     defaults:
         _controller: 'netgen_block_manager.controller.api.v1.layout.change_type'
-        _ngbm_status: draft
+        _nglayouts_status: draft
 
 nglayouts_api_v1_layouts_create_draft:
     path: /layouts/{layoutId}/draft
     methods: [POST]
     defaults:
         _controller: 'netgen_block_manager.controller.api.v1.layout.create_draft'
-        _ngbm_status: published
+        _nglayouts_status: published
 
 nglayouts_api_v1_layouts_discard_draft:
     path: /layouts/{layoutId}/draft
     methods: [DELETE]
     defaults:
         _controller: 'netgen_block_manager.controller.api.v1.layout.discard_draft'
-        _ngbm_status: draft
+        _nglayouts_status: draft
 
 nglayouts_api_v1_layouts_publish:
     path: /layouts/{layoutId}/publish
     methods: [POST]
     defaults:
         _controller: 'netgen_block_manager.controller.api.v1.layout.publish_draft'
-        _ngbm_status: draft
+        _nglayouts_status: draft
 
 nglayouts_api_v1_layouts_restore:
     path: /layouts/{layoutId}/restore
     methods: [POST]
     defaults:
         _controller: 'netgen_block_manager.controller.api.v1.layout.restore_from_archive'
-        _ngbm_status: archived
+        _nglayouts_status: archived
 
 nglayouts_api_v1_layouts_delete:
     path: /layouts/{layoutId}
     methods: [DELETE]
     defaults:
         _controller: 'netgen_block_manager.controller.api.v1.layout.delete'
-        _ngbm_status: published
+        _nglayouts_status: published

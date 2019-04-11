@@ -29,21 +29,21 @@ nglayouts_app_block_edit:
     methods: [GET]
     defaults:
         _controller: 'netgen_layouts.controller.app.block.edit'
-        _ngbm_status: draft
+        _nglayouts_status: draft
 
 nglayouts_app_block_form_edit:
     path: /app/{locale}/blocks/{blockId}/form/edit/{formName}
     methods: [GET, POST]
     defaults:
         _controller: 'netgen_layouts.controller.app.block.edit_form'
-        _ngbm_status: draft
+        _nglayouts_status: draft
 
 nglayouts_app_block_form_edit_config:
     path: /app/{locale}/blocks/{blockId}/config/edit/{configKey}
     methods: [GET, POST]
     defaults:
         _controller: 'netgen_layouts.controller.app.block.edit_config_form'
-        _ngbm_status: draft
+        _nglayouts_status: draft
         configKey: null
 
 nglayouts_app_collection_collection_form_edit:
@@ -51,14 +51,14 @@ nglayouts_app_collection_collection_form_edit:
     methods: [GET, POST]
     defaults:
         _controller: 'netgen_layouts.controller.app.collection.edit_collection_form'
-        _ngbm_status: draft
+        _nglayouts_status: draft
 
 nglayouts_app_collection_form_edit_item_config:
     path: /app/collections/item/{itemId}/config/edit/{configKey}
     methods: [GET, POST]
     defaults:
         _controller: 'netgen_layouts.controller.app.collection.edit_item_config_form'
-        _ngbm_status: draft
+        _nglayouts_status: draft
         configKey: null
 
 nglayouts_app_collection_query_form_edit:
@@ -66,4 +66,4 @@ nglayouts_app_collection_query_form_edit:
     methods: [GET, POST]
     defaults:
         _controller: 'netgen_layouts.controller.app.collection.edit_query_form'
-        _ngbm_status: draft
+        _nglayouts_status: draft

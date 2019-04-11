@@ -72,7 +72,7 @@ final class ParamConverterTest extends TestCase
     {
         $request = Request::create('/');
         $request->attributes->set('id', '42');
-        $request->attributes->set('_ngbm_status', 'published');
+        $request->attributes->set('_nglayouts_status', 'published');
         $configuration = new ParamConverterConfiguration([]);
         $configuration->setClass(Value::class);
 
@@ -93,7 +93,7 @@ final class ParamConverterTest extends TestCase
     {
         $request = Request::create('/');
         $request->attributes->set('id', '42');
-        $request->attributes->set('_ngbm_status', 'archived');
+        $request->attributes->set('_nglayouts_status', 'archived');
         $configuration = new ParamConverterConfiguration([]);
         $configuration->setClass(Value::class);
 
@@ -114,7 +114,7 @@ final class ParamConverterTest extends TestCase
     {
         $request = Request::create('/');
         $request->attributes->set('id', '42');
-        $request->attributes->set('_ngbm_status', 'draft');
+        $request->attributes->set('_nglayouts_status', 'draft');
         $configuration = new ParamConverterConfiguration([]);
         $configuration->setClass(Value::class);
 

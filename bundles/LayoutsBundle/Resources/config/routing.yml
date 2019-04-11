@@ -13,7 +13,7 @@ nglayouts_ajax_block:
     methods: [GET]
     defaults:
         _controller: 'nglayouts_ajax_block'
-        _ngbm_status: published
+        _nglayouts_status: published
 
 nglayouts_root:
     path: /
