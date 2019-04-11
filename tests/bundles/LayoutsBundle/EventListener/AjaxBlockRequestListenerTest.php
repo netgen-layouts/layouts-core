@@ -43,7 +43,7 @@ final class AjaxBlockRequestListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create($uri);
 
-        $request->attributes->set('_route', 'ngbm_ajax_block');
+        $request->attributes->set('_route', 'nglayouts_ajax_block');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
@@ -105,7 +105,7 @@ final class AjaxBlockRequestListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $request->attributes->set('_route', 'ngbm_ajax_block');
+        $request->attributes->set('_route', 'nglayouts_ajax_block');
         $request->attributes->set('ngbmContextUri', '/some/uri');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);

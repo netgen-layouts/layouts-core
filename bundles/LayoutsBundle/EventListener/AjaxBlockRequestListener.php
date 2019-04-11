@@ -32,7 +32,7 @@ final class AjaxBlockRequestListener implements EventSubscriberInterface
         }
 
         $request = $event->getRequest();
-        if ($request->attributes->get('_route') !== 'ngbm_ajax_block') {
+        if ($request->attributes->get('_route') !== 'nglayouts_ajax_block') {
             return;
         }
 

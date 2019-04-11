@@ -67,7 +67,7 @@ final class RouteGeneratorTest extends TestCase
         $this->urlGeneratorMock->expects(self::once())
             ->method('generate')
             ->with(
-                self::identicalTo('ngbm_ajax_block'),
+                self::identicalTo('nglayouts_ajax_block'),
                 self::identicalTo(
                     [
                         'blockId' => 42,

@@ -14,7 +14,7 @@ services:
         arguments:
             - "@netgen_block_manager.error.handler"
 
-    ngbm_ajax_block:
+    nglayouts_ajax_block:
         alias: netgen_block_manager.controller.block.view_ajax_block
         public: true
 
