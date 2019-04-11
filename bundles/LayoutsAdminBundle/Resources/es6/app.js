@@ -14,7 +14,7 @@ NetgenCore.ngLayoutsInit = () => {
     dropdownInit();
 
     [...document.getElementsByClassName('js-open-ngl')].forEach(btn => btn.addEventListener('click', () => {
-        localStorage.setItem('bm_referrer', window.location.href);
+        localStorage.setItem('ngl_referrer', window.location.href);
     }));
 };
 
