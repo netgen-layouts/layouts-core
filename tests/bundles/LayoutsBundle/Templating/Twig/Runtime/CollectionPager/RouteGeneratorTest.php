@@ -73,7 +73,7 @@ final class RouteGeneratorTest extends TestCase
                         'blockId' => 42,
                         'locale' => 'en',
                         'collectionIdentifier' => 'default',
-                        'ngbmContext' => ['var' => 'value'],
+                        'nglContext' => ['var' => 'value'],
                     ]
                 )
             )

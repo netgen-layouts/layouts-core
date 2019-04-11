@@ -93,7 +93,7 @@ final class ContextListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $request->query->set('ngbmContext', ['var' => 'value']);
+        $request->query->set('nglContext', ['var' => 'value']);
 
         $this->contextBuilderMock
             ->expects(self::never())
@@ -119,7 +119,7 @@ final class ContextListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $request->attributes->set('ngbmContext', ['var' => 'value']);
+        $request->attributes->set('nglContext', ['var' => 'value']);
 
         $this->contextBuilderMock
             ->expects(self::never())
@@ -145,8 +145,8 @@ final class ContextListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $request->attributes->set('ngbmContextUri', '/?ngbmContext%5Bvar%5D=value');
-        $request->query->set('ngbmContext', ['var' => 'value']);
+        $request->attributes->set('nglContextUri', '/?nglContext%5Bvar%5D=value');
+        $request->query->set('nglContext', ['var' => 'value']);
 
         $this->contextBuilderMock
             ->expects(self::never())
@@ -155,7 +155,7 @@ final class ContextListenerTest extends TestCase
         $this->uriSignerMock
             ->expects(self::once())
             ->method('check')
-            ->with(self::identicalTo($request->attributes->get('ngbmContextUri')))
+            ->with(self::identicalTo($request->attributes->get('nglContextUri')))
             ->willReturn(true);
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
@@ -174,7 +174,7 @@ final class ContextListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $request->query->set('ngbmContext', ['var' => 'value']);
+        $request->query->set('nglContext', ['var' => 'value']);
 
         $this->contextBuilderMock
             ->expects(self::never())
@@ -200,7 +200,7 @@ final class ContextListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $request->query->set('ngbmContext', ['var' => 'value']);
+        $request->query->set('nglContext', ['var' => 'value']);
 
         $this->contextBuilderMock
             ->expects(self::never())

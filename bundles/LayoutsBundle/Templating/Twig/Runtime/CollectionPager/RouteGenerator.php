@@ -45,7 +45,7 @@ final class RouteGenerator
             'blockId' => $block->getId(),
             'locale' => $block->getLocale(),
             'collectionIdentifier' => $collectionIdentifier,
-            'ngbmContext' => $this->context->all(),
+            'nglContext' => $this->context->all(),
         ];
 
         $signedUri = $this->uriSigner->sign(

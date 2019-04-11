@@ -48,8 +48,8 @@ final class AjaxBlockRequestListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        self::assertTrue($event->getRequest()->attributes->has('ngbmContextUri'));
-        self::assertSame($filteredUri, $event->getRequest()->attributes->get('ngbmContextUri'));
+        self::assertTrue($event->getRequest()->attributes->has('nglContextUri'));
+        self::assertSame($filteredUri, $event->getRequest()->attributes->get('nglContextUri'));
     }
 
     public function onKernelRequestDataProvider(): array
@@ -78,7 +78,7 @@ final class AjaxBlockRequestListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        self::assertFalse($event->getRequest()->attributes->has('ngbmContextUri'));
+        self::assertFalse($event->getRequest()->attributes->has('nglContextUri'));
     }
 
     /**
@@ -94,7 +94,7 @@ final class AjaxBlockRequestListenerTest extends TestCase
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        self::assertFalse($event->getRequest()->attributes->has('ngbmContextUri'));
+        self::assertFalse($event->getRequest()->attributes->has('nglContextUri'));
     }
 
     /**
@@ -106,11 +106,11 @@ final class AjaxBlockRequestListenerTest extends TestCase
         $request = Request::create('/');
 
         $request->attributes->set('_route', 'nglayouts_ajax_block');
-        $request->attributes->set('ngbmContextUri', '/some/uri');
+        $request->attributes->set('nglContextUri', '/some/uri');
 
         $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
-        self::assertSame('/some/uri', $event->getRequest()->attributes->get('ngbmContextUri'));
+        self::assertSame('/some/uri', $event->getRequest()->attributes->get('nglContextUri'));
     }
 }

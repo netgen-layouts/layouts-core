@@ -36,7 +36,7 @@ final class AjaxBlockRequestListener implements EventSubscriberInterface
             return;
         }
 
-        if ($request->attributes->has('ngbmContextUri')) {
+        if ($request->attributes->has('nglContextUri')) {
             return;
         }
 
@@ -49,6 +49,6 @@ final class AjaxBlockRequestListener implements EventSubscriberInterface
             $request->getRequestUri()
         );
 
-        $request->attributes->set('ngbmContextUri', $requestUri);
+        $request->attributes->set('nglContextUri', $requestUri);
     }
 }

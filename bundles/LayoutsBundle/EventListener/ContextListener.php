@@ -57,8 +57,8 @@ final class ContextListener implements EventSubscriberInterface
         }
 
         $request = $event->getRequest();
-        if ($request->attributes->has('ngbmContext')) {
-            $context = $request->attributes->get('ngbmContext');
+        if ($request->attributes->has('nglContext')) {
+            $context = $request->attributes->get('nglContext');
             $context = is_array($context) ? $context : [];
 
             $this->context->add($context);
@@ -66,7 +66,7 @@ final class ContextListener implements EventSubscriberInterface
             return;
         }
 
-        if ($request->query->has('ngbmContext')) {
+        if ($request->query->has('nglContext')) {
             $this->context->add($this->getUriContext($request));
 
             return;
@@ -80,7 +80,7 @@ final class ContextListener implements EventSubscriberInterface
      */
     private function getUriContext(Request $request): array
     {
-        $context = $request->query->get('ngbmContext');
+        $context = $request->query->get('nglContext');
         $context = is_array($context) ? $context : [];
 
         if (!$this->uriSigner->check($this->getUri($request))) {
@@ -98,8 +98,8 @@ final class ContextListener implements EventSubscriberInterface
      */
     private function getUri(Request $request): string
     {
-        if ($request->attributes->has('ngbmContextUri')) {
-            return $request->attributes->get('ngbmContextUri');
+        if ($request->attributes->has('nglContextUri')) {
+            return $request->attributes->get('nglContextUri');
         }
 
         return $request->getRequestUri();
