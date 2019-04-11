@@ -143,7 +143,8 @@ export default class NlRule {
         }).then((response) => {
             if (!response.ok) throw new Error(`HTTP error, status ${response.status}`);
             return response.text();
-        }).then(() => {
+        }).then((data) => {
+            this.renderEl(data);
             getDraft || this.afterDraftRemove();
         }).catch((error) => {
             console.log(error);
