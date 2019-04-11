@@ -7,10 +7,10 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\Controller\API;
 use ApiTestCase\JsonApiTestCase as BaseJsonApiTestCase;
 use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
 use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Tests\App\Item\Value;
-use Netgen\BlockManager\Tests\App\MockerContainer;
 use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
 use Netgen\BlockManager\Tests\Persistence\Doctrine\DatabaseTrait;
+use Netgen\Layouts\Tests\App\Item\Value;
+use Netgen\Layouts\Tests\App\MockerContainer;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class JsonApiTestCase extends BaseJsonApiTestCase

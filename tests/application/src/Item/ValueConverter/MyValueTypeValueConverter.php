@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\App\Item\ValueConverter;
+namespace Netgen\Layouts\Tests\App\Item\ValueConverter;
 
 use Netgen\BlockManager\Item\ValueConverterInterface;
-use Netgen\BlockManager\Tests\App\Item\Value;
+use Netgen\Layouts\Tests\App\Item\Value;
 
 final class MyValueTypeValueConverter implements ValueConverterInterface
 {

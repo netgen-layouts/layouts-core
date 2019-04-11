@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Netgen\BlockManager\Tests\App\Kernel;
+use Netgen\Layouts\Tests\App\Kernel;
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\HttpFoundation\Request;
 

@@ -118,7 +118,7 @@
         "psr-4": {
             "Netgen\\BlockManager\\Tests\\": "tests/lib/",
             "Netgen\\Layouts\\Behat\\": "tests/behat/",
-            "Netgen\\BlockManager\\Tests\\App\\": "tests/application/src/",
+            "Netgen\\Layouts\\Tests\\App\\": "tests/application/src/",
             "Netgen\\Bundle\\LayoutsBundle\\Tests\\": "tests/bundles/LayoutsBundle/",
             "Netgen\\Bundle\\LayoutsAdminBundle\\Tests\\": "tests/bundles/LayoutsAdminBundle/",
             "Netgen\\ContentBrowser\\Tests\\": "vendor/netgen/content-browser/tests/lib/"

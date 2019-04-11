@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\App\Item\ValueUrlGenerator;
+namespace Netgen\Layouts\Tests\App\Item\ValueUrlGenerator;
 
 use Netgen\BlockManager\Item\ValueUrlGeneratorInterface;
 

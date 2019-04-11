@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\App;
+namespace Netgen\Layouts\Tests\App;
 
 use Symfony\Component\DependencyInjection\Container;
 

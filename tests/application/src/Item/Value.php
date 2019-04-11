@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\App\Item;
+namespace Netgen\Layouts\Tests\App\Item;
 
 final class Value
 {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\App\Item\ValueLoader;
+namespace Netgen\Layouts\Tests\App\Item\ValueLoader;
 
 use Netgen\BlockManager\Item\ValueLoaderInterface;
-use Netgen\BlockManager\Tests\App\Item\Value;
+use Netgen\Layouts\Tests\App\Item\Value;
 
 final class MyValueTypeValueLoader implements ValueLoaderInterface
 {
