@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime;
 
 use Generator;
-use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\Error\ErrorHandlerInterface;
-use Netgen\BlockManager\Item\CmsItemInterface;
-use Netgen\BlockManager\Locale\LocaleProviderInterface;
-use Netgen\BlockManager\View\RendererInterface;
-use Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate;
-use Netgen\BlockManager\View\View\ZoneView\ZoneReference;
-use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Layouts\API\Service\BlockService;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\Error\ErrorHandlerInterface;
+use Netgen\Layouts\Item\CmsItemInterface;
+use Netgen\Layouts\Locale\LocaleProviderInterface;
+use Netgen\Layouts\View\RendererInterface;
+use Netgen\Layouts\View\Twig\ContextualizedTwigTemplate;
+use Netgen\Layouts\View\View\ZoneView\ZoneReference;
+use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Throwable;
@@ -27,17 +27,17 @@ use Twig\TemplateWrapper;
 final class RenderingRuntime
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\BlockService
+     * @var \Netgen\Layouts\API\Service\BlockService
      */
     private $blockService;
 
     /**
-     * @var \Netgen\BlockManager\View\RendererInterface
+     * @var \Netgen\Layouts\View\RendererInterface
      */
     private $renderer;
 
     /**
-     * @var \Netgen\BlockManager\Locale\LocaleProviderInterface
+     * @var \Netgen\Layouts\Locale\LocaleProviderInterface
      */
     private $localeProvider;
 
@@ -47,7 +47,7 @@ final class RenderingRuntime
     private $requestStack;
 
     /**
-     * @var \Netgen\BlockManager\Error\ErrorHandlerInterface
+     * @var \Netgen\Layouts\Error\ErrorHandlerInterface
      */
     private $errorHandler;
 

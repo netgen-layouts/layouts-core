@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View\Matcher\Block;
+namespace Netgen\Layouts\View\Matcher\Block;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Block\NullBlockDefinition;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Block\NullBlockDefinition;
 
 /**
  * This matcher matches if the block has a definition identifier

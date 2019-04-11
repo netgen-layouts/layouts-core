@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Transfer\Output\Visitor;
+namespace Netgen\Layouts\Transfer\Output\Visitor;
 
 use Generator;
-use Netgen\BlockManager\API\Values\Block\Placeholder;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Transfer\Output\VisitorInterface;
+use Netgen\Layouts\API\Values\Block\Placeholder;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 /**
  * Placeholder value visitor.
  *
- * @see \Netgen\BlockManager\API\Values\Block\Placeholder
+ * @see \Netgen\Layouts\API\Values\Block\Placeholder
  */
 final class PlaceholderVisitor implements VisitorInterface
 {
@@ -22,8 +22,8 @@ final class PlaceholderVisitor implements VisitorInterface
     }
 
     /**
-     * @param \Netgen\BlockManager\API\Values\Block\Placeholder $value
-     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface|null $subVisitor
+     * @param \Netgen\Layouts\API\Values\Block\Placeholder $value
+     * @param \Netgen\Layouts\Transfer\Output\VisitorInterface|null $subVisitor
      *
      * @return mixed
      */

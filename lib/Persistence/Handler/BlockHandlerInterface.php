@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Persistence\Handler;
+namespace Netgen\Layouts\Persistence\Handler;
 
-use Netgen\BlockManager\Persistence\Values\Block\Block;
-use Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Block\BlockTranslationUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
-use Netgen\BlockManager\Persistence\Values\Collection\Collection;
-use Netgen\BlockManager\Persistence\Values\Layout\Layout;
-use Netgen\BlockManager\Persistence\Values\Layout\Zone;
+use Netgen\Layouts\Persistence\Values\Block\Block;
+use Netgen\Layouts\Persistence\Values\Block\BlockCreateStruct;
+use Netgen\Layouts\Persistence\Values\Block\BlockTranslationUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Block\BlockUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Block\CollectionReference;
+use Netgen\Layouts\Persistence\Values\Collection\Collection;
+use Netgen\Layouts\Persistence\Values\Layout\Layout;
+use Netgen\Layouts\Persistence\Values\Layout\Zone;
 
 interface BlockHandlerInterface
 {
@@ -21,9 +21,9 @@ interface BlockHandlerInterface
      * @param int|string $blockId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If block with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If block with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Block\Block
+     * @return \Netgen\Layouts\Persistence\Values\Block\Block
      */
     public function loadBlock($blockId, int $status): Block;
 
@@ -40,42 +40,42 @@ interface BlockHandlerInterface
     /**
      * Loads all blocks from specified layout.
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Block\Block[]
+     * @return \Netgen\Layouts\Persistence\Values\Block\Block[]
      */
     public function loadLayoutBlocks(Layout $layout): array;
 
     /**
      * Loads all blocks from specified zone.
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Block\Block[]
+     * @return \Netgen\Layouts\Persistence\Values\Block\Block[]
      */
     public function loadZoneBlocks(Zone $zone): array;
 
     /**
      * Loads all blocks from specified block, optionally filtered by placeholder.
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Block\Block[]
+     * @return \Netgen\Layouts\Persistence\Values\Block\Block[]
      */
     public function loadChildBlocks(Block $block, ?string $placeholder = null): array;
 
     /**
      * Loads a collection reference.
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If collection reference with specified identifier does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If collection reference with specified identifier does not exist
      */
     public function loadCollectionReference(Block $block, string $identifier): CollectionReference;
 
     /**
      * Loads all collection references belonging to the provided block.
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Block\CollectionReference[]
+     * @return \Netgen\Layouts\Persistence\Values\Block\CollectionReference[]
      */
     public function loadCollectionReferences(Block $block): array;
 
     /**
      * Creates a block in specified target block.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
+     * @throws \Netgen\Layouts\Exception\BadStateException If provided position is out of range
      *                                                          If target block does not belong to layout
      */
     public function createBlock(BlockCreateStruct $blockCreateStruct, Layout $layout, ?Block $targetBlock = null, ?string $placeholder = null): Block;
@@ -83,7 +83,7 @@ interface BlockHandlerInterface
     /**
      * Creates a block translation.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If translation with provided locale already exists
+     * @throws \Netgen\Layouts\Exception\BadStateException If translation with provided locale already exists
      *                                                          If translation with provided source locale does not exist
      */
     public function createBlockTranslation(Block $block, string $locale, string $sourceLocale): Block;
@@ -101,38 +101,38 @@ interface BlockHandlerInterface
     /**
      * Updates a block translation.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If the block does not have the provided locale
+     * @throws \Netgen\Layouts\Exception\BadStateException If the block does not have the provided locale
      */
     public function updateBlockTranslation(Block $block, string $locale, BlockTranslationUpdateStruct $translationUpdateStruct): Block;
 
     /**
      * Updates the main translation of the block.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If provided locale does not exist in the block
+     * @throws \Netgen\Layouts\Exception\BadStateException If provided locale does not exist in the block
      */
     public function setMainTranslation(Block $block, string $mainLocale): Block;
 
     /**
      * Copies a block to a specified target block and placeholder.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
-     * @throws \Netgen\BlockManager\Exception\BadStateException If target block is within the provided block
+     * @throws \Netgen\Layouts\Exception\BadStateException If provided position is out of range
+     * @throws \Netgen\Layouts\Exception\BadStateException If target block is within the provided block
      */
     public function copyBlock(Block $block, Block $targetBlock, string $placeholder, ?int $position = null): Block;
 
     /**
      * Moves a block to specified position in a specified target block and placeholder.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
-     * @throws \Netgen\BlockManager\Exception\BadStateException If block is already in target block and placeholder
-     * @throws \Netgen\BlockManager\Exception\BadStateException If target block is within the provided block
+     * @throws \Netgen\Layouts\Exception\BadStateException If provided position is out of range
+     * @throws \Netgen\Layouts\Exception\BadStateException If block is already in target block and placeholder
+     * @throws \Netgen\Layouts\Exception\BadStateException If target block is within the provided block
      */
     public function moveBlock(Block $block, Block $targetBlock, string $placeholder, int $position): Block;
 
     /**
      * Moves a block to specified position in the current placeholder.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range
+     * @throws \Netgen\Layouts\Exception\BadStateException If provided position is out of range
      */
     public function moveBlockToPosition(Block $block, int $position): Block;
 
@@ -147,7 +147,7 @@ interface BlockHandlerInterface
     /**
      * Restores all block data (except placement and position) from the specified status.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException if block is already in provided status
+     * @throws \Netgen\Layouts\Exception\BadStateException if block is already in provided status
      */
     public function restoreBlock(Block $block, int $fromStatus): Block;
 
@@ -159,7 +159,7 @@ interface BlockHandlerInterface
     /**
      * Deletes provided block translation.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If translation with provided locale does not exist
+     * @throws \Netgen\Layouts\Exception\BadStateException If translation with provided locale does not exist
      *                                                          If translation with provided locale is the main block translation
      */
     public function deleteBlockTranslation(Block $block, string $locale): Block;

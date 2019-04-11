@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Layout\Resolver\ConditionType;
+namespace Netgen\Layouts\Layout\Resolver\ConditionType;
 
-use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
-use Netgen\BlockManager\Utils\DateTimeUtils;
-use Netgen\BlockManager\Validator\Constraint\ConditionType\Time as TimeConstraint;
+use Netgen\Layouts\Layout\Resolver\ConditionTypeInterface;
+use Netgen\Layouts\Utils\DateTimeUtils;
+use Netgen\Layouts\Validator\Constraint\ConditionType\Time as TimeConstraint;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;
 

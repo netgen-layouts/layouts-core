@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Service;
+namespace Netgen\Layouts\API\Service;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\ItemUpdateStruct;
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
-use Netgen\BlockManager\Collection\Item\ItemDefinitionInterface;
-use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\CollectionCreateStruct;
+use Netgen\Layouts\API\Values\Collection\CollectionUpdateStruct;
+use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\API\Values\Collection\ItemCreateStruct;
+use Netgen\Layouts\API\Values\Collection\ItemUpdateStruct;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\API\Values\Collection\QueryCreateStruct;
+use Netgen\Layouts\API\Values\Collection\QueryUpdateStruct;
+use Netgen\Layouts\Collection\Item\ItemDefinitionInterface;
+use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
 
 interface CollectionService extends Service
 {
@@ -32,9 +32,9 @@ interface CollectionService extends Service
      * @param string[] $locales
      * @param bool $useMainLocale
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If collection with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If collection with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection
+     * @return \Netgen\Layouts\API\Values\Collection\Collection
      */
     public function loadCollection($collectionId, ?array $locales = null, bool $useMainLocale = true): Collection;
 
@@ -52,16 +52,16 @@ interface CollectionService extends Service
      * @param string[] $locales
      * @param bool $useMainLocale
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If collection with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If collection with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\Collection
+     * @return \Netgen\Layouts\API\Values\Collection\Collection
      */
     public function loadCollectionDraft($collectionId, ?array $locales = null, bool $useMainLocale = true): Collection;
 
     /**
      * Updates a collection.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If collection is not a draft
      */
     public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct): Collection;
 
@@ -70,9 +70,9 @@ interface CollectionService extends Service
      *
      * @param int|string $itemId
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If item with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If item with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item
+     * @return \Netgen\Layouts\API\Values\Collection\Item
      */
     public function loadItem($itemId): Item;
 
@@ -81,9 +81,9 @@ interface CollectionService extends Service
      *
      * @param int|string $itemId
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If item with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If item with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\Item
+     * @return \Netgen\Layouts\API\Values\Collection\Item
      */
     public function loadItemDraft($itemId): Item;
 
@@ -101,9 +101,9 @@ interface CollectionService extends Service
      * @param string[] $locales
      * @param bool $useMainLocale
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If query with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If query with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\Query
+     * @return \Netgen\Layouts\API\Values\Collection\Query
      */
     public function loadQuery($queryId, ?array $locales = null, bool $useMainLocale = true): Query;
 
@@ -121,9 +121,9 @@ interface CollectionService extends Service
      * @param string[] $locales
      * @param bool $useMainLocale
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If query with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If query with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\Query
+     * @return \Netgen\Layouts\API\Values\Collection\Query
      */
     public function loadQueryDraft($queryId, ?array $locales = null, bool $useMainLocale = true): Query;
 
@@ -133,7 +133,7 @@ interface CollectionService extends Service
      * If new type is a dynamic collection, you also need to provide the QueryCreateStruct used to
      * create the query in the collection.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If collection is not a draft
      *                                                          If collection type cannot be changed
      */
     public function changeCollectionType(Collection $collection, int $newType, ?QueryCreateStruct $queryCreateStruct = null): Collection;
@@ -143,7 +143,7 @@ interface CollectionService extends Service
      *
      * If position is not provided, item is placed at the end of the collection.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If collection is not a draft
      *                                                          If position is out of range (for manual collections)
      */
     public function addItem(Collection $collection, ItemCreateStruct $itemCreateStruct, ?int $position = null): Item;
@@ -151,14 +151,14 @@ interface CollectionService extends Service
     /**
      * Updates a specified item.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If item is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If item is not a draft
      */
     public function updateItem(Item $item, ItemUpdateStruct $itemUpdateStruct): Item;
 
     /**
      * Moves an item within the collection.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If item is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If item is not a draft
      *                                                          If position is out of range (for manual collections)
      */
     public function moveItem(Item $item, int $position): Item;
@@ -166,21 +166,21 @@ interface CollectionService extends Service
     /**
      * Removes an item.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If item is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If item is not a draft
      */
     public function deleteItem(Item $item): void;
 
     /**
      * Removes all manual items from provided collection.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If collection is not a draft
      */
     public function deleteItems(Collection $collection): Collection;
 
     /**
      * Updates a query.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If query is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If query is not a draft
      *                                                          If query does not have a specified translation
      */
     public function updateQuery(Query $query, QueryUpdateStruct $queryUpdateStruct): Query;
@@ -200,10 +200,10 @@ interface CollectionService extends Service
     /**
      * Creates a new item create struct from provided values.
      *
-     * @param \Netgen\BlockManager\Collection\Item\ItemDefinitionInterface $itemDefinition
+     * @param \Netgen\Layouts\Collection\Item\ItemDefinitionInterface $itemDefinition
      * @param int|string $value
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\ItemCreateStruct
+     * @return \Netgen\Layouts\API\Values\Collection\ItemCreateStruct
      */
     public function newItemCreateStruct(ItemDefinitionInterface $itemDefinition, $value): ItemCreateStruct;
 

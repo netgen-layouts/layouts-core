@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Type;
+namespace Netgen\Layouts\Layout\Resolver\Form\ConditionType\Type;
 
-use Netgen\BlockManager\Form\AbstractType;
-use Netgen\BlockManager\Form\DateTimeType;
+use Netgen\Layouts\Form\AbstractType;
+use Netgen\Layouts\Form\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 final class TimeType extends AbstractType

@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\Config;
+namespace Netgen\Layouts\Tests\API\Values\Config;
 
-use Netgen\BlockManager\API\Values\Config\Config;
-use Netgen\BlockManager\API\Values\Config\ConfigStruct;
-use Netgen\BlockManager\Config\ConfigDefinition;
-use Netgen\BlockManager\Config\ConfigDefinitionInterface;
-use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
-use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterType;
+use Netgen\Layouts\API\Values\Config\Config;
+use Netgen\Layouts\API\Values\Config\ConfigStruct;
+use Netgen\Layouts\Config\ConfigDefinition;
+use Netgen\Layouts\Config\ConfigDefinitionInterface;
+use Netgen\Layouts\Parameters\CompoundParameterDefinition;
+use Netgen\Layouts\Parameters\Parameter;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType;
 use PHPUnit\Framework\TestCase;
 
 final class ConfigStructTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Config\ConfigStruct
+     * @var \Netgen\Layouts\API\Values\Config\ConfigStruct
      */
     private $struct;
 
@@ -27,13 +27,13 @@ final class ConfigStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Config\ConfigStruct::fillParametersFromConfig
+     * @covers \Netgen\Layouts\API\Values\Config\ConfigStruct::fillParametersFromConfig
      */
     public function testFillParametersFromConfig(): void
     {
         $configDefinition = $this->buildConfigDefinition();
 
-        /** @var \Netgen\BlockManager\Parameters\CompoundParameterDefinition $compoundDefinition */
+        /** @var \Netgen\Layouts\Parameters\CompoundParameterDefinition $compoundDefinition */
         $compoundDefinition = $configDefinition->getParameterDefinition('compound');
 
         $config = Config::fromArray(
@@ -70,7 +70,7 @@ final class ConfigStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Config\ConfigStruct::fillParametersFromHash
+     * @covers \Netgen\Layouts\API\Values\Config\ConfigStruct::fillParametersFromHash
      */
     public function testFillParametersFromHash(): void
     {
@@ -97,7 +97,7 @@ final class ConfigStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Config\ConfigStruct::fillParametersFromHash
+     * @covers \Netgen\Layouts\API\Values\Config\ConfigStruct::fillParametersFromHash
      */
     public function testFillParametersFromHashWithMissingValues(): void
     {

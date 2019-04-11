@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\Collection;
+namespace Netgen\Layouts\Tests\API\Values\Collection;
 
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Collection\Item\ItemDefinition;
-use Netgen\BlockManager\Item\CmsItem;
-use Netgen\BlockManager\Item\CmsItemInterface;
-use Netgen\BlockManager\Item\NullCmsItem;
+use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\Collection\Item\ItemDefinition;
+use Netgen\Layouts\Item\CmsItem;
+use Netgen\Layouts\Item\CmsItemInterface;
+use Netgen\Layouts\Item\NullCmsItem;
 use PHPUnit\Framework\TestCase;
 
 final class ItemTest extends TestCase
@@ -20,12 +20,12 @@ final class ItemTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Collection\Item::getCmsItem
-     * @covers \Netgen\BlockManager\API\Values\Collection\Item::getCollectionId
-     * @covers \Netgen\BlockManager\API\Values\Collection\Item::getDefinition
-     * @covers \Netgen\BlockManager\API\Values\Collection\Item::getId
-     * @covers \Netgen\BlockManager\API\Values\Collection\Item::getPosition
-     * @covers \Netgen\BlockManager\API\Values\Collection\Item::getValue
+     * @covers \Netgen\Layouts\API\Values\Collection\Item::getCmsItem
+     * @covers \Netgen\Layouts\API\Values\Collection\Item::getCollectionId
+     * @covers \Netgen\Layouts\API\Values\Collection\Item::getDefinition
+     * @covers \Netgen\Layouts\API\Values\Collection\Item::getId
+     * @covers \Netgen\Layouts\API\Values\Collection\Item::getPosition
+     * @covers \Netgen\Layouts\API\Values\Collection\Item::getValue
      */
     public function testSetProperties(): void
     {
@@ -54,7 +54,7 @@ final class ItemTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Collection\Item::isValid
+     * @covers \Netgen\Layouts\API\Values\Collection\Item::isValid
      * @dataProvider isValidProvider
      */
     public function testIsValid(bool $cmsItemVisible, bool $isValid): void
@@ -70,7 +70,7 @@ final class ItemTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Collection\Item::isValid
+     * @covers \Netgen\Layouts\API\Values\Collection\Item::isValid
      */
     public function testIsValidWithNullCmsItem(): void
     {

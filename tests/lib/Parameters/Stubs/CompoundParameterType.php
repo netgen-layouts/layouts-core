@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\Stubs;
+namespace Netgen\Layouts\Tests\Parameters\Stubs;
 
-use Netgen\BlockManager\Parameters\CompoundParameterType as BaseCompoundParameterType;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\CompoundParameterType as BaseCompoundParameterType;
+use Netgen\Layouts\Parameters\ParameterDefinition;
 use Symfony\Component\Validator\Constraints\NotNull;
 
 final class CompoundParameterType extends BaseCompoundParameterType

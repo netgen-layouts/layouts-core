@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Collection\Stubs;
+namespace Netgen\Layouts\Tests\Collection\Stubs;
 
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
-use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionTrait;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
+use Netgen\Layouts\Parameters\ParameterDefinitionCollectionTrait;
 
 final class QueryType implements QueryTypeInterface
 {
@@ -23,7 +23,7 @@ final class QueryType implements QueryTypeInterface
     private $enabled;
 
     /**
-     * @var \Netgen\BlockManager\Tests\Collection\Stubs\QueryTypeHandler
+     * @var \Netgen\Layouts\Tests\Collection\Stubs\QueryTypeHandler
      */
     private $handler;
 

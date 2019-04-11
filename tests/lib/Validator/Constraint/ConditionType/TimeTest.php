@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Validator\Constraint\ConditionType;
+namespace Netgen\Layouts\Tests\Validator\Constraint\ConditionType;
 
-use Netgen\BlockManager\Validator\Constraint\ConditionType\Time;
+use Netgen\Layouts\Validator\Constraint\ConditionType\Time;
 use PHPUnit\Framework\TestCase;
 
 final class TimeTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Validator\Constraint\ConditionType\Time::validatedBy
+     * @covers \Netgen\Layouts\Validator\Constraint\ConditionType\Time::validatedBy
      */
     public function testValidatedBy(): void
     {

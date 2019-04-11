@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\ParamConverter\Layout;
 
-use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\API\Values\Value;
 use Netgen\Bundle\LayoutsBundle\ParamConverter\ParamConverter;
+use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\API\Values\Value;
 
 final class ZoneParamConverter extends ParamConverter
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutService
+     * @var \Netgen\Layouts\API\Service\LayoutService
      */
     private $layoutService;
 

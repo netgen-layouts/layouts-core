@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\HttpCache;
+namespace Netgen\Layouts\Tests\HttpCache;
 
 use FOS\HttpCache\CacheInvalidator;
 use FOS\HttpCache\Exception\ExceptionCollection;
-use Netgen\BlockManager\HttpCache\Layout\IdProviderInterface;
-use Netgen\BlockManager\HttpCache\VarnishClient;
+use Netgen\Layouts\HttpCache\Layout\IdProviderInterface;
+use Netgen\Layouts\HttpCache\VarnishClient;
 use PHPUnit\Framework\TestCase;
 
 final class VarnishClientTest extends TestCase
@@ -23,7 +23,7 @@ final class VarnishClientTest extends TestCase
     private $idProviderMock;
 
     /**
-     * @var \Netgen\BlockManager\HttpCache\VarnishClient
+     * @var \Netgen\Layouts\HttpCache\VarnishClient
      */
     private $client;
 
@@ -39,8 +39,8 @@ final class VarnishClientTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\VarnishClient::__construct
-     * @covers \Netgen\BlockManager\HttpCache\VarnishClient::invalidateLayouts
+     * @covers \Netgen\Layouts\HttpCache\VarnishClient::__construct
+     * @covers \Netgen\Layouts\HttpCache\VarnishClient::invalidateLayouts
      */
     public function testInvalidateLayouts(): void
     {
@@ -71,7 +71,7 @@ final class VarnishClientTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\VarnishClient::invalidateLayouts
+     * @covers \Netgen\Layouts\HttpCache\VarnishClient::invalidateLayouts
      */
     public function testInvalidateLayoutsWithEmptyLayoutIds(): void
     {
@@ -87,7 +87,7 @@ final class VarnishClientTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\VarnishClient::invalidateAllLayouts
+     * @covers \Netgen\Layouts\HttpCache\VarnishClient::invalidateAllLayouts
      */
     public function testInvalidateAllLayouts(): void
     {
@@ -110,7 +110,7 @@ final class VarnishClientTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\VarnishClient::invalidateBlocks
+     * @covers \Netgen\Layouts\HttpCache\VarnishClient::invalidateBlocks
      */
     public function testInvalidateBlocks(): void
     {
@@ -129,7 +129,7 @@ final class VarnishClientTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\VarnishClient::invalidateBlocks
+     * @covers \Netgen\Layouts\HttpCache\VarnishClient::invalidateBlocks
      */
     public function testInvalidateBlocksWithEmptyBlockIds(): void
     {
@@ -141,7 +141,7 @@ final class VarnishClientTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\VarnishClient::invalidateLayoutBlocks
+     * @covers \Netgen\Layouts\HttpCache\VarnishClient::invalidateLayoutBlocks
      */
     public function testInvalidateLayoutBlocks(): void
     {
@@ -160,7 +160,7 @@ final class VarnishClientTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\VarnishClient::invalidateLayoutBlocks
+     * @covers \Netgen\Layouts\HttpCache\VarnishClient::invalidateLayoutBlocks
      */
     public function testInvalidateLayoutBlocksWithEmptyLayoutIds(): void
     {
@@ -172,7 +172,7 @@ final class VarnishClientTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\VarnishClient::invalidateAllBlocks
+     * @covers \Netgen\Layouts\HttpCache\VarnishClient::invalidateAllBlocks
      */
     public function testInvalidateAllBlocks(): void
     {
@@ -191,7 +191,7 @@ final class VarnishClientTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\VarnishClient::commit
+     * @covers \Netgen\Layouts\HttpCache\VarnishClient::commit
      */
     public function testCommit(): void
     {
@@ -203,7 +203,7 @@ final class VarnishClientTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\VarnishClient::commit
+     * @covers \Netgen\Layouts\HttpCache\VarnishClient::commit
      */
     public function testCommitReturnsFalse(): void
     {

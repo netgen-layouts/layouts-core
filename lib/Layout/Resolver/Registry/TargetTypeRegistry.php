@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Layout\Resolver\Registry;
+namespace Netgen\Layouts\Layout\Resolver\Registry;
 
 use ArrayIterator;
-use Netgen\BlockManager\Exception\Layout\TargetTypeException;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
+use Netgen\Layouts\Exception\Layout\TargetTypeException;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Layout\Resolver\TargetTypeInterface;
 use Traversable;
 
 final class TargetTypeRegistry implements TargetTypeRegistryInterface
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface[]
+     * @var \Netgen\Layouts\Layout\Resolver\TargetTypeInterface[]
      */
     private $targetTypes = [];
 

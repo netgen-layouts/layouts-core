@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Validator\Structs;
+namespace Netgen\Layouts\Validator\Structs;
 
-use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
-use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
-use Netgen\BlockManager\Validator\Constraint\BlockViewType;
-use Netgen\BlockManager\Validator\Constraint\Structs\BlockCreateStruct as BlockCreateStructConstraint;
-use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
+use Netgen\Layouts\API\Values\Block\BlockCreateStruct;
+use Netgen\Layouts\Validator\Constraint\BlockItemViewType;
+use Netgen\Layouts\Validator\Constraint\BlockViewType;
+use Netgen\Layouts\Validator\Constraint\Structs\BlockCreateStruct as BlockCreateStructConstraint;
+use Netgen\Layouts\Validator\Constraint\Structs\ParameterStruct;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\ConstraintValidator;

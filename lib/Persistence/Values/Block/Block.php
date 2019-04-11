@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Persistence\Values\Block;
+namespace Netgen\Layouts\Persistence\Values\Block;
 
-use Netgen\BlockManager\Persistence\Values\Value;
-use Netgen\BlockManager\Utils\HydratorTrait;
+use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Utils\HydratorTrait;
 
 final class Block extends Value
 {

@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters;
+namespace Netgen\Layouts\Tests\Parameters;
 
-use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
-use Netgen\BlockManager\Parameters\TranslatableParameterBuilder;
-use Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory;
+use Netgen\Layouts\Parameters\ParameterType;
+use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
+use Netgen\Layouts\Parameters\TranslatableParameterBuilder;
+use Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory;
 use PHPUnit\Framework\TestCase;
 
 final class TranslatableParameterBuilderFactoryTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface
+     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistryInterface
      */
     private $registry;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory
+     * @var \Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory
      */
     private $factory;
 
@@ -35,8 +35,8 @@ final class TranslatableParameterBuilderFactoryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory::createParameterBuilder
-     * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory::resolveOptions
+     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory::createParameterBuilder
+     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory::resolveOptions
      */
     public function testCreateParameterBuilder(): void
     {
@@ -49,8 +49,8 @@ final class TranslatableParameterBuilderFactoryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory::createParameterBuilder
-     * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory::resolveOptions
+     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory::createParameterBuilder
+     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory::resolveOptions
      */
     public function testCreateParameterBuilderWithNoOptions(): void
     {
@@ -72,8 +72,8 @@ final class TranslatableParameterBuilderFactoryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory::createParameterBuilder
-     * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory::resolveOptions
+     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory::createParameterBuilder
+     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory::resolveOptions
      */
     public function testCreateParameterBuilderWithConfig(): void
     {

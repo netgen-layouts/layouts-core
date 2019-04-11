@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Core\Validator;
+namespace Netgen\Layouts\Core\Validator;
 
-use Netgen\BlockManager\Validator\Constraint\Locale as LocaleConstraint;
-use Netgen\BlockManager\Validator\ValidatorTrait;
+use Netgen\Layouts\Validator\Constraint\Locale as LocaleConstraint;
+use Netgen\Layouts\Validator\ValidatorTrait;
 use Symfony\Component\Validator\Constraints;
 
 abstract class Validator
@@ -20,7 +20,7 @@ abstract class Validator
      * @param int|string $id
      * @param string $propertyPath
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
     public function validateId($id, ?string $propertyPath = null): void
     {
@@ -41,7 +41,7 @@ abstract class Validator
      *
      * Use the $propertyPath to change the name of the validated property in the error message.
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
     public function validateIdentifier(string $identifier, ?string $propertyPath = null): void
     {
@@ -64,7 +64,7 @@ abstract class Validator
      *
      * Use the $propertyPath to change the name of the validated property in the error message.
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
     public function validatePosition(?int $position, ?string $propertyPath = null, bool $isRequired = false): void
     {
@@ -83,7 +83,7 @@ abstract class Validator
     /**
      * Validates the provided offset and limit values to be integers.
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
     public function validateOffsetAndLimit(?int $offset, ?int $limit): void
     {
@@ -109,7 +109,7 @@ abstract class Validator
     /**
      * Validates the provided locale.
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
     public function validateLocale(string $locale, ?string $propertyPath = null): void
     {

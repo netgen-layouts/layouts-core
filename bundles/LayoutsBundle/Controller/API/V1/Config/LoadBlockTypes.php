@@ -4,22 +4,22 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Controller\API\V1\Config;
 
-use Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistryInterface;
-use Netgen\BlockManager\Block\Registry\BlockTypeRegistryInterface;
-use Netgen\BlockManager\Serializer\Values\Value;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Serializer\Version;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
+use Netgen\Layouts\Block\Registry\BlockTypeGroupRegistryInterface;
+use Netgen\Layouts\Block\Registry\BlockTypeRegistryInterface;
+use Netgen\Layouts\Serializer\Values\Value;
+use Netgen\Layouts\Serializer\Values\VersionedValue;
+use Netgen\Layouts\Serializer\Version;
 
 final class LoadBlockTypes extends AbstractController
 {
     /**
-     * @var \Netgen\BlockManager\Block\Registry\BlockTypeRegistryInterface
+     * @var \Netgen\Layouts\Block\Registry\BlockTypeRegistryInterface
      */
     private $blockTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistryInterface
+     * @var \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistryInterface
      */
     private $blockTypeGroupRegistry;
 

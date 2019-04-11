@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Serializer\Normalizer\V1;
+namespace Netgen\Layouts\Serializer\Normalizer\V1;
 
 use Generator;
-use Netgen\BlockManager\Collection\Item\VisibilityResolverInterface;
-use Netgen\BlockManager\Collection\Result\ManualItem;
-use Netgen\BlockManager\Collection\Result\Result;
-use Netgen\BlockManager\Exception\Item\ItemException;
-use Netgen\BlockManager\Item\CmsItemInterface;
-use Netgen\BlockManager\Item\UrlGeneratorInterface;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Serializer\Version;
+use Netgen\Layouts\Collection\Item\VisibilityResolverInterface;
+use Netgen\Layouts\Collection\Result\ManualItem;
+use Netgen\Layouts\Collection\Result\Result;
+use Netgen\Layouts\Exception\Item\ItemException;
+use Netgen\Layouts\Item\CmsItemInterface;
+use Netgen\Layouts\Item\UrlGeneratorInterface;
+use Netgen\Layouts\Serializer\Values\VersionedValue;
+use Netgen\Layouts\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -22,12 +22,12 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
     use NormalizerAwareTrait;
 
     /**
-     * @var \Netgen\BlockManager\Item\UrlGeneratorInterface
+     * @var \Netgen\Layouts\Item\UrlGeneratorInterface
      */
     private $urlGenerator;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Item\VisibilityResolverInterface
+     * @var \Netgen\Layouts\Collection\Item\VisibilityResolverInterface
      */
     private $visibilityResolver;
 
@@ -39,7 +39,7 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
 
     public function normalize($object, $format = null, array $context = [])
     {
-        /** @var \Netgen\BlockManager\Collection\Result\Result $result */
+        /** @var \Netgen\Layouts\Collection\Result\Result $result */
         $result = $object->getValue();
 
         $mainItem = $result->getSubItem() instanceof CmsItemInterface ? $result->getSubItem() : $result->getItem();

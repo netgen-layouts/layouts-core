@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Validator\Constraint;
+namespace Netgen\Layouts\Validator\Constraint;
 
 use Symfony\Component\Validator\Constraint;
 
@@ -16,7 +16,7 @@ final class BlockViewType extends Constraint
     /**
      * Block definition used to check the view type against.
      *
-     * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
+     * @var \Netgen\Layouts\Block\BlockDefinitionInterface
      */
     public $definition;
 

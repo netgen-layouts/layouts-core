@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\Templating\Twig\Runtime;
 
-use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\HelpersRuntime;
+use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\Exception\NotFoundException;
 use PHPUnit\Framework\TestCase;
 
 final class HelpersRuntimeTest extends TestCase

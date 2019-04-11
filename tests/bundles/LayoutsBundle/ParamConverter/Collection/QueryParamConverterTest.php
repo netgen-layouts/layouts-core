@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\ParamConverter\Collection;
 
-use Netgen\BlockManager\API\Service\CollectionService;
-use Netgen\BlockManager\API\Values\Collection\Query;
 use Netgen\Bundle\LayoutsBundle\ParamConverter\Collection\QueryParamConverter;
+use Netgen\Layouts\API\Service\CollectionService;
+use Netgen\Layouts\API\Values\Collection\Query;
 use PHPUnit\Framework\TestCase;
 
 final class QueryParamConverterTest extends TestCase

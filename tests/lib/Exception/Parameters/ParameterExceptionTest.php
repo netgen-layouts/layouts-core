@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Exception\Parameters;
+namespace Netgen\Layouts\Tests\Exception\Parameters;
 
-use Netgen\BlockManager\Exception\Parameters\ParameterException;
+use Netgen\Layouts\Exception\Parameters\ParameterException;
 use PHPUnit\Framework\TestCase;
 
 final class ParameterExceptionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Exception\Parameters\ParameterException::noParameter
+     * @covers \Netgen\Layouts\Exception\Parameters\ParameterException::noParameter
      */
     public function testNoParameter(): void
     {
@@ -23,7 +23,7 @@ final class ParameterExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\Parameters\ParameterException::noParameterDefinition
+     * @covers \Netgen\Layouts\Exception\Parameters\ParameterException::noParameterDefinition
      */
     public function testNoParameterDefinition(): void
     {
@@ -36,7 +36,7 @@ final class ParameterExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\Parameters\ParameterException::noOption
+     * @covers \Netgen\Layouts\Exception\Parameters\ParameterException::noOption
      */
     public function testNoOption(): void
     {

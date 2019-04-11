@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Parameters\ParameterType;
+namespace Netgen\Layouts\Parameters\ParameterType;
 
-use Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
-use Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink as ItemLinkConstraint;
+use Netgen\Layouts\Item\Registry\ValueTypeRegistryInterface;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType;
+use Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter;
+use Netgen\Layouts\Validator\Constraint\Parameters\ItemLink as ItemLinkConstraint;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
@@ -19,12 +19,12 @@ use Symfony\Component\Validator\Constraints;
 final class ItemLinkType extends ParameterType
 {
     /**
-     * @var \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface
+     * @var \Netgen\Layouts\Item\Registry\ValueTypeRegistryInterface
      */
     private $valueTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter
+     * @var \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter
      */
     private $remoteIdConverter;
 

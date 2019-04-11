@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\EventListener\HttpCache;
 
-use Netgen\BlockManager\HttpCache\TaggerInterface;
-use Netgen\BlockManager\View\View\BlockViewInterface;
+use Netgen\Layouts\HttpCache\TaggerInterface;
+use Netgen\Layouts\View\View\BlockViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 final class BlockResponseListener implements EventSubscriberInterface
 {
     /**
-     * @var \Netgen\BlockManager\HttpCache\TaggerInterface
+     * @var \Netgen\Layouts\HttpCache\TaggerInterface
      */
     private $tagger;
 

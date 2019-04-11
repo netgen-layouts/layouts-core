@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Layout;
 
 use Generator;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Layout\Type\LayoutType;
-use Netgen\BlockManager\Layout\Type\LayoutTypeFactory;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Layout\Type\LayoutType;
+use Netgen\Layouts\Layout\Type\LayoutTypeFactory;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -54,7 +54,7 @@ final class LayoutTypePass implements CompilerPassInterface
     /**
      * Validates layout type config.
      *
-     * @throws \Netgen\BlockManager\Exception\RuntimeException If validation failed
+     * @throws \Netgen\Layouts\Exception\RuntimeException If validation failed
      */
     private function validateLayoutTypes(array $layoutTypes, array $blockDefinitions): void
     {

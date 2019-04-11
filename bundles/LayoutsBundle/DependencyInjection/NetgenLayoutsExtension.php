@@ -5,21 +5,21 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\DependencyInjection;
 
 use Jean85\PrettyVersions;
-use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
-use Netgen\BlockManager\Block\BlockDefinition\Handler\PluginInterface;
-use Netgen\BlockManager\Collection\Item\VisibilityVoterInterface;
-use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
-use Netgen\BlockManager\Context\ContextProviderInterface;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
-use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\MapperInterface as ConditionTypeFormMapperInterface;
-use Netgen\BlockManager\Layout\Resolver\Form\TargetType\MapperInterface as TargetTypeFormMapperInterface;
-use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
-use Netgen\BlockManager\Parameters\Form\MapperInterface as ParameterTypeFormMapperInterface;
-use Netgen\BlockManager\Parameters\ParameterTypeInterface;
-use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\TargetHandlerInterface;
-use Netgen\BlockManager\Transfer\Output\VisitorInterface;
-use Netgen\BlockManager\View\Provider\ViewProviderInterface;
+use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface;
+use Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface;
+use Netgen\Layouts\Collection\Item\VisibilityVoterInterface;
+use Netgen\Layouts\Collection\QueryType\QueryTypeHandlerInterface;
+use Netgen\Layouts\Context\ContextProviderInterface;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Layout\Resolver\ConditionTypeInterface;
+use Netgen\Layouts\Layout\Resolver\Form\ConditionType\MapperInterface as ConditionTypeFormMapperInterface;
+use Netgen\Layouts\Layout\Resolver\Form\TargetType\MapperInterface as TargetTypeFormMapperInterface;
+use Netgen\Layouts\Layout\Resolver\TargetTypeInterface;
+use Netgen\Layouts\Parameters\Form\MapperInterface as ParameterTypeFormMapperInterface;
+use Netgen\Layouts\Parameters\ParameterTypeInterface;
+use Netgen\Layouts\Persistence\Doctrine\QueryHandler\TargetHandlerInterface;
+use Netgen\Layouts\Transfer\Output\VisitorInterface;
+use Netgen\Layouts\View\Provider\ViewProviderInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\DelegatingLoader;
@@ -58,7 +58,7 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
     /**
      * Returns the plugin by name. Name of the plugin is its fully qualified class name.
      *
-     * @throws \Netgen\BlockManager\Exception\RuntimeException If the specified plugin does not exist
+     * @throws \Netgen\Layouts\Exception\RuntimeException If the specified plugin does not exist
      */
     public function getPlugin(string $pluginName): ExtensionPluginInterface
     {

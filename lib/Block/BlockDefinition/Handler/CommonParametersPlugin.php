@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
+namespace Netgen\Layouts\Block\BlockDefinition\Handler;
 
-use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
-use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
-use Netgen\BlockManager\Parameters\ParameterType;
+use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface;
+use Netgen\Layouts\Parameters\ParameterBuilderInterface;
+use Netgen\Layouts\Parameters\ParameterType;
 
 /**
  * Block plugin which adds 3 parameters (css_class, css_id and set_container)

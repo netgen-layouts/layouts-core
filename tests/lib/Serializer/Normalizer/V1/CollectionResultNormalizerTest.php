@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
+namespace Netgen\Layouts\Tests\Serializer\Normalizer\V1;
 
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\Collection\Item\VisibilityResolver;
-use Netgen\BlockManager\Collection\Result\ManualItem;
-use Netgen\BlockManager\Collection\Result\Result;
-use Netgen\BlockManager\Item\CmsItem;
-use Netgen\BlockManager\Item\UrlGeneratorInterface;
-use Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
+use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\Collection\Item\VisibilityResolver;
+use Netgen\Layouts\Collection\Result\ManualItem;
+use Netgen\Layouts\Collection\Result\Result;
+use Netgen\Layouts\Item\CmsItem;
+use Netgen\Layouts\Item\UrlGeneratorInterface;
+use Netgen\Layouts\Serializer\Normalizer\V1\CollectionResultNormalizer;
+use Netgen\Layouts\Serializer\Values\VersionedValue;
+use Netgen\Layouts\Tests\API\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
@@ -29,7 +29,7 @@ final class CollectionResultNormalizerTest extends TestCase
     private $urlGeneratorMock;
 
     /**
-     * @var \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer
+     * @var \Netgen\Layouts\Serializer\Normalizer\V1\CollectionResultNormalizer
      */
     private $normalizer;
 
@@ -43,10 +43,10 @@ final class CollectionResultNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer::__construct
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer::buildVersionedValues
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer::normalize
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer::normalizeResultItem
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\CollectionResultNormalizer::__construct
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\CollectionResultNormalizer::buildVersionedValues
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\CollectionResultNormalizer::normalize
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\CollectionResultNormalizer::normalizeResultItem
      */
     public function testNormalize(): void
     {
@@ -102,8 +102,8 @@ final class CollectionResultNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer::normalize
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer::normalizeResultItem
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\CollectionResultNormalizer::normalize
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\CollectionResultNormalizer::normalizeResultItem
      */
     public function testNormalizeWithoutCollectionItem(): void
     {
@@ -147,8 +147,8 @@ final class CollectionResultNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer::normalize
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer::normalizeResultItem
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\CollectionResultNormalizer::normalize
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\CollectionResultNormalizer::normalizeResultItem
      */
     public function testNormalizeWithSubItem(): void
     {
@@ -226,7 +226,7 @@ final class CollectionResultNormalizerTest extends TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultNormalizer::supportsNormalization
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\CollectionResultNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, bool $expected): void

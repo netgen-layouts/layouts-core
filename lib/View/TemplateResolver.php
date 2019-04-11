@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View;
+namespace Netgen\Layouts\View;
 
 use Generator;
-use Netgen\BlockManager\Exception\View\TemplateResolverException;
-use Netgen\BlockManager\View\Matcher\MatcherInterface;
+use Netgen\Layouts\Exception\View\TemplateResolverException;
+use Netgen\Layouts\View\Matcher\MatcherInterface;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
 /**
@@ -15,7 +15,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 class TemplateResolver implements TemplateResolverInterface
 {
     /**
-     * @var \Netgen\BlockManager\View\Matcher\MatcherInterface[]
+     * @var \Netgen\Layouts\View\Matcher\MatcherInterface[]
      */
     private $matchers;
 
@@ -25,7 +25,7 @@ class TemplateResolver implements TemplateResolverInterface
     private $viewConfig;
 
     /**
-     * @param \Netgen\BlockManager\View\Matcher\MatcherInterface[] $matchers
+     * @param \Netgen\Layouts\View\Matcher\MatcherInterface[] $matchers
      * @param array<string, array<string, mixed>> $viewConfig
      */
     public function __construct(array $matchers, array $viewConfig)

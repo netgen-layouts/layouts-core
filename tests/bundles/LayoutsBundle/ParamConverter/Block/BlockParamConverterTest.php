@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\ParamConverter\Block;
 
-use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\Bundle\LayoutsBundle\ParamConverter\Block\BlockParamConverter;
+use Netgen\Layouts\API\Service\BlockService;
+use Netgen\Layouts\API\Values\Block\Block;
 use PHPUnit\Framework\TestCase;
 
 final class BlockParamConverterTest extends TestCase

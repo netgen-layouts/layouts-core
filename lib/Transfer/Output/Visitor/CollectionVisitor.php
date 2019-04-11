@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Transfer\Output\Visitor;
+namespace Netgen\Layouts\Transfer\Output\Visitor;
 
 use Generator;
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\ItemList;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Transfer\Output\VisitorInterface;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\ItemList;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 /**
  * Collection value visitor.
  *
- * @see \Netgen\BlockManager\API\Values\Collection\Collection
+ * @see \Netgen\Layouts\API\Values\Collection\Collection
  */
 final class CollectionVisitor implements VisitorInterface
 {
@@ -23,8 +23,8 @@ final class CollectionVisitor implements VisitorInterface
     }
 
     /**
-     * @param \Netgen\BlockManager\API\Values\Collection\Collection $value
-     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface|null $subVisitor
+     * @param \Netgen\Layouts\API\Values\Collection\Collection $value
+     * @param \Netgen\Layouts\Transfer\Output\VisitorInterface|null $subVisitor
      *
      * @return mixed
      */

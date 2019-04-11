@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Block\Registry;
+namespace Netgen\Layouts\Block\Registry;
 
 use ArrayIterator;
-use Netgen\BlockManager\Block\BlockType\BlockType;
-use Netgen\BlockManager\Exception\Block\BlockTypeException;
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\Layouts\Block\BlockType\BlockType;
+use Netgen\Layouts\Exception\Block\BlockTypeException;
+use Netgen\Layouts\Exception\RuntimeException;
 use Traversable;
 
 final class BlockTypeRegistry implements BlockTypeRegistryInterface
 {
     /**
-     * @var \Netgen\BlockManager\Block\BlockType\BlockType[]
+     * @var \Netgen\Layouts\Block\BlockType\BlockType[]
      */
     private $blockTypes;
 
     /**
-     * @param \Netgen\BlockManager\Block\BlockType\BlockType[] $blockTypes
+     * @param \Netgen\Layouts\Block\BlockType\BlockType[] $blockTypes
      */
     public function __construct(array $blockTypes)
     {

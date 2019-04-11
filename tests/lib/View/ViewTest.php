@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View;
+namespace Netgen\Layouts\Tests\View;
 
-use Netgen\BlockManager\Exception\View\ViewException;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\View\Stubs\View;
+use Netgen\Layouts\Exception\View\ViewException;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\View\Stubs\View;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 final class ViewTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\View\ViewInterface
+     * @var \Netgen\Layouts\View\ViewInterface
      */
     private $view;
 
     /**
-     * @var \Netgen\BlockManager\Tests\API\Stubs\Value
+     * @var \Netgen\Layouts\Tests\API\Stubs\Value
      */
     private $value;
 
@@ -30,8 +30,8 @@ final class ViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View::getContext
-     * @covers \Netgen\BlockManager\View\View::setContext
+     * @covers \Netgen\Layouts\View\View::getContext
+     * @covers \Netgen\Layouts\View\View::setContext
      */
     public function testSetContext(): void
     {
@@ -41,8 +41,8 @@ final class ViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View::getTemplate
-     * @covers \Netgen\BlockManager\View\View::setTemplate
+     * @covers \Netgen\Layouts\View\View::getTemplate
+     * @covers \Netgen\Layouts\View\View::setTemplate
      */
     public function testSetTemplate(): void
     {
@@ -52,7 +52,7 @@ final class ViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View::getFallbackContext
+     * @covers \Netgen\Layouts\View\View::getFallbackContext
      */
     public function testGetFallbackContext(): void
     {
@@ -60,7 +60,7 @@ final class ViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View::setFallbackContext
+     * @covers \Netgen\Layouts\View\View::setFallbackContext
      */
     public function testSetFallbackContext(): void
     {
@@ -70,7 +70,7 @@ final class ViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View::getResponse
+     * @covers \Netgen\Layouts\View\View::getResponse
      */
     public function testGetDefaultResponse(): void
     {
@@ -78,8 +78,8 @@ final class ViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View::getResponse
-     * @covers \Netgen\BlockManager\View\View::setResponse
+     * @covers \Netgen\Layouts\View\View::getResponse
+     * @covers \Netgen\Layouts\View\View::setResponse
      */
     public function testSetResponse(): void
     {
@@ -91,8 +91,8 @@ final class ViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View::addParameter
-     * @covers \Netgen\BlockManager\View\View::hasParameter
+     * @covers \Netgen\Layouts\View\View::addParameter
+     * @covers \Netgen\Layouts\View\View::hasParameter
      */
     public function testHasParameter(): void
     {
@@ -102,8 +102,8 @@ final class ViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View::addParameter
-     * @covers \Netgen\BlockManager\View\View::hasParameter
+     * @covers \Netgen\Layouts\View\View::addParameter
+     * @covers \Netgen\Layouts\View\View::hasParameter
      */
     public function testHasParameterWithNoParam(): void
     {
@@ -113,8 +113,8 @@ final class ViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View::addParameter
-     * @covers \Netgen\BlockManager\View\View::getParameter
+     * @covers \Netgen\Layouts\View\View::addParameter
+     * @covers \Netgen\Layouts\View\View::getParameter
      */
     public function testGetParameter(): void
     {
@@ -124,8 +124,8 @@ final class ViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View::addParameter
-     * @covers \Netgen\BlockManager\View\View::getParameter
+     * @covers \Netgen\Layouts\View\View::addParameter
+     * @covers \Netgen\Layouts\View\View::getParameter
      */
     public function testGetParameterWithBuiltInParameter(): void
     {
@@ -135,13 +135,13 @@ final class ViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View::addParameter
-     * @covers \Netgen\BlockManager\View\View::getParameter
+     * @covers \Netgen\Layouts\View\View::addParameter
+     * @covers \Netgen\Layouts\View\View::getParameter
      */
     public function testGetParameterThrowsViewException(): void
     {
         $this->expectException(ViewException::class);
-        $this->expectExceptionMessage('Parameter with "other_param" name was not found in "Netgen\\BlockManager\\Tests\\View\\Stubs\\View" view.');
+        $this->expectExceptionMessage('Parameter with "other_param" name was not found in "Netgen\\Layouts\\Tests\\View\\Stubs\\View" view.');
 
         $this->view->addParameter('param', 'value');
 
@@ -149,7 +149,7 @@ final class ViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View::addParameters
+     * @covers \Netgen\Layouts\View\View::addParameters
      */
     public function testAddParameters(): void
     {

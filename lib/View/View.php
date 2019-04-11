@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View;
+namespace Netgen\Layouts\View;
 
-use Netgen\BlockManager\Exception\View\ViewException;
+use Netgen\Layouts\Exception\View\ViewException;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class View implements ViewInterface

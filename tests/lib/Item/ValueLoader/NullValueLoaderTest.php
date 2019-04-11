@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Item\ValueLoader;
+namespace Netgen\Layouts\Tests\Item\ValueLoader;
 
-use Netgen\BlockManager\Item\ValueLoader\NullValueLoader;
+use Netgen\Layouts\Item\ValueLoader\NullValueLoader;
 use PHPUnit\Framework\TestCase;
 
 final class NullValueLoaderTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Item\ValueLoader\NullValueLoader
+     * @var \Netgen\Layouts\Item\ValueLoader\NullValueLoader
      */
     private $valueLoader;
 
@@ -20,7 +20,7 @@ final class NullValueLoaderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\ValueLoader\NullValueLoader::load
+     * @covers \Netgen\Layouts\Item\ValueLoader\NullValueLoader::load
      */
     public function testLoad(): void
     {
@@ -28,7 +28,7 @@ final class NullValueLoaderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\ValueLoader\NullValueLoader::loadByRemoteId
+     * @covers \Netgen\Layouts\Item\ValueLoader\NullValueLoader::loadByRemoteId
      */
     public function testLoadByRemoteId(): void
     {

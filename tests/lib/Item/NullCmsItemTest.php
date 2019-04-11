@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Item;
+namespace Netgen\Layouts\Tests\Item;
 
-use Netgen\BlockManager\Item\NullCmsItem;
+use Netgen\Layouts\Item\NullCmsItem;
 use PHPUnit\Framework\TestCase;
 
 final class NullCmsItemTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Item\NullCmsItem::__construct
-     * @covers \Netgen\BlockManager\Item\NullCmsItem::getName
-     * @covers \Netgen\BlockManager\Item\NullCmsItem::getObject
-     * @covers \Netgen\BlockManager\Item\NullCmsItem::getRemoteId
-     * @covers \Netgen\BlockManager\Item\NullCmsItem::getValue
-     * @covers \Netgen\BlockManager\Item\NullCmsItem::getValueType
-     * @covers \Netgen\BlockManager\Item\NullCmsItem::isVisible
+     * @covers \Netgen\Layouts\Item\NullCmsItem::__construct
+     * @covers \Netgen\Layouts\Item\NullCmsItem::getName
+     * @covers \Netgen\Layouts\Item\NullCmsItem::getObject
+     * @covers \Netgen\Layouts\Item\NullCmsItem::getRemoteId
+     * @covers \Netgen\Layouts\Item\NullCmsItem::getValue
+     * @covers \Netgen\Layouts\Item\NullCmsItem::getValueType
+     * @covers \Netgen\Layouts\Item\NullCmsItem::isVisible
      */
     public function testObject(): void
     {

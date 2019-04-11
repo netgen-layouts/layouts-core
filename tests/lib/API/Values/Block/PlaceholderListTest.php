@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\Block;
+namespace Netgen\Layouts\Tests\API\Values\Block;
 
-use Netgen\BlockManager\API\Values\Block\Placeholder;
-use Netgen\BlockManager\API\Values\Block\PlaceholderList;
+use Netgen\Layouts\API\Values\Block\Placeholder;
+use Netgen\Layouts\API\Values\Block\PlaceholderList;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use TypeError;
@@ -13,7 +13,7 @@ use TypeError;
 final class PlaceholderListTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\API\Values\Block\PlaceholderList::__construct
+     * @covers \Netgen\Layouts\API\Values\Block\PlaceholderList::__construct
      */
     public function testConstructorWithInvalidType(): void
     {
@@ -32,8 +32,8 @@ final class PlaceholderListTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Block\PlaceholderList::__construct
-     * @covers \Netgen\BlockManager\API\Values\Block\PlaceholderList::getPlaceholders
+     * @covers \Netgen\Layouts\API\Values\Block\PlaceholderList::__construct
+     * @covers \Netgen\Layouts\API\Values\Block\PlaceholderList::getPlaceholders
      */
     public function testGetPlaceholders(): void
     {
@@ -43,7 +43,7 @@ final class PlaceholderListTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Block\PlaceholderList::getPlaceholderIdentifiers
+     * @covers \Netgen\Layouts\API\Values\Block\PlaceholderList::getPlaceholderIdentifiers
      */
     public function testGetPlaceholderIdentifiers(): void
     {

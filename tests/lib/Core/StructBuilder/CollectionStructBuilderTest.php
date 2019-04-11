@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\StructBuilder;
+namespace Netgen\Layouts\Tests\Core\StructBuilder;
 
-use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
-use Netgen\BlockManager\Collection\Item\ItemDefinition;
-use Netgen\BlockManager\Core\StructBuilder\CollectionStructBuilder;
-use Netgen\BlockManager\Core\StructBuilder\ConfigStructBuilder;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
-use Netgen\BlockManager\Tests\Core\CoreTestCase;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
+use Netgen\Layouts\API\Values\Collection\QueryCreateStruct;
+use Netgen\Layouts\Collection\Item\ItemDefinition;
+use Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder;
+use Netgen\Layouts\Core\StructBuilder\ConfigStructBuilder;
+use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
+use Netgen\Layouts\Tests\Core\CoreTestCase;
+use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 
 abstract class CollectionStructBuilderTest extends CoreTestCase
 {
     use ExportObjectTrait;
 
     /**
-     * @var \Netgen\BlockManager\Core\StructBuilder\CollectionStructBuilder
+     * @var \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder
      */
     private $structBuilder;
 
@@ -29,8 +29,8 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\StructBuilder\CollectionStructBuilder::__construct
-     * @covers \Netgen\BlockManager\Core\StructBuilder\CollectionStructBuilder::newCollectionCreateStruct
+     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::__construct
+     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::newCollectionCreateStruct
      */
     public function testNewCollectionCreateStruct(): void
     {
@@ -48,7 +48,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\StructBuilder\CollectionStructBuilder::newCollectionUpdateStruct
+     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::newCollectionUpdateStruct
      */
     public function testNewCollectionUpdateStruct(): void
     {
@@ -64,7 +64,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\StructBuilder\CollectionStructBuilder::newCollectionUpdateStruct
+     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::newCollectionUpdateStruct
      */
     public function testNewCollectionUpdateStructWithCollection(): void
     {
@@ -82,7 +82,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\StructBuilder\CollectionStructBuilder::newCollectionUpdateStruct
+     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::newCollectionUpdateStruct
      */
     public function testNewCollectionUpdateStructWithUnlimitedCollection(): void
     {
@@ -100,7 +100,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\StructBuilder\CollectionStructBuilder::newItemCreateStruct
+     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::newItemCreateStruct
      */
     public function testNewItemCreateStruct(): void
     {
@@ -118,7 +118,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\StructBuilder\CollectionStructBuilder::newItemUpdateStruct
+     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::newItemUpdateStruct
      */
     public function testNewItemUpdateStruct(): void
     {
@@ -133,7 +133,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\StructBuilder\CollectionStructBuilder::newItemUpdateStruct
+     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::newItemUpdateStruct
      */
     public function testNewItemUpdateStructFromItem(): void
     {
@@ -158,7 +158,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\StructBuilder\CollectionStructBuilder::newQueryCreateStruct
+     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::newQueryCreateStruct
      */
     public function testNewQueryCreateStruct(): void
     {
@@ -179,7 +179,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\StructBuilder\CollectionStructBuilder::newQueryUpdateStruct
+     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::newQueryUpdateStruct
      */
     public function testNewQueryUpdateStruct(): void
     {
@@ -195,7 +195,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\StructBuilder\CollectionStructBuilder::newQueryUpdateStruct
+     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::newQueryUpdateStruct
      */
     public function testNewQueryUpdateStructFromQuery(): void
     {

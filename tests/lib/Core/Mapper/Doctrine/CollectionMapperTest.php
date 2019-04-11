@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\Mapper\Doctrine;
+namespace Netgen\Layouts\Tests\Core\Mapper\Doctrine;
 
-use Netgen\BlockManager\Tests\Core\Mapper\CollectionMapperTest as BaseCollectionMapperTest;
-use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
+use Netgen\Layouts\Tests\Core\Mapper\CollectionMapperTest as BaseCollectionMapperTest;
+use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 
 final class CollectionMapperTest extends BaseCollectionMapperTest
 {

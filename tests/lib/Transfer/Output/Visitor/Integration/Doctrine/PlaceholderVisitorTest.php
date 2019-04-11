@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Transfer\Output\Visitor\Integration\Doctrine;
+namespace Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration\Doctrine;
 
-use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
-use Netgen\BlockManager\Tests\Transfer\Output\Visitor\Integration\PlaceholderVisitorTest as BasePlaceholderVisitorTest;
+use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
+use Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration\PlaceholderVisitorTest as BasePlaceholderVisitorTest;
 
 /**
- * @covers \Netgen\BlockManager\Transfer\Output\Visitor\PlaceholderVisitor
+ * @covers \Netgen\Layouts\Transfer\Output\Visitor\PlaceholderVisitor
  */
 final class PlaceholderVisitorTest extends BasePlaceholderVisitorTest
 {

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\EventListener;
 
-use Netgen\BlockManager\Error\ErrorHandlerInterface;
-use Netgen\BlockManager\View\ViewInterface;
-use Netgen\BlockManager\View\ViewRendererInterface;
+use Netgen\Layouts\Error\ErrorHandlerInterface;
+use Netgen\Layouts\View\ViewInterface;
+use Netgen\Layouts\View\ViewRendererInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
@@ -16,12 +16,12 @@ use Throwable;
 final class ViewRendererListener implements EventSubscriberInterface
 {
     /**
-     * @var \Netgen\BlockManager\View\ViewRendererInterface
+     * @var \Netgen\Layouts\View\ViewRendererInterface
      */
     private $viewRenderer;
 
     /**
-     * @var \Netgen\BlockManager\Error\ErrorHandlerInterface
+     * @var \Netgen\Layouts\Error\ErrorHandlerInterface
      */
     private $errorHandler;
 

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View\Provider;
+namespace Netgen\Layouts\View\Provider;
 
-use Netgen\BlockManager\API\Values\Block\BlockList;
-use Netgen\BlockManager\Exception\View\ViewProviderException;
-use Netgen\BlockManager\View\View\ZoneView;
-use Netgen\BlockManager\View\View\ZoneView\ZoneReference;
-use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Layouts\API\Values\Block\BlockList;
+use Netgen\Layouts\Exception\View\ViewProviderException;
+use Netgen\Layouts\View\View\ZoneView;
+use Netgen\Layouts\View\View\ZoneView\ZoneReference;
+use Netgen\Layouts\View\ViewInterface;
 
 final class ZoneViewProvider implements ViewProviderInterface
 {

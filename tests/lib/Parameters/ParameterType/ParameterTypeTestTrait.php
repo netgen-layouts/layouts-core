@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
+namespace Netgen\Layouts\Tests\Parameters\ParameterType;
 
-use Netgen\BlockManager\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterDefinition;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 trait ParameterTypeTestTrait
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterTypeInterface
+     * @var \Netgen\Layouts\Parameters\ParameterTypeInterface
      */
     private $type;
 
@@ -21,7 +21,7 @@ trait ParameterTypeTestTrait
      * @param bool $required
      * @param mixed $defaultValue
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinition
+     * @return \Netgen\Layouts\Parameters\ParameterDefinition
      */
     private function getParameterDefinition(array $options = [], bool $required = false, $defaultValue = null): ParameterDefinition
     {

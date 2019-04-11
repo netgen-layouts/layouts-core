@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Core\Mapper;
+namespace Netgen\Layouts\Core\Mapper;
 
 use Generator;
-use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
-use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;
+use Netgen\Layouts\Parameters\CompoundParameterDefinition;
+use Netgen\Layouts\Parameters\Parameter;
+use Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface;
 
 final class ParameterMapper
 {

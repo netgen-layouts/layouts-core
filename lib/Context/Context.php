@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Context;
+namespace Netgen\Layouts\Context;
 
 use ArrayIterator;
-use Netgen\BlockManager\Exception\Context\ContextException;
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\Layouts\Exception\Context\ContextException;
+use Netgen\Layouts\Exception\RuntimeException;
 use Traversable;
 
 final class Context implements ContextInterface

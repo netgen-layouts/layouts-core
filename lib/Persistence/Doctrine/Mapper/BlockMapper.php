@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Persistence\Doctrine\Mapper;
+namespace Netgen\Layouts\Persistence\Doctrine\Mapper;
 
-use Netgen\BlockManager\Persistence\Values\Block\Block;
-use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
+use Netgen\Layouts\Persistence\Values\Block\Block;
+use Netgen\Layouts\Persistence\Values\Block\CollectionReference;
 
 final class BlockMapper
 {
     /**
      * Maps data from database to block values.
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Block\Block[]
+     * @return \Netgen\Layouts\Persistence\Values\Block\Block[]
      */
     public function mapBlocks(array $data): array
     {
@@ -63,7 +63,7 @@ final class BlockMapper
     /**
      * Maps data from database to collection reference values.
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Block\CollectionReference[]
+     * @return \Netgen\Layouts\Persistence\Values\Block\CollectionReference[]
      */
     public function mapCollectionReferences(array $data): array
     {

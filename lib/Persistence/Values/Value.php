@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Persistence\Values;
+namespace Netgen\Layouts\Persistence\Values;
 
 /**
  * Classes extending this class represent a versionable entity.

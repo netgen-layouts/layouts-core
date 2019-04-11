@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters;
+namespace Netgen\Layouts\Tests\Parameters;
 
-use Netgen\BlockManager\Exception\Parameters\ParameterException;
-use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection;
+use Netgen\Layouts\Exception\Parameters\ParameterException;
+use Netgen\Layouts\Parameters\Parameter;
+use Netgen\Layouts\Tests\Parameters\Stubs\ParameterCollection;
 use PHPUnit\Framework\TestCase;
 
 final class ParameterCollectionTraitTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterCollectionTrait::getParameter
+     * @covers \Netgen\Layouts\Parameters\ParameterCollectionTrait::getParameter
      */
     public function testGetParameter(): void
     {
@@ -26,7 +26,7 @@ final class ParameterCollectionTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterCollectionTrait::getParameter
+     * @covers \Netgen\Layouts\Parameters\ParameterCollectionTrait::getParameter
      */
     public function testGetParameterWithNonExistingParameter(): void
     {
@@ -41,7 +41,7 @@ final class ParameterCollectionTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterCollectionTrait::getParameters
+     * @covers \Netgen\Layouts\Parameters\ParameterCollectionTrait::getParameters
      */
     public function testGetParameters(): void
     {
@@ -58,7 +58,7 @@ final class ParameterCollectionTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterCollectionTrait::hasParameter
+     * @covers \Netgen\Layouts\Parameters\ParameterCollectionTrait::hasParameter
      */
     public function testHasParameter(): void
     {

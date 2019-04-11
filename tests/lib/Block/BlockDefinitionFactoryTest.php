@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Block;
+namespace Netgen\Layouts\Tests\Block;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
-use Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandlerInterface;
-use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
-use Netgen\BlockManager\Block\BlockDefinitionFactory;
-use Netgen\BlockManager\Block\Registry\HandlerPluginRegistry;
-use Netgen\BlockManager\Config\ConfigDefinitionFactory;
-use Netgen\BlockManager\Config\ConfigDefinitionInterface;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
-use Netgen\BlockManager\Parameters\ParameterType\TextLineType;
-use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
-use Netgen\BlockManager\Tests\Block\Stubs\HandlerPlugin;
-use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface;
+use Netgen\Layouts\Block\BlockDefinition\ContainerDefinitionHandlerInterface;
+use Netgen\Layouts\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
+use Netgen\Layouts\Block\BlockDefinitionFactory;
+use Netgen\Layouts\Block\Registry\HandlerPluginRegistry;
+use Netgen\Layouts\Config\ConfigDefinitionFactory;
+use Netgen\Layouts\Config\ConfigDefinitionInterface;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Parameters\ParameterBuilderFactory;
+use Netgen\Layouts\Parameters\ParameterType\TextLineType;
+use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
+use Netgen\Layouts\Tests\Block\Stubs\HandlerPlugin;
+use Netgen\Layouts\Tests\Config\Stubs\ConfigDefinitionHandler;
+use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 
 final class BlockDefinitionFactoryTest extends TestCase
@@ -31,22 +31,22 @@ final class BlockDefinitionFactoryTest extends TestCase
     private $handlerMock;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface
+     * @var \Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface
      */
     private $parameterBuilderFactory;
 
     /**
-     * @var \Netgen\BlockManager\Block\Registry\HandlerPluginRegistryInterface
+     * @var \Netgen\Layouts\Block\Registry\HandlerPluginRegistryInterface
      */
     private $handlerPluginRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Config\ConfigDefinitionFactory
+     * @var \Netgen\Layouts\Config\ConfigDefinitionFactory
      */
     private $configDefinitionFactory;
 
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinitionFactory
+     * @var \Netgen\Layouts\Block\BlockDefinitionFactory
      */
     private $factory;
 
@@ -75,10 +75,10 @@ final class BlockDefinitionFactoryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::__construct
-     * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::buildBlockDefinition
-     * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::getCommonBlockDefinitionData
-     * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::processConfig
+     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::__construct
+     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::buildBlockDefinition
+     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::getCommonBlockDefinitionData
+     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::processConfig
      */
     public function testBuildBlockDefinition(): void
     {
@@ -207,9 +207,9 @@ final class BlockDefinitionFactoryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::buildTwigBlockDefinition
-     * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::getCommonBlockDefinitionData
-     * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::processConfig
+     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::buildTwigBlockDefinition
+     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::getCommonBlockDefinitionData
+     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::processConfig
      */
     public function testBuildTwigBlockDefinition(): void
     {
@@ -247,9 +247,9 @@ final class BlockDefinitionFactoryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::buildContainerDefinition
-     * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::getCommonBlockDefinitionData
-     * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::processConfig
+     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::buildContainerDefinition
+     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::getCommonBlockDefinitionData
+     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::processConfig
      */
     public function testBuildContainerDefinition(): void
     {
@@ -293,9 +293,9 @@ final class BlockDefinitionFactoryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::buildBlockDefinition
-     * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::getCommonBlockDefinitionData
-     * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::processConfig
+     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::buildBlockDefinition
+     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::getCommonBlockDefinitionData
+     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::processConfig
      */
     public function testBuildConfigWithNoViewTypes(): void
     {
@@ -320,9 +320,9 @@ final class BlockDefinitionFactoryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::buildBlockDefinition
-     * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::getCommonBlockDefinitionData
-     * @covers \Netgen\BlockManager\Block\BlockDefinitionFactory::processConfig
+     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::buildBlockDefinition
+     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::getCommonBlockDefinitionData
+     * @covers \Netgen\Layouts\Block\BlockDefinitionFactory::processConfig
      */
     public function testBuildConfigWithNoItemViewTypes(): void
     {

@@ -6,18 +6,18 @@ services:
         alias: netgen_block_manager.http_cache.client.varnish
 
     netgen_block_manager.http_cache.client.varnish:
-        class: Netgen\BlockManager\HttpCache\VarnishClient
+        class: Netgen\Layouts\HttpCache\VarnishClient
         arguments:
             - "@netgen_block_manager.http_cache.fos.cache_manager"
             - "@netgen_block_manager.http_cache.layout.id_provider"
 
     netgen_block_manager.http_cache.client.null:
-        class: Netgen\BlockManager\HttpCache\NullClient
+        class: Netgen\Layouts\HttpCache\NullClient
 
     netgen_block_manager.http_cache.tagger:
-        class: Netgen\BlockManager\HttpCache\Tagger
+        class: Netgen\Layouts\HttpCache\Tagger
 
     netgen_block_manager.http_cache.layout.id_provider:
-        class: Netgen\BlockManager\HttpCache\Layout\IdProvider
+        class: Netgen\Layouts\HttpCache\Layout\IdProvider
         arguments:
             - "@netgen_block_manager.api.service.layout"

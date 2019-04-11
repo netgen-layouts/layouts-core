@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\Layout;
+namespace Netgen\Layouts\API\Values\Layout;
 
 use ArrayAccess;
 use Countable;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use IteratorAggregate;
-use Netgen\BlockManager\API\Values\Layout\Zone as APIZone;
-use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\API\Values\ValueStatusTrait;
-use Netgen\BlockManager\Exception\API\LayoutException;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
-use Netgen\BlockManager\Utils\HydratorTrait;
+use Netgen\Layouts\API\Values\Layout\Zone as APIZone;
+use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\API\Values\ValueStatusTrait;
+use Netgen\Layouts\Exception\API\LayoutException;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
+use Netgen\Layouts\Utils\HydratorTrait;
 use Traversable;
 
 final class Layout implements Value, ArrayAccess, IteratorAggregate, Countable
@@ -29,7 +29,7 @@ final class Layout implements Value, ArrayAccess, IteratorAggregate, Countable
     private $id;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Type\LayoutTypeInterface
+     * @var \Netgen\Layouts\Layout\Type\LayoutTypeInterface
      */
     private $layoutType;
 
@@ -173,7 +173,7 @@ final class Layout implements Value, ArrayAccess, IteratorAggregate, Countable
     /**
      * Returns the specified zone.
      *
-     * @throws \Netgen\BlockManager\Exception\API\LayoutException If the zone does not exist
+     * @throws \Netgen\Layouts\Exception\API\LayoutException If the zone does not exist
      */
     public function getZone(string $zoneIdentifier): APIZone
     {

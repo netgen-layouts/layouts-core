@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Item;
+namespace Netgen\Layouts\Tests\Item;
 
-use Netgen\BlockManager\Exception\Item\ValueException;
-use Netgen\BlockManager\Item\CmsItemBuilder;
-use Netgen\BlockManager\Tests\Item\Stubs\UnsupportedValueConverter;
-use Netgen\BlockManager\Tests\Item\Stubs\Value;
-use Netgen\BlockManager\Tests\Item\Stubs\ValueConverter;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
+use Netgen\Layouts\Exception\Item\ValueException;
+use Netgen\Layouts\Item\CmsItemBuilder;
+use Netgen\Layouts\Tests\Item\Stubs\UnsupportedValueConverter;
+use Netgen\Layouts\Tests\Item\Stubs\Value;
+use Netgen\Layouts\Tests\Item\Stubs\ValueConverter;
+use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 
 final class CmsItemBuilderTest extends TestCase
@@ -17,8 +17,8 @@ final class CmsItemBuilderTest extends TestCase
     use ExportObjectTrait;
 
     /**
-     * @covers \Netgen\BlockManager\Item\CmsItemBuilder::__construct
-     * @covers \Netgen\BlockManager\Item\CmsItemBuilder::build
+     * @covers \Netgen\Layouts\Item\CmsItemBuilder::__construct
+     * @covers \Netgen\Layouts\Item\CmsItemBuilder::build
      */
     public function testBuild(): void
     {
@@ -42,12 +42,12 @@ final class CmsItemBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\CmsItemBuilder::build
+     * @covers \Netgen\Layouts\Item\CmsItemBuilder::build
      */
     public function testBuildThrowsValueException(): void
     {
         $this->expectException(ValueException::class);
-        $this->expectExceptionMessage('Value converter for "Netgen\\BlockManager\\Tests\\Item\\Stubs\\Value" type does not exist.');
+        $this->expectExceptionMessage('Value converter for "Netgen\\Layouts\\Tests\\Item\\Stubs\\Value" type does not exist.');
 
         $builder = new CmsItemBuilder([new UnsupportedValueConverter()]);
 

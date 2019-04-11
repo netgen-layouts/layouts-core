@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Collection\Result;
+namespace Netgen\Layouts\Tests\Collection\Result;
 
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\Collection\Result\QueryRunner;
-use Netgen\BlockManager\Item\CmsItem;
-use Netgen\BlockManager\Item\CmsItemBuilderInterface;
-use Netgen\BlockManager\Item\CmsItemInterface;
-use Netgen\BlockManager\Tests\Collection\Result\Stubs\Value;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\Collection\Result\QueryRunner;
+use Netgen\Layouts\Item\CmsItem;
+use Netgen\Layouts\Item\CmsItemBuilderInterface;
+use Netgen\Layouts\Item\CmsItemInterface;
+use Netgen\Layouts\Tests\Collection\Result\Stubs\Value;
+use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
 final class QueryRunnerTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Item\CmsItemBuilderInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\Layouts\Item\CmsItemBuilderInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $cmsItemBuilderMock;
 
@@ -35,9 +35,9 @@ final class QueryRunnerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\QueryRunner::__construct
-     * @covers \Netgen\BlockManager\Collection\Result\QueryRunner::count
-     * @covers \Netgen\BlockManager\Collection\Result\QueryRunner::runQuery
+     * @covers \Netgen\Layouts\Collection\Result\QueryRunner::__construct
+     * @covers \Netgen\Layouts\Collection\Result\QueryRunner::count
+     * @covers \Netgen\Layouts\Collection\Result\QueryRunner::runQuery
      */
     public function testRunner(): void
     {
@@ -46,7 +46,7 @@ final class QueryRunnerTest extends TestCase
 
         $queryRunner = new QueryRunner($this->cmsItemBuilderMock);
 
-        /** @var \Netgen\BlockManager\Item\CmsItemInterface[] $items */
+        /** @var \Netgen\Layouts\Item\CmsItemInterface[] $items */
         $items = iterator_to_array($queryRunner->runQuery($query));
         self::assertContainsOnlyInstancesOf(CmsItemInterface::class, $items);
 

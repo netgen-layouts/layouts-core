@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Validator\Constraint\Structs;
+namespace Netgen\Layouts\Tests\Validator\Constraint\Structs;
 
-use Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct;
+use Netgen\Layouts\Validator\Constraint\Structs\BlockUpdateStruct;
 use PHPUnit\Framework\TestCase;
 
 final class BlockUpdateStructTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct::validatedBy
+     * @covers \Netgen\Layouts\Validator\Constraint\Structs\BlockUpdateStruct::validatedBy
      */
     public function testValidatedBy(): void
     {

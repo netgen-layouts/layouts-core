@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\Matcher\Layout;
+namespace Netgen\Layouts\Tests\View\Matcher\Layout;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\View\Matcher\Layout\Shared;
-use Netgen\BlockManager\View\View\LayoutView;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\View\Stubs\View;
+use Netgen\Layouts\View\Matcher\Layout\Shared;
+use Netgen\Layouts\View\View\LayoutView;
 use PHPUnit\Framework\TestCase;
 
 final class SharedTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\View\Matcher\MatcherInterface
+     * @var \Netgen\Layouts\View\Matcher\MatcherInterface
      */
     private $matcher;
 
@@ -24,7 +24,7 @@ final class SharedTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Layout\Shared::match
+     * @covers \Netgen\Layouts\View\Matcher\Layout\Shared::match
      * @dataProvider matchProvider
      */
     public function testMatch(array $config, bool $expected): void
@@ -51,7 +51,7 @@ final class SharedTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Layout\Shared::match
+     * @covers \Netgen\Layouts\View\Matcher\Layout\Shared::match
      */
     public function testMatchWithNoLayoutView(): void
     {

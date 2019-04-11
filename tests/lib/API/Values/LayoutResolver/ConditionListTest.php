@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\LayoutResolver;
+namespace Netgen\Layouts\Tests\API\Values\LayoutResolver;
 
-use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\API\Values\LayoutResolver\ConditionList;
+use Netgen\Layouts\API\Values\LayoutResolver\Condition;
+use Netgen\Layouts\API\Values\LayoutResolver\ConditionList;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use TypeError;
@@ -13,7 +13,7 @@ use TypeError;
 final class ConditionListTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\ConditionList::__construct
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\ConditionList::__construct
      */
     public function testConstructorWithInvalidType(): void
     {
@@ -32,8 +32,8 @@ final class ConditionListTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\ConditionList::__construct
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\ConditionList::getConditions
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\ConditionList::__construct
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\ConditionList::getConditions
      */
     public function testGetConditions(): void
     {
@@ -43,7 +43,7 @@ final class ConditionListTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\ConditionList::getConditionIds
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\ConditionList::getConditionIds
      */
     public function testGetConditionIds(): void
     {

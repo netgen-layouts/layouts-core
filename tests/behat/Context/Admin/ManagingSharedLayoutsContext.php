@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Behat\Context\Admin;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\Behat\Context\Transform\LayoutContext;
 use Netgen\Layouts\Behat\Page\Admin\SharedLayouts\IndexPage;
 use Netgen\Layouts\Behat\Page\App\IndexPage as AppIndexPage;

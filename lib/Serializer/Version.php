@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Serializer;
+namespace Netgen\Layouts\Serializer;
 
 /**
  * Placeholder class used to specify all API versions available.

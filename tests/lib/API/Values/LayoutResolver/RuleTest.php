@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\LayoutResolver;
+namespace Netgen\Layouts\Tests\API\Values\LayoutResolver;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\API\Values\LayoutResolver\Target;
-use Netgen\BlockManager\API\Values\Value;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\LayoutResolver\Condition;
+use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\API\Values\LayoutResolver\Target;
+use Netgen\Layouts\API\Values\Value;
 use PHPUnit\Framework\TestCase;
 
 final class RuleTest extends TestCase
@@ -20,9 +20,9 @@ final class RuleTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\Rule::__construct
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\Rule::getConditions
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\Rule::getTargets
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::__construct
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getConditions
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getTargets
      */
     public function testSetDefaultProperties(): void
     {
@@ -33,14 +33,14 @@ final class RuleTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\Rule::__construct
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\Rule::getComment
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\Rule::getConditions
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\Rule::getId
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\Rule::getLayout
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\Rule::getPriority
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\Rule::getTargets
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\Rule::isEnabled
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::__construct
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getComment
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getConditions
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getId
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getLayout
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getPriority
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getTargets
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::isEnabled
      */
     public function testSetProperties(): void
     {

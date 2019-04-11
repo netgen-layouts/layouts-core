@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\Layouts;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\HttpCache\ClientInterface;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\HttpCache\ClientInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class ClearLayoutCache extends AbstractController
 {
     /**
-     * @var \Netgen\BlockManager\HttpCache\ClientInterface
+     * @var \Netgen\Layouts\HttpCache\ClientInterface
      */
     private $httpCacheClient;
 

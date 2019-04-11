@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Transfer\Output\Visitor\Stubs;
+namespace Netgen\Layouts\Tests\Transfer\Output\Visitor\Stubs;
 
-use Netgen\BlockManager\Transfer\Output\VisitorInterface;
+use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 final class VisitorStub implements VisitorInterface
 {

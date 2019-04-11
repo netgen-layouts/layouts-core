@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\Collection;
+namespace Netgen\Layouts\API\Values\Collection;
 
 final class CollectionCreateStruct
 {
@@ -23,7 +23,7 @@ final class CollectionCreateStruct
     /**
      * If set, the collection will have a query created from this query struct.
      *
-     * @var \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct|null
+     * @var \Netgen\Layouts\API\Values\Collection\QueryCreateStruct|null
      */
     public $queryCreateStruct;
 }

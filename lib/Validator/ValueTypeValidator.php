@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Validator;
+namespace Netgen\Layouts\Validator;
 
-use Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface;
-use Netgen\BlockManager\Validator\Constraint\ValueType;
+use Netgen\Layouts\Item\Registry\ValueTypeRegistryInterface;
+use Netgen\Layouts\Validator\Constraint\ValueType;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 final class ValueTypeValidator extends ConstraintValidator
 {
     /**
-     * @var \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface
+     * @var \Netgen\Layouts\Item\Registry\ValueTypeRegistryInterface
      */
     private $valueTypeRegistry;
 

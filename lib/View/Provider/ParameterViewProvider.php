@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View\Provider;
+namespace Netgen\Layouts\View\Provider;
 
-use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\View\View\ParameterView;
-use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Layouts\Parameters\Parameter;
+use Netgen\Layouts\View\View\ParameterView;
+use Netgen\Layouts\View\ViewInterface;
 
 final class ParameterViewProvider implements ViewProviderInterface
 {

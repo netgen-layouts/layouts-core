@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Transfer\Output\Visitor;
+namespace Netgen\Layouts\Transfer\Output\Visitor;
 
 use Generator;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Transfer\Output\StatusStringTrait;
-use Netgen\BlockManager\Transfer\Output\VisitorInterface;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Transfer\Output\StatusStringTrait;
+use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 /**
  * Rule value visitor.
  *
- * @see \Netgen\BlockManager\API\Values\LayoutResolver\Rule
+ * @see \Netgen\Layouts\API\Values\LayoutResolver\Rule
  */
 final class RuleVisitor implements VisitorInterface
 {
@@ -31,7 +31,7 @@ final class RuleVisitor implements VisitorInterface
             throw new RuntimeException('Implementation requires sub-visitor');
         }
 
-        /** @var \Netgen\BlockManager\API\Values\LayoutResolver\Rule $value */
+        /** @var \Netgen\Layouts\API\Values\LayoutResolver\Rule $value */
         $layout = $value->getLayout();
 
         return [

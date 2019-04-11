@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Parameters;
+namespace Netgen\Layouts\Parameters;
 
 final class CompoundParameterDefinition extends ParameterDefinition implements ParameterDefinitionCollectionInterface
 {

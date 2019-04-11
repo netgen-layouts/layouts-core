@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Validator\Parameters;
+namespace Netgen\Layouts\Tests\Validator\Parameters;
 
-use Netgen\BlockManager\Parameters\Value\LinkValue;
-use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
-use Netgen\BlockManager\Validator\Constraint\Parameters\Link;
-use Netgen\BlockManager\Validator\Parameters\LinkValidator;
+use Netgen\Layouts\Parameters\Value\LinkValue;
+use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
+use Netgen\Layouts\Validator\Constraint\Parameters\Link;
+use Netgen\Layouts\Validator\Parameters\LinkValidator;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -22,7 +22,7 @@ final class LinkValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\Parameters\LinkValidator::validate
+     * @covers \Netgen\Layouts\Validator\Parameters\LinkValidator::validate
      * @dataProvider validateDataProvider
      */
     public function testValidate(?LinkValue $value, bool $required, ?array $valueTypes, bool $isValid): void
@@ -34,24 +34,24 @@ final class LinkValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\Parameters\LinkValidator::validate
+     * @covers \Netgen\Layouts\Validator\Parameters\LinkValidator::validate
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Netgen\\BlockManager\\Validator\\Constraint\\Parameters\\Link", "Symfony\\Component\\Validator\\Constraints\\NotBlank" given');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\Validator\\Constraint\\Parameters\\Link", "Symfony\\Component\\Validator\\Constraints\\NotBlank" given');
 
         $this->constraint = new NotBlank();
         $this->assertValid(true, new LinkValue());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\Parameters\LinkValidator::validate
+     * @covers \Netgen\Layouts\Validator\Parameters\LinkValidator::validate
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Netgen\\BlockManager\\Parameters\\Value\\LinkValue", "integer" given');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\Parameters\\Value\\LinkValue", "integer" given');
 
         $this->assertValid(true, 42);
     }

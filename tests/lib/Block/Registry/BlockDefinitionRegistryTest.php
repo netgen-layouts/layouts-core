@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Block\Registry;
+namespace Netgen\Layouts\Tests\Block\Registry;
 
 use ArrayIterator;
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
-use Netgen\BlockManager\Exception\Block\BlockDefinitionException;
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Block\Registry\BlockDefinitionRegistry;
+use Netgen\Layouts\Exception\Block\BlockDefinitionException;
+use Netgen\Layouts\Exception\RuntimeException;
 use PHPUnit\Framework\TestCase;
 
 final class BlockDefinitionRegistryTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
+     * @var \Netgen\Layouts\Block\BlockDefinitionInterface
      */
     private $blockDefinition;
 
     /**
-     * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry
+     * @var \Netgen\Layouts\Block\Registry\BlockDefinitionRegistry
      */
     private $registry;
 
@@ -31,8 +31,8 @@ final class BlockDefinitionRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::__construct
-     * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::getBlockDefinitions
+     * @covers \Netgen\Layouts\Block\Registry\BlockDefinitionRegistry::__construct
+     * @covers \Netgen\Layouts\Block\Registry\BlockDefinitionRegistry::getBlockDefinitions
      */
     public function testGetBlockDefinitions(): void
     {
@@ -40,7 +40,7 @@ final class BlockDefinitionRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::getBlockDefinition
+     * @covers \Netgen\Layouts\Block\Registry\BlockDefinitionRegistry::getBlockDefinition
      */
     public function testGetBlockDefinition(): void
     {
@@ -48,7 +48,7 @@ final class BlockDefinitionRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::getBlockDefinition
+     * @covers \Netgen\Layouts\Block\Registry\BlockDefinitionRegistry::getBlockDefinition
      */
     public function testGetBlockDefinitionThrowsBlockDefinitionException(): void
     {
@@ -59,7 +59,7 @@ final class BlockDefinitionRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::hasBlockDefinition
+     * @covers \Netgen\Layouts\Block\Registry\BlockDefinitionRegistry::hasBlockDefinition
      */
     public function testHasBlockDefinition(): void
     {
@@ -67,7 +67,7 @@ final class BlockDefinitionRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::hasBlockDefinition
+     * @covers \Netgen\Layouts\Block\Registry\BlockDefinitionRegistry::hasBlockDefinition
      */
     public function testHasBlockDefinitionWithNoBlockDefinition(): void
     {
@@ -75,7 +75,7 @@ final class BlockDefinitionRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::getIterator
+     * @covers \Netgen\Layouts\Block\Registry\BlockDefinitionRegistry::getIterator
      */
     public function testGetIterator(): void
     {
@@ -90,7 +90,7 @@ final class BlockDefinitionRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::count
+     * @covers \Netgen\Layouts\Block\Registry\BlockDefinitionRegistry::count
      */
     public function testCount(): void
     {
@@ -98,7 +98,7 @@ final class BlockDefinitionRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::offsetExists
+     * @covers \Netgen\Layouts\Block\Registry\BlockDefinitionRegistry::offsetExists
      */
     public function testOffsetExists(): void
     {
@@ -107,7 +107,7 @@ final class BlockDefinitionRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::offsetGet
+     * @covers \Netgen\Layouts\Block\Registry\BlockDefinitionRegistry::offsetGet
      */
     public function testOffsetGet(): void
     {
@@ -115,7 +115,7 @@ final class BlockDefinitionRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::offsetSet
+     * @covers \Netgen\Layouts\Block\Registry\BlockDefinitionRegistry::offsetSet
      */
     public function testOffsetSet(): void
     {
@@ -126,7 +126,7 @@ final class BlockDefinitionRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry::offsetUnset
+     * @covers \Netgen\Layouts\Block\Registry\BlockDefinitionRegistry::offsetUnset
      */
     public function testOffsetUnset(): void
     {

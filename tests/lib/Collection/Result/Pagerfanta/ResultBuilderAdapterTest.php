@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Collection\Result\Pagerfanta;
+namespace Netgen\Layouts\Tests\Collection\Result\Pagerfanta;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter;
-use Netgen\BlockManager\Collection\Result\ResultBuilderInterface;
-use Netgen\BlockManager\Collection\Result\ResultSet;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter;
+use Netgen\Layouts\Collection\Result\ResultBuilderInterface;
+use Netgen\Layouts\Collection\Result\ResultSet;
 use PHPUnit\Framework\TestCase;
 
 final class ResultBuilderAdapterTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Collection\Result\ResultBuilderInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\Layouts\Collection\Result\ResultBuilderInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $resultBuilderMock;
 
@@ -23,9 +23,9 @@ final class ResultBuilderAdapterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::__construct
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::getNbResults
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
+     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter::__construct
+     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter::getNbResults
+     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
      */
     public function testGetNbResults(): void
     {
@@ -46,9 +46,9 @@ final class ResultBuilderAdapterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::__construct
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::getNbResults
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
+     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter::__construct
+     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter::getNbResults
+     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
      */
     public function testGetNbResultsWithMaxTotalCount(): void
     {
@@ -69,8 +69,8 @@ final class ResultBuilderAdapterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::getNbResults
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
+     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter::getNbResults
+     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
      */
     public function testGetNbResultsWithStartingOffset(): void
     {
@@ -91,8 +91,8 @@ final class ResultBuilderAdapterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::getNbResults
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
+     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter::getNbResults
+     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
      */
     public function testGetNbResultsWithStartingOffsetAndMaxTotalCount(): void
     {
@@ -113,8 +113,8 @@ final class ResultBuilderAdapterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::getSlice
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
+     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter::getSlice
+     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
      */
     public function testGetSlice(): void
     {
@@ -137,8 +137,8 @@ final class ResultBuilderAdapterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::getSlice
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
+     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter::getSlice
+     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter::setTotalCount
      */
     public function testGetSliceWithStartingOffset(): void
     {

@@ -1,35 +1,35 @@
 services:
     netgen_block_manager.collection.item_definition_factory:
-        class: Netgen\BlockManager\Collection\Item\ItemDefinitionFactory
+        class: Netgen\Layouts\Collection\Item\ItemDefinitionFactory
         arguments:
             - "@netgen_block_manager.config.config_definition_factory"
 
     netgen_block_manager.collection.item_visibility_resolver:
-        class: Netgen\BlockManager\Collection\Item\VisibilityResolver
+        class: Netgen\Layouts\Collection\Item\VisibilityResolver
         arguments:
             - !tagged netgen_block_manager.collection.item_visibility_resolver.voter
 
     netgen_block_manager.collection.collection_runner_factory:
-        class: Netgen\BlockManager\Collection\Result\CollectionRunnerFactory
+        class: Netgen\Layouts\Collection\Result\CollectionRunnerFactory
         arguments:
             - "@netgen_block_manager.item.item_builder"
             - "@netgen_block_manager.collection.item_visibility_resolver"
 
     netgen_block_manager.collection.result_builder:
-        class: Netgen\BlockManager\Collection\Result\ResultBuilder
+        class: Netgen\Layouts\Collection\Result\ResultBuilder
         arguments:
             - "@netgen_block_manager.collection.collection_runner_factory"
             - "%netgen_block_manager.collection.contextual_limit%"
             - "%netgen_block_manager.collection.max_limit%"
 
     netgen_block_manager.collection.result.pagerfanta.factory:
-        class: Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory
+        class: Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory
         arguments:
             - "@netgen_block_manager.collection.result_builder"
             - "%netgen_block_manager.collection.max_limit%"
 
     netgen_block_manager.collection.result.pagerfanta.view:
-        class: Netgen\BlockManager\Collection\Result\Pagerfanta\View\CollectionView
+        class: Netgen\Layouts\Collection\Result\Pagerfanta\View\CollectionView
         arguments:
             - "@twig"
             - "%netgen_block_manager.collection.pager.template%"
@@ -37,17 +37,17 @@ services:
             - {name: pagerfanta.view, alias: ngbm_collection}
 
     netgen_block_manager.collection.query_type_factory:
-        class: Netgen\BlockManager\Collection\QueryType\QueryTypeFactory
+        class: Netgen\Layouts\Collection\QueryType\QueryTypeFactory
         arguments:
             - "@netgen_block_manager.parameters.translatable_parameter_builder_factory"
 
     netgen_block_manager.collection.registry.item_definition:
-        class: Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry
+        class: Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry
         arguments:
             - []
 
     netgen_block_manager.collection.registry.query_type:
-        class: Netgen\BlockManager\Collection\Registry\QueryTypeRegistry
+        class: Netgen\Layouts\Collection\Registry\QueryTypeRegistry
         public: true
         arguments:
             - []

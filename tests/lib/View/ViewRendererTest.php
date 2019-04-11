@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View;
+namespace Netgen\Layouts\Tests\View;
 
-use Netgen\BlockManager\Event\BlockManagerEvents;
-use Netgen\BlockManager\Event\CollectViewParametersEvent;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\View\ViewRenderer;
+use Netgen\Layouts\Event\CollectViewParametersEvent;
+use Netgen\Layouts\Event\LayoutsEvents;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\View\Stubs\View;
+use Netgen\Layouts\View\ViewRenderer;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpKernel\Kernel;
@@ -27,7 +27,7 @@ final class ViewRendererTest extends TestCase
     private $twigEnvironmentMock;
 
     /**
-     * @var \Netgen\BlockManager\View\ViewRenderer
+     * @var \Netgen\Layouts\View\ViewRenderer
      */
     private $viewRenderer;
 
@@ -46,8 +46,8 @@ final class ViewRendererTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\ViewRenderer::__construct
-     * @covers \Netgen\BlockManager\View\ViewRenderer::renderView
+     * @covers \Netgen\Layouts\View\ViewRenderer::__construct
+     * @covers \Netgen\Layouts\View\ViewRenderer::renderView
      */
     public function testRenderView(): void
     {
@@ -58,7 +58,7 @@ final class ViewRendererTest extends TestCase
 
         $args = [
             self::isInstanceOf(CollectViewParametersEvent::class),
-            self::identicalTo(BlockManagerEvents::RENDER_VIEW),
+            self::identicalTo(LayoutsEvents::RENDER_VIEW),
         ];
 
         if (Kernel::VERSION_ID < 40300) {
@@ -72,7 +72,7 @@ final class ViewRendererTest extends TestCase
 
         $args = [
             self::isInstanceOf(CollectViewParametersEvent::class),
-            self::identicalTo(sprintf('%s.%s', BlockManagerEvents::RENDER_VIEW, 'stub')),
+            self::identicalTo(sprintf('%s.%s', LayoutsEvents::RENDER_VIEW, 'stub')),
         ];
 
         if (Kernel::VERSION_ID < 40300) {
@@ -104,8 +104,8 @@ final class ViewRendererTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\ViewRenderer::__construct
-     * @covers \Netgen\BlockManager\View\ViewRenderer::renderView
+     * @covers \Netgen\Layouts\View\ViewRenderer::__construct
+     * @covers \Netgen\Layouts\View\ViewRenderer::renderView
      */
     public function testRenderViewWithNoTemplate(): void
     {
@@ -114,7 +114,7 @@ final class ViewRendererTest extends TestCase
 
         $args = [
             self::isInstanceOf(CollectViewParametersEvent::class),
-            self::identicalTo(BlockManagerEvents::RENDER_VIEW),
+            self::identicalTo(LayoutsEvents::RENDER_VIEW),
         ];
 
         if (Kernel::VERSION_ID < 40300) {
@@ -128,7 +128,7 @@ final class ViewRendererTest extends TestCase
 
         $args = [
             self::isInstanceOf(CollectViewParametersEvent::class),
-            self::identicalTo(sprintf('%s.%s', BlockManagerEvents::RENDER_VIEW, 'stub')),
+            self::identicalTo(sprintf('%s.%s', LayoutsEvents::RENDER_VIEW, 'stub')),
         ];
 
         if (Kernel::VERSION_ID < 40300) {

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Mapper;
+namespace Netgen\Layouts\Tests\Persistence\Doctrine\Mapper;
 
-use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
-use Netgen\BlockManager\Persistence\Values\Value;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
+use Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutResolverMapper;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
+use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutResolverMapperTest extends TestCase
@@ -17,7 +17,7 @@ final class LayoutResolverMapperTest extends TestCase
     use ExportObjectTrait;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper
+     * @var \Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutResolverMapper
      */
     private $mapper;
 
@@ -27,7 +27,7 @@ final class LayoutResolverMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper::mapRules
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutResolverMapper::mapRules
      */
     public function testMapRules(): void
     {
@@ -76,7 +76,7 @@ final class LayoutResolverMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper::mapTargets
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutResolverMapper::mapTargets
      */
     public function testMapTargets(): void
     {
@@ -121,7 +121,7 @@ final class LayoutResolverMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper::mapConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutResolverMapper::mapConditions
      */
     public function testMapConditions(): void
     {

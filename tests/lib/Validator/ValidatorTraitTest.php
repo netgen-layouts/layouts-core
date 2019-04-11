@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Validator;
+namespace Netgen\Layouts\Tests\Validator;
 
 use Exception;
-use Netgen\BlockManager\Exception\Validation\ValidationException;
-use Netgen\BlockManager\Tests\Validator\Stubs\ValueValidator;
+use Netgen\Layouts\Exception\Validation\ValidationException;
+use Netgen\Layouts\Tests\Validator\Stubs\ValueValidator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\ConstraintViolationInterface;
@@ -21,7 +21,7 @@ final class ValidatorTraitTest extends TestCase
     private $validatorMock;
 
     /**
-     * @var \Netgen\BlockManager\Tests\Validator\Stubs\ValueValidator
+     * @var \Netgen\Layouts\Tests\Validator\Stubs\ValueValidator
      */
     private $validator;
 
@@ -33,8 +33,8 @@ final class ValidatorTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\ValidatorTrait::setValidator
-     * @covers \Netgen\BlockManager\Validator\ValidatorTrait::validate
+     * @covers \Netgen\Layouts\Validator\ValidatorTrait::setValidator
+     * @covers \Netgen\Layouts\Validator\ValidatorTrait::validate
      */
     public function testValidate(): void
     {
@@ -52,7 +52,7 @@ final class ValidatorTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\ValidatorTrait::validate
+     * @covers \Netgen\Layouts\Validator\ValidatorTrait::validate
      */
     public function testValidateThrowsValidationException(): void
     {
@@ -81,7 +81,7 @@ final class ValidatorTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\ValidatorTrait::validate
+     * @covers \Netgen\Layouts\Validator\ValidatorTrait::validate
      */
     public function testValidateThrowsValidationExceptionOnOtherException(): void
     {

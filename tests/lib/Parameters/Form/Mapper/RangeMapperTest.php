@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\Form\Mapper;
+namespace Netgen\Layouts\Tests\Parameters\Form\Mapper;
 
-use Netgen\BlockManager\Parameters\Form\Mapper\RangeMapper;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterType\RangeType as RangeParameterType;
+use Netgen\Layouts\Parameters\Form\Mapper\RangeMapper;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType\RangeType as RangeParameterType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
 
 final class RangeMapperTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\Form\Mapper\RangeMapper
+     * @var \Netgen\Layouts\Parameters\Form\Mapper\RangeMapper
      */
     private $mapper;
 
@@ -23,7 +23,7 @@ final class RangeMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Mapper\RangeMapper::getFormType
+     * @covers \Netgen\Layouts\Parameters\Form\Mapper\RangeMapper::getFormType
      */
     public function testGetFormType(): void
     {
@@ -31,7 +31,7 @@ final class RangeMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Mapper\RangeMapper::mapOptions
+     * @covers \Netgen\Layouts\Parameters\Form\Mapper\RangeMapper::mapOptions
      */
     public function testMapOptions(): void
     {

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Serializer\Normalizer\V1;
+namespace Netgen\Layouts\Serializer\Normalizer\V1;
 
 use Generator;
-use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Serializer\Version;
+use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
+use Netgen\Layouts\Serializer\Values\VersionedValue;
+use Netgen\Layouts\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -18,7 +18,7 @@ final class LayoutTypeNormalizer implements NormalizerInterface, NormalizerAware
 
     public function normalize($object, $format = null, array $context = [])
     {
-        /** @var \Netgen\BlockManager\Layout\Type\LayoutTypeInterface $layoutType */
+        /** @var \Netgen\Layouts\Layout\Type\LayoutTypeInterface $layoutType */
         $layoutType = $object->getValue();
 
         return [

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View\View;
+namespace Netgen\Layouts\View\View;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\View\View;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\View\View;
 
 final class LayoutView extends View implements LayoutViewInterface
 {

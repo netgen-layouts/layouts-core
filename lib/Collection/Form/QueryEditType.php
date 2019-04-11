@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Collection\Form;
+namespace Netgen\Layouts\Collection\Form;
 
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
-use Netgen\BlockManager\Form\AbstractType;
-use Netgen\BlockManager\Form\TranslatableTypeTrait;
-use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
-use Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\API\Values\Collection\QueryUpdateStruct;
+use Netgen\Layouts\Form\AbstractType;
+use Netgen\Layouts\Form\TranslatableTypeTrait;
+use Netgen\Layouts\Parameters\Form\Type\ParametersType;
+use Netgen\Layouts\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -52,7 +52,7 @@ final class QueryEditType extends AbstractType
         $locale = $options['data']->locale;
         $mainLocale = $options['query']->getMainLocale();
 
-        /** @var \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface $queryType */
+        /** @var \Netgen\Layouts\Collection\QueryType\QueryTypeInterface $queryType */
         $queryType = $options['query']->getQueryType();
 
         $builder->add(

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\LayoutResolver;
+namespace Netgen\Layouts\Tests\API\Values\LayoutResolver;
 
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleCreateStruct;
 use PHPUnit\Framework\TestCase;
 
 final class RuleCreateStructTest extends TestCase

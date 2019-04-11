@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Layout\Resolver\ConditionType;
+namespace Netgen\Layouts\Layout\Resolver\ConditionType;
 
-use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
+use Netgen\Layouts\Layout\Resolver\ConditionTypeInterface;
 use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;

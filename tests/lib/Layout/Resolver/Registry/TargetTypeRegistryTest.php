@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\Registry;
+namespace Netgen\Layouts\Tests\Layout\Resolver\Registry;
 
 use ArrayIterator;
-use Netgen\BlockManager\Exception\Layout\TargetTypeException;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType1;
+use Netgen\Layouts\Exception\Layout\TargetTypeException;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry;
+use Netgen\Layouts\Tests\Layout\Resolver\Stubs\TargetType1;
 use PHPUnit\Framework\TestCase;
 
 final class TargetTypeRegistryTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface
+     * @var \Netgen\Layouts\Layout\Resolver\TargetTypeInterface
      */
     private $targetType;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry
+     * @var \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry
      */
     private $registry;
 
@@ -31,8 +31,8 @@ final class TargetTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::__construct
-     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::getTargetTypes
+     * @covers \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry::__construct
+     * @covers \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry::getTargetTypes
      */
     public function testGetTargetTypes(): void
     {
@@ -40,7 +40,7 @@ final class TargetTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::getTargetType
+     * @covers \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry::getTargetType
      */
     public function testGetTargetType(): void
     {
@@ -48,7 +48,7 @@ final class TargetTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::getTargetType
+     * @covers \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry::getTargetType
      */
     public function testGetTargetTypeThrowsTargetTypeException(): void
     {
@@ -59,7 +59,7 @@ final class TargetTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::hasTargetType
+     * @covers \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry::hasTargetType
      */
     public function testHasTargetType(): void
     {
@@ -67,7 +67,7 @@ final class TargetTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::hasTargetType
+     * @covers \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry::hasTargetType
      */
     public function testHasTargetTypeWithNoTargetType(): void
     {
@@ -75,7 +75,7 @@ final class TargetTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::getIterator
+     * @covers \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry::getIterator
      */
     public function testGetIterator(): void
     {
@@ -90,7 +90,7 @@ final class TargetTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::count
+     * @covers \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry::count
      */
     public function testCount(): void
     {
@@ -98,7 +98,7 @@ final class TargetTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::offsetExists
+     * @covers \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry::offsetExists
      */
     public function testOffsetExists(): void
     {
@@ -107,7 +107,7 @@ final class TargetTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::offsetGet
+     * @covers \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry::offsetGet
      */
     public function testOffsetGet(): void
     {
@@ -115,7 +115,7 @@ final class TargetTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::offsetSet
+     * @covers \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry::offsetSet
      */
     public function testOffsetSet(): void
     {
@@ -126,7 +126,7 @@ final class TargetTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry::offsetUnset
+     * @covers \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry::offsetUnset
      */
     public function testOffsetUnset(): void
     {

@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
+namespace Netgen\Layouts\Tests\Persistence\Doctrine\Handler;
 
 use Doctrine\DBAL\Types\Type;
-use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\Values\Block\Block;
-use Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Block\BlockTranslationUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
-use Netgen\BlockManager\Persistence\Values\Value;
-use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
+use Netgen\Layouts\Exception\BadStateException;
+use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Persistence\Values\Block\Block;
+use Netgen\Layouts\Persistence\Values\Block\BlockCreateStruct;
+use Netgen\Layouts\Persistence\Values\Block\BlockTranslationUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Block\BlockUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Block\CollectionReference;
+use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
+use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 
 final class BlockHandlerTest extends TestCase
@@ -23,17 +23,17 @@ final class BlockHandlerTest extends TestCase
     use ExportObjectTrait;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface
+     * @var \Netgen\Layouts\Persistence\Handler\BlockHandlerInterface
      */
     private $blockHandler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface
+     * @var \Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface
      */
     private $layoutHandler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface
+     * @var \Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface
      */
     private $collectionHandler;
 
@@ -55,11 +55,11 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::__construct
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::__construct
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::getBlockSelectQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadBlockData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::__construct
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::loadBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::__construct
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::getBlockSelectQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadBlockData
      */
     public function testLoadBlock(): void
     {
@@ -98,8 +98,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadBlockData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::loadBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadBlockData
      */
     public function testLoadBlockThrowsNotFoundException(): void
     {
@@ -110,8 +110,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::blockExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::blockExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::blockExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::blockExists
      */
     public function testBlockExists(): void
     {
@@ -119,8 +119,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::blockExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::blockExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::blockExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::blockExists
      */
     public function testBlockNotExists(): void
     {
@@ -128,8 +128,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::blockExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::blockExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::blockExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::blockExists
      */
     public function testBlockNotExistsInStatus(): void
     {
@@ -137,8 +137,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadLayoutBlocks
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadLayoutBlocksData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::loadLayoutBlocks
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadLayoutBlocksData
      */
     public function testLoadLayoutBlocks(): void
     {
@@ -150,8 +150,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadZoneBlocks
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadZoneBlocksData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::loadZoneBlocks
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadZoneBlocksData
      */
     public function testLoadZoneBlocks(): void
     {
@@ -163,8 +163,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadChildBlocks
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadChildBlocksData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::loadChildBlocks
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadChildBlocksData
      */
     public function testLoadChildBlocks(): void
     {
@@ -233,8 +233,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadChildBlocks
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadChildBlocksData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::loadChildBlocks
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadChildBlocksData
      */
     public function testLoadChildBlocksInPlaceholder(): void
     {
@@ -277,8 +277,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadChildBlocks
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadChildBlocksData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::loadChildBlocks
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadChildBlocksData
      */
     public function testLoadChildBlocksWithUnknownPlaceholder(): void
     {
@@ -291,8 +291,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadCollectionReference
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadCollectionReferencesData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::loadCollectionReference
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadCollectionReferencesData
      */
     public function testLoadCollectionReference(): void
     {
@@ -314,8 +314,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadCollectionReference
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadCollectionReferencesData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::loadCollectionReference
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadCollectionReferencesData
      */
     public function testLoadCollectionReferenceThrowsNotFoundException(): void
     {
@@ -329,8 +329,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::loadCollectionReferences
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadCollectionReferencesData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::loadCollectionReferences
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadCollectionReferencesData
      */
     public function testLoadCollectionReferences(): void
     {
@@ -362,10 +362,10 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::createBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
      */
     public function testCreateBlock(): void
     {
@@ -432,8 +432,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlockTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::createBlockTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
      */
     public function testCreateBlockTranslation(): void
     {
@@ -484,8 +484,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlockTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::createBlockTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
      */
     public function testCreateBlockTranslationWithNonMainSourceLocale(): void
     {
@@ -535,8 +535,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlockTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::createBlockTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
      */
     public function testCreateBlockTranslationThrowsBadStateExceptionWithExistingLocale(): void
     {
@@ -551,8 +551,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlockTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::createBlockTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
      */
     public function testCreateBlockTranslationThrowsBadStateExceptionWithNonExistingSourceLocale(): void
     {
@@ -567,9 +567,9 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::createBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
      */
     public function testCreateBlockWithNoParent(): void
     {
@@ -628,9 +628,9 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::createBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
      */
     public function testCreateBlockWithNoPosition(): void
     {
@@ -693,8 +693,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::createBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
      */
     public function testCreateBlockThrowsBadStateExceptionOnTargetBlockInDifferentLayout(): void
     {
@@ -724,8 +724,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::createBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
      */
     public function testCreateBlockThrowsBadStateExceptionOnNegativePosition(): void
     {
@@ -755,8 +755,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::createBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
      */
     public function testCreateBlockThrowsBadStateExceptionOnTooLargePosition(): void
     {
@@ -786,8 +786,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createCollectionReference
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createCollectionReference
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::createCollectionReference
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createCollectionReference
      */
     public function testCreateCollectionReference(): void
     {
@@ -813,8 +813,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::updateBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::updateBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::updateBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::updateBlock
      */
     public function testUpdateBlock(): void
     {
@@ -868,8 +868,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::updateBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::updateBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::updateBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::updateBlock
      */
     public function testUpdateBlockWithDefaultValues(): void
     {
@@ -916,8 +916,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::updateBlockTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::updateBlockTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::updateBlockTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::updateBlockTranslation
      */
     public function testUpdateBlockTranslation(): void
     {
@@ -969,8 +969,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::updateBlockTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::updateBlockTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::updateBlockTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::updateBlockTranslation
      */
     public function testUpdateBlockTranslationWithDefaultValues(): void
     {
@@ -1018,8 +1018,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::updateBlockTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::updateBlockTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::updateBlockTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::updateBlockTranslation
      */
     public function testUpdateBlockTranslationThrowsBadStateExceptionWithNonExistingLocale(): void
     {
@@ -1034,8 +1034,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::setMainTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::updateBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::setMainTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::updateBlock
      */
     public function testSetMainTranslation(): void
     {
@@ -1046,7 +1046,7 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::setMainTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::setMainTranslation
      */
     public function testSetMainTranslationThrowsBadStateExceptionWithNonExistingLocale(): void
     {
@@ -1058,11 +1058,11 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlockCollections
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::copyBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::copyBlockCollections
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
      */
     public function testCopyBlock(): void
     {
@@ -1130,11 +1130,11 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlockCollections
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::copyBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::copyBlockCollections
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
      */
     public function testCopyBlockWithPosition(): void
     {
@@ -1181,11 +1181,11 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlockCollections
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::copyBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::copyBlockCollections
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
      */
     public function testCopyBlockWithSamePosition(): void
     {
@@ -1232,11 +1232,11 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlockCollections
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::copyBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::copyBlockCollections
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
      */
     public function testCopyBlockWithLastPosition(): void
     {
@@ -1283,11 +1283,11 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlockCollections
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::copyBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::copyBlockCollections
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
      */
     public function testCopyBlockWithLowerPosition(): void
     {
@@ -1328,7 +1328,7 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::copyBlock
      */
     public function testCopyBlockThrowsBadStateExceptionOnNegativePosition(): void
     {
@@ -1344,7 +1344,7 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::copyBlock
      */
     public function testCopyBlockThrowsBadStateExceptionOnTooLargePosition(): void
     {
@@ -1360,11 +1360,11 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlockCollections
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::copyBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::copyBlockCollections
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
      */
     public function testCopyBlockWithChildBlocks(): void
     {
@@ -1447,11 +1447,11 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlockCollections
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::copyBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::copyBlockCollections
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlockTranslation
      */
     public function testCopyBlockToBlockInDifferentLayout(): void
     {
@@ -1517,7 +1517,7 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::copyBlock
      */
     public function testCopyBlockBelowSelf(): void
     {
@@ -1532,7 +1532,7 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::copyBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::copyBlock
      */
     public function testCopyBlockBelowChildren(): void
     {
@@ -1547,9 +1547,9 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::moveBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
      */
     public function testMoveBlock(): void
     {
@@ -1616,7 +1616,7 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::moveBlock
      */
     public function testMoveBlockThrowsBadStateExceptionOnMovingToSamePlace(): void
     {
@@ -1632,7 +1632,7 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::moveBlock
      */
     public function testMoveBlockThrowsBadStateExceptionOnMovingToSelf(): void
     {
@@ -1648,7 +1648,7 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::moveBlock
      */
     public function testMoveBlockThrowsBadStateExceptionOnMovingToChildren(): void
     {
@@ -1664,7 +1664,7 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::moveBlock
      */
     public function testMoveBlockThrowsBadStateExceptionOnNegativePosition(): void
     {
@@ -1680,7 +1680,7 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::moveBlock
      */
     public function testMoveBlockThrowsBadStateExceptionOnTooLargePosition(): void
     {
@@ -1696,9 +1696,9 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToPosition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::moveBlockToPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
      */
     public function testMoveBlockToPosition(): void
     {
@@ -1746,9 +1746,9 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToPosition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::moveBlockToPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
      */
     public function testMoveBlockToLowerPosition(): void
     {
@@ -1790,9 +1790,9 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToPosition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::moveBlockToPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
      */
     public function testMoveBlockThrowsBadStateExceptionOnMovingRootBlock(): void
     {
@@ -1806,8 +1806,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToPosition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::moveBlockToPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
      */
     public function testMoveBlockToPositionThrowsBadStateExceptionOnNegativePosition(): void
     {
@@ -1821,8 +1821,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::moveBlockToPosition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::moveBlockToPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::moveBlock
      */
     public function testMoveBlockToPositionThrowsBadStateExceptionOnTooLargePosition(): void
     {
@@ -1836,9 +1836,9 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlockCollectionsStatus
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::createBlockStatus
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::createBlockCollectionsStatus
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::createBlockStatus
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
      */
     public function testCreateBlockStatus(): void
     {
@@ -1896,7 +1896,7 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::restoreBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::restoreBlock
      */
     public function testRestoreBlock(): void
     {
@@ -1944,7 +1944,7 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::restoreBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::restoreBlock
      */
     public function testRestoreBlockThrowsBadStateExceptionWithSameState(): void
     {
@@ -1957,10 +1957,10 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlocks
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadSubBlockIds
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::deleteBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlocks
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadSubBlockIds
      */
     public function testDeleteBlock(): void
     {
@@ -1990,9 +1990,9 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteBlock
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlocks
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::deleteBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::getPositionHelperConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlocks
      * @doesNotPerformAssertions
      */
     public function testDeleteBlockWithSubBlocks(): void
@@ -2024,8 +2024,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteBlockTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlockTranslations
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::deleteBlockTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlockTranslations
      */
     public function testDeleteBlockTranslation(): void
     {
@@ -2066,8 +2066,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteBlockTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlockTranslations
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::deleteBlockTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlockTranslations
      */
     public function testDeleteBlockTranslationWithNonExistingLocale(): void
     {
@@ -2081,8 +2081,8 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteBlockTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlockTranslations
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::deleteBlockTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlockTranslations
      */
     public function testDeleteBlockTranslationWithMainLocale(): void
     {
@@ -2096,11 +2096,11 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteLayoutBlocks
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlocks
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteCollectionReferences
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadBlockCollectionIds
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadLayoutBlockIds
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::deleteLayoutBlocks
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlocks
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteCollectionReferences
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadBlockCollectionIds
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadLayoutBlockIds
      */
     public function testDeleteLayoutBlocks(): void
     {
@@ -2127,11 +2127,11 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteBlockCollections
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteBlocks
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlocks
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteCollectionReferences
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadBlockCollectionIds
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::deleteBlockCollections
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::deleteBlocks
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlocks
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteCollectionReferences
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadBlockCollectionIds
      * @doesNotPerformAssertions
      */
     public function testDeleteBlocks(): void
@@ -2188,11 +2188,11 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteBlockCollections
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler::deleteBlocks
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlocks
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteCollectionReferences
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadBlockCollectionIds
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::deleteBlockCollections
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::deleteBlocks
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlocks
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteCollectionReferences
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadBlockCollectionIds
      */
     public function testDeleteBlocksInStatus(): void
     {

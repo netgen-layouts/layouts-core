@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Mapper;
+namespace Netgen\Layouts\Tests\Persistence\Doctrine\Mapper;
 
-use Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper;
-use Netgen\BlockManager\Persistence\Values\Collection\Collection;
-use Netgen\BlockManager\Persistence\Values\Collection\Item;
-use Netgen\BlockManager\Persistence\Values\Collection\Query;
-use Netgen\BlockManager\Persistence\Values\Value;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
+use Netgen\Layouts\Persistence\Doctrine\Mapper\CollectionMapper;
+use Netgen\Layouts\Persistence\Values\Collection\Collection;
+use Netgen\Layouts\Persistence\Values\Collection\Item;
+use Netgen\Layouts\Persistence\Values\Collection\Query;
+use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 
 final class CollectionMapperTest extends TestCase
@@ -17,7 +17,7 @@ final class CollectionMapperTest extends TestCase
     use ExportObjectTrait;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper
+     * @var \Netgen\Layouts\Persistence\Doctrine\Mapper\CollectionMapper
      */
     private $mapper;
 
@@ -27,7 +27,7 @@ final class CollectionMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper::mapCollections
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\CollectionMapper::mapCollections
      */
     public function testMapCollections(): void
     {
@@ -94,7 +94,7 @@ final class CollectionMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper::mapItems
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\CollectionMapper::mapItems
      */
     public function testMapItems(): void
     {
@@ -151,8 +151,8 @@ final class CollectionMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper::buildParameters
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper::mapQueries
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\CollectionMapper::buildParameters
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\CollectionMapper::mapQueries
      */
     public function testMapQueries(): void
     {

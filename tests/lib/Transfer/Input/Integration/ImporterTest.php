@@ -2,48 +2,48 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Transfer\Input\Integration;
+namespace Netgen\Layouts\Tests\Transfer\Input\Integration;
 
 use Coduo\PHPMatcher\Factory\SimpleFactory;
 use Diff;
 use Diff_Renderer_Text_Unified;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\Block\BlockDefinition\Handler\CommonParametersPlugin;
-use Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
-use Netgen\BlockManager\Block\BlockDefinitionFactory;
-use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
-use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
-use Netgen\BlockManager\Block\Registry\HandlerPluginRegistry;
-use Netgen\BlockManager\Config\ConfigDefinitionFactory;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Item\CmsItem;
-use Netgen\BlockManager\Item\CmsItemInterface;
-use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
-use Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory;
-use Netgen\BlockManager\Tests\Config\Stubs\Block\ConfigHandler;
-use Netgen\BlockManager\Tests\Core\CoreTestCase;
-use Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler;
-use Netgen\BlockManager\Transfer\Input\Importer;
-use Netgen\BlockManager\Transfer\Input\JsonValidator;
-use Netgen\BlockManager\Transfer\Input\Result\ErrorResult;
-use Netgen\BlockManager\Transfer\Input\Result\SuccessResult;
-use Netgen\BlockManager\Transfer\Output\Serializer;
-use Netgen\BlockManager\Transfer\Output\Visitor;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\Block\BlockDefinition\Handler\CommonParametersPlugin;
+use Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
+use Netgen\Layouts\Block\BlockDefinitionFactory;
+use Netgen\Layouts\Block\Registry\BlockDefinitionRegistry;
+use Netgen\Layouts\Block\Registry\BlockDefinitionRegistryInterface;
+use Netgen\Layouts\Block\Registry\HandlerPluginRegistry;
+use Netgen\Layouts\Config\ConfigDefinitionFactory;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Item\CmsItem;
+use Netgen\Layouts\Item\CmsItemInterface;
+use Netgen\Layouts\Parameters\ParameterBuilderFactory;
+use Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory;
 use Netgen\Layouts\Standard\Block\BlockDefinition\Handler\Container\ColumnHandler;
 use Netgen\Layouts\Standard\Block\BlockDefinition\Handler\Container\TwoColumnsHandler;
 use Netgen\Layouts\Standard\Block\BlockDefinition\Handler\ListHandler;
 use Netgen\Layouts\Standard\Block\BlockDefinition\Handler\TextHandler;
 use Netgen\Layouts\Standard\Block\BlockDefinition\Handler\TitleHandler;
+use Netgen\Layouts\Tests\Config\Stubs\Block\ConfigHandler;
+use Netgen\Layouts\Tests\Core\CoreTestCase;
+use Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler;
+use Netgen\Layouts\Transfer\Input\Importer;
+use Netgen\Layouts\Transfer\Input\JsonValidator;
+use Netgen\Layouts\Transfer\Input\Result\ErrorResult;
+use Netgen\Layouts\Transfer\Input\Result\SuccessResult;
+use Netgen\Layouts\Transfer\Output\Serializer;
+use Netgen\Layouts\Transfer\Output\Visitor;
 
 abstract class ImporterTest extends CoreTestCase
 {
     /**
-     * @var \Netgen\BlockManager\Transfer\Input\ImporterInterface
+     * @var \Netgen\Layouts\Transfer\Input\ImporterInterface
      */
     private $importer;
 
     /**
-     * @var \Netgen\BlockManager\Transfer\Output\SerializerInterface
+     * @var \Netgen\Layouts\Transfer\Output\SerializerInterface
      */
     private $serializer;
 
@@ -120,9 +120,9 @@ abstract class ImporterTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler
-     * @covers \Netgen\BlockManager\Transfer\Input\Importer::__construct
-     * @covers \Netgen\BlockManager\Transfer\Input\Importer::importData
+     * @covers \Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler
+     * @covers \Netgen\Layouts\Transfer\Input\Importer::__construct
+     * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
      */
     public function testImportData(): void
     {
@@ -171,8 +171,8 @@ abstract class ImporterTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler
-     * @covers \Netgen\BlockManager\Transfer\Input\Importer::importData
+     * @covers \Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler
+     * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
      */
     public function testImportDataWithMissingQueryTranslationThrowsRuntimeException(): void
     {
@@ -188,8 +188,8 @@ abstract class ImporterTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler
-     * @covers \Netgen\BlockManager\Transfer\Input\Importer::importData
+     * @covers \Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler
+     * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
      */
     public function testImportDataWithMissingMainQueryTranslationThrowsRuntimeException(): void
     {
@@ -205,8 +205,8 @@ abstract class ImporterTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler
-     * @covers \Netgen\BlockManager\Transfer\Input\Importer::importData
+     * @covers \Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler
+     * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
      */
     public function testImportDataWithMissingBlockTranslationThrowsRuntimeException(): void
     {
@@ -222,8 +222,8 @@ abstract class ImporterTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler
-     * @covers \Netgen\BlockManager\Transfer\Input\Importer::importData
+     * @covers \Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler
+     * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
      */
     public function testImportDataWithMissingMainBlockTranslationThrowsRuntimeException(): void
     {
@@ -239,8 +239,8 @@ abstract class ImporterTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler
-     * @covers \Netgen\BlockManager\Transfer\Input\Importer::importData
+     * @covers \Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler
+     * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
      */
     public function testImportDataWithMissingZoneThrowsRuntimeException(): void
     {

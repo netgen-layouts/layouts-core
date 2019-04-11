@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Controller\API\V1\Collection;
 
-use Netgen\BlockManager\API\Service\CollectionService;
-use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
+use Netgen\Layouts\API\Service\CollectionService;
+use Netgen\Layouts\API\Values\Collection\Item;
 use Symfony\Component\HttpFoundation\Response;
 
 final class DeleteItem extends AbstractController
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\CollectionService
+     * @var \Netgen\Layouts\API\Service\CollectionService
      */
     private $collectionService;
 

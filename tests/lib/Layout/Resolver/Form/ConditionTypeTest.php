@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\Form;
+namespace Netgen\Layouts\Tests\Layout\Resolver\Form;
 
-use Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct;
-use Netgen\BlockManager\Exception\Layout\ConditionTypeException;
-use Netgen\BlockManager\Layout\Resolver\Form\ConditionType as ConditionTypeForm;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType1;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionTypeMapper;
-use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Netgen\Layouts\API\Values\LayoutResolver\ConditionCreateStruct;
+use Netgen\Layouts\Exception\Layout\ConditionTypeException;
+use Netgen\Layouts\Layout\Resolver\Form\ConditionType as ConditionTypeForm;
+use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionType1;
+use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionTypeMapper;
+use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
@@ -18,7 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class ConditionTypeTest extends FormTestCase
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface
+     * @var \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface
      */
     private $conditionType;
 
@@ -30,8 +30,8 @@ final class ConditionTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::__construct
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::buildForm
+     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType::__construct
+     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType::buildForm
      */
     public function testBuildFormThrowsConditionTypeException(): void
     {
@@ -46,7 +46,7 @@ final class ConditionTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::configureOptions
+     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType::configureOptions
      */
     public function testConfigureOptions(): void
     {
@@ -69,7 +69,7 @@ final class ConditionTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::configureOptions
+     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType::configureOptions
      */
     public function testConfigureOptionsWithMissingConditionType(): void
     {
@@ -85,12 +85,12 @@ final class ConditionTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::configureOptions
+     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType::configureOptions
      */
     public function testConfigureOptionsWithInvalidConditionType(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "condition_type" with value "" is expected to be of type "Netgen\\BlockManager\\Layout\\Resolver\\ConditionTypeInterface", but is of type "string".');
+        $this->expectExceptionMessage('The option "condition_type" with value "" is expected to be of type "Netgen\\Layouts\\Layout\\Resolver\\ConditionTypeInterface", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -105,12 +105,12 @@ final class ConditionTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::configureOptions
+     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType::configureOptions
      */
     public function testConfigureOptionsWithInvalidData(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\\BlockManager\\API\\Values\\LayoutResolver\\ConditionStruct", but is of type "string".');
+        $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\\Layouts\\API\\Values\\LayoutResolver\\ConditionStruct", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');

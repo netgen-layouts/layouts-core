@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\Matcher;
+namespace Netgen\Layouts\Tests\View\Matcher;
 
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\View\Matcher\APIVersion;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\View\Stubs\View;
+use Netgen\Layouts\View\Matcher\APIVersion;
 use PHPUnit\Framework\TestCase;
 
 final class APIVersionTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\View\Matcher\MatcherInterface
+     * @var \Netgen\Layouts\View\Matcher\MatcherInterface
      */
     private $matcher;
 
@@ -22,7 +22,7 @@ final class APIVersionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\APIVersion::match
+     * @covers \Netgen\Layouts\View\Matcher\APIVersion::match
      * @dataProvider matchProvider
      */
     public function testMatch(array $config, bool $expected): void
@@ -45,7 +45,7 @@ final class APIVersionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\APIVersion::match
+     * @covers \Netgen\Layouts\View\Matcher\APIVersion::match
      */
     public function testMatchWithNoAPIVersion(): void
     {

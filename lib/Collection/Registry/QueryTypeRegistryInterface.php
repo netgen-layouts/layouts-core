@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Collection\Registry;
+namespace Netgen\Layouts\Collection\Registry;
 
 use ArrayAccess;
 use Countable;
 use IteratorAggregate;
-use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
+use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
 
 interface QueryTypeRegistryInterface extends IteratorAggregate, Countable, ArrayAccess
 {
@@ -19,7 +19,7 @@ interface QueryTypeRegistryInterface extends IteratorAggregate, Countable, Array
     /**
      * Returns a query type with provided identifier.
      *
-     * @throws \Netgen\BlockManager\Exception\Collection\QueryTypeException If query type does not exist
+     * @throws \Netgen\Layouts\Exception\Collection\QueryTypeException If query type does not exist
      */
     public function getQueryType(string $type): QueryTypeInterface;
 
@@ -28,7 +28,7 @@ interface QueryTypeRegistryInterface extends IteratorAggregate, Countable, Array
      *
      * @param bool $onlyEnabled
      *
-     * @return \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface[]
+     * @return \Netgen\Layouts\Collection\QueryType\QueryTypeInterface[]
      */
     public function getQueryTypes(bool $onlyEnabled = false): array;
 }

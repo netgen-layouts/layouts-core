@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Integration;
+namespace Netgen\Layouts\Tests\Block\BlockDefinition\Integration;
 
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
-use Netgen\BlockManager\Block\BlockDefinitionInterface;
-use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
-use Netgen\BlockManager\Exception\Validation\ValidationException;
-use Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory;
-use Netgen\BlockManager\Tests\Core\CoreTestCase;
-use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
+use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\Collection;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
+use Netgen\Layouts\Block\BlockDefinitionInterface;
+use Netgen\Layouts\Block\Registry\BlockDefinitionRegistry;
+use Netgen\Layouts\Exception\Validation\ValidationException;
+use Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory;
+use Netgen\Layouts\Tests\Core\CoreTestCase;
+use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 

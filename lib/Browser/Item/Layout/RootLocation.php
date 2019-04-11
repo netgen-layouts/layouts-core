@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Browser\Item\Layout;
+namespace Netgen\Layouts\Browser\Item\Layout;
 
 use Netgen\ContentBrowser\Item\LocationInterface;
 

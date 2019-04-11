@@ -4,24 +4,24 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout;
 
-use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Serializer\Values\Value;
-use Netgen\BlockManager\Serializer\Values\View;
-use Netgen\BlockManager\Serializer\Version;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
+use Netgen\Layouts\API\Service\BlockService;
+use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Serializer\Values\Value;
+use Netgen\Layouts\Serializer\Values\View;
+use Netgen\Layouts\Serializer\Version;
 
 final class LoadZoneBlocks extends AbstractController
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutService
+     * @var \Netgen\Layouts\API\Service\LayoutService
      */
     private $layoutService;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\BlockService
+     * @var \Netgen\Layouts\API\Service\BlockService
      */
     private $blockService;
 
@@ -34,7 +34,7 @@ final class LoadZoneBlocks extends AbstractController
     /**
      * Loads all zone blocks.
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If layout does not exist in provided locale
+     * @throws \Netgen\Layouts\Exception\NotFoundException If layout does not exist in provided locale
      */
     public function __invoke(Zone $zone, string $locale): Value
     {

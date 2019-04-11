@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Layout\Resolver\TargetType;
+namespace Netgen\Layouts\Layout\Resolver\TargetType;
 
 final class RoutePrefix extends Route
 {

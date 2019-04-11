@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters;
+namespace Netgen\Layouts\Tests\Parameters;
 
-use Netgen\BlockManager\Exception\Parameters\ParameterException;
-use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
+use Netgen\Layouts\Exception\Parameters\ParameterException;
+use Netgen\Layouts\Parameters\CompoundParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterDefinition;
 use PHPUnit\Framework\TestCase;
 
 final class CompoundParameterDefinitionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Parameters\CompoundParameterDefinition::getParameterDefinition
-     * @covers \Netgen\BlockManager\Parameters\CompoundParameterDefinition::getParameterDefinitions
-     * @covers \Netgen\BlockManager\Parameters\CompoundParameterDefinition::hasParameterDefinition
+     * @covers \Netgen\Layouts\Parameters\CompoundParameterDefinition::getParameterDefinition
+     * @covers \Netgen\Layouts\Parameters\CompoundParameterDefinition::getParameterDefinitions
+     * @covers \Netgen\Layouts\Parameters\CompoundParameterDefinition::hasParameterDefinition
      */
     public function testDefaultProperties(): void
     {
@@ -24,9 +24,9 @@ final class CompoundParameterDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\CompoundParameterDefinition::getParameterDefinition
-     * @covers \Netgen\BlockManager\Parameters\CompoundParameterDefinition::getParameterDefinitions
-     * @covers \Netgen\BlockManager\Parameters\CompoundParameterDefinition::hasParameterDefinition
+     * @covers \Netgen\Layouts\Parameters\CompoundParameterDefinition::getParameterDefinition
+     * @covers \Netgen\Layouts\Parameters\CompoundParameterDefinition::getParameterDefinitions
+     * @covers \Netgen\Layouts\Parameters\CompoundParameterDefinition::hasParameterDefinition
      */
     public function testSetProperties(): void
     {

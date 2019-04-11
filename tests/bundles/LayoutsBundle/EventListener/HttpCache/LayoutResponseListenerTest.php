@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener\HttpCache;
 
 use Exception;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\HttpCache\TaggerInterface;
-use Netgen\BlockManager\View\View\LayoutView;
 use Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\LayoutResponseListener;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\HttpCache\TaggerInterface;
+use Netgen\Layouts\View\View\LayoutView;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

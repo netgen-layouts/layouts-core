@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Collection\Result;
+namespace Netgen\Layouts\Tests\Collection\Result;
 
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\Collection\Result\ManualItem;
-use Netgen\BlockManager\Item\CmsItem;
+use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\Collection\Result\ManualItem;
+use Netgen\Layouts\Item\CmsItem;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
 final class ManualItemTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\ManualItem::__construct
-     * @covers \Netgen\BlockManager\Collection\Result\ManualItem::getCollectionItem
-     * @covers \Netgen\BlockManager\Collection\Result\ManualItem::getName
-     * @covers \Netgen\BlockManager\Collection\Result\ManualItem::getObject
-     * @covers \Netgen\BlockManager\Collection\Result\ManualItem::getRemoteId
-     * @covers \Netgen\BlockManager\Collection\Result\ManualItem::getValue
-     * @covers \Netgen\BlockManager\Collection\Result\ManualItem::getValueType
-     * @covers \Netgen\BlockManager\Collection\Result\ManualItem::isVisible
+     * @covers \Netgen\Layouts\Collection\Result\ManualItem::__construct
+     * @covers \Netgen\Layouts\Collection\Result\ManualItem::getCollectionItem
+     * @covers \Netgen\Layouts\Collection\Result\ManualItem::getName
+     * @covers \Netgen\Layouts\Collection\Result\ManualItem::getObject
+     * @covers \Netgen\Layouts\Collection\Result\ManualItem::getRemoteId
+     * @covers \Netgen\Layouts\Collection\Result\ManualItem::getValue
+     * @covers \Netgen\Layouts\Collection\Result\ManualItem::getValueType
+     * @covers \Netgen\Layouts\Collection\Result\ManualItem::isVisible
      */
     public function testObject(): void
     {

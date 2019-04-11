@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener\HttpCache;
 
 use Exception;
-use Netgen\BlockManager\HttpCache\ClientInterface;
 use Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\InvalidationListener;
+use Netgen\Layouts\HttpCache\ClientInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\ConsoleEvents;

@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\View;
+namespace Netgen\Layouts\Tests\View\View;
 
-use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\View\View\RuleView;
+use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\View\View\RuleView;
 use PHPUnit\Framework\TestCase;
 
 final class RuleViewTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\LayoutResolver\Rule
+     * @var \Netgen\Layouts\API\Values\LayoutResolver\Rule
      */
     private $rule;
 
     /**
-     * @var \Netgen\BlockManager\View\View\RuleViewInterface
+     * @var \Netgen\Layouts\View\View\RuleViewInterface
      */
     private $view;
 
@@ -31,8 +31,8 @@ final class RuleViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View\RuleView::__construct
-     * @covers \Netgen\BlockManager\View\View\RuleView::getRule
+     * @covers \Netgen\Layouts\View\View\RuleView::__construct
+     * @covers \Netgen\Layouts\View\View\RuleView::getRule
      */
     public function testGetRule(): void
     {
@@ -47,7 +47,7 @@ final class RuleViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View\RuleView::getIdentifier
+     * @covers \Netgen\Layouts\View\View\RuleView::getIdentifier
      */
     public function testGetIdentifier(): void
     {

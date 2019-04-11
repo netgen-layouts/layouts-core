@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Validator\ConditionType;
+namespace Netgen\Layouts\Validator\ConditionType;
 
 use DateTimeInterface;
-use Netgen\BlockManager\Utils\DateTimeUtils;
-use Netgen\BlockManager\Validator\Constraint\ConditionType\Time;
-use Netgen\BlockManager\Validator\Constraint\DateTime as DateTimeConstraint;
+use Netgen\Layouts\Utils\DateTimeUtils;
+use Netgen\Layouts\Validator\Constraint\ConditionType\Time;
+use Netgen\Layouts\Validator\Constraint\DateTime as DateTimeConstraint;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\ConstraintValidator;

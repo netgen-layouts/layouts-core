@@ -2,67 +2,67 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Core\Service;
+namespace Netgen\Layouts\Core\Service;
 
-use Netgen\BlockManager\API\Service\CollectionService as APICollectionService;
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct as APICollectionCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct as APICollectionUpdateStruct;
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct as APIItemCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\ItemUpdateStruct as APIItemUpdateStruct;
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct as APIQueryCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct as APIQueryUpdateStruct;
-use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Collection\Item\ItemDefinitionInterface;
-use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
-use Netgen\BlockManager\Core\Mapper\CollectionMapper;
-use Netgen\BlockManager\Core\Mapper\ConfigMapper;
-use Netgen\BlockManager\Core\Mapper\ParameterMapper;
-use Netgen\BlockManager\Core\StructBuilder\CollectionStructBuilder;
-use Netgen\BlockManager\Core\Validator\CollectionValidator;
-use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface;
-use Netgen\BlockManager\Persistence\TransactionHandlerInterface;
-use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
-use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\Item as PersistenceItem;
-use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\ItemUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\Query as PersistenceQuery;
-use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\QueryTranslationUpdateStruct;
+use Netgen\Layouts\API\Service\CollectionService as APICollectionService;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\CollectionCreateStruct as APICollectionCreateStruct;
+use Netgen\Layouts\API\Values\Collection\CollectionUpdateStruct as APICollectionUpdateStruct;
+use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\API\Values\Collection\ItemCreateStruct as APIItemCreateStruct;
+use Netgen\Layouts\API\Values\Collection\ItemUpdateStruct as APIItemUpdateStruct;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\API\Values\Collection\QueryCreateStruct as APIQueryCreateStruct;
+use Netgen\Layouts\API\Values\Collection\QueryUpdateStruct as APIQueryUpdateStruct;
+use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\Collection\Item\ItemDefinitionInterface;
+use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
+use Netgen\Layouts\Core\Mapper\CollectionMapper;
+use Netgen\Layouts\Core\Mapper\ConfigMapper;
+use Netgen\Layouts\Core\Mapper\ParameterMapper;
+use Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder;
+use Netgen\Layouts\Core\Validator\CollectionValidator;
+use Netgen\Layouts\Exception\BadStateException;
+use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
+use Netgen\Layouts\Persistence\TransactionHandlerInterface;
+use Netgen\Layouts\Persistence\Values\Collection\Collection as PersistenceCollection;
+use Netgen\Layouts\Persistence\Values\Collection\CollectionUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\Item as PersistenceItem;
+use Netgen\Layouts\Persistence\Values\Collection\ItemCreateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\ItemUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\Query as PersistenceQuery;
+use Netgen\Layouts\Persistence\Values\Collection\QueryCreateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\QueryTranslationUpdateStruct;
 
 final class CollectionService extends Service implements APICollectionService
 {
     /**
-     * @var \Netgen\BlockManager\Core\Validator\CollectionValidator
+     * @var \Netgen\Layouts\Core\Validator\CollectionValidator
      */
     private $validator;
 
     /**
-     * @var \Netgen\BlockManager\Core\Mapper\CollectionMapper
+     * @var \Netgen\Layouts\Core\Mapper\CollectionMapper
      */
     private $mapper;
 
     /**
-     * @var \Netgen\BlockManager\Core\StructBuilder\CollectionStructBuilder
+     * @var \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder
      */
     private $structBuilder;
 
     /**
-     * @var \Netgen\BlockManager\Core\Mapper\ParameterMapper
+     * @var \Netgen\Layouts\Core\Mapper\ParameterMapper
      */
     private $parameterMapper;
 
     /**
-     * @var \Netgen\BlockManager\Core\Mapper\ConfigMapper
+     * @var \Netgen\Layouts\Core\Mapper\ConfigMapper
      */
     private $configMapper;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface
+     * @var \Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface
      */
     private $collectionHandler;
 

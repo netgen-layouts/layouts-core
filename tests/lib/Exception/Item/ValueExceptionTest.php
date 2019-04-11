@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Exception\Item;
+namespace Netgen\Layouts\Tests\Exception\Item;
 
-use Netgen\BlockManager\Exception\Item\ValueException;
+use Netgen\Layouts\Exception\Item\ValueException;
 use PHPUnit\Framework\TestCase;
 
 final class ValueExceptionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Exception\Item\ValueException::noValueLoader
+     * @covers \Netgen\Layouts\Exception\Item\ValueException::noValueLoader
      */
     public function testNoValueLoader(): void
     {
@@ -23,7 +23,7 @@ final class ValueExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\Item\ValueException::noValueConverter
+     * @covers \Netgen\Layouts\Exception\Item\ValueException::noValueConverter
      */
     public function testNoValueConverter(): void
     {

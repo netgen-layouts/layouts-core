@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Config;
+namespace Netgen\Layouts\Config;
 
-use Netgen\BlockManager\Exception\Config\ConfigDefinitionException;
+use Netgen\Layouts\Exception\Config\ConfigDefinitionException;
 
 trait ConfigDefinitionAwareTrait
 {
     /**
-     * @var \Netgen\BlockManager\Config\ConfigDefinitionInterface[]
+     * @var \Netgen\Layouts\Config\ConfigDefinitionInterface[]
      */
     protected $configDefinitions = [];
 
     /**
      * Returns the config definition with provided config key.
      *
-     * @throws \Netgen\BlockManager\Exception\Config\ConfigDefinitionException if config definition does not exist
+     * @throws \Netgen\Layouts\Exception\Config\ConfigDefinitionException if config definition does not exist
      */
     public function getConfigDefinition(string $configKey): ConfigDefinitionInterface
     {
@@ -38,7 +38,7 @@ trait ConfigDefinitionAwareTrait
     /**
      * Returns the available config definitions.
      *
-     * @return \Netgen\BlockManager\Config\ConfigDefinitionInterface[]
+     * @return \Netgen\Layouts\Config\ConfigDefinitionInterface[]
      */
     public function getConfigDefinitions(): array
     {

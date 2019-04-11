@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Exception\Locale;
+namespace Netgen\Layouts\Tests\Exception\Locale;
 
-use Netgen\BlockManager\Exception\Locale\LocaleException;
+use Netgen\Layouts\Exception\Locale\LocaleException;
 use PHPUnit\Framework\TestCase;
 
 final class LocaleExceptionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Exception\Locale\LocaleException::noLocale
+     * @covers \Netgen\Layouts\Exception\Locale\LocaleException::noLocale
      */
     public function testNoLocale(): void
     {

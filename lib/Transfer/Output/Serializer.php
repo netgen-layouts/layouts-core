@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Transfer\Output;
+namespace Netgen\Layouts\Transfer\Output;
 
 use Generator;
-use Netgen\BlockManager\API\Service\LayoutResolverService;
-use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Transfer\Descriptor;
+use Netgen\Layouts\API\Service\LayoutResolverService;
+use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Transfer\Descriptor;
 
 /**
  * Serializer serializes domain entities into hash representation, which can be
@@ -20,17 +20,17 @@ use Netgen\BlockManager\Transfer\Descriptor;
 final class Serializer implements SerializerInterface
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutService
+     * @var \Netgen\Layouts\API\Service\LayoutService
      */
     private $layoutService;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutResolverService
+     * @var \Netgen\Layouts\API\Service\LayoutResolverService
      */
     private $layoutResolverService;
 
     /**
-     * @var \Netgen\BlockManager\Transfer\Output\VisitorInterface
+     * @var \Netgen\Layouts\Transfer\Output\VisitorInterface
      */
     private $visitor;
 

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Service;
+namespace Netgen\Layouts\API\Service;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
-use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
-use Netgen\BlockManager\API\Values\Layout\LayoutList;
-use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
-use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\LayoutCopyStruct;
+use Netgen\Layouts\API\Values\Layout\LayoutCreateStruct;
+use Netgen\Layouts\API\Values\Layout\LayoutList;
+use Netgen\Layouts\API\Values\Layout\LayoutUpdateStruct;
+use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 
 interface LayoutService extends Service
 {
@@ -19,9 +19,9 @@ interface LayoutService extends Service
      *
      * @param int|string $layoutId
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If layout with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\Layout\Layout
+     * @return \Netgen\Layouts\API\Values\Layout\Layout
      */
     public function loadLayout($layoutId): Layout;
 
@@ -30,9 +30,9 @@ interface LayoutService extends Service
      *
      * @param int|string $layoutId
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If layout with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\Layout\Layout
+     * @return \Netgen\Layouts\API\Values\Layout\Layout
      */
     public function loadLayoutDraft($layoutId): Layout;
 
@@ -41,9 +41,9 @@ interface LayoutService extends Service
      *
      * @param int|string $layoutId
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If layout with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\Layout\Layout
+     * @return \Netgen\Layouts\API\Values\Layout\Layout
      */
     public function loadLayoutArchive($layoutId): Layout;
 
@@ -86,7 +86,7 @@ interface LayoutService extends Service
     /**
      * Loads all published layouts related to provided shared layout.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If provided layout is not shared
+     * @throws \Netgen\Layouts\Exception\BadStateException If provided layout is not shared
      *                                                          If provided layout is not published
      */
     public function loadRelatedLayouts(Layout $sharedLayout): LayoutList;
@@ -94,7 +94,7 @@ interface LayoutService extends Service
     /**
      * Returns the count of published layouts related to provided shared layout.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If provided layout is not shared
+     * @throws \Netgen\Layouts\Exception\BadStateException If provided layout is not shared
      *                                                          If provided layout is not published
      */
     public function getRelatedLayoutsCount(Layout $sharedLayout): int;
@@ -115,9 +115,9 @@ interface LayoutService extends Service
      * @param int|string $layoutId
      * @param string $identifier
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
      *
-     * @return \Netgen\BlockManager\API\Values\Layout\Zone
+     * @return \Netgen\Layouts\API\Values\Layout\Zone
      */
     public function loadZone($layoutId, string $identifier): Zone;
 
@@ -127,9 +127,9 @@ interface LayoutService extends Service
      * @param int|string $layoutId
      * @param string $identifier
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
      *
-     * @return \Netgen\BlockManager\API\Values\Layout\Zone
+     * @return \Netgen\Layouts\API\Values\Layout\Zone
      */
     public function loadZoneDraft($layoutId, string $identifier): Zone;
 
@@ -148,25 +148,25 @@ interface LayoutService extends Service
     /**
      * Links the zone to provided linked zone. If zone had a previous link, it will be overwritten.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If zone is not a draft
-     * @throws \Netgen\BlockManager\Exception\BadStateException If linked zone is not published
-     * @throws \Netgen\BlockManager\Exception\BadStateException If zone is in the shared layout
-     * @throws \Netgen\BlockManager\Exception\BadStateException If linked zone is not in the shared layout
-     * @throws \Netgen\BlockManager\Exception\BadStateException If zone and linked zone belong to the same layout
+     * @throws \Netgen\Layouts\Exception\BadStateException If zone is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If linked zone is not published
+     * @throws \Netgen\Layouts\Exception\BadStateException If zone is in the shared layout
+     * @throws \Netgen\Layouts\Exception\BadStateException If linked zone is not in the shared layout
+     * @throws \Netgen\Layouts\Exception\BadStateException If zone and linked zone belong to the same layout
      */
     public function linkZone(Zone $zone, Zone $linkedZone): Zone;
 
     /**
      * Removes the existing zone link from the provided zone.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If zone is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If zone is not a draft
      */
     public function unlinkZone(Zone $zone): Zone;
 
     /**
      * Creates a layout.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If layout with provided name already exists
+     * @throws \Netgen\Layouts\Exception\BadStateException If layout with provided name already exists
      */
     public function createLayout(LayoutCreateStruct $layoutCreateStruct): Layout;
 
@@ -178,7 +178,7 @@ interface LayoutService extends Service
      * All blocks and their collections and queries in the layout will receive the newly added
      * translation, except those that are marked as untranslatable.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If layout is not a draft
      *                                                          If translation with provided locale already exists
      *                                                          If translation with provided source locale does not exist
      */
@@ -190,7 +190,7 @@ interface LayoutService extends Service
      * Setting the main translation will propagate to all the blocks and their collections and
      * queries.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If layout is not a draft
      *                                                          If translation with provided locale does not exist
      */
     public function setMainTranslation(Layout $layout, string $mainLocale): Layout;
@@ -201,7 +201,7 @@ interface LayoutService extends Service
      * Translation will be removed from all blocks and their collections and queries too. If the
      * translation being removed is the only one for a block, the block will be removed too.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If layout is not a draft
      *                                                          If translation with provided locale does not exist
      *                                                          If translation with provided locale is the main layout translation
      */
@@ -210,7 +210,7 @@ interface LayoutService extends Service
     /**
      * Updates a specified layout.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If layout is not a draft
      *                                                          If layout with provided name already exists
      */
     public function updateLayout(Layout $layout, LayoutUpdateStruct $layoutUpdateStruct): Layout;
@@ -218,7 +218,7 @@ interface LayoutService extends Service
     /**
      * Copies a specified layout.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If layout with provided name already exists
+     * @throws \Netgen\Layouts\Exception\BadStateException If layout with provided name already exists
      */
     public function copyLayout(Layout $layout, LayoutCopyStruct $layoutCopyStruct): Layout;
 
@@ -239,14 +239,14 @@ interface LayoutService extends Service
      * of the zones from the new layout type is mapped to a shared zone from the old layout,
      * the mapping needs to be 1:1, instead of 1:n.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If layout is not a draft
      */
     public function changeLayoutType(Layout $layout, LayoutTypeInterface $targetLayoutType, array $zoneMappings, bool $preserveSharedZones = true): Layout;
 
     /**
      * Creates a layout draft.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not published
+     * @throws \Netgen\Layouts\Exception\BadStateException If layout is not published
      *                                                          If draft already exists for layout and $discardExisting is set to false
      */
     public function createDraft(Layout $layout, bool $discardExisting = false): Layout;
@@ -254,14 +254,14 @@ interface LayoutService extends Service
     /**
      * Discards a layout draft.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If layout is not a draft
      */
     public function discardDraft(Layout $layout): void;
 
     /**
      * Publishes a layout.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If layout is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If layout is not a draft
      */
     public function publishLayout(Layout $layout): Layout;
 
@@ -269,8 +269,8 @@ interface LayoutService extends Service
      * Restores the archived version of a layout to a draft. If draft already exists,
      * it will be removed.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If provided layout is not in archived status
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If provided layout does not have a published version to restore the name from
+     * @throws \Netgen\Layouts\Exception\BadStateException If provided layout is not in archived status
+     * @throws \Netgen\Layouts\Exception\NotFoundException If provided layout does not have a published version to restore the name from
      */
     public function restoreFromArchive(Layout $layout): Layout;
 

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Block\Form;
+namespace Netgen\Layouts\Block\Form;
 
-use Netgen\BlockManager\Form\TranslatableTypeTrait;
+use Netgen\Layouts\Form\TranslatableTypeTrait;
 use Symfony\Component\Form\FormBuilderInterface;
 
 final class FullEditType extends EditType

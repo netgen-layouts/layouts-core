@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View\Provider;
+namespace Netgen\Layouts\View\Provider;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Block\Placeholder;
-use Netgen\BlockManager\Exception\View\ViewProviderException;
-use Netgen\BlockManager\View\View\PlaceholderView;
-use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\Placeholder;
+use Netgen\Layouts\Exception\View\ViewProviderException;
+use Netgen\Layouts\View\View\PlaceholderView;
+use Netgen\Layouts\View\ViewInterface;
 
 final class PlaceholderViewProvider implements ViewProviderInterface
 {

@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Config\Form;
+namespace Netgen\Layouts\Tests\Config\Form;
 
-use Netgen\BlockManager\API\Values\Config\Config;
-use Netgen\BlockManager\API\Values\Config\ConfigStruct;
-use Netgen\BlockManager\Config\ConfigDefinition;
-use Netgen\BlockManager\Config\Form\EditType;
-use Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension;
-use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
-use Netgen\BlockManager\Tests\API\Stubs\ConfigAwareStruct;
-use Netgen\BlockManager\Tests\API\Stubs\ConfigAwareValue;
-use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler;
-use Netgen\BlockManager\Tests\Parameters\Stubs\FormMapper;
-use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Netgen\Layouts\API\Values\Config\Config;
+use Netgen\Layouts\API\Values\Config\ConfigStruct;
+use Netgen\Layouts\Config\ConfigDefinition;
+use Netgen\Layouts\Config\Form\EditType;
+use Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension;
+use Netgen\Layouts\Parameters\Form\Type\ParametersType;
+use Netgen\Layouts\Tests\API\Stubs\ConfigAwareStruct;
+use Netgen\Layouts\Tests\API\Stubs\ConfigAwareValue;
+use Netgen\Layouts\Tests\Config\Stubs\ConfigDefinitionHandler;
+use Netgen\Layouts\Tests\Parameters\Stubs\FormMapper;
+use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
@@ -23,7 +23,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class EditTypeTest extends FormTestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Config\ConfigAwareValue
+     * @var \Netgen\Layouts\API\Values\Config\ConfigAwareValue
      */
     private $configurable;
 
@@ -51,8 +51,8 @@ final class EditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Config\Form\EditType::buildForm
-     * @covers \Netgen\BlockManager\Config\Form\EditType::buildView
+     * @covers \Netgen\Layouts\Config\Form\EditType::buildForm
+     * @covers \Netgen\Layouts\Config\Form\EditType::buildView
      */
     public function testSubmitValidData(): void
     {
@@ -93,8 +93,8 @@ final class EditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Config\Form\EditType::buildForm
-     * @covers \Netgen\BlockManager\Config\Form\EditType::buildView
+     * @covers \Netgen\Layouts\Config\Form\EditType::buildForm
+     * @covers \Netgen\Layouts\Config\Form\EditType::buildView
      */
     public function testSubmitValidDataWithConfigKey(): void
     {
@@ -136,8 +136,8 @@ final class EditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Config\Form\EditType::buildForm
-     * @covers \Netgen\BlockManager\Config\Form\EditType::buildView
+     * @covers \Netgen\Layouts\Config\Form\EditType::buildForm
+     * @covers \Netgen\Layouts\Config\Form\EditType::buildView
      */
     public function testSubmitDataWithInvalidConfigKey(): void
     {
@@ -177,7 +177,7 @@ final class EditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Config\Form\EditType::configureOptions
+     * @covers \Netgen\Layouts\Config\Form\EditType::configureOptions
      */
     public function testConfigureOptions(): void
     {
@@ -201,7 +201,7 @@ final class EditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Config\Form\EditType::configureOptions
+     * @covers \Netgen\Layouts\Config\Form\EditType::configureOptions
      */
     public function testConfigureOptionsWithMissingValue(): void
     {
@@ -221,12 +221,12 @@ final class EditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Config\Form\EditType::configureOptions
+     * @covers \Netgen\Layouts\Config\Form\EditType::configureOptions
      */
     public function testConfigureOptionsWithInvalidValue(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "configurable" with value "" is expected to be of type "Netgen\\BlockManager\\API\\Values\\Config\\ConfigAwareValue", but is of type "string".');
+        $this->expectExceptionMessage('The option "configurable" with value "" is expected to be of type "Netgen\\Layouts\\API\\Values\\Config\\ConfigAwareValue", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -242,7 +242,7 @@ final class EditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Config\Form\EditType::configureOptions
+     * @covers \Netgen\Layouts\Config\Form\EditType::configureOptions
      */
     public function testConfigureOptionsWithMissingLabelPrefix(): void
     {
@@ -262,7 +262,7 @@ final class EditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Config\Form\EditType::configureOptions
+     * @covers \Netgen\Layouts\Config\Form\EditType::configureOptions
      */
     public function testConfigureOptionsWithInvalidLabelPrefix(): void
     {
@@ -283,12 +283,12 @@ final class EditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Config\Form\EditType::configureOptions
+     * @covers \Netgen\Layouts\Config\Form\EditType::configureOptions
      */
     public function testConfigureOptionsWithInvalidData(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\\BlockManager\\API\\Values\\Config\\ConfigAwareStruct", but is of type "string".');
+        $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\\Layouts\\API\\Values\\Config\\ConfigAwareStruct", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');

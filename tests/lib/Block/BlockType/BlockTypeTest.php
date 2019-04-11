@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Block\BlockType;
+namespace Netgen\Layouts\Tests\Block\BlockType;
 
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\BlockType\BlockType;
+use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Block\BlockType\BlockType;
 use PHPUnit\Framework\TestCase;
 
 final class BlockTypeTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Block\BlockType\BlockType
+     * @var \Netgen\Layouts\Block\BlockType\BlockType
      */
     private $blockType;
 
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
+     * @var \Netgen\Layouts\Block\BlockDefinitionInterface
      */
     private $blockDefinition;
 
@@ -42,7 +42,7 @@ final class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getIdentifier
+     * @covers \Netgen\Layouts\Block\BlockType\BlockType::getIdentifier
      */
     public function testGetIdentifier(): void
     {
@@ -50,7 +50,7 @@ final class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::isEnabled
+     * @covers \Netgen\Layouts\Block\BlockType\BlockType::isEnabled
      */
     public function testIsEnabled(): void
     {
@@ -58,7 +58,7 @@ final class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getName
+     * @covers \Netgen\Layouts\Block\BlockType\BlockType::getName
      */
     public function testGetName(): void
     {
@@ -66,7 +66,7 @@ final class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getIcon
+     * @covers \Netgen\Layouts\Block\BlockType\BlockType::getIcon
      */
     public function testGetIcon(): void
     {
@@ -74,7 +74,7 @@ final class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefinition
+     * @covers \Netgen\Layouts\Block\BlockType\BlockType::getDefinition
      */
     public function testGetDefinition(): void
     {
@@ -82,7 +82,7 @@ final class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefaults
+     * @covers \Netgen\Layouts\Block\BlockType\BlockType::getDefaults
      */
     public function testGetDefaults(): void
     {
@@ -98,7 +98,7 @@ final class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefaultName
+     * @covers \Netgen\Layouts\Block\BlockType\BlockType::getDefaultName
      */
     public function testGetDefaultName(): void
     {
@@ -106,7 +106,7 @@ final class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefaultViewType
+     * @covers \Netgen\Layouts\Block\BlockType\BlockType::getDefaultViewType
      */
     public function testGetDefaultViewType(): void
     {
@@ -114,7 +114,7 @@ final class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefaultItemViewType
+     * @covers \Netgen\Layouts\Block\BlockType\BlockType::getDefaultItemViewType
      */
     public function testGetDefaultItemViewType(): void
     {
@@ -122,7 +122,7 @@ final class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefaultParameters
+     * @covers \Netgen\Layouts\Block\BlockType\BlockType::getDefaultParameters
      */
     public function testGetDefaultParameters(): void
     {
@@ -130,7 +130,7 @@ final class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefaultName
+     * @covers \Netgen\Layouts\Block\BlockType\BlockType::getDefaultName
      */
     public function testGetDefaultEmptyName(): void
     {
@@ -140,7 +140,7 @@ final class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefaultViewType
+     * @covers \Netgen\Layouts\Block\BlockType\BlockType::getDefaultViewType
      */
     public function testGetDefaultEmptyViewType(): void
     {
@@ -150,7 +150,7 @@ final class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefaultViewType
+     * @covers \Netgen\Layouts\Block\BlockType\BlockType::getDefaultViewType
      */
     public function testGetDefaultEmptyItemViewType(): void
     {
@@ -160,7 +160,7 @@ final class BlockTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockType\BlockType::getDefaultParameters
+     * @covers \Netgen\Layouts\Block\BlockType\BlockType::getDefaultParameters
      */
     public function testGetDefaultEmptyParameters(): void
     {

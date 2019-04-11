@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Layout\Resolver;
+namespace Netgen\Layouts\Layout\Resolver;
 
 use Symfony\Component\HttpFoundation\Request;
 

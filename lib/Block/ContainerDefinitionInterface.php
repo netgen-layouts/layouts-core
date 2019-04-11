@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Block;
+namespace Netgen\Layouts\Block;
 
 /**
  * Container definition represents the model of the container block,

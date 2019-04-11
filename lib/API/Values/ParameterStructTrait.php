@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values;
+namespace Netgen\Layouts\API\Values;
 
-use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
-use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;
+use Netgen\Layouts\Parameters\CompoundParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterCollectionInterface;
+use Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface;
 
 trait ParameterStructTrait
 {

@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Layout\Registry;
+namespace Netgen\Layouts\Tests\Layout\Registry;
 
 use ArrayIterator;
-use Netgen\BlockManager\Exception\Layout\LayoutTypeException;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry;
-use Netgen\BlockManager\Layout\Type\LayoutType;
+use Netgen\Layouts\Exception\Layout\LayoutTypeException;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
+use Netgen\Layouts\Layout\Type\LayoutType;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutTypeRegistryTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Type\LayoutType
+     * @var \Netgen\Layouts\Layout\Type\LayoutType
      */
     private $layoutType1;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Type\LayoutType
+     * @var \Netgen\Layouts\Layout\Type\LayoutType
      */
     private $layoutType2;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry
+     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry
      */
     private $registry;
 
@@ -42,8 +42,8 @@ final class LayoutTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::__construct
-     * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::getLayoutTypes
+     * @covers \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry::__construct
+     * @covers \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry::getLayoutTypes
      */
     public function testGetLayoutTypes(): void
     {
@@ -57,7 +57,7 @@ final class LayoutTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::getLayoutTypes
+     * @covers \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry::getLayoutTypes
      */
     public function testGetEnabledLayoutTypes(): void
     {
@@ -70,7 +70,7 @@ final class LayoutTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::hasLayoutType
+     * @covers \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry::hasLayoutType
      */
     public function testHasLayoutType(): void
     {
@@ -78,7 +78,7 @@ final class LayoutTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::hasLayoutType
+     * @covers \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry::hasLayoutType
      */
     public function testHasLayoutTypeWithNoLayoutType(): void
     {
@@ -86,7 +86,7 @@ final class LayoutTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::getLayoutType
+     * @covers \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry::getLayoutType
      */
     public function testGetLayoutType(): void
     {
@@ -94,7 +94,7 @@ final class LayoutTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::getLayoutType
+     * @covers \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry::getLayoutType
      */
     public function testGetLayoutTypeThrowsLayoutTypeException(): void
     {
@@ -105,7 +105,7 @@ final class LayoutTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::getIterator
+     * @covers \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry::getIterator
      */
     public function testGetIterator(): void
     {
@@ -120,7 +120,7 @@ final class LayoutTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::count
+     * @covers \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry::count
      */
     public function testCount(): void
     {
@@ -128,7 +128,7 @@ final class LayoutTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::offsetExists
+     * @covers \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry::offsetExists
      */
     public function testOffsetExists(): void
     {
@@ -137,7 +137,7 @@ final class LayoutTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::offsetGet
+     * @covers \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry::offsetGet
      */
     public function testOffsetGet(): void
     {
@@ -145,7 +145,7 @@ final class LayoutTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::offsetSet
+     * @covers \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry::offsetSet
      */
     public function testOffsetSet(): void
     {
@@ -156,7 +156,7 @@ final class LayoutTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry::offsetUnset
+     * @covers \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry::offsetUnset
      */
     public function testOffsetUnset(): void
     {

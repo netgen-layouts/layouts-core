@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\ParameterType\ItemLink;
+namespace Netgen\Layouts\Tests\Parameters\ParameterType\ItemLink;
 
-use Netgen\BlockManager\Item\CmsItem;
-use Netgen\BlockManager\Item\CmsItemLoaderInterface;
-use Netgen\BlockManager\Item\NullCmsItem;
-use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
+use Netgen\Layouts\Item\CmsItem;
+use Netgen\Layouts\Item\CmsItemLoaderInterface;
+use Netgen\Layouts\Item\NullCmsItem;
+use Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use PHPUnit\Framework\TestCase;
 
 final class RemoteIdConverterTest extends TestCase
@@ -18,7 +18,7 @@ final class RemoteIdConverterTest extends TestCase
     private $cmsItemLoaderMock;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter
+     * @var \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter
      */
     private $remoteIdConverter;
 
@@ -30,8 +30,8 @@ final class RemoteIdConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::__construct
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertToRemoteId
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter::__construct
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertToRemoteId
      */
     public function testCovertToRemoteId(): void
     {
@@ -52,7 +52,7 @@ final class RemoteIdConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertToRemoteId
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertToRemoteId
      */
     public function testCovertToRemoteIdWithInvalidLink(): void
     {
@@ -60,7 +60,7 @@ final class RemoteIdConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertToRemoteId
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertToRemoteId
      */
     public function testConvertToRemoteIdWithNullCmsItem(): void
     {
@@ -74,7 +74,7 @@ final class RemoteIdConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId
      */
     public function testConvertFromRemoteId(): void
     {
@@ -95,7 +95,7 @@ final class RemoteIdConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId
      */
     public function testConvertFromRemoteIdWithInvalidLink(): void
     {
@@ -103,7 +103,7 @@ final class RemoteIdConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId
      */
     public function testConvertFromRemoteIdWithNullCmsItem(): void
     {

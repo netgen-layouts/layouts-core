@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\Form\Mapper;
+namespace Netgen\Layouts\Tests\Parameters\Form\Mapper;
 
-use Netgen\BlockManager\Item\CmsItemLoaderInterface;
-use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
-use Netgen\BlockManager\Item\ValueType\ValueType;
-use Netgen\BlockManager\Parameters\Form\Mapper\LinkMapper;
-use Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper;
-use Netgen\BlockManager\Parameters\Form\Type\LinkType;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
-use Netgen\BlockManager\Parameters\ParameterType\LinkType as LinkParameterType;
+use Netgen\Layouts\Item\CmsItemLoaderInterface;
+use Netgen\Layouts\Item\Registry\ValueTypeRegistry;
+use Netgen\Layouts\Item\ValueType\ValueType;
+use Netgen\Layouts\Parameters\Form\Mapper\LinkMapper;
+use Netgen\Layouts\Parameters\Form\Type\DataMapper\LinkDataMapper;
+use Netgen\Layouts\Parameters\Form\Type\LinkType;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter;
+use Netgen\Layouts\Parameters\ParameterType\LinkType as LinkParameterType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormBuilder;
@@ -21,7 +21,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 final class LinkMapperTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface
+     * @var \Netgen\Layouts\Item\Registry\ValueTypeRegistryInterface
      */
     private $valueTypeRegistry;
 
@@ -31,12 +31,12 @@ final class LinkMapperTest extends TestCase
     private $cmsItemLoaderMock;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterType\LinkType
+     * @var \Netgen\Layouts\Parameters\ParameterType\LinkType
      */
     private $type;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\Form\Mapper\LinkMapper
+     * @var \Netgen\Layouts\Parameters\Form\Mapper\LinkMapper
      */
     private $mapper;
 
@@ -55,7 +55,7 @@ final class LinkMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Mapper\LinkMapper::getFormType
+     * @covers \Netgen\Layouts\Parameters\Form\Mapper\LinkMapper::getFormType
      */
     public function testGetFormType(): void
     {
@@ -63,7 +63,7 @@ final class LinkMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Mapper\LinkMapper::mapOptions
+     * @covers \Netgen\Layouts\Parameters\Form\Mapper\LinkMapper::mapOptions
      */
     public function testMapOptions(): void
     {
@@ -86,7 +86,7 @@ final class LinkMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Mapper\LinkMapper::mapOptions
+     * @covers \Netgen\Layouts\Parameters\Form\Mapper\LinkMapper::mapOptions
      */
     public function testMapOptionsWithEmptyValueTypes(): void
     {
@@ -109,7 +109,7 @@ final class LinkMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Mapper\LinkMapper::handleForm
+     * @covers \Netgen\Layouts\Parameters\Form\Mapper\LinkMapper::handleForm
      */
     public function testHandleForm(): void
     {

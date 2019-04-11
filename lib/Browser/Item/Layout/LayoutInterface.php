@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Browser\Item\Layout;
+namespace Netgen\Layouts\Browser\Item\Layout;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\Layout;
 
 interface LayoutInterface
 {

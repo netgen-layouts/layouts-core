@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener;
 
 use Exception;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\Stubs\ErrorHandler;
-use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\View\ViewRendererInterface;
 use Netgen\Bundle\LayoutsBundle\EventListener\ViewRendererListener;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\Stubs\ErrorHandler;
+use Netgen\Layouts\Tests\View\Stubs\View;
+use Netgen\Layouts\View\ViewRendererInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

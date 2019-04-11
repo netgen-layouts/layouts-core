@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Form\Admin\Type;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\LayoutList;
-use Netgen\BlockManager\Tests\TestCase\FormTestCase;
 use Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type\ClearLayoutsCacheType;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\LayoutList;
+use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -15,7 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class ClearLayoutsCacheTypeTest extends FormTestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Layout\LayoutList
+     * @var \Netgen\Layouts\API\Values\Layout\LayoutList
      */
     private $layouts;
 
@@ -96,7 +96,7 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
     public function testConfigureOptionsWithInvalidLayouts(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "layouts" with value 42 is expected to be of type "Netgen\\BlockManager\\API\\Values\\Layout\\LayoutList", but is of type "integer".');
+        $this->expectExceptionMessage('The option "layouts" with value 42 is expected to be of type "Netgen\\Layouts\\API\\Values\\Layout\\LayoutList", but is of type "integer".');
 
         $optionsResolver = new OptionsResolver();
 

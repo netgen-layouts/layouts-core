@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
+namespace Netgen\Layouts\Tests\Parameters\ParameterType;
 
-use Netgen\BlockManager\Parameters\ParameterType\BooleanType;
+use Netgen\Layouts\Parameters\ParameterType\BooleanType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Validation;
@@ -19,7 +19,7 @@ final class BooleanTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\BooleanType::getIdentifier
+     * @covers \Netgen\Layouts\Parameters\ParameterType\BooleanType::getIdentifier
      */
     public function testGetIdentifier(): void
     {
@@ -27,7 +27,7 @@ final class BooleanTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\BooleanType::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterType\BooleanType::configureOptions
      *
      * @param array<string, mixed> $options
      * @param bool $required
@@ -43,7 +43,7 @@ final class BooleanTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\BooleanType::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterType\BooleanType::configureOptions
      * @dataProvider validOptionsProvider
      */
     public function testValidOptions(array $options, array $resolvedOptions): void
@@ -53,7 +53,7 @@ final class BooleanTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\BooleanType::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterType\BooleanType::configureOptions
      * @dataProvider invalidOptionsProvider
      */
     public function testInvalidOptions(array $options): void
@@ -101,8 +101,8 @@ final class BooleanTypeTest extends TestCase
      * @param bool $required
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\BooleanType::getRequiredConstraints
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\BooleanType::getValueConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterType\BooleanType::getRequiredConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterType\BooleanType::getValueConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, bool $required, bool $isValid): void
@@ -134,7 +134,7 @@ final class BooleanTypeTest extends TestCase
      * @param mixed $value
      * @param bool $isEmpty
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\BooleanType::isValueEmpty
+     * @covers \Netgen\Layouts\Parameters\ParameterType\BooleanType::isValueEmpty
      * @dataProvider emptyProvider
      */
     public function testIsValueEmpty($value, bool $isEmpty): void

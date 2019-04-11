@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Locale;
+namespace Netgen\Layouts\Locale;
 
 use Symfony\Component\HttpFoundation\Request;
 

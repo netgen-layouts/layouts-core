@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Item;
+namespace Netgen\Layouts\Item;
 
-use Netgen\BlockManager\Exception\Item\ItemException;
+use Netgen\Layouts\Exception\Item\ItemException;
 
 final class UrlGenerator implements UrlGeneratorInterface
 {
     /**
-     * @var \Netgen\BlockManager\Item\ValueUrlGeneratorInterface[]
+     * @var \Netgen\Layouts\Item\ValueUrlGeneratorInterface[]
      */
     private $valueUrlGenerators;
 
     /**
-     * @param \Netgen\BlockManager\Item\ValueUrlGeneratorInterface[] $valueUrlGenerators
+     * @param \Netgen\Layouts\Item\ValueUrlGeneratorInterface[] $valueUrlGenerators
      */
     public function __construct(array $valueUrlGenerators)
     {

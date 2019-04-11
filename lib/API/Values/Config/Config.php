@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\Config;
+namespace Netgen\Layouts\API\Values\Config;
 
-use Netgen\BlockManager\Config\ConfigDefinitionInterface;
-use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
-use Netgen\BlockManager\Parameters\ParameterCollectionTrait;
-use Netgen\BlockManager\Utils\HydratorTrait;
+use Netgen\Layouts\Config\ConfigDefinitionInterface;
+use Netgen\Layouts\Parameters\ParameterCollectionInterface;
+use Netgen\Layouts\Parameters\ParameterCollectionTrait;
+use Netgen\Layouts\Utils\HydratorTrait;
 
 final class Config implements ParameterCollectionInterface
 {
@@ -20,7 +20,7 @@ final class Config implements ParameterCollectionInterface
     private $configKey;
 
     /**
-     * @var \Netgen\BlockManager\Config\ConfigDefinitionInterface
+     * @var \Netgen\Layouts\Config\ConfigDefinitionInterface
      */
     private $definition;
 

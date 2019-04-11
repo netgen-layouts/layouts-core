@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Exception\Parameters;
+namespace Netgen\Layouts\Exception\Parameters;
 
 use InvalidArgumentException;
-use Netgen\BlockManager\Exception\Exception;
+use Netgen\Layouts\Exception\Exception;
 
 final class ParameterTypeException extends InvalidArgumentException implements Exception
 {

@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\TargetHandler\Doctrine;
+namespace Netgen\Layouts\Tests\Layout\Resolver\TargetHandler\Doctrine;
 
-use Netgen\BlockManager\Exception\Persistence\TargetHandlerException;
-use Netgen\BlockManager\Layout\Resolver\TargetHandler\Doctrine\Route;
-use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\TargetHandlerInterface;
+use Netgen\Layouts\Exception\Persistence\TargetHandlerException;
+use Netgen\Layouts\Layout\Resolver\TargetHandler\Doctrine\Route;
+use Netgen\Layouts\Persistence\Doctrine\QueryHandler\TargetHandlerInterface;
 
 final class TargetHandlerTest extends AbstractTargetHandlerTest
 {
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::matchRules
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::matchRules
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::matchRules
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::matchRules
      */
     public function testMatchRulesWithNoTargetMatch(): void
     {
@@ -25,8 +25,8 @@ final class TargetHandlerTest extends AbstractTargetHandlerTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::matchRules
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::matchRules
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::matchRules
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::matchRules
      */
     public function testMatchRulesWithNonExistentTargetHandler(): void
     {

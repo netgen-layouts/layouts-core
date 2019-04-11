@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Layout\Resolver\Form;
+namespace Netgen\Layouts\Layout\Resolver\Form;
 
-use Netgen\BlockManager\API\Values\LayoutResolver\ConditionStruct;
-use Netgen\BlockManager\Exception\Layout\ConditionTypeException;
-use Netgen\BlockManager\Form\AbstractType;
-use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
-use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\MapperInterface;
+use Netgen\Layouts\API\Values\LayoutResolver\ConditionStruct;
+use Netgen\Layouts\Exception\Layout\ConditionTypeException;
+use Netgen\Layouts\Form\AbstractType;
+use Netgen\Layouts\Layout\Resolver\ConditionTypeInterface;
+use Netgen\Layouts\Layout\Resolver\Form\ConditionType\MapperInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -17,12 +17,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class ConditionType extends AbstractType
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\MapperInterface[]
+     * @var \Netgen\Layouts\Layout\Resolver\Form\ConditionType\MapperInterface[]
      */
     private $mappers;
 
     /**
-     * @param \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\MapperInterface[] $mappers
+     * @param \Netgen\Layouts\Layout\Resolver\Form\ConditionType\MapperInterface[] $mappers
      */
     public function __construct(array $mappers)
     {
@@ -45,7 +45,7 @@ final class ConditionType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        /** @var \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface $conditionType */
+        /** @var \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface $conditionType */
         $conditionType = $options['condition_type'];
 
         if (!isset($this->mappers[$conditionType::getType()])) {

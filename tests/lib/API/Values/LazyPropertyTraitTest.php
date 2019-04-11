@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values;
+namespace Netgen\Layouts\Tests\API\Values;
 
-use Netgen\BlockManager\Tests\API\Stubs\ValueWithLazyProperty;
+use Netgen\Layouts\Tests\API\Stubs\ValueWithLazyProperty;
 use PHPUnit\Framework\TestCase;
 
 final class LazyPropertyTraitTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Tests\API\Stubs\ValueWithLazyProperty
+     * @var \Netgen\Layouts\Tests\API\Stubs\ValueWithLazyProperty
      */
     private $value;
 
@@ -24,7 +24,7 @@ final class LazyPropertyTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\LazyPropertyTrait::getLazyProperty
+     * @covers \Netgen\Layouts\API\Values\LazyPropertyTrait::getLazyProperty
      */
     public function testGetLazyProperty(): void
     {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Service;
+namespace Netgen\Layouts\API\Service;
 
 interface Service
 {
@@ -23,14 +23,14 @@ interface Service
     /**
      * Commits the transaction.
      *
-     * @throws \Netgen\BlockManager\Exception\RuntimeException If no transaction has been started
+     * @throws \Netgen\Layouts\Exception\RuntimeException If no transaction has been started
      */
     public function commitTransaction(): void;
 
     /**
      * Rollbacks the transaction.
      *
-     * @throws \Netgen\BlockManager\Exception\RuntimeException If no transaction has been started
+     * @throws \Netgen\Layouts\Exception\RuntimeException If no transaction has been started
      */
     public function rollbackTransaction(): void;
 }

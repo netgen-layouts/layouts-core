@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Persistence\Doctrine\QueryHandler;
+namespace Netgen\Layouts\Tests\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\DriverManager;
-use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\QueryHandler;
+use Netgen\Layouts\Persistence\Doctrine\QueryHandler\QueryHandler;
 use PHPUnit\Framework\TestCase;
 
 final class QueryHandlerTest extends TestCase
@@ -16,7 +16,7 @@ final class QueryHandlerTest extends TestCase
     private $databaseConnection;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\QueryHandler
+     * @var \Netgen\Layouts\Persistence\Doctrine\QueryHandler\QueryHandler
      */
     private $queryHandler;
 
@@ -34,8 +34,8 @@ final class QueryHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\QueryHandler::__construct
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\QueryHandler::applyStatusCondition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\QueryHandler::__construct
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\QueryHandler::applyStatusCondition
      */
     public function testApplyStatusCondition(): void
     {
@@ -46,7 +46,7 @@ final class QueryHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\QueryHandler::applyOffsetAndLimit
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\QueryHandler::applyOffsetAndLimit
      */
     public function testApplyOffsetAndLimit(): void
     {

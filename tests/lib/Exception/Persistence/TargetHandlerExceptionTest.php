@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Exception\Persistence;
+namespace Netgen\Layouts\Tests\Exception\Persistence;
 
-use Netgen\BlockManager\Exception\Persistence\TargetHandlerException;
+use Netgen\Layouts\Exception\Persistence\TargetHandlerException;
 use PHPUnit\Framework\TestCase;
 
 final class TargetHandlerExceptionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Exception\Persistence\TargetHandlerException::noTargetHandler
+     * @covers \Netgen\Layouts\Exception\Persistence\TargetHandlerException::noTargetHandler
      */
     public function testNoTargetHandler(): void
     {

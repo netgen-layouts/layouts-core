@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View;
+namespace Netgen\Layouts\View;
 
 use Symfony\Component\HttpFoundation\Response;
 
@@ -88,7 +88,7 @@ interface ViewInterface
     /**
      * Returns the view parameter by identifier.
      *
-     * @throws \Netgen\BlockManager\Exception\View\ViewException If view does not have the parameter
+     * @throws \Netgen\Layouts\Exception\View\ViewException If view does not have the parameter
      *
      * @return mixed
      */

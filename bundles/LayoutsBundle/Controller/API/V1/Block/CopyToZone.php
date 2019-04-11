@@ -4,24 +4,24 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block;
 
-use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Serializer\Values\View;
-use Netgen\BlockManager\Serializer\Version;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
+use Netgen\Layouts\API\Service\BlockService;
+use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Serializer\Values\View;
+use Netgen\Layouts\Serializer\Version;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class CopyToZone extends AbstractController
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\BlockService
+     * @var \Netgen\Layouts\API\Service\BlockService
      */
     private $blockService;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutService
+     * @var \Netgen\Layouts\API\Service\LayoutService
      */
     private $layoutService;
 

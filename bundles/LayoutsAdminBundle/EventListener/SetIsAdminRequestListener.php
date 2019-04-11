@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 
-use Netgen\BlockManager\Utils\BackwardsCompatibility\EventDispatcherProxy;
 use Netgen\Bundle\LayoutsAdminBundle\Event\AdminMatchEvent;
 use Netgen\Bundle\LayoutsAdminBundle\Event\LayoutsAdminEvents;
+use Netgen\Layouts\Utils\BackwardsCompatibility\EventDispatcherProxy;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -19,7 +19,7 @@ final class SetIsAdminRequestListener implements EventSubscriberInterface
     private const ADMIN_ROUTE_PREFIX = 'nglayouts_admin_';
 
     /**
-     * @var \Netgen\BlockManager\Utils\BackwardsCompatibility\EventDispatcherProxy
+     * @var \Netgen\Layouts\Utils\BackwardsCompatibility\EventDispatcherProxy
      */
     private $eventDispatcher;
 

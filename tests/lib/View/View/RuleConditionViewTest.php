@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\View;
+namespace Netgen\Layouts\Tests\View\View;
 
-use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\View\View\RuleConditionView;
+use Netgen\Layouts\API\Values\LayoutResolver\Condition;
+use Netgen\Layouts\View\View\RuleConditionView;
 use PHPUnit\Framework\TestCase;
 
 final class RuleConditionViewTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\LayoutResolver\Condition
+     * @var \Netgen\Layouts\API\Values\LayoutResolver\Condition
      */
     private $condition;
 
     /**
-     * @var \Netgen\BlockManager\View\View\RuleConditionViewInterface
+     * @var \Netgen\Layouts\View\View\RuleConditionViewInterface
      */
     private $view;
 
@@ -31,8 +31,8 @@ final class RuleConditionViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View\RuleConditionView::__construct
-     * @covers \Netgen\BlockManager\View\View\RuleConditionView::getCondition
+     * @covers \Netgen\Layouts\View\View\RuleConditionView::__construct
+     * @covers \Netgen\Layouts\View\View\RuleConditionView::getCondition
      */
     public function testGetCondition(): void
     {
@@ -47,7 +47,7 @@ final class RuleConditionViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View\RuleConditionView::getIdentifier
+     * @covers \Netgen\Layouts\View\View\RuleConditionView::getIdentifier
      */
     public function testGetIdentifier(): void
     {

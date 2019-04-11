@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\ConditionType;
+namespace Netgen\Layouts\Tests\Layout\Resolver\ConditionType;
 
 use Exception;
-use Netgen\BlockManager\Layout\Resolver\ConditionType\Exception as ExceptionConditionType;
+use Netgen\Layouts\Layout\Resolver\ConditionType\Exception as ExceptionConditionType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Debug\Exception\FlattenException;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Validation;
 final class ExceptionTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\ConditionType\Exception
+     * @var \Netgen\Layouts\Layout\Resolver\ConditionType\Exception
      */
     private $conditionType;
 
@@ -24,7 +24,7 @@ final class ExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\Exception::getType
+     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\Exception::getType
      */
     public function testGetType(): void
     {
@@ -35,7 +35,7 @@ final class ExceptionTest extends TestCase
      * @param mixed $value
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\Exception::getConstraints
+     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\Exception::getConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, bool $isValid): void
@@ -47,7 +47,7 @@ final class ExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\Exception::matches
+     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\Exception::matches
      *
      * @param mixed $value
      * @param bool $matches
@@ -64,7 +64,7 @@ final class ExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\Exception::matches
+     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\Exception::matches
      */
     public function testMatchesWithNoException(): void
     {
@@ -74,7 +74,7 @@ final class ExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\Exception::matches
+     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\Exception::matches
      */
     public function testMatchesWithInvalidException(): void
     {

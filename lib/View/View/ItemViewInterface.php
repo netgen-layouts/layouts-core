@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View\View;
+namespace Netgen\Layouts\View\View;
 
-use Netgen\BlockManager\Item\CmsItemInterface;
-use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Layouts\Item\CmsItemInterface;
+use Netgen\Layouts\View\ViewInterface;
 
 interface ItemViewInterface extends ViewInterface
 {

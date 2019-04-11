@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Core\Validator;
+namespace Netgen\Layouts\Core\Validator;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
-use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\Validator\Constraint\Structs\BlockCreateStruct as BlockCreateStructConstraint;
-use Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
-use Netgen\BlockManager\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\BlockCreateStruct;
+use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
+use Netgen\Layouts\Validator\Constraint\Structs\BlockCreateStruct as BlockCreateStructConstraint;
+use Netgen\Layouts\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
+use Netgen\Layouts\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
 
 final class BlockValidator extends Validator
 {
     /**
-     * @var \Netgen\BlockManager\Core\Validator\CollectionValidator
+     * @var \Netgen\Layouts\Core\Validator\CollectionValidator
      */
     private $collectionValidator;
 
@@ -26,7 +26,7 @@ final class BlockValidator extends Validator
     /**
      * Validates the provided block create struct.
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
     public function validateBlockCreateStruct(BlockCreateStruct $blockCreateStruct): void
     {
@@ -57,7 +57,7 @@ final class BlockValidator extends Validator
     /**
      * Validates the provided block update struct.
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
     public function validateBlockUpdateStruct(Block $block, BlockUpdateStruct $blockUpdateStruct): void
     {

@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Browser\Backend;
+namespace Netgen\Layouts\Browser\Backend;
 
 use Generator;
-use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\LayoutList;
-use Netgen\BlockManager\Browser\Item\Layout\Item;
-use Netgen\BlockManager\Browser\Item\Layout\RootLocation;
-use Netgen\BlockManager\Exception\NotFoundException as BaseNotFoundException;
 use Netgen\ContentBrowser\Backend\BackendInterface;
 use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\ContentBrowser\Item\LocationInterface;
+use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\LayoutList;
+use Netgen\Layouts\Browser\Item\Layout\Item;
+use Netgen\Layouts\Browser\Item\Layout\RootLocation;
+use Netgen\Layouts\Exception\NotFoundException as BaseNotFoundException;
 
 final class LayoutBackend implements BackendInterface
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutService
+     * @var \Netgen\Layouts\API\Service\LayoutService
      */
     private $layoutService;
 

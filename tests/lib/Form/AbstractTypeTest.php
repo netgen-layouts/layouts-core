@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Form;
+namespace Netgen\Layouts\Tests\Form;
 
-use Netgen\BlockManager\Form\AbstractType;
-use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Netgen\Layouts\Form\AbstractType;
+use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class AbstractTypeTest extends FormTestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Form\AbstractType::configureOptions
+     * @covers \Netgen\Layouts\Form\AbstractType::configureOptions
      */
     public function testConfigureOptions(): void
     {

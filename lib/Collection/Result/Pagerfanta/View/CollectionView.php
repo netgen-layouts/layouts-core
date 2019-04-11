@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Collection\Result\Pagerfanta\View;
+namespace Netgen\Layouts\Collection\Result\Pagerfanta\View;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Exception\InvalidArgumentException;
 use Pagerfanta\PagerfantaInterface;
 use Pagerfanta\View\ViewInterface;
 use Twig\Environment;

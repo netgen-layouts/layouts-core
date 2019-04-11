@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Collection;
 
-use Netgen\BlockManager\Collection\QueryType\QueryType;
-use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\DefinitionClassTrait;
+use Netgen\Layouts\Collection\QueryType\QueryType;
+use Netgen\Layouts\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;

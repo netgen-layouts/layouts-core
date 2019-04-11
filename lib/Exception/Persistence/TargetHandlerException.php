@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Exception\Persistence;
+namespace Netgen\Layouts\Exception\Persistence;
 
-use Netgen\BlockManager\Exception\Exception;
+use Netgen\Layouts\Exception\Exception;
 use RuntimeException;
 
 final class TargetHandlerException extends RuntimeException implements Exception

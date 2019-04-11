@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Config;
+namespace Netgen\Layouts\Tests\Config;
 
-use Netgen\BlockManager\Config\ConfigDefinition;
-use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler;
+use Netgen\Layouts\Config\ConfigDefinition;
+use Netgen\Layouts\Tests\Config\Stubs\ConfigDefinitionHandler;
 use PHPUnit\Framework\TestCase;
 
 final class ConfigDefinitionTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface
+     * @var \Netgen\Layouts\Config\ConfigDefinitionHandlerInterface
      */
     private $handler;
 
     /**
-     * @var \Netgen\BlockManager\Config\ConfigDefinition
+     * @var \Netgen\Layouts\Config\ConfigDefinition
      */
     private $configDefinition;
 
@@ -33,7 +33,7 @@ final class ConfigDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Config\ConfigDefinition::getConfigKey
+     * @covers \Netgen\Layouts\Config\ConfigDefinition::getConfigKey
      */
     public function testGetConfigKey(): void
     {

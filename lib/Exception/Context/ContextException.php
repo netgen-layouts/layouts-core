@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Exception\Context;
+namespace Netgen\Layouts\Exception\Context;
 
 use InvalidArgumentException;
-use Netgen\BlockManager\Exception\Exception;
+use Netgen\Layouts\Exception\Exception;
 
 final class ContextException extends InvalidArgumentException implements Exception
 {

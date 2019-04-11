@@ -2,31 +2,31 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Collection\Result;
+namespace Netgen\Layouts\Tests\Collection\Result;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\Collection\Result\Result;
-use Netgen\BlockManager\Collection\Result\ResultSet;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Item\CmsItem;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\Collection\Result\Result;
+use Netgen\Layouts\Collection\Result\ResultSet;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Item\CmsItem;
+use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
 final class ResultSetTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::count
-     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::getCollection
-     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::getIterator
-     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::getLimit
-     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::getOffset
-     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::getResults
-     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::getTotalCount
-     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::offsetExists
-     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::offsetGet
-     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::offsetSet
-     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::offsetUnset
+     * @covers \Netgen\Layouts\Collection\Result\ResultSet::count
+     * @covers \Netgen\Layouts\Collection\Result\ResultSet::getCollection
+     * @covers \Netgen\Layouts\Collection\Result\ResultSet::getIterator
+     * @covers \Netgen\Layouts\Collection\Result\ResultSet::getLimit
+     * @covers \Netgen\Layouts\Collection\Result\ResultSet::getOffset
+     * @covers \Netgen\Layouts\Collection\Result\ResultSet::getResults
+     * @covers \Netgen\Layouts\Collection\Result\ResultSet::getTotalCount
+     * @covers \Netgen\Layouts\Collection\Result\ResultSet::offsetExists
+     * @covers \Netgen\Layouts\Collection\Result\ResultSet::offsetGet
+     * @covers \Netgen\Layouts\Collection\Result\ResultSet::offsetSet
+     * @covers \Netgen\Layouts\Collection\Result\ResultSet::offsetUnset
      */
     public function testObject(): void
     {
@@ -74,7 +74,7 @@ final class ResultSetTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::isDynamic
+     * @covers \Netgen\Layouts\Collection\Result\ResultSet::isDynamic
      */
     public function testIsDynamic(): void
     {
@@ -92,7 +92,7 @@ final class ResultSetTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::isDynamic
+     * @covers \Netgen\Layouts\Collection\Result\ResultSet::isDynamic
      */
     public function testIsDynamicWithManualCollection(): void
     {
@@ -106,7 +106,7 @@ final class ResultSetTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::isContextual
+     * @covers \Netgen\Layouts\Collection\Result\ResultSet::isContextual
      */
     public function testIsContextual(): void
     {
@@ -128,7 +128,7 @@ final class ResultSetTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::isContextual
+     * @covers \Netgen\Layouts\Collection\Result\ResultSet::isContextual
      */
     public function testIsContextualWithManualCollection(): void
     {
@@ -142,7 +142,7 @@ final class ResultSetTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\ResultSet::isContextual
+     * @covers \Netgen\Layouts\Collection\Result\ResultSet::isContextual
      */
     public function testIsContextualWithContextualQuery(): void
     {

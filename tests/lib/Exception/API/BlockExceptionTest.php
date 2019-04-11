@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Exception\API;
+namespace Netgen\Layouts\Tests\Exception\API;
 
-use Netgen\BlockManager\Exception\API\BlockException;
+use Netgen\Layouts\Exception\API\BlockException;
 use PHPUnit\Framework\TestCase;
 
 final class BlockExceptionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Exception\API\BlockException::noPlaceholder
+     * @covers \Netgen\Layouts\Exception\API\BlockException::noPlaceholder
      */
     public function testNoPlaceholder(): void
     {
@@ -23,7 +23,7 @@ final class BlockExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\API\BlockException::noCollection
+     * @covers \Netgen\Layouts\Exception\API\BlockException::noCollection
      */
     public function testNoCollection(): void
     {

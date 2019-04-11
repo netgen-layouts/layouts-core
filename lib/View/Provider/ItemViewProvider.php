@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View\Provider;
+namespace Netgen\Layouts\View\Provider;
 
-use Netgen\BlockManager\Exception\View\ViewProviderException;
-use Netgen\BlockManager\Item\CmsItemInterface;
-use Netgen\BlockManager\View\View\ItemView;
-use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Layouts\Exception\View\ViewProviderException;
+use Netgen\Layouts\Item\CmsItemInterface;
+use Netgen\Layouts\View\View\ItemView;
+use Netgen\Layouts\View\ViewInterface;
 
 final class ItemViewProvider implements ViewProviderInterface
 {

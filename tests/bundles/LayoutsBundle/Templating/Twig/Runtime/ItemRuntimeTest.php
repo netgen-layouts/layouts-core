@@ -4,29 +4,29 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\Templating\Twig\Runtime;
 
-use Netgen\BlockManager\Exception\Item\ItemException;
-use Netgen\BlockManager\Item\CmsItem;
-use Netgen\BlockManager\Item\CmsItemLoaderInterface;
-use Netgen\BlockManager\Item\UrlGeneratorInterface;
-use Netgen\BlockManager\Tests\Stubs\ErrorHandler;
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\ItemRuntime;
+use Netgen\Layouts\Exception\Item\ItemException;
+use Netgen\Layouts\Item\CmsItem;
+use Netgen\Layouts\Item\CmsItemLoaderInterface;
+use Netgen\Layouts\Item\UrlGeneratorInterface;
+use Netgen\Layouts\Tests\Stubs\ErrorHandler;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
 final class ItemRuntimeTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Item\CmsItemLoaderInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\Layouts\Item\CmsItemLoaderInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $cmsItemLoaderMock;
 
     /**
-     * @var \Netgen\BlockManager\Item\UrlGeneratorInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\Layouts\Item\UrlGeneratorInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $urlGeneratorMock;
 
     /**
-     * @var \Netgen\BlockManager\Tests\Stubs\ErrorHandler
+     * @var \Netgen\Layouts\Tests\Stubs\ErrorHandler
      */
     private $errorHandler;
 

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Collection\QueryType;
+namespace Netgen\Layouts\Collection\QueryType;
 
-use Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface;
+use Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface;
 
 final class QueryTypeFactory
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface
+     * @var \Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface
      */
     private $parameterBuilderFactory;
 

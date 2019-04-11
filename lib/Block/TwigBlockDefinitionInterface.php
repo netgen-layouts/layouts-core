@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Block;
+namespace Netgen\Layouts\Block;
 
-use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\Block;
 
 /**
  * Twig block definition is a special kind of block used to render

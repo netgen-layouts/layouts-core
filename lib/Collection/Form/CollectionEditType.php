@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Collection\Form;
+namespace Netgen\Layouts\Collection\Form;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
-use Netgen\BlockManager\Form\AbstractType;
-use Netgen\BlockManager\Form\TranslatableTypeTrait;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\CollectionUpdateStruct;
+use Netgen\Layouts\Form\AbstractType;
+use Netgen\Layouts\Form\TranslatableTypeTrait;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Transfer\Output;
+namespace Netgen\Layouts\Tests\Transfer\Output;
 
-use Netgen\BlockManager\API\Service\LayoutResolverService;
-use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Transfer\Descriptor;
-use Netgen\BlockManager\Transfer\Output\Serializer;
-use Netgen\BlockManager\Transfer\Output\VisitorInterface;
+use Netgen\Layouts\API\Service\LayoutResolverService;
+use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Transfer\Descriptor;
+use Netgen\Layouts\Transfer\Output\Serializer;
+use Netgen\Layouts\Transfer\Output\VisitorInterface;
 use PHPUnit\Framework\TestCase;
 
 final class SerializerTest extends TestCase
@@ -32,7 +32,7 @@ final class SerializerTest extends TestCase
     private $visitorMock;
 
     /**
-     * @var \Netgen\BlockManager\Transfer\Output\Serializer
+     * @var \Netgen\Layouts\Transfer\Output\Serializer
      */
     private $serializer;
 
@@ -50,10 +50,10 @@ final class SerializerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Transfer\Output\Serializer::__construct
-     * @covers \Netgen\BlockManager\Transfer\Output\Serializer::createBasicData
-     * @covers \Netgen\BlockManager\Transfer\Output\Serializer::loadLayouts
-     * @covers \Netgen\BlockManager\Transfer\Output\Serializer::serializeLayouts
+     * @covers \Netgen\Layouts\Transfer\Output\Serializer::__construct
+     * @covers \Netgen\Layouts\Transfer\Output\Serializer::createBasicData
+     * @covers \Netgen\Layouts\Transfer\Output\Serializer::loadLayouts
+     * @covers \Netgen\Layouts\Transfer\Output\Serializer::serializeLayouts
      */
     public function testSerializeLayouts(): void
     {
@@ -97,9 +97,9 @@ final class SerializerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Transfer\Output\Serializer::createBasicData
-     * @covers \Netgen\BlockManager\Transfer\Output\Serializer::loadLayouts
-     * @covers \Netgen\BlockManager\Transfer\Output\Serializer::serializeLayouts
+     * @covers \Netgen\Layouts\Transfer\Output\Serializer::createBasicData
+     * @covers \Netgen\Layouts\Transfer\Output\Serializer::loadLayouts
+     * @covers \Netgen\Layouts\Transfer\Output\Serializer::serializeLayouts
      */
     public function testSerializeLayoutsWithNonExistentLayout(): void
     {
@@ -135,9 +135,9 @@ final class SerializerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Transfer\Output\Serializer::createBasicData
-     * @covers \Netgen\BlockManager\Transfer\Output\Serializer::loadRules
-     * @covers \Netgen\BlockManager\Transfer\Output\Serializer::serializeRules
+     * @covers \Netgen\Layouts\Transfer\Output\Serializer::createBasicData
+     * @covers \Netgen\Layouts\Transfer\Output\Serializer::loadRules
+     * @covers \Netgen\Layouts\Transfer\Output\Serializer::serializeRules
      */
     public function testSerializeRules(): void
     {
@@ -181,9 +181,9 @@ final class SerializerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Transfer\Output\Serializer::createBasicData
-     * @covers \Netgen\BlockManager\Transfer\Output\Serializer::loadRules
-     * @covers \Netgen\BlockManager\Transfer\Output\Serializer::serializeRules
+     * @covers \Netgen\Layouts\Transfer\Output\Serializer::createBasicData
+     * @covers \Netgen\Layouts\Transfer\Output\Serializer::loadRules
+     * @covers \Netgen\Layouts\Transfer\Output\Serializer::serializeRules
      */
     public function testSerializeRulesWithNonExistentRule(): void
     {

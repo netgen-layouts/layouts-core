@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\Layout;
+namespace Netgen\Layouts\Tests\API\Values\Layout;
 
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Exception\API\LayoutException;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Layout\Type\LayoutType;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\Exception\API\LayoutException;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Layout\Type\LayoutType;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutTest extends TestCase
@@ -22,9 +22,9 @@ final class LayoutTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Layout\Layout::__construct
-     * @covers \Netgen\BlockManager\API\Values\Layout\Layout::getAvailableLocales
-     * @covers \Netgen\BlockManager\API\Values\Layout\Layout::getZones
+     * @covers \Netgen\Layouts\API\Values\Layout\Layout::__construct
+     * @covers \Netgen\Layouts\API\Values\Layout\Layout::getAvailableLocales
+     * @covers \Netgen\Layouts\API\Values\Layout\Layout::getZones
      */
     public function testDefaultProperties(): void
     {
@@ -35,26 +35,26 @@ final class LayoutTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Layout\Layout::__construct
-     * @covers \Netgen\BlockManager\API\Values\Layout\Layout::count
-     * @covers \Netgen\BlockManager\API\Values\Layout\Layout::getAvailableLocales
-     * @covers \Netgen\BlockManager\API\Values\Layout\Layout::getCreated
-     * @covers \Netgen\BlockManager\API\Values\Layout\Layout::getDescription
-     * @covers \Netgen\BlockManager\API\Values\Layout\Layout::getId
-     * @covers \Netgen\BlockManager\API\Values\Layout\Layout::getIterator
-     * @covers \Netgen\BlockManager\API\Values\Layout\Layout::getLayoutType
-     * @covers \Netgen\BlockManager\API\Values\Layout\Layout::getMainLocale
-     * @covers \Netgen\BlockManager\API\Values\Layout\Layout::getModified
-     * @covers \Netgen\BlockManager\API\Values\Layout\Layout::getName
-     * @covers \Netgen\BlockManager\API\Values\Layout\Layout::getZone
-     * @covers \Netgen\BlockManager\API\Values\Layout\Layout::getZones
-     * @covers \Netgen\BlockManager\API\Values\Layout\Layout::hasLocale
-     * @covers \Netgen\BlockManager\API\Values\Layout\Layout::hasZone
-     * @covers \Netgen\BlockManager\API\Values\Layout\Layout::isShared
-     * @covers \Netgen\BlockManager\API\Values\Layout\Layout::offsetExists
-     * @covers \Netgen\BlockManager\API\Values\Layout\Layout::offsetGet
-     * @covers \Netgen\BlockManager\API\Values\Layout\Layout::offsetSet
-     * @covers \Netgen\BlockManager\API\Values\Layout\Layout::offsetUnset
+     * @covers \Netgen\Layouts\API\Values\Layout\Layout::__construct
+     * @covers \Netgen\Layouts\API\Values\Layout\Layout::count
+     * @covers \Netgen\Layouts\API\Values\Layout\Layout::getAvailableLocales
+     * @covers \Netgen\Layouts\API\Values\Layout\Layout::getCreated
+     * @covers \Netgen\Layouts\API\Values\Layout\Layout::getDescription
+     * @covers \Netgen\Layouts\API\Values\Layout\Layout::getId
+     * @covers \Netgen\Layouts\API\Values\Layout\Layout::getIterator
+     * @covers \Netgen\Layouts\API\Values\Layout\Layout::getLayoutType
+     * @covers \Netgen\Layouts\API\Values\Layout\Layout::getMainLocale
+     * @covers \Netgen\Layouts\API\Values\Layout\Layout::getModified
+     * @covers \Netgen\Layouts\API\Values\Layout\Layout::getName
+     * @covers \Netgen\Layouts\API\Values\Layout\Layout::getZone
+     * @covers \Netgen\Layouts\API\Values\Layout\Layout::getZones
+     * @covers \Netgen\Layouts\API\Values\Layout\Layout::hasLocale
+     * @covers \Netgen\Layouts\API\Values\Layout\Layout::hasZone
+     * @covers \Netgen\Layouts\API\Values\Layout\Layout::isShared
+     * @covers \Netgen\Layouts\API\Values\Layout\Layout::offsetExists
+     * @covers \Netgen\Layouts\API\Values\Layout\Layout::offsetGet
+     * @covers \Netgen\Layouts\API\Values\Layout\Layout::offsetSet
+     * @covers \Netgen\Layouts\API\Values\Layout\Layout::offsetUnset
      */
     public function testSetProperties(): void
     {

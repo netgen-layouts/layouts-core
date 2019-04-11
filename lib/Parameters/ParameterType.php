@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Parameters;
+namespace Netgen\Layouts\Parameters;
 
-use Netgen\BlockManager\Exception\Parameters\ParameterTypeException;
+use Netgen\Layouts\Exception\Parameters\ParameterTypeException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
@@ -34,7 +34,7 @@ abstract class ParameterType implements ParameterTypeInterface
      * This is a trivial implementation, just returning the provided value, usable by parameters
      * which have the scalar/hash format equal to domain format.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
+     * @param \Netgen\Layouts\Parameters\ParameterDefinition $parameterDefinition
      * @param mixed $value
      *
      * @return mixed
@@ -50,7 +50,7 @@ abstract class ParameterType implements ParameterTypeInterface
      * This is a trivial implementation, just returning the provided value, usable by parameters
      * which have the scalar/hash format equal to domain format.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
+     * @param \Netgen\Layouts\Parameters\ParameterDefinition $parameterDefinition
      * @param mixed $value
      *
      * @return mixed
@@ -70,7 +70,7 @@ abstract class ParameterType implements ParameterTypeInterface
      * This is a trivial implementation that returns the value in the same format as
      * self::toHash(). Overridden implementations should take care to retain this behaviour.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
+     * @param \Netgen\Layouts\Parameters\ParameterDefinition $parameterDefinition
      * @param mixed $value
      *
      * @return mixed
@@ -90,7 +90,7 @@ abstract class ParameterType implements ParameterTypeInterface
      * This is a trivial implementation that returns the value in the same format as
      * self::fromHash(). Overridden implementations should take care to retain this behaviour.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
+     * @param \Netgen\Layouts\Parameters\ParameterDefinition $parameterDefinition
      * @param mixed $value
      *
      * @return mixed
@@ -113,7 +113,7 @@ abstract class ParameterType implements ParameterTypeInterface
      * Boolean parameter types have this overridden due to `false` value being a valid value
      * which would not validated by a `NotBlank` constraint.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
+     * @param \Netgen\Layouts\Parameters\ParameterDefinition $parameterDefinition
      * @param mixed $value
      *
      * @return \Symfony\Component\Validator\Constraint[]
@@ -138,7 +138,7 @@ abstract class ParameterType implements ParameterTypeInterface
      * separately, based on if the parameter is specified as a sub-parameter of a compound
      * boolean.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
+     * @param \Netgen\Layouts\Parameters\ParameterDefinition $parameterDefinition
      * @param mixed $value
      *
      * @return \Symfony\Component\Validator\Constraint[]

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\Collection;
+namespace Netgen\Layouts\Tests\API\Values\Collection;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\CollectionList;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\CollectionList;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use TypeError;
@@ -13,7 +13,7 @@ use TypeError;
 final class CollectionListTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\API\Values\Collection\CollectionList::__construct
+     * @covers \Netgen\Layouts\API\Values\Collection\CollectionList::__construct
      */
     public function testConstructorWithInvalidType(): void
     {
@@ -32,8 +32,8 @@ final class CollectionListTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Collection\CollectionList::__construct
-     * @covers \Netgen\BlockManager\API\Values\Collection\CollectionList::getCollections
+     * @covers \Netgen\Layouts\API\Values\Collection\CollectionList::__construct
+     * @covers \Netgen\Layouts\API\Values\Collection\CollectionList::getCollections
      */
     public function testGetCollections(): void
     {
@@ -43,7 +43,7 @@ final class CollectionListTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Collection\CollectionList::getCollectionIds
+     * @covers \Netgen\Layouts\API\Values\Collection\CollectionList::getCollectionIds
      */
     public function testGetCollectionIds(): void
     {

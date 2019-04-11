@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Serializer\Normalizer;
+namespace Netgen\Layouts\Serializer\Normalizer;
 
 use Exception;
 use Symfony\Component\Debug\Exception\FlattenException;

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Validator\Constraint;
+namespace Netgen\Layouts\Tests\Validator\Constraint;
 
-use Netgen\BlockManager\Validator\Constraint\LayoutName;
+use Netgen\Layouts\Validator\Constraint\LayoutName;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutNameTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Validator\Constraint\LayoutName::validatedBy
+     * @covers \Netgen\Layouts\Validator\Constraint\LayoutName::validatedBy
      */
     public function testValidatedBy(): void
     {

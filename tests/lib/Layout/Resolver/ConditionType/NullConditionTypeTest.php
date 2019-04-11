@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\ConditionType;
+namespace Netgen\Layouts\Tests\Layout\Resolver\ConditionType;
 
-use Netgen\BlockManager\Layout\Resolver\ConditionType\NullConditionType;
+use Netgen\Layouts\Layout\Resolver\ConditionType\NullConditionType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 
 final class NullConditionTypeTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\ConditionType\NullConditionType
+     * @var \Netgen\Layouts\Layout\Resolver\ConditionType\NullConditionType
      */
     private $conditionType;
 
@@ -21,7 +21,7 @@ final class NullConditionTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\NullConditionType::getType
+     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\NullConditionType::getType
      */
     public function testGetType(): void
     {
@@ -29,7 +29,7 @@ final class NullConditionTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\NullConditionType::getConstraints
+     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\NullConditionType::getConstraints
      */
     public function testGetConstraints(): void
     {
@@ -37,7 +37,7 @@ final class NullConditionTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\NullConditionType::matches
+     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\NullConditionType::matches
      */
     public function testMatches(): void
     {

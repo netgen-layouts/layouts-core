@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\Block;
+namespace Netgen\Layouts\Tests\API\Values\Block;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\BlockDefinitionInterface;
-use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
-use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterType;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
+use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Block\BlockDefinitionInterface;
+use Netgen\Layouts\Parameters\CompoundParameterDefinition;
+use Netgen\Layouts\Parameters\Parameter;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType;
 use PHPUnit\Framework\TestCase;
 
 final class BlockUpdateStructTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Block\BlockUpdateStruct
+     * @var \Netgen\Layouts\API\Values\Block\BlockUpdateStruct
      */
     private $struct;
 
@@ -27,13 +27,13 @@ final class BlockUpdateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Block\BlockUpdateStruct::fillParametersFromBlock
+     * @covers \Netgen\Layouts\API\Values\Block\BlockUpdateStruct::fillParametersFromBlock
      */
     public function testFillParametersFromBlock(): void
     {
         $blockDefinition = $this->buildBlockDefinition();
 
-        /** @var \Netgen\BlockManager\Parameters\CompoundParameterDefinition $compoundDefinition */
+        /** @var \Netgen\Layouts\Parameters\CompoundParameterDefinition $compoundDefinition */
         $compoundDefinition = $blockDefinition->getParameterDefinition('compound');
 
         $block = Block::fromArray(
@@ -70,7 +70,7 @@ final class BlockUpdateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Block\BlockUpdateStruct::fillParametersFromHash
+     * @covers \Netgen\Layouts\API\Values\Block\BlockUpdateStruct::fillParametersFromHash
      */
     public function testFillParametersFromHash(): void
     {
@@ -97,7 +97,7 @@ final class BlockUpdateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Block\BlockUpdateStruct::fillParametersFromHash
+     * @covers \Netgen\Layouts\API\Values\Block\BlockUpdateStruct::fillParametersFromHash
      */
     public function testFillParametersFromHashWithMissingValues(): void
     {

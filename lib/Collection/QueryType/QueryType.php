@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Collection\QueryType;
+namespace Netgen\Layouts\Collection\QueryType;
 
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionTrait;
-use Netgen\BlockManager\Utils\HydratorTrait;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\Parameters\ParameterDefinitionCollectionTrait;
+use Netgen\Layouts\Utils\HydratorTrait;
 
 /**
  * @final
@@ -32,7 +32,7 @@ class QueryType implements QueryTypeInterface
     private $name;
 
     /**
-     * @var \Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface
+     * @var \Netgen\Layouts\Collection\QueryType\QueryTypeHandlerInterface
      */
     private $handler;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Transfer\Input\Result;
+namespace Netgen\Layouts\Transfer\Input\Result;
 
 use Throwable;
 

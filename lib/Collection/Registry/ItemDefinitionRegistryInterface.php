@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Collection\Registry;
+namespace Netgen\Layouts\Collection\Registry;
 
 use ArrayAccess;
 use Countable;
 use IteratorAggregate;
-use Netgen\BlockManager\Collection\Item\ItemDefinitionInterface;
+use Netgen\Layouts\Collection\Item\ItemDefinitionInterface;
 
 interface ItemDefinitionRegistryInterface extends IteratorAggregate, Countable, ArrayAccess
 {
@@ -19,14 +19,14 @@ interface ItemDefinitionRegistryInterface extends IteratorAggregate, Countable, 
     /**
      * Returns a item definition with provided value type.
      *
-     * @throws \Netgen\BlockManager\Exception\Collection\ItemDefinitionException If item definition does not exist
+     * @throws \Netgen\Layouts\Exception\Collection\ItemDefinitionException If item definition does not exist
      */
     public function getItemDefinition(string $valueType): ItemDefinitionInterface;
 
     /**
      * Returns all item definitions.
      *
-     * @return \Netgen\BlockManager\Collection\Item\ItemDefinitionInterface[]
+     * @return \Netgen\Layouts\Collection\Item\ItemDefinitionInterface[]
      */
     public function getItemDefinitions(): array;
 }

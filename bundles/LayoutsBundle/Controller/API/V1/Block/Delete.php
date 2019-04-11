@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block;
 
-use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
+use Netgen\Layouts\API\Service\BlockService;
+use Netgen\Layouts\API\Values\Block\Block;
 use Symfony\Component\HttpFoundation\Response;
 
 final class Delete extends AbstractController
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\BlockService
+     * @var \Netgen\Layouts\API\Service\BlockService
      */
     private $blockService;
 

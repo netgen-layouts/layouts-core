@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Validator;
+namespace Netgen\Layouts\Tests\Validator;
 
-use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
-use Netgen\BlockManager\Validator\Constraint\Locale as LocaleConstraint;
-use Netgen\BlockManager\Validator\LocaleValidator;
+use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
+use Netgen\Layouts\Validator\Constraint\Locale as LocaleConstraint;
+use Netgen\Layouts\Validator\LocaleValidator;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -21,7 +21,7 @@ final class LocaleValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\LocaleValidator::validate
+     * @covers \Netgen\Layouts\Validator\LocaleValidator::validate
      * @dataProvider validateDataProvider
      */
     public function testValidate(?string $value, bool $isValid): void
@@ -30,19 +30,19 @@ final class LocaleValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\LocaleValidator::validate
+     * @covers \Netgen\Layouts\Validator\LocaleValidator::validate
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Netgen\\BlockManager\\Validator\\Constraint\\Locale", "Symfony\\Component\\Validator\\Constraints\\NotBlank" given');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\Validator\\Constraint\\Locale", "Symfony\\Component\\Validator\\Constraints\\NotBlank" given');
 
         $this->constraint = new NotBlank();
         $this->assertValid(true, 'hr_HR');
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\LocaleValidator::validate
+     * @covers \Netgen\Layouts\Validator\LocaleValidator::validate
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {

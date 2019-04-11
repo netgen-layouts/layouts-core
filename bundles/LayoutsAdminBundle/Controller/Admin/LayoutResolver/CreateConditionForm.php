@@ -4,24 +4,24 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver;
 
-use Netgen\BlockManager\API\Service\LayoutResolverService;
-use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\Layout\Resolver\Form\ConditionType;
-use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
-use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
+use Netgen\Layouts\API\Service\LayoutResolverService;
+use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\Layout\Resolver\Form\ConditionType;
+use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
+use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class CreateConditionForm extends AbstractController
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutResolverService
+     * @var \Netgen\Layouts\API\Service\LayoutResolverService
      */
     private $layoutResolverService;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistryInterface
      */
     private $conditionTypeRegistry;
 

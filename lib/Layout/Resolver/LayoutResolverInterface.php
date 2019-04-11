@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Layout\Resolver;
+namespace Netgen\Layouts\Layout\Resolver;
 
-use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Symfony\Component\HttpFoundation\Request;
 
 interface LayoutResolverInterface
@@ -34,7 +34,7 @@ interface LayoutResolverInterface
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param string[] $enabledConditions
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
+     * @return \Netgen\Layouts\API\Values\LayoutResolver\Rule[]
      */
     public function resolveRules(?Request $request = null, array $enabledConditions = []): array;
 

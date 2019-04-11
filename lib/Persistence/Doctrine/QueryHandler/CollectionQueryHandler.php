@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
+namespace Netgen\Layouts\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Type;
-use Netgen\BlockManager\Persistence\Values\Collection\Collection;
-use Netgen\BlockManager\Persistence\Values\Collection\Item;
-use Netgen\BlockManager\Persistence\Values\Collection\Query;
+use Netgen\Layouts\Persistence\Values\Collection\Collection;
+use Netgen\Layouts\Persistence\Values\Collection\Item;
+use Netgen\Layouts\Persistence\Values\Collection\Query;
 use PDO;
 
 final class CollectionQueryHandler extends QueryHandler

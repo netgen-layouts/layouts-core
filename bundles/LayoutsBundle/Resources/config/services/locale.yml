@@ -3,4 +3,4 @@ services:
         alias: netgen_block_manager.locale.provider.default
 
     netgen_block_manager.locale.provider.default:
-        class: Netgen\BlockManager\Locale\LocaleProvider
+        class: Netgen\Layouts\Locale\LocaleProvider

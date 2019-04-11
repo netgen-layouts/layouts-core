@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Block\Form;
+namespace Netgen\Layouts\Tests\Block\Form;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Form;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
-use Netgen\BlockManager\Block\Form\DesignEditType;
-use Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension;
-use Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper;
-use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
-use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
+use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\Form;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
+use Netgen\Layouts\Block\Form\DesignEditType;
+use Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension;
+use Netgen\Layouts\Parameters\Form\Mapper\TextLineMapper;
+use Netgen\Layouts\Parameters\Form\Type\ParametersType;
+use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandler;
+use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
@@ -24,12 +24,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class DesignEditTypeTest extends FormTestCase
 {
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
+     * @var \Netgen\Layouts\Block\BlockDefinitionInterface
      */
     private $definition;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Block\Block
+     * @var \Netgen\Layouts\API\Values\Block\Block
      */
     private $block;
 
@@ -95,11 +95,11 @@ final class DesignEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\DesignEditType::buildForm
-     * @covers \Netgen\BlockManager\Block\Form\DesignEditType::buildView
-     * @covers \Netgen\BlockManager\Block\Form\EditType::addParametersForm
-     * @covers \Netgen\BlockManager\Block\Form\EditType::addViewTypeForm
-     * @covers \Netgen\BlockManager\Block\Form\EditType::processViewTypeConfig
+     * @covers \Netgen\Layouts\Block\Form\DesignEditType::buildForm
+     * @covers \Netgen\Layouts\Block\Form\DesignEditType::buildView
+     * @covers \Netgen\Layouts\Block\Form\EditType::addParametersForm
+     * @covers \Netgen\Layouts\Block\Form\EditType::addViewTypeForm
+     * @covers \Netgen\Layouts\Block\Form\EditType::processViewTypeConfig
      */
     public function testSubmitValidData(): void
     {
@@ -141,12 +141,12 @@ final class DesignEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\DesignEditType::buildForm
-     * @covers \Netgen\BlockManager\Block\Form\DesignEditType::buildView
-     * @covers \Netgen\BlockManager\Block\Form\EditType::addBlockNameForm
-     * @covers \Netgen\BlockManager\Block\Form\EditType::addParametersForm
-     * @covers \Netgen\BlockManager\Block\Form\EditType::addViewTypeForm
-     * @covers \Netgen\BlockManager\Block\Form\EditType::processViewTypeConfig
+     * @covers \Netgen\Layouts\Block\Form\DesignEditType::buildForm
+     * @covers \Netgen\Layouts\Block\Form\DesignEditType::buildView
+     * @covers \Netgen\Layouts\Block\Form\EditType::addBlockNameForm
+     * @covers \Netgen\Layouts\Block\Form\EditType::addParametersForm
+     * @covers \Netgen\Layouts\Block\Form\EditType::addViewTypeForm
+     * @covers \Netgen\Layouts\Block\Form\EditType::processViewTypeConfig
      */
     public function testDisableUntranslatableFormsOnNonMainLocale(): void
     {
@@ -175,12 +175,12 @@ final class DesignEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\DesignEditType::buildForm
-     * @covers \Netgen\BlockManager\Block\Form\DesignEditType::buildView
-     * @covers \Netgen\BlockManager\Block\Form\EditType::addBlockNameForm
-     * @covers \Netgen\BlockManager\Block\Form\EditType::addParametersForm
-     * @covers \Netgen\BlockManager\Block\Form\EditType::addViewTypeForm
-     * @covers \Netgen\BlockManager\Block\Form\EditType::processViewTypeConfig
+     * @covers \Netgen\Layouts\Block\Form\DesignEditType::buildForm
+     * @covers \Netgen\Layouts\Block\Form\DesignEditType::buildView
+     * @covers \Netgen\Layouts\Block\Form\EditType::addBlockNameForm
+     * @covers \Netgen\Layouts\Block\Form\EditType::addParametersForm
+     * @covers \Netgen\Layouts\Block\Form\EditType::addViewTypeForm
+     * @covers \Netgen\Layouts\Block\Form\EditType::processViewTypeConfig
      */
     public function testDisableUntranslatableFormsOnMainLocale(): void
     {
@@ -209,7 +209,7 @@ final class DesignEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\DesignEditType::configureOptions
+     * @covers \Netgen\Layouts\Block\Form\DesignEditType::configureOptions
      */
     public function testConfigureOptions(): void
     {
@@ -232,7 +232,7 @@ final class DesignEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\DesignEditType::configureOptions
+     * @covers \Netgen\Layouts\Block\Form\DesignEditType::configureOptions
      */
     public function testConfigureOptionsWithMissingBlock(): void
     {
@@ -248,12 +248,12 @@ final class DesignEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\DesignEditType::configureOptions
+     * @covers \Netgen\Layouts\Block\Form\DesignEditType::configureOptions
      */
     public function testConfigureOptionsWithInvalidBlock(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "block" with value "" is expected to be of type "Netgen\\BlockManager\\API\\Values\\Block\\Block", but is of type "string".');
+        $this->expectExceptionMessage('The option "block" with value "" is expected to be of type "Netgen\\Layouts\\API\\Values\\Block\\Block", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -268,12 +268,12 @@ final class DesignEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Form\DesignEditType::configureOptions
+     * @covers \Netgen\Layouts\Block\Form\DesignEditType::configureOptions
      */
     public function testConfigureOptionsWithInvalidData(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\\BlockManager\\API\\Values\\Block\\BlockUpdateStruct", but is of type "string".');
+        $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\\Layouts\\API\\Values\\Block\\BlockUpdateStruct", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');

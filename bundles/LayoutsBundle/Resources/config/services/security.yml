@@ -5,7 +5,7 @@ services:
             - "@security.csrf.token_manager"
 
     netgen_block_manager.security.voter.policy_to_role_map:
-        class: Netgen\BlockManager\Security\Authorization\Voter\PolicyToRoleMapVoter
+        class: Netgen\Layouts\Security\Authorization\Voter\PolicyToRoleMapVoter
         arguments:
             - "@security.access.decision_manager"
         tags:

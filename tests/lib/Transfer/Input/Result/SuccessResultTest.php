@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Transfer\Input\Result;
+namespace Netgen\Layouts\Tests\Transfer\Input\Result;
 
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Transfer\Input\Result\SuccessResult;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Transfer\Input\Result\SuccessResult;
 use PHPUnit\Framework\TestCase;
 
 final class SuccessResultTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Transfer\Input\Result\SuccessResult
+     * @var \Netgen\Layouts\Transfer\Input\Result\SuccessResult
      */
     private $result;
 
     /**
-     * @var \Netgen\BlockManager\Tests\API\Stubs\Value
+     * @var \Netgen\Layouts\Tests\API\Stubs\Value
      */
     private $entity;
 
@@ -28,8 +28,8 @@ final class SuccessResultTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Transfer\Input\Result\SuccessResult::__construct
-     * @covers \Netgen\BlockManager\Transfer\Input\Result\SuccessResult::getEntityType
+     * @covers \Netgen\Layouts\Transfer\Input\Result\SuccessResult::__construct
+     * @covers \Netgen\Layouts\Transfer\Input\Result\SuccessResult::getEntityType
      */
     public function testGetEntityType(): void
     {
@@ -37,7 +37,7 @@ final class SuccessResultTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Transfer\Input\Result\SuccessResult::getData
+     * @covers \Netgen\Layouts\Transfer\Input\Result\SuccessResult::getData
      */
     public function testGetData(): void
     {
@@ -45,7 +45,7 @@ final class SuccessResultTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Transfer\Input\Result\SuccessResult::getEntityId
+     * @covers \Netgen\Layouts\Transfer\Input\Result\SuccessResult::getEntityId
      */
     public function testGetEntityId(): void
     {
@@ -53,7 +53,7 @@ final class SuccessResultTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Transfer\Input\Result\SuccessResult::getEntity
+     * @covers \Netgen\Layouts\Transfer\Input\Result\SuccessResult::getEntity
      */
     public function testGetEntity(): void
     {

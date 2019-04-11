@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Transfer\Input\Integration\Doctrine;
+namespace Netgen\Layouts\Tests\Transfer\Input\Integration\Doctrine;
 
-use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
-use Netgen\BlockManager\Tests\Transfer\Input\Integration\ImporterTest as BaseImporterTest;
+use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
+use Netgen\Layouts\Tests\Transfer\Input\Integration\ImporterTest as BaseImporterTest;
 
 final class ImporterTest extends BaseImporterTest
 {

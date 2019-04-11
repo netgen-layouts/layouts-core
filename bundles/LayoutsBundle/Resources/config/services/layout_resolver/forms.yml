@@ -2,14 +2,14 @@ services:
     # Forms
 
     netgen_block_manager.layout.resolver.form.target_type:
-        class: Netgen\BlockManager\Layout\Resolver\Form\TargetType
+        class: Netgen\Layouts\Layout\Resolver\Form\TargetType
         arguments:
             - []
         tags:
             - { name: form.type }
 
     netgen_block_manager.layout.resolver.form.condition_type:
-        class: Netgen\BlockManager\Layout\Resolver\Form\ConditionType
+        class: Netgen\Layouts\Layout\Resolver\Form\ConditionType
         arguments:
             - []
         tags:
@@ -18,51 +18,51 @@ services:
     # Mappers
 
     netgen_block_manager.layout.resolver.form.target_type.mapper.route:
-        class: Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\Route
+        class: Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\Route
         tags:
             - { name: netgen_block_manager.layout.resolver.form.target_type.mapper, target_type: route }
 
     netgen_block_manager.layout.resolver.form.target_type.mapper.route_prefix:
-        class: Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\RoutePrefix
+        class: Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\RoutePrefix
         tags:
             - { name: netgen_block_manager.layout.resolver.form.target_type.mapper, target_type: route_prefix }
 
     netgen_block_manager.layout.resolver.form.target_type.mapper.path_info:
-        class: Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\PathInfo
+        class: Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\PathInfo
         tags:
             - { name: netgen_block_manager.layout.resolver.form.target_type.mapper, target_type: path_info }
 
     netgen_block_manager.layout.resolver.form.target_type.mapper.path_info_prefix:
-        class: Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\PathInfoPrefix
+        class: Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\PathInfoPrefix
         tags:
             - { name: netgen_block_manager.layout.resolver.form.target_type.mapper, target_type: path_info_prefix }
 
     netgen_block_manager.layout.resolver.form.target_type.mapper.request_uri:
-        class: Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\RequestUri
+        class: Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\RequestUri
         tags:
             - { name: netgen_block_manager.layout.resolver.form.target_type.mapper, target_type: request_uri }
 
     netgen_block_manager.layout.resolver.form.target_type.mapper.request_uri_prefix:
-        class: Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\RequestUriPrefix
+        class: Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\RequestUriPrefix
         tags:
             - { name: netgen_block_manager.layout.resolver.form.target_type.mapper, target_type: request_uri_prefix }
 
     netgen_block_manager.layout.resolver.form.condition_type.mapper.route_parameter:
-        class: Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter
+        class: Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter
         tags:
             - { name: netgen_block_manager.layout.resolver.form.condition_type.mapper, condition_type: route_parameter }
 
     netgen_block_manager.layout.resolver.form.condition_type.mapper.query_parameter:
-        class: Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\QueryParameter
+        class: Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\QueryParameter
         tags:
             - { name: netgen_block_manager.layout.resolver.form.condition_type.mapper, condition_type: query_parameter }
 
     netgen_block_manager.layout.resolver.form.condition_type.mapper.exception:
-        class: Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\Exception
+        class: Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\Exception
         tags:
             - { name: netgen_block_manager.layout.resolver.form.condition_type.mapper, condition_type: exception }
 
     netgen_block_manager.layout.resolver.form.condition_type.mapper.time:
-        class: Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\Time
+        class: Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\Time
         tags:
             - { name: netgen_block_manager.layout.resolver.form.condition_type.mapper, condition_type: time }

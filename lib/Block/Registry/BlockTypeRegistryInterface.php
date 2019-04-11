@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Block\Registry;
+namespace Netgen\Layouts\Block\Registry;
 
 use ArrayAccess;
 use Countable;
 use IteratorAggregate;
-use Netgen\BlockManager\Block\BlockType\BlockType;
+use Netgen\Layouts\Block\BlockType\BlockType;
 
 interface BlockTypeRegistryInterface extends IteratorAggregate, Countable, ArrayAccess
 {
@@ -19,7 +19,7 @@ interface BlockTypeRegistryInterface extends IteratorAggregate, Countable, Array
     /**
      * Returns the block type with provided identifier.
      *
-     * @throws \Netgen\BlockManager\Exception\Block\BlockTypeException If block type with provided identifier does not exist
+     * @throws \Netgen\Layouts\Exception\Block\BlockTypeException If block type with provided identifier does not exist
      */
     public function getBlockType(string $identifier): BlockType;
 
@@ -28,7 +28,7 @@ interface BlockTypeRegistryInterface extends IteratorAggregate, Countable, Array
      *
      * @param bool $onlyEnabled
      *
-     * @return \Netgen\BlockManager\Block\BlockType\BlockType[]
+     * @return \Netgen\Layouts\Block\BlockType\BlockType[]
      */
     public function getBlockTypes(bool $onlyEnabled = false): array;
 }

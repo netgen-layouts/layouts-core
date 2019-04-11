@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Stubs;
+namespace Netgen\Layouts\Tests\API\Stubs;
 
-use Netgen\BlockManager\API\Values\ParameterStruct as APIParameterStruct;
-use Netgen\BlockManager\API\Values\ParameterStructTrait;
-use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
-use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;
+use Netgen\Layouts\API\Values\ParameterStruct as APIParameterStruct;
+use Netgen\Layouts\API\Values\ParameterStructTrait;
+use Netgen\Layouts\Parameters\ParameterCollectionInterface;
+use Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface;
 
 final class ParameterStruct implements APIParameterStruct
 {

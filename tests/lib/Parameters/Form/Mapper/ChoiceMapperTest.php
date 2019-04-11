@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\Form\Mapper;
+namespace Netgen\Layouts\Tests\Parameters\Form\Mapper;
 
-use Netgen\BlockManager\Parameters\Form\Mapper\ChoiceMapper;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterType\ChoiceType as ChoiceParameterType;
+use Netgen\Layouts\Parameters\Form\Mapper\ChoiceMapper;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType\ChoiceType as ChoiceParameterType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 final class ChoiceMapperTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\Form\Mapper\ChoiceMapper
+     * @var \Netgen\Layouts\Parameters\Form\Mapper\ChoiceMapper
      */
     private $mapper;
 
@@ -23,7 +23,7 @@ final class ChoiceMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Mapper\ChoiceMapper::getFormType
+     * @covers \Netgen\Layouts\Parameters\Form\Mapper\ChoiceMapper::getFormType
      */
     public function testGetFormType(): void
     {
@@ -31,7 +31,7 @@ final class ChoiceMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Mapper\ChoiceMapper::mapOptions
+     * @covers \Netgen\Layouts\Parameters\Form\Mapper\ChoiceMapper::mapOptions
      */
     public function testMapOptions(): void
     {
@@ -64,7 +64,7 @@ final class ChoiceMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Mapper\ChoiceMapper::mapOptions
+     * @covers \Netgen\Layouts\Parameters\Form\Mapper\ChoiceMapper::mapOptions
      */
     public function testMapOptionsWithClosure(): void
     {

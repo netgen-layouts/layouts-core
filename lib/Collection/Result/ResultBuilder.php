@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Collection\Result;
+namespace Netgen\Layouts\Collection\Result;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\Query;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\Query;
 
 /**
  * A builder generates the collection results. Note that in order to disable fetching unlimited
@@ -15,7 +15,7 @@ use Netgen\BlockManager\API\Values\Collection\Query;
 final class ResultBuilder implements ResultBuilderInterface
 {
     /**
-     * @var \Netgen\BlockManager\Collection\Result\CollectionRunnerFactory
+     * @var \Netgen\Layouts\Collection\Result\CollectionRunnerFactory
      */
     private $runnerFactory;
 

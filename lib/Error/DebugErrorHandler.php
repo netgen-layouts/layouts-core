@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Error;
+namespace Netgen\Layouts\Error;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;

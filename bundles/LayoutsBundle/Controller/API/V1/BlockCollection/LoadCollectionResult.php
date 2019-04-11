@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory;
-use Netgen\BlockManager\Collection\Result\ResultSet;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Serializer\Version;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory;
+use Netgen\Layouts\Collection\Result\ResultSet;
+use Netgen\Layouts\Serializer\Values\VersionedValue;
+use Netgen\Layouts\Serializer\Version;
 
 final class LoadCollectionResult extends AbstractController
 {
     /**
-     * @var \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory
+     * @var \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory
      */
     private $pagerFactory;
 

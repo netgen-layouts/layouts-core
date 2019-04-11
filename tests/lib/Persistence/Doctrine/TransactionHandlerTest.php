@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Persistence\Doctrine;
+namespace Netgen\Layouts\Tests\Persistence\Doctrine;
 
 use Doctrine\DBAL\Connection;
-use Netgen\BlockManager\Persistence\Doctrine\TransactionHandler;
+use Netgen\Layouts\Persistence\Doctrine\TransactionHandler;
 use PHPUnit\Framework\TestCase;
 
 final class TransactionHandlerTest extends TestCase
@@ -16,7 +16,7 @@ final class TransactionHandlerTest extends TestCase
     private $connectionMock;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\TransactionHandlerInterface
+     * @var \Netgen\Layouts\Persistence\TransactionHandlerInterface
      */
     private $handler;
 
@@ -28,8 +28,8 @@ final class TransactionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\TransactionHandler::__construct
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\TransactionHandler::beginTransaction
+     * @covers \Netgen\Layouts\Persistence\Doctrine\TransactionHandler::__construct
+     * @covers \Netgen\Layouts\Persistence\Doctrine\TransactionHandler::beginTransaction
      */
     public function testBeginTransaction(): void
     {
@@ -41,7 +41,7 @@ final class TransactionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\TransactionHandler::commitTransaction
+     * @covers \Netgen\Layouts\Persistence\Doctrine\TransactionHandler::commitTransaction
      */
     public function testCommitTransaction(): void
     {
@@ -53,7 +53,7 @@ final class TransactionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\TransactionHandler::rollbackTransaction
+     * @covers \Netgen\Layouts\Persistence\Doctrine\TransactionHandler::rollbackTransaction
      */
     public function testRollbackTransaction(): void
     {

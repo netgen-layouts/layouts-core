@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
+namespace Netgen\Layouts\Tests\Persistence\Doctrine\Handler;
 
-use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\Values\Layout\Layout;
-use Netgen\BlockManager\Persistence\Values\Layout\LayoutCopyStruct;
-use Netgen\BlockManager\Persistence\Values\Layout\LayoutCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Layout\LayoutUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Layout\Zone;
-use Netgen\BlockManager\Persistence\Values\Layout\ZoneCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Layout\ZoneUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Value;
-use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
+use Netgen\Layouts\Exception\BadStateException;
+use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Persistence\Values\Layout\Layout;
+use Netgen\Layouts\Persistence\Values\Layout\LayoutCopyStruct;
+use Netgen\Layouts\Persistence\Values\Layout\LayoutCreateStruct;
+use Netgen\Layouts\Persistence\Values\Layout\LayoutUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Layout\Zone;
+use Netgen\Layouts\Persistence\Values\Layout\ZoneCreateStruct;
+use Netgen\Layouts\Persistence\Values\Layout\ZoneUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
+use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutHandlerTest extends TestCase
@@ -23,17 +23,17 @@ final class LayoutHandlerTest extends TestCase
     use TestCaseTrait;
     use ExportObjectTrait;
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface
+     * @var \Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface
      */
     private $layoutHandler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface
+     * @var \Netgen\Layouts\Persistence\Handler\BlockHandlerInterface
      */
     private $blockHandler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface
+     * @var \Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface
      */
     private $collectionHandler;
 
@@ -55,11 +55,11 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::__construct
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayout
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::__construct
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::__construct
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::loadLayout
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::__construct
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutData
      */
     public function testLoadLayout(): void
     {
@@ -83,8 +83,8 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayout
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::loadLayout
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutData
      */
     public function testLoadLayoutThrowsNotFoundException(): void
     {
@@ -95,9 +95,9 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadZone
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getZoneSelectQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadZoneData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::loadZone
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getZoneSelectQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadZoneData
      */
     public function testLoadZone(): void
     {
@@ -117,8 +117,8 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadZone
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadZoneData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::loadZone
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadZoneData
      */
     public function testLoadZoneThrowsNotFoundException(): void
     {
@@ -129,10 +129,10 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayouts
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutIds
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutsData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::loadLayouts
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutIds
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutsData
      */
     public function testLoadLayouts(): void
     {
@@ -184,10 +184,10 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayouts
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutIds
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutsData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::loadLayouts
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutIds
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutsData
      */
     public function testLoadLayoutsWithUnpublishedLayouts(): void
     {
@@ -263,10 +263,10 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayouts
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutIds
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutsData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::loadLayouts
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutIds
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutsData
      */
     public function testLoadLayoutsAndOffsetAndLimit(): void
     {
@@ -306,10 +306,10 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayouts
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutIds
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutsData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::loadLayouts
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutIds
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutsData
      */
     public function testLoadLayoutsWithUnpublishedLayoutsAndOffsetAndLimit(): void
     {
@@ -361,8 +361,8 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::getLayoutsCount
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutsCount
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::getLayoutsCount
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutsCount
      */
     public function testGetLayoutsCount(): void
     {
@@ -370,8 +370,8 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::getLayoutsCount
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutsCount
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::getLayoutsCount
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutsCount
      */
     public function testGetLayoutsCountWithUnpublishedLayouts(): void
     {
@@ -379,10 +379,10 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadSharedLayouts
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutIds
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutsData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::loadSharedLayouts
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutIds
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutsData
      */
     public function testLoadSharedLayouts(): void
     {
@@ -422,8 +422,8 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::getSharedLayoutsCount
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutsCount
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::getSharedLayoutsCount
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutsCount
      */
     public function testGetSharedLayoutsCount(): void
     {
@@ -431,10 +431,10 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadAllLayouts
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutIds
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutsData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::loadAllLayouts
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutIds
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutsData
      */
     public function testLoadAllLayouts(): void
     {
@@ -510,8 +510,8 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::getAllLayoutsCount
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutsCount
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::getAllLayoutsCount
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutsCount
      */
     public function testGetAllLayoutsCount(): void
     {
@@ -519,9 +519,9 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadRelatedLayouts
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadRelatedLayoutsData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::loadRelatedLayouts
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getLayoutSelectQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadRelatedLayoutsData
      */
     public function testLoadRelatedLayouts(): void
     {
@@ -551,8 +551,8 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::getRelatedLayoutsCount
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getRelatedLayoutsCount
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::getRelatedLayoutsCount
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::getRelatedLayoutsCount
      */
     public function testGetRelatedLayoutsCount(): void
     {
@@ -564,8 +564,8 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::layoutExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::layoutExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutExists
      */
     public function testLayoutExists(): void
     {
@@ -573,8 +573,8 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::layoutExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::layoutExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutExists
      */
     public function testLayoutNotExists(): void
     {
@@ -582,8 +582,8 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::layoutExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::layoutExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutExists
      */
     public function testLayoutNotExistsInStatus(): void
     {
@@ -591,8 +591,8 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::zoneExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::zoneExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::zoneExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::zoneExists
      */
     public function testZoneExists(): void
     {
@@ -602,8 +602,8 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::zoneExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::zoneExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::zoneExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::zoneExists
      */
     public function testZoneNotExists(): void
     {
@@ -613,8 +613,8 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::layoutNameExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutNameExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::layoutNameExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutNameExists
      */
     public function testLayoutNameExists(): void
     {
@@ -622,8 +622,8 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::layoutNameExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutNameExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::layoutNameExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutNameExists
      */
     public function testLayoutNameNotExists(): void
     {
@@ -631,8 +631,8 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::layoutNameExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutNameExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::layoutNameExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutNameExists
      */
     public function testLayoutNameNotExistsWithExcludedId(): void
     {
@@ -640,8 +640,8 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::loadLayoutZones
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutZonesData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::loadLayoutZones
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::loadLayoutZonesData
      */
     public function testLoadLayoutZones(): void
     {
@@ -691,8 +691,8 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::updateZone
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::updateZone
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::updateZone
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::updateZone
      */
     public function testUpdateZone(): void
     {
@@ -722,8 +722,8 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::updateZone
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::updateZone
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::updateZone
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::updateZone
      */
     public function testUpdateZoneWithResettingLinkedZone(): void
     {
@@ -752,9 +752,9 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createLayout
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayout
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::createLayout
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayout
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutTranslation
      */
     public function testCreateLayout(): void
     {
@@ -780,8 +780,8 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createLayoutTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::createLayoutTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutTranslation
      */
     public function testCreateLayoutTranslation(): void
     {
@@ -802,8 +802,8 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createLayoutTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::createLayoutTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutTranslation
      */
     public function testCreateLayoutTranslationThrowsBadStateExceptionWithExistingLocale(): void
     {
@@ -818,8 +818,8 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createLayoutTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::createLayoutTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutTranslation
      */
     public function testCreateLayoutTranslationThrowsBadStateExceptionWithNonExistingSourceLocale(): void
     {
@@ -834,7 +834,7 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::setMainTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::setMainTranslation
      */
     public function testSetMainTranslation(): void
     {
@@ -852,7 +852,7 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::setMainTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::setMainTranslation
      */
     public function testSetMainTranslationThrowsBadStateExceptionWithNonExistingLocale(): void
     {
@@ -864,8 +864,8 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createZone
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createZone
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::createZone
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createZone
      */
     public function testCreateZone(): void
     {
@@ -914,8 +914,8 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::updateLayout
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::updateLayout
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::updateLayout
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::updateLayout
      */
     public function testUpdateLayout(): void
     {
@@ -937,8 +937,8 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::updateLayout
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::updateLayout
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::updateLayout
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::updateLayout
      */
     public function testUpdateLayoutWithDefaultValues(): void
     {
@@ -957,10 +957,10 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::copyLayout
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createZone
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayout
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::copyLayout
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::createZone
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayout
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutTranslation
      */
     public function testCopyLayout(): void
     {
@@ -1167,9 +1167,9 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::changeLayoutType
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createZone
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteZone
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::changeLayoutType
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createZone
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteZone
      */
     public function testChangeLayoutType(): void
     {
@@ -1360,8 +1360,8 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::createLayoutStatus
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayout
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::createLayoutStatus
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayout
      */
     public function testCreateLayoutStatus(): void
     {
@@ -1557,9 +1557,9 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::deleteLayout
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayout
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutZones
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::deleteLayout
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayout
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutZones
      */
     public function testDeleteLayout(): void
     {
@@ -1583,9 +1583,9 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::deleteLayout
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayout
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutZones
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::deleteLayout
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayout
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutZones
      */
     public function testDeleteLayoutInOneStatus(): void
     {
@@ -1634,9 +1634,9 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::deleteLayoutTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::updateLayoutModifiedDate
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutTranslations
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::deleteLayoutTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::updateLayoutModifiedDate
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutTranslations
      */
     public function testDeleteLayoutTranslation(): void
     {
@@ -1656,9 +1656,9 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::deleteLayoutTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::updateLayoutModifiedDate
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutTranslations
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::deleteLayoutTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::updateLayoutModifiedDate
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutTranslations
      */
     public function testDeleteLayoutTranslationWithInconsistentBlock(): void
     {
@@ -1684,8 +1684,8 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::deleteLayoutTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutTranslations
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::deleteLayoutTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutTranslations
      */
     public function testDeleteLayoutTranslationWithNonExistingLocale(): void
     {
@@ -1699,8 +1699,8 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler::deleteLayoutTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutTranslations
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::deleteLayoutTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::deleteLayoutTranslations
      */
     public function testDeleteLayoutTranslationWithMainLocale(): void
     {

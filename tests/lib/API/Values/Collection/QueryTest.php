@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\Collection;
+namespace Netgen\Layouts\Tests\API\Values\Collection;
 
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
 final class QueryTest extends TestCase
@@ -17,7 +17,7 @@ final class QueryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Collection\Query::getAvailableLocales
+     * @covers \Netgen\Layouts\API\Values\Collection\Query::getAvailableLocales
      */
     public function testDefaultProperties(): void
     {
@@ -27,14 +27,14 @@ final class QueryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Collection\Query::getAvailableLocales
-     * @covers \Netgen\BlockManager\API\Values\Collection\Query::getCollectionId
-     * @covers \Netgen\BlockManager\API\Values\Collection\Query::getId
-     * @covers \Netgen\BlockManager\API\Values\Collection\Query::getLocale
-     * @covers \Netgen\BlockManager\API\Values\Collection\Query::getMainLocale
-     * @covers \Netgen\BlockManager\API\Values\Collection\Query::getQueryType
-     * @covers \Netgen\BlockManager\API\Values\Collection\Query::isAlwaysAvailable
-     * @covers \Netgen\BlockManager\API\Values\Collection\Query::isTranslatable
+     * @covers \Netgen\Layouts\API\Values\Collection\Query::getAvailableLocales
+     * @covers \Netgen\Layouts\API\Values\Collection\Query::getCollectionId
+     * @covers \Netgen\Layouts\API\Values\Collection\Query::getId
+     * @covers \Netgen\Layouts\API\Values\Collection\Query::getLocale
+     * @covers \Netgen\Layouts\API\Values\Collection\Query::getMainLocale
+     * @covers \Netgen\Layouts\API\Values\Collection\Query::getQueryType
+     * @covers \Netgen\Layouts\API\Values\Collection\Query::isAlwaysAvailable
+     * @covers \Netgen\Layouts\API\Values\Collection\Query::isTranslatable
      */
     public function testSetProperties(): void
     {
@@ -65,7 +65,7 @@ final class QueryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Collection\Query::isContextual
+     * @covers \Netgen\Layouts\API\Values\Collection\Query::isContextual
      */
     public function testIsContextual(): void
     {

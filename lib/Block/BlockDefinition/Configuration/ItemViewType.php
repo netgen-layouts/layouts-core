@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Block\BlockDefinition\Configuration;
+namespace Netgen\Layouts\Block\BlockDefinition\Configuration;
 
-use Netgen\BlockManager\Utils\HydratorTrait;
+use Netgen\Layouts\Utils\HydratorTrait;
 
 final class ItemViewType
 {

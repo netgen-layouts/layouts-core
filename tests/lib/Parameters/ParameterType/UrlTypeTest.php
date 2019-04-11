@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
+namespace Netgen\Layouts\Tests\Parameters\ParameterType;
 
-use Netgen\BlockManager\Parameters\ParameterType\UrlType;
+use Netgen\Layouts\Parameters\ParameterType\UrlType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Validation;
@@ -19,7 +19,7 @@ final class UrlTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\UrlType::getIdentifier
+     * @covers \Netgen\Layouts\Parameters\ParameterType\UrlType::getIdentifier
      */
     public function testGetIdentifier(): void
     {
@@ -27,7 +27,7 @@ final class UrlTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\UrlType::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterType\UrlType::configureOptions
      * @dataProvider validOptionsProvider
      */
     public function testValidOptions(array $options, array $resolvedOptions): void
@@ -37,7 +37,7 @@ final class UrlTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\UrlType::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterType\UrlType::configureOptions
      * @dataProvider invalidOptionsProvider
      */
     public function testInvalidOptions(array $options): void
@@ -78,8 +78,8 @@ final class UrlTypeTest extends TestCase
      * @param mixed $value
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\UrlType::getRequiredConstraints
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\UrlType::getValueConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterType\UrlType::getRequiredConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterType\UrlType::getValueConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, bool $isValid): void
@@ -104,7 +104,7 @@ final class UrlTypeTest extends TestCase
      * @param mixed $value
      * @param bool $isEmpty
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\UrlType::isValueEmpty
+     * @covers \Netgen\Layouts\Parameters\ParameterType\UrlType::isValueEmpty
      * @dataProvider emptyProvider
      */
     public function testIsValueEmpty($value, bool $isEmpty): void

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Exception\Item;
+namespace Netgen\Layouts\Exception\Item;
 
 use InvalidArgumentException;
-use Netgen\BlockManager\Exception\Exception;
+use Netgen\Layouts\Exception\Exception;
 
 final class ValueException extends InvalidArgumentException implements Exception
 {

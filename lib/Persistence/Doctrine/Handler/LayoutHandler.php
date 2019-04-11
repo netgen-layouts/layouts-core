@@ -2,37 +2,37 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
+namespace Netgen\Layouts\Persistence\Doctrine\Handler;
 
-use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper;
-use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler;
-use Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface;
-use Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface;
-use Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Layout\Layout;
-use Netgen\BlockManager\Persistence\Values\Layout\LayoutCopyStruct;
-use Netgen\BlockManager\Persistence\Values\Layout\LayoutCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Layout\LayoutUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Layout\Zone;
-use Netgen\BlockManager\Persistence\Values\Layout\ZoneCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Layout\ZoneUpdateStruct;
+use Netgen\Layouts\Exception\BadStateException;
+use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutMapper;
+use Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler;
+use Netgen\Layouts\Persistence\Handler\BlockHandlerInterface;
+use Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface;
+use Netgen\Layouts\Persistence\Values\Block\BlockCreateStruct;
+use Netgen\Layouts\Persistence\Values\Layout\Layout;
+use Netgen\Layouts\Persistence\Values\Layout\LayoutCopyStruct;
+use Netgen\Layouts\Persistence\Values\Layout\LayoutCreateStruct;
+use Netgen\Layouts\Persistence\Values\Layout\LayoutUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Layout\Zone;
+use Netgen\Layouts\Persistence\Values\Layout\ZoneCreateStruct;
+use Netgen\Layouts\Persistence\Values\Layout\ZoneUpdateStruct;
 
 final class LayoutHandler implements LayoutHandlerInterface
 {
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler
+     * @var \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler
      */
     private $queryHandler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface
+     * @var \Netgen\Layouts\Persistence\Handler\BlockHandlerInterface
      */
     private $blockHandler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper
+     * @var \Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutMapper
      */
     private $layoutMapper;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Transfer;
+namespace Netgen\Layouts\Transfer;
 
 /**
  * Descriptor contains version identifier, used in the Serializer output.

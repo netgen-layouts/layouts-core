@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Config;
+namespace Netgen\Layouts\Config;
 
-use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionTrait;
-use Netgen\BlockManager\Utils\HydratorTrait;
+use Netgen\Layouts\Parameters\ParameterDefinitionCollectionTrait;
+use Netgen\Layouts\Utils\HydratorTrait;
 
 /**
  * @final
@@ -21,7 +21,7 @@ class ConfigDefinition implements ConfigDefinitionInterface
     private $configKey;
 
     /**
-     * @var \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface
+     * @var \Netgen\Layouts\Config\ConfigDefinitionHandlerInterface
      */
     private $handler;
 

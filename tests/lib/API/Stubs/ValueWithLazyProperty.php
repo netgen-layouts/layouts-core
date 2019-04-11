@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Stubs;
+namespace Netgen\Layouts\Tests\API\Stubs;
 
-use Netgen\BlockManager\API\Values\LazyPropertyTrait;
+use Netgen\Layouts\API\Values\LazyPropertyTrait;
 
 final class ValueWithLazyProperty
 {

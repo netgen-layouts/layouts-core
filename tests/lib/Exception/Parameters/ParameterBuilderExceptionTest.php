@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Exception\Parameters;
+namespace Netgen\Layouts\Tests\Exception\Parameters;
 
-use Netgen\BlockManager\Exception\Parameters\ParameterBuilderException;
+use Netgen\Layouts\Exception\Parameters\ParameterBuilderException;
 use PHPUnit\Framework\TestCase;
 
 final class ParameterBuilderExceptionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Exception\Parameters\ParameterBuilderException::noParameter
+     * @covers \Netgen\Layouts\Exception\Parameters\ParameterBuilderException::noParameter
      */
     public function testNoParameter(): void
     {
@@ -23,7 +23,7 @@ final class ParameterBuilderExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\Parameters\ParameterBuilderException::noOption
+     * @covers \Netgen\Layouts\Exception\Parameters\ParameterBuilderException::noOption
      */
     public function testNoOption(): void
     {
@@ -36,7 +36,7 @@ final class ParameterBuilderExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\Parameters\ParameterBuilderException::noOption
+     * @covers \Netgen\Layouts\Exception\Parameters\ParameterBuilderException::noOption
      */
     public function testNoOptionWithoutParameterName(): void
     {
@@ -49,7 +49,7 @@ final class ParameterBuilderExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\Parameters\ParameterBuilderException::subCompound
+     * @covers \Netgen\Layouts\Exception\Parameters\ParameterBuilderException::subCompound
      */
     public function testSubCompound(): void
     {
@@ -62,7 +62,7 @@ final class ParameterBuilderExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\Parameters\ParameterBuilderException::nonCompound
+     * @covers \Netgen\Layouts\Exception\Parameters\ParameterBuilderException::nonCompound
      */
     public function testNonCompound(): void
     {
@@ -75,7 +75,7 @@ final class ParameterBuilderExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\Parameters\ParameterBuilderException::invalidConstraints
+     * @covers \Netgen\Layouts\Exception\Parameters\ParameterBuilderException::invalidConstraints
      */
     public function testInvalidConstraints(): void
     {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Transfer\Output;
+namespace Netgen\Layouts\Transfer\Output;
 
 /**
  * Visits values into hash representation.
@@ -10,7 +10,7 @@ namespace Netgen\BlockManager\Transfer\Output;
  * Hash format is either a scalar value, a hash array (associative array),
  * a pure numeric array or a nested combination of these.
  *
- * @see \Netgen\BlockManager\Transfer\SerializerInterface
+ * @see \Netgen\Layouts\Transfer\SerializerInterface
  */
 interface VisitorInterface
 {
@@ -27,7 +27,7 @@ interface VisitorInterface
      * Visit the given $value into hash representation.
      *
      * @param mixed $value
-     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface|null $subVisitor
+     * @param \Netgen\Layouts\Transfer\Output\VisitorInterface|null $subVisitor
      *
      * @return mixed
      */

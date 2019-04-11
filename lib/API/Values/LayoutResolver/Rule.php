@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\LayoutResolver;
+namespace Netgen\Layouts\API\Values\LayoutResolver;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\LazyPropertyTrait;
-use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\API\Values\ValueStatusTrait;
-use Netgen\BlockManager\Utils\HydratorTrait;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\LazyPropertyTrait;
+use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\API\Values\ValueStatusTrait;
+use Netgen\Layouts\Utils\HydratorTrait;
 
 final class Rule implements Value
 {
@@ -23,7 +23,7 @@ final class Rule implements Value
     private $id;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Layout\Layout|null
+     * @var \Netgen\Layouts\API\Values\Layout\Layout|null
      */
     private $layout;
 

@@ -1,76 +1,76 @@
 services:
     netgen_block_manager.validator.layout_name:
-        class: Netgen\BlockManager\Validator\LayoutNameValidator
+        class: Netgen\Layouts\Validator\LayoutNameValidator
         arguments:
             - "@netgen_block_manager.api.service.layout"
         tags:
             - { name: validator.constraint_validator, alias: ngbm_layout_name }
 
     netgen_block_manager.validator.block_view_type:
-        class: Netgen\BlockManager\Validator\BlockViewTypeValidator
+        class: Netgen\Layouts\Validator\BlockViewTypeValidator
         tags:
             - { name: validator.constraint_validator, alias: ngbm_block_view_type }
 
     netgen_block_manager.validator.block_item_view_type:
-        class: Netgen\BlockManager\Validator\BlockItemViewTypeValidator
+        class: Netgen\Layouts\Validator\BlockItemViewTypeValidator
         tags:
             - { name: validator.constraint_validator, alias: ngbm_block_item_view_type }
 
     netgen_block_manager.validator.value_type:
-        class: Netgen\BlockManager\Validator\ValueTypeValidator
+        class: Netgen\Layouts\Validator\ValueTypeValidator
         arguments:
             - "@netgen_block_manager.item.registry.value_type"
         tags:
             - { name: validator.constraint_validator, alias: ngbm_value_type }
 
     netgen_block_manager.validator.item_link:
-        class: Netgen\BlockManager\Validator\Parameters\ItemLinkValidator
+        class: Netgen\Layouts\Validator\Parameters\ItemLinkValidator
         arguments:
             - "@netgen_block_manager.item.item_loader"
         tags:
             - { name: validator.constraint_validator, alias: ngbm_item_link }
 
     netgen_block_manager.validator.link:
-        class: Netgen\BlockManager\Validator\Parameters\LinkValidator
+        class: Netgen\Layouts\Validator\Parameters\LinkValidator
         tags:
             - { name: validator.constraint_validator, alias: ngbm_link }
 
     netgen_block_manager.validator.datetime:
-        class: Netgen\BlockManager\Validator\DateTimeValidator
+        class: Netgen\Layouts\Validator\DateTimeValidator
         tags:
             - { name: validator.constraint_validator, alias: ngbm_datetime }
 
     netgen_block_manager.validator.locale:
-        class: Netgen\BlockManager\Validator\LocaleValidator
+        class: Netgen\Layouts\Validator\LocaleValidator
         tags:
             - { name: validator.constraint_validator, alias: ngbm_locale }
 
     netgen_block_manager.validator.condition_type.time:
-        class: Netgen\BlockManager\Validator\ConditionType\TimeValidator
+        class: Netgen\Layouts\Validator\ConditionType\TimeValidator
         tags:
             - { name: validator.constraint_validator, alias: ngbm_condition_type_time }
 
     netgen_block_manager.validator.parameter_struct:
-        class: Netgen\BlockManager\Validator\Structs\ParameterStructValidator
+        class: Netgen\Layouts\Validator\Structs\ParameterStructValidator
         tags:
             - { name: validator.constraint_validator, alias: ngbm_parameter_struct }
 
     netgen_block_manager.validator.config_aware_struct:
-        class: Netgen\BlockManager\Validator\Structs\ConfigAwareStructValidator
+        class: Netgen\Layouts\Validator\Structs\ConfigAwareStructValidator
         tags:
             - { name: validator.constraint_validator, alias: ngbm_config_aware_struct }
 
     netgen_block_manager.validator.block_create_struct:
-        class: Netgen\BlockManager\Validator\Structs\BlockCreateStructValidator
+        class: Netgen\Layouts\Validator\Structs\BlockCreateStructValidator
         tags:
             - { name: validator.constraint_validator, alias: ngbm_block_create_struct }
 
     netgen_block_manager.validator.block_update_struct:
-        class: Netgen\BlockManager\Validator\Structs\BlockUpdateStructValidator
+        class: Netgen\Layouts\Validator\Structs\BlockUpdateStructValidator
         tags:
             - { name: validator.constraint_validator, alias: ngbm_block_update_struct }
 
     netgen_block_manager.validator.query_update_struct:
-        class: Netgen\BlockManager\Validator\Structs\QueryUpdateStructValidator
+        class: Netgen\Layouts\Validator\Structs\QueryUpdateStructValidator
         tags:
             - { name: validator.constraint_validator, alias: ngbm_query_update_struct }

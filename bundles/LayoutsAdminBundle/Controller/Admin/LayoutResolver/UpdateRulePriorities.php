@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver;
 
-use Netgen\BlockManager\API\Service\LayoutResolverService;
-use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Validator\ValidatorTrait;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
+use Netgen\Layouts\API\Service\LayoutResolverService;
+use Netgen\Layouts\Exception\BadStateException;
+use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Validator\ValidatorTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints;
@@ -19,7 +19,7 @@ final class UpdateRulePriorities extends AbstractController
     use ValidatorTrait;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutResolverService
+     * @var \Netgen\Layouts\API\Service\LayoutResolverService
      */
     private $layoutResolverService;
 
@@ -31,7 +31,7 @@ final class UpdateRulePriorities extends AbstractController
     /**
      * Updates rule priorities.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If an error occurred
+     * @throws \Netgen\Layouts\Exception\BadStateException If an error occurred
      */
     public function __invoke(Request $request): Response
     {
@@ -82,7 +82,7 @@ final class UpdateRulePriorities extends AbstractController
     /**
      * Validates list of rules from the request when updating priorities.
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If validation failed
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If validation failed
      */
     private function validatePriorities(Request $request): void
     {

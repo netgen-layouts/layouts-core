@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Block\BlockType;
+namespace Netgen\Layouts\Block\BlockType;
 
-use Netgen\BlockManager\Block\BlockDefinitionInterface;
+use Netgen\Layouts\Block\BlockDefinitionInterface;
 
 final class BlockTypeFactory
 {

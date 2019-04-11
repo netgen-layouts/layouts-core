@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
+namespace Netgen\Layouts\Tests\Parameters\ParameterType;
 
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterType\RangeType;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType\RangeType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Validation;
@@ -20,7 +20,7 @@ final class RangeTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\RangeType::getIdentifier
+     * @covers \Netgen\Layouts\Parameters\ParameterType\RangeType::getIdentifier
      */
     public function testGetIdentifier(): void
     {
@@ -28,7 +28,7 @@ final class RangeTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\RangeType::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterType\RangeType::configureOptions
      *
      * @param array<string, mixed> $options
      * @param bool $required
@@ -44,7 +44,7 @@ final class RangeTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\RangeType::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterType\RangeType::configureOptions
      * @dataProvider validOptionsProvider
      */
     public function testValidOptions(array $options, array $resolvedOptions): void
@@ -54,7 +54,7 @@ final class RangeTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\RangeType::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterType\RangeType::configureOptions
      * @dataProvider invalidOptionsProvider
      */
     public function testInvalidOptions(array $options): void
@@ -156,7 +156,7 @@ final class RangeTypeTest extends TestCase
      * @param bool $required
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\RangeType::getValueConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterType\RangeType::getValueConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, bool $required, bool $isValid): void
@@ -195,7 +195,7 @@ final class RangeTypeTest extends TestCase
      * @param mixed $value
      * @param bool $isEmpty
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\RangeType::isValueEmpty
+     * @covers \Netgen\Layouts\Parameters\ParameterType\RangeType::isValueEmpty
      * @dataProvider emptyProvider
      */
     public function testIsValueEmpty($value, bool $isEmpty): void

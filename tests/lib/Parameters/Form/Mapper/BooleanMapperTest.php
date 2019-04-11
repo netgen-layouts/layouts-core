@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\Form\Mapper;
+namespace Netgen\Layouts\Tests\Parameters\Form\Mapper;
 
-use Netgen\BlockManager\Parameters\Form\Mapper\BooleanMapper;
+use Netgen\Layouts\Parameters\Form\Mapper\BooleanMapper;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 final class BooleanMapperTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\Form\Mapper\BooleanMapper
+     * @var \Netgen\Layouts\Parameters\Form\Mapper\BooleanMapper
      */
     private $mapper;
 
@@ -21,7 +21,7 @@ final class BooleanMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Mapper\BooleanMapper::getFormType
+     * @covers \Netgen\Layouts\Parameters\Form\Mapper\BooleanMapper::getFormType
      */
     public function testGetFormType(): void
     {

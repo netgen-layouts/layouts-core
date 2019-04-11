@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
-use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
-use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
+use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface;
+use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 
 final class LayoutContext implements Context
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutService
+     * @var \Netgen\Layouts\API\Service\LayoutService
      */
     private $layoutService;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface
      */
     private $layoutTypeRegistry;
 

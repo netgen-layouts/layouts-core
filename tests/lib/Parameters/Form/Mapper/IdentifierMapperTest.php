@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\Form\Mapper;
+namespace Netgen\Layouts\Tests\Parameters\Form\Mapper;
 
-use Netgen\BlockManager\Parameters\Form\Mapper\IdentifierMapper;
+use Netgen\Layouts\Parameters\Form\Mapper\IdentifierMapper;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 final class IdentifierMapperTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\Form\Mapper\IdentifierMapper
+     * @var \Netgen\Layouts\Parameters\Form\Mapper\IdentifierMapper
      */
     private $mapper;
 
@@ -21,7 +21,7 @@ final class IdentifierMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Mapper\IdentifierMapper::getFormType
+     * @covers \Netgen\Layouts\Parameters\Form\Mapper\IdentifierMapper::getFormType
      */
     public function testGetFormType(): void
     {

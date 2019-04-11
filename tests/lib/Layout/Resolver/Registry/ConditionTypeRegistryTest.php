@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\Registry;
+namespace Netgen\Layouts\Tests\Layout\Resolver\Registry;
 
 use ArrayIterator;
-use Netgen\BlockManager\Exception\Layout\ConditionTypeException;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType1;
+use Netgen\Layouts\Exception\Layout\ConditionTypeException;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry;
+use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionType1;
 use PHPUnit\Framework\TestCase;
 
 final class ConditionTypeRegistryTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface
+     * @var \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface
      */
     private $conditionType;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry
+     * @var \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry
      */
     private $registry;
 
@@ -31,8 +31,8 @@ final class ConditionTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::__construct
-     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::getConditionTypes
+     * @covers \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry::__construct
+     * @covers \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry::getConditionTypes
      */
     public function testGetConditionTypes(): void
     {
@@ -40,7 +40,7 @@ final class ConditionTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::getConditionType
+     * @covers \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry::getConditionType
      */
     public function testGetConditionType(): void
     {
@@ -48,7 +48,7 @@ final class ConditionTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::getConditionType
+     * @covers \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry::getConditionType
      */
     public function testGetConditionTypeThrowsConditionTypeException(): void
     {
@@ -59,7 +59,7 @@ final class ConditionTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::hasConditionType
+     * @covers \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry::hasConditionType
      */
     public function testHasConditionType(): void
     {
@@ -67,7 +67,7 @@ final class ConditionTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::hasConditionType
+     * @covers \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry::hasConditionType
      */
     public function testHasConditionTypeWithNoConditionType(): void
     {
@@ -75,7 +75,7 @@ final class ConditionTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::getIterator
+     * @covers \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry::getIterator
      */
     public function testGetIterator(): void
     {
@@ -90,7 +90,7 @@ final class ConditionTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::count
+     * @covers \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry::count
      */
     public function testCount(): void
     {
@@ -98,7 +98,7 @@ final class ConditionTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::offsetExists
+     * @covers \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry::offsetExists
      */
     public function testOffsetExists(): void
     {
@@ -107,7 +107,7 @@ final class ConditionTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::offsetGet
+     * @covers \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry::offsetGet
      */
     public function testOffsetGet(): void
     {
@@ -115,7 +115,7 @@ final class ConditionTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::offsetSet
+     * @covers \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry::offsetSet
      */
     public function testOffsetSet(): void
     {
@@ -126,7 +126,7 @@ final class ConditionTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry::offsetUnset
+     * @covers \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry::offsetUnset
      */
     public function testOffsetUnset(): void
     {

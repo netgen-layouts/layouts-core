@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
+namespace Netgen\Layouts\Tests\Serializer\Normalizer\V1;
 
-use Netgen\BlockManager\Block\BlockType\BlockType;
-use Netgen\BlockManager\Block\BlockType\BlockTypeGroup;
-use Netgen\BlockManager\Serializer\Normalizer\V1\BlockTypeGroupNormalizer;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
+use Netgen\Layouts\Block\BlockType\BlockType;
+use Netgen\Layouts\Block\BlockType\BlockTypeGroup;
+use Netgen\Layouts\Serializer\Normalizer\V1\BlockTypeGroupNormalizer;
+use Netgen\Layouts\Serializer\Values\VersionedValue;
+use Netgen\Layouts\Tests\API\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 
 final class BlockTypeGroupNormalizerTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Serializer\Normalizer\V1\BlockTypeGroupNormalizer
+     * @var \Netgen\Layouts\Serializer\Normalizer\V1\BlockTypeGroupNormalizer
      */
     private $normalizer;
 
@@ -24,7 +24,7 @@ final class BlockTypeGroupNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockTypeGroupNormalizer::normalize
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\BlockTypeGroupNormalizer::normalize
      */
     public function testNormalize(): void
     {
@@ -55,7 +55,7 @@ final class BlockTypeGroupNormalizerTest extends TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockTypeGroupNormalizer::supportsNormalization
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\BlockTypeGroupNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, bool $expected): void

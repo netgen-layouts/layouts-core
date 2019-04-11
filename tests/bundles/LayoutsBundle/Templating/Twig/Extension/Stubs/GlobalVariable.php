@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\Templating\Twig\Extension\Stubs;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\Layout;
 
 final class GlobalVariable
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Layout\Layout
+     * @var \Netgen\Layouts\API\Values\Layout\Layout
      */
     private $layout;
 

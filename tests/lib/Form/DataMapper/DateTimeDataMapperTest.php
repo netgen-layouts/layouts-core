@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Form\DataMapper;
+namespace Netgen\Layouts\Tests\Form\DataMapper;
 
 use ArrayIterator;
 use DateTimeImmutable;
 use DateTimeZone;
-use Netgen\BlockManager\Form\DataMapper\DateTimeDataMapper;
+use Netgen\Layouts\Form\DataMapper\DateTimeDataMapper;
 
 final class DateTimeDataMapperTest extends DataMapperTest
 {
     /**
-     * @var \Netgen\BlockManager\Form\DataMapper\DateTimeDataMapper
+     * @var \Netgen\Layouts\Form\DataMapper\DateTimeDataMapper
      */
     private $mapper;
 
@@ -22,8 +22,8 @@ final class DateTimeDataMapperTest extends DataMapperTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Form\DataMapper\DateTimeDataMapper::__construct
-     * @covers \Netgen\BlockManager\Form\DataMapper\DateTimeDataMapper::mapDataToForms
+     * @covers \Netgen\Layouts\Form\DataMapper\DateTimeDataMapper::__construct
+     * @covers \Netgen\Layouts\Form\DataMapper\DateTimeDataMapper::mapDataToForms
      */
     public function testMapDataToForms(): void
     {
@@ -43,7 +43,7 @@ final class DateTimeDataMapperTest extends DataMapperTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Form\DataMapper\DateTimeDataMapper::mapDataToForms
+     * @covers \Netgen\Layouts\Form\DataMapper\DateTimeDataMapper::mapDataToForms
      * @dataProvider mapDataToFormsWithArrayProvider
      */
     public function testMapDataToFormsWithArray(array $input, ?string $dateTime, string $timeZone): void
@@ -73,7 +73,7 @@ final class DateTimeDataMapperTest extends DataMapperTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Form\DataMapper\DateTimeDataMapper::mapDataToForms
+     * @covers \Netgen\Layouts\Form\DataMapper\DateTimeDataMapper::mapDataToForms
      */
     public function testMapDataToFormsWithNoDateTime(): void
     {
@@ -91,7 +91,7 @@ final class DateTimeDataMapperTest extends DataMapperTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Form\DataMapper\DateTimeDataMapper::mapFormsToData
+     * @covers \Netgen\Layouts\Form\DataMapper\DateTimeDataMapper::mapFormsToData
      */
     public function testMapFormsToData(): void
     {
@@ -110,7 +110,7 @@ final class DateTimeDataMapperTest extends DataMapperTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Form\DataMapper\DateTimeDataMapper::mapFormsToData
+     * @covers \Netgen\Layouts\Form\DataMapper\DateTimeDataMapper::mapFormsToData
      */
     public function testMapFormsToDataByUsingArray(): void
     {
@@ -135,7 +135,7 @@ final class DateTimeDataMapperTest extends DataMapperTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Form\DataMapper\DateTimeDataMapper::mapFormsToData
+     * @covers \Netgen\Layouts\Form\DataMapper\DateTimeDataMapper::mapFormsToData
      */
     public function testMapFormsToDataWithEmptyFormData(): void
     {

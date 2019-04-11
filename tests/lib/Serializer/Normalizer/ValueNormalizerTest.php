@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Serializer\Normalizer;
+namespace Netgen\Layouts\Tests\Serializer\Normalizer;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Serializer\Normalizer\ValueNormalizer;
-use Netgen\BlockManager\Serializer\Values\Value;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Tests\API\Stubs\Value as StubValue;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Serializer\Normalizer\ValueNormalizer;
+use Netgen\Layouts\Serializer\Values\Value;
+use Netgen\Layouts\Serializer\Values\VersionedValue;
+use Netgen\Layouts\Tests\API\Stubs\Value as StubValue;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
@@ -20,7 +20,7 @@ final class ValueNormalizerTest extends TestCase
     private $normalizerMock;
 
     /**
-     * @var \Netgen\BlockManager\Serializer\Normalizer\ValueNormalizer
+     * @var \Netgen\Layouts\Serializer\Normalizer\ValueNormalizer
      */
     private $normalizer;
 
@@ -33,7 +33,7 @@ final class ValueNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\ValueNormalizer::normalize
+     * @covers \Netgen\Layouts\Serializer\Normalizer\ValueNormalizer::normalize
      */
     public function testNormalize(): void
     {
@@ -57,7 +57,7 @@ final class ValueNormalizerTest extends TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\ValueNormalizer::supportsNormalization
+     * @covers \Netgen\Layouts\Serializer\Normalizer\ValueNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, bool $expected): void

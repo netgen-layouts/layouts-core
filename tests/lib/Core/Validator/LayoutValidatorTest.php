@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\Validator;
+namespace Netgen\Layouts\Tests\Core\Validator;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
-use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
-use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
-use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\Core\Validator\LayoutValidator;
-use Netgen\BlockManager\Exception\API\LayoutException;
-use Netgen\BlockManager\Exception\Validation\ValidationException;
-use Netgen\BlockManager\Layout\Type\LayoutType;
-use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
-use Netgen\BlockManager\Layout\Type\Zone as LayoutTypeZone;
-use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
-use Netgen\BlockManager\Utils\Hydrator;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\LayoutCopyStruct;
+use Netgen\Layouts\API\Values\Layout\LayoutCreateStruct;
+use Netgen\Layouts\API\Values\Layout\LayoutUpdateStruct;
+use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\Core\Validator\LayoutValidator;
+use Netgen\Layouts\Exception\API\LayoutException;
+use Netgen\Layouts\Exception\Validation\ValidationException;
+use Netgen\Layouts\Layout\Type\LayoutType;
+use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
+use Netgen\Layouts\Layout\Type\Zone as LayoutTypeZone;
+use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
+use Netgen\Layouts\Utils\Hydrator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 
@@ -29,7 +29,7 @@ final class LayoutValidatorTest extends TestCase
     private $validator;
 
     /**
-     * @var \Netgen\BlockManager\Core\Validator\LayoutValidator
+     * @var \Netgen\Layouts\Core\Validator\LayoutValidator
      */
     private $layoutValidator;
 
@@ -44,7 +44,7 @@ final class LayoutValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Validator\LayoutValidator::validateLayoutCreateStruct
+     * @covers \Netgen\Layouts\Core\Validator\LayoutValidator::validateLayoutCreateStruct
      * @dataProvider validateLayoutCreateStructDataProvider
      */
     public function testValidateLayoutCreateStruct(array $params, bool $isValid): void
@@ -63,7 +63,7 @@ final class LayoutValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Validator\LayoutValidator::validateLayoutUpdateStruct
+     * @covers \Netgen\Layouts\Core\Validator\LayoutValidator::validateLayoutUpdateStruct
      * @dataProvider validateLayoutUpdateStructDataProvider
      */
     public function testValidateLayoutUpdateStruct(array $params, bool $isValid): void
@@ -82,7 +82,7 @@ final class LayoutValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Validator\LayoutValidator::validateLayoutCopyStruct
+     * @covers \Netgen\Layouts\Core\Validator\LayoutValidator::validateLayoutCopyStruct
      * @dataProvider validateLayoutCopyStructDataProvider
      */
     public function testValidateLayoutCopyStruct(array $params, bool $isValid): void
@@ -101,7 +101,7 @@ final class LayoutValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Validator\LayoutValidator::validateChangeLayoutType
+     * @covers \Netgen\Layouts\Core\Validator\LayoutValidator::validateChangeLayoutType
      * @dataProvider validateChangeLayoutTypeDataProvider
      */
     public function testValidateChangeLayoutType(array $zoneMapping): void
@@ -117,7 +117,7 @@ final class LayoutValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Validator\LayoutValidator::validateChangeLayoutType
+     * @covers \Netgen\Layouts\Core\Validator\LayoutValidator::validateChangeLayoutType
      */
     public function testValidateChangeLayoutTypeWhenNotPreservingSharedZones(): void
     {
@@ -133,7 +133,7 @@ final class LayoutValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Validator\LayoutValidator::validateChangeLayoutType
+     * @covers \Netgen\Layouts\Core\Validator\LayoutValidator::validateChangeLayoutType
      */
     public function testValidateChangeLayoutTypeWithNonExistingZoneInLayoutType(): void
     {
@@ -148,7 +148,7 @@ final class LayoutValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Validator\LayoutValidator::validateChangeLayoutType
+     * @covers \Netgen\Layouts\Core\Validator\LayoutValidator::validateChangeLayoutType
      */
     public function testValidateChangeLayoutTypeWithInvalidMappedZones(): void
     {
@@ -163,7 +163,7 @@ final class LayoutValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Validator\LayoutValidator::validateChangeLayoutType
+     * @covers \Netgen\Layouts\Core\Validator\LayoutValidator::validateChangeLayoutType
      */
     public function testValidateChangeLayoutTypeWithDuplicateZones(): void
     {
@@ -178,7 +178,7 @@ final class LayoutValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Validator\LayoutValidator::validateChangeLayoutType
+     * @covers \Netgen\Layouts\Core\Validator\LayoutValidator::validateChangeLayoutType
      */
     public function testValidateChangeLayoutTypeWithNonExistingLayoutZone(): void
     {
@@ -193,7 +193,7 @@ final class LayoutValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Validator\LayoutValidator::validateChangeLayoutType
+     * @covers \Netgen\Layouts\Core\Validator\LayoutValidator::validateChangeLayoutType
      */
     public function testValidateChangeLayoutTypeWithNonOneOnOneSharedZoneMapping(): void
     {

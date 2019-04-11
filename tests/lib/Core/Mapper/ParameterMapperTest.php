@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\Mapper;
+namespace Netgen\Layouts\Tests\Core\Mapper;
 
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Core\Mapper\ParameterMapper;
-use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithCompoundParameter;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithUntranslatableCompoundParameter;
+use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Core\Mapper\ParameterMapper;
+use Netgen\Layouts\Parameters\Parameter;
+use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandlerWithCompoundParameter;
+use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandlerWithUntranslatableCompoundParameter;
 use PHPUnit\Framework\TestCase;
 
 final class ParameterMapperTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Core\Mapper\ParameterMapper
+     * @var \Netgen\Layouts\Core\Mapper\ParameterMapper
      */
     private $mapper;
 
@@ -24,7 +24,7 @@ final class ParameterMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\ParameterMapper::mapParameters
+     * @covers \Netgen\Layouts\Core\Mapper\ParameterMapper::mapParameters
      */
     public function testMapParameters(): void
     {
@@ -46,7 +46,7 @@ final class ParameterMapperTest extends TestCase
             )
         );
 
-        /** @var \Netgen\BlockManager\Parameters\CompoundParameterDefinition $compoundParameter */
+        /** @var \Netgen\Layouts\Parameters\CompoundParameterDefinition $compoundParameter */
         $compoundParameter = $blockDefinition->getParameterDefinition('compound');
 
         self::assertCount(4, $mappedParameters);
@@ -75,7 +75,7 @@ final class ParameterMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\ParameterMapper::serializeValues
+     * @covers \Netgen\Layouts\Core\Mapper\ParameterMapper::serializeValues
      */
     public function testSerializeValues(): void
     {
@@ -111,7 +111,7 @@ final class ParameterMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\ParameterMapper::extractUntranslatableParameters
+     * @covers \Netgen\Layouts\Core\Mapper\ParameterMapper::extractUntranslatableParameters
      */
     public function testExtractUntranslatableParameters(): void
     {

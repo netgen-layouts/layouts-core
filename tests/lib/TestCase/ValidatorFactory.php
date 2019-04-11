@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\TestCase;
+namespace Netgen\Layouts\Tests\TestCase;
 
-use Netgen\BlockManager\Item\CmsItemLoaderInterface;
-use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
-use Netgen\BlockManager\Item\ValueType\ValueType;
-use Netgen\BlockManager\Validator;
+use Netgen\Layouts\Item\CmsItemLoaderInterface;
+use Netgen\Layouts\Item\Registry\ValueTypeRegistry;
+use Netgen\Layouts\Item\ValueType\ValueType;
+use Netgen\Layouts\Validator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidatorFactory;

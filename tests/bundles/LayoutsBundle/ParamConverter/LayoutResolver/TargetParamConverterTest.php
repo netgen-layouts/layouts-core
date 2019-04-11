@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\ParamConverter\LayoutResolver;
 
-use Netgen\BlockManager\API\Service\LayoutResolverService;
-use Netgen\BlockManager\API\Values\LayoutResolver\Target;
 use Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver\TargetParamConverter;
+use Netgen\Layouts\API\Service\LayoutResolverService;
+use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use PHPUnit\Framework\TestCase;
 
 final class TargetParamConverterTest extends TestCase

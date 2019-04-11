@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\LayoutResolver;
+namespace Netgen\Layouts\API\Values\LayoutResolver;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -21,7 +21,7 @@ final class RuleList extends ArrayCollection
     }
 
     /**
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule[]
+     * @return \Netgen\Layouts\API\Values\LayoutResolver\Rule[]
      */
     public function getRules(): array
     {

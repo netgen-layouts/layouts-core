@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Item;
+namespace Netgen\Layouts\Item;
 
 /**
  * Instances of this interface generate the path for the provided CMS object.

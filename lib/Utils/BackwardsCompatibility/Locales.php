@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Utils\BackwardsCompatibility;
+namespace Netgen\Layouts\Utils\BackwardsCompatibility;
 
 use Symfony\Component\Intl\Intl;
 use Symfony\Component\Intl\Locales as SymfonyLocales;

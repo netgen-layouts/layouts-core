@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\Config;
+namespace Netgen\Layouts\Tests\API\Values\Config;
 
-use Netgen\BlockManager\API\Values\Config\Config;
-use Netgen\BlockManager\Config\ConfigDefinition;
+use Netgen\Layouts\API\Values\Config\Config;
+use Netgen\Layouts\Config\ConfigDefinition;
 use PHPUnit\Framework\TestCase;
 
 final class ConfigTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\API\Values\Config\Config::getConfigKey
-     * @covers \Netgen\BlockManager\API\Values\Config\Config::getDefinition
+     * @covers \Netgen\Layouts\API\Values\Config\Config::getConfigKey
+     * @covers \Netgen\Layouts\API\Values\Config\Config::getDefinition
      */
     public function testSetProperties(): void
     {

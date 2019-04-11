@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters;
+namespace Netgen\Layouts\Tests\Parameters;
 
-use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\Parameter;
+use Netgen\Layouts\Parameters\ParameterDefinition;
 use PHPUnit\Framework\TestCase;
 
 final class ParameterTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Parameters\Parameter::__toString
-     * @covers \Netgen\BlockManager\Parameters\Parameter::getValue
-     * @covers \Netgen\BlockManager\Parameters\Parameter::isEmpty
+     * @covers \Netgen\Layouts\Parameters\Parameter::__toString
+     * @covers \Netgen\Layouts\Parameters\Parameter::getValue
+     * @covers \Netgen\Layouts\Parameters\Parameter::isEmpty
      */
     public function testSetDefaultProperties(): void
     {
@@ -25,11 +25,11 @@ final class ParameterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Parameter::__toString
-     * @covers \Netgen\BlockManager\Parameters\Parameter::getName
-     * @covers \Netgen\BlockManager\Parameters\Parameter::getParameterDefinition
-     * @covers \Netgen\BlockManager\Parameters\Parameter::getValue
-     * @covers \Netgen\BlockManager\Parameters\Parameter::isEmpty
+     * @covers \Netgen\Layouts\Parameters\Parameter::__toString
+     * @covers \Netgen\Layouts\Parameters\Parameter::getName
+     * @covers \Netgen\Layouts\Parameters\Parameter::getParameterDefinition
+     * @covers \Netgen\Layouts\Parameters\Parameter::getValue
+     * @covers \Netgen\Layouts\Parameters\Parameter::isEmpty
      */
     public function testSetProperties(): void
     {

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Service;
+namespace Netgen\Layouts\API\Service;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
-use Netgen\BlockManager\API\Values\Block\BlockList;
-use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\Block\BlockDefinitionInterface;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\BlockCreateStruct;
+use Netgen\Layouts\API\Values\Block\BlockList;
+use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\Block\BlockDefinitionInterface;
 
 interface BlockService extends Service
 {
@@ -28,9 +28,9 @@ interface BlockService extends Service
      * @param string[] $locales
      * @param bool $useMainLocale
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If block with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If block with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\Block\Block
+     * @return \Netgen\Layouts\API\Values\Block\Block
      */
     public function loadBlock($blockId, ?array $locales = null, bool $useMainLocale = true): Block;
 
@@ -48,9 +48,9 @@ interface BlockService extends Service
      * @param string[] $locales
      * @param bool $useMainLocale
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If block with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If block with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\Block\Block
+     * @return \Netgen\Layouts\API\Values\Block\Block
      */
     public function loadBlockDraft($blockId, ?array $locales = null, bool $useMainLocale = true): Block;
 
@@ -90,7 +90,7 @@ interface BlockService extends Service
      * If the target block is not translatable, created block will not be translatable,
      * ignoring the translatable flag from the create struct.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If target block is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If target block is not a draft
      *                                                          If target block is not a container
      *                                                          If placeholder does not exist in the target block
      *                                                          If new block is a container
@@ -103,7 +103,7 @@ interface BlockService extends Service
      *
      * If position is not provided, block is placed at the end of the zone.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If zone is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If zone is not a draft
      *                                                          If provided position is out of range
      *                                                          If block cannot be placed in specified zone
      */
@@ -112,7 +112,7 @@ interface BlockService extends Service
     /**
      * Updates a specified block.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If block is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If block is not a draft
      *                                                          If block does not have a specified translation
      */
     public function updateBlock(Block $block, BlockUpdateStruct $blockUpdateStruct): Block;
@@ -123,7 +123,7 @@ interface BlockService extends Service
      * If position is specified, block is copied there, otherwise,
      * the block is placed at the end of placeholder.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If source or target block is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If source or target block is not a draft
      *                                                          If target block is not a container
      *                                                          If target block is in a different layout
      *                                                          If placeholder does not exist in the target block
@@ -138,7 +138,7 @@ interface BlockService extends Service
      * If position is specified, block is copied there, otherwise,
      * block is placed at the end of the zone.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If block or zone are not drafts
+     * @throws \Netgen\Layouts\Exception\BadStateException If block or zone are not drafts
      *                                                          If zone is in a different layout
      *                                                          If block cannot be placed in specified zone
      *                                                              as specified by the list of blocks allowed within the zone
@@ -149,7 +149,7 @@ interface BlockService extends Service
     /**
      * Moves a block to specified target block.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If source or target block is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If source or target block is not a draft
      *                                                          If target block is not a container
      *                                                          If target block is in a different layout
      *                                                          If placeholder does not exist in the target block
@@ -162,7 +162,7 @@ interface BlockService extends Service
     /**
      * Moves a block to specified position inside the zone.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If block or zone are not drafts
+     * @throws \Netgen\Layouts\Exception\BadStateException If block or zone are not drafts
      *                                                          If zone is in a different layout
      *                                                          If provided position is out of range
      *                                                          If block cannot be placed in specified zone
@@ -175,29 +175,29 @@ interface BlockService extends Service
      *
      * Placement and position of the block are kept as is.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If block is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If block is not a draft
      */
     public function restoreBlock(Block $block): Block;
 
     /**
      * Enables translating the block.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If block is not a draft
-     * @throws \Netgen\BlockManager\Exception\BadStateException If parent block is not translatable
+     * @throws \Netgen\Layouts\Exception\BadStateException If block is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If parent block is not translatable
      */
     public function enableTranslations(Block $block): Block;
 
     /**
      * Disable translating the block. All translations (except the main one) will be removed.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If block is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If block is not a draft
      */
     public function disableTranslations(Block $block): Block;
 
     /**
      * Deletes a specified block.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If block is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If block is not a draft
      */
     public function deleteBlock(Block $block): void;
 

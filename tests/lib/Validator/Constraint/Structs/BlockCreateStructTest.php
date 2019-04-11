@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Validator\Constraint\Structs;
+namespace Netgen\Layouts\Tests\Validator\Constraint\Structs;
 
-use Netgen\BlockManager\Validator\Constraint\Structs\BlockCreateStruct;
+use Netgen\Layouts\Validator\Constraint\Structs\BlockCreateStruct;
 use PHPUnit\Framework\TestCase;
 
 final class BlockCreateStructTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Validator\Constraint\Structs\BlockCreateStruct::validatedBy
+     * @covers \Netgen\Layouts\Validator\Constraint\Structs\BlockCreateStruct::validatedBy
      */
     public function testValidatedBy(): void
     {

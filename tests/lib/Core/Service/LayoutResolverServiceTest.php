@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\Service;
+namespace Netgen\Layouts\Tests\Core\Service;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
-use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Tests\Core\CoreTestCase;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
+use Netgen\Layouts\Exception\BadStateException;
+use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Tests\Core\CoreTestCase;
+use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 
 abstract class LayoutResolverServiceTest extends CoreTestCase
 {
     use ExportObjectTrait;
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::__construct
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadRule
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::__construct
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRule
      */
     public function testLoadRule(): void
     {
@@ -27,7 +27,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadRule
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRule
      */
     public function testLoadRuleThrowsNotFoundException(): void
     {
@@ -38,8 +38,8 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::__construct
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadRuleDraft
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::__construct
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleDraft
      */
     public function testLoadRuleDraft(): void
     {
@@ -49,7 +49,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadRuleDraft
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleDraft
      */
     public function testLoadRuleDraftThrowsNotFoundException(): void
     {
@@ -60,7 +60,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadRuleArchive
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleArchive
      */
     public function testLoadRuleArchive(): void
     {
@@ -73,7 +73,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadRuleArchive
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleArchive
      */
     public function testLoadRuleArchiveThrowsNotFoundException(): void
     {
@@ -84,7 +84,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadRules
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRules
      */
     public function testLoadRules(): void
     {
@@ -98,7 +98,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadRules
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRules
      */
     public function testLoadRulesWithLayout(): void
     {
@@ -114,7 +114,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadRules
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRules
      */
     public function testLoadRulesWithDraftLayoutThrowsBadStateException(): void
     {
@@ -127,7 +127,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::getRuleCount
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::getRuleCount
      */
     public function testGetRuleCount(): void
     {
@@ -137,7 +137,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::getRuleCount
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::getRuleCount
      */
     public function testGetRuleCountWithLayout(): void
     {
@@ -149,7 +149,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::getRuleCount
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::getRuleCount
      */
     public function testGetRuleCountThrowsBadStateExceptionWithNonPublishedLayout(): void
     {
@@ -162,7 +162,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::matchRules
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::matchRules
      */
     public function testMatchRules(): void
     {
@@ -176,7 +176,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadTarget
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadTarget
      */
     public function testLoadTarget(): void
     {
@@ -186,7 +186,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadTarget
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadTarget
      */
     public function testLoadTargetThrowsNotFoundException(): void
     {
@@ -197,7 +197,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadTargetDraft
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadTargetDraft
      */
     public function testLoadTargetDraft(): void
     {
@@ -207,7 +207,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadTargetDraft
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadTargetDraft
      */
     public function testLoadTargetDraftThrowsNotFoundException(): void
     {
@@ -218,7 +218,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadCondition
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadCondition
      */
     public function testLoadCondition(): void
     {
@@ -228,7 +228,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadCondition
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadCondition
      */
     public function testLoadConditionThrowsNotFoundException(): void
     {
@@ -239,7 +239,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadConditionDraft
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadConditionDraft
      */
     public function testLoadConditionDraft(): void
     {
@@ -249,7 +249,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::loadConditionDraft
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadConditionDraft
      */
     public function testLoadConditionDraftThrowsNotFoundException(): void
     {
@@ -260,7 +260,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::createRule
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRule
      */
     public function testCreateRule(): void
     {
@@ -272,7 +272,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateRule
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRule
      */
     public function testUpdateRule(): void
     {
@@ -292,7 +292,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateRule
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRule
      */
     public function testUpdateRuleWithStringLayoutId(): void
     {
@@ -312,7 +312,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateRule
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRule
      */
     public function testUpdateRuleWithNoLayout(): void
     {
@@ -331,7 +331,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateRule
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRule
      */
     public function testUpdateRuleWithEmptyLayout(): void
     {
@@ -349,7 +349,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateRule
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRule
      */
     public function testUpdateRuleWithEmptyLayoutAndStringLayoutId(): void
     {
@@ -367,7 +367,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateRule
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRule
      */
     public function testUpdateRuleThrowsBadStateExceptionWithNonDraftRule(): void
     {
@@ -384,7 +384,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateRuleMetadata
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRuleMetadata
      */
     public function testUpdateRuleMetadata(): void
     {
@@ -403,7 +403,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateRuleMetadata
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRuleMetadata
      */
     public function testUpdateRuleMetadataThrowsBadStateExceptionWithNonPublishedRule(): void
     {
@@ -419,7 +419,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::copyRule
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::copyRule
      */
     public function testCopyRule(): void
     {
@@ -431,7 +431,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::createDraft
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createDraft
      */
     public function testCreateDraft(): void
     {
@@ -443,7 +443,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::createDraft
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createDraft
      */
     public function testCreateDraftWithDiscardingExistingDraft(): void
     {
@@ -456,7 +456,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::createDraft
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createDraft
      */
     public function testCreateDraftThrowsBadStateExceptionWithNonPublishedRule(): void
     {
@@ -469,7 +469,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::createDraft
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createDraft
      */
     public function testCreateDraftThrowsBadStateExceptionIfDraftAlreadyExists(): void
     {
@@ -483,7 +483,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::discardDraft
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::discardDraft
      */
     public function testDiscardDraft(): void
     {
@@ -497,7 +497,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::discardDraft
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::discardDraft
      */
     public function testDiscardDraftThrowsBadStateExceptionWithNonDraftRule(): void
     {
@@ -509,7 +509,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::publishRule
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::publishRule
      */
     public function testPublishRule(): void
     {
@@ -528,7 +528,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::publishRule
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::publishRule
      */
     public function testPublishRuleThrowsBadStateExceptionWithNonDraftRule(): void
     {
@@ -540,7 +540,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::restoreFromArchive
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::restoreFromArchive
      */
     public function testRestoreFromArchive(): void
     {
@@ -552,7 +552,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::restoreFromArchive
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::restoreFromArchive
      */
     public function testRestoreFromArchiveThrowsBadStateExceptionOnNonArchivedLayout(): void
     {
@@ -565,7 +565,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteRule
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::deleteRule
      */
     public function testDeleteRule(): void
     {
@@ -580,7 +580,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::enableRule
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::enableRule
      */
     public function testEnableRule(): void
     {
@@ -593,7 +593,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::enableRule
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::enableRule
      */
     public function testEnableRuleThrowsBadStateExceptionWithNonPublishedRule(): void
     {
@@ -606,7 +606,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::enableRule
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::enableRule
      */
     public function testEnableRuleThrowsBadStateExceptionIfRuleIsAlreadyEnabled(): void
     {
@@ -619,7 +619,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::disableRule
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::disableRule
      */
     public function testDisableRule(): void
     {
@@ -632,7 +632,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::disableRule
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::disableRule
      */
     public function testDisableRuleThrowsBadStateExceptionWithNonPublishedRule(): void
     {
@@ -645,7 +645,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::disableRule
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::disableRule
      */
     public function testDisableRuleThrowsBadStateExceptionIfRuleIsAlreadyDisabled(): void
     {
@@ -658,7 +658,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::addTarget
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::addTarget
      */
     public function testAddTarget(): void
     {
@@ -679,7 +679,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::addTarget
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::addTarget
      */
     public function testAddTargetThrowsBadStateExceptionOnNonDraftRule(): void
     {
@@ -701,7 +701,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::addTarget
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::addTarget
      */
     public function testAddTargetOfDifferentKindThrowsBadStateException(): void
     {
@@ -723,7 +723,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateTarget
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateTarget
      */
     public function testUpdateTarget(): void
     {
@@ -739,7 +739,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateTarget
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateTarget
      */
     public function testUpdateTargetThrowsBadStateExceptionOnNonDraftTarget(): void
     {
@@ -755,7 +755,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteTarget
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::deleteTarget
      */
     public function testDeleteTarget(): void
     {
@@ -770,7 +770,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteTarget
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::deleteTarget
      */
     public function testDeleteTargetThrowsBadStateExceptionOnNonDraftTarget(): void
     {
@@ -783,7 +783,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::addCondition
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::addCondition
      */
     public function testAddCondition(): void
     {
@@ -804,7 +804,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::addCondition
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::addCondition
      */
     public function testAddConditionThrowsBadStateExceptionOnNonDraftRule(): void
     {
@@ -826,7 +826,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateCondition
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateCondition
      */
     public function testUpdateCondition(): void
     {
@@ -842,7 +842,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateCondition
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateCondition
      */
     public function testUpdateConditionThrowsBadStateExceptionOnNonDraftCondition(): void
     {
@@ -858,7 +858,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteCondition
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::deleteCondition
      */
     public function testDeleteCondition(): void
     {
@@ -872,7 +872,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteCondition
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::deleteCondition
      */
     public function testDeleteConditionThrowsBadStateExceptionOnNonDraftCondition(): void
     {
@@ -884,7 +884,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::newRuleCreateStruct
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::newRuleCreateStruct
      */
     public function testNewRuleCreateStruct(): void
     {
@@ -902,7 +902,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::newRuleUpdateStruct
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::newRuleUpdateStruct
      */
     public function testNewRuleUpdateStruct(): void
     {
@@ -918,7 +918,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::newRuleMetadataUpdateStruct
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::newRuleMetadataUpdateStruct
      */
     public function testNewRuleMetadataUpdateStruct(): void
     {
@@ -933,7 +933,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::newTargetCreateStruct
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::newTargetCreateStruct
      */
     public function testNewTargetCreateStruct(): void
     {
@@ -949,7 +949,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::newTargetUpdateStruct
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::newTargetUpdateStruct
      */
     public function testNewTargetUpdateStruct(): void
     {
@@ -964,7 +964,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::newConditionCreateStruct
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::newConditionCreateStruct
      */
     public function testNewConditionCreateStruct(): void
     {
@@ -980,7 +980,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::newConditionUpdateStruct
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::newConditionUpdateStruct
      */
     public function testNewConditionUpdateStruct(): void
     {

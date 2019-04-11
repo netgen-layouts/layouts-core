@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Exception\View;
+namespace Netgen\Layouts\Tests\Exception\View;
 
-use Netgen\BlockManager\Exception\View\TemplateResolverException;
+use Netgen\Layouts\Exception\View\TemplateResolverException;
 use PHPUnit\Framework\TestCase;
 
 final class TemplateResolverExceptionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Exception\View\TemplateResolverException::__construct
+     * @covers \Netgen\Layouts\Exception\View\TemplateResolverException::__construct
      */
     public function testConstructor(): void
     {
@@ -23,7 +23,7 @@ final class TemplateResolverExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\View\TemplateResolverException::noTemplateMatcher
+     * @covers \Netgen\Layouts\Exception\View\TemplateResolverException::noTemplateMatcher
      */
     public function testNoTemplateMatcher(): void
     {
@@ -36,7 +36,7 @@ final class TemplateResolverExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\View\TemplateResolverException::noTemplateMatch
+     * @covers \Netgen\Layouts\Exception\View\TemplateResolverException::noTemplateMatch
      */
     public function testNoTemplateMatch(): void
     {

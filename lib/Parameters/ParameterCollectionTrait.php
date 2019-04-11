@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Parameters;
+namespace Netgen\Layouts\Parameters;
 
-use Netgen\BlockManager\Exception\Parameters\ParameterException;
+use Netgen\Layouts\Exception\Parameters\ParameterException;
 
 trait ParameterCollectionTrait
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\Parameter[]
+     * @var \Netgen\Layouts\Parameters\Parameter[]
      */
     private $parameters = [];
 
     /**
      * Returns all parameters from the collection.
      *
-     * @return \Netgen\BlockManager\Parameters\Parameter[]
+     * @return \Netgen\Layouts\Parameters\Parameter[]
      */
     public function getParameters(): array
     {
@@ -26,7 +26,7 @@ trait ParameterCollectionTrait
     /**
      * Returns the parameter with provided name.
      *
-     * @throws \Netgen\BlockManager\Exception\Parameters\ParameterException If the requested parameter does not exist
+     * @throws \Netgen\Layouts\Exception\Parameters\ParameterException If the requested parameter does not exist
      */
     public function getParameter(string $parameterName): Parameter
     {

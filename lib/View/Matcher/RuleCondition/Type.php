@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View\Matcher\RuleCondition;
+namespace Netgen\Layouts\View\Matcher\RuleCondition;
 
-use Netgen\BlockManager\Layout\Resolver\ConditionType\NullConditionType;
-use Netgen\BlockManager\View\Matcher\MatcherInterface;
-use Netgen\BlockManager\View\View\RuleConditionViewInterface;
-use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Layouts\Layout\Resolver\ConditionType\NullConditionType;
+use Netgen\Layouts\View\Matcher\MatcherInterface;
+use Netgen\Layouts\View\View\RuleConditionViewInterface;
+use Netgen\Layouts\View\ViewInterface;
 
 /**
  * This matcher matches if the condition in the provided view

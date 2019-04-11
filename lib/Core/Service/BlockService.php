@@ -2,83 +2,83 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Core\Service;
+namespace Netgen\Layouts\Core\Service;
 
 use Generator;
-use Netgen\BlockManager\API\Service\BlockService as BlockServiceInterface;
-use Netgen\BlockManager\API\Service\LayoutService as APILayoutService;
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Block\BlockCreateStruct as APIBlockCreateStruct;
-use Netgen\BlockManager\API\Values\Block\BlockList;
-use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct as APIBlockUpdateStruct;
-use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct as APIQueryCreateStruct;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Block\BlockDefinitionInterface;
-use Netgen\BlockManager\Block\ContainerDefinitionInterface;
-use Netgen\BlockManager\Core\Mapper\BlockMapper;
-use Netgen\BlockManager\Core\Mapper\ConfigMapper;
-use Netgen\BlockManager\Core\Mapper\ParameterMapper;
-use Netgen\BlockManager\Core\StructBuilder\BlockStructBuilder;
-use Netgen\BlockManager\Core\Validator\BlockValidator;
-use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface;
-use Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface;
-use Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface;
-use Netgen\BlockManager\Persistence\TransactionHandlerInterface;
-use Netgen\BlockManager\Persistence\Values\Block\Block as PersistenceBlock;
-use Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Block\BlockTranslationUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
+use Netgen\Layouts\API\Service\BlockService as BlockServiceInterface;
+use Netgen\Layouts\API\Service\LayoutService as APILayoutService;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\BlockCreateStruct as APIBlockCreateStruct;
+use Netgen\Layouts\API\Values\Block\BlockList;
+use Netgen\Layouts\API\Values\Block\BlockUpdateStruct as APIBlockUpdateStruct;
+use Netgen\Layouts\API\Values\Collection\QueryCreateStruct as APIQueryCreateStruct;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\Block\BlockDefinitionInterface;
+use Netgen\Layouts\Block\ContainerDefinitionInterface;
+use Netgen\Layouts\Core\Mapper\BlockMapper;
+use Netgen\Layouts\Core\Mapper\ConfigMapper;
+use Netgen\Layouts\Core\Mapper\ParameterMapper;
+use Netgen\Layouts\Core\StructBuilder\BlockStructBuilder;
+use Netgen\Layouts\Core\Validator\BlockValidator;
+use Netgen\Layouts\Exception\BadStateException;
+use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Persistence\Handler\BlockHandlerInterface;
+use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
+use Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface;
+use Netgen\Layouts\Persistence\TransactionHandlerInterface;
+use Netgen\Layouts\Persistence\Values\Block\Block as PersistenceBlock;
+use Netgen\Layouts\Persistence\Values\Block\BlockCreateStruct;
+use Netgen\Layouts\Persistence\Values\Block\BlockTranslationUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Block\BlockUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\CollectionCreateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\QueryCreateStruct;
 
 final class BlockService extends Service implements BlockServiceInterface
 {
     /**
-     * @var \Netgen\BlockManager\Core\Validator\BlockValidator
+     * @var \Netgen\Layouts\Core\Validator\BlockValidator
      */
     private $validator;
 
     /**
-     * @var \Netgen\BlockManager\Core\Mapper\BlockMapper
+     * @var \Netgen\Layouts\Core\Mapper\BlockMapper
      */
     private $mapper;
 
     /**
-     * @var \Netgen\BlockManager\Core\StructBuilder\BlockStructBuilder
+     * @var \Netgen\Layouts\Core\StructBuilder\BlockStructBuilder
      */
     private $structBuilder;
 
     /**
-     * @var \Netgen\BlockManager\Core\Mapper\ParameterMapper
+     * @var \Netgen\Layouts\Core\Mapper\ParameterMapper
      */
     private $parameterMapper;
 
     /**
-     * @var \Netgen\BlockManager\Core\Mapper\ConfigMapper
+     * @var \Netgen\Layouts\Core\Mapper\ConfigMapper
      */
     private $configMapper;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface
+     * @var \Netgen\Layouts\Persistence\Handler\BlockHandlerInterface
      */
     private $blockHandler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface
+     * @var \Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface
      */
     private $layoutHandler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface
+     * @var \Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface
      */
     private $collectionHandler;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutService
+     * @var \Netgen\Layouts\API\Service\LayoutService
      */
     private $layoutService;
 

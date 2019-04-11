@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View\Matcher\Form\Query;
+namespace Netgen\Layouts\View\Matcher\Form\Query;
 
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\View\Matcher\MatcherInterface;
-use Netgen\BlockManager\View\View\FormViewInterface;
-use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\View\Matcher\MatcherInterface;
+use Netgen\Layouts\View\View\FormViewInterface;
+use Netgen\Layouts\View\ViewInterface;
 
 /**
  * This matcher matches if the form in the provided view

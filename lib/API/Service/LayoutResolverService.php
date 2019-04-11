@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Service;
+namespace Netgen\Layouts\API\Service;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleCreateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleList;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\Target;
-use Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\LayoutResolver\Condition;
+use Netgen\Layouts\API\Values\LayoutResolver\ConditionCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\ConditionUpdateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleList;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleUpdateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\Target;
+use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\TargetUpdateStruct;
 
 interface LayoutResolverService extends Service
 {
@@ -24,9 +24,9 @@ interface LayoutResolverService extends Service
      *
      * @param int|string $ruleId
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If rule with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If rule with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
+     * @return \Netgen\Layouts\API\Values\LayoutResolver\Rule
      */
     public function loadRule($ruleId): Rule;
 
@@ -35,9 +35,9 @@ interface LayoutResolverService extends Service
      *
      * @param int|string $ruleId
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If rule with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If rule with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
+     * @return \Netgen\Layouts\API\Values\LayoutResolver\Rule
      */
     public function loadRuleDraft($ruleId): Rule;
 
@@ -46,9 +46,9 @@ interface LayoutResolverService extends Service
      *
      * @param int|string $ruleId
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If rule with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If rule with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Rule
+     * @return \Netgen\Layouts\API\Values\LayoutResolver\Rule
      */
     public function loadRuleArchive($ruleId): Rule;
 
@@ -57,7 +57,7 @@ interface LayoutResolverService extends Service
      *
      * If the layout is provided, only rules pointing to provided layout are returned.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException if provided layout is not published
+     * @throws \Netgen\Layouts\Exception\BadStateException if provided layout is not published
      */
     public function loadRules(?Layout $layout = null, int $offset = 0, ?int $limit = null): RuleList;
 
@@ -66,7 +66,7 @@ interface LayoutResolverService extends Service
      *
      * If the layout is provided, the count of rules pointing to provided layout is returned.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException if provided layout is not published
+     * @throws \Netgen\Layouts\Exception\BadStateException if provided layout is not published
      */
     public function getRuleCount(?Layout $layout = null): int;
 
@@ -76,7 +76,7 @@ interface LayoutResolverService extends Service
      * @param string $targetType
      * @param int|string $targetValue
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\RuleList
+     * @return \Netgen\Layouts\API\Values\LayoutResolver\RuleList
      */
     public function matchRules(string $targetType, $targetValue): RuleList;
 
@@ -85,9 +85,9 @@ interface LayoutResolverService extends Service
      *
      * @param int|string $targetId
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If target with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If target with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Target
+     * @return \Netgen\Layouts\API\Values\LayoutResolver\Target
      */
     public function loadTarget($targetId): Target;
 
@@ -96,9 +96,9 @@ interface LayoutResolverService extends Service
      *
      * @param int|string $targetId
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If target with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If target with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Target
+     * @return \Netgen\Layouts\API\Values\LayoutResolver\Target
      */
     public function loadTargetDraft($targetId): Target;
 
@@ -107,9 +107,9 @@ interface LayoutResolverService extends Service
      *
      * @param int|string $conditionId
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If condition with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition
+     * @return \Netgen\Layouts\API\Values\LayoutResolver\Condition
      */
     public function loadCondition($conditionId): Condition;
 
@@ -118,9 +118,9 @@ interface LayoutResolverService extends Service
      *
      * @param int|string $conditionId
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If condition with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Condition
+     * @return \Netgen\Layouts\API\Values\LayoutResolver\Condition
      */
     public function loadConditionDraft($conditionId): Condition;
 
@@ -132,14 +132,14 @@ interface LayoutResolverService extends Service
     /**
      * Updates a rule.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If rule is not a draft
      */
     public function updateRule(Rule $rule, RuleUpdateStruct $ruleUpdateStruct): Rule;
 
     /**
      * Updates rule metadata.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not published
+     * @throws \Netgen\Layouts\Exception\BadStateException If rule is not published
      */
     public function updateRuleMetadata(Rule $rule, RuleMetadataUpdateStruct $ruleUpdateStruct): Rule;
 
@@ -151,7 +151,7 @@ interface LayoutResolverService extends Service
     /**
      * Creates a rule draft.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not published
+     * @throws \Netgen\Layouts\Exception\BadStateException If rule is not published
      *                                                          If draft already exists for the rule and $discardExisting is set to false
      */
     public function createDraft(Rule $rule, bool $discardExisting = false): Rule;
@@ -159,14 +159,14 @@ interface LayoutResolverService extends Service
     /**
      * Discards a rule draft.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If rule is not a draft
      */
     public function discardDraft(Rule $rule): void;
 
     /**
      * Publishes a rule.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If rule is not a draft
      */
     public function publishRule(Rule $rule): Rule;
 
@@ -174,7 +174,7 @@ interface LayoutResolverService extends Service
      * Restores the archived version of a rule to a draft. If draft already exists,
      * it will be removed.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If provided rule is not archived
+     * @throws \Netgen\Layouts\Exception\BadStateException If provided rule is not archived
      */
     public function restoreFromArchive(Rule $rule): Rule;
 
@@ -186,7 +186,7 @@ interface LayoutResolverService extends Service
     /**
      * Enables a rule.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not published
+     * @throws \Netgen\Layouts\Exception\BadStateException If rule is not published
      *                                                          If rule cannot be enabled
      */
     public function enableRule(Rule $rule): Rule;
@@ -194,7 +194,7 @@ interface LayoutResolverService extends Service
     /**
      * Disables a rule.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not published
+     * @throws \Netgen\Layouts\Exception\BadStateException If rule is not published
      *                                                          If rule cannot be disabled
      */
     public function disableRule(Rule $rule): Rule;
@@ -202,7 +202,7 @@ interface LayoutResolverService extends Service
     /**
      * Adds a target to rule.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If rule is not a draft
      *                                                          If target of different type than it already exists in the rule is added
      */
     public function addTarget(Rule $rule, TargetCreateStruct $targetCreateStruct): Target;
@@ -210,35 +210,35 @@ interface LayoutResolverService extends Service
     /**
      * Updates a target.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If target is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If target is not a draft
      */
     public function updateTarget(Target $target, TargetUpdateStruct $targetUpdateStruct): Target;
 
     /**
      * Removes a target.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If target is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If target is not a draft
      */
     public function deleteTarget(Target $target): void;
 
     /**
      * Adds a condition to rule.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If rule is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If rule is not a draft
      */
     public function addCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct): Condition;
 
     /**
      * Updates a condition.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If condition is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If condition is not a draft
      */
     public function updateCondition(Condition $condition, ConditionUpdateStruct $conditionUpdateStruct): Condition;
 
     /**
      * Removes a condition.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If condition is not a draft
+     * @throws \Netgen\Layouts\Exception\BadStateException If condition is not a draft
      */
     public function deleteCondition(Condition $condition): void;
 

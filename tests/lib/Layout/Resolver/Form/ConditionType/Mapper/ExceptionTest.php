@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\Form\ConditionType\Mapper;
+namespace Netgen\Layouts\Tests\Layout\Resolver\Form\ConditionType\Mapper;
 
-use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\Exception;
+use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\Exception;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 final class ExceptionTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\MapperInterface
+     * @var \Netgen\Layouts\Layout\Resolver\Form\ConditionType\MapperInterface
      */
     private $mapper;
 
@@ -21,7 +21,7 @@ final class ExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\Exception::getFormType
+     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\Exception::getFormType
      */
     public function testGetFormType(): void
     {
@@ -29,8 +29,8 @@ final class ExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\Exception::buildErrorCodes
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\Exception::getFormOptions
+     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\Exception::buildErrorCodes
+     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\Exception::getFormOptions
      */
     public function testGetFormOptions(): void
     {

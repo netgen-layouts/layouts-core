@@ -1,20 +1,20 @@
 services:
     netgen_block_manager.layout.resolver.condition_type.route_parameter:
-        class: Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter
+        class: Netgen\Layouts\Layout\Resolver\ConditionType\RouteParameter
         tags:
             - { name: netgen_block_manager.layout.resolver.condition_type }
 
     netgen_block_manager.layout.resolver.condition_type.query_parameter:
-        class: Netgen\BlockManager\Layout\Resolver\ConditionType\QueryParameter
+        class: Netgen\Layouts\Layout\Resolver\ConditionType\QueryParameter
         tags:
             - { name: netgen_block_manager.layout.resolver.condition_type }
 
     netgen_block_manager.layout.resolver.condition_type.exception:
-        class: Netgen\BlockManager\Layout\Resolver\ConditionType\Exception
+        class: Netgen\Layouts\Layout\Resolver\ConditionType\Exception
         tags:
             - { name: netgen_block_manager.layout.resolver.condition_type }
 
     netgen_block_manager.layout.resolver.condition_type.time:
-        class: Netgen\BlockManager\Layout\Resolver\ConditionType\Time
+        class: Netgen\Layouts\Layout\Resolver\ConditionType\Time
         tags:
             - { name: netgen_block_manager.layout.resolver.condition_type }

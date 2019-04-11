@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\ConditionType;
+namespace Netgen\Layouts\Tests\Layout\Resolver\ConditionType;
 
-use Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter;
+use Netgen\Layouts\Layout\Resolver\ConditionType\RouteParameter;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validation;
@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Validation;
 final class RouteParameterTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter
+     * @var \Netgen\Layouts\Layout\Resolver\ConditionType\RouteParameter
      */
     private $conditionType;
 
@@ -22,7 +22,7 @@ final class RouteParameterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter::getType
+     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\RouteParameter::getType
      */
     public function testGetType(): void
     {
@@ -33,7 +33,7 @@ final class RouteParameterTest extends TestCase
      * @param mixed $value
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter::getConstraints
+     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\RouteParameter::getConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, bool $isValid): void
@@ -45,7 +45,7 @@ final class RouteParameterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter::matches
+     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\RouteParameter::matches
      *
      * @param mixed $value
      * @param bool $matches

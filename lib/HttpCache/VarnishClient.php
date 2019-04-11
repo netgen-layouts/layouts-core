@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\HttpCache;
+namespace Netgen\Layouts\HttpCache;
 
 use FOS\HttpCache\CacheInvalidator;
 use FOS\HttpCache\Exception\ExceptionCollection;
-use Netgen\BlockManager\HttpCache\Layout\IdProviderInterface;
+use Netgen\Layouts\HttpCache\Layout\IdProviderInterface;
 
 final class VarnishClient implements ClientInterface
 {
@@ -16,7 +16,7 @@ final class VarnishClient implements ClientInterface
     private $fosInvalidator;
 
     /**
-     * @var \Netgen\BlockManager\HttpCache\Layout\IdProviderInterface
+     * @var \Netgen\Layouts\HttpCache\Layout\IdProviderInterface
      */
     private $layoutIdProvider;
 

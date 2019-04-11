@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Parameters;
+namespace Netgen\Layouts\Parameters;
 
 use Countable;
 
@@ -26,7 +26,7 @@ interface ParameterBuilderInterface extends Countable
     /**
      * Returns the parameter option with provided name.
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If the option does not exist
+     * @throws \Netgen\Layouts\Exception\InvalidArgumentException If the option does not exist
      *
      * @return mixed
      */
@@ -49,7 +49,7 @@ interface ParameterBuilderInterface extends Countable
      * @param string $name
      * @param mixed $value
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
+     * @return \Netgen\Layouts\Parameters\ParameterBuilderInterface
      */
     public function setOption(string $name, $value): self;
 
@@ -75,7 +75,7 @@ interface ParameterBuilderInterface extends Countable
      *
      * @param mixed $defaultValue
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
+     * @return \Netgen\Layouts\Parameters\ParameterBuilderInterface
      */
     public function setDefaultValue($defaultValue): self;
 
@@ -91,7 +91,7 @@ interface ParameterBuilderInterface extends Countable
      *
      * @param string|bool|null $label
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface
+     * @return \Netgen\Layouts\Parameters\ParameterBuilderInterface
      */
     public function setLabel($label): self;
 
@@ -130,7 +130,7 @@ interface ParameterBuilderInterface extends Countable
     /**
      * Returns the builders for all parameters, optionally filtered by the group.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterBuilderInterface[]
+     * @return \Netgen\Layouts\Parameters\ParameterBuilderInterface[]
      */
     public function all(?string $group = null): array;
 
@@ -152,7 +152,7 @@ interface ParameterBuilderInterface extends Countable
     /**
      * Builds the parameter definitions.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinition[]
+     * @return \Netgen\Layouts\Parameters\ParameterDefinition[]
      */
     public function buildParameterDefinitions(): array;
 }

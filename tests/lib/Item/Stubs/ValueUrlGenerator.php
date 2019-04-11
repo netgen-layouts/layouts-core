@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Item\Stubs;
+namespace Netgen\Layouts\Tests\Item\Stubs;
 
-use Netgen\BlockManager\Item\ValueUrlGeneratorInterface;
+use Netgen\Layouts\Item\ValueUrlGeneratorInterface;
 
 final class ValueUrlGenerator implements ValueUrlGeneratorInterface
 {

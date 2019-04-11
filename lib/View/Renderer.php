@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View;
+namespace Netgen\Layouts\View;
 
 /**
  * @final
@@ -10,12 +10,12 @@ namespace Netgen\BlockManager\View;
 class Renderer implements RendererInterface
 {
     /**
-     * @var \Netgen\BlockManager\View\ViewBuilderInterface
+     * @var \Netgen\Layouts\View\ViewBuilderInterface
      */
     private $viewBuilder;
 
     /**
-     * @var \Netgen\BlockManager\View\ViewRendererInterface
+     * @var \Netgen\Layouts\View\ViewRendererInterface
      */
     private $viewRenderer;
 

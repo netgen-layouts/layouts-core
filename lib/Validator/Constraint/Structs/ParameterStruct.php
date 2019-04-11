@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Validator\Constraint\Structs;
+namespace Netgen\Layouts\Validator\Constraint\Structs;
 
 use Symfony\Component\Validator\Constraint;
 
@@ -16,7 +16,7 @@ final class ParameterStruct extends Constraint
     /**
      * Parameter definition collection used to validate parameter values against.
      *
-     * @var \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface
+     * @var \Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface
      */
     public $parameterDefinitions;
 

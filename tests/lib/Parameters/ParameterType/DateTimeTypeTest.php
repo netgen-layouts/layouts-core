@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
+namespace Netgen\Layouts\Tests\Parameters\ParameterType;
 
 use DateTimeImmutable;
 use DateTimeZone;
-use Netgen\BlockManager\Parameters\ParameterType\DateTimeType;
-use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
+use Netgen\Layouts\Parameters\ParameterType\DateTimeType;
+use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 
@@ -21,7 +21,7 @@ final class DateTimeTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\DateTimeType::getIdentifier
+     * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::getIdentifier
      */
     public function testGetIdentifier(): void
     {
@@ -32,7 +32,7 @@ final class DateTimeTypeTest extends TestCase
      * @param mixed $value
      * @param bool $isEmpty
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\DateTimeType::isValueEmpty
+     * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::isValueEmpty
      * @dataProvider emptyProvider
      */
     public function testIsValueEmpty($value, bool $isEmpty): void
@@ -55,7 +55,7 @@ final class DateTimeTypeTest extends TestCase
      * @param mixed $value
      * @param mixed $convertedValue
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\DateTimeType::toHash
+     * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::toHash
      * @dataProvider toHashProvider
      */
     public function testToHash($value, $convertedValue): void
@@ -81,7 +81,7 @@ final class DateTimeTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\DateTimeType::fromHash
+     * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::fromHash
      */
     public function testFromHash(): void
     {
@@ -102,7 +102,7 @@ final class DateTimeTypeTest extends TestCase
      * @param mixed $value
      * @param mixed $convertedValue
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\DateTimeType::fromHash
+     * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::fromHash
      * @dataProvider invalidFromHashProvider
      */
     public function testFromHashWithInvalidValues($value, $convertedValue): void
@@ -127,8 +127,8 @@ final class DateTimeTypeTest extends TestCase
      * @param mixed $value
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\DateTimeType::getRequiredConstraints
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\DateTimeType::getValueConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::getRequiredConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::getValueConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, bool $isValid): void

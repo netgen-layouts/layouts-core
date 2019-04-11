@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\HttpCache\Layout;
+namespace Netgen\Layouts\Tests\HttpCache\Layout;
 
-use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\LayoutList;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\HttpCache\Layout\IdProvider;
+use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\LayoutList;
+use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\HttpCache\Layout\IdProvider;
 use PHPUnit\Framework\TestCase;
 
 final class IdProviderTest extends TestCase
@@ -19,7 +19,7 @@ final class IdProviderTest extends TestCase
     private $layoutServiceMock;
 
     /**
-     * @var \Netgen\BlockManager\HttpCache\Layout\IdProvider
+     * @var \Netgen\Layouts\HttpCache\Layout\IdProvider
      */
     private $idProvider;
 
@@ -31,8 +31,8 @@ final class IdProviderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\Layout\IdProvider::__construct
-     * @covers \Netgen\BlockManager\HttpCache\Layout\IdProvider::provideIds
+     * @covers \Netgen\Layouts\HttpCache\Layout\IdProvider::__construct
+     * @covers \Netgen\Layouts\HttpCache\Layout\IdProvider::provideIds
      */
     public function testProvideIds(): void
     {
@@ -55,7 +55,7 @@ final class IdProviderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\Layout\IdProvider::provideIds
+     * @covers \Netgen\Layouts\HttpCache\Layout\IdProvider::provideIds
      */
     public function testProvideIdsWithNonExistingLayout(): void
     {
@@ -71,7 +71,7 @@ final class IdProviderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\Layout\IdProvider::provideIds
+     * @covers \Netgen\Layouts\HttpCache\Layout\IdProvider::provideIds
      */
     public function testProvideIdsWithSharedLayout(): void
     {

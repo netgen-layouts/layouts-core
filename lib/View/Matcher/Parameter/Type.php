@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View\Matcher\Parameter;
+namespace Netgen\Layouts\View\Matcher\Parameter;
 
-use Netgen\BlockManager\View\Matcher\MatcherInterface;
-use Netgen\BlockManager\View\View\ParameterViewInterface;
-use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Layouts\View\Matcher\MatcherInterface;
+use Netgen\Layouts\View\View\ParameterViewInterface;
+use Netgen\Layouts\View\ViewInterface;
 
 /**
  * This matcher matches if the parameter in the provided view

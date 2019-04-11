@@ -2,27 +2,27 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Parameters\Form\Type;
+namespace Netgen\Layouts\Parameters\Form\Type;
 
-use Netgen\BlockManager\API\Values\ParameterStruct;
-use Netgen\BlockManager\Exception\Parameters\ParameterTypeException;
-use Netgen\BlockManager\Form\AbstractType;
-use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
-use Netgen\BlockManager\Parameters\Form\MapperInterface;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;
+use Netgen\Layouts\API\Values\ParameterStruct;
+use Netgen\Layouts\Exception\Parameters\ParameterTypeException;
+use Netgen\Layouts\Form\AbstractType;
+use Netgen\Layouts\Parameters\CompoundParameterDefinition;
+use Netgen\Layouts\Parameters\Form\MapperInterface;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ParametersType extends AbstractType
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\Form\MapperInterface[]
+     * @var \Netgen\Layouts\Parameters\Form\MapperInterface[]
      */
     private $mappers;
 
     /**
-     * @param \Netgen\BlockManager\Parameters\Form\MapperInterface[] $mappers
+     * @param \Netgen\Layouts\Parameters\Form\MapperInterface[] $mappers
      */
     public function __construct(array $mappers)
     {
@@ -57,7 +57,7 @@ final class ParametersType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        /** @var \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface $parameterDefinitions */
+        /** @var \Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface $parameterDefinitions */
         $parameterDefinitions = $options['parameter_definitions'];
 
         foreach ($parameterDefinitions->getParameterDefinitions() as $parameterDefinition) {

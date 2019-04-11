@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\TargetType;
+namespace Netgen\Layouts\Tests\Layout\Resolver\TargetType;
 
-use Netgen\BlockManager\Layout\Resolver\TargetType\RoutePrefix;
+use Netgen\Layouts\Layout\Resolver\TargetType\RoutePrefix;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validation;
@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Validation;
 final class RoutePrefixTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\TargetType\RoutePrefix
+     * @var \Netgen\Layouts\Layout\Resolver\TargetType\RoutePrefix
      */
     private $targetType;
 
@@ -22,7 +22,7 @@ final class RoutePrefixTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\RoutePrefix::getType
+     * @covers \Netgen\Layouts\Layout\Resolver\TargetType\RoutePrefix::getType
      */
     public function testGetType(): void
     {
@@ -33,7 +33,7 @@ final class RoutePrefixTest extends TestCase
      * @param mixed $value
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\RoutePrefix::getConstraints
+     * @covers \Netgen\Layouts\Layout\Resolver\TargetType\RoutePrefix::getConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, bool $isValid): void
@@ -45,7 +45,7 @@ final class RoutePrefixTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\RoutePrefix::provideValue
+     * @covers \Netgen\Layouts\Layout\Resolver\TargetType\RoutePrefix::provideValue
      */
     public function testProvideValue(): void
     {

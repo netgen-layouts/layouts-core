@@ -4,23 +4,23 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout;
 
-use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
-use Netgen\BlockManager\Serializer\Values\View;
-use Netgen\BlockManager\Serializer\Version;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
+use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface;
+use Netgen\Layouts\Serializer\Values\View;
+use Netgen\Layouts\Serializer\Version;
 use Symfony\Component\HttpFoundation\Request;
 
 final class ChangeType extends AbstractController
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutService
+     * @var \Netgen\Layouts\API\Service\LayoutService
      */
     private $layoutService;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface
      */
     private $layoutTypeRegistry;
 

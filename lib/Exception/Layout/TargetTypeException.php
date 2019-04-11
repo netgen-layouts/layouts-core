@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Exception\Layout;
+namespace Netgen\Layouts\Exception\Layout;
 
 use InvalidArgumentException;
-use Netgen\BlockManager\Exception\Exception;
+use Netgen\Layouts\Exception\Exception;
 
 final class TargetTypeException extends InvalidArgumentException implements Exception
 {

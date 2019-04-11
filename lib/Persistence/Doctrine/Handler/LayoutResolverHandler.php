@@ -2,34 +2,34 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
+namespace Netgen\Layouts\Persistence\Doctrine\Handler;
 
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper;
-use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler;
-use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandlerInterface;
-use Netgen\BlockManager\Persistence\Values\Layout\Layout;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionCreateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleCreateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetCreateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Value;
+use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutResolverMapper;
+use Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler;
+use Netgen\Layouts\Persistence\Handler\LayoutResolverHandlerInterface;
+use Netgen\Layouts\Persistence\Values\Layout\Layout;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\ConditionCreateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCreateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleUpdateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetCreateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Value;
 
 final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 {
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler
+     * @var \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler
      */
     private $queryHandler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper
+     * @var \Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutResolverMapper
      */
     private $mapper;
 

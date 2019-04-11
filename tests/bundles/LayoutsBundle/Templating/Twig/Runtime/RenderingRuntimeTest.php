@@ -5,18 +5,18 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Tests\Templating\Twig\Runtime;
 
 use Exception;
-use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Block\Placeholder;
-use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Item\CmsItem;
-use Netgen\BlockManager\Locale\LocaleProviderInterface;
-use Netgen\BlockManager\Tests\Stubs\ErrorHandler;
-use Netgen\BlockManager\View\RendererInterface;
-use Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate;
-use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime;
+use Netgen\Layouts\API\Service\BlockService;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\Placeholder;
+use Netgen\Layouts\API\Values\LayoutResolver\Condition;
+use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Item\CmsItem;
+use Netgen\Layouts\Locale\LocaleProviderInterface;
+use Netgen\Layouts\Tests\Stubs\ErrorHandler;
+use Netgen\Layouts\View\RendererInterface;
+use Netgen\Layouts\View\Twig\ContextualizedTwigTemplate;
+use Netgen\Layouts\View\ViewInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
@@ -41,7 +41,7 @@ final class RenderingRuntimeTest extends TestCase
     private $localeProviderMock;
 
     /**
-     * @var \Netgen\BlockManager\Tests\Stubs\ErrorHandler
+     * @var \Netgen\Layouts\Tests\Stubs\ErrorHandler
      */
     private $errorHandler;
 

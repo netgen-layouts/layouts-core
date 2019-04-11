@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\Collection;
+namespace Netgen\Layouts\Tests\API\Values\Collection;
 
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\API\Values\Collection\ItemList;
+use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\API\Values\Collection\ItemList;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use TypeError;
@@ -13,7 +13,7 @@ use TypeError;
 final class ItemListTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\API\Values\Collection\ItemList::__construct
+     * @covers \Netgen\Layouts\API\Values\Collection\ItemList::__construct
      */
     public function testConstructorWithInvalidType(): void
     {
@@ -32,8 +32,8 @@ final class ItemListTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Collection\ItemList::__construct
-     * @covers \Netgen\BlockManager\API\Values\Collection\ItemList::getItems
+     * @covers \Netgen\Layouts\API\Values\Collection\ItemList::__construct
+     * @covers \Netgen\Layouts\API\Values\Collection\ItemList::getItems
      */
     public function testGetItems(): void
     {
@@ -43,7 +43,7 @@ final class ItemListTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Collection\ItemList::getItemIds
+     * @covers \Netgen\Layouts\API\Values\Collection\ItemList::getItemIds
      */
     public function testGetItemIds(): void
     {

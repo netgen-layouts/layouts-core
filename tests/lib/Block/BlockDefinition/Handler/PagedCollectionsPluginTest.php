@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Handler;
+namespace Netgen\Layouts\Tests\Block\BlockDefinition\Handler;
 
-use Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsBlockInterface;
-use Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
-use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
-use Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory;
+use Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsBlockInterface;
+use Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
+use Netgen\Layouts\Parameters\ParameterType;
+use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
+use Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory;
 use PHPUnit\Framework\TestCase;
 
 final class PagedCollectionsPluginTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsPlugin
+     * @var \Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsPlugin
      */
     private $plugin;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface
+     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistryInterface
      */
     private $parameterTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface
+     * @var \Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface
      */
     private $parameterBuilderFactory;
 
@@ -47,8 +47,8 @@ final class PagedCollectionsPluginTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsPlugin::__construct
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsPlugin::getExtendedHandlers
+     * @covers \Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsPlugin::__construct
+     * @covers \Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsPlugin::getExtendedHandlers
      */
     public function testGetExtendedHandlers(): void
     {
@@ -58,7 +58,7 @@ final class PagedCollectionsPluginTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsPlugin::buildParameters
+     * @covers \Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsPlugin::buildParameters
      */
     public function testBuildParameters(): void
     {

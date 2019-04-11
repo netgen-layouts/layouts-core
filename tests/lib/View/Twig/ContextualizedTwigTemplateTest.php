@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\Twig;
+namespace Netgen\Layouts\Tests\View\Twig;
 
 use Exception;
-use Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate;
+use Netgen\Layouts\View\Twig\ContextualizedTwigTemplate;
 use PHPUnit\Framework\TestCase;
 use Twig\Template;
 
 final class ContextualizedTwigTemplateTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate::__construct
-     * @covers \Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate::getContext
+     * @covers \Netgen\Layouts\View\Twig\ContextualizedTwigTemplate::__construct
+     * @covers \Netgen\Layouts\View\Twig\ContextualizedTwigTemplate::getContext
      */
     public function testGetContext(): void
     {
@@ -26,7 +26,7 @@ final class ContextualizedTwigTemplateTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate::renderBlock
+     * @covers \Netgen\Layouts\View\Twig\ContextualizedTwigTemplate::renderBlock
      */
     public function testRenderBlock(): void
     {
@@ -54,7 +54,7 @@ final class ContextualizedTwigTemplateTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate::renderBlock
+     * @covers \Netgen\Layouts\View\Twig\ContextualizedTwigTemplate::renderBlock
      */
     public function testRenderBlockNonExistingBlock(): void
     {
@@ -76,7 +76,7 @@ final class ContextualizedTwigTemplateTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate::renderBlock
+     * @covers \Netgen\Layouts\View\Twig\ContextualizedTwigTemplate::renderBlock
      */
     public function testRenderBlockWithException(): void
     {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Item\Stubs;
+namespace Netgen\Layouts\Tests\Item\Stubs;
 
-use Netgen\BlockManager\Item\ValueLoaderInterface;
+use Netgen\Layouts\Item\ValueLoaderInterface;
 
 final class ValueLoader implements ValueLoaderInterface
 {

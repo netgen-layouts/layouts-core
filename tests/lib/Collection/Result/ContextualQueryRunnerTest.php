@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Collection\Result;
+namespace Netgen\Layouts\Tests\Collection\Result;
 
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\Collection\Result\ContextualQueryRunner;
-use Netgen\BlockManager\Collection\Result\Slot;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\Collection\Result\ContextualQueryRunner;
+use Netgen\Layouts\Collection\Result\Slot;
 use PHPUnit\Framework\TestCase;
 
 final class ContextualQueryRunnerTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\ContextualQueryRunner::count
-     * @covers \Netgen\BlockManager\Collection\Result\ContextualQueryRunner::runQuery
+     * @covers \Netgen\Layouts\Collection\Result\ContextualQueryRunner::count
+     * @covers \Netgen\Layouts\Collection\Result\ContextualQueryRunner::runQuery
      */
     public function testRunner(): void
     {

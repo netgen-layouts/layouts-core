@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\Form\ConditionType\Mapper;
+namespace Netgen\Layouts\Tests\Layout\Resolver\Form\ConditionType\Mapper;
 
-use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\Time;
-use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Type\TimeType;
+use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\Time;
+use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Type\TimeType;
 use PHPUnit\Framework\TestCase;
 
 final class TimeTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\MapperInterface
+     * @var \Netgen\Layouts\Layout\Resolver\Form\ConditionType\MapperInterface
      */
     private $mapper;
 
@@ -21,7 +21,7 @@ final class TimeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\Time::getFormType
+     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\Time::getFormType
      */
     public function testGetFormType(): void
     {
@@ -29,7 +29,7 @@ final class TimeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\Time::getFormOptions
+     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\Time::getFormOptions
      */
     public function testGetFormOptions(): void
     {

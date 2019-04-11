@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\Provider;
+namespace Netgen\Layouts\Tests\View\Provider;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\View\Provider\FormViewProvider;
-use Netgen\BlockManager\View\View\FormViewInterface;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\View\Provider\FormViewProvider;
+use Netgen\Layouts\View\View\FormViewInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -15,7 +15,7 @@ use Symfony\Component\Form\FormView;
 final class FormViewProviderTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface
+     * @var \Netgen\Layouts\View\Provider\ViewProviderInterface
      */
     private $formViewProvider;
 
@@ -25,7 +25,7 @@ final class FormViewProviderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Provider\FormViewProvider::provideView
+     * @covers \Netgen\Layouts\View\Provider\FormViewProvider::provideView
      */
     public function testProvideView(): void
     {
@@ -54,7 +54,7 @@ final class FormViewProviderTest extends TestCase
      * @param mixed $value
      * @param bool $supports
      *
-     * @covers \Netgen\BlockManager\View\Provider\FormViewProvider::supports
+     * @covers \Netgen\Layouts\View\Provider\FormViewProvider::supports
      * @dataProvider supportsProvider
      */
     public function testSupports($value, bool $supports): void

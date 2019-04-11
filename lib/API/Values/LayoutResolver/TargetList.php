@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\LayoutResolver;
+namespace Netgen\Layouts\API\Values\LayoutResolver;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -21,7 +21,7 @@ final class TargetList extends ArrayCollection
     }
 
     /**
-     * @return \Netgen\BlockManager\API\Values\LayoutResolver\Target[]
+     * @return \Netgen\Layouts\API\Values\LayoutResolver\Target[]
      */
     public function getTargets(): array
     {

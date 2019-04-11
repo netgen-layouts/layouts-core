@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Parameters\Form\Type\DataMapper;
+namespace Netgen\Layouts\Parameters\Form\Type\DataMapper;
 
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\Value\LinkValue;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\Value\LinkValue;
 use Symfony\Component\Form\DataMapperInterface;
 
 /**
@@ -14,7 +14,7 @@ use Symfony\Component\Form\DataMapperInterface;
 final class LinkDataMapper implements DataMapperInterface
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterDefinition
+     * @var \Netgen\Layouts\Parameters\ParameterDefinition
      */
     private $parameterDefinition;
 

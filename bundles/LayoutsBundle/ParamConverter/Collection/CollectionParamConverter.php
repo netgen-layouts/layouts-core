@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\ParamConverter\Collection;
 
-use Netgen\BlockManager\API\Service\CollectionService;
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Value;
 use Netgen\Bundle\LayoutsBundle\ParamConverter\ParamConverter;
+use Netgen\Layouts\API\Service\CollectionService;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Value;
 
 final class CollectionParamConverter extends ParamConverter
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\CollectionService
+     * @var \Netgen\Layouts\API\Service\CollectionService
      */
     private $collectionService;
 

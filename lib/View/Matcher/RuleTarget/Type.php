@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View\Matcher\RuleTarget;
+namespace Netgen\Layouts\View\Matcher\RuleTarget;
 
-use Netgen\BlockManager\Layout\Resolver\TargetType\NullTargetType;
-use Netgen\BlockManager\View\Matcher\MatcherInterface;
-use Netgen\BlockManager\View\View\RuleTargetViewInterface;
-use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Layouts\Layout\Resolver\TargetType\NullTargetType;
+use Netgen\Layouts\View\Matcher\MatcherInterface;
+use Netgen\Layouts\View\View\RuleTargetViewInterface;
+use Netgen\Layouts\View\ViewInterface;
 
 /**
  * This matcher matches if the target in the provided view

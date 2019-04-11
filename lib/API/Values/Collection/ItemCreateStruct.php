@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\Collection;
+namespace Netgen\Layouts\API\Values\Collection;
 
-use Netgen\BlockManager\API\Values\Config\ConfigAwareStruct;
-use Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait;
+use Netgen\Layouts\API\Values\Config\ConfigAwareStruct;
+use Netgen\Layouts\API\Values\Config\ConfigAwareStructTrait;
 
 final class ItemCreateStruct implements ConfigAwareStruct
 {
@@ -16,7 +16,7 @@ final class ItemCreateStruct implements ConfigAwareStruct
      *
      * Required.
      *
-     * @var \Netgen\BlockManager\Collection\Item\ItemDefinitionInterface
+     * @var \Netgen\Layouts\Collection\Item\ItemDefinitionInterface
      */
     public $definition;
 

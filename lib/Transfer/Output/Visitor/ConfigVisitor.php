@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Transfer\Output\Visitor;
+namespace Netgen\Layouts\Transfer\Output\Visitor;
 
-use Netgen\BlockManager\API\Values\Config\Config;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Transfer\Output\VisitorInterface;
+use Netgen\Layouts\API\Values\Config\Config;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Parameters\Parameter;
+use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 /**
  * Config value visitor.
  *
- * @see \Netgen\BlockManager\API\Values\Config\Config
+ * @see \Netgen\Layouts\API\Values\Config\Config
  */
 final class ConfigVisitor implements VisitorInterface
 {
@@ -22,8 +22,8 @@ final class ConfigVisitor implements VisitorInterface
     }
 
     /**
-     * @param \Netgen\BlockManager\API\Values\Config\Config $value
-     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface|null $subVisitor
+     * @param \Netgen\Layouts\API\Values\Config\Config $value
+     * @param \Netgen\Layouts\Transfer\Output\VisitorInterface|null $subVisitor
      *
      * @return mixed
      */

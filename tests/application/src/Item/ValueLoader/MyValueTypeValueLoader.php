@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\App\Item\ValueLoader;
 
-use Netgen\BlockManager\Item\ValueLoaderInterface;
+use Netgen\Layouts\Item\ValueLoaderInterface;
 use Netgen\Layouts\Tests\App\Item\Value;
 
 final class MyValueTypeValueLoader implements ValueLoaderInterface

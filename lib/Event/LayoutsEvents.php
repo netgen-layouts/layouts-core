@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Event;
+namespace Netgen\Layouts\Event;
 
-final class BlockManagerEvents
+final class LayoutsEvents
 {
     /**
      * This event will be dispatched when the view object is being built.

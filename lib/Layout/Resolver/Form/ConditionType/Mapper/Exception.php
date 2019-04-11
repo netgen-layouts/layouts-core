@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper;
+namespace Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper;
 
-use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper;
+use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\HttpFoundation\Response;
 

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Exception\Collection;
+namespace Netgen\Layouts\Tests\Exception\Collection;
 
-use Netgen\BlockManager\Exception\Collection\ItemDefinitionException;
+use Netgen\Layouts\Exception\Collection\ItemDefinitionException;
 use PHPUnit\Framework\TestCase;
 
 final class ItemDefinitionExceptionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Exception\Collection\ItemDefinitionException::noItemDefinition
+     * @covers \Netgen\Layouts\Exception\Collection\ItemDefinitionException::noItemDefinition
      */
     public function testNoItemDefinition(): void
     {

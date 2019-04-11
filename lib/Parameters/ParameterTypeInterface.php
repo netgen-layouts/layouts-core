@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Parameters;
+namespace Netgen\Layouts\Parameters;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,7 +21,7 @@ interface ParameterTypeInterface
     /**
      * Returns the parameter constraints.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
+     * @param \Netgen\Layouts\Parameters\ParameterDefinition $parameterDefinition
      * @param mixed $value
      *
      * @return \Symfony\Component\Validator\Constraint[]
@@ -31,7 +31,7 @@ interface ParameterTypeInterface
     /**
      * Converts the parameter value from a domain format to scalar/hash format.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
+     * @param \Netgen\Layouts\Parameters\ParameterDefinition $parameterDefinition
      * @param mixed $value
      *
      * @return mixed
@@ -41,7 +41,7 @@ interface ParameterTypeInterface
     /**
      * Converts the provided parameter value to value usable by the domain.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
+     * @param \Netgen\Layouts\Parameters\ParameterDefinition $parameterDefinition
      * @param mixed $value
      *
      * @return mixed
@@ -55,7 +55,7 @@ interface ParameterTypeInterface
      * when exporting IDs from an external CMS which need to be exported not as IDs
      * but as remote IDs.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
+     * @param \Netgen\Layouts\Parameters\ParameterDefinition $parameterDefinition
      * @param mixed $value
      *
      * @return mixed
@@ -69,7 +69,7 @@ interface ParameterTypeInterface
      * when importing IDs from an external CMS which need to be imported as database IDs
      * in contrast to some kind of remote ID which would be stored in the export.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
+     * @param \Netgen\Layouts\Parameters\ParameterDefinition $parameterDefinition
      * @param mixed $value
      *
      * @return mixed
@@ -79,7 +79,7 @@ interface ParameterTypeInterface
     /**
      * Returns if the parameter value is empty.
      *
-     * @param \Netgen\BlockManager\Parameters\ParameterDefinition $parameterDefinition
+     * @param \Netgen\Layouts\Parameters\ParameterDefinition $parameterDefinition
      * @param mixed $value
      *
      * @return bool

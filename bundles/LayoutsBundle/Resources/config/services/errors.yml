@@ -3,7 +3,7 @@ services:
         alias: netgen_block_manager.error.handler.debug
 
     netgen_block_manager.error.handler.debug:
-        class: Netgen\BlockManager\Error\DebugErrorHandler
+        class: Netgen\Layouts\Error\DebugErrorHandler
         arguments:
             - "@?logger"
             - "%kernel.debug%"

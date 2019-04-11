@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Controller\App\Collection;
 
-use Netgen\BlockManager\API\Service\CollectionService;
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\Collection\Form\CollectionEditType;
-use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
+use Netgen\Layouts\API\Service\CollectionService;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\Collection\Form\CollectionEditType;
+use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class EditCollectionForm extends AbstractController
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\CollectionService
+     * @var \Netgen\Layouts\API\Service\CollectionService
      */
     private $collectionService;
 
@@ -27,7 +27,7 @@ final class EditCollectionForm extends AbstractController
     /**
      * Displays and processes collection draft edit form.
      *
-     * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
+     * @return \Netgen\Layouts\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
     public function __invoke(Collection $collection, Request $request)
     {

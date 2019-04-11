@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\LayoutResolver;
+namespace Netgen\Layouts\Tests\API\Values\LayoutResolver;
 
-use Netgen\BlockManager\API\Values\LayoutResolver\Target;
-use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType1;
+use Netgen\Layouts\API\Values\LayoutResolver\Target;
+use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\Tests\Layout\Resolver\Stubs\TargetType1;
 use PHPUnit\Framework\TestCase;
 
 final class TargetTest extends TestCase
@@ -17,10 +17,10 @@ final class TargetTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\Target::getId
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\Target::getRuleId
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\Target::getTargetType
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\Target::getValue
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Target::getId
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Target::getRuleId
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Target::getTargetType
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Target::getValue
      */
     public function testSetProperties(): void
     {

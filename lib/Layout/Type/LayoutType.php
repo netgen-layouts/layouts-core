@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Layout\Type;
+namespace Netgen\Layouts\Layout\Type;
 
-use Netgen\BlockManager\Block\BlockDefinitionInterface;
-use Netgen\BlockManager\Exception\Layout\LayoutTypeException;
-use Netgen\BlockManager\Utils\HydratorTrait;
+use Netgen\Layouts\Block\BlockDefinitionInterface;
+use Netgen\Layouts\Exception\Layout\LayoutTypeException;
+use Netgen\Layouts\Utils\HydratorTrait;
 
 /**
  * @final
@@ -36,7 +36,7 @@ class LayoutType implements LayoutTypeInterface
     private $icon;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Type\Zone[]
+     * @var \Netgen\Layouts\Layout\Type\Zone[]
      */
     private $zones = [];
 

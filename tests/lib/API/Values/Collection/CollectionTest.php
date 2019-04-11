@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\Collection;
+namespace Netgen\Layouts\Tests\API\Values\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\API\Values\Collection\ItemList;
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\API\Values\Value;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\API\Values\Collection\ItemList;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\API\Values\Value;
 use PHPUnit\Framework\TestCase;
 
 final class CollectionTest extends TestCase
@@ -20,9 +20,9 @@ final class CollectionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Collection\Collection::__construct
-     * @covers \Netgen\BlockManager\API\Values\Collection\Collection::getAvailableLocales
-     * @covers \Netgen\BlockManager\API\Values\Collection\Collection::getItems
+     * @covers \Netgen\Layouts\API\Values\Collection\Collection::__construct
+     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getAvailableLocales
+     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getItems
      */
     public function testDefaultProperties(): void
     {
@@ -33,20 +33,20 @@ final class CollectionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Collection\Collection::__construct
-     * @covers \Netgen\BlockManager\API\Values\Collection\Collection::getAvailableLocales
-     * @covers \Netgen\BlockManager\API\Values\Collection\Collection::getId
-     * @covers \Netgen\BlockManager\API\Values\Collection\Collection::getItem
-     * @covers \Netgen\BlockManager\API\Values\Collection\Collection::getItems
-     * @covers \Netgen\BlockManager\API\Values\Collection\Collection::getLimit
-     * @covers \Netgen\BlockManager\API\Values\Collection\Collection::getLocale
-     * @covers \Netgen\BlockManager\API\Values\Collection\Collection::getMainLocale
-     * @covers \Netgen\BlockManager\API\Values\Collection\Collection::getOffset
-     * @covers \Netgen\BlockManager\API\Values\Collection\Collection::getQuery
-     * @covers \Netgen\BlockManager\API\Values\Collection\Collection::hasItem
-     * @covers \Netgen\BlockManager\API\Values\Collection\Collection::hasQuery
-     * @covers \Netgen\BlockManager\API\Values\Collection\Collection::isAlwaysAvailable
-     * @covers \Netgen\BlockManager\API\Values\Collection\Collection::isTranslatable
+     * @covers \Netgen\Layouts\API\Values\Collection\Collection::__construct
+     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getAvailableLocales
+     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getId
+     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getItem
+     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getItems
+     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getLimit
+     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getLocale
+     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getMainLocale
+     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getOffset
+     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getQuery
+     * @covers \Netgen\Layouts\API\Values\Collection\Collection::hasItem
+     * @covers \Netgen\Layouts\API\Values\Collection\Collection::hasQuery
+     * @covers \Netgen\Layouts\API\Values\Collection\Collection::isAlwaysAvailable
+     * @covers \Netgen\Layouts\API\Values\Collection\Collection::isTranslatable
      */
     public function testSetProperties(): void
     {
@@ -97,7 +97,7 @@ final class CollectionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Collection\Collection::getOffset
+     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getOffset
      */
     public function testGetOffsetForManualCollection(): void
     {
@@ -111,7 +111,7 @@ final class CollectionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Collection\Collection::getItem
+     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getItem
      */
     public function testGetItemWithNonExistingPosition(): void
     {

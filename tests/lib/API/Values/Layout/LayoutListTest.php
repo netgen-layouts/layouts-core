@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\Layout;
+namespace Netgen\Layouts\Tests\API\Values\Layout;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\LayoutList;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\LayoutList;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use TypeError;
@@ -13,7 +13,7 @@ use TypeError;
 final class LayoutListTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\API\Values\Layout\LayoutList::__construct
+     * @covers \Netgen\Layouts\API\Values\Layout\LayoutList::__construct
      */
     public function testConstructorWithInvalidType(): void
     {
@@ -32,8 +32,8 @@ final class LayoutListTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Layout\LayoutList::__construct
-     * @covers \Netgen\BlockManager\API\Values\Layout\LayoutList::getLayouts
+     * @covers \Netgen\Layouts\API\Values\Layout\LayoutList::__construct
+     * @covers \Netgen\Layouts\API\Values\Layout\LayoutList::getLayouts
      */
     public function testGetLayouts(): void
     {
@@ -43,7 +43,7 @@ final class LayoutListTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Layout\LayoutList::getLayoutIds
+     * @covers \Netgen\Layouts\API\Values\Layout\LayoutList::getLayoutIds
      */
     public function testGetLayoutIds(): void
     {

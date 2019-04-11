@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Layout\Resolver\Form;
+namespace Netgen\Layouts\Layout\Resolver\Form;
 
-use Netgen\BlockManager\API\Values\LayoutResolver\TargetStruct;
-use Netgen\BlockManager\Exception\Layout\TargetTypeException;
-use Netgen\BlockManager\Form\AbstractType;
-use Netgen\BlockManager\Layout\Resolver\Form\TargetType\MapperInterface;
-use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
+use Netgen\Layouts\API\Values\LayoutResolver\TargetStruct;
+use Netgen\Layouts\Exception\Layout\TargetTypeException;
+use Netgen\Layouts\Form\AbstractType;
+use Netgen\Layouts\Layout\Resolver\Form\TargetType\MapperInterface;
+use Netgen\Layouts\Layout\Resolver\TargetTypeInterface;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -17,12 +17,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class TargetType extends AbstractType
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\Form\TargetType\MapperInterface[]
+     * @var \Netgen\Layouts\Layout\Resolver\Form\TargetType\MapperInterface[]
      */
     private $mappers;
 
     /**
-     * @param \Netgen\BlockManager\Layout\Resolver\Form\TargetType\MapperInterface[] $mappers
+     * @param \Netgen\Layouts\Layout\Resolver\Form\TargetType\MapperInterface[] $mappers
      */
     public function __construct(array $mappers)
     {
@@ -45,7 +45,7 @@ final class TargetType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        /** @var \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface $targetType */
+        /** @var \Netgen\Layouts\Layout\Resolver\TargetTypeInterface $targetType */
         $targetType = $options['target_type'];
 
         if (!isset($this->mappers[$targetType::getType()])) {

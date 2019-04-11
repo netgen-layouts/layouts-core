@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Collection\Form;
+namespace Netgen\Layouts\Tests\Collection\Form;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\Collection\Form\CollectionEditType;
-use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\CollectionUpdateStruct;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\Collection\Form\CollectionEditType;
+use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
@@ -17,7 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class CollectionEditTypeTest extends FormTestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Collection\Collection
+     * @var \Netgen\Layouts\API\Values\Collection\Collection
      */
     private $collection;
 
@@ -29,8 +29,8 @@ final class CollectionEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Form\CollectionEditType::buildForm
-     * @covers \Netgen\BlockManager\Collection\Form\CollectionEditType::buildView
+     * @covers \Netgen\Layouts\Collection\Form\CollectionEditType::buildForm
+     * @covers \Netgen\Layouts\Collection\Form\CollectionEditType::buildView
      */
     public function testSubmitValidData(): void
     {
@@ -65,8 +65,8 @@ final class CollectionEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Form\CollectionEditType::buildForm
-     * @covers \Netgen\BlockManager\Collection\Form\CollectionEditType::buildView
+     * @covers \Netgen\Layouts\Collection\Form\CollectionEditType::buildForm
+     * @covers \Netgen\Layouts\Collection\Form\CollectionEditType::buildView
      */
     public function testSubmitValidDataWithDynamicCollection(): void
     {
@@ -104,7 +104,7 @@ final class CollectionEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Form\CollectionEditType::configureOptions
+     * @covers \Netgen\Layouts\Collection\Form\CollectionEditType::configureOptions
      */
     public function testConfigureOptions(): void
     {
@@ -128,7 +128,7 @@ final class CollectionEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Form\CollectionEditType::configureOptions
+     * @covers \Netgen\Layouts\Collection\Form\CollectionEditType::configureOptions
      */
     public function testConfigureOptionsWithMissingQuery(): void
     {
@@ -144,12 +144,12 @@ final class CollectionEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Form\CollectionEditType::configureOptions
+     * @covers \Netgen\Layouts\Collection\Form\CollectionEditType::configureOptions
      */
     public function testConfigureOptionsWithInvalidQueryType(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "collection" with value "" is expected to be of type "Netgen\\BlockManager\\API\\Values\\Collection\\Collection", but is of type "string".');
+        $this->expectExceptionMessage('The option "collection" with value "" is expected to be of type "Netgen\\Layouts\\API\\Values\\Collection\\Collection", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -164,12 +164,12 @@ final class CollectionEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Form\CollectionEditType::configureOptions
+     * @covers \Netgen\Layouts\Collection\Form\CollectionEditType::configureOptions
      */
     public function testConfigureOptionsWithInvalidData(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\\BlockManager\\API\\Values\\Collection\\CollectionUpdateStruct", but is of type "string".');
+        $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\\Layouts\\API\\Values\\Collection\\CollectionUpdateStruct", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');

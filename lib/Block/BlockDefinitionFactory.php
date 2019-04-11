@@ -2,34 +2,34 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Block;
+namespace Netgen\Layouts\Block;
 
-use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Form;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
-use Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandlerInterface;
-use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
-use Netgen\BlockManager\Block\Registry\HandlerPluginRegistryInterface;
-use Netgen\BlockManager\Config\ConfigDefinitionFactory;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface;
+use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\Collection;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\Form;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
+use Netgen\Layouts\Block\BlockDefinition\ContainerDefinitionHandlerInterface;
+use Netgen\Layouts\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
+use Netgen\Layouts\Block\Registry\HandlerPluginRegistryInterface;
+use Netgen\Layouts\Config\ConfigDefinitionFactory;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface;
 
 final class BlockDefinitionFactory
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface
+     * @var \Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface
      */
     private $parameterBuilderFactory;
 
     /**
-     * @var \Netgen\BlockManager\Block\Registry\HandlerPluginRegistryInterface
+     * @var \Netgen\Layouts\Block\Registry\HandlerPluginRegistryInterface
      */
     private $handlerPluginRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Config\ConfigDefinitionFactory
+     * @var \Netgen\Layouts\Config\ConfigDefinitionFactory
      */
     private $configDefinitionFactory;
 
@@ -47,11 +47,11 @@ final class BlockDefinitionFactory
      * Builds the block definition.
      *
      * @param string $identifier
-     * @param \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface $handler
+     * @param \Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface $handler
      * @param array<string, mixed> $config
-     * @param \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface[] $configDefinitionHandlers
+     * @param \Netgen\Layouts\Config\ConfigDefinitionHandlerInterface[] $configDefinitionHandlers
      *
-     * @return \Netgen\BlockManager\Block\BlockDefinitionInterface
+     * @return \Netgen\Layouts\Block\BlockDefinitionInterface
      */
     public function buildBlockDefinition(
         string $identifier,
@@ -73,11 +73,11 @@ final class BlockDefinitionFactory
      * Builds the block definition.
      *
      * @param string $identifier
-     * @param \Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface $handler
+     * @param \Netgen\Layouts\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface $handler
      * @param array<string, mixed> $config
-     * @param \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface[] $configDefinitionHandlers
+     * @param \Netgen\Layouts\Config\ConfigDefinitionHandlerInterface[] $configDefinitionHandlers
      *
-     * @return \Netgen\BlockManager\Block\TwigBlockDefinitionInterface
+     * @return \Netgen\Layouts\Block\TwigBlockDefinitionInterface
      */
     public function buildTwigBlockDefinition(
         string $identifier,
@@ -99,11 +99,11 @@ final class BlockDefinitionFactory
      * Builds the container definition.
      *
      * @param string $identifier
-     * @param \Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandlerInterface $handler
+     * @param \Netgen\Layouts\Block\BlockDefinition\ContainerDefinitionHandlerInterface $handler
      * @param array<string, mixed> $config
-     * @param \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface[] $configDefinitionHandlers
+     * @param \Netgen\Layouts\Config\ConfigDefinitionHandlerInterface[] $configDefinitionHandlers
      *
-     * @return \Netgen\BlockManager\Block\ContainerDefinitionInterface
+     * @return \Netgen\Layouts\Block\ContainerDefinitionInterface
      */
     public function buildContainerDefinition(
         string $identifier,
@@ -125,9 +125,9 @@ final class BlockDefinitionFactory
      * Returns the data common to all block definition types.
      *
      * @param string $identifier
-     * @param \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface $handler
+     * @param \Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface $handler
      * @param array<string, mixed> $config
-     * @param \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface[] $configDefinitionHandlers
+     * @param \Netgen\Layouts\Config\ConfigDefinitionHandlerInterface[] $configDefinitionHandlers
      *
      * @return array<string, mixed>
      */

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\Matcher\Form\Query;
+namespace Netgen\Layouts\Tests\View\Matcher\Form\Query;
 
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\Collection\QueryType\NullQueryType;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
-use Netgen\BlockManager\Tests\View\Matcher\Stubs\Form;
-use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\View\Matcher\Form\Query\Type;
-use Netgen\BlockManager\View\View\FormView;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\Collection\QueryType\NullQueryType;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
+use Netgen\Layouts\Tests\View\Matcher\Stubs\Form;
+use Netgen\Layouts\Tests\View\Stubs\View;
+use Netgen\Layouts\View\Matcher\Form\Query\Type;
+use Netgen\Layouts\View\View\FormView;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Forms;
 
@@ -23,7 +23,7 @@ final class TypeTest extends TestCase
     private $formFactory;
 
     /**
-     * @var \Netgen\BlockManager\View\Matcher\MatcherInterface
+     * @var \Netgen\Layouts\View\Matcher\MatcherInterface
      */
     private $matcher;
 
@@ -36,7 +36,7 @@ final class TypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Form\Query\Type::match
+     * @covers \Netgen\Layouts\View\Matcher\Form\Query\Type::match
      * @dataProvider matchProvider
      */
     public function testMatch(array $config, bool $expected): void
@@ -57,7 +57,7 @@ final class TypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Form\Query\Type::match
+     * @covers \Netgen\Layouts\View\Matcher\Form\Query\Type::match
      */
     public function testMatchWithNullQueryType(): void
     {
@@ -77,7 +77,7 @@ final class TypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Form\Query\Type::match
+     * @covers \Netgen\Layouts\View\Matcher\Form\Query\Type::match
      */
     public function testMatchWithNullQueryTypeReturnsFalse(): void
     {
@@ -108,7 +108,7 @@ final class TypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Form\Query\Type::match
+     * @covers \Netgen\Layouts\View\Matcher\Form\Query\Type::match
      */
     public function testMatchWithNoFormView(): void
     {
@@ -116,7 +116,7 @@ final class TypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Form\Query\Type::match
+     * @covers \Netgen\Layouts\View\Matcher\Form\Query\Type::match
      */
     public function testMatchWithNoQuery(): void
     {
@@ -126,7 +126,7 @@ final class TypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Form\Query\Type::match
+     * @covers \Netgen\Layouts\View\Matcher\Form\Query\Type::match
      */
     public function testMatchWithInvalidQuery(): void
     {

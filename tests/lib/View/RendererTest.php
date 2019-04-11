@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View;
+namespace Netgen\Layouts\Tests\View;
 
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\View\Renderer;
-use Netgen\BlockManager\View\ViewBuilderInterface;
-use Netgen\BlockManager\View\ViewInterface;
-use Netgen\BlockManager\View\ViewRendererInterface;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\View\Stubs\View;
+use Netgen\Layouts\View\Renderer;
+use Netgen\Layouts\View\ViewBuilderInterface;
+use Netgen\Layouts\View\ViewInterface;
+use Netgen\Layouts\View\ViewRendererInterface;
 use PHPUnit\Framework\TestCase;
 
 final class RendererTest extends TestCase
@@ -25,7 +25,7 @@ final class RendererTest extends TestCase
     private $viewRendererMock;
 
     /**
-     * @var \Netgen\BlockManager\View\Renderer
+     * @var \Netgen\Layouts\View\Renderer
      */
     private $renderer;
 
@@ -44,8 +44,8 @@ final class RendererTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Renderer::__construct
-     * @covers \Netgen\BlockManager\View\Renderer::renderValue
+     * @covers \Netgen\Layouts\View\Renderer::__construct
+     * @covers \Netgen\Layouts\View\Renderer::renderValue
      */
     public function testRenderValue(): void
     {

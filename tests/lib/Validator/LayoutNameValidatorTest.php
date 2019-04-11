@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Validator;
+namespace Netgen\Layouts\Tests\Validator;
 
-use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
-use Netgen\BlockManager\Validator\Constraint\LayoutName;
-use Netgen\BlockManager\Validator\LayoutNameValidator;
+use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
+use Netgen\Layouts\Validator\Constraint\LayoutName;
+use Netgen\Layouts\Validator\LayoutNameValidator;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -27,8 +27,8 @@ final class LayoutNameValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\LayoutNameValidator::__construct
-     * @covers \Netgen\BlockManager\Validator\LayoutNameValidator::validate
+     * @covers \Netgen\Layouts\Validator\LayoutNameValidator::__construct
+     * @covers \Netgen\Layouts\Validator\LayoutNameValidator::validate
      * @dataProvider validateDataProvider
      */
     public function testValidate(?string $value, bool $isValid): void
@@ -45,19 +45,19 @@ final class LayoutNameValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\LayoutNameValidator::validate
+     * @covers \Netgen\Layouts\Validator\LayoutNameValidator::validate
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Netgen\\BlockManager\\Validator\\Constraint\\LayoutName", "Symfony\\Component\\Validator\\Constraints\\NotBlank" given');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\Validator\\Constraint\\LayoutName", "Symfony\\Component\\Validator\\Constraints\\NotBlank" given');
 
         $this->constraint = new NotBlank();
         $this->assertValid(true, 'My layout');
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\LayoutNameValidator::validate
+     * @covers \Netgen\Layouts\Validator\LayoutNameValidator::validate
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {

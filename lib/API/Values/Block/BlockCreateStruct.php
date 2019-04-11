@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\Block;
+namespace Netgen\Layouts\API\Values\Block;
 
-use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
-use Netgen\BlockManager\API\Values\Config\ConfigAwareStruct;
-use Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait;
-use Netgen\BlockManager\API\Values\ParameterStruct;
-use Netgen\BlockManager\API\Values\ParameterStructTrait;
-use Netgen\BlockManager\Block\BlockDefinitionInterface;
+use Netgen\Layouts\API\Values\Collection\CollectionCreateStruct;
+use Netgen\Layouts\API\Values\Config\ConfigAwareStruct;
+use Netgen\Layouts\API\Values\Config\ConfigAwareStructTrait;
+use Netgen\Layouts\API\Values\ParameterStruct;
+use Netgen\Layouts\API\Values\ParameterStructTrait;
+use Netgen\Layouts\Block\BlockDefinitionInterface;
 
 final class BlockCreateStruct implements ParameterStruct, ConfigAwareStruct
 {
@@ -62,7 +62,7 @@ final class BlockCreateStruct implements ParameterStruct, ConfigAwareStruct
     /**
      * Block definition to create the new block from.
      *
-     * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
+     * @var \Netgen\Layouts\Block\BlockDefinitionInterface
      */
     private $definition;
 
@@ -71,7 +71,7 @@ final class BlockCreateStruct implements ParameterStruct, ConfigAwareStruct
      *
      * The keys are collection identifiers, while the values are instances of CollectionCreateStruct objects.
      *
-     * @var \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct[]
+     * @var \Netgen\Layouts\API\Values\Collection\CollectionCreateStruct[]
      */
     private $collectionCreateStructs = [];
 
@@ -100,7 +100,7 @@ final class BlockCreateStruct implements ParameterStruct, ConfigAwareStruct
     /**
      * Returns all collection create structs from this struct.
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct[]
+     * @return \Netgen\Layouts\API\Values\Collection\CollectionCreateStruct[]
      */
     public function getCollectionCreateStructs(): array
     {

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Exception\API;
+namespace Netgen\Layouts\Tests\Exception\API;
 
-use Netgen\BlockManager\Exception\API\LayoutException;
+use Netgen\Layouts\Exception\API\LayoutException;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutExceptionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Exception\API\LayoutException::noZone
+     * @covers \Netgen\Layouts\Exception\API\LayoutException::noZone
      */
     public function testNoZone(): void
     {

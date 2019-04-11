@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Controller\App\Block;
 
-use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
+use Netgen\Layouts\API\Values\Block\Block;
 use Symfony\Component\HttpFoundation\Response;
 
 final class Edit extends AbstractController

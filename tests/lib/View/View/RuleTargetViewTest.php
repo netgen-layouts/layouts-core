@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\View;
+namespace Netgen\Layouts\Tests\View\View;
 
-use Netgen\BlockManager\API\Values\LayoutResolver\Target;
-use Netgen\BlockManager\View\View\RuleTargetView;
+use Netgen\Layouts\API\Values\LayoutResolver\Target;
+use Netgen\Layouts\View\View\RuleTargetView;
 use PHPUnit\Framework\TestCase;
 
 final class RuleTargetViewTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\LayoutResolver\Target
+     * @var \Netgen\Layouts\API\Values\LayoutResolver\Target
      */
     private $target;
 
     /**
-     * @var \Netgen\BlockManager\View\View\RuleTargetViewInterface
+     * @var \Netgen\Layouts\View\View\RuleTargetViewInterface
      */
     private $view;
 
@@ -31,8 +31,8 @@ final class RuleTargetViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View\RuleTargetView::__construct
-     * @covers \Netgen\BlockManager\View\View\RuleTargetView::getTarget
+     * @covers \Netgen\Layouts\View\View\RuleTargetView::__construct
+     * @covers \Netgen\Layouts\View\View\RuleTargetView::getTarget
      */
     public function testGetTarget(): void
     {
@@ -47,7 +47,7 @@ final class RuleTargetViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View\RuleTargetView::getIdentifier
+     * @covers \Netgen\Layouts\View\View\RuleTargetView::getIdentifier
      */
     public function testGetIdentifier(): void
     {

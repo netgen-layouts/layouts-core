@@ -2,38 +2,38 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
+namespace Netgen\Layouts\Persistence\Doctrine\Handler;
 
-use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
-use Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper;
-use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler;
-use Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface;
-use Netgen\BlockManager\Persistence\Values\Collection\Collection;
-use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\Item;
-use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\ItemUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\Query;
-use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\QueryTranslationUpdateStruct;
+use Netgen\Layouts\Exception\BadStateException;
+use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper;
+use Netgen\Layouts\Persistence\Doctrine\Mapper\CollectionMapper;
+use Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler;
+use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
+use Netgen\Layouts\Persistence\Values\Collection\Collection;
+use Netgen\Layouts\Persistence\Values\Collection\CollectionCreateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\CollectionUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\Item;
+use Netgen\Layouts\Persistence\Values\Collection\ItemCreateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\ItemUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\Query;
+use Netgen\Layouts\Persistence\Values\Collection\QueryCreateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\QueryTranslationUpdateStruct;
 
 final class CollectionHandler implements CollectionHandlerInterface
 {
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler
+     * @var \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler
      */
     private $queryHandler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper
+     * @var \Netgen\Layouts\Persistence\Doctrine\Mapper\CollectionMapper
      */
     private $collectionMapper;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper
+     * @var \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper
      */
     private $positionHelper;
 

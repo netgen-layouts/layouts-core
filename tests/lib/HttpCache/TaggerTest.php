@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\HttpCache;
+namespace Netgen\Layouts\Tests\HttpCache;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\HttpCache\Tagger;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\HttpCache\Tagger;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 final class TaggerTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\HttpCache\Tagger
+     * @var \Netgen\Layouts\HttpCache\Tagger
      */
     private $tagger;
 
@@ -23,7 +23,7 @@ final class TaggerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\Tagger::tagLayout
+     * @covers \Netgen\Layouts\HttpCache\Tagger::tagLayout
      */
     public function testTagLayout(): void
     {
@@ -41,7 +41,7 @@ final class TaggerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\Tagger::tagBlock
+     * @covers \Netgen\Layouts\HttpCache\Tagger::tagBlock
      */
     public function testTagBlock(): void
     {

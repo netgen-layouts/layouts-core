@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\Layout;
+namespace Netgen\Layouts\Tests\API\Values\Layout;
 
-use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\API\Values\Layout\ZoneList;
+use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\API\Values\Layout\ZoneList;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use TypeError;
@@ -13,7 +13,7 @@ use TypeError;
 final class ZoneListTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\API\Values\Layout\ZoneList::__construct
+     * @covers \Netgen\Layouts\API\Values\Layout\ZoneList::__construct
      */
     public function testConstructorWithInvalidType(): void
     {
@@ -32,8 +32,8 @@ final class ZoneListTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Layout\ZoneList::__construct
-     * @covers \Netgen\BlockManager\API\Values\Layout\ZoneList::getZones
+     * @covers \Netgen\Layouts\API\Values\Layout\ZoneList::__construct
+     * @covers \Netgen\Layouts\API\Values\Layout\ZoneList::getZones
      */
     public function testGetZones(): void
     {
@@ -43,7 +43,7 @@ final class ZoneListTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Layout\ZoneList::getZoneIdentifiers
+     * @covers \Netgen\Layouts\API\Values\Layout\ZoneList::getZoneIdentifiers
      */
     public function testGetZoneIdentifiers(): void
     {

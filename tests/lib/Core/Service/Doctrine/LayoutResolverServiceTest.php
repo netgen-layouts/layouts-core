@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\Service\Doctrine;
+namespace Netgen\Layouts\Tests\Core\Service\Doctrine;
 
-use Netgen\BlockManager\Tests\Core\Service\LayoutResolverServiceTest as BaseLayoutResolverServiceTest;
-use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
+use Netgen\Layouts\Tests\Core\Service\LayoutResolverServiceTest as BaseLayoutResolverServiceTest;
+use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 
 final class LayoutResolverServiceTest extends BaseLayoutResolverServiceTest
 {

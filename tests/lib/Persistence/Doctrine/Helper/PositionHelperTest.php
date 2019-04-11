@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Helper;
+namespace Netgen\Layouts\Tests\Persistence\Doctrine\Helper;
 
 use Doctrine\DBAL\Types\Type;
-use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
-use Netgen\BlockManager\Persistence\Values\Value;
-use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
+use Netgen\Layouts\Exception\BadStateException;
+use Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper;
+use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use PDO;
 use PHPUnit\Framework\TestCase;
 
@@ -17,12 +17,12 @@ final class PositionHelperTest extends TestCase
     use TestCaseTrait;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper
+     * @var \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper
      */
     private $positionHelper;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface
+     * @var \Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface
      */
     private $collectionHandler;
 
@@ -43,9 +43,9 @@ final class PositionHelperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::__construct
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::createPosition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::incrementPositions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::__construct
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::createPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::incrementPositions
      */
     public function testCreatePosition(): void
     {
@@ -60,9 +60,9 @@ final class PositionHelperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::__construct
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::createPosition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::incrementPositions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::__construct
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::createPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::incrementPositions
      */
     public function testCreatePositionAtLastPlace(): void
     {
@@ -77,7 +77,7 @@ final class PositionHelperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::createPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::createPosition
      */
     public function testCreatePositionThrowsBadStateExceptionOnTooLargePosition(): void
     {
@@ -88,7 +88,7 @@ final class PositionHelperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::createPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::createPosition
      */
     public function testCreatePositionThrowsBadStateExceptionOnNegativePosition(): void
     {
@@ -99,7 +99,7 @@ final class PositionHelperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::createPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::createPosition
      */
     public function testCreatePositionThrowsBadStateExceptionOnInvalidEndPosition(): void
     {
@@ -110,8 +110,8 @@ final class PositionHelperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::decrementPositions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::moveToPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::decrementPositions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::moveToPosition
      */
     public function testMoveToPosition(): void
     {
@@ -124,8 +124,8 @@ final class PositionHelperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::incrementPositions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::moveToPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::incrementPositions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::moveToPosition
      */
     public function testMoveToLowerPosition(): void
     {
@@ -138,7 +138,7 @@ final class PositionHelperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::moveToPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::moveToPosition
      */
     public function testMoveToPositionBadStateExceptionOnTooLargePosition(): void
     {
@@ -149,7 +149,7 @@ final class PositionHelperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::moveToPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::moveToPosition
      */
     public function testMoveToPositionBadStateExceptionOnNegativePosition(): void
     {
@@ -160,8 +160,8 @@ final class PositionHelperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::decrementPositions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::removePosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::decrementPositions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::removePosition
      */
     public function testRemovePosition(): void
     {
@@ -188,8 +188,8 @@ final class PositionHelperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::applyConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper::getNextPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::applyConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper::getNextPosition
      */
     public function testGetNextPosition(): void
     {

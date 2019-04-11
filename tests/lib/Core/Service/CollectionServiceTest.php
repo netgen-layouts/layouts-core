@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\Service;
+namespace Netgen\Layouts\Tests\Core\Service;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
-use Netgen\BlockManager\API\Values\Config\ConfigStruct;
-use Netgen\BlockManager\Collection\Item\ItemDefinition;
-use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
-use Netgen\BlockManager\Tests\Core\CoreTestCase;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\API\Values\Collection\QueryCreateStruct;
+use Netgen\Layouts\API\Values\Config\ConfigStruct;
+use Netgen\Layouts\Collection\Item\ItemDefinition;
+use Netgen\Layouts\Exception\BadStateException;
+use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
+use Netgen\Layouts\Tests\Core\CoreTestCase;
+use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 
 abstract class CollectionServiceTest extends CoreTestCase
 {
     use ExportObjectTrait;
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::__construct
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadCollection
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::__construct
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadCollection
      */
     public function testLoadCollection(): void
     {
@@ -31,7 +31,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadCollection
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadCollection
      */
     public function testLoadCollectionThrowsNotFoundException(): void
     {
@@ -42,8 +42,8 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::__construct
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadCollectionDraft
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::__construct
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadCollectionDraft
      */
     public function testLoadCollectionDraft(): void
     {
@@ -53,7 +53,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadCollectionDraft
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadCollectionDraft
      */
     public function testLoadCollectionDraftThrowsNotFoundException(): void
     {
@@ -64,7 +64,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateCollection
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::updateCollection
      */
     public function testUpdateCollection(): void
     {
@@ -83,7 +83,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateCollection
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::updateCollection
      */
     public function testUpdateCollectionWithNoLimit(): void
     {
@@ -102,7 +102,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateCollection
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::updateCollection
      */
     public function testUpdateCollectionThrowsBadStateExceptionWithNonDraftCollection(): void
     {
@@ -120,7 +120,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadItem
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadItem
      */
     public function testLoadItem(): void
     {
@@ -130,7 +130,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadItem
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadItem
      */
     public function testLoadItemThrowsNotFoundException(): void
     {
@@ -141,7 +141,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadItemDraft
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadItemDraft
      */
     public function testLoadItemDraft(): void
     {
@@ -151,7 +151,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadItemDraft
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadItemDraft
      */
     public function testLoadItemDraftThrowsNotFoundException(): void
     {
@@ -162,7 +162,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadQuery
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadQuery
      */
     public function testLoadQuery(): void
     {
@@ -172,7 +172,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadQuery
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadQuery
      */
     public function testLoadQueryThrowsNotFoundException(): void
     {
@@ -183,7 +183,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadQueryDraft
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadQueryDraft
      */
     public function testLoadQueryDraft(): void
     {
@@ -193,7 +193,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::loadQueryDraft
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadQueryDraft
      */
     public function testLoadQueryDraftThrowsNotFoundException(): void
     {
@@ -204,7 +204,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::changeCollectionType
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::changeCollectionType
      */
     public function testChangeCollectionTypeFromManualToDynamic(): void
     {
@@ -224,7 +224,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::changeCollectionType
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::changeCollectionType
      */
     public function testChangeCollectionTypeFromDynamicToManual(): void
     {
@@ -247,7 +247,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::changeCollectionType
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::changeCollectionType
      */
     public function testChangeCollectionTypeThrowsBadStateExceptionWithNonDraftCollection(): void
     {
@@ -263,7 +263,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::changeCollectionType
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::changeCollectionType
      */
     public function testChangeCollectionTypeThrowsBadStateExceptionWithInvalidType(): void
     {
@@ -282,7 +282,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::changeCollectionType
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::changeCollectionType
      */
     public function testChangeCollectionTypeThrowsBadStateExceptionOnChangingToDynamicCollectionWithoutQueryCreateStruct(): void
     {
@@ -298,7 +298,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::addItem
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::addItem
      */
     public function testAddItem(): void
     {
@@ -319,7 +319,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::addItem
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::addItem
      */
     public function testAddItemThrowsBadStateExceptionWithNonDraftCollection(): void
     {
@@ -341,7 +341,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::addItem
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::addItem
      */
     public function testAddItemThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
@@ -359,7 +359,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateItem
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::updateItem
      */
     public function testUpdateItem(): void
     {
@@ -383,7 +383,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateItem
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::updateItem
      */
     public function testUpdateItemThrowsBadStateExceptionWithNonDraftItem(): void
     {
@@ -397,7 +397,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveItem
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::moveItem
      */
     public function testMoveItem(): void
     {
@@ -414,7 +414,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveItem
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::moveItem
      */
     public function testMoveItemThrowsBadStateExceptionWithNonDraftItem(): void
     {
@@ -428,7 +428,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveItem
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::moveItem
      */
     public function testMoveItemThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
@@ -442,7 +442,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteItem
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::deleteItem
      */
     public function testDeleteItem(): void
     {
@@ -461,7 +461,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteItem
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::deleteItem
      */
     public function testDeleteItemThrowsBadStateExceptionWithNonDraftItem(): void
     {
@@ -473,7 +473,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteItems
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::deleteItems
      */
     public function testDeleteItems(): void
     {
@@ -484,7 +484,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteItems
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::deleteItems
      */
     public function testDeleteItemsThrowsBadStateExceptionWithNonDraftCollection(): void
     {
@@ -496,8 +496,8 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQuery
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQueryTranslations
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::updateQuery
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::updateQueryTranslations
      */
     public function testUpdateQuery(): void
     {
@@ -525,8 +525,8 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQuery
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQueryTranslations
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::updateQuery
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::updateQueryTranslations
      */
     public function testUpdateQueryInMainLocale(): void
     {
@@ -554,7 +554,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQuery
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::updateQuery
      */
     public function testUpdateQueryThrowsBadStateExceptionWithNonDraftQuery(): void
     {
@@ -571,7 +571,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQuery
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::updateQuery
      */
     public function testUpdateQueryThrowsBadStateExceptionWithNonExistingLocale(): void
     {
@@ -588,7 +588,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::newCollectionCreateStruct
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::newCollectionCreateStruct
      */
     public function testNewCollectionCreateStruct(): void
     {
@@ -606,7 +606,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::newCollectionUpdateStruct
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::newCollectionUpdateStruct
      */
     public function testNewCollectionUpdateStruct(): void
     {
@@ -622,7 +622,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::newCollectionUpdateStruct
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::newCollectionUpdateStruct
      */
     public function testNewCollectionUpdateStructWithCollection(): void
     {
@@ -640,7 +640,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::newCollectionUpdateStruct
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::newCollectionUpdateStruct
      */
     public function testNewCollectionUpdateStructWithUnlimitedCollection(): void
     {
@@ -658,7 +658,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::newItemCreateStruct
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::newItemCreateStruct
      */
     public function testNewItemCreateStruct(): void
     {
@@ -676,7 +676,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::newItemUpdateStruct
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::newItemUpdateStruct
      */
     public function testNewItemUpdateStruct(): void
     {
@@ -691,7 +691,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::newItemUpdateStruct
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::newItemUpdateStruct
      */
     public function testNewItemUpdateStructFromItem(): void
     {
@@ -716,7 +716,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::newQueryCreateStruct
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::newQueryCreateStruct
      */
     public function testNewQueryCreateStruct(): void
     {
@@ -737,7 +737,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::newQueryUpdateStruct
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::newQueryUpdateStruct
      */
     public function testNewQueryUpdateStruct(): void
     {
@@ -753,7 +753,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::newQueryUpdateStruct
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::newQueryUpdateStruct
      */
     public function testNewQueryUpdateStructFromQuery(): void
     {

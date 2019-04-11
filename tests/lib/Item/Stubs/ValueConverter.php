@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Item\Stubs;
+namespace Netgen\Layouts\Tests\Item\Stubs;
 
-use Netgen\BlockManager\Item\ValueConverterInterface;
+use Netgen\Layouts\Item\ValueConverterInterface;
 
 final class ValueConverter implements ValueConverterInterface
 {
@@ -19,7 +19,7 @@ final class ValueConverter implements ValueConverterInterface
     }
 
     /**
-     * @param \Netgen\BlockManager\Tests\Item\Stubs\Value $object
+     * @param \Netgen\Layouts\Tests\Item\Stubs\Value $object
      *
      * @return int|string
      */
@@ -29,7 +29,7 @@ final class ValueConverter implements ValueConverterInterface
     }
 
     /**
-     * @param \Netgen\BlockManager\Tests\Item\Stubs\Value $object
+     * @param \Netgen\Layouts\Tests\Item\Stubs\Value $object
      *
      * @return int|string
      */
@@ -44,7 +44,7 @@ final class ValueConverter implements ValueConverterInterface
     }
 
     /**
-     * @param \Netgen\BlockManager\Tests\Item\Stubs\Value $object
+     * @param \Netgen\Layouts\Tests\Item\Stubs\Value $object
      */
     public function getIsVisible(object $object): bool
     {

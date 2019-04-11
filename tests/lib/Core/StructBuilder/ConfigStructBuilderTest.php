@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\StructBuilder;
+namespace Netgen\Layouts\Tests\Core\StructBuilder;
 
-use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\API\Values\Config\Config;
-use Netgen\BlockManager\Config\ConfigDefinition;
-use Netgen\BlockManager\Core\StructBuilder\ConfigStructBuilder;
-use Netgen\BlockManager\Tests\API\Stubs\ConfigAwareValue;
-use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler;
-use Netgen\BlockManager\Tests\Core\CoreTestCase;
+use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
+use Netgen\Layouts\API\Values\Config\Config;
+use Netgen\Layouts\Config\ConfigDefinition;
+use Netgen\Layouts\Core\StructBuilder\ConfigStructBuilder;
+use Netgen\Layouts\Tests\API\Stubs\ConfigAwareValue;
+use Netgen\Layouts\Tests\Config\Stubs\ConfigDefinitionHandler;
+use Netgen\Layouts\Tests\Core\CoreTestCase;
 
 abstract class ConfigStructBuilderTest extends CoreTestCase
 {
     /**
-     * @var \Netgen\BlockManager\Core\StructBuilder\ConfigStructBuilder
+     * @var \Netgen\Layouts\Core\StructBuilder\ConfigStructBuilder
      */
     private $structBuilder;
 
@@ -27,7 +27,7 @@ abstract class ConfigStructBuilderTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\StructBuilder\ConfigStructBuilder::buildConfigUpdateStructs
+     * @covers \Netgen\Layouts\Core\StructBuilder\ConfigStructBuilder::buildConfigUpdateStructs
      */
     public function testBuildConfigUpdateStructs(): void
     {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
+namespace Netgen\Layouts\Tests\Parameters\ParameterType;
 
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterType\ChoiceType;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType\ChoiceType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Validation;
@@ -20,7 +20,7 @@ final class ChoiceTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ChoiceType::getIdentifier
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::getIdentifier
      */
     public function testGetIdentifier(): void
     {
@@ -28,7 +28,7 @@ final class ChoiceTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ChoiceType::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::configureOptions
      *
      * @param array<string, mixed> $options
      * @param bool $required
@@ -44,7 +44,7 @@ final class ChoiceTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ChoiceType::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::configureOptions
      * @dataProvider validOptionsProvider
      */
     public function testValidOptions(array $options, array $resolvedOptions): void
@@ -54,7 +54,7 @@ final class ChoiceTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ChoiceType::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::configureOptions
      * @dataProvider invalidOptionsProvider
      */
     public function testInvalidOptions(array $options): void
@@ -239,7 +239,7 @@ final class ChoiceTypeTest extends TestCase
      * @param mixed $value
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ChoiceType::getValueConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::getValueConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, bool $isValid): void
@@ -255,7 +255,7 @@ final class ChoiceTypeTest extends TestCase
      * @param mixed $value
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ChoiceType::getValueConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::getValueConstraints
      * @dataProvider validationProvider
      */
     public function testValidationWithClosure($value, bool $isValid): void
@@ -294,7 +294,7 @@ final class ChoiceTypeTest extends TestCase
      * @param mixed $convertedValue
      * @param bool $multiple
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ChoiceType::fromHash
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::fromHash
      * @dataProvider fromHashProvider
      */
     public function testFromHash($value, $convertedValue, bool $multiple): void
@@ -363,7 +363,7 @@ final class ChoiceTypeTest extends TestCase
      * @param mixed $value
      * @param bool $isEmpty
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ChoiceType::isValueEmpty
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::isValueEmpty
      * @dataProvider emptyProvider
      */
     public function testIsValueEmpty($value, bool $isEmpty): void

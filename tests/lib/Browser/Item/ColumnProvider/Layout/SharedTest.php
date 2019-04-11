@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Browser\Item\ColumnProvider\Layout;
+namespace Netgen\Layouts\Tests\Browser\Item\ColumnProvider\Layout;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Shared;
-use Netgen\BlockManager\Browser\Item\Layout\Item;
 use Netgen\ContentBrowser\Tests\Stubs\Item as StubItem;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Shared;
+use Netgen\Layouts\Browser\Item\Layout\Item;
 use PHPUnit\Framework\TestCase;
 
 final class SharedTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Shared
+     * @var \Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Shared
      */
     private $provider;
 
@@ -23,7 +23,7 @@ final class SharedTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Shared::getValue
+     * @covers \Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Shared::getValue
      */
     public function testGetValue(): void
     {
@@ -42,7 +42,7 @@ final class SharedTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Shared::getValue
+     * @covers \Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Shared::getValue
      */
     public function testGetValueWithInvalidItem(): void
     {

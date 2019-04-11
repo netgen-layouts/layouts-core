@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Utils;
+namespace Netgen\Layouts\Tests\Utils;
 
-use Netgen\BlockManager\Tests\Stubs\Value;
+use Netgen\Layouts\Tests\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 
 final class HydratorTraitTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Utils\HydratorTrait::fromArray
-     * @covers \Netgen\BlockManager\Utils\HydratorTrait::initHydrator
+     * @covers \Netgen\Layouts\Utils\HydratorTrait::fromArray
+     * @covers \Netgen\Layouts\Utils\HydratorTrait::initHydrator
      */
     public function testFromArray(): void
     {
@@ -23,8 +23,8 @@ final class HydratorTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Utils\HydratorTrait::hydrate
-     * @covers \Netgen\BlockManager\Utils\HydratorTrait::initHydrator
+     * @covers \Netgen\Layouts\Utils\HydratorTrait::hydrate
+     * @covers \Netgen\Layouts\Utils\HydratorTrait::initHydrator
      */
     public function testHydrate(): void
     {

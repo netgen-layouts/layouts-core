@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Transfer\Input\DataHandler;
+namespace Netgen\Layouts\Transfer\Input\DataHandler;
 
-use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\API\Service\CollectionService;
-use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\API\Values\Config\ConfigAwareStruct;
-use Netgen\BlockManager\API\Values\Config\ConfigStruct;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
-use Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistryInterface;
-use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
-use Netgen\BlockManager\Config\ConfigDefinitionAwareInterface;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Item\CmsItemLoaderInterface;
-use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
+use Netgen\Layouts\API\Service\BlockService;
+use Netgen\Layouts\API\Service\CollectionService;
+use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\BlockCreateStruct;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\API\Values\Config\ConfigAwareStruct;
+use Netgen\Layouts\API\Values\Config\ConfigStruct;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\Block\Registry\BlockDefinitionRegistryInterface;
+use Netgen\Layouts\Collection\Registry\ItemDefinitionRegistryInterface;
+use Netgen\Layouts\Collection\Registry\QueryTypeRegistryInterface;
+use Netgen\Layouts\Config\ConfigDefinitionAwareInterface;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Item\CmsItemLoaderInterface;
+use Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface;
 
 /**
  * LayoutDataHandler handles serialized Layout data.
@@ -29,42 +29,42 @@ use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
 final class LayoutDataHandler
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\BlockService
+     * @var \Netgen\Layouts\API\Service\BlockService
      */
     private $blockService;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\CollectionService
+     * @var \Netgen\Layouts\API\Service\CollectionService
      */
     private $collectionService;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutService
+     * @var \Netgen\Layouts\API\Service\LayoutService
      */
     private $layoutService;
 
     /**
-     * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface
+     * @var \Netgen\Layouts\Block\Registry\BlockDefinitionRegistryInterface
      */
     private $blockDefinitionRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface
      */
     private $layoutTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistryInterface
+     * @var \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistryInterface
      */
     private $itemDefinitionRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface
+     * @var \Netgen\Layouts\Collection\Registry\QueryTypeRegistryInterface
      */
     private $queryTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Item\CmsItemLoaderInterface
+     * @var \Netgen\Layouts\Item\CmsItemLoaderInterface
      */
     private $cmsItemLoader;
 
@@ -116,7 +116,7 @@ final class LayoutDataHandler
     /**
      * Processes zones in the given $layout from the $layoutData.
      *
-     * @throws \Netgen\BlockManager\Exception\RuntimeException If data is not consistent
+     * @throws \Netgen\Layouts\Exception\RuntimeException If data is not consistent
      */
     private function processZones(Layout $layout, array $layoutData): void
     {
@@ -161,7 +161,7 @@ final class LayoutDataHandler
      *
      * $translationsData is an array of parameters, indexed by translation locale.
      *
-     * @throws \Netgen\BlockManager\Exception\RuntimeException If translation data is not consistent
+     * @throws \Netgen\Layouts\Exception\RuntimeException If translation data is not consistent
      */
     private function updateBlockTranslations(Block $block, array $translationsData): void
     {
@@ -198,7 +198,7 @@ final class LayoutDataHandler
      *
      * $translationsData is an array of query parameters indexed by translation locale.
      *
-     * @throws \Netgen\BlockManager\Exception\RuntimeException If translation data is not consistent
+     * @throws \Netgen\Layouts\Exception\RuntimeException If translation data is not consistent
      */
     private function updateQueryTranslations(Query $query, array $translationsData): void
     {

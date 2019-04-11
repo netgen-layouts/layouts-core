@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\Form\Extension;
+namespace Netgen\Layouts\Tests\Parameters\Form\Extension;
 
-use Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension;
+use Netgen\Layouts\Parameters\ParameterDefinition;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormInterface;
@@ -16,7 +16,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class ParametersTypeExtensionTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension
+     * @var \Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension
      */
     private $formTypeExtension;
 
@@ -26,7 +26,7 @@ final class ParametersTypeExtensionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension::getExtendedType
+     * @covers \Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension::getExtendedType
      */
     public function testGetExtendedType(): void
     {
@@ -34,7 +34,7 @@ final class ParametersTypeExtensionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension::getExtendedTypes
+     * @covers \Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension::getExtendedTypes
      */
     public function testGetExtendedTypes(): void
     {
@@ -42,7 +42,7 @@ final class ParametersTypeExtensionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension::buildView
+     * @covers \Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension::buildView
      */
     public function testBuildView(): void
     {
@@ -61,7 +61,7 @@ final class ParametersTypeExtensionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension::buildView
+     * @covers \Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension::buildView
      */
     public function testBuildViewWithEmptyOptions(): void
     {
@@ -77,7 +77,7 @@ final class ParametersTypeExtensionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension::configureOptions
+     * @covers \Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension::configureOptions
      */
     public function testConfigureOptions(): void
     {
@@ -101,7 +101,7 @@ final class ParametersTypeExtensionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension::configureOptions
+     * @covers \Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension::configureOptions
      */
     public function testConfigureOptionsWithEmptyParameters(): void
     {
@@ -113,12 +113,12 @@ final class ParametersTypeExtensionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension::configureOptions
+     * @covers \Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension::configureOptions
      */
     public function testConfigureOptionsWithInvalidParameters(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "ngbm_parameter_definition" with value "parameter_definition" is expected to be of type "Netgen\\BlockManager\\Parameters\\ParameterDefinition", but is of type "string".');
+        $this->expectExceptionMessage('The option "ngbm_parameter_definition" with value "parameter_definition" is expected to be of type "Netgen\\Layouts\\Parameters\\ParameterDefinition", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
         $this->formTypeExtension->configureOptions($optionsResolver);

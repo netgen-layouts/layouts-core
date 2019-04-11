@@ -2,27 +2,27 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Collection\Result;
+namespace Netgen\Layouts\Tests\Collection\Result;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\Collection\Item\VisibilityResolver;
-use Netgen\BlockManager\Collection\Result\CollectionRunnerFactory;
-use Netgen\BlockManager\Collection\Result\Result;
-use Netgen\BlockManager\Item\CmsItem;
-use Netgen\BlockManager\Item\CmsItemBuilderInterface;
-use Netgen\BlockManager\Item\CmsItemInterface;
-use Netgen\BlockManager\Item\NullCmsItem;
-use Netgen\BlockManager\Tests\Collection\Result\Stubs\Value;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\Collection\Item\VisibilityResolver;
+use Netgen\Layouts\Collection\Result\CollectionRunnerFactory;
+use Netgen\Layouts\Collection\Result\Result;
+use Netgen\Layouts\Item\CmsItem;
+use Netgen\Layouts\Item\CmsItemBuilderInterface;
+use Netgen\Layouts\Item\CmsItemInterface;
+use Netgen\Layouts\Item\NullCmsItem;
+use Netgen\Layouts\Tests\Collection\Result\Stubs\Value;
+use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
 final class DynamicCollectionRunnerTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Item\CmsItemBuilderInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\Layouts\Item\CmsItemBuilderInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $cmsItemBuilderMock;
 
@@ -41,13 +41,13 @@ final class DynamicCollectionRunnerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::__construct
-     * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::buildManualResult
-     * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::count
-     * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::getManualItemsCount
-     * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::getQueryValue
-     * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::runCollection
-     * @covers \Netgen\BlockManager\Collection\Result\DynamicCollectionRunner::runQuery
+     * @covers \Netgen\Layouts\Collection\Result\DynamicCollectionRunner::__construct
+     * @covers \Netgen\Layouts\Collection\Result\DynamicCollectionRunner::buildManualResult
+     * @covers \Netgen\Layouts\Collection\Result\DynamicCollectionRunner::count
+     * @covers \Netgen\Layouts\Collection\Result\DynamicCollectionRunner::getManualItemsCount
+     * @covers \Netgen\Layouts\Collection\Result\DynamicCollectionRunner::getQueryValue
+     * @covers \Netgen\Layouts\Collection\Result\DynamicCollectionRunner::runCollection
+     * @covers \Netgen\Layouts\Collection\Result\DynamicCollectionRunner::runQuery
      *
      * @dataProvider dynamicCollectionProvider
      */

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Serializer\Normalizer\V1;
+namespace Netgen\Layouts\Serializer\Normalizer\V1;
 
 use Generator;
-use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\Block\ContainerDefinitionInterface;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Serializer\Version;
+use Netgen\Layouts\API\Service\BlockService;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\Block\ContainerDefinitionInterface;
+use Netgen\Layouts\Serializer\Values\VersionedValue;
+use Netgen\Layouts\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -20,7 +20,7 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
     use NormalizerAwareTrait;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\BlockService
+     * @var \Netgen\Layouts\API\Service\BlockService
      */
     private $blockService;
 
@@ -31,7 +31,7 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
 
     public function normalize($object, $format = null, array $context = [])
     {
-        /** @var \Netgen\BlockManager\API\Values\Block\Block $block */
+        /** @var \Netgen\Layouts\API\Values\Block\Block $block */
         $block = $object->getValue();
         $blockDefinition = $block->getDefinition();
 

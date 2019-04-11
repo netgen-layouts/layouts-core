@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Layout\Resolver\Registry;
+namespace Netgen\Layouts\Layout\Resolver\Registry;
 
 use ArrayAccess;
 use Countable;
 use IteratorAggregate;
-use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
+use Netgen\Layouts\Layout\Resolver\TargetTypeInterface;
 
 interface TargetTypeRegistryInterface extends IteratorAggregate, Countable, ArrayAccess
 {
@@ -19,14 +19,14 @@ interface TargetTypeRegistryInterface extends IteratorAggregate, Countable, Arra
     /**
      * Returns a target type with provided type.
      *
-     * @throws \Netgen\BlockManager\Exception\Layout\TargetTypeException If target type does not exist
+     * @throws \Netgen\Layouts\Exception\Layout\TargetTypeException If target type does not exist
      */
     public function getTargetType(string $type): TargetTypeInterface;
 
     /**
      * Returns all target types.
      *
-     * @return \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface[]
+     * @return \Netgen\Layouts\Layout\Resolver\TargetTypeInterface[]
      */
     public function getTargetTypes(): array;
 }

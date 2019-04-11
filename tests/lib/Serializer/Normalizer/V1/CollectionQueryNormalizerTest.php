@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
+namespace Netgen\Layouts\Tests\Serializer\Normalizer\V1;
 
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Serializer\Normalizer\V1\CollectionQueryNormalizer;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\Parameters\Parameter;
+use Netgen\Layouts\Serializer\Normalizer\V1\CollectionQueryNormalizer;
+use Netgen\Layouts\Serializer\Values\VersionedValue;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
@@ -21,7 +21,7 @@ final class CollectionQueryNormalizerTest extends TestCase
     private $normalizerMock;
 
     /**
-     * @var \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionQueryNormalizer
+     * @var \Netgen\Layouts\Serializer\Normalizer\V1\CollectionQueryNormalizer
      */
     private $normalizer;
 
@@ -34,8 +34,8 @@ final class CollectionQueryNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionQueryNormalizer::buildVersionedValues
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionQueryNormalizer::normalize
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\CollectionQueryNormalizer::buildVersionedValues
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\CollectionQueryNormalizer::normalize
      */
     public function testNormalize(): void
     {
@@ -98,7 +98,7 @@ final class CollectionQueryNormalizerTest extends TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionQueryNormalizer::supportsNormalization
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\CollectionQueryNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, bool $expected): void

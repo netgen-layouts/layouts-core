@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\Provider;
+namespace Netgen\Layouts\Tests\View\Provider;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Block\Placeholder;
-use Netgen\BlockManager\Exception\View\ViewProviderException;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\View\Provider\PlaceholderViewProvider;
-use Netgen\BlockManager\View\View\PlaceholderViewInterface;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\Placeholder;
+use Netgen\Layouts\Exception\View\ViewProviderException;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\View\Provider\PlaceholderViewProvider;
+use Netgen\Layouts\View\View\PlaceholderViewInterface;
 use PHPUnit\Framework\TestCase;
 
 final class PlaceholderViewProviderTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface
+     * @var \Netgen\Layouts\View\Provider\ViewProviderInterface
      */
     private $placeholderViewProvider;
 
@@ -25,7 +25,7 @@ final class PlaceholderViewProviderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Provider\PlaceholderViewProvider::provideView
+     * @covers \Netgen\Layouts\View\Provider\PlaceholderViewProvider::provideView
      */
     public function testProvideView(): void
     {
@@ -54,7 +54,7 @@ final class PlaceholderViewProviderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Provider\PlaceholderViewProvider::provideView
+     * @covers \Netgen\Layouts\View\Provider\PlaceholderViewProvider::provideView
      */
     public function testProvideViewThrowsRuntimeExceptionOnMissingBlock(): void
     {
@@ -65,12 +65,12 @@ final class PlaceholderViewProviderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Provider\PlaceholderViewProvider::provideView
+     * @covers \Netgen\Layouts\View\Provider\PlaceholderViewProvider::provideView
      */
     public function testProvideViewThrowsRuntimeExceptionOnInvalidBlock(): void
     {
         $this->expectException(ViewProviderException::class);
-        $this->expectExceptionMessage('To build the placeholder view, "block" parameter needs to be of "Netgen\\BlockManager\\API\\Values\\Block\\Block" type.');
+        $this->expectExceptionMessage('To build the placeholder view, "block" parameter needs to be of "Netgen\\Layouts\\API\\Values\\Block\\Block" type.');
 
         $this->placeholderViewProvider->provideView(new Placeholder(), ['block' => 42]);
     }
@@ -79,7 +79,7 @@ final class PlaceholderViewProviderTest extends TestCase
      * @param mixed $value
      * @param bool $supports
      *
-     * @covers \Netgen\BlockManager\View\Provider\PlaceholderViewProvider::supports
+     * @covers \Netgen\Layouts\View\Provider\PlaceholderViewProvider::supports
      * @dataProvider supportsProvider
      */
     public function testSupports($value, bool $supports): void

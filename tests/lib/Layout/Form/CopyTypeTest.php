@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Layout\Form;
+namespace Netgen\Layouts\Tests\Layout\Form;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
-use Netgen\BlockManager\Layout\Form\CopyType;
-use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\LayoutCopyStruct;
+use Netgen\Layouts\Layout\Form\CopyType;
+use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
@@ -16,7 +16,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class CopyTypeTest extends FormTestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Layout\Layout
+     * @var \Netgen\Layouts\API\Values\Layout\Layout
      */
     private $layout;
 
@@ -28,7 +28,7 @@ final class CopyTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Form\CopyType::buildForm
+     * @covers \Netgen\Layouts\Layout\Form\CopyType::buildForm
      */
     public function testSubmitValidData(): void
     {
@@ -63,7 +63,7 @@ final class CopyTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Form\CopyType::configureOptions
+     * @covers \Netgen\Layouts\Layout\Form\CopyType::configureOptions
      */
     public function testConfigureOptions(): void
     {
@@ -86,7 +86,7 @@ final class CopyTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Form\CopyType::configureOptions
+     * @covers \Netgen\Layouts\Layout\Form\CopyType::configureOptions
      */
     public function testConfigureOptionsWithMissingLayout(): void
     {
@@ -102,12 +102,12 @@ final class CopyTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Form\CopyType::configureOptions
+     * @covers \Netgen\Layouts\Layout\Form\CopyType::configureOptions
      */
     public function testConfigureOptionsWithInvalidLayout(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "layout" with value "" is expected to be of type "Netgen\\BlockManager\\API\\Values\\Layout\\Layout", but is of type "string".');
+        $this->expectExceptionMessage('The option "layout" with value "" is expected to be of type "Netgen\\Layouts\\API\\Values\\Layout\\Layout", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -122,12 +122,12 @@ final class CopyTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Form\CopyType::configureOptions
+     * @covers \Netgen\Layouts\Layout\Form\CopyType::configureOptions
      */
     public function testConfigureOptionsWithInvalidData(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\\BlockManager\\API\\Values\\Layout\\LayoutCopyStruct", but is of type "string".');
+        $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\\Layouts\\API\\Values\\Layout\\LayoutCopyStruct", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');

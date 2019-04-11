@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Collection\Result\Pagerfanta;
+namespace Netgen\Layouts\Collection\Result\Pagerfanta;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\Collection\Result\ResultBuilderInterface;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\Collection\Result\ResultBuilderInterface;
 use Pagerfanta\Adapter\AdapterInterface;
 use Pagerfanta\Pagerfanta;
 
 final class PagerFactory
 {
     /**
-     * @var \Netgen\BlockManager\Collection\Result\ResultBuilderInterface
+     * @var \Netgen\Layouts\Collection\Result\ResultBuilderInterface
      */
     private $resultBuilder;
 

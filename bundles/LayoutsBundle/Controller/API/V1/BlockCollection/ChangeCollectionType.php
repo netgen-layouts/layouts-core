@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection;
 
-use Netgen\BlockManager\API\Service\CollectionService;
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
-use Netgen\BlockManager\Exception\Validation\ValidationException;
-use Netgen\BlockManager\Validator\ValidatorTrait;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
+use Netgen\Layouts\API\Service\CollectionService;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\Collection\Registry\QueryTypeRegistryInterface;
+use Netgen\Layouts\Exception\Validation\ValidationException;
+use Netgen\Layouts\Validator\ValidatorTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints;
@@ -20,12 +20,12 @@ final class ChangeCollectionType extends AbstractController
     use ValidatorTrait;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\CollectionService
+     * @var \Netgen\Layouts\API\Service\CollectionService
      */
     private $collectionService;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface
+     * @var \Netgen\Layouts\Collection\Registry\QueryTypeRegistryInterface
      */
     private $queryTypeRegistry;
 
@@ -40,7 +40,7 @@ final class ChangeCollectionType extends AbstractController
     /**
      * Changes the collection type within the block.
      *
-     * @throws \Netgen\BlockManager\Exception\InvalidArgumentException If new collection type is not valid
+     * @throws \Netgen\Layouts\Exception\InvalidArgumentException If new collection type is not valid
      *                                                                 If query type does not exist
      */
     public function __invoke(Block $block, string $collectionIdentifier, Request $request): Response
@@ -76,7 +76,7 @@ final class ChangeCollectionType extends AbstractController
     /**
      * Validates block creation parameters from the request.
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If validation failed
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If validation failed
      */
     private function validateChangeCollectionType(Block $block, string $collectionIdentifier, int $newType, string $queryType): void
     {

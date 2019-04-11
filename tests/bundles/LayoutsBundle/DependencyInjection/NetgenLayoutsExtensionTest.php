@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
-use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension;
 use Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\Stubs\ExtensionPlugin;
+use Netgen\Layouts\Exception\RuntimeException;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
 /**

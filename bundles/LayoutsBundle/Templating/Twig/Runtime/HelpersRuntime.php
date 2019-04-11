@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime;
 
-use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\Utils\BackwardsCompatibility\Locales;
-use Netgen\BlockManager\Utils\FlagGenerator;
+use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\Utils\BackwardsCompatibility\Locales;
+use Netgen\Layouts\Utils\FlagGenerator;
 use Throwable;
 
 final class HelpersRuntime
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutService
+     * @var \Netgen\Layouts\API\Service\LayoutService
      */
     private $layoutService;
 

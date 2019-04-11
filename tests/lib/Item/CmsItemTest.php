@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Item;
+namespace Netgen\Layouts\Tests\Item;
 
-use Netgen\BlockManager\Item\CmsItem;
+use Netgen\Layouts\Item\CmsItem;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
 final class CmsItemTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Item\CmsItem::getName
-     * @covers \Netgen\BlockManager\Item\CmsItem::getObject
-     * @covers \Netgen\BlockManager\Item\CmsItem::getRemoteId
-     * @covers \Netgen\BlockManager\Item\CmsItem::getValue
-     * @covers \Netgen\BlockManager\Item\CmsItem::getValueType
-     * @covers \Netgen\BlockManager\Item\CmsItem::isVisible
+     * @covers \Netgen\Layouts\Item\CmsItem::getName
+     * @covers \Netgen\Layouts\Item\CmsItem::getObject
+     * @covers \Netgen\Layouts\Item\CmsItem::getRemoteId
+     * @covers \Netgen\Layouts\Item\CmsItem::getValue
+     * @covers \Netgen\Layouts\Item\CmsItem::getValueType
+     * @covers \Netgen\Layouts\Item\CmsItem::isVisible
      */
     public function testObject(): void
     {

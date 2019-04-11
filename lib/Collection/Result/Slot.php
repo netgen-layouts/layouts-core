@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Collection\Result;
+namespace Netgen\Layouts\Collection\Result;
 
-use Netgen\BlockManager\Item\CmsItemInterface;
+use Netgen\Layouts\Item\CmsItemInterface;
 
 /**
  * The slot represents a placeholder for a CMS item when executing

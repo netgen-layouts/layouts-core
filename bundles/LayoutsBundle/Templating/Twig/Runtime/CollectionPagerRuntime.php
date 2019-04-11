@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Exception\InvalidArgumentException;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\View\ViewInterface;
 

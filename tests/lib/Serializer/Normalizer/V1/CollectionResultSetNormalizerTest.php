@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
+namespace Netgen\Layouts\Tests\Serializer\Normalizer\V1;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\Collection\Result\ManualItem;
-use Netgen\BlockManager\Collection\Result\Result;
-use Netgen\BlockManager\Collection\Result\ResultSet;
-use Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultSetNormalizer;
-use Netgen\BlockManager\Serializer\Normalizer\ValueNormalizer;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\Serializer\Stubs\NormalizerStub;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\Collection\Result\ManualItem;
+use Netgen\Layouts\Collection\Result\Result;
+use Netgen\Layouts\Collection\Result\ResultSet;
+use Netgen\Layouts\Serializer\Normalizer\V1\CollectionResultSetNormalizer;
+use Netgen\Layouts\Serializer\Normalizer\ValueNormalizer;
+use Netgen\Layouts\Serializer\Values\VersionedValue;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\Serializer\Stubs\NormalizerStub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Serializer;
 
 final class CollectionResultSetNormalizerTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultSetNormalizer
+     * @var \Netgen\Layouts\Serializer\Normalizer\V1\CollectionResultSetNormalizer
      */
     private $normalizer;
 
@@ -32,9 +32,9 @@ final class CollectionResultSetNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultSetNormalizer::buildVersionedValues
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultSetNormalizer::getOverflowItems
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultSetNormalizer::normalize
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\CollectionResultSetNormalizer::buildVersionedValues
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\CollectionResultSetNormalizer::getOverflowItems
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\CollectionResultSetNormalizer::normalize
      */
     public function testNormalize(): void
     {
@@ -70,7 +70,7 @@ final class CollectionResultSetNormalizerTest extends TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionResultSetNormalizer::supportsNormalization
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\CollectionResultSetNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, bool $expected): void

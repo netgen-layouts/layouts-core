@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Serializer\Normalizer\V1;
+namespace Netgen\Layouts\Serializer\Normalizer\V1;
 
 use DateTime;
 use Generator;
-use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Serializer\Version;
-use Netgen\BlockManager\Utils\BackwardsCompatibility\Locales;
+use Netgen\Layouts\API\Service\BlockService;
+use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
+use Netgen\Layouts\Serializer\Values\VersionedValue;
+use Netgen\Layouts\Serializer\Version;
+use Netgen\Layouts\Utils\BackwardsCompatibility\Locales;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -24,12 +24,12 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
     use NormalizerAwareTrait;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutService
+     * @var \Netgen\Layouts\API\Service\LayoutService
      */
     private $layoutService;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\BlockService
+     * @var \Netgen\Layouts\API\Service\BlockService
      */
     private $blockService;
 
@@ -41,7 +41,7 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
 
     public function normalize($object, $format = null, array $context = [])
     {
-        /** @var \Netgen\BlockManager\API\Values\Layout\Layout $layout */
+        /** @var \Netgen\Layouts\API\Values\Layout\Layout $layout */
         $layout = $object->getValue();
         $layoutType = $layout->getLayoutType();
 
@@ -128,8 +128,8 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
      * Returns all allowed block definitions from provided zone or
      * true if all block definitions are allowed.
      *
-     * @param \Netgen\BlockManager\API\Values\Layout\Zone $zone
-     * @param \Netgen\BlockManager\Layout\Type\LayoutTypeInterface $layoutType
+     * @param \Netgen\Layouts\API\Values\Layout\Zone $zone
+     * @param \Netgen\Layouts\Layout\Type\LayoutTypeInterface $layoutType
      *
      * @return string[]|bool
      */

@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\Service;
+namespace Netgen\Layouts\Tests\Core\Service;
 
-use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
-use Netgen\BlockManager\API\Values\Config\ConfigStruct;
-use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Tests\Core\CoreTestCase;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
+use Netgen\Layouts\API\Values\Collection\CollectionCreateStruct;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\API\Values\Collection\QueryCreateStruct;
+use Netgen\Layouts\API\Values\Config\ConfigStruct;
+use Netgen\Layouts\Exception\BadStateException;
+use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Tests\Core\CoreTestCase;
+use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 
 abstract class BlockServiceTest extends CoreTestCase
 {
     use ExportObjectTrait;
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::__construct
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::loadBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::__construct
+     * @covers \Netgen\Layouts\Core\Service\BlockService::loadBlock
      */
     public function testLoadBlock(): void
     {
@@ -29,7 +29,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::loadBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::loadBlock
      */
     public function testLoadBlockThrowsNotFoundException(): void
     {
@@ -40,7 +40,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::loadBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::loadBlock
      */
     public function testLoadBlockThrowsNotFoundExceptionOnLoadingInternalBlock(): void
     {
@@ -51,8 +51,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::__construct
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::loadBlockDraft
+     * @covers \Netgen\Layouts\Core\Service\BlockService::__construct
+     * @covers \Netgen\Layouts\Core\Service\BlockService::loadBlockDraft
      */
     public function testLoadBlockDraft(): void
     {
@@ -62,7 +62,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::loadBlockDraft
+     * @covers \Netgen\Layouts\Core\Service\BlockService::loadBlockDraft
      */
     public function testLoadBlockDraftThrowsNotFoundException(): void
     {
@@ -73,7 +73,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::loadBlockDraft
+     * @covers \Netgen\Layouts\Core\Service\BlockService::loadBlockDraft
      */
     public function testLoadBlockDraftThrowsNotFoundExceptionOnLoadingInternalBlock(): void
     {
@@ -84,8 +84,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::filterUntranslatedBlocks
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::loadZoneBlocks
+     * @covers \Netgen\Layouts\Core\Service\BlockService::filterUntranslatedBlocks
+     * @covers \Netgen\Layouts\Core\Service\BlockService::loadZoneBlocks
      */
     public function testLoadZoneBlocks(): void
     {
@@ -97,8 +97,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::filterUntranslatedBlocks
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::loadLayoutBlocks
+     * @covers \Netgen\Layouts\Core\Service\BlockService::filterUntranslatedBlocks
+     * @covers \Netgen\Layouts\Core\Service\BlockService::loadLayoutBlocks
      */
     public function testLoadLayoutBlocks(): void
     {
@@ -110,7 +110,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::hasPublishedState
+     * @covers \Netgen\Layouts\Core\Service\BlockService::hasPublishedState
      */
     public function testHasPublishedState(): void
     {
@@ -120,7 +120,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::hasPublishedState
+     * @covers \Netgen\Layouts\Core\Service\BlockService::hasPublishedState
      */
     public function testHasPublishedStateReturnsFalse(): void
     {
@@ -130,8 +130,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::internalCreateBlock
      */
     public function testCreateBlock(): void
     {
@@ -158,8 +158,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::internalCreateBlock
      */
     public function testCreateBlockWithCollection(): void
     {
@@ -191,8 +191,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::internalCreateBlock
      */
     public function testCreateBlockWithDynamicCollection(): void
     {
@@ -235,8 +235,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::internalCreateBlock
      */
     public function testCreateTranslatableBlock(): void
     {
@@ -260,7 +260,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlock
      */
     public function testCreateTranslatableBlockWithNonTranslatableTargetBlock(): void
     {
@@ -289,8 +289,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::internalCreateBlock
      */
     public function testCreateBlockWithConfig(): void
     {
@@ -323,7 +323,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlock
      */
     public function testCreateBlockThrowsBadStateExceptionWithNonDraftTargetBlock(): void
     {
@@ -343,7 +343,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlock
      */
     public function testCreateBlockThrowsBadStateExceptionWithNonContainerTargetBlock(): void
     {
@@ -362,7 +362,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlock
      */
     public function testCreateBlockThrowsBadStateExceptionWithNoPlaceholder(): void
     {
@@ -381,8 +381,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::internalCreateBlock
      */
     public function testCreateBlockWithNoPosition(): void
     {
@@ -402,7 +402,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlock
      */
     public function testCreateBlockThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
@@ -422,7 +422,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlock
      */
     public function testCreateBlockThrowsBadStateExceptionWithContainerInsideContainer(): void
     {
@@ -441,8 +441,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlockInZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::internalCreateBlock
      */
     public function testCreateBlockInZone(): void
     {
@@ -466,8 +466,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlockInZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::internalCreateBlock
      */
     public function testCreateBlockInZoneWithContainerBlock(): void
     {
@@ -488,8 +488,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlockInZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::internalCreateBlock
      */
     public function testCreateBlockInZoneWithoutCollection(): void
     {
@@ -516,8 +516,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlockInZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::internalCreateBlock
      */
     public function testCreateBlockInZoneWhichDoesNotExistInLayoutType(): void
     {
@@ -535,7 +535,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlockInZone
      */
     public function testCreateBlockInZoneThrowsBadStateExceptionWithNonDraftZone(): void
     {
@@ -554,8 +554,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlockInZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::internalCreateBlock
      */
     public function testCreateBlockInZoneWithNonExistentLayoutType(): void
     {
@@ -572,8 +572,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlockInZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::internalCreateBlock
      */
     public function testCreateBlockInZoneWithNoPosition(): void
     {
@@ -594,7 +594,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlockInZone
      */
     public function testCreateBlockInZoneThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
@@ -613,7 +613,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlockInZone
      */
     public function testCreateBlockInZoneThrowsBadStateExceptionWithWithDisallowedIdentifier(): void
     {
@@ -631,8 +631,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlockTranslations
+     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlockTranslations
      */
     public function testUpdateBlock(): void
     {
@@ -662,8 +662,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlockTranslations
+     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlockTranslations
      */
     public function testUpdateBlockInMainLocale(): void
     {
@@ -693,8 +693,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlockTranslations
+     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlockTranslations
      */
     public function testUpdateBlockWithUntranslatableParameters(): void
     {
@@ -722,8 +722,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlockTranslations
+     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlockTranslations
      */
     public function testUpdateBlockWithConfig(): void
     {
@@ -748,8 +748,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlockTranslations
+     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlockTranslations
      */
     public function testUpdateBlockWithBlankName(): void
     {
@@ -771,8 +771,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlockTranslations
+     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlockTranslations
      */
     public function testUpdateBlockWithBlankViewType(): void
     {
@@ -794,7 +794,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlock
      */
     public function testUpdateBlockThrowsBadStateExceptionWithNonDraftBlock(): void
     {
@@ -813,7 +813,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlock
      */
     public function testUpdateBlockThrowsBadStateExceptionWithNonExistingLocale(): void
     {
@@ -832,7 +832,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlock
      */
     public function testCopyBlock(): void
     {
@@ -851,7 +851,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlock
      */
     public function testCopyBlockWithPosition(): void
     {
@@ -871,7 +871,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlock
      */
     public function testCopyBlockWithSamePosition(): void
     {
@@ -891,7 +891,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlock
      */
     public function testCopyBlockThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
@@ -907,7 +907,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlock
      */
     public function testCopyBlockThrowsBadStateExceptionWithNonDraftBlock(): void
     {
@@ -922,7 +922,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlock
      */
     public function testCopyBlockThrowsBadStateExceptionWithNonDraftTargetBlock(): void
     {
@@ -937,7 +937,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlock
      */
     public function testCopyBlockThrowsBadStateExceptionWithNonContainerTargetBlock(): void
     {
@@ -952,7 +952,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlock
      */
     public function testCopyBlockThrowsBadStateExceptionWithNoPlaceholder(): void
     {
@@ -967,7 +967,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlock
      */
     public function testCopyBlockThrowsBadStateExceptionWithContainerInsideContainer(): void
     {
@@ -982,7 +982,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlock
      */
     public function testCopyBlockThrowsBadStateExceptionWhenTargetBlockIsInDifferentLayout(): void
     {
@@ -997,7 +997,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlockToZone
      */
     public function testCopyBlockToZone(): void
     {
@@ -1024,7 +1024,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlockToZone
      */
     public function testCopyBlockToZoneWithPosition(): void
     {
@@ -1046,7 +1046,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlockToZone
      */
     public function testCopyBlockToZoneWithSamePosition(): void
     {
@@ -1068,7 +1068,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlockToZone
      */
     public function testCopyBlockToZoneWithLastPosition(): void
     {
@@ -1090,7 +1090,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlockToZone
      */
     public function testCopyBlockToZoneWithLowerPosition(): void
     {
@@ -1112,7 +1112,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlockToZone
      */
     public function testCopyBlockToZoneThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
@@ -1127,7 +1127,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlockToZone
      */
     public function testCopyBlockToZoneThrowsBadStateExceptionWithNonDraftBlock(): void
     {
@@ -1141,7 +1141,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlockToZone
      */
     public function testCopyBlockToZoneThrowsBadStateExceptionWithNonDraftZone(): void
     {
@@ -1155,7 +1155,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlockToZone
      */
     public function testCopyBlockToZoneThrowsBadStateExceptionWithDisallowedIdentifier(): void
     {
@@ -1169,7 +1169,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlockToZone
      */
     public function testCopyBlockToZoneThrowsBadStateExceptionWhenZoneIsInDifferentLayout(): void
     {
@@ -1183,8 +1183,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::internalMoveBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlock
      */
     public function testMoveBlock(): void
     {
@@ -1205,8 +1205,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::internalMoveBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlock
      */
     public function testMoveBlockToDifferentPlaceholder(): void
     {
@@ -1229,8 +1229,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::internalMoveBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlock
      */
     public function testMoveBlockToDifferentBlock(): void
     {
@@ -1254,7 +1254,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlock
      */
     public function testMoveBlockThrowsBadStateExceptionWithNonDraftBlock(): void
     {
@@ -1270,7 +1270,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlock
      */
     public function testMoveBlockThrowsBadStateExceptionWithNonDraftTargetBlock(): void
     {
@@ -1286,7 +1286,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlock
      */
     public function testMoveBlockThrowsBadStateExceptionWhenTargetBlockIsNotContainer(): void
     {
@@ -1302,7 +1302,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlock
      */
     public function testMoveBlockThrowsBadStateExceptionWithNoPlaceholder(): void
     {
@@ -1318,7 +1318,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlock
      */
     public function testMoveBlockThrowsBadStateExceptionWithContainerInsideContainer(): void
     {
@@ -1334,7 +1334,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlock
      */
     public function testMoveBlockThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
@@ -1350,7 +1350,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlock
      */
     public function testMoveBlockThrowsBadStateExceptionWhenTargetBlockIsInDifferentLayout(): void
     {
@@ -1366,8 +1366,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::internalMoveBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlockToZone
      */
     public function testMoveBlockToZone(): void
     {
@@ -1387,8 +1387,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::internalMoveBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlockToZone
      */
     public function testMoveBlockToDifferentZone(): void
     {
@@ -1408,7 +1408,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlockToZone
      */
     public function testMoveBlockToZoneThrowsBadStateExceptionWithNonDraftBlock(): void
     {
@@ -1423,7 +1423,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlockToZone
      */
     public function testMoveBlockToZoneThrowsBadStateExceptionWithNonDraftZone(): void
     {
@@ -1438,7 +1438,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlockToZone
      */
     public function testMoveBlockToZoneThrowsBadStateExceptionWhenPositionIsTooLarge(): void
     {
@@ -1453,7 +1453,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlockToZone
      */
     public function testMoveBlockToZoneThrowsBadStateExceptionWhenZoneIsInDifferentLayout(): void
     {
@@ -1468,7 +1468,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlockToZone
      */
     public function testMoveBlockToZoneThrowsBadStateExceptionWithDisallowedIdentifier(): void
     {
@@ -1483,7 +1483,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::restoreBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::restoreBlock
      */
     public function testRestoreBlock(): void
     {
@@ -1526,7 +1526,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::restoreBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::restoreBlock
      */
     public function testRestoreBlockRestoresMissingTranslations(): void
     {
@@ -1546,7 +1546,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::restoreBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::restoreBlock
      */
     public function testRestoreBlockThrowsBadStateExceptionWithNonDraftBlock(): void
     {
@@ -1559,7 +1559,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::enableTranslations
+     * @covers \Netgen\Layouts\Core\Service\BlockService::enableTranslations
      */
     public function testEnableTranslations(): void
     {
@@ -1576,7 +1576,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::enableTranslations
+     * @covers \Netgen\Layouts\Core\Service\BlockService::enableTranslations
      */
     public function testEnableTranslationsThrowsBadStateExceptionWithNonDraftBlock(): void
     {
@@ -1589,7 +1589,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::enableTranslations
+     * @covers \Netgen\Layouts\Core\Service\BlockService::enableTranslations
      */
     public function testEnableTranslationsThrowsBadStateExceptionWithEnabledTranslations(): void
     {
@@ -1602,7 +1602,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::enableTranslations
+     * @covers \Netgen\Layouts\Core\Service\BlockService::enableTranslations
      */
     public function testEnableTranslationsThrowsBadStateExceptionWithNonTranslatableParentBlock(): void
     {
@@ -1618,8 +1618,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::disableTranslations
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalDisableTranslations
+     * @covers \Netgen\Layouts\Core\Service\BlockService::disableTranslations
+     * @covers \Netgen\Layouts\Core\Service\BlockService::internalDisableTranslations
      */
     public function testDisableTranslations(): void
     {
@@ -1634,8 +1634,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::disableTranslations
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalDisableTranslations
+     * @covers \Netgen\Layouts\Core\Service\BlockService::disableTranslations
+     * @covers \Netgen\Layouts\Core\Service\BlockService::internalDisableTranslations
      */
     public function testDisableTranslationsOnContainer(): void
     {
@@ -1659,7 +1659,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::disableTranslations
+     * @covers \Netgen\Layouts\Core\Service\BlockService::disableTranslations
      */
     public function testDisableTranslationsThrowsBadStateExceptionWithNonDraftBlock(): void
     {
@@ -1672,7 +1672,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::disableTranslations
+     * @covers \Netgen\Layouts\Core\Service\BlockService::disableTranslations
      */
     public function testDisableTranslationsThrowsBadStateExceptionWithDisabledTranslations(): void
     {
@@ -1685,7 +1685,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::deleteBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::deleteBlock
      */
     public function testDeleteBlock(): void
     {
@@ -1699,7 +1699,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::deleteBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::deleteBlock
      */
     public function testDeleteThrowsBadStateExceptionBlockWithNonDraftBlock(): void
     {
@@ -1711,7 +1711,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::newBlockCreateStruct
+     * @covers \Netgen\Layouts\Core\Service\BlockService::newBlockCreateStruct
      */
     public function testNewBlockCreateStruct(): void
     {
@@ -1739,7 +1739,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::newBlockUpdateStruct
+     * @covers \Netgen\Layouts\Core\Service\BlockService::newBlockUpdateStruct
      */
     public function testNewBlockUpdateStruct(): void
     {
@@ -1760,7 +1760,7 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::newBlockUpdateStruct
+     * @covers \Netgen\Layouts\Core\Service\BlockService::newBlockUpdateStruct
      */
     public function testNewBlockUpdateStructFromBlock(): void
     {

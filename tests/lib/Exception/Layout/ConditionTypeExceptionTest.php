@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Exception\Layout;
+namespace Netgen\Layouts\Tests\Exception\Layout;
 
-use Netgen\BlockManager\Exception\Layout\ConditionTypeException;
+use Netgen\Layouts\Exception\Layout\ConditionTypeException;
 use PHPUnit\Framework\TestCase;
 
 final class ConditionTypeExceptionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Exception\Layout\ConditionTypeException::noConditionType
+     * @covers \Netgen\Layouts\Exception\Layout\ConditionTypeException::noConditionType
      */
     public function testNoConditionType(): void
     {
@@ -23,7 +23,7 @@ final class ConditionTypeExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\Layout\ConditionTypeException::noFormMapper
+     * @covers \Netgen\Layouts\Exception\Layout\ConditionTypeException::noFormMapper
      */
     public function testNoFormMapper(): void
     {

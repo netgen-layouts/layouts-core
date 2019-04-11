@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\Block;
+namespace Netgen\Layouts\Tests\API\Values\Block;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Block\Placeholder;
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Exception\API\BlockException;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\Placeholder;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Exception\API\BlockException;
+use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandler;
 use PHPUnit\Framework\TestCase;
 
 final class BlockTest extends TestCase
@@ -22,10 +22,10 @@ final class BlockTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Block\Block::__construct
-     * @covers \Netgen\BlockManager\API\Values\Block\Block::getAvailableLocales
-     * @covers \Netgen\BlockManager\API\Values\Block\Block::getCollections
-     * @covers \Netgen\BlockManager\API\Values\Block\Block::getPlaceholders
+     * @covers \Netgen\Layouts\API\Values\Block\Block::__construct
+     * @covers \Netgen\Layouts\API\Values\Block\Block::getAvailableLocales
+     * @covers \Netgen\Layouts\API\Values\Block\Block::getCollections
+     * @covers \Netgen\Layouts\API\Values\Block\Block::getPlaceholders
      */
     public function testDefaultProperties(): void
     {
@@ -37,27 +37,27 @@ final class BlockTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Block\Block::__construct
-     * @covers \Netgen\BlockManager\API\Values\Block\Block::getAvailableLocales
-     * @covers \Netgen\BlockManager\API\Values\Block\Block::getCollection
-     * @covers \Netgen\BlockManager\API\Values\Block\Block::getCollections
-     * @covers \Netgen\BlockManager\API\Values\Block\Block::getDefinition
-     * @covers \Netgen\BlockManager\API\Values\Block\Block::getId
-     * @covers \Netgen\BlockManager\API\Values\Block\Block::getItemViewType
-     * @covers \Netgen\BlockManager\API\Values\Block\Block::getLayoutId
-     * @covers \Netgen\BlockManager\API\Values\Block\Block::getLocale
-     * @covers \Netgen\BlockManager\API\Values\Block\Block::getMainLocale
-     * @covers \Netgen\BlockManager\API\Values\Block\Block::getName
-     * @covers \Netgen\BlockManager\API\Values\Block\Block::getParentBlockId
-     * @covers \Netgen\BlockManager\API\Values\Block\Block::getParentPlaceholder
-     * @covers \Netgen\BlockManager\API\Values\Block\Block::getPlaceholder
-     * @covers \Netgen\BlockManager\API\Values\Block\Block::getPlaceholders
-     * @covers \Netgen\BlockManager\API\Values\Block\Block::getPosition
-     * @covers \Netgen\BlockManager\API\Values\Block\Block::getViewType
-     * @covers \Netgen\BlockManager\API\Values\Block\Block::hasCollection
-     * @covers \Netgen\BlockManager\API\Values\Block\Block::hasPlaceholder
-     * @covers \Netgen\BlockManager\API\Values\Block\Block::isAlwaysAvailable
-     * @covers \Netgen\BlockManager\API\Values\Block\Block::isTranslatable
+     * @covers \Netgen\Layouts\API\Values\Block\Block::__construct
+     * @covers \Netgen\Layouts\API\Values\Block\Block::getAvailableLocales
+     * @covers \Netgen\Layouts\API\Values\Block\Block::getCollection
+     * @covers \Netgen\Layouts\API\Values\Block\Block::getCollections
+     * @covers \Netgen\Layouts\API\Values\Block\Block::getDefinition
+     * @covers \Netgen\Layouts\API\Values\Block\Block::getId
+     * @covers \Netgen\Layouts\API\Values\Block\Block::getItemViewType
+     * @covers \Netgen\Layouts\API\Values\Block\Block::getLayoutId
+     * @covers \Netgen\Layouts\API\Values\Block\Block::getLocale
+     * @covers \Netgen\Layouts\API\Values\Block\Block::getMainLocale
+     * @covers \Netgen\Layouts\API\Values\Block\Block::getName
+     * @covers \Netgen\Layouts\API\Values\Block\Block::getParentBlockId
+     * @covers \Netgen\Layouts\API\Values\Block\Block::getParentPlaceholder
+     * @covers \Netgen\Layouts\API\Values\Block\Block::getPlaceholder
+     * @covers \Netgen\Layouts\API\Values\Block\Block::getPlaceholders
+     * @covers \Netgen\Layouts\API\Values\Block\Block::getPosition
+     * @covers \Netgen\Layouts\API\Values\Block\Block::getViewType
+     * @covers \Netgen\Layouts\API\Values\Block\Block::hasCollection
+     * @covers \Netgen\Layouts\API\Values\Block\Block::hasPlaceholder
+     * @covers \Netgen\Layouts\API\Values\Block\Block::isAlwaysAvailable
+     * @covers \Netgen\Layouts\API\Values\Block\Block::isTranslatable
      */
     public function testSetProperties(): void
     {
@@ -133,9 +133,9 @@ final class BlockTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Block\Block::buildDynamicParameters
-     * @covers \Netgen\BlockManager\API\Values\Block\Block::getDynamicParameter
-     * @covers \Netgen\BlockManager\API\Values\Block\Block::hasDynamicParameter
+     * @covers \Netgen\Layouts\API\Values\Block\Block::buildDynamicParameters
+     * @covers \Netgen\Layouts\API\Values\Block\Block::getDynamicParameter
+     * @covers \Netgen\Layouts\API\Values\Block\Block::hasDynamicParameter
      */
     public function testGetDynamicParameter(): void
     {
@@ -160,7 +160,7 @@ final class BlockTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Block\Block::isContextual
+     * @covers \Netgen\Layouts\API\Values\Block\Block::isContextual
      */
     public function testIsContextual(): void
     {

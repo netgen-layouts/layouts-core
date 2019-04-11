@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\Controller\API\V1\BlockCollection;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
 use Netgen\Bundle\LayoutsBundle\Tests\Controller\API\JsonApiTestCase;
+use Netgen\Layouts\API\Values\Collection\Collection;
 use Symfony\Component\HttpFoundation\Request;
 
 final class ChangeCollectionTypeTest extends JsonApiTestCase

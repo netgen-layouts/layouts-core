@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Transfer\Output\Visitor\Integration;
+namespace Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Transfer\Output\Visitor\RuleVisitor;
-use Netgen\BlockManager\Transfer\Output\VisitorInterface;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Transfer\Output\Visitor\RuleVisitor;
+use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 abstract class RuleVisitorTest extends VisitorTest
 {

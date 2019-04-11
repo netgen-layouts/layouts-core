@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Collection\Registry;
+namespace Netgen\Layouts\Collection\Registry;
 
 use ArrayIterator;
-use Netgen\BlockManager\Collection\Item\ItemDefinitionInterface;
-use Netgen\BlockManager\Exception\Collection\ItemDefinitionException;
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\Layouts\Collection\Item\ItemDefinitionInterface;
+use Netgen\Layouts\Exception\Collection\ItemDefinitionException;
+use Netgen\Layouts\Exception\RuntimeException;
 use Traversable;
 
 final class ItemDefinitionRegistry implements ItemDefinitionRegistryInterface
 {
     /**
-     * @var \Netgen\BlockManager\Collection\Item\ItemDefinitionInterface[]
+     * @var \Netgen\Layouts\Collection\Item\ItemDefinitionInterface[]
      */
     private $itemDefinitions;
 
     /**
-     * @param \Netgen\BlockManager\Collection\Item\ItemDefinitionInterface[] $itemDefinitions
+     * @param \Netgen\Layouts\Collection\Item\ItemDefinitionInterface[] $itemDefinitions
      */
     public function __construct(array $itemDefinitions)
     {

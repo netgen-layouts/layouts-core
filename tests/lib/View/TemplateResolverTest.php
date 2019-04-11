@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View;
+namespace Netgen\Layouts\Tests\View;
 
-use Netgen\BlockManager\Exception\View\TemplateResolverException;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\View\Matcher\MatcherInterface;
-use Netgen\BlockManager\View\TemplateResolver;
+use Netgen\Layouts\Exception\View\TemplateResolverException;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\View\Stubs\View;
+use Netgen\Layouts\View\Matcher\MatcherInterface;
+use Netgen\Layouts\View\TemplateResolver;
 use PHPUnit\Framework\TestCase;
 
 final class TemplateResolverTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\View\ViewInterface
+     * @var \Netgen\Layouts\View\ViewInterface
      */
     private $view;
 
     /**
-     * @var \Netgen\BlockManager\Tests\API\Stubs\Value
+     * @var \Netgen\Layouts\Tests\API\Stubs\Value
      */
     private $value;
 
@@ -32,10 +32,10 @@ final class TemplateResolverTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver::__construct
-     * @covers \Netgen\BlockManager\View\TemplateResolver::evaluateParameters
-     * @covers \Netgen\BlockManager\View\TemplateResolver::matches
-     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
+     * @covers \Netgen\Layouts\View\TemplateResolver::__construct
+     * @covers \Netgen\Layouts\View\TemplateResolver::evaluateParameters
+     * @covers \Netgen\Layouts\View\TemplateResolver::matches
+     * @covers \Netgen\Layouts\View\TemplateResolver::resolveTemplate
      */
     public function testResolveTemplate(): void
     {
@@ -99,9 +99,9 @@ final class TemplateResolverTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver::evaluateParameters
-     * @covers \Netgen\BlockManager\View\TemplateResolver::matches
-     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
+     * @covers \Netgen\Layouts\View\TemplateResolver::evaluateParameters
+     * @covers \Netgen\Layouts\View\TemplateResolver::matches
+     * @covers \Netgen\Layouts\View\TemplateResolver::resolveTemplate
      */
     public function testResolveTemplateWithEmptyMatchConfig(): void
     {
@@ -132,9 +132,9 @@ final class TemplateResolverTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver::evaluateParameters
-     * @covers \Netgen\BlockManager\View\TemplateResolver::matches
-     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
+     * @covers \Netgen\Layouts\View\TemplateResolver::evaluateParameters
+     * @covers \Netgen\Layouts\View\TemplateResolver::matches
+     * @covers \Netgen\Layouts\View\TemplateResolver::resolveTemplate
      */
     public function testResolveTemplateWithMultipleMatches(): void
     {
@@ -166,9 +166,9 @@ final class TemplateResolverTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver::evaluateParameters
-     * @covers \Netgen\BlockManager\View\TemplateResolver::matches
-     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
+     * @covers \Netgen\Layouts\View\TemplateResolver::evaluateParameters
+     * @covers \Netgen\Layouts\View\TemplateResolver::matches
+     * @covers \Netgen\Layouts\View\TemplateResolver::resolveTemplate
      */
     public function testResolveTemplateWithFallbackContext(): void
     {
@@ -198,7 +198,7 @@ final class TemplateResolverTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
+     * @covers \Netgen\Layouts\View\TemplateResolver::resolveTemplate
      */
     public function testResolveTemplateThrowsTemplateResolverExceptionIfNoContext(): void
     {
@@ -210,7 +210,7 @@ final class TemplateResolverTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
+     * @covers \Netgen\Layouts\View\TemplateResolver::resolveTemplate
      */
     public function testResolveTemplateThrowsTemplateResolverExceptionIfEmptyContext(): void
     {
@@ -226,8 +226,8 @@ final class TemplateResolverTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver::matches
-     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
+     * @covers \Netgen\Layouts\View\TemplateResolver::matches
+     * @covers \Netgen\Layouts\View\TemplateResolver::resolveTemplate
      */
     public function testResolveTemplateThrowsTemplateResolverExceptionIfNoMatch(): void
     {
@@ -265,8 +265,8 @@ final class TemplateResolverTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\TemplateResolver::matches
-     * @covers \Netgen\BlockManager\View\TemplateResolver::resolveTemplate
+     * @covers \Netgen\Layouts\View\TemplateResolver::matches
+     * @covers \Netgen\Layouts\View\TemplateResolver::resolveTemplate
      */
     public function testResolveTemplateThrowsTemplateResolverExceptionIfNoMatcher(): void
     {

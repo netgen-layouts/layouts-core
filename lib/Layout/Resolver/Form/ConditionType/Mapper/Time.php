@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper;
+namespace Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper;
 
-use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper;
-use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Type\TimeType;
+use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper;
+use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Type\TimeType;
 
 final class Time extends Mapper
 {

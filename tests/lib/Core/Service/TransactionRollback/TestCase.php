@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
+namespace Netgen\Layouts\Tests\Core\Service\TransactionRollback;
 
-use Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface;
-use Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface;
-use Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface;
-use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandlerInterface;
-use Netgen\BlockManager\Persistence\TransactionHandlerInterface;
-use Netgen\BlockManager\Tests\Core\CoreTestCase;
+use Netgen\Layouts\Persistence\Handler\BlockHandlerInterface;
+use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
+use Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface;
+use Netgen\Layouts\Persistence\Handler\LayoutResolverHandlerInterface;
+use Netgen\Layouts\Persistence\TransactionHandlerInterface;
+use Netgen\Layouts\Tests\Core\CoreTestCase;
 
 /**
  * @property \PHPUnit\Framework\MockObject\MockObject $transactionHandler

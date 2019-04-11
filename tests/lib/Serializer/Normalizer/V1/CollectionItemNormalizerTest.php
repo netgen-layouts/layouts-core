@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
+namespace Netgen\Layouts\Tests\Serializer\Normalizer\V1;
 
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\Collection\Item\ItemDefinition;
-use Netgen\BlockManager\Collection\Item\VisibilityResolver;
-use Netgen\BlockManager\Item\CmsItem;
-use Netgen\BlockManager\Item\UrlGeneratorInterface;
-use Netgen\BlockManager\Serializer\Normalizer\V1\CollectionItemNormalizer;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
+use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\Collection\Item\ItemDefinition;
+use Netgen\Layouts\Collection\Item\VisibilityResolver;
+use Netgen\Layouts\Item\CmsItem;
+use Netgen\Layouts\Item\UrlGeneratorInterface;
+use Netgen\Layouts\Serializer\Normalizer\V1\CollectionItemNormalizer;
+use Netgen\Layouts\Serializer\Values\VersionedValue;
+use Netgen\Layouts\Tests\API\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
@@ -28,7 +28,7 @@ final class CollectionItemNormalizerTest extends TestCase
     private $urlGeneratorMock;
 
     /**
-     * @var \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionItemNormalizer
+     * @var \Netgen\Layouts\Serializer\Normalizer\V1\CollectionItemNormalizer
      */
     private $normalizer;
 
@@ -42,8 +42,8 @@ final class CollectionItemNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionItemNormalizer::__construct
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionItemNormalizer::normalize
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\CollectionItemNormalizer::__construct
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\CollectionItemNormalizer::normalize
      */
     public function testNormalize(): void
     {
@@ -104,7 +104,7 @@ final class CollectionItemNormalizerTest extends TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\CollectionItemNormalizer::supportsNormalization
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\CollectionItemNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, bool $expected): void

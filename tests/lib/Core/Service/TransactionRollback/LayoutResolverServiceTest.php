@@ -2,30 +2,30 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
+namespace Netgen\Layouts\Tests\Core\Service\TransactionRollback;
 
 use Exception;
-use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleCreateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\Target;
-use Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct;
-use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter;
-use Netgen\BlockManager\Layout\Resolver\TargetType\Route;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition as PersistenceCondition;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
+use Netgen\Layouts\API\Values\LayoutResolver\Condition;
+use Netgen\Layouts\API\Values\LayoutResolver\ConditionCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\ConditionUpdateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleUpdateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\Target;
+use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\TargetUpdateStruct;
+use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\Layout\Resolver\ConditionType\RouteParameter;
+use Netgen\Layouts\Layout\Resolver\TargetType\Route;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition as PersistenceCondition;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
 
 final class LayoutResolverServiceTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::createRule
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRule
      */
     public function testCreateRule(): void
     {
@@ -45,7 +45,7 @@ final class LayoutResolverServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateRule
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRule
      */
     public function testUpdateRule(): void
     {
@@ -73,7 +73,7 @@ final class LayoutResolverServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateRuleMetadata
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRuleMetadata
      */
     public function testUpdateRuleMetadata(): void
     {
@@ -101,7 +101,7 @@ final class LayoutResolverServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::copyRule
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::copyRule
      */
     public function testCopyRule(): void
     {
@@ -126,7 +126,7 @@ final class LayoutResolverServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::createDraft
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createDraft
      */
     public function testCreateDraft(): void
     {
@@ -156,7 +156,7 @@ final class LayoutResolverServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::discardDraft
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::discardDraft
      */
     public function testDiscardDraft(): void
     {
@@ -181,7 +181,7 @@ final class LayoutResolverServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::publishRule
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::publishRule
      */
     public function testPublishRule(): void
     {
@@ -206,7 +206,7 @@ final class LayoutResolverServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::restoreFromArchive
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::restoreFromArchive
      */
     public function testRestoreFromArchive(): void
     {
@@ -236,7 +236,7 @@ final class LayoutResolverServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteRule
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::deleteRule
      */
     public function testDeleteRule(): void
     {
@@ -261,7 +261,7 @@ final class LayoutResolverServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::enableRule
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::enableRule
      */
     public function testEnableRule(): void
     {
@@ -293,7 +293,7 @@ final class LayoutResolverServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::disableRule
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::disableRule
      */
     public function testDisableRule(): void
     {
@@ -324,7 +324,7 @@ final class LayoutResolverServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::addTarget
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::addTarget
      */
     public function testAddTarget(): void
     {
@@ -360,7 +360,7 @@ final class LayoutResolverServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateTarget
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateTarget
      */
     public function testUpdateTarget(): void
     {
@@ -388,7 +388,7 @@ final class LayoutResolverServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteTarget
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::deleteTarget
      */
     public function testDeleteTarget(): void
     {
@@ -413,7 +413,7 @@ final class LayoutResolverServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::addCondition
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::addCondition
      */
     public function testAddCondition(): void
     {
@@ -444,7 +444,7 @@ final class LayoutResolverServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::updateCondition
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateCondition
      */
     public function testUpdateCondition(): void
     {
@@ -472,7 +472,7 @@ final class LayoutResolverServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::deleteCondition
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::deleteCondition
      */
     public function testDeleteCondition(): void
     {

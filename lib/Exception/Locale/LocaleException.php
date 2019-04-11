@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Exception\Locale;
+namespace Netgen\Layouts\Exception\Locale;
 
-use Netgen\BlockManager\Exception\Exception;
+use Netgen\Layouts\Exception\Exception;
 use RuntimeException;
 
 final class LocaleException extends RuntimeException implements Exception

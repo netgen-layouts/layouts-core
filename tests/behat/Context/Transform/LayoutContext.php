@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Behat\Context\Transform;
 
 use Behat\Behat\Context\Context;
-use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\Exception\NotFoundException;
 
 final class LayoutContext implements Context
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutService
+     * @var \Netgen\Layouts\API\Service\LayoutService
      */
     private $layoutService;
 
@@ -25,7 +25,7 @@ final class LayoutContext implements Context
      * @Transform /^layout called "([^"]+)"$/
      * @Transform :layout
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException
+     * @throws \Netgen\Layouts\Exception\NotFoundException
      */
     public function getLayoutByName(string $layoutName): Layout
     {
@@ -44,7 +44,7 @@ final class LayoutContext implements Context
      * @Transform /^shared layout called "([^"]+)"$/
      * @Transform :sharedLayout
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException
+     * @throws \Netgen\Layouts\Exception\NotFoundException
      */
     public function getSharedLayoutByName(string $layoutName): Layout
     {

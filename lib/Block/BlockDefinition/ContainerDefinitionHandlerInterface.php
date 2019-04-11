@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Block\BlockDefinition;
+namespace Netgen\Layouts\Block\BlockDefinition;
 
 /**
  * Container definition handler represents the dynamic/runtime part of the

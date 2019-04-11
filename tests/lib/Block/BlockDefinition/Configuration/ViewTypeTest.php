@@ -2,27 +2,27 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Configuration;
+namespace Netgen\Layouts\Tests\Block\BlockDefinition\Configuration;
 
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
-use Netgen\BlockManager\Exception\Block\BlockDefinitionException;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
+use Netgen\Layouts\Exception\Block\BlockDefinitionException;
 use PHPUnit\Framework\TestCase;
 
 final class ViewTypeTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType
+     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType
      */
     private $viewType;
 
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType
+     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType
      */
     private $itemViewType1;
 
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType
+     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType
      */
     private $itemViewType2;
 
@@ -45,7 +45,7 @@ final class ViewTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType::getIdentifier
+     * @covers \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType::getIdentifier
      */
     public function testGetIdentifier(): void
     {
@@ -53,7 +53,7 @@ final class ViewTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType::getName
+     * @covers \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType::getName
      */
     public function testGetName(): void
     {
@@ -61,7 +61,7 @@ final class ViewTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType::getItemViewTypes
+     * @covers \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType::getItemViewTypes
      */
     public function testGetItemViewTypes(): void
     {
@@ -75,7 +75,7 @@ final class ViewTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType::getItemViewTypeIdentifiers
+     * @covers \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType::getItemViewTypeIdentifiers
      */
     public function testGetItemViewTypeIdentifiers(): void
     {
@@ -86,7 +86,7 @@ final class ViewTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType::hasItemViewType
+     * @covers \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType::hasItemViewType
      */
     public function testHasItemViewType(): void
     {
@@ -95,7 +95,7 @@ final class ViewTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType::getItemViewType
+     * @covers \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType::getItemViewType
      */
     public function testGetItemViewType(): void
     {
@@ -106,7 +106,7 @@ final class ViewTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType::getItemViewType
+     * @covers \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType::getItemViewType
      */
     public function testGetItemViewTypeThrowsBlockDefinitionException(): void
     {
@@ -117,7 +117,7 @@ final class ViewTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType::getValidParameters
+     * @covers \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType::getValidParameters
      */
     public function testGetValidParameters(): void
     {

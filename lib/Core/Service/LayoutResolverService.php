@@ -2,65 +2,65 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Core\Service;
+namespace Netgen\Layouts\Core\Service;
 
-use Netgen\BlockManager\API\Service\LayoutResolverService as APILayoutResolverService;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct as APIConditionCreateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct as APIConditionUpdateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleCreateStruct as APIRuleCreateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleList;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct as APIRuleMetadataUpdateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct as APIRuleUpdateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\Target;
-use Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct as APITargetCreateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct as APITargetUpdateStruct;
-use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Core\Mapper\LayoutResolverMapper;
-use Netgen\BlockManager\Core\StructBuilder\LayoutResolverStructBuilder;
-use Netgen\BlockManager\Core\Validator\LayoutResolverValidator;
-use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface;
-use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandlerInterface;
-use Netgen\BlockManager\Persistence\TransactionHandlerInterface;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition as PersistenceCondition;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionCreateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleCreateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetCreateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetUpdateStruct;
+use Netgen\Layouts\API\Service\LayoutResolverService as APILayoutResolverService;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\LayoutResolver\Condition;
+use Netgen\Layouts\API\Values\LayoutResolver\ConditionCreateStruct as APIConditionCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\ConditionUpdateStruct as APIConditionUpdateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleCreateStruct as APIRuleCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleList;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleMetadataUpdateStruct as APIRuleMetadataUpdateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleUpdateStruct as APIRuleUpdateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\Target;
+use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct as APITargetCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\TargetUpdateStruct as APITargetUpdateStruct;
+use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\Core\Mapper\LayoutResolverMapper;
+use Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder;
+use Netgen\Layouts\Core\Validator\LayoutResolverValidator;
+use Netgen\Layouts\Exception\BadStateException;
+use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface;
+use Netgen\Layouts\Persistence\Handler\LayoutResolverHandlerInterface;
+use Netgen\Layouts\Persistence\TransactionHandlerInterface;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition as PersistenceCondition;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\ConditionCreateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCreateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleUpdateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetCreateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetUpdateStruct;
 
 final class LayoutResolverService extends Service implements APILayoutResolverService
 {
     /**
-     * @var \Netgen\BlockManager\Core\Validator\LayoutResolverValidator
+     * @var \Netgen\Layouts\Core\Validator\LayoutResolverValidator
      */
     private $validator;
 
     /**
-     * @var \Netgen\BlockManager\Core\Mapper\LayoutResolverMapper
+     * @var \Netgen\Layouts\Core\Mapper\LayoutResolverMapper
      */
     private $mapper;
 
     /**
-     * @var \Netgen\BlockManager\Core\StructBuilder\LayoutResolverStructBuilder
+     * @var \Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder
      */
     private $structBuilder;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandlerInterface
+     * @var \Netgen\Layouts\Persistence\Handler\LayoutResolverHandlerInterface
      */
     private $layoutResolverHandler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface
+     * @var \Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface
      */
     private $layoutHandler;
 

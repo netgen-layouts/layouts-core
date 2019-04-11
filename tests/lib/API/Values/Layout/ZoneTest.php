@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\Layout;
+namespace Netgen\Layouts\Tests\API\Values\Layout;
 
-use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\API\Values\Value;
+use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\API\Values\Value;
 use PHPUnit\Framework\TestCase;
 
 final class ZoneTest extends TestCase
@@ -16,10 +16,10 @@ final class ZoneTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Layout\Zone::getIdentifier
-     * @covers \Netgen\BlockManager\API\Values\Layout\Zone::getLayoutId
-     * @covers \Netgen\BlockManager\API\Values\Layout\Zone::getLinkedZone
-     * @covers \Netgen\BlockManager\API\Values\Layout\Zone::hasLinkedZone
+     * @covers \Netgen\Layouts\API\Values\Layout\Zone::getIdentifier
+     * @covers \Netgen\Layouts\API\Values\Layout\Zone::getLayoutId
+     * @covers \Netgen\Layouts\API\Values\Layout\Zone::getLinkedZone
+     * @covers \Netgen\Layouts\API\Values\Layout\Zone::hasLinkedZone
      */
     public function testSetProperties(): void
     {

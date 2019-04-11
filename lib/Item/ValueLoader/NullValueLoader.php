@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Item\ValueLoader;
+namespace Netgen\Layouts\Item\ValueLoader;
 
-use Netgen\BlockManager\Item\ValueLoaderInterface;
+use Netgen\Layouts\Item\ValueLoaderInterface;
 
 final class NullValueLoader implements ValueLoaderInterface
 {

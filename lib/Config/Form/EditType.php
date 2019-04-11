@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Config\Form;
+namespace Netgen\Layouts\Config\Form;
 
-use Netgen\BlockManager\API\Values\Config\Config;
-use Netgen\BlockManager\API\Values\Config\ConfigAwareStruct;
-use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
-use Netgen\BlockManager\Config\ConfigDefinitionInterface;
-use Netgen\BlockManager\Form\AbstractType;
-use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
-use Netgen\BlockManager\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
+use Netgen\Layouts\API\Values\Config\Config;
+use Netgen\Layouts\API\Values\Config\ConfigAwareStruct;
+use Netgen\Layouts\API\Values\Config\ConfigAwareValue;
+use Netgen\Layouts\Config\ConfigDefinitionInterface;
+use Netgen\Layouts\Form\AbstractType;
+use Netgen\Layouts\Parameters\Form\Type\ParametersType;
+use Netgen\Layouts\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -52,10 +52,10 @@ final class EditType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        /** @var \Netgen\BlockManager\API\Values\Config\ConfigAwareValue $value */
+        /** @var \Netgen\Layouts\API\Values\Config\ConfigAwareValue $value */
         $value = $options['configurable'];
 
-        /** @var \Netgen\BlockManager\API\Values\Config\ConfigAwareStruct $data */
+        /** @var \Netgen\Layouts\API\Values\Config\ConfigAwareStruct $data */
         $data = $options['data'];
 
         $configKeys = [$options['config_key']];

@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\StructBuilder;
+namespace Netgen\Layouts\Tests\Core\StructBuilder;
 
-use Netgen\BlockManager\Core\StructBuilder\LayoutResolverStructBuilder;
-use Netgen\BlockManager\Tests\Core\CoreTestCase;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
+use Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder;
+use Netgen\Layouts\Tests\Core\CoreTestCase;
+use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 
 abstract class LayoutResolverStructBuilderTest extends CoreTestCase
 {
     use ExportObjectTrait;
 
     /**
-     * @var \Netgen\BlockManager\Core\StructBuilder\LayoutResolverStructBuilder
+     * @var \Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder
      */
     private $structBuilder;
 
@@ -25,7 +25,7 @@ abstract class LayoutResolverStructBuilderTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\StructBuilder\LayoutResolverStructBuilder::newRuleCreateStruct
+     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder::newRuleCreateStruct
      */
     public function testNewRuleCreateStruct(): void
     {
@@ -43,7 +43,7 @@ abstract class LayoutResolverStructBuilderTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\StructBuilder\LayoutResolverStructBuilder::newRuleUpdateStruct
+     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder::newRuleUpdateStruct
      */
     public function testNewRuleUpdateStruct(): void
     {
@@ -59,7 +59,7 @@ abstract class LayoutResolverStructBuilderTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\StructBuilder\LayoutResolverStructBuilder::newRuleMetadataUpdateStruct
+     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder::newRuleMetadataUpdateStruct
      */
     public function testNewRuleMetadataUpdateStruct(): void
     {
@@ -74,7 +74,7 @@ abstract class LayoutResolverStructBuilderTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\StructBuilder\LayoutResolverStructBuilder::newTargetCreateStruct
+     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder::newTargetCreateStruct
      */
     public function testNewTargetCreateStruct(): void
     {
@@ -90,7 +90,7 @@ abstract class LayoutResolverStructBuilderTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\StructBuilder\LayoutResolverStructBuilder::newTargetUpdateStruct
+     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder::newTargetUpdateStruct
      */
     public function testNewTargetUpdateStruct(): void
     {
@@ -105,7 +105,7 @@ abstract class LayoutResolverStructBuilderTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\StructBuilder\LayoutResolverStructBuilder::newConditionCreateStruct
+     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder::newConditionCreateStruct
      */
     public function testNewConditionCreateStruct(): void
     {
@@ -121,7 +121,7 @@ abstract class LayoutResolverStructBuilderTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\StructBuilder\LayoutResolverStructBuilder::newConditionUpdateStruct
+     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder::newConditionUpdateStruct
      */
     public function testNewConditionUpdateStruct(): void
     {

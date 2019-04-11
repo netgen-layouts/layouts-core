@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Browser\Item\Layout;
+namespace Netgen\Layouts\Tests\Browser\Item\Layout;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\Browser\Item\Layout\Item;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\Browser\Item\Layout\Item;
 use PHPUnit\Framework\TestCase;
 
 final class ItemTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Layout\Layout
+     * @var \Netgen\Layouts\API\Values\Layout\Layout
      */
     private $layout;
 
     /**
-     * @var \Netgen\BlockManager\Browser\Item\Layout\Item
+     * @var \Netgen\Layouts\Browser\Item\Layout\Item
      */
     private $item;
 
@@ -28,8 +28,8 @@ final class ItemTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Item\Layout\Item::__construct
-     * @covers \Netgen\BlockManager\Browser\Item\Layout\Item::getValue
+     * @covers \Netgen\Layouts\Browser\Item\Layout\Item::__construct
+     * @covers \Netgen\Layouts\Browser\Item\Layout\Item::getValue
      */
     public function testGetValue(): void
     {
@@ -37,7 +37,7 @@ final class ItemTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Item\Layout\Item::getName
+     * @covers \Netgen\Layouts\Browser\Item\Layout\Item::getName
      */
     public function testGetName(): void
     {
@@ -45,7 +45,7 @@ final class ItemTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Item\Layout\Item::isVisible
+     * @covers \Netgen\Layouts\Browser\Item\Layout\Item::isVisible
      */
     public function testIsVisible(): void
     {
@@ -53,7 +53,7 @@ final class ItemTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Item\Layout\Item::isSelectable
+     * @covers \Netgen\Layouts\Browser\Item\Layout\Item::isSelectable
      */
     public function testIsSelectable(): void
     {
@@ -61,7 +61,7 @@ final class ItemTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Item\Layout\Item::getLayout
+     * @covers \Netgen\Layouts\Browser\Item\Layout\Item::getLayout
      */
     public function testGetLayout(): void
     {

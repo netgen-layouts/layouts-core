@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Block\BlockDefinition;
+namespace Netgen\Layouts\Block\BlockDefinition;
 
-use Netgen\BlockManager\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\Block;
 
 /**
  * Twig block handler represents the dynamic/runtime part of the

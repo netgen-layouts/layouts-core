@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Form;
+namespace Netgen\Layouts\Tests\Form;
 
-use Netgen\BlockManager\Form\KeyValuesType;
-use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Netgen\Layouts\Form\KeyValuesType;
+use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormTypeInterface;
@@ -16,8 +16,8 @@ use Symfony\Component\Validator\Constraints;
 final class KeyValuesTypeTest extends FormTestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Form\KeyValuesType::buildForm
-     * @covers \Netgen\BlockManager\Form\KeyValuesType::buildView
+     * @covers \Netgen\Layouts\Form\KeyValuesType::buildForm
+     * @covers \Netgen\Layouts\Form\KeyValuesType::buildView
      */
     public function testSubmitValidData(): void
     {
@@ -67,7 +67,7 @@ final class KeyValuesTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Form\KeyValuesType::configureOptions
+     * @covers \Netgen\Layouts\Form\KeyValuesType::configureOptions
      */
     public function testConfigureOptions(): void
     {
@@ -97,7 +97,7 @@ final class KeyValuesTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Form\KeyValuesType::configureOptions
+     * @covers \Netgen\Layouts\Form\KeyValuesType::configureOptions
      */
     public function testConfigureOptionsWithInvalidConstraint(): void
     {
@@ -121,7 +121,7 @@ final class KeyValuesTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Form\KeyValuesType::getBlockPrefix
+     * @covers \Netgen\Layouts\Form\KeyValuesType::getBlockPrefix
      */
     public function testGetBlockPrefix(): void
     {

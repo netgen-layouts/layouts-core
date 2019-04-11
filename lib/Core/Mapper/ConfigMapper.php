@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Core\Mapper;
+namespace Netgen\Layouts\Core\Mapper;
 
 use Generator;
-use Netgen\BlockManager\API\Values\Config\Config;
-use Netgen\BlockManager\API\Values\ParameterStruct;
+use Netgen\Layouts\API\Values\Config\Config;
+use Netgen\Layouts\API\Values\ParameterStruct;
 
 final class ConfigMapper
 {
     /**
-     * @var \Netgen\BlockManager\Core\Mapper\ParameterMapper
+     * @var \Netgen\Layouts\Core\Mapper\ParameterMapper
      */
     private $parameterMapper;
 
@@ -24,7 +24,7 @@ final class ConfigMapper
      * Maps the provided config array to API values according to provided config definitions.
      *
      * @param array<string, array<string, mixed>> $config
-     * @param \Netgen\BlockManager\Config\ConfigDefinitionInterface[] $configDefinitions
+     * @param \Netgen\Layouts\Config\ConfigDefinitionInterface[] $configDefinitions
      *
      * @return \Generator
      */
@@ -49,8 +49,8 @@ final class ConfigMapper
     /**
      * Serializes the existing config struct values based on provided config definitions.
      *
-     * @param \Netgen\BlockManager\API\Values\ParameterStruct[] $configStructs
-     * @param \Netgen\BlockManager\Config\ConfigDefinitionInterface[] $configDefinitions
+     * @param \Netgen\Layouts\API\Values\ParameterStruct[] $configStructs
+     * @param \Netgen\Layouts\Config\ConfigDefinitionInterface[] $configDefinitions
      * @param array<string, array<string, mixed>> $fallbackValues
      *
      * @return \Generator

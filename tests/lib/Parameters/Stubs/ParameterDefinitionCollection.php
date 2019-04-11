@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\Stubs;
+namespace Netgen\Layouts\Tests\Parameters\Stubs;
 
-use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;
-use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionTrait;
+use Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface;
+use Netgen\Layouts\Parameters\ParameterDefinitionCollectionTrait;
 
 final class ParameterDefinitionCollection implements ParameterDefinitionCollectionInterface
 {

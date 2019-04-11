@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Exception\Collection;
+namespace Netgen\Layouts\Exception\Collection;
 
 use InvalidArgumentException;
-use Netgen\BlockManager\Exception\Exception;
+use Netgen\Layouts\Exception\Exception;
 
 final class QueryTypeException extends InvalidArgumentException implements Exception
 {

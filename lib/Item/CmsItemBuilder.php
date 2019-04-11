@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Item;
+namespace Netgen\Layouts\Item;
 
-use Netgen\BlockManager\Exception\Item\ValueException;
+use Netgen\Layouts\Exception\Item\ValueException;
 
 final class CmsItemBuilder implements CmsItemBuilderInterface
 {
     /**
-     * @var \Netgen\BlockManager\Item\ValueConverterInterface[]
+     * @var \Netgen\Layouts\Item\ValueConverterInterface[]
      */
     private $valueConverters = [];
 

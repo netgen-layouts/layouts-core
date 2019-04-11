@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Layout\Type;
+namespace Netgen\Layouts\Layout\Type;
 
-use Netgen\BlockManager\Utils\HydratorTrait;
+use Netgen\Layouts\Utils\HydratorTrait;
 
 final class Zone
 {

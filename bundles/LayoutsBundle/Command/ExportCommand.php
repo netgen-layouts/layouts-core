@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Command;
 
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Transfer\Output\SerializerInterface;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Transfer\Output\SerializerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -18,7 +18,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 final class ExportCommand extends Command
 {
     /**
-     * @var \Netgen\BlockManager\Transfer\Output\SerializerInterface
+     * @var \Netgen\Layouts\Transfer\Output\SerializerInterface
      */
     private $serializer;
 

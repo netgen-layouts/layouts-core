@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Core\StructBuilder;
+namespace Netgen\Layouts\Core\StructBuilder;
 
-use Netgen\BlockManager\API\Values\Config\ConfigAwareStruct;
-use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
-use Netgen\BlockManager\API\Values\Config\ConfigStruct;
+use Netgen\Layouts\API\Values\Config\ConfigAwareStruct;
+use Netgen\Layouts\API\Values\Config\ConfigAwareValue;
+use Netgen\Layouts\API\Values\Config\ConfigStruct;
 
 final class ConfigStructBuilder
 {

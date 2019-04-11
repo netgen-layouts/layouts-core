@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\TestCase;
+namespace Netgen\Layouts\Tests\TestCase;
 
-use Netgen\BlockManager\Utils\Hydrator;
+use Netgen\Layouts\Utils\Hydrator;
 
 trait ExportObjectTrait
 {

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\Form\ConditionType\Type;
+namespace Netgen\Layouts\Tests\Layout\Resolver\Form\ConditionType\Type;
 
-use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Type\TimeType;
-use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Type\TimeType;
+use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
 
 final class TimeTypeTest extends FormTestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Type\TimeType::buildForm
+     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType\Type\TimeType::buildForm
      */
     public function testSubmitValidData(): void
     {
@@ -53,7 +53,7 @@ final class TimeTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Type\TimeType::getBlockPrefix
+     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType\Type\TimeType::getBlockPrefix
      */
     public function testGetBlockPrefix(): void
     {

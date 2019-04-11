@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Serializer\Normalizer\V1;
+namespace Netgen\Layouts\Serializer\Normalizer\V1;
 
 use Generator;
-use Netgen\BlockManager\API\Values\Block\Placeholder;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Serializer\Values\View;
-use Netgen\BlockManager\Serializer\Version;
+use Netgen\Layouts\API\Values\Block\Placeholder;
+use Netgen\Layouts\Serializer\Values\VersionedValue;
+use Netgen\Layouts\Serializer\Values\View;
+use Netgen\Layouts\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -19,7 +19,7 @@ final class PlaceholderNormalizer implements NormalizerInterface, NormalizerAwar
 
     public function normalize($object, $format = null, array $context = [])
     {
-        /** @var \Netgen\BlockManager\API\Values\Block\Placeholder $placeholder */
+        /** @var \Netgen\Layouts\API\Values\Block\Placeholder $placeholder */
         $placeholder = $object->getValue();
 
         $blocks = $this->buildViewValues($placeholder, $object->getVersion());

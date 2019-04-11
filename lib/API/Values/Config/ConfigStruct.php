@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\Config;
+namespace Netgen\Layouts\API\Values\Config;
 
-use Netgen\BlockManager\API\Values\ParameterStruct;
-use Netgen\BlockManager\API\Values\ParameterStructTrait;
-use Netgen\BlockManager\Config\ConfigDefinitionInterface;
+use Netgen\Layouts\API\Values\ParameterStruct;
+use Netgen\Layouts\API\Values\ParameterStructTrait;
+use Netgen\Layouts\Config\ConfigDefinitionInterface;
 
 final class ConfigStruct implements ParameterStruct
 {

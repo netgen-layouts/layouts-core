@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\Service\Doctrine;
+namespace Netgen\Layouts\Tests\Core\Service\Doctrine;
 
-use Netgen\BlockManager\Tests\Core\Service\BlockServiceTest as BaseBlockServiceTest;
-use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
+use Netgen\Layouts\Tests\Core\Service\BlockServiceTest as BaseBlockServiceTest;
+use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 
 final class BlockServiceTest extends BaseBlockServiceTest
 {

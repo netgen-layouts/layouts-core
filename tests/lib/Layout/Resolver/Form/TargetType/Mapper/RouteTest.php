@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\Form\TargetType\Mapper;
+namespace Netgen\Layouts\Tests\Layout\Resolver\Form\TargetType\Mapper;
 
-use Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\Route;
+use Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\Route;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 final class RouteTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\Form\TargetType\MapperInterface
+     * @var \Netgen\Layouts\Layout\Resolver\Form\TargetType\MapperInterface
      */
     private $mapper;
 
@@ -21,7 +21,7 @@ final class RouteTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper\Route::getFormType
+     * @covers \Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\Route::getFormType
      */
     public function testGetFormType(): void
     {

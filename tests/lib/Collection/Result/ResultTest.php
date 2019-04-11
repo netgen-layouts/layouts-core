@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Collection\Result;
+namespace Netgen\Layouts\Tests\Collection\Result;
 
-use Netgen\BlockManager\Collection\Result\Result;
-use Netgen\BlockManager\Item\CmsItem;
+use Netgen\Layouts\Collection\Result\Result;
+use Netgen\Layouts\Item\CmsItem;
 use PHPUnit\Framework\TestCase;
 
 final class ResultTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\Result::__construct
-     * @covers \Netgen\BlockManager\Collection\Result\Result::getItem
-     * @covers \Netgen\BlockManager\Collection\Result\Result::getPosition
-     * @covers \Netgen\BlockManager\Collection\Result\Result::getSubItem
+     * @covers \Netgen\Layouts\Collection\Result\Result::__construct
+     * @covers \Netgen\Layouts\Collection\Result\Result::getItem
+     * @covers \Netgen\Layouts\Collection\Result\Result::getPosition
+     * @covers \Netgen\Layouts\Collection\Result\Result::getSubItem
      */
     public function testObject(): void
     {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\StructBuilder\Doctrine;
+namespace Netgen\Layouts\Tests\Core\StructBuilder\Doctrine;
 
-use Netgen\BlockManager\Tests\Core\StructBuilder\CollectionStructBuilderTest as BaseCollectionStructBuilderTest;
-use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
+use Netgen\Layouts\Tests\Core\StructBuilder\CollectionStructBuilderTest as BaseCollectionStructBuilderTest;
+use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 
 final class CollectionStructBuilderTest extends BaseCollectionStructBuilderTest
 {

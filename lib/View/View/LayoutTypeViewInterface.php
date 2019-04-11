@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View\View;
+namespace Netgen\Layouts\View\View;
 
-use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
-use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
+use Netgen\Layouts\View\ViewInterface;
 
 interface LayoutTypeViewInterface extends ViewInterface
 {

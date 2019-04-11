@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\StructBuilder;
+namespace Netgen\Layouts\Tests\Core\StructBuilder;
 
-use Netgen\BlockManager\Core\StructBuilder\LayoutStructBuilder;
-use Netgen\BlockManager\Layout\Type\LayoutType;
-use Netgen\BlockManager\Tests\Core\CoreTestCase;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
+use Netgen\Layouts\Core\StructBuilder\LayoutStructBuilder;
+use Netgen\Layouts\Layout\Type\LayoutType;
+use Netgen\Layouts\Tests\Core\CoreTestCase;
+use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 
 abstract class LayoutStructBuilderTest extends CoreTestCase
 {
     use ExportObjectTrait;
 
     /**
-     * @var \Netgen\BlockManager\Core\StructBuilder\LayoutStructBuilder
+     * @var \Netgen\Layouts\Core\StructBuilder\LayoutStructBuilder
      */
     private $structBuilder;
 
@@ -26,7 +26,7 @@ abstract class LayoutStructBuilderTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\StructBuilder\LayoutStructBuilder::newLayoutCreateStruct
+     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutStructBuilder::newLayoutCreateStruct
      */
     public function testNewLayoutCreateStruct(): void
     {
@@ -51,7 +51,7 @@ abstract class LayoutStructBuilderTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\StructBuilder\LayoutStructBuilder::newLayoutUpdateStruct
+     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutStructBuilder::newLayoutUpdateStruct
      */
     public function testNewLayoutUpdateStruct(): void
     {
@@ -69,7 +69,7 @@ abstract class LayoutStructBuilderTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\StructBuilder\LayoutStructBuilder::newLayoutUpdateStruct
+     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutStructBuilder::newLayoutUpdateStruct
      */
     public function testNewLayoutUpdateStructWithNoLayout(): void
     {
@@ -85,7 +85,7 @@ abstract class LayoutStructBuilderTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\StructBuilder\LayoutStructBuilder::newLayoutCopyStruct
+     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutStructBuilder::newLayoutCopyStruct
      */
     public function testNewLayoutCopyStruct(): void
     {
@@ -103,7 +103,7 @@ abstract class LayoutStructBuilderTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\StructBuilder\LayoutStructBuilder::newLayoutCopyStruct
+     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutStructBuilder::newLayoutCopyStruct
      */
     public function testNewLayoutCopyStructWithNoLayout(): void
     {

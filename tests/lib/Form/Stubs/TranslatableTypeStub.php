@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Form\Stubs;
+namespace Netgen\Layouts\Tests\Form\Stubs;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\Form\AbstractType;
-use Netgen\BlockManager\Form\TranslatableTypeTrait;
-use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
+use Netgen\Layouts\Form\AbstractType;
+use Netgen\Layouts\Form\TranslatableTypeTrait;
+use Netgen\Layouts\Parameters\Form\Type\ParametersType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;

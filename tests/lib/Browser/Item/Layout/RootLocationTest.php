@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Browser\Item\Layout;
+namespace Netgen\Layouts\Tests\Browser\Item\Layout;
 
-use Netgen\BlockManager\Browser\Item\Layout\RootLocation;
+use Netgen\Layouts\Browser\Item\Layout\RootLocation;
 use PHPUnit\Framework\TestCase;
 
 final class RootLocationTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Browser\Item\Layout\RootLocation
+     * @var \Netgen\Layouts\Browser\Item\Layout\RootLocation
      */
     private $location;
 
@@ -20,7 +20,7 @@ final class RootLocationTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Item\Layout\RootLocation::getLocationId
+     * @covers \Netgen\Layouts\Browser\Item\Layout\RootLocation::getLocationId
      */
     public function testGetLocationId(): void
     {
@@ -28,7 +28,7 @@ final class RootLocationTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Item\Layout\RootLocation::getName
+     * @covers \Netgen\Layouts\Browser\Item\Layout\RootLocation::getName
      */
     public function testGetName(): void
     {
@@ -36,7 +36,7 @@ final class RootLocationTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Item\Layout\RootLocation::getParentId
+     * @covers \Netgen\Layouts\Browser\Item\Layout\RootLocation::getParentId
      */
     public function testGetParentId(): void
     {

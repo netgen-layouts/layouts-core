@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\Matcher\Form\Config;
+namespace Netgen\Layouts\Tests\View\Matcher\Form\Config;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\View\Matcher\Stubs\Form;
-use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\View\Matcher\Form\Config\ValueType;
-use Netgen\BlockManager\View\View\FormView;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\View\Matcher\Stubs\Form;
+use Netgen\Layouts\Tests\View\Stubs\View;
+use Netgen\Layouts\View\Matcher\Form\Config\ValueType;
+use Netgen\Layouts\View\View\FormView;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Forms;
 
@@ -23,7 +23,7 @@ final class ValueTypeTest extends TestCase
     private $formFactory;
 
     /**
-     * @var \Netgen\BlockManager\View\Matcher\MatcherInterface
+     * @var \Netgen\Layouts\View\Matcher\MatcherInterface
      */
     private $matcher;
 
@@ -36,7 +36,7 @@ final class ValueTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Form\Config\ValueType::match
+     * @covers \Netgen\Layouts\View\Matcher\Form\Config\ValueType::match
      * @dataProvider matchProvider
      */
     public function testMatch(array $config, bool $expected): void
@@ -64,7 +64,7 @@ final class ValueTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Form\Config\ValueType::match
+     * @covers \Netgen\Layouts\View\Matcher\Form\Config\ValueType::match
      */
     public function testMatchWithNoFormView(): void
     {
@@ -72,7 +72,7 @@ final class ValueTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Form\Config\ValueType::match
+     * @covers \Netgen\Layouts\View\Matcher\Form\Config\ValueType::match
      */
     public function testMatchWithNoConfigurable(): void
     {
@@ -82,7 +82,7 @@ final class ValueTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Form\Config\ValueType::match
+     * @covers \Netgen\Layouts\View\Matcher\Form\Config\ValueType::match
      */
     public function testMatchWithInvalidConfigurable(): void
     {

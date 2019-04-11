@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Transfer\Output\Visitor\Integration;
+namespace Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Item\CmsItem;
-use Netgen\BlockManager\Transfer\Output\Visitor\ItemVisitor;
-use Netgen\BlockManager\Transfer\Output\VisitorInterface;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Item\CmsItem;
+use Netgen\Layouts\Transfer\Output\Visitor\ItemVisitor;
+use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 abstract class ItemVisitorTest extends VisitorTest
 {

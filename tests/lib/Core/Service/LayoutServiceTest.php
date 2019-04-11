@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\Service;
+namespace Netgen\Layouts\Tests\Core\Service;
 
 use DateTime;
 use DateTimeImmutable;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
-use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Layout\Type\LayoutType;
-use Netgen\BlockManager\Tests\Core\CoreTestCase;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\LayoutCopyStruct;
+use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\Exception\BadStateException;
+use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Layout\Type\LayoutType;
+use Netgen\Layouts\Tests\Core\CoreTestCase;
+use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 
 abstract class LayoutServiceTest extends CoreTestCase
 {
     use ExportObjectTrait;
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::__construct
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayout
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::__construct
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::loadLayout
      */
     public function testLoadLayout(): void
     {
@@ -31,7 +31,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayout
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::loadLayout
      */
     public function testLoadLayoutThrowsNotFoundException(): void
     {
@@ -42,8 +42,8 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::__construct
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayoutDraft
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::__construct
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::loadLayoutDraft
      */
     public function testLoadLayoutDraft(): void
     {
@@ -53,7 +53,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayoutDraft
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::loadLayoutDraft
      */
     public function testLoadLayoutDraftThrowsNotFoundException(): void
     {
@@ -64,8 +64,8 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::__construct
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayoutArchive
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::__construct
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::loadLayoutArchive
      */
     public function testLoadLayoutArchive(): void
     {
@@ -75,7 +75,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayoutArchive
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::loadLayoutArchive
      */
     public function testLoadLayoutArchiveThrowsNotFoundException(): void
     {
@@ -86,7 +86,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayouts
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::loadLayouts
      */
     public function testLoadLayouts(): void
     {
@@ -101,7 +101,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadLayouts
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::loadLayouts
      */
     public function testLoadLayoutsWithUnpublishedLayouts(): void
     {
@@ -124,7 +124,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::getLayoutsCount
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::getLayoutsCount
      */
     public function testGetLayoutsCount(): void
     {
@@ -132,7 +132,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::getLayoutsCount
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::getLayoutsCount
      */
     public function testGetLayoutsCountWithUnpublishedLayouts(): void
     {
@@ -140,7 +140,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadSharedLayouts
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::loadSharedLayouts
      */
     public function testLoadSharedLayouts(): void
     {
@@ -155,7 +155,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::getSharedLayoutsCount
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::getSharedLayoutsCount
      */
     public function testGetSharedLayoutsCount(): void
     {
@@ -163,7 +163,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadAllLayouts
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::loadAllLayouts
      */
     public function testLoadAllLayouts(): void
     {
@@ -177,7 +177,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::getAllLayoutsCount
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::getAllLayoutsCount
      */
     public function testGetAllLayoutsCount(): void
     {
@@ -185,7 +185,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadRelatedLayouts
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::loadRelatedLayouts
      */
     public function testLoadRelatedLayouts(): void
     {
@@ -201,7 +201,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadRelatedLayouts
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::loadRelatedLayouts
      */
     public function testLoadRelatedLayoutsThrowsBadStateExceptionWithNonPublishedSharedLayout(): void
     {
@@ -213,7 +213,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadRelatedLayouts
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::loadRelatedLayouts
      */
     public function testLoadRelatedLayoutsThrowsBadStateExceptionWithNonSharedLayout(): void
     {
@@ -225,7 +225,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::getRelatedLayoutsCount
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::getRelatedLayoutsCount
      */
     public function testGetRelatedLayoutsCount(): void
     {
@@ -236,7 +236,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::getRelatedLayoutsCount
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::getRelatedLayoutsCount
      */
     public function testGetRelatedLayoutsCountThrowsBadStateExceptionWithNonPublishedSharedLayout(): void
     {
@@ -248,7 +248,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::getRelatedLayoutsCount
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::getRelatedLayoutsCount
      */
     public function testGetRelatedLayoutsCountThrowsBadStateExceptionWithNonSharedLayout(): void
     {
@@ -260,7 +260,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::hasStatus
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::hasStatus
      */
     public function testHasStatus(): void
     {
@@ -268,7 +268,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::hasStatus
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::hasStatus
      */
     public function testHasPublishedStateReturnsFalse(): void
     {
@@ -276,7 +276,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadZone
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::loadZone
      */
     public function testLoadZone(): void
     {
@@ -286,7 +286,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadZone
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::loadZone
      */
     public function testLoadZoneThrowsNotFoundExceptionOnNonExistingLayout(): void
     {
@@ -297,7 +297,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadZone
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::loadZone
      */
     public function testLoadZoneThrowsNotFoundExceptionOnNonExistingZone(): void
     {
@@ -308,7 +308,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadZoneDraft
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::loadZoneDraft
      */
     public function testLoadZoneDraft(): void
     {
@@ -318,7 +318,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadZoneDraft
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::loadZoneDraft
      */
     public function testLoadZoneDraftThrowsNotFoundExceptionOnNonExistingLayout(): void
     {
@@ -329,7 +329,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::loadZoneDraft
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::loadZoneDraft
      */
     public function testLoadZoneDraftThrowsNotFoundExceptionOnNonExistingZoneDraft(): void
     {
@@ -340,7 +340,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::layoutNameExists
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::layoutNameExists
      */
     public function testLayoutNameExists(): void
     {
@@ -348,7 +348,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::layoutNameExists
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::layoutNameExists
      */
     public function testLayoutNameNotExistsWithExcludedLayoutId(): void
     {
@@ -356,7 +356,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::layoutNameExists
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::layoutNameExists
      */
     public function testLayoutNameNotExists(): void
     {
@@ -364,7 +364,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::linkZone
      */
     public function testLinkZone(): void
     {
@@ -380,7 +380,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::linkZone
      */
     public function testLinkZoneThrowsBadStateExceptionWhenInSharedLayout(): void
     {
@@ -394,7 +394,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::linkZone
      */
     public function testLinkZoneThrowsBadStateExceptionWithNonDraftZone(): void
     {
@@ -408,7 +408,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::linkZone
      */
     public function testLinkZoneThrowsBadStateExceptionWithNonPublishedLinkedZone(): void
     {
@@ -422,7 +422,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::linkZone
      */
     public function testLinkZoneThrowsBadStateExceptionWhenLinkedZoneNotInSharedLayout(): void
     {
@@ -436,7 +436,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::linkZone
      */
     public function testLinkZoneThrowsBadStateExceptionWhenInTheSameLayout(): void
     {
@@ -450,7 +450,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::unlinkZone
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::unlinkZone
      */
     public function testUnlinkZone(): void
     {
@@ -462,7 +462,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::unlinkZone
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::unlinkZone
      */
     public function testUnlinkZoneThrowsBadStateExceptionWithNonDraftZone(): void
     {
@@ -475,7 +475,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::createLayout
      */
     public function testCreateLayout(): void
     {
@@ -498,7 +498,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::createLayout
      */
     public function testCreateLayoutThrowsBadStateExceptionOnExistingName(): void
     {
@@ -515,7 +515,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::addTranslation
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::addTranslation
      */
     public function testAddTranslation(): void
     {
@@ -544,7 +544,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::addTranslation
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::addTranslation
      */
     public function testAddTranslationThrowsBadStateExceptionWithNonDraftLayout(): void
     {
@@ -557,7 +557,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::addTranslation
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::addTranslation
      */
     public function testAddTranslationThrowsBadStateExceptionWithExistingLocale(): void
     {
@@ -570,7 +570,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::setMainTranslation
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::setMainTranslation
      */
     public function testSetMainTranslation(): void
     {
@@ -595,7 +595,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::setMainTranslation
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::setMainTranslation
      */
     public function testSetMainTranslationThrowsBadStateExceptionWithNonDraftLayout(): void
     {
@@ -608,7 +608,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::setMainTranslation
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::setMainTranslation
      */
     public function testSetMainTranslationThrowsBadStateExceptionWithNonExistingLocale(): void
     {
@@ -621,7 +621,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::removeTranslation
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::removeTranslation
      */
     public function testRemoveTranslation(): void
     {
@@ -644,7 +644,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::removeTranslation
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::removeTranslation
      */
     public function testRemoveTranslationThrowsBadStateExceptionWithNonDraftLayout(): void
     {
@@ -657,7 +657,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::removeTranslation
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::removeTranslation
      */
     public function testRemoveTranslationThrowsBadStateExceptionWithNonExistingLocale(): void
     {
@@ -670,7 +670,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::removeTranslation
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::removeTranslation
      */
     public function testRemoveTranslationThrowsBadStateExceptionWithMainLocale(): void
     {
@@ -683,7 +683,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::updateLayout
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::updateLayout
      */
     public function testUpdateLayout(): void
     {
@@ -708,7 +708,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::updateLayout
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::updateLayout
      */
     public function testUpdateLayoutThrowsBadStateExceptionWithNonDraftLayout(): void
     {
@@ -724,7 +724,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::updateLayout
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::updateLayout
      */
     public function testUpdateLayoutThrowsBadStateExceptionWithExistingLayoutName(): void
     {
@@ -743,7 +743,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::copyLayout
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::copyLayout
      */
     public function testCopyLayout(): void
     {
@@ -769,7 +769,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::copyLayout
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::copyLayout
      */
     public function testCopyLayoutThrowsBadStateExceptionOnExistingLayoutName(): void
     {
@@ -784,7 +784,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::changeLayoutType
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::changeLayoutType
      */
     public function testChangeLayoutType(): void
     {
@@ -835,7 +835,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::changeLayoutType
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::changeLayoutType
      */
     public function testChangeLayoutTypeWithSameLayoutType(): void
     {
@@ -886,7 +886,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::changeLayoutType
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::changeLayoutType
      */
     public function testChangeLayoutTypeWithSharedZones(): void
     {
@@ -942,7 +942,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::changeLayoutType
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::changeLayoutType
      */
     public function testChangeLayoutTypeWithSameLayoutTypeAndSharedZones(): void
     {
@@ -998,7 +998,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::changeLayoutType
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::changeLayoutType
      */
     public function testChangeLayoutTypeWithSharedZonesAndDiscardingSharedZones(): void
     {
@@ -1047,7 +1047,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::changeLayoutType
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::changeLayoutType
      */
     public function testChangeLayoutTypeWithSameLayoutTypeAndSharedZonesAndDiscardingSharedZones(): void
     {
@@ -1096,7 +1096,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::changeLayoutType
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::changeLayoutType
      */
     public function testChangeLayoutTypeThrowsBadStateExceptionOnNonDraftLayout(): void
     {
@@ -1113,7 +1113,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createDraft
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::createDraft
      */
     public function testCreateDraft(): void
     {
@@ -1131,7 +1131,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createDraft
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::createDraft
      */
     public function testCreateDraftWithDiscardingExistingDraft(): void
     {
@@ -1149,7 +1149,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createDraft
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::createDraft
      */
     public function testCreateDraftThrowsBadStateExceptionWithNonPublishedLayout(): void
     {
@@ -1161,7 +1161,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createDraft
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::createDraft
      */
     public function testCreateDraftThrowsBadStateExceptionIfDraftAlreadyExists(): void
     {
@@ -1173,7 +1173,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::discardDraft
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::discardDraft
      */
     public function testDiscardDraft(): void
     {
@@ -1187,7 +1187,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::discardDraft
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::discardDraft
      */
     public function testDiscardDraftThrowsBadStateExceptionWithNonDraftLayout(): void
     {
@@ -1199,7 +1199,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::publishLayout
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::publishLayout
      */
     public function testPublishLayout(): void
     {
@@ -1232,7 +1232,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::publishLayout
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::publishLayout
      */
     public function testPublishLayoutThrowsBadStateExceptionWithNonDraftLayout(): void
     {
@@ -1244,7 +1244,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::restoreFromArchive
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::restoreFromArchive
      */
     public function testRestoreFromArchive(): void
     {
@@ -1266,7 +1266,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::restoreFromArchive
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::restoreFromArchive
      */
     public function testRestoreFromArchiveWithoutDraft(): void
     {
@@ -1283,7 +1283,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::restoreFromArchive
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::restoreFromArchive
      */
     public function testRestoreFromArchiveThrowsBadStateExceptionOnNonArchivedLayout(): void
     {
@@ -1296,7 +1296,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::restoreFromArchive
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::restoreFromArchive
      */
     public function testRestoreFromArchiveThrowsNotFoundExceptionOnNonExistingPublishedVersion(): void
     {
@@ -1310,7 +1310,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::deleteLayout
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::deleteLayout
      */
     public function testDeleteLayout(): void
     {
@@ -1324,7 +1324,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::newLayoutCreateStruct
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::newLayoutCreateStruct
      */
     public function testNewLayoutCreateStruct(): void
     {
@@ -1349,7 +1349,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::newLayoutUpdateStruct
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::newLayoutUpdateStruct
      */
     public function testNewLayoutUpdateStruct(): void
     {
@@ -1367,7 +1367,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::newLayoutUpdateStruct
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::newLayoutUpdateStruct
      */
     public function testNewLayoutUpdateStructWithNoLayout(): void
     {
@@ -1383,7 +1383,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::newLayoutCopyStruct
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::newLayoutCopyStruct
      */
     public function testNewLayoutCopyStruct(): void
     {
@@ -1401,7 +1401,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::newLayoutCopyStruct
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::newLayoutCopyStruct
      */
     public function testNewLayoutCopyStructWithNoLayout(): void
     {

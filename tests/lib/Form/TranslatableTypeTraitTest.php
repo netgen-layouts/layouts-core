@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Form;
+namespace Netgen\Layouts\Tests\Form;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension;
-use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithTranslatableCompoundParameter;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithUntranslatableCompoundParameter;
-use Netgen\BlockManager\Tests\Form\Stubs\TranslatableTypeStub;
-use Netgen\BlockManager\Tests\Parameters\Stubs\FormMapper;
-use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
+use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension;
+use Netgen\Layouts\Parameters\Form\Type\ParametersType;
+use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandlerWithTranslatableCompoundParameter;
+use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandlerWithUntranslatableCompoundParameter;
+use Netgen\Layouts\Tests\Form\Stubs\TranslatableTypeStub;
+use Netgen\Layouts\Tests\Parameters\Stubs\FormMapper;
+use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
 
 final class TranslatableTypeTraitTest extends FormTestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Form\TranslatableTypeTrait::disableUntranslatableForms
+     * @covers \Netgen\Layouts\Form\TranslatableTypeTrait::disableUntranslatableForms
      */
     public function testDisableUntranslatableFormsWithTranslatableCompoundParameter(): void
     {
@@ -53,7 +53,7 @@ final class TranslatableTypeTraitTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Form\TranslatableTypeTrait::disableUntranslatableForms
+     * @covers \Netgen\Layouts\Form\TranslatableTypeTrait::disableUntranslatableForms
      */
     public function testDisableUntranslatableFormsWithUntranslatableCompoundParameter(): void
     {

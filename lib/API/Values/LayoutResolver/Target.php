@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\LayoutResolver;
+namespace Netgen\Layouts\API\Values\LayoutResolver;
 
-use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\API\Values\ValueStatusTrait;
-use Netgen\BlockManager\Layout\Resolver\TargetTypeInterface;
-use Netgen\BlockManager\Utils\HydratorTrait;
+use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\API\Values\ValueStatusTrait;
+use Netgen\Layouts\Layout\Resolver\TargetTypeInterface;
+use Netgen\Layouts\Utils\HydratorTrait;
 
 final class Target implements Value
 {
@@ -25,7 +25,7 @@ final class Target implements Value
     private $ruleId;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\TargetTypeInterface
+     * @var \Netgen\Layouts\Layout\Resolver\TargetTypeInterface
      */
     private $targetType;
 

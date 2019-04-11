@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Collection\QueryType;
+namespace Netgen\Layouts\Collection\QueryType;
 
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionTrait;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\Parameters\ParameterDefinitionCollectionTrait;
 
 final class NullQueryType implements QueryTypeInterface
 {

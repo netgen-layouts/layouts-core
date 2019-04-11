@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Validator;
+namespace Netgen\Layouts\Validator;
 
-use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\Validator\Constraint\LayoutName;
+use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\Validator\Constraint\LayoutName;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 final class LayoutNameValidator extends ConstraintValidator
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutService
+     * @var \Netgen\Layouts\API\Service\LayoutService
      */
     private $layoutService;
 

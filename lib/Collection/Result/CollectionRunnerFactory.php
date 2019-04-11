@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Collection\Result;
+namespace Netgen\Layouts\Collection\Result;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\Collection\Item\VisibilityResolverInterface;
-use Netgen\BlockManager\Item\CmsItemBuilderInterface;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\Collection\Item\VisibilityResolverInterface;
+use Netgen\Layouts\Item\CmsItemBuilderInterface;
 
 final class CollectionRunnerFactory
 {
     /**
-     * @var \Netgen\BlockManager\Item\CmsItemBuilderInterface
+     * @var \Netgen\Layouts\Item\CmsItemBuilderInterface
      */
     private $cmsItemBuilder;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Item\VisibilityResolverInterface
+     * @var \Netgen\Layouts\Collection\Item\VisibilityResolverInterface
      */
     private $visibilityResolver;
 

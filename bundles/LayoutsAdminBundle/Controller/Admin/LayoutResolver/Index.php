@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver;
 
-use Netgen\BlockManager\API\Service\LayoutResolverService;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
+use Netgen\Layouts\API\Service\LayoutResolverService;
 use Symfony\Component\HttpFoundation\Response;
 
 final class Index extends AbstractController
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutResolverService
+     * @var \Netgen\Layouts\API\Service\LayoutResolverService
      */
     private $layoutResolverService;
 

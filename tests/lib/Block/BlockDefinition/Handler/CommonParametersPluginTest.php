@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Handler;
+namespace Netgen\Layouts\Tests\Block\BlockDefinition\Handler;
 
-use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
-use Netgen\BlockManager\Block\BlockDefinition\Handler\CommonParametersPlugin;
-use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
-use Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory;
+use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface;
+use Netgen\Layouts\Block\BlockDefinition\Handler\CommonParametersPlugin;
+use Netgen\Layouts\Parameters\ParameterType;
+use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
+use Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory;
 use PHPUnit\Framework\TestCase;
 
 final class CommonParametersPluginTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\Handler\CommonParametersPlugin
+     * @var \Netgen\Layouts\Block\BlockDefinition\Handler\CommonParametersPlugin
      */
     private $plugin;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface
+     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistryInterface
      */
     private $parameterTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface
+     * @var \Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface
      */
     private $parameterBuilderFactory;
 
@@ -45,8 +45,8 @@ final class CommonParametersPluginTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\CommonParametersPlugin::__construct
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\CommonParametersPlugin::getExtendedHandlers
+     * @covers \Netgen\Layouts\Block\BlockDefinition\Handler\CommonParametersPlugin::__construct
+     * @covers \Netgen\Layouts\Block\BlockDefinition\Handler\CommonParametersPlugin::getExtendedHandlers
      */
     public function testGetExtendedHandlers(): void
     {
@@ -56,7 +56,7 @@ final class CommonParametersPluginTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Handler\CommonParametersPlugin::buildParameters
+     * @covers \Netgen\Layouts\Block\BlockDefinition\Handler\CommonParametersPlugin::buildParameters
      */
     public function testBuildParameters(): void
     {

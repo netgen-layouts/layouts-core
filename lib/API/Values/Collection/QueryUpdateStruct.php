@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\Collection;
+namespace Netgen\Layouts\API\Values\Collection;
 
-use Netgen\BlockManager\API\Values\ParameterStruct;
-use Netgen\BlockManager\API\Values\ParameterStructTrait;
-use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
+use Netgen\Layouts\API\Values\ParameterStruct;
+use Netgen\Layouts\API\Values\ParameterStructTrait;
+use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
 
 final class QueryUpdateStruct implements ParameterStruct
 {

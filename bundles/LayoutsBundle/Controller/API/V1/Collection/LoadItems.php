@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Controller\API\V1\Collection;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\Serializer\Values\Value;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Serializer\Version;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\Serializer\Values\Value;
+use Netgen\Layouts\Serializer\Values\VersionedValue;
+use Netgen\Layouts\Serializer\Version;
 
 final class LoadItems extends AbstractController
 {

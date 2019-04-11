@@ -1,6 +1,6 @@
 services:
     netgen_block_manager.layout.form.create:
-        class: Netgen\BlockManager\Layout\Form\CreateType
+        class: Netgen\Layouts\Layout\Form\CreateType
         arguments:
             - "@netgen_block_manager.layout.registry.layout_type"
         tags:

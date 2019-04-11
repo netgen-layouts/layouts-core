@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
+namespace Netgen\Layouts\Tests\Parameters\ParameterType;
 
-use Netgen\BlockManager\Parameters\ParameterType\HtmlType;
-use Netgen\BlockManager\Utils\HtmlPurifier;
+use Netgen\Layouts\Parameters\ParameterType\HtmlType;
+use Netgen\Layouts\Utils\HtmlPurifier;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Validation;
@@ -20,8 +20,8 @@ final class HtmlTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\HtmlType::__construct
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\HtmlType::getIdentifier
+     * @covers \Netgen\Layouts\Parameters\ParameterType\HtmlType::__construct
+     * @covers \Netgen\Layouts\Parameters\ParameterType\HtmlType::getIdentifier
      */
     public function testGetIdentifier(): void
     {
@@ -29,7 +29,7 @@ final class HtmlTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\HtmlType::toHash
+     * @covers \Netgen\Layouts\Parameters\ParameterType\HtmlType::toHash
      */
     public function testToHash(): void
     {
@@ -48,7 +48,7 @@ HTML;
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\HtmlType::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterType\HtmlType::configureOptions
      * @dataProvider validOptionsProvider
      */
     public function testValidOptions(array $options, array $resolvedOptions): void
@@ -58,7 +58,7 @@ HTML;
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\HtmlType::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterType\HtmlType::configureOptions
      * @dataProvider invalidOptionsProvider
      */
     public function testInvalidOptions(array $options): void
@@ -93,8 +93,8 @@ HTML;
      * @param mixed $value
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\HtmlType::getRequiredConstraints
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\HtmlType::getValueConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterType\HtmlType::getRequiredConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterType\HtmlType::getValueConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, bool $isValid): void
@@ -123,7 +123,7 @@ HTML;
      * @param mixed $value
      * @param bool $isEmpty
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\HtmlType::isValueEmpty
+     * @covers \Netgen\Layouts\Parameters\ParameterType\HtmlType::isValueEmpty
      * @dataProvider emptyProvider
      */
     public function testIsValueEmpty($value, bool $isEmpty): void

@@ -2,55 +2,55 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Core\Mapper;
+namespace Netgen\Layouts\Core\Mapper;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\API\Values\LazyCollection;
-use Netgen\BlockManager\Collection\Item\NullItemDefinition;
-use Netgen\BlockManager\Collection\QueryType\NullQueryType;
-use Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistryInterface;
-use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
-use Netgen\BlockManager\Exception\Collection\ItemDefinitionException;
-use Netgen\BlockManager\Exception\Collection\QueryTypeException;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Item\CmsItemInterface;
-use Netgen\BlockManager\Item\CmsItemLoaderInterface;
-use Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface;
-use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
-use Netgen\BlockManager\Persistence\Values\Collection\Item as PersistenceItem;
-use Netgen\BlockManager\Persistence\Values\Collection\Query as PersistenceQuery;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\API\Values\LazyCollection;
+use Netgen\Layouts\Collection\Item\NullItemDefinition;
+use Netgen\Layouts\Collection\QueryType\NullQueryType;
+use Netgen\Layouts\Collection\Registry\ItemDefinitionRegistryInterface;
+use Netgen\Layouts\Collection\Registry\QueryTypeRegistryInterface;
+use Netgen\Layouts\Exception\Collection\ItemDefinitionException;
+use Netgen\Layouts\Exception\Collection\QueryTypeException;
+use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Item\CmsItemInterface;
+use Netgen\Layouts\Item\CmsItemLoaderInterface;
+use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
+use Netgen\Layouts\Persistence\Values\Collection\Collection as PersistenceCollection;
+use Netgen\Layouts\Persistence\Values\Collection\Item as PersistenceItem;
+use Netgen\Layouts\Persistence\Values\Collection\Query as PersistenceQuery;
 
 final class CollectionMapper
 {
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface
+     * @var \Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface
      */
     private $collectionHandler;
 
     /**
-     * @var \Netgen\BlockManager\Core\Mapper\ParameterMapper
+     * @var \Netgen\Layouts\Core\Mapper\ParameterMapper
      */
     private $parameterMapper;
 
     /**
-     * @var \Netgen\BlockManager\Core\Mapper\ConfigMapper
+     * @var \Netgen\Layouts\Core\Mapper\ConfigMapper
      */
     private $configMapper;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistryInterface
+     * @var \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistryInterface
      */
     private $itemDefinitionRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface
+     * @var \Netgen\Layouts\Collection\Registry\QueryTypeRegistryInterface
      */
     private $queryTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Item\CmsItemLoaderInterface
+     * @var \Netgen\Layouts\Item\CmsItemLoaderInterface
      */
     private $cmsItemLoader;
 
@@ -79,7 +79,7 @@ final class CollectionMapper
      * collection in main locale will be returned if none of the locales in $locales
      * array are found.
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If the collection does not have any requested translations
+     * @throws \Netgen\Layouts\Exception\NotFoundException If the collection does not have any requested translations
      */
     public function mapCollection(PersistenceCollection $collection, ?array $locales = null, bool $useMainLocale = true): Collection
     {
@@ -170,7 +170,7 @@ final class CollectionMapper
      * query in main locale will be returned if none of the locales in $locales
      * array are found.
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If the query does not have any requested locales
+     * @throws \Netgen\Layouts\Exception\NotFoundException If the query does not have any requested locales
      */
     public function mapQuery(PersistenceQuery $query, ?array $locales = null, bool $useMainLocale = true): Query
     {

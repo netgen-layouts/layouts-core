@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Block;
+namespace Netgen\Layouts\Block;
 
 use ArrayAccess;
 use Closure;

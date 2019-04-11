@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\Provider;
+namespace Netgen\Layouts\Tests\View\Provider;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Netgen\BlockManager\API\Values\Block\BlockList;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\Exception\View\ViewProviderException;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\View\Provider\ZoneViewProvider;
-use Netgen\BlockManager\View\View\ZoneView\ZoneReference;
-use Netgen\BlockManager\View\View\ZoneViewInterface;
+use Netgen\Layouts\API\Values\Block\BlockList;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\Exception\View\ViewProviderException;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\View\Provider\ZoneViewProvider;
+use Netgen\Layouts\View\View\ZoneView\ZoneReference;
+use Netgen\Layouts\View\View\ZoneViewInterface;
 use PHPUnit\Framework\TestCase;
 
 final class ZoneViewProviderTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface
+     * @var \Netgen\Layouts\View\Provider\ViewProviderInterface
      */
     private $ZoneViewProvider;
 
@@ -28,7 +28,7 @@ final class ZoneViewProviderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Provider\ZoneViewProvider::provideView
+     * @covers \Netgen\Layouts\View\Provider\ZoneViewProvider::provideView
      */
     public function testProvideView(): void
     {
@@ -63,7 +63,7 @@ final class ZoneViewProviderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Provider\ZoneViewProvider::provideView
+     * @covers \Netgen\Layouts\View\Provider\ZoneViewProvider::provideView
      */
     public function testProvideViewThrowsViewProviderExceptionOnMissingBlocks(): void
     {
@@ -74,12 +74,12 @@ final class ZoneViewProviderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Provider\ZoneViewProvider::provideView
+     * @covers \Netgen\Layouts\View\Provider\ZoneViewProvider::provideView
      */
     public function testProvideViewThrowsViewProviderExceptionOnInvalidBlocks(): void
     {
         $this->expectException(ViewProviderException::class);
-        $this->expectExceptionMessage('To build the zone view, "blocks" parameter needs to be of "Netgen\\BlockManager\\API\\Values\\Block\\BlockList" type.');
+        $this->expectExceptionMessage('To build the zone view, "blocks" parameter needs to be of "Netgen\\Layouts\\API\\Values\\Block\\BlockList" type.');
 
         $this->ZoneViewProvider->provideView(new ZoneReference(new Layout(), 'zone'), ['blocks' => 42]);
     }
@@ -88,7 +88,7 @@ final class ZoneViewProviderTest extends TestCase
      * @param mixed $value
      * @param bool $supports
      *
-     * @covers \Netgen\BlockManager\View\Provider\ZoneViewProvider::supports
+     * @covers \Netgen\Layouts\View\Provider\ZoneViewProvider::supports
      * @dataProvider supportsProvider
      */
     public function testSupports($value, bool $supports): void

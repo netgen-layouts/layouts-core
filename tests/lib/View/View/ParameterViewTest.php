@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\View;
+namespace Netgen\Layouts\Tests\View\View;
 
-use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterType;
-use Netgen\BlockManager\View\View\ParameterView;
+use Netgen\Layouts\Parameters\Parameter;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Tests\Parameters\Stubs\ParameterType;
+use Netgen\Layouts\View\View\ParameterView;
 use PHPUnit\Framework\TestCase;
 
 final class ParameterViewTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\Parameter
+     * @var \Netgen\Layouts\Parameters\Parameter
      */
     private $parameter;
 
     /**
-     * @var \Netgen\BlockManager\View\View\ParameterViewInterface
+     * @var \Netgen\Layouts\View\View\ParameterViewInterface
      */
     private $view;
 
@@ -42,8 +42,8 @@ final class ParameterViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View\ParameterView::__construct
-     * @covers \Netgen\BlockManager\View\View\ParameterView::getParameterValue
+     * @covers \Netgen\Layouts\View\View\ParameterView::__construct
+     * @covers \Netgen\Layouts\View\View\ParameterView::getParameterValue
      */
     public function testGetParameter(): void
     {
@@ -51,7 +51,7 @@ final class ParameterViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View\ParameterView::getParameters
+     * @covers \Netgen\Layouts\View\View\ParameterView::getParameters
      */
     public function testGetParameters(): void
     {
@@ -65,7 +65,7 @@ final class ParameterViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View\ParameterView::getIdentifier
+     * @covers \Netgen\Layouts\View\View\ParameterView::getIdentifier
      */
     public function testGetIdentifier(): void
     {

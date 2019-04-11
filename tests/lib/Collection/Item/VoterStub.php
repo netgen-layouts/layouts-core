@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Collection\Item;
+namespace Netgen\Layouts\Tests\Collection\Item;
 
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\Collection\Item\VisibilityVoterInterface;
+use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\Collection\Item\VisibilityVoterInterface;
 
 final class VoterStub implements VisibilityVoterInterface
 {

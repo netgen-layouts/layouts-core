@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\Collection;
+namespace Netgen\Layouts\API\Values\Collection;
 
-use Netgen\BlockManager\API\Values\ParameterStruct;
-use Netgen\BlockManager\API\Values\ParameterStructTrait;
-use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
+use Netgen\Layouts\API\Values\ParameterStruct;
+use Netgen\Layouts\API\Values\ParameterStructTrait;
+use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
 
 final class QueryCreateStruct implements ParameterStruct
 {
@@ -15,7 +15,7 @@ final class QueryCreateStruct implements ParameterStruct
     /**
      * Query type for which the new query will be created.
      *
-     * @var \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface
+     * @var \Netgen\Layouts\Collection\QueryType\QueryTypeInterface
      */
     private $queryType;
 

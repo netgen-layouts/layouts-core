@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View;
+namespace Netgen\Layouts\Tests\View;
 
-use Netgen\BlockManager\Event\BlockManagerEvents;
-use Netgen\BlockManager\Event\CollectViewParametersEvent;
-use Netgen\BlockManager\Exception\View\ViewProviderException;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\View\Provider\ViewProviderInterface;
-use Netgen\BlockManager\View\TemplateResolverInterface;
-use Netgen\BlockManager\View\ViewBuilder;
+use Netgen\Layouts\Event\CollectViewParametersEvent;
+use Netgen\Layouts\Event\LayoutsEvents;
+use Netgen\Layouts\Exception\View\ViewProviderException;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\View\Stubs\View;
+use Netgen\Layouts\View\Provider\ViewProviderInterface;
+use Netgen\Layouts\View\TemplateResolverInterface;
+use Netgen\Layouts\View\ViewBuilder;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpKernel\Kernel;
@@ -19,12 +19,12 @@ use Symfony\Component\HttpKernel\Kernel;
 final class ViewBuilderTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\Layouts\View\Provider\ViewProviderInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $viewProviderMock;
 
     /**
-     * @var \Netgen\BlockManager\View\TemplateResolverInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\Layouts\View\TemplateResolverInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $templateResolverMock;
 
@@ -41,9 +41,9 @@ final class ViewBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\ViewBuilder::__construct
-     * @covers \Netgen\BlockManager\View\ViewBuilder::buildView
-     * @covers \Netgen\BlockManager\View\ViewBuilder::getViewProvider
+     * @covers \Netgen\Layouts\View\ViewBuilder::__construct
+     * @covers \Netgen\Layouts\View\ViewBuilder::buildView
+     * @covers \Netgen\Layouts\View\ViewBuilder::getViewProvider
      */
     public function testBuildView(): void
     {
@@ -69,7 +69,7 @@ final class ViewBuilderTest extends TestCase
 
         $args = [
             self::isInstanceOf(CollectViewParametersEvent::class),
-            self::identicalTo(BlockManagerEvents::BUILD_VIEW),
+            self::identicalTo(LayoutsEvents::BUILD_VIEW),
         ];
 
         if (Kernel::VERSION_ID < 40300) {
@@ -83,7 +83,7 @@ final class ViewBuilderTest extends TestCase
 
         $args = [
             self::isInstanceOf(CollectViewParametersEvent::class),
-            self::identicalTo(sprintf('%s.%s', BlockManagerEvents::BUILD_VIEW, 'stub')),
+            self::identicalTo(sprintf('%s.%s', LayoutsEvents::BUILD_VIEW, 'stub')),
         ];
 
         if (Kernel::VERSION_ID < 40300) {
@@ -116,13 +116,13 @@ final class ViewBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\ViewBuilder::buildView
-     * @covers \Netgen\BlockManager\View\ViewBuilder::getViewProvider
+     * @covers \Netgen\Layouts\View\ViewBuilder::buildView
+     * @covers \Netgen\Layouts\View\ViewBuilder::getViewProvider
      */
     public function testBuildViewWithNoViewProviders(): void
     {
         $this->expectException(ViewProviderException::class);
-        $this->expectExceptionMessage('No view providers found for "Netgen\\BlockManager\\Tests\\API\\Stubs\\Value" value.');
+        $this->expectExceptionMessage('No view providers found for "Netgen\\Layouts\\Tests\\API\\Stubs\\Value" value.');
 
         $value = new Value();
 
@@ -140,13 +140,13 @@ final class ViewBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\ViewBuilder::buildView
-     * @covers \Netgen\BlockManager\View\ViewBuilder::getViewProvider
+     * @covers \Netgen\Layouts\View\ViewBuilder::buildView
+     * @covers \Netgen\Layouts\View\ViewBuilder::getViewProvider
      */
     public function testBuildViewWithNoViewProvidersThatSupportValue(): void
     {
         $this->expectException(ViewProviderException::class);
-        $this->expectExceptionMessage('No view providers found for "Netgen\\BlockManager\\Tests\\API\\Stubs\\Value" value.');
+        $this->expectExceptionMessage('No view providers found for "Netgen\\Layouts\\Tests\\API\\Stubs\\Value" value.');
 
         $value = new Value();
 

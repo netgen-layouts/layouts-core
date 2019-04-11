@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Collection\Result;
+namespace Netgen\Layouts\Collection\Result;
 
 use Iterator;
-use Netgen\BlockManager\API\Values\Collection\Query;
+use Netgen\Layouts\API\Values\Collection\Query;
 
 final class ContextualQueryRunner implements QueryRunnerInterface
 {

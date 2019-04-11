@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Form;
+namespace Netgen\Layouts\Form;
 
 use Symfony\Component\Form\AbstractType as BaseAbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;

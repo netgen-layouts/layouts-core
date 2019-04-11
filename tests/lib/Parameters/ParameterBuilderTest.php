@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters;
+namespace Netgen\Layouts\Tests\Parameters;
 
-use Netgen\BlockManager\Exception\BadMethodCallException;
-use Netgen\BlockManager\Exception\Parameters\ParameterBuilderException;
-use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
-use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
+use Netgen\Layouts\Exception\BadMethodCallException;
+use Netgen\Layouts\Exception\Parameters\ParameterBuilderException;
+use Netgen\Layouts\Parameters\CompoundParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterBuilderFactory;
+use Netgen\Layouts\Parameters\ParameterBuilderInterface;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType;
+use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
+use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
@@ -23,17 +23,17 @@ final class ParameterBuilderTest extends TestCase
     use ExportObjectTrait;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface
+     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistryInterface
      */
     private $registry;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterBuilderFactory
+     * @var \Netgen\Layouts\Parameters\ParameterBuilderFactory
      */
     private $factory;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterBuilderInterface
+     * @var \Netgen\Layouts\Parameters\ParameterBuilderInterface
      */
     private $builder;
 
@@ -53,8 +53,8 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::__construct
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getName
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::__construct
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::getName
      */
     public function testGetName(): void
     {
@@ -72,7 +72,7 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getType
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::getType
      */
     public function testGetType(): void
     {
@@ -93,7 +93,7 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::getOptions
      */
     public function testGetOptions(): void
     {
@@ -115,7 +115,7 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getOption
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::getOption
      */
     public function testGetOption(): void
     {
@@ -134,7 +134,7 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getOption
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::getOption
      */
     public function testGetOptionThrowsParameterBuilderException(): void
     {
@@ -156,7 +156,7 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::hasOption
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::hasOption
      */
     public function testHasOption(): void
     {
@@ -176,7 +176,7 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setOption
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setOption
      */
     public function testSetOption(): void
     {
@@ -196,7 +196,7 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setOption
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setOption
      */
     public function testSetRequiredOption(): void
     {
@@ -214,7 +214,7 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setOption
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setOption
      */
     public function testSetDefaultValueOption(): void
     {
@@ -232,7 +232,7 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setOption
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setOption
      */
     public function testSetLabelOption(): void
     {
@@ -250,7 +250,7 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setOption
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setOption
      */
     public function testSetGroupsOption(): void
     {
@@ -268,7 +268,7 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setOption
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setOption
      */
     public function testSetOptionAfterBuildingParameters(): void
     {
@@ -280,8 +280,8 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::isRequired
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setRequired
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::isRequired
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setRequired
      */
     public function testGetSetRequired(): void
     {
@@ -296,7 +296,7 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setRequired
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setRequired
      */
     public function testSetRequiredAfterBuildingParameters(): void
     {
@@ -308,8 +308,8 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getDefaultValue
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setDefaultValue
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::getDefaultValue
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setDefaultValue
      */
     public function testGetSetDefaultValue(): void
     {
@@ -324,7 +324,7 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setDefaultValue
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setDefaultValue
      */
     public function testSetDefaultValueAfterBuildingParameters(): void
     {
@@ -336,8 +336,8 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getLabel
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setLabel
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::getLabel
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setLabel
      */
     public function testGetSetLabel(): void
     {
@@ -352,7 +352,7 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setLabel
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setLabel
      */
     public function testSetLabelAfterBuildingParameters(): void
     {
@@ -364,8 +364,8 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getGroups
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setGroups
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::getGroups
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setGroups
      */
     public function testGetSetGroups(): void
     {
@@ -380,7 +380,7 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getGroups
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::getGroups
      */
     public function testGetGroupsWithoutParentBuilder(): void
     {
@@ -388,9 +388,9 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getConstraints
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setConstraints
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::validateConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::getConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::validateConstraints
      */
     public function testGetSetConstraints(): void
     {
@@ -407,7 +407,7 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::getConstraints
      */
     public function testGetConstraintsWithoutParentBuilder(): void
     {
@@ -415,8 +415,8 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setConstraints
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::validateConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::validateConstraints
      */
     public function testSetConstraintsWithInvalidConstraints(): void
     {
@@ -427,7 +427,7 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setConstraints
      */
     public function testSetConstraintsAfterBuildingParameters(): void
     {
@@ -439,7 +439,7 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::getGroups
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::getGroups
      */
     public function testGetGroupsWithCompoundParameter(): void
     {
@@ -466,7 +466,7 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setGroups
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setGroups
      */
     public function testSetGroupsAfterBuildingParameters(): void
     {
@@ -478,8 +478,8 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::count
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::add
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::count
      */
     public function testAdd(): void
     {
@@ -508,7 +508,7 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::add
      */
     public function testAddAfterBuildingParameters(): void
     {
@@ -539,7 +539,7 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::add
      */
     public function testAddThrowsParameterBuilderExceptionOnAddingParameterToNonCompoundParameter(): void
     {
@@ -568,7 +568,7 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::add
      */
     public function testAddThrowsParameterBuilderExceptionOnAddingCompoundParameterToCompoundParameter(): void
     {
@@ -587,8 +587,8 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::has
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::add
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::has
      */
     public function testHas(): void
     {
@@ -619,8 +619,8 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::get
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::add
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::get
      */
     public function testGet(): void
     {
@@ -639,8 +639,8 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::get
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::add
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::get
      */
     public function testGetThrowsParameterBuilderExceptionWithNonExistingParameter(): void
     {
@@ -661,8 +661,8 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::get
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::add
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::get
      */
     public function testGetAfterBuildingParameters(): void
     {
@@ -685,7 +685,7 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::all
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::all
      */
     public function testAll(): void
     {
@@ -715,7 +715,7 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::all
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::all
      */
     public function testAllWithGroupFilter(): void
     {
@@ -743,7 +743,7 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::all
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::all
      */
     public function testAllAfterBuildingParameters(): void
     {
@@ -758,8 +758,8 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::remove
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::add
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::remove
      */
     public function testRemove(): void
     {
@@ -780,8 +780,8 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::add
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::remove
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::add
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::remove
      */
     public function testRemoveAfterBuildingParameters(): void
     {
@@ -804,11 +804,11 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinition
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::validateConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinition
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinitions
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::resolveOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::validateConstraints
      */
     public function testBuildParameterDefinitions(): void
     {
@@ -911,11 +911,11 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinition
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::validateConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinition
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinitions
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::resolveOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::validateConstraints
      */
     public function testBuildParameterDefinitionsAfterBuildingParameters(): void
     {
@@ -956,11 +956,11 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinition
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::validateConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinition
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinitions
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::resolveOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::validateConstraints
      */
     public function testBuildParameterDefinitionsWithDefaultOptions(): void
     {
@@ -987,11 +987,11 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinition
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::validateConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinition
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinitions
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::resolveOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::validateConstraints
      */
     public function testBuildParameterDefinitionsWithInvalidRequiredOption(): void
     {
@@ -1010,11 +1010,11 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinition
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::validateConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinition
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinitions
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::resolveOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::validateConstraints
      */
     public function testBuildParameterDefinitionsWithInvalidGroupsOption(): void
     {
@@ -1033,11 +1033,11 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinition
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::validateConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinition
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinitions
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::resolveOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::validateConstraints
      */
     public function testBuildParameterDefinitionsWithInvalidGroup(): void
     {
@@ -1056,11 +1056,11 @@ final class ParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinition
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::buildParameterDefinitions
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::configureOptions
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::resolveOptions
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::validateConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinition
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::buildParameterDefinitions
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::resolveOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::validateConstraints
      */
     public function testBuildParameterDefinitionsWithInvalidLabel(): void
     {

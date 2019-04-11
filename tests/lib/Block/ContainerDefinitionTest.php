@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Block;
+namespace Netgen\Layouts\Tests\Block;
 
-use Netgen\BlockManager\Block\ContainerDefinition;
-use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
+use Netgen\Layouts\Block\ContainerDefinition;
+use Netgen\Layouts\Tests\Block\Stubs\ContainerDefinitionHandler;
 use PHPUnit\Framework\TestCase;
 
 final class ContainerDefinitionTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\ContainerDefinitionHandlerInterface
+     * @var \Netgen\Layouts\Block\BlockDefinition\ContainerDefinitionHandlerInterface
      */
     private $handler;
 
     /**
-     * @var \Netgen\BlockManager\Block\ContainerDefinition
+     * @var \Netgen\Layouts\Block\ContainerDefinition
      */
     private $blockDefinition;
 
@@ -33,7 +33,7 @@ final class ContainerDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\ContainerDefinition::getPlaceholders
+     * @covers \Netgen\Layouts\Block\ContainerDefinition::getPlaceholders
      */
     public function testGetPlaceholders(): void
     {

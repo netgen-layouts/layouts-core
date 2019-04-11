@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
+namespace Netgen\Layouts\Tests\Serializer\Normalizer\V1;
 
-use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterType\TextType;
-use Netgen\BlockManager\Serializer\Normalizer\V1\ParameterNormalizer;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
+use Netgen\Layouts\Parameters\Parameter;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType\TextType;
+use Netgen\Layouts\Serializer\Normalizer\V1\ParameterNormalizer;
+use Netgen\Layouts\Serializer\Values\VersionedValue;
+use Netgen\Layouts\Tests\API\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 
 final class ParameterNormalizerTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Serializer\Normalizer\V1\ParameterNormalizer
+     * @var \Netgen\Layouts\Serializer\Normalizer\V1\ParameterNormalizer
      */
     private $normalizer;
 
@@ -25,7 +25,7 @@ final class ParameterNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\ParameterNormalizer::normalize
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\ParameterNormalizer::normalize
      */
     public function testNormalize(): void
     {
@@ -50,7 +50,7 @@ final class ParameterNormalizerTest extends TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\ParameterNormalizer::supportsNormalization
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\ParameterNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, bool $expected): void

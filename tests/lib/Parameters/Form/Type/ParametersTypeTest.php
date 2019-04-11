@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\Form\Type;
+namespace Netgen\Layouts\Tests\Parameters\Form\Type;
 
-use Netgen\BlockManager\Exception\Parameters\ParameterTypeException;
-use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
-use Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension;
-use Netgen\BlockManager\Parameters\Form\Mapper\Compound\BooleanMapper;
-use Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper;
-use Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType;
-use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Tests\API\Stubs\ParameterStruct;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinitionCollection;
-use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Netgen\Layouts\Exception\Parameters\ParameterTypeException;
+use Netgen\Layouts\Parameters\CompoundParameterDefinition;
+use Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension;
+use Netgen\Layouts\Parameters\Form\Mapper\Compound\BooleanMapper;
+use Netgen\Layouts\Parameters\Form\Mapper\TextLineMapper;
+use Netgen\Layouts\Parameters\Form\Type\CompoundBooleanType;
+use Netgen\Layouts\Parameters\Form\Type\ParametersType;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType;
+use Netgen\Layouts\Tests\API\Stubs\ParameterStruct;
+use Netgen\Layouts\Tests\Parameters\Stubs\ParameterDefinitionCollection;
+use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormTypeInterface;
@@ -26,10 +26,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class ParametersTypeTest extends FormTestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Mapper::handleForm
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::__construct
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::buildForm
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::includeParameter
+     * @covers \Netgen\Layouts\Parameters\Form\Mapper::handleForm
+     * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::__construct
+     * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::buildForm
+     * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::includeParameter
      */
     public function testSubmitValidData(): void
     {
@@ -144,7 +144,7 @@ final class ParametersTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::buildForm
+     * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::buildForm
      */
     public function testBuildFormWithNoMapper(): void
     {
@@ -182,8 +182,8 @@ final class ParametersTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::buildForm
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::includeParameter
+     * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::buildForm
+     * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::includeParameter
      */
     public function testSubmitValidDataWithGroups(): void
     {
@@ -243,7 +243,7 @@ final class ParametersTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::configureOptions
+     * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::configureOptions
      */
     public function testConfigureOptions(): void
     {
@@ -273,7 +273,7 @@ final class ParametersTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::configureOptions
+     * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::configureOptions
      */
     public function testConfigureOptionsWithMissingParameters(): void
     {
@@ -289,12 +289,12 @@ final class ParametersTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::configureOptions
+     * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::configureOptions
      */
     public function testConfigureOptionsWithInvalidParameters(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "parameter_definitions" with value null is expected to be of type "Netgen\\BlockManager\\Parameters\\ParameterDefinitionCollectionInterface", but is of type "NULL".');
+        $this->expectExceptionMessage('The option "parameter_definitions" with value null is expected to be of type "Netgen\\Layouts\\Parameters\\ParameterDefinitionCollectionInterface", but is of type "NULL".');
 
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -310,7 +310,7 @@ final class ParametersTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\ParametersType::configureOptions
+     * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::configureOptions
      */
     public function testConfigureOptionsWithInvalidGroup(): void
     {

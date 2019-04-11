@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\Registry;
+namespace Netgen\Layouts\Tests\Parameters\Registry;
 
 use ArrayIterator;
-use Netgen\BlockManager\Exception\Parameters\ParameterTypeException;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterType;
+use Netgen\Layouts\Exception\Parameters\ParameterTypeException;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
+use Netgen\Layouts\Tests\Parameters\Stubs\ParameterType;
 use PHPUnit\Framework\TestCase;
 
 final class ParameterTypeRegistryTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterType
+     * @var \Netgen\Layouts\Parameters\ParameterType
      */
     private $parameterType;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry
+     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry
      */
     private $registry;
 
@@ -31,8 +31,8 @@ final class ParameterTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::__construct
-     * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::getParameterTypes
+     * @covers \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry::__construct
+     * @covers \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry::getParameterTypes
      */
     public function testGetParameterTypes(): void
     {
@@ -40,7 +40,7 @@ final class ParameterTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::hasParameterType
+     * @covers \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry::hasParameterType
      */
     public function testHasParameterType(): void
     {
@@ -48,7 +48,7 @@ final class ParameterTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::hasParameterType
+     * @covers \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry::hasParameterType
      */
     public function testHasParameterTypeWithNoParameterType(): void
     {
@@ -56,7 +56,7 @@ final class ParameterTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::getParameterType
+     * @covers \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry::getParameterType
      */
     public function testGetParameterType(): void
     {
@@ -64,7 +64,7 @@ final class ParameterTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::getParameterType
+     * @covers \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry::getParameterType
      */
     public function testGetParameterTypeThrowsParameterTypeException(): void
     {
@@ -75,7 +75,7 @@ final class ParameterTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::getParameterTypeByClass
+     * @covers \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry::getParameterTypeByClass
      */
     public function testGetParameterTypeByClass(): void
     {
@@ -83,7 +83,7 @@ final class ParameterTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::getParameterTypeByClass
+     * @covers \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry::getParameterTypeByClass
      */
     public function testGetParameterTypeByClassThrowsParameterTypeException(): void
     {
@@ -94,7 +94,7 @@ final class ParameterTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::getIterator
+     * @covers \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry::getIterator
      */
     public function testGetIterator(): void
     {
@@ -109,7 +109,7 @@ final class ParameterTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::count
+     * @covers \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry::count
      */
     public function testCount(): void
     {
@@ -117,7 +117,7 @@ final class ParameterTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::offsetExists
+     * @covers \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry::offsetExists
      */
     public function testOffsetExists(): void
     {
@@ -126,7 +126,7 @@ final class ParameterTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::offsetGet
+     * @covers \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry::offsetGet
      */
     public function testOffsetGet(): void
     {
@@ -134,7 +134,7 @@ final class ParameterTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::offsetSet
+     * @covers \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry::offsetSet
      */
     public function testOffsetSet(): void
     {
@@ -145,7 +145,7 @@ final class ParameterTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry::offsetUnset
+     * @covers \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry::offsetUnset
      */
     public function testOffsetUnset(): void
     {

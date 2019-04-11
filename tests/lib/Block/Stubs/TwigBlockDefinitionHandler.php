@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Block\Stubs;
+namespace Netgen\Layouts\Tests\Block\Stubs;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 
 final class TwigBlockDefinitionHandler extends BlockDefinitionHandler implements TwigBlockDefinitionHandlerInterface
 {

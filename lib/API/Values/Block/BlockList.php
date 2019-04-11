@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\Block;
+namespace Netgen\Layouts\API\Values\Block;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -21,7 +21,7 @@ final class BlockList extends ArrayCollection
     }
 
     /**
-     * @return \Netgen\BlockManager\API\Values\Block\Block[]
+     * @return \Netgen\Layouts\API\Values\Block\Block[]
      */
     public function getBlocks(): array
     {

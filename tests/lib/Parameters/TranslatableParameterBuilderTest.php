@@ -2,28 +2,28 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters;
+namespace Netgen\Layouts\Tests\Parameters;
 
-use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
-use Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory;
+use Netgen\Layouts\Parameters\ParameterType;
+use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
+use Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 
 final class TranslatableParameterBuilderTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface
+     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistryInterface
      */
     private $registry;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory
+     * @var \Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory
      */
     private $factory;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterBuilderInterface
+     * @var \Netgen\Layouts\Parameters\ParameterBuilderInterface
      */
     private $builder;
 
@@ -42,7 +42,7 @@ final class TranslatableParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilder::setOption
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilder::setOption
      */
     public function testSetTranslatableOption(): void
     {
@@ -60,8 +60,8 @@ final class TranslatableParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilder::add
-     * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilder::configureOptions
+     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilder::add
+     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilder::configureOptions
      */
     public function testAdd(): void
     {
@@ -80,8 +80,8 @@ final class TranslatableParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilder::add
-     * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilder::configureOptions
+     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilder::add
+     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilder::configureOptions
      */
     public function testAddUntranslatable(): void
     {
@@ -101,8 +101,8 @@ final class TranslatableParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilder::add
-     * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilder::configureOptions
+     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilder::add
+     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilder::configureOptions
      */
     public function testAddCompound(): void
     {
@@ -124,8 +124,8 @@ final class TranslatableParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilder::add
-     * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilder::configureOptions
+     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilder::add
+     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilder::configureOptions
      */
     public function testAddCompoundUntranslatable(): void
     {
@@ -153,8 +153,8 @@ final class TranslatableParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilder::add
-     * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilder::configureOptions
+     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilder::add
+     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilder::configureOptions
      */
     public function testAddThrowsInvalidOptionsExceptionOnAddingTranslatableParameterToNonTranslatableCompoundParameter(): void
     {
@@ -176,8 +176,8 @@ final class TranslatableParameterBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilder::add
-     * @covers \Netgen\BlockManager\Parameters\TranslatableParameterBuilder::configureOptions
+     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilder::add
+     * @covers \Netgen\Layouts\Parameters\TranslatableParameterBuilder::configureOptions
      */
     public function testAddThrowsInvalidOptionsExceptionOnAddingNonTranslatableParameterToTranslatableCompoundParameter(): void
     {

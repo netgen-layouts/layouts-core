@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View\View;
+namespace Netgen\Layouts\View\View;
 
-use Netgen\BlockManager\View\View;
+use Netgen\Layouts\View\View;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView as SymfonyFormView;
 

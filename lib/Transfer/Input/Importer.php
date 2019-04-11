@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Transfer\Input;
+namespace Netgen\Layouts\Transfer\Input;
 
-use Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler;
-use Netgen\BlockManager\Transfer\Input\Result\ErrorResult;
-use Netgen\BlockManager\Transfer\Input\Result\SuccessResult;
+use Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler;
+use Netgen\Layouts\Transfer\Input\Result\ErrorResult;
+use Netgen\Layouts\Transfer\Input\Result\SuccessResult;
 use Throwable;
 use Traversable;
 
@@ -21,12 +21,12 @@ final class Importer implements ImporterInterface
     private const SCHEMA_FILE = __DIR__ . '/../../../resources/schemas/import.json';
 
     /**
-     * @var \Netgen\BlockManager\Transfer\Input\JsonValidatorInterface
+     * @var \Netgen\Layouts\Transfer\Input\JsonValidatorInterface
      */
     private $jsonValidator;
 
     /**
-     * @var \Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler
+     * @var \Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler
      */
     private $layoutDataHandler;
 

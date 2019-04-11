@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Serializer\Normalizer\V1;
+namespace Netgen\Layouts\Serializer\Normalizer\V1;
 
-use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Serializer\Version;
+use Netgen\Layouts\Parameters\Parameter;
+use Netgen\Layouts\Serializer\Values\VersionedValue;
+use Netgen\Layouts\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class ParameterNormalizer implements NormalizerInterface
 {
     public function normalize($object, $format = null, array $context = [])
     {
-        /** @var \Netgen\BlockManager\Parameters\Parameter $parameter */
+        /** @var \Netgen\Layouts\Parameters\Parameter $parameter */
         $parameter = $object->getValue();
         $parameterDefinition = $parameter->getParameterDefinition();
 

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View\Matcher\Zone;
+namespace Netgen\Layouts\View\Matcher\Zone;
 
-use Netgen\BlockManager\View\Matcher\MatcherInterface;
-use Netgen\BlockManager\View\View\ZoneViewInterface;
-use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Layouts\View\Matcher\MatcherInterface;
+use Netgen\Layouts\View\View\ZoneViewInterface;
+use Netgen\Layouts\View\ViewInterface;
 
 /**
  * This matcher matches if the zone in the provided view

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Parameters\Form\Type;
+namespace Netgen\Layouts\Parameters\Form\Type;
 
-use Netgen\BlockManager\Form\AbstractType;
+use Netgen\Layouts\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;

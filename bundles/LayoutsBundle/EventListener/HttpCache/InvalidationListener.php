@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\EventListener\HttpCache;
 
-use Netgen\BlockManager\HttpCache\ClientInterface;
+use Netgen\Layouts\HttpCache\ClientInterface;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -15,7 +15,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 final class InvalidationListener implements EventSubscriberInterface
 {
     /**
-     * @var \Netgen\BlockManager\HttpCache\ClientInterface
+     * @var \Netgen\Layouts\HttpCache\ClientInterface
      */
     private $httpCacheClient;
 

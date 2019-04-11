@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Stubs;
+namespace Netgen\Layouts\Tests\API\Stubs;
 
-use Netgen\BlockManager\API\Values\Value as APIValue;
-use Netgen\BlockManager\API\Values\ValueStatusTrait;
-use Netgen\BlockManager\Utils\HydratorTrait;
+use Netgen\Layouts\API\Values\Value as APIValue;
+use Netgen\Layouts\API\Values\ValueStatusTrait;
+use Netgen\Layouts\Utils\HydratorTrait;
 
 final class Value implements APIValue
 {

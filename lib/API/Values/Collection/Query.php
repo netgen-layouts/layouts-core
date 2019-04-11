@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\Collection;
+namespace Netgen\Layouts\API\Values\Collection;
 
-use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\API\Values\ValueStatusTrait;
-use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
-use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
-use Netgen\BlockManager\Parameters\ParameterCollectionTrait;
-use Netgen\BlockManager\Utils\HydratorTrait;
+use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\API\Values\ValueStatusTrait;
+use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
+use Netgen\Layouts\Parameters\ParameterCollectionInterface;
+use Netgen\Layouts\Parameters\ParameterCollectionTrait;
+use Netgen\Layouts\Utils\HydratorTrait;
 
 final class Query implements Value, ParameterCollectionInterface
 {
@@ -28,7 +28,7 @@ final class Query implements Value, ParameterCollectionInterface
     private $collectionId;
 
     /**
-     * @var \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface
+     * @var \Netgen\Layouts\Collection\QueryType\QueryTypeInterface
      */
     private $queryType;
 

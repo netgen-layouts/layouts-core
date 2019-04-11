@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\Config;
+namespace Netgen\Layouts\API\Values\Config;
 
 interface ConfigAwareValue
 {
@@ -14,7 +14,7 @@ interface ConfigAwareValue
     /**
      * Returns the config with specified config key.
      *
-     * @throws \Netgen\BlockManager\Exception\API\ConfigException If the config does not exist
+     * @throws \Netgen\Layouts\Exception\API\ConfigException If the config does not exist
      */
     public function getConfig(string $configKey): Config;
 

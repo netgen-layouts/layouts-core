@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\Mapper\Doctrine;
+namespace Netgen\Layouts\Tests\Core\Mapper\Doctrine;
 
-use Netgen\BlockManager\Tests\Core\Mapper\LayoutResolverMapperTest as BaseLayoutResolverMapperTest;
-use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
+use Netgen\Layouts\Tests\Core\Mapper\LayoutResolverMapperTest as BaseLayoutResolverMapperTest;
+use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 
 final class LayoutResolverMapperTest extends BaseLayoutResolverMapperTest
 {

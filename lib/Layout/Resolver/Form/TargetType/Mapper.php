@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Layout\Resolver\Form\TargetType;
+namespace Netgen\Layouts\Layout\Resolver\Form\TargetType;
 
 use Symfony\Component\Form\FormBuilderInterface;
 

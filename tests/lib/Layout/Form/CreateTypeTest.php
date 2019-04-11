@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Layout\Form;
+namespace Netgen\Layouts\Tests\Layout\Form;
 
-use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
-use Netgen\BlockManager\Layout\Form\CreateType;
-use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry;
-use Netgen\BlockManager\Layout\Type\LayoutType;
-use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Netgen\Layouts\API\Values\Layout\LayoutCreateStruct;
+use Netgen\Layouts\Layout\Form\CreateType;
+use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
+use Netgen\Layouts\Layout\Type\LayoutType;
+use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,7 +16,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class CreateTypeTest extends FormTestCase
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface
      */
     private $layoutTypeRegistry;
 
@@ -49,9 +49,9 @@ final class CreateTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Form\CreateType::__construct
-     * @covers \Netgen\BlockManager\Layout\Form\CreateType::buildForm
-     * @covers \Netgen\BlockManager\Layout\Form\CreateType::finishView
+     * @covers \Netgen\Layouts\Layout\Form\CreateType::__construct
+     * @covers \Netgen\Layouts\Layout\Form\CreateType::buildForm
+     * @covers \Netgen\Layouts\Layout\Form\CreateType::finishView
      */
     public function testSubmitValidData(): void
     {
@@ -94,7 +94,7 @@ final class CreateTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Form\CreateType::configureOptions
+     * @covers \Netgen\Layouts\Layout\Form\CreateType::configureOptions
      */
     public function testConfigureOptions(): void
     {
@@ -115,12 +115,12 @@ final class CreateTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Form\CreateType::configureOptions
+     * @covers \Netgen\Layouts\Layout\Form\CreateType::configureOptions
      */
     public function testConfigureOptionsWithInvalidData(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\\BlockManager\\API\\Values\\Layout\\LayoutCreateStruct", but is of type "string".');
+        $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\\Layouts\\API\\Values\\Layout\\LayoutCreateStruct", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');

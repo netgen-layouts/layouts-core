@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Persistence\Doctrine\Mapper;
+namespace Netgen\Layouts\Persistence\Doctrine\Mapper;
 
-use Netgen\BlockManager\Persistence\Values\Layout\Layout;
-use Netgen\BlockManager\Persistence\Values\Layout\Zone;
+use Netgen\Layouts\Persistence\Values\Layout\Layout;
+use Netgen\Layouts\Persistence\Values\Layout\Zone;
 
 final class LayoutMapper
 {
     /**
      * Maps data from database to layout values.
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout[]
+     * @return \Netgen\Layouts\Persistence\Values\Layout\Layout[]
      */
     public function mapLayouts(array $data): array
     {
@@ -54,7 +54,7 @@ final class LayoutMapper
     /**
      * Maps data from database to zone values.
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Layout\Zone[]
+     * @return \Netgen\Layouts\Persistence\Values\Layout\Zone[]
      */
     public function mapZones(array $data): array
     {

@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Collection\Item;
+namespace Netgen\Layouts\Tests\Collection\Item;
 
-use Netgen\BlockManager\Collection\Item\ItemDefinitionFactory;
-use Netgen\BlockManager\Config\ConfigDefinitionFactory;
-use Netgen\BlockManager\Config\ConfigDefinitionInterface;
-use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
-use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
-use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler;
+use Netgen\Layouts\Collection\Item\ItemDefinitionFactory;
+use Netgen\Layouts\Config\ConfigDefinitionFactory;
+use Netgen\Layouts\Config\ConfigDefinitionInterface;
+use Netgen\Layouts\Parameters\ParameterBuilderFactory;
+use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
+use Netgen\Layouts\Tests\Config\Stubs\ConfigDefinitionHandler;
 use PHPUnit\Framework\TestCase;
 
 final class ItemDefinitionFactoryTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Config\ConfigDefinitionFactory
+     * @var \Netgen\Layouts\Config\ConfigDefinitionFactory
      */
     private $configDefinitionFactory;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Item\ItemDefinitionFactory
+     * @var \Netgen\Layouts\Collection\Item\ItemDefinitionFactory
      */
     private $factory;
 
@@ -38,8 +38,8 @@ final class ItemDefinitionFactoryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Item\ItemDefinitionFactory::__construct
-     * @covers \Netgen\BlockManager\Collection\Item\ItemDefinitionFactory::buildItemDefinition
+     * @covers \Netgen\Layouts\Collection\Item\ItemDefinitionFactory::__construct
+     * @covers \Netgen\Layouts\Collection\Item\ItemDefinitionFactory::buildItemDefinition
      */
     public function testBuildItemDefinition(): void
     {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View;
+namespace Netgen\Layouts\View;
 
 interface RendererInterface
 {

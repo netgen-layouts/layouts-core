@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Controller\App\Collection;
 
-use Netgen\BlockManager\API\Service\CollectionService;
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\Config\Form\EditType;
-use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
+use Netgen\Layouts\API\Service\CollectionService;
+use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\Config\Form\EditType;
+use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class EditItemConfigForm extends AbstractController
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\CollectionService
+     * @var \Netgen\Layouts\API\Service\CollectionService
      */
     private $collectionService;
 
@@ -27,7 +27,7 @@ final class EditItemConfigForm extends AbstractController
     /**
      * Displays and processes item config edit form.
      *
-     * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
+     * @return \Netgen\Layouts\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
     public function __invoke(Request $request, Item $item, ?string $configKey = null)
     {

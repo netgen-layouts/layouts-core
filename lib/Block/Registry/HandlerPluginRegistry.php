@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Block\Registry;
+namespace Netgen\Layouts\Block\Registry;
 
-use Netgen\BlockManager\Block\BlockDefinition\Handler\PluginInterface;
+use Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface;
 
 final class HandlerPluginRegistry implements HandlerPluginRegistryInterface
 {
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\Handler\PluginInterface[]
+     * @var \Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface[]
      */
     private $handlerPlugins = [];
 

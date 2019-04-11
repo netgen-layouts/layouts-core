@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver;
 
-use Netgen\BlockManager\API\Service\LayoutResolverService;
-use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\API\Values\Value;
 use Netgen\Bundle\LayoutsBundle\ParamConverter\ParamConverter;
+use Netgen\Layouts\API\Service\LayoutResolverService;
+use Netgen\Layouts\API\Values\LayoutResolver\Condition;
+use Netgen\Layouts\API\Values\Value;
 
 final class ConditionParamConverter extends ParamConverter
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutResolverService
+     * @var \Netgen\Layouts\API\Service\LayoutResolverService
      */
     private $layoutResolverService;
 

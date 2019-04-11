@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\View;
+namespace Netgen\Layouts\Tests\View\View;
 
-use Netgen\BlockManager\Item\CmsItem;
-use Netgen\BlockManager\View\View\ItemView;
+use Netgen\Layouts\Item\CmsItem;
+use Netgen\Layouts\View\View\ItemView;
 use PHPUnit\Framework\TestCase;
 
 final class ItemViewTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Item\CmsItemInterface
+     * @var \Netgen\Layouts\Item\CmsItemInterface
      */
     private $item;
 
     /**
-     * @var \Netgen\BlockManager\View\View\ItemViewInterface
+     * @var \Netgen\Layouts\View\View\ItemViewInterface
      */
     private $view;
 
@@ -36,8 +36,8 @@ final class ItemViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View\ItemView::__construct
-     * @covers \Netgen\BlockManager\View\View\ItemView::getItem
+     * @covers \Netgen\Layouts\View\View\ItemView::__construct
+     * @covers \Netgen\Layouts\View\View\ItemView::getItem
      */
     public function testGetItem(): void
     {
@@ -53,7 +53,7 @@ final class ItemViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View\ItemView::getViewType
+     * @covers \Netgen\Layouts\View\View\ItemView::getViewType
      */
     public function testGetViewType(): void
     {
@@ -61,7 +61,7 @@ final class ItemViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View\ItemView::getIdentifier
+     * @covers \Netgen\Layouts\View\View\ItemView::getIdentifier
      */
     public function testGetIdentifier(): void
     {

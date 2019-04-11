@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Parameters\Form;
+namespace Netgen\Layouts\Parameters\Form;
 
-use Netgen\BlockManager\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterDefinition;
 use Symfony\Component\Form\FormBuilderInterface;
 
 abstract class Mapper implements MapperInterface

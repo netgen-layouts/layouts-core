@@ -4,28 +4,28 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block;
 
-use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\Block\Registry\BlockTypeRegistryInterface;
-use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Exception\Block\BlockTypeException;
-use Netgen\BlockManager\Serializer\Values\View;
-use Netgen\BlockManager\Serializer\Version;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructBuilder;
 use Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructValidator;
+use Netgen\Layouts\API\Service\BlockService;
+use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\Block\Registry\BlockTypeRegistryInterface;
+use Netgen\Layouts\Exception\BadStateException;
+use Netgen\Layouts\Exception\Block\BlockTypeException;
+use Netgen\Layouts\Serializer\Values\View;
+use Netgen\Layouts\Serializer\Version;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class CreateInZone extends AbstractController
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\BlockService
+     * @var \Netgen\Layouts\API\Service\BlockService
      */
     private $blockService;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutService
+     * @var \Netgen\Layouts\API\Service\LayoutService
      */
     private $layoutService;
 
@@ -40,7 +40,7 @@ final class CreateInZone extends AbstractController
     private $createStructValidator;
 
     /**
-     * @var \Netgen\BlockManager\Block\Registry\BlockTypeRegistryInterface
+     * @var \Netgen\Layouts\Block\Registry\BlockTypeRegistryInterface
      */
     private $blockTypeRegistry;
 
@@ -61,7 +61,7 @@ final class CreateInZone extends AbstractController
     /**
      * Creates the block in specified zone.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If block type does not exist
+     * @throws \Netgen\Layouts\Exception\BadStateException If block type does not exist
      */
     public function __invoke(Request $request): View
     {

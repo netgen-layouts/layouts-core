@@ -1,70 +1,70 @@
 services:
     netgen_block_manager.transfer.serializer.visitor.aggregate:
-        class: Netgen\BlockManager\Transfer\Output\Visitor\AggregateVisitor
+        class: Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor
         arguments:
             - !tagged netgen_block_manager.transfer.serializer.visitor
 
     netgen_block_manager.transfer.serializer.visitor.block:
-        class: Netgen\BlockManager\Transfer\Output\Visitor\BlockVisitor
+        class: Netgen\Layouts\Transfer\Output\Visitor\BlockVisitor
         arguments:
             - "@netgen_block_manager.api.service.block"
         tags:
             - { name: netgen_block_manager.transfer.serializer.visitor }
 
     netgen_block_manager.transfer.serializer.visitor.collection:
-        class: Netgen\BlockManager\Transfer\Output\Visitor\CollectionVisitor
+        class: Netgen\Layouts\Transfer\Output\Visitor\CollectionVisitor
         tags:
             - { name: netgen_block_manager.transfer.serializer.visitor }
 
     netgen_block_manager.transfer.serializer.visitor.condition:
-        class: Netgen\BlockManager\Transfer\Output\Visitor\ConditionVisitor
+        class: Netgen\Layouts\Transfer\Output\Visitor\ConditionVisitor
         tags:
             - { name: netgen_block_manager.transfer.serializer.visitor }
 
     netgen_block_manager.transfer.serializer.visitor.config:
-        class: Netgen\BlockManager\Transfer\Output\Visitor\ConfigVisitor
+        class: Netgen\Layouts\Transfer\Output\Visitor\ConfigVisitor
         tags:
             - { name: netgen_block_manager.transfer.serializer.visitor }
 
     netgen_block_manager.transfer.serializer.visitor.item:
-        class: Netgen\BlockManager\Transfer\Output\Visitor\ItemVisitor
+        class: Netgen\Layouts\Transfer\Output\Visitor\ItemVisitor
         tags:
             - { name: netgen_block_manager.transfer.serializer.visitor }
 
     netgen_block_manager.transfer.serializer.visitor.layout:
-        class: Netgen\BlockManager\Transfer\Output\Visitor\LayoutVisitor
+        class: Netgen\Layouts\Transfer\Output\Visitor\LayoutVisitor
         tags:
             - { name: netgen_block_manager.transfer.serializer.visitor }
 
     netgen_block_manager.transfer.serializer.visitor.parameter:
-        class: Netgen\BlockManager\Transfer\Output\Visitor\ParameterVisitor
+        class: Netgen\Layouts\Transfer\Output\Visitor\ParameterVisitor
         tags:
             - { name: netgen_block_manager.transfer.serializer.visitor }
 
     netgen_block_manager.transfer.serializer.visitor.placeholder:
-        class: Netgen\BlockManager\Transfer\Output\Visitor\PlaceholderVisitor
+        class: Netgen\Layouts\Transfer\Output\Visitor\PlaceholderVisitor
         tags:
             - { name: netgen_block_manager.transfer.serializer.visitor }
 
     netgen_block_manager.transfer.serializer.visitor.query:
-        class: Netgen\BlockManager\Transfer\Output\Visitor\QueryVisitor
+        class: Netgen\Layouts\Transfer\Output\Visitor\QueryVisitor
         arguments:
             - "@netgen_block_manager.api.service.collection"
         tags:
             - { name: netgen_block_manager.transfer.serializer.visitor }
 
     netgen_block_manager.transfer.serializer.visitor.rule:
-        class: Netgen\BlockManager\Transfer\Output\Visitor\RuleVisitor
+        class: Netgen\Layouts\Transfer\Output\Visitor\RuleVisitor
         tags:
             - { name: netgen_block_manager.transfer.serializer.visitor }
 
     netgen_block_manager.transfer.serializer.visitor.target:
-        class: Netgen\BlockManager\Transfer\Output\Visitor\TargetVisitor
+        class: Netgen\Layouts\Transfer\Output\Visitor\TargetVisitor
         tags:
             - { name: netgen_block_manager.transfer.serializer.visitor }
 
     netgen_block_manager.transfer.serializer.visitor.zone:
-        class: Netgen\BlockManager\Transfer\Output\Visitor\ZoneVisitor
+        class: Netgen\Layouts\Transfer\Output\Visitor\ZoneVisitor
         arguments:
             - "@netgen_block_manager.api.service.block"
         tags:

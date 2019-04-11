@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\Value;
+namespace Netgen\Layouts\Tests\Parameters\Value;
 
-use Netgen\BlockManager\Parameters\Value\LinkValue;
+use Netgen\Layouts\Parameters\Value\LinkValue;
 use PHPUnit\Framework\TestCase;
 
 final class LinkValueTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Parameters\Value\LinkValue::getLink
-     * @covers \Netgen\BlockManager\Parameters\Value\LinkValue::getLinkSuffix
-     * @covers \Netgen\BlockManager\Parameters\Value\LinkValue::getLinkType
-     * @covers \Netgen\BlockManager\Parameters\Value\LinkValue::getNewWindow
+     * @covers \Netgen\Layouts\Parameters\Value\LinkValue::getLink
+     * @covers \Netgen\Layouts\Parameters\Value\LinkValue::getLinkSuffix
+     * @covers \Netgen\Layouts\Parameters\Value\LinkValue::getLinkType
+     * @covers \Netgen\Layouts\Parameters\Value\LinkValue::getNewWindow
      */
     public function testSetProperties(): void
     {

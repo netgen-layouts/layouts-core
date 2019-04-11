@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\Config;
+namespace Netgen\Layouts\API\Values\Config;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -21,7 +21,7 @@ final class ConfigList extends ArrayCollection
     }
 
     /**
-     * @return \Netgen\BlockManager\API\Values\Config\Config[]
+     * @return \Netgen\Layouts\API\Values\Config\Config[]
      */
     public function getConfigs(): array
     {

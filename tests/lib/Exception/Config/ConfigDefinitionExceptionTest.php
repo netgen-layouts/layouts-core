@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Exception\Config;
+namespace Netgen\Layouts\Tests\Exception\Config;
 
-use Netgen\BlockManager\Exception\Config\ConfigDefinitionException;
+use Netgen\Layouts\Exception\Config\ConfigDefinitionException;
 use PHPUnit\Framework\TestCase;
 
 final class ConfigDefinitionExceptionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Exception\Config\ConfigDefinitionException::noConfigDefinition
+     * @covers \Netgen\Layouts\Exception\Config\ConfigDefinitionException::noConfigDefinition
      */
     public function testNoConfigDefinition(): void
     {

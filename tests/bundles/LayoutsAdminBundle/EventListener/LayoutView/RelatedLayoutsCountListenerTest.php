@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener\LayoutView;
 
-use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\Event\BlockManagerEvents;
-use Netgen\BlockManager\Event\CollectViewParametersEvent;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\View\View\LayoutView;
-use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\LayoutView\RelatedLayoutsCountListener;
+use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\Event\CollectViewParametersEvent;
+use Netgen\Layouts\Event\LayoutsEvents;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\View\Stubs\View;
+use Netgen\Layouts\View\View\LayoutView;
+use Netgen\Layouts\View\ViewInterface;
 use PHPUnit\Framework\TestCase;
 
 final class RelatedLayoutsCountListenerTest extends TestCase
@@ -40,7 +40,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
-            [sprintf('%s.%s', BlockManagerEvents::BUILD_VIEW, 'layout') => 'onBuildView'],
+            [sprintf('%s.%s', LayoutsEvents::BUILD_VIEW, 'layout') => 'onBuildView'],
             $this->listener::getSubscribedEvents()
         );
     }

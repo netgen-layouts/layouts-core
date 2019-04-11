@@ -1,55 +1,55 @@
 services:
     netgen_block_manager.view.provider.parameter:
-        class: Netgen\BlockManager\View\Provider\ParameterViewProvider
+        class: Netgen\Layouts\View\Provider\ParameterViewProvider
         tags:
             - { name: netgen_block_manager.view.provider, priority: 0 }
 
     netgen_block_manager.view.provider.zone:
-        class: Netgen\BlockManager\View\Provider\ZoneViewProvider
+        class: Netgen\Layouts\View\Provider\ZoneViewProvider
         tags:
             - { name: netgen_block_manager.view.provider, priority: 0 }
 
     netgen_block_manager.view.provider.block:
-        class: Netgen\BlockManager\View\Provider\BlockViewProvider
+        class: Netgen\Layouts\View\Provider\BlockViewProvider
         tags:
             - { name: netgen_block_manager.view.provider, priority: 0 }
 
     netgen_block_manager.view.provider.placeholder:
-        class: Netgen\BlockManager\View\Provider\PlaceholderViewProvider
+        class: Netgen\Layouts\View\Provider\PlaceholderViewProvider
         tags:
             - { name: netgen_block_manager.view.provider, priority: 0 }
 
     netgen_block_manager.view.provider.item:
-        class: Netgen\BlockManager\View\Provider\ItemViewProvider
+        class: Netgen\Layouts\View\Provider\ItemViewProvider
         tags:
             - { name: netgen_block_manager.view.provider, priority: 0 }
 
     netgen_block_manager.view.provider.layout:
-        class: Netgen\BlockManager\View\Provider\LayoutViewProvider
+        class: Netgen\Layouts\View\Provider\LayoutViewProvider
         tags:
             - { name: netgen_block_manager.view.provider, priority: 0 }
 
     netgen_block_manager.view.provider.layout_type:
-        class: Netgen\BlockManager\View\Provider\LayoutTypeViewProvider
+        class: Netgen\Layouts\View\Provider\LayoutTypeViewProvider
         tags:
             - { name: netgen_block_manager.view.provider, priority: 0 }
 
     netgen_block_manager.view.provider.form:
-        class: Netgen\BlockManager\View\Provider\FormViewProvider
+        class: Netgen\Layouts\View\Provider\FormViewProvider
         tags:
             - { name: netgen_block_manager.view.provider, priority: 0 }
 
     netgen_block_manager.view.provider.rule:
-        class: Netgen\BlockManager\View\Provider\RuleViewProvider
+        class: Netgen\Layouts\View\Provider\RuleViewProvider
         tags:
             - { name: netgen_block_manager.view.provider, priority: 0 }
 
     netgen_block_manager.view.provider.rule_target:
-        class: Netgen\BlockManager\View\Provider\RuleTargetViewProvider
+        class: Netgen\Layouts\View\Provider\RuleTargetViewProvider
         tags:
             - { name: netgen_block_manager.view.provider, priority: 0 }
 
     netgen_block_manager.view.provider.rule_condition:
-        class: Netgen\BlockManager\View\Provider\RuleConditionViewProvider
+        class: Netgen\Layouts\View\Provider\RuleConditionViewProvider
         tags:
             - { name: netgen_block_manager.view.provider, priority: 0 }

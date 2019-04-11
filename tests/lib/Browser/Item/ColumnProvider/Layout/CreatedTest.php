@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Browser\Item\ColumnProvider\Layout;
+namespace Netgen\Layouts\Tests\Browser\Item\ColumnProvider\Layout;
 
 use DateTimeImmutable;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Created;
-use Netgen\BlockManager\Browser\Item\Layout\Item;
 use Netgen\ContentBrowser\Tests\Stubs\Item as StubItem;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Created;
+use Netgen\Layouts\Browser\Item\Layout\Item;
 use PHPUnit\Framework\TestCase;
 
 final class CreatedTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Created
+     * @var \Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Created
      */
     private $provider;
 
@@ -24,8 +24,8 @@ final class CreatedTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Created::__construct
-     * @covers \Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Created::getValue
+     * @covers \Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Created::__construct
+     * @covers \Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Created::getValue
      */
     public function testGetValue(): void
     {
@@ -48,7 +48,7 @@ final class CreatedTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Created::getValue
+     * @covers \Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Created::getValue
      */
     public function testGetValueWithInvalidItem(): void
     {

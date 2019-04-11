@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Core\StructBuilder;
+namespace Netgen\Layouts\Core\StructBuilder;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\ItemUpdateStruct;
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
-use Netgen\BlockManager\Collection\Item\ItemDefinitionInterface;
-use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\CollectionCreateStruct;
+use Netgen\Layouts\API\Values\Collection\CollectionUpdateStruct;
+use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\API\Values\Collection\ItemCreateStruct;
+use Netgen\Layouts\API\Values\Collection\ItemUpdateStruct;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\API\Values\Collection\QueryCreateStruct;
+use Netgen\Layouts\API\Values\Collection\QueryUpdateStruct;
+use Netgen\Layouts\Collection\Item\ItemDefinitionInterface;
+use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
 
 final class CollectionStructBuilder
 {
     /**
-     * @var \Netgen\BlockManager\Core\StructBuilder\ConfigStructBuilder
+     * @var \Netgen\Layouts\Core\StructBuilder\ConfigStructBuilder
      */
     private $configStructBuilder;
 
@@ -59,10 +59,10 @@ final class CollectionStructBuilder
     /**
      * Creates a new item create struct from provided values.
      *
-     * @param \Netgen\BlockManager\Collection\Item\ItemDefinitionInterface $itemDefinition
+     * @param \Netgen\Layouts\Collection\Item\ItemDefinitionInterface $itemDefinition
      * @param int|string $value
      *
-     * @return \Netgen\BlockManager\API\Values\Collection\ItemCreateStruct
+     * @return \Netgen\Layouts\API\Values\Collection\ItemCreateStruct
      */
     public function newItemCreateStruct(ItemDefinitionInterface $itemDefinition, $value): ItemCreateStruct
     {

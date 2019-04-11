@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Exception\Validation;
+namespace Netgen\Layouts\Exception\Validation;
 
 use InvalidArgumentException as BaseInvalidArgumentException;
-use Netgen\BlockManager\Exception\Exception;
+use Netgen\Layouts\Exception\Exception;
 use Throwable;
 
 final class ValidationException extends BaseInvalidArgumentException implements Exception

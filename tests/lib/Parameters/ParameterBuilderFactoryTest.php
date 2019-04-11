@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters;
+namespace Netgen\Layouts\Tests\Parameters;
 
-use Netgen\BlockManager\Parameters\ParameterBuilder;
-use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
-use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
+use Netgen\Layouts\Parameters\ParameterBuilder;
+use Netgen\Layouts\Parameters\ParameterBuilderFactory;
+use Netgen\Layouts\Parameters\ParameterType;
+use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
 use PHPUnit\Framework\TestCase;
 
 final class ParameterBuilderFactoryTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface
+     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistryInterface
      */
     private $registry;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterBuilderFactory
+     * @var \Netgen\Layouts\Parameters\ParameterBuilderFactory
      */
     private $factory;
 
@@ -35,9 +35,9 @@ final class ParameterBuilderFactoryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilderFactory::__construct
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilderFactory::createParameterBuilder
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilderFactory::resolveOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilderFactory::__construct
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilderFactory::createParameterBuilder
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilderFactory::resolveOptions
      */
     public function testCreateParameterBuilder(): void
     {
@@ -49,8 +49,8 @@ final class ParameterBuilderFactoryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilderFactory::createParameterBuilder
-     * @covers \Netgen\BlockManager\Parameters\ParameterBuilderFactory::resolveOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilderFactory::createParameterBuilder
+     * @covers \Netgen\Layouts\Parameters\ParameterBuilderFactory::resolveOptions
      */
     public function testCreateParameterBuilderWithConfig(): void
     {

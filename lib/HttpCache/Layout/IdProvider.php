@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\HttpCache\Layout;
+namespace Netgen\Layouts\HttpCache\Layout;
 
-use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\Exception\NotFoundException;
+use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\Exception\NotFoundException;
 
 /**
  * Extracts all relevant IDs for a given layout.
@@ -16,7 +16,7 @@ use Netgen\BlockManager\Exception\NotFoundException;
 final class IdProvider implements IdProviderInterface
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutService
+     * @var \Netgen\Layouts\API\Service\LayoutService
      */
     private $layoutService;
 

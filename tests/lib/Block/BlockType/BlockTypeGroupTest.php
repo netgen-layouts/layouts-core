@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Block\BlockType;
+namespace Netgen\Layouts\Tests\Block\BlockType;
 
-use Netgen\BlockManager\Block\BlockType\BlockType;
-use Netgen\BlockManager\Block\BlockType\BlockTypeGroup;
+use Netgen\Layouts\Block\BlockType\BlockType;
+use Netgen\Layouts\Block\BlockType\BlockTypeGroup;
 use PHPUnit\Framework\TestCase;
 
 final class BlockTypeGroupTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Block\BlockType\BlockTypeGroup
+     * @var \Netgen\Layouts\Block\BlockType\BlockTypeGroup
      */
     private $blockTypeGroup;
 
     /**
-     * @var \Netgen\BlockManager\Block\BlockType\BlockType
+     * @var \Netgen\Layouts\Block\BlockType\BlockType
      */
     private $blockType1;
 
     /**
-     * @var \Netgen\BlockManager\Block\BlockType\BlockType
+     * @var \Netgen\Layouts\Block\BlockType\BlockType
      */
     private $blockType2;
 
@@ -41,7 +41,7 @@ final class BlockTypeGroupTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockType\BlockTypeGroup::getIdentifier
+     * @covers \Netgen\Layouts\Block\BlockType\BlockTypeGroup::getIdentifier
      */
     public function testGetIdentifier(): void
     {
@@ -49,7 +49,7 @@ final class BlockTypeGroupTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockType\BlockTypeGroup::isEnabled
+     * @covers \Netgen\Layouts\Block\BlockType\BlockTypeGroup::isEnabled
      */
     public function testIsEnabled(): void
     {
@@ -57,7 +57,7 @@ final class BlockTypeGroupTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockType\BlockTypeGroup::getName
+     * @covers \Netgen\Layouts\Block\BlockType\BlockTypeGroup::getName
      */
     public function testGetName(): void
     {
@@ -65,7 +65,7 @@ final class BlockTypeGroupTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockType\BlockTypeGroup::getBlockTypes
+     * @covers \Netgen\Layouts\Block\BlockType\BlockTypeGroup::getBlockTypes
      */
     public function testGetBlockTypes(): void
     {
@@ -73,7 +73,7 @@ final class BlockTypeGroupTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockType\BlockTypeGroup::getBlockTypes
+     * @covers \Netgen\Layouts\Block\BlockType\BlockTypeGroup::getBlockTypes
      */
     public function testGetEnabledBlockTypes(): void
     {

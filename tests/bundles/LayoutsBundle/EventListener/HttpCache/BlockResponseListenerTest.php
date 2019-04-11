@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener\HttpCache;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\HttpCache\TaggerInterface;
-use Netgen\BlockManager\View\View\BlockView;
 use Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\BlockResponseListener;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\HttpCache\TaggerInterface;
+use Netgen\Layouts\View\View\BlockView;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

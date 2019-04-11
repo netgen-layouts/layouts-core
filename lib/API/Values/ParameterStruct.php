@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values;
+namespace Netgen\Layouts\API\Values;
 
 interface ParameterStruct
 {

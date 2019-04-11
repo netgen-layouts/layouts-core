@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Transfer\Input;
+namespace Netgen\Layouts\Tests\Transfer\Input;
 
-use Netgen\BlockManager\Exception\Transfer\JsonValidationException;
-use Netgen\BlockManager\Transfer\Input\JsonValidator;
+use Netgen\Layouts\Exception\Transfer\JsonValidationException;
+use Netgen\Layouts\Transfer\Input\JsonValidator;
 use PHPUnit\Framework\TestCase;
 
 final class JsonValidatorTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Transfer\Input\JsonValidator
+     * @var \Netgen\Layouts\Transfer\Input\JsonValidator
      */
     private $validator;
 
@@ -21,8 +21,8 @@ final class JsonValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Transfer\Input\JsonValidator::parseJson
-     * @covers \Netgen\BlockManager\Transfer\Input\JsonValidator::validateJson
+     * @covers \Netgen\Layouts\Transfer\Input\JsonValidator::parseJson
+     * @covers \Netgen\Layouts\Transfer\Input\JsonValidator::validateJson
      */
     public function testValidateJson(): void
     {
@@ -33,8 +33,8 @@ final class JsonValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Transfer\Input\JsonValidator::parseJson
-     * @covers \Netgen\BlockManager\Transfer\Input\JsonValidator::validateJson
+     * @covers \Netgen\Layouts\Transfer\Input\JsonValidator::parseJson
+     * @covers \Netgen\Layouts\Transfer\Input\JsonValidator::validateJson
      */
     public function testValidateJsonThrowsJsonValidationExceptionWithInvalidJson(): void
     {
@@ -45,8 +45,8 @@ final class JsonValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Transfer\Input\JsonValidator::parseJson
-     * @covers \Netgen\BlockManager\Transfer\Input\JsonValidator::validateJson
+     * @covers \Netgen\Layouts\Transfer\Input\JsonValidator::parseJson
+     * @covers \Netgen\Layouts\Transfer\Input\JsonValidator::validateJson
      */
     public function testValidateJsonThrowsJsonValidationExceptionWithNotAcceptableJson(): void
     {
@@ -57,8 +57,8 @@ final class JsonValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Transfer\Input\JsonValidator::parseJson
-     * @covers \Netgen\BlockManager\Transfer\Input\JsonValidator::validateJson
+     * @covers \Netgen\Layouts\Transfer\Input\JsonValidator::parseJson
+     * @covers \Netgen\Layouts\Transfer\Input\JsonValidator::validateJson
      */
     public function testValidateJsonThrowsJsonValidationExceptionWithParseError(): void
     {

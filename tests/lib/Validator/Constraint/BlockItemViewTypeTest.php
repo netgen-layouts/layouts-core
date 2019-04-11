@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Validator\Constraint;
+namespace Netgen\Layouts\Tests\Validator\Constraint;
 
-use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
+use Netgen\Layouts\Validator\Constraint\BlockItemViewType;
 use PHPUnit\Framework\TestCase;
 
 final class BlockItemViewTypeTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Validator\Constraint\BlockItemViewType::validatedBy
+     * @covers \Netgen\Layouts\Validator\Constraint\BlockItemViewType::validatedBy
      */
     public function testValidatedBy(): void
     {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Parameters;
+namespace Netgen\Layouts\Parameters;
 
 use Closure;
-use Netgen\BlockManager\Exception\BadMethodCallException;
-use Netgen\BlockManager\Exception\Parameters\ParameterBuilderException;
+use Netgen\Layouts\Exception\BadMethodCallException;
+use Netgen\Layouts\Exception\Parameters\ParameterBuilderException;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraint;
@@ -19,16 +19,16 @@ class ParameterBuilder implements ParameterBuilderInterface
     protected $name;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterBuilderInterface|null
+     * @var \Netgen\Layouts\Parameters\ParameterBuilderInterface|null
      */
     protected $parentBuilder;
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface
+     * @var \Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface
      */
     private $builderFactory;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterTypeInterface|null
+     * @var \Netgen\Layouts\Parameters\ParameterTypeInterface|null
      */
     private $type;
 
@@ -68,7 +68,7 @@ class ParameterBuilder implements ParameterBuilderInterface
     private $unresolvedChildren = [];
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterDefinition[]
+     * @var \Netgen\Layouts\Parameters\ParameterDefinition[]
      */
     private $resolvedChildren = [];
 

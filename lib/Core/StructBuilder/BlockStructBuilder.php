@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Core\StructBuilder;
+namespace Netgen\Layouts\Core\StructBuilder;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
-use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\Block\BlockDefinitionInterface;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\BlockCreateStruct;
+use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
+use Netgen\Layouts\Block\BlockDefinitionInterface;
 
 final class BlockStructBuilder
 {
     /**
-     * @var \Netgen\BlockManager\Core\StructBuilder\ConfigStructBuilder
+     * @var \Netgen\Layouts\Core\StructBuilder\ConfigStructBuilder
      */
     private $configStructBuilder;
 

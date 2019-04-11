@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Core\StructBuilder;
+namespace Netgen\Layouts\Core\StructBuilder;
 
-use Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleCreateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\ConditionCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\ConditionUpdateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleUpdateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\TargetUpdateStruct;
 
 final class LayoutResolverStructBuilder
 {

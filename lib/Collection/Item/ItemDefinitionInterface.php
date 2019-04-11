@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Collection\Item;
+namespace Netgen\Layouts\Collection\Item;
 
-use Netgen\BlockManager\Config\ConfigDefinitionAwareInterface;
+use Netgen\Layouts\Config\ConfigDefinitionAwareInterface;
 
 /**
  * Item definition represents the model of the collection item.

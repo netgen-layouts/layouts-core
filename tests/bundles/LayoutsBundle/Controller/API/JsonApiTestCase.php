@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Tests\Controller\API;
 
 use ApiTestCase\JsonApiTestCase as BaseJsonApiTestCase;
-use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
-use Netgen\BlockManager\Tests\Persistence\Doctrine\DatabaseTrait;
+use Netgen\Layouts\Collection\Registry\QueryTypeRegistry;
+use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Tests\App\Item\Value;
 use Netgen\Layouts\Tests\App\MockerContainer;
+use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
+use Netgen\Layouts\Tests\Persistence\Doctrine\DatabaseTrait;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class JsonApiTestCase extends BaseJsonApiTestCase
@@ -51,7 +51,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
 
         $searchResults = [new Value(140), new Value(79), new Value(78)];
 
-        /** @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface $queryTypeRegistry */
+        /** @var \Netgen\Layouts\Collection\Registry\QueryTypeRegistryInterface $queryTypeRegistry */
         $queryTypeRegistry = $clientContainer->get('netgen_block_manager.collection.registry.query_type');
 
         $queryType = new QueryType('my_query_type', $searchResults, count($searchResults));
@@ -110,7 +110,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
     /**
      * Pretty encodes the provided array.
      *
-     * @throws \Netgen\BlockManager\Exception\RuntimeException If encoding failed
+     * @throws \Netgen\Layouts\Exception\RuntimeException If encoding failed
      */
     protected function jsonEncode(array $content): string
     {

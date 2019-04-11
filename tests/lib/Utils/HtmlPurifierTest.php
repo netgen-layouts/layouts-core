@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Utils;
+namespace Netgen\Layouts\Tests\Utils;
 
-use Netgen\BlockManager\Utils\HtmlPurifier;
+use Netgen\Layouts\Utils\HtmlPurifier;
 use PHPUnit\Framework\TestCase;
 
 final class HtmlPurifierTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Utils\HtmlPurifier
+     * @var \Netgen\Layouts\Utils\HtmlPurifier
      */
     private $htmlPurifier;
 
@@ -20,8 +20,8 @@ final class HtmlPurifierTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Utils\HtmlPurifier::__construct
-     * @covers \Netgen\BlockManager\Utils\HtmlPurifier::purify
+     * @covers \Netgen\Layouts\Utils\HtmlPurifier::__construct
+     * @covers \Netgen\Layouts\Utils\HtmlPurifier::purify
      */
     public function testPurify(): void
     {

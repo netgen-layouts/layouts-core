@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Templating\Twig\Node;
 
-use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate;
-use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime;
+use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\View\Twig\ContextualizedTwigTemplate;
+use Netgen\Layouts\View\ViewInterface;
 use Twig\Compiler;
 use Twig\Node\Expression\AbstractExpression;
 use Twig\Node\Node;

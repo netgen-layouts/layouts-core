@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
+namespace Netgen\Layouts\Tests\Parameters\ParameterType;
 
-use Netgen\BlockManager\Parameters\ParameterType\IntegerType;
+use Netgen\Layouts\Parameters\ParameterType\IntegerType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Validation;
@@ -19,7 +19,7 @@ final class IntegerTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\IntegerType::getIdentifier
+     * @covers \Netgen\Layouts\Parameters\ParameterType\IntegerType::getIdentifier
      */
     public function testGetIdentifier(): void
     {
@@ -27,7 +27,7 @@ final class IntegerTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\IntegerType::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterType\IntegerType::configureOptions
      *
      * @param array<string, mixed> $options
      * @param bool $required
@@ -43,7 +43,7 @@ final class IntegerTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\IntegerType::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterType\IntegerType::configureOptions
      * @dataProvider validOptionsProvider
      */
     public function testValidOptions(array $options, array $resolvedOptions): void
@@ -53,7 +53,7 @@ final class IntegerTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\IntegerType::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterType\IntegerType::configureOptions
      * @dataProvider invalidOptionsProvider
      */
     public function testInvalidOptions(array $options): void
@@ -181,7 +181,7 @@ final class IntegerTypeTest extends TestCase
      * @param bool $required
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\IntegerType::getValueConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterType\IntegerType::getValueConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, bool $required, bool $isValid): void
@@ -218,7 +218,7 @@ final class IntegerTypeTest extends TestCase
      * @param mixed $value
      * @param bool $isEmpty
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\IntegerType::isValueEmpty
+     * @covers \Netgen\Layouts\Parameters\ParameterType\IntegerType::isValueEmpty
      * @dataProvider emptyProvider
      */
     public function testIsValueEmpty($value, bool $isEmpty): void

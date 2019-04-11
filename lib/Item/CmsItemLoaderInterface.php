@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Item;
+namespace Netgen\Layouts\Item;
 
 /**
  * CMS item loader is a central point for loading items representing values from CMS.
@@ -15,9 +15,9 @@ interface CmsItemLoaderInterface
      * @param int|string $id
      * @param string $valueType
      *
-     * @throws \Netgen\BlockManager\Exception\Item\ItemException If item could not be loaded
+     * @throws \Netgen\Layouts\Exception\Item\ItemException If item could not be loaded
      *
-     * @return \Netgen\BlockManager\Item\CmsItemInterface
+     * @return \Netgen\Layouts\Item\CmsItemInterface
      */
     public function load($id, string $valueType): CmsItemInterface;
 
@@ -27,9 +27,9 @@ interface CmsItemLoaderInterface
      * @param int|string $remoteId
      * @param string $valueType
      *
-     * @throws \Netgen\BlockManager\Exception\Item\ItemException If item could not be loaded
+     * @throws \Netgen\Layouts\Exception\Item\ItemException If item could not be loaded
      *
-     * @return \Netgen\BlockManager\Item\CmsItemInterface
+     * @return \Netgen\Layouts\Item\CmsItemInterface
      */
     public function loadByRemoteId($remoteId, string $valueType): CmsItemInterface;
 }

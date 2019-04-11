@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Transfer\Output\Visitor\Integration;
+namespace Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration;
 
-use Netgen\BlockManager\API\Values\Block\Placeholder;
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Transfer\Output\Visitor\PlaceholderVisitor;
-use Netgen\BlockManager\Transfer\Output\VisitorInterface;
+use Netgen\Layouts\API\Values\Block\Placeholder;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Transfer\Output\Visitor\PlaceholderVisitor;
+use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 abstract class PlaceholderVisitorTest extends VisitorTest
 {

@@ -2,53 +2,53 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Core\Mapper;
+namespace Netgen\Layouts\Core\Mapper;
 
 use Generator;
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Block\Placeholder;
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\LazyCollection;
-use Netgen\BlockManager\Block\BlockDefinitionInterface;
-use Netgen\BlockManager\Block\ContainerDefinitionInterface;
-use Netgen\BlockManager\Block\NullBlockDefinition;
-use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
-use Netgen\BlockManager\Exception\Block\BlockDefinitionException;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface;
-use Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface;
-use Netgen\BlockManager\Persistence\Values\Block\Block as PersistenceBlock;
-use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\Placeholder;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\LazyCollection;
+use Netgen\Layouts\Block\BlockDefinitionInterface;
+use Netgen\Layouts\Block\ContainerDefinitionInterface;
+use Netgen\Layouts\Block\NullBlockDefinition;
+use Netgen\Layouts\Block\Registry\BlockDefinitionRegistryInterface;
+use Netgen\Layouts\Exception\Block\BlockDefinitionException;
+use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Persistence\Handler\BlockHandlerInterface;
+use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
+use Netgen\Layouts\Persistence\Values\Block\Block as PersistenceBlock;
+use Netgen\Layouts\Persistence\Values\Collection\Collection as PersistenceCollection;
 
 final class BlockMapper
 {
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface
+     * @var \Netgen\Layouts\Persistence\Handler\BlockHandlerInterface
      */
     private $blockHandler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface
+     * @var \Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface
      */
     private $collectionHandler;
 
     /**
-     * @var \Netgen\BlockManager\Core\Mapper\CollectionMapper
+     * @var \Netgen\Layouts\Core\Mapper\CollectionMapper
      */
     private $collectionMapper;
 
     /**
-     * @var \Netgen\BlockManager\Core\Mapper\ParameterMapper
+     * @var \Netgen\Layouts\Core\Mapper\ParameterMapper
      */
     private $parameterMapper;
 
     /**
-     * @var \Netgen\BlockManager\Core\Mapper\ConfigMapper
+     * @var \Netgen\Layouts\Core\Mapper\ConfigMapper
      */
     private $configMapper;
 
     /**
-     * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface
+     * @var \Netgen\Layouts\Block\Registry\BlockDefinitionRegistryInterface
      */
     private $blockDefinitionRegistry;
 
@@ -77,7 +77,7 @@ final class BlockMapper
      * block in main locale will be returned if none of the locales in $locales
      * array are found.
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If the block does not have any requested translations
+     * @throws \Netgen\Layouts\Exception\NotFoundException If the block does not have any requested translations
      */
     public function mapBlock(PersistenceBlock $block, ?array $locales = null, bool $useMainLocale = true): Block
     {

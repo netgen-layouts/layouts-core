@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Layout\Resolver;
+namespace Netgen\Layouts\Layout\Resolver;
 
-use Netgen\BlockManager\API\Service\LayoutResolverService;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface;
+use Netgen\Layouts\API\Service\LayoutResolverService;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 final class LayoutResolver implements LayoutResolverInterface
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutResolverService
+     * @var \Netgen\Layouts\API\Service\LayoutResolverService
      */
     private $layoutResolverService;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistryInterface
      */
     private $targetTypeRegistry;
 

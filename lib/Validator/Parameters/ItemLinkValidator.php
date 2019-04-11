@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Validator\Parameters;
+namespace Netgen\Layouts\Validator\Parameters;
 
-use Netgen\BlockManager\Item\CmsItemLoaderInterface;
-use Netgen\BlockManager\Item\NullCmsItem;
-use Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink;
-use Netgen\BlockManager\Validator\Constraint\ValueType;
+use Netgen\Layouts\Item\CmsItemLoaderInterface;
+use Netgen\Layouts\Item\NullCmsItem;
+use Netgen\Layouts\Validator\Constraint\Parameters\ItemLink;
+use Netgen\Layouts\Validator\Constraint\ValueType;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 final class ItemLinkValidator extends ConstraintValidator
 {
     /**
-     * @var \Netgen\BlockManager\Item\CmsItemLoaderInterface
+     * @var \Netgen\Layouts\Item\CmsItemLoaderInterface
      */
     private $cmsItemLoader;
 

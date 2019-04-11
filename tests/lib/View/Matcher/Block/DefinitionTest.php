@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\Matcher\Block;
+namespace Netgen\Layouts\Tests\View\Matcher\Block;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\NullBlockDefinition;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\View\Matcher\Block\Definition;
-use Netgen\BlockManager\View\View\BlockView;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Block\NullBlockDefinition;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\View\Stubs\View;
+use Netgen\Layouts\View\Matcher\Block\Definition;
+use Netgen\Layouts\View\View\BlockView;
 use PHPUnit\Framework\TestCase;
 
 final class DefinitionTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\View\Matcher\MatcherInterface
+     * @var \Netgen\Layouts\View\Matcher\MatcherInterface
      */
     private $matcher;
 
@@ -26,8 +26,8 @@ final class DefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Block\Definition::match
-     * @covers \Netgen\BlockManager\View\Matcher\Block\DefinitionTrait::doMatch
+     * @covers \Netgen\Layouts\View\Matcher\Block\Definition::match
+     * @covers \Netgen\Layouts\View\Matcher\Block\DefinitionTrait::doMatch
      * @dataProvider matchProvider
      */
     public function testMatch(array $config, bool $expected): void
@@ -44,8 +44,8 @@ final class DefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Block\Definition::match
-     * @covers \Netgen\BlockManager\View\Matcher\Block\DefinitionTrait::doMatch
+     * @covers \Netgen\Layouts\View\Matcher\Block\Definition::match
+     * @covers \Netgen\Layouts\View\Matcher\Block\DefinitionTrait::doMatch
      */
     public function testMatchWithNullDefinition(): void
     {
@@ -61,8 +61,8 @@ final class DefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Block\Definition::match
-     * @covers \Netgen\BlockManager\View\Matcher\Block\DefinitionTrait::doMatch
+     * @covers \Netgen\Layouts\View\Matcher\Block\Definition::match
+     * @covers \Netgen\Layouts\View\Matcher\Block\DefinitionTrait::doMatch
      */
     public function testMatchWithNullDefinitionReturnsFalse(): void
     {
@@ -89,7 +89,7 @@ final class DefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Block\Definition::match
+     * @covers \Netgen\Layouts\View\Matcher\Block\Definition::match
      */
     public function testMatchWithNoBlockView(): void
     {

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\Service;
+namespace Netgen\Layouts\Tests\Core\Service;
 
 use Exception;
-use Netgen\BlockManager\Core\Service\Service;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Persistence\TransactionHandlerInterface;
+use Netgen\Layouts\Core\Service\Service;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Persistence\TransactionHandlerInterface;
 use PHPUnit\Framework\TestCase;
 
 final class ServiceTest extends TestCase
@@ -18,7 +18,7 @@ final class ServiceTest extends TestCase
     private $transactionHandlerMock;
 
     /**
-     * @var \Netgen\BlockManager\Core\Service\Service
+     * @var \Netgen\Layouts\Core\Service\Service
      */
     private $service;
 
@@ -33,8 +33,8 @@ final class ServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\Service::__construct
-     * @covers \Netgen\BlockManager\Core\Service\Service::transaction
+     * @covers \Netgen\Layouts\Core\Service\Service::__construct
+     * @covers \Netgen\Layouts\Core\Service\Service::transaction
      */
     public function testTransaction(): void
     {
@@ -60,7 +60,7 @@ final class ServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\Service::transaction
+     * @covers \Netgen\Layouts\Core\Service\Service::transaction
      */
     public function testTransactionWithException(): void
     {
@@ -87,7 +87,7 @@ final class ServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\Service::beginTransaction
+     * @covers \Netgen\Layouts\Core\Service\Service::beginTransaction
      */
     public function testBeginTransaction(): void
     {
@@ -99,7 +99,7 @@ final class ServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\Service::commitTransaction
+     * @covers \Netgen\Layouts\Core\Service\Service::commitTransaction
      */
     public function testCommitTransaction(): void
     {
@@ -111,7 +111,7 @@ final class ServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\Service::commitTransaction
+     * @covers \Netgen\Layouts\Core\Service\Service::commitTransaction
      */
     public function testCommitTransactionThrowsRuntimeException(): void
     {
@@ -127,7 +127,7 @@ final class ServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\Service::rollbackTransaction
+     * @covers \Netgen\Layouts\Core\Service\Service::rollbackTransaction
      */
     public function testRollbackTransaction(): void
     {
@@ -139,7 +139,7 @@ final class ServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\Service::rollbackTransaction
+     * @covers \Netgen\Layouts\Core\Service\Service::rollbackTransaction
      */
     public function testRollbackTransactionThrowsRuntimeException(): void
     {

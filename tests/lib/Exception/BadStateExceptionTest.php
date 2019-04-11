@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Exception;
+namespace Netgen\Layouts\Tests\Exception;
 
-use Netgen\BlockManager\Exception\BadStateException;
+use Netgen\Layouts\Exception\BadStateException;
 use PHPUnit\Framework\TestCase;
 
 final class BadStateExceptionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Exception\BadStateException::__construct
+     * @covers \Netgen\Layouts\Exception\BadStateException::__construct
      */
     public function testExceptionMessage(): void
     {

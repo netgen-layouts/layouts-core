@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Parameters\Form\Mapper\Compound;
+namespace Netgen\Layouts\Parameters\Form\Mapper\Compound;
 
-use Netgen\BlockManager\Parameters\Form\Mapper;
-use Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\Form\Mapper;
+use Netgen\Layouts\Parameters\Form\Type\CompoundBooleanType;
+use Netgen\Layouts\Parameters\ParameterDefinition;
 
 final class BooleanMapper extends Mapper
 {

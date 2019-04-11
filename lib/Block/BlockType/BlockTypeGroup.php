@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Block\BlockType;
+namespace Netgen\Layouts\Block\BlockType;
 
-use Netgen\BlockManager\Utils\HydratorTrait;
+use Netgen\Layouts\Utils\HydratorTrait;
 
 /**
  * Block type group is used to group together a list of block types for
@@ -32,7 +32,7 @@ class BlockTypeGroup
     private $name;
 
     /**
-     * @var \Netgen\BlockManager\Block\BlockType\BlockType[]
+     * @var \Netgen\Layouts\Block\BlockType\BlockType[]
      */
     private $blockTypes = [];
 
@@ -65,7 +65,7 @@ class BlockTypeGroup
      *
      * @param bool $onlyEnabled
      *
-     * @return \Netgen\BlockManager\Block\BlockType\BlockType[]
+     * @return \Netgen\Layouts\Block\BlockType\BlockType[]
      */
     public function getBlockTypes(bool $onlyEnabled = false): array
     {

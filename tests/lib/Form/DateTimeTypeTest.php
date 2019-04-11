@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Form;
+namespace Netgen\Layouts\Tests\Form;
 
 use DateTimeImmutable;
-use Netgen\BlockManager\Form\DateTimeType;
-use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Netgen\Layouts\Form\DateTimeType;
+use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,8 +14,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class DateTimeTypeTest extends FormTestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Form\DateTimeType::buildForm
-     * @covers \Netgen\BlockManager\Form\DateTimeType::getTimeZoneList
+     * @covers \Netgen\Layouts\Form\DateTimeType::buildForm
+     * @covers \Netgen\Layouts\Form\DateTimeType::getTimeZoneList
      */
     public function testSubmitValidData(): void
     {
@@ -47,8 +47,8 @@ final class DateTimeTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Form\DateTimeType::buildForm
-     * @covers \Netgen\BlockManager\Form\DateTimeType::getTimeZoneList
+     * @covers \Netgen\Layouts\Form\DateTimeType::buildForm
+     * @covers \Netgen\Layouts\Form\DateTimeType::getTimeZoneList
      */
     public function testSubmitValidDataWithArrayData(): void
     {
@@ -78,7 +78,7 @@ final class DateTimeTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Form\DateTimeTYpe::configureOptions
+     * @covers \Netgen\Layouts\Form\DateTimeTYpe::configureOptions
      */
     public function testConfigureOptions(): void
     {
@@ -97,7 +97,7 @@ final class DateTimeTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Form\DateTimeTYpe::configureOptions
+     * @covers \Netgen\Layouts\Form\DateTimeTYpe::configureOptions
      */
     public function testConfigureOptionsWithDefaultValues(): void
     {
@@ -112,7 +112,7 @@ final class DateTimeTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Form\DateTimeTYpe::configureOptions
+     * @covers \Netgen\Layouts\Form\DateTimeTYpe::configureOptions
      */
     public function testConfigureOptionsWithInvalidUseDateTime(): void
     {
@@ -127,7 +127,7 @@ final class DateTimeTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Form\DateTimeType::getBlockPrefix
+     * @covers \Netgen\Layouts\Form\DateTimeType::getBlockPrefix
      */
     public function testGetBlockPrefix(): void
     {

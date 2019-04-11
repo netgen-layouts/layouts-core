@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Exception\Block;
+namespace Netgen\Layouts\Tests\Exception\Block;
 
-use Netgen\BlockManager\Exception\Block\BlockTypeException;
+use Netgen\Layouts\Exception\Block\BlockTypeException;
 use PHPUnit\Framework\TestCase;
 
 final class BlockTypeExceptionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Exception\Block\BlockTypeException::noBlockType
+     * @covers \Netgen\Layouts\Exception\Block\BlockTypeException::noBlockType
      */
     public function testNoBlockType(): void
     {
@@ -23,7 +23,7 @@ final class BlockTypeExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\Block\BlockTypeException::noBlockTypeGroup
+     * @covers \Netgen\Layouts\Exception\Block\BlockTypeException::noBlockTypeGroup
      */
     public function testNoBlockTypeGroup(): void
     {

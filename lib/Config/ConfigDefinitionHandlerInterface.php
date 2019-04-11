@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Config;
+namespace Netgen\Layouts\Config;
 
-use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
+use Netgen\Layouts\Parameters\ParameterBuilderInterface;
 
 /**
  * Config definition handler represents the dynamic/runtime part of the

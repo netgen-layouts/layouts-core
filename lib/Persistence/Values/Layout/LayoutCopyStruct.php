@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Persistence\Values\Layout;
+namespace Netgen\Layouts\Persistence\Values\Layout;
 
-use Netgen\BlockManager\Utils\HydratorTrait;
+use Netgen\Layouts\Utils\HydratorTrait;
 
 final class LayoutCopyStruct
 {

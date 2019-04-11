@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Transfer\Output\Visitor\Integration\Doctrine;
+namespace Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration\Doctrine;
 
-use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
-use Netgen\BlockManager\Tests\Transfer\Output\Visitor\Integration\QueryVisitorTest as BaseQueryVisitorTest;
+use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
+use Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration\QueryVisitorTest as BaseQueryVisitorTest;
 
 /**
- * @covers \Netgen\BlockManager\Transfer\Output\Visitor\QueryVisitor
+ * @covers \Netgen\Layouts\Transfer\Output\Visitor\QueryVisitor
  */
 final class QueryVisitorTest extends BaseQueryVisitorTest
 {

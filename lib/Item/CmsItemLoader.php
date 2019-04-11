@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Item;
+namespace Netgen\Layouts\Item;
 
-use Netgen\BlockManager\Exception\Item\ItemException;
+use Netgen\Layouts\Exception\Item\ItemException;
 
 final class CmsItemLoader implements CmsItemLoaderInterface
 {
     /**
-     * @var \Netgen\BlockManager\Item\CmsItemBuilderInterface
+     * @var \Netgen\Layouts\Item\CmsItemBuilderInterface
      */
     private $cmsItemBuilder;
 
     /**
-     * @var \Netgen\BlockManager\Item\ValueLoaderInterface[]
+     * @var \Netgen\Layouts\Item\ValueLoaderInterface[]
      */
     private $valueLoaders;
 
     /**
-     * @param \Netgen\BlockManager\Item\CmsItemBuilderInterface $cmsItemBuilder
-     * @param \Netgen\BlockManager\Item\ValueLoaderInterface[] $valueLoaders
+     * @param \Netgen\Layouts\Item\CmsItemBuilderInterface $cmsItemBuilder
+     * @param \Netgen\Layouts\Item\ValueLoaderInterface[] $valueLoaders
      */
     public function __construct(CmsItemBuilderInterface $cmsItemBuilder, array $valueLoaders)
     {

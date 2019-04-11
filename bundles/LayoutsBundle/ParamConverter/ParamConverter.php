@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\ParamConverter;
 
-use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\Exception\InvalidArgumentException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter as ParamConverterConfiguration;
 use Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface;
 use Symfony\Component\HttpFoundation\Request;

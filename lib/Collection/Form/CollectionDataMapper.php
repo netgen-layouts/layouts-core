@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Collection\Form;
+namespace Netgen\Layouts\Collection\Form;
 
 use Symfony\Component\Form\DataMapperInterface;
 

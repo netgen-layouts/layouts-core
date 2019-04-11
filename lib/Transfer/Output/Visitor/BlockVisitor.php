@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Transfer\Output\Visitor;
+namespace Netgen\Layouts\Transfer\Output\Visitor;
 
 use Generator;
-use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Transfer\Output\VisitorInterface;
+use Netgen\Layouts\API\Service\BlockService;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 /**
  * Block value visitor.
  *
- * @see \Netgen\BlockManager\API\Values\Block\Block
+ * @see \Netgen\Layouts\API\Values\Block\Block
  */
 final class BlockVisitor implements VisitorInterface
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\BlockService
+     * @var \Netgen\Layouts\API\Service\BlockService
      */
     private $blockService;
 
@@ -33,8 +33,8 @@ final class BlockVisitor implements VisitorInterface
     }
 
     /**
-     * @param \Netgen\BlockManager\API\Values\Block\Block $value
-     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface|null $subVisitor
+     * @param \Netgen\Layouts\API\Values\Block\Block $value
+     * @param \Netgen\Layouts\Transfer\Output\VisitorInterface|null $subVisitor
      *
      * @return mixed
      */

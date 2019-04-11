@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Exception\Layout;
+namespace Netgen\Layouts\Tests\Exception\Layout;
 
-use Netgen\BlockManager\Exception\Layout\LayoutTypeException;
+use Netgen\Layouts\Exception\Layout\LayoutTypeException;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutTypeExceptionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Exception\Layout\LayoutTypeException::noLayoutType
+     * @covers \Netgen\Layouts\Exception\Layout\LayoutTypeException::noLayoutType
      */
     public function testNoLayoutType(): void
     {
@@ -23,7 +23,7 @@ final class LayoutTypeExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\Layout\LayoutTypeException::noZone
+     * @covers \Netgen\Layouts\Exception\Layout\LayoutTypeException::noZone
      */
     public function testNoZone(): void
     {

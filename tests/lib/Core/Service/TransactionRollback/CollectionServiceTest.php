@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
+namespace Netgen\Layouts\Tests\Core\Service\TransactionRollback;
 
 use Exception;
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\ItemUpdateStruct;
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
-use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Collection\Item\ItemDefinition;
-use Netgen\BlockManager\Persistence\Values\Collection\Collection as PersistenceCollection;
-use Netgen\BlockManager\Persistence\Values\Collection\Item as PersistenceItem;
-use Netgen\BlockManager\Persistence\Values\Collection\Query as PersistenceQuery;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\API\Values\Collection\ItemCreateStruct;
+use Netgen\Layouts\API\Values\Collection\ItemUpdateStruct;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\API\Values\Collection\QueryUpdateStruct;
+use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\Collection\Item\ItemDefinition;
+use Netgen\Layouts\Persistence\Values\Collection\Collection as PersistenceCollection;
+use Netgen\Layouts\Persistence\Values\Collection\Item as PersistenceItem;
+use Netgen\Layouts\Persistence\Values\Collection\Query as PersistenceQuery;
+use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 
 final class CollectionServiceTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::changeCollectionType
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::changeCollectionType
      */
     public function testChangeCollectionType(): void
     {
@@ -49,7 +49,7 @@ final class CollectionServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::addItem
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::addItem
      */
     public function testAddItem(): void
     {
@@ -80,7 +80,7 @@ final class CollectionServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::addItem
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::addItem
      */
     public function testUpdateItem(): void
     {
@@ -108,7 +108,7 @@ final class CollectionServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::moveItem
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::moveItem
      */
     public function testMoveItem(): void
     {
@@ -133,7 +133,7 @@ final class CollectionServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteItem
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::deleteItem
      */
     public function testDeleteItem(): void
     {
@@ -158,7 +158,7 @@ final class CollectionServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::deleteItem
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::deleteItem
      */
     public function testDeleteItems(): void
     {
@@ -183,7 +183,7 @@ final class CollectionServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\CollectionService::updateQuery
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::updateQuery
      */
     public function testUpdateQuery(): void
     {

@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Item;
+namespace Netgen\Layouts\Tests\Item;
 
-use Netgen\BlockManager\Exception\Item\ItemException;
-use Netgen\BlockManager\Item\CmsItem;
-use Netgen\BlockManager\Item\CmsItemBuilderInterface;
-use Netgen\BlockManager\Item\CmsItemLoader;
-use Netgen\BlockManager\Item\NullCmsItem;
-use Netgen\BlockManager\Tests\Item\Stubs\Value;
-use Netgen\BlockManager\Tests\Item\Stubs\ValueLoader;
+use Netgen\Layouts\Exception\Item\ItemException;
+use Netgen\Layouts\Item\CmsItem;
+use Netgen\Layouts\Item\CmsItemBuilderInterface;
+use Netgen\Layouts\Item\CmsItemLoader;
+use Netgen\Layouts\Item\NullCmsItem;
+use Netgen\Layouts\Tests\Item\Stubs\Value;
+use Netgen\Layouts\Tests\Item\Stubs\ValueLoader;
 use PHPUnit\Framework\TestCase;
 
 final class CmsItemLoaderTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Item\CmsItemBuilderInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\Layouts\Item\CmsItemBuilderInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $cmsItemBuilderMock;
 
     /**
-     * @var \Netgen\BlockManager\Item\CmsItemLoaderInterface
+     * @var \Netgen\Layouts\Item\CmsItemLoaderInterface
      */
     private $cmsItemLoader;
 
@@ -31,8 +31,8 @@ final class CmsItemLoaderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\CmsItemLoader::__construct
-     * @covers \Netgen\BlockManager\Item\CmsItemLoader::load
+     * @covers \Netgen\Layouts\Item\CmsItemLoader::__construct
+     * @covers \Netgen\Layouts\Item\CmsItemLoader::load
      */
     public function testLoad(): void
     {
@@ -61,7 +61,7 @@ final class CmsItemLoaderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\CmsItemLoader::load
+     * @covers \Netgen\Layouts\Item\CmsItemLoader::load
      */
     public function testLoadItemWithNoItem(): void
     {
@@ -77,7 +77,7 @@ final class CmsItemLoaderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\CmsItemLoader::load
+     * @covers \Netgen\Layouts\Item\CmsItemLoader::load
      */
     public function testLoadItemThrowsItemException(): void
     {
@@ -90,7 +90,7 @@ final class CmsItemLoaderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\CmsItemLoader::loadByRemoteId
+     * @covers \Netgen\Layouts\Item\CmsItemLoader::loadByRemoteId
      */
     public function testLoadByRemoteId(): void
     {
@@ -119,7 +119,7 @@ final class CmsItemLoaderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\CmsItemLoader::loadByRemoteId
+     * @covers \Netgen\Layouts\Item\CmsItemLoader::loadByRemoteId
      */
     public function testLoadByRemoteIdItemThrowsItemExceptionWithNoItem(): void
     {
@@ -135,7 +135,7 @@ final class CmsItemLoaderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\CmsItemLoader::loadByRemoteId
+     * @covers \Netgen\Layouts\Item\CmsItemLoader::loadByRemoteId
      */
     public function testLoadByRemoteIdItemThrowsItemException(): void
     {

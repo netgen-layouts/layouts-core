@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Transfer\Output\Visitor;
+namespace Netgen\Layouts\Transfer\Output\Visitor;
 
-use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Transfer\Output\VisitorInterface;
+use Netgen\Layouts\Parameters\Parameter;
+use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 /**
  * Parameter value visitor.
  *
- * @see \Netgen\BlockManager\Parameters\Parameter
+ * @see \Netgen\Layouts\Parameters\Parameter
  */
 final class ParameterVisitor implements VisitorInterface
 {
@@ -21,7 +21,7 @@ final class ParameterVisitor implements VisitorInterface
 
     public function visit($value, ?VisitorInterface $subVisitor = null)
     {
-        /** @var \Netgen\BlockManager\Parameters\Parameter $value */
+        /** @var \Netgen\Layouts\Parameters\Parameter $value */
         $valueDefinition = $value->getParameterDefinition();
 
         return $valueDefinition->getType()->export($valueDefinition, $value->getValue());

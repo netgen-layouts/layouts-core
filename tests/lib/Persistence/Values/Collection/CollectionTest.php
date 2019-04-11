@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Persistence\Values\Collection;
+namespace Netgen\Layouts\Tests\Persistence\Values\Collection;
 
-use Netgen\BlockManager\Persistence\Values\Collection\Collection;
-use Netgen\BlockManager\Persistence\Values\Value;
+use Netgen\Layouts\Persistence\Values\Collection\Collection;
+use Netgen\Layouts\Persistence\Values\Value;
 use PHPUnit\Framework\TestCase;
 
 final class CollectionTest extends TestCase

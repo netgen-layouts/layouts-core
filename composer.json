@@ -105,7 +105,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Netgen\\BlockManager\\": "lib/",
+            "Netgen\\Layouts\\": "lib/",
 
             "Netgen\\Layouts\\Migrations\\": "migrations/",
 
@@ -116,7 +116,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Netgen\\BlockManager\\Tests\\": "tests/lib/",
+            "Netgen\\Layouts\\Tests\\": "tests/lib/",
             "Netgen\\Layouts\\Behat\\": "tests/behat/",
             "Netgen\\Layouts\\Tests\\App\\": "tests/application/src/",
             "Netgen\\Bundle\\LayoutsBundle\\Tests\\": "tests/bundles/LayoutsBundle/",

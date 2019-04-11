@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\Validator;
+namespace Netgen\Layouts\Tests\Core\Validator;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\ItemUpdateStruct;
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
-use Netgen\BlockManager\API\Values\Config\ConfigStruct;
-use Netgen\BlockManager\Collection\Item\ItemDefinition;
-use Netgen\BlockManager\Config\ConfigDefinition;
-use Netgen\BlockManager\Core\Validator\CollectionValidator;
-use Netgen\BlockManager\Exception\Validation\ValidationException;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
-use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
-use Netgen\BlockManager\Utils\Hydrator;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\CollectionCreateStruct;
+use Netgen\Layouts\API\Values\Collection\CollectionUpdateStruct;
+use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\API\Values\Collection\ItemCreateStruct;
+use Netgen\Layouts\API\Values\Collection\ItemUpdateStruct;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\API\Values\Collection\QueryCreateStruct;
+use Netgen\Layouts\API\Values\Collection\QueryUpdateStruct;
+use Netgen\Layouts\API\Values\Config\ConfigStruct;
+use Netgen\Layouts\Collection\Item\ItemDefinition;
+use Netgen\Layouts\Config\ConfigDefinition;
+use Netgen\Layouts\Core\Validator\CollectionValidator;
+use Netgen\Layouts\Exception\Validation\ValidationException;
+use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
+use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
+use Netgen\Layouts\Utils\Hydrator;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Validator\Validation;
@@ -33,7 +33,7 @@ final class CollectionValidatorTest extends TestCase
     private $validator;
 
     /**
-     * @var \Netgen\BlockManager\Core\Validator\CollectionValidator
+     * @var \Netgen\Layouts\Core\Validator\CollectionValidator
      */
     private $collectionValidator;
 
@@ -48,7 +48,7 @@ final class CollectionValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Validator\CollectionValidator::validateCollectionCreateStruct
+     * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateCollectionCreateStruct
      * @dataProvider validateCollectionCreateStructProvider
      */
     public function testValidateCollectionCreateStruct(array $params, bool $isValid): void
@@ -67,7 +67,7 @@ final class CollectionValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Validator\CollectionValidator::validateCollectionUpdateStruct
+     * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateCollectionUpdateStruct
      * @dataProvider validateCollectionUpdateStructProvider
      */
     public function testValidateCollectionUpdateStruct(array $params, bool $isDynamic, bool $isValid): void
@@ -89,7 +89,7 @@ final class CollectionValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Validator\CollectionValidator::validateItemCreateStruct
+     * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateItemCreateStruct
      * @dataProvider validateItemCreateStructProvider
      */
     public function testValidateItemCreateStruct(array $params, bool $isValid): void
@@ -108,7 +108,7 @@ final class CollectionValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Validator\CollectionValidator::validateItemUpdateStruct
+     * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateItemUpdateStruct
      * @dataProvider validateItemUpdateStructDataProvider
      */
     public function testValidateItemUpdateStruct(array $params, bool $isValid): void
@@ -172,7 +172,7 @@ final class CollectionValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Validator\CollectionValidator::validateQueryCreateStruct
+     * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateQueryCreateStruct
      * @dataProvider validateQueryCreateStructProvider
      */
     public function testValidateQueryCreateStruct(array $params, bool $isValid): void
@@ -191,7 +191,7 @@ final class CollectionValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Validator\CollectionValidator::validateQueryUpdateStruct
+     * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateQueryUpdateStruct
      * @dataProvider validateQueryUpdateStructProvider
      */
     public function testValidateQueryUpdateStruct(array $params, bool $isValid): void

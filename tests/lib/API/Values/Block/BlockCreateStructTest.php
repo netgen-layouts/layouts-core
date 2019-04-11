@@ -2,31 +2,31 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\Block;
+namespace Netgen\Layouts\Tests\API\Values\Block;
 
-use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\BlockDefinitionInterface;
-use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterType;
+use Netgen\Layouts\API\Values\Block\BlockCreateStruct;
+use Netgen\Layouts\API\Values\Collection\CollectionCreateStruct;
+use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Block\BlockDefinitionInterface;
+use Netgen\Layouts\Parameters\CompoundParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType;
 use PHPUnit\Framework\TestCase;
 
 final class BlockCreateStructTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Block\BlockCreateStruct
+     * @var \Netgen\Layouts\API\Values\Block\BlockCreateStruct
      */
     private $struct;
 
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
+     * @var \Netgen\Layouts\Block\BlockDefinitionInterface
      */
     private $blockDefinition;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct
+     * @var \Netgen\Layouts\API\Values\Collection\CollectionCreateStruct
      */
     private $collectionStruct;
 
@@ -40,8 +40,8 @@ final class BlockCreateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Block\BlockCreateStruct::__construct
-     * @covers \Netgen\BlockManager\API\Values\Block\BlockCreateStruct::getDefinition
+     * @covers \Netgen\Layouts\API\Values\Block\BlockCreateStruct::__construct
+     * @covers \Netgen\Layouts\API\Values\Block\BlockCreateStruct::getDefinition
      */
     public function testGetDefinition(): void
     {
@@ -49,7 +49,7 @@ final class BlockCreateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Block\BlockCreateStruct::getCollectionCreateStructs
+     * @covers \Netgen\Layouts\API\Values\Block\BlockCreateStruct::getCollectionCreateStructs
      */
     public function testGetCollectionCreateStructs(): void
     {
@@ -60,8 +60,8 @@ final class BlockCreateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Block\BlockCreateStruct::addCollectionCreateStruct
-     * @covers \Netgen\BlockManager\API\Values\Block\BlockCreateStruct::getCollectionCreateStructs
+     * @covers \Netgen\Layouts\API\Values\Block\BlockCreateStruct::addCollectionCreateStruct
+     * @covers \Netgen\Layouts\API\Values\Block\BlockCreateStruct::getCollectionCreateStructs
      */
     public function testAddCollectionCreateStruct(): void
     {
@@ -81,7 +81,7 @@ final class BlockCreateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Block\BlockCreateStruct::fillParametersFromHash
+     * @covers \Netgen\Layouts\API\Values\Block\BlockCreateStruct::fillParametersFromHash
      */
     public function testFillParametersFromHash(): void
     {
@@ -106,7 +106,7 @@ final class BlockCreateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Block\BlockCreateStruct::fillParametersFromHash
+     * @covers \Netgen\Layouts\API\Values\Block\BlockCreateStruct::fillParametersFromHash
      */
     public function testFillParametersFromHashWithMissingValues(): void
     {

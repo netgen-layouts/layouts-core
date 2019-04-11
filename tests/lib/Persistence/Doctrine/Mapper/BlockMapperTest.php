@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Mapper;
+namespace Netgen\Layouts\Tests\Persistence\Doctrine\Mapper;
 
-use Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper;
-use Netgen\BlockManager\Persistence\Values\Block\Block;
-use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
-use Netgen\BlockManager\Persistence\Values\Value;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
+use Netgen\Layouts\Persistence\Doctrine\Mapper\BlockMapper;
+use Netgen\Layouts\Persistence\Values\Block\Block;
+use Netgen\Layouts\Persistence\Values\Block\CollectionReference;
+use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 
 final class BlockMapperTest extends TestCase
@@ -16,7 +16,7 @@ final class BlockMapperTest extends TestCase
     use ExportObjectTrait;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper
+     * @var \Netgen\Layouts\Persistence\Doctrine\Mapper\BlockMapper
      */
     private $mapper;
 
@@ -26,8 +26,8 @@ final class BlockMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper::buildParameters
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper::mapBlocks
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\BlockMapper::buildParameters
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\BlockMapper::mapBlocks
      */
     public function testMapBlocks(): void
     {
@@ -136,7 +136,7 @@ final class BlockMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper::mapCollectionReferences
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\BlockMapper::mapCollectionReferences
      */
     public function testMapCollectionReferences(): void
     {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Locale;
+namespace Netgen\Layouts\Locale;
 
-use Netgen\BlockManager\Utils\BackwardsCompatibility\Locales;
+use Netgen\Layouts\Utils\BackwardsCompatibility\Locales;
 use Symfony\Component\HttpFoundation\Request;
 
 final class LocaleProvider implements LocaleProviderInterface

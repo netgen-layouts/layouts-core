@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\EventListener;
 
-use Netgen\BlockManager\Context\ContextBuilderInterface;
-use Netgen\BlockManager\Context\ContextInterface;
+use Netgen\Layouts\Context\ContextBuilderInterface;
+use Netgen\Layouts\Context\ContextInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -15,12 +15,12 @@ use Symfony\Component\HttpKernel\UriSigner;
 final class ContextListener implements EventSubscriberInterface
 {
     /**
-     * @var \Netgen\BlockManager\Context\ContextInterface
+     * @var \Netgen\Layouts\Context\ContextInterface
      */
     private $context;
 
     /**
-     * @var \Netgen\BlockManager\Context\ContextBuilderInterface
+     * @var \Netgen\Layouts\Context\ContextBuilderInterface
      */
     private $contextBuilder;
 

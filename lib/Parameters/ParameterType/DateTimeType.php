@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Parameters\ParameterType;
+namespace Netgen\Layouts\Parameters\ParameterType;
 
 use DateTimeInterface;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Utils\DateTimeUtils;
-use Netgen\BlockManager\Validator\Constraint\DateTime as DateTimeConstraint;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType;
+use Netgen\Layouts\Utils\DateTimeUtils;
+use Netgen\Layouts\Validator\Constraint\DateTime as DateTimeConstraint;
 
 /**
  * Parameter type used to store and validate a date and time value. The value of the parameter

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Config\Stubs\CollectionItem;
+namespace Netgen\Layouts\Tests\Config\Stubs\CollectionItem;
 
-use Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface;
-use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterType;
+use Netgen\Layouts\Config\ConfigDefinitionHandlerInterface;
+use Netgen\Layouts\Parameters\ParameterBuilderInterface;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType;
 
 final class ConfigHandler implements ConfigDefinitionHandlerInterface
 {

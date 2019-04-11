@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Item\Registry;
+namespace Netgen\Layouts\Item\Registry;
 
 use ArrayIterator;
-use Netgen\BlockManager\Exception\Item\ItemException;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Item\ValueType\ValueType;
+use Netgen\Layouts\Exception\Item\ItemException;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Item\ValueType\ValueType;
 use Traversable;
 
 final class ValueTypeRegistry implements ValueTypeRegistryInterface
 {
     /**
-     * @var \Netgen\BlockManager\Item\ValueType\ValueType[]
+     * @var \Netgen\Layouts\Item\ValueType\ValueType[]
      */
     private $valueTypes;
 
     /**
-     * @param \Netgen\BlockManager\Item\ValueType\ValueType[] $valueTypes
+     * @param \Netgen\Layouts\Item\ValueType\ValueType[] $valueTypes
      */
     public function __construct(array $valueTypes)
     {

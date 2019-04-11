@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View\Matcher;
+namespace Netgen\Layouts\View\Matcher;
 
-use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Layouts\View\ViewInterface;
 
 interface MatcherInterface
 {

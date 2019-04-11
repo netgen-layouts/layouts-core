@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Collection\Registry;
+namespace Netgen\Layouts\Tests\Collection\Registry;
 
 use ArrayIterator;
-use Netgen\BlockManager\Collection\Item\ItemDefinition;
-use Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry;
-use Netgen\BlockManager\Exception\Collection\ItemDefinitionException;
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\Layouts\Collection\Item\ItemDefinition;
+use Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry;
+use Netgen\Layouts\Exception\Collection\ItemDefinitionException;
+use Netgen\Layouts\Exception\RuntimeException;
 use PHPUnit\Framework\TestCase;
 
 final class ItemDefinitionRegistryTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Collection\Item\ItemDefinitionInterface
+     * @var \Netgen\Layouts\Collection\Item\ItemDefinitionInterface
      */
     private $itemDefinition;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry
+     * @var \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry
      */
     private $registry;
 
@@ -31,8 +31,8 @@ final class ItemDefinitionRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry::__construct
-     * @covers \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry::getItemDefinitions
+     * @covers \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry::__construct
+     * @covers \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry::getItemDefinitions
      */
     public function testGetItemDefinitions(): void
     {
@@ -40,7 +40,7 @@ final class ItemDefinitionRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry::getItemDefinition
+     * @covers \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry::getItemDefinition
      */
     public function testGetItemDefinition(): void
     {
@@ -48,7 +48,7 @@ final class ItemDefinitionRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry::getItemDefinition
+     * @covers \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry::getItemDefinition
      */
     public function testGetItemDefinitionThrowsItemDefinitionException(): void
     {
@@ -59,7 +59,7 @@ final class ItemDefinitionRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry::hasItemDefinition
+     * @covers \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry::hasItemDefinition
      */
     public function testHasItemDefinition(): void
     {
@@ -67,7 +67,7 @@ final class ItemDefinitionRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry::hasItemDefinition
+     * @covers \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry::hasItemDefinition
      */
     public function testHasItemDefinitionWithNoItemDefinition(): void
     {
@@ -75,7 +75,7 @@ final class ItemDefinitionRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry::getIterator
+     * @covers \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry::getIterator
      */
     public function testGetIterator(): void
     {
@@ -90,7 +90,7 @@ final class ItemDefinitionRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry::count
+     * @covers \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry::count
      */
     public function testCount(): void
     {
@@ -98,7 +98,7 @@ final class ItemDefinitionRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry::offsetExists
+     * @covers \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry::offsetExists
      */
     public function testOffsetExists(): void
     {
@@ -107,7 +107,7 @@ final class ItemDefinitionRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry::offsetGet
+     * @covers \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry::offsetGet
      */
     public function testOffsetGet(): void
     {
@@ -115,7 +115,7 @@ final class ItemDefinitionRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry::offsetSet
+     * @covers \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry::offsetSet
      */
     public function testOffsetSet(): void
     {
@@ -126,7 +126,7 @@ final class ItemDefinitionRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry::offsetUnset
+     * @covers \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry::offsetUnset
      */
     public function testOffsetUnset(): void
     {

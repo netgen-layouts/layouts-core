@@ -1,27 +1,27 @@
 services:
     netgen_block_manager.item.item_builder:
-        class: Netgen\BlockManager\Item\CmsItemBuilder
+        class: Netgen\Layouts\Item\CmsItemBuilder
         arguments:
             - !tagged netgen_block_manager.item.value_converter
 
     netgen_block_manager.item.item_loader:
-        class: Netgen\BlockManager\Item\CmsItemLoader
+        class: Netgen\Layouts\Item\CmsItemLoader
         arguments:
             - "@netgen_block_manager.item.item_builder"
             - []
 
     netgen_block_manager.item.url_generator:
-        class: Netgen\BlockManager\Item\UrlGenerator
+        class: Netgen\Layouts\Item\UrlGenerator
         arguments:
             - []
 
     netgen_block_manager.item.registry.value_type:
-        class: Netgen\BlockManager\Item\Registry\ValueTypeRegistry
+        class: Netgen\Layouts\Item\Registry\ValueTypeRegistry
         public: true
         arguments:
             - []
 
     netgen_block_manager.item.value_loader.null:
-        class: Netgen\BlockManager\Item\ValueLoader\NullValueLoader
+        class: Netgen\Layouts\Item\ValueLoader\NullValueLoader
         tags:
             - { name: netgen_block_manager.item.value_loader, value_type: "null" }

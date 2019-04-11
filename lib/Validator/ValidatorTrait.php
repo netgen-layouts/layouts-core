@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Validator;
+namespace Netgen\Layouts\Validator;
 
-use Netgen\BlockManager\Exception\Validation\ValidationException;
+use Netgen\Layouts\Exception\Validation\ValidationException;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Throwable;
 
@@ -27,7 +27,7 @@ trait ValidatorTrait
      * @param \Symfony\Component\Validator\Constraint|\Symfony\Component\Validator\Constraint[] $constraints
      * @param string $propertyPath
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
     protected function validate($value, $constraints, ?string $propertyPath = null): void
     {

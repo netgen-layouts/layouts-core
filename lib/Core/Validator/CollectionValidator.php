@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Core\Validator;
+namespace Netgen\Layouts\Core\Validator;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\CollectionUpdateStruct;
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\API\Values\Collection\ItemCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\ItemUpdateStruct;
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
-use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
-use Netgen\BlockManager\Collection\Item\ItemDefinitionInterface;
-use Netgen\BlockManager\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
-use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
-use Netgen\BlockManager\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\CollectionCreateStruct;
+use Netgen\Layouts\API\Values\Collection\CollectionUpdateStruct;
+use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\API\Values\Collection\ItemCreateStruct;
+use Netgen\Layouts\API\Values\Collection\ItemUpdateStruct;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\API\Values\Collection\QueryCreateStruct;
+use Netgen\Layouts\API\Values\Collection\QueryUpdateStruct;
+use Netgen\Layouts\Collection\Item\ItemDefinitionInterface;
+use Netgen\Layouts\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
+use Netgen\Layouts\Validator\Constraint\Structs\ParameterStruct;
+use Netgen\Layouts\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
 use Symfony\Component\Validator\Constraints;
 
 final class CollectionValidator extends Validator
@@ -24,7 +24,7 @@ final class CollectionValidator extends Validator
     /**
      * Validates the provided collection create struct.
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
     public function validateCollectionCreateStruct(CollectionCreateStruct $collectionCreateStruct): void
     {
@@ -70,7 +70,7 @@ final class CollectionValidator extends Validator
     /**
      * Validates the provided collection update struct.
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
     public function validateCollectionUpdateStruct(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct): void
     {
@@ -107,7 +107,7 @@ final class CollectionValidator extends Validator
     /**
      * Validates the provided item create struct.
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
     public function validateItemCreateStruct(ItemCreateStruct $itemCreateStruct): void
     {
@@ -143,7 +143,7 @@ final class CollectionValidator extends Validator
     /**
      * Validates the provided item update struct.
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
     public function validateItemUpdateStruct(Item $item, ItemUpdateStruct $itemUpdateStruct): void
     {
@@ -161,7 +161,7 @@ final class CollectionValidator extends Validator
     /**
      * Validates the provided query create struct.
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
     public function validateQueryCreateStruct(QueryCreateStruct $queryCreateStruct): void
     {
@@ -181,7 +181,7 @@ final class CollectionValidator extends Validator
     /**
      * Validates the provided query update struct.
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
     public function validateQueryUpdateStruct(Query $query, QueryUpdateStruct $queryUpdateStruct): void
     {

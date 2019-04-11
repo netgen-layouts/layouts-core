@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Persistence;
+namespace Netgen\Layouts\Persistence;
 
 interface TransactionHandlerInterface
 {

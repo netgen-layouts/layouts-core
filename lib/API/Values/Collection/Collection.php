@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\Collection;
+namespace Netgen\Layouts\API\Values\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Netgen\BlockManager\API\Values\Collection\Item as APIItem;
-use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
-use Netgen\BlockManager\API\Values\LazyPropertyTrait;
-use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\API\Values\ValueStatusTrait;
-use Netgen\BlockManager\Utils\HydratorTrait;
+use Netgen\Layouts\API\Values\Collection\Item as APIItem;
+use Netgen\Layouts\API\Values\Collection\Query as APIQuery;
+use Netgen\Layouts\API\Values\LazyPropertyTrait;
+use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\API\Values\ValueStatusTrait;
+use Netgen\Layouts\Utils\HydratorTrait;
 
 final class Collection implements Value
 {
@@ -49,7 +49,7 @@ final class Collection implements Value
     private $items;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Collection\Query|null
+     * @var \Netgen\Layouts\API\Values\Collection\Query|null
      */
     private $query;
 

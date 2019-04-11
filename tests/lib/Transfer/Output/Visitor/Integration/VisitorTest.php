@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Transfer\Output\Visitor\Integration;
+namespace Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration;
 
 use Closure;
 use Coduo\PHPMatcher\Factory\SimpleFactory;
 use Diff;
 use Diff_Renderer_Text_Unified;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Tests\Core\CoreTestCase;
-use Netgen\BlockManager\Transfer\Output\VisitorInterface;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Tests\Core\CoreTestCase;
+use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 abstract class VisitorTest extends CoreTestCase
 {
     /**
-     * @var \Netgen\BlockManager\Transfer\Output\VisitorInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\Layouts\Transfer\Output\VisitorInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     protected $subVisitorMock;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Layout\Resolver\Form\ConditionType;
+namespace Netgen\Layouts\Layout\Resolver\Form\ConditionType;
 
 use Symfony\Component\Form\FormBuilderInterface;
 

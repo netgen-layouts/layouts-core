@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\Matcher\Form\Query;
+namespace Netgen\Layouts\Tests\View\Matcher\Form\Query;
 
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\View\Matcher\Stubs\Form;
-use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\View\Matcher\Form\Query\Locale;
-use Netgen\BlockManager\View\View\FormView;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\View\Matcher\Stubs\Form;
+use Netgen\Layouts\Tests\View\Stubs\View;
+use Netgen\Layouts\View\Matcher\Form\Query\Locale;
+use Netgen\Layouts\View\View\FormView;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Forms;
 
@@ -21,7 +21,7 @@ final class LocaleTest extends TestCase
     private $formFactory;
 
     /**
-     * @var \Netgen\BlockManager\View\Matcher\MatcherInterface
+     * @var \Netgen\Layouts\View\Matcher\MatcherInterface
      */
     private $matcher;
 
@@ -34,7 +34,7 @@ final class LocaleTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Form\Query\Locale::match
+     * @covers \Netgen\Layouts\View\Matcher\Form\Query\Locale::match
      * @dataProvider matchProvider
      */
     public function testMatch(array $config, bool $expected): void
@@ -66,7 +66,7 @@ final class LocaleTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Form\Query\Locale::match
+     * @covers \Netgen\Layouts\View\Matcher\Form\Query\Locale::match
      */
     public function testMatchWithNoFormView(): void
     {
@@ -74,7 +74,7 @@ final class LocaleTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Form\Query\Locale::match
+     * @covers \Netgen\Layouts\View\Matcher\Form\Query\Locale::match
      */
     public function testMatchWithNoQuery(): void
     {
@@ -84,7 +84,7 @@ final class LocaleTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Form\Query\Locale::match
+     * @covers \Netgen\Layouts\View\Matcher\Form\Query\Locale::match
      */
     public function testMatchWithInvalidQuery(): void
     {

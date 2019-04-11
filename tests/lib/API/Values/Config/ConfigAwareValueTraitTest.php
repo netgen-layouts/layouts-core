@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\Config;
+namespace Netgen\Layouts\Tests\API\Values\Config;
 
-use Netgen\BlockManager\API\Values\Config\Config;
-use Netgen\BlockManager\Exception\API\ConfigException;
-use Netgen\BlockManager\Tests\API\Stubs\ConfigAwareValue;
+use Netgen\Layouts\API\Values\Config\Config;
+use Netgen\Layouts\Exception\API\ConfigException;
+use Netgen\Layouts\Tests\API\Stubs\ConfigAwareValue;
 use PHPUnit\Framework\TestCase;
 
 final class ConfigAwareValueTraitTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\API\Values\Config\ConfigAwareValueTrait::getConfigs
+     * @covers \Netgen\Layouts\API\Values\Config\ConfigAwareValueTrait::getConfigs
      */
     public function testDefaultProperties(): void
     {
@@ -22,9 +22,9 @@ final class ConfigAwareValueTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Config\ConfigAwareValueTrait::getConfig
-     * @covers \Netgen\BlockManager\API\Values\Config\ConfigAwareValueTrait::getConfigs
-     * @covers \Netgen\BlockManager\API\Values\Config\ConfigAwareValueTrait::hasConfig
+     * @covers \Netgen\Layouts\API\Values\Config\ConfigAwareValueTrait::getConfig
+     * @covers \Netgen\Layouts\API\Values\Config\ConfigAwareValueTrait::getConfigs
+     * @covers \Netgen\Layouts\API\Values\Config\ConfigAwareValueTrait::hasConfig
      */
     public function testSetProperties(): void
     {

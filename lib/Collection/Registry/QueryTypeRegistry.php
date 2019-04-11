@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Collection\Registry;
+namespace Netgen\Layouts\Collection\Registry;
 
 use ArrayIterator;
-use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
-use Netgen\BlockManager\Exception\Collection\QueryTypeException;
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
+use Netgen\Layouts\Exception\Collection\QueryTypeException;
+use Netgen\Layouts\Exception\RuntimeException;
 use Traversable;
 
 final class QueryTypeRegistry implements QueryTypeRegistryInterface
 {
     /**
-     * @var \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface[]
+     * @var \Netgen\Layouts\Collection\QueryType\QueryTypeInterface[]
      */
     private $queryTypes;
 
     /**
-     * @param \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface[] $queryTypes
+     * @param \Netgen\Layouts\Collection\QueryType\QueryTypeInterface[] $queryTypes
      */
     public function __construct(array $queryTypes)
     {

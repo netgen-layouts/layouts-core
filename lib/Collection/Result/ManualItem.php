@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Collection\Result;
+namespace Netgen\Layouts\Collection\Result;
 
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\API\Values\Collection\Item as CollectionItem;
-use Netgen\BlockManager\Item\CmsItemInterface;
+use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\API\Values\Collection\Item as CollectionItem;
+use Netgen\Layouts\Item\CmsItemInterface;
 
 final class ManualItem implements CmsItemInterface
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Collection\Item
+     * @var \Netgen\Layouts\API\Values\Collection\Item
      */
     private $collectionItem;
 

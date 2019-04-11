@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Validator;
+namespace Netgen\Layouts\Validator;
 
 use DateTimeInterface;
 use DateTimeZone;
-use Netgen\BlockManager\Validator\Constraint\DateTime;
+use Netgen\Layouts\Validator\Constraint\DateTime;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\ConstraintValidator;

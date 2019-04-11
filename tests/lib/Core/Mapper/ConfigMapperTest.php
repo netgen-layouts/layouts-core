@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\Mapper;
+namespace Netgen\Layouts\Tests\Core\Mapper;
 
-use Netgen\BlockManager\API\Values\Config\Config;
-use Netgen\BlockManager\API\Values\Config\ConfigStruct;
-use Netgen\BlockManager\Config\ConfigDefinition;
-use Netgen\BlockManager\Core\Mapper\ConfigMapper;
-use Netgen\BlockManager\Core\Mapper\ParameterMapper;
-use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler;
+use Netgen\Layouts\API\Values\Config\Config;
+use Netgen\Layouts\API\Values\Config\ConfigStruct;
+use Netgen\Layouts\Config\ConfigDefinition;
+use Netgen\Layouts\Core\Mapper\ConfigMapper;
+use Netgen\Layouts\Core\Mapper\ParameterMapper;
+use Netgen\Layouts\Tests\Config\Stubs\ConfigDefinitionHandler;
 use PHPUnit\Framework\TestCase;
 
 final class ConfigMapperTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Config\ConfigDefinitionInterface
+     * @var \Netgen\Layouts\Config\ConfigDefinitionInterface
      */
     private $configDefinition;
 
     /**
-     * @var \Netgen\BlockManager\Core\Mapper\ConfigMapper
+     * @var \Netgen\Layouts\Core\Mapper\ConfigMapper
      */
     private $mapper;
 
@@ -38,8 +38,8 @@ final class ConfigMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\ConfigMapper::__construct
-     * @covers \Netgen\BlockManager\Core\Mapper\ConfigMapper::mapConfig
+     * @covers \Netgen\Layouts\Core\Mapper\ConfigMapper::__construct
+     * @covers \Netgen\Layouts\Core\Mapper\ConfigMapper::mapConfig
      */
     public function testMapConfig(): void
     {
@@ -68,7 +68,7 @@ final class ConfigMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\ConfigMapper::serializeValues
+     * @covers \Netgen\Layouts\Core\Mapper\ConfigMapper::serializeValues
      */
     public function testSerializeValues(): void
     {

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Context;
+namespace Netgen\Layouts\Context;
 
 final class ContextBuilder implements ContextBuilderInterface
 {
     /**
-     * @var \Netgen\BlockManager\Context\ContextProviderInterface[]
+     * @var \Netgen\Layouts\Context\ContextProviderInterface[]
      */
     private $contextProviders = [];
 

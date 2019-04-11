@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime;
 
-use Netgen\BlockManager\Error\ErrorHandlerInterface;
 use Netgen\Bundle\LayoutsBundle\Templating\Plugin\RendererInterface;
+use Netgen\Layouts\Error\ErrorHandlerInterface;
 use Throwable;
 
 final class PluginRenderingRuntime
@@ -16,7 +16,7 @@ final class PluginRenderingRuntime
     private $pluginRenderer;
 
     /**
-     * @var \Netgen\BlockManager\Error\ErrorHandlerInterface
+     * @var \Netgen\Layouts\Error\ErrorHandlerInterface
      */
     private $errorHandler;
 

@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\Form\Mapper\Compound;
+namespace Netgen\Layouts\Tests\Parameters\Form\Mapper\Compound;
 
-use Netgen\BlockManager\Parameters\Form\Mapper\Compound\BooleanMapper;
-use Netgen\BlockManager\Parameters\Form\Type\CompoundBooleanType;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterType\Compound\BooleanType;
+use Netgen\Layouts\Parameters\Form\Mapper\Compound\BooleanMapper;
+use Netgen\Layouts\Parameters\Form\Type\CompoundBooleanType;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType\Compound\BooleanType;
 use PHPUnit\Framework\TestCase;
 
 final class BooleanMapperTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\Form\Mapper\Compound\BooleanMapper
+     * @var \Netgen\Layouts\Parameters\Form\Mapper\Compound\BooleanMapper
      */
     private $mapper;
 
@@ -23,7 +23,7 @@ final class BooleanMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Mapper\Compound\BooleanMapper::getFormType
+     * @covers \Netgen\Layouts\Parameters\Form\Mapper\Compound\BooleanMapper::getFormType
      */
     public function testGetFormType(): void
     {
@@ -31,7 +31,7 @@ final class BooleanMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Mapper\Compound\BooleanMapper::mapOptions
+     * @covers \Netgen\Layouts\Parameters\Form\Mapper\Compound\BooleanMapper::mapOptions
      */
     public function testMapOptions(): void
     {

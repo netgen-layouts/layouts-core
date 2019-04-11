@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Collection\Item;
+namespace Netgen\Layouts\Collection\Item;
 
-use Netgen\BlockManager\API\Values\Collection\Item;
+use Netgen\Layouts\API\Values\Collection\Item;
 
 final class VisibilityResolver implements VisibilityResolverInterface
 {
     /**
-     * @var iterable|\Netgen\BlockManager\Collection\Item\VisibilityVoterInterface[]
+     * @var iterable|\Netgen\Layouts\Collection\Item\VisibilityVoterInterface[]
      */
     private $voters;
 
     /**
-     * @param iterable|\Netgen\BlockManager\Collection\Item\VisibilityVoterInterface[] $voters
+     * @param iterable|\Netgen\Layouts\Collection\Item\VisibilityVoterInterface[] $voters
      */
     public function __construct(iterable $voters)
     {

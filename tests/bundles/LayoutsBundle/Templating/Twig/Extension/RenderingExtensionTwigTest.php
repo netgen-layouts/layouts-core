@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\Templating\Twig\Extension;
 
-use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\API\Values\Block\BlockList;
-use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\Locale\LocaleProviderInterface;
-use Netgen\BlockManager\Tests\Stubs\ErrorHandler;
-use Netgen\BlockManager\View\RendererInterface;
-use Netgen\BlockManager\View\View\ZoneView\ZoneReference;
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Extension\RenderingExtension;
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime;
+use Netgen\Layouts\API\Service\BlockService;
+use Netgen\Layouts\API\Values\Block\BlockList;
+use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\Locale\LocaleProviderInterface;
+use Netgen\Layouts\Tests\Stubs\ErrorHandler;
+use Netgen\Layouts\View\RendererInterface;
+use Netgen\Layouts\View\View\ZoneView\ZoneReference;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\RuntimeLoader\FactoryRuntimeLoader;

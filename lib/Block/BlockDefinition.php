@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Block;
+namespace Netgen\Layouts\Block;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Form;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
-use Netgen\BlockManager\Config\ConfigDefinitionAwareTrait;
-use Netgen\BlockManager\Exception\Block\BlockDefinitionException;
-use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionTrait;
-use Netgen\BlockManager\Utils\HydratorTrait;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\Collection;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\Form;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
+use Netgen\Layouts\Config\ConfigDefinitionAwareTrait;
+use Netgen\Layouts\Exception\Block\BlockDefinitionException;
+use Netgen\Layouts\Parameters\ParameterDefinitionCollectionTrait;
+use Netgen\Layouts\Utils\HydratorTrait;
 
 class BlockDefinition implements BlockDefinitionInterface
 {
@@ -40,27 +40,27 @@ class BlockDefinition implements BlockDefinitionInterface
     protected $isTranslatable = false;
 
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection[]
+     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\Collection[]
      */
     protected $collections = [];
 
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form[]
+     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\Form[]
      */
     protected $forms = [];
 
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType[]
+     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType[]
      */
     protected $viewTypes = [];
 
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface
+     * @var \Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface
      */
     protected $handler;
 
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\Handler\PluginInterface[]
+     * @var \Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface[]
      */
     protected $handlerPlugins = [];
 

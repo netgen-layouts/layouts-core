@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Validator\Parameters;
+namespace Netgen\Layouts\Tests\Validator\Parameters;
 
-use Netgen\BlockManager\Item\CmsItem;
-use Netgen\BlockManager\Item\CmsItemLoaderInterface;
-use Netgen\BlockManager\Item\NullCmsItem;
-use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
-use Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink;
-use Netgen\BlockManager\Validator\Parameters\ItemLinkValidator;
+use Netgen\Layouts\Item\CmsItem;
+use Netgen\Layouts\Item\CmsItemLoaderInterface;
+use Netgen\Layouts\Item\NullCmsItem;
+use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
+use Netgen\Layouts\Validator\Constraint\Parameters\ItemLink;
+use Netgen\Layouts\Validator\Parameters\ItemLinkValidator;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -29,8 +29,8 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\Parameters\ItemLinkValidator::__construct
-     * @covers \Netgen\BlockManager\Validator\Parameters\ItemLinkValidator::validate
+     * @covers \Netgen\Layouts\Validator\Parameters\ItemLinkValidator::__construct
+     * @covers \Netgen\Layouts\Validator\Parameters\ItemLinkValidator::validate
      * @dataProvider validateDataProvider
      */
     public function testValidate(?string $value, ?array $valueTypes, bool $isValid): void
@@ -48,7 +48,7 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\Parameters\ItemLinkValidator::validate
+     * @covers \Netgen\Layouts\Validator\Parameters\ItemLinkValidator::validate
      */
     public function testValidateWithInvalidItem(): void
     {
@@ -61,19 +61,19 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\Parameters\ItemLinkValidator::validate
+     * @covers \Netgen\Layouts\Validator\Parameters\ItemLinkValidator::validate
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Netgen\\BlockManager\\Validator\\Constraint\\Parameters\\ItemLink", "Symfony\\Component\\Validator\\Constraints\\NotBlank" given');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\Validator\\Constraint\\Parameters\\ItemLink", "Symfony\\Component\\Validator\\Constraints\\NotBlank" given');
 
         $this->constraint = new NotBlank();
         $this->assertValid(true, 'value://42');
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\Parameters\ItemLinkValidator::validate
+     * @covers \Netgen\Layouts\Validator\Parameters\ItemLinkValidator::validate
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {

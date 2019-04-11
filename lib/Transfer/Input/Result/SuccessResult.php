@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Transfer\Input\Result;
+namespace Netgen\Layouts\Transfer\Input\Result;
 
-use Netgen\BlockManager\API\Values\Value;
+use Netgen\Layouts\API\Values\Value;
 
 final class SuccessResult implements ResultInterface
 {
@@ -24,7 +24,7 @@ final class SuccessResult implements ResultInterface
     private $entityId;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Value
+     * @var \Netgen\Layouts\API\Values\Value
      */
     private $entity;
 
@@ -32,7 +32,7 @@ final class SuccessResult implements ResultInterface
      * @param string $entityType
      * @param array<string, mixed> $data
      * @param int|string $entityId
-     * @param \Netgen\BlockManager\API\Values\Value $entity
+     * @param \Netgen\Layouts\API\Values\Value $entity
      */
     public function __construct(string $entityType, array $data, $entityId, Value $entity)
     {

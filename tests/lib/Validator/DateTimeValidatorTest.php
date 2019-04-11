@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Validator;
+namespace Netgen\Layouts\Tests\Validator;
 
 use DateTimeImmutable;
 use DateTimeZone;
-use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
-use Netgen\BlockManager\Validator\Constraint\DateTime as DateTimeConstraint;
-use Netgen\BlockManager\Validator\DateTimeValidator;
+use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
+use Netgen\Layouts\Validator\Constraint\DateTime as DateTimeConstraint;
+use Netgen\Layouts\Validator\DateTimeValidator;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -27,7 +27,7 @@ final class DateTimeValidatorTest extends ValidatorTestCase
      * @param mixed $value
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Validator\DateTimeValidator::validate
+     * @covers \Netgen\Layouts\Validator\DateTimeValidator::validate
      * @dataProvider validateDataProvider
      */
     public function testValidate($value, bool $isValid): void
@@ -36,19 +36,19 @@ final class DateTimeValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\DateTimeValidator::validate
+     * @covers \Netgen\Layouts\Validator\DateTimeValidator::validate
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Netgen\\BlockManager\\Validator\\Constraint\\DateTime", "Symfony\\Component\\Validator\\Constraints\\NotBlank" given');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\Validator\\Constraint\\DateTime", "Symfony\\Component\\Validator\\Constraints\\NotBlank" given');
 
         $this->constraint = new NotBlank();
         $this->assertValid(true, new DateTimeImmutable());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\DateTimeValidator::validate
+     * @covers \Netgen\Layouts\Validator\DateTimeValidator::validate
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
@@ -59,7 +59,7 @@ final class DateTimeValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\DateTimeValidator::validate
+     * @covers \Netgen\Layouts\Validator\DateTimeValidator::validate
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValueAndDisabledArray(): void
     {
@@ -72,7 +72,7 @@ final class DateTimeValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\DateTimeValidator::validate
+     * @covers \Netgen\Layouts\Validator\DateTimeValidator::validate
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithArrayValueAndDisabledArray(): void
     {

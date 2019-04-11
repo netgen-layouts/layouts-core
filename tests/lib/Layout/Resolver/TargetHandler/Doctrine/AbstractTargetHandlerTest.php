@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\TargetHandler\Doctrine;
+namespace Netgen\Layouts\Tests\Layout\Resolver\TargetHandler\Doctrine;
 
-use Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler;
-use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
-use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper;
-use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler;
-use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\TargetHandlerInterface;
-use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
+use Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler;
+use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper;
+use Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutResolverMapper;
+use Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler;
+use Netgen\Layouts\Persistence\Doctrine\QueryHandler\TargetHandlerInterface;
+use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractTargetHandlerTest extends TestCase
@@ -17,7 +17,7 @@ abstract class AbstractTargetHandlerTest extends TestCase
     use TestCaseTrait;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler
+     * @var \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler
      */
     protected $handler;
 

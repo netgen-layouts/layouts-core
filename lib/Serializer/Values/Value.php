@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Serializer\Values;
+namespace Netgen\Layouts\Serializer\Values;
 
 /**
  * Represents a serialized value.

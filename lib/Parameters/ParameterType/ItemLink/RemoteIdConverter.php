@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Parameters\ParameterType\ItemLink;
+namespace Netgen\Layouts\Parameters\ParameterType\ItemLink;
 
-use Netgen\BlockManager\Item\CmsItemLoaderInterface;
-use Netgen\BlockManager\Item\NullCmsItem;
+use Netgen\Layouts\Item\CmsItemLoaderInterface;
+use Netgen\Layouts\Item\NullCmsItem;
 
 final class RemoteIdConverter
 {
     private const NULL_LINK = 'null://0';
 
     /**
-     * @var \Netgen\BlockManager\Item\CmsItemLoaderInterface
+     * @var \Netgen\Layouts\Item\CmsItemLoaderInterface
      */
     private $cmsItemLoader;
 

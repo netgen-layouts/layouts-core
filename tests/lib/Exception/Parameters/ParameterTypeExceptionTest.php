@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Exception\Parameters;
+namespace Netgen\Layouts\Tests\Exception\Parameters;
 
-use Netgen\BlockManager\Exception\Parameters\ParameterTypeException;
+use Netgen\Layouts\Exception\Parameters\ParameterTypeException;
 use PHPUnit\Framework\TestCase;
 
 final class ParameterTypeExceptionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Exception\Parameters\ParameterTypeException::noParameterType
+     * @covers \Netgen\Layouts\Exception\Parameters\ParameterTypeException::noParameterType
      */
     public function testNoParameterType(): void
     {
@@ -23,7 +23,7 @@ final class ParameterTypeExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\Parameters\ParameterTypeException::noParameterTypeClass
+     * @covers \Netgen\Layouts\Exception\Parameters\ParameterTypeException::noParameterTypeClass
      */
     public function testNoParameterTypeClass(): void
     {
@@ -36,7 +36,7 @@ final class ParameterTypeExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\Parameters\ParameterTypeException::noFormMapper
+     * @covers \Netgen\Layouts\Exception\Parameters\ParameterTypeException::noFormMapper
      */
     public function testNoFormMapper(): void
     {
@@ -49,7 +49,7 @@ final class ParameterTypeExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\Parameters\ParameterTypeException::unsupportedParameterType
+     * @covers \Netgen\Layouts\Exception\Parameters\ParameterTypeException::unsupportedParameterType
      */
     public function testUnsupportedParameterType(): void
     {

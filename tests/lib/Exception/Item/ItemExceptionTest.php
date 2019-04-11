@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Exception\Item;
+namespace Netgen\Layouts\Tests\Exception\Item;
 
-use Netgen\BlockManager\Exception\Item\ItemException;
+use Netgen\Layouts\Exception\Item\ItemException;
 use PHPUnit\Framework\TestCase;
 
 final class ItemExceptionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Exception\Item\ItemException::noValueType
+     * @covers \Netgen\Layouts\Exception\Item\ItemException::noValueType
      */
     public function testNoValueLoader(): void
     {
@@ -23,7 +23,7 @@ final class ItemExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\Item\ItemException::noValue
+     * @covers \Netgen\Layouts\Exception\Item\ItemException::noValue
      */
     public function testNoValue(): void
     {
@@ -36,7 +36,7 @@ final class ItemExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\Item\ItemException::invalidValue
+     * @covers \Netgen\Layouts\Exception\Item\ItemException::invalidValue
      */
     public function testInvalidValue(): void
     {
@@ -49,7 +49,7 @@ final class ItemExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\Item\ItemException::canNotLoadItem
+     * @covers \Netgen\Layouts\Exception\Item\ItemException::canNotLoadItem
      */
     public function testCanNotLoadItem(): void
     {

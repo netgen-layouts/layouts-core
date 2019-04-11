@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Validator\Structs;
+namespace Netgen\Layouts\Tests\Validator\Structs;
 
-use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\API\Values\Config\ConfigStruct;
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Config\ConfigDefinition;
-use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionAware;
-use Netgen\BlockManager\Tests\Config\Stubs\ConfigDefinitionHandler;
-use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
-use Netgen\BlockManager\Utils\Hydrator;
-use Netgen\BlockManager\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
-use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
-use Netgen\BlockManager\Validator\Structs\ConfigAwareStructValidator;
+use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
+use Netgen\Layouts\API\Values\Config\ConfigStruct;
+use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Config\ConfigDefinition;
+use Netgen\Layouts\Tests\Config\Stubs\ConfigDefinitionAware;
+use Netgen\Layouts\Tests\Config\Stubs\ConfigDefinitionHandler;
+use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
+use Netgen\Layouts\Utils\Hydrator;
+use Netgen\Layouts\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
+use Netgen\Layouts\Validator\Constraint\Structs\ParameterStruct;
+use Netgen\Layouts\Validator\Structs\ConfigAwareStructValidator;
 use stdClass;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -43,7 +43,7 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\Structs\ConfigAwareStructValidator::validate
+     * @covers \Netgen\Layouts\Validator\Structs\ConfigAwareStructValidator::validate
      * @dataProvider validateDataProvider
      */
     public function testValidate(array $value, bool $isValid): void
@@ -55,36 +55,36 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\Structs\ConfigAwareStructValidator::validate
+     * @covers \Netgen\Layouts\Validator\Structs\ConfigAwareStructValidator::validate
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Netgen\\BlockManager\\Validator\\Constraint\\Structs\\ConfigAwareStruct", "Netgen\\BlockManager\\Validator\\Constraint\\Structs\\ParameterStruct" given');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\Validator\\Constraint\\Structs\\ConfigAwareStruct", "Netgen\\Layouts\\Validator\\Constraint\\Structs\\ParameterStruct" given');
 
         $this->constraint = new ParameterStruct();
         $this->assertValid(true, new BlockUpdateStruct());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\Structs\ConfigAwareStructValidator::validate
+     * @covers \Netgen\Layouts\Validator\Structs\ConfigAwareStructValidator::validate
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidPayload(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Netgen\\BlockManager\\Config\\ConfigDefinitionAwareInterface or array", "stdClass" given');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\Config\\ConfigDefinitionAwareInterface or array", "stdClass" given');
 
         $this->constraint->payload = new stdClass();
         $this->assertValid(true, new BlockUpdateStruct());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\Structs\ConfigAwareStructValidator::validate
+     * @covers \Netgen\Layouts\Validator\Structs\ConfigAwareStructValidator::validate
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Netgen\\BlockManager\\API\\Values\\Config\\ConfigAwareStruct", "integer" given');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\API\\Values\\Config\\ConfigAwareStruct", "integer" given');
 
         $this->constraint->payload = new BlockDefinition();
         $this->assertValid(true, 42);

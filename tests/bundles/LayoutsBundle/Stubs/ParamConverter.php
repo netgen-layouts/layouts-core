@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\Stubs;
 
-use Netgen\BlockManager\API\Values\Value as APIValue;
 use Netgen\Bundle\LayoutsBundle\ParamConverter\ParamConverter as BaseParamConverter;
+use Netgen\Layouts\API\Values\Value as APIValue;
 
 final class ParamConverter extends BaseParamConverter
 {

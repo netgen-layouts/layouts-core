@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Layout\Type;
+namespace Netgen\Layouts\Layout\Type;
 
 final class LayoutTypeFactory
 {

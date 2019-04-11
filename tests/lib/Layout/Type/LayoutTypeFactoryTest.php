@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Layout\Type;
+namespace Netgen\Layouts\Tests\Layout\Type;
 
-use Netgen\BlockManager\Layout\Type\LayoutTypeFactory;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
+use Netgen\Layouts\Layout\Type\LayoutTypeFactory;
+use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutTypeFactoryTest extends TestCase
@@ -13,7 +13,7 @@ final class LayoutTypeFactoryTest extends TestCase
     use ExportObjectTrait;
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Type\LayoutTypeFactory::buildLayoutType
+     * @covers \Netgen\Layouts\Layout\Type\LayoutTypeFactory::buildLayoutType
      */
     public function testBuildLayoutType(): void
     {

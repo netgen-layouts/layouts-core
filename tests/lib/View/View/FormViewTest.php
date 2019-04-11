@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\View;
+namespace Netgen\Layouts\Tests\View\View;
 
-use Netgen\BlockManager\View\View\FormView;
+use Netgen\Layouts\View\View\FormView;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Forms;
@@ -17,7 +17,7 @@ final class FormViewTest extends TestCase
     private $form;
 
     /**
-     * @var \Netgen\BlockManager\View\View\FormViewInterface
+     * @var \Netgen\Layouts\View\View\FormViewInterface
      */
     private $view;
 
@@ -35,10 +35,10 @@ final class FormViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View\FormView::__construct
-     * @covers \Netgen\BlockManager\View\View\FormView::getForm
-     * @covers \Netgen\BlockManager\View\View\FormView::getFormType
-     * @covers \Netgen\BlockManager\View\View\FormView::getFormView
+     * @covers \Netgen\Layouts\View\View\FormView::__construct
+     * @covers \Netgen\Layouts\View\View\FormView::getForm
+     * @covers \Netgen\Layouts\View\View\FormView::getFormType
+     * @covers \Netgen\Layouts\View\View\FormView::getFormView
      */
     public function testGetForm(): void
     {
@@ -50,7 +50,7 @@ final class FormViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View\FormView::getIdentifier
+     * @covers \Netgen\Layouts\View\View\FormView::getIdentifier
      */
     public function testGetIdentifier(): void
     {

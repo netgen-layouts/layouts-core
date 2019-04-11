@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Validator\Constraint;
+namespace Netgen\Layouts\Tests\Validator\Constraint;
 
-use Netgen\BlockManager\Validator\Constraint\Locale;
+use Netgen\Layouts\Validator\Constraint\Locale;
 use PHPUnit\Framework\TestCase;
 
 final class LocaleTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Validator\Constraint\Locale::validatedBy
+     * @covers \Netgen\Layouts\Validator\Constraint\Locale::validatedBy
      */
     public function testValidatedBy(): void
     {

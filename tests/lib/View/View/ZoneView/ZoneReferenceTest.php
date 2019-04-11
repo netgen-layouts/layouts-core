@@ -2,28 +2,28 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\View\ZoneView;
+namespace Netgen\Layouts\Tests\View\View\ZoneView;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\API\Values\Layout\ZoneList;
-use Netgen\BlockManager\View\View\ZoneView\ZoneReference;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\API\Values\Layout\ZoneList;
+use Netgen\Layouts\View\View\ZoneView\ZoneReference;
 use PHPUnit\Framework\TestCase;
 
 final class ZoneReferenceTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Layout\Layout
+     * @var \Netgen\Layouts\API\Values\Layout\Layout
      */
     private $layout;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Layout\Zone
+     * @var \Netgen\Layouts\API\Values\Layout\Zone
      */
     private $zone;
 
     /**
-     * @var \Netgen\BlockManager\View\View\ZoneView\ZoneReference
+     * @var \Netgen\Layouts\View\View\ZoneView\ZoneReference
      */
     private $zoneReference;
 
@@ -35,8 +35,8 @@ final class ZoneReferenceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View\ZoneView\ZoneReference::__construct
-     * @covers \Netgen\BlockManager\View\View\ZoneView\ZoneReference::getLayout
+     * @covers \Netgen\Layouts\View\View\ZoneView\ZoneReference::__construct
+     * @covers \Netgen\Layouts\View\View\ZoneView\ZoneReference::getLayout
      */
     public function testGetLayout(): void
     {
@@ -44,7 +44,7 @@ final class ZoneReferenceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View\ZoneView\ZoneReference::getZone
+     * @covers \Netgen\Layouts\View\View\ZoneView\ZoneReference::getZone
      */
     public function testGetZone(): void
     {

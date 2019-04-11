@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Exception\Collection;
+namespace Netgen\Layouts\Tests\Exception\Collection;
 
-use Netgen\BlockManager\Exception\Collection\QueryTypeException;
+use Netgen\Layouts\Exception\Collection\QueryTypeException;
 use PHPUnit\Framework\TestCase;
 
 final class QueryTypeExceptionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Exception\Collection\QueryTypeException::noQueryType
+     * @covers \Netgen\Layouts\Exception\Collection\QueryTypeException::noQueryType
      */
     public function testNoQueryType(): void
     {
@@ -23,7 +23,7 @@ final class QueryTypeExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\Collection\QueryTypeException::noForm
+     * @covers \Netgen\Layouts\Exception\Collection\QueryTypeException::noForm
      */
     public function testNoForm(): void
     {

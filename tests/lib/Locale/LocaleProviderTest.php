@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Locale;
+namespace Netgen\Layouts\Tests\Locale;
 
-use Netgen\BlockManager\Locale\LocaleProvider;
+use Netgen\Layouts\Locale\LocaleProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 
 final class LocaleProviderTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Locale\LocaleProvider::__construct
-     * @covers \Netgen\BlockManager\Locale\LocaleProvider::getAvailableLocales
+     * @covers \Netgen\Layouts\Locale\LocaleProvider::__construct
+     * @covers \Netgen\Layouts\Locale\LocaleProvider::getAvailableLocales
      */
     public function testGetAvailableLocales(): void
     {
@@ -28,8 +28,8 @@ final class LocaleProviderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Locale\LocaleProvider::__construct
-     * @covers \Netgen\BlockManager\Locale\LocaleProvider::getAvailableLocales
+     * @covers \Netgen\Layouts\Locale\LocaleProvider::__construct
+     * @covers \Netgen\Layouts\Locale\LocaleProvider::getAvailableLocales
      */
     public function testGetAvailableLocalesWithNonExistingLocales(): void
     {
@@ -44,8 +44,8 @@ final class LocaleProviderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Locale\LocaleProvider::__construct
-     * @covers \Netgen\BlockManager\Locale\LocaleProvider::getAvailableLocales
+     * @covers \Netgen\Layouts\Locale\LocaleProvider::__construct
+     * @covers \Netgen\Layouts\Locale\LocaleProvider::getAvailableLocales
      */
     public function testGetAvailableLocalesWithDefaultLocales(): void
     {
@@ -55,7 +55,7 @@ final class LocaleProviderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Locale\LocaleProvider::getRequestLocales
+     * @covers \Netgen\Layouts\Locale\LocaleProvider::getRequestLocales
      */
     public function testGetRequestLocales(): void
     {
@@ -70,7 +70,7 @@ final class LocaleProviderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Locale\LocaleProvider::getRequestLocales
+     * @covers \Netgen\Layouts\Locale\LocaleProvider::getRequestLocales
      */
     public function testGetRequestLocalesWithEnabledLocales(): void
     {
@@ -85,7 +85,7 @@ final class LocaleProviderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Locale\LocaleProvider::getRequestLocales
+     * @covers \Netgen\Layouts\Locale\LocaleProvider::getRequestLocales
      */
     public function testGetRequestLocalesWithNonEnabledLocale(): void
     {

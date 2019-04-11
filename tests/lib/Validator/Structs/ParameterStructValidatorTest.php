@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Validator\Structs;
+namespace Netgen\Layouts\Tests\Validator\Structs;
 
-use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinitionCollection;
-use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
-use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
-use Netgen\BlockManager\Validator\Structs\ParameterStructValidator;
+use Netgen\Layouts\API\Values\Block\BlockCreateStruct;
+use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Parameters\CompoundParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType;
+use Netgen\Layouts\Tests\Parameters\Stubs\ParameterDefinitionCollection;
+use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
+use Netgen\Layouts\Validator\Constraint\Structs\ParameterStruct;
+use Netgen\Layouts\Validator\Structs\ParameterStructValidator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -61,11 +61,11 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::buildConstraintFields
-     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::getAllValues
-     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::getParameterConstraints
-     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::getRuntimeParameterConstraints
-     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::validate
+     * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::buildConstraintFields
+     * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::getAllValues
+     * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::getParameterConstraints
+     * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::getRuntimeParameterConstraints
+     * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::validate
      * @dataProvider validateDataProvider
      */
     public function testValidate(array $value, bool $required, bool $isValid): void
@@ -79,11 +79,11 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::buildConstraintFields
-     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::getAllValues
-     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::getParameterConstraints
-     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::getRuntimeParameterConstraints
-     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::validate
+     * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::buildConstraintFields
+     * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::getAllValues
+     * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::getParameterConstraints
+     * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::getRuntimeParameterConstraints
+     * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::validate
      * @dataProvider validateDataProviderWithRuntimeConstraints
      */
     public function testValidateWithRuntimeConstraints(array $value, bool $required, bool $isValid): void
@@ -137,24 +137,24 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::validate
+     * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::validate
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Netgen\\BlockManager\\Validator\\Constraint\\Structs\\ParameterStruct", "Symfony\\Component\\Validator\\Constraints\\NotBlank" given');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\Validator\\Constraint\\Structs\\ParameterStruct", "Symfony\\Component\\Validator\\Constraints\\NotBlank" given');
 
         $this->constraint = new NotBlank();
         $this->assertValid(true, new BlockCreateStruct(new BlockDefinition()));
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\Structs\ParameterStructValidator::validate
+     * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::validate
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Netgen\\BlockManager\\API\\Values\\ParameterStruct", "integer" given');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\API\\Values\\ParameterStruct", "integer" given');
 
         $this->assertValid(true, 42);
     }

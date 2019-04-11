@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Serializer\Normalizer;
+namespace Netgen\Layouts\Tests\Serializer\Normalizer;
 
 use Exception;
-use Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
+use Netgen\Layouts\Serializer\Normalizer\ExceptionNormalizer;
+use Netgen\Layouts\Tests\API\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 final class ExceptionNormalizerTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer
+     * @var \Netgen\Layouts\Serializer\Normalizer\ExceptionNormalizer
      */
     private $exceptionNormalizer;
 
@@ -24,8 +24,8 @@ final class ExceptionNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer::__construct
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer::normalize
+     * @covers \Netgen\Layouts\Serializer\Normalizer\ExceptionNormalizer::__construct
+     * @covers \Netgen\Layouts\Serializer\Normalizer\ExceptionNormalizer::normalize
      */
     public function testNormalize(): void
     {
@@ -41,7 +41,7 @@ final class ExceptionNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer::normalize
+     * @covers \Netgen\Layouts\Serializer\Normalizer\ExceptionNormalizer::normalize
      */
     public function testNormalizeWithDebugOutput(): void
     {
@@ -67,7 +67,7 @@ final class ExceptionNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer::normalize
+     * @covers \Netgen\Layouts\Serializer\Normalizer\ExceptionNormalizer::normalize
      */
     public function testNormalizeHttpException(): void
     {
@@ -88,7 +88,7 @@ final class ExceptionNormalizerTest extends TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\ExceptionNormalizer::supportsNormalization
+     * @covers \Netgen\Layouts\Serializer\Normalizer\ExceptionNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, bool $expected): void

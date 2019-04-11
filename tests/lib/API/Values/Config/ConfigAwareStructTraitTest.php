@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\Config;
+namespace Netgen\Layouts\Tests\API\Values\Config;
 
-use Netgen\BlockManager\API\Values\Config\ConfigStruct;
-use Netgen\BlockManager\Exception\API\ConfigException;
-use Netgen\BlockManager\Tests\API\Stubs\ConfigAwareStruct;
+use Netgen\Layouts\API\Values\Config\ConfigStruct;
+use Netgen\Layouts\Exception\API\ConfigException;
+use Netgen\Layouts\Tests\API\Stubs\ConfigAwareStruct;
 use PHPUnit\Framework\TestCase;
 
 final class ConfigAwareStructTraitTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Tests\API\Stubs\ConfigAwareStruct
+     * @var \Netgen\Layouts\Tests\API\Stubs\ConfigAwareStruct
      */
     private $struct;
 
@@ -22,8 +22,8 @@ final class ConfigAwareStructTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait::getConfigStruct
-     * @covers \Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait::setConfigStruct
+     * @covers \Netgen\Layouts\API\Values\Config\ConfigAwareStructTrait::getConfigStruct
+     * @covers \Netgen\Layouts\API\Values\Config\ConfigAwareStructTrait::setConfigStruct
      */
     public function testGetConfigStruct(): void
     {
@@ -35,8 +35,8 @@ final class ConfigAwareStructTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait::getConfigStruct
-     * @covers \Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait::setConfigStruct
+     * @covers \Netgen\Layouts\API\Values\Config\ConfigAwareStructTrait::getConfigStruct
+     * @covers \Netgen\Layouts\API\Values\Config\ConfigAwareStructTrait::setConfigStruct
      */
     public function testGetConfigStructThrowsConfigException(): void
     {
@@ -49,8 +49,8 @@ final class ConfigAwareStructTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait::hasConfigStruct
-     * @covers \Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait::setConfigStruct
+     * @covers \Netgen\Layouts\API\Values\Config\ConfigAwareStructTrait::hasConfigStruct
+     * @covers \Netgen\Layouts\API\Values\Config\ConfigAwareStructTrait::setConfigStruct
      */
     public function testHasConfigStruct(): void
     {
@@ -61,8 +61,8 @@ final class ConfigAwareStructTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait::getConfigStructs
-     * @covers \Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait::setConfigStruct
+     * @covers \Netgen\Layouts\API\Values\Config\ConfigAwareStructTrait::getConfigStructs
+     * @covers \Netgen\Layouts\API\Values\Config\ConfigAwareStructTrait::setConfigStruct
      */
     public function testGetConfigStructs(): void
     {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\ConditionType;
+namespace Netgen\Layouts\Tests\Layout\Resolver\ConditionType;
 
-use Netgen\BlockManager\Layout\Resolver\ConditionType\Time;
-use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
+use Netgen\Layouts\Layout\Resolver\ConditionType\Time;
+use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\PhpUnit\ClockMock;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Validation;
 final class TimeTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\ConditionType\Time
+     * @var \Netgen\Layouts\Layout\Resolver\ConditionType\Time
      */
     private $conditionType;
 
@@ -24,7 +24,7 @@ final class TimeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\Time::getType
+     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\Time::getType
      */
     public function testGetType(): void
     {
@@ -35,7 +35,7 @@ final class TimeTest extends TestCase
      * @param mixed $value
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\Time::getConstraints
+     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\Time::getConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, bool $isValid): void
@@ -49,7 +49,7 @@ final class TimeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\Time::matches
+     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\Time::matches
      *
      * @param mixed $value
      * @param bool $matches

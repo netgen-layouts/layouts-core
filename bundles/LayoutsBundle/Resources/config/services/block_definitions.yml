@@ -8,31 +8,31 @@ parameters:
 
 services:
     netgen_block_manager.block.block_definition_factory:
-        class: Netgen\BlockManager\Block\BlockDefinitionFactory
+        class: Netgen\Layouts\Block\BlockDefinitionFactory
         arguments:
             - "@netgen_block_manager.parameters.translatable_parameter_builder_factory"
             - "@netgen_block_manager.block.registry.handler_plugin"
             - "@netgen_block_manager.config.config_definition_factory"
 
     netgen_block_manager.block.registry.block_definition:
-        class: Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry
+        class: Netgen\Layouts\Block\Registry\BlockDefinitionRegistry
         public: true
         arguments:
             - []
 
     netgen_block_manager.block.registry.handler_plugin:
-        class: Netgen\BlockManager\Block\Registry\HandlerPluginRegistry
+        class: Netgen\Layouts\Block\Registry\HandlerPluginRegistry
         arguments:
             - !tagged netgen_block_manager.block.block_definition_handler.plugin
 
     netgen_block_manager.block.registry.block_type:
-        class: Netgen\BlockManager\Block\Registry\BlockTypeRegistry
+        class: Netgen\Layouts\Block\Registry\BlockTypeRegistry
         public: true
         arguments:
             - []
 
     netgen_block_manager.block.registry.block_type_group:
-        class: Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistry
+        class: Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry
         public: true
         arguments:
             - []
@@ -40,14 +40,14 @@ services:
     # Various block plugins
 
     netgen_block_manager.block.block_definition.handler.plugin.common:
-        class: Netgen\BlockManager\Block\BlockDefinition\Handler\CommonParametersPlugin
+        class: Netgen\Layouts\Block\BlockDefinition\Handler\CommonParametersPlugin
         arguments:
             - "%netgen_block_manager.block.block_definition.handler.plugin.common.groups%"
         tags:
             - { name: netgen_block_manager.block.block_definition_handler.plugin, priority: 0 }
 
     netgen_block_manager.block.block_definition.handler.plugin.paged_collections:
-        class: Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsPlugin
+        class: Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsPlugin
         arguments:
             - "%netgen_block_manager.block.block_definition.handler.plugin.paged_collections.pager_types%"
             - "%netgen_block_manager.block.block_definition.handler.plugin.paged_collections.groups%"

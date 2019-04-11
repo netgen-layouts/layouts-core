@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\TargetType;
+namespace Netgen\Layouts\Tests\Layout\Resolver\TargetType;
 
-use Netgen\BlockManager\Layout\Resolver\TargetType\RequestUriPrefix;
+use Netgen\Layouts\Layout\Resolver\TargetType\RequestUriPrefix;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validation;
@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Validation;
 final class RequestUriPrefixTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\TargetType\RequestUriPrefix
+     * @var \Netgen\Layouts\Layout\Resolver\TargetType\RequestUriPrefix
      */
     private $targetType;
 
@@ -22,7 +22,7 @@ final class RequestUriPrefixTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\RequestUriPrefix::getType
+     * @covers \Netgen\Layouts\Layout\Resolver\TargetType\RequestUriPrefix::getType
      */
     public function testGetType(): void
     {
@@ -33,7 +33,7 @@ final class RequestUriPrefixTest extends TestCase
      * @param mixed $value
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\RequestUriPrefix::getConstraints
+     * @covers \Netgen\Layouts\Layout\Resolver\TargetType\RequestUriPrefix::getConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, bool $isValid): void
@@ -45,7 +45,7 @@ final class RequestUriPrefixTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\RequestUriPrefix::provideValue
+     * @covers \Netgen\Layouts\Layout\Resolver\TargetType\RequestUriPrefix::provideValue
      */
     public function testProvideValue(): void
     {

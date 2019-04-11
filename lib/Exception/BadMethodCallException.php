@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Exception;
+namespace Netgen\Layouts\Exception;
 
 use BadMethodCallException as BaseBadMethodCallException;
 

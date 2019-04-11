@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Layout\Type;
+namespace Netgen\Layouts\Tests\Layout\Type;
 
-use Netgen\BlockManager\Layout\Type\Zone;
+use Netgen\Layouts\Layout\Type\Zone;
 use PHPUnit\Framework\TestCase;
 
 final class ZoneTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Type\Zone
+     * @var \Netgen\Layouts\Layout\Type\Zone
      */
     private $zone;
 
@@ -26,7 +26,7 @@ final class ZoneTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Type\Zone::getIdentifier
+     * @covers \Netgen\Layouts\Layout\Type\Zone::getIdentifier
      */
     public function testGetIdentifier(): void
     {
@@ -34,7 +34,7 @@ final class ZoneTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Type\Zone::getName
+     * @covers \Netgen\Layouts\Layout\Type\Zone::getName
      */
     public function testGetName(): void
     {
@@ -42,7 +42,7 @@ final class ZoneTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Type\Zone::getAllowedBlockDefinitions
+     * @covers \Netgen\Layouts\Layout\Type\Zone::getAllowedBlockDefinitions
      */
     public function testGetAllowedBlockDefinitions(): void
     {

@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\Provider;
+namespace Netgen\Layouts\Tests\View\Provider;
 
-use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\API\Values\LayoutResolver\Target;
-use Netgen\BlockManager\View\Provider\RuleTargetViewProvider;
-use Netgen\BlockManager\View\View\RuleTargetViewInterface;
+use Netgen\Layouts\API\Values\LayoutResolver\Condition;
+use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\API\Values\LayoutResolver\Target;
+use Netgen\Layouts\View\Provider\RuleTargetViewProvider;
+use Netgen\Layouts\View\View\RuleTargetViewInterface;
 use PHPUnit\Framework\TestCase;
 
 final class RuleTargetProviderTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface
+     * @var \Netgen\Layouts\View\Provider\ViewProviderInterface
      */
     private $ruleTargetViewProvider;
 
@@ -24,7 +24,7 @@ final class RuleTargetProviderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Provider\RuleTargetViewProvider::provideView
+     * @covers \Netgen\Layouts\View\Provider\RuleTargetViewProvider::provideView
      */
     public function testProvideView(): void
     {
@@ -48,7 +48,7 @@ final class RuleTargetProviderTest extends TestCase
      * @param mixed $value
      * @param bool $supports
      *
-     * @covers \Netgen\BlockManager\View\Provider\RuleTargetViewProvider::supports
+     * @covers \Netgen\Layouts\View\Provider\RuleTargetViewProvider::supports
      * @dataProvider supportsProvider
      */
     public function testSupports($value, bool $supports): void

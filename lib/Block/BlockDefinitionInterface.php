@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Block;
+namespace Netgen\Layouts\Block;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Form;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
-use Netgen\BlockManager\Config\ConfigDefinitionAwareInterface;
-use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\Collection;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\Form;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
+use Netgen\Layouts\Config\ConfigDefinitionAwareInterface;
+use Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface;
 
 /**
  * Block definition represents the model of the block, built from configuration.
@@ -41,7 +41,7 @@ interface BlockDefinitionInterface extends ParameterDefinitionCollectionInterfac
     /**
      * Returns all collections.
      *
-     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection[]
+     * @return \Netgen\Layouts\Block\BlockDefinition\Configuration\Collection[]
      */
     public function getCollections(): array;
 
@@ -53,14 +53,14 @@ interface BlockDefinitionInterface extends ParameterDefinitionCollectionInterfac
     /**
      * Returns the collection for provided collection identifier.
      *
-     * @throws \Netgen\BlockManager\Exception\Block\BlockDefinitionException If collection does not exist
+     * @throws \Netgen\Layouts\Exception\Block\BlockDefinitionException If collection does not exist
      */
     public function getCollection(string $identifier): Collection;
 
     /**
      * Returns all forms.
      *
-     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form[]
+     * @return \Netgen\Layouts\Block\BlockDefinition\Configuration\Form[]
      */
     public function getForms(): array;
 
@@ -72,14 +72,14 @@ interface BlockDefinitionInterface extends ParameterDefinitionCollectionInterfac
     /**
      * Returns the form for provided form name.
      *
-     * @throws \Netgen\BlockManager\Exception\Block\BlockDefinitionException If form does not exist
+     * @throws \Netgen\Layouts\Exception\Block\BlockDefinitionException If form does not exist
      */
     public function getForm(string $formName): Form;
 
     /**
      * Returns the block definition view types.
      *
-     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType[]
+     * @return \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType[]
      */
     public function getViewTypes(): array;
 
@@ -98,7 +98,7 @@ interface BlockDefinitionInterface extends ParameterDefinitionCollectionInterfac
     /**
      * Returns the view type with provided identifier.
      *
-     * @throws \Netgen\BlockManager\Exception\Block\BlockDefinitionException If view type does not exist
+     * @throws \Netgen\Layouts\Exception\Block\BlockDefinitionException If view type does not exist
      */
     public function getViewType(string $viewType): ViewType;
 

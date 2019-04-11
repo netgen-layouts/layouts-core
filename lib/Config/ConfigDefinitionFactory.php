@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Config;
+namespace Netgen\Layouts\Config;
 
-use Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface;
+use Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface;
 
 final class ConfigDefinitionFactory
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface
+     * @var \Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface
      */
     private $parameterBuilderFactory;
 

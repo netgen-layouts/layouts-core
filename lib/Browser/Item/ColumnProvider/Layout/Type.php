@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Browser\Item\ColumnProvider\Layout;
+namespace Netgen\Layouts\Browser\Item\ColumnProvider\Layout;
 
-use Netgen\BlockManager\Browser\Item\Layout\LayoutInterface;
 use Netgen\ContentBrowser\Item\ColumnProvider\ColumnValueProviderInterface;
 use Netgen\ContentBrowser\Item\ItemInterface;
+use Netgen\Layouts\Browser\Item\Layout\LayoutInterface;
 
 final class Type implements ColumnValueProviderInterface
 {

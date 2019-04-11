@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Exception\Transfer;
+namespace Netgen\Layouts\Exception\Transfer;
 
 use InvalidArgumentException;
-use Netgen\BlockManager\Exception\Exception;
+use Netgen\Layouts\Exception\Exception;
 use Throwable;
 
 final class JsonValidationException extends InvalidArgumentException implements Exception

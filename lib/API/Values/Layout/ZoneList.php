@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\Layout;
+namespace Netgen\Layouts\API\Values\Layout;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -21,7 +21,7 @@ final class ZoneList extends ArrayCollection
     }
 
     /**
-     * @return \Netgen\BlockManager\API\Values\Layout\Zone[]
+     * @return \Netgen\Layouts\API\Values\Layout\Zone[]
      */
     public function getZones(): array
     {

@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters;
+namespace Netgen\Layouts\Tests\Parameters;
 
-use Netgen\BlockManager\Exception\Parameters\ParameterTypeException;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterType\TextType;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterType;
+use Netgen\Layouts\Exception\Parameters\ParameterTypeException;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType\TextType;
+use Netgen\Layouts\Tests\Parameters\Stubs\ParameterType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints;
 
 final class ParameterTypeTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterTypeInterface
+     * @var \Netgen\Layouts\Parameters\ParameterTypeInterface
      */
     private $parameterType;
 
@@ -24,9 +24,9 @@ final class ParameterTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType::getConstraints
-     * @covers \Netgen\BlockManager\Parameters\ParameterType::getRequiredConstraints
-     * @covers \Netgen\BlockManager\Parameters\ParameterType::getValueConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterType::getConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterType::getRequiredConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterType::getValueConstraints
      */
     public function testGetConstraints(): void
     {
@@ -44,9 +44,9 @@ final class ParameterTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType::getConstraints
-     * @covers \Netgen\BlockManager\Parameters\ParameterType::getRequiredConstraints
-     * @covers \Netgen\BlockManager\Parameters\ParameterType::getValueConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterType::getConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterType::getRequiredConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterType::getValueConstraints
      */
     public function testGetConstraintsWithRequiredParameter(): void
     {
@@ -66,7 +66,7 @@ final class ParameterTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType::getConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterType::getConstraints
      */
     public function testGetConstraintsThrowsParameterTypeException(): void
     {
@@ -80,7 +80,7 @@ final class ParameterTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType::toHash
+     * @covers \Netgen\Layouts\Parameters\ParameterType::toHash
      */
     public function testToHash(): void
     {
@@ -88,7 +88,7 @@ final class ParameterTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType::fromHash
+     * @covers \Netgen\Layouts\Parameters\ParameterType::fromHash
      */
     public function testFromHash(): void
     {
@@ -96,7 +96,7 @@ final class ParameterTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType::export
+     * @covers \Netgen\Layouts\Parameters\ParameterType::export
      */
     public function testExport(): void
     {
@@ -104,7 +104,7 @@ final class ParameterTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType::import
+     * @covers \Netgen\Layouts\Parameters\ParameterType::import
      */
     public function testImport(): void
     {
@@ -112,7 +112,7 @@ final class ParameterTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType::isValueEmpty
+     * @covers \Netgen\Layouts\Parameters\ParameterType::isValueEmpty
      */
     public function testIsValueEmpty(): void
     {
@@ -120,7 +120,7 @@ final class ParameterTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType::isValueEmpty
+     * @covers \Netgen\Layouts\Parameters\ParameterType::isValueEmpty
      */
     public function testIsValueEmptyReturnsFalse(): void
     {

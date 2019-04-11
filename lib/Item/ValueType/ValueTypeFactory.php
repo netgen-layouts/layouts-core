@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Item\ValueType;
+namespace Netgen\Layouts\Item\ValueType;
 
 final class ValueTypeFactory
 {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Persistence\Values\Layout;
+namespace Netgen\Layouts\Tests\Persistence\Values\Layout;
 
-use Netgen\BlockManager\Persistence\Values\Layout\Layout;
-use Netgen\BlockManager\Persistence\Values\Value;
+use Netgen\Layouts\Persistence\Values\Layout\Layout;
+use Netgen\Layouts\Persistence\Values\Value;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutTest extends TestCase

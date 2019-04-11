@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Core\StructBuilder;
+namespace Netgen\Layouts\Core\StructBuilder;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
-use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
-use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
-use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\LayoutCopyStruct;
+use Netgen\Layouts\API\Values\Layout\LayoutCreateStruct;
+use Netgen\Layouts\API\Values\Layout\LayoutUpdateStruct;
+use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 
 final class LayoutStructBuilder
 {

@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Browser\Item\ColumnProvider\Layout;
+namespace Netgen\Layouts\Tests\Browser\Item\ColumnProvider\Layout;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Type;
-use Netgen\BlockManager\Browser\Item\Layout\Item;
-use Netgen\BlockManager\Layout\Type\LayoutType;
 use Netgen\ContentBrowser\Tests\Stubs\Item as StubItem;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Type;
+use Netgen\Layouts\Browser\Item\Layout\Item;
+use Netgen\Layouts\Layout\Type\LayoutType;
 use PHPUnit\Framework\TestCase;
 
 final class TypeTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Type
+     * @var \Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Type
      */
     private $provider;
 
@@ -24,7 +24,7 @@ final class TypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Type::getValue
+     * @covers \Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Type::getValue
      */
     public function testGetValue(): void
     {
@@ -47,7 +47,7 @@ final class TypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Item\ColumnProvider\Layout\Type::getValue
+     * @covers \Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Type::getValue
      */
     public function testGetValueWithInvalidItem(): void
     {

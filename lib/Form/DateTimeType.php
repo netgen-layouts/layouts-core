@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Form;
+namespace Netgen\Layouts\Form;
 
-use Netgen\BlockManager\Form\DataMapper\DateTimeDataMapper;
-use Netgen\BlockManager\Utils\DateTimeUtils;
+use Netgen\Layouts\Form\DataMapper\DateTimeDataMapper;
+use Netgen\Layouts\Utils\DateTimeUtils;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType as BaseDateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;

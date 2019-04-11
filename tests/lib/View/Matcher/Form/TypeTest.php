@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\Matcher\Form;
+namespace Netgen\Layouts\Tests\View\Matcher\Form;
 
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\View\Matcher\Stubs\FormView;
-use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\View\Matcher\Form\Type;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\View\Matcher\Stubs\FormView;
+use Netgen\Layouts\Tests\View\Stubs\View;
+use Netgen\Layouts\View\Matcher\Form\Type;
 use PHPUnit\Framework\TestCase;
 
 final class TypeTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\View\Matcher\MatcherInterface
+     * @var \Netgen\Layouts\View\Matcher\MatcherInterface
      */
     private $matcher;
 
@@ -23,7 +23,7 @@ final class TypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Form\Type::match
+     * @covers \Netgen\Layouts\View\Matcher\Form\Type::match
      * @dataProvider matchProvider
      */
     public function testMatch(array $config, bool $expected): void
@@ -45,7 +45,7 @@ final class TypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Form\Type::match
+     * @covers \Netgen\Layouts\View\Matcher\Form\Type::match
      */
     public function testMatchWithNoFormView(): void
     {

@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters;
+namespace Netgen\Layouts\Tests\Parameters;
 
-use Netgen\BlockManager\Exception\Parameters\ParameterTypeException;
-use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterBuilderFactory;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterType\Compound\BooleanType;
-use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
-use Netgen\BlockManager\Tests\Parameters\Stubs\CompoundParameterType;
+use Netgen\Layouts\Exception\Parameters\ParameterTypeException;
+use Netgen\Layouts\Parameters\CompoundParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterBuilderFactory;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType\Compound\BooleanType;
+use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
+use Netgen\Layouts\Tests\Parameters\Stubs\CompoundParameterType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints;
 
 final class CompoundParameterTypeTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\CompoundParameterTypeInterface
+     * @var \Netgen\Layouts\Parameters\CompoundParameterTypeInterface
      */
     private $parameterType;
 
@@ -27,7 +27,7 @@ final class CompoundParameterTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::buildParameters
+     * @covers \Netgen\Layouts\Parameters\CompoundParameterType::buildParameters
      */
     public function testBuildParameters(): void
     {
@@ -40,9 +40,9 @@ final class CompoundParameterTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::getConstraints
-     * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::getRequiredConstraints
-     * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::getValueConstraints
+     * @covers \Netgen\Layouts\Parameters\CompoundParameterType::getConstraints
+     * @covers \Netgen\Layouts\Parameters\CompoundParameterType::getRequiredConstraints
+     * @covers \Netgen\Layouts\Parameters\CompoundParameterType::getValueConstraints
      */
     public function testGetConstraints(): void
     {
@@ -60,9 +60,9 @@ final class CompoundParameterTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::getConstraints
-     * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::getRequiredConstraints
-     * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::getValueConstraints
+     * @covers \Netgen\Layouts\Parameters\CompoundParameterType::getConstraints
+     * @covers \Netgen\Layouts\Parameters\CompoundParameterType::getRequiredConstraints
+     * @covers \Netgen\Layouts\Parameters\CompoundParameterType::getValueConstraints
      */
     public function testGetConstraintsWithRequiredParameter(): void
     {
@@ -82,7 +82,7 @@ final class CompoundParameterTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::getConstraints
+     * @covers \Netgen\Layouts\Parameters\CompoundParameterType::getConstraints
      */
     public function testGetConstraintsThrowsParameterTypeException(): void
     {
@@ -96,7 +96,7 @@ final class CompoundParameterTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::toHash
+     * @covers \Netgen\Layouts\Parameters\CompoundParameterType::toHash
      */
     public function testToHash(): void
     {
@@ -104,7 +104,7 @@ final class CompoundParameterTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::fromHash
+     * @covers \Netgen\Layouts\Parameters\CompoundParameterType::fromHash
      */
     public function testFromHash(): void
     {
@@ -112,7 +112,7 @@ final class CompoundParameterTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::isValueEmpty
+     * @covers \Netgen\Layouts\Parameters\CompoundParameterType::isValueEmpty
      */
     public function testIsValueEmpty(): void
     {
@@ -120,7 +120,7 @@ final class CompoundParameterTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\CompoundParameterType::isValueEmpty
+     * @covers \Netgen\Layouts\Parameters\CompoundParameterType::isValueEmpty
      */
     public function testIsValueEmptyReturnsFalse(): void
     {

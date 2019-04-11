@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View;
+namespace Netgen\Layouts\View;
 
-use Netgen\BlockManager\Event\BlockManagerEvents;
-use Netgen\BlockManager\Event\CollectViewParametersEvent;
-use Netgen\BlockManager\Exception\View\ViewProviderException;
-use Netgen\BlockManager\Utils\BackwardsCompatibility\EventDispatcherProxy;
-use Netgen\BlockManager\View\Provider\ViewProviderInterface;
+use Netgen\Layouts\Event\CollectViewParametersEvent;
+use Netgen\Layouts\Event\LayoutsEvents;
+use Netgen\Layouts\Exception\View\ViewProviderException;
+use Netgen\Layouts\Utils\BackwardsCompatibility\EventDispatcherProxy;
+use Netgen\Layouts\View\Provider\ViewProviderInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 final class ViewBuilder implements ViewBuilderInterface
 {
     /**
-     * @var \Netgen\BlockManager\View\TemplateResolverInterface
+     * @var \Netgen\Layouts\View\TemplateResolverInterface
      */
     private $templateResolver;
 
     /**
-     * @var \Netgen\BlockManager\Utils\BackwardsCompatibility\EventDispatcherProxy
+     * @var \Netgen\Layouts\Utils\BackwardsCompatibility\EventDispatcherProxy
      */
     private $eventDispatcher;
 
     /**
-     * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface[]
+     * @var \Netgen\Layouts\View\Provider\ViewProviderInterface[]
      */
     private $viewProviders = [];
 
@@ -52,11 +52,11 @@ final class ViewBuilder implements ViewBuilderInterface
         $this->templateResolver->resolveTemplate($view);
 
         $event = new CollectViewParametersEvent($view);
-        $this->eventDispatcher->dispatch($event, BlockManagerEvents::BUILD_VIEW);
+        $this->eventDispatcher->dispatch($event, LayoutsEvents::BUILD_VIEW);
         $view->addParameters($event->getParameters());
 
         $event = new CollectViewParametersEvent($view);
-        $this->eventDispatcher->dispatch($event, sprintf('%s.%s', BlockManagerEvents::BUILD_VIEW, $view::getIdentifier()));
+        $this->eventDispatcher->dispatch($event, sprintf('%s.%s', LayoutsEvents::BUILD_VIEW, $view::getIdentifier()));
         $view->addParameters($event->getParameters());
 
         return $view;
@@ -67,7 +67,7 @@ final class ViewBuilder implements ViewBuilderInterface
      *
      * @param mixed $value
      *
-     * @return \Netgen\BlockManager\View\Provider\ViewProviderInterface
+     * @return \Netgen\Layouts\View\Provider\ViewProviderInterface
      */
     private function getViewProvider($value): ViewProviderInterface
     {

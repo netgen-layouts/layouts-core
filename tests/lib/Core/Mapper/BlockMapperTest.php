@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\Mapper;
+namespace Netgen\Layouts\Tests\Core\Mapper;
 
-use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Block\NullBlockDefinition;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\Values\Block\Block;
-use Netgen\BlockManager\Tests\Core\CoreTestCase;
+use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\Block\NullBlockDefinition;
+use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Persistence\Values\Block\Block;
+use Netgen\Layouts\Tests\Core\CoreTestCase;
 
 abstract class BlockMapperTest extends CoreTestCase
 {
     /**
-     * @var \Netgen\BlockManager\Core\Mapper\BlockMapper
+     * @var \Netgen\Layouts\Core\Mapper\BlockMapper
      */
     private $mapper;
 
@@ -25,9 +25,9 @@ abstract class BlockMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::__construct
-     * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::mapBlock
-     * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::mapPlaceholders
+     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::__construct
+     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapBlock
+     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapPlaceholders
      */
     public function testMapBlock(): void
     {
@@ -100,7 +100,7 @@ abstract class BlockMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::mapBlock
+     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapBlock
      */
     public function testMapBlockWithNoParent(): void
     {
@@ -126,9 +126,9 @@ abstract class BlockMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::__construct
-     * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::mapBlock
-     * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::mapPlaceholders
+     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::__construct
+     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapBlock
+     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapPlaceholders
      */
     public function testMapBlockWithLocale(): void
     {
@@ -149,9 +149,9 @@ abstract class BlockMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::__construct
-     * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::mapBlock
-     * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::mapPlaceholders
+     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::__construct
+     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapBlock
+     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapPlaceholders
      */
     public function testMapBlockWithLocales(): void
     {
@@ -172,9 +172,9 @@ abstract class BlockMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::__construct
-     * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::mapBlock
-     * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::mapPlaceholders
+     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::__construct
+     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapBlock
+     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapPlaceholders
      */
     public function testMapBlockWithLocalesAndAlwaysAvailable(): void
     {
@@ -196,9 +196,9 @@ abstract class BlockMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::__construct
-     * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::mapBlock
-     * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::mapPlaceholders
+     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::__construct
+     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapBlock
+     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapPlaceholders
      */
     public function testMapBlockWithLocalesAndAlwaysAvailableWithoutUsingMainLocale(): void
     {
@@ -221,9 +221,9 @@ abstract class BlockMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::__construct
-     * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::mapBlock
-     * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::mapPlaceholders
+     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::__construct
+     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapBlock
+     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapPlaceholders
      */
     public function testMapBlockWithLocalesAndNotAlwaysAvailable(): void
     {
@@ -246,7 +246,7 @@ abstract class BlockMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::mapBlock
+     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapBlock
      */
     public function testMapBlockWithInvalidDefinition(): void
     {
@@ -305,9 +305,9 @@ abstract class BlockMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::__construct
-     * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::mapBlock
-     * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::mapPlaceholders
+     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::__construct
+     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapBlock
+     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapPlaceholders
      */
     public function testMapContainerBlock(): void
     {
@@ -350,8 +350,8 @@ abstract class BlockMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::loadCollections
-     * @covers \Netgen\BlockManager\Core\Mapper\BlockMapper::mapBlock
+     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::loadCollections
+     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapBlock
      */
     public function testMapBlockWithCollections(): void
     {

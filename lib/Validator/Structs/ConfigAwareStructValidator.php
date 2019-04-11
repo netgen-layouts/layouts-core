@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Validator\Structs;
+namespace Netgen\Layouts\Validator\Structs;
 
-use Netgen\BlockManager\API\Values\Config\ConfigAwareStruct;
-use Netgen\BlockManager\Config\ConfigDefinitionAwareInterface;
-use Netgen\BlockManager\Config\ConfigDefinitionInterface;
-use Netgen\BlockManager\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
-use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
+use Netgen\Layouts\API\Values\Config\ConfigAwareStruct;
+use Netgen\Layouts\Config\ConfigDefinitionAwareInterface;
+use Netgen\Layouts\Config\ConfigDefinitionInterface;
+use Netgen\Layouts\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
+use Netgen\Layouts\Validator\Constraint\Structs\ParameterStruct;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;

@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Context;
+namespace Netgen\Layouts\Tests\Context;
 
-use Netgen\BlockManager\Context\Context;
-use Netgen\BlockManager\Context\ContextBuilder;
-use Netgen\BlockManager\Tests\Context\Stubs\ContextProvider;
+use Netgen\Layouts\Context\Context;
+use Netgen\Layouts\Context\ContextBuilder;
+use Netgen\Layouts\Tests\Context\Stubs\ContextProvider;
 use PHPUnit\Framework\TestCase;
 
 final class ContextBuilderTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Context\ContextInterface
+     * @var \Netgen\Layouts\Context\ContextInterface
      */
     private $context;
 
     /**
-     * @var \Netgen\BlockManager\Context\ContextBuilder
+     * @var \Netgen\Layouts\Context\ContextBuilder
      */
     private $contextBuilder;
 
@@ -27,7 +27,7 @@ final class ContextBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Context\ContextBuilder::buildContext
+     * @covers \Netgen\Layouts\Context\ContextBuilder::buildContext
      */
     public function testBuildContext(): void
     {

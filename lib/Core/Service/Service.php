@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Core\Service;
+namespace Netgen\Layouts\Core\Service;
 
-use Netgen\BlockManager\API\Service\Service as APIService;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Persistence\TransactionHandlerInterface;
+use Netgen\Layouts\API\Service\Service as APIService;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Persistence\TransactionHandlerInterface;
 use Throwable;
 
 abstract class Service implements APIService
 {
     /**
-     * @var \Netgen\BlockManager\Persistence\TransactionHandlerInterface
+     * @var \Netgen\Layouts\Persistence\TransactionHandlerInterface
      */
     private $transactionHandler;
 

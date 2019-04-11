@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Error;
+namespace Netgen\Layouts\Tests\Error;
 
 use Exception;
-use Netgen\BlockManager\Error\DebugErrorHandler;
+use Netgen\Layouts\Error\DebugErrorHandler;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
@@ -17,7 +17,7 @@ final class DebugErrorHandlerTest extends TestCase
     private $loggerMock;
 
     /**
-     * @var \Netgen\BlockManager\Error\DebugErrorHandler
+     * @var \Netgen\Layouts\Error\DebugErrorHandler
      */
     private $errorHandler;
 
@@ -29,9 +29,9 @@ final class DebugErrorHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Error\DebugErrorHandler::__construct
-     * @covers \Netgen\BlockManager\Error\DebugErrorHandler::handleError
-     * @covers \Netgen\BlockManager\Error\DebugErrorHandler::logError
+     * @covers \Netgen\Layouts\Error\DebugErrorHandler::__construct
+     * @covers \Netgen\Layouts\Error\DebugErrorHandler::handleError
+     * @covers \Netgen\Layouts\Error\DebugErrorHandler::logError
      */
     public function testHandleError(): void
     {
@@ -49,8 +49,8 @@ final class DebugErrorHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Error\DebugErrorHandler::handleError
-     * @covers \Netgen\BlockManager\Error\DebugErrorHandler::logError
+     * @covers \Netgen\Layouts\Error\DebugErrorHandler::handleError
+     * @covers \Netgen\Layouts\Error\DebugErrorHandler::logError
      */
     public function testHandleErrorWithCustomMessage(): void
     {
@@ -68,8 +68,8 @@ final class DebugErrorHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Error\DebugErrorHandler::handleError
-     * @covers \Netgen\BlockManager\Error\DebugErrorHandler::logError
+     * @covers \Netgen\Layouts\Error\DebugErrorHandler::handleError
+     * @covers \Netgen\Layouts\Error\DebugErrorHandler::logError
      */
     public function testHandleErrorWithEmptyMessage(): void
     {
@@ -87,8 +87,8 @@ final class DebugErrorHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Error\DebugErrorHandler::handleError
-     * @covers \Netgen\BlockManager\Error\DebugErrorHandler::logError
+     * @covers \Netgen\Layouts\Error\DebugErrorHandler::handleError
+     * @covers \Netgen\Layouts\Error\DebugErrorHandler::logError
      */
     public function testHandleErrorWithContext(): void
     {
@@ -106,8 +106,8 @@ final class DebugErrorHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Error\DebugErrorHandler::handleError
-     * @covers \Netgen\BlockManager\Error\DebugErrorHandler::logError
+     * @covers \Netgen\Layouts\Error\DebugErrorHandler::handleError
+     * @covers \Netgen\Layouts\Error\DebugErrorHandler::logError
      */
     public function testHandleErrorThrowsError(): void
     {
@@ -130,8 +130,8 @@ final class DebugErrorHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Error\DebugErrorHandler::handleError
-     * @covers \Netgen\BlockManager\Error\DebugErrorHandler::logError
+     * @covers \Netgen\Layouts\Error\DebugErrorHandler::handleError
+     * @covers \Netgen\Layouts\Error\DebugErrorHandler::logError
      */
     public function testHandleErrorThrowsErrorWithCustomMessage(): void
     {
@@ -154,8 +154,8 @@ final class DebugErrorHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Error\DebugErrorHandler::handleError
-     * @covers \Netgen\BlockManager\Error\DebugErrorHandler::logError
+     * @covers \Netgen\Layouts\Error\DebugErrorHandler::handleError
+     * @covers \Netgen\Layouts\Error\DebugErrorHandler::logError
      */
     public function testHandleErrorThrowsErrorWithEmptyMessage(): void
     {
@@ -178,8 +178,8 @@ final class DebugErrorHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Error\DebugErrorHandler::handleError
-     * @covers \Netgen\BlockManager\Error\DebugErrorHandler::logError
+     * @covers \Netgen\Layouts\Error\DebugErrorHandler::handleError
+     * @covers \Netgen\Layouts\Error\DebugErrorHandler::logError
      */
     public function testHandleErrorThrowsErrorWithContext(): void
     {

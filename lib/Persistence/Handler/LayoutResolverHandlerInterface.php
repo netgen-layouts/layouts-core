@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Persistence\Handler;
+namespace Netgen\Layouts\Persistence\Handler;
 
-use Netgen\BlockManager\Persistence\Values\Layout\Layout;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionCreateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleCreateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetCreateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Layout\Layout;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\ConditionCreateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCreateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleUpdateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetCreateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetUpdateStruct;
 
 interface LayoutResolverHandlerInterface
 {
@@ -24,9 +24,9 @@ interface LayoutResolverHandlerInterface
      * @param int|string $ruleId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If rule with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If rule with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule
+     * @return \Netgen\Layouts\Persistence\Values\LayoutResolver\Rule
      */
     public function loadRule($ruleId, int $status): Rule;
 
@@ -35,7 +35,7 @@ interface LayoutResolverHandlerInterface
      *
      * If the layout is provided, only rules pointing to provided layout are returned.
      *
-     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule[]
+     * @return \Netgen\Layouts\Persistence\Values\LayoutResolver\Rule[]
      */
     public function loadRules(int $status, ?Layout $layout = null, int $offset = 0, ?int $limit = null): array;
 
@@ -52,7 +52,7 @@ interface LayoutResolverHandlerInterface
      * @param string $targetType
      * @param mixed $targetValue
      *
-     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule[]
+     * @return \Netgen\Layouts\Persistence\Values\LayoutResolver\Rule[]
      */
     public function matchRules(string $targetType, $targetValue): array;
 
@@ -62,16 +62,16 @@ interface LayoutResolverHandlerInterface
      * @param int|string $targetId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If target with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If target with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target
+     * @return \Netgen\Layouts\Persistence\Values\LayoutResolver\Target
      */
     public function loadTarget($targetId, int $status): Target;
 
     /**
      * Loads all targets that belong to rule with specified ID.
      *
-     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Target[]
+     * @return \Netgen\Layouts\Persistence\Values\LayoutResolver\Target[]
      */
     public function loadRuleTargets(Rule $rule): array;
 
@@ -86,16 +86,16 @@ interface LayoutResolverHandlerInterface
      * @param int|string $conditionId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If condition with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition
+     * @return \Netgen\Layouts\Persistence\Values\LayoutResolver\Condition
      */
     public function loadCondition($conditionId, int $status): Condition;
 
     /**
      * Loads all conditions that belong to rule with specified ID.
      *
-     * @return \Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition[]
+     * @return \Netgen\Layouts\Persistence\Values\LayoutResolver\Condition[]
      */
     public function loadRuleConditions(Rule $rule): array;
 

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Exception;
+namespace Netgen\Layouts\Tests\Exception;
 
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\Layouts\Exception\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 final class InvalidArgumentExceptionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Exception\InvalidArgumentException::__construct
+     * @covers \Netgen\Layouts\Exception\InvalidArgumentException::__construct
      */
     public function testExceptionMessage(): void
     {

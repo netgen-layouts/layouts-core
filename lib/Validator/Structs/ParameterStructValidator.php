@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Validator\Structs;
+namespace Netgen\Layouts\Validator\Structs;
 
 use Closure;
 use Generator;
-use Netgen\BlockManager\API\Values\ParameterStruct;
-use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;
-use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct as ParameterStructConstraint;
+use Netgen\Layouts\API\Values\ParameterStruct;
+use Netgen\Layouts\Parameters\CompoundParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface;
+use Netgen\Layouts\Validator\Constraint\Structs\ParameterStruct as ParameterStructConstraint;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\ConstraintValidator;

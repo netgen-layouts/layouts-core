@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\Collection;
+namespace Netgen\Layouts\Tests\API\Values\Collection;
 
-use Netgen\BlockManager\API\Values\Collection\QueryCreateStruct;
-use Netgen\BlockManager\Collection\QueryType\QueryType;
-use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
-use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterType;
+use Netgen\Layouts\API\Values\Collection\QueryCreateStruct;
+use Netgen\Layouts\Collection\QueryType\QueryType;
+use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
+use Netgen\Layouts\Parameters\CompoundParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType;
 use PHPUnit\Framework\TestCase;
 
 final class QueryCreateStructTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct
+     * @var \Netgen\Layouts\API\Values\Collection\QueryCreateStruct
      */
     private $struct;
 
     /**
-     * @var \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface
+     * @var \Netgen\Layouts\Collection\QueryType\QueryTypeInterface
      */
     private $queryType;
 
@@ -32,8 +32,8 @@ final class QueryCreateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct::__construct
-     * @covers \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct::getQueryType
+     * @covers \Netgen\Layouts\API\Values\Collection\QueryCreateStruct::__construct
+     * @covers \Netgen\Layouts\API\Values\Collection\QueryCreateStruct::getQueryType
      */
     public function testGetQueryType(): void
     {
@@ -43,7 +43,7 @@ final class QueryCreateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct::fillParametersFromHash
+     * @covers \Netgen\Layouts\API\Values\Collection\QueryCreateStruct::fillParametersFromHash
      */
     public function testFillParametersFromHash(): void
     {
@@ -68,7 +68,7 @@ final class QueryCreateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Collection\QueryCreateStruct::fillParametersFromHash
+     * @covers \Netgen\Layouts\API\Values\Collection\QueryCreateStruct::fillParametersFromHash
      */
     public function testFillParametersFromHashWithMissingValues(): void
     {

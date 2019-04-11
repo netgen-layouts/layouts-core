@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\Config;
+namespace Netgen\Layouts\API\Values\Config;
 
 interface ConfigAwareStruct
 {
@@ -19,14 +19,14 @@ interface ConfigAwareStruct
     /**
      * Returns all config structs from the struct.
      *
-     * @return \Netgen\BlockManager\API\Values\Config\ConfigStruct[]
+     * @return \Netgen\Layouts\API\Values\Config\ConfigStruct[]
      */
     public function getConfigStructs(): array;
 
     /**
      * Gets the config struct with provided config key.
      *
-     * @throws \Netgen\BlockManager\Exception\API\ConfigException If config struct does not exist
+     * @throws \Netgen\Layouts\Exception\API\ConfigException If config struct does not exist
      */
     public function getConfigStruct(string $configKey): ConfigStruct;
 }

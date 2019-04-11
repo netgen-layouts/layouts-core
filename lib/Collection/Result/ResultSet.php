@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Collection\Result;
+namespace Netgen\Layouts\Collection\Result;
 
 use ArrayAccess;
 use ArrayIterator;
 use Countable;
 use IteratorAggregate;
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Utils\HydratorTrait;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Utils\HydratorTrait;
 use Traversable;
 
 /**
@@ -43,12 +43,12 @@ final class ResultSet implements ArrayAccess, IteratorAggregate, Countable
     public const INCLUDE_ALL_ITEMS = PHP_INT_MAX;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Collection\Collection
+     * @var \Netgen\Layouts\API\Values\Collection\Collection
      */
     private $collection;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Result\Result[]
+     * @var \Netgen\Layouts\Collection\Result\Result[]
      */
     private $results;
 
@@ -78,7 +78,7 @@ final class ResultSet implements ArrayAccess, IteratorAggregate, Countable
     /**
      * Returns the results.
      *
-     * @return \Netgen\BlockManager\Collection\Result\Result[]
+     * @return \Netgen\Layouts\Collection\Result\Result[]
      */
     public function getResults(): array
     {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Persistence\Doctrine\Helper;
+namespace Netgen\Layouts\Persistence\Doctrine\Helper;
 
 use Doctrine\DBAL\Connection;
-use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper\Postgres;
-use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite;
+use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Postgres;
+use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite;
 
 final class ConnectionHelper
 {

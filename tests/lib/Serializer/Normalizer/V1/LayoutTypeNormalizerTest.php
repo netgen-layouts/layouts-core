@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
+namespace Netgen\Layouts\Tests\Serializer\Normalizer\V1;
 
-use Netgen\BlockManager\Layout\Type\LayoutType;
-use Netgen\BlockManager\Layout\Type\LayoutTypeFactory;
-use Netgen\BlockManager\Serializer\Normalizer\V1\LayoutTypeNormalizer;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
+use Netgen\Layouts\Layout\Type\LayoutType;
+use Netgen\Layouts\Layout\Type\LayoutTypeFactory;
+use Netgen\Layouts\Serializer\Normalizer\V1\LayoutTypeNormalizer;
+use Netgen\Layouts\Serializer\Values\VersionedValue;
+use Netgen\Layouts\Tests\API\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Serializer;
 
 final class LayoutTypeNormalizerTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutTypeNormalizer
+     * @var \Netgen\Layouts\Serializer\Normalizer\V1\LayoutTypeNormalizer
      */
     private $normalizer;
 
@@ -26,8 +26,8 @@ final class LayoutTypeNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutTypeNormalizer::getZones
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutTypeNormalizer::normalize
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\LayoutTypeNormalizer::getZones
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\LayoutTypeNormalizer::normalize
      */
     public function testNormalize(): void
     {
@@ -76,7 +76,7 @@ final class LayoutTypeNormalizerTest extends TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutTypeNormalizer::supportsNormalization
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\LayoutTypeNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, bool $expected): void

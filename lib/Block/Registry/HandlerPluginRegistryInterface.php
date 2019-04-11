@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Block\Registry;
+namespace Netgen\Layouts\Block\Registry;
 
 interface HandlerPluginRegistryInterface
 {
@@ -11,7 +11,7 @@ interface HandlerPluginRegistryInterface
      *
      * @param string $handlerClass
      *
-     * @return \Netgen\BlockManager\Block\BlockDefinition\Handler\PluginInterface[]
+     * @return \Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface[]
      */
     public function getPlugins(string $handlerClass): array;
 }

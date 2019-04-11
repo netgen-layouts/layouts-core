@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Mapper;
+namespace Netgen\Layouts\Tests\Persistence\Doctrine\Mapper;
 
-use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper;
-use Netgen\BlockManager\Persistence\Values\Layout\Layout;
-use Netgen\BlockManager\Persistence\Values\Layout\Zone;
-use Netgen\BlockManager\Persistence\Values\Value;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
+use Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutMapper;
+use Netgen\Layouts\Persistence\Values\Layout\Layout;
+use Netgen\Layouts\Persistence\Values\Layout\Zone;
+use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutMapperTest extends TestCase
@@ -16,7 +16,7 @@ final class LayoutMapperTest extends TestCase
     use ExportObjectTrait;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper
+     * @var \Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutMapper
      */
     private $mapper;
 
@@ -26,7 +26,7 @@ final class LayoutMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper::mapLayouts
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutMapper::mapLayouts
      */
     public function testMapLayouts(): void
     {
@@ -91,7 +91,7 @@ final class LayoutMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper::mapZones
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutMapper::mapZones
      */
     public function testMapZones(): void
     {

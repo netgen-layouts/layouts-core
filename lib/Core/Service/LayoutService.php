@@ -2,51 +2,51 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Core\Service;
+namespace Netgen\Layouts\Core\Service;
 
-use Netgen\BlockManager\API\Service\LayoutService as LayoutServiceInterface;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct as APILayoutCopyStruct;
-use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct as APILayoutCreateStruct;
-use Netgen\BlockManager\API\Values\Layout\LayoutList;
-use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct as APILayoutUpdateStruct;
-use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Core\Mapper\LayoutMapper;
-use Netgen\BlockManager\Core\StructBuilder\LayoutStructBuilder;
-use Netgen\BlockManager\Core\Validator\LayoutValidator;
-use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
-use Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface;
-use Netgen\BlockManager\Persistence\TransactionHandlerInterface;
-use Netgen\BlockManager\Persistence\Values\Layout\Layout as PersistenceLayout;
-use Netgen\BlockManager\Persistence\Values\Layout\LayoutCopyStruct;
-use Netgen\BlockManager\Persistence\Values\Layout\LayoutCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Layout\LayoutUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Layout\Zone as PersistenceZone;
-use Netgen\BlockManager\Persistence\Values\Layout\ZoneCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Layout\ZoneUpdateStruct;
+use Netgen\Layouts\API\Service\LayoutService as LayoutServiceInterface;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\LayoutCopyStruct as APILayoutCopyStruct;
+use Netgen\Layouts\API\Values\Layout\LayoutCreateStruct as APILayoutCreateStruct;
+use Netgen\Layouts\API\Values\Layout\LayoutList;
+use Netgen\Layouts\API\Values\Layout\LayoutUpdateStruct as APILayoutUpdateStruct;
+use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\Core\Mapper\LayoutMapper;
+use Netgen\Layouts\Core\StructBuilder\LayoutStructBuilder;
+use Netgen\Layouts\Core\Validator\LayoutValidator;
+use Netgen\Layouts\Exception\BadStateException;
+use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
+use Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface;
+use Netgen\Layouts\Persistence\TransactionHandlerInterface;
+use Netgen\Layouts\Persistence\Values\Layout\Layout as PersistenceLayout;
+use Netgen\Layouts\Persistence\Values\Layout\LayoutCopyStruct;
+use Netgen\Layouts\Persistence\Values\Layout\LayoutCreateStruct;
+use Netgen\Layouts\Persistence\Values\Layout\LayoutUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Layout\Zone as PersistenceZone;
+use Netgen\Layouts\Persistence\Values\Layout\ZoneCreateStruct;
+use Netgen\Layouts\Persistence\Values\Layout\ZoneUpdateStruct;
 
 final class LayoutService extends Service implements LayoutServiceInterface
 {
     /**
-     * @var \Netgen\BlockManager\Core\Validator\LayoutValidator
+     * @var \Netgen\Layouts\Core\Validator\LayoutValidator
      */
     private $validator;
 
     /**
-     * @var \Netgen\BlockManager\Core\Mapper\LayoutMapper
+     * @var \Netgen\Layouts\Core\Mapper\LayoutMapper
      */
     private $mapper;
 
     /**
-     * @var \Netgen\BlockManager\Core\StructBuilder\LayoutStructBuilder
+     * @var \Netgen\Layouts\Core\StructBuilder\LayoutStructBuilder
      */
     private $structBuilder;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface
+     * @var \Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface
      */
     private $layoutHandler;
 

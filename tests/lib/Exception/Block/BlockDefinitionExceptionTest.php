@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Exception\Block;
+namespace Netgen\Layouts\Tests\Exception\Block;
 
-use Netgen\BlockManager\Exception\Block\BlockDefinitionException;
+use Netgen\Layouts\Exception\Block\BlockDefinitionException;
 use PHPUnit\Framework\TestCase;
 
 final class BlockDefinitionExceptionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Exception\Block\BlockDefinitionException::noForm
+     * @covers \Netgen\Layouts\Exception\Block\BlockDefinitionException::noForm
      */
     public function testNoForm(): void
     {
@@ -23,7 +23,7 @@ final class BlockDefinitionExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\Block\BlockDefinitionException::noViewType
+     * @covers \Netgen\Layouts\Exception\Block\BlockDefinitionException::noViewType
      */
     public function testNoViewType(): void
     {
@@ -36,7 +36,7 @@ final class BlockDefinitionExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\Block\BlockDefinitionException::noItemViewType
+     * @covers \Netgen\Layouts\Exception\Block\BlockDefinitionException::noItemViewType
      */
     public function testNoItemViewType(): void
     {
@@ -49,7 +49,7 @@ final class BlockDefinitionExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\Block\BlockDefinitionException::noCollection
+     * @covers \Netgen\Layouts\Exception\Block\BlockDefinitionException::noCollection
      */
     public function testNoCollection(): void
     {
@@ -62,7 +62,7 @@ final class BlockDefinitionExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\Block\BlockDefinitionException::noBlockDefinition
+     * @covers \Netgen\Layouts\Exception\Block\BlockDefinitionException::noBlockDefinition
      */
     public function testNoBlockDefinition(): void
     {

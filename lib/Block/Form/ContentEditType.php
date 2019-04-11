@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Block\Form;
+namespace Netgen\Layouts\Block\Form;
 
-use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
-use Netgen\BlockManager\Form\TranslatableTypeTrait;
+use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandler;
+use Netgen\Layouts\Form\TranslatableTypeTrait;
 use Symfony\Component\Form\FormBuilderInterface;
 
 final class ContentEditType extends EditType

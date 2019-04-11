@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\ParamConverter\LayoutResolver;
 
-use Netgen\BlockManager\API\Service\LayoutResolverService;
-use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
 use Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver\ConditionParamConverter;
+use Netgen\Layouts\API\Service\LayoutResolverService;
+use Netgen\Layouts\API\Values\LayoutResolver\Condition;
 use PHPUnit\Framework\TestCase;
 
 final class ConditionParamConverterTest extends TestCase

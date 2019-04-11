@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Serializer\Normalizer\V1;
+namespace Netgen\Layouts\Serializer\Normalizer\V1;
 
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Serializer\Values\View;
-use Netgen\BlockManager\Serializer\Version;
-use Netgen\BlockManager\View\RendererInterface;
-use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Layouts\Serializer\Values\VersionedValue;
+use Netgen\Layouts\Serializer\Values\View;
+use Netgen\Layouts\Serializer\Version;
+use Netgen\Layouts\View\RendererInterface;
+use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -18,7 +18,7 @@ final class ViewNormalizer implements NormalizerInterface, NormalizerAwareInterf
     use NormalizerAwareTrait;
 
     /**
-     * @var \Netgen\BlockManager\View\RendererInterface
+     * @var \Netgen\Layouts\View\RendererInterface
      */
     private $viewRenderer;
 
@@ -29,7 +29,7 @@ final class ViewNormalizer implements NormalizerInterface, NormalizerAwareInterf
 
     public function normalize($object, $format = null, array $context = [])
     {
-        /** @var \Netgen\BlockManager\Serializer\Values\View $object */
+        /** @var \Netgen\Layouts\Serializer\Values\View $object */
         /** @var array $normalizedData */
         $normalizedData = $this->normalizer->normalize(
             new VersionedValue(

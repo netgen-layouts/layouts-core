@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Serializer\Normalizer\V1;
+namespace Netgen\Layouts\Serializer\Normalizer\V1;
 
 use Generator;
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\Collection\Item\VisibilityResolverInterface;
-use Netgen\BlockManager\Exception\Item\ItemException;
-use Netgen\BlockManager\Item\UrlGeneratorInterface;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Serializer\Version;
+use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\Collection\Item\VisibilityResolverInterface;
+use Netgen\Layouts\Exception\Item\ItemException;
+use Netgen\Layouts\Item\UrlGeneratorInterface;
+use Netgen\Layouts\Serializer\Values\VersionedValue;
+use Netgen\Layouts\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -20,12 +20,12 @@ final class CollectionItemNormalizer implements NormalizerInterface, NormalizerA
     use NormalizerAwareTrait;
 
     /**
-     * @var \Netgen\BlockManager\Item\UrlGeneratorInterface
+     * @var \Netgen\Layouts\Item\UrlGeneratorInterface
      */
     private $urlGenerator;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Item\VisibilityResolverInterface
+     * @var \Netgen\Layouts\Collection\Item\VisibilityResolverInterface
      */
     private $visibilityResolver;
 
@@ -37,7 +37,7 @@ final class CollectionItemNormalizer implements NormalizerInterface, NormalizerA
 
     public function normalize($object, $format = null, array $context = [])
     {
-        /** @var \Netgen\BlockManager\API\Values\Collection\Item $collectionItem */
+        /** @var \Netgen\Layouts\API\Values\Collection\Item $collectionItem */
         $collectionItem = $object->getValue();
         $cmsItem = $collectionItem->getCmsItem();
 

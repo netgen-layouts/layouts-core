@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\Layout;
+namespace Netgen\Layouts\Tests\API\Values\Layout;
 
-use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
+use Netgen\Layouts\API\Values\Layout\LayoutCreateStruct;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutCreateStructTest extends TestCase

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\Matcher\Stubs;
+namespace Netgen\Layouts\Tests\View\Matcher\Stubs;
 
-use Netgen\BlockManager\View\View;
-use Netgen\BlockManager\View\View\FormViewInterface;
+use Netgen\Layouts\View\View;
+use Netgen\Layouts\View\View\FormViewInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView as SymfonyFormView;
 

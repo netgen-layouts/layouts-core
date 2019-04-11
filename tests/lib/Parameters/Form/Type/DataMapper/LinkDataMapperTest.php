@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\Form\Type\DataMapper;
+namespace Netgen\Layouts\Tests\Parameters\Form\Type\DataMapper;
 
 use ArrayIterator;
-use Netgen\BlockManager\Item\CmsItemLoaderInterface;
-use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
-use Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
-use Netgen\BlockManager\Parameters\ParameterType\LinkType;
-use Netgen\BlockManager\Parameters\Value\LinkValue;
-use Netgen\BlockManager\Tests\Form\DataMapper\DataMapperTest;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
+use Netgen\Layouts\Item\CmsItemLoaderInterface;
+use Netgen\Layouts\Item\Registry\ValueTypeRegistry;
+use Netgen\Layouts\Parameters\Form\Type\DataMapper\LinkDataMapper;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter;
+use Netgen\Layouts\Parameters\ParameterType\LinkType;
+use Netgen\Layouts\Parameters\Value\LinkValue;
+use Netgen\Layouts\Tests\Form\DataMapper\DataMapperTest;
+use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 
 final class LinkDataMapperTest extends DataMapperTest
 {
     use ExportObjectTrait;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper
+     * @var \Netgen\Layouts\Parameters\Form\Type\DataMapper\LinkDataMapper
      */
     private $mapper;
 
@@ -39,8 +39,8 @@ final class LinkDataMapperTest extends DataMapperTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper::__construct
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper::mapDataToForms
+     * @covers \Netgen\Layouts\Parameters\Form\Type\DataMapper\LinkDataMapper::__construct
+     * @covers \Netgen\Layouts\Parameters\Form\Type\DataMapper\LinkDataMapper::mapDataToForms
      */
     public function testMapDataToForms(): void
     {
@@ -71,7 +71,7 @@ final class LinkDataMapperTest extends DataMapperTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper::mapDataToForms
+     * @covers \Netgen\Layouts\Parameters\Form\Type\DataMapper\LinkDataMapper::mapDataToForms
      */
     public function testMapDataToFormsWithInvalidData(): void
     {
@@ -93,7 +93,7 @@ final class LinkDataMapperTest extends DataMapperTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper::mapFormsToData
+     * @covers \Netgen\Layouts\Parameters\Form\Type\DataMapper\LinkDataMapper::mapFormsToData
      */
     public function testMapFormsToData(): void
     {
@@ -122,7 +122,7 @@ final class LinkDataMapperTest extends DataMapperTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper::mapFormsToData
+     * @covers \Netgen\Layouts\Parameters\Form\Type\DataMapper\LinkDataMapper::mapFormsToData
      */
     public function testMapFormsToDataWithInvalidFormData(): void
     {

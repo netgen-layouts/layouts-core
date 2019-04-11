@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Layout\Type;
+namespace Netgen\Layouts\Layout\Type;
 
-use Netgen\BlockManager\Block\BlockDefinitionInterface;
+use Netgen\Layouts\Block\BlockDefinitionInterface;
 
 /**
  * This class and corresponding namespace represent an model of layout type
@@ -36,7 +36,7 @@ interface LayoutTypeInterface
     /**
      * Returns the layout type zones.
      *
-     * @return \Netgen\BlockManager\Layout\Type\Zone[]
+     * @return \Netgen\Layouts\Layout\Type\Zone[]
      */
     public function getZones(): array;
 
@@ -55,7 +55,7 @@ interface LayoutTypeInterface
     /**
      * Returns the zone with provided identifier.
      *
-     * @throws \Netgen\BlockManager\Exception\Layout\LayoutTypeException If zone does not exist
+     * @throws \Netgen\Layouts\Exception\Layout\LayoutTypeException If zone does not exist
      */
     public function getZone(string $zoneIdentifier): Zone;
 

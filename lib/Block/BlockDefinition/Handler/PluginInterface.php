@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Block\BlockDefinition\Handler;
+namespace Netgen\Layouts\Block\BlockDefinition\Handler;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Block\DynamicParameters;
-use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Block\DynamicParameters;
+use Netgen\Layouts\Parameters\ParameterBuilderInterface;
 
 interface PluginInterface
 {

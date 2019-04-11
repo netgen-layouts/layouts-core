@@ -2,31 +2,31 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Parameters\ParameterType;
+namespace Netgen\Layouts\Parameters\ParameterType;
 
-use Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
-use Netgen\BlockManager\Parameters\Value\LinkValue;
-use Netgen\BlockManager\Validator\Constraint\Parameters\Link as LinkConstraint;
+use Netgen\Layouts\Item\Registry\ValueTypeRegistryInterface;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType;
+use Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter;
+use Netgen\Layouts\Parameters\Value\LinkValue;
+use Netgen\Layouts\Validator\Constraint\Parameters\Link as LinkConstraint;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
 
 /**
  * Parameter type used to store and validate a URL. Valid value for this type
- * is an object which is an instance of Netgen\BlockManager\Parameters\Value\LinkValue.
+ * is an object which is an instance of Netgen\Layouts\Parameters\Value\LinkValue.
  */
 final class LinkType extends ParameterType
 {
     /**
-     * @var \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface
+     * @var \Netgen\Layouts\Item\Registry\ValueTypeRegistryInterface
      */
     private $valueTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter
+     * @var \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter
      */
     private $remoteIdConverter;
 

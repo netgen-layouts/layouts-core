@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Stubs;
+namespace Netgen\Layouts\Tests\Stubs;
 
-use Netgen\BlockManager\Error\ErrorHandlerInterface;
+use Netgen\Layouts\Error\ErrorHandlerInterface;
 use Throwable;
 
 final class ErrorHandler implements ErrorHandlerInterface

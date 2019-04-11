@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Validator\Structs;
+namespace Netgen\Layouts\Validator\Structs;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
-use Netgen\BlockManager\Validator\Constraint\BlockViewType;
-use Netgen\BlockManager\Validator\Constraint\Locale as LocaleConstraint;
-use Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
-use Netgen\BlockManager\Validator\Constraint\Structs\ParameterStruct;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
+use Netgen\Layouts\Validator\Constraint\BlockItemViewType;
+use Netgen\Layouts\Validator\Constraint\BlockViewType;
+use Netgen\Layouts\Validator\Constraint\Locale as LocaleConstraint;
+use Netgen\Layouts\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
+use Netgen\Layouts\Validator\Constraint\Structs\ParameterStruct;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\ConstraintValidator;

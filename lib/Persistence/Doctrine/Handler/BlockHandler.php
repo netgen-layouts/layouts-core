@@ -2,44 +2,44 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Persistence\Doctrine\Handler;
+namespace Netgen\Layouts\Persistence\Doctrine\Handler;
 
-use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
-use Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper;
-use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler;
-use Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface;
-use Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface;
-use Netgen\BlockManager\Persistence\Values\Block\Block;
-use Netgen\BlockManager\Persistence\Values\Block\BlockCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Block\BlockTranslationUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Block\CollectionReference;
-use Netgen\BlockManager\Persistence\Values\Collection\Collection;
-use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Layout\Layout;
-use Netgen\BlockManager\Persistence\Values\Layout\Zone;
+use Netgen\Layouts\Exception\BadStateException;
+use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper;
+use Netgen\Layouts\Persistence\Doctrine\Mapper\BlockMapper;
+use Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler;
+use Netgen\Layouts\Persistence\Handler\BlockHandlerInterface;
+use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
+use Netgen\Layouts\Persistence\Values\Block\Block;
+use Netgen\Layouts\Persistence\Values\Block\BlockCreateStruct;
+use Netgen\Layouts\Persistence\Values\Block\BlockTranslationUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Block\BlockUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Block\CollectionReference;
+use Netgen\Layouts\Persistence\Values\Collection\Collection;
+use Netgen\Layouts\Persistence\Values\Collection\CollectionUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Layout\Layout;
+use Netgen\Layouts\Persistence\Values\Layout\Zone;
 
 final class BlockHandler implements BlockHandlerInterface
 {
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler
+     * @var \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler
      */
     private $queryHandler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface
+     * @var \Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface
      */
     private $collectionHandler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper
+     * @var \Netgen\Layouts\Persistence\Doctrine\Mapper\BlockMapper
      */
     private $blockMapper;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper
+     * @var \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper
      */
     private $positionHelper;
 

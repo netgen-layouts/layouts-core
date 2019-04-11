@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Helper;
+namespace Netgen\Layouts\Tests\Persistence\Doctrine\Helper;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
+use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper;
 use PHPUnit\Framework\TestCase;
 
 final class ConnectionHelperTest extends TestCase
@@ -22,7 +22,7 @@ final class ConnectionHelperTest extends TestCase
     private $databaseConnectionMock;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper
+     * @var \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper
      */
     private $connectionHelper;
 
@@ -40,8 +40,8 @@ final class ConnectionHelperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper::__construct
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper::getAutoIncrementValue
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper::__construct
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper::getAutoIncrementValue
      */
     public function testGetAutoIncrementValue(): void
     {
@@ -54,9 +54,9 @@ final class ConnectionHelperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper::getAutoIncrementValue
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper\Postgres::__construct
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper\Postgres::getAutoIncrementValue
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper::getAutoIncrementValue
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Postgres::__construct
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Postgres::getAutoIncrementValue
      */
     public function testGetAutoIncrementValueForPostgres(): void
     {
@@ -75,8 +75,8 @@ final class ConnectionHelperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper::__construct
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper::lastInsertId
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper::__construct
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper::lastInsertId
      */
     public function testLastInsertId(): void
     {
@@ -95,9 +95,9 @@ final class ConnectionHelperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper::lastInsertId
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper\Postgres::__construct
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper\Postgres::lastInsertId
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper::lastInsertId
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Postgres::__construct
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Postgres::lastInsertId
      */
     public function testLastInsertIdForPostgres(): void
     {

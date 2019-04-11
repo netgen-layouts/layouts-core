@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters;
+namespace Netgen\Layouts\Tests\Parameters;
 
-use Netgen\BlockManager\Exception\Parameters\ParameterException;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterType\TextType;
+use Netgen\Layouts\Exception\Parameters\ParameterException;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType\TextType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 final class ParameterDefinitionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getConstraints
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getDefaultValue
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getGroups
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getLabel
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getOptions
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::isRequired
+     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::getConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::getDefaultValue
+     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::getGroups
+     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::getLabel
+     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::getOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::isRequired
      */
     public function testDefaultProperties(): void
     {
@@ -33,15 +33,15 @@ final class ParameterDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getDefaultValue
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getGroups
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getLabel
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getName
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getOption
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getOptions
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::getType
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::hasOption
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinition::isRequired
+     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::getDefaultValue
+     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::getGroups
+     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::getLabel
+     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::getName
+     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::getOption
+     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::getOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::getType
+     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::hasOption
+     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::isRequired
      */
     public function testSetProperties(): void
     {

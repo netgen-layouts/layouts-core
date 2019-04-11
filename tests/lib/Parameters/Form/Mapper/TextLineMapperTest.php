@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\Form\Mapper;
+namespace Netgen\Layouts\Tests\Parameters\Form\Mapper;
 
-use Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper;
+use Netgen\Layouts\Parameters\Form\Mapper\TextLineMapper;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 final class TextLineMapperTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper
+     * @var \Netgen\Layouts\Parameters\Form\Mapper\TextLineMapper
      */
     private $mapper;
 
@@ -21,7 +21,7 @@ final class TextLineMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Mapper\TextLineMapper::getFormType
+     * @covers \Netgen\Layouts\Parameters\Form\Mapper\TextLineMapper::getFormType
      */
     public function testGetFormType(): void
     {

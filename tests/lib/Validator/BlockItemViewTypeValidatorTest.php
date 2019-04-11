@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Validator;
+namespace Netgen\Layouts\Tests\Validator;
 
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
-use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
-use Netgen\BlockManager\Validator\BlockItemViewTypeValidator;
-use Netgen\BlockManager\Validator\Constraint\BlockItemViewType;
+use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
+use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
+use Netgen\Layouts\Validator\BlockItemViewTypeValidator;
+use Netgen\Layouts\Validator\Constraint\BlockItemViewType;
 use stdClass;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
 {
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
+     * @var \Netgen\Layouts\Block\BlockDefinitionInterface
      */
     private $blockDefinition;
 
@@ -44,7 +44,7 @@ final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\BlockItemViewTypeValidator::validate
+     * @covers \Netgen\Layouts\Validator\BlockItemViewTypeValidator::validate
      * @dataProvider validateDataProvider
      */
     public function testValidate(string $viewType, string $value, bool $isValid): void
@@ -55,31 +55,31 @@ final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\BlockItemViewTypeValidator::validate
+     * @covers \Netgen\Layouts\Validator\BlockItemViewTypeValidator::validate
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Netgen\\BlockManager\\Validator\\Constraint\\BlockItemViewType", "Symfony\\Component\\Validator\\Constraints\\NotBlank" given');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\Validator\\Constraint\\BlockItemViewType", "Symfony\\Component\\Validator\\Constraints\\NotBlank" given');
 
         $this->constraint = new NotBlank();
         $this->assertValid(true, 'standard');
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\BlockItemViewTypeValidator::validate
+     * @covers \Netgen\Layouts\Validator\BlockItemViewTypeValidator::validate
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidBlockDefinition(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Netgen\\BlockManager\\Block\\BlockDefinitionInterface", "stdClass" given');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\Block\\BlockDefinitionInterface", "stdClass" given');
 
         $this->constraint->definition = new stdClass();
         $this->assertValid(true, 'standard');
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\BlockItemViewTypeValidator::validate
+     * @covers \Netgen\Layouts\Validator\BlockItemViewTypeValidator::validate
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidViewType(): void
     {
@@ -91,7 +91,7 @@ final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\BlockItemViewTypeValidator::validate
+     * @covers \Netgen\Layouts\Validator\BlockItemViewTypeValidator::validate
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {

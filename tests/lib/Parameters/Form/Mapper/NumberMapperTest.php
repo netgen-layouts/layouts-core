@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\Form\Mapper;
+namespace Netgen\Layouts\Tests\Parameters\Form\Mapper;
 
-use Netgen\BlockManager\Parameters\Form\Mapper\NumberMapper;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterType\NumberType as NumberParameterType;
+use Netgen\Layouts\Parameters\Form\Mapper\NumberMapper;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType\NumberType as NumberParameterType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 final class NumberMapperTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\Form\Mapper\NumberMapper
+     * @var \Netgen\Layouts\Parameters\Form\Mapper\NumberMapper
      */
     private $mapper;
 
@@ -23,7 +23,7 @@ final class NumberMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Mapper\NumberMapper::getFormType
+     * @covers \Netgen\Layouts\Parameters\Form\Mapper\NumberMapper::getFormType
      */
     public function testGetFormType(): void
     {
@@ -31,7 +31,7 @@ final class NumberMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Mapper\NumberMapper::mapOptions
+     * @covers \Netgen\Layouts\Parameters\Form\Mapper\NumberMapper::mapOptions
      */
     public function testMapOptions(): void
     {

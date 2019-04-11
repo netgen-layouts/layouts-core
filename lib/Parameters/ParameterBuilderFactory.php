@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Parameters;
+namespace Netgen\Layouts\Parameters;
 
-use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface;
+use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistryInterface;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ParameterBuilderFactory implements ParameterBuilderFactoryInterface
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface
+     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistryInterface
      */
     private $parameterTypeRegistry;
 

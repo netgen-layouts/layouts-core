@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\Block;
+namespace Netgen\Layouts\API\Values\Block;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -21,7 +21,7 @@ final class PlaceholderList extends ArrayCollection
     }
 
     /**
-     * @return \Netgen\BlockManager\API\Values\Block\Placeholder[]
+     * @return \Netgen\Layouts\API\Values\Block\Placeholder[]
      */
     public function getPlaceholders(): array
     {

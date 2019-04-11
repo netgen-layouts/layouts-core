@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Event;
+namespace Netgen\Layouts\Event;
 
-use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
@@ -17,7 +17,7 @@ final class CollectViewParametersEvent extends Event
     /**
      * Returns the view object that is being built.
      *
-     * @var \Netgen\BlockManager\View\ViewInterface
+     * @var \Netgen\Layouts\View\ViewInterface
      */
     private $view;
 

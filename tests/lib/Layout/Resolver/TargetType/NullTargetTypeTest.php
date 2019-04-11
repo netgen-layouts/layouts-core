@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\TargetType;
+namespace Netgen\Layouts\Tests\Layout\Resolver\TargetType;
 
-use Netgen\BlockManager\Layout\Resolver\TargetType\NullTargetType;
+use Netgen\Layouts\Layout\Resolver\TargetType\NullTargetType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 
 final class NullTargetTypeTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\TargetType\NullTargetType
+     * @var \Netgen\Layouts\Layout\Resolver\TargetType\NullTargetType
      */
     private $targetType;
 
@@ -21,7 +21,7 @@ final class NullTargetTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\NullTargetType::getType
+     * @covers \Netgen\Layouts\Layout\Resolver\TargetType\NullTargetType::getType
      */
     public function testGetType(): void
     {
@@ -29,7 +29,7 @@ final class NullTargetTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\NullTargetType::getConstraints
+     * @covers \Netgen\Layouts\Layout\Resolver\TargetType\NullTargetType::getConstraints
      */
     public function testGetConstraints(): void
     {
@@ -37,7 +37,7 @@ final class NullTargetTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\TargetType\NullTargetType::provideValue
+     * @covers \Netgen\Layouts\Layout\Resolver\TargetType\NullTargetType::provideValue
      */
     public function testProvideValue(): void
     {

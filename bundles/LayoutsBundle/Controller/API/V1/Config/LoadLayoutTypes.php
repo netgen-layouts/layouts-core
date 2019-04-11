@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Controller\API\V1\Config;
 
-use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
-use Netgen\BlockManager\Serializer\Values\Value;
-use Netgen\BlockManager\Serializer\Values\View;
-use Netgen\BlockManager\Serializer\Version;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
+use Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface;
+use Netgen\Layouts\Serializer\Values\Value;
+use Netgen\Layouts\Serializer\Values\View;
+use Netgen\Layouts\Serializer\Version;
 
 final class LoadLayoutTypes extends AbstractController
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface
      */
     private $layoutTypeRegistry;
 

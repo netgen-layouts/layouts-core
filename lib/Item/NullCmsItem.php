@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Item;
+namespace Netgen\Layouts\Item;
 
 /**
  * NullCmsItem represents an item referencing a value from CMS which could not be

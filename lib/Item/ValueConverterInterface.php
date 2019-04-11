@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Item;
+namespace Netgen\Layouts\Item;
 
 /**
  * Value converter is used to convert the loaded CMS value to an instance of CmsItemInterface.

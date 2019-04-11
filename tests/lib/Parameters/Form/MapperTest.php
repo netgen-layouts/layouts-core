@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\Form;
+namespace Netgen\Layouts\Tests\Parameters\Form;
 
-use Netgen\BlockManager\Parameters\Form\Mapper;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\Form\Mapper;
+use Netgen\Layouts\Parameters\ParameterDefinition;
 use PHPUnit\Framework\TestCase;
 
 final class MapperTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\Form\MapperInterface
+     * @var \Netgen\Layouts\Parameters\Form\MapperInterface
      */
     private $mapper;
 
@@ -21,7 +21,7 @@ final class MapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Mapper::mapOptions
+     * @covers \Netgen\Layouts\Parameters\Form\Mapper::mapOptions
      */
     public function testMapOptions(): void
     {

@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Block;
+namespace Netgen\Layouts\Tests\Block;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Block\TwigBlockDefinition;
-use Netgen\BlockManager\Tests\Block\Stubs\TwigBlockDefinitionHandler;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Block\TwigBlockDefinition;
+use Netgen\Layouts\Tests\Block\Stubs\TwigBlockDefinitionHandler;
 use PHPUnit\Framework\TestCase;
 
 final class TwigBlockDefinitionTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface
+     * @var \Netgen\Layouts\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface
      */
     private $handler;
 
     /**
-     * @var \Netgen\BlockManager\Block\TwigBlockDefinition
+     * @var \Netgen\Layouts\Block\TwigBlockDefinition
      */
     private $blockDefinition;
 
@@ -34,7 +34,7 @@ final class TwigBlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\TwigBlockDefinition::getTwigBlockName
+     * @covers \Netgen\Layouts\Block\TwigBlockDefinition::getTwigBlockName
      */
     public function testGetTwigBlockName(): void
     {

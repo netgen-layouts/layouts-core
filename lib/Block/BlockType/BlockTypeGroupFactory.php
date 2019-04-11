@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Block\BlockType;
+namespace Netgen\Layouts\Block\BlockType;
 
 final class BlockTypeGroupFactory
 {
@@ -11,9 +11,9 @@ final class BlockTypeGroupFactory
      *
      * @param string $identifier
      * @param array<string, mixed> $config
-     * @param \Netgen\BlockManager\Block\BlockType\BlockType[] $blockTypes
+     * @param \Netgen\Layouts\Block\BlockType\BlockType[] $blockTypes
      *
-     * @return \Netgen\BlockManager\Block\BlockType\BlockTypeGroup
+     * @return \Netgen\Layouts\Block\BlockType\BlockTypeGroup
      */
     public static function buildBlockTypeGroup(string $identifier, array $config, array $blockTypes): BlockTypeGroup
     {

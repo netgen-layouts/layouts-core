@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Parameters;
+namespace Netgen\Layouts\Parameters;
 
 abstract class CompoundParameterType extends ParameterType implements CompoundParameterTypeInterface
 {

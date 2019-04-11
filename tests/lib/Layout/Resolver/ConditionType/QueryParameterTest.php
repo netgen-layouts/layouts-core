@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\ConditionType;
+namespace Netgen\Layouts\Tests\Layout\Resolver\ConditionType;
 
-use Netgen\BlockManager\Layout\Resolver\ConditionType\QueryParameter;
+use Netgen\Layouts\Layout\Resolver\ConditionType\QueryParameter;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validation;
@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Validation;
 final class QueryParameterTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\ConditionType\QueryParameter
+     * @var \Netgen\Layouts\Layout\Resolver\ConditionType\QueryParameter
      */
     private $conditionType;
 
@@ -22,7 +22,7 @@ final class QueryParameterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\QueryParameter::getType
+     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\QueryParameter::getType
      */
     public function testGetType(): void
     {
@@ -33,7 +33,7 @@ final class QueryParameterTest extends TestCase
      * @param mixed $value
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\QueryParameter::getConstraints
+     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\QueryParameter::getConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, bool $isValid): void
@@ -45,7 +45,7 @@ final class QueryParameterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\ConditionType\QueryParameter::matches
+     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\QueryParameter::matches
      *
      * @param mixed $value
      * @param bool $matches

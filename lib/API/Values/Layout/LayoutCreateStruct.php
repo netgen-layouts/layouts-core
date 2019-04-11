@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\Layout;
+namespace Netgen\Layouts\API\Values\Layout;
 
 final class LayoutCreateStruct
 {
@@ -11,7 +11,7 @@ final class LayoutCreateStruct
      *
      * Required.
      *
-     * @var \Netgen\BlockManager\Layout\Type\LayoutTypeInterface
+     * @var \Netgen\Layouts\Layout\Type\LayoutTypeInterface
      */
     public $layoutType;
 

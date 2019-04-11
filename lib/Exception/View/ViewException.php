@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Exception\View;
+namespace Netgen\Layouts\Exception\View;
 
-use Netgen\BlockManager\Exception\Exception;
+use Netgen\Layouts\Exception\Exception;
 use RuntimeException;
 
 final class ViewException extends RuntimeException implements Exception

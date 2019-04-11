@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode;
 
-use Netgen\BlockManager\Block\Form\ContentEditType;
-use Netgen\BlockManager\Block\Form\DesignEditType;
-use Netgen\BlockManager\Block\Form\FullEditType;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNodeInterface;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\TreeBuilder;
+use Netgen\Layouts\Block\Form\ContentEditType;
+use Netgen\Layouts\Block\Form\DesignEditType;
+use Netgen\Layouts\Block\Form\FullEditType;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 

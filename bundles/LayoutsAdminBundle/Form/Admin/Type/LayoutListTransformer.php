@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type;
 
-use Netgen\BlockManager\API\Values\Layout\LayoutList;
+use Netgen\Layouts\API\Values\Layout\LayoutList;
 use Symfony\Component\Form\DataTransformerInterface;
 
 final class LayoutListTransformer implements DataTransformerInterface

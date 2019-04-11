@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block;
 
 use Generator;
-use Netgen\BlockManager\Block\BlockType\BlockType;
-use Netgen\BlockManager\Block\BlockType\BlockTypeFactory;
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\Layouts\Block\BlockType\BlockType;
+use Netgen\Layouts\Block\BlockType\BlockTypeFactory;
+use Netgen\Layouts\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -125,7 +125,7 @@ final class BlockTypePass implements CompilerPassInterface
     /**
      * Validates block type config.
      *
-     * @throws \Netgen\BlockManager\Exception\RuntimeException If validation failed
+     * @throws \Netgen\Layouts\Exception\RuntimeException If validation failed
      */
     private function validateBlockTypes(array $blockTypes, array $blockDefinitions): void
     {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\Block;
+namespace Netgen\Layouts\Tests\API\Values\Block;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Block\BlockList;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\BlockList;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use TypeError;
@@ -13,7 +13,7 @@ use TypeError;
 final class BlockListTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\API\Values\Block\BlockList::__construct
+     * @covers \Netgen\Layouts\API\Values\Block\BlockList::__construct
      */
     public function testConstructorWithInvalidType(): void
     {
@@ -32,8 +32,8 @@ final class BlockListTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Block\BlockList::__construct
-     * @covers \Netgen\BlockManager\API\Values\Block\BlockList::getBlocks
+     * @covers \Netgen\Layouts\API\Values\Block\BlockList::__construct
+     * @covers \Netgen\Layouts\API\Values\Block\BlockList::getBlocks
      */
     public function testGetBlocks(): void
     {
@@ -43,7 +43,7 @@ final class BlockListTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Block\BlockList::getBlockIds
+     * @covers \Netgen\Layouts\API\Values\Block\BlockList::getBlockIds
      */
     public function testGetBlockIds(): void
     {

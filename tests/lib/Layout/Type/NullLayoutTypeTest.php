@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Layout\Type;
+namespace Netgen\Layouts\Tests\Layout\Type;
 
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Exception\Layout\LayoutTypeException;
-use Netgen\BlockManager\Layout\Type\NullLayoutType;
+use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Exception\Layout\LayoutTypeException;
+use Netgen\Layouts\Layout\Type\NullLayoutType;
 use PHPUnit\Framework\TestCase;
 
 final class NullLayoutTypeTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Type\NullLayoutType
+     * @var \Netgen\Layouts\Layout\Type\NullLayoutType
      */
     private $layoutType;
 
@@ -22,8 +22,8 @@ final class NullLayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Type\NullLayoutType::__construct
-     * @covers \Netgen\BlockManager\Layout\Type\NullLayoutType::getIdentifier
+     * @covers \Netgen\Layouts\Layout\Type\NullLayoutType::__construct
+     * @covers \Netgen\Layouts\Layout\Type\NullLayoutType::getIdentifier
      */
     public function testGetIdentifier(): void
     {
@@ -31,7 +31,7 @@ final class NullLayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Type\NullLayoutType::isEnabled
+     * @covers \Netgen\Layouts\Layout\Type\NullLayoutType::isEnabled
      */
     public function testIsEnabled(): void
     {
@@ -39,7 +39,7 @@ final class NullLayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Type\NullLayoutType::getName
+     * @covers \Netgen\Layouts\Layout\Type\NullLayoutType::getName
      */
     public function testGetName(): void
     {
@@ -47,7 +47,7 @@ final class NullLayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Type\NullLayoutType::getIcon
+     * @covers \Netgen\Layouts\Layout\Type\NullLayoutType::getIcon
      */
     public function testGetIcon(): void
     {
@@ -55,7 +55,7 @@ final class NullLayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Type\NullLayoutType::getZones
+     * @covers \Netgen\Layouts\Layout\Type\NullLayoutType::getZones
      */
     public function testGetZones(): void
     {
@@ -63,7 +63,7 @@ final class NullLayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Type\NullLayoutType::getZoneIdentifiers
+     * @covers \Netgen\Layouts\Layout\Type\NullLayoutType::getZoneIdentifiers
      */
     public function testGetZoneIdentifiers(): void
     {
@@ -71,7 +71,7 @@ final class NullLayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Type\NullLayoutType::hasZone
+     * @covers \Netgen\Layouts\Layout\Type\NullLayoutType::hasZone
      */
     public function testHasZone(): void
     {
@@ -79,7 +79,7 @@ final class NullLayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Type\NullLayoutType::getZone
+     * @covers \Netgen\Layouts\Layout\Type\NullLayoutType::getZone
      */
     public function testGetZone(): void
     {
@@ -90,7 +90,7 @@ final class NullLayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Type\NullLayoutType::isBlockAllowedInZone
+     * @covers \Netgen\Layouts\Layout\Type\NullLayoutType::isBlockAllowedInZone
      */
     public function testIsBlockAllowedInZone(): void
     {

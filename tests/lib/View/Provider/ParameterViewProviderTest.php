@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\Provider;
+namespace Netgen\Layouts\Tests\View\Provider;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\View\Provider\ParameterViewProvider;
-use Netgen\BlockManager\View\View\ParameterViewInterface;
-use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Parameters\Parameter;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\View\Provider\ParameterViewProvider;
+use Netgen\Layouts\View\View\ParameterViewInterface;
+use Netgen\Layouts\View\ViewInterface;
 use PHPUnit\Framework\TestCase;
 
 final class ParameterViewProviderTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface
+     * @var \Netgen\Layouts\View\Provider\ViewProviderInterface
      */
     private $parameterViewProvider;
 
@@ -25,7 +25,7 @@ final class ParameterViewProviderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Provider\ParameterViewProvider::provideView
+     * @covers \Netgen\Layouts\View\Provider\ParameterViewProvider::provideView
      */
     public function testProvideView(): void
     {
@@ -50,7 +50,7 @@ final class ParameterViewProviderTest extends TestCase
      * @param mixed $value
      * @param bool $supports
      *
-     * @covers \Netgen\BlockManager\View\Provider\ParameterViewProvider::supports
+     * @covers \Netgen\Layouts\View\Provider\ParameterViewProvider::supports
      * @dataProvider supportsProvider
      */
     public function testSupports($value, bool $supports): void

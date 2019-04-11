@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
+namespace Netgen\Layouts\Tests\Parameters\ParameterType;
 
-use Netgen\BlockManager\Item\CmsItem;
-use Netgen\BlockManager\Item\CmsItemLoaderInterface;
-use Netgen\BlockManager\Item\NullCmsItem;
-use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
-use Netgen\BlockManager\Item\ValueType\ValueType;
-use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
-use Netgen\BlockManager\Parameters\ParameterType\LinkType;
-use Netgen\BlockManager\Parameters\Value\LinkValue;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
-use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
+use Netgen\Layouts\Item\CmsItem;
+use Netgen\Layouts\Item\CmsItemLoaderInterface;
+use Netgen\Layouts\Item\NullCmsItem;
+use Netgen\Layouts\Item\Registry\ValueTypeRegistry;
+use Netgen\Layouts\Item\ValueType\ValueType;
+use Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter;
+use Netgen\Layouts\Parameters\ParameterType\LinkType;
+use Netgen\Layouts\Parameters\Value\LinkValue;
+use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
+use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Validation;
@@ -24,7 +24,7 @@ final class LinkTypeTest extends TestCase
     use ParameterTypeTestTrait;
 
     /**
-     * @var \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface
+     * @var \Netgen\Layouts\Item\Registry\ValueTypeRegistryInterface
      */
     private $valueTypeRegistry;
 
@@ -48,8 +48,8 @@ final class LinkTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::__construct
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::getIdentifier
+     * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::__construct
+     * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::getIdentifier
      */
     public function testGetIdentifier(): void
     {
@@ -57,7 +57,7 @@ final class LinkTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::configureOptions
      * @dataProvider validOptionsProvider
      */
     public function testValidOptions(array $options, array $resolvedOptions): void
@@ -67,7 +67,7 @@ final class LinkTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::configureOptions
      * @dataProvider invalidOptionsProvider
      */
     public function testInvalidOptions(array $options): void
@@ -131,8 +131,8 @@ final class LinkTypeTest extends TestCase
      * @param string[] $valueTypes
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::getRequiredConstraints
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::getValueConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::getRequiredConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::getValueConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, bool $isRequired, array $valueTypes, bool $isValid): void
@@ -201,7 +201,7 @@ final class LinkTypeTest extends TestCase
      * @param mixed $value
      * @param mixed $convertedValue
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::toHash
+     * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::toHash
      * @dataProvider toHashProvider
      */
     public function testToHash($value, $convertedValue): void
@@ -239,7 +239,7 @@ final class LinkTypeTest extends TestCase
      * @param array<string, mixed> $value
      * @param array<string, mixed> $expectedValue
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::fromHash
+     * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::fromHash
      * @dataProvider fromHashProvider
      */
     public function testFromHash($value, array $expectedValue): void
@@ -304,9 +304,9 @@ final class LinkTypeTest extends TestCase
      * @param mixed $value
      * @param mixed $convertedValue
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::__construct
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertToRemoteId
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::export
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter::__construct
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertToRemoteId
+     * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::export
      * @dataProvider exportProvider
      */
     public function testExport($value, $convertedValue): void
@@ -328,8 +328,8 @@ final class LinkTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertToRemoteId
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::export
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertToRemoteId
+     * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::export
      */
     public function testExportWithNullCmsItem(): void
     {
@@ -422,9 +422,9 @@ final class LinkTypeTest extends TestCase
      * @param mixed $value
      * @param array<string, mixed>  $expectedValue
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::__construct
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::import
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter::__construct
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId
+     * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::import
      * @dataProvider importProvider
      */
     public function testImport($value, array $expectedValue): void
@@ -449,8 +449,8 @@ final class LinkTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::import
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter::convertFromRemoteId
+     * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::import
      */
     public function testImportWithNullCmsItem(): void
     {
@@ -576,7 +576,7 @@ final class LinkTypeTest extends TestCase
      * @param mixed $value
      * @param bool $isEmpty
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\LinkType::isValueEmpty
+     * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::isValueEmpty
      * @dataProvider emptyProvider
      */
     public function testIsValueEmpty($value, bool $isEmpty): void

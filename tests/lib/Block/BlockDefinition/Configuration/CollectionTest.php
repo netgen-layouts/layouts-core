@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Configuration;
+namespace Netgen\Layouts\Tests\Block\BlockDefinition\Configuration;
 
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\Collection;
 use PHPUnit\Framework\TestCase;
 
 final class CollectionTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection
+     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\Collection
      */
     private $collection;
 
@@ -26,7 +26,7 @@ final class CollectionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection::getIdentifier
+     * @covers \Netgen\Layouts\Block\BlockDefinition\Configuration\Collection::getIdentifier
      */
     public function testGetIdentifier(): void
     {
@@ -34,7 +34,7 @@ final class CollectionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection::getValidQueryTypes
+     * @covers \Netgen\Layouts\Block\BlockDefinition\Configuration\Collection::getValidQueryTypes
      */
     public function testGetValidQueryTypes(): void
     {
@@ -42,7 +42,7 @@ final class CollectionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection::isValidQueryType
+     * @covers \Netgen\Layouts\Block\BlockDefinition\Configuration\Collection::isValidQueryType
      */
     public function testIsValidQueryType(): void
     {
@@ -51,7 +51,7 @@ final class CollectionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection::isValidQueryType
+     * @covers \Netgen\Layouts\Block\BlockDefinition\Configuration\Collection::isValidQueryType
      */
     public function testIsValidQueryTypeWithAllValidTypes(): void
     {
@@ -66,7 +66,7 @@ final class CollectionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection::isValidQueryType
+     * @covers \Netgen\Layouts\Block\BlockDefinition\Configuration\Collection::isValidQueryType
      */
     public function testIsValidQueryTypeWithNoValidTypes(): void
     {
@@ -81,7 +81,7 @@ final class CollectionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection::getValidItemTypes
+     * @covers \Netgen\Layouts\Block\BlockDefinition\Configuration\Collection::getValidItemTypes
      */
     public function testGetValidItemTypes(): void
     {
@@ -89,7 +89,7 @@ final class CollectionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection::isValidItemType
+     * @covers \Netgen\Layouts\Block\BlockDefinition\Configuration\Collection::isValidItemType
      */
     public function testIsValidItemType(): void
     {
@@ -98,7 +98,7 @@ final class CollectionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection::isValidItemType
+     * @covers \Netgen\Layouts\Block\BlockDefinition\Configuration\Collection::isValidItemType
      */
     public function testIsValidItemTypeWithAllValidTypes(): void
     {
@@ -113,7 +113,7 @@ final class CollectionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection::isValidItemType
+     * @covers \Netgen\Layouts\Block\BlockDefinition\Configuration\Collection::isValidItemType
      */
     public function testIsValidItemTypeWithNoValidTypes(): void
     {

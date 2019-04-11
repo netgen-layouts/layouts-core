@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\Layout;
+namespace Netgen\Layouts\API\Values\Layout;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
@@ -21,7 +21,7 @@ final class LayoutList extends ArrayCollection
     }
 
     /**
-     * @return \Netgen\BlockManager\API\Values\Layout\Layout[]
+     * @return \Netgen\Layouts\API\Values\Layout\Layout[]
      */
     public function getLayouts(): array
     {

@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Serializer\Values;
+namespace Netgen\Layouts\Tests\Serializer\Values;
 
-use Netgen\BlockManager\Serializer\Values\View;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
+use Netgen\Layouts\Serializer\Values\View;
+use Netgen\Layouts\Tests\API\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 final class ViewTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Serializer\Values\View
+     * @var \Netgen\Layouts\Serializer\Values\View
      */
     private $value;
 
@@ -22,8 +22,8 @@ final class ViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Values\View::__construct
-     * @covers \Netgen\BlockManager\Serializer\Values\View::getVersion
+     * @covers \Netgen\Layouts\Serializer\Values\View::__construct
+     * @covers \Netgen\Layouts\Serializer\Values\View::getVersion
      */
     public function testGetVersion(): void
     {

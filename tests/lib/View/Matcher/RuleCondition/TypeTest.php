@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\Matcher\RuleCondition;
+namespace Netgen\Layouts\Tests\View\Matcher\RuleCondition;
 
-use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\Layout\Resolver\ConditionType\NullConditionType;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType1;
-use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\View\Matcher\RuleCondition\Type;
-use Netgen\BlockManager\View\View\RuleConditionView;
+use Netgen\Layouts\API\Values\LayoutResolver\Condition;
+use Netgen\Layouts\Layout\Resolver\ConditionType\NullConditionType;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionType1;
+use Netgen\Layouts\Tests\View\Stubs\View;
+use Netgen\Layouts\View\Matcher\RuleCondition\Type;
+use Netgen\Layouts\View\View\RuleConditionView;
 use PHPUnit\Framework\TestCase;
 
 final class TypeTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\View\Matcher\MatcherInterface
+     * @var \Netgen\Layouts\View\Matcher\MatcherInterface
      */
     private $matcher;
 
@@ -26,7 +26,7 @@ final class TypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\RuleCondition\Type::match
+     * @covers \Netgen\Layouts\View\Matcher\RuleCondition\Type::match
      * @dataProvider matchProvider
      */
     public function testMatch(array $config, bool $expected): void
@@ -43,7 +43,7 @@ final class TypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\RuleCondition\Type::match
+     * @covers \Netgen\Layouts\View\Matcher\RuleCondition\Type::match
      */
     public function testMatchWithNullConditionType(): void
     {
@@ -59,7 +59,7 @@ final class TypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\RuleCondition\Type::match
+     * @covers \Netgen\Layouts\View\Matcher\RuleCondition\Type::match
      */
     public function testMatchWithNullConditionTypeReturnsFalse(): void
     {
@@ -86,7 +86,7 @@ final class TypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\RuleCondition\Type::match
+     * @covers \Netgen\Layouts\View\Matcher\RuleCondition\Type::match
      */
     public function testMatchWithNoRuleConditionView(): void
     {

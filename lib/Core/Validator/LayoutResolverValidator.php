@@ -2,30 +2,30 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Core\Validator;
+namespace Netgen\Layouts\Core\Validator;
 
-use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleCreateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\Target;
-use Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct;
-use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
-use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface;
+use Netgen\Layouts\API\Values\LayoutResolver\Condition;
+use Netgen\Layouts\API\Values\LayoutResolver\ConditionCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\ConditionUpdateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleUpdateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\Target;
+use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\TargetUpdateStruct;
+use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
+use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistryInterface;
 use Symfony\Component\Validator\Constraints;
 
 final class LayoutResolverValidator extends Validator
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistryInterface
      */
     private $targetTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistryInterface
      */
     private $conditionTypeRegistry;
 
@@ -40,7 +40,7 @@ final class LayoutResolverValidator extends Validator
     /**
      * Validates the provided rule create struct.
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
     public function validateRuleCreateStruct(RuleCreateStruct $ruleCreateStruct): void
     {
@@ -89,7 +89,7 @@ final class LayoutResolverValidator extends Validator
     /**
      * Validates the provided rule update struct.
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
     public function validateRuleUpdateStruct(RuleUpdateStruct $ruleUpdateStruct): void
     {
@@ -118,7 +118,7 @@ final class LayoutResolverValidator extends Validator
     /**
      * Validates the provided rule metadata update struct.
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
     public function validateRuleMetadataUpdateStruct(RuleMetadataUpdateStruct $ruleUpdateStruct): void
     {
@@ -137,7 +137,7 @@ final class LayoutResolverValidator extends Validator
     /**
      * Validates the provided target create struct.
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
     public function validateTargetCreateStruct(TargetCreateStruct $targetCreateStruct): void
     {
@@ -162,7 +162,7 @@ final class LayoutResolverValidator extends Validator
     /**
      * Validates the provided target update struct.
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
     public function validateTargetUpdateStruct(Target $target, TargetUpdateStruct $targetUpdateStruct): void
     {
@@ -178,7 +178,7 @@ final class LayoutResolverValidator extends Validator
     /**
      * Validates the provided condition create struct.
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
     public function validateConditionCreateStruct(ConditionCreateStruct $conditionCreateStruct): void
     {
@@ -203,7 +203,7 @@ final class LayoutResolverValidator extends Validator
     /**
      * Validates the provided condition update struct.
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
     public function validateConditionUpdateStruct(Condition $condition, ConditionUpdateStruct $conditionUpdateStruct): void
     {

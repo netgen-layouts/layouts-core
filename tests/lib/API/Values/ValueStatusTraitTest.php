@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values;
+namespace Netgen\Layouts\Tests\API\Values;
 
-use Netgen\BlockManager\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\API\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 
 final class ValueStatusTraitTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\API\Values\ValueStatusTrait::getStatus
-     * @covers \Netgen\BlockManager\API\Values\ValueStatusTrait::isArchived
-     * @covers \Netgen\BlockManager\API\Values\ValueStatusTrait::isDraft
-     * @covers \Netgen\BlockManager\API\Values\ValueStatusTrait::isPublished
+     * @covers \Netgen\Layouts\API\Values\ValueStatusTrait::getStatus
+     * @covers \Netgen\Layouts\API\Values\ValueStatusTrait::isArchived
+     * @covers \Netgen\Layouts\API\Values\ValueStatusTrait::isDraft
+     * @covers \Netgen\Layouts\API\Values\ValueStatusTrait::isPublished
      *
      * @dataProvider statusProvider
      */

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Validator\ConditionType;
+namespace Netgen\Layouts\Tests\Validator\ConditionType;
 
 use DateTimeImmutable;
-use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
-use Netgen\BlockManager\Validator\ConditionType\TimeValidator;
-use Netgen\BlockManager\Validator\Constraint\ConditionType\Time;
+use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
+use Netgen\Layouts\Validator\ConditionType\TimeValidator;
+use Netgen\Layouts\Validator\Constraint\ConditionType\Time;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -22,7 +22,7 @@ final class TimeValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\ConditionType\TimeValidator::validate
+     * @covers \Netgen\Layouts\Validator\ConditionType\TimeValidator::validate
      * @dataProvider validateDataProvider
      */
     public function testValidate(?array $value, bool $isValid): void
@@ -31,19 +31,19 @@ final class TimeValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\ConditionType\TimeValidator::validate
+     * @covers \Netgen\Layouts\Validator\ConditionType\TimeValidator::validate
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Netgen\\BlockManager\\Validator\\Constraint\\ConditionType\\Time", "Symfony\\Component\\Validator\\Constraints\\NotBlank" given');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\Validator\\Constraint\\ConditionType\\Time", "Symfony\\Component\\Validator\\Constraints\\NotBlank" given');
 
         $this->constraint = new NotBlank();
         $this->assertValid(true, new DateTimeImmutable());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\ConditionType\TimeValidator::validate
+     * @covers \Netgen\Layouts\Validator\ConditionType\TimeValidator::validate
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {

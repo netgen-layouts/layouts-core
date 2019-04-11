@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\Form\ConditionType\Mapper;
+namespace Netgen\Layouts\Tests\Layout\Resolver\Form\ConditionType\Mapper;
 
-use Netgen\BlockManager\Form\KeyValuesType;
-use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter;
+use Netgen\Layouts\Form\KeyValuesType;
+use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 final class RouteParameterTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\MapperInterface
+     * @var \Netgen\Layouts\Layout\Resolver\Form\ConditionType\MapperInterface
      */
     private $mapper;
 
@@ -22,7 +22,7 @@ final class RouteParameterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter::getFormType
+     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter::getFormType
      */
     public function testGetFormType(): void
     {
@@ -30,7 +30,7 @@ final class RouteParameterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter::getFormOptions
+     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter::getFormOptions
      */
     public function testGetFormOptions(): void
     {

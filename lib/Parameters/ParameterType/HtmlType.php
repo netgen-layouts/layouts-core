@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Parameters\ParameterType;
+namespace Netgen\Layouts\Parameters\ParameterType;
 
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Utils\HtmlPurifier;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType;
+use Netgen\Layouts\Utils\HtmlPurifier;
 use Symfony\Component\Validator\Constraints;
 
 /**
@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints;
 final class HtmlType extends ParameterType
 {
     /**
-     * @var \Netgen\BlockManager\Utils\HtmlPurifier
+     * @var \Netgen\Layouts\Utils\HtmlPurifier
      */
     private $htmlPurifier;
 

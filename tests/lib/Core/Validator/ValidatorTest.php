@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\Validator;
+namespace Netgen\Layouts\Tests\Core\Validator;
 
-use Netgen\BlockManager\Core\Validator\Validator;
-use Netgen\BlockManager\Exception\Validation\ValidationException;
-use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
+use Netgen\Layouts\Core\Validator\Validator;
+use Netgen\Layouts\Exception\Validation\ValidationException;
+use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 
@@ -18,7 +18,7 @@ final class ValidatorTest extends TestCase
     private $baseValidator;
 
     /**
-     * @var \Netgen\BlockManager\Core\Validator\Validator
+     * @var \Netgen\Layouts\Core\Validator\Validator
      */
     private $validator;
 
@@ -36,7 +36,7 @@ final class ValidatorTest extends TestCase
      * @param int|string $id
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Core\Validator\Validator::validateId
+     * @covers \Netgen\Layouts\Core\Validator\Validator::validateId
      * @dataProvider validateIdDataProvider
      */
     public function testValidateId($id, bool $isValid): void
@@ -55,7 +55,7 @@ final class ValidatorTest extends TestCase
      * @param mixed $identifier
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Core\Validator\Validator::validateIdentifier
+     * @covers \Netgen\Layouts\Core\Validator\Validator::validateIdentifier
      * @dataProvider validateIdentifierDataProvider
      */
     public function testValidateIdentifier($identifier, bool $isValid): void
@@ -75,7 +75,7 @@ final class ValidatorTest extends TestCase
      * @param bool $isRequired
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Core\Validator\Validator::validatePosition
+     * @covers \Netgen\Layouts\Core\Validator\Validator::validatePosition
      * @dataProvider validatePositionDataProvider
      */
     public function testValidatePosition($position, bool $isRequired, bool $isValid): void
@@ -91,7 +91,7 @@ final class ValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Validator\Validator::validatePosition
+     * @covers \Netgen\Layouts\Core\Validator\Validator::validatePosition
      */
     public function testValidatePositionWithDefaultRequiredValue(): void
     {
@@ -106,7 +106,7 @@ final class ValidatorTest extends TestCase
      * @param mixed $limit
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Core\Validator\Validator::validateOffsetAndLimit
+     * @covers \Netgen\Layouts\Core\Validator\Validator::validateOffsetAndLimit
      * @dataProvider validateOffsetAndLimitDataProvider
      */
     public function testValidateOffsetAndLimit($offset, $limit, bool $isValid): void
@@ -122,7 +122,7 @@ final class ValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Validator\Validator::validateLocale
+     * @covers \Netgen\Layouts\Core\Validator\Validator::validateLocale
      * @dataProvider validateLocaleDataProvider
      */
     public function testValidateLocale(string $locale, bool $isValid): void

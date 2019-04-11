@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Serializer\Normalizer\V1;
+namespace Netgen\Layouts\Serializer\Normalizer\V1;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Serializer\Version;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\Serializer\Values\VersionedValue;
+use Netgen\Layouts\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class CollectionNormalizer implements NormalizerInterface
 {
     public function normalize($object, $format = null, array $context = [])
     {
-        /** @var \Netgen\BlockManager\API\Values\Collection\Collection $collection */
+        /** @var \Netgen\Layouts\API\Values\Collection\Collection $collection */
         $collection = $object->getValue();
 
         return [

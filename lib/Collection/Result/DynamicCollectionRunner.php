@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Collection\Result;
+namespace Netgen\Layouts\Collection\Result;
 
 use ArrayIterator;
 use Iterator;
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\Item as CollectionItem;
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\Collection\Item\VisibilityResolverInterface;
-use Netgen\BlockManager\Item\CmsItemInterface;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\Item as CollectionItem;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\Collection\Item\VisibilityResolverInterface;
+use Netgen\Layouts\Item\CmsItemInterface;
 
 final class DynamicCollectionRunner implements CollectionRunnerInterface
 {
     /**
-     * @var \Netgen\BlockManager\Collection\Result\QueryRunnerInterface
+     * @var \Netgen\Layouts\Collection\Result\QueryRunnerInterface
      */
     private $queryRunner;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Item\VisibilityResolverInterface
+     * @var \Netgen\Layouts\Collection\Item\VisibilityResolverInterface
      */
     private $visibilityResolver;
 

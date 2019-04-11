@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\Layout;
+namespace Netgen\Layouts\API\Values\Layout;
 
-use Netgen\BlockManager\API\Values\Layout\Zone as APIZone;
-use Netgen\BlockManager\API\Values\LazyPropertyTrait;
-use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\API\Values\ValueStatusTrait;
-use Netgen\BlockManager\Utils\HydratorTrait;
+use Netgen\Layouts\API\Values\Layout\Zone as APIZone;
+use Netgen\Layouts\API\Values\LazyPropertyTrait;
+use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\API\Values\ValueStatusTrait;
+use Netgen\Layouts\Utils\HydratorTrait;
 
 final class Zone implements Value
 {
@@ -27,7 +27,7 @@ final class Zone implements Value
     private $layoutId;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Layout\Zone|null
+     * @var \Netgen\Layouts\API\Values\Layout\Zone|null
      */
     private $linkedZone;
 

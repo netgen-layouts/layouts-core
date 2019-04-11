@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values;
+namespace Netgen\Layouts\Tests\API\Values;
 
-use Netgen\BlockManager\API\Values\LazyCollection;
+use Netgen\Layouts\API\Values\LazyCollection;
 use PHPUnit\Framework\TestCase;
 
 final class LazyCollectionTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\LazyCollection
+     * @var \Netgen\Layouts\API\Values\LazyCollection
      */
     private $collection;
 
@@ -24,8 +24,8 @@ final class LazyCollectionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\LazyCollection::__construct
-     * @covers \Netgen\BlockManager\API\Values\LazyCollection::doInitialize
+     * @covers \Netgen\Layouts\API\Values\LazyCollection::__construct
+     * @covers \Netgen\Layouts\API\Values\LazyCollection::doInitialize
      */
     public function testToArray(): void
     {

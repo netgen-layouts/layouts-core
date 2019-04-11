@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Exception\API;
+namespace Netgen\Layouts\Tests\Exception\API;
 
-use Netgen\BlockManager\Exception\API\ConfigException;
+use Netgen\Layouts\Exception\API\ConfigException;
 use PHPUnit\Framework\TestCase;
 
 final class ConfigExceptionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Exception\API\ConfigException::noConfig
+     * @covers \Netgen\Layouts\Exception\API\ConfigException::noConfig
      */
     public function testNoConfig(): void
     {
@@ -23,7 +23,7 @@ final class ConfigExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\API\ConfigException::noConfigStruct
+     * @covers \Netgen\Layouts\Exception\API\ConfigException::noConfigStruct
      */
     public function testNoConfigStruct(): void
     {

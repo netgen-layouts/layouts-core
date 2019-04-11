@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\HttpCache;
+namespace Netgen\Layouts\HttpCache;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Layout\Layout;
 use Symfony\Component\HttpFoundation\Response;
 
 final class Tagger implements TaggerInterface

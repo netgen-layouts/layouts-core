@@ -2,35 +2,35 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\View;
+namespace Netgen\Layouts\Tests\View\View;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Netgen\BlockManager\API\Values\Block\BlockList;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\View\View\ZoneView;
-use Netgen\BlockManager\View\View\ZoneView\ZoneReference;
+use Netgen\Layouts\API\Values\Block\BlockList;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\View\View\ZoneView;
+use Netgen\Layouts\View\View\ZoneView\ZoneReference;
 use PHPUnit\Framework\TestCase;
 
 final class ZoneViewTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Layout\Layout
+     * @var \Netgen\Layouts\API\Values\Layout\Layout
      */
     private $layout;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Layout\Zone
+     * @var \Netgen\Layouts\API\Values\Layout\Zone
      */
     private $zone;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Block\BlockList
+     * @var \Netgen\Layouts\API\Values\Block\BlockList
      */
     private $blocks;
 
     /**
-     * @var \Netgen\BlockManager\View\View\ZoneViewInterface
+     * @var \Netgen\Layouts\View\View\ZoneViewInterface
      */
     private $view;
 
@@ -56,8 +56,8 @@ final class ZoneViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View\ZoneView::__construct
-     * @covers \Netgen\BlockManager\View\View\ZoneView::getLayout
+     * @covers \Netgen\Layouts\View\View\ZoneView::__construct
+     * @covers \Netgen\Layouts\View\View\ZoneView::getLayout
      */
     public function testGetLayout(): void
     {
@@ -65,7 +65,7 @@ final class ZoneViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View\ZoneView::getZone
+     * @covers \Netgen\Layouts\View\View\ZoneView::getZone
      */
     public function testGetZone(): void
     {
@@ -73,7 +73,7 @@ final class ZoneViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View\ZoneView::getParameters
+     * @covers \Netgen\Layouts\View\View\ZoneView::getParameters
      */
     public function testGetParameters(): void
     {
@@ -89,7 +89,7 @@ final class ZoneViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View\ZoneView::getIdentifier
+     * @covers \Netgen\Layouts\View\View\ZoneView::getIdentifier
      */
     public function testGetIdentifier(): void
     {

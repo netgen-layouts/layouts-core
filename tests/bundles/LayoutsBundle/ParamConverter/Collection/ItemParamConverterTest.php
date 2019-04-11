@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\ParamConverter\Collection;
 
-use Netgen\BlockManager\API\Service\CollectionService;
-use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\Bundle\LayoutsBundle\ParamConverter\Collection\ItemParamConverter;
+use Netgen\Layouts\API\Service\CollectionService;
+use Netgen\Layouts\API\Values\Collection\Item;
 use PHPUnit\Framework\TestCase;
 
 final class ItemParamConverterTest extends TestCase

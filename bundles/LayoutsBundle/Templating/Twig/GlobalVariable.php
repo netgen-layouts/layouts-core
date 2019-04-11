@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Templating\Twig;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface;
-use Netgen\BlockManager\View\View\LayoutViewInterface;
-use Netgen\BlockManager\View\ViewBuilderInterface;
-use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\LayoutsBundle\Configuration\ConfigurationInterface;
 use Netgen\Bundle\LayoutsBundle\Templating\PageLayoutResolverInterface;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\Layout\Resolver\LayoutResolverInterface;
+use Netgen\Layouts\View\View\LayoutViewInterface;
+use Netgen\Layouts\View\ViewBuilderInterface;
+use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -46,7 +46,7 @@ final class GlobalVariable
     private $configuration;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\LayoutResolverInterface
+     * @var \Netgen\Layouts\Layout\Resolver\LayoutResolverInterface
      */
     private $layoutResolver;
 
@@ -56,7 +56,7 @@ final class GlobalVariable
     private $pageLayoutResolver;
 
     /**
-     * @var \Netgen\BlockManager\View\ViewBuilderInterface
+     * @var \Netgen\Layouts\View\ViewBuilderInterface
      */
     private $viewBuilder;
 
@@ -108,7 +108,7 @@ final class GlobalVariable
      *
      * All other cases receive the non-error layout if it exists.
      *
-     * @return \Netgen\BlockManager\View\View\LayoutViewInterface|false|null
+     * @return \Netgen\Layouts\View\View\LayoutViewInterface|false|null
      */
     public function getLayoutView()
     {
@@ -202,7 +202,7 @@ final class GlobalVariable
      *
      * See class docs for more details.
      *
-     * @return \Netgen\BlockManager\View\ViewInterface|false|null
+     * @return \Netgen\Layouts\View\ViewInterface|false|null
      */
     private function buildLayoutView(string $context = ViewInterface::CONTEXT_DEFAULT)
     {

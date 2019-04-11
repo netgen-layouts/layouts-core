@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener;
 
-use Netgen\BlockManager\Context\Context;
-use Netgen\BlockManager\Context\ContextBuilderInterface;
 use Netgen\Bundle\LayoutsBundle\EventListener\ContextListener;
+use Netgen\Layouts\Context\Context;
+use Netgen\Layouts\Context\ContextBuilderInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -17,7 +17,7 @@ use Symfony\Component\HttpKernel\UriSigner;
 final class ContextListenerTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Context\ContextInterface
+     * @var \Netgen\Layouts\Context\ContextInterface
      */
     private $context;
 

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Validator\Stubs;
+namespace Netgen\Layouts\Tests\Validator\Stubs;
 
-use Netgen\BlockManager\Validator\ValidatorTrait;
+use Netgen\Layouts\Validator\ValidatorTrait;
 
 final class ValueValidator
 {

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Collection\Item;
+namespace Netgen\Layouts\Collection\Item;
 
-use Netgen\BlockManager\Config\ConfigDefinitionFactory;
+use Netgen\Layouts\Config\ConfigDefinitionFactory;
 
 final class ItemDefinitionFactory
 {
     /**
-     * @var \Netgen\BlockManager\Config\ConfigDefinitionFactory
+     * @var \Netgen\Layouts\Config\ConfigDefinitionFactory
      */
     private $configDefinitionFactory;
 
@@ -22,9 +22,9 @@ final class ItemDefinitionFactory
      * Builds the item definition.
      *
      * @param string $valueType
-     * @param \Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface[] $configDefinitionHandlers
+     * @param \Netgen\Layouts\Config\ConfigDefinitionHandlerInterface[] $configDefinitionHandlers
      *
-     * @return \Netgen\BlockManager\Collection\Item\ItemDefinitionInterface
+     * @return \Netgen\Layouts\Collection\Item\ItemDefinitionInterface
      */
     public function buildItemDefinition(string $valueType, array $configDefinitionHandlers): ItemDefinitionInterface
     {

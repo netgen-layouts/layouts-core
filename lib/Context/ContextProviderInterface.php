@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Context;
+namespace Netgen\Layouts\Context;
 
 interface ContextProviderInterface
 {

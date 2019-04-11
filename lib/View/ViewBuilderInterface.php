@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View;
+namespace Netgen\Layouts\View;
 
 interface ViewBuilderInterface
 {
@@ -13,7 +13,7 @@ interface ViewBuilderInterface
      * @param string $context
      * @param array<string, mixed> $parameters
      *
-     * @return \Netgen\BlockManager\View\ViewInterface
+     * @return \Netgen\Layouts\View\ViewInterface
      */
     public function buildView($value, string $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = []): ViewInterface;
 }

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Block\BlockDefinition\Configuration;
+namespace Netgen\Layouts\Block\BlockDefinition\Configuration;
 
-use Netgen\BlockManager\Exception\Block\BlockDefinitionException;
-use Netgen\BlockManager\Utils\HydratorTrait;
+use Netgen\Layouts\Exception\Block\BlockDefinitionException;
+use Netgen\Layouts\Utils\HydratorTrait;
 
 final class ViewType
 {
@@ -22,7 +22,7 @@ final class ViewType
     private $name;
 
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType[]
+     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType[]
      */
     private $itemViewTypes = [];
 
@@ -50,7 +50,7 @@ final class ViewType
     /**
      * Returns the item view types.
      *
-     * @return \Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType[]
+     * @return \Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType[]
      */
     public function getItemViewTypes(): array
     {
@@ -88,7 +88,7 @@ final class ViewType
     /**
      * Returns the item view type with provided identifier.
      *
-     * @throws \Netgen\BlockManager\Exception\Block\BlockDefinitionException If item view type does not exist
+     * @throws \Netgen\Layouts\Exception\Block\BlockDefinitionException If item view type does not exist
      */
     public function getItemViewType(string $itemViewType): ItemViewType
     {

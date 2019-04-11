@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Item;
+namespace Netgen\Layouts\Item;
 
 /**
  * Serves as a central point for generating paths to CMS items.
@@ -12,7 +12,7 @@ interface UrlGeneratorInterface
     /**
      * Returns the CMS item path.
      *
-     * @throws \Netgen\BlockManager\Exception\Item\ItemException if URL could not be generated
+     * @throws \Netgen\Layouts\Exception\Item\ItemException if URL could not be generated
      */
     public function generate(CmsItemInterface $item): string;
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Validator;
+namespace Netgen\Layouts\Validator;
 
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Validator\Constraints\Email;

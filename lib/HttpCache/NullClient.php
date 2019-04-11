@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\HttpCache;
+namespace Netgen\Layouts\HttpCache;
 
 final class NullClient implements ClientInterface
 {

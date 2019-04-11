@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\HttpCache;
+namespace Netgen\Layouts\Tests\HttpCache;
 
-use Netgen\BlockManager\HttpCache\NullClient;
+use Netgen\Layouts\HttpCache\NullClient;
 use PHPUnit\Framework\TestCase;
 
 final class NullClientTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\HttpCache\NullClient
+     * @var \Netgen\Layouts\HttpCache\NullClient
      */
     private $client;
 
@@ -20,7 +20,7 @@ final class NullClientTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\NullClient::invalidateLayouts
+     * @covers \Netgen\Layouts\HttpCache\NullClient::invalidateLayouts
      */
     public function testInvalidateLayouts(): void
     {
@@ -31,7 +31,7 @@ final class NullClientTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\NullClient::invalidateAllLayouts
+     * @covers \Netgen\Layouts\HttpCache\NullClient::invalidateAllLayouts
      */
     public function testInvalidateAllLayouts(): void
     {
@@ -42,7 +42,7 @@ final class NullClientTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\NullClient::invalidateBlocks
+     * @covers \Netgen\Layouts\HttpCache\NullClient::invalidateBlocks
      */
     public function testInvalidateBlocks(): void
     {
@@ -53,7 +53,7 @@ final class NullClientTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\NullClient::invalidateLayoutBlocks
+     * @covers \Netgen\Layouts\HttpCache\NullClient::invalidateLayoutBlocks
      */
     public function testInvalidateLayoutBlocks(): void
     {
@@ -64,7 +64,7 @@ final class NullClientTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\NullClient::invalidateAllBlocks
+     * @covers \Netgen\Layouts\HttpCache\NullClient::invalidateAllBlocks
      */
     public function testInvalidateAllBlocks(): void
     {
@@ -75,7 +75,7 @@ final class NullClientTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\HttpCache\NullClient::commit
+     * @covers \Netgen\Layouts\HttpCache\NullClient::commit
      */
     public function testCommit(): void
     {

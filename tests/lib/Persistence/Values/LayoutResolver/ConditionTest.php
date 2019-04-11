@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Persistence\Values\LayoutResolver;
+namespace Netgen\Layouts\Tests\Persistence\Values\LayoutResolver;
 
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\Persistence\Values\Value;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition;
+use Netgen\Layouts\Persistence\Values\Value;
 use PHPUnit\Framework\TestCase;
 
 final class ConditionTest extends TestCase

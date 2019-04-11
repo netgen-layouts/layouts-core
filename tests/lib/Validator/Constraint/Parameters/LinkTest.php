@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Validator\Constraint\Parameters;
+namespace Netgen\Layouts\Tests\Validator\Constraint\Parameters;
 
-use Netgen\BlockManager\Validator\Constraint\Parameters\Link;
+use Netgen\Layouts\Validator\Constraint\Parameters\Link;
 use PHPUnit\Framework\TestCase;
 
 final class LinkTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Validator\Constraint\Parameters\Link::validatedBy
+     * @covers \Netgen\Layouts\Validator\Constraint\Parameters\Link::validatedBy
      */
     public function testValidatedBy(): void
     {

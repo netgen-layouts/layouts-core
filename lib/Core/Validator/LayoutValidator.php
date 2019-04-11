@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Core\Validator;
+namespace Netgen\Layouts\Core\Validator;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
-use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
-use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
-use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\Exception\Validation\ValidationException;
-use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\LayoutCopyStruct;
+use Netgen\Layouts\API\Values\Layout\LayoutCreateStruct;
+use Netgen\Layouts\API\Values\Layout\LayoutUpdateStruct;
+use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\Exception\Validation\ValidationException;
+use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 use Symfony\Component\Validator\Constraints;
 
 final class LayoutValidator extends Validator
@@ -18,7 +18,7 @@ final class LayoutValidator extends Validator
     /**
      * Validates the provided layout create struct.
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
     public function validateLayoutCreateStruct(LayoutCreateStruct $layoutCreateStruct): void
     {
@@ -70,7 +70,7 @@ final class LayoutValidator extends Validator
     /**
      * Validates the provided layout update struct.
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
     public function validateLayoutUpdateStruct(LayoutUpdateStruct $layoutUpdateStruct): void
     {
@@ -103,7 +103,7 @@ final class LayoutValidator extends Validator
     /**
      * Validates the provided layout copy struct.
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
     public function validateLayoutCopyStruct(LayoutCopyStruct $layoutCopyStruct): void
     {
@@ -134,7 +134,7 @@ final class LayoutValidator extends Validator
     /**
      * Validates zone mappings for changing the provided layout type.
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If the validation failed
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
     public function validateChangeLayoutType(Layout $layout, LayoutTypeInterface $targetLayoutType, array $zoneMappings, bool $preserveSharedZones = true): void
     {

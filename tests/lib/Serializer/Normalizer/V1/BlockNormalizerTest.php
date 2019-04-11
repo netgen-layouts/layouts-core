@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
+namespace Netgen\Layouts\Tests\Serializer\Normalizer\V1;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Block\Placeholder;
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Config\Config;
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\ContainerDefinition;
-use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
-use Netgen\BlockManager\Tests\Serializer\Stubs\NormalizerStub;
+use Netgen\Layouts\API\Service\BlockService;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\Placeholder;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Config\Config;
+use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Block\ContainerDefinition;
+use Netgen\Layouts\Parameters\Parameter;
+use Netgen\Layouts\Serializer\Normalizer\V1\BlockNormalizer;
+use Netgen\Layouts\Serializer\Values\VersionedValue;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\Block\Stubs\ContainerDefinitionHandler;
+use Netgen\Layouts\Tests\Serializer\Stubs\NormalizerStub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Serializer;
@@ -35,7 +35,7 @@ final class BlockNormalizerTest extends TestCase
     private $blockServiceMock;
 
     /**
-     * @var \Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer
+     * @var \Netgen\Layouts\Serializer\Normalizer\V1\BlockNormalizer
      */
     private $normalizer;
 
@@ -49,10 +49,10 @@ final class BlockNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer::__construct
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer::buildVersionedValues
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer::getBlockCollections
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer::normalize
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\BlockNormalizer::__construct
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\BlockNormalizer::buildVersionedValues
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\BlockNormalizer::getBlockCollections
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\BlockNormalizer::normalize
      */
     public function testNormalize(): void
     {
@@ -142,8 +142,8 @@ final class BlockNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer::buildVersionedValues
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer::normalize
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\BlockNormalizer::buildVersionedValues
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\BlockNormalizer::normalize
      */
     public function testNormalizeWithContainerBlock(): void
     {
@@ -183,7 +183,7 @@ final class BlockNormalizerTest extends TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockNormalizer::supportsNormalization
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\BlockNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, bool $expected): void

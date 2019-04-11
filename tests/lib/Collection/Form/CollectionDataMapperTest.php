@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Collection\Form;
+namespace Netgen\Layouts\Tests\Collection\Form;
 
 use ArrayIterator;
-use Netgen\BlockManager\Collection\Form\CollectionDataMapper;
-use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
-use Netgen\BlockManager\Tests\Form\DataMapper\DataMapperTest;
+use Netgen\Layouts\Collection\Form\CollectionDataMapper;
+use Netgen\Layouts\Persistence\Values\Collection\CollectionUpdateStruct;
+use Netgen\Layouts\Tests\Form\DataMapper\DataMapperTest;
 
 final class CollectionDataMapperTest extends DataMapperTest
 {
     /**
-     * @var \Netgen\BlockManager\Collection\Form\CollectionDataMapper
+     * @var \Netgen\Layouts\Collection\Form\CollectionDataMapper
      */
     private $mapper;
 
@@ -22,7 +22,7 @@ final class CollectionDataMapperTest extends DataMapperTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Form\CollectionDataMapper::mapDataToForms
+     * @covers \Netgen\Layouts\Collection\Form\CollectionDataMapper::mapDataToForms
      */
     public function testMapDataToForms(): void
     {
@@ -44,7 +44,7 @@ final class CollectionDataMapperTest extends DataMapperTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Form\CollectionDataMapper::mapDataToForms
+     * @covers \Netgen\Layouts\Collection\Form\CollectionDataMapper::mapDataToForms
      */
     public function testMapDataToFormsWithNoLimit(): void
     {
@@ -66,7 +66,7 @@ final class CollectionDataMapperTest extends DataMapperTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Form\CollectionDataMapper::mapFormsToData
+     * @covers \Netgen\Layouts\Collection\Form\CollectionDataMapper::mapFormsToData
      */
     public function testMapFormsToData(): void
     {
@@ -86,7 +86,7 @@ final class CollectionDataMapperTest extends DataMapperTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Form\CollectionDataMapper::mapFormsToData
+     * @covers \Netgen\Layouts\Collection\Form\CollectionDataMapper::mapFormsToData
      */
     public function testMapFormsToDataWithNoLimit(): void
     {

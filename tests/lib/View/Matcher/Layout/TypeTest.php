@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\Matcher\Layout;
+namespace Netgen\Layouts\Tests\View\Matcher\Layout;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\Layout\Type\LayoutType;
-use Netgen\BlockManager\Layout\Type\NullLayoutType;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\View\Matcher\Layout\Type;
-use Netgen\BlockManager\View\View\LayoutTypeView;
-use Netgen\BlockManager\View\View\LayoutView;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\Layout\Type\LayoutType;
+use Netgen\Layouts\Layout\Type\NullLayoutType;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\View\Stubs\View;
+use Netgen\Layouts\View\Matcher\Layout\Type;
+use Netgen\Layouts\View\View\LayoutTypeView;
+use Netgen\Layouts\View\View\LayoutView;
 use PHPUnit\Framework\TestCase;
 
 final class TypeTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\View\Matcher\MatcherInterface
+     * @var \Netgen\Layouts\View\Matcher\MatcherInterface
      */
     private $matcher;
 
@@ -27,7 +27,7 @@ final class TypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Layout\Type::match
+     * @covers \Netgen\Layouts\View\Matcher\Layout\Type::match
      * @dataProvider matchProvider
      */
     public function testMatch(array $config, bool $expected): void
@@ -44,7 +44,7 @@ final class TypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Layout\Type::match
+     * @covers \Netgen\Layouts\View\Matcher\Layout\Type::match
      */
     public function testMatchWithNullLayoutType(): void
     {
@@ -60,7 +60,7 @@ final class TypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Layout\Type::match
+     * @covers \Netgen\Layouts\View\Matcher\Layout\Type::match
      */
     public function testMatchWithNullLayoutTypeReturnsFalse(): void
     {
@@ -76,7 +76,7 @@ final class TypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Layout\Type::match
+     * @covers \Netgen\Layouts\View\Matcher\Layout\Type::match
      * @dataProvider matchLayoutTypeProvider
      */
     public function testMatchLayoutType(array $config, bool $expected): void
@@ -109,7 +109,7 @@ final class TypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Layout\Type::match
+     * @covers \Netgen\Layouts\View\Matcher\Layout\Type::match
      */
     public function testMatchWithNoLayoutOrLayoutTypeView(): void
     {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Serializer\Normalizer;
+namespace Netgen\Layouts\Serializer\Normalizer;
 
-use Netgen\BlockManager\Serializer\Values\Value;
+use Netgen\Layouts\Serializer\Values\Value;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;

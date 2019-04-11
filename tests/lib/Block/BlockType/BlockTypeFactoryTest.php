@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Block\BlockType;
+namespace Netgen\Layouts\Tests\Block\BlockType;
 
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\BlockType\BlockTypeFactory;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
+use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Block\BlockType\BlockTypeFactory;
+use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 
 final class BlockTypeFactoryTest extends TestCase
@@ -14,7 +14,7 @@ final class BlockTypeFactoryTest extends TestCase
     use ExportObjectTrait;
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockType\BlockTypeFactory::buildBlockType
+     * @covers \Netgen\Layouts\Block\BlockType\BlockTypeFactory::buildBlockType
      */
     public function testBuildBlockType(): void
     {

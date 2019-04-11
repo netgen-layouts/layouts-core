@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Config;
+namespace Netgen\Layouts\Tests\Config;
 
-use Netgen\BlockManager\Config\ConfigDefinitionFactory;
-use Netgen\BlockManager\Config\ConfigDefinitionHandlerInterface;
-use Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface;
-use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
+use Netgen\Layouts\Config\ConfigDefinitionFactory;
+use Netgen\Layouts\Config\ConfigDefinitionHandlerInterface;
+use Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface;
+use Netgen\Layouts\Parameters\ParameterBuilderInterface;
 use PHPUnit\Framework\TestCase;
 
 final class ConfigDefinitionFactoryTest extends TestCase
@@ -23,7 +23,7 @@ final class ConfigDefinitionFactoryTest extends TestCase
     private $parameterBuilderFactoryMock;
 
     /**
-     * @var \Netgen\BlockManager\Config\ConfigDefinitionFactory
+     * @var \Netgen\Layouts\Config\ConfigDefinitionFactory
      */
     private $factory;
 
@@ -39,8 +39,8 @@ final class ConfigDefinitionFactoryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Config\ConfigDefinitionFactory::__construct
-     * @covers \Netgen\BlockManager\Config\ConfigDefinitionFactory::buildConfigDefinition
+     * @covers \Netgen\Layouts\Config\ConfigDefinitionFactory::__construct
+     * @covers \Netgen\Layouts\Config\ConfigDefinitionFactory::buildConfigDefinition
      */
     public function testBuildConfigDefinition(): void
     {

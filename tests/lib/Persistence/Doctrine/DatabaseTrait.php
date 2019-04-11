@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Persistence\Doctrine;
+namespace Netgen\Layouts\Tests\Persistence\Doctrine;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Types\Type;
 use Doctrine\Migrations\Configuration\YamlConfiguration;
 use Doctrine\Migrations\DependencyFactory;
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\Layouts\Exception\RuntimeException;
 
 trait DatabaseTrait
 {

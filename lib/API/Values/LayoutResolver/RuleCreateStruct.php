@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\LayoutResolver;
+namespace Netgen\Layouts\API\Values\LayoutResolver;
 
 final class RuleCreateStruct
 {

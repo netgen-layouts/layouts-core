@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Collection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
-use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Collection\QueryTypePass;
+use Netgen\Layouts\Exception\RuntimeException;
 use stdClass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\App\Item\ValueConverter;
 
-use Netgen\BlockManager\Item\ValueConverterInterface;
+use Netgen\Layouts\Item\ValueConverterInterface;
 use Netgen\Layouts\Tests\App\Item\Value;
 
 final class MyValueTypeValueConverter implements ValueConverterInterface

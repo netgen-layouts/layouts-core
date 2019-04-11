@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\Matcher\Item;
+namespace Netgen\Layouts\Tests\View\Matcher\Item;
 
-use Netgen\BlockManager\Item\CmsItem;
-use Netgen\BlockManager\Item\NullCmsItem;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\View\Matcher\Item\ValueType;
-use Netgen\BlockManager\View\View\ItemView;
+use Netgen\Layouts\Item\CmsItem;
+use Netgen\Layouts\Item\NullCmsItem;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\View\Stubs\View;
+use Netgen\Layouts\View\Matcher\Item\ValueType;
+use Netgen\Layouts\View\View\ItemView;
 use PHPUnit\Framework\TestCase;
 
 final class ValueTypeTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\View\Matcher\MatcherInterface
+     * @var \Netgen\Layouts\View\Matcher\MatcherInterface
      */
     private $matcher;
 
@@ -25,7 +25,7 @@ final class ValueTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Item\ValueType::match
+     * @covers \Netgen\Layouts\View\Matcher\Item\ValueType::match
      * @dataProvider matchProvider
      */
     public function testMatch(array $config, bool $expected): void
@@ -36,7 +36,7 @@ final class ValueTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Item\ValueType::match
+     * @covers \Netgen\Layouts\View\Matcher\Item\ValueType::match
      */
     public function testMatchWithNullCmsItem(): void
     {
@@ -46,7 +46,7 @@ final class ValueTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Item\ValueType::match
+     * @covers \Netgen\Layouts\View\Matcher\Item\ValueType::match
      */
     public function testMatchWithNullCmsItemReturnsFalse(): void
     {
@@ -67,7 +67,7 @@ final class ValueTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Item\ValueType::match
+     * @covers \Netgen\Layouts\View\Matcher\Item\ValueType::match
      */
     public function testMatchWithNoItemView(): void
     {

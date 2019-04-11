@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\ParamConverter;
 
-use Netgen\BlockManager\Exception\InvalidArgumentException;
 use Netgen\Bundle\LayoutsBundle\Tests\Stubs\ParamConverter;
 use Netgen\Bundle\LayoutsBundle\Tests\Stubs\Value;
+use Netgen\Layouts\Exception\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter as ParamConverterConfiguration;
 use Symfony\Component\HttpFoundation\Request;

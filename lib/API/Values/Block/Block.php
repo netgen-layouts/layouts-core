@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\Block;
+namespace Netgen\Layouts\API\Values\Block;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Netgen\BlockManager\API\Values\Block\Placeholder as APIPlaceholder;
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\CollectionList;
-use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
-use Netgen\BlockManager\API\Values\Config\ConfigAwareValueTrait;
-use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\API\Values\ValueStatusTrait;
-use Netgen\BlockManager\Block\BlockDefinitionInterface;
-use Netgen\BlockManager\Exception\API\BlockException;
-use Netgen\BlockManager\Parameters\ParameterCollectionInterface;
-use Netgen\BlockManager\Parameters\ParameterCollectionTrait;
-use Netgen\BlockManager\Utils\HydratorTrait;
+use Netgen\Layouts\API\Values\Block\Placeholder as APIPlaceholder;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\CollectionList;
+use Netgen\Layouts\API\Values\Config\ConfigAwareValue;
+use Netgen\Layouts\API\Values\Config\ConfigAwareValueTrait;
+use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\API\Values\ValueStatusTrait;
+use Netgen\Layouts\Block\BlockDefinitionInterface;
+use Netgen\Layouts\Exception\API\BlockException;
+use Netgen\Layouts\Parameters\ParameterCollectionInterface;
+use Netgen\Layouts\Parameters\ParameterCollectionTrait;
+use Netgen\Layouts\Utils\HydratorTrait;
 
 final class Block implements Value, ParameterCollectionInterface, ConfigAwareValue
 {
@@ -36,7 +36,7 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
     private $layoutId;
 
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
+     * @var \Netgen\Layouts\Block\BlockDefinitionInterface
      */
     private $definition;
 
@@ -71,7 +71,7 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
     private $parentPlaceholder;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Block\Placeholder[]
+     * @var \Netgen\Layouts\API\Values\Block\Placeholder[]
      */
     private $placeholders = [];
 
@@ -81,7 +81,7 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
     private $collections;
 
     /**
-     * @var \Netgen\BlockManager\Block\DynamicParameters
+     * @var \Netgen\Layouts\Block\DynamicParameters
      */
     private $dynamicParameters;
 
@@ -208,7 +208,7 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
     /**
      * Returns the specified placeholder.
      *
-     * @throws \Netgen\BlockManager\Exception\API\BlockException If the placeholder does not exist
+     * @throws \Netgen\Layouts\Exception\API\BlockException If the placeholder does not exist
      */
     public function getPlaceholder(string $identifier): APIPlaceholder
     {
@@ -238,7 +238,7 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
     /**
      * Returns the specified block collection.
      *
-     * @throws \Netgen\BlockManager\Exception\API\BlockException If the block collection does not exist
+     * @throws \Netgen\Layouts\Exception\API\BlockException If the block collection does not exist
      */
     public function getCollection(string $identifier): Collection
     {

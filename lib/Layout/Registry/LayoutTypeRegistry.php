@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Layout\Registry;
+namespace Netgen\Layouts\Layout\Registry;
 
 use ArrayIterator;
-use Netgen\BlockManager\Exception\Layout\LayoutTypeException;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
+use Netgen\Layouts\Exception\Layout\LayoutTypeException;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 use Traversable;
 
 final class LayoutTypeRegistry implements LayoutTypeRegistryInterface
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Type\LayoutTypeInterface[]
+     * @var \Netgen\Layouts\Layout\Type\LayoutTypeInterface[]
      */
     private $layoutTypes;
 
     /**
-     * @param \Netgen\BlockManager\Layout\Type\LayoutTypeInterface[] $layoutTypes
+     * @param \Netgen\Layouts\Layout\Type\LayoutTypeInterface[] $layoutTypes
      */
     public function __construct(array $layoutTypes)
     {

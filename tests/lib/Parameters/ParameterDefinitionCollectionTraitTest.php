@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters;
+namespace Netgen\Layouts\Tests\Parameters;
 
-use Netgen\BlockManager\Exception\Parameters\ParameterException;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinitionCollection;
+use Netgen\Layouts\Exception\Parameters\ParameterException;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Tests\Parameters\Stubs\ParameterDefinitionCollection;
 use PHPUnit\Framework\TestCase;
 
 final class ParameterDefinitionCollectionTraitTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionTrait::getParameterDefinition
+     * @covers \Netgen\Layouts\Parameters\ParameterDefinitionCollectionTrait::getParameterDefinition
      */
     public function testGetParameterDefinition(): void
     {
@@ -26,7 +26,7 @@ final class ParameterDefinitionCollectionTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionTrait::getParameterDefinition
+     * @covers \Netgen\Layouts\Parameters\ParameterDefinitionCollectionTrait::getParameterDefinition
      */
     public function testGetParameterDefinitionWithNonExistingDefinition(): void
     {
@@ -41,7 +41,7 @@ final class ParameterDefinitionCollectionTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionTrait::getParameterDefinitions
+     * @covers \Netgen\Layouts\Parameters\ParameterDefinitionCollectionTrait::getParameterDefinitions
      */
     public function testGetParameterDefinitions(): void
     {
@@ -58,7 +58,7 @@ final class ParameterDefinitionCollectionTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterDefinitionCollectionTrait::hasParameterDefinition
+     * @covers \Netgen\Layouts\Parameters\ParameterDefinitionCollectionTrait::hasParameterDefinition
      */
     public function testHasParameterDefinition(): void
     {

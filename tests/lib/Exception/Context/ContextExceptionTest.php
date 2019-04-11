@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Exception\Context;
+namespace Netgen\Layouts\Tests\Exception\Context;
 
-use Netgen\BlockManager\Exception\Context\ContextException;
+use Netgen\Layouts\Exception\Context\ContextException;
 use PHPUnit\Framework\TestCase;
 
 final class ContextExceptionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Exception\Context\ContextException::noVariable
+     * @covers \Netgen\Layouts\Exception\Context\ContextException::noVariable
      */
     public function testNoVariable(): void
     {

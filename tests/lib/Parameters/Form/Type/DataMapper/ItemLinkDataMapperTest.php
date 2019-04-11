@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\Form\Type\DataMapper;
+namespace Netgen\Layouts\Tests\Parameters\Form\Type\DataMapper;
 
 use ArrayIterator;
-use Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper;
-use Netgen\BlockManager\Tests\Form\DataMapper\DataMapperTest;
+use Netgen\Layouts\Parameters\Form\Type\DataMapper\ItemLinkDataMapper;
+use Netgen\Layouts\Tests\Form\DataMapper\DataMapperTest;
 
 final class ItemLinkDataMapperTest extends DataMapperTest
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper
+     * @var \Netgen\Layouts\Parameters\Form\Type\DataMapper\ItemLinkDataMapper
      */
     private $mapper;
 
@@ -21,7 +21,7 @@ final class ItemLinkDataMapperTest extends DataMapperTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper::mapDataToForms
+     * @covers \Netgen\Layouts\Parameters\Form\Type\DataMapper\ItemLinkDataMapper::mapDataToForms
      */
     public function testMapDataToForms(): void
     {
@@ -39,7 +39,7 @@ final class ItemLinkDataMapperTest extends DataMapperTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper::mapDataToForms
+     * @covers \Netgen\Layouts\Parameters\Form\Type\DataMapper\ItemLinkDataMapper::mapDataToForms
      */
     public function testMapDataToFormsWithInvalidData(): void
     {
@@ -57,7 +57,7 @@ final class ItemLinkDataMapperTest extends DataMapperTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper::mapDataToForms
+     * @covers \Netgen\Layouts\Parameters\Form\Type\DataMapper\ItemLinkDataMapper::mapDataToForms
      */
     public function testMapDataToFormsWithNonStringData(): void
     {
@@ -75,7 +75,7 @@ final class ItemLinkDataMapperTest extends DataMapperTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper::mapFormsToData
+     * @covers \Netgen\Layouts\Parameters\Form\Type\DataMapper\ItemLinkDataMapper::mapFormsToData
      */
     public function testMapFormsToData(): void
     {
@@ -92,7 +92,7 @@ final class ItemLinkDataMapperTest extends DataMapperTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper::mapFormsToData
+     * @covers \Netgen\Layouts\Parameters\Form\Type\DataMapper\ItemLinkDataMapper::mapFormsToData
      */
     public function testMapFormsToDataWithInvalidItemValueFormData(): void
     {
@@ -109,7 +109,7 @@ final class ItemLinkDataMapperTest extends DataMapperTest
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper::mapFormsToData
+     * @covers \Netgen\Layouts\Parameters\Form\Type\DataMapper\ItemLinkDataMapper::mapFormsToData
      */
     public function testMapFormsToDataWithInvalidItemTypeFormData(): void
     {

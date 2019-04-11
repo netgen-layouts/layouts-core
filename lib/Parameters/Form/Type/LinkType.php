@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Parameters\Form\Type;
+namespace Netgen\Layouts\Parameters\Form\Type;
 
-use Netgen\BlockManager\Form\AbstractType;
-use Netgen\BlockManager\Parameters\Form\Type\DataMapper\ItemLinkDataMapper;
-use Netgen\BlockManager\Parameters\Value\LinkValue;
 use Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType;
+use Netgen\Layouts\Form\AbstractType;
+use Netgen\Layouts\Parameters\Form\Type\DataMapper\ItemLinkDataMapper;
+use Netgen\Layouts\Parameters\Value\LinkValue;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;

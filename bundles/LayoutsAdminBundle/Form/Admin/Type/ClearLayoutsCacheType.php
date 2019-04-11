@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type;
 
-use Netgen\BlockManager\API\Values\Layout\LayoutList;
-use Netgen\BlockManager\Form\AbstractType;
+use Netgen\Layouts\API\Values\Layout\LayoutList;
+use Netgen\Layouts\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -47,7 +47,7 @@ final class ClearLayoutsCacheType extends AbstractType
 
     public function finishView(FormView $view, FormInterface $form, array $options): void
     {
-        /** @var \Netgen\BlockManager\API\Values\Layout\Layout $layout */
+        /** @var \Netgen\Layouts\API\Values\Layout\Layout $layout */
         foreach ($options['layouts'] as $layout) {
             $view['layouts'][$layout->getId()]->vars['layout'] = $layout;
         }

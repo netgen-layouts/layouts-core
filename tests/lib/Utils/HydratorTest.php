@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Utils;
+namespace Netgen\Layouts\Tests\Utils;
 
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Tests\Stubs\Value;
-use Netgen\BlockManager\Utils\Hydrator;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Tests\Stubs\Value;
+use Netgen\Layouts\Utils\Hydrator;
 use PHPUnit\Framework\TestCase;
 
 final class HydratorTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Utils\Hydrator
+     * @var \Netgen\Layouts\Utils\Hydrator
      */
     private $hydrator;
 
@@ -22,7 +22,7 @@ final class HydratorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Utils\Hydrator::extract
+     * @covers \Netgen\Layouts\Utils\Hydrator::extract
      */
     public function testExtract(): void
     {
@@ -33,7 +33,7 @@ final class HydratorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Utils\Hydrator::hydrate
+     * @covers \Netgen\Layouts\Utils\Hydrator::hydrate
      */
     public function testHydrate(): void
     {
@@ -47,12 +47,12 @@ final class HydratorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Utils\Hydrator::hydrate
+     * @covers \Netgen\Layouts\Utils\Hydrator::hydrate
      */
     public function testHydrateThrowsRuntimeExceptionWithNonExistingProperty(): void
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Property "unknown" does not exist in "Netgen\BlockManager\Tests\Stubs\Value" class.');
+        $this->expectExceptionMessage('Property "unknown" does not exist in "Netgen\Layouts\Tests\Stubs\Value" class.');
 
         $this->hydrator->hydrate(['unknown' => 'foo'], new Value());
     }

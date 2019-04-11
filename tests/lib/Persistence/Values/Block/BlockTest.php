@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Persistence\Values\Block;
+namespace Netgen\Layouts\Tests\Persistence\Values\Block;
 
-use Netgen\BlockManager\Persistence\Values\Block\Block;
-use Netgen\BlockManager\Persistence\Values\Value;
+use Netgen\Layouts\Persistence\Values\Block\Block;
+use Netgen\Layouts\Persistence\Values\Value;
 use PHPUnit\Framework\TestCase;
 
 final class BlockTest extends TestCase

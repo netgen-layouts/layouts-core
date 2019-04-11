@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Persistence\Handler;
+namespace Netgen\Layouts\Persistence\Handler;
 
-use Netgen\BlockManager\Persistence\Values\Collection\Collection;
-use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\Item;
-use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\ItemUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\Query;
-use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\QueryTranslationUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\Collection;
+use Netgen\Layouts\Persistence\Values\Collection\CollectionCreateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\CollectionUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\Item;
+use Netgen\Layouts\Persistence\Values\Collection\ItemCreateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\ItemUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\Query;
+use Netgen\Layouts\Persistence\Values\Collection\QueryCreateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\QueryTranslationUpdateStruct;
 
 interface CollectionHandlerInterface
 {
@@ -22,9 +22,9 @@ interface CollectionHandlerInterface
      * @param int|string $collectionId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If collection with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If collection with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection
+     * @return \Netgen\Layouts\Persistence\Values\Collection\Collection
      */
     public function loadCollection($collectionId, int $status): Collection;
 
@@ -34,23 +34,23 @@ interface CollectionHandlerInterface
      * @param int|string $itemId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If item with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If item with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Item
+     * @return \Netgen\Layouts\Persistence\Values\Collection\Item
      */
     public function loadItem($itemId, int $status): Item;
 
     /**
      * Loads an item with specified position in specified collection.
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If item does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If item does not exist
      */
     public function loadItemWithPosition(Collection $collection, int $position): Item;
 
     /**
      * Loads all items that belong to collection with specified ID.
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Item[]
+     * @return \Netgen\Layouts\Persistence\Values\Collection\Item[]
      */
     public function loadCollectionItems(Collection $collection): array;
 
@@ -60,16 +60,16 @@ interface CollectionHandlerInterface
      * @param int|string $queryId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If query with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If query with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Query
+     * @return \Netgen\Layouts\Persistence\Values\Collection\Query
      */
     public function loadQuery($queryId, int $status): Query;
 
     /**
      * Loads the query that belongs to collection with specified ID.
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If query for specified collection does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If query for specified collection does not exist
      */
     public function loadCollectionQuery(Collection $collection): Query;
 
@@ -91,7 +91,7 @@ interface CollectionHandlerInterface
     /**
      * Creates a collection translation.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If translation with provided locale already exists
+     * @throws \Netgen\Layouts\Exception\BadStateException If translation with provided locale already exists
      *                                                          If translation with provided source locale does not exist
      */
     public function createCollectionTranslation(Collection $collection, string $locale, string $sourceLocale): Collection;
@@ -99,7 +99,7 @@ interface CollectionHandlerInterface
     /**
      * Updates the main translation of the collection.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If provided locale does not exist in the collection
+     * @throws \Netgen\Layouts\Exception\BadStateException If provided locale does not exist in the collection
      */
     public function setMainTranslation(Collection $collection, string $mainLocale): Collection;
 
@@ -129,7 +129,7 @@ interface CollectionHandlerInterface
     /**
      * Deletes provided collection translation.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If translation with provided locale does not exist
+     * @throws \Netgen\Layouts\Exception\BadStateException If translation with provided locale does not exist
      *                                                          If translation with provided locale is the main collection translation
      */
     public function deleteCollectionTranslation(Collection $collection, string $locale): Collection;
@@ -137,7 +137,7 @@ interface CollectionHandlerInterface
     /**
      * Adds an item to collection.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range (for manual collections)
+     * @throws \Netgen\Layouts\Exception\BadStateException If provided position is out of range (for manual collections)
      */
     public function addItem(Collection $collection, ItemCreateStruct $itemCreateStruct): Item;
 
@@ -149,14 +149,14 @@ interface CollectionHandlerInterface
     /**
      * Moves an item to specified position in the collection.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If provided position is out of range (for manual collections)
+     * @throws \Netgen\Layouts\Exception\BadStateException If provided position is out of range (for manual collections)
      */
     public function moveItem(Item $item, int $position): Item;
 
     /**
      * Switch item positions within the same collection.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If items are the same
+     * @throws \Netgen\Layouts\Exception\BadStateException If items are the same
      *                                                          If items are not within the same collection
      */
     public function switchItemPositions(Item $item1, Item $item2): void;
@@ -174,14 +174,14 @@ interface CollectionHandlerInterface
     /**
      * Adds a query to collection.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If collection already has a query
+     * @throws \Netgen\Layouts\Exception\BadStateException If collection already has a query
      */
     public function createQuery(Collection $collection, QueryCreateStruct $queryCreateStruct): Query;
 
     /**
      * Updates a query translation.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If the query does not have the provided locale
+     * @throws \Netgen\Layouts\Exception\BadStateException If the query does not have the provided locale
      */
     public function updateQueryTranslation(Query $query, string $locale, QueryTranslationUpdateStruct $translationUpdateStruct): Query;
 

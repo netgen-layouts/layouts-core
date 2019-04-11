@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Validator;
+namespace Netgen\Layouts\Validator;
 
-use Netgen\BlockManager\Block\BlockDefinitionInterface;
-use Netgen\BlockManager\Validator\Constraint\BlockViewType;
+use Netgen\Layouts\Block\BlockDefinitionInterface;
+use Netgen\Layouts\Validator\Constraint\BlockViewType;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;

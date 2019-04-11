@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\Stubs;
+namespace Netgen\Layouts\Tests\View\Stubs;
 
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\View\View as BaseView;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\View\View as BaseView;
 
 final class View extends BaseView
 {

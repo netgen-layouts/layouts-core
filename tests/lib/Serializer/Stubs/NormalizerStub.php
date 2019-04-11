@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Serializer\Stubs;
+namespace Netgen\Layouts\Tests\Serializer\Stubs;
 
 use Generator;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;

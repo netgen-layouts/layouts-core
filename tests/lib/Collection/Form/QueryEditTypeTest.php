@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Collection\Form;
+namespace Netgen\Layouts\Tests\Collection\Form;
 
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
-use Netgen\BlockManager\Collection\Form\QueryEditType;
-use Netgen\BlockManager\Parameters\Form\Extension\ParametersTypeExtension;
-use Netgen\BlockManager\Parameters\Form\Mapper;
-use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
-use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\API\Values\Collection\QueryUpdateStruct;
+use Netgen\Layouts\Collection\Form\QueryEditType;
+use Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension;
+use Netgen\Layouts\Parameters\Form\Mapper;
+use Netgen\Layouts\Parameters\Form\Type\ParametersType;
+use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
+use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
@@ -20,12 +20,12 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class QueryEditTypeTest extends FormTestCase
 {
     /**
-     * @var \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface
+     * @var \Netgen\Layouts\Collection\QueryType\QueryTypeInterface
      */
     private $queryType;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Collection\Query
+     * @var \Netgen\Layouts\API\Values\Collection\Query
      */
     private $query;
 
@@ -39,8 +39,8 @@ final class QueryEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Form\QueryEditType::buildForm
-     * @covers \Netgen\BlockManager\Collection\Form\QueryEditType::buildView
+     * @covers \Netgen\Layouts\Collection\Form\QueryEditType::buildForm
+     * @covers \Netgen\Layouts\Collection\Form\QueryEditType::buildView
      */
     public function testSubmitValidData(): void
     {
@@ -81,8 +81,8 @@ final class QueryEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Form\QueryEditType::buildForm
-     * @covers \Netgen\BlockManager\Collection\Form\QueryEditType::buildView
+     * @covers \Netgen\Layouts\Collection\Form\QueryEditType::buildForm
+     * @covers \Netgen\Layouts\Collection\Form\QueryEditType::buildView
      */
     public function testDisableUntranslatableFormsOnNonMainLocale(): void
     {
@@ -108,8 +108,8 @@ final class QueryEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Form\QueryEditType::buildForm
-     * @covers \Netgen\BlockManager\Collection\Form\QueryEditType::buildView
+     * @covers \Netgen\Layouts\Collection\Form\QueryEditType::buildForm
+     * @covers \Netgen\Layouts\Collection\Form\QueryEditType::buildView
      */
     public function testDisableUntranslatableFormsOnMainLocale(): void
     {
@@ -135,7 +135,7 @@ final class QueryEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Form\QueryEditType::configureOptions
+     * @covers \Netgen\Layouts\Collection\Form\QueryEditType::configureOptions
      */
     public function testConfigureOptions(): void
     {
@@ -158,7 +158,7 @@ final class QueryEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Form\QueryEditType::configureOptions
+     * @covers \Netgen\Layouts\Collection\Form\QueryEditType::configureOptions
      */
     public function testConfigureOptionsWithMissingQuery(): void
     {
@@ -174,12 +174,12 @@ final class QueryEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Form\QueryEditType::configureOptions
+     * @covers \Netgen\Layouts\Collection\Form\QueryEditType::configureOptions
      */
     public function testConfigureOptionsWithInvalidQueryType(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "query" with value "" is expected to be of type "Netgen\\BlockManager\\API\\Values\\Collection\\Query", but is of type "string".');
+        $this->expectExceptionMessage('The option "query" with value "" is expected to be of type "Netgen\\Layouts\\API\\Values\\Collection\\Query", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -194,12 +194,12 @@ final class QueryEditTypeTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Form\QueryEditType::configureOptions
+     * @covers \Netgen\Layouts\Collection\Form\QueryEditType::configureOptions
      */
     public function testConfigureOptionsWithInvalidData(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\\BlockManager\\API\\Values\\Collection\\QueryUpdateStruct", but is of type "string".');
+        $this->expectExceptionMessage('The option "data" with value "" is expected to be of type "Netgen\\Layouts\\API\\Values\\Collection\\QueryUpdateStruct", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');

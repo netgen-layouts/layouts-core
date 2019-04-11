@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\Form\Mapper;
+namespace Netgen\Layouts\Tests\Parameters\Form\Mapper;
 
-use Netgen\BlockManager\Parameters\Form\Mapper\EmailMapper;
+use Netgen\Layouts\Parameters\Form\Mapper\EmailMapper;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
 final class EmailMapperTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\Form\Mapper\EmailMapper
+     * @var \Netgen\Layouts\Parameters\Form\Mapper\EmailMapper
      */
     private $mapper;
 
@@ -21,7 +21,7 @@ final class EmailMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Mapper\EmailMapper::getFormType
+     * @covers \Netgen\Layouts\Parameters\Form\Mapper\EmailMapper::getFormType
      */
     public function testGetFormType(): void
     {

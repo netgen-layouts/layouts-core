@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Layout\Registry;
+namespace Netgen\Layouts\Layout\Registry;
 
 use ArrayAccess;
 use Countable;
 use IteratorAggregate;
-use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
+use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 
 interface LayoutTypeRegistryInterface extends IteratorAggregate, Countable, ArrayAccess
 {
@@ -19,7 +19,7 @@ interface LayoutTypeRegistryInterface extends IteratorAggregate, Countable, Arra
     /**
      * Returns the layout type with provided identifier.
      *
-     * @throws \Netgen\BlockManager\Exception\Layout\LayoutTypeException If layout type with provided identifier does not exist
+     * @throws \Netgen\Layouts\Exception\Layout\LayoutTypeException If layout type with provided identifier does not exist
      */
     public function getLayoutType(string $identifier): LayoutTypeInterface;
 
@@ -28,7 +28,7 @@ interface LayoutTypeRegistryInterface extends IteratorAggregate, Countable, Arra
      *
      * @param bool $onlyEnabled
      *
-     * @return \Netgen\BlockManager\Layout\Type\LayoutTypeInterface[]
+     * @return \Netgen\Layouts\Layout\Type\LayoutTypeInterface[]
      */
     public function getLayoutTypes(bool $onlyEnabled = false): array;
 }

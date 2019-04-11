@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Transfer\Output\Visitor\Integration;
+namespace Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterTypeWithExportImport;
-use Netgen\BlockManager\Transfer\Output\Visitor\ParameterVisitor;
-use Netgen\BlockManager\Transfer\Output\VisitorInterface;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\Parameters\Parameter;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Tests\Parameters\Stubs\ParameterTypeWithExportImport;
+use Netgen\Layouts\Transfer\Output\Visitor\ParameterVisitor;
+use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 abstract class ParameterVisitorTest extends VisitorTest
 {

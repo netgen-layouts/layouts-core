@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Persistence\Doctrine\Mapper;
+namespace Netgen\Layouts\Persistence\Doctrine\Mapper;
 
-use Netgen\BlockManager\Persistence\Values\Collection\Collection;
-use Netgen\BlockManager\Persistence\Values\Collection\Item;
-use Netgen\BlockManager\Persistence\Values\Collection\Query;
+use Netgen\Layouts\Persistence\Values\Collection\Collection;
+use Netgen\Layouts\Persistence\Values\Collection\Item;
+use Netgen\Layouts\Persistence\Values\Collection\Query;
 
 final class CollectionMapper
 {
     /**
      * Maps data from database to collection values.
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Collection[]
+     * @return \Netgen\Layouts\Persistence\Values\Collection\Collection[]
      */
     public function mapCollections(array $data): array
     {
@@ -53,7 +53,7 @@ final class CollectionMapper
     /**
      * Maps data from database to item values.
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Collection\Item[]
+     * @return \Netgen\Layouts\Persistence\Values\Collection\Item[]
      */
     public function mapItems(array $data): array
     {

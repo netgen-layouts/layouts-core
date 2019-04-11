@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout;
 
-use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Exception\Layout\LayoutTypeException;
-use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
-use Netgen\BlockManager\Serializer\Values\View;
-use Netgen\BlockManager\Serializer\Version;
-use Netgen\BlockManager\Validator\Constraint\Locale as LocaleConstraint;
-use Netgen\BlockManager\Validator\ValidatorTrait;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
+use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\Exception\BadStateException;
+use Netgen\Layouts\Exception\Layout\LayoutTypeException;
+use Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface;
+use Netgen\Layouts\Serializer\Values\View;
+use Netgen\Layouts\Serializer\Version;
+use Netgen\Layouts\Validator\Constraint\Locale as LocaleConstraint;
+use Netgen\Layouts\Validator\ValidatorTrait;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,12 +23,12 @@ final class Create extends AbstractController
     use ValidatorTrait;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutService
+     * @var \Netgen\Layouts\API\Service\LayoutService
      */
     private $layoutService;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface
      */
     private $layoutTypeRegistry;
 
@@ -43,7 +43,7 @@ final class Create extends AbstractController
     /**
      * Creates the layout.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If layout type does not exist
+     * @throws \Netgen\Layouts\Exception\BadStateException If layout type does not exist
      */
     public function __invoke(Request $request): View
     {
@@ -75,7 +75,7 @@ final class Create extends AbstractController
     /**
      * Validates layout creation parameters from the request.
      *
-     * @throws \Netgen\BlockManager\Exception\Validation\ValidationException If validation failed
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If validation failed
      */
     private function validateCreateLayout(ParameterBag $data): void
     {

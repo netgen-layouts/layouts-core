@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Block\Registry;
+namespace Netgen\Layouts\Tests\Block\Registry;
 
 use ArrayIterator;
-use Netgen\BlockManager\Block\BlockType\BlockTypeGroup;
-use Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistry;
-use Netgen\BlockManager\Exception\Block\BlockTypeException;
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\Layouts\Block\BlockType\BlockTypeGroup;
+use Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry;
+use Netgen\Layouts\Exception\Block\BlockTypeException;
+use Netgen\Layouts\Exception\RuntimeException;
 use PHPUnit\Framework\TestCase;
 
 final class BlockTypeGroupRegistryTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Block\BlockType\BlockTypeGroup
+     * @var \Netgen\Layouts\Block\BlockType\BlockTypeGroup
      */
     private $blockTypeGroup;
 
     /**
-     * @var \Netgen\BlockManager\Block\BlockType\BlockTypeGroup
+     * @var \Netgen\Layouts\Block\BlockType\BlockTypeGroup
      */
     private $blockTypeGroup2;
 
     /**
-     * @var \Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistry
+     * @var \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry
      */
     private $registry;
 
@@ -42,8 +42,8 @@ final class BlockTypeGroupRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistry::__construct
-     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistry::getBlockTypeGroups
+     * @covers \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry::__construct
+     * @covers \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry::getBlockTypeGroups
      */
     public function testGetBlockTypeGroups(): void
     {
@@ -57,7 +57,7 @@ final class BlockTypeGroupRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistry::getBlockTypeGroups
+     * @covers \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry::getBlockTypeGroups
      */
     public function testGetEnabledBlockTypeGroups(): void
     {
@@ -70,7 +70,7 @@ final class BlockTypeGroupRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistry::hasBlockTypeGroup
+     * @covers \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry::hasBlockTypeGroup
      */
     public function testHasBlockTypeGroup(): void
     {
@@ -78,7 +78,7 @@ final class BlockTypeGroupRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistry::hasBlockTypeGroup
+     * @covers \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry::hasBlockTypeGroup
      */
     public function testHasBlockTypeWithNoBlockTypeGroup(): void
     {
@@ -86,7 +86,7 @@ final class BlockTypeGroupRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistry::getBlockTypeGroup
+     * @covers \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry::getBlockTypeGroup
      */
     public function testGetBlockTypeGroup(): void
     {
@@ -94,7 +94,7 @@ final class BlockTypeGroupRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistry::getBlockTypeGroup
+     * @covers \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry::getBlockTypeGroup
      */
     public function testGetBlockTypeGroupThrowsBlockTypeException(): void
     {
@@ -105,7 +105,7 @@ final class BlockTypeGroupRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistry::getIterator
+     * @covers \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry::getIterator
      */
     public function testGetIterator(): void
     {
@@ -120,7 +120,7 @@ final class BlockTypeGroupRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistry::count
+     * @covers \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry::count
      */
     public function testCount(): void
     {
@@ -128,7 +128,7 @@ final class BlockTypeGroupRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistry::offsetExists
+     * @covers \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry::offsetExists
      */
     public function testOffsetExists(): void
     {
@@ -137,7 +137,7 @@ final class BlockTypeGroupRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistry::offsetGet
+     * @covers \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry::offsetGet
      */
     public function testOffsetGet(): void
     {
@@ -145,7 +145,7 @@ final class BlockTypeGroupRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistry::offsetSet
+     * @covers \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry::offsetSet
      */
     public function testOffsetSet(): void
     {
@@ -156,7 +156,7 @@ final class BlockTypeGroupRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\Registry\BlockTypeGroupRegistry::offsetUnset
+     * @covers \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry::offsetUnset
      */
     public function testOffsetUnset(): void
     {

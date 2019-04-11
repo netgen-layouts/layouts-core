@@ -2,30 +2,30 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Block\BlockDefinition;
+namespace Netgen\Layouts\Tests\Block\BlockDefinition;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler;
-use Netgen\BlockManager\Block\DynamicParameters;
-use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
-use Netgen\BlockManager\Parameters\TranslatableParameterBuilderFactory;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandler;
+use Netgen\Layouts\Block\DynamicParameters;
+use Netgen\Layouts\Parameters\ParameterType;
+use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
+use Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory;
 use PHPUnit\Framework\TestCase;
 
 final class BlockDefinitionHandlerTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler
+     * @var \Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandler
      */
     private $handler;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface
+     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistryInterface
      */
     private $parameterTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface
+     * @var \Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface
      */
     private $parameterBuilderFactory;
 
@@ -46,7 +46,7 @@ final class BlockDefinitionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::buildParameters
+     * @covers \Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandler::buildParameters
      */
     public function testBuildParameters(): void
     {
@@ -57,7 +57,7 @@ final class BlockDefinitionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::getDynamicParameters
+     * @covers \Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandler::getDynamicParameters
      */
     public function testGetDynamicParameters(): void
     {
@@ -68,7 +68,7 @@ final class BlockDefinitionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandler::isContextual
+     * @covers \Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandler::isContextual
      */
     public function testIsContextual(): void
     {

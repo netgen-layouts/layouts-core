@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Context;
+namespace Netgen\Layouts\Tests\Context;
 
 use ArrayIterator;
-use Netgen\BlockManager\Context\Context;
-use Netgen\BlockManager\Exception\Context\ContextException;
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\Layouts\Context\Context;
+use Netgen\Layouts\Exception\Context\ContextException;
+use Netgen\Layouts\Exception\RuntimeException;
 use PHPUnit\Framework\TestCase;
 
 final class ContextTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Context\Context
+     * @var \Netgen\Layouts\Context\Context
      */
     private $context;
 
@@ -24,9 +24,9 @@ final class ContextTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Context\Context::get
-     * @covers \Netgen\BlockManager\Context\Context::has
-     * @covers \Netgen\BlockManager\Context\Context::set
+     * @covers \Netgen\Layouts\Context\Context::get
+     * @covers \Netgen\Layouts\Context\Context::has
+     * @covers \Netgen\Layouts\Context\Context::set
      */
     public function testSet(): void
     {
@@ -37,9 +37,9 @@ final class ContextTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Context\Context::add
-     * @covers \Netgen\BlockManager\Context\Context::get
-     * @covers \Netgen\BlockManager\Context\Context::has
+     * @covers \Netgen\Layouts\Context\Context::add
+     * @covers \Netgen\Layouts\Context\Context::get
+     * @covers \Netgen\Layouts\Context\Context::has
      */
     public function testAdd(): void
     {
@@ -53,7 +53,7 @@ final class ContextTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Context\Context::get
+     * @covers \Netgen\Layouts\Context\Context::get
      */
     public function testGet(): void
     {
@@ -61,7 +61,7 @@ final class ContextTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Context\Context::get
+     * @covers \Netgen\Layouts\Context\Context::get
      */
     public function testGetThrowsContextException(): void
     {
@@ -72,7 +72,7 @@ final class ContextTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Context\Context::has
+     * @covers \Netgen\Layouts\Context\Context::has
      */
     public function testHas(): void
     {
@@ -80,7 +80,7 @@ final class ContextTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Context\Context::has
+     * @covers \Netgen\Layouts\Context\Context::has
      */
     public function testHasWithUnknownVariable(): void
     {
@@ -88,7 +88,7 @@ final class ContextTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Context\Context::all
+     * @covers \Netgen\Layouts\Context\Context::all
      */
     public function testAll(): void
     {
@@ -96,7 +96,7 @@ final class ContextTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Context\Context::getIterator
+     * @covers \Netgen\Layouts\Context\Context::getIterator
      */
     public function testGetIterator(): void
     {
@@ -111,7 +111,7 @@ final class ContextTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Context\Context::count
+     * @covers \Netgen\Layouts\Context\Context::count
      */
     public function testCount(): void
     {
@@ -119,7 +119,7 @@ final class ContextTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Context\Context::offsetExists
+     * @covers \Netgen\Layouts\Context\Context::offsetExists
      */
     public function testOffsetExists(): void
     {
@@ -128,7 +128,7 @@ final class ContextTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Context\Context::offsetGet
+     * @covers \Netgen\Layouts\Context\Context::offsetGet
      */
     public function testOffsetGet(): void
     {
@@ -136,7 +136,7 @@ final class ContextTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Context\Context::offsetSet
+     * @covers \Netgen\Layouts\Context\Context::offsetSet
      */
     public function testOffsetSet(): void
     {
@@ -146,7 +146,7 @@ final class ContextTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Context\Context::offsetUnset
+     * @covers \Netgen\Layouts\Context\Context::offsetUnset
      */
     public function testOffsetUnset(): void
     {

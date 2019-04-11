@@ -10,7 +10,7 @@
     beStrictAboutChangesToGlobalState="true"
 >
     <testsuites>
-        <testsuite name="Netgen\BlockManager">
+        <testsuite name="Netgen\Layouts">
             <directory>tests/lib</directory>
         </testsuite>
         <testsuite name="Netgen\Bundle\LayoutsBundle">

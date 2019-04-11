@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Utils;
+namespace Netgen\Layouts\Tests\Utils;
 
 use DateTimeImmutable;
 use DateTimeInterface;
-use Netgen\BlockManager\Utils\DateTimeUtils;
+use Netgen\Layouts\Utils\DateTimeUtils;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bridge\PhpUnit\ClockMock;
 
 final class DateTimeUtilsTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Utils\DateTimeUtils::createFromTimestamp
+     * @covers \Netgen\Layouts\Utils\DateTimeUtils::createFromTimestamp
      */
     public function testCreateFromTimestamp(): void
     {
@@ -30,7 +30,7 @@ final class DateTimeUtilsTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Utils\DateTimeUtils::createFromTimestamp
+     * @covers \Netgen\Layouts\Utils\DateTimeUtils::createFromTimestamp
      */
     public function testCreateFromTimestampWithTimestamp(): void
     {
@@ -42,7 +42,7 @@ final class DateTimeUtilsTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Utils\DateTimeUtils::createFromTimestamp
+     * @covers \Netgen\Layouts\Utils\DateTimeUtils::createFromTimestamp
      */
     public function testCreateFromTimestampWithTimestampAndTimeZone(): void
     {
@@ -54,7 +54,7 @@ final class DateTimeUtilsTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Utils\DateTimeUtils::isBetweenDates
+     * @covers \Netgen\Layouts\Utils\DateTimeUtils::isBetweenDates
      * @dataProvider isBetweenDatesProvider
      */
     public function testIsBetweenDates(?DateTimeInterface $from = null, ?DateTimeInterface $to = null, bool $result = false): void
@@ -86,7 +86,7 @@ final class DateTimeUtilsTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Utils\DateTimeUtils::createFromArray
+     * @covers \Netgen\Layouts\Utils\DateTimeUtils::createFromArray
      * @dataProvider createFromArrayProvider
      */
     public function testCreateFromArray(array $input, bool $isValid): void
@@ -118,9 +118,9 @@ final class DateTimeUtilsTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Utils\DateTimeUtils::buildOffsetString
-     * @covers \Netgen\BlockManager\Utils\DateTimeUtils::getTimeZoneList
-     * @covers \Netgen\BlockManager\Utils\DateTimeUtils::parseTimeZone
+     * @covers \Netgen\Layouts\Utils\DateTimeUtils::buildOffsetString
+     * @covers \Netgen\Layouts\Utils\DateTimeUtils::getTimeZoneList
+     * @covers \Netgen\Layouts\Utils\DateTimeUtils::parseTimeZone
      */
     public function testGetTimeZoneList(): void
     {

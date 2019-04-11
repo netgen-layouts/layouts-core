@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Item\Registry;
+namespace Netgen\Layouts\Item\Registry;
 
 use ArrayAccess;
 use Countable;
 use IteratorAggregate;
-use Netgen\BlockManager\Item\ValueType\ValueType;
+use Netgen\Layouts\Item\ValueType\ValueType;
 
 interface ValueTypeRegistryInterface extends IteratorAggregate, Countable, ArrayAccess
 {
@@ -19,7 +19,7 @@ interface ValueTypeRegistryInterface extends IteratorAggregate, Countable, Array
     /**
      * Returns a value type for provided identifier.
      *
-     * @throws \Netgen\BlockManager\Exception\Item\ItemException If value type does not exist
+     * @throws \Netgen\Layouts\Exception\Item\ItemException If value type does not exist
      */
     public function getValueType(string $identifier): ValueType;
 
@@ -28,7 +28,7 @@ interface ValueTypeRegistryInterface extends IteratorAggregate, Countable, Array
      *
      * @param bool $onlyEnabled
      *
-     * @return \Netgen\BlockManager\Item\ValueType\ValueType[]
+     * @return \Netgen\Layouts\Item\ValueType\ValueType[]
      */
     public function getValueTypes(bool $onlyEnabled = false): array;
 }

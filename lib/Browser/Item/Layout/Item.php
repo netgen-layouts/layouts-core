@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Browser\Item\Layout;
+namespace Netgen\Layouts\Browser\Item\Layout;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\ContentBrowser\Item\ItemInterface;
+use Netgen\Layouts\API\Values\Layout\Layout;
 
 final class Item implements ItemInterface, LayoutInterface
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Layout\Layout
+     * @var \Netgen\Layouts\API\Values\Layout\Layout
      */
     private $layout;
 

@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Serializer\Normalizer\V1;
+namespace Netgen\Layouts\Serializer\Normalizer\V1;
 
-use Netgen\BlockManager\Block\BlockType\BlockType;
-use Netgen\BlockManager\Block\BlockType\BlockTypeGroup;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Serializer\Version;
+use Netgen\Layouts\Block\BlockType\BlockType;
+use Netgen\Layouts\Block\BlockType\BlockTypeGroup;
+use Netgen\Layouts\Serializer\Values\VersionedValue;
+use Netgen\Layouts\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class BlockTypeGroupNormalizer implements NormalizerInterface
 {
     public function normalize($object, $format = null, array $context = [])
     {
-        /** @var \Netgen\BlockManager\Block\BlockType\BlockTypeGroup $blockTypeGroup */
+        /** @var \Netgen\Layouts\Block\BlockType\BlockTypeGroup $blockTypeGroup */
         $blockTypeGroup = $object->getValue();
 
         return [

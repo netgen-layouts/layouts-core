@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\Config;
+namespace Netgen\Layouts\API\Values\Config;
 
-use Netgen\BlockManager\API\Values\Config\Config as APIConfig;
-use Netgen\BlockManager\Exception\API\ConfigException;
+use Netgen\Layouts\API\Values\Config\Config as APIConfig;
+use Netgen\Layouts\Exception\API\ConfigException;
 
 trait ConfigAwareValueTrait
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Config\Config[]
+     * @var \Netgen\Layouts\API\Values\Config\Config[]
      */
     private $configs = [];
 
@@ -25,7 +25,7 @@ trait ConfigAwareValueTrait
     /**
      * Returns the config with specified config key.
      *
-     * @throws \Netgen\BlockManager\Exception\API\ConfigException If the config does not exist
+     * @throws \Netgen\Layouts\Exception\API\ConfigException If the config does not exist
      */
     public function getConfig(string $configKey): APIConfig
     {

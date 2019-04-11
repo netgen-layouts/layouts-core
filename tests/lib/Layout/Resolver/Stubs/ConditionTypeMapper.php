@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\Stubs;
+namespace Netgen\Layouts\Tests\Layout\Resolver\Stubs;
 
-use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\MapperInterface;
+use Netgen\Layouts\Layout\Resolver\Form\ConditionType\MapperInterface;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormBuilderInterface;
 

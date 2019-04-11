@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\Matcher\Parameter;
+namespace Netgen\Layouts\Tests\View\Matcher\Parameter;
 
-use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterType\TextType;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\View\Matcher\Parameter\Type;
-use Netgen\BlockManager\View\View\ParameterView;
+use Netgen\Layouts\Parameters\Parameter;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType\TextType;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\View\Stubs\View;
+use Netgen\Layouts\View\Matcher\Parameter\Type;
+use Netgen\Layouts\View\View\ParameterView;
 use PHPUnit\Framework\TestCase;
 
 final class TypeTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\View\Matcher\MatcherInterface
+     * @var \Netgen\Layouts\View\Matcher\MatcherInterface
      */
     private $matcher;
 
@@ -26,7 +26,7 @@ final class TypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Parameter\Type::match
+     * @covers \Netgen\Layouts\View\Matcher\Parameter\Type::match
      * @dataProvider matchProvider
      */
     public function testMatch(array $config, bool $expected): void
@@ -58,7 +58,7 @@ final class TypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Parameter\Type::match
+     * @covers \Netgen\Layouts\View\Matcher\Parameter\Type::match
      */
     public function testMatchWithNoParameterView(): void
     {

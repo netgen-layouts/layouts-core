@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Parameters;
+namespace Netgen\Layouts\Parameters;
 
 interface ParameterDefinitionCollectionInterface
 {
     /**
      * Returns all parameter definitions from the collection.
      *
-     * @return \Netgen\BlockManager\Parameters\ParameterDefinition[]
+     * @return \Netgen\Layouts\Parameters\ParameterDefinition[]
      */
     public function getParameterDefinitions(): array;
 
     /**
      * Returns the parameter definition with provided name.
      *
-     * @throws \Netgen\BlockManager\Exception\Parameters\ParameterException If the requested parameter definition does not exist
+     * @throws \Netgen\Layouts\Exception\Parameters\ParameterException If the requested parameter definition does not exist
      */
     public function getParameterDefinition(string $parameterName): ParameterDefinition;
 

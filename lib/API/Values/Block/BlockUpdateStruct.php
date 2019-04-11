@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\Block;
+namespace Netgen\Layouts\API\Values\Block;
 
-use Netgen\BlockManager\API\Values\Config\ConfigAwareStruct;
-use Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait;
-use Netgen\BlockManager\API\Values\ParameterStruct;
-use Netgen\BlockManager\API\Values\ParameterStructTrait;
-use Netgen\BlockManager\Block\BlockDefinitionInterface;
+use Netgen\Layouts\API\Values\Config\ConfigAwareStruct;
+use Netgen\Layouts\API\Values\Config\ConfigAwareStructTrait;
+use Netgen\Layouts\API\Values\ParameterStruct;
+use Netgen\Layouts\API\Values\ParameterStructTrait;
+use Netgen\Layouts\Block\BlockDefinitionInterface;
 
 final class BlockUpdateStruct implements ParameterStruct, ConfigAwareStruct
 {

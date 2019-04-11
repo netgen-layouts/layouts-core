@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Parameters;
+namespace Netgen\Layouts\Parameters;
 
-use Netgen\BlockManager\Utils\HydratorTrait;
+use Netgen\Layouts\Utils\HydratorTrait;
 
 final class Parameter
 {
@@ -16,7 +16,7 @@ final class Parameter
     private $name;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterDefinition
+     * @var \Netgen\Layouts\Parameters\ParameterDefinition
      */
     private $parameterDefinition;
 

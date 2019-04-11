@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Collection\Result\Stubs;
+namespace Netgen\Layouts\Tests\Collection\Result\Stubs;
 
 final class Value
 {

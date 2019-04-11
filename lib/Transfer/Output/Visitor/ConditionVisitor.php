@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Transfer\Output\Visitor;
+namespace Netgen\Layouts\Transfer\Output\Visitor;
 
-use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\Transfer\Output\VisitorInterface;
+use Netgen\Layouts\API\Values\LayoutResolver\Condition;
+use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 /**
  * Condition value visitor.
  *
- * @see \Netgen\BlockManager\API\Values\LayoutResolver\Condition
+ * @see \Netgen\Layouts\API\Values\LayoutResolver\Condition
  */
 final class ConditionVisitor implements VisitorInterface
 {
@@ -20,8 +20,8 @@ final class ConditionVisitor implements VisitorInterface
     }
 
     /**
-     * @param \Netgen\BlockManager\API\Values\LayoutResolver\Condition $value
-     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface|null $subVisitor
+     * @param \Netgen\Layouts\API\Values\LayoutResolver\Condition $value
+     * @param \Netgen\Layouts\Transfer\Output\VisitorInterface|null $subVisitor
      *
      * @return mixed
      */

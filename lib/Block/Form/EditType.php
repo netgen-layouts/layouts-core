@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Block\Form;
+namespace Netgen\Layouts\Block\Form;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\Block\BlockDefinitionInterface;
-use Netgen\BlockManager\Form\AbstractType;
-use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
-use Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
+use Netgen\Layouts\Block\BlockDefinitionInterface;
+use Netgen\Layouts\Form\AbstractType;
+use Netgen\Layouts\Parameters\Form\Type\ParametersType;
+use Netgen\Layouts\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -73,7 +73,7 @@ abstract class EditType extends AbstractType
      */
     protected function addViewTypeForm(FormBuilderInterface $builder, array $options): void
     {
-        /** @var \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition */
+        /** @var \Netgen\Layouts\Block\BlockDefinitionInterface $blockDefinition */
         $blockDefinition = $options['block']->getDefinition();
 
         $this->processViewTypeConfig($blockDefinition);
@@ -129,7 +129,7 @@ abstract class EditType extends AbstractType
      */
     protected function addParametersForm(FormBuilderInterface $builder, array $options, array $groups = []): void
     {
-        /** @var \Netgen\BlockManager\Block\BlockDefinitionInterface $blockDefinition */
+        /** @var \Netgen\Layouts\Block\BlockDefinitionInterface $blockDefinition */
         $blockDefinition = $options['block']->getDefinition();
 
         $builder->add(

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Context;
+namespace Netgen\Layouts\Context;
 
 use ArrayAccess;
 use Countable;
@@ -34,7 +34,7 @@ interface ContextInterface extends IteratorAggregate, Countable, ArrayAccess
     /**
      * Returns the variable with provided name from the context.
      *
-     * @throws \Netgen\BlockManager\Exception\Context\ContextException If variable with provided name does not exist
+     * @throws \Netgen\Layouts\Exception\Context\ContextException If variable with provided name does not exist
      *
      * @return mixed
      */

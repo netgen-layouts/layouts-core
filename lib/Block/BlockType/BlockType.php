@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Block\BlockType;
+namespace Netgen\Layouts\Block\BlockType;
 
-use Netgen\BlockManager\Block\BlockDefinitionInterface;
-use Netgen\BlockManager\Utils\HydratorTrait;
+use Netgen\Layouts\Block\BlockDefinitionInterface;
+use Netgen\Layouts\Utils\HydratorTrait;
 
 /**
  * Block type represents the starting configuration of the block. E.g. while
@@ -40,7 +40,7 @@ class BlockType
     private $icon;
 
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
+     * @var \Netgen\Layouts\Block\BlockDefinitionInterface
      */
     private $definition;
 

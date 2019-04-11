@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\EventListener\RuleView;
 
-use Netgen\BlockManager\API\Service\LayoutResolverService;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\Event\BlockManagerEvents;
-use Netgen\BlockManager\Event\CollectViewParametersEvent;
-use Netgen\BlockManager\View\View\RuleViewInterface;
+use Netgen\Layouts\API\Service\LayoutResolverService;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\Event\CollectViewParametersEvent;
+use Netgen\Layouts\Event\LayoutsEvents;
+use Netgen\Layouts\View\View\RuleViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class RuleCountListener implements EventSubscriberInterface
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutResolverService
+     * @var \Netgen\Layouts\API\Service\LayoutResolverService
      */
     private $layoutResolverService;
 
@@ -25,7 +25,7 @@ final class RuleCountListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents(): array
     {
-        return [sprintf('%s.%s', BlockManagerEvents::BUILD_VIEW, 'rule') => 'onBuildView'];
+        return [sprintf('%s.%s', LayoutsEvents::BUILD_VIEW, 'rule') => 'onBuildView'];
     }
 
     /**

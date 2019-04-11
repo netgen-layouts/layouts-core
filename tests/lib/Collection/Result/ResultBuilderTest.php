@@ -2,35 +2,35 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Collection\Result;
+namespace Netgen\Layouts\Tests\Collection\Result;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\Collection\Item\ItemDefinition;
-use Netgen\BlockManager\Collection\Item\VisibilityResolver;
-use Netgen\BlockManager\Collection\Result\CollectionRunnerFactory;
-use Netgen\BlockManager\Collection\Result\ManualItem;
-use Netgen\BlockManager\Collection\Result\Result;
-use Netgen\BlockManager\Collection\Result\ResultBuilder;
-use Netgen\BlockManager\Collection\Result\ResultBuilderInterface;
-use Netgen\BlockManager\Item\CmsItem;
-use Netgen\BlockManager\Item\CmsItemBuilder;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
-use Netgen\BlockManager\Tests\Item\Stubs\Value;
-use Netgen\BlockManager\Tests\Item\Stubs\ValueConverter;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\Collection\Item\ItemDefinition;
+use Netgen\Layouts\Collection\Item\VisibilityResolver;
+use Netgen\Layouts\Collection\Result\CollectionRunnerFactory;
+use Netgen\Layouts\Collection\Result\ManualItem;
+use Netgen\Layouts\Collection\Result\Result;
+use Netgen\Layouts\Collection\Result\ResultBuilder;
+use Netgen\Layouts\Collection\Result\ResultBuilderInterface;
+use Netgen\Layouts\Item\CmsItem;
+use Netgen\Layouts\Item\CmsItemBuilder;
+use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
+use Netgen\Layouts\Tests\Item\Stubs\Value;
+use Netgen\Layouts\Tests\Item\Stubs\ValueConverter;
 use PHPUnit\Framework\TestCase;
 
 final class ResultBuilderTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Item\CmsItemBuilderInterface
+     * @var \Netgen\Layouts\Item\CmsItemBuilderInterface
      */
     private $cmsItemBuilder;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Result\ResultBuilderInterface
+     * @var \Netgen\Layouts\Collection\Result\ResultBuilderInterface
      */
     private $resultBuilder;
 
@@ -44,8 +44,8 @@ final class ResultBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::__construct
-     * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::build
+     * @covers \Netgen\Layouts\Collection\Result\ResultBuilder::__construct
+     * @covers \Netgen\Layouts\Collection\Result\ResultBuilder::build
      */
     public function testBuildForManualCollection(): void
     {
@@ -67,8 +67,8 @@ final class ResultBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::__construct
-     * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::build
+     * @covers \Netgen\Layouts\Collection\Result\ResultBuilder::__construct
+     * @covers \Netgen\Layouts\Collection\Result\ResultBuilder::build
      */
     public function testBuildWithLimitLargerThanMaxLimit(): void
     {
@@ -92,7 +92,7 @@ final class ResultBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::build
+     * @covers \Netgen\Layouts\Collection\Result\ResultBuilder::build
      */
     public function testBuildForDynamicCollection(): void
     {
@@ -116,7 +116,7 @@ final class ResultBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::build
+     * @covers \Netgen\Layouts\Collection\Result\ResultBuilder::build
      */
     public function testBuildForDynamicAndContextualCollection(): void
     {
@@ -141,7 +141,7 @@ final class ResultBuilderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\ResultBuilder::build
+     * @covers \Netgen\Layouts\Collection\Result\ResultBuilder::build
      */
     public function testBuildForDynamicAndContextualCollectionAndLimitLowerThanContextualLimit(): void
     {
@@ -216,7 +216,7 @@ final class ResultBuilderTest extends TestCase
     /**
      * Builds the list of values as returned by queries from provided IDs.
      *
-     * @return \Netgen\BlockManager\Tests\Item\Stubs\Value[]
+     * @return \Netgen\Layouts\Tests\Item\Stubs\Value[]
      */
     private function buildQueryValues(array $ids = []): array
     {

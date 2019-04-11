@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Security\Authorization\Voter;
+namespace Netgen\Layouts\Tests\Security\Authorization\Voter;
 
-use Netgen\BlockManager\Security\Authorization\Voter\PolicyToRoleMapVoter;
+use Netgen\Layouts\Security\Authorization\Voter\PolicyToRoleMapVoter;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -13,7 +13,7 @@ use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface
 final class PolicyToRoleMapVoterTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Security\Authorization\Voter\PolicyToRoleMapVoter
+     * @var \Netgen\Layouts\Security\Authorization\Voter\PolicyToRoleMapVoter
      */
     private $voter;
 
@@ -30,9 +30,9 @@ final class PolicyToRoleMapVoterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Security\Authorization\Voter\PolicyToRoleMapVoter::__construct
-     * @covers \Netgen\BlockManager\Security\Authorization\Voter\PolicyToRoleMapVoter::supports
-     * @covers \Netgen\BlockManager\Security\Authorization\Voter\PolicyToRoleMapVoter::voteOnAttribute
+     * @covers \Netgen\Layouts\Security\Authorization\Voter\PolicyToRoleMapVoter::__construct
+     * @covers \Netgen\Layouts\Security\Authorization\Voter\PolicyToRoleMapVoter::supports
+     * @covers \Netgen\Layouts\Security\Authorization\Voter\PolicyToRoleMapVoter::voteOnAttribute
      */
     public function testVote(): void
     {
@@ -54,7 +54,7 @@ final class PolicyToRoleMapVoterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Security\Authorization\Voter\PolicyToRoleMapVoter::supports
+     * @covers \Netgen\Layouts\Security\Authorization\Voter\PolicyToRoleMapVoter::supports
      */
     public function testVoteWithUnsupportedAttribute(): void
     {
@@ -66,8 +66,8 @@ final class PolicyToRoleMapVoterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Security\Authorization\Voter\PolicyToRoleMapVoter::supports
-     * @covers \Netgen\BlockManager\Security\Authorization\Voter\PolicyToRoleMapVoter::voteOnAttribute
+     * @covers \Netgen\Layouts\Security\Authorization\Voter\PolicyToRoleMapVoter::supports
+     * @covers \Netgen\Layouts\Security\Authorization\Voter\PolicyToRoleMapVoter::voteOnAttribute
      */
     public function testVoteWithNonExistingRole(): void
     {

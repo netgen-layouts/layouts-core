@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\Matcher\Form\Config;
+namespace Netgen\Layouts\Tests\View\Matcher\Form\Config;
 
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\View\Matcher\Stubs\Form;
-use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\View\Matcher\Form\Config\ConfigKey;
-use Netgen\BlockManager\View\View\FormView;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\View\Matcher\Stubs\Form;
+use Netgen\Layouts\Tests\View\Stubs\View;
+use Netgen\Layouts\View\Matcher\Form\Config\ConfigKey;
+use Netgen\Layouts\View\View\FormView;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Forms;
 
@@ -20,7 +20,7 @@ final class ConfigKeyTest extends TestCase
     private $formFactory;
 
     /**
-     * @var \Netgen\BlockManager\View\Matcher\MatcherInterface
+     * @var \Netgen\Layouts\View\Matcher\MatcherInterface
      */
     private $matcher;
 
@@ -33,7 +33,7 @@ final class ConfigKeyTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Form\Config\ConfigKey::match
+     * @covers \Netgen\Layouts\View\Matcher\Form\Config\ConfigKey::match
      * @dataProvider matchProvider
      */
     public function testMatch(array $config, bool $expected): void
@@ -61,7 +61,7 @@ final class ConfigKeyTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Form\Config\ConfigKey::match
+     * @covers \Netgen\Layouts\View\Matcher\Form\Config\ConfigKey::match
      */
     public function testMatchWithNoFormView(): void
     {
@@ -69,7 +69,7 @@ final class ConfigKeyTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Form\Config\ConfigKey::match
+     * @covers \Netgen\Layouts\View\Matcher\Form\Config\ConfigKey::match
      */
     public function testMatchWithNoConfigurable(): void
     {
@@ -79,7 +79,7 @@ final class ConfigKeyTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Form\Config\ConfigKey::match
+     * @covers \Netgen\Layouts\View\Matcher\Form\Config\ConfigKey::match
      */
     public function testMatchWithInvalidConfigurable(): void
     {

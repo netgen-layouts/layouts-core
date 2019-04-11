@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View\Matcher\Block;
+namespace Netgen\Layouts\View\Matcher\Block;
 
-use Netgen\BlockManager\View\Matcher\MatcherInterface;
-use Netgen\BlockManager\View\View\BlockViewInterface;
-use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Layouts\View\Matcher\MatcherInterface;
+use Netgen\Layouts\View\View\BlockViewInterface;
+use Netgen\Layouts\View\ViewInterface;
 
 /**
  * This matcher matches if the locale of the block in the provided view

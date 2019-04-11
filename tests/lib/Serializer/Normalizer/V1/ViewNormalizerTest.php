@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
+namespace Netgen\Layouts\Tests\Serializer\Normalizer\V1;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Serializer\Values\View;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\View\RendererInterface;
-use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Serializer\Normalizer\V1\ViewNormalizer;
+use Netgen\Layouts\Serializer\Values\VersionedValue;
+use Netgen\Layouts\Serializer\Values\View;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\View\RendererInterface;
+use Netgen\Layouts\View\ViewInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
@@ -27,7 +27,7 @@ final class ViewNormalizerTest extends TestCase
     private $normalizerMock;
 
     /**
-     * @var \Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer
+     * @var \Netgen\Layouts\Serializer\Normalizer\V1\ViewNormalizer
      */
     private $normalizer;
 
@@ -41,8 +41,8 @@ final class ViewNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer::__construct
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer::normalize
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\ViewNormalizer::__construct
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\ViewNormalizer::normalize
      */
     public function testNormalize(): void
     {
@@ -71,8 +71,8 @@ final class ViewNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer::__construct
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer::normalize
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\ViewNormalizer::__construct
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\ViewNormalizer::normalize
      */
     public function testNormalizeWithoutRendering(): void
     {
@@ -95,8 +95,8 @@ final class ViewNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer::__construct
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer::normalize
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\ViewNormalizer::__construct
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\ViewNormalizer::normalize
      */
     public function testNormalizeWithInvalidDisableRenderingValue(): void
     {
@@ -129,7 +129,7 @@ final class ViewNormalizerTest extends TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\ViewNormalizer::supportsNormalization
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\ViewNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, bool $expected): void

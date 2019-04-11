@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Layout\Form;
+namespace Netgen\Layouts\Layout\Form;
 
-use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
-use Netgen\BlockManager\Form\AbstractType;
-use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
-use Netgen\BlockManager\Validator\Constraint\LayoutName;
+use Netgen\Layouts\API\Values\Layout\LayoutCreateStruct;
+use Netgen\Layouts\Form\AbstractType;
+use Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface;
+use Netgen\Layouts\Validator\Constraint\LayoutName;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Constraints;
 final class CreateType extends AbstractType
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface
      */
     private $layoutTypeRegistry;
 
@@ -100,7 +100,7 @@ final class CreateType extends AbstractType
 
     public function finishView(FormView $view, FormInterface $form, array $options): void
     {
-        /** @var \Netgen\BlockManager\Layout\Type\LayoutTypeInterface $layoutType */
+        /** @var \Netgen\Layouts\Layout\Type\LayoutTypeInterface $layoutType */
         foreach ($this->layoutTypeRegistry->getLayoutTypes(true) as $layoutType) {
             $view['layoutType'][$layoutType->getIdentifier()]->vars['layout_type'] = $layoutType;
         }

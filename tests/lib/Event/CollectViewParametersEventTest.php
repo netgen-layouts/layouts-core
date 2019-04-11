@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Event;
+namespace Netgen\Layouts\Tests\Event;
 
-use Netgen\BlockManager\Event\CollectViewParametersEvent;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\View\Stubs\View;
+use Netgen\Layouts\Event\CollectViewParametersEvent;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\View\Stubs\View;
 use PHPUnit\Framework\TestCase;
 
 final class CollectViewParametersEventTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Event\CollectViewParametersEvent
+     * @var \Netgen\Layouts\Event\CollectViewParametersEvent
      */
     private $event;
 
     /**
-     * @var \Netgen\BlockManager\Tests\View\Stubs\View
+     * @var \Netgen\Layouts\Tests\View\Stubs\View
      */
     private $view;
 
@@ -29,8 +29,8 @@ final class CollectViewParametersEventTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Event\CollectViewParametersEvent::__construct
-     * @covers \Netgen\BlockManager\Event\CollectViewParametersEvent::getParameters
+     * @covers \Netgen\Layouts\Event\CollectViewParametersEvent::__construct
+     * @covers \Netgen\Layouts\Event\CollectViewParametersEvent::getParameters
      */
     public function testGetParameters(): void
     {
@@ -38,8 +38,8 @@ final class CollectViewParametersEventTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Event\CollectViewParametersEvent::addParameter
-     * @covers \Netgen\BlockManager\Event\CollectViewParametersEvent::getParameters
+     * @covers \Netgen\Layouts\Event\CollectViewParametersEvent::addParameter
+     * @covers \Netgen\Layouts\Event\CollectViewParametersEvent::getParameters
      */
     public function testAddParameter(): void
     {
@@ -48,7 +48,7 @@ final class CollectViewParametersEventTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Event\CollectViewParametersEvent::getView
+     * @covers \Netgen\Layouts\Event\CollectViewParametersEvent::getView
      */
     public function testGetView(): void
     {

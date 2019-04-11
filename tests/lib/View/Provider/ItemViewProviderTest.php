@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\Provider;
+namespace Netgen\Layouts\Tests\View\Provider;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\Exception\View\ViewProviderException;
-use Netgen\BlockManager\Item\CmsItem;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\View\Provider\ItemViewProvider;
-use Netgen\BlockManager\View\View\ItemViewInterface;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\Exception\View\ViewProviderException;
+use Netgen\Layouts\Item\CmsItem;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\View\Provider\ItemViewProvider;
+use Netgen\Layouts\View\View\ItemViewInterface;
 use PHPUnit\Framework\TestCase;
 
 final class ItemViewProviderTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\View\Provider\ViewProviderInterface
+     * @var \Netgen\Layouts\View\Provider\ViewProviderInterface
      */
     private $itemViewProvider;
 
@@ -25,7 +25,7 @@ final class ItemViewProviderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Provider\ItemViewProvider::provideView
+     * @covers \Netgen\Layouts\View\Provider\ItemViewProvider::provideView
      */
     public function testProvideView(): void
     {
@@ -47,7 +47,7 @@ final class ItemViewProviderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Provider\ItemViewProvider::provideView
+     * @covers \Netgen\Layouts\View\Provider\ItemViewProvider::provideView
      */
     public function testProvideViewThrowsViewProviderExceptionOnMissingViewType(): void
     {
@@ -58,7 +58,7 @@ final class ItemViewProviderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Provider\ItemViewProvider::provideView
+     * @covers \Netgen\Layouts\View\Provider\ItemViewProvider::provideView
      */
     public function testProvideViewThrowsViewProviderExceptionOnInvalidViewType(): void
     {
@@ -72,7 +72,7 @@ final class ItemViewProviderTest extends TestCase
      * @param mixed $value
      * @param bool $supports
      *
-     * @covers \Netgen\BlockManager\View\Provider\ItemViewProvider::supports
+     * @covers \Netgen\Layouts\View\Provider\ItemViewProvider::supports
      * @dataProvider supportsProvider
      */
     public function testSupports($value, bool $supports): void

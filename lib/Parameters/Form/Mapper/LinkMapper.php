@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Parameters\Form\Mapper;
+namespace Netgen\Layouts\Parameters\Form\Mapper;
 
-use Netgen\BlockManager\Parameters\Form\Mapper;
-use Netgen\BlockManager\Parameters\Form\Type\DataMapper\LinkDataMapper;
-use Netgen\BlockManager\Parameters\Form\Type\LinkType;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\Form\Mapper;
+use Netgen\Layouts\Parameters\Form\Type\DataMapper\LinkDataMapper;
+use Netgen\Layouts\Parameters\Form\Type\LinkType;
+use Netgen\Layouts\Parameters\ParameterDefinition;
 use Symfony\Component\Form\FormBuilderInterface;
 
 final class LinkMapper extends Mapper

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Helper\ConnectionHelper;
+namespace Netgen\Layouts\Tests\Persistence\Doctrine\Helper\ConnectionHelper;
 
-use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite;
-use Netgen\BlockManager\Tests\Persistence\Doctrine\DatabaseTrait;
+use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite;
+use Netgen\Layouts\Tests\Persistence\Doctrine\DatabaseTrait;
 use PHPUnit\Framework\TestCase;
 
 final class SqliteTest extends TestCase
@@ -13,7 +13,7 @@ final class SqliteTest extends TestCase
     use DatabaseTrait;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite
+     * @var \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite
      */
     private $helper;
 
@@ -33,8 +33,8 @@ final class SqliteTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite::__construct
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite::getAutoIncrementValue
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite::__construct
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite::getAutoIncrementValue
      */
     public function testGetAutoIncrementValue(): void
     {
@@ -42,8 +42,8 @@ final class SqliteTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite::__construct
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite::lastInsertId
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite::__construct
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite::lastInsertId
      */
     public function testLastInsertId(): void
     {

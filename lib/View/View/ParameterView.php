@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View\View;
+namespace Netgen\Layouts\View\View;
 
-use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\View\View;
+use Netgen\Layouts\Parameters\Parameter;
+use Netgen\Layouts\View\View;
 
 final class ParameterView extends View implements ParameterViewInterface
 {

@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Validator\Constraint;
+namespace Netgen\Layouts\Tests\Validator\Constraint;
 
-use Netgen\BlockManager\Validator\Constraint\ValueType;
+use Netgen\Layouts\Validator\Constraint\ValueType;
 use PHPUnit\Framework\TestCase;
 
 final class ValueTypeTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Validator\Constraint\ValueType::validatedBy
+     * @covers \Netgen\Layouts\Validator\Constraint\ValueType::validatedBy
      */
     public function testValidatedBy(): void
     {

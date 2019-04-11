@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
+namespace Netgen\Layouts\Tests\Persistence\Doctrine\Handler;
 
-use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\Values\Collection\CollectionCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\CollectionUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\Item;
-use Netgen\BlockManager\Persistence\Values\Collection\ItemCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\ItemUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\QueryCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Collection\QueryTranslationUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Value;
-use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
+use Netgen\Layouts\Exception\BadStateException;
+use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Persistence\Values\Collection\CollectionCreateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\CollectionUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\Item;
+use Netgen\Layouts\Persistence\Values\Collection\ItemCreateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\ItemUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\QueryCreateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\QueryTranslationUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
+use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 
 final class CollectionHandlerTest extends TestCase
@@ -24,7 +24,7 @@ final class CollectionHandlerTest extends TestCase
     use ExportObjectTrait;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface
+     * @var \Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface
      */
     private $collectionHandler;
 
@@ -44,11 +44,11 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::__construct
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollection
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::__construct
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::getCollectionSelectQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::__construct
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadCollection
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::__construct
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::getCollectionSelectQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
      */
     public function testLoadCollection(): void
     {
@@ -70,8 +70,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollection
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadCollection
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
      */
     public function testLoadCollectionThrowsNotFoundException(): void
     {
@@ -82,9 +82,9 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::getItemSelectQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadItemData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::getItemSelectQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadItemData
      */
     public function testLoadItem(): void
     {
@@ -105,8 +105,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadItemData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadItemData
      */
     public function testLoadItemThrowsNotFoundException(): void
     {
@@ -117,9 +117,9 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadItemWithPosition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::getItemSelectQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadItemWithPositionData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadItemWithPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::getItemSelectQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadItemWithPositionData
      */
     public function testLoadItemWithPosition(): void
     {
@@ -143,8 +143,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadItemWithPosition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadItemWithPositionData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadItemWithPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadItemWithPositionData
      */
     public function testLoadItemWithPositionThrowsNotFoundException(): void
     {
@@ -158,8 +158,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionItems
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionItemsData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionItems
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionItemsData
      */
     public function testLoadCollectionItems(): void
     {
@@ -172,9 +172,9 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::getQuerySelectQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadQueryData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::getQuerySelectQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadQueryData
      */
     public function testLoadQuery(): void
     {
@@ -210,8 +210,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadQueryData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadQueryData
      */
     public function testLoadQueryThrowsNotFoundException(): void
     {
@@ -222,8 +222,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryData
      */
     public function testLoadCollectionQuery(): void
     {
@@ -261,8 +261,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryData
      */
     public function testLoadCollectionQueryThrowsNotFoundException(): void
     {
@@ -275,8 +275,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::collectionExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::collectionExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::collectionExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::collectionExists
      */
     public function testCollectionExists(): void
     {
@@ -284,8 +284,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::collectionExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::collectionExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::collectionExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::collectionExists
      */
     public function testCollectionNotExists(): void
     {
@@ -293,8 +293,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::collectionExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::collectionExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::collectionExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::collectionExists
      */
     public function testCollectionNotExistsInStatus(): void
     {
@@ -302,8 +302,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollection
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollection
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createCollection
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollection
      */
     public function testCreateCollection(): void
     {
@@ -333,9 +333,9 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollectionTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollectionTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createQueryTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createCollectionTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollectionTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createQueryTranslation
      */
     public function testCreateCollectionTranslation(): void
     {
@@ -397,8 +397,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollectionTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollectionTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createCollectionTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollectionTranslation
      */
     public function testCreateCollectionTranslationWithNonMainSourceLocale(): void
     {
@@ -460,8 +460,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollectionTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollectionTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createCollectionTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollectionTranslation
      */
     public function testCreateCollectionTranslationForCollectionWithNoQuery(): void
     {
@@ -487,8 +487,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollectionTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollectionTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createCollectionTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollectionTranslation
      */
     public function testCreateCollectionTranslationThrowsBadStateExceptionWithExistingLocale(): void
     {
@@ -503,8 +503,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollectionTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollectionTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createCollectionTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollectionTranslation
      */
     public function testCreateCollectionTranslationThrowsBadStateExceptionWithNonExistingSourceLocale(): void
     {
@@ -519,8 +519,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::setMainTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::setMainTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
      */
     public function testSetMainTranslation(): void
     {
@@ -534,8 +534,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::setMainTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::setMainTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
      */
     public function testSetMainTranslationForCollectionWithNoQuery(): void
     {
@@ -546,7 +546,7 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::setMainTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::setMainTranslation
      */
     public function testSetMainTranslationThrowsBadStateExceptionWithNonExistingLocale(): void
     {
@@ -558,8 +558,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::updateCollection
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::updateCollection
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
      */
     public function testUpdateCollection(): void
     {
@@ -590,8 +590,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::updateCollection
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::updateCollection
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
      */
     public function testUpdateCollectionWithNoLimit(): void
     {
@@ -620,8 +620,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::updateCollection
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::updateCollection
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
      */
     public function testUpdateCollectionWithDefaultValues(): void
     {
@@ -648,13 +648,13 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::copyCollection
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollection
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionItemsData
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::copyCollection
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollection
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionItemsData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryData
      */
     public function testCopyCollection(): void
     {
@@ -743,11 +743,11 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::copyCollection
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollection
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionItemsData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::copyCollection
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollection
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionItemsData
      */
     public function testCopyCollectionWithoutQuery(): void
     {
@@ -806,13 +806,13 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollectionStatus
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollection
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionItemsData
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createCollectionStatus
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollection
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionItemsData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryData
      */
     public function testCreateCollectionStatus(): void
     {
@@ -902,11 +902,11 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createCollectionStatus
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollection
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionItemsData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createCollectionStatus
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollection
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionItemsData
      */
     public function testCreateCollectionStatusWithoutQuery(): void
     {
@@ -966,11 +966,11 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteCollection
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollection
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionItems
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryIds
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteCollection
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollection
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionItems
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryIds
      */
     public function testDeleteCollection(): void
     {
@@ -983,11 +983,11 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteCollection
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollection
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionItems
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryIds
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteCollection
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollection
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionItems
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryIds
      */
     public function testDeleteCollectionWithoutQuery(): void
     {
@@ -1000,11 +1000,11 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteCollection
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollection
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionItems
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryIds
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteCollection
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollection
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionItems
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryIds
      */
     public function testDeleteCollectionInOneStatus(): void
     {
@@ -1024,10 +1024,10 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteCollectionTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionTranslations
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQueryTranslations
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryIds
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteCollectionTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionTranslations
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQueryTranslations
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryIds
      */
     public function testDeleteCollectionTranslation(): void
     {
@@ -1076,8 +1076,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteCollectionTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionTranslations
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteCollectionTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionTranslations
      */
     public function testDeleteCollectionTranslationForCollectionWithNoQuery(): void
     {
@@ -1102,8 +1102,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteCollectionTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionTranslations
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteCollectionTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionTranslations
      */
     public function testDeleteCollectionTranslationWithNonExistingLocale(): void
     {
@@ -1117,8 +1117,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteCollectionTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionTranslations
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteCollectionTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionTranslations
      */
     public function testDeleteCollectionTranslationWithMainLocale(): void
     {
@@ -1132,11 +1132,11 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createItemPosition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::addItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createItemPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
      */
     public function testAddItem(): void
     {
@@ -1169,11 +1169,11 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createItemPosition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::addItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createItemPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
      */
     public function testAddItemToDynamicCollection(): void
     {
@@ -1212,11 +1212,11 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createItemPosition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::addItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createItemPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
      */
     public function testAddItemToDynamicCollectionInEmptySlot(): void
     {
@@ -1249,11 +1249,11 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createItemPosition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::addItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createItemPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
      */
     public function testAddItemWithNoPosition(): void
     {
@@ -1282,10 +1282,10 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createItemPosition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::addItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createItemPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
      */
     public function testAddItemToDynamicCollectionWithoutPositionThrowsBadStateException(): void
     {
@@ -1303,11 +1303,11 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createItemPosition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::addItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createItemPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
      */
     public function testAddItemThrowsBadStateExceptionOnNegativePosition(): void
     {
@@ -1327,11 +1327,11 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::addItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createItemPosition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::addItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createItemPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
      */
     public function testAddItemThrowsBadStateExceptionOnTooLargePosition(): void
     {
@@ -1351,8 +1351,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::updateItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::updateItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
      */
     public function testUpdateItem(): void
     {
@@ -1383,12 +1383,12 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
      */
     public function testMoveItem(): void
     {
@@ -1418,12 +1418,12 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
      */
     public function testMoveItemWithSwitchingPositions(): void
     {
@@ -1453,12 +1453,12 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
      */
     public function testMoveItemToSamePosition(): void
     {
@@ -1488,12 +1488,12 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
      */
     public function testMoveItemToLowerPosition(): void
     {
@@ -1520,12 +1520,12 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
      */
     public function testMoveItemToLowerPositionWithSwitchingPositions(): void
     {
@@ -1555,12 +1555,12 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
      */
     public function testMoveItemInDynamicCollection(): void
     {
@@ -1590,12 +1590,12 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
      */
     public function testMoveItemToLowerPositionInDynamicCollection(): void
     {
@@ -1622,11 +1622,11 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
      */
     public function testMoveItemThrowsBadStateExceptionOnNegativePosition(): void
     {
@@ -1640,11 +1640,11 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::incrementItemPositions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::moveItemToPosition
      */
     public function testMoveItemThrowsBadStateExceptionOnTooLargePosition(): void
     {
@@ -1658,9 +1658,9 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::switchItemPositions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::switchItemPositions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
      */
     public function testSwitchItemPositions(): void
     {
@@ -1677,7 +1677,7 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::switchItemPositions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::switchItemPositions
      */
     public function testSwitchItemPositionsThrowsBadStateExceptionWithSameItem(): void
     {
@@ -1691,7 +1691,7 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::switchItemPositions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::switchItemPositions
      */
     public function testSwitchItemPositionsThrowsBadStateExceptionWithItemsFromDifferentCollections(): void
     {
@@ -1705,10 +1705,10 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteItem
      */
     public function testDeleteItem(): void
     {
@@ -1728,10 +1728,10 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteItem
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::getPositionHelperItemConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteItem
      */
     public function testDeleteItemFromDynamicCollection(): void
     {
@@ -1751,8 +1751,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteItems
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteItems
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteItems
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteItems
      */
     public function testDeleteItems(): void
     {
@@ -1764,8 +1764,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createQuery
      */
     public function testCreateQuery(): void
     {
@@ -1806,8 +1806,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::createQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createQuery
      */
     public function testCreateQueryThrowsBadStateExceptionWithExistingQuery(): void
     {
@@ -1827,8 +1827,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::updateQueryTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateQueryTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::updateQueryTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateQueryTranslation
      */
     public function testUpdateQueryTranslation(): void
     {
@@ -1873,8 +1873,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::updateQueryTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateQueryTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::updateQueryTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateQueryTranslation
      */
     public function testUpdateQueryTranslationWithDefaultValues(): void
     {
@@ -1916,8 +1916,8 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::updateQueryTranslation
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateQueryTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::updateQueryTranslation
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateQueryTranslation
      */
     public function testUpdateQueryTranslationThrowsBadStateExceptionWithNonExistingLocale(): void
     {
@@ -1932,9 +1932,9 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteCollectionQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryIds
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteCollectionQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryIds
      */
     public function testDeleteCollectionQuery(): void
     {
@@ -1950,9 +1950,9 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler::deleteCollectionQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryIds
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteCollectionQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionQueryIds
      */
     public function testDeleteCollectionQueryWithNoQuery(): void
     {

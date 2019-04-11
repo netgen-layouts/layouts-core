@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Utils;
+namespace Netgen\Layouts\Utils;
 
 trait HydratorTrait
 {
     /**
-     * @var \Netgen\BlockManager\Utils\Hydrator
+     * @var \Netgen\Layouts\Utils\Hydrator
      */
     private static $__hydrator;
 

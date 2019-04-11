@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener\BlockView;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\TwigBlockDefinition;
-use Netgen\BlockManager\Event\BlockManagerEvents;
-use Netgen\BlockManager\Event\CollectViewParametersEvent;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\Block\Stubs\TwigBlockDefinitionHandler;
-use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate;
-use Netgen\BlockManager\View\View\BlockView;
 use Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetTwigBlockContentListener;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Block\TwigBlockDefinition;
+use Netgen\Layouts\Event\CollectViewParametersEvent;
+use Netgen\Layouts\Event\LayoutsEvents;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\Block\Stubs\TwigBlockDefinitionHandler;
+use Netgen\Layouts\Tests\View\Stubs\View;
+use Netgen\Layouts\View\Twig\ContextualizedTwigTemplate;
+use Netgen\Layouts\View\View\BlockView;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Twig\Template;
@@ -37,7 +37,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
-            [sprintf('%s.%s', BlockManagerEvents::RENDER_VIEW, 'block') => 'onRenderView'],
+            [sprintf('%s.%s', LayoutsEvents::RENDER_VIEW, 'block') => 'onRenderView'],
             $this->listener::getSubscribedEvents()
         );
     }

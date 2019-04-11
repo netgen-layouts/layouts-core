@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Parameters;
+namespace Netgen\Layouts\Parameters;
 
-use Netgen\BlockManager\Exception\Parameters\ParameterException;
-use Netgen\BlockManager\Utils\HydratorTrait;
+use Netgen\Layouts\Exception\Parameters\ParameterException;
+use Netgen\Layouts\Utils\HydratorTrait;
 
 /**
  * The definition of a parameter, specifying its name, type and various options.
@@ -22,7 +22,7 @@ class ParameterDefinition
     protected $name;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterTypeInterface
+     * @var \Netgen\Layouts\Parameters\ParameterTypeInterface
      */
     protected $type;
 
@@ -91,7 +91,7 @@ class ParameterDefinition
     /**
      * Returns the provided parameter option.
      *
-     * @throws \Netgen\BlockManager\Exception\Parameters\ParameterException If option does not exist
+     * @throws \Netgen\Layouts\Exception\Parameters\ParameterException If option does not exist
      *
      * @return mixed
      */

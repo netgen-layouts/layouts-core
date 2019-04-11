@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\Templating\Twig\Runtime\CollectionPager;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Context\ContextInterface;
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\CollectionPager\RouteGenerator;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Context\ContextInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpKernel\UriSigner;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;

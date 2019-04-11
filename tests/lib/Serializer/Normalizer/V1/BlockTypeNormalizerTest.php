@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
+namespace Netgen\Layouts\Tests\Serializer\Normalizer\V1;
 
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\BlockType\BlockType;
-use Netgen\BlockManager\Block\ContainerDefinition;
-use Netgen\BlockManager\Serializer\Normalizer\V1\BlockTypeNormalizer;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
+use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Block\BlockType\BlockType;
+use Netgen\Layouts\Block\ContainerDefinition;
+use Netgen\Layouts\Serializer\Normalizer\V1\BlockTypeNormalizer;
+use Netgen\Layouts\Serializer\Values\VersionedValue;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\Block\Stubs\ContainerDefinitionHandler;
 use PHPUnit\Framework\TestCase;
 
 final class BlockTypeNormalizerTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Serializer\Normalizer\V1\BlockTypeNormalizer
+     * @var \Netgen\Layouts\Serializer\Normalizer\V1\BlockTypeNormalizer
      */
     private $normalizer;
 
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinitionInterface
+     * @var \Netgen\Layouts\Block\BlockDefinitionInterface
      */
     private $blockDefinition;
 
@@ -33,7 +33,7 @@ final class BlockTypeNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockTypeNormalizer::normalize
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\BlockTypeNormalizer::normalize
      */
     public function testNormalize(): void
     {
@@ -67,7 +67,7 @@ final class BlockTypeNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockTypeNormalizer::normalize
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\BlockTypeNormalizer::normalize
      */
     public function testNormalizeWithContainerBlock(): void
     {
@@ -95,7 +95,7 @@ final class BlockTypeNormalizerTest extends TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\BlockTypeNormalizer::supportsNormalization
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\BlockTypeNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, bool $expected): void

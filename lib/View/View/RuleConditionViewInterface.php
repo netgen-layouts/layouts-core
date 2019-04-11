@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View\View;
+namespace Netgen\Layouts\View\View;
 
-use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Layouts\API\Values\LayoutResolver\Condition;
+use Netgen\Layouts\View\ViewInterface;
 
 interface RuleConditionViewInterface extends ViewInterface
 {

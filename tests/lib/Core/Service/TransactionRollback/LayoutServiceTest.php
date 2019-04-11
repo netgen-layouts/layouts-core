@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
+namespace Netgen\Layouts\Tests\Core\Service\TransactionRollback;
 
 use Exception;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\LayoutCopyStruct;
-use Netgen\BlockManager\API\Values\Layout\LayoutCreateStruct;
-use Netgen\BlockManager\API\Values\Layout\LayoutUpdateStruct;
-use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Layout\Type\LayoutType;
-use Netgen\BlockManager\Persistence\Values\Layout\Layout as PersistenceLayout;
-use Netgen\BlockManager\Persistence\Values\Layout\Zone as PersistenceZone;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\LayoutCopyStruct;
+use Netgen\Layouts\API\Values\Layout\LayoutCreateStruct;
+use Netgen\Layouts\API\Values\Layout\LayoutUpdateStruct;
+use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\Layout\Type\LayoutType;
+use Netgen\Layouts\Persistence\Values\Layout\Layout as PersistenceLayout;
+use Netgen\Layouts\Persistence\Values\Layout\Zone as PersistenceZone;
 
 final class LayoutServiceTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::linkZone
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::linkZone
      */
     public function testLinkZone(): void
     {
@@ -61,7 +61,7 @@ final class LayoutServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::unlinkZone
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::unlinkZone
      */
     public function testUnlinkZone(): void
     {
@@ -86,7 +86,7 @@ final class LayoutServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createLayout
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::createLayout
      */
     public function testCreateLayout(): void
     {
@@ -116,7 +116,7 @@ final class LayoutServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::addTranslation
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::addTranslation
      */
     public function testAddTranslation(): void
     {
@@ -148,7 +148,7 @@ final class LayoutServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::removeTranslation
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::removeTranslation
      */
     public function testRemoveTranslation(): void
     {
@@ -180,7 +180,7 @@ final class LayoutServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::updateLayout
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::updateLayout
      */
     public function testUpdateLayout(): void
     {
@@ -216,7 +216,7 @@ final class LayoutServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::copyLayout
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::copyLayout
      */
     public function testCopyLayout(): void
     {
@@ -252,7 +252,7 @@ final class LayoutServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::copyLayout
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::copyLayout
      */
     public function testChangeLayoutType(): void
     {
@@ -286,7 +286,7 @@ final class LayoutServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::createDraft
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::createDraft
      */
     public function testCreateDraft(): void
     {
@@ -316,7 +316,7 @@ final class LayoutServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::discardDraft
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::discardDraft
      */
     public function testDiscardDraft(): void
     {
@@ -341,7 +341,7 @@ final class LayoutServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::publishLayout
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::publishLayout
      */
     public function testPublishLayout(): void
     {
@@ -366,7 +366,7 @@ final class LayoutServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::restoreFromArchive
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::restoreFromArchive
      */
     public function testRestoreFromArchive(): void
     {
@@ -401,7 +401,7 @@ final class LayoutServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutService::deleteLayout
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::deleteLayout
      */
     public function testDeleteLayout(): void
     {

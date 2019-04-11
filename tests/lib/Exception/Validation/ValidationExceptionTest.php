@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Exception\Validation;
+namespace Netgen\Layouts\Tests\Exception\Validation;
 
-use Netgen\BlockManager\Exception\Validation\ValidationException;
+use Netgen\Layouts\Exception\Validation\ValidationException;
 use PHPUnit\Framework\TestCase;
 
 final class ValidationExceptionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Exception\Validation\ValidationException::validationFailed
+     * @covers \Netgen\Layouts\Exception\Validation\ValidationException::validationFailed
      */
     public function testValidationFailed(): void
     {

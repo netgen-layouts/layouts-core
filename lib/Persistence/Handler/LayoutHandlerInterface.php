@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Persistence\Handler;
+namespace Netgen\Layouts\Persistence\Handler;
 
-use Netgen\BlockManager\Persistence\Values\Layout\Layout;
-use Netgen\BlockManager\Persistence\Values\Layout\LayoutCopyStruct;
-use Netgen\BlockManager\Persistence\Values\Layout\LayoutCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Layout\LayoutUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Layout\Zone;
-use Netgen\BlockManager\Persistence\Values\Layout\ZoneCreateStruct;
-use Netgen\BlockManager\Persistence\Values\Layout\ZoneUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Layout\Layout;
+use Netgen\Layouts\Persistence\Values\Layout\LayoutCopyStruct;
+use Netgen\Layouts\Persistence\Values\Layout\LayoutCreateStruct;
+use Netgen\Layouts\Persistence\Values\Layout\LayoutUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Layout\Zone;
+use Netgen\Layouts\Persistence\Values\Layout\ZoneCreateStruct;
+use Netgen\Layouts\Persistence\Values\Layout\ZoneUpdateStruct;
 
 interface LayoutHandlerInterface
 {
@@ -20,9 +20,9 @@ interface LayoutHandlerInterface
      * @param int|string $layoutId
      * @param int $status
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If layout with specified ID does not exist
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout
+     * @return \Netgen\Layouts\Persistence\Values\Layout\Layout
      */
     public function loadLayout($layoutId, int $status): Layout;
 
@@ -33,9 +33,9 @@ interface LayoutHandlerInterface
      * @param int $status
      * @param string $identifier
      *
-     * @throws \Netgen\BlockManager\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Layout\Zone
+     * @return \Netgen\Layouts\Persistence\Values\Layout\Zone
      */
     public function loadZone($layoutId, int $status, string $identifier): Zone;
 
@@ -43,7 +43,7 @@ interface LayoutHandlerInterface
      * Loads all non-shared layouts. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout[]
+     * @return \Netgen\Layouts\Persistence\Values\Layout\Layout[]
      */
     public function loadLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): array;
 
@@ -57,7 +57,7 @@ interface LayoutHandlerInterface
      * Loads all shared layouts. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout[]
+     * @return \Netgen\Layouts\Persistence\Values\Layout\Layout[]
      */
     public function loadSharedLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): array;
 
@@ -71,7 +71,7 @@ interface LayoutHandlerInterface
      * Loads all layouts. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout[]
+     * @return \Netgen\Layouts\Persistence\Values\Layout\Layout[]
      */
     public function loadAllLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): array;
 
@@ -84,7 +84,7 @@ interface LayoutHandlerInterface
     /**
      * Loads all layouts related to provided shared layout.
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Layout\Layout[]
+     * @return \Netgen\Layouts\Persistence\Values\Layout\Layout[]
      */
     public function loadRelatedLayouts(Layout $sharedLayout): array;
 
@@ -117,7 +117,7 @@ interface LayoutHandlerInterface
     /**
      * Loads all zones that belong to layout with specified ID.
      *
-     * @return \Netgen\BlockManager\Persistence\Values\Layout\Zone[]
+     * @return \Netgen\Layouts\Persistence\Values\Layout\Zone[]
      */
     public function loadLayoutZones(Layout $layout): array;
 
@@ -139,7 +139,7 @@ interface LayoutHandlerInterface
     /**
      * Creates a layout translation.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If translation with provided locale already exists
+     * @throws \Netgen\Layouts\Exception\BadStateException If translation with provided locale already exists
      *                                                          If translation with provided source locale does not exist
      */
     public function createLayoutTranslation(Layout $layout, string $locale, string $sourceLocale): Layout;
@@ -147,7 +147,7 @@ interface LayoutHandlerInterface
     /**
      * Updates the main translation of the layout.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If provided locale does not exist in the layout
+     * @throws \Netgen\Layouts\Exception\BadStateException If provided locale does not exist in the layout
      */
     public function setMainTranslation(Layout $layout, string $mainLocale): Layout;
 
@@ -192,7 +192,7 @@ interface LayoutHandlerInterface
     /**
      * Deletes provided layout translation.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If translation with provided locale does not exist
+     * @throws \Netgen\Layouts\Exception\BadStateException If translation with provided locale does not exist
      *                                                          If translation with provided locale is the main layout translation
      */
     public function deleteLayoutTranslation(Layout $layout, string $locale): Layout;

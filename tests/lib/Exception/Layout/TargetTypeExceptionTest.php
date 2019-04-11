@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Exception\Layout;
+namespace Netgen\Layouts\Tests\Exception\Layout;
 
-use Netgen\BlockManager\Exception\Layout\TargetTypeException;
+use Netgen\Layouts\Exception\Layout\TargetTypeException;
 use PHPUnit\Framework\TestCase;
 
 final class TargetTypeExceptionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Exception\Layout\TargetTypeException::noTargetType
+     * @covers \Netgen\Layouts\Exception\Layout\TargetTypeException::noTargetType
      */
     public function testNoTargetType(): void
     {
@@ -23,7 +23,7 @@ final class TargetTypeExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\Layout\TargetTypeException::noFormMapper
+     * @covers \Netgen\Layouts\Exception\Layout\TargetTypeException::noFormMapper
      */
     public function testNoFormMapper(): void
     {

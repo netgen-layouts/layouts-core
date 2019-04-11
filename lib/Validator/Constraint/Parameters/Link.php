@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Validator\Constraint\Parameters;
+namespace Netgen\Layouts\Validator\Constraint\Parameters;
 
 use Symfony\Component\Validator\Constraint;
 

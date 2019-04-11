@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Validator\Structs;
+namespace Netgen\Layouts\Tests\Validator\Structs;
 
-use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
-use Netgen\BlockManager\Block\BlockDefinitionInterface;
-use Netgen\BlockManager\Block\ContainerDefinition;
-use Netgen\BlockManager\Block\ContainerDefinitionInterface;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithRequiredParameter;
-use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
-use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
-use Netgen\BlockManager\Utils\Hydrator;
-use Netgen\BlockManager\Validator\Constraint\Structs\BlockCreateStruct as BlockCreateStructConstraint;
-use Netgen\BlockManager\Validator\Structs\BlockCreateStructValidator;
+use Netgen\Layouts\API\Values\Block\BlockCreateStruct;
+use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
+use Netgen\Layouts\Block\BlockDefinitionInterface;
+use Netgen\Layouts\Block\ContainerDefinition;
+use Netgen\Layouts\Block\ContainerDefinitionInterface;
+use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandlerWithRequiredParameter;
+use Netgen\Layouts\Tests\Block\Stubs\ContainerDefinitionHandler;
+use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
+use Netgen\Layouts\Utils\Hydrator;
+use Netgen\Layouts\Validator\Constraint\Structs\BlockCreateStruct as BlockCreateStructConstraint;
+use Netgen\Layouts\Validator\Structs\BlockCreateStructValidator;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
@@ -31,7 +31,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\Structs\BlockCreateStructValidator::validate
+     * @covers \Netgen\Layouts\Validator\Structs\BlockCreateStructValidator::validate
      * @dataProvider validateDataProvider
      */
     public function testValidate(array $value, bool $isValid): void
@@ -43,24 +43,24 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\Structs\BlockCreateStructValidator::validate
+     * @covers \Netgen\Layouts\Validator\Structs\BlockCreateStructValidator::validate
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Netgen\\BlockManager\\Validator\\Constraint\\Structs\\BlockCreateStruct", "Symfony\\Component\\Validator\\Constraints\\NotBlank" given');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\Validator\\Constraint\\Structs\\BlockCreateStruct", "Symfony\\Component\\Validator\\Constraints\\NotBlank" given');
 
         $this->constraint = new NotBlank();
         $this->assertValid(true, new BlockCreateStruct(new BlockDefinition()));
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\Structs\BlockCreateStructValidator::validate
+     * @covers \Netgen\Layouts\Validator\Structs\BlockCreateStructValidator::validate
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Netgen\\BlockManager\\API\\Values\\Block\\BlockCreateStruct", "integer" given');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\API\\Values\\Block\\BlockCreateStruct", "integer" given');
 
         $this->assertValid(true, 42);
     }

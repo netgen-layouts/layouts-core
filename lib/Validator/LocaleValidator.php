@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Validator;
+namespace Netgen\Layouts\Validator;
 
 use Locale;
-use Netgen\BlockManager\Validator\Constraint\Locale as LocaleConstraint;
+use Netgen\Layouts\Validator\Constraint\Locale as LocaleConstraint;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;

@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Browser\Backend;
+namespace Netgen\Layouts\Tests\Browser\Backend;
 
-use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\LayoutList;
-use Netgen\BlockManager\Browser\Backend\LayoutBackend;
-use Netgen\BlockManager\Browser\Item\Layout\LayoutInterface;
-use Netgen\BlockManager\Browser\Item\Layout\RootLocation;
-use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\NotFoundException as ContentBrowserNotFoundException;
 use Netgen\ContentBrowser\Item\ItemInterface;
+use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\LayoutList;
+use Netgen\Layouts\Browser\Backend\LayoutBackend;
+use Netgen\Layouts\Browser\Item\Layout\LayoutInterface;
+use Netgen\Layouts\Browser\Item\Layout\RootLocation;
+use Netgen\Layouts\Exception\NotFoundException;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutBackendTest extends TestCase
@@ -24,7 +24,7 @@ final class LayoutBackendTest extends TestCase
     private $layoutServiceMock;
 
     /**
-     * @var \Netgen\BlockManager\Browser\Backend\LayoutBackend
+     * @var \Netgen\Layouts\Browser\Backend\LayoutBackend
      */
     private $backend;
 
@@ -39,8 +39,8 @@ final class LayoutBackendTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::__construct
-     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::getSections
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::__construct
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::getSections
      */
     public function testGetSections(): void
     {
@@ -55,7 +55,7 @@ final class LayoutBackendTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::loadLocation
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::loadLocation
      */
     public function testLoadLocation(): void
     {
@@ -69,8 +69,8 @@ final class LayoutBackendTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::buildItem
-     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::loadItem
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::buildItem
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::loadItem
      */
     public function testLoadItem(): void
     {
@@ -89,7 +89,7 @@ final class LayoutBackendTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::loadItem
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::loadItem
      */
     public function testLoadItemThrowsNotFoundException(): void
     {
@@ -106,7 +106,7 @@ final class LayoutBackendTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::getSubLocations
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::getSubLocations
      */
     public function testGetSubLocations(): void
     {
@@ -117,7 +117,7 @@ final class LayoutBackendTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::getSubLocationsCount
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::getSubLocationsCount
      */
     public function testGetSubLocationsCount(): void
     {
@@ -127,10 +127,10 @@ final class LayoutBackendTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::buildItem
-     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::buildItems
-     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::getSubItems
-     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::includeSharedLayouts
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::buildItem
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::buildItems
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::getSubItems
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::includeSharedLayouts
      */
     public function testGetSubItems(): void
     {
@@ -151,10 +151,10 @@ final class LayoutBackendTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::buildItem
-     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::buildItems
-     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::getSubItems
-     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::includeSharedLayouts
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::buildItem
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::buildItems
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::getSubItems
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::includeSharedLayouts
      */
     public function testGetSubItemsWithOffsetAndLimit(): void
     {
@@ -179,8 +179,8 @@ final class LayoutBackendTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::getSubItemsCount
-     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::includeSharedLayouts
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::getSubItemsCount
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::includeSharedLayouts
      */
     public function testGetSubItemsCount(): void
     {
@@ -195,7 +195,7 @@ final class LayoutBackendTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::search
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::search
      */
     public function testSearch(): void
     {
@@ -206,7 +206,7 @@ final class LayoutBackendTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::search
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::search
      */
     public function testSearchWithOffsetAndLimit(): void
     {
@@ -217,7 +217,7 @@ final class LayoutBackendTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Browser\Backend\LayoutBackend::searchCount
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::searchCount
      */
     public function testSearchCount(): void
     {

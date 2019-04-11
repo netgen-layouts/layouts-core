@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View\Provider;
+namespace Netgen\Layouts\View\Provider;
 
-use Netgen\BlockManager\API\Values\Block\Block as APIBlock;
-use Netgen\BlockManager\View\View\BlockView;
-use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Layouts\API\Values\Block\Block as APIBlock;
+use Netgen\Layouts\View\View\BlockView;
+use Netgen\Layouts\View\ViewInterface;
 
 final class BlockViewProvider implements ViewProviderInterface
 {

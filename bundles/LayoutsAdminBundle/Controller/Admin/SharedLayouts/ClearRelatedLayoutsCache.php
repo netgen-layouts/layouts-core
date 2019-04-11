@@ -4,24 +4,24 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\SharedLayouts;
 
-use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\HttpCache\ClientInterface;
-use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type\ClearLayoutsCacheType;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
+use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\HttpCache\ClientInterface;
+use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class ClearRelatedLayoutsCache extends AbstractController
 {
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutService
+     * @var \Netgen\Layouts\API\Service\LayoutService
      */
     private $layoutService;
 
     /**
-     * @var \Netgen\BlockManager\HttpCache\ClientInterface
+     * @var \Netgen\Layouts\HttpCache\ClientInterface
      */
     private $httpCacheClient;
 
@@ -34,7 +34,7 @@ final class ClearRelatedLayoutsCache extends AbstractController
     /**
      * Clears the HTTP caches for layouts related to provided shared layout.
      *
-     * @return \Netgen\BlockManager\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
+     * @return \Netgen\Layouts\View\ViewInterface|\Symfony\Component\HttpFoundation\Response
      */
     public function __invoke(Layout $layout, Request $request)
     {
@@ -60,7 +60,7 @@ final class ClearRelatedLayoutsCache extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var \Netgen\BlockManager\API\Values\Layout\LayoutList $selectedLayouts */
+            /** @var \Netgen\Layouts\API\Values\Layout\LayoutList $selectedLayouts */
             $selectedLayouts = $form->get('layouts')->getData();
 
             $this->httpCacheClient->invalidateLayouts($selectedLayouts->getLayoutIds());

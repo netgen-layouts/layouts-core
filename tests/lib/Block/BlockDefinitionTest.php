@@ -2,52 +2,52 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Block;
+namespace Netgen\Layouts\Tests\Block;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Form;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
-use Netgen\BlockManager\Block\DynamicParameters;
-use Netgen\BlockManager\Config\ConfigDefinition;
-use Netgen\BlockManager\Exception\Block\BlockDefinitionException;
-use Netgen\BlockManager\Exception\Config\ConfigDefinitionException;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
-use Netgen\BlockManager\Tests\Block\Stubs\HandlerPlugin;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\Collection;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\Form;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
+use Netgen\Layouts\Block\DynamicParameters;
+use Netgen\Layouts\Config\ConfigDefinition;
+use Netgen\Layouts\Exception\Block\BlockDefinitionException;
+use Netgen\Layouts\Exception\Config\ConfigDefinitionException;
+use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandler;
+use Netgen\Layouts\Tests\Block\Stubs\HandlerPlugin;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
 final class BlockDefinitionTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\BlockDefinitionHandlerInterface
+     * @var \Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface
      */
     private $handler;
 
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition
+     * @var \Netgen\Layouts\Block\BlockDefinition
      */
     private $blockDefinition;
 
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form
+     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\Form
      */
     private $form;
 
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\Collection
+     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\Collection
      */
     private $collection;
 
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType
+     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType
      */
     private $viewType1;
 
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType
+     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType
      */
     private $viewType2;
 
@@ -91,7 +91,7 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getIdentifier
+     * @covers \Netgen\Layouts\Block\BlockDefinition::getIdentifier
      */
     public function testGetIdentifier(): void
     {
@@ -99,7 +99,7 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getName
+     * @covers \Netgen\Layouts\Block\BlockDefinition::getName
      */
     public function testGetName(): void
     {
@@ -107,7 +107,7 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getIcon
+     * @covers \Netgen\Layouts\Block\BlockDefinition::getIcon
      */
     public function testGetIcon(): void
     {
@@ -115,7 +115,7 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::isTranslatable
+     * @covers \Netgen\Layouts\Block\BlockDefinition::isTranslatable
      */
     public function testIsTranslatable(): void
     {
@@ -123,7 +123,7 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getForms
+     * @covers \Netgen\Layouts\Block\BlockDefinition::getForms
      */
     public function testGetForms(): void
     {
@@ -136,7 +136,7 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::hasForm
+     * @covers \Netgen\Layouts\Block\BlockDefinition::hasForm
      */
     public function testHasForm(): void
     {
@@ -145,7 +145,7 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getForm
+     * @covers \Netgen\Layouts\Block\BlockDefinition::getForm
      */
     public function testGetForm(): void
     {
@@ -156,7 +156,7 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getForm
+     * @covers \Netgen\Layouts\Block\BlockDefinition::getForm
      */
     public function testGetFormThrowsBlockDefinitionException(): void
     {
@@ -167,7 +167,7 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getCollections
+     * @covers \Netgen\Layouts\Block\BlockDefinition::getCollections
      */
     public function testGetCollections(): void
     {
@@ -180,7 +180,7 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::hasCollection
+     * @covers \Netgen\Layouts\Block\BlockDefinition::hasCollection
      */
     public function testHasCollection(): void
     {
@@ -189,7 +189,7 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getCollection
+     * @covers \Netgen\Layouts\Block\BlockDefinition::getCollection
      */
     public function testGetCollection(): void
     {
@@ -200,7 +200,7 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getCollection
+     * @covers \Netgen\Layouts\Block\BlockDefinition::getCollection
      */
     public function testGetCollectionThrowsBlockDefinitionException(): void
     {
@@ -211,7 +211,7 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getViewTypes
+     * @covers \Netgen\Layouts\Block\BlockDefinition::getViewTypes
      */
     public function testGetViewTypes(): void
     {
@@ -225,7 +225,7 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getViewTypeIdentifiers
+     * @covers \Netgen\Layouts\Block\BlockDefinition::getViewTypeIdentifiers
      */
     public function testGetViewTypeIdentifiers(): void
     {
@@ -236,7 +236,7 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::hasViewType
+     * @covers \Netgen\Layouts\Block\BlockDefinition::hasViewType
      */
     public function testHasViewType(): void
     {
@@ -245,7 +245,7 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getViewType
+     * @covers \Netgen\Layouts\Block\BlockDefinition::getViewType
      */
     public function testGetViewType(): void
     {
@@ -256,7 +256,7 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getViewType
+     * @covers \Netgen\Layouts\Block\BlockDefinition::getViewType
      */
     public function testGetViewTypeThrowsBlockDefinitionException(): void
     {
@@ -267,7 +267,7 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getDynamicParameters
+     * @covers \Netgen\Layouts\Block\BlockDefinition::getDynamicParameters
      */
     public function testGetDynamicParameters(): void
     {
@@ -291,7 +291,7 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::isContextual
+     * @covers \Netgen\Layouts\Block\BlockDefinition::isContextual
      */
     public function testIsContextual(): void
     {
@@ -299,7 +299,7 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getConfigDefinition
+     * @covers \Netgen\Layouts\Block\BlockDefinition::getConfigDefinition
      */
     public function testGetConfigDefinition(): void
     {
@@ -310,7 +310,7 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getConfigDefinition
+     * @covers \Netgen\Layouts\Block\BlockDefinition::getConfigDefinition
      */
     public function testGetConfigDefinitionThrowsConfigDefinitionException(): void
     {
@@ -321,7 +321,7 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::hasConfigDefinition
+     * @covers \Netgen\Layouts\Block\BlockDefinition::hasConfigDefinition
      */
     public function testHasConfigDefinition(): void
     {
@@ -329,7 +329,7 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::hasConfigDefinition
+     * @covers \Netgen\Layouts\Block\BlockDefinition::hasConfigDefinition
      */
     public function testHasConfigDefinitionWithNonExistentDefinition(): void
     {
@@ -337,7 +337,7 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::getConfigDefinitions
+     * @covers \Netgen\Layouts\Block\BlockDefinition::getConfigDefinitions
      */
     public function testGetConfigDefinitions(): void
     {
@@ -348,7 +348,7 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::hasPlugin
+     * @covers \Netgen\Layouts\Block\BlockDefinition::hasPlugin
      */
     public function testHasPlugin(): void
     {
@@ -356,7 +356,7 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition::hasPlugin
+     * @covers \Netgen\Layouts\Block\BlockDefinition::hasPlugin
      */
     public function testHasPluginWithUnknownPlugin(): void
     {

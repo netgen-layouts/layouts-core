@@ -2,74 +2,74 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core;
+namespace Netgen\Layouts\Tests\Core;
 
-use Netgen\BlockManager\API\Service\BlockService as APIBlockService;
-use Netgen\BlockManager\API\Service\CollectionService as APICollectionService;
-use Netgen\BlockManager\API\Service\LayoutResolverService as APILayoutResolverService;
-use Netgen\BlockManager\API\Service\LayoutService as APILayoutService;
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
-use Netgen\BlockManager\Block\ContainerDefinition;
-use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistry;
-use Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface;
-use Netgen\BlockManager\Collection\Item\ItemDefinition;
-use Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistry;
-use Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistryInterface;
-use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
-use Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface;
-use Netgen\BlockManager\Config\ConfigDefinition;
-use Netgen\BlockManager\Core\Mapper\BlockMapper;
-use Netgen\BlockManager\Core\Mapper\CollectionMapper;
-use Netgen\BlockManager\Core\Mapper\ConfigMapper;
-use Netgen\BlockManager\Core\Mapper\LayoutMapper;
-use Netgen\BlockManager\Core\Mapper\LayoutResolverMapper;
-use Netgen\BlockManager\Core\Mapper\ParameterMapper;
-use Netgen\BlockManager\Core\Service\BlockService;
-use Netgen\BlockManager\Core\Service\CollectionService;
-use Netgen\BlockManager\Core\Service\LayoutResolverService;
-use Netgen\BlockManager\Core\Service\LayoutService;
-use Netgen\BlockManager\Core\StructBuilder\BlockStructBuilder;
-use Netgen\BlockManager\Core\StructBuilder\CollectionStructBuilder;
-use Netgen\BlockManager\Core\StructBuilder\ConfigStructBuilder;
-use Netgen\BlockManager\Core\StructBuilder\LayoutResolverStructBuilder;
-use Netgen\BlockManager\Core\StructBuilder\LayoutStructBuilder;
-use Netgen\BlockManager\Core\Validator\BlockValidator;
-use Netgen\BlockManager\Core\Validator\CollectionValidator;
-use Netgen\BlockManager\Core\Validator\LayoutResolverValidator;
-use Netgen\BlockManager\Core\Validator\LayoutValidator;
-use Netgen\BlockManager\Item\CmsItemLoaderInterface;
-use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
-use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistry;
-use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
-use Netgen\BlockManager\Layout\Resolver\ConditionType;
-use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry;
-use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
-use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
-use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface;
-use Netgen\BlockManager\Layout\Resolver\TargetType;
-use Netgen\BlockManager\Layout\Type\LayoutType;
-use Netgen\BlockManager\Layout\Type\Zone;
-use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
-use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistry;
-use Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface;
-use Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface;
-use Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface;
-use Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface;
-use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandlerInterface;
-use Netgen\BlockManager\Persistence\TransactionHandlerInterface;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithTranslatableParameter;
-use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
-use Netgen\BlockManager\Tests\Config\Stubs\Block\ConfigHandler as BlockConfigHandler;
-use Netgen\BlockManager\Tests\Config\Stubs\CollectionItem\ConfigHandler as ItemConfigHandler;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType1;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType1;
-use Netgen\BlockManager\Utils\HtmlPurifier;
+use Netgen\Layouts\API\Service\BlockService as APIBlockService;
+use Netgen\Layouts\API\Service\CollectionService as APICollectionService;
+use Netgen\Layouts\API\Service\LayoutResolverService as APILayoutResolverService;
+use Netgen\Layouts\API\Service\LayoutService as APILayoutService;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
+use Netgen\Layouts\Block\ContainerDefinition;
+use Netgen\Layouts\Block\Registry\BlockDefinitionRegistry;
+use Netgen\Layouts\Block\Registry\BlockDefinitionRegistryInterface;
+use Netgen\Layouts\Collection\Item\ItemDefinition;
+use Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry;
+use Netgen\Layouts\Collection\Registry\ItemDefinitionRegistryInterface;
+use Netgen\Layouts\Collection\Registry\QueryTypeRegistry;
+use Netgen\Layouts\Collection\Registry\QueryTypeRegistryInterface;
+use Netgen\Layouts\Config\ConfigDefinition;
+use Netgen\Layouts\Core\Mapper\BlockMapper;
+use Netgen\Layouts\Core\Mapper\CollectionMapper;
+use Netgen\Layouts\Core\Mapper\ConfigMapper;
+use Netgen\Layouts\Core\Mapper\LayoutMapper;
+use Netgen\Layouts\Core\Mapper\LayoutResolverMapper;
+use Netgen\Layouts\Core\Mapper\ParameterMapper;
+use Netgen\Layouts\Core\Service\BlockService;
+use Netgen\Layouts\Core\Service\CollectionService;
+use Netgen\Layouts\Core\Service\LayoutResolverService;
+use Netgen\Layouts\Core\Service\LayoutService;
+use Netgen\Layouts\Core\StructBuilder\BlockStructBuilder;
+use Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder;
+use Netgen\Layouts\Core\StructBuilder\ConfigStructBuilder;
+use Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder;
+use Netgen\Layouts\Core\StructBuilder\LayoutStructBuilder;
+use Netgen\Layouts\Core\Validator\BlockValidator;
+use Netgen\Layouts\Core\Validator\CollectionValidator;
+use Netgen\Layouts\Core\Validator\LayoutResolverValidator;
+use Netgen\Layouts\Core\Validator\LayoutValidator;
+use Netgen\Layouts\Item\CmsItemLoaderInterface;
+use Netgen\Layouts\Item\Registry\ValueTypeRegistry;
+use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
+use Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface;
+use Netgen\Layouts\Layout\Resolver\ConditionType;
+use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry;
+use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
+use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry;
+use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistryInterface;
+use Netgen\Layouts\Layout\Resolver\TargetType;
+use Netgen\Layouts\Layout\Type\LayoutType;
+use Netgen\Layouts\Layout\Type\Zone;
+use Netgen\Layouts\Parameters\ParameterType;
+use Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter;
+use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
+use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistryInterface;
+use Netgen\Layouts\Persistence\Handler\BlockHandlerInterface;
+use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
+use Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface;
+use Netgen\Layouts\Persistence\Handler\LayoutResolverHandlerInterface;
+use Netgen\Layouts\Persistence\TransactionHandlerInterface;
+use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandler;
+use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandlerWithTranslatableParameter;
+use Netgen\Layouts\Tests\Block\Stubs\ContainerDefinitionHandler;
+use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
+use Netgen\Layouts\Tests\Config\Stubs\Block\ConfigHandler as BlockConfigHandler;
+use Netgen\Layouts\Tests\Config\Stubs\CollectionItem\ConfigHandler as ItemConfigHandler;
+use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionType1;
+use Netgen\Layouts\Tests\Layout\Resolver\Stubs\TargetType1;
+use Netgen\Layouts\Utils\HtmlPurifier;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -77,87 +77,87 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 abstract class CoreTestCase extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Item\CmsItemLoaderInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\Layouts\Item\CmsItemLoaderInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     protected $cmsItemLoaderMock;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface
      */
     protected $layoutTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistryInterface
+     * @var \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistryInterface
      */
     protected $itemDefinitionRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistryInterface
+     * @var \Netgen\Layouts\Collection\Registry\QueryTypeRegistryInterface
      */
     protected $queryTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Block\Registry\BlockDefinitionRegistryInterface
+     * @var \Netgen\Layouts\Block\Registry\BlockDefinitionRegistryInterface
      */
     protected $blockDefinitionRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistryInterface
      */
     protected $targetTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistryInterface
      */
     protected $conditionTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Parameters\Registry\ParameterTypeRegistryInterface
+     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistryInterface
      */
     protected $parameterTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\TransactionHandlerInterface
+     * @var \Netgen\Layouts\Persistence\TransactionHandlerInterface
      */
     protected $transactionHandler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface
+     * @var \Netgen\Layouts\Persistence\Handler\BlockHandlerInterface
      */
     protected $blockHandler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface
+     * @var \Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface
      */
     protected $layoutHandler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface
+     * @var \Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface
      */
     protected $collectionHandler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandlerInterface
+     * @var \Netgen\Layouts\Persistence\Handler\LayoutResolverHandlerInterface
      */
     protected $layoutResolverHandler;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\BlockService
+     * @var \Netgen\Layouts\API\Service\BlockService
      */
     protected $blockService;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutService
+     * @var \Netgen\Layouts\API\Service\LayoutService
      */
     protected $layoutService;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\CollectionService
+     * @var \Netgen\Layouts\API\Service\CollectionService
      */
     protected $collectionService;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutResolverService
+     * @var \Netgen\Layouts\API\Service\LayoutResolverService
      */
     protected $layoutResolverService;
 

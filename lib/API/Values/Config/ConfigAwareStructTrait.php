@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\Config;
+namespace Netgen\Layouts\API\Values\Config;
 
-use Netgen\BlockManager\Exception\API\ConfigException;
+use Netgen\Layouts\Exception\API\ConfigException;
 
 trait ConfigAwareStructTrait
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Config\ConfigStruct[]
+     * @var \Netgen\Layouts\API\Values\Config\ConfigStruct[]
      */
     private $configStructs = [];
 
@@ -32,7 +32,7 @@ trait ConfigAwareStructTrait
     /**
      * Gets the config struct with provided config key.
      *
-     * @throws \Netgen\BlockManager\Exception\API\ConfigException If config struct does not exist
+     * @throws \Netgen\Layouts\Exception\API\ConfigException If config struct does not exist
      */
     public function getConfigStruct(string $configKey): ConfigStruct
     {
@@ -46,7 +46,7 @@ trait ConfigAwareStructTrait
     /**
      * Returns all config structs from the struct.
      *
-     * @return \Netgen\BlockManager\API\Values\Config\ConfigStruct[]
+     * @return \Netgen\Layouts\API\Values\Config\ConfigStruct[]
      */
     public function getConfigStructs(): array
     {

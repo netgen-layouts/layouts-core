@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\Block;
+namespace Netgen\Layouts\API\Values\Block;
 
 use ArrayAccess;
 use Countable;
 use Doctrine\Common\Collections\ArrayCollection;
 use IteratorAggregate;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Utils\HydratorTrait;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Utils\HydratorTrait;
 use Traversable;
 
 /**

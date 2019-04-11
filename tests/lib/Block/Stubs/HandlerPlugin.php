@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Block\Stubs;
+namespace Netgen\Layouts\Tests\Block\Stubs;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Block\BlockDefinition\Handler\Plugin;
-use Netgen\BlockManager\Block\DynamicParameters;
-use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
-use Netgen\BlockManager\Parameters\ParameterType;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Block\BlockDefinition\Handler\Plugin;
+use Netgen\Layouts\Block\DynamicParameters;
+use Netgen\Layouts\Parameters\ParameterBuilderInterface;
+use Netgen\Layouts\Parameters\ParameterType;
 
 final class HandlerPlugin extends Plugin
 {

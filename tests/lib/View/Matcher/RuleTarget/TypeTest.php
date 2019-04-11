@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\Matcher\RuleTarget;
+namespace Netgen\Layouts\Tests\View\Matcher\RuleTarget;
 
-use Netgen\BlockManager\API\Values\LayoutResolver\Target;
-use Netgen\BlockManager\Layout\Resolver\TargetType\NullTargetType;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType1;
-use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\View\Matcher\RuleTarget\Type;
-use Netgen\BlockManager\View\View\RuleTargetView;
+use Netgen\Layouts\API\Values\LayoutResolver\Target;
+use Netgen\Layouts\Layout\Resolver\TargetType\NullTargetType;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\Layout\Resolver\Stubs\TargetType1;
+use Netgen\Layouts\Tests\View\Stubs\View;
+use Netgen\Layouts\View\Matcher\RuleTarget\Type;
+use Netgen\Layouts\View\View\RuleTargetView;
 use PHPUnit\Framework\TestCase;
 
 final class TypeTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\View\Matcher\MatcherInterface
+     * @var \Netgen\Layouts\View\Matcher\MatcherInterface
      */
     private $matcher;
 
@@ -26,7 +26,7 @@ final class TypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\RuleTarget\Type::match
+     * @covers \Netgen\Layouts\View\Matcher\RuleTarget\Type::match
      * @dataProvider matchProvider
      */
     public function testMatch(array $config, bool $expected): void
@@ -43,7 +43,7 @@ final class TypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\RuleTarget\Type::match
+     * @covers \Netgen\Layouts\View\Matcher\RuleTarget\Type::match
      */
     public function testMatchWithNullTargetType(): void
     {
@@ -59,7 +59,7 @@ final class TypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\RuleTarget\Type::match
+     * @covers \Netgen\Layouts\View\Matcher\RuleTarget\Type::match
      */
     public function testMatchWithNullTargetTypeReturnsFalse(): void
     {
@@ -86,7 +86,7 @@ final class TypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\RuleTarget\Type::match
+     * @covers \Netgen\Layouts\View\Matcher\RuleTarget\Type::match
      */
     public function testMatchWithNoRuleTargetView(): void
     {

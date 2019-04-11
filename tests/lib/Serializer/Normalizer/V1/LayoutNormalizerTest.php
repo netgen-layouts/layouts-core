@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
+namespace Netgen\Layouts\Tests\Serializer\Normalizer\V1;
 
 use DateTime;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
-use Netgen\BlockManager\API\Service\BlockService;
-use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Block\BlockList;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Layout\Type\LayoutTypeFactory;
-use Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
+use Netgen\Layouts\API\Service\BlockService;
+use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\BlockList;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Layout\Type\LayoutTypeFactory;
+use Netgen\Layouts\Serializer\Normalizer\V1\LayoutNormalizer;
+use Netgen\Layouts\Serializer\Values\VersionedValue;
+use Netgen\Layouts\Tests\API\Stubs\Value;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Serializer;
 
@@ -34,12 +34,12 @@ final class LayoutNormalizerTest extends TestCase
     private $blockServiceMock;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Type\LayoutTypeInterface
+     * @var \Netgen\Layouts\Layout\Type\LayoutTypeInterface
      */
     private $layoutType;
 
     /**
-     * @var \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer
+     * @var \Netgen\Layouts\Serializer\Normalizer\V1\LayoutNormalizer
      */
     private $normalizer;
 
@@ -72,11 +72,11 @@ final class LayoutNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer::__construct
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer::getAllowedBlocks
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer::getZoneName
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer::getZones
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer::normalize
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\LayoutNormalizer::__construct
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\LayoutNormalizer::getAllowedBlocks
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\LayoutNormalizer::getZoneName
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\LayoutNormalizer::getZones
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\LayoutNormalizer::normalize
      */
     public function testNormalizeLayout(): void
     {
@@ -208,7 +208,7 @@ final class LayoutNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer::normalize
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\LayoutNormalizer::normalize
      */
     public function testNormalizeLayoutWithArchivedLayout(): void
     {
@@ -274,7 +274,7 @@ final class LayoutNormalizerTest extends TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\LayoutNormalizer::supportsNormalization
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\LayoutNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, bool $expected): void

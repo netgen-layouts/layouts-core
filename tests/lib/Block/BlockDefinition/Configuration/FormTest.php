@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Configuration;
+namespace Netgen\Layouts\Tests\Block\BlockDefinition\Configuration;
 
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\Form;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\Form;
 use PHPUnit\Framework\TestCase;
 
 final class FormTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form
+     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\Form
      */
     private $form;
 
@@ -20,7 +20,7 @@ final class FormTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form::getIdentifier
+     * @covers \Netgen\Layouts\Block\BlockDefinition\Configuration\Form::getIdentifier
      */
     public function testGetIdentifier(): void
     {
@@ -28,7 +28,7 @@ final class FormTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\Form::getType
+     * @covers \Netgen\Layouts\Block\BlockDefinition\Configuration\Form::getType
      */
     public function testGetType(): void
     {

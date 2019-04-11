@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Exception\Transfer;
+namespace Netgen\Layouts\Tests\Exception\Transfer;
 
 use Exception;
-use Netgen\BlockManager\Exception\Transfer\JsonValidationException;
+use Netgen\Layouts\Exception\Transfer\JsonValidationException;
 use PHPUnit\Framework\TestCase;
 
 final class JsonValidationExceptionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Exception\Transfer\JsonValidationException::parseError
+     * @covers \Netgen\Layouts\Exception\Transfer\JsonValidationException::parseError
      */
     public function testParseError(): void
     {
@@ -24,7 +24,7 @@ final class JsonValidationExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\Transfer\JsonValidationException::notAcceptable
+     * @covers \Netgen\Layouts\Exception\Transfer\JsonValidationException::notAcceptable
      */
     public function testNotAcceptable(): void
     {
@@ -37,7 +37,7 @@ final class JsonValidationExceptionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Exception\Transfer\JsonValidationException::validationFailed
+     * @covers \Netgen\Layouts\Exception\Transfer\JsonValidationException::validationFailed
      */
     public function testValidationFailed(): void
     {

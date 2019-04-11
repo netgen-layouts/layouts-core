@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Utils;
+namespace Netgen\Layouts\Utils;
 
 use HTMLPurifier as BaseHTMLPurifier;
 use HTMLPurifier_Config;

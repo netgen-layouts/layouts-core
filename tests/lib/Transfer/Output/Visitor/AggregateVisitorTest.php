@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Transfer\Output\Visitor;
+namespace Netgen\Layouts\Tests\Transfer\Output\Visitor;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Tests\Transfer\Output\Visitor\Stubs\VisitorStub;
-use Netgen\BlockManager\Transfer\Output\Visitor\AggregateVisitor;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Tests\Transfer\Output\Visitor\Stubs\VisitorStub;
+use Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor;
 use PHPUnit\Framework\TestCase;
 
 final class AggregateVisitorTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Transfer\Output\Visitor\AggregateVisitor
+     * @var \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor
      */
     private $visitor;
 
@@ -28,8 +28,8 @@ final class AggregateVisitorTest extends TestCase
      * @param mixed $value
      * @param bool $accepted
      *
-     * @covers \Netgen\BlockManager\Transfer\Output\Visitor\AggregateVisitor::__construct
-     * @covers \Netgen\BlockManager\Transfer\Output\Visitor\AggregateVisitor::accept
+     * @covers \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor::__construct
+     * @covers \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor::accept
      *
      * @dataProvider acceptProvider
      */
@@ -39,7 +39,7 @@ final class AggregateVisitorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Transfer\Output\Visitor\AggregateVisitor::visit
+     * @covers \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor::visit
      */
     public function testVisit(): void
     {
@@ -47,12 +47,12 @@ final class AggregateVisitorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Transfer\Output\Visitor\AggregateVisitor::visit
+     * @covers \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor::visit
      */
     public function testVisitWithNoAcceptedVisitorAndObjectValueThrowsRuntimeException(): void
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('No visitor available for value of type \'Netgen\\BlockManager\\API\\Values\\Block\\Block\'');
+        $this->expectExceptionMessage('No visitor available for value of type \'Netgen\\Layouts\\API\\Values\\Block\\Block\'');
 
         $this->visitor = new AggregateVisitor([]);
 
@@ -60,7 +60,7 @@ final class AggregateVisitorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Transfer\Output\Visitor\AggregateVisitor::visit
+     * @covers \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor::visit
      */
     public function testVisitWithNoAcceptedVisitorAndScalarValueThrowsRuntimeException(): void
     {

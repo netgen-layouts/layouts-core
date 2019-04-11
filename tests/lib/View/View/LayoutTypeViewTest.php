@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\View;
+namespace Netgen\Layouts\Tests\View\View;
 
-use Netgen\BlockManager\Layout\Type\LayoutType;
-use Netgen\BlockManager\View\View\LayoutTypeView;
+use Netgen\Layouts\Layout\Type\LayoutType;
+use Netgen\Layouts\View\View\LayoutTypeView;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutTypeViewTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Type\LayoutType
+     * @var \Netgen\Layouts\Layout\Type\LayoutType
      */
     private $layoutType;
 
     /**
-     * @var \Netgen\BlockManager\View\View\LayoutTypeViewInterface
+     * @var \Netgen\Layouts\View\View\LayoutTypeViewInterface
      */
     private $view;
 
@@ -31,8 +31,8 @@ final class LayoutTypeViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View\LayoutTypeView::__construct
-     * @covers \Netgen\BlockManager\View\View\LayoutTypeView::getLayoutType
+     * @covers \Netgen\Layouts\View\View\LayoutTypeView::__construct
+     * @covers \Netgen\Layouts\View\View\LayoutTypeView::getLayoutType
      */
     public function testGetLayoutType(): void
     {
@@ -47,7 +47,7 @@ final class LayoutTypeViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View\LayoutTypeView::getIdentifier
+     * @covers \Netgen\Layouts\View\View\LayoutTypeView::getIdentifier
      */
     public function testGetIdentifier(): void
     {

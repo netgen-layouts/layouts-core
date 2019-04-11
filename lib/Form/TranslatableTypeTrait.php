@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Form;
+namespace Netgen\Layouts\Form;
 
-use Netgen\BlockManager\Parameters\Form\Type\ParametersType;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\Form\Type\ParametersType;
+use Netgen\Layouts\Parameters\ParameterDefinition;
 use Symfony\Component\Form\FormBuilderInterface;
 
 trait TranslatableTypeTrait

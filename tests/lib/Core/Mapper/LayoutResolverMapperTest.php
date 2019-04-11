@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\Mapper;
+namespace Netgen\Layouts\Tests\Core\Mapper;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Layout\Resolver\ConditionType\NullConditionType;
-use Netgen\BlockManager\Layout\Resolver\TargetType\NullTargetType;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
-use Netgen\BlockManager\Tests\Core\CoreTestCase;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\Layout\Resolver\ConditionType\NullConditionType;
+use Netgen\Layouts\Layout\Resolver\TargetType\NullTargetType;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
+use Netgen\Layouts\Tests\Core\CoreTestCase;
 
 abstract class LayoutResolverMapperTest extends CoreTestCase
 {
     /**
-     * @var \Netgen\BlockManager\Core\Mapper\LayoutResolverMapper
+     * @var \Netgen\Layouts\Core\Mapper\LayoutResolverMapper
      */
     private $mapper;
 
@@ -28,8 +28,8 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\LayoutResolverMapper::__construct
-     * @covers \Netgen\BlockManager\Core\Mapper\LayoutResolverMapper::mapRule
+     * @covers \Netgen\Layouts\Core\Mapper\LayoutResolverMapper::__construct
+     * @covers \Netgen\Layouts\Core\Mapper\LayoutResolverMapper::mapRule
      */
     public function testMapRule(): void
     {
@@ -59,7 +59,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\LayoutResolverMapper::mapRule
+     * @covers \Netgen\Layouts\Core\Mapper\LayoutResolverMapper::mapRule
      */
     public function testMapRuleWithNonExistingLayout(): void
     {
@@ -75,7 +75,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\LayoutResolverMapper::mapTarget
+     * @covers \Netgen\Layouts\Core\Mapper\LayoutResolverMapper::mapTarget
      */
     public function testMapTarget(): void
     {
@@ -103,7 +103,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\LayoutResolverMapper::mapTarget
+     * @covers \Netgen\Layouts\Core\Mapper\LayoutResolverMapper::mapTarget
      */
     public function testMapTargetWithInvalidTargetType(): void
     {
@@ -128,7 +128,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\LayoutResolverMapper::mapCondition
+     * @covers \Netgen\Layouts\Core\Mapper\LayoutResolverMapper::mapCondition
      */
     public function testMapCondition(): void
     {
@@ -156,7 +156,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\LayoutResolverMapper::mapCondition
+     * @covers \Netgen\Layouts\Core\Mapper\LayoutResolverMapper::mapCondition
      */
     public function testMapConditionWithInvalidConditionType(): void
     {

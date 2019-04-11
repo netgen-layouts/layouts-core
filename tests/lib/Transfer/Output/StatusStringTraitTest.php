@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Transfer\Output;
+namespace Netgen\Layouts\Tests\Transfer\Output;
 
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\Transfer\Output\Visitor\Stubs\ValueVisitor;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\Transfer\Output\Visitor\Stubs\ValueVisitor;
 use PHPUnit\Framework\TestCase;
 
 final class StatusStringTraitTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Tests\Transfer\Output\Visitor\Stubs\ValueVisitor
+     * @var \Netgen\Layouts\Tests\Transfer\Output\Visitor\Stubs\ValueVisitor
      */
     private $visitor;
 
@@ -22,7 +22,7 @@ final class StatusStringTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Transfer\Output\StatusStringTrait::getStatusString
+     * @covers \Netgen\Layouts\Transfer\Output\StatusStringTrait::getStatusString
      * @dataProvider visitProvider
      */
     public function testVisit(int $status, array $visitedValue): void
@@ -31,7 +31,7 @@ final class StatusStringTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Transfer\Output\StatusStringTrait::getStatusString
+     * @covers \Netgen\Layouts\Transfer\Output\StatusStringTrait::getStatusString
      */
     public function testVisitThrowsRuntimeExceptionWithInvalidStatus(): void
     {

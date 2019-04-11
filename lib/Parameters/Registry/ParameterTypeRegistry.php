@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Parameters\Registry;
+namespace Netgen\Layouts\Parameters\Registry;
 
 use ArrayIterator;
-use Netgen\BlockManager\Exception\Parameters\ParameterTypeException;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Parameters\ParameterTypeInterface;
+use Netgen\Layouts\Exception\Parameters\ParameterTypeException;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Parameters\ParameterTypeInterface;
 use Traversable;
 
 final class ParameterTypeRegistry implements ParameterTypeRegistryInterface
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterTypeInterface[]
+     * @var \Netgen\Layouts\Parameters\ParameterTypeInterface[]
      */
     private $parameterTypes = [];
 
     /**
-     * @var \Netgen\BlockManager\Parameters\ParameterTypeInterface[]
+     * @var \Netgen\Layouts\Parameters\ParameterTypeInterface[]
      */
     private $parameterTypesByClass = [];
 

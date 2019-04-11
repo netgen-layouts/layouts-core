@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Transfer\Output\Visitor;
+namespace Netgen\Layouts\Transfer\Output\Visitor;
 
 use Generator;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Transfer\Output\StatusStringTrait;
-use Netgen\BlockManager\Transfer\Output\VisitorInterface;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Transfer\Output\StatusStringTrait;
+use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 /**
  * Layout value visitor.
  *
- * @see \Netgen\BlockManager\API\Values\Layout\Layout
+ * @see \Netgen\Layouts\API\Values\Layout\Layout
  */
 final class LayoutVisitor implements VisitorInterface
 {
@@ -25,8 +25,8 @@ final class LayoutVisitor implements VisitorInterface
     }
 
     /**
-     * @param \Netgen\BlockManager\API\Values\Layout\Layout $value
-     * @param \Netgen\BlockManager\Transfer\Output\VisitorInterface|null $subVisitor
+     * @param \Netgen\Layouts\API\Values\Layout\Layout $value
+     * @param \Netgen\Layouts\Transfer\Output\VisitorInterface|null $subVisitor
      *
      * @return mixed
      */

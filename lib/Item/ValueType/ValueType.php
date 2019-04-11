@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Item\ValueType;
+namespace Netgen\Layouts\Item\ValueType;
 
-use Netgen\BlockManager\Utils\HydratorTrait;
+use Netgen\Layouts\Utils\HydratorTrait;
 
 /**
  * Value type represents a model of a type of CMS value available in Netgen Layouts.

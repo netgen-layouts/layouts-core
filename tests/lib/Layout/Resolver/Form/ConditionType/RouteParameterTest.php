@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\Form\ConditionType;
+namespace Netgen\Layouts\Tests\Layout\Resolver\Form\ConditionType;
 
-use Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct;
-use Netgen\BlockManager\Form\KeyValuesType;
-use Netgen\BlockManager\Layout\Resolver\ConditionType\RouteParameter;
-use Netgen\BlockManager\Layout\Resolver\Form\ConditionType;
-use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter as RouteParameterMapper;
-use Netgen\BlockManager\Tests\TestCase\FormTestCase;
+use Netgen\Layouts\API\Values\LayoutResolver\ConditionCreateStruct;
+use Netgen\Layouts\Form\KeyValuesType;
+use Netgen\Layouts\Layout\Resolver\ConditionType\RouteParameter;
+use Netgen\Layouts\Layout\Resolver\Form\ConditionType;
+use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter as RouteParameterMapper;
+use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
 
 final class RouteParameterTest extends FormTestCase
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface
+     * @var \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface
      */
     private $conditionType;
 
@@ -27,12 +27,12 @@ final class RouteParameterTest extends FormTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::buildForm
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType::buildView
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper::getFormOptions
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper::handleForm
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter::getFormOptions
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter::getFormType
+     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType::buildForm
+     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType::buildView
+     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper::getFormOptions
+     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper::handleForm
+     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter::getFormOptions
+     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter::getFormType
      */
     public function testSubmitValidData(): void
     {

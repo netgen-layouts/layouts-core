@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\Stubs;
+namespace Netgen\Layouts\Tests\Parameters\Stubs;
 
-use Netgen\BlockManager\Parameters\Form\Mapper as BaseMapper;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\Form\Mapper as BaseMapper;
+use Netgen\Layouts\Parameters\ParameterDefinition;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 
 final class FormMapper extends BaseMapper

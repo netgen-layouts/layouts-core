@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Transfer\Output;
+namespace Netgen\Layouts\Transfer\Output;
 
 /**
  * Serializer serializes domain entity into hash representation, which can be

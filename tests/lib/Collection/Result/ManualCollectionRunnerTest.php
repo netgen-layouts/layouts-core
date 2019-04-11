@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Collection\Result;
+namespace Netgen\Layouts\Tests\Collection\Result;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\Collection\Item\VisibilityResolver;
-use Netgen\BlockManager\Collection\Result\CollectionRunnerFactory;
-use Netgen\BlockManager\Collection\Result\Result;
-use Netgen\BlockManager\Collection\Result\ResultSet;
-use Netgen\BlockManager\Item\CmsItem;
-use Netgen\BlockManager\Item\CmsItemBuilderInterface;
-use Netgen\BlockManager\Item\NullCmsItem;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\Collection\Item\VisibilityResolver;
+use Netgen\Layouts\Collection\Result\CollectionRunnerFactory;
+use Netgen\Layouts\Collection\Result\Result;
+use Netgen\Layouts\Collection\Result\ResultSet;
+use Netgen\Layouts\Item\CmsItem;
+use Netgen\Layouts\Item\CmsItemBuilderInterface;
+use Netgen\Layouts\Item\NullCmsItem;
 use PHPUnit\Framework\TestCase;
 
 final class ManualCollectionRunnerTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Item\CmsItemBuilderInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\Layouts\Item\CmsItemBuilderInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $cmsItemBuilderMock;
 
@@ -29,9 +29,9 @@ final class ManualCollectionRunnerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\ManualCollectionRunner::__construct
-     * @covers \Netgen\BlockManager\Collection\Result\ManualCollectionRunner::count
-     * @covers \Netgen\BlockManager\Collection\Result\ManualCollectionRunner::runCollection
+     * @covers \Netgen\Layouts\Collection\Result\ManualCollectionRunner::__construct
+     * @covers \Netgen\Layouts\Collection\Result\ManualCollectionRunner::count
+     * @covers \Netgen\Layouts\Collection\Result\ManualCollectionRunner::runCollection
      *
      * @dataProvider manualCollectionProvider
      */

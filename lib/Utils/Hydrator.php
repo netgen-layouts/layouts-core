@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Utils;
+namespace Netgen\Layouts\Utils;
 
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\Layouts\Exception\RuntimeException;
 
 final class Hydrator
 {

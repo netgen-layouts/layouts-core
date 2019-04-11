@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Collection\Result;
+namespace Netgen\Layouts\Tests\Collection\Result;
 
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\Collection\Item\VisibilityResolver;
-use Netgen\BlockManager\Collection\Result\CollectionRunnerFactory;
-use Netgen\BlockManager\Collection\Result\DynamicCollectionRunner;
-use Netgen\BlockManager\Collection\Result\ManualCollectionRunner;
-use Netgen\BlockManager\Item\CmsItemBuilderInterface;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\Collection\Item\VisibilityResolver;
+use Netgen\Layouts\Collection\Result\CollectionRunnerFactory;
+use Netgen\Layouts\Collection\Result\DynamicCollectionRunner;
+use Netgen\Layouts\Collection\Result\ManualCollectionRunner;
+use Netgen\Layouts\Item\CmsItemBuilderInterface;
+use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
 final class CollectionRunnerFactoryTest extends TestCase
@@ -22,7 +22,7 @@ final class CollectionRunnerFactoryTest extends TestCase
     private $cmsItemBuilderMock;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Result\CollectionRunnerFactory
+     * @var \Netgen\Layouts\Collection\Result\CollectionRunnerFactory
      */
     private $factory;
 
@@ -34,9 +34,9 @@ final class CollectionRunnerFactoryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\CollectionRunnerFactory::__construct
-     * @covers \Netgen\BlockManager\Collection\Result\CollectionRunnerFactory::getCollectionRunner
-     * @covers \Netgen\BlockManager\Collection\Result\CollectionRunnerFactory::getQueryRunner
+     * @covers \Netgen\Layouts\Collection\Result\CollectionRunnerFactory::__construct
+     * @covers \Netgen\Layouts\Collection\Result\CollectionRunnerFactory::getCollectionRunner
+     * @covers \Netgen\Layouts\Collection\Result\CollectionRunnerFactory::getQueryRunner
      */
     public function testGetCollectionRunnerWithManualCollection(): void
     {
@@ -46,9 +46,9 @@ final class CollectionRunnerFactoryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\CollectionRunnerFactory::__construct
-     * @covers \Netgen\BlockManager\Collection\Result\CollectionRunnerFactory::getCollectionRunner
-     * @covers \Netgen\BlockManager\Collection\Result\CollectionRunnerFactory::getQueryRunner
+     * @covers \Netgen\Layouts\Collection\Result\CollectionRunnerFactory::__construct
+     * @covers \Netgen\Layouts\Collection\Result\CollectionRunnerFactory::getCollectionRunner
+     * @covers \Netgen\Layouts\Collection\Result\CollectionRunnerFactory::getQueryRunner
      */
     public function testGetCollectionRunnerWithDynamicCollection(): void
     {
@@ -68,9 +68,9 @@ final class CollectionRunnerFactoryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\CollectionRunnerFactory::__construct
-     * @covers \Netgen\BlockManager\Collection\Result\CollectionRunnerFactory::getCollectionRunner
-     * @covers \Netgen\BlockManager\Collection\Result\CollectionRunnerFactory::getQueryRunner
+     * @covers \Netgen\Layouts\Collection\Result\CollectionRunnerFactory::__construct
+     * @covers \Netgen\Layouts\Collection\Result\CollectionRunnerFactory::getCollectionRunner
+     * @covers \Netgen\Layouts\Collection\Result\CollectionRunnerFactory::getQueryRunner
      */
     public function testGetCollectionRunnerWithDynamicContextualCollection(): void
     {

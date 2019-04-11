@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Collection\QueryType;
+namespace Netgen\Layouts\Collection\QueryType;
 
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\Parameters\ParameterBuilderInterface;
 
 /**
  * Query type handler represents the dynamic/runtime part of the query type.

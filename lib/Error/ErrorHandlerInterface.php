@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Error;
+namespace Netgen\Layouts\Error;
 
 use Throwable;
 

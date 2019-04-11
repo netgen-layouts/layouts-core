@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Block;
+namespace Netgen\Layouts\Tests\Block;
 
-use Netgen\BlockManager\Block\DynamicParameters;
+use Netgen\Layouts\Block\DynamicParameters;
 use PHPUnit\Framework\TestCase;
 
 final class DynamicParametersTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Block\DynamicParameters
+     * @var \Netgen\Layouts\Block\DynamicParameters
      */
     private $dynamicParams;
 
@@ -25,7 +25,7 @@ final class DynamicParametersTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\DynamicParameters::count
+     * @covers \Netgen\Layouts\Block\DynamicParameters::count
      */
     public function testCount(): void
     {
@@ -33,7 +33,7 @@ final class DynamicParametersTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\DynamicParameters::offsetExists
+     * @covers \Netgen\Layouts\Block\DynamicParameters::offsetExists
      */
     public function testOffsetExists(): void
     {
@@ -43,7 +43,7 @@ final class DynamicParametersTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\DynamicParameters::offsetGet
+     * @covers \Netgen\Layouts\Block\DynamicParameters::offsetGet
      */
     public function testOffsetGet(): void
     {
@@ -53,7 +53,7 @@ final class DynamicParametersTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\DynamicParameters::offsetSet
+     * @covers \Netgen\Layouts\Block\DynamicParameters::offsetSet
      */
     public function testOffsetSet(): void
     {
@@ -69,7 +69,7 @@ final class DynamicParametersTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\DynamicParameters::offsetUnset()
+     * @covers \Netgen\Layouts\Block\DynamicParameters::offsetUnset()
      */
     public function testOffsetUnset(): void
     {

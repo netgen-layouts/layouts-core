@@ -2,30 +2,30 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Core\Mapper;
+namespace Netgen\Layouts\Core\Mapper;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\API\Values\LazyCollection;
-use Netgen\BlockManager\Exception\Layout\LayoutTypeException;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface;
-use Netgen\BlockManager\Layout\Type\NullLayoutType;
-use Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface;
-use Netgen\BlockManager\Persistence\Values\Layout\Layout as PersistenceLayout;
-use Netgen\BlockManager\Persistence\Values\Layout\Zone as PersistenceZone;
-use Netgen\BlockManager\Persistence\Values\Value as PersistenceValue;
-use Netgen\BlockManager\Utils\DateTimeUtils;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\API\Values\LazyCollection;
+use Netgen\Layouts\Exception\Layout\LayoutTypeException;
+use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface;
+use Netgen\Layouts\Layout\Type\NullLayoutType;
+use Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface;
+use Netgen\Layouts\Persistence\Values\Layout\Layout as PersistenceLayout;
+use Netgen\Layouts\Persistence\Values\Layout\Zone as PersistenceZone;
+use Netgen\Layouts\Persistence\Values\Value as PersistenceValue;
+use Netgen\Layouts\Utils\DateTimeUtils;
 
 final class LayoutMapper
 {
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface
+     * @var \Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface
      */
     private $layoutHandler;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Registry\LayoutTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface
      */
     private $layoutTypeRegistry;
 

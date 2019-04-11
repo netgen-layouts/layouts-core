@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\Mapper;
+namespace Netgen\Layouts\Tests\Core\Mapper;
 
-use Netgen\BlockManager\API\Values\Layout\Zone as APIZone;
-use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Layout\Type\NullLayoutType;
-use Netgen\BlockManager\Persistence\Values\Layout\Layout;
-use Netgen\BlockManager\Persistence\Values\Layout\Zone;
-use Netgen\BlockManager\Tests\Core\CoreTestCase;
+use Netgen\Layouts\API\Values\Layout\Zone as APIZone;
+use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\Layout\Type\NullLayoutType;
+use Netgen\Layouts\Persistence\Values\Layout\Layout;
+use Netgen\Layouts\Persistence\Values\Layout\Zone;
+use Netgen\Layouts\Tests\Core\CoreTestCase;
 
 abstract class LayoutMapperTest extends CoreTestCase
 {
     /**
-     * @var \Netgen\BlockManager\Core\Mapper\LayoutMapper
+     * @var \Netgen\Layouts\Core\Mapper\LayoutMapper
      */
     private $mapper;
 
@@ -26,8 +26,8 @@ abstract class LayoutMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\LayoutMapper::__construct
-     * @covers \Netgen\BlockManager\Core\Mapper\LayoutMapper::mapZone
+     * @covers \Netgen\Layouts\Core\Mapper\LayoutMapper::__construct
+     * @covers \Netgen\Layouts\Core\Mapper\LayoutMapper::mapZone
      */
     public function testMapZone(): void
     {
@@ -54,7 +54,7 @@ abstract class LayoutMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\LayoutMapper::mapZone
+     * @covers \Netgen\Layouts\Core\Mapper\LayoutMapper::mapZone
      */
     public function testMapZoneWithNoLinkedZone(): void
     {
@@ -78,7 +78,7 @@ abstract class LayoutMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\LayoutMapper::mapZone
+     * @covers \Netgen\Layouts\Core\Mapper\LayoutMapper::mapZone
      */
     public function testMapZoneWithNonExistingLinkedZone(): void
     {
@@ -102,7 +102,7 @@ abstract class LayoutMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\LayoutMapper::mapLayout
+     * @covers \Netgen\Layouts\Core\Mapper\LayoutMapper::mapLayout
      */
     public function testMapLayout(): void
     {
@@ -137,7 +137,7 @@ abstract class LayoutMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\LayoutMapper::mapLayout
+     * @covers \Netgen\Layouts\Core\Mapper\LayoutMapper::mapLayout
      */
     public function testMapLayoutWithInvalidLayoutType(): void
     {

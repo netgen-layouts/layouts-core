@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Persistence\Doctrine;
+namespace Netgen\Layouts\Tests\Persistence\Doctrine;
 
-use Netgen\BlockManager\Layout\Resolver\TargetHandler;
-use Netgen\BlockManager\Persistence\Doctrine\Handler\BlockHandler;
-use Netgen\BlockManager\Persistence\Doctrine\Handler\CollectionHandler;
-use Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutHandler;
-use Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler;
-use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
-use Netgen\BlockManager\Persistence\Doctrine\Helper\PositionHelper;
-use Netgen\BlockManager\Persistence\Doctrine\Mapper\BlockMapper;
-use Netgen\BlockManager\Persistence\Doctrine\Mapper\CollectionMapper;
-use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutMapper;
-use Netgen\BlockManager\Persistence\Doctrine\Mapper\LayoutResolverMapper;
-use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\BlockQueryHandler;
-use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\CollectionQueryHandler;
-use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutQueryHandler;
-use Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler;
-use Netgen\BlockManager\Persistence\Doctrine\TransactionHandler;
-use Netgen\BlockManager\Persistence\Handler\BlockHandlerInterface;
-use Netgen\BlockManager\Persistence\Handler\CollectionHandlerInterface;
-use Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface;
-use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandlerInterface;
-use Netgen\BlockManager\Persistence\TransactionHandlerInterface;
+use Netgen\Layouts\Layout\Resolver\TargetHandler;
+use Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler;
+use Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler;
+use Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler;
+use Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler;
+use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper;
+use Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper;
+use Netgen\Layouts\Persistence\Doctrine\Mapper\BlockMapper;
+use Netgen\Layouts\Persistence\Doctrine\Mapper\CollectionMapper;
+use Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutMapper;
+use Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutResolverMapper;
+use Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler;
+use Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler;
+use Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler;
+use Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler;
+use Netgen\Layouts\Persistence\Doctrine\TransactionHandler;
+use Netgen\Layouts\Persistence\Handler\BlockHandlerInterface;
+use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
+use Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface;
+use Netgen\Layouts\Persistence\Handler\LayoutResolverHandlerInterface;
+use Netgen\Layouts\Persistence\TransactionHandlerInterface;
 
 trait TestCaseTrait
 {

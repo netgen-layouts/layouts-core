@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\Form\Mapper;
+namespace Netgen\Layouts\Tests\Parameters\Form\Mapper;
 
-use Netgen\BlockManager\Parameters\Form\Mapper\IntegerMapper;
+use Netgen\Layouts\Parameters\Form\Mapper\IntegerMapper;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 final class IntegerMapperTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Parameters\Form\Mapper\IntegerMapper
+     * @var \Netgen\Layouts\Parameters\Form\Mapper\IntegerMapper
      */
     private $mapper;
 
@@ -21,7 +21,7 @@ final class IntegerMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\Form\Mapper\IntegerMapper::getFormType
+     * @covers \Netgen\Layouts\Parameters\Form\Mapper\IntegerMapper::getFormType
      */
     public function testGetFormType(): void
     {

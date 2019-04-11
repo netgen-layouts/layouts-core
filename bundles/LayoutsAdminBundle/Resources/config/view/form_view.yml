@@ -4,36 +4,36 @@ view:
             layout\create:
                 template: "@NetgenLayoutsAdmin/app/form/layout/create.html.twig"
                 match:
-                    form\type: Netgen\BlockManager\Layout\Form\CreateType
+                    form\type: Netgen\Layouts\Layout\Form\CreateType
             layout\edit:
                 template: "@NetgenLayoutsAdmin/app/form/layout/edit.html.twig"
                 match:
-                    form\type: Netgen\BlockManager\Layout\Form\EditType
+                    form\type: Netgen\Layouts\Layout\Form\EditType
             block\full_edit:
                 template: "@NetgenLayoutsAdmin/app/form/block/edit/full.html.twig"
                 match:
-                    form\type: Netgen\BlockManager\Block\Form\FullEditType
+                    form\type: Netgen\Layouts\Block\Form\FullEditType
             block\content_edit:
                 template: "@NetgenLayoutsAdmin/app/form/block/edit/content.html.twig"
                 match:
-                    form\type: Netgen\BlockManager\Block\Form\ContentEditType
+                    form\type: Netgen\Layouts\Block\Form\ContentEditType
             block\design_edit:
                 template: "@NetgenLayoutsAdmin/app/form/block/edit/design.html.twig"
                 match:
-                    form\type: Netgen\BlockManager\Block\Form\DesignEditType
+                    form\type: Netgen\Layouts\Block\Form\DesignEditType
             collection\full_edit:
                 template: "@NetgenLayoutsAdmin/app/form/collection/edit/full.html.twig"
                 match:
-                    form\type: Netgen\BlockManager\Collection\Form\CollectionEditType
+                    form\type: Netgen\Layouts\Collection\Form\CollectionEditType
             query\full_edit:
                 template: "@NetgenLayoutsAdmin/app/form/query/edit/full.html.twig"
                 match:
-                    form\type: Netgen\BlockManager\Collection\Form\QueryEditType
+                    form\type: Netgen\Layouts\Collection\Form\QueryEditType
         admin:
             layout\copy:
                 template: "@NetgenLayoutsAdmin/admin/layouts/form/copy_layout.html.twig"
                 match:
-                    form\type: Netgen\BlockManager\Layout\Form\CopyType
+                    form\type: Netgen\Layouts\Layout\Form\CopyType
             shared_layout\related_layouts_cache:
                 template: "@NetgenLayoutsAdmin/admin/shared_layouts/form/clear_related_layouts_cache.html.twig"
                 match:
@@ -41,8 +41,8 @@ view:
             condition\edit:
                 template: "@NetgenLayoutsAdmin/admin/layout_resolver/form/edit_condition.html.twig"
                 match:
-                    form\type: Netgen\BlockManager\Layout\Resolver\Form\ConditionType
+                    form\type: Netgen\Layouts\Layout\Resolver\Form\ConditionType
             target\edit:
                 template: "@NetgenLayoutsAdmin/admin/layout_resolver/form/edit_target.html.twig"
                 match:
-                    form\type: Netgen\BlockManager\Layout\Resolver\Form\TargetType
+                    form\type: Netgen\Layouts\Layout\Resolver\Form\TargetType

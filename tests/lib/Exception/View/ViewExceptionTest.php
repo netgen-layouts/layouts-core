@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Exception\View;
+namespace Netgen\Layouts\Tests\Exception\View;
 
-use Netgen\BlockManager\Exception\View\ViewException;
+use Netgen\Layouts\Exception\View\ViewException;
 use PHPUnit\Framework\TestCase;
 
 final class ViewExceptionTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Exception\View\ViewException::parameterNotFound
+     * @covers \Netgen\Layouts\Exception\View\ViewException::parameterNotFound
      */
     public function testParameterNotFound(): void
     {

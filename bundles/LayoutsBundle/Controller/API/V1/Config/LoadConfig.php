@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Controller\API\V1\Config;
 
-use Netgen\BlockManager\Serializer\Values\Value;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
+use Netgen\Layouts\Serializer\Values\Value;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 final class LoadConfig extends AbstractController

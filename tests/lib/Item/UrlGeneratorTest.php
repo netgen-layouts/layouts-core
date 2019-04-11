@@ -2,20 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Item;
+namespace Netgen\Layouts\Tests\Item;
 
-use Netgen\BlockManager\Exception\Item\ItemException;
-use Netgen\BlockManager\Item\CmsItem;
-use Netgen\BlockManager\Item\NullCmsItem;
-use Netgen\BlockManager\Item\UrlGenerator;
-use Netgen\BlockManager\Tests\Item\Stubs\ValueUrlGenerator;
+use Netgen\Layouts\Exception\Item\ItemException;
+use Netgen\Layouts\Item\CmsItem;
+use Netgen\Layouts\Item\NullCmsItem;
+use Netgen\Layouts\Item\UrlGenerator;
+use Netgen\Layouts\Tests\Item\Stubs\ValueUrlGenerator;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
 final class UrlGeneratorTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Item\UrlGeneratorInterface
+     * @var \Netgen\Layouts\Item\UrlGeneratorInterface
      */
     private $urlGenerator;
 
@@ -27,8 +27,8 @@ final class UrlGeneratorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\UrlGenerator::__construct
-     * @covers \Netgen\BlockManager\Item\UrlGenerator::generate
+     * @covers \Netgen\Layouts\Item\UrlGenerator::__construct
+     * @covers \Netgen\Layouts\Item\UrlGenerator::generate
      */
     public function testGenerate(): void
     {
@@ -41,8 +41,8 @@ final class UrlGeneratorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\UrlGenerator::__construct
-     * @covers \Netgen\BlockManager\Item\UrlGenerator::generate
+     * @covers \Netgen\Layouts\Item\UrlGenerator::__construct
+     * @covers \Netgen\Layouts\Item\UrlGenerator::generate
      */
     public function testGenerateWithNullCmsItem(): void
     {
@@ -50,8 +50,8 @@ final class UrlGeneratorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\UrlGenerator::__construct
-     * @covers \Netgen\BlockManager\Item\UrlGenerator::generate
+     * @covers \Netgen\Layouts\Item\UrlGenerator::__construct
+     * @covers \Netgen\Layouts\Item\UrlGenerator::generate
      */
     public function testGenerateWithNullObject(): void
     {
@@ -59,7 +59,7 @@ final class UrlGeneratorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\UrlGenerator::generate
+     * @covers \Netgen\Layouts\Item\UrlGenerator::generate
      */
     public function testGenerateWithNoUrlGenerator(): void
     {

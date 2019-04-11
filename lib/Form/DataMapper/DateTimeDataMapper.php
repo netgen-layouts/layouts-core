@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Form\DataMapper;
+namespace Netgen\Layouts\Form\DataMapper;
 
 use DateTimeInterface;
-use Netgen\BlockManager\Utils\DateTimeUtils;
+use Netgen\Layouts\Utils\DateTimeUtils;
 use Symfony\Component\Form\DataMapperInterface;
 
 /**

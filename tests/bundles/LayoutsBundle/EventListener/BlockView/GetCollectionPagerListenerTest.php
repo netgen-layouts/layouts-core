@@ -5,22 +5,22 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener\BlockView;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Collection\Collection;
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
-use Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory;
-use Netgen\BlockManager\Collection\Result\ResultBuilderInterface;
-use Netgen\BlockManager\Collection\Result\ResultSet;
-use Netgen\BlockManager\Event\BlockManagerEvents;
-use Netgen\BlockManager\Event\CollectViewParametersEvent;
-use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\View\View\BlockView;
-use Netgen\BlockManager\View\ViewInterface;
 use Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionPagerListener;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Collection\Collection;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
+use Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory;
+use Netgen\Layouts\Collection\Result\ResultBuilderInterface;
+use Netgen\Layouts\Collection\Result\ResultSet;
+use Netgen\Layouts\Event\CollectViewParametersEvent;
+use Netgen\Layouts\Event\LayoutsEvents;
+use Netgen\Layouts\Parameters\Parameter;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\View\Stubs\View;
+use Netgen\Layouts\View\View\BlockView;
+use Netgen\Layouts\View\ViewInterface;
 use Pagerfanta\Pagerfanta;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -64,7 +64,7 @@ final class GetCollectionPagerListenerTest extends TestCase
     public function testGetSubscribedEvents(): void
     {
         self::assertSame(
-            [sprintf('%s.%s', BlockManagerEvents::RENDER_VIEW, 'block') => 'onRenderView'],
+            [sprintf('%s.%s', LayoutsEvents::RENDER_VIEW, 'block') => 'onRenderView'],
             $this->listener::getSubscribedEvents()
         );
     }

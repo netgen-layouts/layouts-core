@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\API\Values\Collection;
+namespace Netgen\Layouts\API\Values\Collection;
 
-use Netgen\BlockManager\API\Values\Config\ConfigAwareValue;
-use Netgen\BlockManager\API\Values\Config\ConfigAwareValueTrait;
-use Netgen\BlockManager\API\Values\LazyPropertyTrait;
-use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\API\Values\ValueStatusTrait;
-use Netgen\BlockManager\Collection\Item\ItemDefinitionInterface;
-use Netgen\BlockManager\Item\CmsItemInterface;
-use Netgen\BlockManager\Item\NullCmsItem;
-use Netgen\BlockManager\Utils\HydratorTrait;
+use Netgen\Layouts\API\Values\Config\ConfigAwareValue;
+use Netgen\Layouts\API\Values\Config\ConfigAwareValueTrait;
+use Netgen\Layouts\API\Values\LazyPropertyTrait;
+use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\API\Values\ValueStatusTrait;
+use Netgen\Layouts\Collection\Item\ItemDefinitionInterface;
+use Netgen\Layouts\Item\CmsItemInterface;
+use Netgen\Layouts\Item\NullCmsItem;
+use Netgen\Layouts\Utils\HydratorTrait;
 
 final class Item implements Value, ConfigAwareValue
 {
@@ -32,7 +32,7 @@ final class Item implements Value, ConfigAwareValue
     private $collectionId;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Item\ItemDefinitionInterface
+     * @var \Netgen\Layouts\Collection\Item\ItemDefinitionInterface
      */
     private $definition;
 
@@ -47,7 +47,7 @@ final class Item implements Value, ConfigAwareValue
     private $value;
 
     /**
-     * @var \Netgen\BlockManager\Item\CmsItemInterface
+     * @var \Netgen\Layouts\Item\CmsItemInterface
      */
     private $cmsItem;
 

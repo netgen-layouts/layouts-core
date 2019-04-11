@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\Mapper;
+namespace Netgen\Layouts\Tests\Core\Mapper;
 
-use Netgen\BlockManager\API\Values\Collection\Query as APIQuery;
-use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Collection\Item\NullItemDefinition;
-use Netgen\BlockManager\Collection\QueryType\NullQueryType;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Item\CmsItem;
-use Netgen\BlockManager\Item\NullCmsItem;
-use Netgen\BlockManager\Persistence\Values\Collection\Collection;
-use Netgen\BlockManager\Persistence\Values\Collection\Item;
-use Netgen\BlockManager\Persistence\Values\Collection\Query;
-use Netgen\BlockManager\Tests\Core\CoreTestCase;
+use Netgen\Layouts\API\Values\Collection\Query as APIQuery;
+use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\Collection\Item\NullItemDefinition;
+use Netgen\Layouts\Collection\QueryType\NullQueryType;
+use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Item\CmsItem;
+use Netgen\Layouts\Item\NullCmsItem;
+use Netgen\Layouts\Persistence\Values\Collection\Collection;
+use Netgen\Layouts\Persistence\Values\Collection\Item;
+use Netgen\Layouts\Persistence\Values\Collection\Query;
+use Netgen\Layouts\Tests\Core\CoreTestCase;
 
 abstract class CollectionMapperTest extends CoreTestCase
 {
     /**
-     * @var \Netgen\BlockManager\Core\Mapper\CollectionMapper
+     * @var \Netgen\Layouts\Core\Mapper\CollectionMapper
      */
     private $mapper;
 
@@ -31,8 +31,8 @@ abstract class CollectionMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::__construct
-     * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::mapCollection
+     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::__construct
+     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapCollection
      */
     public function testMapCollection(): void
     {
@@ -65,8 +65,8 @@ abstract class CollectionMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::__construct
-     * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::mapCollection
+     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::__construct
+     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapCollection
      */
     public function testMapCollectionWithLocale(): void
     {
@@ -84,8 +84,8 @@ abstract class CollectionMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::__construct
-     * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::mapCollection
+     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::__construct
+     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapCollection
      */
     public function testMapCollectionWithLocales(): void
     {
@@ -103,8 +103,8 @@ abstract class CollectionMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::__construct
-     * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::mapCollection
+     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::__construct
+     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapCollection
      */
     public function testMapCollectionWithLocalesAndAlwaysAvailable(): void
     {
@@ -123,8 +123,8 @@ abstract class CollectionMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::__construct
-     * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::mapCollection
+     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::__construct
+     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapCollection
      */
     public function testMapCollectionWithLocalesAndAlwaysAvailableWithoutUsingMainLocale(): void
     {
@@ -144,8 +144,8 @@ abstract class CollectionMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::__construct
-     * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::mapCollection
+     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::__construct
+     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapCollection
      */
     public function testMapCollectionWithLocalesAndNotAlwaysAvailable(): void
     {
@@ -165,7 +165,7 @@ abstract class CollectionMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::mapCollection
+     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapCollection
      */
     public function testMapCollectionWithNoQuery(): void
     {
@@ -198,7 +198,7 @@ abstract class CollectionMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::mapItem
+     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapItem
      */
     public function testMapItem(): void
     {
@@ -246,7 +246,7 @@ abstract class CollectionMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::mapItem
+     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapItem
      */
     public function testMapItemWithInvalidItemDefinition(): void
     {
@@ -289,7 +289,7 @@ abstract class CollectionMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::mapQuery
+     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapQuery
      */
     public function testMapQuery(): void
     {
@@ -336,8 +336,8 @@ abstract class CollectionMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::__construct
-     * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::mapQuery
+     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::__construct
+     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapQuery
      */
     public function testMapQueryWithLocale(): void
     {
@@ -357,8 +357,8 @@ abstract class CollectionMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::__construct
-     * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::mapQuery
+     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::__construct
+     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapQuery
      */
     public function testMapQueryWithLocales(): void
     {
@@ -378,8 +378,8 @@ abstract class CollectionMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::__construct
-     * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::mapQuery
+     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::__construct
+     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapQuery
      */
     public function testMapQueryWithLocalesAndAlwaysAvailable(): void
     {
@@ -400,8 +400,8 @@ abstract class CollectionMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::__construct
-     * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::mapQuery
+     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::__construct
+     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapQuery
      */
     public function testMapQueryWithLocalesAndAlwaysAvailableWithoutUsingMainLocale(): void
     {
@@ -423,8 +423,8 @@ abstract class CollectionMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::__construct
-     * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::mapQuery
+     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::__construct
+     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapQuery
      */
     public function testMapQueryWithLocalesAndNotAlwaysAvailable(): void
     {
@@ -446,7 +446,7 @@ abstract class CollectionMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Mapper\CollectionMapper::mapQuery
+     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapQuery
      */
     public function testMapQueryWithInvalidType(): void
     {

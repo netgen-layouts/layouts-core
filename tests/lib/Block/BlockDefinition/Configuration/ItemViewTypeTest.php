@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Block\BlockDefinition\Configuration;
+namespace Netgen\Layouts\Tests\Block\BlockDefinition\Configuration;
 
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType;
 use PHPUnit\Framework\TestCase;
 
 final class ItemViewTypeTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType
+     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType
      */
     private $itemViewType;
 
@@ -20,7 +20,7 @@ final class ItemViewTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType::getIdentifier
+     * @covers \Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType::getIdentifier
      */
     public function testGetIdentifier(): void
     {
@@ -28,7 +28,7 @@ final class ItemViewTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType::getName
+     * @covers \Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType::getName
      */
     public function testGetName(): void
     {

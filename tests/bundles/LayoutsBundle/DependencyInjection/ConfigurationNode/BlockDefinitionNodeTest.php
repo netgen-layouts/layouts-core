@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\ConfigurationNode;
 
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
-use Netgen\BlockManager\Block\Form\FullEditType;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension;
+use Netgen\Layouts\Block\Form\FullEditType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 

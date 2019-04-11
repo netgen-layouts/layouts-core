@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Exception\Item;
+namespace Netgen\Layouts\Exception\Item;
 
 use InvalidArgumentException;
-use Netgen\BlockManager\Exception\Exception;
+use Netgen\Layouts\Exception\Exception;
 
 final class ItemException extends InvalidArgumentException implements Exception
 {
@@ -22,7 +22,7 @@ final class ItemException extends InvalidArgumentException implements Exception
     /**
      * @param string|int $value
      *
-     * @return \Netgen\BlockManager\Exception\Item\ItemException
+     * @return \Netgen\Layouts\Exception\Item\ItemException
      */
     public static function noValue($value): self
     {
@@ -37,7 +37,7 @@ final class ItemException extends InvalidArgumentException implements Exception
     /**
      * @param string|int $value
      *
-     * @return \Netgen\BlockManager\Exception\Item\ItemException
+     * @return \Netgen\Layouts\Exception\Item\ItemException
      */
     public static function invalidValue($value): self
     {

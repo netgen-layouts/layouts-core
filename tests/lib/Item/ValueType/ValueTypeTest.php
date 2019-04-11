@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Item\ValueType;
+namespace Netgen\Layouts\Tests\Item\ValueType;
 
-use Netgen\BlockManager\Item\ValueType\ValueType;
+use Netgen\Layouts\Item\ValueType\ValueType;
 use PHPUnit\Framework\TestCase;
 
 final class ValueTypeTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Item\ValueType\ValueType
+     * @var \Netgen\Layouts\Item\ValueType\ValueType
      */
     private $valueType;
 
@@ -26,7 +26,7 @@ final class ValueTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\ValueType\ValueType::getIdentifier
+     * @covers \Netgen\Layouts\Item\ValueType\ValueType::getIdentifier
      */
     public function testGetIdentifier(): void
     {
@@ -34,7 +34,7 @@ final class ValueTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\ValueType\ValueType::isEnabled
+     * @covers \Netgen\Layouts\Item\ValueType\ValueType::isEnabled
      */
     public function testIsEnabled(): void
     {
@@ -42,7 +42,7 @@ final class ValueTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\ValueType\ValueType::getName
+     * @covers \Netgen\Layouts\Item\ValueType\ValueType::getName
      */
     public function testGetName(): void
     {

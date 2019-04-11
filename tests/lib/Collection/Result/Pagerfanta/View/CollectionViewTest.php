@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Collection\Result\Pagerfanta\View;
+namespace Netgen\Layouts\Tests\Collection\Result\Pagerfanta\View;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Collection\Result\Pagerfanta\View\CollectionView;
-use Netgen\BlockManager\Exception\InvalidArgumentException;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Collection\Result\Pagerfanta\View\CollectionView;
+use Netgen\Layouts\Exception\InvalidArgumentException;
 use Pagerfanta\Pagerfanta;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
@@ -19,7 +19,7 @@ final class CollectionViewTest extends TestCase
     private $twigMock;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Result\Pagerfanta\View\CollectionView
+     * @var \Netgen\Layouts\Collection\Result\Pagerfanta\View\CollectionView
      */
     private $collectionView;
 
@@ -31,8 +31,8 @@ final class CollectionViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\View\CollectionView::__construct
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\View\CollectionView::getName
+     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\View\CollectionView::__construct
+     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\View\CollectionView::getName
      */
     public function testGetName(): void
     {
@@ -40,7 +40,7 @@ final class CollectionViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\View\CollectionView::render
+     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\View\CollectionView::render
      */
     public function testRender(): void
     {
@@ -74,7 +74,7 @@ final class CollectionViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\View\CollectionView::render
+     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\View\CollectionView::render
      */
     public function testRenderWithOverriddenTemplate(): void
     {
@@ -109,12 +109,12 @@ final class CollectionViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\View\CollectionView::render
+     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\View\CollectionView::render
      */
     public function testRenderThrowsInvalidArgumentExceptionWithNoBlock(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('To render the collection view, "block" option must be an instance of Netgen\\BlockManager\\API\\Values\\Block\\Block');
+        $this->expectExceptionMessage('To render the collection view, "block" option must be an instance of Netgen\\Layouts\\API\\Values\\Block\\Block');
 
         $pagerMock = $this->createMock(Pagerfanta::class);
 
@@ -131,12 +131,12 @@ final class CollectionViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\View\CollectionView::render
+     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\View\CollectionView::render
      */
     public function testRenderThrowsInvalidArgumentExceptionWithInvalidBlock(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('To render the collection view, "block" option must be an instance of Netgen\\BlockManager\\API\\Values\\Block\\Block');
+        $this->expectExceptionMessage('To render the collection view, "block" option must be an instance of Netgen\\Layouts\\API\\Values\\Block\\Block');
 
         $pagerMock = $this->createMock(Pagerfanta::class);
 
@@ -154,7 +154,7 @@ final class CollectionViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\View\CollectionView::render
+     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\View\CollectionView::render
      */
     public function testRenderThrowsInvalidArgumentExceptionWithNoCollectionIdentifier(): void
     {
@@ -176,7 +176,7 @@ final class CollectionViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Result\Pagerfanta\View\CollectionView::render
+     * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\View\CollectionView::render
      */
     public function testRenderThrowsInvalidArgumentExceptionWithInvalidCollectionIdentifier(): void
     {

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\EventListener\BlockView;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
-use Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory;
-use Netgen\BlockManager\Event\BlockManagerEvents;
-use Netgen\BlockManager\Event\CollectViewParametersEvent;
-use Netgen\BlockManager\View\View\BlockViewInterface;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
+use Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory;
+use Netgen\Layouts\Event\CollectViewParametersEvent;
+use Netgen\Layouts\Event\LayoutsEvents;
+use Netgen\Layouts\View\View\BlockViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
 final class GetCollectionPagerListener implements EventSubscriberInterface
 {
     /**
-     * @var \Netgen\BlockManager\Collection\Result\Pagerfanta\PagerFactory
+     * @var \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory
      */
     private $pagerFactory;
 
@@ -43,7 +43,7 @@ final class GetCollectionPagerListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents(): array
     {
-        return [sprintf('%s.%s', BlockManagerEvents::RENDER_VIEW, 'block') => 'onRenderView'];
+        return [sprintf('%s.%s', LayoutsEvents::RENDER_VIEW, 'block') => 'onRenderView'];
     }
 
     /**

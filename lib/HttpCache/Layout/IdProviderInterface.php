@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\HttpCache\Layout;
+namespace Netgen\Layouts\HttpCache\Layout;
 
 /**
  * ID provider is used to extract all related layout IDs for the provided ID.

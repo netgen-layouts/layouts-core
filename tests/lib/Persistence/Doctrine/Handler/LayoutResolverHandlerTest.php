@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Persistence\Doctrine\Handler;
+namespace Netgen\Layouts\Tests\Persistence\Doctrine\Handler;
 
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionCreateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleCreateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\RuleUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetCreateStruct;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\TargetUpdateStruct;
-use Netgen\BlockManager\Persistence\Values\Value;
-use Netgen\BlockManager\Tests\Persistence\Doctrine\TestCaseTrait;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
+use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\ConditionCreateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCreateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleUpdateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetCreateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Value;
+use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
+use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutResolverHandlerTest extends TestCase
@@ -26,12 +26,12 @@ final class LayoutResolverHandlerTest extends TestCase
     use ExportObjectTrait;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandlerInterface
+     * @var \Netgen\Layouts\Persistence\Handler\LayoutResolverHandlerInterface
      */
     private $handler;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\LayoutHandlerInterface
+     * @var \Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface
      */
     private $layoutHandler;
 
@@ -52,11 +52,11 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::__construct
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRule
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::__construct
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleSelectQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::__construct
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::__construct
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleSelectQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleData
      */
     public function testLoadRule(): void
     {
@@ -76,8 +76,8 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRule
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleData
      */
     public function testLoadRuleThrowsNotFoundException(): void
     {
@@ -88,8 +88,8 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRules
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRulesData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRules
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRulesData
      */
     public function testLoadRules(): void
     {
@@ -109,8 +109,8 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRules
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRulesData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRules
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRulesData
      */
     public function testLoadRulesWithLayout(): void
     {
@@ -133,8 +133,8 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::getRuleCount
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleCount
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getRuleCount
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleCount
      */
     public function testGetRuleCount(): void
     {
@@ -144,8 +144,8 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::getRuleCount
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleCount
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getRuleCount
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleCount
      */
     public function testGetRuleCountWithLayout(): void
     {
@@ -157,9 +157,9 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::loadTarget
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getTargetSelectQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadTargetData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadTarget
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getTargetSelectQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadTargetData
      */
     public function testLoadTarget(): void
     {
@@ -178,8 +178,8 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::loadTarget
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadTargetData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadTarget
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadTargetData
      */
     public function testLoadTargetThrowsNotFoundException(): void
     {
@@ -190,8 +190,8 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRuleTargets
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleTargetsData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRuleTargets
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleTargetsData
      */
     public function testLoadRuleTargets(): void
     {
@@ -204,8 +204,8 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::getTargetCount
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getTargetCount
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getTargetCount
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getTargetCount
      */
     public function testGetTargetCount(): void
     {
@@ -217,9 +217,9 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::loadCondition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getConditionSelectQuery
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadConditionData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadCondition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getConditionSelectQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadConditionData
      */
     public function testLoadCondition(): void
     {
@@ -241,8 +241,8 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::loadCondition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadConditionData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadCondition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadConditionData
      */
     public function testLoadConditionThrowsNotFoundException(): void
     {
@@ -253,8 +253,8 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRuleConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleConditionsData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRuleConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleConditionsData
      */
     public function testLoadRuleConditions(): void
     {
@@ -267,8 +267,8 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::ruleExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::ruleExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::ruleExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::ruleExists
      */
     public function testRuleExists(): void
     {
@@ -276,8 +276,8 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::ruleExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::ruleExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::ruleExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::ruleExists
      */
     public function testRuleNotExists(): void
     {
@@ -285,8 +285,8 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::ruleExists
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::ruleExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::ruleExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::ruleExists
      */
     public function testRuleNotExistsInStatus(): void
     {
@@ -294,10 +294,10 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::createRule
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::getRulePriority
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestRulePriority
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getRulePriority
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestRulePriority
      */
     public function testCreateRule(): void
     {
@@ -319,10 +319,10 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::createRule
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::getRulePriority
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestRulePriority
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getRulePriority
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestRulePriority
      */
     public function testCreateRuleWithNoPriority(): void
     {
@@ -340,10 +340,10 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::createRule
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::getRulePriority
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestRulePriority
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getRulePriority
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestRulePriority
      */
     public function testCreateRuleWithNoPriorityAndNoRules(): void
     {
@@ -368,8 +368,8 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRule
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRule
      */
     public function testUpdateRule(): void
     {
@@ -389,8 +389,8 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRule
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRule
      */
     public function testUpdateRuleWithStringLayoutId(): void
     {
@@ -410,8 +410,8 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRule
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRule
      */
     public function testUpdateRuleWithRemovalOfLinkedLayout(): void
     {
@@ -429,8 +429,8 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRule
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRule
      */
     public function testUpdateRuleWithRemovalOfLinkedLayoutAndStringLayoutId(): void
     {
@@ -448,8 +448,8 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRule
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRule
      */
     public function testUpdateRuleWithDefaultValues(): void
     {
@@ -465,8 +465,8 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRuleMetadata
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRuleData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRuleMetadata
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRuleData
      */
     public function testUpdateRuleMetadata(): void
     {
@@ -486,8 +486,8 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRuleMetadata
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRuleData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRuleMetadata
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRuleData
      */
     public function testUpdateRuleMetadataWithDefaultValues(): void
     {
@@ -502,13 +502,13 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::copyRule
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addCondition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addTarget
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleConditionsData
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleData
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleTargetsData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::copyRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addCondition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addTarget
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleConditionsData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleTargetsData
      */
     public function testCopyRule(): void
     {
@@ -561,13 +561,13 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::createRuleStatus
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addCondition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addTarget
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleConditionsData
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleData
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleTargetsData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRuleStatus
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addCondition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addTarget
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleConditionsData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleTargetsData
      */
     public function testCreateRuleStatus(): void
     {
@@ -633,10 +633,10 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::deleteRule
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRule
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleTargets
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::deleteRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleTargets
      */
     public function testDeleteRule(): void
     {
@@ -649,10 +649,10 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::deleteRule
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRule
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleConditions
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleTargets
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::deleteRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleTargets
      */
     public function testDeleteRuleInOneStatus(): void
     {
@@ -672,8 +672,8 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::addTarget
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addTarget
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::addTarget
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addTarget
      */
     public function testAddTarget(): void
     {
@@ -699,8 +699,8 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::updateTarget
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateTarget
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::updateTarget
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateTarget
      */
     public function testUpdateTarget(): void
     {
@@ -725,8 +725,8 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::deleteTarget
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteTarget
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::deleteTarget
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteTarget
      */
     public function testDeleteTarget(): void
     {
@@ -741,8 +741,8 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::addCondition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addCondition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::addCondition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addCondition
      */
     public function testAddCondition(): void
     {
@@ -768,8 +768,8 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::updateCondition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateCondition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::updateCondition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateCondition
      */
     public function testUpdateCondition(): void
     {
@@ -794,8 +794,8 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\Handler\LayoutResolverHandler::deleteCondition
-     * @covers \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteCondition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::deleteCondition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteCondition
      */
     public function testDeleteCondition(): void
     {

@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values;
+namespace Netgen\Layouts\Tests\API\Values;
 
-use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
-use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;
-use Netgen\BlockManager\Parameters\ParameterType;
-use Netgen\BlockManager\Tests\API\Stubs\ParameterStruct;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterCollection;
-use Netgen\BlockManager\Tests\Parameters\Stubs\ParameterDefinitionCollection;
+use Netgen\Layouts\Parameters\CompoundParameterDefinition;
+use Netgen\Layouts\Parameters\Parameter;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface;
+use Netgen\Layouts\Parameters\ParameterType;
+use Netgen\Layouts\Tests\API\Stubs\ParameterStruct;
+use Netgen\Layouts\Tests\Parameters\Stubs\ParameterCollection;
+use Netgen\Layouts\Tests\Parameters\Stubs\ParameterDefinitionCollection;
 use PHPUnit\Framework\TestCase;
 
 final class ParameterStructTraitTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Tests\API\Stubs\ParameterStruct
+     * @var \Netgen\Layouts\Tests\API\Stubs\ParameterStruct
      */
     private $struct;
 
@@ -27,7 +27,7 @@ final class ParameterStructTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::getParameterValues
+     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::getParameterValues
      */
     public function testDefaultProperties(): void
     {
@@ -35,8 +35,8 @@ final class ParameterStructTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::getParameterValues
-     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::setParameterValues
+     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::getParameterValues
+     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::setParameterValues
      */
     public function testSetParameterValues(): void
     {
@@ -57,7 +57,7 @@ final class ParameterStructTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::setParameterValue
+     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::setParameterValue
      */
     public function testSetParameterValue(): void
     {
@@ -74,7 +74,7 @@ final class ParameterStructTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::setParameterValue
+     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::setParameterValue
      */
     public function testOverwriteParameterValues(): void
     {
@@ -85,7 +85,7 @@ final class ParameterStructTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::getParameterValue
+     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::getParameterValue
      */
     public function testGetParameterValue(): void
     {
@@ -95,7 +95,7 @@ final class ParameterStructTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::getParameterValue
+     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::getParameterValue
      */
     public function testGetParameterValueWithNonExistingParameter(): void
     {
@@ -103,7 +103,7 @@ final class ParameterStructTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::hasParameterValue
+     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::hasParameterValue
      */
     public function testHasParameterValue(): void
     {
@@ -113,7 +113,7 @@ final class ParameterStructTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::hasParameterValue
+     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::hasParameterValue
      */
     public function testHasParameterValueWithNoValue(): void
     {
@@ -123,7 +123,7 @@ final class ParameterStructTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::fillDefault
+     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::fillDefault
      */
     public function testFillDefault(): void
     {
@@ -143,13 +143,13 @@ final class ParameterStructTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::fillFromCollection
+     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::fillFromCollection
      */
     public function testFillFromCollection(): void
     {
         $parameterDefinitions = $this->buildParameterDefinitionCollection();
 
-        /** @var \Netgen\BlockManager\Parameters\CompoundParameterDefinition $compoundParameter */
+        /** @var \Netgen\Layouts\Parameters\CompoundParameterDefinition $compoundParameter */
         $compoundParameter = $parameterDefinitions->getParameterDefinition('compound');
 
         $parameters = ParameterCollection::fromArray(
@@ -185,7 +185,7 @@ final class ParameterStructTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::fillFromHash
+     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::fillFromHash
      */
     public function testFillFromHash(): void
     {
@@ -212,7 +212,7 @@ final class ParameterStructTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::fillFromHash
+     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::fillFromHash
      */
     public function testFillFromHashWithMissingValues(): void
     {
@@ -237,7 +237,7 @@ final class ParameterStructTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::fillFromHash
+     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::fillFromHash
      */
     public function testFillFromHashWithImport(): void
     {
@@ -264,7 +264,7 @@ final class ParameterStructTraitTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\ParameterStructTrait::fillFromHash
+     * @covers \Netgen\Layouts\API\Values\ParameterStructTrait::fillFromHash
      */
     public function testFillFromHashWithImportAndMissingValues(): void
     {

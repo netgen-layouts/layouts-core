@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Stubs;
+namespace Netgen\Layouts\Tests\API\Stubs;
 
-use Netgen\BlockManager\API\Values\Config\ConfigAwareStruct as APIConfigAwareStruct;
-use Netgen\BlockManager\API\Values\Config\ConfigAwareStructTrait;
-use Netgen\BlockManager\Utils\HydratorTrait;
+use Netgen\Layouts\API\Values\Config\ConfigAwareStruct as APIConfigAwareStruct;
+use Netgen\Layouts\API\Values\Config\ConfigAwareStructTrait;
+use Netgen\Layouts\Utils\HydratorTrait;
 
 final class ConfigAwareStruct implements APIConfigAwareStruct
 {

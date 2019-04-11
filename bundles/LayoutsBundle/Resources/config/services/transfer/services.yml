@@ -1,13 +1,13 @@
 services:
     netgen_block_manager.transfer.serializer:
-        class: Netgen\BlockManager\Transfer\Output\Serializer
+        class: Netgen\Layouts\Transfer\Output\Serializer
         arguments:
             - "@netgen_block_manager.api.service.layout"
             - "@netgen_block_manager.api.service.layout_resolver"
             - "@netgen_block_manager.transfer.serializer.visitor.aggregate"
 
     netgen_block_manager.transfer.input.data_handler.layout:
-        class: Netgen\BlockManager\Transfer\Input\DataHandler\LayoutDataHandler
+        class: Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler
         arguments:
             - "@netgen_block_manager.api.service.block"
             - "@netgen_block_manager.api.service.collection"
@@ -19,10 +19,10 @@ services:
             - "@netgen_block_manager.item.item_loader"
 
     netgen_block_manager.transfer.input.json_validator:
-        class: Netgen\BlockManager\Transfer\Input\JsonValidator
+        class: Netgen\Layouts\Transfer\Input\JsonValidator
 
     netgen_block_manager.transfer.input.importer:
-        class: Netgen\BlockManager\Transfer\Input\Importer
+        class: Netgen\Layouts\Transfer\Input\Importer
         arguments:
             - "@netgen_block_manager.transfer.input.json_validator"
             - "@netgen_block_manager.transfer.input.data_handler.layout"

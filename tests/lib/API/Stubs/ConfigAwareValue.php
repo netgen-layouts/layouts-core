@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Stubs;
+namespace Netgen\Layouts\Tests\API\Stubs;
 
-use Netgen\BlockManager\API\Values\Config\ConfigAwareValue as APIConfigAwareValue;
-use Netgen\BlockManager\API\Values\Config\ConfigAwareValueTrait;
-use Netgen\BlockManager\Utils\HydratorTrait;
+use Netgen\Layouts\API\Values\Config\ConfigAwareValue as APIConfigAwareValue;
+use Netgen\Layouts\API\Values\Config\ConfigAwareValueTrait;
+use Netgen\Layouts\Utils\HydratorTrait;
 
 final class ConfigAwareValue implements APIConfigAwareValue
 {

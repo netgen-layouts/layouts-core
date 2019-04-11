@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Form\Admin\Type;
 
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\LayoutList;
 use Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type\LayoutListTransformer;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\LayoutList;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutListTransformerTest extends TestCase

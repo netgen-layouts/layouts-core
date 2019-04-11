@@ -2,27 +2,27 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\View;
+namespace Netgen\Layouts\Tests\View\View;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Block\Placeholder;
-use Netgen\BlockManager\View\View\PlaceholderView;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\Placeholder;
+use Netgen\Layouts\View\View\PlaceholderView;
 use PHPUnit\Framework\TestCase;
 
 final class PlaceholderViewTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Block\Placeholder
+     * @var \Netgen\Layouts\API\Values\Block\Placeholder
      */
     private $placeholder;
 
     /**
-     * @var \Netgen\BlockManager\View\View\PlaceholderViewInterface
+     * @var \Netgen\Layouts\View\View\PlaceholderViewInterface
      */
     private $view;
 
     /**
-     * @var \Netgen\BlockManager\API\Values\Block\Block
+     * @var \Netgen\Layouts\API\Values\Block\Block
      */
     private $block;
 
@@ -39,8 +39,8 @@ final class PlaceholderViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View\PlaceholderView::__construct
-     * @covers \Netgen\BlockManager\View\View\PlaceholderView::getPlaceholder
+     * @covers \Netgen\Layouts\View\View\PlaceholderView::__construct
+     * @covers \Netgen\Layouts\View\View\PlaceholderView::getPlaceholder
      */
     public function testGetPlaceholder(): void
     {
@@ -48,7 +48,7 @@ final class PlaceholderViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View\PlaceholderView::getBlock
+     * @covers \Netgen\Layouts\View\View\PlaceholderView::getBlock
      */
     public function testGetBlock(): void
     {
@@ -56,7 +56,7 @@ final class PlaceholderViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View\PlaceholderView::getParameters
+     * @covers \Netgen\Layouts\View\View\PlaceholderView::getParameters
      */
     public function testGetParameters(): void
     {
@@ -71,7 +71,7 @@ final class PlaceholderViewTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\View\PlaceholderView::getIdentifier
+     * @covers \Netgen\Layouts\View\View\PlaceholderView::getIdentifier
      */
     public function testGetIdentifier(): void
     {

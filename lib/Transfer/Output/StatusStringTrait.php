@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Transfer\Output;
+namespace Netgen\Layouts\Transfer\Output;
 
-use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\Exception\RuntimeException;
 
 trait StatusStringTrait
 {
     /**
      * Return status string representation for the given $value.
      *
-     * @throws \Netgen\BlockManager\Exception\RuntimeException If status is not recognized
+     * @throws \Netgen\Layouts\Exception\RuntimeException If status is not recognized
      */
     private function getStatusString(Value $value): string
     {

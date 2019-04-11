@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Item;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
-use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\UrlGeneratorPass;
+use Netgen\Layouts\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;

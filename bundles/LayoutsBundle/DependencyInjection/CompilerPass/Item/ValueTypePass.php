@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item;
 
 use Generator;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Item\ValueType\ValueType;
-use Netgen\BlockManager\Item\ValueType\ValueTypeFactory;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Item\ValueType\ValueType;
+use Netgen\Layouts\Item\ValueType\ValueTypeFactory;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;

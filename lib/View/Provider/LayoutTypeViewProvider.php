@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View\Provider;
+namespace Netgen\Layouts\View\Provider;
 
-use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
-use Netgen\BlockManager\View\View\LayoutTypeView;
-use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
+use Netgen\Layouts\View\View\LayoutTypeView;
+use Netgen\Layouts\View\ViewInterface;
 
 final class LayoutTypeViewProvider implements ViewProviderInterface
 {

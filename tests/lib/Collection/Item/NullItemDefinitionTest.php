@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Collection\Item;
+namespace Netgen\Layouts\Tests\Collection\Item;
 
-use Netgen\BlockManager\Collection\Item\NullItemDefinition;
+use Netgen\Layouts\Collection\Item\NullItemDefinition;
 use PHPUnit\Framework\TestCase;
 
 final class NullItemDefinitionTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Collection\Item\NullItemDefinition
+     * @var \Netgen\Layouts\Collection\Item\NullItemDefinition
      */
     private $itemDefinition;
 
@@ -20,8 +20,8 @@ final class NullItemDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Item\NullItemDefinition::__construct
-     * @covers \Netgen\BlockManager\Collection\Item\NullItemDefinition::getValueType
+     * @covers \Netgen\Layouts\Collection\Item\NullItemDefinition::__construct
+     * @covers \Netgen\Layouts\Collection\Item\NullItemDefinition::getValueType
      */
     public function testGetValueType(): void
     {

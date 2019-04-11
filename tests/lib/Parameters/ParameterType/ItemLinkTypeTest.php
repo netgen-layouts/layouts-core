@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
+namespace Netgen\Layouts\Tests\Parameters\ParameterType;
 
-use Netgen\BlockManager\Item\CmsItem;
-use Netgen\BlockManager\Item\CmsItemLoaderInterface;
-use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
-use Netgen\BlockManager\Item\ValueType\ValueType;
-use Netgen\BlockManager\Parameters\ParameterType\ItemLink\RemoteIdConverter;
-use Netgen\BlockManager\Parameters\ParameterType\ItemLinkType;
-use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
+use Netgen\Layouts\Item\CmsItem;
+use Netgen\Layouts\Item\CmsItemLoaderInterface;
+use Netgen\Layouts\Item\Registry\ValueTypeRegistry;
+use Netgen\Layouts\Item\ValueType\ValueType;
+use Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter;
+use Netgen\Layouts\Parameters\ParameterType\ItemLinkType;
+use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Validation;
@@ -20,7 +20,7 @@ final class ItemLinkTypeTest extends TestCase
     use ParameterTypeTestTrait;
 
     /**
-     * @var \Netgen\BlockManager\Item\Registry\ValueTypeRegistryInterface
+     * @var \Netgen\Layouts\Item\Registry\ValueTypeRegistryInterface
      */
     private $valueTypeRegistry;
 
@@ -69,8 +69,8 @@ final class ItemLinkTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::__construct
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::getIdentifier
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::__construct
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::getIdentifier
      */
     public function testGetIdentifier(): void
     {
@@ -78,7 +78,7 @@ final class ItemLinkTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::configureOptions
      * @dataProvider validOptionsProvider
      */
     public function testValidOptions(array $options, array $resolvedOptions): void
@@ -88,7 +88,7 @@ final class ItemLinkTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::configureOptions
      * @dataProvider invalidOptionsProvider
      */
     public function testInvalidOptions(array $options): void
@@ -150,8 +150,8 @@ final class ItemLinkTypeTest extends TestCase
      * @param mixed $value
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::getRequiredConstraints
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::getValueConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::getRequiredConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::getValueConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, bool $isValid): void
@@ -176,7 +176,7 @@ final class ItemLinkTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::export
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::export
      */
     public function testExport(): void
     {
@@ -184,7 +184,7 @@ final class ItemLinkTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::export
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::export
      */
     public function testExportWithInvalidValue(): void
     {
@@ -192,7 +192,7 @@ final class ItemLinkTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::import
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::import
      */
     public function testImport(): void
     {
@@ -200,7 +200,7 @@ final class ItemLinkTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::import
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::import
      */
     public function testImportWithInvalidValue(): void
     {
@@ -211,7 +211,7 @@ final class ItemLinkTypeTest extends TestCase
      * @param mixed $value
      * @param bool $isEmpty
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\ItemLinkType::isValueEmpty
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::isValueEmpty
      * @dataProvider emptyProvider
      */
     public function testIsValueEmpty($value, bool $isEmpty): void

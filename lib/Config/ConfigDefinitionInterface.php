@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Config;
+namespace Netgen\Layouts\Config;
 
-use Netgen\BlockManager\Parameters\ParameterDefinitionCollectionInterface;
+use Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface;
 
 /**
  * Config definition represents an abstract concept reusable by all

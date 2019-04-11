@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Serializer\Normalizer\V1;
+namespace Netgen\Layouts\Tests\Serializer\Normalizer\V1;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Block\Placeholder;
-use Netgen\BlockManager\Serializer\Normalizer\V1\PlaceholderNormalizer;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\Serializer\Stubs\NormalizerStub;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\Placeholder;
+use Netgen\Layouts\Serializer\Normalizer\V1\PlaceholderNormalizer;
+use Netgen\Layouts\Serializer\Values\VersionedValue;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\Serializer\Stubs\NormalizerStub;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Serializer;
 
 final class PlaceholderNormalizerTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Serializer\Normalizer\V1\PlaceholderNormalizer
+     * @var \Netgen\Layouts\Serializer\Normalizer\V1\PlaceholderNormalizer
      */
     private $normalizer;
 
@@ -28,8 +28,8 @@ final class PlaceholderNormalizerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\PlaceholderNormalizer::buildViewValues
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\PlaceholderNormalizer::normalize
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\PlaceholderNormalizer::buildViewValues
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\PlaceholderNormalizer::normalize
      */
     public function testNormalize(): void
     {
@@ -54,7 +54,7 @@ final class PlaceholderNormalizerTest extends TestCase
      * @param mixed $data
      * @param bool $expected
      *
-     * @covers \Netgen\BlockManager\Serializer\Normalizer\V1\PlaceholderNormalizer::supportsNormalization
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\PlaceholderNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationProvider
      */
     public function testSupportsNormalization($data, bool $expected): void

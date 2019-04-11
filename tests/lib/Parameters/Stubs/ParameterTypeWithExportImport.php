@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\Stubs;
+namespace Netgen\Layouts\Tests\Parameters\Stubs;
 
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterType as BaseParameterType;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType as BaseParameterType;
 use Symfony\Component\Validator\Constraints\NotNull;
 
 final class ParameterTypeWithExportImport extends BaseParameterType

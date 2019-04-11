@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Context\Stubs;
+namespace Netgen\Layouts\Tests\Context\Stubs;
 
-use Netgen\BlockManager\Context\ContextInterface;
-use Netgen\BlockManager\Context\ContextProviderInterface;
+use Netgen\Layouts\Context\ContextInterface;
+use Netgen\Layouts\Context\ContextProviderInterface;
 
 final class ContextProvider implements ContextProviderInterface
 {

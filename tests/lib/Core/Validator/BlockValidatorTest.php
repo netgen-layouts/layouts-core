@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\Validator;
+namespace Netgen\Layouts\Tests\Core\Validator;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
-use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\API\Values\Collection\CollectionCreateStruct;
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
-use Netgen\BlockManager\Block\BlockDefinitionInterface;
-use Netgen\BlockManager\Block\ContainerDefinition;
-use Netgen\BlockManager\Block\ContainerDefinitionInterface;
-use Netgen\BlockManager\Core\Validator\BlockValidator;
-use Netgen\BlockManager\Core\Validator\CollectionValidator;
-use Netgen\BlockManager\Exception\Validation\ValidationException;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandlerWithRequiredParameter;
-use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
-use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
-use Netgen\BlockManager\Utils\Hydrator;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\BlockCreateStruct;
+use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
+use Netgen\Layouts\API\Values\Collection\CollectionCreateStruct;
+use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
+use Netgen\Layouts\Block\BlockDefinitionInterface;
+use Netgen\Layouts\Block\ContainerDefinition;
+use Netgen\Layouts\Block\ContainerDefinitionInterface;
+use Netgen\Layouts\Core\Validator\BlockValidator;
+use Netgen\Layouts\Core\Validator\CollectionValidator;
+use Netgen\Layouts\Exception\Validation\ValidationException;
+use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandler;
+use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandlerWithRequiredParameter;
+use Netgen\Layouts\Tests\Block\Stubs\ContainerDefinitionHandler;
+use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
+use Netgen\Layouts\Utils\Hydrator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 
@@ -33,7 +33,7 @@ final class BlockValidatorTest extends TestCase
     private $validator;
 
     /**
-     * @var \Netgen\BlockManager\Core\Validator\BlockValidator
+     * @var \Netgen\Layouts\Core\Validator\BlockValidator
      */
     private $blockValidator;
 
@@ -51,8 +51,8 @@ final class BlockValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Validator\BlockValidator::__construct
-     * @covers \Netgen\BlockManager\Core\Validator\BlockValidator::validateBlockCreateStruct
+     * @covers \Netgen\Layouts\Core\Validator\BlockValidator::__construct
+     * @covers \Netgen\Layouts\Core\Validator\BlockValidator::validateBlockCreateStruct
      * @dataProvider validateBlockCreateStructDataProvider
      */
     public function testValidateBlockCreateStruct(array $params, bool $isValid): void
@@ -71,7 +71,7 @@ final class BlockValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Validator\BlockValidator::validateBlockUpdateStruct
+     * @covers \Netgen\Layouts\Core\Validator\BlockValidator::validateBlockUpdateStruct
      * @dataProvider validateBlockUpdateStructDataProvider
      */
     public function testValidateBlockUpdateStruct(array $params, bool $isValid): void

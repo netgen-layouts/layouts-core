@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\EventListener\BlockView;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Block\TwigBlockDefinitionInterface;
-use Netgen\BlockManager\Event\BlockManagerEvents;
-use Netgen\BlockManager\Event\CollectViewParametersEvent;
-use Netgen\BlockManager\View\Twig\ContextualizedTwigTemplate;
-use Netgen\BlockManager\View\View\BlockViewInterface;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Block\TwigBlockDefinitionInterface;
+use Netgen\Layouts\Event\CollectViewParametersEvent;
+use Netgen\Layouts\Event\LayoutsEvents;
+use Netgen\Layouts\View\Twig\ContextualizedTwigTemplate;
+use Netgen\Layouts\View\View\BlockViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class GetTwigBlockContentListener implements EventSubscriberInterface
 {
     public static function getSubscribedEvents(): array
     {
-        return [sprintf('%s.%s', BlockManagerEvents::RENDER_VIEW, 'block') => 'onRenderView'];
+        return [sprintf('%s.%s', LayoutsEvents::RENDER_VIEW, 'block') => 'onRenderView'];
     }
 
     /**

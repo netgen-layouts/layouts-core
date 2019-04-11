@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\Service\TransactionRollback;
+namespace Netgen\Layouts\Tests\Core\Service\TransactionRollback;
 
 use Exception;
-use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Block\BlockCreateStruct;
-use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\ContainerDefinition;
-use Netgen\BlockManager\Layout\Type\LayoutType;
-use Netgen\BlockManager\Persistence\Values\Block\Block as PersistenceBlock;
-use Netgen\BlockManager\Persistence\Values\Layout\Layout as PersistenceLayout;
-use Netgen\BlockManager\Persistence\Values\Layout\Zone as PersistenceZone;
-use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
+use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\BlockCreateStruct;
+use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Block\ContainerDefinition;
+use Netgen\Layouts\Layout\Type\LayoutType;
+use Netgen\Layouts\Persistence\Values\Block\Block as PersistenceBlock;
+use Netgen\Layouts\Persistence\Values\Layout\Layout as PersistenceLayout;
+use Netgen\Layouts\Persistence\Values\Layout\Zone as PersistenceZone;
+use Netgen\Layouts\Tests\Block\Stubs\ContainerDefinitionHandler;
 
 /**
  * @property \PHPUnit\Framework\MockObject\MockObject $layoutService
@@ -26,8 +26,8 @@ use Netgen\BlockManager\Tests\Block\Stubs\ContainerDefinitionHandler;
 final class BlockServiceTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::internalCreateBlock
      */
     public function testCreateBlock(): void
     {
@@ -70,8 +70,8 @@ final class BlockServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::createBlockInZone
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalCreateBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::createBlockInZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::internalCreateBlock
      */
     public function testCreateBlockInZone(): void
     {
@@ -121,7 +121,7 @@ final class BlockServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::updateBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlock
      */
     public function testUpdateBlock(): void
     {
@@ -167,7 +167,7 @@ final class BlockServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlock
      */
     public function testCopyBlock(): void
     {
@@ -210,7 +210,7 @@ final class BlockServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::copyBlockToZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::copyBlockToZone
      */
     public function testCopyBlockToZone(): void
     {
@@ -253,8 +253,8 @@ final class BlockServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::internalMoveBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlockToZone
      */
     public function testMoveBlock(): void
     {
@@ -298,8 +298,8 @@ final class BlockServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::internalMoveBlock
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::moveBlockToZone
+     * @covers \Netgen\Layouts\Core\Service\BlockService::internalMoveBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::moveBlockToZone
      */
     public function testMoveBlockToZone(): void
     {
@@ -343,7 +343,7 @@ final class BlockServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::restoreBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::restoreBlock
      */
     public function testRestoreBlock(): void
     {
@@ -373,7 +373,7 @@ final class BlockServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::enableTranslations
+     * @covers \Netgen\Layouts\Core\Service\BlockService::enableTranslations
      */
     public function testEnableTranslations(): void
     {
@@ -408,7 +408,7 @@ final class BlockServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::disableTranslations
+     * @covers \Netgen\Layouts\Core\Service\BlockService::disableTranslations
      */
     public function testDisableTranslations(): void
     {
@@ -433,7 +433,7 @@ final class BlockServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\BlockService::deleteBlock
+     * @covers \Netgen\Layouts\Core\Service\BlockService::deleteBlock
      */
     public function testDeleteBlock(): void
     {

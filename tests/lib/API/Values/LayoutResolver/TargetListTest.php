@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\LayoutResolver;
+namespace Netgen\Layouts\Tests\API\Values\LayoutResolver;
 
-use Netgen\BlockManager\API\Values\LayoutResolver\Target;
-use Netgen\BlockManager\API\Values\LayoutResolver\TargetList;
+use Netgen\Layouts\API\Values\LayoutResolver\Target;
+use Netgen\Layouts\API\Values\LayoutResolver\TargetList;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use TypeError;
@@ -13,7 +13,7 @@ use TypeError;
 final class TargetListTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\TargetList::__construct
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\TargetList::__construct
      */
     public function testConstructorWithInvalidType(): void
     {
@@ -32,8 +32,8 @@ final class TargetListTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\TargetList::__construct
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\TargetList::getTargets
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\TargetList::__construct
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\TargetList::getTargets
      */
     public function testGetTargets(): void
     {
@@ -43,7 +43,7 @@ final class TargetListTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\TargetList::getTargetIds
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\TargetList::getTargetIds
      */
     public function testGetTargetIds(): void
     {

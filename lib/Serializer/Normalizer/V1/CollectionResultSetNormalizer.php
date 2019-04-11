@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Serializer\Normalizer\V1;
+namespace Netgen\Layouts\Serializer\Normalizer\V1;
 
 use Generator;
-use Netgen\BlockManager\Collection\Result\ManualItem;
-use Netgen\BlockManager\Collection\Result\ResultSet;
-use Netgen\BlockManager\Serializer\Values\VersionedValue;
-use Netgen\BlockManager\Serializer\Version;
+use Netgen\Layouts\Collection\Result\ManualItem;
+use Netgen\Layouts\Collection\Result\ResultSet;
+use Netgen\Layouts\Serializer\Values\VersionedValue;
+use Netgen\Layouts\Serializer\Version;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -19,7 +19,7 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Normal
 
     public function normalize($object, $format = null, array $context = [])
     {
-        /** @var \Netgen\BlockManager\Collection\Result\ResultSet $resultSet */
+        /** @var \Netgen\Layouts\Collection\Result\ResultSet $resultSet */
         $resultSet = $object->getValue();
 
         $results = $this->buildVersionedValues($resultSet, $object->getVersion());

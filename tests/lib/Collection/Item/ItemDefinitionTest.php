@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Collection\Item;
+namespace Netgen\Layouts\Tests\Collection\Item;
 
-use Netgen\BlockManager\Collection\Item\ItemDefinition;
-use Netgen\BlockManager\Config\ConfigDefinition;
-use Netgen\BlockManager\Exception\Config\ConfigDefinitionException;
+use Netgen\Layouts\Collection\Item\ItemDefinition;
+use Netgen\Layouts\Config\ConfigDefinition;
+use Netgen\Layouts\Exception\Config\ConfigDefinitionException;
 use PHPUnit\Framework\TestCase;
 
 final class ItemDefinitionTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Collection\Item\ItemDefinition
+     * @var \Netgen\Layouts\Collection\Item\ItemDefinition
      */
     private $itemDefinition;
 
     /**
-     * @var \Netgen\BlockManager\Config\ConfigDefinition
+     * @var \Netgen\Layouts\Config\ConfigDefinition
      */
     private $configDefinition;
 
@@ -34,7 +34,7 @@ final class ItemDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Item\ItemDefinition::getValueType
+     * @covers \Netgen\Layouts\Collection\Item\ItemDefinition::getValueType
      */
     public function testGetValueType(): void
     {
@@ -42,7 +42,7 @@ final class ItemDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Item\ItemDefinition::getConfigDefinition
+     * @covers \Netgen\Layouts\Collection\Item\ItemDefinition::getConfigDefinition
      */
     public function testGetConfigDefinition(): void
     {
@@ -53,7 +53,7 @@ final class ItemDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Item\ItemDefinition::getConfigDefinition
+     * @covers \Netgen\Layouts\Collection\Item\ItemDefinition::getConfigDefinition
      */
     public function testGetConfigDefinitionThrowsConfigDefinitionException(): void
     {
@@ -64,7 +64,7 @@ final class ItemDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Item\ItemDefinition::hasConfigDefinition
+     * @covers \Netgen\Layouts\Collection\Item\ItemDefinition::hasConfigDefinition
      */
     public function testHasConfigDefinition(): void
     {
@@ -72,7 +72,7 @@ final class ItemDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Item\ItemDefinition::hasConfigDefinition
+     * @covers \Netgen\Layouts\Collection\Item\ItemDefinition::hasConfigDefinition
      */
     public function testHasConfigDefinitionWithNonExistentDefinition(): void
     {
@@ -80,7 +80,7 @@ final class ItemDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Item\ItemDefinition::getConfigDefinitions
+     * @covers \Netgen\Layouts\Collection\Item\ItemDefinition::getConfigDefinitions
      */
     public function testGetConfigDefinitions(): void
     {

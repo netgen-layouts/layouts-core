@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection;
 
-use Netgen\BlockManager\API\Service\CollectionService;
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistryInterface;
-use Netgen\BlockManager\Exception\Validation\ValidationException;
-use Netgen\BlockManager\Validator\ValidatorTrait;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
+use Netgen\Layouts\API\Service\CollectionService;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Collection\Registry\ItemDefinitionRegistryInterface;
+use Netgen\Layouts\Exception\Validation\ValidationException;
+use Netgen\Layouts\Validator\ValidatorTrait;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints;
@@ -19,12 +19,12 @@ final class AddItems extends AbstractController
     use ValidatorTrait;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\CollectionService
+     * @var \Netgen\Layouts\API\Service\CollectionService
      */
     private $collectionService;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Registry\ItemDefinitionRegistryInterface
+     * @var \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistryInterface
      */
     private $itemDefinitionRegistry;
 
@@ -70,7 +70,7 @@ final class AddItems extends AbstractController
     /**
      * Validates item creation parameters from the request.
      *
-     * @param \Netgen\BlockManager\API\Values\Block\Block $block
+     * @param \Netgen\Layouts\API\Values\Block\Block $block
      * @param string $collectionIdentifier
      * @param mixed $items
      */

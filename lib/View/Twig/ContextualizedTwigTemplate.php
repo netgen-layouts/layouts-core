@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View\Twig;
+namespace Netgen\Layouts\View\Twig;
 
 use Throwable;
 use Twig\Template;

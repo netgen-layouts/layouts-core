@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Exception\Config;
+namespace Netgen\Layouts\Exception\Config;
 
 use InvalidArgumentException;
-use Netgen\BlockManager\Exception\Exception;
+use Netgen\Layouts\Exception\Exception;
 
 final class ConfigDefinitionException extends InvalidArgumentException implements Exception
 {

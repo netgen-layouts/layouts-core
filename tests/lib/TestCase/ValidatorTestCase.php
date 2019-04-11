@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\TestCase;
+namespace Netgen\Layouts\Tests\TestCase;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Translation\Translator;

@@ -2,28 +2,28 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Layout\Type;
+namespace Netgen\Layouts\Tests\Layout\Type;
 
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Exception\Layout\LayoutTypeException;
-use Netgen\BlockManager\Layout\Type\LayoutType;
-use Netgen\BlockManager\Layout\Type\Zone;
+use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Exception\Layout\LayoutTypeException;
+use Netgen\Layouts\Layout\Type\LayoutType;
+use Netgen\Layouts\Layout\Type\Zone;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutTypeTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Type\LayoutType
+     * @var \Netgen\Layouts\Layout\Type\LayoutType
      */
     private $layoutType;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Type\Zone
+     * @var \Netgen\Layouts\Layout\Type\Zone
      */
     private $zone1;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Type\Zone
+     * @var \Netgen\Layouts\Layout\Type\Zone
      */
     private $zone2;
 
@@ -60,7 +60,7 @@ final class LayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Type\LayoutType::getIdentifier
+     * @covers \Netgen\Layouts\Layout\Type\LayoutType::getIdentifier
      */
     public function testGetIdentifier(): void
     {
@@ -68,7 +68,7 @@ final class LayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Type\LayoutType::isEnabled
+     * @covers \Netgen\Layouts\Layout\Type\LayoutType::isEnabled
      */
     public function testIsEnabled(): void
     {
@@ -76,7 +76,7 @@ final class LayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Type\LayoutType::getName
+     * @covers \Netgen\Layouts\Layout\Type\LayoutType::getName
      */
     public function testGetName(): void
     {
@@ -84,7 +84,7 @@ final class LayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Type\LayoutType::getIcon
+     * @covers \Netgen\Layouts\Layout\Type\LayoutType::getIcon
      */
     public function testGetIcon(): void
     {
@@ -92,7 +92,7 @@ final class LayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Type\LayoutType::getZones
+     * @covers \Netgen\Layouts\Layout\Type\LayoutType::getZones
      */
     public function testGetZones(): void
     {
@@ -106,7 +106,7 @@ final class LayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Type\LayoutType::getZoneIdentifiers
+     * @covers \Netgen\Layouts\Layout\Type\LayoutType::getZoneIdentifiers
      */
     public function testGetZoneIdentifiers(): void
     {
@@ -114,7 +114,7 @@ final class LayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Type\LayoutType::hasZone
+     * @covers \Netgen\Layouts\Layout\Type\LayoutType::hasZone
      */
     public function testHasZone(): void
     {
@@ -122,7 +122,7 @@ final class LayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Type\LayoutType::hasZone
+     * @covers \Netgen\Layouts\Layout\Type\LayoutType::hasZone
      */
     public function testHasZoneReturnsFalse(): void
     {
@@ -130,7 +130,7 @@ final class LayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Type\LayoutType::getZone
+     * @covers \Netgen\Layouts\Layout\Type\LayoutType::getZone
      */
     public function testGetZone(): void
     {
@@ -138,7 +138,7 @@ final class LayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Type\LayoutType::getZone
+     * @covers \Netgen\Layouts\Layout\Type\LayoutType::getZone
      */
     public function testGetZoneThrowsLayoutTypeException(): void
     {
@@ -149,7 +149,7 @@ final class LayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Type\LayoutType::isBlockAllowedInZone
+     * @covers \Netgen\Layouts\Layout\Type\LayoutType::isBlockAllowedInZone
      */
     public function testIsBlockAllowedInZone(): void
     {
@@ -157,7 +157,7 @@ final class LayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Type\LayoutType::isBlockAllowedInZone
+     * @covers \Netgen\Layouts\Layout\Type\LayoutType::isBlockAllowedInZone
      */
     public function testIsBlockAllowedInZoneReturnsFalse(): void
     {
@@ -165,7 +165,7 @@ final class LayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Type\LayoutType::isBlockAllowedInZone
+     * @covers \Netgen\Layouts\Layout\Type\LayoutType::isBlockAllowedInZone
      */
     public function testIsBlockAllowedInZoneWithNonExistentZone(): void
     {
@@ -173,7 +173,7 @@ final class LayoutTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Type\LayoutType::isBlockAllowedInZone
+     * @covers \Netgen\Layouts\Layout\Type\LayoutType::isBlockAllowedInZone
      */
     public function testIsBlockAllowedInZoneWithAllBlocksAllowed(): void
     {

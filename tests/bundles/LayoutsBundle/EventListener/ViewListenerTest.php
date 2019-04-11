@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\View\View\BlockView;
 use Netgen\Bundle\LayoutsBundle\EventListener\ViewListener;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\View\View\BlockView;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;

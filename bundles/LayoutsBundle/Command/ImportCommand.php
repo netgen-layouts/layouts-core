@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Command;
 
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Transfer\Input\ImporterInterface;
-use Netgen\BlockManager\Transfer\Input\Result\ErrorResult;
-use Netgen\BlockManager\Transfer\Input\Result\SuccessResult;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Transfer\Input\ImporterInterface;
+use Netgen\Layouts\Transfer\Input\Result\ErrorResult;
+use Netgen\Layouts\Transfer\Input\Result\SuccessResult;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -21,7 +21,7 @@ use Throwable;
 final class ImportCommand extends Command
 {
     /**
-     * @var \Netgen\BlockManager\Transfer\Input\ImporterInterface
+     * @var \Netgen\Layouts\Transfer\Input\ImporterInterface
      */
     private $importer;
 

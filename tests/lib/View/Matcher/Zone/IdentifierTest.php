@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\Matcher\Zone;
+namespace Netgen\Layouts\Tests\View\Matcher\Zone;
 
-use Netgen\BlockManager\API\Values\Block\BlockList;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\Layout\Zone;
-use Netgen\BlockManager\API\Values\Layout\ZoneList;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\View\Matcher\Zone\Identifier;
-use Netgen\BlockManager\View\View\ZoneView;
-use Netgen\BlockManager\View\View\ZoneView\ZoneReference;
+use Netgen\Layouts\API\Values\Block\BlockList;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\API\Values\Layout\ZoneList;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\View\Stubs\View;
+use Netgen\Layouts\View\Matcher\Zone\Identifier;
+use Netgen\Layouts\View\View\ZoneView;
+use Netgen\Layouts\View\View\ZoneView\ZoneReference;
 use PHPUnit\Framework\TestCase;
 
 final class IdentifierTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\View\Matcher\MatcherInterface
+     * @var \Netgen\Layouts\View\Matcher\MatcherInterface
      */
     private $matcher;
 
@@ -28,7 +28,7 @@ final class IdentifierTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Zone\Identifier::match
+     * @covers \Netgen\Layouts\View\Matcher\Zone\Identifier::match
      * @dataProvider matchProvider
      */
     public function testMatch(array $config, bool $expected): void
@@ -52,7 +52,7 @@ final class IdentifierTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Zone\Identifier::match
+     * @covers \Netgen\Layouts\View\Matcher\Zone\Identifier::match
      */
     public function testMatchWithNoZoneView(): void
     {

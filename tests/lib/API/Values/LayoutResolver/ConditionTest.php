@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\LayoutResolver;
+namespace Netgen\Layouts\Tests\API\Values\LayoutResolver;
 
-use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\API\Values\Value;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType1;
+use Netgen\Layouts\API\Values\LayoutResolver\Condition;
+use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionType1;
 use PHPUnit\Framework\TestCase;
 
 final class ConditionTest extends TestCase
@@ -17,10 +17,10 @@ final class ConditionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\Condition::getConditionType
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\Condition::getId
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\Condition::getRuleId
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\Condition::getValue
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Condition::getConditionType
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Condition::getId
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Condition::getRuleId
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Condition::getValue
      */
     public function testSetProperties(): void
     {

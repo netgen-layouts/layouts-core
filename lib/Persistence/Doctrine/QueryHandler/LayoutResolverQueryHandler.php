@@ -2,31 +2,31 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
+namespace Netgen\Layouts\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Type;
-use Netgen\BlockManager\Exception\Persistence\TargetHandlerException;
-use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
-use Netgen\BlockManager\Persistence\Values\Layout\Layout;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target;
-use Netgen\BlockManager\Persistence\Values\Value;
+use Netgen\Layouts\Exception\Persistence\TargetHandlerException;
+use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper;
+use Netgen\Layouts\Persistence\Values\Layout\Layout;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
+use Netgen\Layouts\Persistence\Values\Value;
 use PDO;
 
 final class LayoutResolverQueryHandler extends QueryHandler
 {
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\TargetHandlerInterface[]
+     * @var \Netgen\Layouts\Persistence\Doctrine\QueryHandler\TargetHandlerInterface[]
      */
     private $targetHandlers;
 
     /**
      * @param \Doctrine\DBAL\Connection $connection
-     * @param \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper $connectionHelper
-     * @param \Netgen\BlockManager\Persistence\Doctrine\QueryHandler\TargetHandlerInterface[] $targetHandlers
+     * @param \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper $connectionHelper
+     * @param \Netgen\Layouts\Persistence\Doctrine\QueryHandler\TargetHandlerInterface[] $targetHandlers
      */
     public function __construct(Connection $connection, ConnectionHelper $connectionHelper, array $targetHandlers)
     {

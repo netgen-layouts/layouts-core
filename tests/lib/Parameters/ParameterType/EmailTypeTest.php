@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
+namespace Netgen\Layouts\Tests\Parameters\ParameterType;
 
-use Netgen\BlockManager\Parameters\ParameterType\EmailType;
+use Netgen\Layouts\Parameters\ParameterType\EmailType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Validation;
@@ -19,7 +19,7 @@ final class EmailTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\EmailType::getIdentifier
+     * @covers \Netgen\Layouts\Parameters\ParameterType\EmailType::getIdentifier
      */
     public function testGetIdentifier(): void
     {
@@ -27,7 +27,7 @@ final class EmailTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\EmailType::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterType\EmailType::configureOptions
      * @dataProvider validOptionsProvider
      */
     public function testValidOptions(array $options, array $resolvedOptions): void
@@ -37,7 +37,7 @@ final class EmailTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\EmailType::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterType\EmailType::configureOptions
      * @dataProvider invalidOptionsProvider
      */
     public function testInvalidOptions(array $options): void
@@ -72,8 +72,8 @@ final class EmailTypeTest extends TestCase
      * @param mixed $value
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\EmailType::getRequiredConstraints
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\EmailType::getValueConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterType\EmailType::getRequiredConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterType\EmailType::getValueConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, bool $isValid): void
@@ -98,7 +98,7 @@ final class EmailTypeTest extends TestCase
      * @param mixed $value
      * @param bool $isEmpty
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\EmailType::isValueEmpty
+     * @covers \Netgen\Layouts\Parameters\ParameterType\EmailType::isValueEmpty
      * @dataProvider emptyProvider
      */
     public function testIsValueEmpty($value, bool $isEmpty): void

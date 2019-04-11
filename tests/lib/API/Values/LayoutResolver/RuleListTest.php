@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\LayoutResolver;
+namespace Netgen\Layouts\Tests\API\Values\LayoutResolver;
 
-use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleList;
+use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleList;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use TypeError;
@@ -13,7 +13,7 @@ use TypeError;
 final class RuleListTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\RuleList::__construct
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleList::__construct
      */
     public function testConstructorWithInvalidType(): void
     {
@@ -32,8 +32,8 @@ final class RuleListTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\RuleList::__construct
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\RuleList::getRules
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleList::__construct
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleList::getRules
      */
     public function testGetRules(): void
     {
@@ -43,7 +43,7 @@ final class RuleListTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\LayoutResolver\RuleList::getRuleIds
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleList::getRuleIds
      */
     public function testGetRuleIds(): void
     {

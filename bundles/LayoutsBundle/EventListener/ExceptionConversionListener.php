@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\EventListener;
 
 use InvalidArgumentException as BaseInvalidArgumentException;
-use Netgen\BlockManager\Exception\BadStateException;
-use Netgen\BlockManager\Exception\InvalidArgumentException;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Exception\Validation\ValidationException;
+use Netgen\Layouts\Exception\BadStateException;
+use Netgen\Layouts\Exception\InvalidArgumentException;
+use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Exception\Validation\ValidationException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;

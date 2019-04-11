@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Persistence\Doctrine;
+namespace Netgen\Layouts\Persistence\Doctrine;
 
 use Doctrine\DBAL\Connection;
-use Netgen\BlockManager\Persistence\TransactionHandlerInterface;
+use Netgen\Layouts\Persistence\TransactionHandlerInterface;
 
 final class TransactionHandler implements TransactionHandlerInterface
 {

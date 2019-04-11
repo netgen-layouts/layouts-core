@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Collection\QueryType;
+namespace Netgen\Layouts\Tests\Collection\QueryType;
 
-use Netgen\BlockManager\Collection\QueryType\QueryTypeFactory;
-use Netgen\BlockManager\Collection\QueryType\QueryTypeHandlerInterface;
-use Netgen\BlockManager\Parameters\ParameterBuilderFactoryInterface;
-use Netgen\BlockManager\Parameters\ParameterBuilderInterface;
+use Netgen\Layouts\Collection\QueryType\QueryTypeFactory;
+use Netgen\Layouts\Collection\QueryType\QueryTypeHandlerInterface;
+use Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface;
+use Netgen\Layouts\Parameters\ParameterBuilderInterface;
 use PHPUnit\Framework\TestCase;
 
 final class QueryTypeFactoryTest extends TestCase
@@ -18,7 +18,7 @@ final class QueryTypeFactoryTest extends TestCase
     private $parameterBuilderFactoryMock;
 
     /**
-     * @var \Netgen\BlockManager\Collection\QueryType\QueryTypeFactory
+     * @var \Netgen\Layouts\Collection\QueryType\QueryTypeFactory
      */
     private $factory;
 
@@ -34,8 +34,8 @@ final class QueryTypeFactoryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\QueryType\QueryTypeFactory::__construct
-     * @covers \Netgen\BlockManager\Collection\QueryType\QueryTypeFactory::buildQueryType
+     * @covers \Netgen\Layouts\Collection\QueryType\QueryTypeFactory::__construct
+     * @covers \Netgen\Layouts\Collection\QueryType\QueryTypeFactory::buildQueryType
      */
     public function testBuildQueryType(): void
     {
@@ -55,8 +55,8 @@ final class QueryTypeFactoryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\QueryType\QueryTypeFactory::__construct
-     * @covers \Netgen\BlockManager\Collection\QueryType\QueryTypeFactory::buildQueryType
+     * @covers \Netgen\Layouts\Collection\QueryType\QueryTypeFactory::__construct
+     * @covers \Netgen\Layouts\Collection\QueryType\QueryTypeFactory::buildQueryType
      */
     public function testBuildQueryTypeWithEmptyName(): void
     {

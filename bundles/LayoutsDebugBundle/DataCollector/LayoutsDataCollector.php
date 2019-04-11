@@ -6,10 +6,10 @@ namespace Netgen\Bundle\LayoutsDebugBundle\DataCollector;
 
 use Exception;
 use Jean85\PrettyVersions;
-use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\View\View\BlockViewInterface;
-use Netgen\BlockManager\View\View\LayoutViewInterface;
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\GlobalVariable;
+use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\View\View\BlockViewInterface;
+use Netgen\Layouts\View\View\LayoutViewInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;

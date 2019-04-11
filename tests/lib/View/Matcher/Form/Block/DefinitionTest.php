@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\View\Matcher\Form\Block;
+namespace Netgen\Layouts\Tests\View\Matcher\Form\Block;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\NullBlockDefinition;
-use Netgen\BlockManager\Tests\API\Stubs\Value;
-use Netgen\BlockManager\Tests\View\Matcher\Stubs\Form;
-use Netgen\BlockManager\Tests\View\Stubs\View;
-use Netgen\BlockManager\View\Matcher\Form\Block\Definition;
-use Netgen\BlockManager\View\View\FormView;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Block\NullBlockDefinition;
+use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\View\Matcher\Stubs\Form;
+use Netgen\Layouts\Tests\View\Stubs\View;
+use Netgen\Layouts\View\Matcher\Form\Block\Definition;
+use Netgen\Layouts\View\View\FormView;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Forms;
 
@@ -23,7 +23,7 @@ final class DefinitionTest extends TestCase
     private $formFactory;
 
     /**
-     * @var \Netgen\BlockManager\View\Matcher\MatcherInterface
+     * @var \Netgen\Layouts\View\Matcher\MatcherInterface
      */
     private $matcher;
 
@@ -36,7 +36,7 @@ final class DefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Form\Block\Definition::match
+     * @covers \Netgen\Layouts\View\Matcher\Form\Block\Definition::match
      * @dataProvider matchProvider
      */
     public function testMatch(array $config, bool $expected): void
@@ -57,8 +57,8 @@ final class DefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Block\DefinitionTrait::doMatch
-     * @covers \Netgen\BlockManager\View\Matcher\Form\Block\Definition::match
+     * @covers \Netgen\Layouts\View\Matcher\Block\DefinitionTrait::doMatch
+     * @covers \Netgen\Layouts\View\Matcher\Form\Block\Definition::match
      */
     public function testMatchWithNullBlockDefinition(): void
     {
@@ -78,8 +78,8 @@ final class DefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Block\DefinitionTrait::doMatch
-     * @covers \Netgen\BlockManager\View\Matcher\Form\Block\Definition::match
+     * @covers \Netgen\Layouts\View\Matcher\Block\DefinitionTrait::doMatch
+     * @covers \Netgen\Layouts\View\Matcher\Form\Block\Definition::match
      */
     public function testMatchWithNullBlockDefinitionReturnsFalse(): void
     {
@@ -110,7 +110,7 @@ final class DefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Form\Block\Definition::match
+     * @covers \Netgen\Layouts\View\Matcher\Form\Block\Definition::match
      */
     public function testMatchWithNoFormView(): void
     {
@@ -118,7 +118,7 @@ final class DefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Form\Block\Definition::match
+     * @covers \Netgen\Layouts\View\Matcher\Form\Block\Definition::match
      */
     public function testMatchWithNoBlock(): void
     {
@@ -128,7 +128,7 @@ final class DefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\View\Matcher\Form\Block\Definition::match
+     * @covers \Netgen\Layouts\View\Matcher\Form\Block\Definition::match
      */
     public function testMatchWithInvalidBlock(): void
     {

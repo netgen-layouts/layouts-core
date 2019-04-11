@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\Config;
+namespace Netgen\Layouts\Tests\API\Values\Config;
 
-use Netgen\BlockManager\API\Values\Config\Config;
-use Netgen\BlockManager\API\Values\Config\ConfigList;
+use Netgen\Layouts\API\Values\Config\Config;
+use Netgen\Layouts\API\Values\Config\ConfigList;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use TypeError;
@@ -13,7 +13,7 @@ use TypeError;
 final class ConfigListTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\API\Values\Config\ConfigList::__construct
+     * @covers \Netgen\Layouts\API\Values\Config\ConfigList::__construct
      */
     public function testConstructorWithInvalidType(): void
     {
@@ -32,8 +32,8 @@ final class ConfigListTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Config\ConfigList::__construct
-     * @covers \Netgen\BlockManager\API\Values\Config\ConfigList::getConfigs
+     * @covers \Netgen\Layouts\API\Values\Config\ConfigList::__construct
+     * @covers \Netgen\Layouts\API\Values\Config\ConfigList::getConfigs
      */
     public function testGetConfigs(): void
     {
@@ -43,7 +43,7 @@ final class ConfigListTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Config\ConfigList::getConfigKeys
+     * @covers \Netgen\Layouts\API\Values\Config\ConfigList::getConfigKeys
      */
     public function testGetConfigKeys(): void
     {

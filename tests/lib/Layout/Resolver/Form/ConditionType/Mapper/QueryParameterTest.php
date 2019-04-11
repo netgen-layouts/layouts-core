@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\Form\ConditionType\Mapper;
+namespace Netgen\Layouts\Tests\Layout\Resolver\Form\ConditionType\Mapper;
 
-use Netgen\BlockManager\Form\KeyValuesType;
-use Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\QueryParameter;
+use Netgen\Layouts\Form\KeyValuesType;
+use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\QueryParameter;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 final class QueryParameterTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\MapperInterface
+     * @var \Netgen\Layouts\Layout\Resolver\Form\ConditionType\MapperInterface
      */
     private $mapper;
 
@@ -22,7 +22,7 @@ final class QueryParameterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\QueryParameter::getFormType
+     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\QueryParameter::getFormType
      */
     public function testGetFormType(): void
     {
@@ -30,7 +30,7 @@ final class QueryParameterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\ConditionType\Mapper\QueryParameter::getFormOptions
+     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\QueryParameter::getFormOptions
      */
     public function testGetFormOptions(): void
     {

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Tests\Templating\Twig\Runtime;
 
 use Exception;
-use Netgen\BlockManager\Tests\Stubs\ErrorHandler;
 use Netgen\Bundle\LayoutsBundle\Templating\Plugin\RendererInterface;
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\PluginRenderingRuntime;
+use Netgen\Layouts\Tests\Stubs\ErrorHandler;
 use PHPUnit\Framework\TestCase;
 
 final class PluginRenderingRuntimeTest extends TestCase
@@ -18,7 +18,7 @@ final class PluginRenderingRuntimeTest extends TestCase
     private $pluginRendererMock;
 
     /**
-     * @var \Netgen\BlockManager\Tests\Stubs\ErrorHandler
+     * @var \Netgen\Layouts\Tests\Stubs\ErrorHandler
      */
     private $errorHandler;
 

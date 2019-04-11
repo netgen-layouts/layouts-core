@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\Validator;
+namespace Netgen\Layouts\Tests\Core\Validator;
 
-use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\API\Values\LayoutResolver\ConditionCreateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\ConditionUpdateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleCreateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\Target;
-use Netgen\BlockManager\API\Values\LayoutResolver\TargetCreateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\TargetUpdateStruct;
-use Netgen\BlockManager\Core\Validator\LayoutResolverValidator;
-use Netgen\BlockManager\Exception\Validation\ValidationException;
-use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistry;
-use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistry;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\ConditionType1;
-use Netgen\BlockManager\Tests\Layout\Resolver\Stubs\TargetType1;
-use Netgen\BlockManager\Tests\TestCase\ValidatorFactory;
-use Netgen\BlockManager\Utils\Hydrator;
+use Netgen\Layouts\API\Values\LayoutResolver\Condition;
+use Netgen\Layouts\API\Values\LayoutResolver\ConditionCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\ConditionUpdateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleUpdateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\Target;
+use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\TargetUpdateStruct;
+use Netgen\Layouts\Core\Validator\LayoutResolverValidator;
+use Netgen\Layouts\Exception\Validation\ValidationException;
+use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry;
+use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry;
+use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionType1;
+use Netgen\Layouts\Tests\Layout\Resolver\Stubs\TargetType1;
+use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
+use Netgen\Layouts\Utils\Hydrator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
 
@@ -32,17 +32,17 @@ final class LayoutResolverValidatorTest extends TestCase
     private $validator;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistryInterface
      */
     private $targetTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistryInterface
      */
     private $conditionTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Core\Validator\LayoutResolverValidator
+     * @var \Netgen\Layouts\Core\Validator\LayoutResolverValidator
      */
     private $layoutResolverValidator;
 
@@ -65,8 +65,8 @@ final class LayoutResolverValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Validator\LayoutResolverValidator::__construct
-     * @covers \Netgen\BlockManager\Core\Validator\LayoutResolverValidator::validateRuleCreateStruct
+     * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::__construct
+     * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::validateRuleCreateStruct
      * @dataProvider validateRuleCreateStructProvider
      */
     public function testValidateRuleCreateStruct(array $params, bool $isValid): void
@@ -85,7 +85,7 @@ final class LayoutResolverValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Validator\LayoutResolverValidator::validateRuleUpdateStruct
+     * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::validateRuleUpdateStruct
      * @dataProvider validateRuleUpdateStructProvider
      */
     public function testValidateRuleUpdateStruct(array $params, bool $isValid): void
@@ -104,7 +104,7 @@ final class LayoutResolverValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Validator\LayoutResolverValidator::validateRuleMetadataUpdateStruct
+     * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::validateRuleMetadataUpdateStruct
      * @dataProvider validateRuleMetadataUpdateStructProvider
      */
     public function testValidateRuleMetadataUpdateStruct(array $params, bool $isValid): void
@@ -123,7 +123,7 @@ final class LayoutResolverValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Validator\LayoutResolverValidator::validateTargetCreateStruct
+     * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::validateTargetCreateStruct
      * @dataProvider validateTargetCreateStructProvider
      */
     public function testValidateTargetCreateStruct(array $params, bool $isValid): void
@@ -142,7 +142,7 @@ final class LayoutResolverValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Validator\LayoutResolverValidator::validateTargetUpdateStruct
+     * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::validateTargetUpdateStruct
      * @dataProvider validateTargetUpdateStructProvider
      */
     public function testValidateTargetUpdateStruct(array $params, bool $isValid): void
@@ -164,7 +164,7 @@ final class LayoutResolverValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Validator\LayoutResolverValidator::validateConditionCreateStruct
+     * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::validateConditionCreateStruct
      * @dataProvider validateConditionCreateStructProvider
      */
     public function testValidateConditionCreateStruct(array $params, bool $isValid): void
@@ -183,7 +183,7 @@ final class LayoutResolverValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Validator\LayoutResolverValidator::validateConditionUpdateStruct
+     * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::validateConditionUpdateStruct
      * @dataProvider validateConditionUpdateStructProvider
      */
     public function testValidateConditionUpdateStruct(array $params, bool $isValid): void

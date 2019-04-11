@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
+namespace Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper;
 
 use Doctrine\DBAL\Connection;
 

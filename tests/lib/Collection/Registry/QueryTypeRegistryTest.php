@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Collection\Registry;
+namespace Netgen\Layouts\Tests\Collection\Registry;
 
 use ArrayIterator;
-use Netgen\BlockManager\Collection\Registry\QueryTypeRegistry;
-use Netgen\BlockManager\Exception\Collection\QueryTypeException;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Tests\Collection\Stubs\QueryType;
+use Netgen\Layouts\Collection\Registry\QueryTypeRegistry;
+use Netgen\Layouts\Exception\Collection\QueryTypeException;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 
 final class QueryTypeRegistryTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface
+     * @var \Netgen\Layouts\Collection\QueryType\QueryTypeInterface
      */
     private $queryType1;
 
     /**
-     * @var \Netgen\BlockManager\Collection\QueryType\QueryTypeInterface
+     * @var \Netgen\Layouts\Collection\QueryType\QueryTypeInterface
      */
     private $queryType2;
 
     /**
-     * @var \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry
+     * @var \Netgen\Layouts\Collection\Registry\QueryTypeRegistry
      */
     private $registry;
 
@@ -42,7 +42,7 @@ final class QueryTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::getQueryTypes
+     * @covers \Netgen\Layouts\Collection\Registry\QueryTypeRegistry::getQueryTypes
      */
     public function testGetEnabledQueryTypes(): void
     {
@@ -55,8 +55,8 @@ final class QueryTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::__construct
-     * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::getQueryTypes
+     * @covers \Netgen\Layouts\Collection\Registry\QueryTypeRegistry::__construct
+     * @covers \Netgen\Layouts\Collection\Registry\QueryTypeRegistry::getQueryTypes
      */
     public function testGetQueryTypes(): void
     {
@@ -70,7 +70,7 @@ final class QueryTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::getQueryType
+     * @covers \Netgen\Layouts\Collection\Registry\QueryTypeRegistry::getQueryType
      */
     public function testGetQueryType(): void
     {
@@ -78,7 +78,7 @@ final class QueryTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::getQueryType
+     * @covers \Netgen\Layouts\Collection\Registry\QueryTypeRegistry::getQueryType
      */
     public function testGetQueryTypeThrowsQueryTypeException(): void
     {
@@ -89,7 +89,7 @@ final class QueryTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::hasQueryType
+     * @covers \Netgen\Layouts\Collection\Registry\QueryTypeRegistry::hasQueryType
      */
     public function testHasQueryType(): void
     {
@@ -97,7 +97,7 @@ final class QueryTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::hasQueryType
+     * @covers \Netgen\Layouts\Collection\Registry\QueryTypeRegistry::hasQueryType
      */
     public function testHasQueryTypeWithNoQueryType(): void
     {
@@ -105,7 +105,7 @@ final class QueryTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::getIterator
+     * @covers \Netgen\Layouts\Collection\Registry\QueryTypeRegistry::getIterator
      */
     public function testGetIterator(): void
     {
@@ -120,7 +120,7 @@ final class QueryTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::count
+     * @covers \Netgen\Layouts\Collection\Registry\QueryTypeRegistry::count
      */
     public function testCount(): void
     {
@@ -128,7 +128,7 @@ final class QueryTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::offsetExists
+     * @covers \Netgen\Layouts\Collection\Registry\QueryTypeRegistry::offsetExists
      */
     public function testOffsetExists(): void
     {
@@ -137,7 +137,7 @@ final class QueryTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::offsetGet
+     * @covers \Netgen\Layouts\Collection\Registry\QueryTypeRegistry::offsetGet
      */
     public function testOffsetGet(): void
     {
@@ -145,7 +145,7 @@ final class QueryTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::offsetSet
+     * @covers \Netgen\Layouts\Collection\Registry\QueryTypeRegistry::offsetSet
      */
     public function testOffsetSet(): void
     {
@@ -156,7 +156,7 @@ final class QueryTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Collection\Registry\QueryTypeRegistry::offsetUnset
+     * @covers \Netgen\Layouts\Collection\Registry\QueryTypeRegistry::offsetUnset
      */
     public function testOffsetUnset(): void
     {

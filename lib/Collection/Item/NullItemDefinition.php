@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Collection\Item;
+namespace Netgen\Layouts\Collection\Item;
 
-use Netgen\BlockManager\Config\ConfigDefinitionAwareTrait;
+use Netgen\Layouts\Config\ConfigDefinitionAwareTrait;
 
 final class NullItemDefinition implements ItemDefinitionInterface
 {

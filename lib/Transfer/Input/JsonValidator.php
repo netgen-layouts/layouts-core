@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Transfer\Input;
+namespace Netgen\Layouts\Transfer\Input;
 
-use Netgen\BlockManager\Exception\Transfer\JsonValidationException;
+use Netgen\Layouts\Exception\Transfer\JsonValidationException;
 use stdClass;
 use Swaggest\JsonSchema\Schema;
 use Throwable;
@@ -26,7 +26,7 @@ final class JsonValidator implements JsonValidatorInterface
     /**
      * Parses JSON data.
      *
-     * @throws \Netgen\BlockManager\Exception\Transfer\JsonValidationException
+     * @throws \Netgen\Layouts\Exception\Transfer\JsonValidationException
      */
     private function parseJson(string $data): stdClass
     {

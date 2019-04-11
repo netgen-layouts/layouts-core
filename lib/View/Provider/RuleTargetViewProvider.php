@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View\Provider;
+namespace Netgen\Layouts\View\Provider;
 
-use Netgen\BlockManager\API\Values\LayoutResolver\Target;
-use Netgen\BlockManager\View\View\RuleTargetView;
-use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Layouts\API\Values\LayoutResolver\Target;
+use Netgen\Layouts\View\View\RuleTargetView;
+use Netgen\Layouts\View\ViewInterface;
 
 final class RuleTargetViewProvider implements ViewProviderInterface
 {

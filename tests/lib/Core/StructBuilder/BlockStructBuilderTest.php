@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Core\StructBuilder;
+namespace Netgen\Layouts\Tests\Core\StructBuilder;
 
-use Netgen\BlockManager\Core\StructBuilder\BlockStructBuilder;
-use Netgen\BlockManager\Core\StructBuilder\ConfigStructBuilder;
-use Netgen\BlockManager\Tests\Core\CoreTestCase;
-use Netgen\BlockManager\Tests\TestCase\ExportObjectTrait;
+use Netgen\Layouts\Core\StructBuilder\BlockStructBuilder;
+use Netgen\Layouts\Core\StructBuilder\ConfigStructBuilder;
+use Netgen\Layouts\Tests\Core\CoreTestCase;
+use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 
 abstract class BlockStructBuilderTest extends CoreTestCase
 {
     use ExportObjectTrait;
 
     /**
-     * @var \Netgen\BlockManager\Core\StructBuilder\BlockStructBuilder
+     * @var \Netgen\Layouts\Core\StructBuilder\BlockStructBuilder
      */
     private $structBuilder;
 
@@ -26,8 +26,8 @@ abstract class BlockStructBuilderTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\StructBuilder\BlockStructBuilder::__construct
-     * @covers \Netgen\BlockManager\Core\StructBuilder\BlockStructBuilder::newBlockCreateStruct
+     * @covers \Netgen\Layouts\Core\StructBuilder\BlockStructBuilder::__construct
+     * @covers \Netgen\Layouts\Core\StructBuilder\BlockStructBuilder::newBlockCreateStruct
      */
     public function testNewBlockCreateStruct(): void
     {
@@ -55,7 +55,7 @@ abstract class BlockStructBuilderTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\StructBuilder\BlockStructBuilder::newBlockUpdateStruct
+     * @covers \Netgen\Layouts\Core\StructBuilder\BlockStructBuilder::newBlockUpdateStruct
      */
     public function testNewBlockUpdateStruct(): void
     {
@@ -76,7 +76,7 @@ abstract class BlockStructBuilderTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\StructBuilder\BlockStructBuilder::newBlockUpdateStruct
+     * @covers \Netgen\Layouts\Core\StructBuilder\BlockStructBuilder::newBlockUpdateStruct
      */
     public function testNewBlockUpdateStructFromBlock(): void
     {

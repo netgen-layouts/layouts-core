@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Collection\Item;
+namespace Netgen\Layouts\Tests\Collection\Item;
 
-use Netgen\BlockManager\API\Values\Collection\Item;
-use Netgen\BlockManager\Collection\Item\VisibilityResolver;
+use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\Collection\Item\VisibilityResolver;
 use PHPUnit\Framework\TestCase;
 
 final class VisibilityResolverTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\Collection\Item\VisibilityResolver::__construct
-     * @covers \Netgen\BlockManager\Collection\Item\VisibilityResolver::isVisible
+     * @covers \Netgen\Layouts\Collection\Item\VisibilityResolver::__construct
+     * @covers \Netgen\Layouts\Collection\Item\VisibilityResolver::isVisible
      *
      * @dataProvider isVisibleProvider
      */

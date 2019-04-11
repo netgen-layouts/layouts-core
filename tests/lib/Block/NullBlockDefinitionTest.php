@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Block;
+namespace Netgen\Layouts\Tests\Block;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\Block\NullBlockDefinition;
-use Netgen\BlockManager\Exception\Block\BlockDefinitionException;
-use Netgen\BlockManager\Tests\Block\Stubs\HandlerPlugin;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Block\NullBlockDefinition;
+use Netgen\Layouts\Exception\Block\BlockDefinitionException;
+use Netgen\Layouts\Tests\Block\Stubs\HandlerPlugin;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
 final class NullBlockDefinitionTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Block\NullBlockDefinition
+     * @var \Netgen\Layouts\Block\NullBlockDefinition
      */
     private $blockDefinition;
 
@@ -24,8 +24,8 @@ final class NullBlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\NullBlockDefinition::__construct
-     * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getIdentifier
+     * @covers \Netgen\Layouts\Block\NullBlockDefinition::__construct
+     * @covers \Netgen\Layouts\Block\NullBlockDefinition::getIdentifier
      */
     public function testGetIdentifier(): void
     {
@@ -33,7 +33,7 @@ final class NullBlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getName
+     * @covers \Netgen\Layouts\Block\NullBlockDefinition::getName
      */
     public function testGetName(): void
     {
@@ -41,7 +41,7 @@ final class NullBlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getIcon
+     * @covers \Netgen\Layouts\Block\NullBlockDefinition::getIcon
      */
     public function testGetIcon(): void
     {
@@ -49,7 +49,7 @@ final class NullBlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\NullBlockDefinition::isTranslatable
+     * @covers \Netgen\Layouts\Block\NullBlockDefinition::isTranslatable
      */
     public function testIsTranslatable(): void
     {
@@ -57,7 +57,7 @@ final class NullBlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getForms
+     * @covers \Netgen\Layouts\Block\NullBlockDefinition::getForms
      */
     public function testGetForms(): void
     {
@@ -65,7 +65,7 @@ final class NullBlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\NullBlockDefinition::hasForm
+     * @covers \Netgen\Layouts\Block\NullBlockDefinition::hasForm
      */
     public function testHasForm(): void
     {
@@ -73,7 +73,7 @@ final class NullBlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getForm
+     * @covers \Netgen\Layouts\Block\NullBlockDefinition::getForm
      */
     public function testGetForm(): void
     {
@@ -84,7 +84,7 @@ final class NullBlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getCollections
+     * @covers \Netgen\Layouts\Block\NullBlockDefinition::getCollections
      */
     public function testGetCollections(): void
     {
@@ -92,7 +92,7 @@ final class NullBlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\NullBlockDefinition::hasCollection
+     * @covers \Netgen\Layouts\Block\NullBlockDefinition::hasCollection
      */
     public function testHasCollection(): void
     {
@@ -100,7 +100,7 @@ final class NullBlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getCollection
+     * @covers \Netgen\Layouts\Block\NullBlockDefinition::getCollection
      */
     public function testGetCollection(): void
     {
@@ -111,7 +111,7 @@ final class NullBlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getViewTypes
+     * @covers \Netgen\Layouts\Block\NullBlockDefinition::getViewTypes
      */
     public function testGetViewTypes(): void
     {
@@ -119,7 +119,7 @@ final class NullBlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getViewTypeIdentifiers
+     * @covers \Netgen\Layouts\Block\NullBlockDefinition::getViewTypeIdentifiers
      */
     public function testGetViewTypeIdentifiers(): void
     {
@@ -127,7 +127,7 @@ final class NullBlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\NullBlockDefinition::hasViewType
+     * @covers \Netgen\Layouts\Block\NullBlockDefinition::hasViewType
      */
     public function testHasViewType(): void
     {
@@ -135,7 +135,7 @@ final class NullBlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getViewType
+     * @covers \Netgen\Layouts\Block\NullBlockDefinition::getViewType
      */
     public function testGetViewType(): void
     {
@@ -146,7 +146,7 @@ final class NullBlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\NullBlockDefinition::getDynamicParameters
+     * @covers \Netgen\Layouts\Block\NullBlockDefinition::getDynamicParameters
      */
     public function testGetDynamicParameters(): void
     {
@@ -156,7 +156,7 @@ final class NullBlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\NullBlockDefinition::isContextual
+     * @covers \Netgen\Layouts\Block\NullBlockDefinition::isContextual
      */
     public function testIsContextual(): void
     {
@@ -164,7 +164,7 @@ final class NullBlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\NullBlockDefinition::hasPlugin
+     * @covers \Netgen\Layouts\Block\NullBlockDefinition::hasPlugin
      */
     public function testHasPlugin(): void
     {
@@ -172,7 +172,7 @@ final class NullBlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Block\NullBlockDefinition::hasPlugin
+     * @covers \Netgen\Layouts\Block\NullBlockDefinition::hasPlugin
      */
     public function testHasPluginWithUnknownPlugin(): void
     {

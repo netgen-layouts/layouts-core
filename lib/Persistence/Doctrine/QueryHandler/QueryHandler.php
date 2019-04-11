@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Persistence\Doctrine\QueryHandler;
+namespace Netgen\Layouts\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Type;
-use Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper;
+use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper;
 
 abstract class QueryHandler
 {
@@ -17,7 +17,7 @@ abstract class QueryHandler
     protected $connection;
 
     /**
-     * @var \Netgen\BlockManager\Persistence\Doctrine\Helper\ConnectionHelper
+     * @var \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper
      */
     protected $connectionHelper;
 

@@ -2,45 +2,45 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Core\Mapper;
+namespace Netgen\Layouts\Core\Mapper;
 
-use Netgen\BlockManager\API\Service\LayoutService;
-use Netgen\BlockManager\API\Values\Layout\Layout;
-use Netgen\BlockManager\API\Values\LayoutResolver\Condition;
-use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
-use Netgen\BlockManager\API\Values\LayoutResolver\Target;
-use Netgen\BlockManager\API\Values\LazyCollection;
-use Netgen\BlockManager\Exception\Layout\ConditionTypeException;
-use Netgen\BlockManager\Exception\Layout\TargetTypeException;
-use Netgen\BlockManager\Exception\NotFoundException;
-use Netgen\BlockManager\Layout\Resolver\ConditionType\NullConditionType;
-use Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
-use Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface;
-use Netgen\BlockManager\Layout\Resolver\TargetType\NullTargetType;
-use Netgen\BlockManager\Persistence\Handler\LayoutResolverHandlerInterface;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Condition as PersistenceCondition;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
-use Netgen\BlockManager\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
+use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\LayoutResolver\Condition;
+use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\API\Values\LayoutResolver\Target;
+use Netgen\Layouts\API\Values\LazyCollection;
+use Netgen\Layouts\Exception\Layout\ConditionTypeException;
+use Netgen\Layouts\Exception\Layout\TargetTypeException;
+use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Layout\Resolver\ConditionType\NullConditionType;
+use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
+use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistryInterface;
+use Netgen\Layouts\Layout\Resolver\TargetType\NullTargetType;
+use Netgen\Layouts\Persistence\Handler\LayoutResolverHandlerInterface;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition as PersistenceCondition;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
 
 final class LayoutResolverMapper
 {
     /**
-     * @var \Netgen\BlockManager\Persistence\Handler\LayoutResolverHandlerInterface
+     * @var \Netgen\Layouts\Persistence\Handler\LayoutResolverHandlerInterface
      */
     private $layoutResolverHandler;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\Registry\TargetTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistryInterface
      */
     private $targetTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\Registry\ConditionTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistryInterface
      */
     private $conditionTypeRegistry;
 
     /**
-     * @var \Netgen\BlockManager\API\Service\LayoutService
+     * @var \Netgen\Layouts\API\Service\LayoutService
      */
     private $layoutService;
 

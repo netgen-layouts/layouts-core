@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Validator\Parameters;
+namespace Netgen\Layouts\Validator\Parameters;
 
-use Netgen\BlockManager\Parameters\Value\LinkValue;
-use Netgen\BlockManager\Validator\Constraint\Parameters\ItemLink;
-use Netgen\BlockManager\Validator\Constraint\Parameters\Link;
-use Netgen\BlockManager\Validator\StrictEmailValidatorTrait;
+use Netgen\Layouts\Parameters\Value\LinkValue;
+use Netgen\Layouts\Validator\Constraint\Parameters\ItemLink;
+use Netgen\Layouts\Validator\Constraint\Parameters\Link;
+use Netgen\Layouts\Validator\StrictEmailValidatorTrait;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 /**
  * Validates if the provided value is a valid instance of
- * \Netgen\BlockManager\Parameters\Value\LinkValue object.
+ * \Netgen\Layouts\Parameters\Value\LinkValue object.
  */
 final class LinkValidator extends ConstraintValidator
 {

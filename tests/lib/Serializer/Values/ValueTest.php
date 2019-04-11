@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Serializer\Values;
+namespace Netgen\Layouts\Tests\Serializer\Values;
 
-use Netgen\BlockManager\Serializer\Values\Value;
+use Netgen\Layouts\Serializer\Values\Value;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 final class ValueTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Serializer\Values\Value
+     * @var \Netgen\Layouts\Serializer\Values\Value
      */
     private $value;
 
     /**
-     * @var \Netgen\BlockManager\Tests\API\Stubs\Value
+     * @var \Netgen\Layouts\Tests\API\Stubs\Value
      */
     private $innerValue;
 
@@ -26,8 +26,8 @@ final class ValueTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Values\Value::__construct
-     * @covers \Netgen\BlockManager\Serializer\Values\Value::getValue
+     * @covers \Netgen\Layouts\Serializer\Values\Value::__construct
+     * @covers \Netgen\Layouts\Serializer\Values\Value::getValue
      */
     public function testGetValue(): void
     {
@@ -35,8 +35,8 @@ final class ValueTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Serializer\Values\Value::__construct
-     * @covers \Netgen\BlockManager\Serializer\Values\Value::getStatusCode
+     * @covers \Netgen\Layouts\Serializer\Values\Value::__construct
+     * @covers \Netgen\Layouts\Serializer\Values\Value::getStatusCode
      */
     public function testGetStatusCode(): void
     {

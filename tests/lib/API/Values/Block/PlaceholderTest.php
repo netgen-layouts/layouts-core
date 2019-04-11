@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\Block;
+namespace Netgen\Layouts\Tests\API\Values\Block;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Block\Placeholder;
-use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\Placeholder;
+use Netgen\Layouts\Exception\RuntimeException;
 use PHPUnit\Framework\TestCase;
 
 final class PlaceholderTest extends TestCase
 {
     /**
-     * @covers \Netgen\BlockManager\API\Values\Block\Placeholder::__construct
-     * @covers \Netgen\BlockManager\API\Values\Block\Placeholder::getIdentifier
+     * @covers \Netgen\Layouts\API\Values\Block\Placeholder::__construct
+     * @covers \Netgen\Layouts\API\Values\Block\Placeholder::getIdentifier
      */
     public function testDefaultProperties(): void
     {
@@ -24,15 +24,15 @@ final class PlaceholderTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Block\Placeholder::__construct
-     * @covers \Netgen\BlockManager\API\Values\Block\Placeholder::count
-     * @covers \Netgen\BlockManager\API\Values\Block\Placeholder::getBlocks
-     * @covers \Netgen\BlockManager\API\Values\Block\Placeholder::getIdentifier
-     * @covers \Netgen\BlockManager\API\Values\Block\Placeholder::getIterator
-     * @covers \Netgen\BlockManager\API\Values\Block\Placeholder::offsetExists
-     * @covers \Netgen\BlockManager\API\Values\Block\Placeholder::offsetGet
-     * @covers \Netgen\BlockManager\API\Values\Block\Placeholder::offsetSet
-     * @covers \Netgen\BlockManager\API\Values\Block\Placeholder::offsetUnset
+     * @covers \Netgen\Layouts\API\Values\Block\Placeholder::__construct
+     * @covers \Netgen\Layouts\API\Values\Block\Placeholder::count
+     * @covers \Netgen\Layouts\API\Values\Block\Placeholder::getBlocks
+     * @covers \Netgen\Layouts\API\Values\Block\Placeholder::getIdentifier
+     * @covers \Netgen\Layouts\API\Values\Block\Placeholder::getIterator
+     * @covers \Netgen\Layouts\API\Values\Block\Placeholder::offsetExists
+     * @covers \Netgen\Layouts\API\Values\Block\Placeholder::offsetGet
+     * @covers \Netgen\Layouts\API\Values\Block\Placeholder::offsetSet
+     * @covers \Netgen\Layouts\API\Values\Block\Placeholder::offsetUnset
      */
     public function testSetProperties(): void
     {

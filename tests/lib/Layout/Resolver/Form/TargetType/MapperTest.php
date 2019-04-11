@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Layout\Resolver\Form\TargetType;
+namespace Netgen\Layouts\Tests\Layout\Resolver\Form\TargetType;
 
-use Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper;
+use Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper;
 use PHPUnit\Framework\TestCase;
 
 final class MapperTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\Form\TargetType\MapperInterface
+     * @var \Netgen\Layouts\Layout\Resolver\Form\TargetType\MapperInterface
      */
     private $mapper;
 
@@ -20,7 +20,7 @@ final class MapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Layout\Resolver\Form\TargetType\Mapper::getFormOptions
+     * @covers \Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper::getFormOptions
      */
     public function testGetFormOptions(): void
     {

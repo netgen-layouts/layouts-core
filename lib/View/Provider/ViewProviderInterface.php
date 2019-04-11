@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\View\Provider;
+namespace Netgen\Layouts\View\Provider;
 
-use Netgen\BlockManager\View\ViewInterface;
+use Netgen\Layouts\View\ViewInterface;
 
 /**
  * For every view, an instance of this interface needs to be implemented with
@@ -20,7 +20,7 @@ interface ViewProviderInterface
      * @param mixed $value
      * @param array<string, mixed> $parameters
      *
-     * @return \Netgen\BlockManager\View\ViewInterface
+     * @return \Netgen\Layouts\View\ViewInterface
      */
     public function provideView($value, array $parameters = []): ViewInterface;
 

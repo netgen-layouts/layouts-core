@@ -4,27 +4,27 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime;
 
-use Netgen\BlockManager\Error\ErrorHandlerInterface;
-use Netgen\BlockManager\Exception\Item\ItemException;
-use Netgen\BlockManager\Item\CmsItemInterface;
-use Netgen\BlockManager\Item\CmsItemLoaderInterface;
-use Netgen\BlockManager\Item\UrlGeneratorInterface;
+use Netgen\Layouts\Error\ErrorHandlerInterface;
+use Netgen\Layouts\Exception\Item\ItemException;
+use Netgen\Layouts\Item\CmsItemInterface;
+use Netgen\Layouts\Item\CmsItemLoaderInterface;
+use Netgen\Layouts\Item\UrlGeneratorInterface;
 use Throwable;
 
 final class ItemRuntime
 {
     /**
-     * @var \Netgen\BlockManager\Item\CmsItemLoaderInterface
+     * @var \Netgen\Layouts\Item\CmsItemLoaderInterface
      */
     private $cmsItemLoader;
 
     /**
-     * @var \Netgen\BlockManager\Item\UrlGeneratorInterface
+     * @var \Netgen\Layouts\Item\UrlGeneratorInterface
      */
     private $urlGenerator;
 
     /**
-     * @var \Netgen\BlockManager\Error\ErrorHandlerInterface
+     * @var \Netgen\Layouts\Error\ErrorHandlerInterface
      */
     private $errorHandler;
 
@@ -45,12 +45,12 @@ final class ItemRuntime
      *
      * 1) URI with value_type://value format, e.g. type://42
      * 2) ID and value type as separate arguments
-     * 3) \Netgen\BlockManager\Item\CmsItemInterface object
+     * 3) \Netgen\Layouts\Item\CmsItemInterface object
      *
      * @param mixed $value
      * @param string|null $valueType
      *
-     * @throws \Netgen\BlockManager\Exception\Item\ItemException If provided item or item reference is not valid
+     * @throws \Netgen\Layouts\Exception\Item\ItemException If provided item or item reference is not valid
      *
      * @return string
      */

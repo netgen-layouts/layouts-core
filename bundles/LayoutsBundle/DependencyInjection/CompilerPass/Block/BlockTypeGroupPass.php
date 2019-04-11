@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block;
 
 use Generator;
-use Netgen\BlockManager\Block\BlockType\BlockTypeGroup;
-use Netgen\BlockManager\Block\BlockType\BlockTypeGroupFactory;
+use Netgen\Layouts\Block\BlockType\BlockTypeGroup;
+use Netgen\Layouts\Block\BlockType\BlockTypeGroupFactory;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;

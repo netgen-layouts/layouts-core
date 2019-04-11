@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Persistence\Doctrine\Helper;
+namespace Netgen\Layouts\Persistence\Doctrine\Helper;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Type;
-use Netgen\BlockManager\Exception\BadStateException;
+use Netgen\Layouts\Exception\BadStateException;
 use PDO;
 
 final class PositionHelper
@@ -26,7 +26,7 @@ final class PositionHelper
      * Processes the database table to create space for an item which will
      * be inserted at specified position.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If position is out of range
+     * @throws \Netgen\Layouts\Exception\BadStateException If position is out of range
      */
     public function createPosition(array $conditions, ?int $position = null, ?int $endPosition = null, bool $allowOutOfRange = false): int
     {
@@ -61,7 +61,7 @@ final class PositionHelper
      * Processes the database table to make space for the item which
      * will be moved inside the table.
      *
-     * @throws \Netgen\BlockManager\Exception\BadStateException If position is out of range
+     * @throws \Netgen\Layouts\Exception\BadStateException If position is out of range
      */
     public function moveToPosition(array $conditions, int $originalPosition, int $position, bool $allowOutOfRange = false): int
     {

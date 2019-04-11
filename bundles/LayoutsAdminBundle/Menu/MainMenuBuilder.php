@@ -6,9 +6,9 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Menu;
 
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
-use Netgen\BlockManager\Utils\BackwardsCompatibility\EventDispatcherProxy;
 use Netgen\Bundle\LayoutsAdminBundle\Event\ConfigureMenuEvent;
 use Netgen\Bundle\LayoutsAdminBundle\Event\LayoutsAdminEvents;
+use Netgen\Layouts\Utils\BackwardsCompatibility\EventDispatcherProxy;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
@@ -25,7 +25,7 @@ final class MainMenuBuilder
     private $authorizationChecker;
 
     /**
-     * @var \Netgen\BlockManager\Utils\BackwardsCompatibility\EventDispatcherProxy
+     * @var \Netgen\Layouts\Utils\BackwardsCompatibility\EventDispatcherProxy
      */
     private $eventDispatcher;
 

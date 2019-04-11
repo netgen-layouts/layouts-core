@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Item\Registry;
+namespace Netgen\Layouts\Tests\Item\Registry;
 
 use ArrayIterator;
-use Netgen\BlockManager\Exception\Item\ItemException;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Item\Registry\ValueTypeRegistry;
-use Netgen\BlockManager\Item\ValueType\ValueType;
+use Netgen\Layouts\Exception\Item\ItemException;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Item\Registry\ValueTypeRegistry;
+use Netgen\Layouts\Item\ValueType\ValueType;
 use PHPUnit\Framework\TestCase;
 
 final class ValueTypeRegistryTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\Item\ValueType\ValueType
+     * @var \Netgen\Layouts\Item\ValueType\ValueType
      */
     private $valueType1;
 
     /**
-     * @var \Netgen\BlockManager\Item\ValueType\ValueType
+     * @var \Netgen\Layouts\Item\ValueType\ValueType
      */
     private $valueType2;
 
     /**
-     * @var \Netgen\BlockManager\Item\Registry\ValueTypeRegistry
+     * @var \Netgen\Layouts\Item\Registry\ValueTypeRegistry
      */
     private $registry;
 
@@ -42,8 +42,8 @@ final class ValueTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::__construct
-     * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::getValueTypes
+     * @covers \Netgen\Layouts\Item\Registry\ValueTypeRegistry::__construct
+     * @covers \Netgen\Layouts\Item\Registry\ValueTypeRegistry::getValueTypes
      */
     public function testGetValueTypes(): void
     {
@@ -57,7 +57,7 @@ final class ValueTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::getValueTypes
+     * @covers \Netgen\Layouts\Item\Registry\ValueTypeRegistry::getValueTypes
      */
     public function testGetEnabledValueTypes(): void
     {
@@ -70,7 +70,7 @@ final class ValueTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::getValueType
+     * @covers \Netgen\Layouts\Item\Registry\ValueTypeRegistry::getValueType
      */
     public function testGetValueType(): void
     {
@@ -78,7 +78,7 @@ final class ValueTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::getValueType
+     * @covers \Netgen\Layouts\Item\Registry\ValueTypeRegistry::getValueType
      */
     public function testGetValueTypeThrowsInvalidArgumentException(): void
     {
@@ -89,7 +89,7 @@ final class ValueTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::hasValueType
+     * @covers \Netgen\Layouts\Item\Registry\ValueTypeRegistry::hasValueType
      */
     public function testHasValueType(): void
     {
@@ -97,7 +97,7 @@ final class ValueTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::hasValueType
+     * @covers \Netgen\Layouts\Item\Registry\ValueTypeRegistry::hasValueType
      */
     public function testHasValueTypeWithNoValueType(): void
     {
@@ -105,7 +105,7 @@ final class ValueTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::getIterator
+     * @covers \Netgen\Layouts\Item\Registry\ValueTypeRegistry::getIterator
      */
     public function testGetIterator(): void
     {
@@ -120,7 +120,7 @@ final class ValueTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::count
+     * @covers \Netgen\Layouts\Item\Registry\ValueTypeRegistry::count
      */
     public function testCount(): void
     {
@@ -128,7 +128,7 @@ final class ValueTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::offsetExists
+     * @covers \Netgen\Layouts\Item\Registry\ValueTypeRegistry::offsetExists
      */
     public function testOffsetExists(): void
     {
@@ -137,7 +137,7 @@ final class ValueTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::offsetGet
+     * @covers \Netgen\Layouts\Item\Registry\ValueTypeRegistry::offsetGet
      */
     public function testOffsetGet(): void
     {
@@ -145,7 +145,7 @@ final class ValueTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::offsetSet
+     * @covers \Netgen\Layouts\Item\Registry\ValueTypeRegistry::offsetSet
      */
     public function testOffsetSet(): void
     {
@@ -156,7 +156,7 @@ final class ValueTypeRegistryTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Item\Registry\ValueTypeRegistry::offsetUnset
+     * @covers \Netgen\Layouts\Item\Registry\ValueTypeRegistry::offsetUnset
      */
     public function testOffsetUnset(): void
     {

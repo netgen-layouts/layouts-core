@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Parameters\ParameterType;
+namespace Netgen\Layouts\Tests\Parameters\ParameterType;
 
-use Netgen\BlockManager\Parameters\ParameterType\TextLineType;
+use Netgen\Layouts\Parameters\ParameterType\TextLineType;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Validation;
@@ -19,7 +19,7 @@ final class TextLineTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\TextLineType::getIdentifier
+     * @covers \Netgen\Layouts\Parameters\ParameterType\TextLineType::getIdentifier
      */
     public function testGetIdentifier(): void
     {
@@ -27,7 +27,7 @@ final class TextLineTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\TextLineType::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterType\TextLineType::configureOptions
      * @dataProvider validOptionsProvider
      */
     public function testValidOptions(array $options, array $resolvedOptions): void
@@ -37,7 +37,7 @@ final class TextLineTypeTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\TextLineType::configureOptions
+     * @covers \Netgen\Layouts\Parameters\ParameterType\TextLineType::configureOptions
      * @dataProvider invalidOptionsProvider
      */
     public function testInvalidOptions(array $options): void
@@ -72,8 +72,8 @@ final class TextLineTypeTest extends TestCase
      * @param mixed $value
      * @param bool $isValid
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\TextLineType::getRequiredConstraints
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\TextLineType::getValueConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterType\TextLineType::getRequiredConstraints
+     * @covers \Netgen\Layouts\Parameters\ParameterType\TextLineType::getValueConstraints
      * @dataProvider validationProvider
      */
     public function testValidation($value, bool $isValid): void
@@ -102,7 +102,7 @@ final class TextLineTypeTest extends TestCase
      * @param mixed $value
      * @param bool $isEmpty
      *
-     * @covers \Netgen\BlockManager\Parameters\ParameterType\TextLineType::isValueEmpty
+     * @covers \Netgen\Layouts\Parameters\ParameterType\TextLineType::isValueEmpty
      * @dataProvider emptyProvider
      */
     public function testIsValueEmpty($value, bool $isEmpty): void

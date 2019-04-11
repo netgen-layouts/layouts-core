@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Layout\Resolver\Registry;
+namespace Netgen\Layouts\Layout\Resolver\Registry;
 
 use ArrayIterator;
-use Netgen\BlockManager\Exception\Layout\ConditionTypeException;
-use Netgen\BlockManager\Exception\RuntimeException;
-use Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface;
+use Netgen\Layouts\Exception\Layout\ConditionTypeException;
+use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Layout\Resolver\ConditionTypeInterface;
 use Traversable;
 
 final class ConditionTypeRegistry implements ConditionTypeRegistryInterface
 {
     /**
-     * @var \Netgen\BlockManager\Layout\Resolver\ConditionTypeInterface[]
+     * @var \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface[]
      */
     private $conditionTypes = [];
 

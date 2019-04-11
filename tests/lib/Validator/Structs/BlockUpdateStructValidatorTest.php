@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\Validator\Structs;
+namespace Netgen\Layouts\Tests\Validator\Structs;
 
-use Netgen\BlockManager\API\Values\Block\Block;
-use Netgen\BlockManager\API\Values\Block\BlockUpdateStruct;
-use Netgen\BlockManager\Block\BlockDefinition;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ItemViewType;
-use Netgen\BlockManager\Block\BlockDefinition\Configuration\ViewType;
-use Netgen\BlockManager\Tests\Block\Stubs\BlockDefinitionHandler;
-use Netgen\BlockManager\Tests\TestCase\ValidatorTestCase;
-use Netgen\BlockManager\Utils\Hydrator;
-use Netgen\BlockManager\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
-use Netgen\BlockManager\Validator\Structs\BlockUpdateStructValidator;
+use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
+use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
+use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandler;
+use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
+use Netgen\Layouts\Utils\Hydrator;
+use Netgen\Layouts\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
+use Netgen\Layouts\Validator\Structs\BlockUpdateStructValidator;
 use stdClass;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
@@ -51,7 +51,7 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\Structs\BlockUpdateStructValidator::validate
+     * @covers \Netgen\Layouts\Validator\Structs\BlockUpdateStructValidator::validate
      * @dataProvider validateDataProvider
      */
     public function testValidate(array $value, bool $isValid): void
@@ -63,36 +63,36 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\Structs\BlockUpdateStructValidator::validate
+     * @covers \Netgen\Layouts\Validator\Structs\BlockUpdateStructValidator::validate
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Netgen\\BlockManager\\Validator\\Constraint\\Structs\\BlockUpdateStruct", "Symfony\\Component\\Validator\\Constraints\\NotBlank" given');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\Validator\\Constraint\\Structs\\BlockUpdateStruct", "Symfony\\Component\\Validator\\Constraints\\NotBlank" given');
 
         $this->constraint = new NotBlank();
         $this->assertValid(true, new BlockUpdateStruct());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\Structs\BlockUpdateStructValidator::validate
+     * @covers \Netgen\Layouts\Validator\Structs\BlockUpdateStructValidator::validate
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidBlock(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Netgen\\BlockManager\\API\\Values\\Block\\Block", "stdClass" given');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\API\\Values\\Block\\Block", "stdClass" given');
 
         $this->constraint->payload = new stdClass();
         $this->assertValid(true, new BlockUpdateStruct());
     }
 
     /**
-     * @covers \Netgen\BlockManager\Validator\Structs\BlockUpdateStructValidator::validate
+     * @covers \Netgen\Layouts\Validator\Structs\BlockUpdateStructValidator::validate
      */
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Netgen\\BlockManager\\API\\Values\\Block\\BlockUpdateStruct", "integer" given');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\API\\Values\\Block\\BlockUpdateStruct", "integer" given');
 
         $this->constraint->payload = new Block();
         $this->assertValid(true, 42);

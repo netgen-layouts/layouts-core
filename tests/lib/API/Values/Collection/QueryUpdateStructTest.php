@@ -2,22 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Tests\API\Values\Collection;
+namespace Netgen\Layouts\Tests\API\Values\Collection;
 
-use Netgen\BlockManager\API\Values\Collection\Query;
-use Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct;
-use Netgen\BlockManager\Collection\QueryType\QueryType;
-use Netgen\BlockManager\Collection\QueryType\QueryTypeInterface;
-use Netgen\BlockManager\Parameters\CompoundParameterDefinition;
-use Netgen\BlockManager\Parameters\Parameter;
-use Netgen\BlockManager\Parameters\ParameterDefinition;
-use Netgen\BlockManager\Parameters\ParameterType;
+use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\API\Values\Collection\QueryUpdateStruct;
+use Netgen\Layouts\Collection\QueryType\QueryType;
+use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
+use Netgen\Layouts\Parameters\CompoundParameterDefinition;
+use Netgen\Layouts\Parameters\Parameter;
+use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterType;
 use PHPUnit\Framework\TestCase;
 
 final class QueryUpdateStructTest extends TestCase
 {
     /**
-     * @var \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct
+     * @var \Netgen\Layouts\API\Values\Collection\QueryUpdateStruct
      */
     private $struct;
 
@@ -27,13 +27,13 @@ final class QueryUpdateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct::fillParametersFromQuery
+     * @covers \Netgen\Layouts\API\Values\Collection\QueryUpdateStruct::fillParametersFromQuery
      */
     public function testFillParametersFromQuery(): void
     {
         $queryType = $this->buildQueryType();
 
-        /** @var \Netgen\BlockManager\Parameters\CompoundParameterDefinition $compoundDefinition */
+        /** @var \Netgen\Layouts\Parameters\CompoundParameterDefinition $compoundDefinition */
         $compoundDefinition = $queryType->getParameterDefinition('compound');
 
         $query = Query::fromArray(
@@ -70,7 +70,7 @@ final class QueryUpdateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct::fillParametersFromHash
+     * @covers \Netgen\Layouts\API\Values\Collection\QueryUpdateStruct::fillParametersFromHash
      */
     public function testFillParametersFromHash(): void
     {
@@ -97,7 +97,7 @@ final class QueryUpdateStructTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\API\Values\Collection\QueryUpdateStruct::fillParametersFromHash
+     * @covers \Netgen\Layouts\API\Values\Collection\QueryUpdateStruct::fillParametersFromHash
      */
     public function testFillParametersFromHashWithMissingValues(): void
     {
