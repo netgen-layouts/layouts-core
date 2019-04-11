@@ -1,4 +1,4 @@
-{% set css_class = ['bm-block', 'bm-' ~ block.definition.identifier, 'bm-vt-' ~ block.viewType, css_class|default(block.parameter('css_class').value)]|join(' ') %}
+{% set css_class = ['ngl-block', 'ngl-' ~ block.definition.identifier, 'ngl-vt-' ~ block.viewType, css_class|default(block.parameter('css_class').value)]|join(' ') %}
 {% set css_id = css_id|default(block.parameter('css_id').value) %}
 {% set set_container = block.parameter('set_container').value %}
 
