@@ -107,7 +107,7 @@
         "psr-4": {
             "Netgen\\BlockManager\\": "lib/",
 
-            "Netgen\\BlockManager\\Migrations\\": "migrations/",
+            "Netgen\\Layouts\\Migrations\\": "migrations/",
 
             "Netgen\\Bundle\\LayoutsBundle\\": "bundles/LayoutsBundle/",
             "Netgen\\Bundle\\LayoutsAdminBundle\\": "bundles/LayoutsAdminBundle/",

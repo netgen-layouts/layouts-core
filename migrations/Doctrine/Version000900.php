@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\BlockManager\Migrations\Doctrine;
+namespace Netgen\Layouts\Migrations\Doctrine;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Types\Type;
