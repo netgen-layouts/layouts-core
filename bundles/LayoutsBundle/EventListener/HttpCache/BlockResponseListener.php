@@ -36,7 +36,7 @@ final class BlockResponseListener implements EventSubscriberInterface
             return;
         }
 
-        $blockView = $event->getRequest()->attributes->get('ngbmView');
+        $blockView = $event->getRequest()->attributes->get('nglView');
         if (!$blockView instanceof BlockViewInterface) {
             return;
         }

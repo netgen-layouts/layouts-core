@@ -55,7 +55,7 @@ final class BlockResponseListenerTest extends TestCase
         $request = Request::create('/');
 
         $block = new Block();
-        $request->attributes->set('ngbmView', new BlockView($block));
+        $request->attributes->set('nglView', new BlockView($block));
 
         $response = new Response();
         $event = new FilterResponseEvent(
@@ -81,7 +81,7 @@ final class BlockResponseListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $request->attributes->set('ngbmView', new BlockView(new Block()));
+        $request->attributes->set('nglView', new BlockView(new Block()));
 
         $event = new FilterResponseEvent(
             $kernelMock,
@@ -105,7 +105,7 @@ final class BlockResponseListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $request->attributes->set('ngbmView', 42);
+        $request->attributes->set('nglView', 42);
 
         $event = new FilterResponseEvent(
             $kernelMock,

@@ -55,8 +55,8 @@ final class ViewListenerTest extends TestCase
 
         $this->listener->onView($event);
 
-        self::assertTrue($request->attributes->has('ngbmView'));
-        self::assertSame($blockView, $request->attributes->get('ngbmView'));
+        self::assertTrue($request->attributes->has('nglView'));
+        self::assertSame($blockView, $request->attributes->get('nglView'));
     }
 
     /**
@@ -78,7 +78,7 @@ final class ViewListenerTest extends TestCase
 
         $this->listener->onView($event);
 
-        self::assertFalse($request->attributes->has('ngbmView'));
+        self::assertFalse($request->attributes->has('nglView'));
     }
 
     /**
@@ -98,6 +98,6 @@ final class ViewListenerTest extends TestCase
 
         $this->listener->onView($event);
 
-        self::assertFalse($request->attributes->has('ngbmView'));
+        self::assertFalse($request->attributes->has('nglView'));
     }
 }

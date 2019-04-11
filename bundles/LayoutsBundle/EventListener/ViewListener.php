@@ -30,6 +30,6 @@ final class ViewListener implements EventSubscriberInterface
             return;
         }
 
-        $event->getRequest()->attributes->set('ngbmView', $controllerResult);
+        $event->getRequest()->attributes->set('nglView', $controllerResult);
     }
 }
