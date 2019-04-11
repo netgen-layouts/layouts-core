@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\DependencyInjection\ConfigurationNode;
 
 use Matthias\SymfonyConfigTest\PhpUnit\ConfigurationTestCaseTrait;
-use Netgen\Bundle\BlockManagerBundle\DependencyInjection\Configuration;
-use Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension;
 use Netgen\Bundle\LayoutsAdminBundle\DependencyInjection\ExtensionPlugin;
+use Netgen\Bundle\LayoutsBundle\DependencyInjection\Configuration;
+use Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -193,7 +193,7 @@ final class AppNodeTest extends TestCase
 
     protected function getConfiguration(): ConfigurationInterface
     {
-        $extension = new NetgenBlockManagerExtension();
+        $extension = new NetgenLayoutsExtension();
         $extension->addPlugin(new ExtensionPlugin());
 
         return new Configuration($extension);

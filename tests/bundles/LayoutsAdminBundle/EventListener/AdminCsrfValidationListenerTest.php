@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 
-use Netgen\Bundle\BlockManagerBundle\Security\CsrfTokenValidatorInterface;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\AdminCsrfValidationListener;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsAdminRequestListener;
+use Netgen\Bundle\LayoutsBundle\Security\CsrfTokenValidatorInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -17,7 +17,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 final class AdminCsrfValidationListenerTest extends TestCase
 {
     /**
-     * @var \Netgen\Bundle\BlockManagerBundle\Security\CsrfTokenValidatorInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\Bundle\LayoutsBundle\Security\CsrfTokenValidatorInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $csrfTokenValidatorMock;
 

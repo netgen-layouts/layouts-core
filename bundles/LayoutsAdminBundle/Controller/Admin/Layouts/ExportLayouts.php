@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\Layouts;
 
 use Netgen\BlockManager\Transfer\Output\SerializerInterface;
-use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
+use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;

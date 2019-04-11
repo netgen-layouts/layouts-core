@@ -109,7 +109,7 @@
 
             "Netgen\\BlockManager\\Migrations\\": "migrations/",
 
-            "Netgen\\Bundle\\BlockManagerBundle\\": "bundles/BlockManagerBundle/",
+            "Netgen\\Bundle\\LayoutsBundle\\": "bundles/LayoutsBundle/",
             "Netgen\\Bundle\\LayoutsAdminBundle\\": "bundles/LayoutsAdminBundle/",
             "Netgen\\Bundle\\LayoutsDebugBundle\\": "bundles/LayoutsDebugBundle/"
         }
@@ -119,7 +119,7 @@
             "Netgen\\BlockManager\\Tests\\": "tests/lib/",
             "Netgen\\BlockManager\\Behat\\": "tests/behat/",
             "Netgen\\BlockManager\\Tests\\App\\": "tests/application/src/",
-            "Netgen\\Bundle\\BlockManagerBundle\\Tests\\": "tests/bundles/BlockManagerBundle/",
+            "Netgen\\Bundle\\LayoutsBundle\\Tests\\": "tests/bundles/LayoutsBundle/",
             "Netgen\\Bundle\\LayoutsAdminBundle\\Tests\\": "tests/bundles/LayoutsAdminBundle/",
             "Netgen\\ContentBrowser\\Tests\\": "vendor/netgen/content-browser/tests/lib/"
         },

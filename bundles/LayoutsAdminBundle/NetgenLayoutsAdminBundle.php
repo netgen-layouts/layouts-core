@@ -12,8 +12,8 @@ final class NetgenLayoutsAdminBundle extends Bundle
 {
     public function build(ContainerBuilder $container): void
     {
-        /** @var \Netgen\Bundle\BlockManagerBundle\DependencyInjection\NetgenBlockManagerExtension $layoutsExtension */
-        $layoutsExtension = $container->getExtension('netgen_block_manager');
+        /** @var \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension $layoutsExtension */
+        $layoutsExtension = $container->getExtension('netgen_layouts');
         $layoutsExtension->addPlugin(new ExtensionPlugin());
     }
 }

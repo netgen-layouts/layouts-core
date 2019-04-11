@@ -8,7 +8,7 @@ use Netgen\BlockManager\API\Service\BlockService;
 use Netgen\BlockManager\API\Values\Block\Block;
 use Netgen\BlockManager\Config\Form\EditType;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
+use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

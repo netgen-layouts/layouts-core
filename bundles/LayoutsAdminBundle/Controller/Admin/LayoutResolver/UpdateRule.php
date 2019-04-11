@@ -10,7 +10,7 @@ use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
+use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 
 final class UpdateRule extends AbstractController

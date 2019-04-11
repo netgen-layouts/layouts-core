@@ -1,4 +1,4 @@
-netgen_block_manager:
+netgen_layouts:
     value_types:
         my_value_type:
             name: 'My value type'

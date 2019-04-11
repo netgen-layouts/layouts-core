@@ -9,7 +9,7 @@ use Jean85\PrettyVersions;
 use Netgen\BlockManager\API\Values\LayoutResolver\Rule;
 use Netgen\BlockManager\View\View\BlockViewInterface;
 use Netgen\BlockManager\View\View\LayoutViewInterface;
-use Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable;
+use Netgen\Bundle\LayoutsBundle\Templating\Twig\GlobalVariable;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
@@ -21,7 +21,7 @@ use Version\Version;
 final class LayoutsDataCollector extends DataCollector
 {
     /**
-     * @var \Netgen\Bundle\BlockManagerBundle\Templating\Twig\GlobalVariable
+     * @var \Netgen\Bundle\LayoutsBundle\Templating\Twig\GlobalVariable
      */
     private $globalVariable;
 

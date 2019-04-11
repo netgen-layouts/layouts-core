@@ -1,0 +1,20 @@
+--TEST--
+"ngbm_render_zone" tag
+--TEMPLATE--
+{% ngbm_render_zone zone %}
+{% ngbm_render_zone 'zone' %}
+--DATA--
+return [
+    'ngbm' => new \Netgen\Bundle\LayoutsBundle\Tests\Templating\Twig\Extension\Stubs\GlobalVariable(
+        \Netgen\BlockManager\API\Values\Layout\Layout::fromArray([
+            'zones' => new \Doctrine\Common\Collections\ArrayCollection([
+                'zone' => \Netgen\BlockManager\API\Values\Layout\Zone::fromArray(['identifier' => 'zone']),
+            ])
+        ])
+    ),
+    'zone' => \Netgen\BlockManager\API\Values\Layout\Zone::fromArray(['identifier' => 'zone']),
+]
+--CONFIG--
+return []
+--EXPECT--
+block1 block2block1 block2

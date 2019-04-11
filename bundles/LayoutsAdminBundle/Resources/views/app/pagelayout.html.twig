@@ -40,7 +40,7 @@
 </head>
 
 <body>
-    <div id="app" class="ngc" data-version="{{ pretty_package_version('netgen/layouts-core') }} {{ ngbm.config.parameter('edition') }}"></div>
+    <div id="app" class="ngc" data-version="{{ pretty_package_version('netgen/layouts-core') }} {{ nglayouts.config.parameter('edition') }}"></div>
 
     <div id="ngc-size-warning">
         <div class="size-warning-text">
@@ -53,7 +53,7 @@
     <script src="{{ asset('ckeditor/ckeditor.js', 'ngbm_app_vendor') }}" defer></script>
     <script src="{{ asset('ace-editor/ace.js', 'ngbm_app_vendor') }}" defer></script>
 
-    {% include '@NetgenBlockManager/google_maps.html.twig' %}
+    {% include '@NetgenLayouts/google_maps.html.twig' %}
 
     {% block custom_javascripts %}
         {% for javascript in ngbm.config.parameter('app').javascripts %}

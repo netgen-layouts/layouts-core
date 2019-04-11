@@ -10,7 +10,7 @@ use Netgen\BlockManager\Exception\RuntimeException;
 use Netgen\BlockManager\Layout\Form\CreateType;
 use Netgen\BlockManager\Locale\LocaleProviderInterface;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
+use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

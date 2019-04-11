@@ -1,4 +1,4 @@
-netgen_block_manager:
+netgen_layouts:
     layout_types:
         4_zones_a:
             name: '4 zones A'

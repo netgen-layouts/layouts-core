@@ -8,8 +8,8 @@ use Netgen\BlockManager\API\Service\LayoutService;
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\HttpCache\ClientInterface;
 use Netgen\BlockManager\View\ViewInterface;
-use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
 use Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type\ClearLayoutsCacheType;
+use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

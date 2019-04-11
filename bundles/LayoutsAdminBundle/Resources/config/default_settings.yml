@@ -1,4 +1,4 @@
 parameters:
     netgen_layouts.app.pagelayout: '@@NetgenLayoutsAdmin/app/pagelayout.html.twig'
-    netgen_block_manager.admin.csrf_token_id: nglayouts_admin
+    netgen_layouts.admin.csrf_token_id: nglayouts_admin
     netgen_layouts.admin.pagelayout: '@@NetgenLayoutsAdmin/admin/pagelayout.html.twig'

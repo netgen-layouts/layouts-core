@@ -50,6 +50,6 @@ services:
         class: Netgen\Bundle\LayoutsAdminBundle\EventListener\AdminCsrfValidationListener
         arguments:
             - "@netgen_block_manager.security.csrf_validator"
-            - "%netgen_block_manager.admin.csrf_token_id%"
+            - "%netgen_layouts.admin.csrf_token_id%"
         tags:
             - { name: kernel.event_subscriber }

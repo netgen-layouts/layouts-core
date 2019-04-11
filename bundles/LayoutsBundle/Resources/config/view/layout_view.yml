@@ -1,0 +1,12 @@
+view:
+    layout_view:
+        default:
+            invalid:
+                template: "@NetgenLayouts/layout/invalid_layout.html.twig"
+                match:
+                    layout\type: "null"
+        api:
+            invalid:
+                template: "@NetgenLayouts/api/layout/invalid_layout.html.twig"
+                match:
+                    layout\type: "null"

@@ -6,7 +6,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\Layouts;
 
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\HttpCache\ClientInterface;
-use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
+use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

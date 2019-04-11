@@ -1,0 +1,126 @@
+parameters:
+    netgen_block_manager.event_listener.twig_extensions.extensions:
+        - Twig\Extensions\IntlExtension
+        - EdiModric\Twig\VersionExtension
+
+services:
+    netgen_block_manager.event_listener.exception_conversion:
+        class: Netgen\Bundle\LayoutsBundle\EventListener\ExceptionConversionListener
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.exception_serializer:
+        class: Netgen\Bundle\LayoutsBundle\EventListener\ExceptionSerializerListener
+        arguments:
+            - "@serializer"
+            - "@?logger"
+        tags:
+            - { name: kernel.event_subscriber }
+            - { name: monolog.logger, channel: ngbm }
+
+    netgen_block_manager.event_listener.serializer:
+        class: Netgen\Bundle\LayoutsBundle\EventListener\SerializerListener
+        arguments:
+            - "@serializer"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.request_body_listener:
+        class: Netgen\Bundle\LayoutsBundle\EventListener\RequestBodyListener
+        arguments:
+            - "@serializer"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.view:
+        class: Netgen\Bundle\LayoutsBundle\EventListener\ViewListener
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.view_renderer:
+        class: Netgen\Bundle\LayoutsBundle\EventListener\ViewRendererListener
+        arguments:
+            - "@netgen_block_manager.view.view_renderer"
+            - "@netgen_block_manager.error.handler"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.set_is_api_request:
+        class: Netgen\Bundle\LayoutsBundle\EventListener\SetIsApiRequestListener
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.twig_extensions:
+        class: Netgen\Bundle\LayoutsBundle\EventListener\TwigExtensionsListener
+        arguments:
+            - "@twig"
+            - "%netgen_block_manager.event_listener.twig_extensions.extensions%"
+        # Set as lazy to prevent crashing of eZ Platform siteaccess aware config
+        lazy: true
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.api_csrf_validation_listener:
+        class: Netgen\Bundle\LayoutsBundle\EventListener\ApiCsrfValidationListener
+        arguments:
+            - "@netgen_block_manager.security.csrf_validator"
+            - "%netgen_block_manager.api.csrf_token_id%"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.block_view.get_collection_results:
+        class: Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionResultsListener
+        arguments:
+            - "@netgen_block_manager.collection.result.pagerfanta.factory"
+            - "%netgen_block_manager.block_view.collection_results_contexts%"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.block_view.get_collection_pager:
+        class: Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionPagerListener
+        arguments:
+            - "@netgen_block_manager.collection.result.pagerfanta.factory"
+            - "@request_stack"
+            - "%netgen_block_manager.block_view.collection_pager_contexts%"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.block_view.get_twig_block_content:
+        class: Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetTwigBlockContentListener
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.http_cache.invalidation:
+        class: Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\InvalidationListener
+        arguments:
+            - "@netgen_block_manager.http_cache.client"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.http_cache.layout_response:
+        class: Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\LayoutResponseListener
+        arguments:
+            - "@netgen_block_manager.http_cache.tagger"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.http_cache.block_response:
+        class: Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\BlockResponseListener
+        arguments:
+            - "@netgen_block_manager.http_cache.tagger"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.context:
+        class: Netgen\Bundle\LayoutsBundle\EventListener\ContextListener
+        arguments:
+            - "@netgen_block_manager.context"
+            - "@netgen_block_manager.context.builder"
+            - "@uri_signer"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_block_manager.event_listener.ajax_block_request:
+        class: Netgen\Bundle\LayoutsBundle\EventListener\AjaxBlockRequestListener
+        tags:
+            - { name: kernel.event_subscriber }

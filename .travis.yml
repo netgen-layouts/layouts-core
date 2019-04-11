@@ -51,7 +51,7 @@ matrix:
       node_js: node
       before_script: npm install -g grunt-cli
       script:
-        - grunt build --gruntfile=bundles/BlockManagerBundle/Gruntfile.js
+        - grunt build --gruntfile=bundles/LayoutsBundle/Gruntfile.js
         - grunt build --gruntfile=bundles/LayoutsAdminBundle/Gruntfile.js
   allow_failures:
     -

@@ -39,11 +39,11 @@ final class NetgenLayoutsAdminExtension extends Extension implements PrependExte
         $prependConfigs = [
             'framework/assets.yml' => 'framework',
             'framework/twig.yml' => 'twig',
-            'view/form_view.yml' => 'netgen_block_manager',
-            'view/layout_view.yml' => 'netgen_block_manager',
-            'view/rule_target_view.yml' => 'netgen_block_manager',
-            'view/rule_condition_view.yml' => 'netgen_block_manager',
-            'view/default_templates.yml' => 'netgen_block_manager',
+            'view/form_view.yml' => 'netgen_layouts',
+            'view/layout_view.yml' => 'netgen_layouts',
+            'view/rule_target_view.yml' => 'netgen_layouts',
+            'view/rule_condition_view.yml' => 'netgen_layouts',
+            'view/default_templates.yml' => 'netgen_layouts',
         ];
 
         foreach ($prependConfigs as $configFile => $prependConfig) {

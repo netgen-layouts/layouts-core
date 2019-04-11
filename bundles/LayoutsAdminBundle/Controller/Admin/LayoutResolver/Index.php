@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver;
 
 use Netgen\BlockManager\API\Service\LayoutResolverService;
-use Netgen\Bundle\BlockManagerBundle\Controller\AbstractController;
+use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
 final class Index extends AbstractController

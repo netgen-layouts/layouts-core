@@ -1,0 +1,7 @@
+view:
+    parameter_view:
+        default:
+            link:
+                template: "@NetgenLayouts/parameter/link.html.twig"
+                match:
+                    parameter\type: link

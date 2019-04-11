@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\DependencyInjection\ConfigurationNode;
 
-use Netgen\Bundle\BlockManagerBundle\DependencyInjection\ConfigurationNodeInterface;
-use Netgen\Bundle\BlockManagerBundle\DependencyInjection\TreeBuilder;
+use Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNodeInterface;
+use Netgen\Bundle\LayoutsBundle\DependencyInjection\TreeBuilder;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 
 final class AdminNode implements ConfigurationNodeInterface
