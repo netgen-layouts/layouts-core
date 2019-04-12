@@ -28,15 +28,15 @@ final class RenderZone extends Node
     {
         $compiler
             ->addDebugInfo($this)
-            ->write('$ngbmZone = ')
+            ->write('$nglZone = ')
                 ->subcompile($this->getNode('zone'))
             ->write(';' . PHP_EOL)
-            ->write('$ngbmZoneIdentifier = $ngbmZone instanceof ' . Zone::class . ' ? $ngbmZone->getIdentifier() : $ngbmZone;' . PHP_EOL);
+            ->write('$nglZoneIdentifier = $nglZone instanceof ' . Zone::class . ' ? $nglZone->getIdentifier() : $nglZone;' . PHP_EOL);
 
         $this->compileContextNode($compiler);
 
-        $compiler->write('$ngbmTemplate = new ' . ContextualizedTwigTemplate::class . '($this, $context, $blocks);' . PHP_EOL);
-        $compiler->write('$this->env->getRuntime("' . RenderingRuntime::class . '")->displayZone($context["ngbm"]->getLayout(), $ngbmZoneIdentifier, $ngbmContext, $ngbmTemplate);' . PHP_EOL);
+        $compiler->write('$nglTemplate = new ' . ContextualizedTwigTemplate::class . '($this, $context, $blocks);' . PHP_EOL);
+        $compiler->write('$this->env->getRuntime("' . RenderingRuntime::class . '")->displayZone($context["ngbm"]->getLayout(), $nglZoneIdentifier, $nglContext, $nglTemplate);' . PHP_EOL);
     }
 
     /**
@@ -51,13 +51,13 @@ final class RenderZone extends Node
 
         if ($contextNode instanceof Node) {
             $compiler
-                ->write('$ngbmContext = ')
+                ->write('$nglContext = ')
                     ->subcompile($this->getNode('context'))
                 ->write(';' . PHP_EOL);
 
             return;
         }
 
-        $compiler->write('$ngbmContext = ' . ViewInterface::class . '::CONTEXT_DEFAULT;' . PHP_EOL);
+        $compiler->write('$nglContext = ' . ViewInterface::class . '::CONTEXT_DEFAULT;' . PHP_EOL);
     }
 }

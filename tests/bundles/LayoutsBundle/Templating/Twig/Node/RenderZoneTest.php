@@ -62,11 +62,11 @@ final class RenderZoneTest extends NodeTest
                 new RenderZone($zone, $context, 1),
                 <<<EOT
 // line 1
-\$ngbmZone = {$this->getNodeGetter('zone')};
-\$ngbmZoneIdentifier = \$ngbmZone instanceof {$zoneClass} ? \$ngbmZone->getIdentifier() : \$ngbmZone;
-\$ngbmContext = {$this->getNodeGetter('context')};
-\$ngbmTemplate = new {$templateClass}(\$this, \$context, \$blocks);
-\$this->env->getRuntime("{$runtimeClass}")->displayZone(\$context["ngbm"]->getLayout(), \$ngbmZoneIdentifier, \$ngbmContext, \$ngbmTemplate);
+\$nglZone = {$this->getNodeGetter('zone')};
+\$nglZoneIdentifier = \$nglZone instanceof {$zoneClass} ? \$nglZone->getIdentifier() : \$nglZone;
+\$nglContext = {$this->getNodeGetter('context')};
+\$nglTemplate = new {$templateClass}(\$this, \$context, \$blocks);
+\$this->env->getRuntime("{$runtimeClass}")->displayZone(\$context["ngbm"]->getLayout(), \$nglZoneIdentifier, \$nglContext, \$nglTemplate);
 EOT
                 ,
                 $environment,
@@ -75,11 +75,11 @@ EOT
                 new RenderZone($zoneName, $context, 1),
                 <<<EOT
 // line 1
-\$ngbmZone = "zone";
-\$ngbmZoneIdentifier = \$ngbmZone instanceof {$zoneClass} ? \$ngbmZone->getIdentifier() : \$ngbmZone;
-\$ngbmContext = {$this->getNodeGetter('context')};
-\$ngbmTemplate = new {$templateClass}(\$this, \$context, \$blocks);
-\$this->env->getRuntime("{$runtimeClass}")->displayZone(\$context["ngbm"]->getLayout(), \$ngbmZoneIdentifier, \$ngbmContext, \$ngbmTemplate);
+\$nglZone = "zone";
+\$nglZoneIdentifier = \$nglZone instanceof {$zoneClass} ? \$nglZone->getIdentifier() : \$nglZone;
+\$nglContext = {$this->getNodeGetter('context')};
+\$nglTemplate = new {$templateClass}(\$this, \$context, \$blocks);
+\$this->env->getRuntime("{$runtimeClass}")->displayZone(\$context["ngbm"]->getLayout(), \$nglZoneIdentifier, \$nglContext, \$nglTemplate);
 EOT
                 ,
                 $environment,
@@ -88,11 +88,11 @@ EOT
                 new RenderZone($zone, null, 1),
                 <<<EOT
 // line 1
-\$ngbmZone = {$this->getNodeGetter('zone')};
-\$ngbmZoneIdentifier = \$ngbmZone instanceof {$zoneClass} ? \$ngbmZone->getIdentifier() : \$ngbmZone;
-\$ngbmContext = {$viewInterface}::CONTEXT_DEFAULT;
-\$ngbmTemplate = new {$templateClass}(\$this, \$context, \$blocks);
-\$this->env->getRuntime("{$runtimeClass}")->displayZone(\$context["ngbm"]->getLayout(), \$ngbmZoneIdentifier, \$ngbmContext, \$ngbmTemplate);
+\$nglZone = {$this->getNodeGetter('zone')};
+\$nglZoneIdentifier = \$nglZone instanceof {$zoneClass} ? \$nglZone->getIdentifier() : \$nglZone;
+\$nglContext = {$viewInterface}::CONTEXT_DEFAULT;
+\$nglTemplate = new {$templateClass}(\$this, \$context, \$blocks);
+\$this->env->getRuntime("{$runtimeClass}")->displayZone(\$context["ngbm"]->getLayout(), \$nglZoneIdentifier, \$nglContext, \$nglTemplate);
 EOT
                 ,
                 $environment,
@@ -101,11 +101,11 @@ EOT
                 new RenderZone($zoneName, null, 1),
                 <<<EOT
 // line 1
-\$ngbmZone = "zone";
-\$ngbmZoneIdentifier = \$ngbmZone instanceof {$zoneClass} ? \$ngbmZone->getIdentifier() : \$ngbmZone;
-\$ngbmContext = {$viewInterface}::CONTEXT_DEFAULT;
-\$ngbmTemplate = new {$templateClass}(\$this, \$context, \$blocks);
-\$this->env->getRuntime("{$runtimeClass}")->displayZone(\$context["ngbm"]->getLayout(), \$ngbmZoneIdentifier, \$ngbmContext, \$ngbmTemplate);
+\$nglZone = "zone";
+\$nglZoneIdentifier = \$nglZone instanceof {$zoneClass} ? \$nglZone->getIdentifier() : \$nglZone;
+\$nglContext = {$viewInterface}::CONTEXT_DEFAULT;
+\$nglTemplate = new {$templateClass}(\$this, \$context, \$blocks);
+\$this->env->getRuntime("{$runtimeClass}")->displayZone(\$context["ngbm"]->getLayout(), \$nglZoneIdentifier, \$nglContext, \$nglTemplate);
 EOT
                 ,
                 $environment,
