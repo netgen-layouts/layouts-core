@@ -22,7 +22,7 @@ final class BlockDefinitionPass implements CompilerPassInterface
     use DefinitionClassTrait;
 
     private const SERVICE_NAME = 'netgen_layouts.block.registry.block_definition';
-    private const TAG_NAME = 'netgen_block_manager.block.block_definition_handler';
+    private const TAG_NAME = 'netgen_layouts.block_definition_handler';
 
     public function process(ContainerBuilder $container): void
     {
@@ -103,7 +103,7 @@ final class BlockDefinitionPass implements CompilerPassInterface
 
     private function getConfigHandlers(ContainerBuilder $container): Generator
     {
-        $configHandlerServices = $container->findTaggedServiceIds('netgen_block_manager.block.block_config_handler');
+        $configHandlerServices = $container->findTaggedServiceIds('netgen_layouts.block_config_handler');
         foreach ($configHandlerServices as $configHandlerService => $tags) {
             foreach ($tags as $tag) {
                 if (!isset($tag['config_key'])) {

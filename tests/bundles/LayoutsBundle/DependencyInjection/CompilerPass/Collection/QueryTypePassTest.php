@@ -26,7 +26,7 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_layouts.collection.registry.query_type', new Definition(null, [[]]));
 
         $queryTypeHandler = new Definition(stdClass::class);
-        $queryTypeHandler->addTag('netgen_block_manager.collection.query_type_handler', ['type' => 'query_type']);
+        $queryTypeHandler->addTag('netgen_layouts.query_type_handler', ['type' => 'query_type']);
         $this->setDefinition('netgen_layouts.collection.query_type.handler.test', $queryTypeHandler);
 
         $this->compile();
@@ -55,7 +55,7 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_layouts.collection.registry.query_type', new Definition(null, [[]]));
 
         $queryTypeHandler = new Definition(stdClass::class);
-        $queryTypeHandler->addTag('netgen_block_manager.collection.query_type_handler', ['type' => 'custom']);
+        $queryTypeHandler->addTag('netgen_layouts.query_type_handler', ['type' => 'custom']);
         $this->setDefinition('netgen_layouts.collection.query_type.handler.test', $queryTypeHandler);
 
         $this->compile();
@@ -87,7 +87,7 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_layouts.collection.registry.query_type', new Definition());
 
         $queryTypeHandler = new Definition(stdClass::class);
-        $queryTypeHandler->addTag('netgen_block_manager.collection.query_type_handler');
+        $queryTypeHandler->addTag('netgen_layouts.query_type_handler');
         $this->setDefinition('netgen_layouts.collection.query_type.handler.test', $queryTypeHandler);
 
         $this->compile();
@@ -107,7 +107,7 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_layouts.collection.registry.query_type', new Definition());
 
         $queryTypeHandler = new Definition(stdClass::class);
-        $queryTypeHandler->addTag('netgen_block_manager.collection.query_type_handler', ['type' => 'other']);
+        $queryTypeHandler->addTag('netgen_layouts.query_type_handler', ['type' => 'other']);
         $this->setDefinition('netgen_layouts.collection.query_type.handler.test', $queryTypeHandler);
 
         $this->compile();
@@ -127,7 +127,7 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_layouts.collection.registry.query_type', new Definition());
 
         $queryTypeHandler = new Definition(stdClass::class);
-        $queryTypeHandler->addTag('netgen_block_manager.collection.query_type_handler', ['type' => 'other']);
+        $queryTypeHandler->addTag('netgen_layouts.query_type_handler', ['type' => 'other']);
         $this->setDefinition('netgen_layouts.collection.query_type.handler.test', $queryTypeHandler);
 
         $this->compile();

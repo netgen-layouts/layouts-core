@@ -22,7 +22,7 @@ final class ParametersFormPassTest extends AbstractCompilerPassTestCase
 
         $formMapper = new Definition();
         $formMapper->addTag(
-            'netgen_block_manager.parameters.form.mapper',
+            'netgen_layouts.parameter_type.form_mapper',
             ['type' => 'test']
         );
 

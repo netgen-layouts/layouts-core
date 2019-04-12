@@ -205,58 +205,58 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
     {
         $container
             ->registerForAutoconfiguration(ContextProviderInterface::class)
-            ->addTag('netgen_block_manager.context.provider');
+            ->addTag('netgen_layouts.context_provider');
 
         $container
             ->registerForAutoconfiguration(ParameterTypeInterface::class)
-            ->addTag('netgen_block_manager.parameters.parameter_type');
+            ->addTag('netgen_layouts.parameter_type');
 
         $container
             ->registerForAutoconfiguration(ParameterTypeFormMapperInterface::class)
-            ->addTag('netgen_block_manager.parameters.form.mapper');
+            ->addTag('netgen_layouts.parameter_type.form_mapper');
 
         $container
             ->registerForAutoconfiguration(TargetTypeInterface::class)
-            ->addTag('netgen_block_manager.layout.resolver.target_type');
+            ->addTag('netgen_layouts.target_type');
 
         $container
             ->registerForAutoconfiguration(ConditionTypeInterface::class)
-            ->addTag('netgen_block_manager.layout.resolver.condition_type');
+            ->addTag('netgen_layouts.condition_type');
 
         $container
             ->registerForAutoconfiguration(PluginInterface::class)
-            ->addTag('netgen_block_manager.block.block_definition_handler.plugin');
+            ->addTag('netgen_layouts.block_definition_handler.plugin');
 
         $container
             ->registerForAutoconfiguration(BlockDefinitionHandlerInterface::class)
-            ->addTag('netgen_block_manager.block.block_definition_handler');
+            ->addTag('netgen_layouts.block_definition_handler');
 
         $container
             ->registerForAutoconfiguration(QueryTypeHandlerInterface::class)
-            ->addTag('netgen_block_manager.collection.query_type_handler');
+            ->addTag('netgen_layouts.query_type_handler');
 
         $container
             ->registerForAutoconfiguration(TargetTypeFormMapperInterface::class)
-            ->addTag('netgen_block_manager.layout.resolver.form.target_type.mapper');
+            ->addTag('netgen_layouts.target_type.form_mapper');
 
         $container
             ->registerForAutoconfiguration(TargetHandlerInterface::class)
-            ->addTag('netgen_block_manager.layout.resolver.target_handler.doctrine');
+            ->addTag('netgen_layouts.target_type.doctrine_handler');
 
         $container
             ->registerForAutoconfiguration(ConditionTypeFormMapperInterface::class)
-            ->addTag('netgen_block_manager.layout.resolver.form.condition_type.mapper');
+            ->addTag('netgen_layouts.condition_type.form_mapper');
 
         $container
             ->registerForAutoconfiguration(VisibilityVoterInterface::class)
-            ->addTag('netgen_block_manager.collection.item_visibility_resolver.voter');
+            ->addTag('netgen_layouts.item_visibility_voter');
 
         $container
             ->registerForAutoconfiguration(ViewProviderInterface::class)
-            ->addTag('netgen_block_manager.view.provider');
+            ->addTag('netgen_layouts.view_provider');
 
         $container
             ->registerForAutoconfiguration(VisitorInterface::class)
-            ->addTag('netgen_block_manager.transfer.serializer.visitor');
+            ->addTag('netgen_layouts.transfer_output_visitor');
     }
 }

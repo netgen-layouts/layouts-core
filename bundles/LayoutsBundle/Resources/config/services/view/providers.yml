@@ -2,54 +2,54 @@ services:
     netgen_layouts.view.provider.parameter:
         class: Netgen\Layouts\View\Provider\ParameterViewProvider
         tags:
-            - { name: netgen_block_manager.view.provider, priority: 0 }
+            - { name: netgen_layouts.view_provider, priority: 0 }
 
     netgen_layouts.view.provider.zone:
         class: Netgen\Layouts\View\Provider\ZoneViewProvider
         tags:
-            - { name: netgen_block_manager.view.provider, priority: 0 }
+            - { name: netgen_layouts.view_provider, priority: 0 }
 
     netgen_layouts.view.provider.block:
         class: Netgen\Layouts\View\Provider\BlockViewProvider
         tags:
-            - { name: netgen_block_manager.view.provider, priority: 0 }
+            - { name: netgen_layouts.view_provider, priority: 0 }
 
     netgen_layouts.view.provider.placeholder:
         class: Netgen\Layouts\View\Provider\PlaceholderViewProvider
         tags:
-            - { name: netgen_block_manager.view.provider, priority: 0 }
+            - { name: netgen_layouts.view_provider, priority: 0 }
 
     netgen_layouts.view.provider.item:
         class: Netgen\Layouts\View\Provider\ItemViewProvider
         tags:
-            - { name: netgen_block_manager.view.provider, priority: 0 }
+            - { name: netgen_layouts.view_provider, priority: 0 }
 
     netgen_layouts.view.provider.layout:
         class: Netgen\Layouts\View\Provider\LayoutViewProvider
         tags:
-            - { name: netgen_block_manager.view.provider, priority: 0 }
+            - { name: netgen_layouts.view_provider, priority: 0 }
 
     netgen_layouts.view.provider.layout_type:
         class: Netgen\Layouts\View\Provider\LayoutTypeViewProvider
         tags:
-            - { name: netgen_block_manager.view.provider, priority: 0 }
+            - { name: netgen_layouts.view_provider, priority: 0 }
 
     netgen_layouts.view.provider.form:
         class: Netgen\Layouts\View\Provider\FormViewProvider
         tags:
-            - { name: netgen_block_manager.view.provider, priority: 0 }
+            - { name: netgen_layouts.view_provider, priority: 0 }
 
     netgen_layouts.view.provider.rule:
         class: Netgen\Layouts\View\Provider\RuleViewProvider
         tags:
-            - { name: netgen_block_manager.view.provider, priority: 0 }
+            - { name: netgen_layouts.view_provider, priority: 0 }
 
     netgen_layouts.view.provider.rule_target:
         class: Netgen\Layouts\View\Provider\RuleTargetViewProvider
         tags:
-            - { name: netgen_block_manager.view.provider, priority: 0 }
+            - { name: netgen_layouts.view_provider, priority: 0 }
 
     netgen_layouts.view.provider.rule_condition:
         class: Netgen\Layouts\View\Provider\RuleConditionViewProvider
         tags:
-            - { name: netgen_block_manager.view.provider, priority: 0 }
+            - { name: netgen_layouts.view_provider, priority: 0 }

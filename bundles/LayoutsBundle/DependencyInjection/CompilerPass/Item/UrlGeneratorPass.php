@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Reference;
 final class UrlGeneratorPass implements CompilerPassInterface
 {
     private const SERVICE_NAME = 'netgen_layouts.item.url_generator';
-    private const TAG_NAME = 'netgen_block_manager.item.value_url_generator';
+    private const TAG_NAME = 'netgen_layouts.cms_value_url_generator';
 
     public function process(ContainerBuilder $container): void
     {

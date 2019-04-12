@@ -24,7 +24,7 @@ final class TemplateResolverPassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_layouts.view.template_resolver', $templateResolver);
 
         $matcher = new Definition();
-        $matcher->addTag('netgen_block_manager.view.template_matcher', ['identifier' => 'block_type']);
+        $matcher->addTag('netgen_layouts.view_matcher', ['identifier' => 'block_type']);
         $this->setDefinition('netgen_layouts.view.template_matcher.test', $matcher);
 
         $this->compile();
@@ -51,7 +51,7 @@ final class TemplateResolverPassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_layouts.view.template_resolver', $templateResolver);
 
         $matcher = new Definition();
-        $matcher->addTag('netgen_block_manager.view.template_matcher');
+        $matcher->addTag('netgen_layouts.view_matcher');
         $this->setDefinition('netgen_layouts.view.template_matcher.test', $matcher);
 
         $this->compile();

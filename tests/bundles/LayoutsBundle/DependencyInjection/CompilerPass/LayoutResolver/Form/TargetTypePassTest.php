@@ -23,7 +23,7 @@ final class TargetTypePassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_layouts.layout.resolver.form.target_type', $formType);
 
         $mapper = new Definition();
-        $mapper->addTag('netgen_block_manager.layout.resolver.form.target_type.mapper', ['target_type' => 'target']);
+        $mapper->addTag('netgen_layouts.target_type.form_mapper', ['target_type' => 'target']);
         $this->setDefinition('netgen_layouts.layout.resolver.form.target_type.mapper.test', $mapper);
 
         $this->compile();

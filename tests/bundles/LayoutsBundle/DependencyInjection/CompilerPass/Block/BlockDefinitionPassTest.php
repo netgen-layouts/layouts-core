@@ -39,7 +39,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
 
         $blockDefinitionHandler = new Definition($handlerClass);
         $blockDefinitionHandler->addTag(
-            'netgen_block_manager.block.block_definition_handler',
+            'netgen_layouts.block_definition_handler',
             ['identifier' => 'block_definition']
         );
 
@@ -49,7 +49,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
         );
 
         $configHandler = new Definition();
-        $configHandler->addTag('netgen_block_manager.block.block_config_handler', ['config_key' => 'key']);
+        $configHandler->addTag('netgen_layouts.block_config_handler', ['config_key' => 'key']);
 
         $this->setDefinition('netgen_layouts.block.block_config_handler.key', $configHandler);
 
@@ -95,7 +95,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
 
         $blockDefinitionHandler = new Definition($handlerClass);
         $blockDefinitionHandler->addTag(
-            'netgen_block_manager.block.block_definition_handler',
+            'netgen_layouts.block_definition_handler',
             ['identifier' => 'custom']
         );
 
@@ -136,7 +136,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_layouts.block.registry.block_definition', new Definition());
 
         $blockDefinitionHandler = new Definition(stdClass::class);
-        $blockDefinitionHandler->addTag('netgen_block_manager.block.block_definition_handler');
+        $blockDefinitionHandler->addTag('netgen_layouts.block_definition_handler');
         $this->setDefinition('netgen_layouts.block.block_definition.handler.test', $blockDefinitionHandler);
 
         $this->compile();
@@ -160,7 +160,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
 
         $blockDefinitionHandler = new Definition(stdClass::class);
         $blockDefinitionHandler->addTag(
-            'netgen_block_manager.block.block_definition_handler',
+            'netgen_layouts.block_definition_handler',
             ['identifier' => 'block_definition']
         );
 
@@ -170,7 +170,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
         );
 
         $configHandler = new Definition();
-        $configHandler->addTag('netgen_block_manager.block.block_config_handler');
+        $configHandler->addTag('netgen_layouts.block_config_handler');
 
         $this->setDefinition('netgen_layouts.block.block_config_handler.key', $configHandler);
 

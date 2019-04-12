@@ -25,7 +25,7 @@ final class CmsItemLoaderPassTest extends AbstractCompilerPassTestCase
         );
 
         $valueLoader = new Definition();
-        $valueLoader->addTag('netgen_block_manager.item.value_loader', ['value_type' => 'test']);
+        $valueLoader->addTag('netgen_layouts.cms_value_loader', ['value_type' => 'test']);
         $this->setDefinition('netgen_layouts.item.value_loader.test', $valueLoader);
 
         $this->compile();
@@ -50,7 +50,7 @@ final class CmsItemLoaderPassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_layouts.item.item_loader', new Definition());
 
         $valueLoader = new Definition();
-        $valueLoader->addTag('netgen_block_manager.item.value_loader', ['value_type' => '123']);
+        $valueLoader->addTag('netgen_layouts.cms_value_loader', ['value_type' => '123']);
         $this->setDefinition('netgen_layouts.item.value_loader.test', $valueLoader);
 
         $this->compile();
@@ -67,7 +67,7 @@ final class CmsItemLoaderPassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_layouts.item.item_loader', new Definition());
 
         $valueLoader = new Definition();
-        $valueLoader->addTag('netgen_block_manager.item.value_loader');
+        $valueLoader->addTag('netgen_layouts.cms_value_loader');
         $this->setDefinition('netgen_layouts.item.value_loader.test', $valueLoader);
 
         $this->compile();

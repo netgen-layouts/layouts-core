@@ -17,7 +17,7 @@ final class QueryTypePass implements CompilerPassInterface
     use DefinitionClassTrait;
 
     private const SERVICE_NAME = 'netgen_layouts.collection.registry.query_type';
-    private const TAG_NAME = 'netgen_block_manager.collection.query_type_handler';
+    private const TAG_NAME = 'netgen_layouts.query_type_handler';
 
     public function process(ContainerBuilder $container): void
     {

@@ -33,7 +33,7 @@ final class ItemDefinitionPassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_layouts.collection.registry.item_definition', new Definition(null, [[]]));
 
         $configHandler = new Definition();
-        $configHandler->addTag('netgen_block_manager.collection.item_config_handler', ['config_key' => 'key']);
+        $configHandler->addTag('netgen_layouts.item_config_handler', ['config_key' => 'key']);
 
         $this->setDefinition('netgen_layouts.collection.item_config_handler.key', $configHandler);
 
@@ -82,7 +82,7 @@ final class ItemDefinitionPassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_layouts.collection.registry.item_definition', new Definition(null, [[]]));
 
         $configHandler = new Definition();
-        $configHandler->addTag('netgen_block_manager.collection.item_config_handler');
+        $configHandler->addTag('netgen_layouts.item_config_handler');
 
         $this->setDefinition('netgen_layouts.collection.item_config_handler.key', $configHandler);
 

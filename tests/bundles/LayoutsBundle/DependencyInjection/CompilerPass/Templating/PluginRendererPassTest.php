@@ -22,15 +22,15 @@ final class PluginRendererPassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_layouts.templating.plugin_renderer', new Definition(null, [[], []]));
 
         $PluginRenderer1 = new Definition();
-        $PluginRenderer1->addTag('netgen_block_manager.templating.plugin', ['plugin' => 'test1']);
+        $PluginRenderer1->addTag('netgen_layouts.template_plugin', ['plugin' => 'test1']);
         $this->setDefinition('netgen_layouts.templating.plugin.test1', $PluginRenderer1);
 
         $PluginRenderer2 = new Definition();
-        $PluginRenderer2->addTag('netgen_block_manager.templating.plugin', ['plugin' => 'test2']);
+        $PluginRenderer2->addTag('netgen_layouts.template_plugin', ['plugin' => 'test2']);
         $this->setDefinition('netgen_layouts.templating.plugin.test2', $PluginRenderer2);
 
         $PluginRenderer3 = new Definition();
-        $PluginRenderer3->addTag('netgen_block_manager.templating.plugin', ['plugin' => 'test2', 'priority' => 10]);
+        $PluginRenderer3->addTag('netgen_layouts.template_plugin', ['plugin' => 'test2', 'priority' => 10]);
         $this->setDefinition('netgen_layouts.templating.plugin.test3', $PluginRenderer3);
 
         $this->compile();
@@ -61,7 +61,7 @@ final class PluginRendererPassTest extends AbstractCompilerPassTestCase
         $this->setDefinition('netgen_layouts.templating.plugin_renderer', new Definition());
 
         $PluginRenderer1 = new Definition();
-        $PluginRenderer1->addTag('netgen_block_manager.templating.plugin');
+        $PluginRenderer1->addTag('netgen_layouts.template_plugin');
         $this->setDefinition('netgen_layouts.templating.plugin.test1', $PluginRenderer1);
 
         $this->compile();

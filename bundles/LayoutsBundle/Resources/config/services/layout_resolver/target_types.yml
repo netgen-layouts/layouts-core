@@ -2,29 +2,29 @@ services:
     netgen_layouts.layout.resolver.target_type.route:
         class: Netgen\Layouts\Layout\Resolver\TargetType\Route
         tags:
-            - { name: netgen_block_manager.layout.resolver.target_type, priority: 10 }
+            - { name: netgen_layouts.target_type, priority: 10 }
 
     netgen_layouts.layout.resolver.target_type.route_prefix:
         class: Netgen\Layouts\Layout\Resolver\TargetType\RoutePrefix
         tags:
-            - { name: netgen_block_manager.layout.resolver.target_type, priority: 0 }
+            - { name: netgen_layouts.target_type, priority: 0 }
 
     netgen_layouts.layout.resolver.target_type.path_info:
         class: Netgen\Layouts\Layout\Resolver\TargetType\PathInfo
         tags:
-            - { name: netgen_block_manager.layout.resolver.target_type, priority: 30 }
+            - { name: netgen_layouts.target_type, priority: 30 }
 
     netgen_layouts.layout.resolver.target_type.path_info_prefix:
         class: Netgen\Layouts\Layout\Resolver\TargetType\PathInfoPrefix
         tags:
-            - { name: netgen_block_manager.layout.resolver.target_type, priority: 20 }
+            - { name: netgen_layouts.target_type, priority: 20 }
 
     netgen_layouts.layout.resolver.target_type.request_uri:
         class: Netgen\Layouts\Layout\Resolver\TargetType\RequestUri
         tags:
-            - { name: netgen_block_manager.layout.resolver.target_type, priority: 50 }
+            - { name: netgen_layouts.target_type, priority: 50 }
 
     netgen_layouts.layout.resolver.target_type.request_uri_prefix:
         class: Netgen\Layouts\Layout\Resolver\TargetType\RequestUriPrefix
         tags:
-            - { name: netgen_block_manager.layout.resolver.target_type, priority: 40 }
+            - { name: netgen_layouts.target_type, priority: 40 }

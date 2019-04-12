@@ -47,7 +47,7 @@ final class ItemDefinitionPass implements CompilerPassInterface
 
     private function getConfigHandlers(ContainerBuilder $container): Generator
     {
-        $configHandlerServices = $container->findTaggedServiceIds('netgen_block_manager.collection.item_config_handler');
+        $configHandlerServices = $container->findTaggedServiceIds('netgen_layouts.item_config_handler');
         foreach ($configHandlerServices as $configHandlerService => $tags) {
             foreach ($tags as $tag) {
                 if (!isset($tag['config_key'])) {

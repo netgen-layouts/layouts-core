@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Reference;
 final class PluginRendererPass implements CompilerPassInterface
 {
     private const SERVICE_NAME = 'netgen_layouts.templating.plugin_renderer';
-    private const TAG_NAME = 'netgen_block_manager.templating.plugin';
+    private const TAG_NAME = 'netgen_layouts.template_plugin';
 
     public function process(ContainerBuilder $container): void
     {

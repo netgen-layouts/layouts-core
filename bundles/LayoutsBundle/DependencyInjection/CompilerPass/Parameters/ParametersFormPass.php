@@ -14,7 +14,7 @@ final class ParametersFormPass implements CompilerPassInterface
     use DefinitionClassTrait;
 
     private const SERVICE_NAME = 'netgen_layouts.parameters.form.parameters';
-    private const TAG_NAME = 'netgen_block_manager.parameters.form.mapper';
+    private const TAG_NAME = 'netgen_layouts.parameter_type.form_mapper';
 
     public function process(ContainerBuilder $container): void
     {

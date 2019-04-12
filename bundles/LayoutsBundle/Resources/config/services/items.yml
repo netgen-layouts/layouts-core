@@ -2,7 +2,7 @@ services:
     netgen_layouts.item.item_builder:
         class: Netgen\Layouts\Item\CmsItemBuilder
         arguments:
-            - !tagged netgen_block_manager.item.value_converter
+            - !tagged netgen_layouts.cms_value_converter
 
     netgen_layouts.item.item_loader:
         class: Netgen\Layouts\Item\CmsItemLoader
@@ -24,4 +24,4 @@ services:
     netgen_layouts.item.value_loader.null:
         class: Netgen\Layouts\Item\ValueLoader\NullValueLoader
         tags:
-            - { name: netgen_block_manager.item.value_loader, value_type: "null" }
+            - { name: netgen_layouts.cms_value_loader, value_type: "null" }

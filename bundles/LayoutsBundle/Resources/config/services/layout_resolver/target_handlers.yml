@@ -2,29 +2,29 @@ services:
     netgen_layouts.layout.resolver.target_handler.doctrine.route:
         class: Netgen\Layouts\Layout\Resolver\TargetHandler\Doctrine\Route
         tags:
-            - { name: netgen_block_manager.layout.resolver.target_handler.doctrine, target_type: route }
+            - { name: netgen_layouts.target_type.doctrine_handler, target_type: route }
 
     netgen_layouts.layout.resolver.target_handler.doctrine.route_prefix:
         class: Netgen\Layouts\Layout\Resolver\TargetHandler\Doctrine\RoutePrefix
         tags:
-            - { name: netgen_block_manager.layout.resolver.target_handler.doctrine, target_type: route_prefix }
+            - { name: netgen_layouts.target_type.doctrine_handler, target_type: route_prefix }
 
     netgen_layouts.layout.resolver.target_handler.doctrine.path_info:
         class: Netgen\Layouts\Layout\Resolver\TargetHandler\Doctrine\Route
         tags:
-            - { name: netgen_block_manager.layout.resolver.target_handler.doctrine, target_type: path_info }
+            - { name: netgen_layouts.target_type.doctrine_handler, target_type: path_info }
 
     netgen_layouts.layout.resolver.target_handler.doctrine.path_info_prefix:
         class: Netgen\Layouts\Layout\Resolver\TargetHandler\Doctrine\RoutePrefix
         tags:
-            - { name: netgen_block_manager.layout.resolver.target_handler.doctrine, target_type: path_info_prefix }
+            - { name: netgen_layouts.target_type.doctrine_handler, target_type: path_info_prefix }
 
     netgen_layouts.layout.resolver.target_handler.doctrine.request_uri:
         class: Netgen\Layouts\Layout\Resolver\TargetHandler\Doctrine\Route
         tags:
-            - { name: netgen_block_manager.layout.resolver.target_handler.doctrine, target_type: request_uri }
+            - { name: netgen_layouts.target_type.doctrine_handler, target_type: request_uri }
 
     netgen_layouts.layout.resolver.target_handler.doctrine.request_uri_prefix:
         class: Netgen\Layouts\Layout\Resolver\TargetHandler\Doctrine\RoutePrefix
         tags:
-            - { name: netgen_block_manager.layout.resolver.target_handler.doctrine, target_type: request_uri_prefix }
+            - { name: netgen_layouts.target_type.doctrine_handler, target_type: request_uri_prefix }

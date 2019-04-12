@@ -2,70 +2,70 @@ services:
     netgen_layouts.transfer.serializer.visitor.aggregate:
         class: Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor
         arguments:
-            - !tagged netgen_block_manager.transfer.serializer.visitor
+            - !tagged netgen_layouts.transfer_output_visitor
 
     netgen_layouts.transfer.serializer.visitor.block:
         class: Netgen\Layouts\Transfer\Output\Visitor\BlockVisitor
         arguments:
             - "@netgen_layouts.api.service.block"
         tags:
-            - { name: netgen_block_manager.transfer.serializer.visitor }
+            - { name: netgen_layouts.transfer_output_visitor }
 
     netgen_layouts.transfer.serializer.visitor.collection:
         class: Netgen\Layouts\Transfer\Output\Visitor\CollectionVisitor
         tags:
-            - { name: netgen_block_manager.transfer.serializer.visitor }
+            - { name: netgen_layouts.transfer_output_visitor }
 
     netgen_layouts.transfer.serializer.visitor.condition:
         class: Netgen\Layouts\Transfer\Output\Visitor\ConditionVisitor
         tags:
-            - { name: netgen_block_manager.transfer.serializer.visitor }
+            - { name: netgen_layouts.transfer_output_visitor }
 
     netgen_layouts.transfer.serializer.visitor.config:
         class: Netgen\Layouts\Transfer\Output\Visitor\ConfigVisitor
         tags:
-            - { name: netgen_block_manager.transfer.serializer.visitor }
+            - { name: netgen_layouts.transfer_output_visitor }
 
     netgen_layouts.transfer.serializer.visitor.item:
         class: Netgen\Layouts\Transfer\Output\Visitor\ItemVisitor
         tags:
-            - { name: netgen_block_manager.transfer.serializer.visitor }
+            - { name: netgen_layouts.transfer_output_visitor }
 
     netgen_layouts.transfer.serializer.visitor.layout:
         class: Netgen\Layouts\Transfer\Output\Visitor\LayoutVisitor
         tags:
-            - { name: netgen_block_manager.transfer.serializer.visitor }
+            - { name: netgen_layouts.transfer_output_visitor }
 
     netgen_layouts.transfer.serializer.visitor.parameter:
         class: Netgen\Layouts\Transfer\Output\Visitor\ParameterVisitor
         tags:
-            - { name: netgen_block_manager.transfer.serializer.visitor }
+            - { name: netgen_layouts.transfer_output_visitor }
 
     netgen_layouts.transfer.serializer.visitor.placeholder:
         class: Netgen\Layouts\Transfer\Output\Visitor\PlaceholderVisitor
         tags:
-            - { name: netgen_block_manager.transfer.serializer.visitor }
+            - { name: netgen_layouts.transfer_output_visitor }
 
     netgen_layouts.transfer.serializer.visitor.query:
         class: Netgen\Layouts\Transfer\Output\Visitor\QueryVisitor
         arguments:
             - "@netgen_layouts.api.service.collection"
         tags:
-            - { name: netgen_block_manager.transfer.serializer.visitor }
+            - { name: netgen_layouts.transfer_output_visitor }
 
     netgen_layouts.transfer.serializer.visitor.rule:
         class: Netgen\Layouts\Transfer\Output\Visitor\RuleVisitor
         tags:
-            - { name: netgen_block_manager.transfer.serializer.visitor }
+            - { name: netgen_layouts.transfer_output_visitor }
 
     netgen_layouts.transfer.serializer.visitor.target:
         class: Netgen\Layouts\Transfer\Output\Visitor\TargetVisitor
         tags:
-            - { name: netgen_block_manager.transfer.serializer.visitor }
+            - { name: netgen_layouts.transfer_output_visitor }
 
     netgen_layouts.transfer.serializer.visitor.zone:
         class: Netgen\Layouts\Transfer\Output\Visitor\ZoneVisitor
         arguments:
             - "@netgen_layouts.api.service.block"
         tags:
-            - { name: netgen_block_manager.transfer.serializer.visitor }
+            - { name: netgen_layouts.transfer_output_visitor }

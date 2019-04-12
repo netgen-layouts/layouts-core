@@ -27,7 +27,7 @@ final class DoctrineTargetHandlerPassTest extends AbstractCompilerPassTestCase
 
         $targetHandler = new Definition();
         $targetHandler->addTag(
-            'netgen_block_manager.layout.resolver.target_handler.doctrine',
+            'netgen_layouts.target_type.doctrine_handler',
             [
                 'target_type' => 'test',
             ]
