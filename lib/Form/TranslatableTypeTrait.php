@@ -20,7 +20,7 @@ trait TranslatableTypeTrait
             $innerType = $form->getType()->getInnerType();
             $disabled = !$innerType instanceof ParametersType;
 
-            $parameterDefinition = $form->getOption('ngbm_parameter_definition');
+            $parameterDefinition = $form->getOption('ngl_parameter_definition');
             if ($parameterDefinition instanceof ParameterDefinition) {
                 $disabled = $parameterDefinition->getOption('translatable') !== true;
             }

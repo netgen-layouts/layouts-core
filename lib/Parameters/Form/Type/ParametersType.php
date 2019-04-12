@@ -79,7 +79,7 @@ final class ParametersType extends AbstractType
                 'label' => $parameterLabel ?? $options['label_prefix'] . '.' . $parameterName,
                 'translation_domain' => 'nglayouts',
                 'property_path' => 'parameterValues[' . $parameterName . ']',
-                'ngbm_parameter_definition' => $parameterDefinition,
+                'ngl_parameter_definition' => $parameterDefinition,
             ];
 
             $parameterForm = $builder->create(

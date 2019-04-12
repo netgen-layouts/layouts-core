@@ -53,11 +53,11 @@ final class ParametersTypeExtensionTest extends TestCase
         $this->formTypeExtension->buildView(
             $view,
             $this->createMock(FormInterface::class),
-            ['ngbm_parameter_definition' => $parameterDefinition]
+            ['ngl_parameter_definition' => $parameterDefinition]
         );
 
-        self::assertArrayHasKey('ngbm_parameter_definition', $view->vars);
-        self::assertSame($parameterDefinition, $view->vars['ngbm_parameter_definition']);
+        self::assertArrayHasKey('ngl_parameter_definition', $view->vars);
+        self::assertSame($parameterDefinition, $view->vars['ngl_parameter_definition']);
     }
 
     /**
@@ -73,7 +73,7 @@ final class ParametersTypeExtensionTest extends TestCase
             []
         );
 
-        self::assertArrayNotHasKey('ngbm_parameter_definition', $view->vars);
+        self::assertArrayNotHasKey('ngl_parameter_definition', $view->vars);
     }
 
     /**
@@ -87,14 +87,14 @@ final class ParametersTypeExtensionTest extends TestCase
         $parameterDefinition = new ParameterDefinition();
 
         $options = [
-            'ngbm_parameter_definition' => $parameterDefinition,
+            'ngl_parameter_definition' => $parameterDefinition,
         ];
 
         $resolvedOptions = $optionsResolver->resolve($options);
 
         self::assertSame(
             [
-                'ngbm_parameter_definition' => $parameterDefinition,
+                'ngl_parameter_definition' => $parameterDefinition,
             ],
             $resolvedOptions
         );
@@ -118,14 +118,14 @@ final class ParametersTypeExtensionTest extends TestCase
     public function testConfigureOptionsWithInvalidParameters(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "ngbm_parameter_definition" with value "parameter_definition" is expected to be of type "Netgen\\Layouts\\Parameters\\ParameterDefinition", but is of type "string".');
+        $this->expectExceptionMessage('The option "ngl_parameter_definition" with value "parameter_definition" is expected to be of type "Netgen\\Layouts\\Parameters\\ParameterDefinition", but is of type "string".');
 
         $optionsResolver = new OptionsResolver();
         $this->formTypeExtension->configureOptions($optionsResolver);
 
         $optionsResolver->resolve(
             [
-                'ngbm_parameter_definition' => 'parameter_definition',
+                'ngl_parameter_definition' => 'parameter_definition',
             ]
         );
     }
