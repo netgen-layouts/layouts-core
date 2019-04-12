@@ -2,25 +2,25 @@ PRAGMA foreign_keys = ON;
 PRAGMA journal_mode = MEMORY;
 PRAGMA synchronous = OFF;
 
-DROP TABLE IF EXISTS `ngbm_block_collection`;
-DROP TABLE IF EXISTS `ngbm_collection_item`;
-DROP TABLE IF EXISTS `ngbm_collection_query_translation`;
-DROP TABLE IF EXISTS `ngbm_collection_query`;
-DROP TABLE IF EXISTS `ngbm_collection_translation`;
-DROP TABLE IF EXISTS `ngbm_collection`;
-DROP TABLE IF EXISTS `ngbm_zone`;
-DROP TABLE IF EXISTS `ngbm_block_translation`;
-DROP TABLE IF EXISTS `ngbm_block`;
-DROP TABLE IF EXISTS `ngbm_layout_translation`;
-DROP TABLE IF EXISTS `ngbm_layout`;
-DROP TABLE IF EXISTS `ngbm_role_policy`;
-DROP TABLE IF EXISTS `ngbm_role`;
-DROP TABLE IF EXISTS `ngbm_rule_target`;
-DROP TABLE IF EXISTS `ngbm_rule_condition`;
-DROP TABLE IF EXISTS `ngbm_rule_data`;
-DROP TABLE IF EXISTS `ngbm_rule`;
+DROP TABLE IF EXISTS `nglayouts_block_collection`;
+DROP TABLE IF EXISTS `nglayouts_collection_item`;
+DROP TABLE IF EXISTS `nglayouts_collection_query_translation`;
+DROP TABLE IF EXISTS `nglayouts_collection_query`;
+DROP TABLE IF EXISTS `nglayouts_collection_translation`;
+DROP TABLE IF EXISTS `nglayouts_collection`;
+DROP TABLE IF EXISTS `nglayouts_zone`;
+DROP TABLE IF EXISTS `nglayouts_block_translation`;
+DROP TABLE IF EXISTS `nglayouts_block`;
+DROP TABLE IF EXISTS `nglayouts_layout_translation`;
+DROP TABLE IF EXISTS `nglayouts_layout`;
+DROP TABLE IF EXISTS `nglayouts_role_policy`;
+DROP TABLE IF EXISTS `nglayouts_role`;
+DROP TABLE IF EXISTS `nglayouts_rule_target`;
+DROP TABLE IF EXISTS `nglayouts_rule_condition`;
+DROP TABLE IF EXISTS `nglayouts_rule_data`;
+DROP TABLE IF EXISTS `nglayouts_rule`;
 
-CREATE TABLE `ngbm_layout` (
+CREATE TABLE `nglayouts_layout` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
   `type` text(255) NOT NULL,
@@ -33,16 +33,16 @@ CREATE TABLE `ngbm_layout` (
   PRIMARY KEY (`id`, `status`)
 );
 
-CREATE TABLE `ngbm_layout_translation` (
+CREATE TABLE `nglayouts_layout_translation` (
   `layout_id` integer NOT NULL,
   `status` integer NOT NULL,
   `locale` text(255) NOT NULL,
   PRIMARY KEY (`layout_id`, `status`, `locale`),
   FOREIGN KEY (`layout_id`, `status`)
-    REFERENCES `ngbm_layout` (`id`, `status`)
+    REFERENCES `nglayouts_layout` (`id`, `status`)
 );
 
-CREATE TABLE `ngbm_block` (
+CREATE TABLE `nglayouts_block` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
   `layout_id` integer NOT NULL,
@@ -61,20 +61,20 @@ CREATE TABLE `ngbm_block` (
   `always_available` integer NOT NULL,
   PRIMARY KEY (`id`, `status`),
   FOREIGN KEY (`layout_id`, `status`)
-    REFERENCES `ngbm_layout` (`id`, `status`)
+    REFERENCES `nglayouts_layout` (`id`, `status`)
 );
 
-CREATE TABLE `ngbm_block_translation` (
+CREATE TABLE `nglayouts_block_translation` (
   `block_id` integer NOT NULL,
   `status` integer NOT NULL,
   `locale` text(255) NOT NULL,
   `parameters` text NOT NULL,
   PRIMARY KEY (`block_id`, `status`, `locale`),
   FOREIGN KEY (`block_id`, `status`)
-    REFERENCES `ngbm_block` (`id`, `status`)
+    REFERENCES `nglayouts_block` (`id`, `status`)
 );
 
-CREATE TABLE `ngbm_zone` (
+CREATE TABLE `nglayouts_zone` (
   `identifier` text(255) NOT NULL,
   `layout_id` integer NOT NULL,
   `status` integer NOT NULL,
@@ -83,12 +83,12 @@ CREATE TABLE `ngbm_zone` (
   `linked_zone_identifier` text(255),
   PRIMARY KEY (`identifier`, `layout_id`, `status`),
   FOREIGN KEY (`layout_id`, `status`)
-    REFERENCES `ngbm_layout` (`id`, `status`),
+    REFERENCES `nglayouts_layout` (`id`, `status`),
   FOREIGN KEY (`root_block_id`, `status`)
-    REFERENCES `ngbm_block` (`id`, `status`)
+    REFERENCES `nglayouts_block` (`id`, `status`)
 );
 
-CREATE TABLE `ngbm_collection` (
+CREATE TABLE `nglayouts_collection` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
   `start` integer NOT NULL,
@@ -99,16 +99,16 @@ CREATE TABLE `ngbm_collection` (
   PRIMARY KEY (`id`, `status`)
 );
 
-CREATE TABLE `ngbm_collection_translation` (
+CREATE TABLE `nglayouts_collection_translation` (
   `collection_id` integer NOT NULL,
   `status` integer NOT NULL,
   `locale` text(255) NOT NULL,
   PRIMARY KEY (`collection_id`, `status`, `locale`),
   FOREIGN KEY (`collection_id`, `status`)
-    REFERENCES `ngbm_collection` (`id`, `status`)
+    REFERENCES `nglayouts_collection` (`id`, `status`)
 );
 
-CREATE TABLE `ngbm_collection_item` (
+CREATE TABLE `nglayouts_collection_item` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
   `collection_id` integer NOT NULL,
@@ -118,30 +118,30 @@ CREATE TABLE `ngbm_collection_item` (
   `config` text NOT NULL,
   PRIMARY KEY (`id`, `status`),
   FOREIGN KEY (`collection_id`, `status`)
-    REFERENCES `ngbm_collection` (`id`, `status`)
+    REFERENCES `nglayouts_collection` (`id`, `status`)
 );
 
-CREATE TABLE `ngbm_collection_query` (
+CREATE TABLE `nglayouts_collection_query` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
   `collection_id` integer NOT NULL,
   `type` text(255) NOT NULL,
   PRIMARY KEY (`id`, `status`),
   FOREIGN KEY (`collection_id`, `status`)
-    REFERENCES `ngbm_collection` (`id`, `status`)
+    REFERENCES `nglayouts_collection` (`id`, `status`)
 );
 
-CREATE TABLE `ngbm_collection_query_translation` (
+CREATE TABLE `nglayouts_collection_query_translation` (
   `query_id` integer NOT NULL,
   `status` integer NOT NULL,
   `locale` text(255) NOT NULL,
   `parameters` text NOT NULL,
   PRIMARY KEY (`query_id`, `status`, `locale`),
   FOREIGN KEY (`query_id`, `status`)
-    REFERENCES `ngbm_collection_query` (`id`, `status`)
+    REFERENCES `nglayouts_collection_query` (`id`, `status`)
 );
 
-CREATE TABLE `ngbm_block_collection` (
+CREATE TABLE `nglayouts_block_collection` (
   `block_id` integer NOT NULL,
   `block_status` integer NOT NULL,
   `collection_id` integer NOT NULL,
@@ -149,12 +149,12 @@ CREATE TABLE `ngbm_block_collection` (
   `identifier` text(255) NOT NULL,
   PRIMARY KEY (`block_id`, `block_status`, `identifier`),
   FOREIGN KEY (`block_id`, `block_status`)
-    REFERENCES `ngbm_block` (`id`, `status`),
+    REFERENCES `nglayouts_block` (`id`, `status`),
   FOREIGN KEY (`collection_id`, `collection_status`)
-    REFERENCES `ngbm_collection` (`id`, `status`)
+    REFERENCES `nglayouts_collection` (`id`, `status`)
 );
 
-CREATE TABLE `ngbm_role_policy` (
+CREATE TABLE `nglayouts_role_policy` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
   `role_id` integer NOT NULL,
@@ -163,10 +163,10 @@ CREATE TABLE `ngbm_role_policy` (
   `limitations` text NOT NULL,
   PRIMARY KEY (`id`, `status`),
   FOREIGN KEY (`role_id`, `status`)
-    REFERENCES `ngbm_role` (`id`, `status`)
+    REFERENCES `nglayouts_role` (`id`, `status`)
 );
 
-CREATE TABLE `ngbm_role` (
+CREATE TABLE `nglayouts_role` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
   `name` text(255) NOT NULL,
@@ -175,14 +175,14 @@ CREATE TABLE `ngbm_role` (
   PRIMARY KEY (`id`, `status`)
 );
 
-CREATE TABLE `ngbm_rule_data` (
+CREATE TABLE `nglayouts_rule_data` (
   `rule_id` integer NOT NULL,
   `enabled` integer NOT NULL,
   `priority` integer NOT NULL,
   PRIMARY KEY (`rule_id`)
 );
 
-CREATE TABLE `ngbm_rule_target` (
+CREATE TABLE `nglayouts_rule_target` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
   `rule_id` integer NOT NULL,
@@ -190,10 +190,10 @@ CREATE TABLE `ngbm_rule_target` (
   `value` text,
   PRIMARY KEY (`id`, `status`),
   FOREIGN KEY (`rule_id`, `status`)
-    REFERENCES `ngbm_rule` (`id`, `status`)
+    REFERENCES `nglayouts_rule` (`id`, `status`)
 );
 
-CREATE TABLE `ngbm_rule_condition` (
+CREATE TABLE `nglayouts_rule_condition` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
   `rule_id` integer NOT NULL,
@@ -201,10 +201,10 @@ CREATE TABLE `ngbm_rule_condition` (
   `value` text,
   PRIMARY KEY (`id`, `status`),
   FOREIGN KEY (`rule_id`, `status`)
-    REFERENCES `ngbm_rule` (`id`, `status`)
+    REFERENCES `nglayouts_rule` (`id`, `status`)
 );
 
-CREATE TABLE `ngbm_rule` (
+CREATE TABLE `nglayouts_rule` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
   `layout_id` integer DEFAULT NULL,

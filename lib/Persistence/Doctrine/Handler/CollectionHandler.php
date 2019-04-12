@@ -639,7 +639,7 @@ final class CollectionHandler implements CollectionHandlerInterface
     private function getPositionHelperItemConditions($collectionId, int $status): array
     {
         return [
-            'table' => 'ngbm_collection_item',
+            'table' => 'nglayouts_collection_item',
             'column' => 'position',
             'conditions' => [
                 'collection_id' => $collectionId,

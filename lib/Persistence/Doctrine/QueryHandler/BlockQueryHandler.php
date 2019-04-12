@@ -43,7 +43,7 @@ final class BlockQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('block_id', 'block_status', 'collection_id', 'collection_status', 'identifier')
-            ->from('ngbm_block_collection')
+            ->from('nglayouts_block_collection')
             ->where(
                 $query->expr()->eq('block_id', ':block_id')
             )
@@ -129,7 +129,7 @@ final class BlockQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
-            ->from('ngbm_block')
+            ->from('nglayouts_block')
             ->where(
                 $query->expr()->eq('id', ':id')
             )
@@ -148,7 +148,7 @@ final class BlockQueryHandler extends QueryHandler
     public function createBlock(Block $block, bool $updatePath = true): Block
     {
         $query = $this->connection->createQueryBuilder()
-            ->insert('ngbm_block')
+            ->insert('nglayouts_block')
             ->values(
                 [
                     'id' => ':id',
@@ -173,7 +173,7 @@ final class BlockQueryHandler extends QueryHandler
                 'id',
                 $block->id !== null ?
                     (int) $block->id :
-                    $this->connectionHelper->getAutoIncrementValue('ngbm_block')
+                    $this->connectionHelper->getAutoIncrementValue('nglayouts_block')
             )
             ->setParameter('status', $block->status, Type::INTEGER)
             ->setParameter('layout_id', $block->layoutId, Type::INTEGER)
@@ -194,7 +194,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $query->execute();
 
-        $block->id = $block->id ?? (int) $this->connectionHelper->lastInsertId('ngbm_block');
+        $block->id = $block->id ?? (int) $this->connectionHelper->lastInsertId('nglayouts_block');
 
         if (!$updatePath) {
             return $block;
@@ -206,7 +206,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $query = $this->connection->createQueryBuilder();
         $query
-            ->update('ngbm_block')
+            ->update('nglayouts_block')
             ->set('path', ':path')
             ->where(
                 $query->expr()->eq('id', ':id')
@@ -227,7 +227,7 @@ final class BlockQueryHandler extends QueryHandler
     public function createBlockTranslation(Block $block, string $locale): void
     {
         $query = $this->connection->createQueryBuilder()
-            ->insert('ngbm_block_translation')
+            ->insert('nglayouts_block_translation')
             ->values(
                 [
                     'block_id' => ':block_id',
@@ -251,7 +251,7 @@ final class BlockQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
 
-        $query->insert('ngbm_block_collection')
+        $query->insert('nglayouts_block_collection')
             ->values(
                 [
                     'block_id' => ':block_id',
@@ -277,7 +277,7 @@ final class BlockQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query
-            ->update('ngbm_block')
+            ->update('nglayouts_block')
             ->set('layout_id', ':layout_id')
             ->set('depth', ':depth')
             ->set('path', ':path')
@@ -323,7 +323,7 @@ final class BlockQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query
-            ->update('ngbm_block_translation')
+            ->update('nglayouts_block_translation')
             ->set('parameters', ':parameters')
             ->where(
                 $query->expr()->andX(
@@ -349,7 +349,7 @@ final class BlockQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder();
 
         $query
-            ->update('ngbm_block')
+            ->update('nglayouts_block')
             ->set('position', ':position')
             ->set('parent_id', ':parent_id')
             ->set('placeholder', ':placeholder')
@@ -370,7 +370,7 @@ final class BlockQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder();
 
         $query
-            ->update('ngbm_block')
+            ->update('nglayouts_block')
             ->set('layout_id', ':layout_id')
             ->set('depth', 'depth - :depth_difference')
             ->set('path', 'replace(path, :old_path, :new_path)')
@@ -395,7 +395,7 @@ final class BlockQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
 
-        $query->delete('ngbm_block')
+        $query->delete('nglayouts_block')
             ->where(
                 $query->expr()->in('id', [':id'])
             )
@@ -415,7 +415,7 @@ final class BlockQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
 
-        $query->delete('ngbm_block_translation')
+        $query->delete('nglayouts_block_translation')
             ->where(
                 $query->expr()->in('block_id', [':block_id'])
             )
@@ -441,7 +441,7 @@ final class BlockQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
 
-        $query->delete('ngbm_block_collection')
+        $query->delete('nglayouts_block_collection')
             ->where(
                 $query->expr()->in('block_id', [':block_id'])
             )
@@ -466,7 +466,7 @@ final class BlockQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT id')
-            ->from('ngbm_block')
+            ->from('nglayouts_block')
             ->where(
                 $query->expr()->like('path', ':path')
             )
@@ -493,7 +493,7 @@ final class BlockQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT id')
-            ->from('ngbm_block')
+            ->from('nglayouts_block')
             ->where(
                 $query->expr()->eq('layout_id', ':layout_id')
             )
@@ -515,7 +515,7 @@ final class BlockQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT bc.collection_id')
-            ->from('ngbm_block_collection', 'bc')
+            ->from('nglayouts_block_collection', 'bc')
             ->where(
                 $query->expr()->in('bc.block_id', [':block_id'])
             )
@@ -537,10 +537,10 @@ final class BlockQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT b.*, bt.*')
-            ->from('ngbm_block', 'b')
+            ->from('nglayouts_block', 'b')
             ->innerJoin(
                 'b',
-                'ngbm_block_translation',
+                'nglayouts_block_translation',
                 'bt',
                 $query->expr()->andX(
                     $query->expr()->eq('bt.block_id', 'b.id'),

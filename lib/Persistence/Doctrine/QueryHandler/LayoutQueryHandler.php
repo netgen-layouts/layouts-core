@@ -44,12 +44,12 @@ final class LayoutQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder();
 
         $query->select('DISTINCT l.id, l.name')
-            ->from('ngbm_layout', 'l');
+            ->from('nglayouts_layout', 'l');
 
         if ($includeDrafts) {
             $query->leftJoin(
                 'l',
-                'ngbm_layout',
+                'nglayouts_layout',
                 'l2',
                 $query->expr()->andX(
                     $query->expr()->eq('l.id', 'l2.id'),
@@ -97,12 +97,12 @@ final class LayoutQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder();
 
         $query->select('count(DISTINCT l.id) AS count')
-            ->from('ngbm_layout', 'l');
+            ->from('nglayouts_layout', 'l');
 
         if ($includeDrafts) {
             $query->leftJoin(
                 'l',
-                'ngbm_layout',
+                'nglayouts_layout',
                 'l2',
                 $query->expr()->andX(
                     $query->expr()->eq('l.id', 'l2.id'),
@@ -154,7 +154,7 @@ final class LayoutQueryHandler extends QueryHandler
         if ($includeDrafts) {
             $query->leftJoin(
                 'l',
-                'ngbm_layout',
+                'nglayouts_layout',
                 'l2',
                 $query->expr()->andX(
                     $query->expr()->eq('l.id', 'l2.id'),
@@ -194,7 +194,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $query->innerJoin(
             'l',
-            'ngbm_zone',
+            'nglayouts_zone',
             'z',
             $query->expr()->andX(
                 $query->expr()->eq('z.layout_id', 'l.id'),
@@ -223,22 +223,22 @@ final class LayoutQueryHandler extends QueryHandler
     public function getRelatedLayoutsCount(Layout $sharedLayout): int
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('count(DISTINCT ngbm_layout.id) AS count')
-            ->from('ngbm_layout')
+        $query->select('count(DISTINCT nglayouts_layout.id) AS count')
+            ->from('nglayouts_layout')
             ->innerJoin(
-                'ngbm_layout',
-                'ngbm_zone',
+                'nglayouts_layout',
+                'nglayouts_zone',
                 'z',
                 $query->expr()->andX(
-                    $query->expr()->eq('z.layout_id', 'ngbm_layout.id'),
-                    $query->expr()->eq('z.status', 'ngbm_layout.status'),
+                    $query->expr()->eq('z.layout_id', 'nglayouts_layout.id'),
+                    $query->expr()->eq('z.status', 'nglayouts_layout.status'),
                     $query->expr()->eq('z.linked_layout_id', ':linked_layout_id')
                 )
             )
             ->where(
                 $query->expr()->andX(
-                    $query->expr()->eq('ngbm_layout.shared', ':shared'),
-                    $query->expr()->eq('ngbm_layout.status', ':status')
+                    $query->expr()->eq('nglayouts_layout.shared', ':shared'),
+                    $query->expr()->eq('nglayouts_layout.status', ':status')
                 )
             )
             ->setParameter('shared', false, Type::BOOLEAN)
@@ -305,7 +305,7 @@ final class LayoutQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
-            ->from('ngbm_layout')
+            ->from('nglayouts_layout')
             ->where(
                 $query->expr()->eq('id', ':id')
             )
@@ -331,7 +331,7 @@ final class LayoutQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
-            ->from('ngbm_zone')
+            ->from('nglayouts_zone')
             ->where(
                 $query->expr()->andX(
                     $query->expr()->eq('identifier', ':identifier'),
@@ -360,7 +360,7 @@ final class LayoutQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
-            ->from('ngbm_layout')
+            ->from('nglayouts_layout')
             ->where(
                 $query->expr()->andX(
                     $query->expr()->eq('name', ':name')
@@ -384,7 +384,7 @@ final class LayoutQueryHandler extends QueryHandler
     public function createLayout(Layout $layout): Layout
     {
         $query = $this->connection->createQueryBuilder()
-            ->insert('ngbm_layout')
+            ->insert('nglayouts_layout')
             ->values(
                 [
                     'id' => ':id',
@@ -402,7 +402,7 @@ final class LayoutQueryHandler extends QueryHandler
                 'id',
                 $layout->id !== null ?
                     (int) $layout->id :
-                    $this->connectionHelper->getAutoIncrementValue('ngbm_layout')
+                    $this->connectionHelper->getAutoIncrementValue('nglayouts_layout')
             )
             ->setParameter('status', $layout->status, Type::INTEGER)
             ->setParameter('type', $layout->type, Type::STRING)
@@ -415,7 +415,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $query->execute();
 
-        $layout->id = $layout->id ?? (int) $this->connectionHelper->lastInsertId('ngbm_layout');
+        $layout->id = $layout->id ?? (int) $this->connectionHelper->lastInsertId('nglayouts_layout');
 
         return $layout;
     }
@@ -426,7 +426,7 @@ final class LayoutQueryHandler extends QueryHandler
     public function createLayoutTranslation(Layout $layout, string $locale): void
     {
         $query = $this->connection->createQueryBuilder()
-            ->insert('ngbm_layout_translation')
+            ->insert('nglayouts_layout_translation')
             ->values(
                 [
                     'layout_id' => ':layout_id',
@@ -447,7 +447,7 @@ final class LayoutQueryHandler extends QueryHandler
     public function createZone(Zone $zone): void
     {
         $query = $this->connection->createQueryBuilder()
-            ->insert('ngbm_zone')
+            ->insert('nglayouts_zone')
             ->values(
                 [
                     'identifier' => ':identifier',
@@ -475,7 +475,7 @@ final class LayoutQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query
-            ->update('ngbm_layout')
+            ->update('nglayouts_layout')
             ->set('type', ':type')
             ->set('name', ':name')
             ->set('description', ':description')
@@ -507,7 +507,7 @@ final class LayoutQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query
-            ->update('ngbm_zone')
+            ->update('nglayouts_zone')
             ->set('root_block_id', ':root_block_id')
             ->set('linked_layout_id', ':linked_layout_id')
             ->set('linked_zone_identifier', ':linked_zone_identifier')
@@ -537,7 +537,7 @@ final class LayoutQueryHandler extends QueryHandler
     public function deleteLayoutZones($layoutId, ?int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
-        $query->delete('ngbm_zone')
+        $query->delete('nglayouts_zone')
             ->where(
                 $query->expr()->eq('layout_id', ':layout_id')
             )
@@ -559,7 +559,7 @@ final class LayoutQueryHandler extends QueryHandler
     public function deleteLayout($layoutId, ?int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
-        $query->delete('ngbm_layout')
+        $query->delete('nglayouts_layout')
             ->where(
                 $query->expr()->eq('id', ':id')
             )
@@ -582,7 +582,7 @@ final class LayoutQueryHandler extends QueryHandler
     public function deleteZone($layoutId, string $zoneIdentifier, ?int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
-        $query->delete('ngbm_zone')
+        $query->delete('nglayouts_zone')
             ->where(
                 $query->expr()->andX(
                     $query->expr()->eq('layout_id', ':layout_id'),
@@ -610,7 +610,7 @@ final class LayoutQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
 
-        $query->delete('ngbm_layout_translation')
+        $query->delete('nglayouts_layout_translation')
             ->where(
                 $query->expr()->eq('layout_id', ':layout_id')
             )
@@ -636,10 +636,10 @@ final class LayoutQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT l.*, lt.*')
-            ->from('ngbm_layout', 'l')
+            ->from('nglayouts_layout', 'l')
             ->innerJoin(
                 'l',
-                'ngbm_layout_translation',
+                'nglayouts_layout_translation',
                 'lt',
                 $query->expr()->andX(
                     $query->expr()->eq('lt.layout_id', 'l.id'),
@@ -656,8 +656,8 @@ final class LayoutQueryHandler extends QueryHandler
     private function getZoneSelectQuery(): QueryBuilder
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT ngbm_zone.*')
-            ->from('ngbm_zone');
+        $query->select('DISTINCT nglayouts_zone.*')
+            ->from('nglayouts_zone');
 
         return $query;
     }

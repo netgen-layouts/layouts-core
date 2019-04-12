@@ -588,7 +588,7 @@ final class BlockHandler implements BlockHandlerInterface
     private function getPositionHelperConditions($parentId, int $status, string $placeholder): array
     {
         return [
-            'table' => 'ngbm_block',
+            'table' => 'nglayouts_block',
             'column' => 'position',
             'conditions' => [
                 'parent_id' => $parentId,

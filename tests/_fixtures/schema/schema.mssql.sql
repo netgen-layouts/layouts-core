@@ -1,22 +1,22 @@
-IF OBJECT_ID('dbo.ngbm_block_collection', 'U') IS NOT NULL DROP TABLE dbo.ngbm_block_collection;
-IF OBJECT_ID('dbo.ngbm_collection_item', 'U') IS NOT NULL DROP TABLE dbo.ngbm_collection_item;
-IF OBJECT_ID('dbo.ngbm_collection_query_translation', 'U') IS NOT NULL DROP TABLE dbo.ngbm_collection_query_translation;
-IF OBJECT_ID('dbo.ngbm_collection_query', 'U') IS NOT NULL DROP TABLE dbo.ngbm_collection_query;
-IF OBJECT_ID('dbo.ngbm_collection_translation', 'U') IS NOT NULL DROP TABLE dbo.ngbm_collection_translation;
-IF OBJECT_ID('dbo.ngbm_collection', 'U') IS NOT NULL DROP TABLE dbo.ngbm_collection;
-IF OBJECT_ID('dbo.ngbm_zone', 'U') IS NOT NULL DROP TABLE dbo.ngbm_zone;
-IF OBJECT_ID('dbo.ngbm_block_translation', 'U') IS NOT NULL DROP TABLE dbo.ngbm_block_translation;
-IF OBJECT_ID('dbo.ngbm_block', 'U') IS NOT NULL DROP TABLE dbo.ngbm_block;
-IF OBJECT_ID('dbo.ngbm_layout_translation', 'U') IS NOT NULL DROP TABLE dbo.ngbm_layout_translation;
-IF OBJECT_ID('dbo.ngbm_layout', 'U') IS NOT NULL DROP TABLE dbo.ngbm_layout;
-IF OBJECT_ID('dbo.ngbm_role_policy', 'U') IS NOT NULL DROP TABLE dbo.ngbm_role_policy;
-IF OBJECT_ID('dbo.ngbm_role', 'U') IS NOT NULL DROP TABLE dbo.ngbm_role;
-IF OBJECT_ID('dbo.ngbm_rule_target', 'U') IS NOT NULL DROP TABLE dbo.ngbm_rule_target;
-IF OBJECT_ID('dbo.ngbm_rule_condition', 'U') IS NOT NULL DROP TABLE dbo.ngbm_rule_condition;
-IF OBJECT_ID('dbo.ngbm_rule_data', 'U') IS NOT NULL DROP TABLE dbo.ngbm_rule_data;
-IF OBJECT_ID('dbo.ngbm_rule', 'U') IS NOT NULL DROP TABLE dbo.ngbm_rule;
+IF OBJECT_ID('dbo.nglayouts_block_collection', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_block_collection;
+IF OBJECT_ID('dbo.nglayouts_collection_item', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_collection_item;
+IF OBJECT_ID('dbo.nglayouts_collection_query_translation', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_collection_query_translation;
+IF OBJECT_ID('dbo.nglayouts_collection_query', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_collection_query;
+IF OBJECT_ID('dbo.nglayouts_collection_translation', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_collection_translation;
+IF OBJECT_ID('dbo.nglayouts_collection', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_collection;
+IF OBJECT_ID('dbo.nglayouts_zone', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_zone;
+IF OBJECT_ID('dbo.nglayouts_block_translation', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_block_translation;
+IF OBJECT_ID('dbo.nglayouts_block', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_block;
+IF OBJECT_ID('dbo.nglayouts_layout_translation', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_layout_translation;
+IF OBJECT_ID('dbo.nglayouts_layout', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_layout;
+IF OBJECT_ID('dbo.nglayouts_role_policy', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_role_policy;
+IF OBJECT_ID('dbo.nglayouts_role', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_role;
+IF OBJECT_ID('dbo.nglayouts_rule_target', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_rule_target;
+IF OBJECT_ID('dbo.nglayouts_rule_condition', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_rule_condition;
+IF OBJECT_ID('dbo.nglayouts_rule_data', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_rule_data;
+IF OBJECT_ID('dbo.nglayouts_rule', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_rule;
 
-CREATE TABLE ngbm_layout (
+CREATE TABLE nglayouts_layout (
   id int IDENTITY(1, 1),
   status int NOT NULL,
   type nvarchar(255) NOT NULL,
@@ -29,16 +29,16 @@ CREATE TABLE ngbm_layout (
   PRIMARY KEY (id, status)
 );
 
-CREATE TABLE ngbm_layout_translation (
+CREATE TABLE nglayouts_layout_translation (
   layout_id int NOT NULL,
   status int NOT NULL,
   locale nvarchar(255) NOT NULL,
   PRIMARY KEY (layout_id, status, locale),
   FOREIGN KEY (layout_id, status)
-    REFERENCES ngbm_layout (id, status)
+    REFERENCES nglayouts_layout (id, status)
 );
 
-CREATE TABLE ngbm_block (
+CREATE TABLE nglayouts_block (
   id int IDENTITY(1, 1),
   status int NOT NULL,
   layout_id int NOT NULL,
@@ -57,20 +57,20 @@ CREATE TABLE ngbm_block (
   always_available tinyint NOT NULL,
   PRIMARY KEY (id, status),
   FOREIGN KEY (layout_id, status)
-    REFERENCES ngbm_layout (id, status)
+    REFERENCES nglayouts_layout (id, status)
 );
 
-CREATE TABLE ngbm_block_translation (
+CREATE TABLE nglayouts_block_translation (
   block_id int NOT NULL,
   status int NOT NULL,
   locale nvarchar(255) NOT NULL,
   parameters nvarchar(max) NOT NULL,
   PRIMARY KEY (block_id, status, locale),
   FOREIGN KEY (block_id, status)
-    REFERENCES ngbm_block (id, status)
+    REFERENCES nglayouts_block (id, status)
 );
 
-CREATE TABLE ngbm_zone (
+CREATE TABLE nglayouts_zone (
   identifier nvarchar(255) NOT NULL,
   layout_id int NOT NULL,
   status int NOT NULL,
@@ -79,12 +79,12 @@ CREATE TABLE ngbm_zone (
   linked_zone_identifier nvarchar(255),
   PRIMARY KEY (identifier, layout_id, status),
   FOREIGN KEY (layout_id, status)
-    REFERENCES ngbm_layout (id, status),
+    REFERENCES nglayouts_layout (id, status),
   FOREIGN KEY (root_block_id, status)
-    REFERENCES ngbm_block (id, status)
+    REFERENCES nglayouts_block (id, status)
 );
 
-CREATE TABLE ngbm_collection (
+CREATE TABLE nglayouts_collection (
   id int IDENTITY(1, 1),
   status int NOT NULL,
   start int NOT NULL,
@@ -95,16 +95,16 @@ CREATE TABLE ngbm_collection (
   PRIMARY KEY (id, status)
 );
 
-CREATE TABLE ngbm_collection_translation (
+CREATE TABLE nglayouts_collection_translation (
   collection_id int NOT NULL,
   status int NOT NULL,
   locale nvarchar(255) NOT NULL,
   PRIMARY KEY (collection_id, status, locale),
   FOREIGN KEY (collection_id, status)
-    REFERENCES ngbm_collection (id, status)
+    REFERENCES nglayouts_collection (id, status)
 );
 
-CREATE TABLE ngbm_collection_item (
+CREATE TABLE nglayouts_collection_item (
   id int IDENTITY(1, 1),
   status int NOT NULL,
   collection_id int NOT NULL,
@@ -114,30 +114,30 @@ CREATE TABLE ngbm_collection_item (
   config nvarchar(max) NOT NULL,
   PRIMARY KEY (id, status),
   FOREIGN KEY (collection_id, status)
-    REFERENCES ngbm_collection (id, status)
+    REFERENCES nglayouts_collection (id, status)
 );
 
-CREATE TABLE ngbm_collection_query (
+CREATE TABLE nglayouts_collection_query (
   id int IDENTITY(1, 1),
   status int NOT NULL,
   collection_id int NOT NULL,
   type nvarchar(255) NOT NULL,
   PRIMARY KEY (id, status),
   FOREIGN KEY (collection_id, status)
-    REFERENCES ngbm_collection (id, status)
+    REFERENCES nglayouts_collection (id, status)
 );
 
-CREATE TABLE ngbm_collection_query_translation (
+CREATE TABLE nglayouts_collection_query_translation (
   query_id int NOT NULL,
   status int NOT NULL,
   locale nvarchar(255) NOT NULL,
   parameters nvarchar(max) NOT NULL,
   PRIMARY KEY (query_id, status, locale),
   FOREIGN KEY (query_id, status)
-    REFERENCES ngbm_collection_query (id, status)
+    REFERENCES nglayouts_collection_query (id, status)
 );
 
-CREATE TABLE ngbm_block_collection (
+CREATE TABLE nglayouts_block_collection (
   block_id int NOT NULL,
   block_status int NOT NULL,
   collection_id int NOT NULL,
@@ -145,12 +145,12 @@ CREATE TABLE ngbm_block_collection (
   identifier nvarchar(255) NOT NULL,
   PRIMARY KEY (block_id, block_status, identifier),
   FOREIGN KEY (block_id, block_status)
-    REFERENCES ngbm_block (id, status),
+    REFERENCES nglayouts_block (id, status),
   FOREIGN KEY (collection_id, collection_status)
-    REFERENCES ngbm_collection (id, status)
+    REFERENCES nglayouts_collection (id, status)
 );
 
-CREATE TABLE ngbm_role (
+CREATE TABLE nglayouts_role (
   id int IDENTITY(1, 1),
   status int NOT NULL,
   name nvarchar(255) NOT NULL,
@@ -159,7 +159,7 @@ CREATE TABLE ngbm_role (
   PRIMARY KEY (id, status)
 );
 
-CREATE TABLE ngbm_role_policy (
+CREATE TABLE nglayouts_role_policy (
   id int IDENTITY(1, 1),
   status int NOT NULL,
   role_id int NOT NULL,
@@ -168,10 +168,10 @@ CREATE TABLE ngbm_role_policy (
   limitations nvarchar(max) NOT NULL,
   PRIMARY KEY (id, status),
   FOREIGN KEY (role_id, status)
-    REFERENCES ngbm_role (id, status)
+    REFERENCES nglayouts_role (id, status)
 );
 
-CREATE TABLE ngbm_rule (
+CREATE TABLE nglayouts_rule (
   id int IDENTITY(1, 1),
   status int NOT NULL,
   layout_id int DEFAULT NULL,
@@ -179,14 +179,14 @@ CREATE TABLE ngbm_rule (
   PRIMARY KEY (id, status)
 );
 
-CREATE TABLE ngbm_rule_data (
+CREATE TABLE nglayouts_rule_data (
   rule_id int NOT NULL,
   enabled tinyint NOT NULL,
   priority int NOT NULL,
   PRIMARY KEY (rule_id)
 );
 
-CREATE TABLE ngbm_rule_target (
+CREATE TABLE nglayouts_rule_target (
   id int IDENTITY(1, 1),
   status int NOT NULL,
   rule_id int NOT NULL,
@@ -194,10 +194,10 @@ CREATE TABLE ngbm_rule_target (
   value nvarchar(max) NOT NULL,
   PRIMARY KEY (id, status),
   FOREIGN KEY (rule_id, status)
-    REFERENCES ngbm_rule (id, status)
+    REFERENCES nglayouts_rule (id, status)
 );
 
-CREATE TABLE ngbm_rule_condition (
+CREATE TABLE nglayouts_rule_condition (
   id int IDENTITY(1, 1),
   status int NOT NULL,
   rule_id int NOT NULL,
@@ -205,5 +205,5 @@ CREATE TABLE ngbm_rule_condition (
   value nvarchar(max) NOT NULL,
   PRIMARY KEY (id, status),
   FOREIGN KEY (rule_id, status)
-    REFERENCES ngbm_rule (id, status)
+    REFERENCES nglayouts_rule (id, status)
 );

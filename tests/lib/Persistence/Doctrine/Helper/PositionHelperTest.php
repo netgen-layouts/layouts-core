@@ -167,7 +167,7 @@ final class PositionHelperTest extends TestCase
     {
         $query = $this->databaseConnection->createQueryBuilder();
 
-        $query->delete('ngbm_collection_item')
+        $query->delete('nglayouts_collection_item')
             ->where(
                 $query->expr()->andX(
                     $query->expr()->eq('id', ':id'),
@@ -202,7 +202,7 @@ final class PositionHelperTest extends TestCase
     private function getPositionHelperConditions(): array
     {
         return [
-            'table' => 'ngbm_collection_item',
+            'table' => 'nglayouts_collection_item',
             'column' => 'position',
             'conditions' => [
                 'collection_id' => 1,
@@ -218,7 +218,7 @@ final class PositionHelperTest extends TestCase
     {
         $query = $this->databaseConnection->createQueryBuilder();
         $query->select('position')
-            ->from('ngbm_collection_item')
+            ->from('nglayouts_collection_item')
             ->where(
                 $query->expr()->andX(
                     $query->expr()->eq('collection_id', ':collection_id'),

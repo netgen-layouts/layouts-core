@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 return [
-    'ngbm_layout' => [
+    'nglayouts_layout' => [
         ['id' => 1, 'status' => 0, 'type' => '4_zones_a', 'name' => 'My layout', 'description' => 'My layout description', 'created' => 1447065813, 'modified' => 1447065813, 'shared' => 0, 'main_locale' => 'en'],
         ['id' => 1, 'status' => 1, 'type' => '4_zones_a', 'name' => 'My layout', 'description' => 'My layout description', 'created' => 1447065813, 'modified' => 1447065813, 'shared' => 0, 'main_locale' => 'en'],
         ['id' => 2, 'status' => 0, 'type' => '4_zones_b', 'name' => 'My other layout', 'description' => 'My other layout description', 'created' => 1447065813, 'modified' => 1447065813, 'shared' => 0, 'main_locale' => 'en'],
@@ -17,7 +17,7 @@ return [
         ['id' => 6, 'status' => 1, 'type' => '4_zones_b', 'name' => 'My sixth layout', 'description' => 'My sixth layout description', 'created' => 1447065813, 'modified' => 1447065813, 'shared' => 0, 'main_locale' => 'en'],
         ['id' => 7, 'status' => 0, 'type' => '4_zones_b', 'name' => 'My seventh layout', 'description' => 'My seventh layout description', 'created' => 1447065813, 'modified' => 1447065813, 'shared' => 0, 'main_locale' => 'en'],
     ],
-    'ngbm_layout_translation' => [
+    'nglayouts_layout_translation' => [
         ['layout_id' => 1, 'status' => 0, 'locale' => 'en'],
         ['layout_id' => 1, 'status' => 1, 'locale' => 'en'],
         ['layout_id' => 1, 'status' => 0, 'locale' => 'hr'],
@@ -33,7 +33,7 @@ return [
         ['layout_id' => 6, 'status' => 1, 'locale' => 'en'],
         ['layout_id' => 7, 'status' => 0, 'locale' => 'en'],
     ],
-    'ngbm_block' => [
+    'nglayouts_block' => [
         ['id' => 1, 'status' => 0, 'layout_id' => 1, 'depth' => 0, 'path' => '/1/', 'parent_id' => null, 'placeholder' => null, 'position' => null, 'definition_identifier' => '', 'view_type' => '', 'item_view_type' => '', 'name' => '', 'config' => '', 'main_locale' => 'en', 'translatable' => 0, 'always_available' => 1],
         ['id' => 1, 'status' => 1, 'layout_id' => 1, 'depth' => 0, 'path' => '/1/', 'parent_id' => null, 'placeholder' => null, 'position' => null, 'definition_identifier' => '', 'view_type' => '', 'item_view_type' => '', 'name' => '', 'config' => '', 'main_locale' => 'en', 'translatable' => 0, 'always_available' => 1],
         ['id' => 2, 'status' => 0, 'layout_id' => 1, 'depth' => 0, 'path' => '/2/', 'parent_id' => null, 'placeholder' => null, 'position' => null, 'definition_identifier' => '', 'view_type' => '', 'item_view_type' => '', 'name' => '', 'config' => '', 'main_locale' => 'en', 'translatable' => 0, 'always_available' => 1],
@@ -101,7 +101,7 @@ return [
         ['id' => 37, 'status' => 2, 'layout_id' => 2, 'depth' => 2, 'path' => '/7/33/37/', 'parent_id' => 33, 'placeholder' => 'left', 'position' => 0, 'definition_identifier' => 'text', 'view_type' => 'text', 'item_view_type' => 'standard', 'name' => 'My seventh block', 'config' => '', 'main_locale' => 'en', 'translatable' => 0, 'always_available' => 1],
         ['id' => 38, 'status' => 0, 'layout_id' => 2, 'depth' => 1, 'path' => '/7/38/', 'parent_id' => 7, 'placeholder' => 'root', 'position' => 2, 'definition_identifier' => 'column', 'view_type' => 'column', 'item_view_type' => 'standard', 'name' => 'My eight block', 'config' => '', 'main_locale' => 'en', 'translatable' => 1, 'always_available' => 1],
     ],
-    'ngbm_block_translation' => [
+    'nglayouts_block_translation' => [
         ['block_id' => 1, 'status' => 0, 'locale' => 'en', 'parameters' => ''],
         ['block_id' => 1, 'status' => 1, 'locale' => 'en', 'parameters' => ''],
         ['block_id' => 2, 'status' => 0, 'locale' => 'en', 'parameters' => ''],
@@ -173,7 +173,7 @@ return [
         ['block_id' => 37, 'status' => 2, 'locale' => 'en', 'parameters' => '{"content": "Text"}'],
         ['block_id' => 38, 'status' => 0, 'locale' => 'en', 'parameters' => '{}'],
     ],
-    'ngbm_zone' => [
+    'nglayouts_zone' => [
         ['identifier' => 'top', 'layout_id' => 1, 'status' => 0, 'root_block_id' => 1, 'linked_layout_id' => null, 'linked_zone_identifier' => null],
         ['identifier' => 'top', 'layout_id' => 1, 'status' => 1, 'root_block_id' => 1, 'linked_layout_id' => null, 'linked_zone_identifier' => null],
         ['identifier' => 'left', 'layout_id' => 1, 'status' => 0, 'root_block_id' => 2, 'linked_layout_id' => null, 'linked_zone_identifier' => null],
@@ -225,7 +225,7 @@ return [
         // This zone does not exist in a layout but is used in tests for layouts which had it's layout type config changed
         ['identifier' => 'center', 'layout_id' => 7, 'status' => 0, 'root_block_id' => 29, 'linked_layout_id' => null, 'linked_zone_identifier' => null],
     ],
-    'ngbm_collection' => [
+    'nglayouts_collection' => [
         ['id' => 1, 'status' => 0, 'start' => 0, 'length' => null, 'main_locale' => 'en', 'translatable' => 1, 'always_available' => 1],
         ['id' => 2, 'status' => 1, 'start' => 0, 'length' => null, 'main_locale' => 'en', 'translatable' => 1, 'always_available' => 1],
         ['id' => 3, 'status' => 0, 'start' => 4, 'length' => 2, 'main_locale' => 'en', 'translatable' => 1, 'always_available' => 1],
@@ -236,7 +236,7 @@ return [
         ['id' => 6, 'status' => 1, 'start' => 10, 'length' => 5, 'main_locale' => 'en', 'translatable' => 0, 'always_available' => 1],
         ['id' => 6, 'status' => 2, 'start' => 10, 'length' => 5, 'main_locale' => 'en', 'translatable' => 0, 'always_available' => 1],
     ],
-    'ngbm_collection_translation' => [
+    'nglayouts_collection_translation' => [
         ['collection_id' => 1, 'status' => 0, 'locale' => 'en'],
         ['collection_id' => 1, 'status' => 0, 'locale' => 'hr'],
         ['collection_id' => 2, 'status' => 1, 'locale' => 'en'],
@@ -251,7 +251,7 @@ return [
         ['collection_id' => 6, 'status' => 1, 'locale' => 'en'],
         ['collection_id' => 6, 'status' => 2, 'locale' => 'en'],
     ],
-    'ngbm_collection_item' => [
+    'nglayouts_collection_item' => [
         ['id' => 1, 'status' => 0, 'collection_id' => 1, 'position' => 0, 'value' => '72', 'value_type' => 'my_value_type', 'config' => ''],
         ['id' => 2, 'status' => 0, 'collection_id' => 1, 'position' => 1, 'value' => '73', 'value_type' => 'my_value_type', 'config' => ''],
         ['id' => 3, 'status' => 0, 'collection_id' => 1, 'position' => 2, 'value' => '74', 'value_type' => 'my_value_type', 'config' => ''],
@@ -271,14 +271,14 @@ return [
         ['id' => 12, 'status' => 0, 'collection_id' => 4, 'position' => 5, 'value' => '74', 'value_type' => 'my_value_type', 'config' => ''],
         ['id' => 12, 'status' => 1, 'collection_id' => 4, 'position' => 5, 'value' => '74', 'value_type' => 'my_value_type', 'config' => ''],
     ],
-    'ngbm_collection_query' => [
+    'nglayouts_collection_query' => [
         ['id' => 1, 'status' => 1, 'collection_id' => 2, 'type' => 'my_query_type'],
         ['id' => 2, 'status' => 0, 'collection_id' => 3, 'type' => 'my_query_type'],
         ['id' => 2, 'status' => 1, 'collection_id' => 3, 'type' => 'my_query_type'],
         ['id' => 4, 'status' => 0, 'collection_id' => 4, 'type' => 'my_query_type'],
         ['id' => 4, 'status' => 1, 'collection_id' => 4, 'type' => 'my_query_type'],
     ],
-    'ngbm_collection_query_translation' => [
+    'nglayouts_collection_query_translation' => [
         ['query_id' => 1, 'status' => 1, 'locale' => 'en', 'parameters' => '{"parent_location_id": 2, "sort_direction": "descending", "sort_type": "date_published", "query_type": "list"}'],
         ['query_id' => 1, 'status' => 1, 'locale' => 'hr', 'parameters' => '{"parent_location_id": 2, "sort_direction": "descending", "sort_type": "date_published", "query_type": "list"}'],
         ['query_id' => 2, 'status' => 0, 'locale' => 'en', 'parameters' => '{"parent_location_id": 2, "sort_direction": "descending", "sort_type": "date_published", "query_type": "list"}'],
@@ -288,7 +288,7 @@ return [
         ['query_id' => 4, 'status' => 0, 'locale' => 'en', 'parameters' => '{"parent_location_id": 71, "sort_direction": "descending", "sort_type": "date_published", "query_type": "list"}'],
         ['query_id' => 4, 'status' => 1, 'locale' => 'en', 'parameters' => '{"parent_location_id": 71, "sort_direction": "descending", "sort_type": "date_published", "query_type": "list"}'],
     ],
-    'ngbm_block_collection' => [
+    'nglayouts_block_collection' => [
         ['block_id' => 31, 'block_status' => 0, 'collection_id' => 1, 'collection_status' => 0, 'identifier' => 'default'],
         ['block_id' => 31, 'block_status' => 0, 'collection_id' => 3, 'collection_status' => 0, 'identifier' => 'featured'],
         ['block_id' => 31, 'block_status' => 1, 'collection_id' => 2, 'collection_status' => 1, 'identifier' => 'default'],
@@ -299,13 +299,13 @@ return [
         ['block_id' => 37, 'block_status' => 1, 'collection_id' => 6, 'collection_status' => 1, 'identifier' => 'default'],
         ['block_id' => 37, 'block_status' => 2, 'collection_id' => 6, 'collection_status' => 2, 'identifier' => 'default'],
     ],
-    'ngbm_role' => [
+    'nglayouts_role' => [
         ['id' => 1, 'status' => 1, 'name' => 'Admin', 'identifier' => 'admin', 'description' => 'Admin role'],
         ['id' => 2, 'status' => 0, 'name' => 'Editor', 'identifier' => 'editor', 'description' => 'Editor role'],
         ['id' => 2, 'status' => 1, 'name' => 'Editor', 'identifier' => 'editor', 'description' => 'Editor role'],
         ['id' => 2, 'status' => 2, 'name' => 'Editor', 'identifier' => 'editor', 'description' => 'Editor role'],
     ],
-    'ngbm_role_policy' => [
+    'nglayouts_role_policy' => [
         ['id' => 1, 'status' => 1, 'role_id' => 1, 'component' => null, 'permission' => null, 'limitations' => '{}'],
         ['id' => 2, 'status' => 0, 'role_id' => 2, 'component' => 'block', 'permission' => 'add', 'limitations' => '{}'],
         ['id' => 2, 'status' => 1, 'role_id' => 2, 'component' => 'block', 'permission' => 'add', 'limitations' => '{}'],
@@ -317,7 +317,7 @@ return [
         ['id' => 4, 'status' => 1, 'role_id' => 2, 'component' => 'layout', 'permission' => null, 'limitations' => '{}'],
         ['id' => 4, 'status' => 2, 'role_id' => 2, 'component' => 'layout', 'permission' => null, 'limitations' => '{}'],
     ],
-    'ngbm_rule' => [
+    'nglayouts_rule' => [
         ['id' => 1, 'status' => 1, 'layout_id' => 1, 'comment' => 'My comment'],
         ['id' => 2, 'status' => 1, 'layout_id' => 2, 'comment' => 'My other comment'],
         ['id' => 2, 'status' => 2, 'layout_id' => 2, 'comment' => 'My other comment'],
@@ -334,7 +334,7 @@ return [
         ['id' => 11, 'status' => 1, 'layout_id' => null, 'comment' => ''],
         ['id' => 12, 'status' => 1, 'layout_id' => 7, 'comment' => ''],
     ],
-    'ngbm_rule_data' => [
+    'nglayouts_rule_data' => [
         ['rule_id' => 1, 'enabled' => 1, 'priority' => 9],
         ['rule_id' => 2, 'enabled' => 1, 'priority' => 8],
         ['rule_id' => 3, 'enabled' => 1, 'priority' => 7],
@@ -348,7 +348,7 @@ return [
         ['rule_id' => 11, 'enabled' => 0, 'priority' => -1],
         ['rule_id' => 12, 'enabled' => 0, 'priority' => -2],
     ],
-    'ngbm_rule_target' => [
+    'nglayouts_rule_target' => [
         ['id' => 1, 'status' => 1, 'rule_id' => 1, 'type' => 'route', 'value' => 'my_cool_route'],
         ['id' => 2, 'status' => 1, 'rule_id' => 1, 'type' => 'route', 'value' => 'my_other_cool_route'],
         ['id' => 3, 'status' => 1, 'rule_id' => 2, 'type' => 'route', 'value' => 'my_second_cool_route'],
@@ -376,7 +376,7 @@ return [
         ['id' => 19, 'status' => 1, 'rule_id' => 10, 'type' => 'request_uri_prefix', 'value' => '/the/'],
         ['id' => 20, 'status' => 1, 'rule_id' => 10, 'type' => 'request_uri_prefix', 'value' => '/a/'],
     ],
-    'ngbm_rule_condition' => [
+    'nglayouts_rule_condition' => [
         ['id' => 1, 'status' => 1, 'rule_id' => 2, 'type' => 'route_parameter', 'value' => '{"parameter_name": "some_param", "parameter_values": [1,2]}'],
         ['id' => 1, 'status' => 2, 'rule_id' => 2, 'type' => 'route_parameter', 'value' => '{"parameter_name": "some_param", "parameter_values": [1,2]}'],
         ['id' => 2, 'status' => 1, 'rule_id' => 3, 'type' => 'route_parameter', 'value' => '{"parameter_name": "some_param", "parameter_values": [3,4]}'],

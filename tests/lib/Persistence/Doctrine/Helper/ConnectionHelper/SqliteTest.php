@@ -38,7 +38,7 @@ final class SqliteTest extends TestCase
      */
     public function testGetAutoIncrementValue(): void
     {
-        self::assertSame(39, $this->helper->getAutoIncrementValue('ngbm_block'));
+        self::assertSame(39, $this->helper->getAutoIncrementValue('nglayouts_block'));
     }
 
     /**
@@ -47,6 +47,6 @@ final class SqliteTest extends TestCase
      */
     public function testLastInsertId(): void
     {
-        self::assertSame(38, $this->helper->lastInsertId('ngbm_block'));
+        self::assertSame(38, $this->helper->lastInsertId('nglayouts_block'));
     }
 }

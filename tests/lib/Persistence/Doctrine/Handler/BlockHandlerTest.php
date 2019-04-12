@@ -2109,7 +2109,7 @@ final class BlockHandlerTest extends TestCase
         // First we need to delete all zones to correctly delete the blocks
         $query = $this->databaseConnection->createQueryBuilder();
 
-        $query->delete('ngbm_zone')
+        $query->delete('nglayouts_zone')
             ->where(
                 $query->expr()->andX(
                     $query->expr()->eq('layout_id', ':layout_id'),

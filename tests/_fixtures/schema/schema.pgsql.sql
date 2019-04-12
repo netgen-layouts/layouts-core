@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS "ngbm_layout" (
+CREATE TABLE IF NOT EXISTS "nglayouts_layout" (
   "id" integer NOT NULL,
   "status" integer NOT NULL,
   "type" character varying(255) NOT NULL,
@@ -11,15 +11,15 @@ CREATE TABLE IF NOT EXISTS "ngbm_layout" (
   PRIMARY KEY ("id", "status")
 );
 
-CREATE TABLE IF NOT EXISTS "ngbm_layout_translation" (
+CREATE TABLE IF NOT EXISTS "nglayouts_layout_translation" (
   "layout_id" integer NOT NULL,
   "status" integer NOT NULL,
   "locale" character varying(255) NOT NULL,
   PRIMARY KEY ("layout_id", "status", "locale"),
-  FOREIGN KEY ("layout_id", "status") REFERENCES ngbm_layout ("id", "status")
+  FOREIGN KEY ("layout_id", "status") REFERENCES nglayouts_layout ("id", "status")
 );
 
-CREATE TABLE IF NOT EXISTS "ngbm_block" (
+CREATE TABLE IF NOT EXISTS "nglayouts_block" (
   "id" integer NOT NULL,
   "status" integer NOT NULL,
   "layout_id" integer NOT NULL,
@@ -37,19 +37,19 @@ CREATE TABLE IF NOT EXISTS "ngbm_block" (
   "main_locale" character varying(255) NOT NULL,
   "always_available" boolean NOT NULL,
   PRIMARY KEY ("id", "status"),
-  FOREIGN KEY ("layout_id", "status") REFERENCES ngbm_layout ("id", "status")
+  FOREIGN KEY ("layout_id", "status") REFERENCES nglayouts_layout ("id", "status")
 );
 
-CREATE TABLE IF NOT EXISTS "ngbm_block_translation" (
+CREATE TABLE IF NOT EXISTS "nglayouts_block_translation" (
   "block_id" integer NOT NULL,
   "status" integer NOT NULL,
   "locale" character varying(255) NOT NULL,
   "parameters" text NOT NULL,
   PRIMARY KEY ("block_id", "status", "locale"),
-  FOREIGN KEY ("block_id", "status") REFERENCES ngbm_block ("id", "status")
+  FOREIGN KEY ("block_id", "status") REFERENCES nglayouts_block ("id", "status")
 );
 
-CREATE TABLE IF NOT EXISTS "ngbm_zone" (
+CREATE TABLE IF NOT EXISTS "nglayouts_zone" (
   "identifier" character varying(255) NOT NULL,
   "layout_id" integer NOT NULL,
   "status" integer NOT NULL,
@@ -57,11 +57,11 @@ CREATE TABLE IF NOT EXISTS "ngbm_zone" (
   "linked_layout_id" integer,
   "linked_zone_identifier" character varying(255),
   PRIMARY KEY ("identifier", "layout_id", "status"),
-  FOREIGN KEY ("layout_id", "status") REFERENCES ngbm_layout ("id", "status"),
-  FOREIGN KEY ("root_block_id", "status") REFERENCES ngbm_block ("id", "status")
+  FOREIGN KEY ("layout_id", "status") REFERENCES nglayouts_layout ("id", "status"),
+  FOREIGN KEY ("root_block_id", "status") REFERENCES nglayouts_block ("id", "status")
 );
 
-CREATE TABLE IF NOT EXISTS "ngbm_collection" (
+CREATE TABLE IF NOT EXISTS "nglayouts_collection" (
   "id" integer NOT NULL,
   "status" integer NOT NULL,
   "start" integer NOT NULL,
@@ -72,15 +72,15 @@ CREATE TABLE IF NOT EXISTS "ngbm_collection" (
   PRIMARY KEY ("id", "status")
 );
 
-CREATE TABLE IF NOT EXISTS "ngbm_collection_translation" (
+CREATE TABLE IF NOT EXISTS "nglayouts_collection_translation" (
   "collection_id" integer NOT NULL,
   "status" integer NOT NULL,
   "locale" character varying(255) NOT NULL,
   PRIMARY KEY ("collection_id", "status", "locale"),
-  FOREIGN KEY ("collection_id", "status") REFERENCES ngbm_collection ("id", "status")
+  FOREIGN KEY ("collection_id", "status") REFERENCES nglayouts_collection ("id", "status")
 );
 
-CREATE TABLE IF NOT EXISTS "ngbm_collection_item" (
+CREATE TABLE IF NOT EXISTS "nglayouts_collection_item" (
   "id" integer NOT NULL,
   "status" integer NOT NULL,
   "collection_id" integer NOT NULL,
@@ -89,39 +89,39 @@ CREATE TABLE IF NOT EXISTS "ngbm_collection_item" (
   "value_type" character varying(255) NOT NULL,
   "config" text NOT NULL,
   PRIMARY KEY ("id", "status"),
-  FOREIGN KEY ("collection_id", "status") REFERENCES ngbm_collection ("id", "status")
+  FOREIGN KEY ("collection_id", "status") REFERENCES nglayouts_collection ("id", "status")
 );
 
-CREATE TABLE IF NOT EXISTS "ngbm_collection_query" (
+CREATE TABLE IF NOT EXISTS "nglayouts_collection_query" (
   "id" integer NOT NULL,
   "status" integer NOT NULL,
   "collection_id" integer NOT NULL,
   "type" character varying(255) NOT NULL,
   PRIMARY KEY ("id", "status"),
-  FOREIGN KEY ("collection_id", "status") REFERENCES ngbm_collection ("id", "status")
+  FOREIGN KEY ("collection_id", "status") REFERENCES nglayouts_collection ("id", "status")
 );
 
-CREATE TABLE IF NOT EXISTS "ngbm_collection_query_translation" (
+CREATE TABLE IF NOT EXISTS "nglayouts_collection_query_translation" (
   "query_id" integer NOT NULL,
   "status" integer NOT NULL,
   "locale" character varying(255) NOT NULL,
   "parameters" text NOT NULL,
   PRIMARY KEY ("query_id", "status", "locale"),
-  FOREIGN KEY ("query_id", "status") REFERENCES ngbm_collection_query ("id", "status")
+  FOREIGN KEY ("query_id", "status") REFERENCES nglayouts_collection_query ("id", "status")
 );
 
-CREATE TABLE IF NOT EXISTS "ngbm_block_collection" (
+CREATE TABLE IF NOT EXISTS "nglayouts_block_collection" (
   "block_id" integer NOT NULL,
   "block_status" integer NOT NULL,
   "collection_id" integer NOT NULL,
   "collection_status" integer NOT NULL,
   "identifier" character varying(255) NOT NULL,
   PRIMARY KEY ("block_id", "block_status", "identifier"),
-  FOREIGN KEY ("block_id", "block_status") REFERENCES ngbm_block ("id", "status"),
-  FOREIGN KEY ("collection_id", "collection_status") REFERENCES ngbm_collection ("id", "status")
+  FOREIGN KEY ("block_id", "block_status") REFERENCES nglayouts_block ("id", "status"),
+  FOREIGN KEY ("collection_id", "collection_status") REFERENCES nglayouts_collection ("id", "status")
 );
 
-CREATE TABLE IF NOT EXISTS "ngbm_role" (
+CREATE TABLE IF NOT EXISTS "nglayouts_role" (
   "id" integer NOT NULL,
   "status" integer NOT NULL,
   "name" character varying(255) NOT NULL,
@@ -130,7 +130,7 @@ CREATE TABLE IF NOT EXISTS "ngbm_role" (
   PRIMARY KEY ("id", "status")
 );
 
-CREATE TABLE IF NOT EXISTS "ngbm_role_policy" (
+CREATE TABLE IF NOT EXISTS "nglayouts_role_policy" (
   "id" integer NOT NULL,
   "status" integer NOT NULL,
   "role_id" integer NOT NULL,
@@ -138,10 +138,10 @@ CREATE TABLE IF NOT EXISTS "ngbm_role_policy" (
   "permission" character varying(255),
   "limitations" text NOT NULL,
   PRIMARY KEY ("id", "status"),
-  FOREIGN KEY ("role_id", "status") REFERENCES ngbm_role ("id", "status")
+  FOREIGN KEY ("role_id", "status") REFERENCES nglayouts_role ("id", "status")
 );
 
-CREATE TABLE IF NOT EXISTS "ngbm_rule" (
+CREATE TABLE IF NOT EXISTS "nglayouts_rule" (
   "id" integer NOT NULL,
   "status" integer NOT NULL,
   "layout_id" integer,
@@ -149,87 +149,87 @@ CREATE TABLE IF NOT EXISTS "ngbm_rule" (
   PRIMARY KEY ("id", "status")
 );
 
-CREATE TABLE IF NOT EXISTS "ngbm_rule_data" (
+CREATE TABLE IF NOT EXISTS "nglayouts_rule_data" (
   "rule_id" integer NOT NULL,
   "enabled" boolean NOT NULL,
   "priority" integer NOT NULL,
   PRIMARY KEY ("rule_id")
 );
 
-CREATE TABLE IF NOT EXISTS "ngbm_rule_target" (
+CREATE TABLE IF NOT EXISTS "nglayouts_rule_target" (
   "id" integer NOT NULL,
   "status" integer NOT NULL,
   "rule_id" integer NOT NULL,
   "type" character varying(255) NOT NULL,
   "value" text,
   PRIMARY KEY ("id", "status"),
-  FOREIGN KEY ("rule_id", "status") REFERENCES ngbm_rule ("id", "status")
+  FOREIGN KEY ("rule_id", "status") REFERENCES nglayouts_rule ("id", "status")
 );
 
-CREATE TABLE IF NOT EXISTS "ngbm_rule_condition" (
+CREATE TABLE IF NOT EXISTS "nglayouts_rule_condition" (
   "id" integer NOT NULL,
   "status" integer NOT NULL,
   "rule_id" integer NOT NULL,
   "type" character varying(255) NOT NULL,
   "value" text,
   PRIMARY KEY ("id", "status"),
-  FOREIGN KEY ("rule_id", "status") REFERENCES ngbm_rule ("id", "status")
+  FOREIGN KEY ("rule_id", "status") REFERENCES nglayouts_rule ("id", "status")
 );
 
-DELETE FROM "ngbm_block_collection";
-DELETE FROM "ngbm_collection_item";
-DELETE FROM "ngbm_collection_query_translation";
-DELETE FROM "ngbm_collection_query";
-DELETE FROM "ngbm_collection_translation";
-DELETE FROM "ngbm_collection";
-DELETE FROM "ngbm_zone";
-DELETE FROM "ngbm_block_translation";
-DELETE FROM "ngbm_block";
-DELETE FROM "ngbm_layout_translation";
-DELETE FROM "ngbm_layout";
-DELETE FROM "ngbm_role_policy";
-DELETE FROM "ngbm_role";
-DELETE FROM "ngbm_rule_target";
-DELETE FROM "ngbm_rule_condition";
-DELETE FROM "ngbm_rule_data";
-DELETE FROM "ngbm_rule";
+DELETE FROM "nglayouts_block_collection";
+DELETE FROM "nglayouts_collection_item";
+DELETE FROM "nglayouts_collection_query_translation";
+DELETE FROM "nglayouts_collection_query";
+DELETE FROM "nglayouts_collection_translation";
+DELETE FROM "nglayouts_collection";
+DELETE FROM "nglayouts_zone";
+DELETE FROM "nglayouts_block_translation";
+DELETE FROM "nglayouts_block";
+DELETE FROM "nglayouts_layout_translation";
+DELETE FROM "nglayouts_layout";
+DELETE FROM "nglayouts_role_policy";
+DELETE FROM "nglayouts_role";
+DELETE FROM "nglayouts_rule_target";
+DELETE FROM "nglayouts_rule_condition";
+DELETE FROM "nglayouts_rule_data";
+DELETE FROM "nglayouts_rule";
 
-CREATE SEQUENCE IF NOT EXISTS ngbm_layout_id_seq;
-ALTER SEQUENCE ngbm_layout_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
-ALTER TABLE ONLY ngbm_layout ALTER COLUMN id SET DEFAULT nextval('ngbm_layout_id_seq'::regclass);
+CREATE SEQUENCE IF NOT EXISTS nglayouts_layout_id_seq;
+ALTER SEQUENCE nglayouts_layout_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
+ALTER TABLE ONLY nglayouts_layout ALTER COLUMN id SET DEFAULT nextval('nglayouts_layout_id_seq'::regclass);
 
-CREATE SEQUENCE IF NOT EXISTS ngbm_block_id_seq;
-ALTER SEQUENCE ngbm_block_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
-ALTER TABLE ONLY ngbm_block ALTER COLUMN id SET DEFAULT nextval('ngbm_block_id_seq'::regclass);
+CREATE SEQUENCE IF NOT EXISTS nglayouts_block_id_seq;
+ALTER SEQUENCE nglayouts_block_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
+ALTER TABLE ONLY nglayouts_block ALTER COLUMN id SET DEFAULT nextval('nglayouts_block_id_seq'::regclass);
 
-CREATE SEQUENCE IF NOT EXISTS ngbm_collection_id_seq;
-ALTER SEQUENCE ngbm_collection_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
-ALTER TABLE ONLY ngbm_collection ALTER COLUMN id SET DEFAULT nextval('ngbm_collection_id_seq'::regclass);
+CREATE SEQUENCE IF NOT EXISTS nglayouts_collection_id_seq;
+ALTER SEQUENCE nglayouts_collection_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
+ALTER TABLE ONLY nglayouts_collection ALTER COLUMN id SET DEFAULT nextval('nglayouts_collection_id_seq'::regclass);
 
-CREATE SEQUENCE IF NOT EXISTS ngbm_collection_item_id_seq;
-ALTER SEQUENCE ngbm_collection_item_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
-ALTER TABLE ONLY ngbm_collection_item ALTER COLUMN id SET DEFAULT nextval('ngbm_collection_item_id_seq'::regclass);
+CREATE SEQUENCE IF NOT EXISTS nglayouts_collection_item_id_seq;
+ALTER SEQUENCE nglayouts_collection_item_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
+ALTER TABLE ONLY nglayouts_collection_item ALTER COLUMN id SET DEFAULT nextval('nglayouts_collection_item_id_seq'::regclass);
 
-CREATE SEQUENCE IF NOT EXISTS ngbm_collection_query_id_seq;
-ALTER SEQUENCE ngbm_collection_query_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
-ALTER TABLE ONLY ngbm_collection_query ALTER COLUMN id SET DEFAULT nextval('ngbm_collection_query_id_seq'::regclass);
+CREATE SEQUENCE IF NOT EXISTS nglayouts_collection_query_id_seq;
+ALTER SEQUENCE nglayouts_collection_query_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
+ALTER TABLE ONLY nglayouts_collection_query ALTER COLUMN id SET DEFAULT nextval('nglayouts_collection_query_id_seq'::regclass);
 
-CREATE SEQUENCE IF NOT EXISTS ngbm_role_id_seq;
-ALTER SEQUENCE ngbm_role_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
-ALTER TABLE ONLY ngbm_role ALTER COLUMN id SET DEFAULT nextval('ngbm_role_id_seq'::regclass);
+CREATE SEQUENCE IF NOT EXISTS nglayouts_role_id_seq;
+ALTER SEQUENCE nglayouts_role_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
+ALTER TABLE ONLY nglayouts_role ALTER COLUMN id SET DEFAULT nextval('nglayouts_role_id_seq'::regclass);
 
-CREATE SEQUENCE IF NOT EXISTS ngbm_role_policy_id_seq;
-ALTER SEQUENCE ngbm_role_policy_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
-ALTER TABLE ONLY ngbm_role_policy ALTER COLUMN id SET DEFAULT nextval('ngbm_role_policy_id_seq'::regclass);
+CREATE SEQUENCE IF NOT EXISTS nglayouts_role_policy_id_seq;
+ALTER SEQUENCE nglayouts_role_policy_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
+ALTER TABLE ONLY nglayouts_role_policy ALTER COLUMN id SET DEFAULT nextval('nglayouts_role_policy_id_seq'::regclass);
 
-CREATE SEQUENCE IF NOT EXISTS ngbm_rule_id_seq;
-ALTER SEQUENCE ngbm_rule_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
-ALTER TABLE ONLY ngbm_rule ALTER COLUMN id SET DEFAULT nextval('ngbm_rule_id_seq'::regclass);
+CREATE SEQUENCE IF NOT EXISTS nglayouts_rule_id_seq;
+ALTER SEQUENCE nglayouts_rule_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
+ALTER TABLE ONLY nglayouts_rule ALTER COLUMN id SET DEFAULT nextval('nglayouts_rule_id_seq'::regclass);
 
-CREATE SEQUENCE IF NOT EXISTS ngbm_rule_target_id_seq;
-ALTER SEQUENCE ngbm_rule_target_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
-ALTER TABLE ONLY ngbm_rule_target ALTER COLUMN id SET DEFAULT nextval('ngbm_rule_target_id_seq'::regclass);
+CREATE SEQUENCE IF NOT EXISTS nglayouts_rule_target_id_seq;
+ALTER SEQUENCE nglayouts_rule_target_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
+ALTER TABLE ONLY nglayouts_rule_target ALTER COLUMN id SET DEFAULT nextval('nglayouts_rule_target_id_seq'::regclass);
 
-CREATE SEQUENCE IF NOT EXISTS ngbm_rule_condition_id_seq;
-ALTER SEQUENCE ngbm_rule_condition_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
-ALTER TABLE ONLY ngbm_rule_condition ALTER COLUMN id SET DEFAULT nextval('ngbm_rule_condition_id_seq'::regclass);
+CREATE SEQUENCE IF NOT EXISTS nglayouts_rule_condition_id_seq;
+ALTER SEQUENCE nglayouts_rule_condition_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
+ALTER TABLE ONLY nglayouts_rule_condition ALTER COLUMN id SET DEFAULT nextval('nglayouts_rule_condition_id_seq'::regclass);

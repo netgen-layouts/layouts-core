@@ -90,7 +90,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
-            ->from('ngbm_rule');
+            ->from('nglayouts_rule');
 
         if ($layout instanceof Layout) {
             $query->andWhere(
@@ -120,7 +120,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query
             ->innerJoin(
                 'r',
-                'ngbm_rule_target',
+                'nglayouts_rule_target',
                 'rt',
                 $query->expr()->eq('r.id', 'rt.rule_id')
             )
@@ -189,7 +189,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
-            ->from('ngbm_rule_target')
+            ->from('nglayouts_rule_target')
             ->where(
                 $query->expr()->eq('rule_id', ':rule_id')
             )
@@ -252,7 +252,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
-            ->from('ngbm_rule')
+            ->from('nglayouts_rule')
             ->where(
                 $query->expr()->eq('id', ':id')
             )
@@ -274,7 +274,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('priority')
-            ->from('ngbm_rule_data');
+            ->from('nglayouts_rule_data');
 
         $query->addOrderBy('priority', 'ASC');
         $this->applyOffsetAndLimit($query, 0, 1);
@@ -290,7 +290,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     public function createRule(Rule $rule): Rule
     {
         $query = $this->connection->createQueryBuilder()
-            ->insert('ngbm_rule')
+            ->insert('nglayouts_rule')
             ->values(
                 [
                     'id' => ':id',
@@ -303,7 +303,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 'id',
                 $rule->id !== null ?
                     (int) $rule->id :
-                    $this->connectionHelper->getAutoIncrementValue('ngbm_rule')
+                    $this->connectionHelper->getAutoIncrementValue('nglayouts_rule')
             )
             ->setParameter('status', $rule->status, Type::INTEGER)
             ->setParameter('layout_id', $rule->layoutId, Type::INTEGER)
@@ -312,10 +312,10 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query->execute();
 
         if ($rule->id === null) {
-            $rule->id = (int) $this->connectionHelper->lastInsertId('ngbm_rule');
+            $rule->id = (int) $this->connectionHelper->lastInsertId('nglayouts_rule');
 
             $query = $this->connection->createQueryBuilder()
-                ->insert('ngbm_rule_data')
+                ->insert('nglayouts_rule_data')
                 ->values(
                     [
                         'rule_id' => ':rule_id',
@@ -340,7 +340,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query
-            ->update('ngbm_rule')
+            ->update('nglayouts_rule')
             ->set('layout_id', ':layout_id')
             ->set('comment', ':comment')
             ->where(
@@ -362,7 +362,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query
-            ->update('ngbm_rule_data')
+            ->update('nglayouts_rule_data')
             ->set('enabled', ':enabled')
             ->set('priority', ':priority')
             ->where(
@@ -385,7 +385,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query
-            ->delete('ngbm_rule_target')
+            ->delete('nglayouts_rule_target')
             ->where(
                 $query->expr()->eq('rule_id', ':rule_id')
             )
@@ -408,7 +408,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query
-            ->delete('ngbm_rule_condition')
+            ->delete('nglayouts_rule_condition')
             ->where(
                 $query->expr()->eq('rule_id', ':rule_id')
             )
@@ -430,7 +430,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     public function deleteRule($ruleId, ?int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
-        $query->delete('ngbm_rule')
+        $query->delete('nglayouts_rule')
             ->where(
                 $query->expr()->eq('id', ':id')
             )
@@ -444,7 +444,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         if (!$this->ruleExists($ruleId)) {
             $query = $this->connection->createQueryBuilder();
-            $query->delete('ngbm_rule_data')
+            $query->delete('nglayouts_rule_data')
                 ->where(
                     $query->expr()->eq('rule_id', ':rule_id')
                 )
@@ -460,7 +460,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     public function addTarget(Target $target): Target
     {
         $query = $this->connection->createQueryBuilder()
-            ->insert('ngbm_rule_target')
+            ->insert('nglayouts_rule_target')
             ->values(
                 [
                     'id' => ':id',
@@ -474,7 +474,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 'id',
                 $target->id !== null ?
                     (int) $target->id :
-                    $this->connectionHelper->getAutoIncrementValue('ngbm_rule_target')
+                    $this->connectionHelper->getAutoIncrementValue('nglayouts_rule_target')
             )
             ->setParameter('status', $target->status, Type::INTEGER)
             ->setParameter('rule_id', $target->ruleId, Type::INTEGER)
@@ -483,7 +483,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $query->execute();
 
-        $target->id = $target->id ?? (int) $this->connectionHelper->lastInsertId('ngbm_rule_target');
+        $target->id = $target->id ?? (int) $this->connectionHelper->lastInsertId('nglayouts_rule_target');
 
         return $target;
     }
@@ -495,7 +495,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query
-            ->update('ngbm_rule_target')
+            ->update('nglayouts_rule_target')
             ->set('rule_id', ':rule_id')
             ->set('type', ':type')
             ->set('value', ':value')
@@ -522,7 +522,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
 
-        $query->delete('ngbm_rule_target')
+        $query->delete('nglayouts_rule_target')
             ->where(
                 $query->expr()->eq('id', ':id')
             )
@@ -539,7 +539,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     public function addCondition(Condition $condition): Condition
     {
         $query = $this->connection->createQueryBuilder()
-            ->insert('ngbm_rule_condition')
+            ->insert('nglayouts_rule_condition')
             ->values(
                 [
                     'id' => ':id',
@@ -553,7 +553,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 'id',
                 $condition->id !== null ?
                     (int) $condition->id :
-                    $this->connectionHelper->getAutoIncrementValue('ngbm_rule_condition')
+                    $this->connectionHelper->getAutoIncrementValue('nglayouts_rule_condition')
             )
             ->setParameter('status', $condition->status, Type::INTEGER)
             ->setParameter('rule_id', $condition->ruleId, Type::INTEGER)
@@ -562,7 +562,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $query->execute();
 
-        $condition->id = $condition->id ?? (int) $this->connectionHelper->lastInsertId('ngbm_rule_condition');
+        $condition->id = $condition->id ?? (int) $this->connectionHelper->lastInsertId('nglayouts_rule_condition');
 
         return $condition;
     }
@@ -574,7 +574,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query
-            ->update('ngbm_rule_condition')
+            ->update('nglayouts_rule_condition')
             ->set('rule_id', ':rule_id')
             ->set('type', ':type')
             ->set('value', ':value')
@@ -601,7 +601,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
 
-        $query->delete('ngbm_rule_condition')
+        $query->delete('nglayouts_rule_condition')
             ->where(
                 $query->expr()->eq('id', ':id')
             )
@@ -619,10 +619,10 @@ final class LayoutResolverQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT r.*', 'rd.*')
-            ->from('ngbm_rule', 'r')
+            ->from('nglayouts_rule', 'r')
             ->innerJoin(
                 'r',
-                'ngbm_rule_data',
+                'nglayouts_rule_data',
                 'rd',
                 $query->expr()->eq('rd.rule_id', 'r.id')
             );
@@ -636,8 +636,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
     private function getTargetSelectQuery(): QueryBuilder
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT ngbm_rule_target.*')
-            ->from('ngbm_rule_target');
+        $query->select('DISTINCT nglayouts_rule_target.*')
+            ->from('nglayouts_rule_target');
 
         return $query;
     }
@@ -648,8 +648,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
     private function getConditionSelectQuery(): QueryBuilder
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT ngbm_rule_condition.*')
-            ->from('ngbm_rule_condition');
+        $query->select('DISTINCT nglayouts_rule_condition.*')
+            ->from('nglayouts_rule_condition');
 
         return $query;
     }

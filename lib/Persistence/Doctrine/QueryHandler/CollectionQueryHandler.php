@@ -127,7 +127,7 @@ final class CollectionQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT id')
-            ->from('ngbm_collection_query')
+            ->from('nglayouts_collection_query')
             ->where(
                 $query->expr()->eq('collection_id', ':collection_id')
             )
@@ -170,7 +170,7 @@ final class CollectionQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
-            ->from('ngbm_collection')
+            ->from('nglayouts_collection')
             ->where(
                 $query->expr()->eq('id', ':id')
             )
@@ -189,7 +189,7 @@ final class CollectionQueryHandler extends QueryHandler
     public function createCollection(Collection $collection): Collection
     {
         $query = $this->connection->createQueryBuilder()
-            ->insert('ngbm_collection')
+            ->insert('nglayouts_collection')
             ->values(
                 [
                     'id' => ':id',
@@ -205,7 +205,7 @@ final class CollectionQueryHandler extends QueryHandler
                 'id',
                 $collection->id !== null ?
                     (int) $collection->id :
-                    $this->connectionHelper->getAutoIncrementValue('ngbm_collection')
+                    $this->connectionHelper->getAutoIncrementValue('nglayouts_collection')
             )
             ->setParameter('status', $collection->status, Type::INTEGER)
             ->setParameter('start', $collection->offset, Type::INTEGER)
@@ -216,7 +216,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $query->execute();
 
-        $collection->id = $collection->id ?? (int) $this->connectionHelper->lastInsertId('ngbm_collection');
+        $collection->id = $collection->id ?? (int) $this->connectionHelper->lastInsertId('nglayouts_collection');
 
         return $collection;
     }
@@ -227,7 +227,7 @@ final class CollectionQueryHandler extends QueryHandler
     public function createCollectionTranslation(Collection $collection, string $locale): void
     {
         $query = $this->connection->createQueryBuilder()
-            ->insert('ngbm_collection_translation')
+            ->insert('nglayouts_collection_translation')
             ->values(
                 [
                     'collection_id' => ':collection_id',
@@ -249,7 +249,7 @@ final class CollectionQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query
-            ->update('ngbm_collection')
+            ->update('nglayouts_collection')
             ->set('start', ':start')
             ->set('length', ':length')
             ->set('translatable', ':translatable')
@@ -282,7 +282,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $query = $this->connection->createQueryBuilder();
         $query
-            ->delete('ngbm_block_collection')
+            ->delete('nglayouts_block_collection')
             ->where(
                 $query->expr()->eq('collection_id', ':collection_id')
             )
@@ -297,7 +297,7 @@ final class CollectionQueryHandler extends QueryHandler
         // Then delete the collection itself
 
         $query = $this->connection->createQueryBuilder();
-        $query->delete('ngbm_collection')
+        $query->delete('nglayouts_collection')
             ->where(
                 $query->expr()->eq('id', ':id')
             )
@@ -321,7 +321,7 @@ final class CollectionQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
 
-        $query->delete('ngbm_collection_translation')
+        $query->delete('nglayouts_collection_translation')
             ->where(
                 $query->expr()->eq('collection_id', ':collection_id')
             )
@@ -346,7 +346,7 @@ final class CollectionQueryHandler extends QueryHandler
     public function addItem(Item $item): Item
     {
         $query = $this->connection->createQueryBuilder()
-            ->insert('ngbm_collection_item')
+            ->insert('nglayouts_collection_item')
             ->values(
                 [
                     'id' => ':id',
@@ -362,7 +362,7 @@ final class CollectionQueryHandler extends QueryHandler
                 'id',
                 $item->id !== null ?
                     (int) $item->id :
-                    $this->connectionHelper->getAutoIncrementValue('ngbm_collection_item')
+                    $this->connectionHelper->getAutoIncrementValue('nglayouts_collection_item')
             )
             ->setParameter('status', $item->status, Type::INTEGER)
             ->setParameter('collection_id', $item->collectionId, Type::INTEGER)
@@ -373,7 +373,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $query->execute();
 
-        $item->id = $item->id ?? (int) $this->connectionHelper->lastInsertId('ngbm_collection_item');
+        $item->id = $item->id ?? (int) $this->connectionHelper->lastInsertId('nglayouts_collection_item');
 
         return $item;
     }
@@ -386,7 +386,7 @@ final class CollectionQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder();
 
         $query
-            ->update('ngbm_collection_item')
+            ->update('nglayouts_collection_item')
             ->set('collection_id', ':collection_id')
             ->set('position', ':position')
             ->set('value', ':value')
@@ -417,7 +417,7 @@ final class CollectionQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
 
-        $query->delete('ngbm_collection_item')
+        $query->delete('nglayouts_collection_item')
             ->where(
                 $query->expr()->eq('id', ':id')
             )
@@ -441,7 +441,7 @@ final class CollectionQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
 
-        $query->delete('ngbm_collection_item')
+        $query->delete('nglayouts_collection_item')
             ->where(
                 $query->expr()->eq('collection_id', ':collection_id')
             )
@@ -462,7 +462,7 @@ final class CollectionQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query
-            ->delete('ngbm_collection_item')
+            ->delete('nglayouts_collection_item')
             ->where(
                 $query->expr()->eq('collection_id', ':collection_id')
             )
@@ -481,7 +481,7 @@ final class CollectionQueryHandler extends QueryHandler
     public function createQuery(Query $query): Query
     {
         $dbQuery = $this->connection->createQueryBuilder()
-            ->insert('ngbm_collection_query')
+            ->insert('nglayouts_collection_query')
             ->values(
                 [
                     'id' => ':id',
@@ -494,7 +494,7 @@ final class CollectionQueryHandler extends QueryHandler
                 'id',
                 $query->id !== null ?
                     (int) $query->id :
-                    $this->connectionHelper->getAutoIncrementValue('ngbm_collection_query')
+                    $this->connectionHelper->getAutoIncrementValue('nglayouts_collection_query')
             )
             ->setParameter('status', $query->status, Type::INTEGER)
             ->setParameter('collection_id', $query->collectionId, Type::INTEGER)
@@ -502,7 +502,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $dbQuery->execute();
 
-        $query->id = $query->id ?? (int) $this->connectionHelper->lastInsertId('ngbm_collection_query');
+        $query->id = $query->id ?? (int) $this->connectionHelper->lastInsertId('nglayouts_collection_query');
 
         return $query;
     }
@@ -513,7 +513,7 @@ final class CollectionQueryHandler extends QueryHandler
     public function createQueryTranslation(Query $query, string $locale): void
     {
         $dbQuery = $this->connection->createQueryBuilder()
-            ->insert('ngbm_collection_query_translation')
+            ->insert('nglayouts_collection_query_translation')
             ->values(
                 [
                     'query_id' => ':query_id',
@@ -538,7 +538,7 @@ final class CollectionQueryHandler extends QueryHandler
         $dbQuery = $this->connection->createQueryBuilder();
 
         $dbQuery
-            ->update('ngbm_collection_query_translation')
+            ->update('nglayouts_collection_query_translation')
             ->set('parameters', ':parameters')
             ->where(
                 $dbQuery->expr()->andX(
@@ -562,7 +562,7 @@ final class CollectionQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
 
-        $query->delete('ngbm_collection_query')
+        $query->delete('nglayouts_collection_query')
             ->where(
                 $query->expr()->in('id', [':query_id'])
             )
@@ -582,7 +582,7 @@ final class CollectionQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
 
-        $query->delete('ngbm_collection_query_translation')
+        $query->delete('nglayouts_collection_query_translation')
             ->where(
                 $query->expr()->in('query_id', [':query_id'])
             )
@@ -608,10 +608,10 @@ final class CollectionQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT c.*, ct.*')
-            ->from('ngbm_collection', 'c')
+            ->from('nglayouts_collection', 'c')
             ->innerJoin(
                 'c',
-                'ngbm_collection_translation',
+                'nglayouts_collection_translation',
                 'ct',
                 $query->expr()->andX(
                     $query->expr()->eq('ct.collection_id', 'c.id'),
@@ -628,8 +628,8 @@ final class CollectionQueryHandler extends QueryHandler
     private function getItemSelectQuery(): QueryBuilder
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT ngbm_collection_item.*')
-            ->from('ngbm_collection_item');
+        $query->select('DISTINCT nglayouts_collection_item.*')
+            ->from('nglayouts_collection_item');
 
         return $query;
     }
@@ -641,10 +641,10 @@ final class CollectionQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT q.*, qt.*')
-            ->from('ngbm_collection_query', 'q')
+            ->from('nglayouts_collection_query', 'q')
             ->innerJoin(
                 'q',
-                'ngbm_collection_query_translation',
+                'nglayouts_collection_query_translation',
                 'qt',
                 $query->expr()->andX(
                     $query->expr()->eq('qt.query_id', 'q.id'),

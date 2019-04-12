@@ -250,10 +250,10 @@ final class MigrateQueryOffsetLimitCommand extends Command
         $queryBuilder = $this->connection->createQueryBuilder();
 
         $queryBuilder->select('c.id AS id, c.status AS status, q.type AS type, qt.parameters AS parameters')
-            ->from('ngbm_collection', 'c')
+            ->from('nglayouts_collection', 'c')
             ->innerJoin(
                 'c',
-                'ngbm_collection_query',
+                'nglayouts_collection_query',
                 'q',
                 $queryBuilder->expr()->andX(
                     $queryBuilder->expr()->eq('c.id', 'q.collection_id'),
@@ -262,7 +262,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
             )
             ->innerJoin(
                 'q',
-                'ngbm_collection_query_translation',
+                'nglayouts_collection_query_translation',
                 'qt',
                 $queryBuilder->expr()->andX(
                     $queryBuilder->expr()->eq('q.id', 'qt.query_id'),
@@ -286,7 +286,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
     {
         $queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder
-            ->update('ngbm_collection')
+            ->update('nglayouts_collection')
             ->set('start', ':start')
             ->set('length', ':length')
             ->where(

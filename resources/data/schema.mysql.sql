@@ -16,13 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `ngbm_block`
+-- Table structure for table `nglayouts_block`
 --
 
-DROP TABLE IF EXISTS `ngbm_block`;
+DROP TABLE IF EXISTS `nglayouts_block`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ngbm_block` (
+CREATE TABLE `nglayouts_block` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `layout_id` int(11) NOT NULL,
@@ -43,18 +43,18 @@ CREATE TABLE `ngbm_block` (
   KEY `idx_ngl_layout` (`layout_id`,`status`),
   KEY `idx_ngl_parent_block` (`parent_id`,`placeholder`,`status`),
   CONSTRAINT `fk_ngl_block_layout` FOREIGN KEY (`layout_id`, `status`)
-    REFERENCES `ngbm_layout` (`id`, `status`)
+    REFERENCES `nglayouts_layout` (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `ngbm_block_collection`
+-- Table structure for table `nglayouts_block_collection`
 --
 
-DROP TABLE IF EXISTS `ngbm_block_collection`;
+DROP TABLE IF EXISTS `nglayouts_block_collection`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ngbm_block_collection` (
+CREATE TABLE `nglayouts_block_collection` (
   `block_id` int(11) NOT NULL,
   `block_status` int(11) NOT NULL,
   `identifier` varchar(191) NOT NULL,
@@ -64,38 +64,38 @@ CREATE TABLE `ngbm_block_collection` (
   KEY `idx_ngl_block` (`block_id`,`block_status`),
   KEY `idx_ngl_collection` (`collection_id`,`collection_status`),
   CONSTRAINT `fk_ngl_block_collection_block` FOREIGN KEY (`block_id`, `block_status`)
-    REFERENCES `ngbm_block` (`id`, `status`),
+    REFERENCES `nglayouts_block` (`id`, `status`),
   CONSTRAINT `fk_ngl_block_collection_collection` FOREIGN KEY (`collection_id`, `collection_status`)
-    REFERENCES `ngbm_collection` (`id`, `status`)
+    REFERENCES `nglayouts_collection` (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `ngbm_block_translation`
+-- Table structure for table `nglayouts_block_translation`
 --
 
-DROP TABLE IF EXISTS `ngbm_block_translation`;
+DROP TABLE IF EXISTS `nglayouts_block_translation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ngbm_block_translation` (
+CREATE TABLE `nglayouts_block_translation` (
   `block_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
   `locale` varchar(191) NOT NULL,
   `parameters` text NOT NULL,
   PRIMARY KEY (`block_id`,`status`,`locale`),
   CONSTRAINT `fk_ngl_block_translation_block` FOREIGN KEY (`block_id`, `status`)
-    REFERENCES `ngbm_block` (`id`, `status`)
+    REFERENCES `nglayouts_block` (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `ngbm_collection`
+-- Table structure for table `nglayouts_collection`
 --
 
-DROP TABLE IF EXISTS `ngbm_collection`;
+DROP TABLE IF EXISTS `nglayouts_collection`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ngbm_collection` (
+CREATE TABLE `nglayouts_collection` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `start` int(11) NOT NULL,
@@ -108,13 +108,13 @@ CREATE TABLE `ngbm_collection` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `ngbm_collection_item`
+-- Table structure for table `nglayouts_collection_item`
 --
 
-DROP TABLE IF EXISTS `ngbm_collection_item`;
+DROP TABLE IF EXISTS `nglayouts_collection_item`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ngbm_collection_item` (
+CREATE TABLE `nglayouts_collection_item` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `collection_id` int(11) NOT NULL,
@@ -125,18 +125,18 @@ CREATE TABLE `ngbm_collection_item` (
   PRIMARY KEY (`id`,`status`),
   KEY `idx_ngl_collection` (`collection_id`,`status`),
   CONSTRAINT `fk_ngl_item_collection` FOREIGN KEY (`collection_id`, `status`)
-    REFERENCES `ngbm_collection` (`id`, `status`)
+    REFERENCES `nglayouts_collection` (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `ngbm_collection_query`
+-- Table structure for table `nglayouts_collection_query`
 --
 
-DROP TABLE IF EXISTS `ngbm_collection_query`;
+DROP TABLE IF EXISTS `nglayouts_collection_query`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ngbm_collection_query` (
+CREATE TABLE `nglayouts_collection_query` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `collection_id` int(11) NOT NULL,
@@ -145,53 +145,53 @@ CREATE TABLE `ngbm_collection_query` (
   KEY `idx_ngl_collection` (`collection_id`,`status`),
   KEY `idx_ngl_collection_identifier` (`collection_id`,`status`),
   CONSTRAINT `fk_ngl_query_collection` FOREIGN KEY (`collection_id`, `status`)
-    REFERENCES `ngbm_collection` (`id`, `status`)
+    REFERENCES `nglayouts_collection` (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `ngbm_collection_query_translation`
+-- Table structure for table `nglayouts_collection_query_translation`
 --
 
-DROP TABLE IF EXISTS `ngbm_collection_query_translation`;
+DROP TABLE IF EXISTS `nglayouts_collection_query_translation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ngbm_collection_query_translation` (
+CREATE TABLE `nglayouts_collection_query_translation` (
   `query_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
   `locale` varchar(191) NOT NULL,
   `parameters` text NOT NULL,
   PRIMARY KEY (`query_id`,`status`,`locale`),
   CONSTRAINT `fk_ngl_query_translation_query` FOREIGN KEY (`query_id`, `status`)
-    REFERENCES `ngbm_collection_query` (`id`, `status`)
+    REFERENCES `nglayouts_collection_query` (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `ngbm_collection_translation`
+-- Table structure for table `nglayouts_collection_translation`
 --
 
-DROP TABLE IF EXISTS `ngbm_collection_translation`;
+DROP TABLE IF EXISTS `nglayouts_collection_translation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ngbm_collection_translation` (
+CREATE TABLE `nglayouts_collection_translation` (
   `collection_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
   `locale` varchar(191) NOT NULL,
   PRIMARY KEY (`collection_id`,`status`,`locale`),
   CONSTRAINT `fk_ngl_collection_translation_collection` FOREIGN KEY (`collection_id`, `status`)
-    REFERENCES `ngbm_collection` (`id`, `status`)
+    REFERENCES `nglayouts_collection` (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `ngbm_layout`
+-- Table structure for table `nglayouts_layout`
 --
 
-DROP TABLE IF EXISTS `ngbm_layout`;
+DROP TABLE IF EXISTS `nglayouts_layout`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ngbm_layout` (
+CREATE TABLE `nglayouts_layout` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `type` varchar(191) NOT NULL,
@@ -209,19 +209,19 @@ CREATE TABLE `ngbm_layout` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `ngbm_layout_translation`
+-- Table structure for table `nglayouts_layout_translation`
 --
 
-DROP TABLE IF EXISTS `ngbm_layout_translation`;
+DROP TABLE IF EXISTS `nglayouts_layout_translation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ngbm_layout_translation` (
+CREATE TABLE `nglayouts_layout_translation` (
   `layout_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
   `locale` varchar(191) NOT NULL,
   PRIMARY KEY (`layout_id`,`status`,`locale`),
   CONSTRAINT `fk_ngl_layout_translation_layout` FOREIGN KEY (`layout_id`, `status`)
-    REFERENCES `ngbm_layout` (`id`, `status`)
+    REFERENCES `nglayouts_layout` (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -251,17 +251,18 @@ INSERT INTO `ngbm_migration_versions` VALUES ('001000');
 INSERT INTO `ngbm_migration_versions` VALUES ('001100');
 INSERT INTO `ngbm_migration_versions` VALUES ('001200');
 INSERT INTO `ngbm_migration_versions` VALUES ('001300');
+INSERT INTO `ngbm_migration_versions` VALUES ('010000');
 /*!40000 ALTER TABLE `ngbm_migration_versions` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `ngbm_role`
+-- Table structure for table `nglayouts_role`
 --
 
-DROP TABLE IF EXISTS `ngbm_role`;
+DROP TABLE IF EXISTS `nglayouts_role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ngbm_role` (
+CREATE TABLE `nglayouts_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `name` varchar(191) NOT NULL,
@@ -273,13 +274,13 @@ CREATE TABLE `ngbm_role` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `ngbm_role_policy`
+-- Table structure for table `nglayouts_role_policy`
 --
 
-DROP TABLE IF EXISTS `ngbm_role_policy`;
+DROP TABLE IF EXISTS `nglayouts_role_policy`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ngbm_role_policy` (
+CREATE TABLE `nglayouts_role_policy` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `role_id` int(11) NOT NULL,
@@ -290,18 +291,18 @@ CREATE TABLE `ngbm_role_policy` (
   KEY `idx_ngl_role` (`role_id`,`status`),
   KEY `idx_ngl_policy_component` (`component`),
   KEY `idx_ngl_policy_component_permission` (`component`,`permission`),
-  CONSTRAINT `fk_ngl_policy_role` FOREIGN KEY (`role_id`, `status`) REFERENCES `ngbm_role` (`id`, `status`)
+  CONSTRAINT `fk_ngl_policy_role` FOREIGN KEY (`role_id`, `status`) REFERENCES `nglayouts_role` (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `ngbm_rule`
+-- Table structure for table `nglayouts_rule`
 --
 
-DROP TABLE IF EXISTS `ngbm_rule`;
+DROP TABLE IF EXISTS `nglayouts_rule`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ngbm_rule` (
+CREATE TABLE `nglayouts_rule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `layout_id` int(11) DEFAULT NULL,
@@ -312,13 +313,13 @@ CREATE TABLE `ngbm_rule` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `ngbm_rule_condition`
+-- Table structure for table `nglayouts_rule_condition`
 --
 
-DROP TABLE IF EXISTS `ngbm_rule_condition`;
+DROP TABLE IF EXISTS `nglayouts_rule_condition`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ngbm_rule_condition` (
+CREATE TABLE `nglayouts_rule_condition` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `rule_id` int(11) NOT NULL,
@@ -327,18 +328,18 @@ CREATE TABLE `ngbm_rule_condition` (
   PRIMARY KEY (`id`,`status`),
   KEY `idx_ngl_rule` (`rule_id`,`status`),
   CONSTRAINT `fk_ngl_condition_rule` FOREIGN KEY (`rule_id`, `status`)
-    REFERENCES `ngbm_rule` (`id`, `status`)
+    REFERENCES `nglayouts_rule` (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `ngbm_rule_data`
+-- Table structure for table `nglayouts_rule_data`
 --
 
-DROP TABLE IF EXISTS `ngbm_rule_data`;
+DROP TABLE IF EXISTS `nglayouts_rule_data`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ngbm_rule_data` (
+CREATE TABLE `nglayouts_rule_data` (
   `rule_id` int(11) NOT NULL,
   `enabled` tinyint(1) NOT NULL,
   `priority` int(11) NOT NULL,
@@ -347,13 +348,13 @@ CREATE TABLE `ngbm_rule_data` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `ngbm_rule_target`
+-- Table structure for table `nglayouts_rule_target`
 --
 
-DROP TABLE IF EXISTS `ngbm_rule_target`;
+DROP TABLE IF EXISTS `nglayouts_rule_target`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ngbm_rule_target` (
+CREATE TABLE `nglayouts_rule_target` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `rule_id` int(11) NOT NULL,
@@ -363,18 +364,18 @@ CREATE TABLE `ngbm_rule_target` (
   KEY `idx_ngl_rule` (`rule_id`,`status`),
   KEY `idx_ngl_target_type` (`type`),
   CONSTRAINT `fk_ngl_target_rule` FOREIGN KEY (`rule_id`, `status`)
-    REFERENCES `ngbm_rule` (`id`, `status`)
+    REFERENCES `nglayouts_rule` (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `ngbm_zone`
+-- Table structure for table `nglayouts_zone`
 --
 
-DROP TABLE IF EXISTS `ngbm_zone`;
+DROP TABLE IF EXISTS `nglayouts_zone`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ngbm_zone` (
+CREATE TABLE `nglayouts_zone` (
   `identifier` varchar(191) NOT NULL,
   `layout_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
@@ -386,9 +387,9 @@ CREATE TABLE `ngbm_zone` (
   KEY `idx_ngl_root_block` (`root_block_id`,`status`),
   KEY `idx_ngl_linked_zone` (`linked_layout_id`,`linked_zone_identifier`),
   CONSTRAINT `fk_ngl_zone_block` FOREIGN KEY (`root_block_id`, `status`)
-    REFERENCES `ngbm_block` (`id`, `status`),
+    REFERENCES `nglayouts_block` (`id`, `status`),
   CONSTRAINT `fk_ngl_zone_layout` FOREIGN KEY (`layout_id`, `status`)
-    REFERENCES `ngbm_layout` (`id`, `status`)
+    REFERENCES `nglayouts_layout` (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
