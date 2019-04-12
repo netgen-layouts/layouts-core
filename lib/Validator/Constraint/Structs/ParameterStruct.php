@@ -11,7 +11,7 @@ final class ParameterStruct extends Constraint
     /**
      * @var string
      */
-    public $message = 'netgen_block_manager.parameter_struct.invalid_value';
+    public $message = 'netgen_layouts.parameter_struct.invalid_value';
 
     /**
      * Parameter definition collection used to validate parameter values against.
@@ -29,6 +29,6 @@ final class ParameterStruct extends Constraint
 
     public function validatedBy(): string
     {
-        return 'ngbm_parameter_struct';
+        return 'nglayouts_parameter_struct';
     }
 }

@@ -36,15 +36,15 @@ final class ValidatorFactory implements ConstraintValidatorFactoryInterface
     {
         $name = $constraint->validatedBy();
 
-        if ($name === 'ngbm_block_view_type') {
+        if ($name === 'nglayouts_block_view_type') {
             return new Validator\BlockViewTypeValidator();
         }
 
-        if ($name === 'ngbm_block_item_view_type') {
+        if ($name === 'nglayouts_block_item_view_type') {
             return new Validator\BlockItemViewTypeValidator();
         }
 
-        if ($name === 'ngbm_value_type') {
+        if ($name === 'nglayouts_value_type') {
             $valueTypeRegistry = new ValueTypeRegistry(
                 [
                     'value' => ValueType::fromArray(['isEnabled' => true]),
@@ -55,19 +55,19 @@ final class ValidatorFactory implements ConstraintValidatorFactoryInterface
             return new Validator\ValueTypeValidator($valueTypeRegistry);
         }
 
-        if ($name === 'ngbm_datetime') {
+        if ($name === 'nglayouts_datetime') {
             return new Validator\DateTimeValidator();
         }
 
-        if ($name === 'ngbm_locale') {
+        if ($name === 'nglayouts_locale') {
             return new Validator\LocaleValidator();
         }
 
-        if ($name === 'ngbm_link') {
+        if ($name === 'nglayouts_link') {
             return new Validator\Parameters\LinkValidator();
         }
 
-        if ($name === 'ngbm_item_link') {
+        if ($name === 'nglayouts_item_link') {
             $cmsItemLoader = $this->testCase
                 ->getMockBuilder(CmsItemLoaderInterface::class)
                 ->disableOriginalConstructor()
@@ -76,27 +76,27 @@ final class ValidatorFactory implements ConstraintValidatorFactoryInterface
             return new Validator\Parameters\ItemLinkValidator($cmsItemLoader);
         }
 
-        if ($name === 'ngbm_condition_type_time') {
+        if ($name === 'nglayouts_condition_type_time') {
             return new Validator\ConditionType\TimeValidator();
         }
 
-        if ($name === 'ngbm_parameter_struct') {
+        if ($name === 'nglayouts_parameter_struct') {
             return new Validator\Structs\ParameterStructValidator();
         }
 
-        if ($name === 'ngbm_block_create_struct') {
+        if ($name === 'nglayouts_block_create_struct') {
             return new Validator\Structs\BlockCreateStructValidator();
         }
 
-        if ($name === 'ngbm_block_update_struct') {
+        if ($name === 'nglayouts_block_update_struct') {
             return new Validator\Structs\BlockUpdateStructValidator();
         }
 
-        if ($name === 'ngbm_query_update_struct') {
+        if ($name === 'nglayouts_query_update_struct') {
             return new Validator\Structs\QueryUpdateStructValidator();
         }
 
-        if ($name === 'ngbm_config_aware_struct') {
+        if ($name === 'nglayouts_config_aware_struct') {
             return new Validator\Structs\ConfigAwareStructValidator();
         }
 

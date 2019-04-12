@@ -15,6 +15,6 @@ final class DateTimeTest extends TestCase
     public function testValidatedBy(): void
     {
         $constraint = new DateTime();
-        self::assertSame('ngbm_datetime', $constraint->validatedBy());
+        self::assertSame('nglayouts_datetime', $constraint->validatedBy());
     }
 }

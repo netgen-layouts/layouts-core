@@ -10,6 +10,6 @@ final class QueryUpdateStruct extends Constraint
 {
     public function validatedBy(): string
     {
-        return 'ngbm_query_update_struct';
+        return 'nglayouts_query_update_struct';
     }
 }

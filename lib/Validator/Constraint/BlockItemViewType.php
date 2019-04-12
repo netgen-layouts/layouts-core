@@ -11,12 +11,12 @@ final class BlockItemViewType extends Constraint
     /**
      * @var string
      */
-    public $noViewTypeMessage = 'netgen_block_manager.block_item_view_type.no_view_type';
+    public $noViewTypeMessage = 'netgen_layouts.block_item_view_type.no_view_type';
 
     /**
      * @var string
      */
-    public $message = 'netgen_block_manager.block_item_view_type.no_item_view_type';
+    public $message = 'netgen_layouts.block_item_view_type.no_item_view_type';
 
     /**
      * View type used to check item view type against.
@@ -34,6 +34,6 @@ final class BlockItemViewType extends Constraint
 
     public function validatedBy(): string
     {
-        return 'ngbm_block_item_view_type';
+        return 'nglayouts_block_item_view_type';
     }
 }

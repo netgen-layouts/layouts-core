@@ -11,7 +11,7 @@ final class BlockViewType extends Constraint
     /**
      * @var string
      */
-    public $message = 'netgen_block_manager.block_view_type.no_view_type';
+    public $message = 'netgen_layouts.block_view_type.no_view_type';
 
     /**
      * Block definition used to check the view type against.
@@ -22,6 +22,6 @@ final class BlockViewType extends Constraint
 
     public function validatedBy(): string
     {
-        return 'ngbm_block_view_type';
+        return 'nglayouts_block_view_type';
     }
 }

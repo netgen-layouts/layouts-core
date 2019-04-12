@@ -15,6 +15,6 @@ final class BlockCreateStructTest extends TestCase
     public function testValidatedBy(): void
     {
         $constraint = new BlockCreateStruct();
-        self::assertSame('ngbm_block_create_struct', $constraint->validatedBy());
+        self::assertSame('nglayouts_block_create_struct', $constraint->validatedBy());
     }
 }

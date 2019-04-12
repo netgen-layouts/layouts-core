@@ -11,7 +11,7 @@ final class ConfigAwareStruct extends Constraint
     /**
      * @var string
      */
-    public $noConfigDefinitionMessage = 'netgen_block_manager.config_aware_struct.missing_definition';
+    public $noConfigDefinitionMessage = 'netgen_layouts.config_aware_struct.missing_definition';
 
     /**
      * If true, missing parameters will pass validation (e.g. when updating the value).
@@ -22,6 +22,6 @@ final class ConfigAwareStruct extends Constraint
 
     public function validatedBy(): string
     {
-        return 'ngbm_config_aware_struct';
+        return 'nglayouts_config_aware_struct';
     }
 }

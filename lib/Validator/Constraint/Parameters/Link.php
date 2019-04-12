@@ -32,6 +32,6 @@ final class Link extends Constraint
 
     public function validatedBy(): string
     {
-        return 'ngbm_link';
+        return 'nglayouts_link';
     }
 }

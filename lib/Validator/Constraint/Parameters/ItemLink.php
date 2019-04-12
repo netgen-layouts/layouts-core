@@ -11,17 +11,17 @@ final class ItemLink extends Constraint
     /**
      * @var string
      */
-    public $message = 'netgen_block_manager.item_link.no_item';
+    public $message = 'netgen_layouts.item_link.no_item';
 
     /**
      * @var string
      */
-    public $invalidItemMessage = 'netgen_block_manager.item_link.invalid_item';
+    public $invalidItemMessage = 'netgen_layouts.item_link.invalid_item';
 
     /**
      * @var string
      */
-    public $valueTypeNotAllowedMessage = 'netgen_block_manager.item_link.value_type_not_allowed';
+    public $valueTypeNotAllowedMessage = 'netgen_layouts.item_link.value_type_not_allowed';
 
     /**
      * If set to true, the constraint will accept values for invalid or non existing items.
@@ -39,6 +39,6 @@ final class ItemLink extends Constraint
 
     public function validatedBy(): string
     {
-        return 'ngbm_item_link';
+        return 'nglayouts_item_link';
     }
 }

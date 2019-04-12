@@ -10,6 +10,6 @@ final class BlockCreateStruct extends Constraint
 {
     public function validatedBy(): string
     {
-        return 'ngbm_block_create_struct';
+        return 'nglayouts_block_create_struct';
     }
 }

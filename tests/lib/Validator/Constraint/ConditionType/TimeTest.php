@@ -15,6 +15,6 @@ final class TimeTest extends TestCase
     public function testValidatedBy(): void
     {
         $constraint = new Time();
-        self::assertSame('ngbm_condition_type_time', $constraint->validatedBy());
+        self::assertSame('nglayouts_condition_type_time', $constraint->validatedBy());
     }
 }

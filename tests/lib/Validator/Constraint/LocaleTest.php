@@ -15,6 +15,6 @@ final class LocaleTest extends TestCase
     public function testValidatedBy(): void
     {
         $constraint = new Locale();
-        self::assertSame('ngbm_locale', $constraint->validatedBy());
+        self::assertSame('nglayouts_locale', $constraint->validatedBy());
     }
 }
