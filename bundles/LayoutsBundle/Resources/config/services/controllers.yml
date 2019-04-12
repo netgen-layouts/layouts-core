@@ -14,10 +14,6 @@ services:
         arguments:
             - "@netgen_layouts.error.handler"
 
-    nglayouts_ajax_block:
-        alias: netgen_layouts.controller.block.view_ajax_block
-        public: true
-
     # API controllers
 
     ## Config controllers

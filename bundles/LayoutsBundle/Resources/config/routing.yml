@@ -12,7 +12,7 @@ nglayouts_ajax_block:
     path: /ajax/block/{blockId}/{locale}/{collectionIdentifier}
     methods: [GET]
     defaults:
-        _controller: 'nglayouts_ajax_block'
+        _controller: 'netgen_layouts.controller.block.view_ajax_block'
         _nglayouts_status: published
 
 nglayouts_root:
