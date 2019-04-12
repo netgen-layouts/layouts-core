@@ -5,18 +5,18 @@ services:
             - "@netgen_block_manager.collection.registry.query_type"
             - "@database_connection"
         tags:
-            - { name: console.command, command: ngbm:migration:query_offset_limit }
+            - { name: console.command, command: nglayouts:migration:query_offset_limit }
 
     netgen_block_manager.command.export:
         class: Netgen\Bundle\LayoutsBundle\Command\ExportCommand
         arguments:
             - "@netgen_block_manager.transfer.serializer"
         tags:
-            - { name: console.command, command: ngbm:export }
+            - { name: console.command, command: nglayouts:export }
 
     netgen_block_manager.command.import:
         class: Netgen\Bundle\LayoutsBundle\Command\ImportCommand
         arguments:
             - "@netgen_block_manager.transfer.input.importer"
         tags:
-            - { name: console.command, command: ngbm:import }
+            - { name: console.command, command: nglayouts:import }
