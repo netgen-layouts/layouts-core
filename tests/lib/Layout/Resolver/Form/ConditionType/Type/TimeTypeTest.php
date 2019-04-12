@@ -57,7 +57,7 @@ final class TimeTypeTest extends FormTestCase
      */
     public function testGetBlockPrefix(): void
     {
-        self::assertSame('ngbm_condition_type_time', $this->formType->getBlockPrefix());
+        self::assertSame('nglayouts_condition_type_time', $this->formType->getBlockPrefix());
     }
 
     protected function getMainType(): FormTypeInterface

@@ -141,6 +141,6 @@ final class LinkType extends AbstractType
 
     public function getBlockPrefix(): string
     {
-        return 'ngbm_link';
+        return 'nglayouts_link';
     }
 }

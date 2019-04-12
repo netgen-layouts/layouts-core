@@ -30,7 +30,7 @@
     <input type="range" {{ block('widget_attributes') }} {% if value is not empty %} value="{{ value }}" {% endif %} />
 {%- endblock range_widget -%}
 
-{%- block ngbm_key_values_widget -%}
+{%- block nglayouts_key_values_widget -%}
     {% macro prototype(form) %}
         <div class="multientry-item">
             {{ form_widget(form) }}
@@ -63,9 +63,9 @@
 
         <a href="#" class="nl-btn nl-btn-link multientry_add">Add value</a>
     </div>
-{%- endblock ngbm_key_values_widget -%}
+{%- endblock nglayouts_key_values_widget -%}
 
-{%- block ngbm_link_widget -%}
+{%- block nglayouts_link_widget -%}
     <div {{ block('widget_container_attributes') }} class="js-dependable-selects-group">
         <div class="js-master">
             {{ form_row(form.children.link_type) }}
@@ -91,9 +91,9 @@
         {{ form_row(form.children.link_suffix) }}
         {{ form_row(form.children.new_window) }}
     </div>
-{%- endblock ngbm_link_widget -%}
+{%- endblock nglayouts_link_widget -%}
 
-{%- block ngbm_datetime_widget -%}
+{%- block nglayouts_datetime_widget -%}
     <div {{ block('widget_container_attributes') }}>
         <div class="row">
             <div class="col-md-7">
@@ -113,9 +113,9 @@
             </div>
         </div>
     </div>
-{%- endblock ngbm_datetime_widget -%}
+{%- endblock nglayouts_datetime_widget -%}
 
-{%- block ngbm_compound_boolean_row -%}
+{%- block nglayouts_compound_boolean_row -%}
 <div>
     <div
         data-compound-checkbox="true"
@@ -133,4 +133,4 @@
         </div>
     </div>
 </div>
-{%- endblock ngbm_compound_boolean_row -%}
+{%- endblock nglayouts_compound_boolean_row -%}

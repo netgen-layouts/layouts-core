@@ -289,7 +289,7 @@ final class LinkTypeTest extends FormTestCase
      */
     public function testGetBlockPrefix(): void
     {
-        self::assertSame('ngbm_link', $this->formType->getBlockPrefix());
+        self::assertSame('nglayouts_link', $this->formType->getBlockPrefix());
     }
 
     protected function getMainType(): FormTypeInterface

@@ -125,7 +125,7 @@ final class KeyValuesTypeTest extends FormTestCase
      */
     public function testGetBlockPrefix(): void
     {
-        self::assertSame('ngbm_key_values', $this->formType->getBlockPrefix());
+        self::assertSame('nglayouts_key_values', $this->formType->getBlockPrefix());
     }
 
     protected function getMainType(): FormTypeInterface

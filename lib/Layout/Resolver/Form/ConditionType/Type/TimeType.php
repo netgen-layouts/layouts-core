@@ -35,6 +35,6 @@ final class TimeType extends AbstractType
 
     public function getBlockPrefix(): string
     {
-        return 'ngbm_condition_type_time';
+        return 'nglayouts_condition_type_time';
     }
 }

@@ -131,7 +131,7 @@ final class DateTimeTypeTest extends FormTestCase
      */
     public function testGetBlockPrefix(): void
     {
-        self::assertSame('ngbm_datetime', $this->formType->getBlockPrefix());
+        self::assertSame('nglayouts_datetime', $this->formType->getBlockPrefix());
     }
 
     protected function getMainType(): FormTypeInterface

@@ -61,7 +61,7 @@ final class DateTimeType extends AbstractType
 
     public function getBlockPrefix(): string
     {
-        return 'ngbm_datetime';
+        return 'nglayouts_datetime';
     }
 
     /**

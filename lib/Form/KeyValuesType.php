@@ -89,6 +89,6 @@ final class KeyValuesType extends AbstractType
 
     public function getBlockPrefix(): string
     {
-        return 'ngbm_key_values';
+        return 'nglayouts_key_values';
     }
 }

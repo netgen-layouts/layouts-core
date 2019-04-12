@@ -77,6 +77,6 @@ final class CompoundBooleanType extends AbstractType
 
     public function getBlockPrefix(): string
     {
-        return 'ngbm_compound_boolean';
+        return 'nglayouts_compound_boolean';
     }
 }

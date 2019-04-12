@@ -366,7 +366,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
      */
     public function testGetBlockPrefix(): void
     {
-        self::assertSame('ngbm_compound_boolean', $this->formType->getBlockPrefix());
+        self::assertSame('nglayouts_compound_boolean', $this->formType->getBlockPrefix());
     }
 
     protected function getMainType(): FormTypeInterface
