@@ -55,11 +55,9 @@ final class ThemePass implements CompilerPassInterface
 
         $paths = array_values(array_filter($paths, 'is_dir'));
 
-        if ($container->hasParameter('twig.default_path')) {
-            $defaultTwigDir = $container->getParameterBag()->resolveValue($container->getParameter('twig.default_path')) . '/ngbm/themes';
-            if (is_dir($defaultTwigDir)) {
-                array_unshift($paths, $defaultTwigDir);
-            }
+        $defaultTwigDir = $container->getParameterBag()->resolveValue($container->getParameter('twig.default_path')) . '/ngbm/themes';
+        if (is_dir($defaultTwigDir)) {
+            array_unshift($paths, $defaultTwigDir);
         }
 
         $appDir = $this->getAppDir($container) . '/Resources/views/ngbm/themes';
