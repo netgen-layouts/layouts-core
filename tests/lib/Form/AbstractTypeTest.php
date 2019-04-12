@@ -22,7 +22,7 @@ final class AbstractTypeTest extends FormTestCase
         $resolvedOptions = $optionsResolver->resolve([]);
 
         self::assertSame(
-            'ngbm_forms',
+            'nglayouts_forms',
             $resolvedOptions['translation_domain']
         );
     }

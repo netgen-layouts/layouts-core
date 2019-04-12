@@ -223,7 +223,7 @@ final class LinkTypeTest extends FormTestCase
 
         self::assertSame(
             [
-                'translation_domain' => 'ngbm_forms',
+                'translation_domain' => 'nglayouts_forms',
                 'value_types' => ['value'],
             ],
             $resolvedOptions
@@ -258,7 +258,7 @@ final class LinkTypeTest extends FormTestCase
 
         self::assertSame(
             [
-                'translation_domain' => 'ngbm_forms',
+                'translation_domain' => 'nglayouts_forms',
                 'value_types' => [],
             ],
             $resolvedOptions

@@ -2,7 +2,7 @@
 
 {% form_theme form '@NetgenLayoutsAdmin/form/theme/nglayouts.html.twig' %}
 
-{% trans_default_domain 'ngbm_forms' %}
+{% trans_default_domain 'nglayouts_forms' %}
 
 {% block children %}
     <p>{{ ('layout_resolver.condition.' ~ form.vars.condition_type.type)|trans({}, 'ngbm') }}</p>

@@ -124,7 +124,7 @@ final class CollectionEditTypeTest extends FormTestCase
 
         self::assertSame($this->collection, $options['collection']);
         self::assertSame($struct, $options['data']);
-        self::assertSame('ngbm_forms', $options['translation_domain']);
+        self::assertSame('nglayouts_forms', $options['translation_domain']);
     }
 
     /**

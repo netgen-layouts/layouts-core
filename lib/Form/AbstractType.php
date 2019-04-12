@@ -15,6 +15,6 @@ abstract class AbstractType extends BaseAbstractType
 {
     public function configureOptions(OptionsResolver $resolver): void
     {
-        $resolver->setDefault('translation_domain', 'ngbm_forms');
+        $resolver->setDefault('translation_domain', 'nglayouts_forms');
     }
 }
