@@ -8,6 +8,6 @@ default_view_templates:
     parameter_view:
         default: '@NetgenLayouts/parameter/parameter.html.twig'
     placeholder_view:
-        default: '@ngbm/placeholder/placeholder.html.twig'
+        default: '@nglayouts/placeholder/placeholder.html.twig'
     zone_view:
-        default: '@ngbm/zone/zone.html.twig'
+        default: '@nglayouts/zone/zone.html.twig'

@@ -51,15 +51,15 @@ final class FilesystemLoaderTest extends TestCase
      */
     public function testGetSourceContext(): void
     {
-        $source = new Source('', '@ngbm_test/template.html.twig');
+        $source = new Source('', '@nglayouts_test/template.html.twig');
 
         $this->innerLoaderMock
             ->expects(self::once())
             ->method('getSourceContext')
-            ->with(self::identicalTo('@ngbm_test/template.html.twig'))
+            ->with(self::identicalTo('@nglayouts_test/template.html.twig'))
             ->willReturn($source);
 
-        $sourceContext = $this->loader->getSourceContext('@ngbm/template.html.twig');
+        $sourceContext = $this->loader->getSourceContext('@nglayouts/template.html.twig');
 
         self::assertSame($source, $sourceContext);
     }
@@ -92,10 +92,10 @@ final class FilesystemLoaderTest extends TestCase
         $this->innerLoaderMock
             ->expects(self::once())
             ->method('getCacheKey')
-            ->with(self::identicalTo('@ngbm_test/template.html.twig'))
+            ->with(self::identicalTo('@nglayouts_test/template.html.twig'))
             ->willReturn('cache_key');
 
-        $cacheKey = $this->loader->getCacheKey('@ngbm/template.html.twig');
+        $cacheKey = $this->loader->getCacheKey('@nglayouts/template.html.twig');
 
         self::assertSame('cache_key', $cacheKey);
     }
@@ -126,10 +126,10 @@ final class FilesystemLoaderTest extends TestCase
         $this->innerLoaderMock
             ->expects(self::once())
             ->method('isFresh')
-            ->with(self::identicalTo('@ngbm_test/template.html.twig'), self::identicalTo(42))
+            ->with(self::identicalTo('@nglayouts_test/template.html.twig'), self::identicalTo(42))
             ->willReturn(true);
 
-        self::assertTrue($this->loader->isFresh('@ngbm/template.html.twig', 42));
+        self::assertTrue($this->loader->isFresh('@nglayouts/template.html.twig', 42));
     }
 
     /**
@@ -156,10 +156,10 @@ final class FilesystemLoaderTest extends TestCase
         $this->innerLoaderMock
             ->expects(self::once())
             ->method('exists')
-            ->with(self::identicalTo('@ngbm_test/template.html.twig'))
+            ->with(self::identicalTo('@nglayouts_test/template.html.twig'))
             ->willReturn(true);
 
-        self::assertTrue($this->loader->exists('@ngbm/template.html.twig'));
+        self::assertTrue($this->loader->exists('@nglayouts/template.html.twig'));
     }
 
     /**

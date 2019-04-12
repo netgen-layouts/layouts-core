@@ -14,15 +14,15 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
 {
     public function setUp(): void
     {
-        @mkdir('/tmp/nglayouts/templates/ngbm/themes/theme2', 0777, true);
-        @mkdir('/tmp/nglayouts/templates/ngbm/themes/theme3', 0777, true);
-        @mkdir('/tmp/nglayouts/app/Resources/views/ngbm/themes/theme3', 0777, true);
-        @mkdir('/tmp/nglayouts/app/Resources/views/ngbm/themes/standard', 0777, true);
-        @mkdir('/tmp/nglayouts/bundles/first/Resources/views/ngbm/themes/theme1', 0777, true);
-        @mkdir('/tmp/nglayouts/bundles/first/Resources/views/ngbm/themes/theme3', 0777, true);
-        @mkdir('/tmp/nglayouts/bundles/second/Resources/views/ngbm/themes/theme1', 0777, true);
-        @mkdir('/tmp/nglayouts/bundles/second/Resources/views/ngbm/themes/theme2', 0777, true);
-        @mkdir('/tmp/nglayouts/bundles/second/Resources/views/ngbm/themes/standard', 0777, true);
+        @mkdir('/tmp/nglayouts/templates/nglayouts/themes/theme2', 0777, true);
+        @mkdir('/tmp/nglayouts/templates/nglayouts/themes/theme3', 0777, true);
+        @mkdir('/tmp/nglayouts/app/Resources/views/nglayouts/themes/theme3', 0777, true);
+        @mkdir('/tmp/nglayouts/app/Resources/views/nglayouts/themes/standard', 0777, true);
+        @mkdir('/tmp/nglayouts/bundles/first/Resources/views/nglayouts/themes/theme1', 0777, true);
+        @mkdir('/tmp/nglayouts/bundles/first/Resources/views/nglayouts/themes/theme3', 0777, true);
+        @mkdir('/tmp/nglayouts/bundles/second/Resources/views/nglayouts/themes/theme1', 0777, true);
+        @mkdir('/tmp/nglayouts/bundles/second/Resources/views/nglayouts/themes/theme2', 0777, true);
+        @mkdir('/tmp/nglayouts/bundles/second/Resources/views/nglayouts/themes/standard', 0777, true);
 
         parent::setUp();
     }
@@ -62,21 +62,21 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
 
         $themeDirs = [
             'theme1' => [
-                '/tmp/nglayouts/bundles/second/Resources/views/ngbm/themes/theme1',
-                '/tmp/nglayouts/bundles/first/Resources/views/ngbm/themes/theme1',
+                '/tmp/nglayouts/bundles/second/Resources/views/nglayouts/themes/theme1',
+                '/tmp/nglayouts/bundles/first/Resources/views/nglayouts/themes/theme1',
             ],
             'theme2' => [
-                '/tmp/nglayouts/templates/ngbm/themes/theme2',
-                '/tmp/nglayouts/bundles/second/Resources/views/ngbm/themes/theme2',
+                '/tmp/nglayouts/templates/nglayouts/themes/theme2',
+                '/tmp/nglayouts/bundles/second/Resources/views/nglayouts/themes/theme2',
             ],
             'theme3' => [
-                '/tmp/nglayouts/app/Resources/views/ngbm/themes/theme3',
-                '/tmp/nglayouts/templates/ngbm/themes/theme3',
-                '/tmp/nglayouts/bundles/first/Resources/views/ngbm/themes/theme3',
+                '/tmp/nglayouts/app/Resources/views/nglayouts/themes/theme3',
+                '/tmp/nglayouts/templates/nglayouts/themes/theme3',
+                '/tmp/nglayouts/bundles/first/Resources/views/nglayouts/themes/theme3',
             ],
             'standard' => [
-                '/tmp/nglayouts/app/Resources/views/ngbm/themes/standard',
-                '/tmp/nglayouts/bundles/second/Resources/views/ngbm/themes/standard',
+                '/tmp/nglayouts/app/Resources/views/nglayouts/themes/standard',
+                '/tmp/nglayouts/bundles/second/Resources/views/nglayouts/themes/standard',
             ],
         ];
 
@@ -87,7 +87,7 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
                     $this->assertContainerBuilderHasServiceDefinitionWithMethodCall(
                         'twig.loader.native_filesystem',
                         'addPath',
-                        [$themeDir, 'ngbm_' . $designName],
+                        [$themeDir, 'nglayouts_' . $designName],
                         ++$index
                     );
                 }

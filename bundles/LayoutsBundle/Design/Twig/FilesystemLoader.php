@@ -52,19 +52,19 @@ final class FilesystemLoader implements LoaderInterface
     }
 
     /**
-     * Returns the name of the template converted from the virtual Twig namespace ("@ngbm")
+     * Returns the name of the template converted from the virtual Twig namespace ("@nglayouts")
      * to the real currently defined design name.
      */
     private function getRealName(string $name): string
     {
-        if (mb_strpos($name, '@ngbm/') !== 0) {
+        if (mb_strpos($name, '@nglayouts/') !== 0) {
             return $name;
         }
 
         if (!isset($this->templateMap[$name])) {
             $this->templateMap[$name] = str_replace(
-                '@ngbm/',
-                '@ngbm_' . $this->configuration->getParameter('design') . '/',
+                '@nglayouts/',
+                '@nglayouts_' . $this->configuration->getParameter('design') . '/',
                 $name
             );
         }

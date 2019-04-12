@@ -32,7 +32,7 @@ final class ThemePass implements CompilerPassInterface
                     $container->addResource(new FileExistenceResource($themeDir));
 
                     if (is_dir($themeDir)) {
-                        $twigLoader->addMethodCall('addPath', [$themeDir, 'ngbm_' . $designName]);
+                        $twigLoader->addMethodCall('addPath', [$themeDir, 'nglayouts_' . $designName]);
                     }
                 }
             }
@@ -46,7 +46,7 @@ final class ThemePass implements CompilerPassInterface
     {
         $paths = array_map(
             static function (array $bundleMetadata): string {
-                return $bundleMetadata['path'] . '/Resources/views/ngbm/themes';
+                return $bundleMetadata['path'] . '/Resources/views/nglayouts/themes';
             },
             // Reversing the list of bundles so bundles added at end have higher priority
             // when searching for a template
@@ -55,12 +55,12 @@ final class ThemePass implements CompilerPassInterface
 
         $paths = array_values(array_filter($paths, 'is_dir'));
 
-        $defaultTwigDir = $container->getParameterBag()->resolveValue($container->getParameter('twig.default_path')) . '/ngbm/themes';
+        $defaultTwigDir = $container->getParameterBag()->resolveValue($container->getParameter('twig.default_path')) . '/nglayouts/themes';
         if (is_dir($defaultTwigDir)) {
             array_unshift($paths, $defaultTwigDir);
         }
 
-        $appDir = $this->getAppDir($container) . '/Resources/views/ngbm/themes';
+        $appDir = $this->getAppDir($container) . '/Resources/views/nglayouts/themes';
         if (is_dir($appDir)) {
             array_unshift($paths, $appDir);
         }
