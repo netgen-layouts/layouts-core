@@ -1,7 +1,7 @@
-item_types.ngbm_layout: 'Layout'
+item_types.layout: 'Layout'
 
-columns.ngbm_layout.layout_id: 'Layout ID'
-columns.ngbm_layout.type: 'Type'
-columns.ngbm_layout.created: 'Created'
-columns.ngbm_layout.modified: 'Modified'
-columns.ngbm_layout.shared: 'Shared'
+columns.layout.layout_id: 'Layout ID'
+columns.layout.type: 'Type'
+columns.layout.created: 'Created'
+columns.layout.modified: 'Modified'
+columns.layout.shared: 'Shared'

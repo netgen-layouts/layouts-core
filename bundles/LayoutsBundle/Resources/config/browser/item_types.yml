@@ -1,6 +1,6 @@
 item_types:
-    ngbm_layout:
-        name: item_types.ngbm_layout
+    layout:
+        name: item_types.layout
         tree:
             enabled: false
         search:
@@ -12,20 +12,20 @@ item_types:
                 name: columns.name
                 value_provider: name
             layout_id:
-                name: columns.ngbm_layout.layout_id
-                value_provider: ngbm_layout\layout_id
+                name: columns.layout.layout_id
+                value_provider: layout\layout_id
             type:
-                name: columns.ngbm_layout.type
-                value_provider: ngbm_layout\type
+                name: columns.layout.type
+                value_provider: layout\type
             created:
-                name: columns.ngbm_layout.created
-                value_provider: ngbm_layout\created
+                name: columns.layout.created
+                value_provider: layout\created
             modified:
-                name: columns.ngbm_layout.modified
-                value_provider: ngbm_layout\modified
+                name: columns.layout.modified
+                value_provider: layout\modified
             shared:
-                name: columns.ngbm_layout.shared
-                value_provider: ngbm_layout\shared
+                name: columns.layout.shared
+                value_provider: layout\shared
         default_columns:
             - name
             - type

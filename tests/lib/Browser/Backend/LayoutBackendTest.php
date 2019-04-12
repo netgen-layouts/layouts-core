@@ -34,7 +34,7 @@ final class LayoutBackendTest extends TestCase
 
         $this->backend = new LayoutBackend(
             $this->layoutServiceMock,
-            new Configuration('ngbm_layout', 'Layout', [])
+            new Configuration('layout', 'Layout', [])
         );
     }
 
