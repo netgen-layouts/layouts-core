@@ -226,33 +226,33 @@ CREATE TABLE `nglayouts_layout_translation` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `ngbm_migration_versions`
+-- Table structure for table `nglayouts_migration_versions`
 --
 
-DROP TABLE IF EXISTS `ngbm_migration_versions`;
+DROP TABLE IF EXISTS `nglayouts_migration_versions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8mb4 */;
-CREATE TABLE `ngbm_migration_versions` (
+CREATE TABLE `nglayouts_migration_versions` (
   `version` varchar(191) NOT NULL,
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `ngbm_migration_versions`
+-- Dumping data for table `nglayouts_migration_versions`
 --
 
-LOCK TABLES `ngbm_migration_versions` WRITE;
-/*!40000 ALTER TABLE `ngbm_migration_versions` DISABLE KEYS */;
-INSERT INTO `ngbm_migration_versions` VALUES ('000700');
-INSERT INTO `ngbm_migration_versions` VALUES ('000800');
-INSERT INTO `ngbm_migration_versions` VALUES ('000900');
-INSERT INTO `ngbm_migration_versions` VALUES ('001000');
-INSERT INTO `ngbm_migration_versions` VALUES ('001100');
-INSERT INTO `ngbm_migration_versions` VALUES ('001200');
-INSERT INTO `ngbm_migration_versions` VALUES ('001300');
-INSERT INTO `ngbm_migration_versions` VALUES ('010000');
-/*!40000 ALTER TABLE `ngbm_migration_versions` ENABLE KEYS */;
+LOCK TABLES `nglayouts_migration_versions` WRITE;
+/*!40000 ALTER TABLE `nglayouts_migration_versions` DISABLE KEYS */;
+INSERT INTO `nglayouts_migration_versions` VALUES ('000700');
+INSERT INTO `nglayouts_migration_versions` VALUES ('000800');
+INSERT INTO `nglayouts_migration_versions` VALUES ('000900');
+INSERT INTO `nglayouts_migration_versions` VALUES ('001000');
+INSERT INTO `nglayouts_migration_versions` VALUES ('001100');
+INSERT INTO `nglayouts_migration_versions` VALUES ('001200');
+INSERT INTO `nglayouts_migration_versions` VALUES ('001300');
+INSERT INTO `nglayouts_migration_versions` VALUES ('010000');
+/*!40000 ALTER TABLE `nglayouts_migration_versions` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
