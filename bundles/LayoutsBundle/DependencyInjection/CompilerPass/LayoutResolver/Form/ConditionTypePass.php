@@ -13,7 +13,7 @@ final class ConditionTypePass implements CompilerPassInterface
 {
     use DefinitionClassTrait;
 
-    private const SERVICE_NAME = 'netgen_block_manager.layout.resolver.form.condition_type';
+    private const SERVICE_NAME = 'netgen_layouts.layout.resolver.form.condition_type';
     private const TAG_NAME = 'netgen_block_manager.layout.resolver.form.condition_type.mapper';
 
     public function process(ContainerBuilder $container): void

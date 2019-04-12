@@ -6,173 +6,173 @@ services:
     netgen_layouts.controller.admin.layout_resolver.index:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\Index
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout_resolver"
+            - "@netgen_layouts.api.service.layout_resolver"
 
     netgen_layouts.controller.admin.layout_resolver.create_rule:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\CreateRule
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout_resolver"
+            - "@netgen_layouts.api.service.layout_resolver"
 
     netgen_layouts.controller.admin.layout_resolver.update_rule_priorities:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\UpdateRulePriorities
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout_resolver"
+            - "@netgen_layouts.api.service.layout_resolver"
         calls:
             - [setValidator, ["@validator"]]
 
     netgen_layouts.controller.admin.layout_resolver.update_rule:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\UpdateRule
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout_resolver"
-            - "@netgen_block_manager.api.service.layout"
+            - "@netgen_layouts.api.service.layout_resolver"
+            - "@netgen_layouts.api.service.layout"
 
     netgen_layouts.controller.admin.layout_resolver.enable_rule:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\EnableRule
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout_resolver"
+            - "@netgen_layouts.api.service.layout_resolver"
 
     netgen_layouts.controller.admin.layout_resolver.disable_rule:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\DisableRule
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout_resolver"
+            - "@netgen_layouts.api.service.layout_resolver"
 
     netgen_layouts.controller.admin.layout_resolver.create_rule_draft:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\CreateRuleDraft
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout_resolver"
+            - "@netgen_layouts.api.service.layout_resolver"
 
     netgen_layouts.controller.admin.layout_resolver.discard_rule_draft:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\DiscardRuleDraft
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout_resolver"
+            - "@netgen_layouts.api.service.layout_resolver"
 
     netgen_layouts.controller.admin.layout_resolver.publish_rule_draft:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\PublishRuleDraft
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout_resolver"
+            - "@netgen_layouts.api.service.layout_resolver"
 
     netgen_layouts.controller.admin.layout_resolver.delete_rule:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\DeleteRule
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout_resolver"
+            - "@netgen_layouts.api.service.layout_resolver"
 
     netgen_layouts.controller.admin.layout_resolver.create_target_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\CreateTargetForm
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout_resolver"
-            - "@netgen_block_manager.layout.resolver.registry.target_type"
+            - "@netgen_layouts.api.service.layout_resolver"
+            - "@netgen_layouts.layout.resolver.registry.target_type"
 
     netgen_layouts.controller.admin.layout_resolver.edit_target_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\EditTargetForm
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout_resolver"
+            - "@netgen_layouts.api.service.layout_resolver"
 
     netgen_layouts.controller.admin.layout_resolver.delete_target:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\DeleteTarget
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout_resolver"
+            - "@netgen_layouts.api.service.layout_resolver"
 
     netgen_layouts.controller.admin.layout_resolver.create_condition_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\CreateConditionForm
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout_resolver"
-            - "@netgen_block_manager.layout.resolver.registry.condition_type"
+            - "@netgen_layouts.api.service.layout_resolver"
+            - "@netgen_layouts.layout.resolver.registry.condition_type"
 
     netgen_layouts.controller.admin.layout_resolver.edit_condition_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\EditConditionForm
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout_resolver"
+            - "@netgen_layouts.api.service.layout_resolver"
 
     netgen_layouts.controller.admin.layout_resolver.delete_condition:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\DeleteCondition
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout_resolver"
+            - "@netgen_layouts.api.service.layout_resolver"
 
     ## Layouts controllers
 
     netgen_layouts.controller.admin.layouts.index:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\Layouts\Index
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout"
+            - "@netgen_layouts.api.service.layout"
 
     netgen_layouts.controller.admin.layouts.copy_layout_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\Layouts\CopyLayoutForm
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout"
+            - "@netgen_layouts.api.service.layout"
 
     netgen_layouts.controller.admin.layouts.export_layouts:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\Layouts\ExportLayouts
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.transfer.serializer"
+            - "@netgen_layouts.transfer.serializer"
 
     netgen_layouts.controller.admin.layouts.delete_layout:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\Layouts\DeleteLayout
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout"
+            - "@netgen_layouts.api.service.layout"
 
     netgen_layouts.controller.admin.layouts.clear_layout_cache:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\Layouts\ClearLayoutCache
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.http_cache.client"
+            - "@netgen_layouts.http_cache.client"
 
     ## Shared layouts controllers
 
     netgen_layouts.controller.admin.shared_layouts.index:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\SharedLayouts\Index
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout"
+            - "@netgen_layouts.api.service.layout"
 
     netgen_layouts.controller.admin.shared_layouts.clear_related_layouts_cache:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\SharedLayouts\ClearRelatedLayoutsCache
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout"
-            - "@netgen_block_manager.http_cache.client"
+            - "@netgen_layouts.api.service.layout"
+            - "@netgen_layouts.http_cache.client"
 
     # App controllers
 
@@ -181,7 +181,7 @@ services:
     netgen_layouts.controller.app.index:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\App\Index
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
             - "%netgen_layouts.app.pagelayout%"
 
@@ -190,58 +190,58 @@ services:
     netgen_layouts.controller.app.layout.create_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\App\Layout\CreateForm
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout"
-            - "@netgen_block_manager.locale.provider"
+            - "@netgen_layouts.api.service.layout"
+            - "@netgen_layouts.locale.provider"
 
     netgen_layouts.controller.app.layout.edit_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\App\Layout\EditForm
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout"
+            - "@netgen_layouts.api.service.layout"
 
     ## Block controllers
 
     netgen_layouts.controller.app.block.edit:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\App\Block\Edit
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
 
     netgen_layouts.controller.app.block.edit_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\App\Block\EditForm
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.block"
+            - "@netgen_layouts.api.service.block"
 
     netgen_layouts.controller.app.block.edit_config_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\App\Block\EditConfigForm
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.block"
+            - "@netgen_layouts.api.service.block"
 
     ## Collection controllers
 
     netgen_layouts.controller.app.collection.edit_collection_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\App\Collection\EditCollectionForm
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.collection"
+            - "@netgen_layouts.api.service.collection"
 
     netgen_layouts.controller.app.collection.edit_item_config_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\App\Collection\EditItemConfigForm
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.collection"
+            - "@netgen_layouts.api.service.collection"
 
     netgen_layouts.controller.app.collection.edit_query_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\App\Collection\EditQueryForm
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.collection"
+            - "@netgen_layouts.api.service.collection"

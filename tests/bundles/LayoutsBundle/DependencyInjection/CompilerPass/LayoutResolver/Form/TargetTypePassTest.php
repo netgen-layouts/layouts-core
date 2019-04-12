@@ -20,19 +20,19 @@ final class TargetTypePassTest extends AbstractCompilerPassTestCase
     {
         $formType = new Definition();
         $formType->addArgument([]);
-        $this->setDefinition('netgen_block_manager.layout.resolver.form.target_type', $formType);
+        $this->setDefinition('netgen_layouts.layout.resolver.form.target_type', $formType);
 
         $mapper = new Definition();
         $mapper->addTag('netgen_block_manager.layout.resolver.form.target_type.mapper', ['target_type' => 'target']);
-        $this->setDefinition('netgen_block_manager.layout.resolver.form.target_type.mapper.test', $mapper);
+        $this->setDefinition('netgen_layouts.layout.resolver.form.target_type.mapper.test', $mapper);
 
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'netgen_block_manager.layout.resolver.form.target_type',
+            'netgen_layouts.layout.resolver.form.target_type',
             0,
             [
-                'target' => new Reference('netgen_block_manager.layout.resolver.form.target_type.mapper.test'),
+                'target' => new Reference('netgen_layouts.layout.resolver.form.target_type.mapper.test'),
             ]
         );
     }

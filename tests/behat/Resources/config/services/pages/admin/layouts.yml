@@ -1,8 +1,8 @@
 services:
-    netgen_block_manager.behat.page.admin.layouts.index:
+    netgen_layouts.behat.page.admin.layouts.index:
         class: Netgen\Layouts\Behat\Page\Admin\Layouts\IndexPage
-        parent: netgen_block_manager.behat.symfony_page
+        parent: netgen_layouts.behat.symfony_page
 
-    netgen_block_manager.behat.page.admin.shared_layouts.index:
+    netgen_layouts.behat.page.admin.shared_layouts.index:
         class: Netgen\Layouts\Behat\Page\Admin\SharedLayouts\IndexPage
-        parent: netgen_block_manager.behat.symfony_page
+        parent: netgen_layouts.behat.symfony_page

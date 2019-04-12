@@ -1,22 +1,22 @@
 services:
-    netgen_block_manager.command.migration.query_offset_limit:
+    netgen_layouts.command.migration.query_offset_limit:
         class: Netgen\Bundle\LayoutsBundle\Command\Migration\MigrateQueryOffsetLimitCommand
         arguments:
-            - "@netgen_block_manager.collection.registry.query_type"
+            - "@netgen_layouts.collection.registry.query_type"
             - "@database_connection"
         tags:
             - { name: console.command, command: nglayouts:migration:query_offset_limit }
 
-    netgen_block_manager.command.export:
+    netgen_layouts.command.export:
         class: Netgen\Bundle\LayoutsBundle\Command\ExportCommand
         arguments:
-            - "@netgen_block_manager.transfer.serializer"
+            - "@netgen_layouts.transfer.serializer"
         tags:
             - { name: console.command, command: nglayouts:export }
 
-    netgen_block_manager.command.import:
+    netgen_layouts.command.import:
         class: Netgen\Bundle\LayoutsBundle\Command\ImportCommand
         arguments:
-            - "@netgen_block_manager.transfer.input.importer"
+            - "@netgen_layouts.transfer.input.importer"
         tags:
             - { name: console.command, command: nglayouts:import }

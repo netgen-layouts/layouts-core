@@ -1,3 +1,3 @@
 services:
-    netgen_block_manager.utils.html_purifier:
+    netgen_layouts.utils.html_purifier:
         class: Netgen\Layouts\Utils\HtmlPurifier

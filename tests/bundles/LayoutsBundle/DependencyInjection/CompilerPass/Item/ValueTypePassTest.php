@@ -32,16 +32,16 @@ final class ValueTypePassTest extends AbstractCompilerPassTestCase
             ]
         );
 
-        $this->container->setDefinition('netgen_block_manager.item.registry.value_type', new Definition(null, [[]]));
+        $this->container->setDefinition('netgen_layouts.item.registry.value_type', new Definition(null, [[]]));
 
         $this->compile();
 
-        $this->assertContainerBuilderHasService('netgen_block_manager.item.value_type.test');
+        $this->assertContainerBuilderHasService('netgen_layouts.item.value_type.test');
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'netgen_block_manager.item.registry.value_type',
+            'netgen_layouts.item.registry.value_type',
             0,
             [
-                'test' => new Reference('netgen_block_manager.item.value_type.test'),
+                'test' => new Reference('netgen_layouts.item.value_type.test'),
             ]
         );
     }
@@ -67,7 +67,7 @@ final class ValueTypePassTest extends AbstractCompilerPassTestCase
             ]
         );
 
-        $this->container->setDefinition('netgen_block_manager.item.registry.value_type', new Definition());
+        $this->container->setDefinition('netgen_layouts.item.registry.value_type', new Definition());
 
         $this->compile();
     }

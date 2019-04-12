@@ -52,14 +52,14 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         $searchResults = [new Value(140), new Value(79), new Value(78)];
 
         /** @var \Netgen\Layouts\Collection\Registry\QueryTypeRegistryInterface $queryTypeRegistry */
-        $queryTypeRegistry = $clientContainer->get('netgen_block_manager.collection.registry.query_type');
+        $queryTypeRegistry = $clientContainer->get('netgen_layouts.collection.registry.query_type');
 
         $queryType = new QueryType('my_query_type', $searchResults, count($searchResults));
         $allQueryTypes = $queryTypeRegistry->getQueryTypes();
         $allQueryTypes['my_query_type'] = $queryType;
 
         $clientContainer->mock(
-            'netgen_block_manager.collection.registry.query_type',
+            'netgen_layouts.collection.registry.query_type',
             new QueryTypeRegistry($allQueryTypes)
         );
     }

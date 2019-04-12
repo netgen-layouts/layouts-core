@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class ItemDefinitionPass implements CompilerPassInterface
 {
-    private const SERVICE_NAME = 'netgen_block_manager.collection.registry.item_definition';
+    private const SERVICE_NAME = 'netgen_layouts.collection.registry.item_definition';
 
     public function process(ContainerBuilder $container): void
     {
@@ -27,10 +27,10 @@ final class ItemDefinitionPass implements CompilerPassInterface
         $itemDefinitions = [];
 
         foreach (array_keys($valueTypes) as $valueType) {
-            $itemDefinitionServiceName = sprintf('netgen_block_manager.collection.item_definition.%s', $valueType);
+            $itemDefinitionServiceName = sprintf('netgen_layouts.collection.item_definition.%s', $valueType);
 
             $itemDefinitionService = new Definition(ItemDefinition::class);
-            $itemDefinitionService->setFactory([new Reference('netgen_block_manager.collection.item_definition_factory'), 'buildItemDefinition']);
+            $itemDefinitionService->setFactory([new Reference('netgen_layouts.collection.item_definition_factory'), 'buildItemDefinition']);
 
             $itemDefinitionService->setLazy(true);
             $itemDefinitionService->setPublic(false);

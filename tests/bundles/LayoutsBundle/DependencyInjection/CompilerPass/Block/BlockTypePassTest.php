@@ -44,16 +44,16 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
             ]
         );
 
-        $this->setDefinition('netgen_block_manager.block.registry.block_type', new Definition(null, [[]]));
+        $this->setDefinition('netgen_layouts.block.registry.block_type', new Definition(null, [[]]));
 
         $this->compile();
 
-        $this->assertContainerBuilderHasService('netgen_block_manager.block.block_type.test');
+        $this->assertContainerBuilderHasService('netgen_layouts.block.block_type.test');
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'netgen_block_manager.block.registry.block_type',
+            'netgen_layouts.block.registry.block_type',
             0,
             [
-                'test' => new Reference('netgen_block_manager.block.block_type.test'),
+                'test' => new Reference('netgen_layouts.block.block_type.test'),
             ]
         );
     }
@@ -93,7 +93,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
             ]
         );
 
-        $this->setDefinition('netgen_block_manager.block.registry.block_type', new Definition(null, [[]]));
+        $this->setDefinition('netgen_layouts.block.registry.block_type', new Definition(null, [[]]));
 
         $this->compile();
 
@@ -111,13 +111,13 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
             $blockTypes['test']
         );
 
-        $this->assertContainerBuilderHasService('netgen_block_manager.block.block_type.test');
+        $this->assertContainerBuilderHasService('netgen_layouts.block.block_type.test');
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'netgen_block_manager.block.registry.block_type',
+            'netgen_layouts.block.registry.block_type',
             0,
             [
-                'test' => new Reference('netgen_block_manager.block.block_type.test'),
-                'other' => new Reference('netgen_block_manager.block.block_type.other'),
+                'test' => new Reference('netgen_layouts.block.block_type.test'),
+                'other' => new Reference('netgen_layouts.block.block_type.other'),
             ]
         );
     }
@@ -148,7 +148,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
             ]
         );
 
-        $this->setDefinition('netgen_block_manager.block.registry.block_type', new Definition(null, [[]]));
+        $this->setDefinition('netgen_layouts.block.registry.block_type', new Definition(null, [[]]));
 
         $this->compile();
 
@@ -167,12 +167,12 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
             $blockTypes['test']
         );
 
-        $this->assertContainerBuilderHasService('netgen_block_manager.block.block_type.test');
+        $this->assertContainerBuilderHasService('netgen_layouts.block.block_type.test');
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'netgen_block_manager.block.registry.block_type',
+            'netgen_layouts.block.registry.block_type',
             0,
             [
-                'test' => new Reference('netgen_block_manager.block.block_type.test'),
+                'test' => new Reference('netgen_layouts.block.block_type.test'),
             ]
         );
     }
@@ -198,7 +198,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
             ]
         );
 
-        $this->setDefinition('netgen_block_manager.block.registry.block_type', new Definition(null, [[]]));
+        $this->setDefinition('netgen_layouts.block.registry.block_type', new Definition(null, [[]]));
 
         $this->compile();
 
@@ -216,12 +216,12 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
             $blockTypes['test']
         );
 
-        $this->assertContainerBuilderHasService('netgen_block_manager.block.block_type.test');
+        $this->assertContainerBuilderHasService('netgen_layouts.block.block_type.test');
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'netgen_block_manager.block.registry.block_type',
+            'netgen_layouts.block.registry.block_type',
             0,
             [
-                'test' => new Reference('netgen_block_manager.block.block_type.test'),
+                'test' => new Reference('netgen_layouts.block.block_type.test'),
             ]
         );
     }
@@ -256,7 +256,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
             ]
         );
 
-        $this->setDefinition('netgen_block_manager.block.registry.block_type', new Definition(null, [[]]));
+        $this->setDefinition('netgen_layouts.block.registry.block_type', new Definition(null, [[]]));
 
         $this->compile();
 
@@ -274,13 +274,13 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
             $blockTypes['type']
         );
 
-        $this->assertContainerBuilderHasService('netgen_block_manager.block.block_type.type');
+        $this->assertContainerBuilderHasService('netgen_layouts.block.block_type.type');
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'netgen_block_manager.block.registry.block_type',
+            'netgen_layouts.block.registry.block_type',
             0,
             [
-                'type' => new Reference('netgen_block_manager.block.block_type.type'),
-                'title' => new Reference('netgen_block_manager.block.block_type.title'),
+                'type' => new Reference('netgen_layouts.block.block_type.type'),
+                'title' => new Reference('netgen_layouts.block.block_type.title'),
             ]
         );
     }
@@ -315,7 +315,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
             ]
         );
 
-        $this->setDefinition('netgen_block_manager.block.registry.block_type', new Definition(null, [[]]));
+        $this->setDefinition('netgen_layouts.block.registry.block_type', new Definition(null, [[]]));
 
         $this->compile();
 
@@ -334,12 +334,12 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
             $blockTypes['title']
         );
 
-        $this->assertContainerBuilderHasService('netgen_block_manager.block.block_type.title');
+        $this->assertContainerBuilderHasService('netgen_layouts.block.block_type.title');
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'netgen_block_manager.block.registry.block_type',
+            'netgen_layouts.block.registry.block_type',
             0,
             [
-                'title' => new Reference('netgen_block_manager.block.block_type.title'),
+                'title' => new Reference('netgen_layouts.block.block_type.title'),
             ]
         );
     }
@@ -374,7 +374,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
             ]
         );
 
-        $this->setDefinition('netgen_block_manager.block.registry.block_type', new Definition(null, [[]]));
+        $this->setDefinition('netgen_layouts.block.registry.block_type', new Definition(null, [[]]));
 
         $this->compile();
 
@@ -392,13 +392,13 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
             $blockTypes['type']
         );
 
-        $this->assertContainerBuilderHasService('netgen_block_manager.block.block_type.type');
+        $this->assertContainerBuilderHasService('netgen_layouts.block.block_type.type');
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'netgen_block_manager.block.registry.block_type',
+            'netgen_layouts.block.registry.block_type',
             0,
             [
-                'type' => new Reference('netgen_block_manager.block.block_type.type'),
-                'title' => new Reference('netgen_block_manager.block.block_type.title'),
+                'type' => new Reference('netgen_layouts.block.block_type.type'),
+                'title' => new Reference('netgen_layouts.block.block_type.title'),
             ]
         );
     }
@@ -427,7 +427,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
 
         $this->setParameter('netgen_layouts.block_definitions', []);
 
-        $this->setDefinition('netgen_block_manager.block.registry.block_type', new Definition());
+        $this->setDefinition('netgen_layouts.block.registry.block_type', new Definition());
 
         $this->compile();
     }

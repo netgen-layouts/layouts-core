@@ -1,5 +1,5 @@
 services:
-    netgen_block_manager.layout.registry.layout_type:
+    netgen_layouts.layout.registry.layout_type:
         class: Netgen\Layouts\Layout\Registry\LayoutTypeRegistry
         public: true
         arguments:

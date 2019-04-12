@@ -1,37 +1,37 @@
 parameters:
-    netgen_block_manager.block.block_definition.handler.plugin.common.groups: ['design', 'common']
+    netgen_layouts.block.block_definition.handler.plugin.common.groups: ['design', 'common']
 
-    netgen_block_manager.block.block_definition.handler.plugin.paged_collections.groups: ['design']
-    netgen_block_manager.block.block_definition.handler.plugin.paged_collections.pager_types:
+    netgen_layouts.block.block_definition.handler.plugin.paged_collections.groups: ['design']
+    netgen_layouts.block.block_definition.handler.plugin.paged_collections.pager_types:
         pager: 'Pager'
         load_more: 'Load more'
 
 services:
-    netgen_block_manager.block.block_definition_factory:
+    netgen_layouts.block.block_definition_factory:
         class: Netgen\Layouts\Block\BlockDefinitionFactory
         arguments:
-            - "@netgen_block_manager.parameters.translatable_parameter_builder_factory"
-            - "@netgen_block_manager.block.registry.handler_plugin"
-            - "@netgen_block_manager.config.config_definition_factory"
+            - "@netgen_layouts.parameters.translatable_parameter_builder_factory"
+            - "@netgen_layouts.block.registry.handler_plugin"
+            - "@netgen_layouts.config.config_definition_factory"
 
-    netgen_block_manager.block.registry.block_definition:
+    netgen_layouts.block.registry.block_definition:
         class: Netgen\Layouts\Block\Registry\BlockDefinitionRegistry
         public: true
         arguments:
             - []
 
-    netgen_block_manager.block.registry.handler_plugin:
+    netgen_layouts.block.registry.handler_plugin:
         class: Netgen\Layouts\Block\Registry\HandlerPluginRegistry
         arguments:
             - !tagged netgen_block_manager.block.block_definition_handler.plugin
 
-    netgen_block_manager.block.registry.block_type:
+    netgen_layouts.block.registry.block_type:
         class: Netgen\Layouts\Block\Registry\BlockTypeRegistry
         public: true
         arguments:
             - []
 
-    netgen_block_manager.block.registry.block_type_group:
+    netgen_layouts.block.registry.block_type_group:
         class: Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry
         public: true
         arguments:
@@ -39,17 +39,17 @@ services:
 
     # Various block plugins
 
-    netgen_block_manager.block.block_definition.handler.plugin.common:
+    netgen_layouts.block.block_definition.handler.plugin.common:
         class: Netgen\Layouts\Block\BlockDefinition\Handler\CommonParametersPlugin
         arguments:
-            - "%netgen_block_manager.block.block_definition.handler.plugin.common.groups%"
+            - "%netgen_layouts.block.block_definition.handler.plugin.common.groups%"
         tags:
             - { name: netgen_block_manager.block.block_definition_handler.plugin, priority: 0 }
 
-    netgen_block_manager.block.block_definition.handler.plugin.paged_collections:
+    netgen_layouts.block.block_definition.handler.plugin.paged_collections:
         class: Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsPlugin
         arguments:
-            - "%netgen_block_manager.block.block_definition.handler.plugin.paged_collections.pager_types%"
-            - "%netgen_block_manager.block.block_definition.handler.plugin.paged_collections.groups%"
+            - "%netgen_layouts.block.block_definition.handler.plugin.paged_collections.pager_types%"
+            - "%netgen_layouts.block.block_definition.handler.plugin.paged_collections.groups%"
         tags:
             - { name: netgen_block_manager.block.block_definition_handler.plugin, priority: 10 }

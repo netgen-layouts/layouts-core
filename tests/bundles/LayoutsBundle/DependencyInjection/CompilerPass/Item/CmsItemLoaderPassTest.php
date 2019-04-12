@@ -20,21 +20,21 @@ final class CmsItemLoaderPassTest extends AbstractCompilerPassTestCase
     public function testProcess(): void
     {
         $this->setDefinition(
-            'netgen_block_manager.item.item_loader',
+            'netgen_layouts.item.item_loader',
             new Definition(null, [null, null])
         );
 
         $valueLoader = new Definition();
         $valueLoader->addTag('netgen_block_manager.item.value_loader', ['value_type' => 'test']);
-        $this->setDefinition('netgen_block_manager.item.value_loader.test', $valueLoader);
+        $this->setDefinition('netgen_layouts.item.value_loader.test', $valueLoader);
 
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'netgen_block_manager.item.item_loader',
+            'netgen_layouts.item.item_loader',
             1,
             [
-                'test' => new Reference('netgen_block_manager.item.value_loader.test'),
+                'test' => new Reference('netgen_layouts.item.value_loader.test'),
             ]
         );
     }
@@ -47,11 +47,11 @@ final class CmsItemLoaderPassTest extends AbstractCompilerPassTestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Value type must begin with a letter and be followed by any combination of letters, digits and underscore.');
 
-        $this->setDefinition('netgen_block_manager.item.item_loader', new Definition());
+        $this->setDefinition('netgen_layouts.item.item_loader', new Definition());
 
         $valueLoader = new Definition();
         $valueLoader->addTag('netgen_block_manager.item.value_loader', ['value_type' => '123']);
-        $this->setDefinition('netgen_block_manager.item.value_loader.test', $valueLoader);
+        $this->setDefinition('netgen_layouts.item.value_loader.test', $valueLoader);
 
         $this->compile();
     }
@@ -64,11 +64,11 @@ final class CmsItemLoaderPassTest extends AbstractCompilerPassTestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Value loader service definition must have a \'value_type\' attribute in its\' tag.');
 
-        $this->setDefinition('netgen_block_manager.item.item_loader', new Definition());
+        $this->setDefinition('netgen_layouts.item.item_loader', new Definition());
 
         $valueLoader = new Definition();
         $valueLoader->addTag('netgen_block_manager.item.value_loader');
-        $this->setDefinition('netgen_block_manager.item.value_loader.test', $valueLoader);
+        $this->setDefinition('netgen_layouts.item.value_loader.test', $valueLoader);
 
         $this->compile();
     }

@@ -21,7 +21,7 @@ final class BlockDefinitionPass implements CompilerPassInterface
 {
     use DefinitionClassTrait;
 
-    private const SERVICE_NAME = 'netgen_block_manager.block.registry.block_definition';
+    private const SERVICE_NAME = 'netgen_layouts.block.registry.block_definition';
     private const TAG_NAME = 'netgen_block_manager.block.block_definition_handler';
 
     public function process(ContainerBuilder $container): void
@@ -81,10 +81,10 @@ final class BlockDefinitionPass implements CompilerPassInterface
                 $definitionClass = TwigBlockDefinition::class;
             }
 
-            $blockDefinitionServiceName = sprintf('netgen_block_manager.block.block_definition.%s', $identifier);
+            $blockDefinitionServiceName = sprintf('netgen_layouts.block.block_definition.%s', $identifier);
 
             $blockDefinitionService = new Definition($definitionClass);
-            $blockDefinitionService->setFactory([new Reference('netgen_block_manager.block.block_definition_factory'), $factoryMethod]);
+            $blockDefinitionService->setFactory([new Reference('netgen_layouts.block.block_definition_factory'), $factoryMethod]);
 
             $blockDefinitionService->setLazy(true);
             $blockDefinitionService->setPublic(false);

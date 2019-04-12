@@ -1,2 +1,2 @@
 globals:
-    nglayouts: "@netgen_block_manager.templating.global_variable"
+    nglayouts: "@netgen_layouts.templating.global_variable"

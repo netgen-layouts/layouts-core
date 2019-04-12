@@ -19,32 +19,32 @@ final class PluginRendererPassTest extends AbstractCompilerPassTestCase
      */
     public function testProcess(): void
     {
-        $this->setDefinition('netgen_block_manager.templating.plugin_renderer', new Definition(null, [[], []]));
+        $this->setDefinition('netgen_layouts.templating.plugin_renderer', new Definition(null, [[], []]));
 
         $PluginRenderer1 = new Definition();
         $PluginRenderer1->addTag('netgen_block_manager.templating.plugin', ['plugin' => 'test1']);
-        $this->setDefinition('netgen_block_manager.templating.plugin.test1', $PluginRenderer1);
+        $this->setDefinition('netgen_layouts.templating.plugin.test1', $PluginRenderer1);
 
         $PluginRenderer2 = new Definition();
         $PluginRenderer2->addTag('netgen_block_manager.templating.plugin', ['plugin' => 'test2']);
-        $this->setDefinition('netgen_block_manager.templating.plugin.test2', $PluginRenderer2);
+        $this->setDefinition('netgen_layouts.templating.plugin.test2', $PluginRenderer2);
 
         $PluginRenderer3 = new Definition();
         $PluginRenderer3->addTag('netgen_block_manager.templating.plugin', ['plugin' => 'test2', 'priority' => 10]);
-        $this->setDefinition('netgen_block_manager.templating.plugin.test3', $PluginRenderer3);
+        $this->setDefinition('netgen_layouts.templating.plugin.test3', $PluginRenderer3);
 
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'netgen_block_manager.templating.plugin_renderer',
+            'netgen_layouts.templating.plugin_renderer',
             1,
             [
                 'test1' => [
-                    new Reference('netgen_block_manager.templating.plugin.test1'),
+                    new Reference('netgen_layouts.templating.plugin.test1'),
                 ],
                 'test2' => [
-                    new Reference('netgen_block_manager.templating.plugin.test3'),
-                    new Reference('netgen_block_manager.templating.plugin.test2'),
+                    new Reference('netgen_layouts.templating.plugin.test3'),
+                    new Reference('netgen_layouts.templating.plugin.test2'),
                 ],
             ]
         );
@@ -58,11 +58,11 @@ final class PluginRendererPassTest extends AbstractCompilerPassTestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Template plugin service definition must have an \'plugin\' attribute in its\' tag.');
 
-        $this->setDefinition('netgen_block_manager.templating.plugin_renderer', new Definition());
+        $this->setDefinition('netgen_layouts.templating.plugin_renderer', new Definition());
 
         $PluginRenderer1 = new Definition();
         $PluginRenderer1->addTag('netgen_block_manager.templating.plugin');
-        $this->setDefinition('netgen_block_manager.templating.plugin.test1', $PluginRenderer1);
+        $this->setDefinition('netgen_layouts.templating.plugin.test1', $PluginRenderer1);
 
         $this->compile();
     }

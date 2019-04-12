@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class BlockTypePass implements CompilerPassInterface
 {
-    private const SERVICE_NAME = 'netgen_block_manager.block.registry.block_type';
+    private const SERVICE_NAME = 'netgen_layouts.block.registry.block_type';
 
     public function process(ContainerBuilder $container): void
     {
@@ -99,7 +99,7 @@ final class BlockTypePass implements CompilerPassInterface
     private function buildBlockTypes(ContainerBuilder $container, array $blockTypes): Generator
     {
         foreach ($blockTypes as $identifier => $blockType) {
-            $serviceIdentifier = sprintf('netgen_block_manager.block.block_type.%s', $identifier);
+            $serviceIdentifier = sprintf('netgen_layouts.block.block_type.%s', $identifier);
 
             $container->register($serviceIdentifier, BlockType::class)
                 ->setArguments(
@@ -108,7 +108,7 @@ final class BlockTypePass implements CompilerPassInterface
                         $blockType,
                         new Reference(
                             sprintf(
-                                'netgen_block_manager.block.block_definition.%s',
+                                'netgen_layouts.block.block_definition.%s',
                                 $blockType['definition_identifier']
                             )
                         ),

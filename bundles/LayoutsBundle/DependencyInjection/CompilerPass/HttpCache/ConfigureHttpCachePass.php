@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 final class ConfigureHttpCachePass implements CompilerPassInterface
 {
-    private const SERVICE_NAME = 'netgen_block_manager.http_cache.client';
+    private const SERVICE_NAME = 'netgen_layouts.http_cache.client';
 
     public function process(ContainerBuilder $container): void
     {
@@ -20,7 +20,7 @@ final class ConfigureHttpCachePass implements CompilerPassInterface
         $httpCacheConfig = $container->getParameter('netgen_layouts.http_cache');
 
         if (!$httpCacheConfig['invalidation']['enabled']) {
-            $container->setAlias(self::SERVICE_NAME, 'netgen_block_manager.http_cache.client.null');
+            $container->setAlias(self::SERVICE_NAME, 'netgen_layouts.http_cache.client.null');
         }
     }
 }

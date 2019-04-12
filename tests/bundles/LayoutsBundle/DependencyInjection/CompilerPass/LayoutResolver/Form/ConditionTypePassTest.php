@@ -20,19 +20,19 @@ final class ConditionTypePassTest extends AbstractCompilerPassTestCase
     {
         $formType = new Definition();
         $formType->addArgument([]);
-        $this->setDefinition('netgen_block_manager.layout.resolver.form.condition_type', $formType);
+        $this->setDefinition('netgen_layouts.layout.resolver.form.condition_type', $formType);
 
         $mapper = new Definition();
         $mapper->addTag('netgen_block_manager.layout.resolver.form.condition_type.mapper', ['condition_type' => 'condition']);
-        $this->setDefinition('netgen_block_manager.layout.resolver.form.condition_type.mapper.test', $mapper);
+        $this->setDefinition('netgen_layouts.layout.resolver.form.condition_type.mapper.test', $mapper);
 
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'netgen_block_manager.layout.resolver.form.condition_type',
+            'netgen_layouts.layout.resolver.form.condition_type',
             0,
             [
-                'condition' => new Reference('netgen_block_manager.layout.resolver.form.condition_type.mapper.test'),
+                'condition' => new Reference('netgen_layouts.layout.resolver.form.condition_type.mapper.test'),
             ]
         );
     }

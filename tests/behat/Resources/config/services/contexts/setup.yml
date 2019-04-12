@@ -1,11 +1,11 @@
 services:
-    netgen_block_manager.behat.context.setup.admin_security:
+    netgen_layouts.behat.context.setup.admin_security:
         class: Netgen\Layouts\Behat\Context\Setup\AdminSecurityContext
         public: true
 
-    netgen_block_manager.behat.context.setup.layout:
+    netgen_layouts.behat.context.setup.layout:
         class: Netgen\Layouts\Behat\Context\Setup\LayoutContext
         public: true
         arguments:
-            - "@netgen_block_manager.api.service.layout"
-            - "@netgen_block_manager.layout.registry.layout_type"
+            - "@netgen_layouts.api.service.layout"
+            - "@netgen_layouts.layout.registry.layout_type"

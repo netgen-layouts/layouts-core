@@ -1,5 +1,5 @@
 services:
-    netgen_block_manager.config.config_definition_factory:
+    netgen_layouts.config.config_definition_factory:
         class: Netgen\Layouts\Config\ConfigDefinitionFactory
         arguments:
-            - "@netgen_block_manager.parameters.parameter_builder_factory"
+            - "@netgen_layouts.parameters.parameter_builder_factory"

@@ -22,19 +22,19 @@ final class UrlGeneratorPassTest extends AbstractCompilerPassTestCase
         $urlGenerator = new Definition();
         $urlGenerator->addArgument(null);
 
-        $this->setDefinition('netgen_block_manager.item.url_generator', $urlGenerator);
+        $this->setDefinition('netgen_layouts.item.url_generator', $urlGenerator);
 
         $valueUrlGenerator = new Definition();
         $valueUrlGenerator->addTag('netgen_block_manager.item.value_url_generator', ['value_type' => 'test']);
-        $this->setDefinition('netgen_block_manager.item.value_url_generator.test', $valueUrlGenerator);
+        $this->setDefinition('netgen_layouts.item.value_url_generator.test', $valueUrlGenerator);
 
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'netgen_block_manager.item.url_generator',
+            'netgen_layouts.item.url_generator',
             0,
             [
-                'test' => new Reference('netgen_block_manager.item.value_url_generator.test'),
+                'test' => new Reference('netgen_layouts.item.value_url_generator.test'),
             ]
         );
     }
@@ -47,11 +47,11 @@ final class UrlGeneratorPassTest extends AbstractCompilerPassTestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Value type must begin with a letter and be followed by any combination of letters, digits and underscore.');
 
-        $this->setDefinition('netgen_block_manager.item.url_generator', new Definition());
+        $this->setDefinition('netgen_layouts.item.url_generator', new Definition());
 
         $valueUrlGenerator = new Definition();
         $valueUrlGenerator->addTag('netgen_block_manager.item.value_url_generator', ['value_type' => '123']);
-        $this->setDefinition('netgen_block_manager.item.value_url_generator.test', $valueUrlGenerator);
+        $this->setDefinition('netgen_layouts.item.value_url_generator.test', $valueUrlGenerator);
 
         $this->compile();
     }
@@ -67,11 +67,11 @@ final class UrlGeneratorPassTest extends AbstractCompilerPassTestCase
         $urlGenerator = new Definition();
         $urlGenerator->addArgument(null);
 
-        $this->setDefinition('netgen_block_manager.item.url_generator', $urlGenerator);
+        $this->setDefinition('netgen_layouts.item.url_generator', $urlGenerator);
 
         $valueUrlGenerator = new Definition();
         $valueUrlGenerator->addTag('netgen_block_manager.item.value_url_generator');
-        $this->setDefinition('netgen_block_manager.item.value_url_generator.test', $valueUrlGenerator);
+        $this->setDefinition('netgen_layouts.item.value_url_generator.test', $valueUrlGenerator);
 
         $this->compile();
     }

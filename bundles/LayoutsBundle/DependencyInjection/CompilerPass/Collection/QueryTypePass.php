@@ -16,7 +16,7 @@ final class QueryTypePass implements CompilerPassInterface
 {
     use DefinitionClassTrait;
 
-    private const SERVICE_NAME = 'netgen_block_manager.collection.registry.query_type';
+    private const SERVICE_NAME = 'netgen_layouts.collection.registry.query_type';
     private const TAG_NAME = 'netgen_block_manager.collection.query_type_handler';
 
     public function process(ContainerBuilder $container): void
@@ -63,7 +63,7 @@ final class QueryTypePass implements CompilerPassInterface
                 );
             }
 
-            $queryTypeServiceName = sprintf('netgen_block_manager.collection.query_type.%s', $type);
+            $queryTypeServiceName = sprintf('netgen_layouts.collection.query_type.%s', $type);
             $queryTypeService = new Definition(QueryType::class);
 
             $queryTypeService->setLazy(true);
@@ -71,7 +71,7 @@ final class QueryTypePass implements CompilerPassInterface
             $queryTypeService->addArgument($type);
             $queryTypeService->addArgument(new Reference($foundHandler));
             $queryTypeService->addArgument($queryType);
-            $queryTypeService->setFactory([new Reference('netgen_block_manager.collection.query_type_factory'), 'buildQueryType']);
+            $queryTypeService->setFactory([new Reference('netgen_layouts.collection.query_type_factory'), 'buildQueryType']);
 
             $container->setDefinition($queryTypeServiceName, $queryTypeService);
 

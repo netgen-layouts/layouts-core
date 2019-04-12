@@ -1,28 +1,28 @@
 services:
-    netgen_block_manager.view.view_renderer:
+    netgen_layouts.view.view_renderer:
         class: Netgen\Layouts\View\ViewRenderer
         arguments:
             - "@event_dispatcher"
             - "@twig"
 
-    netgen_block_manager.view.view_builder:
+    netgen_layouts.view.view_builder:
         class: Netgen\Layouts\View\ViewBuilder
         public: true
         arguments:
-            - "@netgen_block_manager.view.template_resolver"
+            - "@netgen_layouts.view.template_resolver"
             - "@event_dispatcher"
             - !tagged netgen_block_manager.view.provider
 
-    netgen_block_manager.view.renderer:
+    netgen_layouts.view.renderer:
         class: Netgen\Layouts\View\Renderer
         lazy: true
         arguments:
-            - "@netgen_block_manager.view.view_builder"
-            - "@netgen_block_manager.view.view_renderer"
+            - "@netgen_layouts.view.view_builder"
+            - "@netgen_layouts.view.view_renderer"
 
-    netgen_block_manager.view.template_resolver:
+    netgen_layouts.view.template_resolver:
         class: Netgen\Layouts\View\TemplateResolver
         lazy: true
         arguments:
             - []
-            - "@=service('netgen_block_manager.configuration').getParameter('view')"
+            - "@=service('netgen_layouts.configuration').getParameter('view')"

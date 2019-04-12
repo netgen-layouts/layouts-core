@@ -11,7 +11,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class TemplateResolverPass implements CompilerPassInterface
 {
-    private const SERVICE_NAME = 'netgen_block_manager.view.template_resolver';
+    private const SERVICE_NAME = 'netgen_layouts.view.template_resolver';
     private const TAG_NAME = 'netgen_block_manager.view.template_matcher';
 
     public function process(ContainerBuilder $container): void

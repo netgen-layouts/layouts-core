@@ -35,7 +35,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
             ['block_definition' => ['enabled' => true]]
         );
 
-        $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition(null, [[]]));
+        $this->setDefinition('netgen_layouts.block.registry.block_definition', new Definition(null, [[]]));
 
         $blockDefinitionHandler = new Definition($handlerClass);
         $blockDefinitionHandler->addTag(
@@ -44,35 +44,35 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
         );
 
         $this->setDefinition(
-            'netgen_block_manager.block.block_definition.handler.test',
+            'netgen_layouts.block.block_definition.handler.test',
             $blockDefinitionHandler
         );
 
         $configHandler = new Definition();
         $configHandler->addTag('netgen_block_manager.block.block_config_handler', ['config_key' => 'key']);
 
-        $this->setDefinition('netgen_block_manager.block.block_config_handler.key', $configHandler);
+        $this->setDefinition('netgen_layouts.block.block_config_handler.key', $configHandler);
 
         $this->compile();
 
         $this->assertContainerBuilderHasService(
-            'netgen_block_manager.block.block_definition.block_definition',
+            'netgen_layouts.block.block_definition.block_definition',
             $definitionClass
         );
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'netgen_block_manager.block.block_definition.block_definition',
+            'netgen_layouts.block.block_definition.block_definition',
             3,
             [
-                'key' => new Reference('netgen_block_manager.block.block_config_handler.key'),
+                'key' => new Reference('netgen_layouts.block.block_config_handler.key'),
             ]
         );
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'netgen_block_manager.block.registry.block_definition',
+            'netgen_layouts.block.registry.block_definition',
             0,
             [
-                'block_definition' => new Reference('netgen_block_manager.block.block_definition.block_definition'),
+                'block_definition' => new Reference('netgen_layouts.block.block_definition.block_definition'),
             ]
         );
     }
@@ -91,7 +91,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
             ['block_definition' => ['enabled' => true, 'handler' => 'custom']]
         );
 
-        $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition(null, [[]]));
+        $this->setDefinition('netgen_layouts.block.registry.block_definition', new Definition(null, [[]]));
 
         $blockDefinitionHandler = new Definition($handlerClass);
         $blockDefinitionHandler->addTag(
@@ -100,22 +100,22 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
         );
 
         $this->setDefinition(
-            'netgen_block_manager.block.block_definition.handler.test',
+            'netgen_layouts.block.block_definition.handler.test',
             $blockDefinitionHandler
         );
 
         $this->compile();
 
         $this->assertContainerBuilderHasService(
-            'netgen_block_manager.block.block_definition.block_definition',
+            'netgen_layouts.block.block_definition.block_definition',
             $definitionClass
         );
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'netgen_block_manager.block.registry.block_definition',
+            'netgen_layouts.block.registry.block_definition',
             0,
             [
-                'block_definition' => new Reference('netgen_block_manager.block.block_definition.block_definition'),
+                'block_definition' => new Reference('netgen_layouts.block.block_definition.block_definition'),
             ]
         );
     }
@@ -133,11 +133,11 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
             ['block_definition' => ['enabled' => true]]
         );
 
-        $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition());
+        $this->setDefinition('netgen_layouts.block.registry.block_definition', new Definition());
 
         $blockDefinitionHandler = new Definition(stdClass::class);
         $blockDefinitionHandler->addTag('netgen_block_manager.block.block_definition_handler');
-        $this->setDefinition('netgen_block_manager.block.block_definition.handler.test', $blockDefinitionHandler);
+        $this->setDefinition('netgen_layouts.block.block_definition.handler.test', $blockDefinitionHandler);
 
         $this->compile();
     }
@@ -156,7 +156,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
             ['block_definition' => ['enabled' => true]]
         );
 
-        $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition(null, [[]]));
+        $this->setDefinition('netgen_layouts.block.registry.block_definition', new Definition(null, [[]]));
 
         $blockDefinitionHandler = new Definition(stdClass::class);
         $blockDefinitionHandler->addTag(
@@ -165,14 +165,14 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
         );
 
         $this->setDefinition(
-            'netgen_block_manager.block.block_definition.handler.test',
+            'netgen_layouts.block.block_definition.handler.test',
             $blockDefinitionHandler
         );
 
         $configHandler = new Definition();
         $configHandler->addTag('netgen_block_manager.block.block_config_handler');
 
-        $this->setDefinition('netgen_block_manager.block.block_config_handler.key', $configHandler);
+        $this->setDefinition('netgen_layouts.block.block_config_handler.key', $configHandler);
 
         $this->compile();
     }
@@ -190,7 +190,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
             ['block_definition' => ['enabled' => true]]
         );
 
-        $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition());
+        $this->setDefinition('netgen_layouts.block.registry.block_definition', new Definition());
 
         $this->compile();
     }
@@ -208,7 +208,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
             ['block_definition' => ['enabled' => true, 'handler' => 'custom']]
         );
 
-        $this->setDefinition('netgen_block_manager.block.registry.block_definition', new Definition());
+        $this->setDefinition('netgen_layouts.block.registry.block_definition', new Definition());
 
         $this->compile();
     }

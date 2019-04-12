@@ -32,16 +32,16 @@ final class LayoutTypePassTest extends AbstractCompilerPassTestCase
             ]
         );
 
-        $this->container->setDefinition('netgen_block_manager.layout.registry.layout_type', new Definition(null, [[]]));
+        $this->container->setDefinition('netgen_layouts.layout.registry.layout_type', new Definition(null, [[]]));
 
         $this->compile();
 
-        $this->assertContainerBuilderHasService('netgen_block_manager.layout.layout_type.test');
+        $this->assertContainerBuilderHasService('netgen_layouts.layout.layout_type.test');
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'netgen_block_manager.layout.registry.layout_type',
+            'netgen_layouts.layout.registry.layout_type',
             0,
             [
-                'test' => new Reference('netgen_block_manager.layout.layout_type.test'),
+                'test' => new Reference('netgen_layouts.layout.layout_type.test'),
             ]
         );
     }
@@ -71,7 +71,7 @@ final class LayoutTypePassTest extends AbstractCompilerPassTestCase
             ]
         );
 
-        $this->setDefinition('netgen_block_manager.layout.registry.layout_type', new Definition());
+        $this->setDefinition('netgen_layouts.layout.registry.layout_type', new Definition());
 
         $this->compile();
     }

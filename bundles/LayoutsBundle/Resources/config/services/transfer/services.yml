@@ -1,28 +1,28 @@
 services:
-    netgen_block_manager.transfer.serializer:
+    netgen_layouts.transfer.serializer:
         class: Netgen\Layouts\Transfer\Output\Serializer
         arguments:
-            - "@netgen_block_manager.api.service.layout"
-            - "@netgen_block_manager.api.service.layout_resolver"
-            - "@netgen_block_manager.transfer.serializer.visitor.aggregate"
+            - "@netgen_layouts.api.service.layout"
+            - "@netgen_layouts.api.service.layout_resolver"
+            - "@netgen_layouts.transfer.serializer.visitor.aggregate"
 
-    netgen_block_manager.transfer.input.data_handler.layout:
+    netgen_layouts.transfer.input.data_handler.layout:
         class: Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler
         arguments:
-            - "@netgen_block_manager.api.service.block"
-            - "@netgen_block_manager.api.service.collection"
-            - "@netgen_block_manager.api.service.layout"
-            - "@netgen_block_manager.block.registry.block_definition"
-            - "@netgen_block_manager.layout.registry.layout_type"
-            - "@netgen_block_manager.collection.registry.item_definition"
-            - "@netgen_block_manager.collection.registry.query_type"
-            - "@netgen_block_manager.item.item_loader"
+            - "@netgen_layouts.api.service.block"
+            - "@netgen_layouts.api.service.collection"
+            - "@netgen_layouts.api.service.layout"
+            - "@netgen_layouts.block.registry.block_definition"
+            - "@netgen_layouts.layout.registry.layout_type"
+            - "@netgen_layouts.collection.registry.item_definition"
+            - "@netgen_layouts.collection.registry.query_type"
+            - "@netgen_layouts.item.item_loader"
 
-    netgen_block_manager.transfer.input.json_validator:
+    netgen_layouts.transfer.input.json_validator:
         class: Netgen\Layouts\Transfer\Input\JsonValidator
 
-    netgen_block_manager.transfer.input.importer:
+    netgen_layouts.transfer.input.importer:
         class: Netgen\Layouts\Transfer\Input\Importer
         arguments:
-            - "@netgen_block_manager.transfer.input.json_validator"
-            - "@netgen_block_manager.transfer.input.data_handler.layout"
+            - "@netgen_layouts.transfer.input.json_validator"
+            - "@netgen_layouts.transfer.input.data_handler.layout"

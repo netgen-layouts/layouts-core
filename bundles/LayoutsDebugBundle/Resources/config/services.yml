@@ -5,7 +5,7 @@ services:
     netgen_layouts.debug.data_collector:
         class: Netgen\Bundle\LayoutsDebugBundle\DataCollector\LayoutsDataCollector
         arguments:
-            - "@netgen_block_manager.templating.global_variable"
+            - "@netgen_layouts.templating.global_variable"
             - "@twig"
         tags:
             - { name: data_collector, template: '@NetgenLayoutsDebug/data_collector/nglayouts.html.twig', id: nglayouts }

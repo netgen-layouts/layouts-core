@@ -1,37 +1,37 @@
 services:
-    netgen_block_manager.browser.backend.layout:
+    netgen_layouts.browser.backend.layout:
         class: Netgen\Layouts\Browser\Backend\LayoutBackend
         arguments:
-            - "@netgen_block_manager.api.service.layout"
+            - "@netgen_layouts.api.service.layout"
             - "@netgen_content_browser.config.layout"
         tags:
             -  { name: netgen_content_browser.backend, item_type: layout }
 
-    netgen_block_manager.browser.column_value_provider.layout.layout_id:
+    netgen_layouts.browser.column_value_provider.layout.layout_id:
         class: Netgen\Layouts\Browser\Item\ColumnProvider\Layout\LayoutId
         tags:
             - { name: netgen_content_browser.column_value_provider, identifier: layout\layout_id }
 
-    netgen_block_manager.browser.column_value_provider.layout.type:
+    netgen_layouts.browser.column_value_provider.layout.type:
         class: Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Type
         tags:
             - { name: netgen_content_browser.column_value_provider, identifier: layout\type }
 
-    netgen_block_manager.browser.column_value_provider.layout.created:
+    netgen_layouts.browser.column_value_provider.layout.created:
         class: Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Created
         arguments:
             - "%netgen_content_browser.columns.date_format%"
         tags:
             - { name: netgen_content_browser.column_value_provider, identifier: layout\created }
 
-    netgen_block_manager.browser.column_value_provider.layout.modified:
+    netgen_layouts.browser.column_value_provider.layout.modified:
         class: Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Modified
         arguments:
             - "%netgen_content_browser.columns.date_format%"
         tags:
             - { name: netgen_content_browser.column_value_provider, identifier: layout\modified }
 
-    netgen_block_manager.browser.column_value_provider.layout.shared:
+    netgen_layouts.browser.column_value_provider.layout.shared:
         class: Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Shared
         tags:
             - { name: netgen_content_browser.column_value_provider, identifier: layout\shared }

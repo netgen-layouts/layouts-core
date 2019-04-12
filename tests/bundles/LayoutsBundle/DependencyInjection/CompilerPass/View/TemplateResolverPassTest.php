@@ -21,19 +21,19 @@ final class TemplateResolverPassTest extends AbstractCompilerPassTestCase
     {
         $templateResolver = new Definition();
         $templateResolver->addArgument([]);
-        $this->setDefinition('netgen_block_manager.view.template_resolver', $templateResolver);
+        $this->setDefinition('netgen_layouts.view.template_resolver', $templateResolver);
 
         $matcher = new Definition();
         $matcher->addTag('netgen_block_manager.view.template_matcher', ['identifier' => 'block_type']);
-        $this->setDefinition('netgen_block_manager.view.template_matcher.test', $matcher);
+        $this->setDefinition('netgen_layouts.view.template_matcher.test', $matcher);
 
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'netgen_block_manager.view.template_resolver',
+            'netgen_layouts.view.template_resolver',
             0,
             [
-                'block_type' => new Reference('netgen_block_manager.view.template_matcher.test'),
+                'block_type' => new Reference('netgen_layouts.view.template_matcher.test'),
             ]
         );
     }
@@ -48,11 +48,11 @@ final class TemplateResolverPassTest extends AbstractCompilerPassTestCase
 
         $templateResolver = new Definition();
         $templateResolver->addArgument([]);
-        $this->setDefinition('netgen_block_manager.view.template_resolver', $templateResolver);
+        $this->setDefinition('netgen_layouts.view.template_resolver', $templateResolver);
 
         $matcher = new Definition();
         $matcher->addTag('netgen_block_manager.view.template_matcher');
-        $this->setDefinition('netgen_block_manager.view.template_matcher.test', $matcher);
+        $this->setDefinition('netgen_layouts.view.template_matcher.test', $matcher);
 
         $this->compile();
     }

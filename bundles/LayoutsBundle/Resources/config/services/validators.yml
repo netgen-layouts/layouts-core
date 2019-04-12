@@ -1,76 +1,76 @@
 services:
-    netgen_block_manager.validator.layout_name:
+    netgen_layouts.validator.layout_name:
         class: Netgen\Layouts\Validator\LayoutNameValidator
         arguments:
-            - "@netgen_block_manager.api.service.layout"
+            - "@netgen_layouts.api.service.layout"
         tags:
             - { name: validator.constraint_validator, alias: nglayouts_layout_name }
 
-    netgen_block_manager.validator.block_view_type:
+    netgen_layouts.validator.block_view_type:
         class: Netgen\Layouts\Validator\BlockViewTypeValidator
         tags:
             - { name: validator.constraint_validator, alias: nglayouts_block_view_type }
 
-    netgen_block_manager.validator.block_item_view_type:
+    netgen_layouts.validator.block_item_view_type:
         class: Netgen\Layouts\Validator\BlockItemViewTypeValidator
         tags:
             - { name: validator.constraint_validator, alias: nglayouts_block_item_view_type }
 
-    netgen_block_manager.validator.value_type:
+    netgen_layouts.validator.value_type:
         class: Netgen\Layouts\Validator\ValueTypeValidator
         arguments:
-            - "@netgen_block_manager.item.registry.value_type"
+            - "@netgen_layouts.item.registry.value_type"
         tags:
             - { name: validator.constraint_validator, alias: nglayouts_value_type }
 
-    netgen_block_manager.validator.item_link:
+    netgen_layouts.validator.item_link:
         class: Netgen\Layouts\Validator\Parameters\ItemLinkValidator
         arguments:
-            - "@netgen_block_manager.item.item_loader"
+            - "@netgen_layouts.item.item_loader"
         tags:
             - { name: validator.constraint_validator, alias: nglayouts_item_link }
 
-    netgen_block_manager.validator.link:
+    netgen_layouts.validator.link:
         class: Netgen\Layouts\Validator\Parameters\LinkValidator
         tags:
             - { name: validator.constraint_validator, alias: nglayouts_link }
 
-    netgen_block_manager.validator.datetime:
+    netgen_layouts.validator.datetime:
         class: Netgen\Layouts\Validator\DateTimeValidator
         tags:
             - { name: validator.constraint_validator, alias: nglayouts_datetime }
 
-    netgen_block_manager.validator.locale:
+    netgen_layouts.validator.locale:
         class: Netgen\Layouts\Validator\LocaleValidator
         tags:
             - { name: validator.constraint_validator, alias: nglayouts_locale }
 
-    netgen_block_manager.validator.condition_type.time:
+    netgen_layouts.validator.condition_type.time:
         class: Netgen\Layouts\Validator\ConditionType\TimeValidator
         tags:
             - { name: validator.constraint_validator, alias: nglayouts_condition_type_time }
 
-    netgen_block_manager.validator.parameter_struct:
+    netgen_layouts.validator.parameter_struct:
         class: Netgen\Layouts\Validator\Structs\ParameterStructValidator
         tags:
             - { name: validator.constraint_validator, alias: nglayouts_parameter_struct }
 
-    netgen_block_manager.validator.config_aware_struct:
+    netgen_layouts.validator.config_aware_struct:
         class: Netgen\Layouts\Validator\Structs\ConfigAwareStructValidator
         tags:
             - { name: validator.constraint_validator, alias: nglayouts_config_aware_struct }
 
-    netgen_block_manager.validator.block_create_struct:
+    netgen_layouts.validator.block_create_struct:
         class: Netgen\Layouts\Validator\Structs\BlockCreateStructValidator
         tags:
             - { name: validator.constraint_validator, alias: nglayouts_block_create_struct }
 
-    netgen_block_manager.validator.block_update_struct:
+    netgen_layouts.validator.block_update_struct:
         class: Netgen\Layouts\Validator\Structs\BlockUpdateStructValidator
         tags:
             - { name: validator.constraint_validator, alias: nglayouts_block_update_struct }
 
-    netgen_block_manager.validator.query_update_struct:
+    netgen_layouts.validator.query_update_struct:
         class: Netgen\Layouts\Validator\Structs\QueryUpdateStructValidator
         tags:
             - { name: validator.constraint_validator, alias: nglayouts_query_update_struct }

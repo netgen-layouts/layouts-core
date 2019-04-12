@@ -17,8 +17,8 @@ final class CacheManagerPass implements CompilerPassInterface
             !$container->has('fos_http_cache.proxy_client.varnish')
         ) {
             $container->setAlias(
-                'netgen_block_manager.http_cache.client',
-                'netgen_block_manager.http_cache.client.null'
+                'netgen_layouts.http_cache.client',
+                'netgen_layouts.http_cache.client.null'
             );
 
             return;
@@ -28,7 +28,7 @@ final class CacheManagerPass implements CompilerPassInterface
         $cacheManager->replaceArgument(0, new Reference('fos_http_cache.proxy_client.varnish'));
 
         $container->setDefinition(
-            'netgen_block_manager.http_cache.fos.cache_manager',
+            'netgen_layouts.http_cache.fos.cache_manager',
             $cacheManager
         );
     }

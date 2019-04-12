@@ -14,7 +14,7 @@ abstract class AbstractController extends BaseAbstractController
     public static function getSubscribedServices(): array
     {
         return [
-            'netgen_block_manager.view.view_builder' => ViewBuilderInterface::class,
+            'netgen_layouts.view.view_builder' => ViewBuilderInterface::class,
         ] + parent::getSubscribedServices();
     }
 
@@ -35,7 +35,7 @@ abstract class AbstractController extends BaseAbstractController
         ?Response $response = null
     ): ViewInterface {
         /** @var \Netgen\Layouts\View\ViewBuilderInterface $viewBuilder */
-        $viewBuilder = $this->get('netgen_block_manager.view.view_builder');
+        $viewBuilder = $this->get('netgen_layouts.view.view_builder');
         $view = $viewBuilder->buildView($value, $context, $parameters);
 
         $view->setResponse($response instanceof Response ? $response : new Response());

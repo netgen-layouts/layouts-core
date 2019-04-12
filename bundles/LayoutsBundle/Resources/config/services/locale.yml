@@ -1,6 +1,6 @@
 services:
-    netgen_block_manager.locale.provider:
-        alias: netgen_block_manager.locale.provider.default
+    netgen_layouts.locale.provider:
+        alias: netgen_layouts.locale.provider.default
 
-    netgen_block_manager.locale.provider.default:
+    netgen_layouts.locale.provider.default:
         class: Netgen\Layouts\Locale\LocaleProvider

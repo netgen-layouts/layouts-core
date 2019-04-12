@@ -1,23 +1,23 @@
 services:
-    netgen_block_manager.http_cache.fos.cache_manager:
+    netgen_layouts.http_cache.fos.cache_manager:
         synthetic: true
 
-    netgen_block_manager.http_cache.client:
-        alias: netgen_block_manager.http_cache.client.varnish
+    netgen_layouts.http_cache.client:
+        alias: netgen_layouts.http_cache.client.varnish
 
-    netgen_block_manager.http_cache.client.varnish:
+    netgen_layouts.http_cache.client.varnish:
         class: Netgen\Layouts\HttpCache\VarnishClient
         arguments:
-            - "@netgen_block_manager.http_cache.fos.cache_manager"
-            - "@netgen_block_manager.http_cache.layout.id_provider"
+            - "@netgen_layouts.http_cache.fos.cache_manager"
+            - "@netgen_layouts.http_cache.layout.id_provider"
 
-    netgen_block_manager.http_cache.client.null:
+    netgen_layouts.http_cache.client.null:
         class: Netgen\Layouts\HttpCache\NullClient
 
-    netgen_block_manager.http_cache.tagger:
+    netgen_layouts.http_cache.tagger:
         class: Netgen\Layouts\HttpCache\Tagger
 
-    netgen_block_manager.http_cache.layout.id_provider:
+    netgen_layouts.http_cache.layout.id_provider:
         class: Netgen\Layouts\HttpCache\Layout\IdProvider
         arguments:
-            - "@netgen_block_manager.api.service.layout"
+            - "@netgen_layouts.api.service.layout"

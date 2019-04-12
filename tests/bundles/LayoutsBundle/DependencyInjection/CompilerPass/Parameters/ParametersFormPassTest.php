@@ -18,7 +18,7 @@ final class ParametersFormPassTest extends AbstractCompilerPassTestCase
      */
     public function testProcess(): void
     {
-        $this->setDefinition('netgen_block_manager.parameters.form.parameters', new Definition(null, [[]]));
+        $this->setDefinition('netgen_layouts.parameters.form.parameters', new Definition(null, [[]]));
 
         $formMapper = new Definition();
         $formMapper->addTag(
@@ -26,15 +26,15 @@ final class ParametersFormPassTest extends AbstractCompilerPassTestCase
             ['type' => 'test']
         );
 
-        $this->setDefinition('netgen_block_manager.parameters.form.mapper.test', $formMapper);
+        $this->setDefinition('netgen_layouts.parameters.form.mapper.test', $formMapper);
 
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'netgen_block_manager.parameters.form.parameters',
+            'netgen_layouts.parameters.form.parameters',
             0,
             [
-                'test' => new Reference('netgen_block_manager.parameters.form.mapper.test'),
+                'test' => new Reference('netgen_layouts.parameters.form.mapper.test'),
             ]
         );
     }

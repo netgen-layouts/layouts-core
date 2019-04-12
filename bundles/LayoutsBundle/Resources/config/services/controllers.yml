@@ -1,5 +1,5 @@
 services:
-    netgen_block_manager.controller.base:
+    netgen_layouts.controller.base:
         class: Netgen\Bundle\LayoutsBundle\Controller\AbstractController
         abstract: true
         calls:
@@ -7,293 +7,293 @@ services:
 
     # Frontend controllers
 
-    netgen_block_manager.controller.block.view_ajax_block:
+    netgen_layouts.controller.block.view_ajax_block:
         class: Netgen\Bundle\LayoutsBundle\Controller\Block\ViewAjaxBlock
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.error.handler"
+            - "@netgen_layouts.error.handler"
 
     nglayouts_ajax_block:
-        alias: netgen_block_manager.controller.block.view_ajax_block
+        alias: netgen_layouts.controller.block.view_ajax_block
         public: true
 
     # API controllers
 
     ## Config controllers
 
-    netgen_block_manager.controller.api.v1.config.load_config:
+    netgen_layouts.controller.api.v1.config.load_config:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Config\LoadConfig
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
             - "@security.csrf.token_manager"
-            - "%netgen_block_manager.api.csrf_token_id%"
+            - "%netgen_layouts.api.csrf_token_id%"
 
-    netgen_block_manager.controller.api.v1.config.load_block_types:
+    netgen_layouts.controller.api.v1.config.load_block_types:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Config\LoadBlockTypes
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.block.registry.block_type"
-            - "@netgen_block_manager.block.registry.block_type_group"
+            - "@netgen_layouts.block.registry.block_type"
+            - "@netgen_layouts.block.registry.block_type_group"
 
-    netgen_block_manager.controller.api.v1.config.load_layout_types:
+    netgen_layouts.controller.api.v1.config.load_layout_types:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Config\LoadLayoutTypes
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.layout.registry.layout_type"
+            - "@netgen_layouts.layout.registry.layout_type"
 
     ## Layout controllers
 
-    netgen_block_manager.controller.api.v1.layout.load_shared_layouts:
+    netgen_layouts.controller.api.v1.layout.load_shared_layouts:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\LoadSharedLayouts
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout"
+            - "@netgen_layouts.api.service.layout"
 
-    netgen_block_manager.controller.api.v1.layout.load:
+    netgen_layouts.controller.api.v1.layout.load:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Load
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
 
-    netgen_block_manager.controller.api.v1.layout.load_layout_blocks:
+    netgen_layouts.controller.api.v1.layout.load_layout_blocks:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\LoadLayoutBlocks
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.block"
+            - "@netgen_layouts.api.service.block"
 
-    netgen_block_manager.controller.api.v1.layout.load_zone_blocks:
+    netgen_layouts.controller.api.v1.layout.load_zone_blocks:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\LoadZoneBlocks
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout"
-            - "@netgen_block_manager.api.service.block"
+            - "@netgen_layouts.api.service.layout"
+            - "@netgen_layouts.api.service.block"
 
-    netgen_block_manager.controller.api.v1.layout.link_zone:
+    netgen_layouts.controller.api.v1.layout.link_zone:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\LinkZone
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout"
+            - "@netgen_layouts.api.service.layout"
 
-    netgen_block_manager.controller.api.v1.layout.unlink_zone:
+    netgen_layouts.controller.api.v1.layout.unlink_zone:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\UnlinkZone
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout"
+            - "@netgen_layouts.api.service.layout"
 
-    netgen_block_manager.controller.api.v1.layout.create:
+    netgen_layouts.controller.api.v1.layout.create:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout"
-            - "@netgen_block_manager.layout.registry.layout_type"
+            - "@netgen_layouts.api.service.layout"
+            - "@netgen_layouts.layout.registry.layout_type"
         calls:
             - [setValidator, ["@validator"]]
 
-    netgen_block_manager.controller.api.v1.layout.copy:
+    netgen_layouts.controller.api.v1.layout.copy:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Copy
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout"
+            - "@netgen_layouts.api.service.layout"
 
-    netgen_block_manager.controller.api.v1.layout.change_type:
+    netgen_layouts.controller.api.v1.layout.change_type:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\ChangeType
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout"
-            - "@netgen_block_manager.layout.registry.layout_type"
+            - "@netgen_layouts.api.service.layout"
+            - "@netgen_layouts.layout.registry.layout_type"
 
-    netgen_block_manager.controller.api.v1.layout.create_draft:
+    netgen_layouts.controller.api.v1.layout.create_draft:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\CreateDraft
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout"
+            - "@netgen_layouts.api.service.layout"
 
-    netgen_block_manager.controller.api.v1.layout.discard_draft:
+    netgen_layouts.controller.api.v1.layout.discard_draft:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\DiscardDraft
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout"
+            - "@netgen_layouts.api.service.layout"
 
-    netgen_block_manager.controller.api.v1.layout.publish_draft:
+    netgen_layouts.controller.api.v1.layout.publish_draft:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\PublishDraft
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout"
+            - "@netgen_layouts.api.service.layout"
 
-    netgen_block_manager.controller.api.v1.layout.restore_from_archive:
+    netgen_layouts.controller.api.v1.layout.restore_from_archive:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\RestoreFromArchive
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout"
+            - "@netgen_layouts.api.service.layout"
 
-    netgen_block_manager.controller.api.v1.layout.delete:
+    netgen_layouts.controller.api.v1.layout.delete:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Delete
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.layout"
+            - "@netgen_layouts.api.service.layout"
 
     ## Block controllers
 
-    netgen_block_manager.controller.api.v1.block.create_struct_builder:
+    netgen_layouts.controller.api.v1.block.create_struct_builder:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructBuilder
         arguments:
-            - "@netgen_block_manager.api.service.block"
+            - "@netgen_layouts.api.service.block"
 
-    netgen_block_manager.controller.api.v1.block.create_struct_validator:
+    netgen_layouts.controller.api.v1.block.create_struct_validator:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructValidator
         calls:
             - [setValidator, ["@validator"]]
 
-    netgen_block_manager.controller.api.v1.block.load:
+    netgen_layouts.controller.api.v1.block.load:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Load
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
 
-    netgen_block_manager.controller.api.v1.block.create:
+    netgen_layouts.controller.api.v1.block.create:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Create
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.block"
-            - "@netgen_block_manager.controller.api.v1.block.create_struct_builder"
-            - "@netgen_block_manager.controller.api.v1.block.create_struct_validator"
-            - "@netgen_block_manager.block.registry.block_type"
+            - "@netgen_layouts.api.service.block"
+            - "@netgen_layouts.controller.api.v1.block.create_struct_builder"
+            - "@netgen_layouts.controller.api.v1.block.create_struct_validator"
+            - "@netgen_layouts.block.registry.block_type"
 
-    netgen_block_manager.controller.api.v1.block.create_in_zone:
+    netgen_layouts.controller.api.v1.block.create_in_zone:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\CreateInZone
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.block"
-            - "@netgen_block_manager.api.service.layout"
-            - "@netgen_block_manager.controller.api.v1.block.create_struct_builder"
-            - "@netgen_block_manager.controller.api.v1.block.create_struct_validator"
-            - "@netgen_block_manager.block.registry.block_type"
+            - "@netgen_layouts.api.service.block"
+            - "@netgen_layouts.api.service.layout"
+            - "@netgen_layouts.controller.api.v1.block.create_struct_builder"
+            - "@netgen_layouts.controller.api.v1.block.create_struct_validator"
+            - "@netgen_layouts.block.registry.block_type"
 
-    netgen_block_manager.controller.api.v1.block.copy:
+    netgen_layouts.controller.api.v1.block.copy:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Copy
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.block"
+            - "@netgen_layouts.api.service.block"
 
-    netgen_block_manager.controller.api.v1.block.copy_to_zone:
+    netgen_layouts.controller.api.v1.block.copy_to_zone:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\CopyToZone
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.block"
-            - "@netgen_block_manager.api.service.layout"
+            - "@netgen_layouts.api.service.block"
+            - "@netgen_layouts.api.service.layout"
 
-    netgen_block_manager.controller.api.v1.block.move:
+    netgen_layouts.controller.api.v1.block.move:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Move
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.block"
+            - "@netgen_layouts.api.service.block"
 
-    netgen_block_manager.controller.api.v1.block.move_to_zone:
+    netgen_layouts.controller.api.v1.block.move_to_zone:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\MoveToZone
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.block"
-            - "@netgen_block_manager.api.service.layout"
+            - "@netgen_layouts.api.service.block"
+            - "@netgen_layouts.api.service.layout"
 
-    netgen_block_manager.controller.api.v1.block.restore:
+    netgen_layouts.controller.api.v1.block.restore:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Restore
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.block"
+            - "@netgen_layouts.api.service.block"
 
-    netgen_block_manager.controller.api.v1.block.delete:
+    netgen_layouts.controller.api.v1.block.delete:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Delete
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.block"
+            - "@netgen_layouts.api.service.block"
 
     ## Block collection controllers
 
-    netgen_block_manager.controller.api.v1.block_collection.add_items:
+    netgen_layouts.controller.api.v1.block_collection.add_items:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.collection"
-            - "@netgen_block_manager.collection.registry.item_definition"
+            - "@netgen_layouts.api.service.collection"
+            - "@netgen_layouts.collection.registry.item_definition"
         calls:
             - [setValidator, ["@validator"]]
 
-    netgen_block_manager.controller.api.v1.block_collection.change_collection_type:
+    netgen_layouts.controller.api.v1.block_collection.change_collection_type:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\ChangeCollectionType
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.collection"
-            - "@netgen_block_manager.collection.registry.query_type"
+            - "@netgen_layouts.api.service.collection"
+            - "@netgen_layouts.collection.registry.query_type"
         calls:
             - [setValidator, ["@validator"]]
 
 
-    netgen_block_manager.controller.api.v1.block_collection.load_collection_result:
+    netgen_layouts.controller.api.v1.block_collection.load_collection_result:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\LoadCollectionResult
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.collection.result.pagerfanta.factory"
+            - "@netgen_layouts.collection.result.pagerfanta.factory"
 
     ## Collection controllers
 
-    netgen_block_manager.controller.api.v1.collection.load_collection:
+    netgen_layouts.controller.api.v1.collection.load_collection:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Collection\LoadCollection
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
 
-    netgen_block_manager.controller.api.v1.collection.load_items:
+    netgen_layouts.controller.api.v1.collection.load_items:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Collection\LoadItems
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
 
-    netgen_block_manager.controller.api.v1.collection.load_item:
+    netgen_layouts.controller.api.v1.collection.load_item:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Collection\LoadItem
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
 
-    netgen_block_manager.controller.api.v1.collection.move_item:
+    netgen_layouts.controller.api.v1.collection.move_item:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Collection\MoveItem
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.collection"
+            - "@netgen_layouts.api.service.collection"
 
-    netgen_block_manager.controller.api.v1.collection.delete_item:
+    netgen_layouts.controller.api.v1.collection.delete_item:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Collection\DeleteItem
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.collection"
+            - "@netgen_layouts.api.service.collection"
 
-    netgen_block_manager.controller.api.v1.collection.delete_items:
+    netgen_layouts.controller.api.v1.collection.delete_items:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Collection\DeleteItems
         public: true
-        parent: netgen_block_manager.controller.base
+        parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_block_manager.api.service.collection"
+            - "@netgen_layouts.api.service.collection"

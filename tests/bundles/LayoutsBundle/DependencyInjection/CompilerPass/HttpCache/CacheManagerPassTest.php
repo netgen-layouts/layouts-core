@@ -25,12 +25,12 @@ final class CacheManagerPassTest extends AbstractCompilerPassTestCase
         $this->compile();
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'netgen_block_manager.http_cache.fos.cache_manager',
+            'netgen_layouts.http_cache.fos.cache_manager',
             0,
             new Reference('fos_http_cache.proxy_client.varnish')
         );
 
-        $def = $this->container->findDefinition('netgen_block_manager.http_cache.fos.cache_manager');
+        $def = $this->container->findDefinition('netgen_layouts.http_cache.fos.cache_manager');
         self::assertFalse($def->isPublic());
     }
 
@@ -44,8 +44,8 @@ final class CacheManagerPassTest extends AbstractCompilerPassTestCase
         $this->compile();
 
         $this->assertContainerBuilderHasAlias(
-            'netgen_block_manager.http_cache.client',
-            'netgen_block_manager.http_cache.client.null'
+            'netgen_layouts.http_cache.client',
+            'netgen_layouts.http_cache.client.null'
         );
     }
 
@@ -59,8 +59,8 @@ final class CacheManagerPassTest extends AbstractCompilerPassTestCase
         $this->compile();
 
         $this->assertContainerBuilderHasAlias(
-            'netgen_block_manager.http_cache.client',
-            'netgen_block_manager.http_cache.client.null'
+            'netgen_layouts.http_cache.client',
+            'netgen_layouts.http_cache.client.null'
         );
     }
 

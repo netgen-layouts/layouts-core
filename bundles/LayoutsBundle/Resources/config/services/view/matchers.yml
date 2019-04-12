@@ -1,105 +1,105 @@
 services:
-    netgen_block_manager.view.matcher.api_version:
+    netgen_layouts.view.matcher.api_version:
         class: Netgen\Layouts\View\Matcher\APIVersion
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: api_version }
 
-    netgen_block_manager.view.matcher.form.type:
+    netgen_layouts.view.matcher.form.type:
         class: Netgen\Layouts\View\Matcher\Form\Type
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: form\type }
 
-    netgen_block_manager.view.matcher.form.block.definition:
+    netgen_layouts.view.matcher.form.block.definition:
         class: Netgen\Layouts\View\Matcher\Form\Block\Definition
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: form\block\definition }
 
-    netgen_block_manager.view.matcher.form.block.locale:
+    netgen_layouts.view.matcher.form.block.locale:
         class: Netgen\Layouts\View\Matcher\Form\Block\Locale
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: form\block\locale }
 
-    netgen_block_manager.view.matcher.form.query.type:
+    netgen_layouts.view.matcher.form.query.type:
         class: Netgen\Layouts\View\Matcher\Form\Query\Type
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: form\query\type }
 
-    netgen_block_manager.view.matcher.form.query.locale:
+    netgen_layouts.view.matcher.form.query.locale:
         class: Netgen\Layouts\View\Matcher\Form\Query\Locale
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: form\query\locale }
 
-    netgen_block_manager.view.matcher.form.config.config_key:
+    netgen_layouts.view.matcher.form.config.config_key:
         class: Netgen\Layouts\View\Matcher\Form\Config\ConfigKey
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: form\config\config_key }
 
-    netgen_block_manager.view.matcher.form.config.value_type:
+    netgen_layouts.view.matcher.form.config.value_type:
         class: Netgen\Layouts\View\Matcher\Form\Config\ValueType
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: form\config\value_type }
 
-    netgen_block_manager.view.matcher.parameter.type:
+    netgen_layouts.view.matcher.parameter.type:
         class: Netgen\Layouts\View\Matcher\Parameter\Type
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: parameter\type }
 
-    netgen_block_manager.view.matcher.zone.identifier:
+    netgen_layouts.view.matcher.zone.identifier:
         class: Netgen\Layouts\View\Matcher\Zone\Identifier
         tags:
         - { name: netgen_block_manager.view.template_matcher, identifier: zone\identifier }
 
-    netgen_block_manager.view.matcher.zone.layout_type:
+    netgen_layouts.view.matcher.zone.layout_type:
         class: Netgen\Layouts\View\Matcher\Zone\LayoutType
         tags:
         - { name: netgen_block_manager.view.template_matcher, identifier: zone\layout_type }
 
-    netgen_block_manager.view.matcher.layout.type:
+    netgen_layouts.view.matcher.layout.type:
         class: Netgen\Layouts\View\Matcher\Layout\Type
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: layout\type }
 
-    netgen_block_manager.view.matcher.layout.shared:
+    netgen_layouts.view.matcher.layout.shared:
         class: Netgen\Layouts\View\Matcher\Layout\Shared
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: layout\shared }
 
-    netgen_block_manager.view.matcher.block.definition:
+    netgen_layouts.view.matcher.block.definition:
         class: Netgen\Layouts\View\Matcher\Block\Definition
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: block\definition }
 
-    netgen_block_manager.view.matcher.block.view_type:
+    netgen_layouts.view.matcher.block.view_type:
         class: Netgen\Layouts\View\Matcher\Block\ViewType
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: block\view_type }
 
-    netgen_block_manager.view.matcher.block.locale:
+    netgen_layouts.view.matcher.block.locale:
         class: Netgen\Layouts\View\Matcher\Block\Locale
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: block\locale }
 
-    netgen_block_manager.view.matcher.block.collection_identifier:
+    netgen_layouts.view.matcher.block.collection_identifier:
         class: Netgen\Layouts\View\Matcher\Block\CollectionIdentifier
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: block\collection\identifier }
 
-    netgen_block_manager.view.matcher.item.view_type:
+    netgen_layouts.view.matcher.item.view_type:
         class: Netgen\Layouts\View\Matcher\Item\ViewType
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: item\view_type }
 
-    netgen_block_manager.view.matcher.item.value_type:
+    netgen_layouts.view.matcher.item.value_type:
         class: Netgen\Layouts\View\Matcher\Item\ValueType
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: item\value_type }
 
-    netgen_block_manager.view.matcher.rule_target.type:
+    netgen_layouts.view.matcher.rule_target.type:
         class: Netgen\Layouts\View\Matcher\RuleTarget\Type
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: rule_target\type }
 
-    netgen_block_manager.view.matcher.rule_condition.type:
+    netgen_layouts.view.matcher.rule_condition.type:
         class: Netgen\Layouts\View\Matcher\RuleCondition\Type
         tags:
             - { name: netgen_block_manager.view.template_matcher, identifier: rule_condition\type }

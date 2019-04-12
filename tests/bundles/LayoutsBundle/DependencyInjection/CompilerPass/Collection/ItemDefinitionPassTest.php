@@ -30,33 +30,33 @@ final class ItemDefinitionPassTest extends AbstractCompilerPassTestCase
             ]
         );
 
-        $this->setDefinition('netgen_block_manager.collection.registry.item_definition', new Definition(null, [[]]));
+        $this->setDefinition('netgen_layouts.collection.registry.item_definition', new Definition(null, [[]]));
 
         $configHandler = new Definition();
         $configHandler->addTag('netgen_block_manager.collection.item_config_handler', ['config_key' => 'key']);
 
-        $this->setDefinition('netgen_block_manager.collection.item_config_handler.key', $configHandler);
+        $this->setDefinition('netgen_layouts.collection.item_config_handler.key', $configHandler);
 
         $this->compile();
 
         $this->assertContainerBuilderHasService(
-            'netgen_block_manager.collection.item_definition.value_type',
+            'netgen_layouts.collection.item_definition.value_type',
             ItemDefinition::class
         );
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'netgen_block_manager.collection.item_definition.value_type',
+            'netgen_layouts.collection.item_definition.value_type',
             1,
             [
-                'key' => new Reference('netgen_block_manager.collection.item_config_handler.key'),
+                'key' => new Reference('netgen_layouts.collection.item_config_handler.key'),
             ]
         );
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
-            'netgen_block_manager.collection.registry.item_definition',
+            'netgen_layouts.collection.registry.item_definition',
             0,
             [
-                'value_type' => new Reference('netgen_block_manager.collection.item_definition.value_type'),
+                'value_type' => new Reference('netgen_layouts.collection.item_definition.value_type'),
             ]
         );
     }
@@ -79,12 +79,12 @@ final class ItemDefinitionPassTest extends AbstractCompilerPassTestCase
             ]
         );
 
-        $this->setDefinition('netgen_block_manager.collection.registry.item_definition', new Definition(null, [[]]));
+        $this->setDefinition('netgen_layouts.collection.registry.item_definition', new Definition(null, [[]]));
 
         $configHandler = new Definition();
         $configHandler->addTag('netgen_block_manager.collection.item_config_handler');
 
-        $this->setDefinition('netgen_block_manager.collection.item_config_handler.key', $configHandler);
+        $this->setDefinition('netgen_layouts.collection.item_config_handler.key', $configHandler);
 
         $this->compile();
     }

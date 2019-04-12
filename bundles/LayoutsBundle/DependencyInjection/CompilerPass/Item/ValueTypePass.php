@@ -14,7 +14,7 @@ use Symfony\Component\DependencyInjection\Reference;
 
 final class ValueTypePass implements CompilerPassInterface
 {
-    private const SERVICE_NAME = 'netgen_block_manager.item.registry.value_type';
+    private const SERVICE_NAME = 'netgen_layouts.item.registry.value_type';
 
     public function process(ContainerBuilder $container): void
     {
@@ -38,7 +38,7 @@ final class ValueTypePass implements CompilerPassInterface
         foreach ($valueTypes as $identifier => $valueType) {
             $this->validateBrowserType($container, $identifier);
 
-            $serviceIdentifier = sprintf('netgen_block_manager.item.value_type.%s', $identifier);
+            $serviceIdentifier = sprintf('netgen_layouts.item.value_type.%s', $identifier);
 
             $container->register($serviceIdentifier, ValueType::class)
                 ->setArguments([$identifier, $valueType])

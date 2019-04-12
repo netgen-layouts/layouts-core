@@ -1,9 +1,9 @@
 services:
-    netgen_block_manager.design.twig.filesystem_loader:
+    netgen_layouts.design.twig.filesystem_loader:
         class: Netgen\Bundle\LayoutsBundle\Design\Twig\FilesystemLoader
         decorates: twig.loader.native_filesystem
         arguments:
-            - "@netgen_block_manager.design.twig.filesystem_loader.inner"
-            - "@netgen_block_manager.configuration"
+            - "@netgen_layouts.design.twig.filesystem_loader.inner"
+            - "@netgen_layouts.configuration"
         tags:
             - { name: twig.loader }

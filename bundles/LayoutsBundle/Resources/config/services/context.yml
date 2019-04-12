@@ -1,8 +1,8 @@
 services:
-    netgen_block_manager.context:
+    netgen_layouts.context:
         class: Netgen\Layouts\Context\Context
 
-    netgen_block_manager.context.builder:
+    netgen_layouts.context.builder:
         class: Netgen\Layouts\Context\ContextBuilder
         arguments:
             - !tagged netgen_block_manager.context.provider

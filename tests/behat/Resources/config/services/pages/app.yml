@@ -1,4 +1,4 @@
 services:
-    netgen_block_manager.behat.page.app.index:
+    netgen_layouts.behat.page.app.index:
         class: Netgen\Layouts\Behat\Page\App\IndexPage
-        parent: netgen_block_manager.behat.symfony_page
+        parent: netgen_layouts.behat.symfony_page

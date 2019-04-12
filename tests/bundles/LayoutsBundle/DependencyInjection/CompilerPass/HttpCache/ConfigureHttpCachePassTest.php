@@ -18,7 +18,7 @@ final class ConfigureHttpCachePassTest extends AbstractCompilerPassTestCase
      */
     public function testProcess(): void
     {
-        $this->setDefinition('netgen_block_manager.http_cache.client', new Definition(stdClass::class));
+        $this->setDefinition('netgen_layouts.http_cache.client', new Definition(stdClass::class));
         $this->setParameter('session.storage.options', []);
 
         $this->setParameter(
@@ -33,7 +33,7 @@ final class ConfigureHttpCachePassTest extends AbstractCompilerPassTestCase
         $this->compile();
 
         $this->assertContainerBuilderHasService(
-            'netgen_block_manager.http_cache.client',
+            'netgen_layouts.http_cache.client',
             stdClass::class
         );
     }
@@ -43,7 +43,7 @@ final class ConfigureHttpCachePassTest extends AbstractCompilerPassTestCase
      */
     public function testProcessWithDisabledInvalidation(): void
     {
-        $this->setDefinition('netgen_block_manager.http_cache.client', new Definition(stdClass::class));
+        $this->setDefinition('netgen_layouts.http_cache.client', new Definition(stdClass::class));
         $this->setParameter('session.storage.options', []);
 
         $this->setParameter(
@@ -58,8 +58,8 @@ final class ConfigureHttpCachePassTest extends AbstractCompilerPassTestCase
         $this->compile();
 
         $this->assertContainerBuilderHasAlias(
-            'netgen_block_manager.http_cache.client',
-            'netgen_block_manager.http_cache.client.null'
+            'netgen_layouts.http_cache.client',
+            'netgen_layouts.http_cache.client.null'
         );
     }
 

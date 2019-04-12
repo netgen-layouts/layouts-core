@@ -13,7 +13,7 @@ final class TargetTypePass implements CompilerPassInterface
 {
     use DefinitionClassTrait;
 
-    private const SERVICE_NAME = 'netgen_block_manager.layout.resolver.form.target_type';
+    private const SERVICE_NAME = 'netgen_layouts.layout.resolver.form.target_type';
     private const TAG_NAME = 'netgen_block_manager.layout.resolver.form.target_type.mapper';
 
     public function process(ContainerBuilder $container): void

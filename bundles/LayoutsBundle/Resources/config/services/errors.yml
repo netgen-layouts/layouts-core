@@ -1,8 +1,8 @@
 services:
-    netgen_block_manager.error.handler:
-        alias: netgen_block_manager.error.handler.debug
+    netgen_layouts.error.handler:
+        alias: netgen_layouts.error.handler.debug
 
-    netgen_block_manager.error.handler.debug:
+    netgen_layouts.error.handler.debug:
         class: Netgen\Layouts\Error\DebugErrorHandler
         arguments:
             - "@?logger"

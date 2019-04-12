@@ -6,7 +6,7 @@ namespace Netgen\Bundle\LayoutsBundle\Configuration;
 
 /**
  * This is a lightweight wrapper around container parameters set by
- * Netgen Layouts (those starting with `netgen_block_manager`).
+ * Netgen Layouts (those starting with `netgen_layouts`).
  *
  * It allows accessing the parameter values from various places (mainly
  * Twig templates through a global variable), without directly accessing
