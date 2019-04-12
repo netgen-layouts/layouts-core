@@ -65,7 +65,7 @@ final class DefaultContextTest extends TestCase
         $this->expectExceptionMessage('Unexpected token "string" of value "bar" ("end of statement block" expected) at line 1.');
 
         $stream = $this->environment->tokenize(
-            new Source('{% ngbm_default_context \'foo\' \'bar\' %}', '')
+            new Source('{% nglayouts_default_context \'foo\' \'bar\' %}', '')
         );
 
         $this->parser->parse($stream);
@@ -75,19 +75,19 @@ final class DefaultContextTest extends TestCase
     {
         return [
             [
-                '{% ngbm_default_context foo %}',
+                '{% nglayouts_default_context foo %}',
                 new DefaultContextNode(
                     new NameExpression('foo', 1),
                     1,
-                    'ngbm_default_context'
+                    'nglayouts_default_context'
                 ),
             ],
             [
-                '{% ngbm_default_context "foo" %}',
+                '{% nglayouts_default_context "foo" %}',
                 new DefaultContextNode(
                     new ConstantExpression('foo', 1),
                     1,
-                    'ngbm_default_context'
+                    'nglayouts_default_context'
                 ),
             ],
         ];

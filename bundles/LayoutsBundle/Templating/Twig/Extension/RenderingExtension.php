@@ -17,7 +17,7 @@ final class RenderingExtension extends AbstractExtension
     {
         return [
             new TwigFunction(
-                'ngbm_render_item',
+                'nglayouts_render_item',
                 [RenderingRuntime::class, 'renderItem'],
                 [
                     'needs_context' => true,
@@ -25,7 +25,7 @@ final class RenderingExtension extends AbstractExtension
                 ]
             ),
             new TwigFunction(
-                'ngbm_render_layout',
+                'nglayouts_render_layout',
                 [RenderingRuntime::class, 'renderValue'],
                 [
                     'needs_context' => true,
@@ -33,7 +33,7 @@ final class RenderingExtension extends AbstractExtension
                 ]
             ),
             new TwigFunction(
-                'ngbm_render_parameter',
+                'nglayouts_render_parameter',
                 [RenderingRuntime::class, 'renderValue'],
                 [
                     'needs_context' => true,
@@ -41,7 +41,7 @@ final class RenderingExtension extends AbstractExtension
                 ]
             ),
             new TwigFunction(
-                'ngbm_render_block',
+                'nglayouts_render_block',
                 [RenderingRuntime::class, 'renderBlock'],
                 [
                     'needs_context' => true,
@@ -49,7 +49,7 @@ final class RenderingExtension extends AbstractExtension
                 ]
             ),
             new TwigFunction(
-                'ngbm_render_placeholder',
+                'nglayouts_render_placeholder',
                 [RenderingRuntime::class, 'renderPlaceholder'],
                 [
                     'needs_context' => true,
@@ -57,7 +57,7 @@ final class RenderingExtension extends AbstractExtension
                 ]
             ),
             new TwigFunction(
-                'ngbm_render_rule',
+                'nglayouts_render_rule',
                 [RenderingRuntime::class, 'renderValue'],
                 [
                     'needs_context' => true,
@@ -65,7 +65,7 @@ final class RenderingExtension extends AbstractExtension
                 ]
             ),
             new TwigFunction(
-                'ngbm_render_rule_target',
+                'nglayouts_render_rule_target',
                 [RenderingRuntime::class, 'renderValue'],
                 [
                     'needs_context' => true,
@@ -73,7 +73,7 @@ final class RenderingExtension extends AbstractExtension
                 ]
             ),
             new TwigFunction(
-                'ngbm_render_rule_condition',
+                'nglayouts_render_rule_condition',
                 [RenderingRuntime::class, 'renderValue'],
                 [
                     'needs_context' => true,
@@ -81,7 +81,7 @@ final class RenderingExtension extends AbstractExtension
                 ]
             ),
             new TwigFunction(
-                'ngbm_render_value',
+                'nglayouts_render_value',
                 [RenderingRuntime::class, 'renderValue'],
                 [
                     'needs_context' => true,
@@ -89,7 +89,7 @@ final class RenderingExtension extends AbstractExtension
                 ]
             ),
             new TwigFunction(
-                'ngbm_render_template',
+                'nglayouts_render_template',
                 [RenderingRuntime::class, 'renderStringTemplate'],
                 [
                     'is_safe' => ['html'],

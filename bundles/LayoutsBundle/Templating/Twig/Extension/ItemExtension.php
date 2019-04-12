@@ -14,7 +14,7 @@ final class ItemExtension extends AbstractExtension
     {
         return [
             new TwigFunction(
-                'ngbm_item_path',
+                'nglayouts_item_path',
                 [ItemRuntime::class, 'getItemPath'],
                 [
                     'is_safe' => ['html'],

@@ -15,7 +15,7 @@ final class HelpersExtension extends AbstractExtension
     {
         return [
             new TwigFunction(
-                'ngbm_layout_name',
+                'nglayouts_layout_name',
                 [HelpersRuntime::class, 'getLayoutName']
             ),
         ];
@@ -25,11 +25,11 @@ final class HelpersExtension extends AbstractExtension
     {
         return [
             new TwigFilter(
-                'ngbm_locale_name',
+                'nglayouts_locale_name',
                 [HelpersRuntime::class, 'getLocaleName']
             ),
             new TwigFilter(
-                'ngbm_country_flag',
+                'nglayouts_country_flag',
                 [HelpersRuntime::class, 'getCountryFlag']
             ),
         ];

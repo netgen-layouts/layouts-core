@@ -46,7 +46,7 @@
                     <ul>
                         {% for target in rule.targets %}
                             <li {% if rule_count == 1 and (target_type_identifier == 'ezlocation' or target_type_identifier == 'ezcontent') %}class="unique"{% endif %}>
-                                {{ ngbm_render_rule_target(target, {}, 'value') }}
+                                {{ nglayouts_render_rule_target(target, {}, 'value') }}
                             </li>
                         {% endfor %}
                     </ul>
@@ -60,7 +60,7 @@
                 <ul class="{% if rule.conditions|length == 2 %}nl-ellipsis{% elseif rule.conditions|length > 2 %}nl-inline{% endif %}">
                     {% for condition in rule.conditions %}
                         {% if condition_types[condition.conditionType.type] is defined %}
-                            <li>{{ ('layout_resolver.condition.' ~ condition.conditionType.type)|trans({}, 'ngbm') }}{% if rule.conditions|length <= 2 %}: {{ ngbm_render_rule_condition(condition, {}, 'value') }}{% endif %}</li>
+                            <li>{{ ('layout_resolver.condition.' ~ condition.conditionType.type)|trans({}, 'ngbm') }}{% if rule.conditions|length <= 2 %}: {{ nglayouts_render_rule_condition(condition, {}, 'value') }}{% endif %}</li>
                         {% endif %}
                     {% endfor %}
                 </ul>
@@ -157,7 +157,7 @@
 
                             <ul class="settings-list target-list">
                                 {% for target in rule.targets %}
-                                    <li>{{ ngbm_render_rule_target(target) }}</li>
+                                    <li>{{ nglayouts_render_rule_target(target) }}</li>
                                 {% endfor %}
                             </ul>
                         {% else %}
@@ -196,7 +196,7 @@
 
                             <ul class="settings-list condition-list">
                                 {% for condition in rule.conditions %}
-                                    <li>{{ ngbm_render_rule_condition(condition) }}</li>
+                                    <li>{{ nglayouts_render_rule_condition(condition) }}</li>
                                 {% endfor %}
                             </ul>
                         {% else %}

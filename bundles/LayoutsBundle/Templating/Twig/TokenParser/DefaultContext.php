@@ -22,6 +22,6 @@ final class DefaultContext extends AbstractTokenParser
 
     public function getTag(): string
     {
-        return 'ngbm_default_context';
+        return 'nglayouts_default_context';
     }
 }

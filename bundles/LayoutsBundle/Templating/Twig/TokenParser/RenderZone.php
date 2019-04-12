@@ -48,6 +48,6 @@ final class RenderZone extends AbstractTokenParser
 
     public function getTag(): string
     {
-        return 'ngbm_render_zone';
+        return 'nglayouts_render_zone';
     }
 }

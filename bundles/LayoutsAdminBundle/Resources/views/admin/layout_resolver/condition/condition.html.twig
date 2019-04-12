@@ -11,7 +11,7 @@
 >
     {{ ('layout_resolver.condition.' ~ condition.conditionType.type)|trans({}, 'ngbm') }}:
 
-    {{ ngbm_render_rule_condition(condition, {}, 'value') }}
+    {{ nglayouts_render_rule_condition(condition, {}, 'value') }}
 </span>
 
 {% if can_edit %}

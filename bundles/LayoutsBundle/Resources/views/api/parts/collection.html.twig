@@ -10,7 +10,7 @@
         <div class="{% if number_of_columns > 1 %}grid-row{% else %}list-row{% endif %}">
             {% for result in collection %}
                 <div class="{% if number_of_columns > 1 %}grid-item cols-{{ number_of_columns }}{% else %}list-item{% endif %}">
-                    {{ ngbm_render_item(result.item, item_view_type, {}, view_context) }}
+                    {{ nglayouts_render_item(result.item, item_view_type, {}, view_context) }}
                 </div>
             {% endfor %}
         </div>

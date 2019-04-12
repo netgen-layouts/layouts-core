@@ -3,7 +3,7 @@
         <div class="list-row">
             {% for result in collections[identifier] %}
                 <div class="list-item">
-                    {{ ngbm_render_item(result.item, item_view_type, {}, view_context) }}
+                    {{ nglayouts_render_item(result.item, item_view_type, {}, view_context) }}
                 </div>
             {% endfor %}
         </div>
@@ -12,7 +12,7 @@
 
 {% macro inline_template(string, parameters) %}
     {% if '{{' in string and '}}' in string and '{%' not in string and '{#' not in string %}
-        {{ ngbm_render_template(string, parameters) }}
+        {{ nglayouts_render_template(string, parameters) }}
     {% else %}
         {{ string }}
     {% endif %}

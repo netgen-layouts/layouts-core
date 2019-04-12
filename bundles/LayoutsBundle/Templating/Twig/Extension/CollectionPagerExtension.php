@@ -14,14 +14,14 @@ final class CollectionPagerExtension extends AbstractExtension
     {
         return [
             new TwigFunction(
-                'ngbm_collection_pager',
+                'nglayouts_collection_pager',
                 [CollectionPagerRuntime::class, 'renderCollectionPager'],
                 [
                     'is_safe' => ['html'],
                 ]
             ),
             new TwigFunction(
-                'ngbm_collection_page_url',
+                'nglayouts_collection_page_url',
                 [CollectionPagerRuntime::class, 'getCollectionPageUrl']
             ),
         ];

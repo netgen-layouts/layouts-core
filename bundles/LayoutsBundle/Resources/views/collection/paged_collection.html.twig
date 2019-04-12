@@ -1,5 +1,5 @@
 {% set load_initial_with_ajax = block.parameter('paged_collections:ajax_first').value %}
-{% set collection_page_url = ngbm_collection_page_url(pager, block, collection_identifier) %}
+{% set collection_page_url = nglayouts_collection_page_url(pager, block, collection_identifier) %}
 
 {% set wrap_css_id = block('wrap_css_id') is defined ? block('wrap_css_id') : '' %}
 {% set wrap_css_class = block('wrap_css_class') is defined ? block('wrap_css_class') : '' %}
@@ -13,5 +13,5 @@
         {% endif %}
     </div>
 
-    {{ ngbm_collection_pager(pager, block, collection_identifier, {template: pager_template}) }}
+    {{ nglayouts_collection_pager(pager, block, collection_identifier, {template: pager_template}) }}
 </div>

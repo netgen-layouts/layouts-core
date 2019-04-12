@@ -12,7 +12,7 @@
         <div class="template_name">{{ view_type_name }}</div>
         <div class="name">{{ block.name }}</div>
 
-        {{ ngbm_template_plugin('api.block.status') }}
+        {{ nglayouts_template_plugin('api.block.status') }}
 
         <div class="dropdown">
             <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><i class="material-icons">more_horiz</i></button>
@@ -31,7 +31,7 @@
                     <li class="js-destroy"><a title="{{ 'layout.block.delete'|trans }}">{{ 'layout.block.delete'|trans }}</a></li>
                 {% endif %}
 
-                {{ ngbm_template_plugin('api.block.controls') }}
+                {{ nglayouts_template_plugin('api.block.controls') }}
             </ul>
         </div>
     </div>

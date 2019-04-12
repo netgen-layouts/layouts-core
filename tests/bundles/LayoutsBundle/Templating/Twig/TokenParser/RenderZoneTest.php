@@ -65,7 +65,7 @@ final class RenderZoneTest extends TestCase
         $this->expectExceptionMessage('Unexpected token "name" of value "foo" at line 1.');
 
         $stream = $this->environment->tokenize(
-            new Source('{% ngbm_render_zone zone foo=\'bar\' %}', '')
+            new Source('{% nglayouts_render_zone zone foo=\'bar\' %}', '')
         );
 
         $this->parser->parse($stream);
@@ -75,21 +75,21 @@ final class RenderZoneTest extends TestCase
     {
         return [
             [
-                '{% ngbm_render_zone zone %}',
+                '{% nglayouts_render_zone zone %}',
                 new RenderZoneNode(
                     new NameExpression('zone', 1),
                     null,
                     1,
-                    'ngbm_render_zone'
+                    'nglayouts_render_zone'
                 ),
             ],
             [
-                '{% ngbm_render_zone zone context="json" %}',
+                '{% nglayouts_render_zone zone context="json" %}',
                 new RenderZoneNode(
                     new NameExpression('zone', 1),
                     new ConstantExpression('json', 1),
                     1,
-                    'ngbm_render_zone'
+                    'nglayouts_render_zone'
                 ),
             ],
         ];

@@ -14,7 +14,7 @@ final class PluginRenderingExtension extends AbstractExtension
     {
         return [
             new TwigFunction(
-                'ngbm_template_plugin',
+                'nglayouts_template_plugin',
                 [PluginRenderingRuntime::class, 'renderPlugins'],
                 [
                     'needs_context' => true,

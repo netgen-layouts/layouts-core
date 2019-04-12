@@ -1,8 +1,8 @@
 --TEST--
-"ngbm_render_zone" tag
+"nglayouts_render_zone" tag
 --TEMPLATE--
-{% ngbm_render_zone zone context='json' %}
-{% ngbm_render_zone 'zone' context='json' %}
+{% nglayouts_render_zone zone %}
+{% nglayouts_render_zone 'zone' %}
 --DATA--
 return [
     'ngbm' => new \Netgen\Bundle\LayoutsBundle\Tests\Templating\Twig\Extension\Stubs\GlobalVariable(
@@ -17,4 +17,4 @@ return [
 --CONFIG--
 return []
 --EXPECT--
-{"blocks":[{"id":1},{"id":2}]}{"blocks":[{"id":1},{"id":2}]}
+block1 block2block1 block2
