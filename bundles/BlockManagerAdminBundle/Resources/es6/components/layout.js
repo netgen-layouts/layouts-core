@@ -82,7 +82,7 @@ export default class NlLayout {
         this.published = !!this.attributes.published;
         this.shared = this.el.parentElement.classList.contains('nl-shared-layouts');
         this.selectExport = document.getElementById(`exportLayout${this.id}`);
-        this.selected = this.selectExport.checked;
+        this.selected = this.selectExport && this.selectExport.checked;
 
         this.layouts.layouts.push(this);
 
@@ -216,9 +216,11 @@ export default class NlLayout {
             }
         });
 
-        this.selectExport.addEventListener('change', () => {
-            this.selected = this.selectExport.checked;
-        });
+        if (this.selectExport) {
+            this.selectExport.addEventListener('change', () => {
+                this.selected = this.selectExport.checked;
+            });
+        }
     }
 
     toggleSelected(select) {
