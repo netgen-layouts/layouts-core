@@ -119,13 +119,13 @@ final class GlobalVariable
             return null;
         }
 
-        if ($masterRequest->attributes->has('ngbmExceptionLayoutView')) {
-            if ($currentRequest !== $masterRequest || !$masterRequest->attributes->has('ngbmLayoutView')) {
-                return $masterRequest->attributes->get('ngbmExceptionLayoutView');
+        if ($masterRequest->attributes->has('nglExceptionLayoutView')) {
+            if ($currentRequest !== $masterRequest || !$masterRequest->attributes->has('nglLayoutView')) {
+                return $masterRequest->attributes->get('nglExceptionLayoutView');
             }
         }
 
-        return $masterRequest->attributes->get('ngbmLayoutView');
+        return $masterRequest->attributes->get('nglLayoutView');
     }
 
     /**
@@ -213,18 +213,18 @@ final class GlobalVariable
             return null;
         }
 
-        if ($masterRequest->attributes->has('ngbmExceptionLayoutView')) {
+        if ($masterRequest->attributes->has('nglExceptionLayoutView')) {
             // After an exception layout is resolved, this case either means that
             // the main layout does not exist at all (because the error
             // happened before the rendering) or that it is already resolved
-            // (if the error happened in subrequest), so this is a subsequent
+            // (if the error happened in sub-request), so this is a subsequent
             // call where we can safely return null in all cases.
             return null;
         }
 
         if (
             !$currentRequest->attributes->has('exception') &&
-            $masterRequest->attributes->has('ngbmLayoutView')
+            $masterRequest->attributes->has('nglLayoutView')
         ) {
             // This is the case where we request the main layout more than once
             // within the regular page display, without the exception, so again
@@ -250,8 +250,8 @@ final class GlobalVariable
 
         $masterRequest->attributes->set(
             $currentRequest->attributes->has('exception') ?
-                'ngbmExceptionLayoutView' :
-                'ngbmLayoutView',
+                'nglExceptionLayoutView' :
+                'nglLayoutView',
             $layoutView
         );
 

@@ -47,8 +47,8 @@ final class LayoutResponseListener implements EventSubscriberInterface
 
         $layoutView = $event->getRequest()->attributes->get(
             $this->isExceptionResponse ?
-                'ngbmExceptionLayoutView' :
-                'ngbmLayoutView'
+                'nglExceptionLayoutView' :
+                'nglLayoutView'
         );
 
         if (!$layoutView instanceof LayoutViewInterface) {

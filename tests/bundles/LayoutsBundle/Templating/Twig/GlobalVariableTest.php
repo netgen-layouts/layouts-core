@@ -338,7 +338,7 @@ final class GlobalVariableTest extends TestCase
 
         self::assertSame('layout.html.twig', $this->globalVariable->getLayoutTemplate());
 
-        self::assertSame($layoutView, $request->attributes->get('ngbmLayoutView'));
+        self::assertSame($layoutView, $request->attributes->get('nglLayoutView'));
     }
 
     /**
@@ -352,7 +352,7 @@ final class GlobalVariableTest extends TestCase
         $layoutView->setTemplate('layout.html.twig');
 
         $request = Request::create('/');
-        $request->attributes->set('ngbmLayoutView', $layoutView);
+        $request->attributes->set('nglLayoutView', $layoutView);
         $this->requestStack->push($request);
 
         $this->layoutResolverMock
@@ -370,7 +370,7 @@ final class GlobalVariableTest extends TestCase
 
         self::assertSame('pagelayout.html.twig', $this->globalVariable->getLayoutTemplate());
 
-        self::assertSame($layoutView, $request->attributes->get('ngbmLayoutView'));
+        self::assertSame($layoutView, $request->attributes->get('nglLayoutView'));
     }
 
     /**
@@ -427,7 +427,7 @@ final class GlobalVariableTest extends TestCase
 
         self::assertSame('layout.html.twig', $this->globalVariable->getLayoutTemplate());
 
-        self::assertSame($layoutView, $request->attributes->get('ngbmExceptionLayoutView'));
+        self::assertSame($layoutView, $request->attributes->get('nglExceptionLayoutView'));
     }
 
     /**
@@ -442,7 +442,7 @@ final class GlobalVariableTest extends TestCase
 
         $request = Request::create('/');
         $request->attributes->set('exception', new Exception());
-        $request->attributes->set('ngbmExceptionLayoutView', $layoutView);
+        $request->attributes->set('nglExceptionLayoutView', $layoutView);
         $this->requestStack->push($request);
 
         $this->layoutResolverMock
@@ -460,7 +460,7 @@ final class GlobalVariableTest extends TestCase
 
         self::assertSame('pagelayout.html.twig', $this->globalVariable->getLayoutTemplate());
 
-        self::assertSame($layoutView, $request->attributes->get('ngbmExceptionLayoutView'));
+        self::assertSame($layoutView, $request->attributes->get('nglExceptionLayoutView'));
     }
 
     /**
@@ -488,7 +488,7 @@ final class GlobalVariableTest extends TestCase
         );
 
         self::assertFalse(
-            $request->attributes->get('ngbmLayoutView')
+            $request->attributes->get('nglLayoutView')
         );
     }
 

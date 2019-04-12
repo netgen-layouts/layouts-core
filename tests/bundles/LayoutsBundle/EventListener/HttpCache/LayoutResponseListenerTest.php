@@ -61,7 +61,7 @@ final class LayoutResponseListenerTest extends TestCase
 
         $layout = new Layout();
 
-        $request->attributes->set('ngbmLayoutView', new LayoutView($layout));
+        $request->attributes->set('nglLayoutView', new LayoutView($layout));
 
         $response = new Response();
         $event = new FilterResponseEvent(
@@ -87,7 +87,7 @@ final class LayoutResponseListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $request->attributes->set('ngbmLayoutView', new LayoutView(new Layout()));
+        $request->attributes->set('nglLayoutView', new LayoutView(new Layout()));
 
         $event = new FilterResponseEvent(
             $kernelMock,
@@ -111,7 +111,7 @@ final class LayoutResponseListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $request->attributes->set('ngbmLayoutView', 42);
+        $request->attributes->set('nglLayoutView', 42);
 
         $event = new FilterResponseEvent(
             $kernelMock,
@@ -137,7 +137,7 @@ final class LayoutResponseListenerTest extends TestCase
         $request = Request::create('/');
 
         $layout = new Layout();
-        $request->attributes->set('ngbmExceptionLayoutView', new LayoutView($layout));
+        $request->attributes->set('nglExceptionLayoutView', new LayoutView($layout));
 
         $response = new Response();
         $event = new FilterResponseEvent(
@@ -173,7 +173,7 @@ final class LayoutResponseListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $request->attributes->set('ngbmExceptionLayoutView', new LayoutView(new Layout()));
+        $request->attributes->set('nglExceptionLayoutView', new LayoutView(new Layout()));
 
         $event = new FilterResponseEvent(
             $kernelMock,
@@ -207,7 +207,7 @@ final class LayoutResponseListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $request->attributes->set('ngbmExceptionLayoutView', 42);
+        $request->attributes->set('nglExceptionLayoutView', 42);
 
         $event = new FilterResponseEvent(
             $kernelMock,
