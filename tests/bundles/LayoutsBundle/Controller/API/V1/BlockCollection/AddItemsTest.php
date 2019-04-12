@@ -36,7 +36,7 @@ final class AddItemsTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/collections/default/items',
+            '/nglayouts/api/v1/en/blocks/31/collections/default/items',
             [],
             [],
             [],
@@ -70,7 +70,7 @@ final class AddItemsTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/9999/collections/default/items',
+            '/nglayouts/api/v1/en/blocks/9999/collections/default/items',
             [],
             [],
             [],
@@ -108,7 +108,7 @@ final class AddItemsTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/collections/unknown/items',
+            '/nglayouts/api/v1/en/blocks/31/collections/unknown/items',
             [],
             [],
             [],
@@ -136,7 +136,7 @@ final class AddItemsTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/collections/default/items',
+            '/nglayouts/api/v1/en/blocks/31/collections/default/items',
             [],
             [],
             [],
@@ -164,7 +164,7 @@ final class AddItemsTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/collections/default/items',
+            '/nglayouts/api/v1/en/blocks/31/collections/default/items',
             [],
             [],
             [],
@@ -190,7 +190,7 @@ final class AddItemsTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/collections/default/items',
+            '/nglayouts/api/v1/en/blocks/31/collections/default/items',
             [],
             [],
             [],
@@ -224,7 +224,7 @@ final class AddItemsTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/collections/default/items',
+            '/nglayouts/api/v1/en/blocks/31/collections/default/items',
             [],
             [],
             [],
@@ -257,7 +257,7 @@ final class AddItemsTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/collections/default/items',
+            '/nglayouts/api/v1/en/blocks/31/collections/default/items',
             [],
             [],
             [],
@@ -291,7 +291,7 @@ final class AddItemsTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/collections/default/items',
+            '/nglayouts/api/v1/en/blocks/31/collections/default/items',
             [],
             [],
             [],
@@ -324,7 +324,7 @@ final class AddItemsTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/collections/default/items',
+            '/nglayouts/api/v1/en/blocks/31/collections/default/items',
             [],
             [],
             [],
@@ -358,7 +358,7 @@ final class AddItemsTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/collections/default/items',
+            '/nglayouts/api/v1/en/blocks/31/collections/default/items',
             [],
             [],
             [],
@@ -391,7 +391,7 @@ final class AddItemsTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/collections/featured/items',
+            '/nglayouts/api/v1/en/blocks/31/collections/featured/items',
             [],
             [],
             [],
@@ -425,7 +425,7 @@ final class AddItemsTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/collections/default/items',
+            '/nglayouts/api/v1/en/blocks/31/collections/default/items',
             [],
             [],
             [],

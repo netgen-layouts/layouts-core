@@ -28,7 +28,7 @@ final class ChangeTypeTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/layouts/1/change_type?html=false',
+            '/nglayouts/api/v1/layouts/1/change_type?html=false',
             [],
             [],
             [],
@@ -55,7 +55,7 @@ final class ChangeTypeTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/layouts/1/change_type?html=false',
+            '/nglayouts/api/v1/layouts/1/change_type?html=false',
             [],
             [],
             [],

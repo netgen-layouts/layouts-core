@@ -28,7 +28,7 @@ final class CreateTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/layouts?html=false',
+            '/nglayouts/api/v1/layouts?html=false',
             [],
             [],
             [],
@@ -58,7 +58,7 @@ final class CreateTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/layouts?html=false',
+            '/nglayouts/api/v1/layouts?html=false',
             [],
             [],
             [],
@@ -89,7 +89,7 @@ final class CreateTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/layouts?html=false',
+            '/nglayouts/api/v1/layouts?html=false',
             [],
             [],
             [],
@@ -119,7 +119,7 @@ final class CreateTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/layouts',
+            '/nglayouts/api/v1/layouts',
             [],
             [],
             [],
@@ -148,7 +148,7 @@ final class CreateTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/layouts',
+            '/nglayouts/api/v1/layouts',
             [],
             [],
             [],
@@ -179,7 +179,7 @@ final class CreateTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/layouts',
+            '/nglayouts/api/v1/layouts',
             [],
             [],
             [],
@@ -210,7 +210,7 @@ final class CreateTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/layouts',
+            '/nglayouts/api/v1/layouts',
             [],
             [],
             [],
@@ -240,7 +240,7 @@ final class CreateTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/layouts',
+            '/nglayouts/api/v1/layouts',
             [],
             [],
             [],
@@ -271,7 +271,7 @@ final class CreateTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/layouts',
+            '/nglayouts/api/v1/layouts',
             [],
             [],
             [],
@@ -301,7 +301,7 @@ final class CreateTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/layouts',
+            '/nglayouts/api/v1/layouts',
             [],
             [],
             [],
@@ -331,7 +331,7 @@ final class CreateTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/layouts',
+            '/nglayouts/api/v1/layouts',
             [],
             [],
             [],

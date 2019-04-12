@@ -25,7 +25,7 @@ final class CopyTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/layouts/1/copy?html=false',
+            '/nglayouts/api/v1/layouts/1/copy?html=false',
             [],
             [],
             [],
@@ -53,7 +53,7 @@ final class CopyTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/layouts/6/copy?published=true&html=false',
+            '/nglayouts/api/v1/layouts/6/copy?published=true&html=false',
             [],
             [],
             [],
@@ -80,7 +80,7 @@ final class CopyTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/layouts/1/copy?html=false',
+            '/nglayouts/api/v1/layouts/1/copy?html=false',
             [],
             [],
             [],
@@ -108,7 +108,7 @@ final class CopyTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/layouts/1/copy?html=false',
+            '/nglayouts/api/v1/layouts/1/copy?html=false',
             [],
             [],
             [],
@@ -135,7 +135,7 @@ final class CopyTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/layouts/9999/copy',
+            '/nglayouts/api/v1/layouts/9999/copy',
             [],
             [],
             [],
@@ -162,7 +162,7 @@ final class CopyTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/layouts/1/copy',
+            '/nglayouts/api/v1/layouts/1/copy',
             [],
             [],
             [],
@@ -185,7 +185,7 @@ final class CopyTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/layouts/1/copy',
+            '/nglayouts/api/v1/layouts/1/copy',
             [],
             [],
             [],
@@ -212,7 +212,7 @@ final class CopyTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/layouts/1/copy',
+            '/nglayouts/api/v1/layouts/1/copy',
             [],
             [],
             [],
@@ -240,7 +240,7 @@ final class CopyTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/layouts/1/copy',
+            '/nglayouts/api/v1/layouts/1/copy',
             [],
             [],
             [],

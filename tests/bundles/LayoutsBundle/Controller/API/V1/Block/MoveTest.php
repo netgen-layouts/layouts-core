@@ -26,7 +26,7 @@ final class MoveTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/34/move',
+            '/nglayouts/api/v1/en/blocks/34/move',
             [],
             [],
             [],
@@ -51,7 +51,7 @@ final class MoveTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/37/move',
+            '/nglayouts/api/v1/en/blocks/37/move',
             [],
             [],
             [],
@@ -76,7 +76,7 @@ final class MoveTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/37/move',
+            '/nglayouts/api/v1/en/blocks/37/move',
             [],
             [],
             [],
@@ -95,7 +95,7 @@ final class MoveTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/9999/move/zone',
+            '/nglayouts/api/v1/en/blocks/9999/move/zone',
             [],
             [],
             [],
@@ -124,7 +124,7 @@ final class MoveTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/32/move',
+            '/nglayouts/api/v1/en/blocks/32/move',
             [],
             [],
             [],
@@ -153,7 +153,7 @@ final class MoveTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/34/move',
+            '/nglayouts/api/v1/en/blocks/34/move',
             [],
             [],
             [],
@@ -182,7 +182,7 @@ final class MoveTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/move',
+            '/nglayouts/api/v1/en/blocks/31/move',
             [],
             [],
             [],
@@ -211,7 +211,7 @@ final class MoveTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/34/move',
+            '/nglayouts/api/v1/en/blocks/34/move',
             [],
             [],
             [],
@@ -240,7 +240,7 @@ final class MoveTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/33/move',
+            '/nglayouts/api/v1/en/blocks/33/move',
             [],
             [],
             [],
@@ -269,7 +269,7 @@ final class MoveTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/32/move',
+            '/nglayouts/api/v1/en/blocks/32/move',
             [],
             [],
             [],
@@ -297,7 +297,7 @@ final class MoveTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/32/move',
+            '/nglayouts/api/v1/en/blocks/32/move',
             [],
             [],
             [],

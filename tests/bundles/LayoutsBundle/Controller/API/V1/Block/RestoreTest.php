@@ -20,7 +20,7 @@ final class RestoreTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/restore?html=false',
+            '/nglayouts/api/v1/en/blocks/31/restore?html=false',
             [],
             [],
             [],
@@ -43,7 +43,7 @@ final class RestoreTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/9999/restore',
+            '/nglayouts/api/v1/en/blocks/9999/restore',
             [],
             [],
             [],

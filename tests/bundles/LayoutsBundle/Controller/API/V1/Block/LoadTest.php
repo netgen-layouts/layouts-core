@@ -15,7 +15,7 @@ final class LoadTest extends JsonApiTestCase
      */
     public function testLoad(): void
     {
-        $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/blocks/31?html=false');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/blocks/31?html=false');
 
         self::assertResponse(
             $this->client->getResponse(),
@@ -29,7 +29,7 @@ final class LoadTest extends JsonApiTestCase
      */
     public function testLoadInPublishedState(): void
     {
-        $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/blocks/31?published=true&html=false');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/blocks/31?published=true&html=false');
 
         self::assertResponse(
             $this->client->getResponse(),
@@ -43,7 +43,7 @@ final class LoadTest extends JsonApiTestCase
      */
     public function testLoadWithNonExistentBlock(): void
     {
-        $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/blocks/9999');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/blocks/9999');
 
         $this->assertException(
             $this->client->getResponse(),

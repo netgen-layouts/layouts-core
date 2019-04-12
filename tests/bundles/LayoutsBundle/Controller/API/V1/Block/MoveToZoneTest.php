@@ -26,7 +26,7 @@ final class MoveToZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/move/zone',
+            '/nglayouts/api/v1/en/blocks/31/move/zone',
             [],
             [],
             [],
@@ -45,7 +45,7 @@ final class MoveToZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/9999/move/zone',
+            '/nglayouts/api/v1/en/blocks/9999/move/zone',
             [],
             [],
             [],
@@ -74,7 +74,7 @@ final class MoveToZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/move/zone',
+            '/nglayouts/api/v1/en/blocks/31/move/zone',
             [],
             [],
             [],
@@ -103,7 +103,7 @@ final class MoveToZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/move/zone',
+            '/nglayouts/api/v1/en/blocks/31/move/zone',
             [],
             [],
             [],
@@ -132,7 +132,7 @@ final class MoveToZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/move/zone',
+            '/nglayouts/api/v1/en/blocks/31/move/zone',
             [],
             [],
             [],
@@ -161,7 +161,7 @@ final class MoveToZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/move/zone',
+            '/nglayouts/api/v1/en/blocks/31/move/zone',
             [],
             [],
             [],
@@ -190,7 +190,7 @@ final class MoveToZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/move/zone',
+            '/nglayouts/api/v1/en/blocks/31/move/zone',
             [],
             [],
             [],
@@ -218,7 +218,7 @@ final class MoveToZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/move/zone',
+            '/nglayouts/api/v1/en/blocks/31/move/zone',
             [],
             [],
             [],

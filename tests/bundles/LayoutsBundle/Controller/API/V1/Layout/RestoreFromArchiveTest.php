@@ -20,7 +20,7 @@ final class RestoreFromArchiveTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/layouts/2/restore',
+            '/nglayouts/api/v1/layouts/2/restore',
             [],
             [],
             [],
@@ -39,7 +39,7 @@ final class RestoreFromArchiveTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/layouts/9999/restore',
+            '/nglayouts/api/v1/layouts/9999/restore',
             [],
             [],
             [],

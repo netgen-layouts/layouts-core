@@ -20,7 +20,7 @@ final class UnlinkZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_DELETE,
-            '/bm/api/v1/layouts/1/zones/right/link',
+            '/nglayouts/api/v1/layouts/1/zones/right/link',
             [],
             [],
             [],
@@ -39,7 +39,7 @@ final class UnlinkZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_DELETE,
-            '/bm/api/v1/layouts/1/zones/unknown/link',
+            '/nglayouts/api/v1/layouts/1/zones/unknown/link',
             [],
             [],
             [],
@@ -62,7 +62,7 @@ final class UnlinkZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_DELETE,
-            '/bm/api/v1/layouts/9999/zones/right/link',
+            '/nglayouts/api/v1/layouts/9999/zones/right/link',
             [],
             [],
             [],

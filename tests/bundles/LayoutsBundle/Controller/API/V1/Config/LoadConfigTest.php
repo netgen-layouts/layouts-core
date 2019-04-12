@@ -29,7 +29,7 @@ final class LoadConfigTest extends JsonApiTestCase
 
         $currentToken = $tokenManager->getToken($tokenId);
 
-        $this->client->request(Request::METHOD_GET, '/bm/api/v1/config');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/config');
 
         $response = $this->client->getResponse();
 

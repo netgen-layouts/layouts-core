@@ -16,7 +16,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
      */
     public function testLoadZoneBlocks(): void
     {
-        $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/layouts/1/zones/right/blocks?html=false');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/layouts/1/zones/right/blocks?html=false');
 
         self::assertResponse(
             $this->client->getResponse(),
@@ -30,7 +30,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
      */
     public function testLoadZoneBlocksInPublishedState(): void
     {
-        $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/layouts/1/zones/right/blocks?published=true&html=false');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/layouts/1/zones/right/blocks?published=true&html=false');
 
         self::assertResponse(
             $this->client->getResponse(),
@@ -44,7 +44,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
      */
     public function testLoadZoneBlocksWithNonExistentZone(): void
     {
-        $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/layouts/1/zones/unknown/blocks');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/layouts/1/zones/unknown/blocks');
 
         $this->assertException(
             $this->client->getResponse(),
@@ -58,7 +58,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
      */
     public function testLoadZoneBlocksWithNonExistentLayout(): void
     {
-        $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/layouts/9999/zones/right/blocks');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/layouts/9999/zones/right/blocks');
 
         $this->assertException(
             $this->client->getResponse(),
@@ -72,7 +72,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
      */
     public function testLoadZoneBlocksWithNonExistentLayoutLocale(): void
     {
-        $this->client->request(Request::METHOD_GET, '/bm/api/v1/unknown/layouts/1/zones/right/blocks');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/unknown/layouts/1/zones/right/blocks');
 
         $this->assertException(
             $this->client->getResponse(),

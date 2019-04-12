@@ -16,7 +16,7 @@ final class LoadLayoutBlocksTest extends JsonApiTestCase
      */
     public function testLoadLayoutBlocks(): void
     {
-        $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/layouts/1/blocks?html=false');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/layouts/1/blocks?html=false');
 
         self::assertResponse(
             $this->client->getResponse(),
@@ -30,7 +30,7 @@ final class LoadLayoutBlocksTest extends JsonApiTestCase
      */
     public function testLoadLayoutBlocksInPublishedState(): void
     {
-        $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/layouts/1/blocks?published=true&html=false');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/layouts/1/blocks?published=true&html=false');
 
         self::assertResponse(
             $this->client->getResponse(),
@@ -44,7 +44,7 @@ final class LoadLayoutBlocksTest extends JsonApiTestCase
      */
     public function testLoadLayoutBlocksWithNonExistentLayout(): void
     {
-        $this->client->request(Request::METHOD_GET, '/bm/api/v1/en/layouts/9999/blocks');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/layouts/9999/blocks');
 
         $this->assertException(
             $this->client->getResponse(),
@@ -58,7 +58,7 @@ final class LoadLayoutBlocksTest extends JsonApiTestCase
      */
     public function testLoadLayoutBlocksWithNonExistentLayoutLocale(): void
     {
-        $this->client->request(Request::METHOD_GET, '/bm/api/v1/unknown/layouts/1/blocks');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/unknown/layouts/1/blocks');
 
         $this->assertException(
             $this->client->getResponse(),

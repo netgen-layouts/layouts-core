@@ -25,7 +25,7 @@ final class CopyToZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/copy/zone?html=false',
+            '/nglayouts/api/v1/en/blocks/31/copy/zone?html=false',
             [],
             [],
             [],
@@ -48,7 +48,7 @@ final class CopyToZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/9999/copy/zone',
+            '/nglayouts/api/v1/en/blocks/9999/copy/zone',
             [],
             [],
             [],
@@ -76,7 +76,7 @@ final class CopyToZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/copy/zone',
+            '/nglayouts/api/v1/en/blocks/31/copy/zone',
             [],
             [],
             [],
@@ -104,7 +104,7 @@ final class CopyToZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/copy/zone',
+            '/nglayouts/api/v1/en/blocks/31/copy/zone',
             [],
             [],
             [],
@@ -132,7 +132,7 @@ final class CopyToZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/copy/zone',
+            '/nglayouts/api/v1/en/blocks/31/copy/zone',
             [],
             [],
             [],
@@ -160,7 +160,7 @@ final class CopyToZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/copy/zone',
+            '/nglayouts/api/v1/en/blocks/31/copy/zone',
             [],
             [],
             [],
@@ -187,7 +187,7 @@ final class CopyToZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/31/copy/zone',
+            '/nglayouts/api/v1/en/blocks/31/copy/zone',
             [],
             [],
             [],

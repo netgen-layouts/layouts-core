@@ -25,7 +25,7 @@ final class CopyTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/34/copy?html=false',
+            '/nglayouts/api/v1/en/blocks/34/copy?html=false',
             [],
             [],
             [],
@@ -48,7 +48,7 @@ final class CopyTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/9999/copy',
+            '/nglayouts/api/v1/en/blocks/9999/copy',
             [],
             [],
             [],
@@ -76,7 +76,7 @@ final class CopyTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/34/copy',
+            '/nglayouts/api/v1/en/blocks/34/copy',
             [],
             [],
             [],
@@ -104,7 +104,7 @@ final class CopyTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/34/copy',
+            '/nglayouts/api/v1/en/blocks/34/copy',
             [],
             [],
             [],
@@ -132,7 +132,7 @@ final class CopyTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/34/copy',
+            '/nglayouts/api/v1/en/blocks/34/copy',
             [],
             [],
             [],
@@ -160,7 +160,7 @@ final class CopyTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/33/copy',
+            '/nglayouts/api/v1/en/blocks/33/copy',
             [],
             [],
             [],
@@ -188,7 +188,7 @@ final class CopyTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/34/copy',
+            '/nglayouts/api/v1/en/blocks/34/copy',
             [],
             [],
             [],
@@ -215,7 +215,7 @@ final class CopyTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/en/blocks/34/copy',
+            '/nglayouts/api/v1/en/blocks/34/copy',
             [],
             [],
             [],

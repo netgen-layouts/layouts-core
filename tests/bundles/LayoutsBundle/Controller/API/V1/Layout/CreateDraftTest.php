@@ -20,7 +20,7 @@ final class CreateDraftTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/layouts/1/draft?html=false',
+            '/nglayouts/api/v1/layouts/1/draft?html=false',
             [],
             [],
             [],
@@ -43,7 +43,7 @@ final class CreateDraftTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/layouts/9999/draft',
+            '/nglayouts/api/v1/layouts/9999/draft',
             [],
             [],
             [],

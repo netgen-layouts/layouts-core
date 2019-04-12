@@ -24,7 +24,7 @@ final class MoveItemTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/collections/items/1/move',
+            '/nglayouts/api/v1/collections/items/1/move',
             [],
             [],
             [],
@@ -43,7 +43,7 @@ final class MoveItemTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/collections/items/9999/move',
+            '/nglayouts/api/v1/collections/items/9999/move',
             [],
             [],
             [],
@@ -70,7 +70,7 @@ final class MoveItemTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/bm/api/v1/collections/items/1/move',
+            '/nglayouts/api/v1/collections/items/1/move',
             [],
             [],
             [],
