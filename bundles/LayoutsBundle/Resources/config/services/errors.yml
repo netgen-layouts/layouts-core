@@ -8,4 +8,4 @@ services:
             - "@?logger"
             - "%kernel.debug%"
         tags:
-            - { name: monolog.logger, channel: ngbm }
+            - { name: monolog.logger, channel: nglayouts }

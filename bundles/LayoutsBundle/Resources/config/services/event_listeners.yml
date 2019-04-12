@@ -16,7 +16,7 @@ services:
             - "@?logger"
         tags:
             - { name: kernel.event_subscriber }
-            - { name: monolog.logger, channel: ngbm }
+            - { name: monolog.logger, channel: nglayouts }
 
     netgen_block_manager.event_listener.serializer:
         class: Netgen\Bundle\LayoutsBundle\EventListener\SerializerListener
