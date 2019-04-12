@@ -220,22 +220,6 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
             ->addTag('netgen_layouts.target_type');
 
         $container
-            ->registerForAutoconfiguration(ConditionTypeInterface::class)
-            ->addTag('netgen_layouts.condition_type');
-
-        $container
-            ->registerForAutoconfiguration(PluginInterface::class)
-            ->addTag('netgen_layouts.block_definition_handler.plugin');
-
-        $container
-            ->registerForAutoconfiguration(BlockDefinitionHandlerInterface::class)
-            ->addTag('netgen_layouts.block_definition_handler');
-
-        $container
-            ->registerForAutoconfiguration(QueryTypeHandlerInterface::class)
-            ->addTag('netgen_layouts.query_type_handler');
-
-        $container
             ->registerForAutoconfiguration(TargetTypeFormMapperInterface::class)
             ->addTag('netgen_layouts.target_type.form_mapper');
 
@@ -244,8 +228,24 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
             ->addTag('netgen_layouts.target_type.doctrine_handler');
 
         $container
+            ->registerForAutoconfiguration(ConditionTypeInterface::class)
+            ->addTag('netgen_layouts.condition_type');
+
+        $container
             ->registerForAutoconfiguration(ConditionTypeFormMapperInterface::class)
             ->addTag('netgen_layouts.condition_type.form_mapper');
+
+        $container
+            ->registerForAutoconfiguration(BlockDefinitionHandlerInterface::class)
+            ->addTag('netgen_layouts.block_definition_handler');
+
+        $container
+            ->registerForAutoconfiguration(PluginInterface::class)
+            ->addTag('netgen_layouts.block_definition_handler.plugin');
+
+        $container
+            ->registerForAutoconfiguration(QueryTypeHandlerInterface::class)
+            ->addTag('netgen_layouts.query_type_handler');
 
         $container
             ->registerForAutoconfiguration(VisibilityVoterInterface::class)
