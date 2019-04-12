@@ -36,7 +36,7 @@ final class CollectionViewTest extends TestCase
      */
     public function testGetName(): void
     {
-        self::assertSame('ngbm_collection', $this->collectionView->getName());
+        self::assertSame('nglayouts_collection', $this->collectionView->getName());
     }
 
     /**

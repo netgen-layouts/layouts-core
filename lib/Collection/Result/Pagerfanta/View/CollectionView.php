@@ -30,7 +30,7 @@ final class CollectionView implements ViewInterface
 
     public function getName(): string
     {
-        return 'ngbm_collection';
+        return 'nglayouts_collection';
     }
 
     public function render(PagerfantaInterface $pagerfanta, $routeGenerator, array $options = []): string
