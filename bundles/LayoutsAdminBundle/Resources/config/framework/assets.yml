@@ -2,25 +2,25 @@ assets:
     packages:
         nglayouts_admin_css:
             base_path: '/bundles/netgenlayoutsadmin/css'
-            version: '%ngbm.asset.version%'
+            version: '%nglayouts.asset.version%'
             version_format: '%%s?%%s'
         nglayouts_admin_js:
             base_path: '/bundles/netgenlayoutsadmin/js'
-            version: '%ngbm.asset.version%'
+            version: '%nglayouts.asset.version%'
             version_format: '%%s?%%s'
         nglayouts_admin_dev_css:
             base_path: '/bundles/netgenlayoutsadmin/dev/css'
-            version: '%ngbm.asset.version%'
+            version: '%nglayouts.asset.version%'
             version_format: '%%s?%%s'
         nglayouts_admin_dev_js:
             base_path: '/bundles/netgenlayoutsadmin/dev/js'
-            version: '%ngbm.asset.version%'
+            version: '%nglayouts.asset.version%'
             version_format: '%%s?%%s'
         nglayouts_admin_images:
             base_path: '/bundles/netgenlayoutsadmin/images'
-            version: '%ngbm.asset.version%'
+            version: '%nglayouts.asset.version%'
             version_format: '%%s?%%s'
         nglayouts_admin:
             base_path: '/bundles/netgenlayoutsadmin'
-            version: '%ngbm.asset.version%'
+            version: '%nglayouts.asset.version%'
             version_format: '%%s?%%s'
