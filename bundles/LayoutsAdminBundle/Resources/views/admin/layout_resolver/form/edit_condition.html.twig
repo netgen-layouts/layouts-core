@@ -5,7 +5,7 @@
 {% trans_default_domain 'nglayouts_forms' %}
 
 {% block children %}
-    <p>{{ ('layout_resolver.condition.' ~ form.vars.condition_type.type)|trans({}, 'ngbm') }}</p>
+    <p>{{ ('layout_resolver.condition.' ~ form.vars.condition_type.type)|trans({}, 'nglayouts') }}</p>
 
     {{ form_row(form.value) }}
 

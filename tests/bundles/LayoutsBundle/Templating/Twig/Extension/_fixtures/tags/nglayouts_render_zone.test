@@ -5,7 +5,7 @@
 {% nglayouts_render_zone 'zone' %}
 --DATA--
 return [
-    'ngbm' => new \Netgen\Bundle\LayoutsBundle\Tests\Templating\Twig\Extension\Stubs\GlobalVariable(
+    'nglayouts' => new \Netgen\Bundle\LayoutsBundle\Tests\Templating\Twig\Extension\Stubs\GlobalVariable(
         \Netgen\Layouts\API\Values\Layout\Layout::fromArray([
             'zones' => new \Doctrine\Common\Collections\ArrayCollection([
                 'zone' => \Netgen\Layouts\API\Values\Layout\Zone::fromArray(['identifier' => 'zone']),

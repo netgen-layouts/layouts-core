@@ -1,7 +1,7 @@
-{% for javascript in ngbm.config.parameter('admin').javascripts %}
+{% for javascript in nglayouts.config.parameter('admin').javascripts %}
     <script src="{{ javascript }}"></script>
 {% endfor %}
 
 {{ nglayouts_template_plugin('admin.javascripts') }}
 
-<script src="{{ asset('app.js', 'nglayouts_admin_' ~ (ngbm.debug ? 'dev_' : '') ~ 'js') }}"></script>
+<script src="{{ asset('app.js', 'nglayouts_admin_' ~ (nglayouts.debug ? 'dev_' : '') ~ 'js') }}"></script>

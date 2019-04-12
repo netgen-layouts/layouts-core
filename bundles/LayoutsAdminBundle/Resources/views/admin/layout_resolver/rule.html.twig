@@ -2,8 +2,8 @@
 
 {% trans_default_domain 'nglayouts_admin' %}
 
-{% set target_types = ngbm.config.parameter('target_types') %}
-{% set condition_types = ngbm.config.parameter('condition_types') %}
+{% set target_types = nglayouts.config.parameter('target_types') %}
+{% set condition_types = nglayouts.config.parameter('condition_types') %}
 
 {% set target_type_identifier = rule.targets is not empty ? rule.targets[0].targetType.type : '' %}
 {% if not target_types[target_type_identifier] is defined %}
@@ -40,9 +40,9 @@
         <div class="nl-rule-cell rule-targets">
             {% if rule.targets is not empty %}
                 {% if target_type_identifier is same as('null') %}
-                    <p>{{ ('layout_resolver.target.null')|trans({}, 'ngbm') }}</p>
+                    <p>{{ ('layout_resolver.target.null')|trans({}, 'nglayouts') }}</p>
                 {% elseif rule.targets|length == 1 %}
-                    <p>{{ ('layout_resolver.target.' ~ target_type_identifier)|trans({}, 'ngbm') }}:</p>
+                    <p>{{ ('layout_resolver.target.' ~ target_type_identifier)|trans({}, 'nglayouts') }}:</p>
                     <ul>
                         {% for target in rule.targets %}
                             <li {% if rule_count == 1 and (target_type_identifier == 'ezlocation' or target_type_identifier == 'ezcontent') %}class="unique"{% endif %}>
@@ -51,7 +51,7 @@
                         {% endfor %}
                     </ul>
                 {% else %}
-                    <p>{{ ('layout_resolver.target.' ~ target_type_identifier)|trans({}, 'ngbm') }} ({{ rule.targets|length }})</p>
+                    <p>{{ ('layout_resolver.target.' ~ target_type_identifier)|trans({}, 'nglayouts') }} ({{ rule.targets|length }})</p>
                 {% endif %}
             {% endif %}
         </div>
@@ -60,7 +60,7 @@
                 <ul class="{% if rule.conditions|length == 2 %}nl-ellipsis{% elseif rule.conditions|length > 2 %}nl-inline{% endif %}">
                     {% for condition in rule.conditions %}
                         {% if condition_types[condition.conditionType.type] is defined %}
-                            <li>{{ ('layout_resolver.condition.' ~ condition.conditionType.type)|trans({}, 'ngbm') }}{% if rule.conditions|length <= 2 %}: {{ nglayouts_render_rule_condition(condition, {}, 'value') }}{% endif %}</li>
+                            <li>{{ ('layout_resolver.condition.' ~ condition.conditionType.type)|trans({}, 'nglayouts') }}{% if rule.conditions|length <= 2 %}: {{ nglayouts_render_rule_condition(condition, {}, 'value') }}{% endif %}</li>
                         {% endif %}
                     {% endfor %}
                 </ul>
@@ -172,7 +172,7 @@
                                         {% if rule.targets is empty %}
                                             <select class="nl-select js-target-type">
                                                 {% for target_type in target_types %}
-                                                    <option value="{{ target_type.type }}">{{ ('layout_resolver.target.' ~ target_type.type)|trans({}, 'ngbm') }}</option>
+                                                    <option value="{{ target_type.type }}">{{ ('layout_resolver.target.' ~ target_type.type)|trans({}, 'nglayouts') }}</option>
                                                 {% endfor %}
                                             </select>
                                         {% endif %}
@@ -210,7 +210,7 @@
                                     <div class="settings-action-add">
                                         <select class="nl-select js-condition-type">
                                             {% for condition_type in condition_types %}
-                                                <option value="{{ condition_type.type }}">{{ ('layout_resolver.condition.' ~ condition_type.type)|trans({}, 'ngbm') }}</option>
+                                                <option value="{{ condition_type.type }}">{{ ('layout_resolver.condition.' ~ condition_type.type)|trans({}, 'nglayouts') }}</option>
                                             {% endfor %}
                                         </select>
 

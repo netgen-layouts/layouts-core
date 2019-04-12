@@ -2,7 +2,7 @@
 
 {% trans_default_domain 'nglayouts_admin' %}
 
-{% set target_types = ngbm.config.parameter('target_types') %}
+{% set target_types = nglayouts.config.parameter('target_types') %}
 
 {% block title %}
     {{ 'layout_resolver.title'|trans }} - {{ 'pagelayout.title'|trans }}
@@ -22,7 +22,7 @@
                         {% for target_type in target_types %}
                             <li>
                                 <div class="checkbox">
-                                    <input type="checkbox" value="{{ target_type.type }}" id="filter-{{ target_type.type }}" name="filter-mappings"><label for="filter-{{ target_type.type }}">{{ ('layout_resolver.target.' ~ target_type.type)|trans({}, 'ngbm') }}</label>
+                                    <input type="checkbox" value="{{ target_type.type }}" id="filter-{{ target_type.type }}" name="filter-mappings"><label for="filter-{{ target_type.type }}">{{ ('layout_resolver.target.' ~ target_type.type)|trans({}, 'nglayouts') }}</label>
                                 </div>
                             </li>
                         {% endfor %}

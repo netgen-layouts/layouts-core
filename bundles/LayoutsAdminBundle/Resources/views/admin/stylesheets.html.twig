@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="{{ asset('netgen-content-browser.css', 'ngcb_css') }}">
-<link rel="stylesheet" href="{{ asset('style.css', 'nglayouts_admin_' ~ (ngbm.debug ? 'dev_' : '') ~ 'css') }}">
+<link rel="stylesheet" href="{{ asset('style.css', 'nglayouts_admin_' ~ (nglayouts.debug ? 'dev_' : '') ~ 'css') }}">
 
-{% for stylesheet in ngbm.config.parameter('admin').stylesheets %}
+{% for stylesheet in nglayouts.config.parameter('admin').stylesheets %}
     <link rel="stylesheet" href="{{ stylesheet }}">
 {% endfor %}
 

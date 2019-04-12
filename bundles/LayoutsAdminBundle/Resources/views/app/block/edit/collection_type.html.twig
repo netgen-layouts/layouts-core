@@ -1,8 +1,8 @@
 {% trans_default_domain 'nglayouts_app' %}
 
 {% set collection_identifier = collection_identifier|default('default') %}
-{% set query_types = ngbm.config.parameter('query_types') %}
-{% set value_types = ngbm.config.parameter('value_types') %}
+{% set query_types = nglayouts.config.parameter('query_types') %}
+{% set value_types = nglayouts.config.parameter('value_types') %}
 
 {% set allowed_query_types = [] %}
 {% set allowed_value_types = [] %}

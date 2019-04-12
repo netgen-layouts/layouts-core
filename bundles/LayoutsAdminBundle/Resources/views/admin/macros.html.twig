@@ -1,6 +1,6 @@
 {% macro layout_path(layout_id) %}
 {% filter trim %}
-    {{ path('nglayouts_' ~ (ngbm.debug ? 'dev_' : '') ~ 'app', {'_fragment': 'layout/' ~ layout_id}) }}
+    {{ path('nglayouts_' ~ (nglayouts.debug ? 'dev_' : '') ~ 'app', {'_fragment': 'layout/' ~ layout_id}) }}
 {% endfilter %}
 {% endmacro %}
 

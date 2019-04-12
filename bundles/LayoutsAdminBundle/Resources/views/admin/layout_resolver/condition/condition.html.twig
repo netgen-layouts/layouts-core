@@ -9,7 +9,7 @@
         class="settings-value"
     {% endif %}
 >
-    {{ ('layout_resolver.condition.' ~ condition.conditionType.type)|trans({}, 'ngbm') }}:
+    {{ ('layout_resolver.condition.' ~ condition.conditionType.type)|trans({}, 'nglayouts') }}:
 
     {{ nglayouts_render_rule_condition(condition, {}, 'value') }}
 </span>

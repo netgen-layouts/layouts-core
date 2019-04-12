@@ -36,7 +36,7 @@ final class RenderZone extends Node
         $this->compileContextNode($compiler);
 
         $compiler->write('$nglTemplate = new ' . ContextualizedTwigTemplate::class . '($this, $context, $blocks);' . PHP_EOL);
-        $compiler->write('$this->env->getRuntime("' . RenderingRuntime::class . '")->displayZone($context["ngbm"]->getLayout(), $nglZoneIdentifier, $nglContext, $nglTemplate);' . PHP_EOL);
+        $compiler->write('$this->env->getRuntime("' . RenderingRuntime::class . '")->displayZone($context["nglayouts"]->getLayout(), $nglZoneIdentifier, $nglContext, $nglTemplate);' . PHP_EOL);
     }
 
     /**

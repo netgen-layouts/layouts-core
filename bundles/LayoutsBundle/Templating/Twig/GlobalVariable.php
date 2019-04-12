@@ -32,7 +32,7 @@ use Symfony\Component\HttpFoundation\RequestStack;
  * a sub-request, Symfony's ExceptionListener renders the exception,
  * but discards the rendered response and simply returns an empty response.
  * Since, usually, error templates will be Netgen Layouts enabled (meaning
- * they will extend `ngbm.layoutTemplate`), it might happen that sub-requests
+ * they will extend `nglayouts.layoutTemplate`), it might happen that sub-requests
  * call the layout resolving process again, which might overwrite the
  * already resolved layout due to different conditions, thus breaking
  * the main page, which still should be displayed in production environments

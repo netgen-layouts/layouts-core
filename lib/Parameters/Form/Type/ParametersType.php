@@ -51,7 +51,7 @@ final class ParametersType extends AbstractType
         $resolver->setAllowedTypes('label_prefix', 'string');
         $resolver->setAllowedTypes('groups', 'string[]');
 
-        $resolver->setDefault('translation_domain', 'ngbm');
+        $resolver->setDefault('translation_domain', 'nglayouts');
         $resolver->setDefault('groups', []);
     }
 
@@ -77,7 +77,7 @@ final class ParametersType extends AbstractType
 
             $defaultOptions = [
                 'label' => $parameterLabel ?? $options['label_prefix'] . '.' . $parameterName,
-                'translation_domain' => 'ngbm',
+                'translation_domain' => 'nglayouts',
                 'property_path' => 'parameterValues[' . $parameterName . ']',
                 'ngbm_parameter_definition' => $parameterDefinition,
             ];

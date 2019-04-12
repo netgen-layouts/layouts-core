@@ -18,7 +18,7 @@
             <div class="collection-items" {% if block.locale != block.mainLocale %}data-disabled="true"{% endif %}>
                 <div class="value-type-wrapper">
                     <select class="js-browser-config-selector">
-                        {% for value_type in ngbm.config.parameter('value_types') %}
+                        {% for value_type in nglayouts.config.parameter('value_types') %}
                             {% if value_type.enabled and collection_config is not null and collection_config.validItemType(value_type.identifier) %}
                                 <option data-max_selected="0" value="{{ value_type.identifier }}" >{{ value_type.name }}</option>
                             {% endif %}

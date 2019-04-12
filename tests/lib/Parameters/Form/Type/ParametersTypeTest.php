@@ -263,7 +263,7 @@ final class ParametersTypeTest extends FormTestCase
 
         self::assertSame(
             [
-                'translation_domain' => 'ngbm',
+                'translation_domain' => 'nglayouts',
                 'groups' => [],
                 'parameter_definitions' => $parameterDefinitions,
                 'label_prefix' => 'label',
