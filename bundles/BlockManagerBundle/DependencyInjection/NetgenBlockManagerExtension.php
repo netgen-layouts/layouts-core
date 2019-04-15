@@ -110,6 +110,8 @@ final class NetgenBlockManagerExtension extends Extension implements PrependExte
         if (Kernel::VERSION_ID >= 30400) {
             $this->registerAutoConfiguration($container);
         }
+
+        $container->setParameter('netgen_block_manager.edition', 'Open Source Edition');
     }
 
     public function prepend(ContainerBuilder $container): void
