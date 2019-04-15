@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\BlockManager\Locale;
 
+use Netgen\BlockManager\Utils\BackwardsCompatibility\Locales;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Intl\Intl;
 
 final class LocaleProvider implements LocaleProviderInterface
 {
@@ -21,21 +21,19 @@ final class LocaleProvider implements LocaleProviderInterface
 
     public function getAvailableLocales(): array
     {
-        $availableLocales = Intl::getLocaleBundle()->getLocaleNames();
-
         $enabledLocales = [];
 
         if (count($this->enabledLocales) > 0) {
             foreach ($this->enabledLocales as $locale) {
-                if (isset($availableLocales[$locale])) {
-                    $enabledLocales[$locale] = $availableLocales[$locale];
+                if (Locales::exists($locale)) {
+                    $enabledLocales[$locale] = Locales::getName($locale);
                 }
             }
 
             return $enabledLocales;
         }
 
-        return $availableLocales;
+        return Locales::getNames();
     }
 
     public function getRequestLocales(Request $request): array

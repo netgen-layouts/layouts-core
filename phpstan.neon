@@ -23,7 +23,16 @@ parameters:
             path: bundles/BlockManagerBundle/DependencyInjection/TreeBuilder.php
         -
             message: '#Parameter \#(1|2) \$\w+ of method Symfony\\Component\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) expects .+, .+ given.#'
-            path: lib/Utils/BackwardsCompatibility/EventDispatcherProxy.php 
+            path: lib/Utils/BackwardsCompatibility/EventDispatcherProxy.php
+        -
+            message: '#Class Symfony\\Component\\Intl\\Locales not found.#'
+            path: lib/Utils/BackwardsCompatibility/Locales.php
+        -
+            message: '#Call to static method \w+\(\) on an unknown class Symfony\\Component\\Intl\\Locales.#'
+            path: lib/Utils/BackwardsCompatibility/Locales.php
+        -
+            message: '#Call to an undefined method Symfony\\Component\\Intl\\ResourceBundle\\LocaleBundleInterface::getAliases\(\)#'
+            path: lib/Utils/BackwardsCompatibility/Locales.php
 
         # Netgen Layouts specifics
         - '#Call to an undefined method Netgen\\BlockManager\\Block\\BlockDefinition\\BlockDefinitionHandlerInterface::getPlaceholderIdentifiers\(\).#'

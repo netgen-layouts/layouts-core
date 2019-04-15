@@ -15,7 +15,7 @@ use Netgen\BlockManager\Layout\Type\LayoutTypeInterface;
 use Netgen\BlockManager\Serializer\Normalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
 use Netgen\BlockManager\Serializer\Version;
-use Symfony\Component\Intl\Intl;
+use Netgen\BlockManager\Utils\BackwardsCompatibility\Locales;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class LayoutNormalizer extends Normalizer implements NormalizerInterface
@@ -41,11 +41,10 @@ final class LayoutNormalizer extends Normalizer implements NormalizerInterface
         /** @var \Netgen\BlockManager\API\Values\Layout\Layout $layout */
         $layout = $object->getValue();
         $layoutType = $layout->getLayoutType();
-        $localeBundle = Intl::getLocaleBundle();
 
         $availableLocales = [];
         foreach ($layout->getAvailableLocales() as $locale) {
-            $availableLocales[$locale] = $localeBundle->getLocaleName($locale);
+            $availableLocales[$locale] = Locales::getName($locale);
         }
 
         $data = [

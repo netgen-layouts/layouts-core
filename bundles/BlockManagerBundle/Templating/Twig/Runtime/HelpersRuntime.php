@@ -5,17 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime;
 
 use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\Utils\BackwardsCompatibility\Locales;
 use Netgen\BlockManager\Utils\FlagGenerator;
-use Symfony\Component\Intl\Intl;
 use Throwable;
 
 final class HelpersRuntime
 {
-    /**
-     * @var \Symfony\Component\Intl\ResourceBundle\LocaleBundleInterface
-     */
-    private $localeBundle;
-
     /**
      * @var \Netgen\BlockManager\API\Service\LayoutService
      */
@@ -23,7 +18,6 @@ final class HelpersRuntime
 
     public function __construct(LayoutService $layoutService)
     {
-        $this->localeBundle = Intl::getLocaleBundle();
         $this->layoutService = $layoutService;
     }
 
@@ -34,7 +28,7 @@ final class HelpersRuntime
      */
     public function getLocaleName(string $locale, ?string $displayLocale = null): ?string
     {
-        return $this->localeBundle->getLocaleName($locale, $displayLocale);
+        return Locales::getName($locale, $displayLocale);
     }
 
     /**

@@ -7,11 +7,11 @@ namespace Netgen\BlockManager\Migrations\Doctrine;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Types\Type;
 use Netgen\BlockManager\Exception\RuntimeException;
+use Netgen\BlockManager\Utils\BackwardsCompatibility\Locales;
 use PDO;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Intl\Intl;
 
 final class Version000900 extends AbstractMigration
 {
@@ -182,7 +182,7 @@ EOT
             'Please input the default locale for existing layouts',
             '',
             static function (string $locale): string {
-                if (Intl::getLocaleBundle()->getLocaleName($locale) === null) {
+                if (!Locales::exists($locale)) {
                     throw new RuntimeException('Specified locale is not valid');
                 }
 
