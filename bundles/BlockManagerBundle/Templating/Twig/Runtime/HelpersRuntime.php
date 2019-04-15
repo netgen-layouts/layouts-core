@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\BlockManagerBundle\Templating\Twig\Runtime;
 
 use Netgen\BlockManager\API\Service\LayoutService;
+use Netgen\BlockManager\Utils\FlagGenerator;
 use Symfony\Component\Intl\Intl;
 use Throwable;
 
@@ -49,6 +50,22 @@ final class HelpersRuntime
             return $layout->getName();
         } catch (Throwable $t) {
             return '';
+        }
+    }
+
+    /**
+     * Returns the country flag as an emoji string for provided country code.
+     *
+     * If the flag cannot be generated, the country code is returned as is.
+     *
+     * @param string $countryCode
+     */
+    public function getCountryFlag(string $countryCode): string
+    {
+        try {
+            return FlagGenerator::fromCountryCode($countryCode);
+        } catch (Throwable $t) {
+            return $countryCode;
         }
     }
 }

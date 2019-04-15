@@ -8,3 +8,10 @@
     {% endif %}
 {% endfilter %}
 {% endmacro %}
+
+{% macro country_flags(locales) %}
+{% for locale in locales %}
+    {% set country_code = locale|length > 2 ? locale|split('_')[1] : locale %}
+    <span title="{{ locale|ngbm_locale_name }}">{{ country_code|ngbm_country_flag|raw }}</span>
+{% endfor %}
+{% endmacro %}
