@@ -6,7 +6,6 @@ namespace Netgen\BlockManager\Tests\Core\Service;
 
 use Netgen\BlockManager\API\Values\Layout\Layout;
 use Netgen\BlockManager\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
-use Netgen\BlockManager\API\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\BlockManager\Exception\BadStateException;
 use Netgen\BlockManager\Exception\NotFoundException;
 use Netgen\BlockManager\Tests\Core\CoreTestCase;
@@ -519,58 +518,6 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         self::assertTrue($publishedRule->isPublished());
         self::assertTrue($publishedRule->isEnabled());
-
-        try {
-            $this->layoutResolverService->loadRuleDraft($rule->getId());
-            self::fail('Draft rule still exists after publishing.');
-        } catch (NotFoundException $e) {
-            // Do nothing
-        }
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::publishRule
-     */
-    public function testPublishRuleWithNoLayout(): void
-    {
-        $struct = new RuleUpdateStruct();
-        $struct->layoutId = 0;
-
-        $rule = $this->layoutResolverService->loadRuleDraft(5);
-        $this->layoutResolverService->updateRule($rule, $struct);
-
-        $publishedRule = $this->layoutResolverService->publishRule($rule);
-
-        self::assertTrue($publishedRule->isPublished());
-        self::assertFalse($publishedRule->isEnabled());
-
-        try {
-            $this->layoutResolverService->loadRuleDraft($rule->getId());
-            self::fail('Draft rule still exists after publishing.');
-        } catch (NotFoundException $e) {
-            // Do nothing
-        }
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::publishRule
-     */
-    public function testPublishRuleWithNoTargets(): void
-    {
-        $rule = $this->layoutResolverService->loadRuleDraft(5);
-
-        $this->layoutResolverService->deleteTarget(
-            $this->layoutResolverService->loadTargetDraft(9)
-        );
-
-        $this->layoutResolverService->deleteTarget(
-            $this->layoutResolverService->loadTargetDraft(10)
-        );
-
-        $publishedRule = $this->layoutResolverService->publishRule($rule);
-
-        self::assertTrue($publishedRule->isPublished());
-        self::assertFalse($publishedRule->isEnabled());
 
         try {
             $this->layoutResolverService->loadRuleDraft($rule->getId());
