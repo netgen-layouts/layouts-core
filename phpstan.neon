@@ -16,7 +16,7 @@ parameters:
         # Compatibility with Symfony 3.4
         -
             message: '#Call to function is_callable\(\) with .+ will always evaluate to true.#'
-            path: bundles/LayoutsBundle/DependencyInjection/TreeBuilder.php
+            path: lib/Utils/BackwardsCompatibility/TreeBuilder.php
         -
             message: '#Parameter \#(1|2) \$\w+ of method Symfony\\Component\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) expects .+, .+ given.#'
             path: lib/Utils/BackwardsCompatibility/EventDispatcherProxy.php

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode;
 
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNodeInterface;
-use Netgen\Bundle\LayoutsBundle\DependencyInjection\TreeBuilder;
 use Netgen\Layouts\Block\Form\ContentEditType;
 use Netgen\Layouts\Block\Form\DesignEditType;
 use Netgen\Layouts\Block\Form\FullEditType;
+use Netgen\Layouts\Utils\BackwardsCompatibility\TreeBuilder;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
