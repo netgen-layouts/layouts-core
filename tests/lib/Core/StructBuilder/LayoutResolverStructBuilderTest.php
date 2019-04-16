@@ -35,7 +35,7 @@ abstract class LayoutResolverStructBuilderTest extends CoreTestCase
             [
                 'layoutId' => null,
                 'priority' => null,
-                'enabled' => false,
+                'enabled' => true,
                 'comment' => null,
             ],
             $this->exportObject($struct)

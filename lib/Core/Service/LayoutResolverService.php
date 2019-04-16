@@ -384,17 +384,6 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
                 $publishedRule = $this->layoutResolverHandler->createRuleStatus($persistenceRule, Value::STATUS_PUBLISHED);
                 $this->layoutResolverHandler->deleteRule($persistenceRule->id, Value::STATUS_DRAFT);
 
-                if ($publishedRule->layoutId === null || $this->layoutResolverHandler->getTargetCount($publishedRule) === 0) {
-                    $publishedRule = $this->layoutResolverHandler->updateRuleMetadata(
-                        $publishedRule,
-                        RuleMetadataUpdateStruct::fromArray(
-                            [
-                                'enabled' => false,
-                            ]
-                        )
-                    );
-                }
-
                 return $publishedRule;
             }
         );
@@ -454,14 +443,6 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
 
         if ($persistenceRule->enabled) {
             throw new BadStateException('rule', 'Rule is already enabled.');
-        }
-
-        if ($persistenceRule->layoutId === null) {
-            throw new BadStateException('rule', 'Rule is missing a layout and cannot be enabled.');
-        }
-
-        if ($this->layoutResolverHandler->getTargetCount($persistenceRule) === 0) {
-            throw new BadStateException('rule', 'Rule is missing targets and cannot be enabled.');
         }
 
         $updatedRule = $this->transaction(

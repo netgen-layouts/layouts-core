@@ -282,11 +282,6 @@ final class LayoutResolverServiceTest extends TestCase
 
         $this->layoutResolverHandler
             ->expects(self::at(1))
-            ->method('getTargetCount')
-            ->willReturn(2);
-
-        $this->layoutResolverHandler
-            ->expects(self::at(2))
             ->method('updateRuleMetadata')
             ->willThrowException(new Exception('Test exception text'));
 

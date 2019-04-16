@@ -115,22 +115,4 @@ final class Rule implements Value
     {
         return new ConditionList($this->conditions->toArray());
     }
-
-    /**
-     * Returns if the rule can be enabled.
-     *
-     * Rule can be enabled if it is published and has a mapped layout and at least one target.
-     */
-    public function canBeEnabled(): bool
-    {
-        if (!$this->isPublished()) {
-            return false;
-        }
-
-        if (!$this->layout instanceof Layout) {
-            return false;
-        }
-
-        return $this->targets->count() > 0;
-    }
 }

@@ -672,32 +672,6 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::enableRule
-     */
-    public function testEnableRuleThrowsBadStateExceptionIfRuleHasNoLayout(): void
-    {
-        $this->expectException(BadStateException::class);
-        $this->expectExceptionMessage('Argument "rule" has an invalid state. Rule is missing a layout and cannot be enabled.');
-
-        $rule = $this->layoutResolverService->loadRule(11);
-
-        $this->layoutResolverService->enableRule($rule);
-    }
-
-    /**
-     * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::enableRule
-     */
-    public function testEnableRuleThrowsBadStateExceptionIfRuleHasNoTargets(): void
-    {
-        $this->expectException(BadStateException::class);
-        $this->expectExceptionMessage('Argument "rule" has an invalid state. Rule is missing targets and cannot be enabled.');
-
-        $rule = $this->layoutResolverService->loadRule(12);
-
-        $this->layoutResolverService->enableRule($rule);
-    }
-
-    /**
      * @covers \Netgen\BlockManager\Core\Service\LayoutResolverService::disableRule
      */
     public function testDisableRule(): void
@@ -973,7 +947,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
             [
                 'layoutId' => null,
                 'priority' => null,
-                'enabled' => false,
+                'enabled' => true,
                 'comment' => null,
             ],
             $this->exportObject($struct)

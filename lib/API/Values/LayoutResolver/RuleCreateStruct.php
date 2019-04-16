@@ -25,7 +25,7 @@ final class RuleCreateStruct
      *
      * @var bool
      */
-    public $enabled = false;
+    public $enabled = true;
 
     /**
      * Description of the rule.
