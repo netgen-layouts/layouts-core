@@ -8,20 +8,20 @@ use Symfony\Component\Form\DataMapperInterface;
 
 final class CollectionDataMapper implements DataMapperInterface
 {
-    public function mapDataToForms($data, $forms): void
+    public function mapDataToForms($viewData, $forms): void
     {
         $forms = iterator_to_array($forms);
 
-        $forms['offset']->setData($data->offset);
-        $forms['limit']->setData($data->limit !== 0 ? $data->limit : null);
+        $forms['offset']->setData($viewData->offset);
+        $forms['limit']->setData($viewData->limit !== 0 ? $viewData->limit : null);
     }
 
-    public function mapFormsToData($forms, &$data): void
+    public function mapFormsToData($forms, &$viewData): void
     {
         $forms = iterator_to_array($forms);
         $limit = $forms['limit']->getData();
 
-        $data->offset = $forms['offset']->getData();
-        $data->limit = $limit ?? 0;
+        $viewData->offset = $forms['offset']->getData();
+        $viewData->limit = $limit ?? 0;
     }
 }

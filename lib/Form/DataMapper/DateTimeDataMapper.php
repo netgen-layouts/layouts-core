@@ -23,33 +23,33 @@ final class DateTimeDataMapper implements DataMapperInterface
         $this->useDateTime = $useDateTime;
     }
 
-    public function mapDataToForms($data, $forms): void
+    public function mapDataToForms($viewData, $forms): void
     {
         $forms = iterator_to_array($forms);
 
         $dateTime = null;
         $timeZone = date_default_timezone_get();
 
-        if ($data instanceof DateTimeInterface) {
-            $dateTime = $data->format('Y-m-d H:i:s');
-            $timeZone = $data->getTimezone()->getName();
-        } elseif (is_array($data)) {
-            $dateTime = $data['datetime'] ?? $dateTime;
-            $timeZone = $data['timezone'] ?? $timeZone;
+        if ($viewData instanceof DateTimeInterface) {
+            $dateTime = $viewData->format('Y-m-d H:i:s');
+            $timeZone = $viewData->getTimezone()->getName();
+        } elseif (is_array($viewData)) {
+            $dateTime = $viewData['datetime'] ?? $dateTime;
+            $timeZone = $viewData['timezone'] ?? $timeZone;
         }
 
         $forms['datetime']->setData($dateTime);
         $forms['timezone']->setData($timeZone);
     }
 
-    public function mapFormsToData($forms, &$data): void
+    public function mapFormsToData($forms, &$viewData): void
     {
         $forms = iterator_to_array($forms);
         $dateTime = $forms['datetime']->getData();
         $timeZone = $forms['timezone']->getData();
 
         if ($dateTime === '') {
-            $data = null;
+            $viewData = null;
 
             return;
         }
@@ -59,7 +59,7 @@ final class DateTimeDataMapper implements DataMapperInterface
             'timezone' => $timeZone,
         ];
 
-        $data = $this->useDateTime ?
+        $viewData = $this->useDateTime ?
             DateTimeUtils::createFromArray($dateArray) :
             $dateArray;
     }

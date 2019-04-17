@@ -12,13 +12,13 @@ use Symfony\Component\Form\DataMapperInterface;
  */
 final class ItemLinkDataMapper implements DataMapperInterface
 {
-    public function mapDataToForms($data, $forms): void
+    public function mapDataToForms($viewData, $forms): void
     {
-        if (!is_string($data)) {
+        if (!is_string($viewData)) {
             return;
         }
 
-        $parsedData = parse_url($data);
+        $parsedData = parse_url($viewData);
         if (is_array($parsedData) && ($parsedData['scheme'] ?? '') !== '' && isset($parsedData['host'])) {
             $forms = iterator_to_array($forms);
             $forms['item_value']->setData($parsedData['host']);
@@ -26,16 +26,16 @@ final class ItemLinkDataMapper implements DataMapperInterface
         }
     }
 
-    public function mapFormsToData($forms, &$data): void
+    public function mapFormsToData($forms, &$viewData): void
     {
         $forms = iterator_to_array($forms);
 
         $itemValue = $forms['item_value']->getData() ?? '';
         $itemType = $forms['item_type']->getData() ?? '';
 
-        $data = null;
+        $viewData = null;
         if ($itemValue !== '' && $itemType !== '') {
-            $data = str_replace('_', '-', $itemType) . '://' . $itemValue;
+            $viewData = str_replace('_', '-', $itemType) . '://' . $itemValue;
         }
     }
 }

@@ -23,31 +23,31 @@ final class LinkDataMapper implements DataMapperInterface
         $this->parameterDefinition = $parameterDefinition;
     }
 
-    public function mapDataToForms($data, $forms): void
+    public function mapDataToForms($viewData, $forms): void
     {
-        if (!$data instanceof LinkValue) {
+        if (!$viewData instanceof LinkValue) {
             return;
         }
 
         $forms = iterator_to_array($forms);
 
-        $forms['link_type']->setData($data->getLinkType());
-        $forms['link_suffix']->setData($data->getLinkSuffix());
-        $forms['new_window']->setData($data->getNewWindow());
+        $forms['link_type']->setData($viewData->getLinkType());
+        $forms['link_suffix']->setData($viewData->getLinkSuffix());
+        $forms['new_window']->setData($viewData->getNewWindow());
 
-        if (isset($forms[$data->getLinkType()])) {
-            $forms[$data->getLinkType()]->setData($data->getLink());
+        if (isset($forms[$viewData->getLinkType()])) {
+            $forms[$viewData->getLinkType()]->setData($viewData->getLink());
         }
     }
 
-    public function mapFormsToData($forms, &$data): void
+    public function mapFormsToData($forms, &$viewData): void
     {
         $forms = iterator_to_array($forms);
         $linkType = $forms['link_type']->getData() ?? '';
 
-        $data = null;
+        $viewData = null;
         if ($linkType !== '') {
-            $data = [
+            $viewData = [
                 'link_type' => $linkType,
                 'link' => isset($forms[$linkType]) ? $forms[$linkType]->getData() : null,
                 'link_suffix' => $forms['link_suffix']->getData(),
@@ -55,6 +55,6 @@ final class LinkDataMapper implements DataMapperInterface
             ];
         }
 
-        $data = $this->parameterDefinition->getType()->fromHash($this->parameterDefinition, $data);
+        $viewData = $this->parameterDefinition->getType()->fromHash($this->parameterDefinition, $viewData);
     }
 }
