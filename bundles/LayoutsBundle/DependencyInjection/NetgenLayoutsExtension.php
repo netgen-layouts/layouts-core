@@ -117,7 +117,7 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
     public function prepend(ContainerBuilder $container): void
     {
         $container->setParameter(
-            'nglayouts.asset.version',
+            'netgen_layouts.asset_version',
             PrettyVersions::getVersion('netgen/layouts-core')->getShortCommitHash()
         );
 
