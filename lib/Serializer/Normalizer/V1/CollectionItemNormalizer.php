@@ -7,6 +7,7 @@ namespace Netgen\BlockManager\Serializer\Normalizer\V1;
 use Generator;
 use Netgen\BlockManager\API\Values\Collection\Item;
 use Netgen\BlockManager\Collection\Item\VisibilityResolverInterface;
+use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Item\UrlGeneratorInterface;
 use Netgen\BlockManager\Serializer\Normalizer;
 use Netgen\BlockManager\Serializer\Values\VersionedValue;
@@ -43,7 +44,7 @@ final class CollectionItemNormalizer extends Normalizer implements NormalizerInt
             }
         })();
 
-        return [
+        $data = [
             'id' => $collectionItem->getId(),
             'collection_id' => $collectionItem->getCollectionId(),
             'position' => $collectionItem->getPosition(),
@@ -52,9 +53,17 @@ final class CollectionItemNormalizer extends Normalizer implements NormalizerInt
             'value_type' => $cmsItem->getValueType(),
             'name' => $cmsItem->getName(),
             'cms_visible' => $cmsItem->isVisible(),
-            'cms_url' => $this->urlGenerator->generate($cmsItem),
+            'cms_url' => '',
             'config' => $this->normalizer->normalize($configuration, $format, $context),
         ];
+
+        try {
+            $data['cms_url'] = $this->urlGenerator->generate($cmsItem);
+        } catch (ItemException $e) {
+            // Do nothing
+        }
+
+        return $data;
     }
 
     public function supportsNormalization($data, $format = null): bool

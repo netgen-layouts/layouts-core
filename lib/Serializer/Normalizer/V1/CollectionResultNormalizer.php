@@ -8,6 +8,7 @@ use Generator;
 use Netgen\BlockManager\Collection\Item\VisibilityResolverInterface;
 use Netgen\BlockManager\Collection\Result\ManualItem;
 use Netgen\BlockManager\Collection\Result\Result;
+use Netgen\BlockManager\Exception\Item\ItemException;
 use Netgen\BlockManager\Item\CmsItemInterface;
 use Netgen\BlockManager\Item\UrlGeneratorInterface;
 use Netgen\BlockManager\Serializer\Normalizer;
@@ -82,7 +83,7 @@ final class CollectionResultNormalizer extends Normalizer implements NormalizerI
             }
         })();
 
-        return [
+        $data = [
             'id' => $collectionItem !== null ? $collectionItem->getId() : null,
             'collection_id' => $collectionItem !== null ? $collectionItem->getCollectionId() : null,
             'visible' => $collectionItem !== null ?
@@ -93,9 +94,17 @@ final class CollectionResultNormalizer extends Normalizer implements NormalizerI
             'value_type' => $cmsItem->getValueType(),
             'name' => $cmsItem->getName(),
             'cms_visible' => $cmsItem->isVisible(),
-            'cms_url' => $this->urlGenerator->generate($cmsItem),
+            'cms_url' => '',
             'config' => $this->normalizer->normalize($configuration, $format, $context),
         ];
+
+        try {
+            $data['cms_url'] = $this->urlGenerator->generate($cmsItem);
+        } catch (ItemException $e) {
+            // Do nothing
+        }
+
+        return $data;
     }
 
     /**
