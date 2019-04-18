@@ -381,6 +381,7 @@ final class ChoiceTypeTest extends TestCase
             [0, false],
             ['42', false],
             ['', false],
+            [false, false],
         ];
     }
 }

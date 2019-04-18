@@ -74,6 +74,17 @@ final class ChoiceType extends ParameterType
         return $value === null || $value === [];
     }
 
+    protected function getRequiredConstraints(ParameterDefinition $parameterDefinition, $value): array
+    {
+        if ($parameterDefinition->isRequired()) {
+            return [
+                new Constraints\NotNull(),
+            ];
+        }
+
+        return [];
+    }
+
     protected function getValueConstraints(ParameterDefinition $parameterDefinition, $value): array
     {
         $options = $parameterDefinition->getOption('options');
