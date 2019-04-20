@@ -276,70 +276,6 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutService::loadZone
-     */
-    public function testLoadZone(): void
-    {
-        $zone = $this->layoutService->loadZone(1, 'left');
-
-        self::assertTrue($zone->isPublished());
-    }
-
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutService::loadZone
-     */
-    public function testLoadZoneThrowsNotFoundExceptionOnNonExistingLayout(): void
-    {
-        $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find zone with identifier "bottom"');
-
-        $this->layoutService->loadZone(999999, 'bottom');
-    }
-
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutService::loadZone
-     */
-    public function testLoadZoneThrowsNotFoundExceptionOnNonExistingZone(): void
-    {
-        $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find zone with identifier "non_existing"');
-
-        $this->layoutService->loadZone(1, 'non_existing');
-    }
-
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutService::loadZoneDraft
-     */
-    public function testLoadZoneDraft(): void
-    {
-        $zone = $this->layoutService->loadZoneDraft(1, 'left');
-
-        self::assertTrue($zone->isDraft());
-    }
-
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutService::loadZoneDraft
-     */
-    public function testLoadZoneDraftThrowsNotFoundExceptionOnNonExistingLayout(): void
-    {
-        $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find zone with identifier "bottom"');
-
-        $this->layoutService->loadZoneDraft(999999, 'bottom');
-    }
-
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutService::loadZoneDraft
-     */
-    public function testLoadZoneDraftThrowsNotFoundExceptionOnNonExistingZoneDraft(): void
-    {
-        $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find zone with identifier "non_existing"');
-
-        $this->layoutService->loadZoneDraft(1, 'non_existing');
-    }
-
-    /**
      * @covers \Netgen\Layouts\Core\Service\LayoutService::layoutNameExists
      */
     public function testLayoutNameExists(): void
@@ -368,8 +304,8 @@ abstract class LayoutServiceTest extends CoreTestCase
      */
     public function testLinkZone(): void
     {
-        $zone = $this->layoutService->loadZoneDraft(2, 'left');
-        $linkedZone = $this->layoutService->loadZone(3, 'left');
+        $zone = $this->layoutService->loadLayoutDraft(2)->getZone('left');
+        $linkedZone = $this->layoutService->loadLayout(3)->getZone('left');
 
         $updatedZone = $this->layoutService->linkZone($zone, $linkedZone);
 
@@ -387,8 +323,8 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "zone" has an invalid state. Zone cannot be in the shared layout.');
 
-        $zone = $this->layoutService->loadZoneDraft(3, 'left');
-        $linkedZone = $this->layoutService->loadZone(5, 'left');
+        $zone = $this->layoutService->loadLayoutDraft(3)->getZone('left');
+        $linkedZone = $this->layoutService->loadLayout(5)->getZone('left');
 
         $this->layoutService->linkZone($zone, $linkedZone);
     }
@@ -401,8 +337,8 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "zone" has an invalid state. Only draft zones can be linked.');
 
-        $zone = $this->layoutService->loadZone(2, 'left');
-        $linkedZone = $this->layoutService->loadZone(3, 'left');
+        $zone = $this->layoutService->loadLayout(2)->getZone('left');
+        $linkedZone = $this->layoutService->loadLayout(3)->getZone('left');
 
         $this->layoutService->linkZone($zone, $linkedZone);
     }
@@ -415,8 +351,8 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "linkedZone" has an invalid state. Zones can only be linked to published zones.');
 
-        $zone = $this->layoutService->loadZoneDraft(2, 'left');
-        $linkedZone = $this->layoutService->loadZoneDraft(3, 'left');
+        $zone = $this->layoutService->loadLayoutDraft(2)->getZone('left');
+        $linkedZone = $this->layoutService->loadLayoutDraft(3)->getZone('left');
 
         $this->layoutService->linkZone($zone, $linkedZone);
     }
@@ -429,8 +365,8 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "linkedZone" has an invalid state. Linked zone is not in the shared layout.');
 
-        $zone = $this->layoutService->loadZoneDraft(2, 'left');
-        $linkedZone = $this->layoutService->loadZone(1, 'left');
+        $zone = $this->layoutService->loadLayoutDraft(2)->getZone('left');
+        $linkedZone = $this->layoutService->loadLayout(1)->getZone('left');
 
         $this->layoutService->linkZone($zone, $linkedZone);
     }
@@ -443,8 +379,8 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "linkedZone" has an invalid state. Linked zone needs to be in a different layout.');
 
-        $zone = $this->layoutService->loadZoneDraft(2, 'left');
-        $linkedZone = $this->layoutService->loadZone(2, 'top');
+        $zone = $this->layoutService->loadLayoutDraft(2)->getZone('left');
+        $linkedZone = $this->layoutService->loadLayout(2)->getZone('top');
 
         $this->layoutService->linkZone($zone, $linkedZone);
     }
@@ -454,7 +390,7 @@ abstract class LayoutServiceTest extends CoreTestCase
      */
     public function testUnlinkZone(): void
     {
-        $zone = $this->layoutService->loadZoneDraft(2, 'top');
+        $zone = $this->layoutService->loadLayoutDraft(2)->getZone('top');
 
         $updatedZone = $this->layoutService->unlinkZone($zone);
 
@@ -469,7 +405,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "zone" has an invalid state. Only draft zones can be unlinked.');
 
-        $zone = $this->layoutService->loadZone(2, 'top');
+        $zone = $this->layoutService->loadLayout(2)->getZone('top');
 
         $this->layoutService->unlinkZone($zone);
     }
@@ -809,19 +745,19 @@ abstract class LayoutServiceTest extends CoreTestCase
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
 
         $topZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadZoneDraft(1, 'top')
+            $this->layoutService->loadLayoutDraft(1)->getZone('top')
         );
 
         $leftZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadZoneDraft(1, 'left')
+            $this->layoutService->loadLayoutDraft(1)->getZone('left')
         );
 
         $rightZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadZoneDraft(1, 'right')
+            $this->layoutService->loadLayoutDraft(1)->getZone('right')
         );
 
         $bottomZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadZoneDraft(1, 'bottom')
+            $this->layoutService->loadLayoutDraft(1)->getZone('bottom')
         );
 
         self::assertCount(3, $topZoneBlocks);
@@ -860,19 +796,19 @@ abstract class LayoutServiceTest extends CoreTestCase
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
 
         $topZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadZoneDraft(1, 'top')
+            $this->layoutService->loadLayoutDraft(1)->getZone('top')
         );
 
         $leftZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadZoneDraft(1, 'left')
+            $this->layoutService->loadLayoutDraft(1)->getZone('left')
         );
 
         $rightZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadZoneDraft(1, 'right')
+            $this->layoutService->loadLayoutDraft(1)->getZone('right')
         );
 
         $bottomZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadZoneDraft(1, 'bottom')
+            $this->layoutService->loadLayoutDraft(1)->getZone('bottom')
         );
 
         self::assertCount(3, $topZoneBlocks);
@@ -910,19 +846,19 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
 
-        $topZone = $this->layoutService->loadZoneDraft(2, 'top');
+        $topZone = $this->layoutService->loadLayoutDraft(2)->getZone('top');
         $topZoneBlocks = $this->blockService->loadZoneBlocks($topZone);
 
         $leftZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadZoneDraft(2, 'left')
+            $this->layoutService->loadLayoutDraft(2)->getZone('left')
         );
 
         $rightZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadZoneDraft(2, 'right')
+            $this->layoutService->loadLayoutDraft(2)->getZone('right')
         );
 
         $bottomZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadZoneDraft(2, 'bottom')
+            $this->layoutService->loadLayoutDraft(2)->getZone('bottom')
         );
 
         self::assertCount(0, $topZoneBlocks);
@@ -966,19 +902,19 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
 
-        $topZone = $this->layoutService->loadZoneDraft(2, 'top');
+        $topZone = $this->layoutService->loadLayoutDraft(2)->getZone('top');
         $topZoneBlocks = $this->blockService->loadZoneBlocks($topZone);
 
         $leftZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadZoneDraft(2, 'left')
+            $this->layoutService->loadLayoutDraft(2)->getZone('left')
         );
 
         $rightZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadZoneDraft(2, 'right')
+            $this->layoutService->loadLayoutDraft(2)->getZone('right')
         );
 
         $bottomZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadZoneDraft(2, 'bottom')
+            $this->layoutService->loadLayoutDraft(2)->getZone('bottom')
         );
 
         self::assertCount(0, $topZoneBlocks);
@@ -1023,19 +959,19 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
 
-        $topZone = $this->layoutService->loadZoneDraft(2, 'top');
+        $topZone = $this->layoutService->loadLayoutDraft(2)->getZone('top');
         $topZoneBlocks = $this->blockService->loadZoneBlocks($topZone);
 
         $leftZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadZoneDraft(2, 'left')
+            $this->layoutService->loadLayoutDraft(2)->getZone('left')
         );
 
         $rightZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadZoneDraft(2, 'right')
+            $this->layoutService->loadLayoutDraft(2)->getZone('right')
         );
 
         $bottomZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadZoneDraft(2, 'bottom')
+            $this->layoutService->loadLayoutDraft(2)->getZone('bottom')
         );
 
         self::assertCount(0, $topZoneBlocks);
@@ -1072,19 +1008,19 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
 
-        $topZone = $this->layoutService->loadZoneDraft(2, 'top');
+        $topZone = $this->layoutService->loadLayoutDraft(2)->getZone('top');
         $topZoneBlocks = $this->blockService->loadZoneBlocks($topZone);
 
         $leftZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadZoneDraft(2, 'left')
+            $this->layoutService->loadLayoutDraft(2)->getZone('left')
         );
 
         $rightZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadZoneDraft(2, 'right')
+            $this->layoutService->loadLayoutDraft(2)->getZone('right')
         );
 
         $bottomZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadZoneDraft(2, 'bottom')
+            $this->layoutService->loadLayoutDraft(2)->getZone('bottom')
         );
 
         self::assertCount(0, $topZoneBlocks);

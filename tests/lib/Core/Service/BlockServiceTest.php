@@ -90,7 +90,7 @@ abstract class BlockServiceTest extends CoreTestCase
     public function testLoadZoneBlocks(): void
     {
         $blocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadZone(1, 'right')
+            $this->layoutService->loadLayout(1)->getZone('right')
         );
 
         self::assertCount(2, $blocks);
@@ -246,7 +246,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $blockCreateStruct->isTranslatable = true;
 
-        $zone = $this->layoutService->loadZoneDraft(1, 'left');
+        $zone = $this->layoutService->loadLayoutDraft(1)->getZone('left');
 
         $block = $this->blockService->createBlockInZone($blockCreateStruct, $zone, 0);
 
@@ -452,11 +452,11 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $block = $this->blockService->createBlockInZone(
             $blockCreateStruct,
-            $this->layoutService->loadZoneDraft(1, 'right'),
+            $this->layoutService->loadLayoutDraft(1)->getZone('right'),
             0
         );
 
-        $zone = $this->layoutService->loadZoneDraft(1, 'right');
+        $zone = $this->layoutService->loadLayoutDraft(1)->getZone('right');
         $blocks = $this->blockService->loadZoneBlocks($zone);
 
         self::assertTrue($block->isDraft());
@@ -477,7 +477,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $block = $this->blockService->createBlockInZone(
             $blockCreateStruct,
-            $this->layoutService->loadZoneDraft(1, 'left'),
+            $this->layoutService->loadLayoutDraft(1)->getZone('left'),
             0
         );
 
@@ -499,11 +499,11 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $block = $this->blockService->createBlockInZone(
             $blockCreateStruct,
-            $this->layoutService->loadZoneDraft(1, 'right'),
+            $this->layoutService->loadLayoutDraft(1)->getZone('right'),
             0
         );
 
-        $zone = $this->layoutService->loadZoneDraft(1, 'right');
+        $zone = $this->layoutService->loadLayoutDraft(1)->getZone('right');
         $blocks = $this->blockService->loadZoneBlocks($zone);
 
         self::assertTrue($block->isDraft());
@@ -527,7 +527,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $block = $this->blockService->createBlockInZone(
             $blockCreateStruct,
-            $this->layoutService->loadZoneDraft(7, 'center'),
+            $this->layoutService->loadLayoutDraft(7)->getZone('center'),
             0
         );
 
@@ -548,7 +548,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $this->blockService->createBlockInZone(
             $blockCreateStruct,
-            $this->layoutService->loadZone(1, 'right'),
+            $this->layoutService->loadLayout(1)->getZone('right'),
             0
         );
     }
@@ -565,7 +565,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $block = $this->blockService->createBlockInZone(
             $blockCreateStruct,
-            $this->layoutService->loadZoneDraft(2, 'top')
+            $this->layoutService->loadLayoutDraft(2)->getZone('top')
         );
 
         self::assertTrue($block->isDraft());
@@ -583,10 +583,10 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $block = $this->blockService->createBlockInZone(
             $blockCreateStruct,
-            $this->layoutService->loadZoneDraft(1, 'right')
+            $this->layoutService->loadLayoutDraft(1)->getZone('right')
         );
 
-        $zone = $this->layoutService->loadZoneDraft(1, 'right');
+        $zone = $this->layoutService->loadLayoutDraft(1)->getZone('right');
         $blocks = $this->blockService->loadZoneBlocks($zone);
 
         self::assertTrue($block->isDraft());
@@ -607,7 +607,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $this->blockService->createBlockInZone(
             $blockCreateStruct,
-            $this->layoutService->loadZoneDraft(1, 'right'),
+            $this->layoutService->loadLayoutDraft(1)->getZone('right'),
             9999
         );
     }
@@ -626,7 +626,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $this->blockService->createBlockInZone(
             $blockCreateStruct,
-            $this->layoutService->loadZoneDraft(1, 'right')
+            $this->layoutService->loadLayoutDraft(1)->getZone('right')
         );
     }
 
@@ -1003,7 +1003,7 @@ abstract class BlockServiceTest extends CoreTestCase
     {
         $copiedBlock = $this->blockService->copyBlockToZone(
             $this->blockService->loadBlockDraft(31),
-            $this->layoutService->loadZoneDraft(1, 'right')
+            $this->layoutService->loadLayoutDraft(1)->getZone('right')
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(31);
@@ -1030,7 +1030,7 @@ abstract class BlockServiceTest extends CoreTestCase
     {
         $copiedBlock = $this->blockService->copyBlockToZone(
             $this->blockService->loadBlockDraft(31),
-            $this->layoutService->loadZoneDraft(1, 'right'),
+            $this->layoutService->loadLayoutDraft(1)->getZone('right'),
             1
         );
 
@@ -1052,7 +1052,7 @@ abstract class BlockServiceTest extends CoreTestCase
     {
         $copiedBlock = $this->blockService->copyBlockToZone(
             $this->blockService->loadBlockDraft(31),
-            $this->layoutService->loadZoneDraft(1, 'right'),
+            $this->layoutService->loadLayoutDraft(1)->getZone('right'),
             0
         );
 
@@ -1074,7 +1074,7 @@ abstract class BlockServiceTest extends CoreTestCase
     {
         $copiedBlock = $this->blockService->copyBlockToZone(
             $this->blockService->loadBlockDraft(31),
-            $this->layoutService->loadZoneDraft(1, 'right'),
+            $this->layoutService->loadLayoutDraft(1)->getZone('right'),
             2
         );
 
@@ -1096,7 +1096,7 @@ abstract class BlockServiceTest extends CoreTestCase
     {
         $copiedBlock = $this->blockService->copyBlockToZone(
             $this->blockService->loadBlockDraft(35),
-            $this->layoutService->loadZoneDraft(1, 'right'),
+            $this->layoutService->loadLayoutDraft(1)->getZone('right'),
             0
         );
 
@@ -1121,7 +1121,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $this->blockService->copyBlockToZone(
             $this->blockService->loadBlockDraft(31),
-            $this->layoutService->loadZoneDraft(1, 'right'),
+            $this->layoutService->loadLayoutDraft(1)->getZone('right'),
             9999
         );
     }
@@ -1136,7 +1136,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $this->blockService->copyBlockToZone(
             $this->blockService->loadBlock(31),
-            $this->layoutService->loadZoneDraft(1, 'left')
+            $this->layoutService->loadLayoutDraft(1)->getZone('left')
         );
     }
 
@@ -1150,7 +1150,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $this->blockService->copyBlockToZone(
             $this->blockService->loadBlockDraft(31),
-            $this->layoutService->loadZone(1, 'left')
+            $this->layoutService->loadLayout(1)->getZone('left')
         );
     }
 
@@ -1164,7 +1164,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $this->blockService->copyBlockToZone(
             $this->blockService->loadBlockDraft(31),
-            $this->layoutService->loadZoneDraft(1, 'bottom')
+            $this->layoutService->loadLayoutDraft(1)->getZone('bottom')
         );
     }
 
@@ -1178,7 +1178,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $this->blockService->copyBlockToZone(
             $this->blockService->loadBlockDraft(32),
-            $this->layoutService->loadZoneDraft(4, 'bottom')
+            $this->layoutService->loadLayoutDraft(4)->getZone('bottom')
         );
     }
 
@@ -1373,14 +1373,14 @@ abstract class BlockServiceTest extends CoreTestCase
     {
         $movedBlock = $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(32),
-            $this->layoutService->loadZoneDraft(1, 'left'),
+            $this->layoutService->loadLayoutDraft(1)->getZone('left'),
             0
         );
 
         self::assertTrue($movedBlock->isDraft());
         self::assertSame(32, $movedBlock->getId());
 
-        $zone = $this->layoutService->loadZoneDraft(1, 'left');
+        $zone = $this->layoutService->loadLayoutDraft(1)->getZone('left');
         $blocks = $this->blockService->loadZoneBlocks($zone);
 
         self::assertSame($movedBlock->getId(), $blocks[0]->getId());
@@ -1394,14 +1394,14 @@ abstract class BlockServiceTest extends CoreTestCase
     {
         $movedBlock = $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(32),
-            $this->layoutService->loadZoneDraft(1, 'right'),
+            $this->layoutService->loadLayoutDraft(1)->getZone('right'),
             0
         );
 
         self::assertTrue($movedBlock->isDraft());
         self::assertSame(32, $movedBlock->getId());
 
-        $zone = $this->layoutService->loadZoneDraft(1, 'right');
+        $zone = $this->layoutService->loadLayoutDraft(1)->getZone('right');
         $blocks = $this->blockService->loadZoneBlocks($zone);
 
         self::assertSame($movedBlock->getId(), $blocks[0]->getId());
@@ -1417,7 +1417,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $this->blockService->moveBlockToZone(
             $this->blockService->loadBlock(31),
-            $this->layoutService->loadZoneDraft(1, 'left'),
+            $this->layoutService->loadLayoutDraft(1)->getZone('left'),
             0
         );
     }
@@ -1432,7 +1432,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(31),
-            $this->layoutService->loadZone(1, 'left'),
+            $this->layoutService->loadLayout(1)->getZone('left'),
             0
         );
     }
@@ -1447,7 +1447,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(31),
-            $this->layoutService->loadZoneDraft(1, 'left'),
+            $this->layoutService->loadLayoutDraft(1)->getZone('left'),
             9999
         );
     }
@@ -1462,7 +1462,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(32),
-            $this->layoutService->loadZoneDraft(2, 'bottom'),
+            $this->layoutService->loadLayoutDraft(2)->getZone('bottom'),
             0
         );
     }
@@ -1477,7 +1477,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(31),
-            $this->layoutService->loadZoneDraft(1, 'bottom'),
+            $this->layoutService->loadLayoutDraft(1)->getZone('bottom'),
             0
         );
     }
@@ -1491,7 +1491,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         // Move block so we can make sure position is kept while restoring the block.
 
-        $zone = $this->layoutService->loadZoneDraft($block->getLayoutId(), 'left');
+        $zone = $this->layoutService->loadLayoutDraft($block->getLayoutId())->getZone('left');
         $movedBlock = $this->blockService->moveBlockToZone($block, $zone, 1);
         $movedPersistenceBlock = $this->blockHandler->loadBlock($movedBlock->getId(), $movedBlock->getStatus());
 

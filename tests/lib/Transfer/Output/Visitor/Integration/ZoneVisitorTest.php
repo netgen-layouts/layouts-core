@@ -38,9 +38,9 @@ abstract class ZoneVisitorTest extends VisitorTest
     public function visitProvider(): array
     {
         return [
-            [function (): Zone { return $this->layoutService->loadZone(2, 'top'); }, 'zone/zone_2_top.json'],
-            [function (): Zone { return $this->layoutService->loadZone(2, 'right'); }, 'zone/zone_2_right.json'],
-            [function (): Zone { return $this->layoutService->loadZone(6, 'bottom'); }, 'zone/zone_6_bottom.json'],
+            [function (): Zone { return $this->layoutService->loadLayout(2)->getZone('top'); }, 'zone/zone_2_top.json'],
+            [function (): Zone { return $this->layoutService->loadLayout(2)->getZone('right'); }, 'zone/zone_2_right.json'],
+            [function (): Zone { return $this->layoutService->loadLayout(6)->getZone('bottom'); }, 'zone/zone_6_bottom.json'],
         ];
     }
 }

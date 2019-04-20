@@ -46,14 +46,11 @@ final class CopyToZone extends AbstractController
 
         $requestData = $request->attributes->get('data');
 
-        $zone = $this->layoutService->loadZoneDraft(
-            $requestData->get('layout_id'),
-            $requestData->get('zone_identifier')
-        );
+        $layout = $this->layoutService->loadLayoutDraft($requestData->get('layout_id'));
 
         $copiedBlock = $this->blockService->copyBlockToZone(
             $block,
-            $zone,
+            $layout->getZone($requestData->get('zone_identifier')),
             $requestData->get('parent_position')
         );
 

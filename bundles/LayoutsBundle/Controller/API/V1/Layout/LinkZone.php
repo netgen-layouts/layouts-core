@@ -31,10 +31,8 @@ final class LinkZone extends AbstractController
 
         $requestData = $request->attributes->get('data');
 
-        $linkedZone = $this->layoutService->loadZone(
-            $requestData->get('linked_layout_id'),
-            $requestData->get('linked_zone_identifier')
-        );
+        $sharedLayout = $this->layoutService->loadLayout($requestData->get('linked_layout_id'));
+        $linkedZone = $sharedLayout->getZone($requestData->get('linked_zone_identifier'));
 
         $this->layoutService->linkZone($zone, $linkedZone);
 

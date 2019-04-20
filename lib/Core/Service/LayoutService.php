@@ -218,34 +218,6 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $this->layoutHandler->layoutExists($layoutId, $status);
     }
 
-    public function loadZone($layoutId, string $identifier): Zone
-    {
-        $this->validator->validateId($layoutId, 'layoutId');
-        $this->validator->validateIdentifier($identifier, 'identifier');
-
-        return $this->mapper->mapZone(
-            $this->layoutHandler->loadZone(
-                $layoutId,
-                Value::STATUS_PUBLISHED,
-                $identifier
-            )
-        );
-    }
-
-    public function loadZoneDraft($layoutId, string $identifier): Zone
-    {
-        $this->validator->validateId($layoutId, 'layoutId');
-        $this->validator->validateIdentifier($identifier, 'identifier');
-
-        return $this->mapper->mapZone(
-            $this->layoutHandler->loadZone(
-                $layoutId,
-                Value::STATUS_DRAFT,
-                $identifier
-            )
-        );
-    }
-
     public function layoutNameExists(string $name, $excludedLayoutId = null): bool
     {
         return $this->layoutHandler->layoutNameExists($name, $excludedLayoutId);

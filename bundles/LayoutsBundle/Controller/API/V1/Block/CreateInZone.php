@@ -75,16 +75,13 @@ final class CreateInZone extends AbstractController
             throw new BadStateException('block_type', 'Block type does not exist.', $e);
         }
 
-        $zone = $this->layoutService->loadZoneDraft(
-            $requestData->get('layout_id'),
-            $requestData->get('zone_identifier')
-        );
+        $layout = $this->layoutService->loadLayoutDraft($requestData->get('layout_id'));
 
         $this->denyAccessUnlessGranted(
             'nglayouts:block:add',
             [
                 'block_definition' => $blockType->getDefinition(),
-                'layout' => $zone->getLayoutId(),
+                'layout' => $layout,
             ]
         );
 
@@ -92,7 +89,7 @@ final class CreateInZone extends AbstractController
 
         $createdBlock = $this->blockService->createBlockInZone(
             $blockCreateStruct,
-            $zone,
+            $layout->getZone($requestData->get('zone_identifier')),
             $requestData->get('parent_position')
         );
 

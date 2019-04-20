@@ -36,7 +36,7 @@ abstract class BlockTest extends CoreTestCase
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->fillParametersFromHash($parameters);
 
-        $zone = $this->layoutService->loadZoneDraft(1, 'left');
+        $zone = $this->layoutService->loadLayoutDraft(1)->getZone('left');
         $createdBlock = $this->blockService->createBlockInZone($blockCreateStruct, $zone);
 
         $createdParameters = [];
@@ -75,7 +75,7 @@ abstract class BlockTest extends CoreTestCase
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->fillParametersFromHash($parameters);
 
-        $zone = $this->layoutService->loadZoneDraft(1, 'left');
+        $zone = $this->layoutService->loadLayoutDraft(1)->getZone('left');
         $this->blockService->createBlockInZone($blockCreateStruct, $zone);
     }
 

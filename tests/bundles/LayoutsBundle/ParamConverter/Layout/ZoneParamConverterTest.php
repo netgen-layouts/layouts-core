@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\ParamConverter\Layout;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\Bundle\LayoutsBundle\ParamConverter\Layout\ZoneParamConverter;
 use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use PHPUnit\Framework\TestCase;
 
@@ -59,12 +61,13 @@ final class ZoneParamConverterTest extends TestCase
     public function testLoadValue(): void
     {
         $zone = new Zone();
+        $layout = Layout::fromArray(['zones' => new ArrayCollection(['left' => $zone])]);
 
         $this->layoutServiceMock
             ->expects(self::once())
-            ->method('loadZone')
-            ->with(self::identicalTo(42), self::identicalTo('left'))
-            ->willReturn($zone);
+            ->method('loadLayout')
+            ->with(self::identicalTo(42))
+            ->willReturn($layout);
 
         self::assertSame(
             $zone,
@@ -84,12 +87,13 @@ final class ZoneParamConverterTest extends TestCase
     public function testLoadValueDraft(): void
     {
         $zone = new Zone();
+        $layout = Layout::fromArray(['zones' => new ArrayCollection(['left' => $zone])]);
 
         $this->layoutServiceMock
             ->expects(self::once())
-            ->method('loadZoneDraft')
-            ->with(self::identicalTo(42), self::identicalTo('left'))
-            ->willReturn($zone);
+            ->method('loadLayoutDraft')
+            ->with(self::identicalTo(42))
+            ->willReturn($layout);
 
         self::assertSame(
             $zone,

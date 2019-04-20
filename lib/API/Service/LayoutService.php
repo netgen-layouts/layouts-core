@@ -110,30 +110,6 @@ interface LayoutService extends Service
     public function hasStatus($layoutId, int $status): bool;
 
     /**
-     * Loads a zone with specified identifier.
-     *
-     * @param int|string $layoutId
-     * @param string $identifier
-     *
-     * @throws \Netgen\Layouts\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
-     *
-     * @return \Netgen\Layouts\API\Values\Layout\Zone
-     */
-    public function loadZone($layoutId, string $identifier): Zone;
-
-    /**
-     * Loads a zone draft with specified identifier.
-     *
-     * @param int|string $layoutId
-     * @param string $identifier
-     *
-     * @throws \Netgen\Layouts\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
-     *
-     * @return \Netgen\Layouts\API\Values\Layout\Zone
-     */
-    public function loadZoneDraft($layoutId, string $identifier): Zone;
-
-    /**
      * Returns if layout with provided name exists.
      *
      * If $excludedLayoutId is provided, the check will not apply to the provided ID.

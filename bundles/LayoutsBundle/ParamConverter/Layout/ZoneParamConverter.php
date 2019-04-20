@@ -38,10 +38,10 @@ final class ZoneParamConverter extends ParamConverter
 
     public function loadValue(array $values): Value
     {
-        if ($values['status'] === self::STATUS_PUBLISHED) {
-            return $this->layoutService->loadZone($values['layoutId'], $values['zoneIdentifier']);
-        }
+        $layout = $values['status'] === self::STATUS_PUBLISHED ?
+            $this->layoutService->loadLayout($values['layoutId']) :
+            $this->layoutService->loadLayoutDraft($values['layoutId']);
 
-        return $this->layoutService->loadZoneDraft($values['layoutId'], $values['zoneIdentifier']);
+        return $layout->getZone($values['zoneIdentifier']);
     }
 }
