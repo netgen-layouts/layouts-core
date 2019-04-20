@@ -1,6 +1,7 @@
 CREATE TABLE IF NOT EXISTS `nglayouts_layout` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
+  `uuid` char(36) NOT NULL,
   `type` varchar(191) NOT NULL,
   `name` varchar(191) NOT NULL,
   `description` text NOT NULL,

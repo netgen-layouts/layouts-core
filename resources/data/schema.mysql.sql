@@ -194,6 +194,7 @@ DROP TABLE IF EXISTS `nglayouts_layout`;
 CREATE TABLE `nglayouts_layout` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
+  `uuid` char(36) NOT NULL,
   `type` varchar(191) NOT NULL,
   `name` varchar(191) NOT NULL,
   `description` text NOT NULL,
@@ -202,6 +203,7 @@ CREATE TABLE `nglayouts_layout` (
   `shared` tinyint(1) NOT NULL,
   `main_locale` varchar(191) NOT NULL,
   PRIMARY KEY (`id`,`status`),
+  UNIQUE KEY `idx_ngl_layout_uuid` (`uuid`, `status`),
   KEY `idx_ngl_layout_name` (`name`),
   KEY `idx_ngl_layout_type` (`type`),
   KEY `idx_ngl_layout_shared` (`shared`)

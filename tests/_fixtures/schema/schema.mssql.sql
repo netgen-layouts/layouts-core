@@ -19,6 +19,7 @@ IF OBJECT_ID('dbo.nglayouts_rule', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_rul
 CREATE TABLE nglayouts_layout (
   id int IDENTITY(1, 1),
   status int NOT NULL,
+  uuid nchar(36) NOT NULL,
   type nvarchar(255) NOT NULL,
   name nvarchar(255) NOT NULL,
   description nvarchar(max) NOT NULL,

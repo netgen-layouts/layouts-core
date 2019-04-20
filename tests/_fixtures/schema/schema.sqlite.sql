@@ -23,6 +23,7 @@ DROP TABLE IF EXISTS `nglayouts_rule`;
 CREATE TABLE `nglayouts_layout` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
+  `uuid` text(36) NOT NULL,
   `type` text(255) NOT NULL,
   `name` text(255) NOT NULL,
   `description` text NOT NULL,

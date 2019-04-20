@@ -30,11 +30,18 @@ final class Version010000 extends AbstractMigration
         $this->addSql('RENAME TABLE ngbm_rule_data TO nglayouts_rule_data');
         $this->addSql('RENAME TABLE ngbm_rule_target TO nglayouts_rule_target');
         $this->addSql('RENAME TABLE ngbm_zone TO nglayouts_zone');
+
+        $this->addSql('ALTER TABLE nglayouts_layout ADD COLUMN uuid char(36) NOT NULL AFTER status');
+        $this->addSql('UPDATE nglayouts_layout SET uuid = id');
+        $this->addSql('ALTER TABLE nglayouts_layout ADD UNIQUE INDEX idx_ngl_layout_uuid (uuid, status)');
     }
 
     public function down(Schema $schema): void
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
+
+        $this->addSql('ALTER TABLE nglayouts_layout DROP INDEX idx_ngl_layout_uuid');
+        $this->addSql('ALTER TABLE nglayouts_layout DROP COLUMN uuid');
 
         $this->addSql('RENAME TABLE nglayouts_block TO ngbm_block');
         $this->addSql('RENAME TABLE nglayouts_block_collection TO ngbm_block_collection');
