@@ -48,6 +48,7 @@
         "doctrine/doctrine-bundle": "^1.10",
         "doctrine/doctrine-migrations-bundle": "^2.0",
         "doctrine/collections": "^1.6",
+        "ramsey/uuid": "^3.8",
         "egulias/email-validator": "^2.1",
         "ezyang/htmlpurifier": "^4.10",
         "xemlock/htmlpurifier-html5": ">=0.1.10, <1.0",
