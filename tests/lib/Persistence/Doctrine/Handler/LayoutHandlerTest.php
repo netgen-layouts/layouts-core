@@ -869,10 +869,11 @@ final class LayoutHandlerTest extends TestCase
      */
     public function testCreateZone(): void
     {
+        $linkedZone = $this->layoutHandler->loadZone(3, Value::STATUS_PUBLISHED, 'left');
+
         $zoneCreateStruct = new ZoneCreateStruct();
         $zoneCreateStruct->identifier = 'new_zone';
-        $zoneCreateStruct->linkedLayoutId = 3;
-        $zoneCreateStruct->linkedZoneIdentifier = 'linked_zone';
+        $zoneCreateStruct->linkedZone = $linkedZone;
 
         $createdZone = $this->layoutHandler->createZone(
             $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
@@ -884,7 +885,7 @@ final class LayoutHandlerTest extends TestCase
         self::assertSame('new_zone', $createdZone->identifier);
         self::assertSame(39, $createdZone->rootBlockId);
         self::assertSame(3, $createdZone->linkedLayoutId);
-        self::assertSame('linked_zone', $createdZone->linkedZoneIdentifier);
+        self::assertSame('left', $createdZone->linkedZoneIdentifier);
 
         $rootBlock = $this->blockHandler->loadBlock(39, Value::STATUS_DRAFT);
 

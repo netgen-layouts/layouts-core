@@ -18,16 +18,9 @@ final class ZoneCreateStruct
     public $identifier;
 
     /**
-     * Identifier of the zone that will be linked to the new zone.
+     * Zone that will be linked to the new zone.
      *
-     * @var string|null
+     * @var \Netgen\Layouts\Persistence\Values\Layout\Zone|null
      */
-    public $linkedZoneIdentifier;
-
-    /**
-     * ID of the layout where the linked zone is located.
-     *
-     * @var int|string|null
-     */
-    public $linkedLayoutId;
+    public $linkedZone;
 }

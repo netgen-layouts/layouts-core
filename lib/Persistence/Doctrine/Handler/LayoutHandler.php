@@ -18,6 +18,7 @@ use Netgen\Layouts\Persistence\Values\Layout\LayoutUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\Zone;
 use Netgen\Layouts\Persistence\Values\Layout\ZoneCreateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\ZoneUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Value;
 
 final class LayoutHandler implements LayoutHandlerInterface
 {
@@ -242,17 +243,21 @@ final class LayoutHandler implements LayoutHandlerInterface
             $layout
         );
 
-        $newZone = Zone::fromArray(
-            [
-                'layoutId' => $layout->id,
-                'status' => $layout->status,
-                'rootBlockId' => $rootBlock->id,
-                'identifier' => $zoneCreateStruct->identifier,
-                'linkedLayoutId' => $zoneCreateStruct->linkedLayoutId,
-                'linkedZoneIdentifier' => $zoneCreateStruct->linkedZoneIdentifier,
-            ]
-        );
+        $newZoneData = [
+            'layoutId' => $layout->id,
+            'status' => $layout->status,
+            'rootBlockId' => $rootBlock->id,
+            'identifier' => $zoneCreateStruct->identifier,
+            'linkedLayoutId' => null,
+            'linkedZoneIdentifier' => null,
+        ];
 
+        if ($zoneCreateStruct->linkedZone instanceof Zone) {
+            $newZoneData['linkedLayoutId'] = $zoneCreateStruct->linkedZone->layoutId;
+            $newZoneData['linkedZoneIdentifier'] = $zoneCreateStruct->linkedZone->identifier;
+        }
+
+        $newZone = Zone::fromArray($newZoneData);
         $this->queryHandler->createZone($newZone);
 
         return $newZone;
@@ -320,11 +325,24 @@ final class LayoutHandler implements LayoutHandlerInterface
 
         $layoutZones = $this->loadLayoutZones($layout);
         foreach ($layoutZones as $layoutZone) {
+            $linkedZone = null;
+
+            if ($layoutZone->linkedLayoutId !== null && $layoutZone->linkedZoneIdentifier !== null) {
+                try {
+                    $linkedZone = $this->loadZone(
+                        $layoutZone->linkedLayoutId,
+                        Value::STATUS_PUBLISHED,
+                        $layoutZone->linkedZoneIdentifier
+                    );
+                } catch (NotFoundException $e) {
+                    // Do nothing
+                }
+            }
+
             $zoneCreateStruct = ZoneCreateStruct::fromArray(
                 [
                     'identifier' => $layoutZone->identifier,
-                    'linkedLayoutId' => $layoutZone->linkedLayoutId,
-                    'linkedZoneIdentifier' => $layoutZone->linkedZoneIdentifier,
+                    'linkedZone' => $linkedZone,
                 ]
             );
 
