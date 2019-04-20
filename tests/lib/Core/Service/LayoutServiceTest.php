@@ -307,7 +307,9 @@ abstract class LayoutServiceTest extends CoreTestCase
         $zone = $this->layoutService->loadLayoutDraft(2)->getZone('left');
         $linkedZone = $this->layoutService->loadLayout(3)->getZone('left');
 
-        $updatedZone = $this->layoutService->linkZone($zone, $linkedZone);
+        $this->layoutService->linkZone($zone, $linkedZone);
+
+        $updatedZone = $this->layoutService->loadLayoutDraft(2)->getZone('left');
 
         self::assertInstanceOf(Zone::class, $updatedZone->getLinkedZone());
         self::assertTrue($updatedZone->getLinkedZone()->isPublished());
@@ -392,7 +394,9 @@ abstract class LayoutServiceTest extends CoreTestCase
     {
         $zone = $this->layoutService->loadLayoutDraft(2)->getZone('top');
 
-        $updatedZone = $this->layoutService->unlinkZone($zone);
+        $this->layoutService->unlinkZone($zone);
+
+        $updatedZone = $this->layoutService->loadLayoutDraft(2)->getZone('top');
 
         self::assertNull($updatedZone->getLinkedZone());
     }

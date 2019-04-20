@@ -24,7 +24,6 @@ use Netgen\Layouts\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Netgen\Layouts\Persistence\Values\Layout\LayoutCopyStruct;
 use Netgen\Layouts\Persistence\Values\Layout\LayoutCreateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\LayoutUpdateStruct;
-use Netgen\Layouts\Persistence\Values\Layout\Zone as PersistenceZone;
 use Netgen\Layouts\Persistence\Values\Layout\ZoneCreateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\ZoneUpdateStruct;
 
@@ -223,7 +222,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $this->layoutHandler->layoutNameExists($name, $excludedLayoutId);
     }
 
-    public function linkZone(Zone $zone, Zone $linkedZone): Zone
+    public function linkZone(Zone $zone, Zone $linkedZone): void
     {
         if (!$zone->isDraft()) {
             throw new BadStateException('zone', 'Only draft zones can be linked.');
@@ -251,9 +250,9 @@ final class LayoutService extends Service implements LayoutServiceInterface
             throw new BadStateException('linkedZone', 'Linked zone is not in the shared layout.');
         }
 
-        $updatedZone = $this->transaction(
-            function () use ($persistenceZone, $persistenceLinkedZone): PersistenceZone {
-                return $this->layoutHandler->updateZone(
+        $this->transaction(
+            function () use ($persistenceZone, $persistenceLinkedZone): void {
+                $this->layoutHandler->updateZone(
                     $persistenceZone,
                     ZoneUpdateStruct::fromArray(
                         [
@@ -263,11 +262,9 @@ final class LayoutService extends Service implements LayoutServiceInterface
                 );
             }
         );
-
-        return $this->mapper->mapZone($updatedZone);
     }
 
-    public function unlinkZone(Zone $zone): Zone
+    public function unlinkZone(Zone $zone): void
     {
         if (!$zone->isDraft()) {
             throw new BadStateException('zone', 'Only draft zones can be unlinked.');
@@ -275,9 +272,9 @@ final class LayoutService extends Service implements LayoutServiceInterface
 
         $persistenceZone = $this->layoutHandler->loadZone($zone->getLayoutId(), Value::STATUS_DRAFT, $zone->getIdentifier());
 
-        $updatedZone = $this->transaction(
-            function () use ($persistenceZone): PersistenceZone {
-                return $this->layoutHandler->updateZone(
+        $this->transaction(
+            function () use ($persistenceZone): void {
+                $this->layoutHandler->updateZone(
                     $persistenceZone,
                     ZoneUpdateStruct::fromArray(
                         [
@@ -287,8 +284,6 @@ final class LayoutService extends Service implements LayoutServiceInterface
                 );
             }
         );
-
-        return $this->mapper->mapZone($updatedZone);
     }
 
     public function createLayout(APILayoutCreateStruct $layoutCreateStruct): Layout

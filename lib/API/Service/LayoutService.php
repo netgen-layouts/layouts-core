@@ -130,14 +130,14 @@ interface LayoutService extends Service
      * @throws \Netgen\Layouts\Exception\BadStateException If linked zone is not in the shared layout
      * @throws \Netgen\Layouts\Exception\BadStateException If zone and linked zone belong to the same layout
      */
-    public function linkZone(Zone $zone, Zone $linkedZone): Zone;
+    public function linkZone(Zone $zone, Zone $linkedZone): void;
 
     /**
      * Removes the existing zone link from the provided zone.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If zone is not a draft
      */
-    public function unlinkZone(Zone $zone): Zone;
+    public function unlinkZone(Zone $zone): void;
 
     /**
      * Creates a layout.
