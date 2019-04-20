@@ -7,6 +7,13 @@ services:
         tags:
             - { name: console.command, command: nglayouts:migration:query_offset_limit }
 
+    netgen_layouts.command.migration.uuid:
+        class: Netgen\Bundle\LayoutsBundle\Command\Migration\MigrateUuidCommand
+        arguments:
+            - "@database_connection"
+        tags:
+            - { name: console.command, command: nglayouts:migration:uuid }
+
     netgen_layouts.command.export:
         class: Netgen\Bundle\LayoutsBundle\Command\ExportCommand
         arguments:
