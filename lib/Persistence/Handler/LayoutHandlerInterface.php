@@ -104,17 +104,6 @@ interface LayoutHandlerInterface
     public function layoutExists($layoutId, int $status): bool;
 
     /**
-     * Returns if zone with specified identifier exists in the layout.
-     *
-     * @param int|string $layoutId
-     * @param int $status
-     * @param string $identifier
-     *
-     * @return bool
-     */
-    public function zoneExists($layoutId, int $status, string $identifier): bool;
-
-    /**
      * Loads all zones that belong to layout with specified ID.
      *
      * @return \Netgen\Layouts\Persistence\Values\Layout\Zone[]

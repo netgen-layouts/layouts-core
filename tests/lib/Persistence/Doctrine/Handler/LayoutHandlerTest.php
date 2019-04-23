@@ -591,28 +591,6 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::zoneExists
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::zoneExists
-     */
-    public function testZoneExists(): void
-    {
-        self::assertTrue(
-            $this->layoutHandler->zoneExists(1, Value::STATUS_PUBLISHED, 'left')
-        );
-    }
-
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::zoneExists
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::zoneExists
-     */
-    public function testZoneNotExists(): void
-    {
-        self::assertFalse(
-            $this->layoutHandler->zoneExists(1, Value::STATUS_PUBLISHED, 'non_existing')
-        );
-    }
-
-    /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::layoutNameExists
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutNameExists
      */

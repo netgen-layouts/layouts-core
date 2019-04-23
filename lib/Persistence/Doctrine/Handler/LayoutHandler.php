@@ -125,11 +125,6 @@ final class LayoutHandler implements LayoutHandlerInterface
         return $this->queryHandler->layoutExists($layoutId, $status);
     }
 
-    public function zoneExists($layoutId, int $status, string $identifier): bool
-    {
-        return $this->queryHandler->zoneExists($layoutId, $status, $identifier);
-    }
-
     public function loadLayoutZones(Layout $layout): array
     {
         return $this->layoutMapper->mapZones(

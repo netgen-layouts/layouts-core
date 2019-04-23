@@ -319,36 +319,6 @@ final class LayoutQueryHandler extends QueryHandler
     }
 
     /**
-     * Returns if the zone exists.
-     *
-     * @param int|string $layoutId
-     * @param int $status
-     * @param string $identifier
-     *
-     * @return bool
-     */
-    public function zoneExists($layoutId, int $status, string $identifier): bool
-    {
-        $query = $this->connection->createQueryBuilder();
-        $query->select('count(*) AS count')
-            ->from('nglayouts_zone')
-            ->where(
-                $query->expr()->andX(
-                    $query->expr()->eq('identifier', ':identifier'),
-                    $query->expr()->eq('layout_id', ':layout_id')
-                )
-            )
-            ->setParameter('identifier', $identifier, Type::STRING)
-            ->setParameter('layout_id', $layoutId, Type::INTEGER);
-
-        $this->applyStatusCondition($query, $status);
-
-        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
-
-        return (int) ($data[0]['count'] ?? 0) > 0;
-    }
-
-    /**
      * Returns if the layout with provided name exists.
      *
      * @param string $name
