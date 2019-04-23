@@ -43,7 +43,7 @@ final class EditForm extends AbstractController
                 'action' => $this->generateUrl(
                     'nglayouts_app_layout_form_edit',
                     [
-                        'layoutId' => $layout->getId(),
+                        'layoutId' => $layout->getId()->toString(),
                     ]
                 ),
             ]

@@ -79,7 +79,7 @@ final class LayoutsDataCollector extends DataCollector
         $layout = $layoutView->getLayout();
 
         $this->data['layout'] = [
-            'id' => $layout->getId(),
+            'id' => $layout->getId()->toString(),
             'name' => $layout->getName(),
             'type' => $layout->getLayoutType()->getName(),
             'context' => $layoutView->getContext(),

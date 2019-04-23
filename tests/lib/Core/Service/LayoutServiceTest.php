@@ -14,6 +14,7 @@ use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Layout\Type\LayoutType;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
+use Ramsey\Uuid\Uuid;
 
 abstract class LayoutServiceTest extends CoreTestCase
 {
@@ -25,7 +26,7 @@ abstract class LayoutServiceTest extends CoreTestCase
      */
     public function testLoadLayout(): void
     {
-        $layout = $this->layoutService->loadLayout(1);
+        $layout = $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
 
         self::assertTrue($layout->isPublished());
     }
@@ -36,9 +37,9 @@ abstract class LayoutServiceTest extends CoreTestCase
     public function testLoadLayoutThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find layout with identifier "999999"');
+        $this->expectExceptionMessageRegExp('/^Could not find layout with identifier "[\w-]+"$/');
 
-        $this->layoutService->loadLayout(999999);
+        $this->layoutService->loadLayout(Uuid::uuid4());
     }
 
     /**
@@ -47,7 +48,7 @@ abstract class LayoutServiceTest extends CoreTestCase
      */
     public function testLoadLayoutDraft(): void
     {
-        $layout = $this->layoutService->loadLayoutDraft(1);
+        $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
 
         self::assertTrue($layout->isDraft());
     }
@@ -58,9 +59,9 @@ abstract class LayoutServiceTest extends CoreTestCase
     public function testLoadLayoutDraftThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find layout with identifier "999999"');
+        $this->expectExceptionMessageRegExp('/^Could not find layout with identifier "[\w-]+"$/');
 
-        $this->layoutService->loadLayoutDraft(999999);
+        $this->layoutService->loadLayoutDraft(Uuid::uuid4());
     }
 
     /**
@@ -69,7 +70,7 @@ abstract class LayoutServiceTest extends CoreTestCase
      */
     public function testLoadLayoutArchive(): void
     {
-        $layout = $this->layoutService->loadLayoutArchive(2);
+        $layout = $this->layoutService->loadLayoutArchive(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'));
 
         self::assertTrue($layout->isArchived());
     }
@@ -80,9 +81,9 @@ abstract class LayoutServiceTest extends CoreTestCase
     public function testLoadLayoutArchiveThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find layout with identifier "999999"');
+        $this->expectExceptionMessageRegExp('/^Could not find layout with identifier "[\w-]+"$/');
 
-        $this->layoutService->loadLayoutArchive(999999);
+        $this->layoutService->loadLayoutArchive(Uuid::uuid4());
     }
 
     /**
@@ -189,7 +190,7 @@ abstract class LayoutServiceTest extends CoreTestCase
      */
     public function testLoadRelatedLayouts(): void
     {
-        $sharedLayout = $this->layoutService->loadLayout(3);
+        $sharedLayout = $this->layoutService->loadLayout(Uuid::fromString('d8e55af7-cf62-5f28-ae15-331b457d82e9'));
         $layouts = $this->layoutService->loadRelatedLayouts($sharedLayout);
 
         self::assertCount(1, $layouts);
@@ -208,7 +209,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Related layouts can only be loaded for published shared layouts.');
 
-        $sharedLayout = $this->layoutService->loadLayoutDraft(3);
+        $sharedLayout = $this->layoutService->loadLayoutDraft(Uuid::fromString('d8e55af7-cf62-5f28-ae15-331b457d82e9'));
         $this->layoutService->loadRelatedLayouts($sharedLayout);
     }
 
@@ -220,7 +221,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Related layouts can only be loaded for shared layouts.');
 
-        $sharedLayout = $this->layoutService->loadLayout(2);
+        $sharedLayout = $this->layoutService->loadLayout(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'));
         $this->layoutService->loadRelatedLayouts($sharedLayout);
     }
 
@@ -229,7 +230,7 @@ abstract class LayoutServiceTest extends CoreTestCase
      */
     public function testGetRelatedLayoutsCount(): void
     {
-        $sharedLayout = $this->layoutService->loadLayout(3);
+        $sharedLayout = $this->layoutService->loadLayout(Uuid::fromString('d8e55af7-cf62-5f28-ae15-331b457d82e9'));
         $count = $this->layoutService->getRelatedLayoutsCount($sharedLayout);
 
         self::assertSame(1, $count);
@@ -243,7 +244,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Count of related layouts can only be loaded for published shared layouts.');
 
-        $sharedLayout = $this->layoutService->loadLayoutDraft(3);
+        $sharedLayout = $this->layoutService->loadLayoutDraft(Uuid::fromString('d8e55af7-cf62-5f28-ae15-331b457d82e9'));
         $this->layoutService->getRelatedLayoutsCount($sharedLayout);
     }
 
@@ -255,7 +256,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Count of related layouts can only be loaded for shared layouts.');
 
-        $sharedLayout = $this->layoutService->loadLayout(2);
+        $sharedLayout = $this->layoutService->loadLayout(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'));
         $this->layoutService->getRelatedLayoutsCount($sharedLayout);
     }
 
@@ -264,7 +265,7 @@ abstract class LayoutServiceTest extends CoreTestCase
      */
     public function testHasStatus(): void
     {
-        self::assertTrue($this->layoutService->hasStatus(1, Layout::STATUS_PUBLISHED));
+        self::assertTrue($this->layoutService->hasStatus(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), Layout::STATUS_PUBLISHED));
     }
 
     /**
@@ -272,7 +273,7 @@ abstract class LayoutServiceTest extends CoreTestCase
      */
     public function testHasPublishedStateReturnsFalse(): void
     {
-        self::assertFalse($this->layoutService->hasStatus(4, Layout::STATUS_PUBLISHED));
+        self::assertFalse($this->layoutService->hasStatus(Uuid::fromString('8626a1ca-6413-5f54-acef-de7db06272ce'), Layout::STATUS_PUBLISHED));
     }
 
     /**
@@ -288,7 +289,7 @@ abstract class LayoutServiceTest extends CoreTestCase
      */
     public function testLayoutNameNotExistsWithExcludedLayoutId(): void
     {
-        self::assertFalse($this->layoutService->layoutNameExists('My layout', 1));
+        self::assertFalse($this->layoutService->layoutNameExists('My layout', Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136')));
     }
 
     /**
@@ -304,16 +305,16 @@ abstract class LayoutServiceTest extends CoreTestCase
      */
     public function testLinkZone(): void
     {
-        $zone = $this->layoutService->loadLayoutDraft(2)->getZone('left');
-        $linkedZone = $this->layoutService->loadLayout(3)->getZone('left');
+        $zone = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('left');
+        $linkedZone = $this->layoutService->loadLayout(Uuid::fromString('d8e55af7-cf62-5f28-ae15-331b457d82e9'))->getZone('left');
 
         $this->layoutService->linkZone($zone, $linkedZone);
 
-        $updatedZone = $this->layoutService->loadLayoutDraft(2)->getZone('left');
+        $updatedZone = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('left');
 
         self::assertInstanceOf(Zone::class, $updatedZone->getLinkedZone());
         self::assertTrue($updatedZone->getLinkedZone()->isPublished());
-        self::assertSame($linkedZone->getLayoutId(), $updatedZone->getLinkedZone()->getLayoutId());
+        self::assertSame($linkedZone->getLayoutId()->toString(), $updatedZone->getLinkedZone()->getLayoutId()->toString());
         self::assertSame($linkedZone->getIdentifier(), $updatedZone->getLinkedZone()->getIdentifier());
     }
 
@@ -325,8 +326,8 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "zone" has an invalid state. Zone cannot be in the shared layout.');
 
-        $zone = $this->layoutService->loadLayoutDraft(3)->getZone('left');
-        $linkedZone = $this->layoutService->loadLayout(5)->getZone('left');
+        $zone = $this->layoutService->loadLayoutDraft(Uuid::fromString('d8e55af7-cf62-5f28-ae15-331b457d82e9'))->getZone('left');
+        $linkedZone = $this->layoutService->loadLayout(Uuid::fromString('399ad9ac-777a-50ba-945a-06e9f57add12'))->getZone('left');
 
         $this->layoutService->linkZone($zone, $linkedZone);
     }
@@ -339,8 +340,8 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "zone" has an invalid state. Only draft zones can be linked.');
 
-        $zone = $this->layoutService->loadLayout(2)->getZone('left');
-        $linkedZone = $this->layoutService->loadLayout(3)->getZone('left');
+        $zone = $this->layoutService->loadLayout(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('left');
+        $linkedZone = $this->layoutService->loadLayout(Uuid::fromString('d8e55af7-cf62-5f28-ae15-331b457d82e9'))->getZone('left');
 
         $this->layoutService->linkZone($zone, $linkedZone);
     }
@@ -353,8 +354,8 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "linkedZone" has an invalid state. Zones can only be linked to published zones.');
 
-        $zone = $this->layoutService->loadLayoutDraft(2)->getZone('left');
-        $linkedZone = $this->layoutService->loadLayoutDraft(3)->getZone('left');
+        $zone = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('left');
+        $linkedZone = $this->layoutService->loadLayoutDraft(Uuid::fromString('d8e55af7-cf62-5f28-ae15-331b457d82e9'))->getZone('left');
 
         $this->layoutService->linkZone($zone, $linkedZone);
     }
@@ -367,8 +368,8 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "linkedZone" has an invalid state. Linked zone is not in the shared layout.');
 
-        $zone = $this->layoutService->loadLayoutDraft(2)->getZone('left');
-        $linkedZone = $this->layoutService->loadLayout(1)->getZone('left');
+        $zone = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('left');
+        $linkedZone = $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('left');
 
         $this->layoutService->linkZone($zone, $linkedZone);
     }
@@ -381,8 +382,8 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "linkedZone" has an invalid state. Linked zone needs to be in a different layout.');
 
-        $zone = $this->layoutService->loadLayoutDraft(2)->getZone('left');
-        $linkedZone = $this->layoutService->loadLayout(2)->getZone('top');
+        $zone = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('left');
+        $linkedZone = $this->layoutService->loadLayout(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('top');
 
         $this->layoutService->linkZone($zone, $linkedZone);
     }
@@ -392,11 +393,11 @@ abstract class LayoutServiceTest extends CoreTestCase
      */
     public function testUnlinkZone(): void
     {
-        $zone = $this->layoutService->loadLayoutDraft(2)->getZone('top');
+        $zone = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('top');
 
         $this->layoutService->unlinkZone($zone);
 
-        $updatedZone = $this->layoutService->loadLayoutDraft(2)->getZone('top');
+        $updatedZone = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('top');
 
         self::assertNull($updatedZone->getLinkedZone());
     }
@@ -409,7 +410,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "zone" has an invalid state. Only draft zones can be unlinked.');
 
-        $zone = $this->layoutService->loadLayout(2)->getZone('top');
+        $zone = $this->layoutService->loadLayout(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('top');
 
         $this->layoutService->unlinkZone($zone);
     }
@@ -459,7 +460,7 @@ abstract class LayoutServiceTest extends CoreTestCase
      */
     public function testAddTranslation(): void
     {
-        $layout = $this->layoutService->loadLayoutDraft(1);
+        $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
         $updatedLayout = $this->layoutService->addTranslation($layout, 'de', 'en');
 
         self::assertSame(
@@ -491,7 +492,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "layout" has an invalid state. You can only add translation to draft layouts.');
 
-        $layout = $this->layoutService->loadLayout(1);
+        $layout = $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
 
         $this->layoutService->addTranslation($layout, 'de', 'en');
     }
@@ -504,7 +505,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "locale" has an invalid state. Layout already has the provided locale.');
 
-        $layout = $this->layoutService->loadLayoutDraft(1);
+        $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
 
         $this->layoutService->addTranslation($layout, 'en', 'hr');
     }
@@ -514,7 +515,7 @@ abstract class LayoutServiceTest extends CoreTestCase
      */
     public function testSetMainTranslation(): void
     {
-        $layout = $this->layoutService->loadLayoutDraft(1);
+        $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
 
         $updatedLayout = $this->layoutService->setMainTranslation($layout, 'hr');
 
@@ -542,7 +543,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "layout" has an invalid state. You can only set main translation in draft layouts.');
 
-        $layout = $this->layoutService->loadLayout(1);
+        $layout = $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
 
         $this->layoutService->setMainTranslation($layout, 'hr');
     }
@@ -555,7 +556,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "mainLocale" has an invalid state. Layout does not have the provided locale.');
 
-        $layout = $this->layoutService->loadLayoutDraft(1);
+        $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
 
         $this->layoutService->setMainTranslation($layout, 'de');
     }
@@ -565,7 +566,7 @@ abstract class LayoutServiceTest extends CoreTestCase
      */
     public function testRemoveTranslation(): void
     {
-        $layout = $this->layoutService->loadLayoutDraft(1);
+        $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
 
         $updatedLayout = $this->layoutService->removeTranslation($layout, 'hr');
         self::assertNotContains('hr', $updatedLayout->getAvailableLocales());
@@ -591,7 +592,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "layout" has an invalid state. You can only remove translations from draft layouts.');
 
-        $layout = $this->layoutService->loadLayout(1);
+        $layout = $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
 
         $this->layoutService->removeTranslation($layout, 'hr');
     }
@@ -604,7 +605,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "locale" has an invalid state. Layout does not have the provided locale.');
 
-        $layout = $this->layoutService->loadLayoutDraft(1);
+        $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
 
         $this->layoutService->removeTranslation($layout, 'de');
     }
@@ -617,7 +618,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "locale" has an invalid state. Main translation cannot be removed from the layout.');
 
-        $layout = $this->layoutService->loadLayoutDraft(1);
+        $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
 
         $this->layoutService->removeTranslation($layout, 'en');
     }
@@ -627,7 +628,7 @@ abstract class LayoutServiceTest extends CoreTestCase
      */
     public function testUpdateLayout(): void
     {
-        $layout = $this->layoutService->loadLayoutDraft(1);
+        $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
 
         $layoutUpdateStruct = $this->layoutService->newLayoutUpdateStruct();
         $layoutUpdateStruct->name = 'New name';
@@ -655,7 +656,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "layout" has an invalid state. Only draft layouts can be updated.');
 
-        $layout = $this->layoutService->loadLayout(1);
+        $layout = $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
 
         $layoutUpdateStruct = $this->layoutService->newLayoutUpdateStruct();
         $layoutUpdateStruct->name = 'New name';
@@ -671,7 +672,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "name" has an invalid state. Layout with provided name already exists.');
 
-        $layout = $this->layoutService->loadLayoutDraft(2);
+        $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'));
 
         $layoutUpdateStruct = $this->layoutService->newLayoutUpdateStruct();
         $layoutUpdateStruct->name = 'My layout';
@@ -691,7 +692,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $copyStruct->name = 'New name';
         $copyStruct->description = 'New description';
 
-        $layout = $this->layoutService->loadLayout(1);
+        $layout = $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
         $copiedLayout = $this->layoutService->copyLayout($layout, $copyStruct);
 
         self::assertSame($layout->isPublished(), $copiedLayout->isPublished());
@@ -703,7 +704,7 @@ abstract class LayoutServiceTest extends CoreTestCase
             $copiedLayout->getModified()->format(DateTime::ATOM)
         );
 
-        self::assertSame(8, $copiedLayout->getId());
+        self::assertNotSame($layout->getId()->toString(), $copiedLayout->getId()->toString());
         self::assertSame('New name', $copiedLayout->getName());
         self::assertSame('New description', $copiedLayout->getDescription());
     }
@@ -719,7 +720,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $copyStruct = new LayoutCopyStruct();
         $copyStruct->name = 'My other layout';
 
-        $layout = $this->layoutService->loadLayout(1);
+        $layout = $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
         $this->layoutService->copyLayout($layout, $copyStruct);
     }
 
@@ -728,7 +729,7 @@ abstract class LayoutServiceTest extends CoreTestCase
      */
     public function testChangeLayoutType(): void
     {
-        $layout = $this->layoutService->loadLayoutDraft(1);
+        $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
         $updatedLayout = $this->layoutService->changeLayoutType(
             $layout,
             $this->layoutTypeRegistry->getLayoutType('4_zones_b'),
@@ -737,7 +738,7 @@ abstract class LayoutServiceTest extends CoreTestCase
             ]
         );
 
-        self::assertSame($layout->getId(), $updatedLayout->getId());
+        self::assertSame($layout->getId()->toString(), $updatedLayout->getId()->toString());
         self::assertSame($layout->getStatus(), $updatedLayout->getStatus());
         self::assertSame('4_zones_b', $updatedLayout->getLayoutType()->getIdentifier());
 
@@ -749,19 +750,19 @@ abstract class LayoutServiceTest extends CoreTestCase
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
 
         $topZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(1)->getZone('top')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('top')
         );
 
         $leftZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(1)->getZone('left')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('left')
         );
 
         $rightZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(1)->getZone('right')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right')
         );
 
         $bottomZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(1)->getZone('bottom')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('bottom')
         );
 
         self::assertCount(3, $topZoneBlocks);
@@ -779,7 +780,7 @@ abstract class LayoutServiceTest extends CoreTestCase
      */
     public function testChangeLayoutTypeWithSameLayoutType(): void
     {
-        $layout = $this->layoutService->loadLayoutDraft(1);
+        $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
         $updatedLayout = $this->layoutService->changeLayoutType(
             $layout,
             $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
@@ -788,7 +789,7 @@ abstract class LayoutServiceTest extends CoreTestCase
             ]
         );
 
-        self::assertSame($layout->getId(), $updatedLayout->getId());
+        self::assertSame($layout->getId()->toString(), $updatedLayout->getId()->toString());
         self::assertSame($layout->getStatus(), $updatedLayout->getStatus());
         self::assertSame('4_zones_a', $updatedLayout->getLayoutType()->getIdentifier());
 
@@ -800,19 +801,19 @@ abstract class LayoutServiceTest extends CoreTestCase
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
 
         $topZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(1)->getZone('top')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('top')
         );
 
         $leftZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(1)->getZone('left')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('left')
         );
 
         $rightZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(1)->getZone('right')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right')
         );
 
         $bottomZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(1)->getZone('bottom')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('bottom')
         );
 
         self::assertCount(3, $topZoneBlocks);
@@ -830,7 +831,7 @@ abstract class LayoutServiceTest extends CoreTestCase
      */
     public function testChangeLayoutTypeWithSharedZones(): void
     {
-        $layout = $this->layoutService->loadLayoutDraft(2);
+        $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'));
         $updatedLayout = $this->layoutService->changeLayoutType(
             $layout,
             $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
@@ -839,7 +840,7 @@ abstract class LayoutServiceTest extends CoreTestCase
             ]
         );
 
-        self::assertSame($layout->getId(), $updatedLayout->getId());
+        self::assertSame($layout->getId()->toString(), $updatedLayout->getId()->toString());
         self::assertSame($layout->getStatus(), $updatedLayout->getStatus());
         self::assertSame('4_zones_a', $updatedLayout->getLayoutType()->getIdentifier());
 
@@ -850,19 +851,19 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
 
-        $topZone = $this->layoutService->loadLayoutDraft(2)->getZone('top');
+        $topZone = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('top');
         $topZoneBlocks = $this->blockService->loadZoneBlocks($topZone);
 
         $leftZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(2)->getZone('left')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('left')
         );
 
         $rightZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(2)->getZone('right')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('right')
         );
 
         $bottomZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(2)->getZone('bottom')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('bottom')
         );
 
         self::assertCount(0, $topZoneBlocks);
@@ -877,7 +878,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         self::assertInstanceOf(Zone::class, $topZone->getLinkedZone());
         self::assertInstanceOf(Zone::class, $newTopZone->getLinkedZone());
 
-        self::assertSame($newTopZone->getLinkedZone()->getLayoutId(), $topZone->getLinkedZone()->getLayoutId());
+        self::assertSame($newTopZone->getLinkedZone()->getLayoutId()->toString(), $topZone->getLinkedZone()->getLayoutId()->toString());
         self::assertSame($newTopZone->getLinkedZone()->getIdentifier(), $topZone->getLinkedZone()->getIdentifier());
     }
 
@@ -886,7 +887,7 @@ abstract class LayoutServiceTest extends CoreTestCase
      */
     public function testChangeLayoutTypeWithSameLayoutTypeAndSharedZones(): void
     {
-        $layout = $this->layoutService->loadLayoutDraft(2);
+        $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'));
         $updatedLayout = $this->layoutService->changeLayoutType(
             $layout,
             $this->layoutTypeRegistry->getLayoutType('4_zones_b'),
@@ -895,7 +896,7 @@ abstract class LayoutServiceTest extends CoreTestCase
             ]
         );
 
-        self::assertSame($layout->getId(), $updatedLayout->getId());
+        self::assertSame($layout->getId()->toString(), $updatedLayout->getId()->toString());
         self::assertSame($layout->getStatus(), $updatedLayout->getStatus());
         self::assertSame('4_zones_b', $updatedLayout->getLayoutType()->getIdentifier());
 
@@ -906,19 +907,19 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
 
-        $topZone = $this->layoutService->loadLayoutDraft(2)->getZone('top');
+        $topZone = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('top');
         $topZoneBlocks = $this->blockService->loadZoneBlocks($topZone);
 
         $leftZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(2)->getZone('left')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('left')
         );
 
         $rightZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(2)->getZone('right')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('right')
         );
 
         $bottomZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(2)->getZone('bottom')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('bottom')
         );
 
         self::assertCount(0, $topZoneBlocks);
@@ -933,7 +934,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         self::assertInstanceOf(Zone::class, $topZone->getLinkedZone());
         self::assertInstanceOf(Zone::class, $newTopZone->getLinkedZone());
 
-        self::assertSame($newTopZone->getLinkedZone()->getLayoutId(), $topZone->getLinkedZone()->getLayoutId());
+        self::assertSame($newTopZone->getLinkedZone()->getLayoutId()->toString(), $topZone->getLinkedZone()->getLayoutId()->toString());
         self::assertSame($newTopZone->getLinkedZone()->getIdentifier(), $topZone->getLinkedZone()->getIdentifier());
     }
 
@@ -942,7 +943,7 @@ abstract class LayoutServiceTest extends CoreTestCase
      */
     public function testChangeLayoutTypeWithSharedZonesAndDiscardingSharedZones(): void
     {
-        $layout = $this->layoutService->loadLayoutDraft(2);
+        $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'));
         $updatedLayout = $this->layoutService->changeLayoutType(
             $layout,
             $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
@@ -952,7 +953,7 @@ abstract class LayoutServiceTest extends CoreTestCase
             false
         );
 
-        self::assertSame($layout->getId(), $updatedLayout->getId());
+        self::assertSame($layout->getId()->toString(), $updatedLayout->getId()->toString());
         self::assertSame($layout->getStatus(), $updatedLayout->getStatus());
         self::assertSame('4_zones_a', $updatedLayout->getLayoutType()->getIdentifier());
 
@@ -963,19 +964,19 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
 
-        $topZone = $this->layoutService->loadLayoutDraft(2)->getZone('top');
+        $topZone = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('top');
         $topZoneBlocks = $this->blockService->loadZoneBlocks($topZone);
 
         $leftZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(2)->getZone('left')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('left')
         );
 
         $rightZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(2)->getZone('right')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('right')
         );
 
         $bottomZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(2)->getZone('bottom')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('bottom')
         );
 
         self::assertCount(0, $topZoneBlocks);
@@ -991,7 +992,7 @@ abstract class LayoutServiceTest extends CoreTestCase
      */
     public function testChangeLayoutTypeWithSameLayoutTypeAndSharedZonesAndDiscardingSharedZones(): void
     {
-        $layout = $this->layoutService->loadLayoutDraft(2);
+        $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'));
         $updatedLayout = $this->layoutService->changeLayoutType(
             $layout,
             $this->layoutTypeRegistry->getLayoutType('4_zones_b'),
@@ -1001,7 +1002,7 @@ abstract class LayoutServiceTest extends CoreTestCase
             false
         );
 
-        self::assertSame($layout->getId(), $updatedLayout->getId());
+        self::assertSame($layout->getId()->toString(), $updatedLayout->getId()->toString());
         self::assertSame($layout->getStatus(), $updatedLayout->getStatus());
         self::assertSame('4_zones_b', $updatedLayout->getLayoutType()->getIdentifier());
 
@@ -1012,19 +1013,19 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
 
-        $topZone = $this->layoutService->loadLayoutDraft(2)->getZone('top');
+        $topZone = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('top');
         $topZoneBlocks = $this->blockService->loadZoneBlocks($topZone);
 
         $leftZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(2)->getZone('left')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('left')
         );
 
         $rightZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(2)->getZone('right')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('right')
         );
 
         $bottomZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(2)->getZone('bottom')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('bottom')
         );
 
         self::assertCount(0, $topZoneBlocks);
@@ -1043,7 +1044,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "layout" has an invalid state. Layout type can only be changed for draft layouts.');
 
-        $layout = $this->layoutService->loadLayout(1);
+        $layout = $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
 
         $this->layoutService->changeLayoutType(
             $layout,
@@ -1057,7 +1058,7 @@ abstract class LayoutServiceTest extends CoreTestCase
      */
     public function testCreateDraft(): void
     {
-        $layout = $this->layoutService->loadLayout(6);
+        $layout = $this->layoutService->loadLayout(Uuid::fromString('7900306c-0351-5f0a-9b33-5d4f5a1f3943'));
         $draftLayout = $this->layoutService->createDraft($layout);
 
         self::assertTrue($draftLayout->isDraft());
@@ -1075,7 +1076,7 @@ abstract class LayoutServiceTest extends CoreTestCase
      */
     public function testCreateDraftWithDiscardingExistingDraft(): void
     {
-        $layout = $this->layoutService->loadLayout(1);
+        $layout = $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
         $draftLayout = $this->layoutService->createDraft($layout, true);
 
         self::assertTrue($draftLayout->isDraft());
@@ -1096,7 +1097,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "layout" has an invalid state. Drafts can only be created from published layouts.');
 
-        $layout = $this->layoutService->loadLayoutDraft(3);
+        $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString('d8e55af7-cf62-5f28-ae15-331b457d82e9'));
         $this->layoutService->createDraft($layout);
     }
 
@@ -1108,7 +1109,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "layout" has an invalid state. The provided layout already has a draft.');
 
-        $layout = $this->layoutService->loadLayout(1);
+        $layout = $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
         $this->layoutService->createDraft($layout);
     }
 
@@ -1118,9 +1119,9 @@ abstract class LayoutServiceTest extends CoreTestCase
     public function testDiscardDraft(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find layout with identifier "1"');
+        $this->expectExceptionMessage('Could not find layout with identifier "81168ed3-86f9-55ea-b153-101f96f2c136"');
 
-        $layout = $this->layoutService->loadLayoutDraft(1);
+        $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
         $this->layoutService->discardDraft($layout);
 
         $this->layoutService->loadLayoutDraft($layout->getId());
@@ -1134,7 +1135,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "layout" has an invalid state. Only drafts can be discarded.');
 
-        $layout = $this->layoutService->loadLayout(1);
+        $layout = $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
         $this->layoutService->discardDraft($layout);
     }
 
@@ -1143,8 +1144,8 @@ abstract class LayoutServiceTest extends CoreTestCase
      */
     public function testPublishLayout(): void
     {
-        $layout = $this->layoutService->loadLayoutDraft(1);
-        $currentlyPublishedLayout = $this->layoutService->loadLayout(1);
+        $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
+        $currentlyPublishedLayout = $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
         $publishedLayout = $this->layoutService->publishLayout($layout);
 
         self::assertTrue($publishedLayout->isPublished());
@@ -1156,7 +1157,7 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertGreaterThan($layout->getModified(), $publishedLayout->getModified());
 
-        $archivedLayout = $this->layoutService->loadLayoutArchive(1);
+        $archivedLayout = $this->layoutService->loadLayoutArchive(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
 
         self::assertSame(
             $currentlyPublishedLayout->getModified()->format(DateTime::ATOM),
@@ -1179,7 +1180,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "layout" has an invalid state. Only drafts can be published.');
 
-        $layout = $this->layoutService->loadLayout(1);
+        $layout = $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
         $this->layoutService->publishLayout($layout);
     }
 
@@ -1188,10 +1189,10 @@ abstract class LayoutServiceTest extends CoreTestCase
      */
     public function testRestoreFromArchive(): void
     {
-        $originalLayout = $this->layoutService->loadLayoutDraft(2);
-        $publishedLayout = $this->layoutService->loadLayout(2);
+        $originalLayout = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'));
+        $publishedLayout = $this->layoutService->loadLayout(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'));
         $restoredLayout = $this->layoutService->restoreFromArchive(
-            $this->layoutService->loadLayoutArchive(2)
+            $this->layoutService->loadLayoutArchive(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))
         );
 
         self::assertTrue($restoredLayout->isDraft());
@@ -1210,12 +1211,12 @@ abstract class LayoutServiceTest extends CoreTestCase
      */
     public function testRestoreFromArchiveWithoutDraft(): void
     {
-        $originalLayout = $this->layoutService->loadLayoutDraft(2);
+        $originalLayout = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'));
         $this->layoutService->discardDraft($originalLayout);
 
-        $publishedLayout = $this->layoutService->loadLayout(2);
+        $publishedLayout = $this->layoutService->loadLayout(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'));
         $restoredLayout = $this->layoutService->restoreFromArchive(
-            $this->layoutService->loadLayoutArchive(2)
+            $this->layoutService->loadLayoutArchive(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))
         );
 
         self::assertTrue($restoredLayout->isDraft());
@@ -1231,7 +1232,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Only archived layouts can be restored.');
 
         $this->layoutService->restoreFromArchive(
-            $this->layoutService->loadLayout(2)
+            $this->layoutService->loadLayout(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))
         );
     }
 
@@ -1241,11 +1242,11 @@ abstract class LayoutServiceTest extends CoreTestCase
     public function testRestoreFromArchiveThrowsNotFoundExceptionOnNonExistingPublishedVersion(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find layout with identifier "2"');
+        $this->expectExceptionMessage('Could not find layout with identifier "71cbe281-430c-51d5-8e21-c3cc4e656dac"');
 
         $this->layoutHandler->deleteLayout(2, Layout::STATUS_PUBLISHED);
         $this->layoutService->restoreFromArchive(
-            $this->layoutService->loadLayoutArchive(2)
+            $this->layoutService->loadLayoutArchive(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))
         );
     }
 
@@ -1255,9 +1256,9 @@ abstract class LayoutServiceTest extends CoreTestCase
     public function testDeleteLayout(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find layout with identifier "1"');
+        $this->expectExceptionMessage('Could not find layout with identifier "81168ed3-86f9-55ea-b153-101f96f2c136"');
 
-        $layout = $this->layoutService->loadLayout(1);
+        $layout = $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
         $this->layoutService->deleteLayout($layout);
 
         $this->layoutService->loadLayout($layout->getId());
@@ -1294,7 +1295,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     public function testNewLayoutUpdateStruct(): void
     {
         $struct = $this->layoutService->newLayoutUpdateStruct(
-            $this->layoutService->loadLayoutDraft(1)
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))
         );
 
         self::assertSame(
@@ -1328,7 +1329,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     public function testNewLayoutCopyStruct(): void
     {
         $struct = $this->layoutService->newLayoutCopyStruct(
-            $this->layoutService->loadLayoutDraft(1)
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))
         );
 
         self::assertSame(

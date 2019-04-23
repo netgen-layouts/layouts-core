@@ -8,6 +8,7 @@ use Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type\LayoutListTransformer;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\LayoutList;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class LayoutListTransformerTest extends TestCase
 {
@@ -38,13 +39,16 @@ final class LayoutListTransformerTest extends TestCase
      */
     public function testReverseTransform(): void
     {
-        $layouts = [Layout::fromArray(['id' => 42]), Layout::fromArray(['id' => 24])];
+        $uuid1 = Uuid::uuid4();
+        $uuid2 = Uuid::uuid4();
+
+        $layouts = [Layout::fromArray(['id' => $uuid1]), Layout::fromArray(['id' => $uuid2])];
 
         $transformedLayouts = $this->transformer->reverseTransform($layouts);
 
         self::assertInstanceOf(LayoutList::class, $transformedLayouts);
         self::assertCount(2, $transformedLayouts);
-        self::assertSame(42, $transformedLayouts[0]->getId());
-        self::assertSame(24, $transformedLayouts[1]->getId());
+        self::assertSame($uuid1->toString(), $transformedLayouts[0]->getId()->toString());
+        self::assertSame($uuid2->toString(), $transformedLayouts[1]->getId()->toString());
     }
 }

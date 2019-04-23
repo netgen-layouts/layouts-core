@@ -8,6 +8,7 @@ use Netgen\Bundle\LayoutsBundle\ParamConverter\Layout\LayoutParamConverter;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class LayoutParamConverterTest extends TestCase
 {
@@ -60,17 +61,19 @@ final class LayoutParamConverterTest extends TestCase
     {
         $layout = new Layout();
 
+        $uuid = Uuid::uuid4();
+
         $this->layoutServiceMock
             ->expects(self::once())
             ->method('loadLayout')
-            ->with(self::identicalTo(42))
+            ->with(self::equalTo($uuid))
             ->willReturn($layout);
 
         self::assertSame(
             $layout,
             $this->paramConverter->loadValue(
                 [
-                    'layoutId' => 42,
+                    'layoutId' => $uuid->toString(),
                     'status' => 'published',
                 ]
             )
@@ -84,17 +87,19 @@ final class LayoutParamConverterTest extends TestCase
     {
         $layout = new Layout();
 
+        $uuid = Uuid::uuid4();
+
         $this->layoutServiceMock
             ->expects(self::once())
             ->method('loadLayoutArchive')
-            ->with(self::identicalTo(42))
+            ->with(self::equalTo($uuid))
             ->willReturn($layout);
 
         self::assertSame(
             $layout,
             $this->paramConverter->loadValue(
                 [
-                    'layoutId' => 42,
+                    'layoutId' => $uuid->toString(),
                     'status' => 'archived',
                 ]
             )
@@ -108,17 +113,19 @@ final class LayoutParamConverterTest extends TestCase
     {
         $layout = new Layout();
 
+        $uuid = Uuid::uuid4();
+
         $this->layoutServiceMock
             ->expects(self::once())
             ->method('loadLayoutDraft')
-            ->with(self::identicalTo(42))
+            ->with(self::equalTo($uuid))
             ->willReturn($layout);
 
         self::assertSame(
             $layout,
             $this->paramConverter->loadValue(
                 [
-                    'layoutId' => 42,
+                    'layoutId' => $uuid->toString(),
                     'status' => 'draft',
                 ]
             )

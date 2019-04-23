@@ -68,6 +68,7 @@ final class LayoutHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 1,
+                'uuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'type' => '4_zones_a',
                 'name' => 'My layout',
                 'description' => 'My layout description',
@@ -107,6 +108,7 @@ final class LayoutHandlerTest extends TestCase
             [
                 'identifier' => 'top',
                 'layoutId' => 2,
+                'layoutUuid' => '71cbe281-430c-51d5-8e21-c3cc4e656dac',
                 'rootBlockId' => 5,
                 'linkedLayoutId' => 3,
                 'linkedZoneIdentifier' => 'top',
@@ -144,6 +146,7 @@ final class LayoutHandlerTest extends TestCase
             [
                 [
                     'id' => 1,
+                    'uuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                     'type' => '4_zones_a',
                     'name' => 'My layout',
                     'description' => 'My layout description',
@@ -156,6 +159,7 @@ final class LayoutHandlerTest extends TestCase
                 ],
                 [
                     'id' => 2,
+                    'uuid' => '71cbe281-430c-51d5-8e21-c3cc4e656dac',
                     'type' => '4_zones_b',
                     'name' => 'My other layout',
                     'description' => 'My other layout description',
@@ -168,6 +172,7 @@ final class LayoutHandlerTest extends TestCase
                 ],
                 [
                     'id' => 6,
+                    'uuid' => '7900306c-0351-5f0a-9b33-5d4f5a1f3943',
                     'type' => '4_zones_b',
                     'name' => 'My sixth layout',
                     'description' => 'My sixth layout description',
@@ -199,6 +204,7 @@ final class LayoutHandlerTest extends TestCase
             [
                 [
                     'id' => 4,
+                    'uuid' => '8626a1ca-6413-5f54-acef-de7db06272ce',
                     'type' => '4_zones_b',
                     'name' => 'My fourth layout',
                     'description' => 'My fourth layout description',
@@ -211,6 +217,7 @@ final class LayoutHandlerTest extends TestCase
                 ],
                 [
                     'id' => 1,
+                    'uuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                     'type' => '4_zones_a',
                     'name' => 'My layout',
                     'description' => 'My layout description',
@@ -223,6 +230,7 @@ final class LayoutHandlerTest extends TestCase
                 ],
                 [
                     'id' => 2,
+                    'uuid' => '71cbe281-430c-51d5-8e21-c3cc4e656dac',
                     'type' => '4_zones_b',
                     'name' => 'My other layout',
                     'description' => 'My other layout description',
@@ -235,6 +243,7 @@ final class LayoutHandlerTest extends TestCase
                 ],
                 [
                     'id' => 7,
+                    'uuid' => '4b0202b3-5d06-5962-ae0c-bbeb25ee3503',
                     'type' => '4_zones_b',
                     'name' => 'My seventh layout',
                     'description' => 'My seventh layout description',
@@ -247,6 +256,7 @@ final class LayoutHandlerTest extends TestCase
                 ],
                 [
                     'id' => 6,
+                    'uuid' => '7900306c-0351-5f0a-9b33-5d4f5a1f3943',
                     'type' => '4_zones_b',
                     'name' => 'My sixth layout',
                     'description' => 'My sixth layout description',
@@ -278,6 +288,7 @@ final class LayoutHandlerTest extends TestCase
             [
                 [
                     'id' => 1,
+                    'uuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                     'type' => '4_zones_a',
                     'name' => 'My layout',
                     'description' => 'My layout description',
@@ -290,6 +301,7 @@ final class LayoutHandlerTest extends TestCase
                 ],
                 [
                     'id' => 2,
+                    'uuid' => '71cbe281-430c-51d5-8e21-c3cc4e656dac',
                     'type' => '4_zones_b',
                     'name' => 'My other layout',
                     'description' => 'My other layout description',
@@ -321,6 +333,7 @@ final class LayoutHandlerTest extends TestCase
             [
                 [
                     'id' => 4,
+                    'uuid' => '8626a1ca-6413-5f54-acef-de7db06272ce',
                     'type' => '4_zones_b',
                     'name' => 'My fourth layout',
                     'description' => 'My fourth layout description',
@@ -333,6 +346,7 @@ final class LayoutHandlerTest extends TestCase
                 ],
                 [
                     'id' => 1,
+                    'uuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                     'type' => '4_zones_a',
                     'name' => 'My layout',
                     'description' => 'My layout description',
@@ -345,6 +359,7 @@ final class LayoutHandlerTest extends TestCase
                 ],
                 [
                     'id' => 2,
+                    'uuid' => '71cbe281-430c-51d5-8e21-c3cc4e656dac',
                     'type' => '4_zones_b',
                     'name' => 'My other layout',
                     'description' => 'My other layout description',
@@ -394,6 +409,7 @@ final class LayoutHandlerTest extends TestCase
             [
                 [
                     'id' => 5,
+                    'uuid' => '399ad9ac-777a-50ba-945a-06e9f57add12',
                     'type' => '4_zones_b',
                     'name' => 'My fifth layout',
                     'description' => 'My fifth layout description',
@@ -406,6 +422,7 @@ final class LayoutHandlerTest extends TestCase
                 ],
                 [
                     'id' => 3,
+                    'uuid' => 'd8e55af7-cf62-5f28-ae15-331b457d82e9',
                     'type' => '4_zones_b',
                     'name' => 'My third layout',
                     'description' => 'My third layout description',
@@ -446,6 +463,7 @@ final class LayoutHandlerTest extends TestCase
             [
                 [
                     'id' => 5,
+                    'uuid' => '399ad9ac-777a-50ba-945a-06e9f57add12',
                     'type' => '4_zones_b',
                     'name' => 'My fifth layout',
                     'description' => 'My fifth layout description',
@@ -458,6 +476,7 @@ final class LayoutHandlerTest extends TestCase
                 ],
                 [
                     'id' => 1,
+                    'uuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                     'type' => '4_zones_a',
                     'name' => 'My layout',
                     'description' => 'My layout description',
@@ -470,6 +489,7 @@ final class LayoutHandlerTest extends TestCase
                 ],
                 [
                     'id' => 2,
+                    'uuid' => '71cbe281-430c-51d5-8e21-c3cc4e656dac',
                     'type' => '4_zones_b',
                     'name' => 'My other layout',
                     'description' => 'My other layout description',
@@ -482,6 +502,7 @@ final class LayoutHandlerTest extends TestCase
                 ],
                 [
                     'id' => 6,
+                    'uuid' => '7900306c-0351-5f0a-9b33-5d4f5a1f3943',
                     'type' => '4_zones_b',
                     'name' => 'My sixth layout',
                     'description' => 'My sixth layout description',
@@ -494,6 +515,7 @@ final class LayoutHandlerTest extends TestCase
                 ],
                 [
                     'id' => 3,
+                    'uuid' => 'd8e55af7-cf62-5f28-ae15-331b457d82e9',
                     'type' => '4_zones_b',
                     'name' => 'My third layout',
                     'description' => 'My third layout description',
@@ -535,6 +557,7 @@ final class LayoutHandlerTest extends TestCase
             [
                 [
                     'id' => 2,
+                    'uuid' => '71cbe281-430c-51d5-8e21-c3cc4e656dac',
                     'type' => '4_zones_b',
                     'name' => 'My other layout',
                     'description' => 'My other layout description',
@@ -634,6 +657,7 @@ final class LayoutHandlerTest extends TestCase
                 'bottom' => [
                     'identifier' => 'bottom',
                     'layoutId' => 2,
+                    'layoutUuid' => '71cbe281-430c-51d5-8e21-c3cc4e656dac',
                     'rootBlockId' => 8,
                     'linkedLayoutId' => null,
                     'linkedZoneIdentifier' => null,
@@ -642,6 +666,7 @@ final class LayoutHandlerTest extends TestCase
                 'left' => [
                     'identifier' => 'left',
                     'layoutId' => 2,
+                    'layoutUuid' => '71cbe281-430c-51d5-8e21-c3cc4e656dac',
                     'rootBlockId' => 6,
                     'linkedLayoutId' => null,
                     'linkedZoneIdentifier' => null,
@@ -650,6 +675,7 @@ final class LayoutHandlerTest extends TestCase
                 'right' => [
                     'identifier' => 'right',
                     'layoutId' => 2,
+                    'layoutUuid' => '71cbe281-430c-51d5-8e21-c3cc4e656dac',
                     'rootBlockId' => 7,
                     'linkedLayoutId' => null,
                     'linkedZoneIdentifier' => null,
@@ -658,6 +684,7 @@ final class LayoutHandlerTest extends TestCase
                 'top' => [
                     'identifier' => 'top',
                     'layoutId' => 2,
+                    'layoutUuid' => '71cbe281-430c-51d5-8e21-c3cc4e656dac',
                     'rootBlockId' => 5,
                     'linkedLayoutId' => 3,
                     'linkedZoneIdentifier' => 'top',
@@ -690,6 +717,7 @@ final class LayoutHandlerTest extends TestCase
             [
                 'identifier' => 'top',
                 'layoutId' => 1,
+                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'rootBlockId' => 1,
                 'linkedLayoutId' => 3,
                 'linkedZoneIdentifier' => 'top',
@@ -720,6 +748,7 @@ final class LayoutHandlerTest extends TestCase
             [
                 'identifier' => 'left',
                 'layoutId' => 1,
+                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'rootBlockId' => 2,
                 'linkedLayoutId' => null,
                 'linkedZoneIdentifier' => null,
@@ -747,6 +776,9 @@ final class LayoutHandlerTest extends TestCase
         $createdLayout = $this->layoutHandler->createLayout($layoutCreateStruct);
 
         self::assertSame(8, $createdLayout->id);
+        self::assertIsString($createdLayout->uuid);
+        self::assertNotEmpty($createdLayout->uuid);
+
         self::assertSame('new_layout', $createdLayout->type);
         self::assertSame('New layout', $createdLayout->name);
         self::assertSame('New description', $createdLayout->description);
@@ -859,6 +891,7 @@ final class LayoutHandlerTest extends TestCase
         );
 
         self::assertSame(1, $createdZone->layoutId);
+        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $createdZone->layoutUuid);
         self::assertSame(Value::STATUS_DRAFT, $createdZone->status);
         self::assertSame('new_zone', $createdZone->identifier);
         self::assertSame(39, $createdZone->rootBlockId);
@@ -961,6 +994,9 @@ final class LayoutHandlerTest extends TestCase
         $copiedLayout = $this->layoutHandler->copyLayout($originalLayout, $copyStruct);
 
         self::assertSame(8, $copiedLayout->id);
+        self::assertIsString($copiedLayout->uuid);
+        self::assertNotEmpty($copiedLayout->uuid);
+
         self::assertSame('4_zones_a', $copiedLayout->type);
         self::assertSame('New name', $copiedLayout->name);
         self::assertSame('New description', $copiedLayout->description);
@@ -977,6 +1013,7 @@ final class LayoutHandlerTest extends TestCase
                 'bottom' => [
                     'identifier' => 'bottom',
                     'layoutId' => $copiedLayout->id,
+                    'layoutUuid' => $copiedLayout->uuid,
                     'rootBlockId' => 39,
                     'linkedLayoutId' => null,
                     'linkedZoneIdentifier' => null,
@@ -985,6 +1022,7 @@ final class LayoutHandlerTest extends TestCase
                 'left' => [
                     'identifier' => 'left',
                     'layoutId' => $copiedLayout->id,
+                    'layoutUuid' => $copiedLayout->uuid,
                     'rootBlockId' => 40,
                     'linkedLayoutId' => 3,
                     'linkedZoneIdentifier' => 'left',
@@ -993,6 +1031,7 @@ final class LayoutHandlerTest extends TestCase
                 'right' => [
                     'identifier' => 'right',
                     'layoutId' => $copiedLayout->id,
+                    'layoutUuid' => $copiedLayout->uuid,
                     'rootBlockId' => 42,
                     'linkedLayoutId' => null,
                     'linkedZoneIdentifier' => null,
@@ -1001,6 +1040,7 @@ final class LayoutHandlerTest extends TestCase
                 'top' => [
                     'identifier' => 'top',
                     'layoutId' => $copiedLayout->id,
+                    'layoutUuid' => $copiedLayout->uuid,
                     'rootBlockId' => 45,
                     'linkedLayoutId' => null,
                     'linkedZoneIdentifier' => null,
@@ -1175,6 +1215,7 @@ final class LayoutHandlerTest extends TestCase
         );
 
         self::assertSame(1, $updatedLayout->id);
+        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $updatedLayout->uuid);
         self::assertSame('4_zones_b', $updatedLayout->type);
         self::assertSame('My layout', $updatedLayout->name);
         self::assertSame('My layout description', $updatedLayout->description);
@@ -1189,6 +1230,7 @@ final class LayoutHandlerTest extends TestCase
                 'bottom' => [
                     'identifier' => 'bottom',
                     'layoutId' => $updatedLayout->id,
+                    'layoutUuid' => $updatedLayout->uuid,
                     'rootBlockId' => 42,
                     'linkedLayoutId' => null,
                     'linkedZoneIdentifier' => null,
@@ -1197,6 +1239,7 @@ final class LayoutHandlerTest extends TestCase
                 'left' => [
                     'identifier' => 'left',
                     'layoutId' => $updatedLayout->id,
+                    'layoutUuid' => $updatedLayout->uuid,
                     'rootBlockId' => 40,
                     'linkedLayoutId' => null,
                     'linkedZoneIdentifier' => null,
@@ -1205,6 +1248,7 @@ final class LayoutHandlerTest extends TestCase
                 'right' => [
                     'identifier' => 'right',
                     'layoutId' => $updatedLayout->id,
+                    'layoutUuid' => $updatedLayout->uuid,
                     'rootBlockId' => 41,
                     'linkedLayoutId' => null,
                     'linkedZoneIdentifier' => null,
@@ -1213,6 +1257,7 @@ final class LayoutHandlerTest extends TestCase
                 'top' => [
                     'identifier' => 'top',
                     'layoutId' => $updatedLayout->id,
+                    'layoutUuid' => $updatedLayout->uuid,
                     'rootBlockId' => 39,
                     'linkedLayoutId' => null,
                     'linkedZoneIdentifier' => null,
@@ -1361,6 +1406,7 @@ final class LayoutHandlerTest extends TestCase
         );
 
         self::assertSame(1, $copiedLayout->id);
+        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $copiedLayout->uuid);
         self::assertSame('4_zones_a', $copiedLayout->type);
         self::assertSame('My layout', $copiedLayout->name);
         self::assertSame('My layout description', $copiedLayout->description);
@@ -1377,6 +1423,7 @@ final class LayoutHandlerTest extends TestCase
                 'bottom' => [
                     'identifier' => 'bottom',
                     'layoutId' => 1,
+                    'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                     'rootBlockId' => 4,
                     'linkedLayoutId' => null,
                     'linkedZoneIdentifier' => null,
@@ -1385,6 +1432,7 @@ final class LayoutHandlerTest extends TestCase
                 'left' => [
                     'identifier' => 'left',
                     'layoutId' => 1,
+                    'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                     'rootBlockId' => 2,
                     'linkedLayoutId' => 3,
                     'linkedZoneIdentifier' => 'left',
@@ -1393,6 +1441,7 @@ final class LayoutHandlerTest extends TestCase
                 'right' => [
                     'identifier' => 'right',
                     'layoutId' => 1,
+                    'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                     'rootBlockId' => 3,
                     'linkedLayoutId' => null,
                     'linkedZoneIdentifier' => null,
@@ -1401,6 +1450,7 @@ final class LayoutHandlerTest extends TestCase
                 'top' => [
                     'identifier' => 'top',
                     'layoutId' => 1,
+                    'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                     'rootBlockId' => 1,
                     'linkedLayoutId' => null,
                     'linkedZoneIdentifier' => null,

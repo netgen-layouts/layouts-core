@@ -16,6 +16,6 @@ final class LayoutId implements ColumnValueProviderInterface
             return null;
         }
 
-        return (string) $item->getLayout()->getId();
+        return $item->getLayout()->getId()->toString();
     }
 }

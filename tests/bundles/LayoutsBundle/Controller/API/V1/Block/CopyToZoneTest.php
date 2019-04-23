@@ -18,7 +18,7 @@ final class CopyToZoneTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'layout_id' => 1,
+                'layout_id' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'zone_identifier' => 'left',
             ]
         );
@@ -69,7 +69,7 @@ final class CopyToZoneTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'layout_id' => 9999,
+                'layout_id' => 'ffffffff-ffff-ffff-ffff-ffffffffffff',
                 'zone_identifier' => 'left',
             ]
         );
@@ -86,7 +86,7 @@ final class CopyToZoneTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find layout with identifier "9999"'
+            'Could not find layout with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"'
         );
     }
 
@@ -97,7 +97,7 @@ final class CopyToZoneTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'layout_id' => 1,
+                'layout_id' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'zone_identifier' => 'unknown',
             ]
         );
@@ -125,7 +125,7 @@ final class CopyToZoneTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'layout_id' => 1,
+                'layout_id' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'zone_identifier' => 'top',
             ]
         );
@@ -153,7 +153,7 @@ final class CopyToZoneTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'layout_id' => [42],
+                'layout_id' => 42,
                 'zone_identifier' => 'left',
             ]
         );
@@ -170,7 +170,7 @@ final class CopyToZoneTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "layoutId": This value should be of type scalar.'
+            'Invalid UUID string: 42'
         );
     }
 
@@ -197,7 +197,7 @@ final class CopyToZoneTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "layoutId": This value should not be blank.'
+            'Invalid UUID string: '
         );
     }
 }

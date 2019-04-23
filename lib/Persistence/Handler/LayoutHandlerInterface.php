@@ -17,7 +17,9 @@ interface LayoutHandlerInterface
     /**
      * Loads a layout with specified ID.
      *
-     * @param int|string $layoutId
+     * Layout ID can be an auto-incremented ID or an UUID.
+     *
+     * @param int|string|\Ramsey\Uuid\UuidInterface $layoutId
      * @param int $status
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If layout with specified ID does not exist
@@ -29,7 +31,9 @@ interface LayoutHandlerInterface
     /**
      * Loads a zone with specified identifier.
      *
-     * @param int|string $layoutId
+     * Layout ID can be an auto-incremented ID or an UUID.
+     *
+     * @param int|string|\Ramsey\Uuid\UuidInterface $layoutId
      * @param int $status
      * @param string $identifier
      *
@@ -96,7 +100,9 @@ interface LayoutHandlerInterface
     /**
      * Returns if layout with specified ID exists.
      *
-     * @param int|string $layoutId
+     * Layout ID can be an auto-incremented ID or an UUID.
+     *
+     * @param int|string|\Ramsey\Uuid\UuidInterface $layoutId
      * @param int $status
      *
      * @return bool
@@ -104,7 +110,7 @@ interface LayoutHandlerInterface
     public function layoutExists($layoutId, int $status): bool;
 
     /**
-     * Loads all zones that belong to layout with specified ID.
+     * Loads all zones that belong to provided layout.
      *
      * @return \Netgen\Layouts\Persistence\Values\Layout\Zone[]
      */
@@ -113,8 +119,10 @@ interface LayoutHandlerInterface
     /**
      * Returns if layout with provided name exists.
      *
+     * Excluded layout ID can be an auto-incremented ID or an UUID.
+     *
      * @param string $name
-     * @param int|string $excludedLayoutId
+     * @param int|string|\Ramsey\Uuid\UuidInterface|null $excludedLayoutId
      *
      * @return bool
      */
@@ -146,7 +154,7 @@ interface LayoutHandlerInterface
     public function createZone(Layout $layout, ZoneCreateStruct $zoneCreateStruct): Zone;
 
     /**
-     * Updates a layout with specified ID.
+     * Updates a specified layout.
      */
     public function updateLayout(Layout $layout, LayoutUpdateStruct $layoutUpdateStruct): Layout;
 
@@ -172,11 +180,8 @@ interface LayoutHandlerInterface
 
     /**
      * Deletes a layout with specified ID.
-     *
-     * @param int|string $layoutId
-     * @param int $status
      */
-    public function deleteLayout($layoutId, ?int $status = null): void;
+    public function deleteLayout(int $layoutId, ?int $status = null): void;
 
     /**
      * Deletes provided layout translation.

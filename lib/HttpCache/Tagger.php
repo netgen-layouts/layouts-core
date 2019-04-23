@@ -12,7 +12,7 @@ final class Tagger implements TaggerInterface
 {
     public function tagLayout(Response $response, Layout $layout): void
     {
-        $response->headers->set('X-Layout-Id', (string) $layout->getId());
+        $response->headers->set('X-Layout-Id', $layout->getId()->toString());
         $response->setVary('X-Layout-Id', false);
     }
 

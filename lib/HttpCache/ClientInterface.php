@@ -9,7 +9,7 @@ interface ClientInterface
     /**
      * Invalidates all provided layouts.
      *
-     * @param int[]|string[] $layoutIds
+     * @param string[] $layoutIds
      */
     public function invalidateLayouts(array $layoutIds): void;
 
@@ -28,7 +28,7 @@ interface ClientInterface
     /**
      * Invalidates all blocks from provided layouts.
      *
-     * @param int[]|string[] $layoutIds
+     * @param string[] $layoutIds
      */
     public function invalidateLayoutBlocks(array $layoutIds): void;
 

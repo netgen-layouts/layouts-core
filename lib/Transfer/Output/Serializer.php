@@ -9,6 +9,7 @@ use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Transfer\Descriptor;
+use Ramsey\Uuid\Uuid;
 
 /**
  * Serializer serializes domain entities into hash representation, which can be
@@ -73,7 +74,7 @@ final class Serializer implements SerializerInterface
     {
         foreach ($layoutIds as $layoutId) {
             try {
-                yield $this->layoutService->loadLayout($layoutId);
+                yield $this->layoutService->loadLayout(Uuid::fromString($layoutId));
             } catch (NotFoundException $e) {
                 continue;
             }

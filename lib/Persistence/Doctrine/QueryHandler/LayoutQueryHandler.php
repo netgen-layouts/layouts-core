@@ -17,6 +17,8 @@ final class LayoutQueryHandler extends QueryHandler
     /**
      * Loads all data for layout with specified ID.
      *
+     * Layout ID can be an auto-incremented ID or an UUID.
+     *
      * @param int|string $layoutId
      * @param int $status
      *
@@ -25,11 +27,8 @@ final class LayoutQueryHandler extends QueryHandler
     public function loadLayoutData($layoutId, int $status): array
     {
         $query = $this->getLayoutSelectQuery();
-        $query->where(
-            $query->expr()->eq('l.id', ':id')
-        )
-        ->setParameter('id', $layoutId, Type::INTEGER);
 
+        $this->applyIdCondition($query, $layoutId, 'l.id', 'l.uuid');
         $this->applyStatusCondition($query, $status, 'l.status');
 
         return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
@@ -142,7 +141,7 @@ final class LayoutQueryHandler extends QueryHandler
      * Loads all data for layouts with provided IDs. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
      *
-     * @param array<int|string> $layoutIds
+     * @param int[] $layoutIds
      * @param bool $includeDrafts
      *
      * @return array
@@ -253,6 +252,8 @@ final class LayoutQueryHandler extends QueryHandler
     /**
      * Loads all zone data with provided identifier.
      *
+     * Layout ID can be an auto-incremented ID or an UUID.
+     *
      * @param int|string $layoutId
      * @param int $status
      * @param string $identifier
@@ -263,14 +264,11 @@ final class LayoutQueryHandler extends QueryHandler
     {
         $query = $this->getZoneSelectQuery();
         $query->where(
-            $query->expr()->andX(
-                $query->expr()->eq('l.id', ':layout_id'),
-                $query->expr()->eq('z.identifier', ':identifier')
-            )
+            $query->expr()->eq('z.identifier', ':identifier')
         )
-        ->setParameter('layout_id', $layoutId, Type::INTEGER)
         ->setParameter('identifier', $identifier, Type::STRING);
 
+        $this->applyIdCondition($query, $layoutId, 'l.id', 'l.uuid');
         $this->applyStatusCondition($query, $status, 'l.status');
 
         return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
@@ -294,7 +292,9 @@ final class LayoutQueryHandler extends QueryHandler
     }
 
     /**
-     * Returns if layout exists.
+     * Returns if the layout exists.
+     *
+     * Layout ID can be an auto-incremented ID or an UUID.
      *
      * @param int|string $layoutId
      * @param int $status
@@ -305,12 +305,9 @@ final class LayoutQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
-            ->from('nglayouts_layout')
-            ->where(
-                $query->expr()->eq('id', ':id')
-            )
-            ->setParameter('id', $layoutId, Type::INTEGER);
+            ->from('nglayouts_layout');
 
+        $this->applyIdCondition($query, $layoutId);
         $this->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
@@ -321,8 +318,10 @@ final class LayoutQueryHandler extends QueryHandler
     /**
      * Returns if the layout with provided name exists.
      *
+     * Excluded layout ID can be an auto-incremented ID or an UUID.
+     *
      * @param string $name
-     * @param int|string $excludedLayoutId
+     * @param int|string|null $excludedLayoutId
      *
      * @return bool
      */
@@ -339,8 +338,10 @@ final class LayoutQueryHandler extends QueryHandler
             ->setParameter('name', trim($name), Type::STRING);
 
         if ($excludedLayoutId !== null) {
-            $query->andWhere($query->expr()->neq('id', ':layout_id'))
-                ->setParameter('layout_id', $excludedLayoutId, Type::INTEGER);
+            $query->andWhere($query->expr()->neq('id', ':id'))
+                ->andWhere($query->expr()->neq('uuid', ':uuid'))
+                ->setParameter('id', $excludedLayoutId, Type::STRING)
+                ->setParameter('uuid', $excludedLayoutId, Type::STRING);
         }
 
         $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
@@ -359,6 +360,7 @@ final class LayoutQueryHandler extends QueryHandler
                 [
                     'id' => ':id',
                     'status' => ':status',
+                    'uuid' => ':uuid',
                     'type' => ':type',
                     'name' => ':name',
                     'description' => ':description',
@@ -375,6 +377,7 @@ final class LayoutQueryHandler extends QueryHandler
                     $this->connectionHelper->getAutoIncrementValue('nglayouts_layout')
             )
             ->setParameter('status', $layout->status, Type::INTEGER)
+            ->setParameter('uuid', $layout->uuid, Type::STRING)
             ->setParameter('type', $layout->type, Type::STRING)
             ->setParameter('name', $layout->name, Type::STRING)
             ->setParameter('description', $layout->description, Type::STRING)
@@ -446,6 +449,7 @@ final class LayoutQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder();
         $query
             ->update('nglayouts_layout')
+            ->set('uuid', ':uuid')
             ->set('type', ':type')
             ->set('name', ':name')
             ->set('description', ':description')
@@ -457,6 +461,7 @@ final class LayoutQueryHandler extends QueryHandler
                 $query->expr()->eq('id', ':id')
             )
             ->setParameter('id', $layout->id, Type::INTEGER)
+            ->setParameter('uuid', $layout->uuid, Type::STRING)
             ->setParameter('type', $layout->type, Type::STRING)
             ->setParameter('name', $layout->name, Type::STRING)
             ->setParameter('description', $layout->description, Type::STRING)
@@ -500,11 +505,8 @@ final class LayoutQueryHandler extends QueryHandler
 
     /**
      * Deletes all layout zones.
-     *
-     * @param int|string $layoutId
-     * @param int $status
      */
-    public function deleteLayoutZones($layoutId, ?int $status = null): void
+    public function deleteLayoutZones(int $layoutId, ?int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
         $query->delete('nglayouts_zone')
@@ -522,11 +524,8 @@ final class LayoutQueryHandler extends QueryHandler
 
     /**
      * Deletes the layout.
-     *
-     * @param int|string $layoutId
-     * @param int $status
      */
-    public function deleteLayout($layoutId, ?int $status = null): void
+    public function deleteLayout(int $layoutId, ?int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
         $query->delete('nglayouts_layout')
@@ -544,12 +543,8 @@ final class LayoutQueryHandler extends QueryHandler
 
     /**
      * Deletes the zone.
-     *
-     * @param int|string $layoutId
-     * @param string $zoneIdentifier
-     * @param int $status
      */
-    public function deleteZone($layoutId, string $zoneIdentifier, ?int $status = null): void
+    public function deleteZone(int $layoutId, string $zoneIdentifier, ?int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
         $query->delete('nglayouts_zone')
@@ -571,12 +566,8 @@ final class LayoutQueryHandler extends QueryHandler
 
     /**
      * Deletes layout translations.
-     *
-     * @param int|string $layoutId
-     * @param int $status
-     * @param string $locale
      */
-    public function deleteLayoutTranslations($layoutId, ?int $status = null, ?string $locale = null): void
+    public function deleteLayoutTranslations(int $layoutId, ?int $status = null, ?string $locale = null): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -626,7 +617,7 @@ final class LayoutQueryHandler extends QueryHandler
     private function getZoneSelectQuery(): QueryBuilder
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT z.*')
+        $query->select('DISTINCT z.*, l.uuid as layout_uuid')
             ->from('nglayouts_zone', 'z')
             ->innerJoin(
                 'z',

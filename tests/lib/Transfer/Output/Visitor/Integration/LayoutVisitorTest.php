@@ -10,6 +10,7 @@ use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Transfer\Output\Visitor\LayoutVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
+use Ramsey\Uuid\Uuid;
 
 abstract class LayoutVisitorTest extends VisitorTest
 {
@@ -38,10 +39,10 @@ abstract class LayoutVisitorTest extends VisitorTest
     public function visitProvider(): array
     {
         return [
-            [function (): Layout { return $this->layoutService->loadLayout(1); }, 'layout/layout_1.json'],
-            [function (): Layout { return $this->layoutService->loadLayout(2); }, 'layout/layout_2.json'],
-            [function (): Layout { return $this->layoutService->loadLayout(5); }, 'layout/layout_5.json'],
-            [function (): Layout { return $this->layoutService->loadLayoutDraft(7); }, 'layout/layout_7.json'],
+            [function (): Layout { return $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136')); }, 'layout/layout_1.json'],
+            [function (): Layout { return $this->layoutService->loadLayout(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac')); }, 'layout/layout_2.json'],
+            [function (): Layout { return $this->layoutService->loadLayout(Uuid::fromString('399ad9ac-777a-50ba-945a-06e9f57add12')); }, 'layout/layout_5.json'],
+            [function (): Layout { return $this->layoutService->loadLayoutDraft(Uuid::fromString('4b0202b3-5d06-5962-ae0c-bbeb25ee3503')); }, 'layout/layout_7.json'],
         ];
     }
 }

@@ -16,7 +16,7 @@ final class LoadLayoutBlocksTest extends JsonApiTestCase
      */
     public function testLoadLayoutBlocks(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/layouts/1/blocks?html=false');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/blocks?html=false');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -30,7 +30,7 @@ final class LoadLayoutBlocksTest extends JsonApiTestCase
      */
     public function testLoadLayoutBlocksInPublishedState(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/layouts/1/blocks?published=true&html=false');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/blocks?published=true&html=false');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -44,12 +44,12 @@ final class LoadLayoutBlocksTest extends JsonApiTestCase
      */
     public function testLoadLayoutBlocksWithNonExistentLayout(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/layouts/9999/blocks');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff/blocks');
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find layout with identifier "9999"'
+            'Could not find layout with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"'
         );
     }
 
@@ -58,12 +58,12 @@ final class LoadLayoutBlocksTest extends JsonApiTestCase
      */
     public function testLoadLayoutBlocksWithNonExistentLayoutLocale(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/unknown/layouts/1/blocks');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/unknown/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/blocks');
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find layout with identifier "1"'
+            'Could not find layout with identifier "81168ed3-86f9-55ea-b153-101f96f2c136"'
         );
     }
 }

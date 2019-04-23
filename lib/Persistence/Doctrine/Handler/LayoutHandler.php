@@ -19,6 +19,8 @@ use Netgen\Layouts\Persistence\Values\Layout\Zone;
 use Netgen\Layouts\Persistence\Values\Layout\ZoneCreateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\ZoneUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Value;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 final class LayoutHandler implements LayoutHandlerInterface
 {
@@ -49,7 +51,7 @@ final class LayoutHandler implements LayoutHandlerInterface
 
     public function loadLayout($layoutId, int $status): Layout
     {
-        $data = $this->queryHandler->loadLayoutData($layoutId, $status);
+        $data = $this->queryHandler->loadLayoutData((string) $layoutId, $status);
 
         if (count($data) === 0) {
             throw new NotFoundException('layout', $layoutId);
@@ -60,7 +62,7 @@ final class LayoutHandler implements LayoutHandlerInterface
 
     public function loadZone($layoutId, int $status, string $identifier): Zone
     {
-        $data = $this->queryHandler->loadZoneData($layoutId, $status, $identifier);
+        $data = $this->queryHandler->loadZoneData((string) $layoutId, $status, $identifier);
 
         if (count($data) === 0) {
             throw new NotFoundException('zone', $identifier);
@@ -122,7 +124,7 @@ final class LayoutHandler implements LayoutHandlerInterface
 
     public function layoutExists($layoutId, int $status): bool
     {
-        return $this->queryHandler->layoutExists($layoutId, $status);
+        return $this->queryHandler->layoutExists((string) $layoutId, $status);
     }
 
     public function loadLayoutZones(Layout $layout): array
@@ -134,6 +136,10 @@ final class LayoutHandler implements LayoutHandlerInterface
 
     public function layoutNameExists(string $name, $excludedLayoutId = null): bool
     {
+        $excludedLayoutId = $excludedLayoutId instanceof UuidInterface ?
+            $excludedLayoutId->toString() :
+            $excludedLayoutId;
+
         return $this->queryHandler->layoutNameExists($name, $excludedLayoutId);
     }
 
@@ -143,6 +149,7 @@ final class LayoutHandler implements LayoutHandlerInterface
 
         $newLayout = Layout::fromArray(
             [
+                'uuid' => Uuid::uuid4()->toString(),
                 'type' => $layoutCreateStruct->type,
                 'name' => trim($layoutCreateStruct->name),
                 'description' => trim($layoutCreateStruct->description ?? ''),
@@ -240,6 +247,7 @@ final class LayoutHandler implements LayoutHandlerInterface
 
         $newZoneData = [
             'layoutId' => $layout->id,
+            'layoutUuid' => $layout->uuid,
             'status' => $layout->status,
             'rootBlockId' => $rootBlock->id,
             'identifier' => $zoneCreateStruct->identifier,
@@ -301,7 +309,9 @@ final class LayoutHandler implements LayoutHandlerInterface
     public function copyLayout(Layout $layout, LayoutCopyStruct $layoutCopyStruct): Layout
     {
         $copiedLayout = clone $layout;
+
         $copiedLayout->id = null;
+        $copiedLayout->uuid = Uuid::uuid4()->toString();
 
         $currentTimeStamp = time();
         $copiedLayout->created = $currentTimeStamp;
@@ -410,6 +420,7 @@ final class LayoutHandler implements LayoutHandlerInterface
             $newZone = Zone::fromArray(
                 [
                     'layoutId' => $layout->id,
+                    'layoutUuid' => $layout->uuid,
                     'status' => $layout->status,
                     'rootBlockId' => $rootBlock->id,
                     'identifier' => $newZoneIdentifier,
@@ -457,7 +468,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         return $newLayout;
     }
 
-    public function deleteLayout($layoutId, ?int $status = null): void
+    public function deleteLayout(int $layoutId, ?int $status = null): void
     {
         $this->queryHandler->deleteLayoutZones($layoutId, $status);
         $this->blockHandler->deleteLayoutBlocks($layoutId, $status);

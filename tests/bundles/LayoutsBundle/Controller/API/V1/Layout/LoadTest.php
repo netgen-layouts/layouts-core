@@ -15,7 +15,7 @@ final class LoadTest extends JsonApiTestCase
      */
     public function testLoad(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/layouts/1?html=false');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/layouts/81168ed3-86f9-55ea-b153-101f96f2c136?html=false');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -29,7 +29,7 @@ final class LoadTest extends JsonApiTestCase
      */
     public function testLoadInPublishedState(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/layouts/1?published=true&html=false');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/layouts/81168ed3-86f9-55ea-b153-101f96f2c136?published=true&html=false');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -43,12 +43,12 @@ final class LoadTest extends JsonApiTestCase
      */
     public function testLoadWithNonExistentLayout(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/layouts/9999');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff');
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find layout with identifier "9999"'
+            'Could not find layout with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"'
         );
     }
 }

@@ -374,27 +374,6 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testUpdateRule(): void
     {
         $ruleUpdateStruct = new RuleUpdateStruct();
-        $ruleUpdateStruct->layoutId = 15;
-        $ruleUpdateStruct->comment = 'New comment';
-
-        $updatedRule = $this->handler->updateRule(
-            $this->handler->loadRule(3, Value::STATUS_PUBLISHED),
-            $ruleUpdateStruct
-        );
-
-        self::assertSame(3, $updatedRule->id);
-        self::assertSame(15, $updatedRule->layoutId);
-        self::assertSame('New comment', $updatedRule->comment);
-        self::assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
-    }
-
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRule
-     */
-    public function testUpdateRuleWithStringLayoutId(): void
-    {
-        $ruleUpdateStruct = new RuleUpdateStruct();
         $ruleUpdateStruct->layoutId = '15';
         $ruleUpdateStruct->comment = 'New comment';
 

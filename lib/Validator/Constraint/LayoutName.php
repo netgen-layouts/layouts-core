@@ -16,7 +16,7 @@ final class LayoutName extends Constraint
     /**
      * If specified, layout with this ID will be excluded from the check.
      *
-     * @var int|null
+     * @var \Ramsey\Uuid\UuidInterface
      */
     public $excludedLayoutId;
 

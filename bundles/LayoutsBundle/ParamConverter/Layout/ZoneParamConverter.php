@@ -9,6 +9,7 @@ use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Exception\NotFoundException;
+use Ramsey\Uuid\Uuid;
 
 final class ZoneParamConverter extends ParamConverter
 {
@@ -40,8 +41,8 @@ final class ZoneParamConverter extends ParamConverter
     public function loadValue(array $values): Value
     {
         $layout = $values['status'] === self::STATUS_PUBLISHED ?
-            $this->layoutService->loadLayout($values['layoutId']) :
-            $this->layoutService->loadLayoutDraft($values['layoutId']);
+            $this->layoutService->loadLayout(Uuid::fromString($values['layoutId'])) :
+            $this->layoutService->loadLayoutDraft(Uuid::fromString($values['layoutId']));
 
         if (!$layout->hasZone($values['zoneIdentifier'])) {
             throw new NotFoundException('zone', $values['zoneIdentifier']);

@@ -22,6 +22,7 @@ use Netgen\Layouts\Config\ConfigDefinitionAwareInterface;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface;
+use Ramsey\Uuid\Uuid;
 
 /**
  * LayoutDataHandler handles serialized Layout data.
@@ -246,7 +247,7 @@ final class LayoutDataHandler
      */
     private function linkZone(Zone $zone, array $zoneData): void
     {
-        $linkedZoneLayout = $this->layoutService->loadLayout($zoneData['layout_id']);
+        $linkedZoneLayout = $this->layoutService->loadLayout(Uuid::fromString($zoneData['layout_id']));
         $linkedZone = $linkedZoneLayout->getZone($zoneData['identifier']);
         $this->layoutService->linkZone($zone, $linkedZone);
     }

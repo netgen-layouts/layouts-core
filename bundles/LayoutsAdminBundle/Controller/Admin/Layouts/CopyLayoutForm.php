@@ -41,7 +41,7 @@ final class CopyLayoutForm extends AbstractController
                 'action' => $this->generateUrl(
                     'nglayouts_admin_layouts_layout_copy',
                     [
-                        'layoutId' => $layout->getId(),
+                        'layoutId' => $layout->getId()->toString(),
                     ]
                 ),
             ]

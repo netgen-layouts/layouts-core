@@ -64,7 +64,7 @@ final class ZoneVisitor implements VisitorInterface
 
         return [
             'identifier' => $linkedZone->getIdentifier(),
-            'layout_id' => $linkedZone->getLayoutId(),
+            'layout_id' => $linkedZone->getLayoutId()->toString(),
         ];
     }
 

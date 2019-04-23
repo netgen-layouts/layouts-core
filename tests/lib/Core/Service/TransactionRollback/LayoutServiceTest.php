@@ -14,6 +14,7 @@ use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Layout\Type\LayoutType;
 use Netgen\Layouts\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Netgen\Layouts\Persistence\Values\Layout\Zone as PersistenceZone;
+use Ramsey\Uuid\Uuid;
 
 final class LayoutServiceTest extends TestCase
 {
@@ -55,8 +56,8 @@ final class LayoutServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutService->linkZone(
-            Zone::fromArray(['identifier' => 'right', 'status' => Value::STATUS_DRAFT]),
-            Zone::fromArray(['identifier' => 'left', 'status' => Value::STATUS_PUBLISHED])
+            Zone::fromArray(['layoutId' => Uuid::uuid4(), 'identifier' => 'right', 'status' => Value::STATUS_DRAFT]),
+            Zone::fromArray(['layoutId' => Uuid::uuid4(), 'identifier' => 'left', 'status' => Value::STATUS_PUBLISHED])
         );
     }
 
@@ -82,7 +83,7 @@ final class LayoutServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->unlinkZone(Zone::fromArray(['identifier' => 'right', 'status' => Value::STATUS_DRAFT]));
+        $this->layoutService->unlinkZone(Zone::fromArray(['layoutId' => Uuid::uuid4(), 'identifier' => 'right', 'status' => Value::STATUS_DRAFT]));
     }
 
     /**
@@ -144,7 +145,7 @@ final class LayoutServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->addTranslation(Layout::fromArray(['status' => Value::STATUS_DRAFT]), 'hr', 'en');
+        $this->layoutService->addTranslation(Layout::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]), 'hr', 'en');
     }
 
     /**
@@ -176,7 +177,7 @@ final class LayoutServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->removeTranslation(Layout::fromArray(['status' => Value::STATUS_DRAFT]), 'hr');
+        $this->layoutService->removeTranslation(Layout::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]), 'hr');
     }
 
     /**
@@ -210,7 +211,7 @@ final class LayoutServiceTest extends TestCase
         $layoutUpdateStruct->name = 'New name';
 
         $this->layoutService->updateLayout(
-            Layout::fromArray(['status' => Value::STATUS_DRAFT]),
+            Layout::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]),
             $layoutUpdateStruct
         );
     }
@@ -246,7 +247,7 @@ final class LayoutServiceTest extends TestCase
         $layoutCopyStruct->name = 'Name';
 
         $this->layoutService->copyLayout(
-            Layout::fromArray(['id' => 42, 'status' => Layout::STATUS_DRAFT]),
+            Layout::fromArray(['id' => Uuid::uuid4(), 'status' => Layout::STATUS_DRAFT]),
             $layoutCopyStruct
         );
     }
@@ -279,7 +280,7 @@ final class LayoutServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutService->changeLayoutType(
-            Layout::fromArray(['status' => Layout::STATUS_DRAFT]),
+            Layout::fromArray(['id' => Uuid::uuid4(), 'status' => Layout::STATUS_DRAFT]),
             LayoutType::fromArray(['identifier' => '4_zones_a']),
             []
         );
@@ -296,7 +297,7 @@ final class LayoutServiceTest extends TestCase
         $this->layoutHandler
             ->expects(self::at(0))
             ->method('loadLayout')
-            ->willReturn(new PersistenceLayout());
+            ->willReturn(PersistenceLayout::fromArray(['id' => 42]));
 
         $this->layoutHandler
             ->expects(self::at(1))
@@ -312,7 +313,7 @@ final class LayoutServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->createDraft(Layout::fromArray(['status' => Value::STATUS_PUBLISHED]));
+        $this->layoutService->createDraft(Layout::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_PUBLISHED]));
     }
 
     /**
@@ -326,7 +327,7 @@ final class LayoutServiceTest extends TestCase
         $this->layoutHandler
             ->expects(self::at(0))
             ->method('loadLayout')
-            ->willReturn(new PersistenceLayout());
+            ->willReturn(PersistenceLayout::fromArray(['id' => 42]));
 
         $this->layoutHandler
             ->expects(self::at(1))
@@ -337,7 +338,7 @@ final class LayoutServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->discardDraft(Layout::fromArray(['status' => Value::STATUS_DRAFT]));
+        $this->layoutService->discardDraft(Layout::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]));
     }
 
     /**
@@ -351,7 +352,7 @@ final class LayoutServiceTest extends TestCase
         $this->layoutHandler
             ->expects(self::at(0))
             ->method('loadLayout')
-            ->willReturn(new PersistenceLayout());
+            ->willReturn(PersistenceLayout::fromArray(['id' => 42]));
 
         $this->layoutHandler
             ->expects(self::at(1))
@@ -362,7 +363,7 @@ final class LayoutServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->publishLayout(Layout::fromArray(['status' => Value::STATUS_DRAFT]));
+        $this->layoutService->publishLayout(Layout::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]));
     }
 
     /**
@@ -376,17 +377,17 @@ final class LayoutServiceTest extends TestCase
         $this->layoutHandler
             ->expects(self::at(0))
             ->method('loadLayout')
-            ->willReturn(new PersistenceLayout());
+            ->willReturn(PersistenceLayout::fromArray(['id' => 42]));
 
         $this->layoutHandler
             ->expects(self::at(1))
             ->method('loadLayout')
-            ->willReturn(new PersistenceLayout());
+            ->willReturn(PersistenceLayout::fromArray(['id' => 42]));
 
         $this->layoutHandler
             ->expects(self::at(2))
             ->method('loadLayout')
-            ->willReturn(new PersistenceLayout());
+            ->willReturn(PersistenceLayout::fromArray(['id' => 42]));
 
         $this->layoutHandler
             ->expects(self::at(3))
@@ -397,7 +398,7 @@ final class LayoutServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->restoreFromArchive(Layout::fromArray(['status' => Layout::STATUS_ARCHIVED]));
+        $this->layoutService->restoreFromArchive(Layout::fromArray(['id' => Uuid::uuid4(), 'status' => Layout::STATUS_ARCHIVED]));
     }
 
     /**
@@ -411,7 +412,7 @@ final class LayoutServiceTest extends TestCase
         $this->layoutHandler
             ->expects(self::at(0))
             ->method('loadLayout')
-            ->willReturn(new PersistenceLayout());
+            ->willReturn(PersistenceLayout::fromArray(['id' => 42]));
 
         $this->layoutHandler
             ->expects(self::at(1))
@@ -422,6 +423,6 @@ final class LayoutServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
-        $this->layoutService->deleteLayout(Layout::fromArray(['id' => 42, 'status' => Layout::STATUS_DRAFT]));
+        $this->layoutService->deleteLayout(Layout::fromArray(['id' => Uuid::uuid4(), 'status' => Layout::STATUS_DRAFT]));
     }
 }

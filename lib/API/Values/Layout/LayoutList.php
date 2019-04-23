@@ -29,7 +29,7 @@ final class LayoutList extends ArrayCollection
     }
 
     /**
-     * @return int[]|string[]
+     * @return \Ramsey\Uuid\UuidInterface[]
      */
     public function getLayoutIds(): array
     {

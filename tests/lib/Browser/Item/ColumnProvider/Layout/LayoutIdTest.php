@@ -9,6 +9,7 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\Browser\Item\ColumnProvider\Layout\LayoutId;
 use Netgen\Layouts\Browser\Item\Layout\Item;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class LayoutIdTest extends TestCase
 {
@@ -27,15 +28,17 @@ final class LayoutIdTest extends TestCase
      */
     public function testGetValue(): void
     {
+        $uuid = Uuid::uuid4();
+
         $item = new Item(
             Layout::fromArray(
                 [
-                    'id' => 42,
+                    'id' => $uuid,
                 ]
             )
         );
 
-        self::assertSame('42', $this->provider->getValue($item));
+        self::assertSame($uuid->toString(), $this->provider->getValue($item));
     }
 
     /**

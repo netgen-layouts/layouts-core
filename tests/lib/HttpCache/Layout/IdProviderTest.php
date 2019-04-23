@@ -10,6 +10,7 @@ use Netgen\Layouts\API\Values\Layout\LayoutList;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\HttpCache\Layout\IdProvider;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class IdProviderTest extends TestCase
 {
@@ -36,22 +37,24 @@ final class IdProviderTest extends TestCase
      */
     public function testProvideIds(): void
     {
+        $uuid = Uuid::uuid4();
+
         $this->layoutServiceMock
             ->expects(self::once())
             ->method('loadLayout')
-            ->with(self::identicalTo(42))
+            ->with(self::equalTo($uuid))
             ->willReturn(
                 Layout::fromArray(
                     [
-                        'id' => 42,
+                        'id' => $uuid->toString(),
                         'shared' => false,
                     ]
                 )
             );
 
-        $providedIds = $this->idProvider->provideIds(42);
+        $providedIds = $this->idProvider->provideIds($uuid->toString());
 
-        self::assertSame([42], $providedIds);
+        self::assertSame([$uuid->toString()], $providedIds);
     }
 
     /**
@@ -59,15 +62,17 @@ final class IdProviderTest extends TestCase
      */
     public function testProvideIdsWithNonExistingLayout(): void
     {
+        $uuid = Uuid::uuid4();
+
         $this->layoutServiceMock
             ->expects(self::once())
             ->method('loadLayout')
-            ->with(self::identicalTo(42))
-            ->willThrowException(new NotFoundException('layout', 42));
+            ->with(self::equalTo($uuid))
+            ->willThrowException(new NotFoundException('layout', $uuid->toString()));
 
-        $providedIds = $this->idProvider->provideIds(42);
+        $providedIds = $this->idProvider->provideIds($uuid->toString());
 
-        self::assertSame([42], $providedIds);
+        self::assertSame([$uuid->toString()], $providedIds);
     }
 
     /**
@@ -75,9 +80,13 @@ final class IdProviderTest extends TestCase
      */
     public function testProvideIdsWithSharedLayout(): void
     {
+        $uuid1 = Uuid::uuid4();
+        $uuid2 = Uuid::uuid4();
+        $uuid3 = Uuid::uuid4();
+
         $sharedLayout = Layout::fromArray(
             [
-                'id' => 42,
+                'id' => $uuid1,
                 'shared' => true,
             ]
         );
@@ -85,7 +94,7 @@ final class IdProviderTest extends TestCase
         $this->layoutServiceMock
             ->expects(self::at(0))
             ->method('loadLayout')
-            ->with(self::identicalTo(42))
+            ->with(self::equalTo($uuid1))
             ->willReturn($sharedLayout);
 
         $this->layoutServiceMock
@@ -97,20 +106,20 @@ final class IdProviderTest extends TestCase
                     [
                         Layout::fromArray(
                             [
-                                'id' => 43,
+                                'id' => $uuid2,
                             ]
                         ),
                         Layout::fromArray(
                             [
-                                'id' => 44,
+                                'id' => $uuid3,
                             ]
                         ),
                     ]
                 )
             );
 
-        $providedIds = $this->idProvider->provideIds(42);
+        $providedIds = $this->idProvider->provideIds($uuid1->toString());
 
-        self::assertSame([42, 43, 44], $providedIds);
+        self::assertSame([$uuid1->toString(), $uuid2->toString(), $uuid3->toString()], $providedIds);
     }
 }

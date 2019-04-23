@@ -14,9 +14,16 @@ final class Layout extends Value
     /**
      * Layout ID.
      *
-     * @var int|string
+     * @var int
      */
     public $id;
+
+    /**
+     * Layout UUID.
+     *
+     * @var string
+     */
+    public $uuid;
 
     /**
      * Layout type.

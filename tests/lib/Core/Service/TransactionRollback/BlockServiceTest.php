@@ -17,6 +17,7 @@ use Netgen\Layouts\Persistence\Values\Block\Block as PersistenceBlock;
 use Netgen\Layouts\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Netgen\Layouts\Persistence\Values\Layout\Zone as PersistenceZone;
 use Netgen\Layouts\Tests\Block\Stubs\ContainerDefinitionHandler;
+use Ramsey\Uuid\Uuid;
 
 /**
  * @property \PHPUnit\Framework\MockObject\MockObject $layoutService
@@ -102,7 +103,7 @@ final class BlockServiceTest extends TestCase
 
         $this->blockService->createBlockInZone(
             new BlockCreateStruct(BlockDefinition::fromArray(['identifier' => 'definition'])),
-            Zone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'left'])
+            Zone::fromArray(['layoutId' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT, 'identifier' => 'left'])
         );
     }
 
@@ -234,7 +235,7 @@ final class BlockServiceTest extends TestCase
 
         $this->blockService->copyBlockToZone(
             Block::fromArray(['status' => Value::STATUS_DRAFT, 'definition' => new BlockDefinition()]),
-            Zone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'left'])
+            Zone::fromArray(['layoutId' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT, 'identifier' => 'left'])
         );
     }
 
@@ -323,7 +324,7 @@ final class BlockServiceTest extends TestCase
 
         $this->blockService->moveBlockToZone(
             Block::fromArray(['status' => Value::STATUS_DRAFT, 'definition' => new BlockDefinition()]),
-            Zone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'left']),
+            Zone::fromArray(['layoutId' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT, 'identifier' => 'left']),
             0
         );
     }

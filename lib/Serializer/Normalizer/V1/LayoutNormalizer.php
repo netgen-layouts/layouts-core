@@ -51,7 +51,7 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
         }
 
         $data = [
-            'id' => $layout->getId(),
+            'id' => $layout->getId()->toString(),
             'type' => $layoutType->getIdentifier(),
             'published' => $layout->isPublished(),
             'has_published_state' => $this->layoutService->hasStatus($layout->getId(), Layout::STATUS_PUBLISHED),
@@ -106,7 +106,7 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
                     $zone,
                     $layoutType
                 ),
-                'linked_layout_id' => $linkedZone ? $linkedZone->getLayoutId() : null,
+                'linked_layout_id' => $linkedZone ? $linkedZone->getLayoutId()->toString() : null,
                 'linked_zone_identifier' => $linkedZone ? $linkedZone->getIdentifier() : null,
             ];
         }

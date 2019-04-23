@@ -45,7 +45,7 @@ final class LoadZoneBlocks extends AbstractController
             $this->layoutService->loadLayoutDraft($zone->getLayoutId());
 
         if (!$layout->hasLocale($locale)) {
-            throw new NotFoundException('layout', $layout->getId());
+            throw new NotFoundException('layout', $layout->getId()->toString());
         }
 
         $blocks = [];

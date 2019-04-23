@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type;
 
+use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\LayoutList;
 use Netgen\Layouts\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -30,8 +31,10 @@ final class ClearLayoutsCacheType extends AbstractType
             ChoiceType::class,
             [
                 'choices' => $options['layouts'],
+                'choice_name' => static function (Layout $layout): string {
+                    return $layout->getId()->toString();
+                },
                 'choice_value' => 'id',
-                'choice_name' => 'id',
                 'choice_label' => 'name',
                 'translation_domain' => false,
                 'choice_translation_domain' => false,
@@ -49,7 +52,7 @@ final class ClearLayoutsCacheType extends AbstractType
     {
         /** @var \Netgen\Layouts\API\Values\Layout\Layout $layout */
         foreach ($options['layouts'] as $layout) {
-            $view['layouts'][$layout->getId()]->vars['layout'] = $layout;
+            $view['layouts'][$layout->getId()->toString()]->vars['layout'] = $layout;
         }
     }
 }

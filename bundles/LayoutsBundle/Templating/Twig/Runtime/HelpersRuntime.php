@@ -7,6 +7,7 @@ namespace Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\Utils\BackwardsCompatibility\Locales;
 use Netgen\Layouts\Utils\FlagGenerator;
+use Ramsey\Uuid\Uuid;
 use Throwable;
 
 final class HelpersRuntime
@@ -33,13 +34,11 @@ final class HelpersRuntime
 
     /**
      * Returns the layout name for specified layout ID.
-     *
-     * @param int|string $layoutId
      */
-    public function getLayoutName($layoutId): string
+    public function getLayoutName(string $layoutId): string
     {
         try {
-            $layout = $this->layoutService->loadLayout($layoutId);
+            $layout = $this->layoutService->loadLayout(Uuid::fromString($layoutId));
 
             return $layout->getName();
         } catch (Throwable $t) {

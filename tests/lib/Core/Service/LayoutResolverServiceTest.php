@@ -10,6 +10,7 @@ use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
+use Ramsey\Uuid\Uuid;
 
 abstract class LayoutResolverServiceTest extends CoreTestCase
 {
@@ -103,7 +104,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     public function testLoadRulesWithLayout(): void
     {
         $rules = $this->layoutResolverService->loadRules(
-            $this->layoutService->loadLayout(1)
+            $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))
         );
 
         self::assertCount(2, $rules);
@@ -122,7 +123,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "layout" has an invalid state. Only published layouts can be used in rules.');
 
         $this->layoutResolverService->loadRules(
-            $this->layoutService->loadLayoutDraft(1)
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))
         );
     }
 
@@ -142,7 +143,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     public function testGetRuleCountWithLayout(): void
     {
         $ruleCount = $this->layoutResolverService->getRuleCount(
-            $this->layoutService->loadLayout(1)
+            $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))
         );
 
         self::assertSame(2, $ruleCount);
@@ -157,7 +158,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "layout" has an invalid state. Only published layouts can be used in rules.');
 
         $this->layoutResolverService->getRuleCount(
-            $this->layoutService->loadLayoutDraft(1)
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))
         );
     }
 
@@ -275,26 +276,6 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
      * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRule
      */
     public function testUpdateRule(): void
-    {
-        $rule = $this->layoutResolverService->loadRuleDraft(5);
-
-        $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
-        $ruleUpdateStruct->layoutId = 3;
-        $ruleUpdateStruct->comment = 'Updated comment';
-
-        $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
-
-        self::assertTrue($updatedRule->isDraft());
-        self::assertInstanceOf(Layout::class, $updatedRule->getLayout());
-        self::assertTrue($updatedRule->getLayout()->isPublished());
-        self::assertSame(3, $updatedRule->getLayout()->getId());
-        self::assertSame('Updated comment', $updatedRule->getComment());
-    }
-
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRule
-     */
-    public function testUpdateRuleWithStringLayoutId(): void
     {
         $rule = $this->layoutResolverService->loadRuleDraft(5);
 

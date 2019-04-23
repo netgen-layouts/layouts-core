@@ -13,6 +13,7 @@ use Netgen\Layouts\Transfer\Descriptor;
 use Netgen\Layouts\Transfer\Output\Serializer;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class SerializerTest extends TestCase
 {
@@ -57,42 +58,45 @@ final class SerializerTest extends TestCase
      */
     public function testSerializeLayouts(): void
     {
-        $layout1 = Layout::fromArray(['id' => 42]);
-        $layout2 = Layout::fromArray(['id' => 24]);
+        $uuid1 = Uuid::uuid4();
+        $uuid2 = Uuid::uuid4();
+
+        $layout1 = Layout::fromArray(['id' => $uuid1]);
+        $layout2 = Layout::fromArray(['id' => $uuid2]);
 
         $this->layoutServiceMock
             ->expects(self::at(0))
             ->method('loadLayout')
-            ->with(self::identicalTo(42))
+            ->with(self::equalTo($uuid1))
             ->willReturn($layout1);
 
         $this->layoutServiceMock
             ->expects(self::at(1))
             ->method('loadLayout')
-            ->with(self::identicalTo(24))
+            ->with(self::equalTo($uuid2))
             ->willReturn($layout2);
 
         $this->visitorMock
             ->expects(self::at(0))
             ->method('visit')
             ->with(self::identicalTo($layout1))
-            ->willReturn('serialized_layout_42');
+            ->willReturn('serialized_layout_1');
 
         $this->visitorMock
             ->expects(self::at(1))
             ->method('visit')
             ->with(self::identicalTo($layout2))
-            ->willReturn('serialized_layout_24');
+            ->willReturn('serialized_layout_2');
 
         self::assertSame(
             [
                 '__version' => Descriptor::FORMAT_VERSION,
                 'entities' => [
-                    'serialized_layout_42',
-                    'serialized_layout_24',
+                    'serialized_layout_1',
+                    'serialized_layout_2',
                 ],
             ],
-            $this->serializer->serializeLayouts([42, 24])
+            $this->serializer->serializeLayouts([$uuid1->toString(), $uuid2->toString()])
         );
     }
 
@@ -103,34 +107,37 @@ final class SerializerTest extends TestCase
      */
     public function testSerializeLayoutsWithNonExistentLayout(): void
     {
-        $layout = Layout::fromArray(['id' => 42]);
+        $uuid1 = Uuid::uuid4();
+        $uuid2 = Uuid::uuid4();
+
+        $layout = Layout::fromArray(['id' => $uuid2]);
 
         $this->layoutServiceMock
             ->expects(self::at(0))
             ->method('loadLayout')
-            ->with(self::identicalTo(24))
-            ->willThrowException(new NotFoundException('layout', 24));
+            ->with(self::equalTo($uuid1))
+            ->willThrowException(new NotFoundException('layout', $uuid1->toString()));
 
         $this->layoutServiceMock
             ->expects(self::at(1))
             ->method('loadLayout')
-            ->with(self::identicalTo(42))
+            ->with(self::equalTo($uuid2))
             ->willReturn($layout);
 
         $this->visitorMock
             ->expects(self::at(0))
             ->method('visit')
             ->with(self::identicalTo($layout))
-            ->willReturn('serialized_layout_42');
+            ->willReturn('serialized_layout_2');
 
         self::assertSame(
             [
                 '__version' => Descriptor::FORMAT_VERSION,
                 'entities' => [
-                    'serialized_layout_42',
+                    'serialized_layout_2',
                 ],
             ],
-            $this->serializer->serializeLayouts([24, 42])
+            $this->serializer->serializeLayouts([$uuid1->toString(), $uuid2->toString()])
         );
     }
 

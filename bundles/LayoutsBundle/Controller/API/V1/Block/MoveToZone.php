@@ -9,6 +9,7 @@ use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Exception\NotFoundException;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -39,7 +40,7 @@ final class MoveToZone extends AbstractController
 
         $requestData = $request->attributes->get('data');
 
-        $layout = $this->layoutService->loadLayoutDraft($requestData->get('layout_id'));
+        $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString($requestData->get('layout_id')));
 
         $zoneIdentifier = $requestData->get('zone_identifier');
         if (!$layout->hasZone($zoneIdentifier)) {

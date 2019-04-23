@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Tests\API\Values\Layout;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\LayoutList;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 use stdClass;
 use TypeError;
 
@@ -47,8 +48,14 @@ final class LayoutListTest extends TestCase
      */
     public function testGetLayoutIds(): void
     {
-        $layouts = [Layout::fromArray(['id' => 42]), Layout::fromArray(['id' => 24])];
+        $uuid1 = Uuid::uuid4();
+        $uuid2 = Uuid::uuid4();
 
-        self::assertSame([42, 24], (new LayoutList($layouts))->getLayoutIds());
+        $layouts = [Layout::fromArray(['id' => $uuid1]), Layout::fromArray(['id' => $uuid2])];
+
+        self::assertSame(
+            [$uuid1->toString(), $uuid2->toString()],
+            array_map('strval', (new LayoutList($layouts))->getLayoutIds())
+        );
     }
 }

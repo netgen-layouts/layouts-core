@@ -8,6 +8,7 @@ use Netgen\Layouts\Core\StructBuilder\LayoutStructBuilder;
 use Netgen\Layouts\Layout\Type\LayoutType;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
+use Ramsey\Uuid\Uuid;
 
 abstract class LayoutStructBuilderTest extends CoreTestCase
 {
@@ -56,7 +57,7 @@ abstract class LayoutStructBuilderTest extends CoreTestCase
     public function testNewLayoutUpdateStruct(): void
     {
         $struct = $this->structBuilder->newLayoutUpdateStruct(
-            $this->layoutService->loadLayoutDraft(1)
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))
         );
 
         self::assertSame(
@@ -90,7 +91,7 @@ abstract class LayoutStructBuilderTest extends CoreTestCase
     public function testNewLayoutCopyStruct(): void
     {
         $struct = $this->structBuilder->newLayoutCopyStruct(
-            $this->layoutService->loadLayoutDraft(1)
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))
         );
 
         self::assertSame(

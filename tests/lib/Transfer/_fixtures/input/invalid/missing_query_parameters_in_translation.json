@@ -3,7 +3,7 @@
     "entities": [
         {
             "__type": "layout",
-            "id": "@integer@",
+            "id": "@uuid@",
             "type_identifier": "4_zones_a",
             "name": "My layout",
             "description": "My layout description",

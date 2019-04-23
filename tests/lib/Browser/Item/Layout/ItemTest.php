@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Tests\Browser\Item\Layout;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\Browser\Item\Layout\Item;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class ItemTest extends TestCase
 {
@@ -16,13 +17,20 @@ final class ItemTest extends TestCase
     private $layout;
 
     /**
+     * @var \Ramsey\Uuid\UuidInterface
+     */
+    private $layoutId;
+
+    /**
      * @var \Netgen\Layouts\Browser\Item\Layout\Item
      */
     private $item;
 
     public function setUp(): void
     {
-        $this->layout = Layout::fromArray(['id' => 42, 'name' => 'My layout']);
+        $this->layoutId = Uuid::uuid4();
+
+        $this->layout = Layout::fromArray(['id' => $this->layoutId, 'name' => 'My layout']);
 
         $this->item = new Item($this->layout);
     }
@@ -33,7 +41,7 @@ final class ItemTest extends TestCase
      */
     public function testGetValue(): void
     {
-        self::assertSame(42, $this->item->getValue());
+        self::assertSame($this->layoutId->toString(), $this->item->getValue());
     }
 
     /**

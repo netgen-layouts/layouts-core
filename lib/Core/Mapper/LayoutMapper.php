@@ -16,6 +16,7 @@ use Netgen\Layouts\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Netgen\Layouts\Persistence\Values\Layout\Zone as PersistenceZone;
 use Netgen\Layouts\Persistence\Values\Value as PersistenceValue;
 use Netgen\Layouts\Utils\DateTimeUtils;
+use Ramsey\Uuid\Uuid;
 
 final class LayoutMapper
 {
@@ -42,7 +43,7 @@ final class LayoutMapper
     {
         $zoneData = [
             'identifier' => $zone->identifier,
-            'layoutId' => $zone->layoutId,
+            'layoutId' => Uuid::fromString($zone->layoutUuid),
             'status' => $zone->status,
             'linkedZone' => function () use ($zone): ?Zone {
                 if ($zone->linkedLayoutId === null || $zone->linkedZoneIdentifier === null) {
@@ -79,7 +80,7 @@ final class LayoutMapper
         }
 
         $layoutData = [
-            'id' => $layout->id,
+            'id' => Uuid::fromString($layout->uuid),
             'layoutType' => $layoutType,
             'name' => $layout->name,
             'description' => $layout->description,

@@ -38,7 +38,7 @@ final class LayoutVisitor implements VisitorInterface
 
         return [
             '__type' => 'layout',
-            'id' => $value->getId(),
+            'id' => $value->getId()->toString(),
             'type_identifier' => $value->getLayoutType()->getIdentifier(),
             'name' => $value->getName(),
             'description' => $value->getDescription(),

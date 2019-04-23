@@ -9,6 +9,7 @@ use Netgen\Layouts\API\Values\LazyPropertyTrait;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Utils\HydratorTrait;
+use Ramsey\Uuid\UuidInterface;
 
 final class Zone implements Value
 {
@@ -22,7 +23,7 @@ final class Zone implements Value
     private $identifier;
 
     /**
-     * @var int|string
+     * @var \Ramsey\Uuid\UuidInterface
      */
     private $layoutId;
 
@@ -40,11 +41,9 @@ final class Zone implements Value
     }
 
     /**
-     * Returns the ID of the layout to which this zone belongs.
-     *
-     * @return int|string
+     * Returns the UUID of the layout to which this zone belongs.
      */
-    public function getLayoutId()
+    public function getLayoutId(): UuidInterface
     {
         return $this->layoutId;
     }

@@ -15,6 +15,7 @@ use Netgen\Layouts\Browser\Item\Layout\LayoutInterface;
 use Netgen\Layouts\Browser\Item\Layout\RootLocation;
 use Netgen\Layouts\Exception\NotFoundException;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class LayoutBackendTest extends TestCase
 {
@@ -74,15 +75,16 @@ final class LayoutBackendTest extends TestCase
      */
     public function testLoadItem(): void
     {
+        $uuid = Uuid::uuid4();
         $layout = new Layout();
 
         $this->layoutServiceMock
             ->expects(self::once())
             ->method('loadLayout')
-            ->with(self::identicalTo(1))
+            ->with(self::equalTo($uuid))
             ->willReturn($layout);
 
-        $item = $this->backend->loadItem(1);
+        $item = $this->backend->loadItem($uuid->toString());
 
         self::assertInstanceOf(LayoutInterface::class, $item);
         self::assertSame($layout, $item->getLayout());
@@ -93,16 +95,18 @@ final class LayoutBackendTest extends TestCase
      */
     public function testLoadItemThrowsNotFoundException(): void
     {
+        $uuid = Uuid::uuid4();
+
         $this->expectException(ContentBrowserNotFoundException::class);
-        $this->expectExceptionMessage('Item with value "1" not found.');
+        $this->expectExceptionMessage(sprintf('Item with value "%s" not found.', $uuid->toString()));
 
         $this->layoutServiceMock
             ->expects(self::once())
             ->method('loadLayout')
-            ->with(self::identicalTo(1))
-            ->willThrowException(new NotFoundException('layout', 1));
+            ->with(self::equalTo($uuid))
+            ->willThrowException(new NotFoundException('layout', $uuid->toString()));
 
-        $this->backend->loadItem(1);
+        $this->backend->loadItem($uuid->toString());
     }
 
     /**

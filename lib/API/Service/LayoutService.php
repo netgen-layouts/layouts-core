@@ -11,41 +11,30 @@ use Netgen\Layouts\API\Values\Layout\LayoutList;
 use Netgen\Layouts\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
+use Ramsey\Uuid\UuidInterface;
 
 interface LayoutService extends Service
 {
     /**
-     * Loads a layout with specified ID.
+     * Loads a layout with specified UUID.
      *
-     * @param int|string $layoutId
-     *
-     * @throws \Netgen\Layouts\Exception\NotFoundException If layout with specified ID does not exist
-     *
-     * @return \Netgen\Layouts\API\Values\Layout\Layout
+     * @throws \Netgen\Layouts\Exception\NotFoundException If layout with specified UUID does not exist
      */
-    public function loadLayout($layoutId): Layout;
+    public function loadLayout(UuidInterface $layoutId): Layout;
 
     /**
-     * Loads a layout draft with specified ID.
+     * Loads a layout draft with specified UUID.
      *
-     * @param int|string $layoutId
-     *
-     * @throws \Netgen\Layouts\Exception\NotFoundException If layout with specified ID does not exist
-     *
-     * @return \Netgen\Layouts\API\Values\Layout\Layout
+     * @throws \Netgen\Layouts\Exception\NotFoundException If layout with specified UUID does not exist
      */
-    public function loadLayoutDraft($layoutId): Layout;
+    public function loadLayoutDraft(UuidInterface $layoutId): Layout;
 
     /**
-     * Loads a layout archive with specified ID.
+     * Loads a layout archive with specified UUID.
      *
-     * @param int|string $layoutId
-     *
-     * @throws \Netgen\Layouts\Exception\NotFoundException If layout with specified ID does not exist
-     *
-     * @return \Netgen\Layouts\API\Values\Layout\Layout
+     * @throws \Netgen\Layouts\Exception\NotFoundException If layout with specified UUID does not exist
      */
-    public function loadLayoutArchive($layoutId): Layout;
+    public function loadLayoutArchive(UuidInterface $layoutId): Layout;
 
     /**
      * Loads all published non-shared layouts. If $includeDrafts is set to true, drafts which have no
@@ -100,26 +89,16 @@ interface LayoutService extends Service
     public function getRelatedLayoutsCount(Layout $sharedLayout): int;
 
     /**
-     * Returns if layout with provided ID has a provided status (published, draft or archived).
-     *
-     * @param int|string $layoutId
-     * @param int $status
-     *
-     * @return bool
+     * Returns if layout with provided UUID has a provided status (published, draft or archived).
      */
-    public function hasStatus($layoutId, int $status): bool;
+    public function hasStatus(UuidInterface $layoutId, int $status): bool;
 
     /**
      * Returns if layout with provided name exists.
      *
-     * If $excludedLayoutId is provided, the check will not apply to the provided ID.
-     *
-     * @param string $name
-     * @param int|string $excludedLayoutId
-     *
-     * @return bool
+     * If $excludedLayoutId is provided, the check will not apply to the provided UUID.
      */
-    public function layoutNameExists(string $name, $excludedLayoutId = null): bool;
+    public function layoutNameExists(string $name, ?UuidInterface $excludedLayoutId = null): bool;
 
     /**
      * Links the zone to provided linked zone. If zone had a previous link, it will be overwritten.

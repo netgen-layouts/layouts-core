@@ -13,6 +13,7 @@ use Netgen\Layouts\Exception\API\LayoutException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Layout\Type\LayoutType;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class LayoutTest extends TestCase
 {
@@ -71,9 +72,11 @@ final class LayoutTest extends TestCase
             'right' => Zone::fromArray(['identifier' => 'right', 'linkedZone' => new Zone()]),
         ];
 
+        $uuid = Uuid::uuid4();
+
         $layout = Layout::fromArray(
             [
-                'id' => 42,
+                'id' => $uuid,
                 'layoutType' => $layoutType,
                 'name' => 'My layout',
                 'description' => 'My description',
@@ -86,7 +89,7 @@ final class LayoutTest extends TestCase
             ]
         );
 
-        self::assertSame(42, $layout->getId());
+        self::assertSame($uuid, $layout->getId());
         self::assertSame($layoutType, $layout->getLayoutType());
         self::assertSame('My layout', $layout->getName());
         self::assertSame('My description', $layout->getDescription());

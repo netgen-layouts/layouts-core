@@ -16,6 +16,7 @@ use Netgen\Layouts\Exception\API\LayoutException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 use Netgen\Layouts\Utils\HydratorTrait;
+use Ramsey\Uuid\UuidInterface;
 use Traversable;
 
 final class Layout implements Value, ArrayAccess, IteratorAggregate, Countable
@@ -24,7 +25,7 @@ final class Layout implements Value, ArrayAccess, IteratorAggregate, Countable
     use ValueStatusTrait;
 
     /**
-     * @var int|string
+     * @var \Ramsey\Uuid\UuidInterface
      */
     private $id;
 
@@ -79,11 +80,9 @@ final class Layout implements Value, ArrayAccess, IteratorAggregate, Countable
     }
 
     /**
-     * Returns the layout ID.
-     *
-     * @return int|string
+     * Returns the layout UUID.
      */
-    public function getId()
+    public function getId(): UuidInterface
     {
         return $this->id;
     }

@@ -3,7 +3,7 @@
     "entities": [
         {
             "__type": "layout",
-            "id": "@integer@",
+            "id": "@uuid@",
             "type_identifier": "4_zones_a",
             "name": "My layout",
             "description": "My layout description",
@@ -373,7 +373,7 @@
         },
         {
             "__type": "layout",
-            "id": "@integer@",
+            "id": "@uuid@",
             "type_identifier": "4_zones_b",
             "name": "My other layout",
             "description": "My other layout description",
@@ -525,7 +525,7 @@
                     "identifier": "top",
                     "linked_zone": {
                         "identifier": "top",
-                        "layout_id": 3
+                        "layout_id": "d8e55af7-cf62-5f28-ae15-331b457d82e9"
                     },
                     "blocks": []
                 }
@@ -533,7 +533,7 @@
         },
         {
             "__type": "layout",
-            "id": "@integer@",
+            "id": "@uuid@",
             "type_identifier": "4_zones_b",
             "name": "My third layout",
             "description": "My third layout description",
@@ -570,7 +570,7 @@
         },
         {
             "__type": "layout",
-            "id": "@integer@",
+            "id": "@uuid@",
             "type_identifier": "4_zones_b",
             "name": "My fifth layout",
             "description": "My fifth layout description",
@@ -607,7 +607,7 @@
         },
         {
             "__type": "layout",
-            "id": "@integer@",
+            "id": "@uuid@",
             "type_identifier": "4_zones_b",
             "name": "My sixth layout",
             "description": "My sixth layout description",

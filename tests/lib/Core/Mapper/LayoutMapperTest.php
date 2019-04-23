@@ -35,6 +35,7 @@ abstract class LayoutMapperTest extends CoreTestCase
             [
                 'identifier' => 'right',
                 'layoutId' => 1,
+                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'status' => Value::STATUS_PUBLISHED,
                 'rootBlockId' => 3,
                 'linkedLayoutId' => 3,
@@ -45,11 +46,11 @@ abstract class LayoutMapperTest extends CoreTestCase
         $zone = $this->mapper->mapZone($persistenceZone);
 
         self::assertSame('right', $zone->getIdentifier());
-        self::assertSame(1, $zone->getLayoutId());
+        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $zone->getLayoutId()->toString());
         self::assertTrue($zone->isPublished());
         self::assertInstanceOf(APIZone::class, $zone->getLinkedZone());
         self::assertTrue($zone->getLinkedZone()->isPublished());
-        self::assertSame(3, $zone->getLinkedZone()->getLayoutId());
+        self::assertSame('d8e55af7-cf62-5f28-ae15-331b457d82e9', $zone->getLinkedZone()->getLayoutId()->toString());
         self::assertSame('right', $zone->getLinkedZone()->getIdentifier());
     }
 
@@ -62,6 +63,7 @@ abstract class LayoutMapperTest extends CoreTestCase
             [
                 'identifier' => 'right',
                 'layoutId' => 1,
+                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'status' => Value::STATUS_PUBLISHED,
                 'rootBlockId' => 3,
                 'linkedLayoutId' => null,
@@ -72,7 +74,7 @@ abstract class LayoutMapperTest extends CoreTestCase
         $zone = $this->mapper->mapZone($persistenceZone);
 
         self::assertSame('right', $zone->getIdentifier());
-        self::assertSame(1, $zone->getLayoutId());
+        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $zone->getLayoutId()->toString());
         self::assertTrue($zone->isPublished());
         self::assertNull($zone->getLinkedZone());
     }
@@ -86,6 +88,7 @@ abstract class LayoutMapperTest extends CoreTestCase
             [
                 'identifier' => 'right',
                 'layoutId' => 1,
+                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'status' => Value::STATUS_PUBLISHED,
                 'rootBlockId' => 3,
                 'linkedLayoutId' => 9999,
@@ -96,7 +99,7 @@ abstract class LayoutMapperTest extends CoreTestCase
         $zone = $this->mapper->mapZone($persistenceZone);
 
         self::assertSame('right', $zone->getIdentifier());
-        self::assertSame(1, $zone->getLayoutId());
+        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $zone->getLayoutId()->toString());
         self::assertTrue($zone->isPublished());
         self::assertNull($zone->getLinkedZone());
     }
@@ -109,6 +112,7 @@ abstract class LayoutMapperTest extends CoreTestCase
         $persistenceLayout = Layout::fromArray(
             [
                 'id' => 1,
+                'uuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'type' => '4_zones_a',
                 'name' => 'My layout',
                 'description' => 'My description',
@@ -126,7 +130,7 @@ abstract class LayoutMapperTest extends CoreTestCase
             $layout->getLayoutType()
         );
 
-        self::assertSame(1, $layout->getId());
+        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $layout->getId()->toString());
         self::assertSame('My layout', $layout->getName());
         self::assertSame('My description', $layout->getDescription());
         self::assertSame(1447065813, $layout->getCreated()->getTimestamp());
@@ -144,6 +148,7 @@ abstract class LayoutMapperTest extends CoreTestCase
         $persistenceLayout = Layout::fromArray(
             [
                 'id' => 1,
+                'uuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'type' => 'unknown',
                 'name' => 'My layout',
                 'description' => 'My description',
@@ -158,7 +163,7 @@ abstract class LayoutMapperTest extends CoreTestCase
 
         self::assertInstanceOf(NullLayoutType::class, $layout->getLayoutType());
 
-        self::assertSame(1, $layout->getId());
+        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $layout->getId()->toString());
         self::assertSame('My layout', $layout->getName());
         self::assertSame('My description', $layout->getDescription());
         self::assertSame(1447065813, $layout->getCreated()->getTimestamp());

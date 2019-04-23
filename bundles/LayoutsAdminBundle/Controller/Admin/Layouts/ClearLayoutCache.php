@@ -40,7 +40,7 @@ final class ClearLayoutCache extends AbstractController
             );
         }
 
-        $this->httpCacheClient->invalidateLayouts([$layout->getId()]);
+        $this->httpCacheClient->invalidateLayouts([$layout->getId()->toString()]);
 
         $cacheCleared = $this->httpCacheClient->commit();
 

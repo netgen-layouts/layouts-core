@@ -28,6 +28,28 @@ abstract class QueryHandler
     }
 
     /**
+     * Applies ID condition to the query.
+     *
+     * @param QueryBuilder $query
+     * @param int|string $id
+     * @param string $idColumn
+     * @param string $uuidColumn
+     * @param string $idParamName
+     * @param string $uuidParamName
+     */
+    public function applyIdCondition(QueryBuilder $query, $id, string $idColumn = 'id', string $uuidColumn = 'uuid', string $idParamName = 'id', string $uuidParamName = 'uuid'): void
+    {
+        $query->andWhere(
+            $query->expr()->orX(
+                $query->expr()->eq($idColumn, ':' . $idParamName),
+                $query->expr()->eq($uuidColumn, ':' . $uuidParamName)
+            )
+        )
+        ->setParameter($idParamName, $id, Type::STRING)
+        ->setParameter($uuidParamName, $id, Type::STRING);
+    }
+
+    /**
      * Applies status condition to the query.
      */
     public function applyStatusCondition(QueryBuilder $query, ?int $status, string $statusColumn = 'status', string $paramName = 'status'): void

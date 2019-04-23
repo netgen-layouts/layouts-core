@@ -6,6 +6,7 @@ namespace Netgen\Layouts\HttpCache\Layout;
 
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\Exception\NotFoundException;
+use Ramsey\Uuid\Uuid;
 
 /**
  * Extracts all relevant IDs for a given layout.
@@ -30,7 +31,7 @@ final class IdProvider implements IdProviderInterface
         $layoutIds = [$layoutId];
 
         try {
-            $layout = $this->layoutService->loadLayout($layoutId);
+            $layout = $this->layoutService->loadLayout(Uuid::fromString($layoutId));
         } catch (NotFoundException $e) {
             return $layoutIds;
         }
@@ -41,6 +42,9 @@ final class IdProvider implements IdProviderInterface
 
         $relatedLayouts = $this->layoutService->loadRelatedLayouts($layout);
 
-        return array_merge($layoutIds, $relatedLayouts->getLayoutIds());
+        return array_merge(
+            $layoutIds,
+            array_map('strval', $relatedLayouts->getLayoutIds())
+        );
     }
 }

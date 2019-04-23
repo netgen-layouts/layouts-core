@@ -21,7 +21,7 @@ final class Item implements ItemInterface, LayoutInterface
 
     public function getValue()
     {
-        return $this->layout->getId();
+        return $this->layout->getId()->toString();
     }
 
     public function getName(): string

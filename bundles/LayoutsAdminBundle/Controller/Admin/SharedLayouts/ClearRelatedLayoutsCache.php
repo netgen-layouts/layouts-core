@@ -51,7 +51,7 @@ final class ClearRelatedLayoutsCache extends AbstractController
                 'action' => $this->generateUrl(
                     'nglayouts_admin_shared_layouts_cache_related_layouts',
                     [
-                        'layoutId' => $layout->getId(),
+                        'layoutId' => $layout->getId()->toString(),
                     ]
                 ),
             ]
@@ -63,7 +63,7 @@ final class ClearRelatedLayoutsCache extends AbstractController
             /** @var \Netgen\Layouts\API\Values\Layout\LayoutList $selectedLayouts */
             $selectedLayouts = $form->get('layouts')->getData();
 
-            $this->httpCacheClient->invalidateLayouts($selectedLayouts->getLayoutIds());
+            $this->httpCacheClient->invalidateLayouts(array_map('strval', $selectedLayouts->getLayoutIds()));
             $cacheCleared = $this->httpCacheClient->commit();
 
             if ($cacheCleared) {

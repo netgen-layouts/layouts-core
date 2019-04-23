@@ -16,7 +16,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
      */
     public function testLoadZoneBlocks(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/layouts/1/zones/right/blocks?html=false');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/zones/right/blocks?html=false');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -30,7 +30,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
      */
     public function testLoadZoneBlocksInPublishedState(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/layouts/1/zones/right/blocks?published=true&html=false');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/zones/right/blocks?published=true&html=false');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -44,7 +44,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
      */
     public function testLoadZoneBlocksWithNonExistentZone(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/layouts/1/zones/unknown/blocks');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/zones/unknown/blocks');
 
         $this->assertException(
             $this->client->getResponse(),
@@ -58,12 +58,12 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
      */
     public function testLoadZoneBlocksWithNonExistentLayout(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/layouts/9999/zones/right/blocks');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff/zones/right/blocks');
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find layout with identifier "9999"'
+            'Could not find layout with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"'
         );
     }
 
@@ -72,12 +72,12 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
      */
     public function testLoadZoneBlocksWithNonExistentLayoutLocale(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/unknown/layouts/1/zones/right/blocks');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/unknown/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/zones/right/blocks');
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find layout with identifier "1"'
+            'Could not find layout with identifier "81168ed3-86f9-55ea-b153-101f96f2c136"'
         );
     }
 }

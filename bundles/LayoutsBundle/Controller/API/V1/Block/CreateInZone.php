@@ -15,6 +15,7 @@ use Netgen\Layouts\Exception\Block\BlockTypeException;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Serializer\Values\View;
 use Netgen\Layouts\Serializer\Version;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -76,7 +77,7 @@ final class CreateInZone extends AbstractController
             throw new BadStateException('block_type', 'Block type does not exist.', $e);
         }
 
-        $layout = $this->layoutService->loadLayoutDraft($requestData->get('layout_id'));
+        $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString($requestData->get('layout_id')));
 
         $this->denyAccessUnlessGranted(
             'nglayouts:block:add',

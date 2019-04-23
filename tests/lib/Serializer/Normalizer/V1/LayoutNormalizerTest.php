@@ -19,6 +19,7 @@ use Netgen\Layouts\Serializer\Normalizer\V1\LayoutNormalizer;
 use Netgen\Layouts\Serializer\Values\VersionedValue;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Serializer\Serializer;
 
 final class LayoutNormalizerTest extends TestCase
@@ -89,9 +90,12 @@ final class LayoutNormalizerTest extends TestCase
             ]
         );
 
+        $uuid1 = Uuid::uuid4();
+        $uuid2 = Uuid::uuid4();
+
         $layout = Layout::fromArray(
             [
-                'id' => 42,
+                'id' => $uuid1,
                 'layoutType' => $this->layoutType,
                 'status' => Value::STATUS_DRAFT,
                 'created' => $date1,
@@ -114,7 +118,7 @@ final class LayoutNormalizerTest extends TestCase
                                 'identifier' => 'right',
                                 'linkedZone' => Zone::fromArray(
                                     [
-                                        'layoutId' => 24,
+                                        'layoutId' => $uuid2,
                                         'identifier' => 'top',
                                     ]
                                 ),
@@ -159,7 +163,7 @@ final class LayoutNormalizerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => $layout->getId(),
+                'id' => $layout->getId()->toString(),
                 'type' => $this->layoutType->getIdentifier(),
                 'published' => false,
                 'has_published_state' => true,
@@ -190,7 +194,7 @@ final class LayoutNormalizerTest extends TestCase
                         'name' => 'Right',
                         'block_ids' => [],
                         'allowed_block_definitions' => true,
-                        'linked_layout_id' => 24,
+                        'linked_layout_id' => $uuid2->toString(),
                         'linked_zone_identifier' => 'top',
                     ],
                     [
@@ -218,9 +222,11 @@ final class LayoutNormalizerTest extends TestCase
         $date2 = new DateTimeImmutable();
         $date2 = $date2->setTimestamp(456);
 
+        $uuid = Uuid::uuid4();
+
         $layout = Layout::fromArray(
             [
-                'id' => 42,
+                'id' => $uuid,
                 'layoutType' => $this->layoutType,
                 'status' => Value::STATUS_PUBLISHED,
                 'created' => $date1,
@@ -236,7 +242,7 @@ final class LayoutNormalizerTest extends TestCase
 
         $archivedLayout = Layout::fromArray(
             [
-                'id' => 42,
+                'id' => $uuid,
                 'layoutType' => $this->layoutType,
                 'status' => Value::STATUS_ARCHIVED,
                 'created' => $date2,

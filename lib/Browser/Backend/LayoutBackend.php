@@ -16,6 +16,7 @@ use Netgen\Layouts\API\Values\Layout\LayoutList;
 use Netgen\Layouts\Browser\Item\Layout\Item;
 use Netgen\Layouts\Browser\Item\Layout\RootLocation;
 use Netgen\Layouts\Exception\NotFoundException as BaseNotFoundException;
+use Ramsey\Uuid\Uuid;
 
 final class LayoutBackend implements BackendInterface
 {
@@ -48,7 +49,7 @@ final class LayoutBackend implements BackendInterface
     public function loadItem($value): ItemInterface
     {
         try {
-            $layout = $this->layoutService->loadLayout($value);
+            $layout = $this->layoutService->loadLayout(Uuid::fromString($value));
         } catch (BaseNotFoundException $e) {
             throw new NotFoundException(
                 sprintf('Item with value "%s" not found.', $value),

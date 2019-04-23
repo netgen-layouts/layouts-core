@@ -9,6 +9,7 @@ use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\Exception\NotFoundException;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class HelpersRuntimeTest extends TestCase
 {
@@ -45,13 +46,15 @@ final class HelpersRuntimeTest extends TestCase
      */
     public function testGetLayoutName(): void
     {
+        $uuid = Uuid::uuid4();
+
         $this->layoutServiceMock
             ->expects(self::once())
             ->method('loadLayout')
-            ->with(self::equalTo(42))
+            ->with(self::equalTo($uuid))
             ->willReturn(Layout::fromArray(['name' => 'Test layout']));
 
-        self::assertSame('Test layout', $this->runtime->getLayoutName(42));
+        self::assertSame('Test layout', $this->runtime->getLayoutName($uuid->toString()));
     }
 
     /**
@@ -59,12 +62,14 @@ final class HelpersRuntimeTest extends TestCase
      */
     public function testGetLayoutNameWithNonExistingLayout(): void
     {
+        $uuid = Uuid::uuid4();
+
         $this->layoutServiceMock
             ->expects(self::once())
             ->method('loadLayout')
-            ->with(self::equalTo(42))
-            ->willThrowException(new NotFoundException('layout', 42));
+            ->with(self::equalTo($uuid))
+            ->willThrowException(new NotFoundException('layout', $uuid->toString()));
 
-        self::assertSame('', $this->runtime->getLayoutName(42));
+        self::assertSame('', $this->runtime->getLayoutName($uuid->toString()));
     }
 }

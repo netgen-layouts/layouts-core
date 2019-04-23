@@ -20,7 +20,7 @@ final class RestoreFromArchiveTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/layouts/2/restore',
+            '/nglayouts/api/v1/layouts/71cbe281-430c-51d5-8e21-c3cc4e656dac/restore',
             [],
             [],
             [],
@@ -39,7 +39,7 @@ final class RestoreFromArchiveTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/layouts/9999/restore',
+            '/nglayouts/api/v1/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff/restore',
             [],
             [],
             [],
@@ -49,7 +49,7 @@ final class RestoreFromArchiveTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find layout with identifier "9999"'
+            'Could not find layout with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"'
         );
     }
 }

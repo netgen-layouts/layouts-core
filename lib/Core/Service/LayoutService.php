@@ -26,6 +26,7 @@ use Netgen\Layouts\Persistence\Values\Layout\LayoutCreateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\LayoutUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\ZoneCreateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\ZoneUpdateStruct;
+use Ramsey\Uuid\UuidInterface;
 
 final class LayoutService extends Service implements LayoutServiceInterface
 {
@@ -64,10 +65,8 @@ final class LayoutService extends Service implements LayoutServiceInterface
         $this->layoutHandler = $layoutHandler;
     }
 
-    public function loadLayout($layoutId): Layout
+    public function loadLayout(UuidInterface $layoutId): Layout
     {
-        $this->validator->validateId($layoutId, 'layoutId');
-
         return $this->mapper->mapLayout(
             $this->layoutHandler->loadLayout(
                 $layoutId,
@@ -76,10 +75,8 @@ final class LayoutService extends Service implements LayoutServiceInterface
         );
     }
 
-    public function loadLayoutDraft($layoutId): Layout
+    public function loadLayoutDraft(UuidInterface $layoutId): Layout
     {
-        $this->validator->validateId($layoutId, 'layoutId');
-
         return $this->mapper->mapLayout(
             $this->layoutHandler->loadLayout(
                 $layoutId,
@@ -88,10 +85,8 @@ final class LayoutService extends Service implements LayoutServiceInterface
         );
     }
 
-    public function loadLayoutArchive($layoutId): Layout
+    public function loadLayoutArchive(UuidInterface $layoutId): Layout
     {
-        $this->validator->validateId($layoutId, 'layoutId');
-
         return $this->mapper->mapLayout(
             $this->layoutHandler->loadLayout(
                 $layoutId,
@@ -212,12 +207,12 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $this->layoutHandler->getRelatedLayoutsCount($persistenceLayout);
     }
 
-    public function hasStatus($layoutId, int $status): bool
+    public function hasStatus(UuidInterface $layoutId, int $status): bool
     {
         return $this->layoutHandler->layoutExists($layoutId, $status);
     }
 
-    public function layoutNameExists(string $name, $excludedLayoutId = null): bool
+    public function layoutNameExists(string $name, ?UuidInterface $excludedLayoutId = null): bool
     {
         return $this->layoutHandler->layoutNameExists($name, $excludedLayoutId);
     }

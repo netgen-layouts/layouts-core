@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Transfer\Input\Result;
 
 use Netgen\Layouts\API\Values\Value;
+use Ramsey\Uuid\UuidInterface;
 
 final class SuccessResult implements ResultInterface
 {
@@ -19,7 +20,7 @@ final class SuccessResult implements ResultInterface
     private $data;
 
     /**
-     * @var int|string
+     * @var \Ramsey\Uuid\UuidInterface
      */
     private $entityId;
 
@@ -28,13 +29,7 @@ final class SuccessResult implements ResultInterface
      */
     private $entity;
 
-    /**
-     * @param string $entityType
-     * @param array<string, mixed> $data
-     * @param int|string $entityId
-     * @param \Netgen\Layouts\API\Values\Value $entity
-     */
-    public function __construct(string $entityType, array $data, $entityId, Value $entity)
+    public function __construct(string $entityType, array $data, UuidInterface $entityId, Value $entity)
     {
         $this->entityType = $entityType;
         $this->data = $data;
@@ -54,10 +49,8 @@ final class SuccessResult implements ResultInterface
 
     /**
      * Returns the ID of the entity which was imported.
-     *
-     * @return int|string
      */
-    public function getEntityId()
+    public function getEntityId(): UuidInterface
     {
         return $this->entityId;
     }

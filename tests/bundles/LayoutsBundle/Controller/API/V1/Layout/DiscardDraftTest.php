@@ -20,7 +20,7 @@ final class DiscardDraftTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_DELETE,
-            '/nglayouts/api/v1/layouts/1/draft',
+            '/nglayouts/api/v1/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/draft',
             [],
             [],
             [],
@@ -39,7 +39,7 @@ final class DiscardDraftTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_DELETE,
-            '/nglayouts/api/v1/layouts/9999/draft',
+            '/nglayouts/api/v1/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff/draft',
             [],
             [],
             [],
@@ -49,7 +49,7 @@ final class DiscardDraftTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find layout with identifier "9999"'
+            'Could not find layout with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"'
         );
     }
 }

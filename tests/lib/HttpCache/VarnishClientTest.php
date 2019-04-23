@@ -9,6 +9,7 @@ use FOS\HttpCache\Exception\ExceptionCollection;
 use Netgen\Layouts\HttpCache\Layout\IdProviderInterface;
 use Netgen\Layouts\HttpCache\VarnishClient;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class VarnishClientTest extends TestCase
 {
@@ -44,17 +45,22 @@ final class VarnishClientTest extends TestCase
      */
     public function testInvalidateLayouts(): void
     {
+        $uuid1 = Uuid::uuid4();
+        $uuid2 = Uuid::uuid4();
+        $uuid3 = Uuid::uuid4();
+        $uuid4 = Uuid::uuid4();
+
         $this->idProviderMock
             ->expects(self::at(0))
             ->method('provideIds')
-            ->with(self::identicalTo(24))
-            ->willReturn([24, 25, 26]);
+            ->with(self::identicalTo($uuid1->toString()))
+            ->willReturn([$uuid1->toString(), $uuid3->toString(), $uuid4->toString()]);
 
         $this->idProviderMock
             ->expects(self::at(1))
             ->method('provideIds')
-            ->with(self::identicalTo(42))
-            ->willReturn([42]);
+            ->with(self::identicalTo($uuid2->toString()))
+            ->willReturn([$uuid2->toString()]);
 
         $this->fosInvalidatorMock
             ->expects(self::once())
@@ -62,12 +68,18 @@ final class VarnishClientTest extends TestCase
             ->with(
                 self::identicalTo(
                     [
-                        'X-Layout-Id' => '^(24|25|26|42)$',
+                        'X-Layout-Id' => sprintf(
+                            '^(%s|%s|%s|%s)$',
+                            $uuid1->toString(),
+                            $uuid3->toString(),
+                            $uuid4->toString(),
+                            $uuid2->toString()
+                        ),
                     ]
                 )
             );
 
-        $this->client->invalidateLayouts([24, 42]);
+        $this->client->invalidateLayouts([$uuid1->toString(), $uuid2->toString()]);
     }
 
     /**
@@ -145,18 +157,21 @@ final class VarnishClientTest extends TestCase
      */
     public function testInvalidateLayoutBlocks(): void
     {
+        $uuid1 = Uuid::uuid4();
+        $uuid2 = Uuid::uuid4();
+
         $this->fosInvalidatorMock
             ->expects(self::once())
             ->method('invalidate')
             ->with(
                 self::identicalTo(
                     [
-                        'X-Origin-Layout-Id' => '^(24|42)$',
+                        'X-Origin-Layout-Id' => sprintf('^(%s|%s)$', $uuid1->toString(), $uuid2->toString()),
                     ]
                 )
             );
 
-        $this->client->invalidateLayoutBlocks([24, 42]);
+        $this->client->invalidateLayoutBlocks([$uuid1->toString(), $uuid2->toString()]);
     }
 
     /**

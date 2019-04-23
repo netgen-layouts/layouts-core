@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\HttpCache;
 
 use Netgen\Layouts\HttpCache\NullClient;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class NullClientTest extends TestCase
 {
@@ -24,7 +25,7 @@ final class NullClientTest extends TestCase
      */
     public function testInvalidateLayouts(): void
     {
-        $this->client->invalidateLayouts([24, 42]);
+        $this->client->invalidateLayouts([Uuid::uuid4()->toString(), Uuid::uuid4()->toString()]);
 
         // We fake the assertion count to disable risky warning
         $this->addToAssertionCount(1);
@@ -57,7 +58,7 @@ final class NullClientTest extends TestCase
      */
     public function testInvalidateLayoutBlocks(): void
     {
-        $this->client->invalidateLayoutBlocks([24, 42]);
+        $this->client->invalidateLayoutBlocks([Uuid::uuid4()->toString(), Uuid::uuid4()->toString()]);
 
         // We fake the assertion count to disable risky warning
         $this->addToAssertionCount(1);

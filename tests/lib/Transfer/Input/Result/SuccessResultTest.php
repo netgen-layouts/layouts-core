@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Tests\Transfer\Input\Result;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Transfer\Input\Result\SuccessResult;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class SuccessResultTest extends TestCase
 {
@@ -20,11 +21,17 @@ final class SuccessResultTest extends TestCase
      */
     private $entity;
 
+    /**
+     * @var \Ramsey\Uuid\UuidInterface
+     */
+    private $entityId;
+
     public function setUp(): void
     {
         $this->entity = new Value();
+        $this->entityId = Uuid::uuid4();
 
-        $this->result = new SuccessResult('type', ['key' => 'value'], 42, $this->entity);
+        $this->result = new SuccessResult('type', ['key' => 'value'], $this->entityId, $this->entity);
     }
 
     /**
@@ -49,7 +56,7 @@ final class SuccessResultTest extends TestCase
      */
     public function testGetEntityId(): void
     {
-        self::assertSame(42, $this->result->getEntityId());
+        self::assertSame($this->entityId, $this->result->getEntityId());
     }
 
     /**

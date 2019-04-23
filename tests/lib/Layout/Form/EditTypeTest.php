@@ -8,6 +8,7 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\Layouts\Layout\Form\EditType;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
@@ -24,7 +25,7 @@ final class EditTypeTest extends FormTestCase
     {
         parent::setUp();
 
-        $this->layout = new Layout();
+        $this->layout = Layout::fromArray(['id' => Uuid::uuid4()]);
     }
 
     /**

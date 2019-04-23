@@ -132,10 +132,10 @@ abstract class ImporterTest extends CoreTestCase
         foreach ($this->importer->importData($importData) as $index => $result) {
             self::assertInstanceOf(SuccessResult::class, $result);
             self::assertInstanceOf(Layout::class, $result->getEntity());
-            self::assertSame($result->getEntity()->getId(), $result->getEntityId());
+            self::assertSame($result->getEntity()->getId()->toString(), $result->getEntityId()->toString());
 
             $layoutData = $decodedData['entities'][$index];
-            $exportedLayoutData = $this->serializer->serializeLayouts([$result->getEntityId()]);
+            $exportedLayoutData = $this->serializer->serializeLayouts([$result->getEntityId()->toString()]);
 
             $exportedLayoutData = $exportedLayoutData['entities'][0];
 

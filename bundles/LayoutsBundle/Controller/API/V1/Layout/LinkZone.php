@@ -8,6 +8,7 @@ use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\Exception\NotFoundException;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -28,11 +29,11 @@ final class LinkZone extends AbstractController
      */
     public function __invoke(Zone $zone, Request $request): Response
     {
-        $this->denyAccessUnlessGranted('nglayouts:layout:edit', ['layout' => $zone->getLayoutId()]);
+        $this->denyAccessUnlessGranted('nglayouts:layout:edit', ['layout' => $zone->getLayoutId()->toString()]);
 
         $requestData = $request->attributes->get('data');
 
-        $sharedLayout = $this->layoutService->loadLayout($requestData->get('linked_layout_id'));
+        $sharedLayout = $this->layoutService->loadLayout(Uuid::fromString($requestData->get('linked_layout_id')));
 
         $zoneIdentifier = $requestData->get('linked_zone_identifier');
         if (!$sharedLayout->hasZone($zoneIdentifier)) {

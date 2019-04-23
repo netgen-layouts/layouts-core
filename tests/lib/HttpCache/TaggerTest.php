@@ -8,6 +8,7 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\HttpCache\Tagger;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Response;
 
 final class TaggerTest extends TestCase
@@ -27,14 +28,16 @@ final class TaggerTest extends TestCase
      */
     public function testTagLayout(): void
     {
+        $uuid = Uuid::uuid4();
+
         $response = new Response();
         $response->setVary('Cookie');
-        $layout = Layout::fromArray(['id' => 42]);
+        $layout = Layout::fromArray(['id' => $uuid]);
 
         $this->tagger->tagLayout($response, $layout);
 
         self::assertTrue($response->headers->has('X-Layout-Id'));
-        self::assertSame('42', $response->headers->get('X-Layout-Id'));
+        self::assertSame($uuid->toString(), $response->headers->get('X-Layout-Id'));
 
         self::assertTrue($response->hasVary());
         self::assertSame(['Cookie', 'X-Layout-Id'], $response->getVary());

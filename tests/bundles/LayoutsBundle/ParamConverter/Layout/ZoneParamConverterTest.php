@@ -11,6 +11,7 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\Exception\NotFoundException;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class ZoneParamConverterTest extends TestCase
 {
@@ -64,17 +65,19 @@ final class ZoneParamConverterTest extends TestCase
         $zone = new Zone();
         $layout = Layout::fromArray(['zones' => new ArrayCollection(['left' => $zone])]);
 
+        $uuid = Uuid::uuid4();
+
         $this->layoutServiceMock
             ->expects(self::once())
             ->method('loadLayout')
-            ->with(self::identicalTo(42))
+            ->with(self::equalTo($uuid))
             ->willReturn($layout);
 
         self::assertSame(
             $zone,
             $this->paramConverter->loadValue(
                 [
-                    'layoutId' => 42,
+                    'layoutId' => $uuid->toString(),
                     'zoneIdentifier' => 'left',
                     'status' => 'published',
                 ]
@@ -90,17 +93,19 @@ final class ZoneParamConverterTest extends TestCase
         $zone = new Zone();
         $layout = Layout::fromArray(['zones' => new ArrayCollection(['left' => $zone])]);
 
+        $uuid = Uuid::uuid4();
+
         $this->layoutServiceMock
             ->expects(self::once())
             ->method('loadLayoutDraft')
-            ->with(self::identicalTo(42))
+            ->with(self::equalTo($uuid))
             ->willReturn($layout);
 
         self::assertSame(
             $zone,
             $this->paramConverter->loadValue(
                 [
-                    'layoutId' => 42,
+                    'layoutId' => $uuid->toString(),
                     'zoneIdentifier' => 'left',
                     'status' => 'draft',
                 ]
@@ -119,15 +124,17 @@ final class ZoneParamConverterTest extends TestCase
         $zone = new Zone();
         $layout = Layout::fromArray(['zones' => new ArrayCollection(['right' => $zone])]);
 
+        $uuid = Uuid::uuid4();
+
         $this->layoutServiceMock
             ->expects(self::once())
             ->method('loadLayout')
-            ->with(self::identicalTo(42))
+            ->with(self::equalTo($uuid))
             ->willReturn($layout);
 
         $this->paramConverter->loadValue(
             [
-                'layoutId' => 42,
+                'layoutId' => $uuid->toString(),
                 'zoneIdentifier' => 'left',
                 'status' => 'published',
             ]

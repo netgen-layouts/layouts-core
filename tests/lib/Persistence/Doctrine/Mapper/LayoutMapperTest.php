@@ -33,6 +33,7 @@ final class LayoutMapperTest extends TestCase
         $data = [
             [
                 'id' => '42',
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => '4_zones_a',
                 'name' => 'My layout',
                 'description' => 'My layout description',
@@ -45,6 +46,7 @@ final class LayoutMapperTest extends TestCase
             ],
             [
                 'id' => 84,
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'type' => '4_zones_b',
                 'name' => 'My other layout',
                 'description' => 'My other layout description',
@@ -60,6 +62,7 @@ final class LayoutMapperTest extends TestCase
         $expectedData = [
             [
                 'id' => 42,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => '4_zones_a',
                 'name' => 'My layout',
                 'description' => 'My layout description',
@@ -72,6 +75,7 @@ final class LayoutMapperTest extends TestCase
             ],
             [
                 'id' => 84,
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'type' => '4_zones_b',
                 'name' => 'My other layout',
                 'description' => 'My other layout description',
@@ -103,6 +107,7 @@ final class LayoutMapperTest extends TestCase
                 'root_block_id' => '3',
                 'linked_layout_id' => '3',
                 'linked_zone_identifier' => 'top',
+                'layout_uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
             ],
             [
                 'identifier' => 'right',
@@ -111,6 +116,7 @@ final class LayoutMapperTest extends TestCase
                 'root_block_id' => 4,
                 'linked_layout_id' => null,
                 'linked_zone_identifier' => null,
+                'layout_uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
             ],
         ];
 
@@ -118,6 +124,7 @@ final class LayoutMapperTest extends TestCase
             'left' => [
                 'identifier' => 'left',
                 'layoutId' => 1,
+                'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'rootBlockId' => 3,
                 'linkedLayoutId' => 3,
                 'linkedZoneIdentifier' => 'top',
@@ -126,6 +133,7 @@ final class LayoutMapperTest extends TestCase
             'right' => [
                 'identifier' => 'right',
                 'layoutId' => 1,
+                'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'rootBlockId' => 4,
                 'linkedLayoutId' => null,
                 'linkedZoneIdentifier' => null,

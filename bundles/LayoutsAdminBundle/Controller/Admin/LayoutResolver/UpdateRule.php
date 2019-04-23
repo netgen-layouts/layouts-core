@@ -11,6 +11,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\View\ViewInterface;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 
 final class UpdateRule extends AbstractController
@@ -50,7 +51,7 @@ final class UpdateRule extends AbstractController
         // empty ("0", 0, ""...) means we remove the layout from the rule
         if (!in_array($layoutId, [0, 0.0, '0', '', false, null], true)) {
             try {
-                $this->layoutService->loadLayout($layoutId);
+                $this->layoutService->loadLayout(Uuid::fromString($layoutId));
             } catch (NotFoundException $e) {
                 throw new BadStateException(
                     'layout_id',

@@ -21,9 +21,16 @@ final class Zone extends Value
     /**
      * Layout ID to which this zone belongs.
      *
-     * @var int|string
+     * @var int
      */
     public $layoutId;
+
+    /**
+     * Layout UUID to which this zone belongs.
+     *
+     * @var string
+     */
+    public $layoutUuid;
 
     /**
      * ID of the root block related to the zone.
@@ -35,7 +42,7 @@ final class Zone extends Value
     /**
      * ID of layout this zone is linked to or null if no zone is linked.
      *
-     * @var int|string|null
+     * @var int|null
      */
     public $linkedLayoutId;
 
