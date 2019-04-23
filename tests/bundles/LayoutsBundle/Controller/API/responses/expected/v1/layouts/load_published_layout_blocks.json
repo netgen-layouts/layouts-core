@@ -1,7 +1,7 @@
 [
     {
         "id": 32,
-        "layout_id": 1,
+        "layout_id": "81168ed3-86f9-55ea-b153-101f96f2c136",
         "definition_identifier": "list",
         "name": "My other block",
         "parent_position": 0,
@@ -29,7 +29,7 @@
     },
     {
         "id": 31,
-        "layout_id": 1,
+        "layout_id": "81168ed3-86f9-55ea-b153-101f96f2c136",
         "definition_identifier": "list",
         "name": "My published block",
         "parent_position": 0,
@@ -72,7 +72,7 @@
     },
     {
         "id": 35,
-        "layout_id": 1,
+        "layout_id": "81168ed3-86f9-55ea-b153-101f96f2c136",
         "definition_identifier": "list",
         "name": "My fourth block",
         "parent_position": 1,

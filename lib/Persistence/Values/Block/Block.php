@@ -21,9 +21,16 @@ final class Block extends Value
     /**
      * ID of the layout where block is located.
      *
-     * @var int|string
+     * @var int
      */
     public $layoutId;
+
+    /**
+     * UUID of the layout where block is located.
+     *
+     * @var string
+     */
+    public $layoutUuid;
 
     /**
      * The depth of the block in the tree.

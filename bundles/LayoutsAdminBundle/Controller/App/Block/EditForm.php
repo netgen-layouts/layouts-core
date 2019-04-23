@@ -62,7 +62,7 @@ final class EditForm extends AbstractController
             'nglayouts:block:edit',
             [
                 'block_definition' => $block->getDefinition(),
-                'layout' => $block->getLayoutId(),
+                'layout' => $block->getLayoutId()->toString(),
             ]
         );
 

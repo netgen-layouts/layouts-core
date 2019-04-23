@@ -51,6 +51,7 @@ final class BlockMapperTest extends TestCase
                 'main_locale' => 'en',
                 'always_available' => '1',
                 'status' => '1',
+                'layout_uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
             ],
             [
                 'id' => 84,
@@ -71,6 +72,7 @@ final class BlockMapperTest extends TestCase
                 'main_locale' => 'en',
                 'always_available' => true,
                 'status' => Value::STATUS_PUBLISHED,
+                'layout_uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
             ],
         ];
 
@@ -78,6 +80,7 @@ final class BlockMapperTest extends TestCase
             [
                 'id' => 42,
                 'layoutId' => 24,
+                'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'depth' => 1,
                 'path' => '/22/42/',
                 'parentId' => 22,
@@ -104,6 +107,7 @@ final class BlockMapperTest extends TestCase
             [
                 'id' => 84,
                 'layoutId' => 48,
+                'layoutUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'depth' => 1,
                 'path' => '/23/84/',
                 'parentId' => 23,
@@ -130,6 +134,72 @@ final class BlockMapperTest extends TestCase
         ];
 
         $blocks = $this->mapper->mapBlocks($data);
+
+        self::assertContainsOnlyInstancesOf(Block::class, $blocks);
+        self::assertSame($expectedData, $this->exportObjectList($blocks));
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\BlockMapper::buildParameters
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\BlockMapper::mapBlocks
+     */
+    public function testMapBlocksWithLayoutUuid(): void
+    {
+        $data = [
+            [
+                'id' => '42',
+                'layout_id' => '24',
+                'depth' => '1',
+                'path' => '/22/42/',
+                'parent_id' => '22',
+                'placeholder' => 'root',
+                'position' => '4',
+                'definition_identifier' => 'text',
+                'parameters' => '{"param1": "param2"}',
+                'config' => '{"config1": "config2"}',
+                'view_type' => 'default',
+                'item_view_type' => 'standard',
+                'name' => 'My block',
+                'locale' => 'en',
+                'translatable' => '0',
+                'main_locale' => 'en',
+                'always_available' => '1',
+                'status' => '1',
+                'layout_uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+            ],
+        ];
+
+        $expectedData = [
+            [
+                'id' => 42,
+                'layoutId' => 24,
+                'layoutUuid' => 'abcdef01-abcd-abcd-abcd-0123456789ab',
+                'depth' => 1,
+                'path' => '/22/42/',
+                'parentId' => 22,
+                'placeholder' => 'root',
+                'position' => 4,
+                'definitionIdentifier' => 'text',
+                'parameters' => [
+                    'en' => [
+                        'param1' => 'param2',
+                    ],
+                ],
+                'config' => [
+                    'config1' => 'config2',
+                ],
+                'viewType' => 'default',
+                'itemViewType' => 'standard',
+                'name' => 'My block',
+                'isTranslatable' => false,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_PUBLISHED,
+            ],
+        ];
+
+        $blocks = $this->mapper->mapBlocks($data, 'abcdef01-abcd-abcd-abcd-0123456789ab');
 
         self::assertContainsOnlyInstancesOf(Block::class, $blocks);
         self::assertSame($expectedData, $this->exportObjectList($blocks));

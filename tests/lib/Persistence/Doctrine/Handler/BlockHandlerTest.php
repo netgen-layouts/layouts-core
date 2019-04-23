@@ -69,6 +69,7 @@ final class BlockHandlerTest extends TestCase
             [
                 'id' => 31,
                 'layoutId' => 1,
+                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
                 'path' => '/3/31/',
                 'parentId' => 3,
@@ -179,6 +180,7 @@ final class BlockHandlerTest extends TestCase
                 [
                     'id' => 31,
                     'layoutId' => 1,
+                    'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                     'depth' => 1,
                     'path' => '/3/31/',
                     'parentId' => 3,
@@ -206,6 +208,7 @@ final class BlockHandlerTest extends TestCase
                 [
                     'id' => 35,
                     'layoutId' => 1,
+                    'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                     'depth' => 1,
                     'path' => '/3/35/',
                     'parentId' => 3,
@@ -250,6 +253,7 @@ final class BlockHandlerTest extends TestCase
                 [
                     'id' => 37,
                     'layoutId' => 2,
+                    'layoutUuid' => '71cbe281-430c-51d5-8e21-c3cc4e656dac',
                     'depth' => 2,
                     'path' => '/7/33/37/',
                     'parentId' => 33,
@@ -398,6 +402,7 @@ final class BlockHandlerTest extends TestCase
             [
                 'id' => 39,
                 'layoutId' => 1,
+                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
                 'path' => '/3/39/',
                 'parentId' => 3,
@@ -447,6 +452,7 @@ final class BlockHandlerTest extends TestCase
             [
                 'id' => 31,
                 'layoutId' => 1,
+                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
                 'path' => '/3/31/',
                 'parentId' => 3,
@@ -499,6 +505,7 @@ final class BlockHandlerTest extends TestCase
             [
                 'id' => 31,
                 'layoutId' => 1,
+                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
                 'path' => '/3/31/',
                 'parentId' => 3,
@@ -600,6 +607,7 @@ final class BlockHandlerTest extends TestCase
             [
                 'id' => 39,
                 'layoutId' => 1,
+                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 0,
                 'path' => '/39/',
                 'parentId' => null,
@@ -662,6 +670,7 @@ final class BlockHandlerTest extends TestCase
             [
                 'id' => 39,
                 'layoutId' => 1,
+                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
                 'path' => '/3/39/',
                 'parentId' => 3,
@@ -836,6 +845,7 @@ final class BlockHandlerTest extends TestCase
             [
                 'id' => 31,
                 'layoutId' => 1,
+                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
                 'path' => '/3/31/',
                 'parentId' => 3,
@@ -884,6 +894,7 @@ final class BlockHandlerTest extends TestCase
             [
                 'id' => 31,
                 'layoutId' => 1,
+                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
                 'path' => '/3/31/',
                 'parentId' => 3,
@@ -938,6 +949,7 @@ final class BlockHandlerTest extends TestCase
             [
                 'id' => 31,
                 'layoutId' => 1,
+                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
                 'path' => '/3/31/',
                 'parentId' => 3,
@@ -986,6 +998,7 @@ final class BlockHandlerTest extends TestCase
             [
                 'id' => 31,
                 'layoutId' => 1,
+                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
                 'path' => '/3/31/',
                 'parentId' => 3,
@@ -1076,6 +1089,7 @@ final class BlockHandlerTest extends TestCase
             [
                 'id' => 39,
                 'layoutId' => 1,
+                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
                 'path' => '/3/39/',
                 'parentId' => 3,
@@ -1149,6 +1163,7 @@ final class BlockHandlerTest extends TestCase
             [
                 'id' => 39,
                 'layoutId' => 1,
+                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
                 'path' => '/3/39/',
                 'parentId' => 3,
@@ -1200,6 +1215,7 @@ final class BlockHandlerTest extends TestCase
             [
                 'id' => 39,
                 'layoutId' => 1,
+                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
                 'path' => '/3/39/',
                 'parentId' => 3,
@@ -1251,6 +1267,7 @@ final class BlockHandlerTest extends TestCase
             [
                 'id' => 39,
                 'layoutId' => 1,
+                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
                 'path' => '/3/39/',
                 'parentId' => 3,
@@ -1302,6 +1319,7 @@ final class BlockHandlerTest extends TestCase
             [
                 'id' => 39,
                 'layoutId' => 1,
+                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
                 'path' => '/3/39/',
                 'parentId' => 3,
@@ -1378,6 +1396,7 @@ final class BlockHandlerTest extends TestCase
             [
                 'id' => 39,
                 'layoutId' => 2,
+                'layoutUuid' => '71cbe281-430c-51d5-8e21-c3cc4e656dac',
                 'depth' => 1,
                 'path' => '/7/39/',
                 'parentId' => 7,
@@ -1406,6 +1425,7 @@ final class BlockHandlerTest extends TestCase
             [
                 'id' => 40,
                 'layoutId' => 2,
+                'layoutUuid' => '71cbe281-430c-51d5-8e21-c3cc4e656dac',
                 'depth' => 2,
                 'path' => '/7/39/40/',
                 'parentId' => 39,
@@ -1465,6 +1485,7 @@ final class BlockHandlerTest extends TestCase
             [
                 'id' => 39,
                 'layoutId' => 2,
+                'layoutUuid' => '71cbe281-430c-51d5-8e21-c3cc4e656dac',
                 'depth' => 1,
                 'path' => '/8/39/',
                 'parentId' => 8,
@@ -1564,6 +1585,7 @@ final class BlockHandlerTest extends TestCase
             [
                 'id' => 33,
                 'layoutId' => 1,
+                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
                 'path' => '/4/33/',
                 'parentId' => 4,
@@ -1590,6 +1612,7 @@ final class BlockHandlerTest extends TestCase
             [
                 'id' => 37,
                 'layoutId' => 1,
+                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 2,
                 'path' => '/4/33/37/',
                 'parentId' => 33,
@@ -1711,6 +1734,7 @@ final class BlockHandlerTest extends TestCase
             [
                 'id' => 31,
                 'layoutId' => 1,
+                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
                 'path' => '/3/31/',
                 'parentId' => 3,
@@ -1761,6 +1785,7 @@ final class BlockHandlerTest extends TestCase
             [
                 'id' => 35,
                 'layoutId' => 1,
+                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
                 'path' => '/3/35/',
                 'parentId' => 3,
@@ -1855,6 +1880,7 @@ final class BlockHandlerTest extends TestCase
             [
                 'id' => 31,
                 'layoutId' => 1,
+                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
                 'path' => '/3/31/',
                 'parentId' => 3,
@@ -1915,6 +1941,7 @@ final class BlockHandlerTest extends TestCase
             [
                 'id' => 31,
                 'layoutId' => 1,
+                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
                 'path' => '/2/31/',
                 'parentId' => 2,
@@ -2038,6 +2065,7 @@ final class BlockHandlerTest extends TestCase
             [
                 'id' => 31,
                 'layoutId' => 1,
+                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
                 'path' => '/3/31/',
                 'parentId' => 3,

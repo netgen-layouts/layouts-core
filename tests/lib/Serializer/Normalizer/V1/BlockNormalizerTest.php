@@ -19,6 +19,7 @@ use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Tests\Block\Stubs\ContainerDefinitionHandler;
 use Netgen\Layouts\Tests\Serializer\Stubs\NormalizerStub;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Serializer;
 
@@ -70,7 +71,7 @@ final class BlockNormalizerTest extends TestCase
         $block = Block::fromArray(
             [
                 'id' => 42,
-                'layoutId' => 24,
+                'layoutId' => Uuid::uuid4(),
                 'definition' => BlockDefinition::fromArray(['identifier' => 'definition']),
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
@@ -112,7 +113,7 @@ final class BlockNormalizerTest extends TestCase
         self::assertSame(
             [
                 'id' => $block->getId(),
-                'layout_id' => $block->getLayoutId(),
+                'layout_id' => $block->getLayoutId()->toString(),
                 'definition_identifier' => $block->getDefinition()->getIdentifier(),
                 'name' => $block->getName(),
                 'parent_position' => $block->getPosition(),
@@ -150,7 +151,7 @@ final class BlockNormalizerTest extends TestCase
         $block = Block::fromArray(
             [
                 'id' => 42,
-                'layoutId' => 24,
+                'layoutId' => Uuid::uuid4(),
                 'definition' => ContainerDefinition::fromArray(
                     [
                         'identifier' => 'definition',

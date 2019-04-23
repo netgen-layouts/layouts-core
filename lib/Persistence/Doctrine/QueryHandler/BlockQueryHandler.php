@@ -25,7 +25,7 @@ final class BlockQueryHandler extends QueryHandler
      */
     public function loadBlockData($blockId, int $status): array
     {
-        $query = $this->getBlockSelectQuery();
+        $query = $this->getBlockWithLayoutSelectQuery();
         $query->where(
             $query->expr()->eq('b.id', ':id')
         )
@@ -97,7 +97,7 @@ final class BlockQueryHandler extends QueryHandler
      */
     public function loadChildBlocksData(Block $block, ?string $placeholder = null): array
     {
-        $query = $this->getBlockSelectQuery();
+        $query = $this->getBlockWithLayoutSelectQuery();
         $query->where(
             $query->expr()->eq('b.parent_id', ':parent_id')
         )
@@ -545,6 +545,35 @@ final class BlockQueryHandler extends QueryHandler
                 $query->expr()->andX(
                     $query->expr()->eq('bt.block_id', 'b.id'),
                     $query->expr()->eq('bt.status', 'b.status')
+                )
+            );
+
+        return $query;
+    }
+
+    /**
+     * Builds and returns a block database SELECT query.
+     */
+    private function getBlockWithLayoutSelectQuery(): QueryBuilder
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('DISTINCT b.*, bt.*, l.uuid as layout_uuid')
+            ->from('nglayouts_block', 'b')
+            ->innerJoin(
+                'b',
+                'nglayouts_block_translation',
+                'bt',
+                $query->expr()->andX(
+                    $query->expr()->eq('bt.block_id', 'b.id'),
+                    $query->expr()->eq('bt.status', 'b.status')
+                )
+            )->innerJoin(
+                'b',
+                'nglayouts_layout',
+                'l',
+                $query->expr()->andX(
+                    $query->expr()->eq('l.id', 'b.layout_id'),
+                    $query->expr()->eq('l.status', 'b.status')
                 )
             );
 

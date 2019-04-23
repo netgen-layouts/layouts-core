@@ -30,7 +30,7 @@ final class Delete extends AbstractController
             'nglayouts:block:delete',
             [
                 'block_definition' => $block->getDefinition(),
-                'layout' => $block->getLayoutId(),
+                'layout' => $block->getLayoutId()->toString(),
             ]
         );
 

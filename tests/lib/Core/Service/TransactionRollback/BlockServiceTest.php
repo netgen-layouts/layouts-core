@@ -56,6 +56,7 @@ final class BlockServiceTest extends TestCase
             new BlockCreateStruct(BlockDefinition::fromArray(['identifier' => 'definition'])),
             Block::fromArray(
                 [
+                    'layoutId' => Uuid::uuid4(),
                     'status' => Value::STATUS_DRAFT,
                     'definition' => ContainerDefinition::fromArray(
                         [

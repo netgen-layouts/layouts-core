@@ -19,6 +19,7 @@ use Netgen\Layouts\Persistence\Handler\BlockHandlerInterface;
 use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\Layouts\Persistence\Values\Block\Block as PersistenceBlock;
 use Netgen\Layouts\Persistence\Values\Collection\Collection as PersistenceCollection;
+use Ramsey\Uuid\Uuid;
 
 final class BlockMapper
 {
@@ -110,7 +111,7 @@ final class BlockMapper
 
         $blockData = [
             'id' => $block->id,
-            'layoutId' => $block->layoutId,
+            'layoutId' => Uuid::fromString($block->layoutUuid),
             'definition' => $blockDefinition,
             'viewType' => $block->viewType,
             'itemViewType' => $block->itemViewType,

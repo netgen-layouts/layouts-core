@@ -75,14 +75,14 @@ final class BlockHandler implements BlockHandlerInterface
     {
         $data = $this->queryHandler->loadLayoutBlocksData($layout);
 
-        return $this->blockMapper->mapBlocks($data);
+        return $this->blockMapper->mapBlocks($data, $layout->uuid);
     }
 
     public function loadZoneBlocks(Zone $zone): array
     {
         $data = $this->queryHandler->loadZoneBlocksData($zone);
 
-        return $this->blockMapper->mapBlocks($data);
+        return $this->blockMapper->mapBlocks($data, $zone->layoutUuid);
     }
 
     public function loadChildBlocks(Block $block, ?string $placeholder = null): array
@@ -123,6 +123,7 @@ final class BlockHandler implements BlockHandlerInterface
                 'parentId' => $targetBlock !== null ? $targetBlock->id : null,
                 'placeholder' => $targetBlock !== null ? $placeholder : null,
                 'layoutId' => $layout->id,
+                'layoutUuid' => $layout->uuid,
                 'position' => $targetBlock !== null ? $blockCreateStruct->position : null,
                 'definitionIdentifier' => $blockCreateStruct->definitionIdentifier,
                 'config' => $blockCreateStruct->config,
@@ -308,6 +309,7 @@ final class BlockHandler implements BlockHandlerInterface
         $newBlock->id = null;
 
         $newBlock->layoutId = $targetBlock->layoutId;
+        $newBlock->layoutUuid = $targetBlock->layoutUuid;
         $newBlock->status = $targetBlock->status;
         $newBlock->depth = $targetBlock->depth + 1;
         // This is only the initial path.
@@ -431,6 +433,7 @@ final class BlockHandler implements BlockHandlerInterface
 
         $newBlock->placeholder = $block->placeholder;
         $newBlock->layoutId = $block->layoutId;
+        $newBlock->layoutUuid = $block->layoutUuid;
         $newBlock->position = $block->position;
         $newBlock->parentId = $block->parentId;
         $newBlock->path = $block->path;

@@ -14,7 +14,7 @@ final class BlockMapper
      *
      * @return \Netgen\Layouts\Persistence\Values\Block\Block[]
      */
-    public function mapBlocks(array $data): array
+    public function mapBlocks(array $data, ?string $layoutUuid = null): array
     {
         $blocks = [];
 
@@ -26,6 +26,7 @@ final class BlockMapper
                 $blocks[$blockId] = [
                     'id' => $blockId,
                     'layoutId' => (int) $dataItem['layout_id'],
+                    'layoutUuid' => $layoutUuid ?? $dataItem['layout_uuid'] ?? '',
                     'depth' => (int) $dataItem['depth'],
                     'path' => $dataItem['path'],
                     'parentId' => $dataItem['parent_id'] > 0 ? (int) $dataItem['parent_id'] : null,

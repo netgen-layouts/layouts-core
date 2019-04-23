@@ -17,6 +17,7 @@ use Netgen\Layouts\Exception\API\BlockException;
 use Netgen\Layouts\Parameters\ParameterCollectionInterface;
 use Netgen\Layouts\Parameters\ParameterCollectionTrait;
 use Netgen\Layouts\Utils\HydratorTrait;
+use Ramsey\Uuid\UuidInterface;
 
 final class Block implements Value, ParameterCollectionInterface, ConfigAwareValue
 {
@@ -31,7 +32,7 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
     private $id;
 
     /**
-     * @var int|string
+     * @var \Ramsey\Uuid\UuidInterface
      */
     private $layoutId;
 
@@ -126,11 +127,9 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
     }
 
     /**
-     * Returns the ID of the layout where the block is located.
-     *
-     * @return int|string
+     * Returns the UUID of the layout where the block is located.
      */
-    public function getLayoutId()
+    public function getLayoutId(): UuidInterface
     {
         return $this->layoutId;
     }

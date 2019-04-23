@@ -48,8 +48,10 @@ final class TaggerTest extends TestCase
      */
     public function testTagBlock(): void
     {
+        $uuid = Uuid::uuid4();
+
         $response = new Response();
-        $block = Block::fromArray(['id' => 42, 'layoutId' => 24]);
+        $block = Block::fromArray(['id' => 42, 'layoutId' => $uuid]);
 
         $this->tagger->tagBlock($response, $block);
 
@@ -57,6 +59,6 @@ final class TaggerTest extends TestCase
         self::assertSame('42', $response->headers->get('X-Block-Id'));
 
         self::assertTrue($response->headers->has('X-Origin-Layout-Id'));
-        self::assertSame('24', $response->headers->get('X-Origin-Layout-Id'));
+        self::assertSame($uuid->toString(), $response->headers->get('X-Origin-Layout-Id'));
     }
 }

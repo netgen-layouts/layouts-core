@@ -35,7 +35,7 @@ final class EditConfigForm extends AbstractController
             'nglayouts:block:edit_config',
             [
                 'block_definition' => $block->getDefinition(),
-                'layout' => $block->getLayoutId(),
+                'layout' => $block->getLayoutId()->toString(),
             ]
         );
 

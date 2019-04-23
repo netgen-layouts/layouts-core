@@ -33,7 +33,7 @@ final class Copy extends AbstractController
             'nglayouts:block:add',
             [
                 'block_definition' => $block->getDefinition(),
-                'layout' => $block->getLayoutId(),
+                'layout' => $block->getLayoutId()->toString(),
             ]
         );
 

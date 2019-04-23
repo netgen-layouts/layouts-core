@@ -35,6 +35,7 @@ abstract class BlockMapperTest extends CoreTestCase
             [
                 'id' => 31,
                 'layoutId' => 13,
+                'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'definitionIdentifier' => 'text',
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
@@ -71,7 +72,7 @@ abstract class BlockMapperTest extends CoreTestCase
         );
 
         self::assertSame(31, $block->getId());
-        self::assertSame(13, $block->getLayoutId());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $block->getLayoutId()->toString());
         self::assertSame('default', $block->getViewType());
         self::assertSame('standard', $block->getItemViewType());
         self::assertSame('My block', $block->getName());
@@ -106,6 +107,7 @@ abstract class BlockMapperTest extends CoreTestCase
     {
         $persistenceBlock = Block::fromArray(
             [
+                'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'definitionIdentifier' => 'text',
                 'depth' => 1,
                 'position' => 3,
@@ -134,6 +136,7 @@ abstract class BlockMapperTest extends CoreTestCase
     {
         $persistenceBlock = Block::fromArray(
             [
+                'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'definitionIdentifier' => 'text',
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
@@ -157,6 +160,7 @@ abstract class BlockMapperTest extends CoreTestCase
     {
         $persistenceBlock = Block::fromArray(
             [
+                'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'definitionIdentifier' => 'text',
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
@@ -180,6 +184,7 @@ abstract class BlockMapperTest extends CoreTestCase
     {
         $persistenceBlock = Block::fromArray(
             [
+                'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'definitionIdentifier' => 'text',
                 'alwaysAvailable' => true,
                 'mainLocale' => 'en',
@@ -208,6 +213,7 @@ abstract class BlockMapperTest extends CoreTestCase
         $persistenceBlock = Block::fromArray(
             [
                 'id' => 42,
+                'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'definitionIdentifier' => 'text',
                 'alwaysAvailable' => true,
                 'mainLocale' => 'en',
@@ -233,6 +239,7 @@ abstract class BlockMapperTest extends CoreTestCase
         $persistenceBlock = Block::fromArray(
             [
                 'id' => 42,
+                'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'definitionIdentifier' => 'text',
                 'alwaysAvailable' => false,
                 'mainLocale' => 'en',
@@ -254,6 +261,7 @@ abstract class BlockMapperTest extends CoreTestCase
             [
                 'id' => 31,
                 'layoutId' => 13,
+                'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'definitionIdentifier' => 'unknown',
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
@@ -284,7 +292,7 @@ abstract class BlockMapperTest extends CoreTestCase
         self::assertInstanceOf(NullBlockDefinition::class, $block->getDefinition());
 
         self::assertSame(31, $block->getId());
-        self::assertSame(13, $block->getLayoutId());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $block->getLayoutId()->toString());
         self::assertSame('default', $block->getViewType());
         self::assertSame('standard', $block->getItemViewType());
         self::assertSame('My block', $block->getName());
@@ -314,6 +322,7 @@ abstract class BlockMapperTest extends CoreTestCase
         $persistenceBlock = Block::fromArray(
             [
                 'id' => 33,
+                'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'definitionIdentifier' => 'two_columns',
                 'status' => Value::STATUS_PUBLISHED,
                 'name' => 'My block',
@@ -359,6 +368,7 @@ abstract class BlockMapperTest extends CoreTestCase
             [
                 'id' => 31,
                 'layoutId' => 13,
+                'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'definitionIdentifier' => 'text',
                 'viewType' => 'default',
                 'itemViewType' => 'standard',

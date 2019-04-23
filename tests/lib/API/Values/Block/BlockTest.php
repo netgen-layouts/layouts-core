@@ -13,6 +13,7 @@ use Netgen\Layouts\Block\BlockDefinition;
 use Netgen\Layouts\Exception\API\BlockException;
 use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandler;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class BlockTest extends TestCase
 {
@@ -66,10 +67,12 @@ final class BlockTest extends TestCase
         $placeholder = Placeholder::fromArray(['identifier' => 'main']);
         $collection = Collection::fromArray(['id' => 42]);
 
+        $layoutUuid = Uuid::uuid4();
+
         $block = Block::fromArray(
             [
                 'id' => 42,
-                'layoutId' => 24,
+                'layoutId' => $layoutUuid,
                 'definition' => $definition,
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
@@ -93,7 +96,7 @@ final class BlockTest extends TestCase
         );
 
         self::assertSame(42, $block->getId());
-        self::assertSame(24, $block->getLayoutId());
+        self::assertSame($layoutUuid->toString(), $block->getLayoutId()->toString());
         self::assertSame($definition, $block->getDefinition());
         self::assertSame($placeholder, $block->getPlaceholder('main'));
         self::assertFalse($block->hasPlaceholder('test'));

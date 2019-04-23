@@ -129,7 +129,7 @@ final class LayoutsDataCollector extends DataCollector
 
         $blockData = [
             'id' => $block->getId(),
-            'layout_id' => $block->getLayoutId(),
+            'layout_id' => $block->getLayoutId()->toString(),
             'definition' => $blockDefinition->getName(),
             'view_type' => $blockDefinition->hasViewType($block->getViewType()) ?
                 $blockDefinition->getViewType($block->getViewType())->getName() :

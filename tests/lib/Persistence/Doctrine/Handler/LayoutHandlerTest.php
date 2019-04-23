@@ -904,6 +904,7 @@ final class LayoutHandlerTest extends TestCase
             [
                 'id' => 39,
                 'layoutId' => $createdZone->layoutId,
+                'layoutUuid' => $createdZone->layoutUuid,
                 'depth' => 0,
                 'path' => '/39/',
                 'parentId' => null,
@@ -1057,6 +1058,7 @@ final class LayoutHandlerTest extends TestCase
                 [
                     'id' => 41,
                     'layoutId' => $copiedLayout->id,
+                    'layoutUuid' => $copiedLayout->uuid,
                     'depth' => 1,
                     'path' => '/40/41/',
                     'parentId' => 40,
@@ -1098,6 +1100,7 @@ final class LayoutHandlerTest extends TestCase
                 [
                     'id' => 43,
                     'layoutId' => $copiedLayout->id,
+                    'layoutUuid' => $copiedLayout->uuid,
                     'depth' => 1,
                     'path' => '/42/43/',
                     'parentId' => 42,
@@ -1125,6 +1128,7 @@ final class LayoutHandlerTest extends TestCase
                 [
                     'id' => 44,
                     'layoutId' => $copiedLayout->id,
+                    'layoutUuid' => $copiedLayout->uuid,
                     'depth' => 1,
                     'path' => '/42/44/',
                     'parentId' => 42,
@@ -1274,6 +1278,7 @@ final class LayoutHandlerTest extends TestCase
                 [
                     'id' => 32,
                     'layoutId' => 1,
+                    'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                     'depth' => 1,
                     'path' => '/39/32/',
                     'parentId' => 39,
@@ -1305,6 +1310,7 @@ final class LayoutHandlerTest extends TestCase
                 [
                     'id' => 31,
                     'layoutId' => 1,
+                    'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                     'depth' => 1,
                     'path' => '/39/31/',
                     'parentId' => 39,
@@ -1335,6 +1341,7 @@ final class LayoutHandlerTest extends TestCase
                 [
                     'id' => 35,
                     'layoutId' => 1,
+                    'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                     'depth' => 1,
                     'path' => '/39/35/',
                     'parentId' => 39,
@@ -1467,6 +1474,7 @@ final class LayoutHandlerTest extends TestCase
                 [
                     'id' => 32,
                     'layoutId' => 1,
+                    'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                     'depth' => 1,
                     'path' => '/2/32/',
                     'parentId' => 2,
@@ -1508,6 +1516,7 @@ final class LayoutHandlerTest extends TestCase
                 [
                     'id' => 31,
                     'layoutId' => 1,
+                    'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                     'depth' => 1,
                     'path' => '/3/31/',
                     'parentId' => 3,
@@ -1535,6 +1544,7 @@ final class LayoutHandlerTest extends TestCase
                 [
                     'id' => 35,
                     'layoutId' => 1,
+                    'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                     'depth' => 1,
                     'path' => '/3/35/',
                     'parentId' => 3,
