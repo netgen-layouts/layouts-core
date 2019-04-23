@@ -6,7 +6,6 @@ namespace Netgen\Layouts\Core\Service;
 
 use Generator;
 use Netgen\Layouts\API\Service\BlockService as BlockServiceInterface;
-use Netgen\Layouts\API\Service\LayoutService as APILayoutService;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\BlockCreateStruct as APIBlockCreateStruct;
 use Netgen\Layouts\API\Values\Block\BlockList;
@@ -24,6 +23,7 @@ use Netgen\Layouts\Core\StructBuilder\BlockStructBuilder;
 use Netgen\Layouts\Core\Validator\BlockValidator;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface;
 use Netgen\Layouts\Persistence\Handler\BlockHandlerInterface;
 use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface;
@@ -34,6 +34,7 @@ use Netgen\Layouts\Persistence\Values\Block\BlockTranslationUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Block\BlockUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\CollectionCreateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\QueryCreateStruct;
+use Netgen\Layouts\Persistence\Values\Layout\Layout as PersistenceLayout;
 
 final class BlockService extends Service implements BlockServiceInterface
 {
@@ -78,9 +79,9 @@ final class BlockService extends Service implements BlockServiceInterface
     private $collectionHandler;
 
     /**
-     * @var \Netgen\Layouts\API\Service\LayoutService
+     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface
      */
-    private $layoutService;
+    private $layoutTypeRegistry;
 
     public function __construct(
         TransactionHandlerInterface $transactionHandler,
@@ -89,7 +90,7 @@ final class BlockService extends Service implements BlockServiceInterface
         BlockStructBuilder $structBuilder,
         ParameterMapper $parameterMapper,
         ConfigMapper $configMapper,
-        APILayoutService $layoutService,
+        LayoutTypeRegistryInterface $layoutTypeRegistry,
         BlockHandlerInterface $blockHandler,
         LayoutHandlerInterface $layoutHandler,
         CollectionHandlerInterface $collectionHandler
@@ -101,7 +102,7 @@ final class BlockService extends Service implements BlockServiceInterface
         $this->structBuilder = $structBuilder;
         $this->parameterMapper = $parameterMapper;
         $this->configMapper = $configMapper;
-        $this->layoutService = $layoutService;
+        $this->layoutTypeRegistry = $layoutTypeRegistry;
         $this->blockHandler = $blockHandler;
         $this->layoutHandler = $layoutHandler;
         $this->collectionHandler = $collectionHandler;
@@ -222,9 +223,10 @@ final class BlockService extends Service implements BlockServiceInterface
             $blockCreateStruct->isTranslatable = false;
         }
 
+        $persistenceLayout = $this->layoutHandler->loadLayout($targetBlock->getLayoutId(), Value::STATUS_DRAFT);
         $persistenceBlock = $this->blockHandler->loadBlock($targetBlock->getId(), Value::STATUS_DRAFT);
 
-        return $this->internalCreateBlock($blockCreateStruct, $persistenceBlock, $placeholder, $position);
+        return $this->internalCreateBlock($blockCreateStruct, $persistenceLayout, $persistenceBlock, $placeholder, $position);
     }
 
     public function createBlockInZone(APIBlockCreateStruct $blockCreateStruct, Zone $zone, ?int $position = null): Block
@@ -233,15 +235,16 @@ final class BlockService extends Service implements BlockServiceInterface
             throw new BadStateException('zone', 'Blocks can only be created in zones in draft status.');
         }
 
-        $layout = $this->layoutService->loadLayoutDraft($zone->getLayoutId());
-
+        $persistenceLayout = $this->layoutHandler->loadLayout($zone->getLayoutId(), Value::STATUS_DRAFT);
         $persistenceZone = $this->layoutHandler->loadZone($zone->getLayoutId(), Value::STATUS_DRAFT, $zone->getIdentifier());
 
         $this->validator->validatePosition($position, 'position');
         $this->validator->validateBlockCreateStruct($blockCreateStruct);
 
+        $layoutType = $this->layoutTypeRegistry->getLayoutType($persistenceLayout->type);
+
         if (
-            !$layout->getLayoutType()->isBlockAllowedInZone(
+            !$layoutType->isBlockAllowedInZone(
                 $blockCreateStruct->getDefinition(),
                 $persistenceZone->identifier
             )
@@ -254,7 +257,7 @@ final class BlockService extends Service implements BlockServiceInterface
             $persistenceZone->status
         );
 
-        return $this->internalCreateBlock($blockCreateStruct, $rootBlock, 'root', $position);
+        return $this->internalCreateBlock($blockCreateStruct, $persistenceLayout, $rootBlock, 'root', $position);
     }
 
     public function updateBlock(Block $block, APIBlockUpdateStruct $blockUpdateStruct): Block
@@ -358,16 +361,17 @@ final class BlockService extends Service implements BlockServiceInterface
             throw new BadStateException('zone', 'You can only copy blocks in draft zones.');
         }
 
-        $layout = $this->layoutService->loadLayoutDraft($zone->getLayoutId());
-
         $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
+        $persistenceLayout = $this->layoutHandler->loadLayout($zone->getLayoutId(), Value::STATUS_DRAFT);
         $persistenceZone = $this->layoutHandler->loadZone($zone->getLayoutId(), Value::STATUS_DRAFT, $zone->getIdentifier());
 
         if ($persistenceBlock->layoutId !== $persistenceZone->layoutId) {
             throw new BadStateException('zone', 'You can only copy block to zone in the same layout.');
         }
 
-        if (!$layout->getLayoutType()->isBlockAllowedInZone($block->getDefinition(), $persistenceZone->identifier)) {
+        $layoutType = $this->layoutTypeRegistry->getLayoutType($persistenceLayout->type);
+
+        if (!$layoutType->isBlockAllowedInZone($block->getDefinition(), $persistenceZone->identifier)) {
             throw new BadStateException('zone', 'Block is not allowed in specified zone.');
         }
 
@@ -435,16 +439,17 @@ final class BlockService extends Service implements BlockServiceInterface
 
         $this->validator->validatePosition($position, 'position', true);
 
-        $layout = $this->layoutService->loadLayoutDraft($zone->getLayoutId());
-
         $persistenceBlock = $this->blockHandler->loadBlock($block->getId(), Value::STATUS_DRAFT);
+        $persistenceLayout = $this->layoutHandler->loadLayout($zone->getLayoutId(), Value::STATUS_DRAFT);
         $persistenceZone = $this->layoutHandler->loadZone($zone->getLayoutId(), Value::STATUS_DRAFT, $zone->getIdentifier());
 
         if ($persistenceBlock->layoutId !== $persistenceZone->layoutId) {
             throw new BadStateException('zone', 'You can only move block to zone in the same layout.');
         }
 
-        if (!$layout->getLayoutType()->isBlockAllowedInZone($block->getDefinition(), $persistenceZone->identifier)) {
+        $layoutType = $this->layoutTypeRegistry->getLayoutType($persistenceLayout->type);
+
+        if (!$layoutType->isBlockAllowedInZone($block->getDefinition(), $persistenceZone->identifier)) {
             throw new BadStateException('zone', 'Block is not allowed in specified zone.');
         }
 
@@ -611,14 +616,13 @@ final class BlockService extends Service implements BlockServiceInterface
      */
     private function internalCreateBlock(
         APIBlockCreateStruct $blockCreateStruct,
+        PersistenceLayout $layout,
         PersistenceBlock $targetBlock,
         string $placeholder,
         ?int $position = null
     ): Block {
-        $persistenceLayout = $this->layoutHandler->loadLayout($targetBlock->layoutId, Value::STATUS_DRAFT);
-
         $createdBlock = $this->transaction(
-            function () use ($blockCreateStruct, $persistenceLayout, $targetBlock, $placeholder, $position): PersistenceBlock {
+            function () use ($blockCreateStruct, $layout, $targetBlock, $placeholder, $position): PersistenceBlock {
                 $blockDefinition = $blockCreateStruct->getDefinition();
 
                 $createdBlock = $this->blockHandler->createBlock(
@@ -646,7 +650,7 @@ final class BlockService extends Service implements BlockServiceInterface
                             ),
                         ]
                     ),
-                    $persistenceLayout,
+                    $layout,
                     $targetBlock,
                     $placeholder
                 );
@@ -662,7 +666,7 @@ final class BlockService extends Service implements BlockServiceInterface
                                     'limit' => $collectionCreateStruct->limit,
                                     'alwaysAvailable' => $blockCreateStruct->alwaysAvailable,
                                     'isTranslatable' => $blockCreateStruct->isTranslatable,
-                                    'mainLocale' => $persistenceLayout->mainLocale,
+                                    'mainLocale' => $layout->mainLocale,
                                 ]
                             )
                         );
@@ -686,8 +690,8 @@ final class BlockService extends Service implements BlockServiceInterface
                         }
 
                         if ($blockCreateStruct->isTranslatable) {
-                            foreach ($persistenceLayout->availableLocales as $locale) {
-                                if ($locale !== $persistenceLayout->mainLocale) {
+                            foreach ($layout->availableLocales as $locale) {
+                                if ($locale !== $layout->mainLocale) {
                                     $createdCollection = $this->collectionHandler->createCollectionTranslation(
                                         $createdCollection,
                                         $locale,

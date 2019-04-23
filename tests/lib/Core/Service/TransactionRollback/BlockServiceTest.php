@@ -9,12 +9,10 @@ use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\BlockCreateStruct;
 use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
-use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Block\BlockDefinition;
 use Netgen\Layouts\Block\ContainerDefinition;
-use Netgen\Layouts\Layout\Type\LayoutType;
 use Netgen\Layouts\Persistence\Values\Block\Block as PersistenceBlock;
 use Netgen\Layouts\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Netgen\Layouts\Persistence\Values\Layout\Zone as PersistenceZone;
@@ -78,27 +76,15 @@ final class BlockServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutService
-            ->expects(self::at(0))
-            ->method('loadLayoutDraft')
-            ->willReturn(
-                Layout::fromArray(
-                    [
-                        'availableLocales' => ['en'],
-                        'layoutType' => new LayoutType(),
-                    ]
-                )
-            );
-
         $this->layoutHandler
             ->expects(self::at(0))
-            ->method('loadZone')
-            ->willReturn(PersistenceZone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'right']));
+            ->method('loadLayout')
+            ->willReturn(PersistenceLayout::fromArray(['type' => '4_zones_a']));
 
         $this->layoutHandler
             ->expects(self::at(1))
-            ->method('loadLayout')
-            ->willReturn(new PersistenceLayout());
+            ->method('loadZone')
+            ->willReturn(PersistenceZone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'left']));
 
         $this->blockHandler
             ->expects(self::at(0))
@@ -116,7 +102,7 @@ final class BlockServiceTest extends TestCase
 
         $this->blockService->createBlockInZone(
             new BlockCreateStruct(BlockDefinition::fromArray(['identifier' => 'definition'])),
-            Zone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'right'])
+            Zone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'left'])
         );
     }
 
@@ -217,11 +203,6 @@ final class BlockServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutService
-            ->expects(self::at(0))
-            ->method('loadLayoutDraft')
-            ->willReturn(Layout::fromArray(['layoutType' => new LayoutType()]));
-
         $this->blockHandler
             ->expects(self::at(0))
             ->method('loadBlock')
@@ -229,8 +210,13 @@ final class BlockServiceTest extends TestCase
 
         $this->layoutHandler
             ->expects(self::at(0))
+            ->method('loadLayout')
+            ->willReturn(PersistenceLayout::fromArray(['type' => '4_zones_a']));
+
+        $this->layoutHandler
+            ->expects(self::at(1))
             ->method('loadZone')
-            ->willReturn(PersistenceZone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'right']));
+            ->willReturn(PersistenceZone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'left']));
 
         $this->blockHandler
             ->expects(self::at(1))
@@ -248,7 +234,7 @@ final class BlockServiceTest extends TestCase
 
         $this->blockService->copyBlockToZone(
             Block::fromArray(['status' => Value::STATUS_DRAFT, 'definition' => new BlockDefinition()]),
-            Zone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'right'])
+            Zone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'left'])
         );
     }
 
@@ -306,11 +292,6 @@ final class BlockServiceTest extends TestCase
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Test exception text');
 
-        $this->layoutService
-            ->expects(self::at(0))
-            ->method('loadLayoutDraft')
-            ->willReturn(Layout::fromArray(['layoutType' => new LayoutType()]));
-
         $this->blockHandler
             ->expects(self::at(0))
             ->method('loadBlock')
@@ -318,8 +299,13 @@ final class BlockServiceTest extends TestCase
 
         $this->layoutHandler
             ->expects(self::at(0))
+            ->method('loadLayout')
+            ->willReturn(PersistenceLayout::fromArray(['type' => '4_zones_a']));
+
+        $this->layoutHandler
+            ->expects(self::at(1))
             ->method('loadZone')
-            ->willReturn(PersistenceZone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'right']));
+            ->willReturn(PersistenceZone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'left']));
 
         $this->blockHandler
             ->expects(self::at(1))
@@ -337,7 +323,7 @@ final class BlockServiceTest extends TestCase
 
         $this->blockService->moveBlockToZone(
             Block::fromArray(['status' => Value::STATUS_DRAFT, 'definition' => new BlockDefinition()]),
-            Zone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'right']),
+            Zone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'left']),
             0
         );
     }

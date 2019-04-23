@@ -245,7 +245,7 @@ abstract class CoreTestCase extends TestCase
             ),
             $this->createParameterMapper(),
             $this->createConfigMapper(),
-            $this->layoutService,
+            $this->layoutTypeRegistry,
             $this->blockHandler,
             $this->layoutHandler,
             $this->collectionHandler

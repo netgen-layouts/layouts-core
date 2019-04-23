@@ -147,7 +147,7 @@ services:
             - "@netgen_layouts.core.struct_builder.block"
             - "@netgen_layouts.core.mapper.parameter"
             - "@netgen_layouts.core.mapper.config"
-            - "@netgen_layouts.core.service.layout"
+            - "@netgen_layouts.layout.registry.layout_type"
             - "@netgen_layouts.persistence.block.handler"
             - "@netgen_layouts.persistence.layout.handler"
             - "@netgen_layouts.persistence.collection.handler"
