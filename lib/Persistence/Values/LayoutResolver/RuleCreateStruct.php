@@ -11,9 +11,9 @@ final class RuleCreateStruct
     use HydratorTrait;
 
     /**
-     * ID of the layout mapped to new rule.
+     * UUID of the layout mapped to new rule.
      *
-     * @var int|string|null
+     * @var string|null
      */
     public $layoutId;
 

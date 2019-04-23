@@ -86,6 +86,7 @@ services:
     netgen_layouts.persistence.doctrine.layout_resolver.handler:
         class: Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler
         arguments:
+            - "@netgen_layouts.persistence.doctrine.layout.handler"
             - "@netgen_layouts.persistence.doctrine.layout_resolver.query_handler"
             - "@netgen_layouts.persistence.doctrine.layout_resolver.mapper"
 

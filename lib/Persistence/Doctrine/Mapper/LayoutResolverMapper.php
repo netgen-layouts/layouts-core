@@ -25,6 +25,7 @@ final class LayoutResolverMapper
                     'id' => (int) $dataItem['id'],
                     'status' => (int) $dataItem['status'],
                     'layoutId' => $dataItem['layout_id'] !== null ? (int) $dataItem['layout_id'] : null,
+                    'layoutUuid' => $dataItem['layout_uuid'] ?? null,
                     'enabled' => (bool) $dataItem['enabled'],
                     'priority' => (int) $dataItem['priority'],
                     'comment' => $dataItem['comment'],

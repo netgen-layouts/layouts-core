@@ -11,9 +11,9 @@ final class RuleUpdateStruct
     use HydratorTrait;
 
     /**
-     * ID of the mapped layout. Set to 0 to remove the existing mapping.
+     * UUID of the mapped layout. Set to "false" to remove the existing mapping.
      *
-     * @var int|string|null
+     * @var string|bool|null
      */
     public $layoutId;
 

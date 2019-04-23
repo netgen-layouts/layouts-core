@@ -48,7 +48,7 @@ final class UpdateRule extends AbstractController
         $comment = $comment !== null ? trim($comment) : null;
 
         // null means we don't update the layout
-        // empty ("0", 0, ""...) means we remove the layout from the rule
+        // empty (0, 0.0, '0', '', false) means we remove the layout from the rule
         if (!in_array($layoutId, [0, 0.0, '0', '', false, null], true)) {
             try {
                 $this->layoutService->loadLayout(Uuid::fromString($layoutId));
@@ -68,7 +68,9 @@ final class UpdateRule extends AbstractController
         $ruleUpdateStruct->comment = $comment;
 
         if ($layoutId !== null) {
-            $ruleUpdateStruct->layoutId = !in_array($layoutId, [0, 0.0, '0', '', false], true) ? $layoutId : 0;
+            $ruleUpdateStruct->layoutId = !in_array($layoutId, [0, 0.0, '0', '', false], true) ?
+                Uuid::fromString($layoutId) :
+                false;
         }
 
         $updatedRule = $this->layoutResolverService->updateRule(

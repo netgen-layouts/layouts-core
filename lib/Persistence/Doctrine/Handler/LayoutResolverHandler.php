@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Persistence\Doctrine\Handler;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutResolverMapper;
 use Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler;
+use Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface;
 use Netgen\Layouts\Persistence\Handler\LayoutResolverHandlerInterface;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition;
@@ -24,6 +25,11 @@ use Netgen\Layouts\Persistence\Values\Value;
 final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 {
     /**
+     * @var \Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface
+     */
+    private $layoutHandler;
+
+    /**
      * @var \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler
      */
     private $queryHandler;
@@ -33,8 +39,12 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
      */
     private $mapper;
 
-    public function __construct(LayoutResolverQueryHandler $queryHandler, LayoutResolverMapper $mapper)
-    {
+    public function __construct(
+        LayoutHandlerInterface $layoutHandler,
+        LayoutResolverQueryHandler $queryHandler,
+        LayoutResolverMapper $mapper
+    ) {
+        $this->layoutHandler = $layoutHandler;
         $this->queryHandler = $queryHandler;
         $this->mapper = $mapper;
     }
@@ -121,10 +131,16 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
     public function createRule(RuleCreateStruct $ruleCreateStruct): Rule
     {
+        $layout = null;
+        if ($ruleCreateStruct->layoutId !== null) {
+            $layout = $this->layoutHandler->loadLayout($ruleCreateStruct->layoutId, Value::STATUS_PUBLISHED);
+        }
+
         $newRule = Rule::fromArray(
             [
                 'status' => $ruleCreateStruct->status,
-                'layoutId' => $ruleCreateStruct->layoutId,
+                'layoutId' => $layout instanceof Layout ? $layout->id : null,
+                'layoutUuid' => $layout instanceof Layout ? $layout->uuid : null,
                 'enabled' => $ruleCreateStruct->enabled ? true : false,
                 'priority' => $this->getRulePriority($ruleCreateStruct),
                 'comment' => trim($ruleCreateStruct->comment ?? ''),
@@ -138,11 +154,15 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
     {
         $updatedRule = clone $rule;
 
-        if (is_scalar($ruleUpdateStruct->layoutId)) {
-            // Layout ID can be 0, to indicate removal of the linked layout
-            $updatedRule->layoutId = !in_array($ruleUpdateStruct->layoutId, [0, 0.0, '0', '', false], true) ?
-                $ruleUpdateStruct->layoutId :
-                null;
+        if ($ruleUpdateStruct->layoutId !== null && !is_bool($ruleUpdateStruct->layoutId)) {
+            $layout = $this->layoutHandler->loadLayout($ruleUpdateStruct->layoutId, Value::STATUS_PUBLISHED);
+
+            $updatedRule->layoutId = $layout->id;
+            $updatedRule->layoutUuid = $layout->uuid;
+        } elseif ($ruleUpdateStruct->layoutId === false) {
+            // Layout ID can be "false", to indicate removal of the linked layout
+            $updatedRule->layoutId = null;
+            $updatedRule->layoutUuid = null;
         }
 
         if (is_string($ruleUpdateStruct->comment)) {

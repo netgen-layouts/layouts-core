@@ -36,6 +36,7 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetUpdateStruct;
+use Ramsey\Uuid\UuidInterface;
 
 final class LayoutResolverService extends Service implements APILayoutResolverService
 {
@@ -236,7 +237,9 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
                 return $this->layoutResolverHandler->createRule(
                     RuleCreateStruct::fromArray(
                         [
-                            'layoutId' => $ruleCreateStruct->layoutId,
+                            'layoutId' => $ruleCreateStruct->layoutId instanceof UuidInterface ?
+                                $ruleCreateStruct->layoutId->toString() :
+                                $ruleCreateStruct->layoutId,
                             'priority' => $ruleCreateStruct->priority,
                             'enabled' => $ruleCreateStruct->enabled,
                             'comment' => $ruleCreateStruct->comment,
@@ -266,7 +269,9 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
                     $persistenceRule,
                     RuleUpdateStruct::fromArray(
                         [
-                            'layoutId' => $ruleUpdateStruct->layoutId,
+                            'layoutId' => $ruleUpdateStruct->layoutId instanceof UuidInterface ?
+                                $ruleUpdateStruct->layoutId->toString() :
+                                $ruleUpdateStruct->layoutId,
                             'comment' => $ruleUpdateStruct->comment,
                         ]
                     )

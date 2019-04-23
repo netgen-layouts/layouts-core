@@ -618,13 +618,21 @@ final class LayoutResolverQueryHandler extends QueryHandler
     private function getRuleSelectQuery(): QueryBuilder
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT r.*', 'rd.*')
+        $query->select('DISTINCT r.*', 'rd.*, l.uuid AS layout_uuid')
             ->from('nglayouts_rule', 'r')
             ->innerJoin(
                 'r',
                 'nglayouts_rule_data',
                 'rd',
                 $query->expr()->eq('rd.rule_id', 'r.id')
+            )->leftJoin(
+                'r',
+                'nglayouts_layout',
+                'l',
+                $query->expr()->andX(
+                    $query->expr()->eq('r.layout_id', 'l.id'),
+                    $query->expr()->eq('l.status', Value::STATUS_PUBLISHED)
+                )
             );
 
         return $query;

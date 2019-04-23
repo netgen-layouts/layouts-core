@@ -9,6 +9,7 @@ use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutResolverMapper;
 use Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler;
 use Netgen\Layouts\Persistence\Doctrine\QueryHandler\TargetHandlerInterface;
+use Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface;
 use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use PHPUnit\Framework\TestCase;
 
@@ -26,6 +27,7 @@ abstract class AbstractTargetHandlerTest extends TestCase
         $this->createDatabase();
 
         $this->handler = new LayoutResolverHandler(
+            $this->createMock(LayoutHandlerInterface::class),
             new LayoutResolverQueryHandler(
                 $this->databaseConnection,
                 new ConnectionHelper($this->databaseConnection),

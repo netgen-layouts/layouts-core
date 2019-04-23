@@ -7,9 +7,9 @@ namespace Netgen\Layouts\API\Values\LayoutResolver;
 final class RuleCreateStruct
 {
     /**
-     * The ID of the layout to which the rule will be mapped.
+     * The UUID of the layout to which the rule will be mapped.
      *
-     * @var int|string|null
+     * @var \Ramsey\Uuid\UuidInterface|null
      */
     public $layoutId;
 

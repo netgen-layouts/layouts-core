@@ -15,6 +15,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
 use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistryInterface;
+use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints;
 
 final class LayoutResolverValidator extends Validator
@@ -48,8 +49,7 @@ final class LayoutResolverValidator extends Validator
             $this->validate(
                 $ruleCreateStruct->layoutId,
                 [
-                    new Constraints\NotBlank(),
-                    new Constraints\Type(['type' => 'scalar']),
+                    new Constraints\Type(['type' => UuidInterface::class]),
                 ],
                 'layoutId'
             );
@@ -93,12 +93,11 @@ final class LayoutResolverValidator extends Validator
      */
     public function validateRuleUpdateStruct(RuleUpdateStruct $ruleUpdateStruct): void
     {
-        if ($ruleUpdateStruct->layoutId !== null) {
+        if ($ruleUpdateStruct->layoutId !== null && $ruleUpdateStruct->layoutId !== false) {
             $this->validate(
                 $ruleUpdateStruct->layoutId,
                 [
-                    new Constraints\NotBlank(),
-                    new Constraints\Type(['type' => 'scalar']),
+                    new Constraints\Type(['type' => UuidInterface::class]),
                 ],
                 'layoutId'
             );

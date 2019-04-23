@@ -21,6 +21,7 @@ use Netgen\Layouts\Persistence\Handler\LayoutResolverHandlerInterface;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition as PersistenceCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
+use Ramsey\Uuid\Uuid;
 
 final class LayoutResolverMapper
 {
@@ -67,7 +68,9 @@ final class LayoutResolverMapper
             'layout' => function () use ($rule): ?Layout {
                 try {
                     // Layouts used by rule are always in published status
-                    return $rule->layoutId !== null ? $this->layoutService->loadLayout($rule->layoutId) : null;
+                    return $rule->layoutUuid !== null ?
+                        $this->layoutService->loadLayout(Uuid::fromString($rule->layoutUuid)) :
+                        null;
                 } catch (NotFoundException $e) {
                     return null;
                 }

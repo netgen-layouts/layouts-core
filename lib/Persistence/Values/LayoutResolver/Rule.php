@@ -21,9 +21,16 @@ final class Rule extends Value
     /**
      * ID of the layout mapped to this rule. Can be null if there's no mapped layout.
      *
-     * @var int|string|null
+     * @var int|null
      */
     public $layoutId;
+
+    /**
+     * UUID of the layout mapped to this rule. Can be null if there's no mapped layout.
+     *
+     * @var string|null
+     */
+    public $layoutUuid;
 
     /**
      * A flag indicating if the rule is enabled or not.

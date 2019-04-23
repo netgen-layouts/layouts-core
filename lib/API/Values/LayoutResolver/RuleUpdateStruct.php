@@ -7,11 +7,11 @@ namespace Netgen\Layouts\API\Values\LayoutResolver;
 final class RuleUpdateStruct
 {
     /**
-     * The ID of the layout to which the rule will be linked.
+     * The UUID of the layout to which the rule will be linked.
      *
-     * Set to 0 to remove the mapping.
+     * Set to "false" to remove the mapping.
      *
-     * @var int|string|null
+     * @var \Ramsey\Uuid\UuidInterface|bool|null
      */
     public $layoutId;
 

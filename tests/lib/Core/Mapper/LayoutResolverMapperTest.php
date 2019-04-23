@@ -12,6 +12,7 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
+use Ramsey\Uuid\Uuid;
 
 abstract class LayoutResolverMapperTest extends CoreTestCase
 {
@@ -38,6 +39,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
                 'id' => 3,
                 'status' => Value::STATUS_PUBLISHED,
                 'layoutId' => 1,
+                'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'enabled' => true,
                 'priority' => 12,
                 'comment' => 'Comment',
@@ -48,7 +50,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
 
         self::assertSame(3, $rule->getId());
         self::assertInstanceOf(Layout::class, $rule->getLayout());
-        self::assertSame(1, $rule->getLayout()->getId());
+        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $rule->getLayout()->getId()->toString());
         self::assertTrue($rule->isPublished());
         self::assertTrue($rule->isEnabled());
         self::assertSame(12, $rule->getPriority());
@@ -65,7 +67,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
     {
         $persistenceRule = Rule::fromArray(
             [
-                'layoutId' => 99999,
+                'layoutId' => Uuid::uuid4(),
             ]
         );
 

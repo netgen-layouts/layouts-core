@@ -22,6 +22,7 @@ use Netgen\Layouts\Tests\Layout\Resolver\Stubs\TargetType1;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use Netgen\Layouts\Utils\Hydrator;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Validator\Validation;
 
 final class LayoutResolverValidatorTest extends TestCase
@@ -207,33 +208,33 @@ final class LayoutResolverValidatorTest extends TestCase
     public function validateRuleCreateStructProvider(): array
     {
         return [
-            [['layoutId' => 12, 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
+            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
             [['layoutId' => null, 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
-            [['layoutId' => '12', 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
+            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
             [['layoutId' => '', 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], false],
             [['layoutId' => [], 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], false],
-            [['layoutId' => 12, 'priority' => null, 'enabled' => true, 'comment' => 'Comment'], true],
-            [['layoutId' => 12, 'priority' => '2', 'enabled' => true, 'comment' => 'Comment'], false],
-            [['layoutId' => 12, 'priority' => 2, 'enabled' => false, 'comment' => 'Comment'], true],
-            [['layoutId' => 12, 'priority' => 2, 'enabled' => null, 'comment' => 'Comment'], true],
-            [['layoutId' => 12, 'priority' => 2, 'enabled' => 0, 'comment' => 'Comment'], false],
-            [['layoutId' => 12, 'priority' => 2, 'enabled' => 1, 'comment' => 'Comment'], false],
-            [['layoutId' => 12, 'priority' => 2, 'enabled' => true, 'comment' => null], true],
-            [['layoutId' => 12, 'priority' => 2, 'enabled' => true, 'comment' => ''], true],
-            [['layoutId' => 12, 'priority' => 2, 'enabled' => true, 'comment' => 42], false],
+            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => null, 'enabled' => true, 'comment' => 'Comment'], true],
+            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => '2', 'enabled' => true, 'comment' => 'Comment'], false],
+            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => false, 'comment' => 'Comment'], true],
+            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => null, 'comment' => 'Comment'], true],
+            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => 0, 'comment' => 'Comment'], false],
+            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => 1, 'comment' => 'Comment'], false],
+            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => true, 'comment' => null], true],
+            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => true, 'comment' => ''], true],
+            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => true, 'comment' => 42], false],
         ];
     }
 
     public function validateRuleUpdateStructProvider(): array
     {
         return [
-            [['layoutId' => 12, 'comment' => 'Comment'], true],
+            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'comment' => 'Comment'], true],
             [['layoutId' => null, 'comment' => 'Comment'], true],
-            [['layoutId' => '12', 'comment' => 'Comment'], true],
+            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'comment' => 'Comment'], true],
             [['layoutId' => '', 'comment' => 'Comment'], false],
-            [['layoutId' => 12, 'comment' => null], true],
-            [['layoutId' => 12, 'comment' => ''], true],
-            [['layoutId' => 12, 'comment' => 42], false],
+            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'comment' => null], true],
+            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'comment' => ''], true],
+            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'comment' => 42], false],
         ];
     }
 

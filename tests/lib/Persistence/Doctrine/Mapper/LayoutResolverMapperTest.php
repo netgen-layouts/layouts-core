@@ -39,6 +39,7 @@ final class LayoutResolverMapperTest extends TestCase
                 'priority' => '2',
                 'comment' => 'Comment',
                 'status' => '1',
+                'layout_uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
             ],
             [
                 'id' => '43',
@@ -47,6 +48,7 @@ final class LayoutResolverMapperTest extends TestCase
                 'priority' => '3',
                 'comment' => null,
                 'status' => Value::STATUS_DRAFT,
+                'layout_uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
             ],
         ];
 
@@ -54,6 +56,7 @@ final class LayoutResolverMapperTest extends TestCase
             [
                 'id' => 42,
                 'layoutId' => 24,
+                'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'enabled' => true,
                 'priority' => 2,
                 'comment' => 'Comment',
@@ -62,6 +65,7 @@ final class LayoutResolverMapperTest extends TestCase
             [
                 'id' => 43,
                 'layoutId' => 25,
+                'layoutUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'enabled' => false,
                 'priority' => 3,
                 'comment' => null,

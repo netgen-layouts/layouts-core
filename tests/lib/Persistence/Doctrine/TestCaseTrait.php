@@ -94,6 +94,7 @@ trait TestCaseTrait
     protected function createLayoutResolverHandler(): LayoutResolverHandlerInterface
     {
         return new LayoutResolverHandler(
+            $this->createLayoutHandler(),
             new LayoutResolverQueryHandler(
                 $this->databaseConnection,
                 new ConnectionHelper($this->databaseConnection),

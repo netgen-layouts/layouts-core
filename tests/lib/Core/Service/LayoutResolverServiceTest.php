@@ -280,7 +280,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $rule = $this->layoutResolverService->loadRuleDraft(5);
 
         $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
-        $ruleUpdateStruct->layoutId = '3';
+        $ruleUpdateStruct->layoutId = 'd8e55af7-cf62-5f28-ae15-331b457d82e9';
         $ruleUpdateStruct->comment = 'Updated comment';
 
         $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
@@ -288,7 +288,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         self::assertTrue($updatedRule->isDraft());
         self::assertInstanceOf(Layout::class, $updatedRule->getLayout());
         self::assertTrue($updatedRule->getLayout()->isPublished());
-        self::assertSame(3, $updatedRule->getLayout()->getId());
+        self::assertSame('d8e55af7-cf62-5f28-ae15-331b457d82e9', $updatedRule->getLayout()->getId()->toString());
         self::assertSame('Updated comment', $updatedRule->getComment());
     }
 
@@ -307,37 +307,19 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         self::assertTrue($updatedRule->isDraft());
         self::assertInstanceOf(Layout::class, $updatedRule->getLayout());
         self::assertTrue($updatedRule->getLayout()->isPublished());
-        self::assertSame(2, $updatedRule->getLayout()->getId());
+        self::assertSame('71cbe281-430c-51d5-8e21-c3cc4e656dac', $updatedRule->getLayout()->getId()->toString());
         self::assertSame('Updated comment', $updatedRule->getComment());
     }
 
     /**
      * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRule
      */
-    public function testUpdateRuleWithEmptyLayout(): void
+    public function testUpdateRuleWithRemovalOfLinkedLayout(): void
     {
         $rule = $this->layoutResolverService->loadRuleDraft(5);
 
         $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
-        $ruleUpdateStruct->layoutId = 0;
-        $ruleUpdateStruct->comment = 'Updated comment';
-
-        $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
-
-        self::assertTrue($updatedRule->isDraft());
-        self::assertNull($updatedRule->getLayout());
-        self::assertSame('Updated comment', $updatedRule->getComment());
-    }
-
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRule
-     */
-    public function testUpdateRuleWithEmptyLayoutAndStringLayoutId(): void
-    {
-        $rule = $this->layoutResolverService->loadRuleDraft(5);
-
-        $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
-        $ruleUpdateStruct->layoutId = '0';
+        $ruleUpdateStruct->layoutId = false;
         $ruleUpdateStruct->comment = 'Updated comment';
 
         $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
