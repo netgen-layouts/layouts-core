@@ -8,6 +8,7 @@ use Netgen\Bundle\LayoutsBundle\ParamConverter\ParamConverter;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\Exception\NotFoundException;
 
 final class ZoneParamConverter extends ParamConverter
 {
@@ -41,6 +42,10 @@ final class ZoneParamConverter extends ParamConverter
         $layout = $values['status'] === self::STATUS_PUBLISHED ?
             $this->layoutService->loadLayout($values['layoutId']) :
             $this->layoutService->loadLayoutDraft($values['layoutId']);
+
+        if (!$layout->hasZone($values['zoneIdentifier'])) {
+            throw new NotFoundException('zone', $values['zoneIdentifier']);
+        }
 
         return $layout->getZone($values['zoneIdentifier']);
     }

@@ -63,7 +63,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find zone with identifier "right"'
+            'Could not find layout with identifier "9999"'
         );
     }
 

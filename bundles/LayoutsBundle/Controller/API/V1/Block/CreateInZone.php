@@ -12,6 +12,7 @@ use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\Block\Registry\BlockTypeRegistryInterface;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\Block\BlockTypeException;
+use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Serializer\Values\View;
 use Netgen\Layouts\Serializer\Version;
 use Symfony\Component\HttpFoundation\Request;
@@ -85,11 +86,16 @@ final class CreateInZone extends AbstractController
             ]
         );
 
+        $zoneIdentifier = $requestData->get('zone_identifier');
+        if (!$layout->hasZone($zoneIdentifier)) {
+            throw new NotFoundException('zone', $zoneIdentifier);
+        }
+
         $blockCreateStruct = $this->createStructBuilder->buildCreateStruct($blockType);
 
         $createdBlock = $this->blockService->createBlockInZone(
             $blockCreateStruct,
-            $layout->getZone($requestData->get('zone_identifier')),
+            $layout->getZone($zoneIdentifier),
             $requestData->get('parent_position')
         );
 

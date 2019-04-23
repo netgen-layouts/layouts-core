@@ -9,6 +9,7 @@ use Netgen\Bundle\LayoutsBundle\ParamConverter\Layout\ZoneParamConverter;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\Exception\NotFoundException;
 use PHPUnit\Framework\TestCase;
 
 final class ZoneParamConverterTest extends TestCase
@@ -104,6 +105,32 @@ final class ZoneParamConverterTest extends TestCase
                     'status' => 'draft',
                 ]
             )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\ParamConverter\Layout\ZoneParamConverter::loadValue
+     */
+    public function testLoadValueWithNonExistentZone(): void
+    {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find zone with identifier "left"');
+
+        $zone = new Zone();
+        $layout = Layout::fromArray(['zones' => new ArrayCollection(['right' => $zone])]);
+
+        $this->layoutServiceMock
+            ->expects(self::once())
+            ->method('loadLayout')
+            ->with(self::identicalTo(42))
+            ->willReturn($layout);
+
+        $this->paramConverter->loadValue(
+            [
+                'layoutId' => 42,
+                'zoneIdentifier' => 'left',
+                'status' => 'published',
+            ]
         );
     }
 }

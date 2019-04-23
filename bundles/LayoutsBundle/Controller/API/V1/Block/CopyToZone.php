@@ -8,6 +8,7 @@ use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Serializer\Values\View;
 use Netgen\Layouts\Serializer\Version;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,9 +49,14 @@ final class CopyToZone extends AbstractController
 
         $layout = $this->layoutService->loadLayoutDraft($requestData->get('layout_id'));
 
+        $zoneIdentifier = $requestData->get('zone_identifier');
+        if (!$layout->hasZone($zoneIdentifier)) {
+            throw new NotFoundException('zone', $zoneIdentifier);
+        }
+
         $copiedBlock = $this->blockService->copyBlockToZone(
             $block,
-            $layout->getZone($requestData->get('zone_identifier')),
+            $layout->getZone($zoneIdentifier),
             $requestData->get('parent_position')
         );
 
