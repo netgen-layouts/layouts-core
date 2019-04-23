@@ -264,14 +264,14 @@ final class LayoutQueryHandler extends QueryHandler
         $query = $this->getZoneSelectQuery();
         $query->where(
             $query->expr()->andX(
-                $query->expr()->eq('layout_id', ':layout_id'),
-                $query->expr()->eq('identifier', ':identifier')
+                $query->expr()->eq('l.id', ':layout_id'),
+                $query->expr()->eq('z.identifier', ':identifier')
             )
         )
         ->setParameter('layout_id', $layoutId, Type::INTEGER)
         ->setParameter('identifier', $identifier, Type::STRING);
 
-        $this->applyStatusCondition($query, $status);
+        $this->applyStatusCondition($query, $status, 'l.status');
 
         return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -283,12 +283,12 @@ final class LayoutQueryHandler extends QueryHandler
     {
         $query = $this->getZoneSelectQuery();
         $query->where(
-            $query->expr()->eq('layout_id', ':layout_id')
+            $query->expr()->eq('l.id', ':layout_id')
         )
         ->setParameter('layout_id', $layout->id, Type::INTEGER)
-        ->orderBy('identifier', 'ASC');
+        ->orderBy('z.identifier', 'ASC');
 
-        $this->applyStatusCondition($query, $layout->status);
+        $this->applyStatusCondition($query, $layout->status, 'l.status');
 
         return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -626,8 +626,17 @@ final class LayoutQueryHandler extends QueryHandler
     private function getZoneSelectQuery(): QueryBuilder
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT nglayouts_zone.*')
-            ->from('nglayouts_zone');
+        $query->select('DISTINCT z.*')
+            ->from('nglayouts_zone', 'z')
+            ->innerJoin(
+                'z',
+                'nglayouts_layout',
+                'l',
+                $query->expr()->andX(
+                    $query->expr()->eq('l.id', 'z.layout_id'),
+                    $query->expr()->eq('l.status', 'z.status')
+                )
+            );
 
         return $query;
     }
