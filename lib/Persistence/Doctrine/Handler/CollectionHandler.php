@@ -76,7 +76,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         if (count($data) === 0) {
             throw new NotFoundException(
                 sprintf(
-                    'item in collection with ID "%d" at position %d',
+                    'item in collection with ID "%s" at position %d',
                     $collection->id,
                     $position
                 )

@@ -15,6 +15,7 @@ use Netgen\Layouts\Exception\Validation\ValidationException;
 use Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -36,7 +37,7 @@ abstract class BlockTest extends CoreTestCase
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->fillParametersFromHash($parameters);
 
-        $zone = $this->layoutService->loadLayoutDraft(1)->getZone('left');
+        $zone = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('left');
         $createdBlock = $this->blockService->createBlockInZone($blockCreateStruct, $zone);
 
         $createdParameters = [];
@@ -75,7 +76,7 @@ abstract class BlockTest extends CoreTestCase
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->fillParametersFromHash($parameters);
 
-        $zone = $this->layoutService->loadLayoutDraft(1)->getZone('left');
+        $zone = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('left');
         $this->blockService->createBlockInZone($blockCreateStruct, $zone);
     }
 

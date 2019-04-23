@@ -280,7 +280,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $rule = $this->layoutResolverService->loadRuleDraft(5);
 
         $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
-        $ruleUpdateStruct->layoutId = 'd8e55af7-cf62-5f28-ae15-331b457d82e9';
+        $ruleUpdateStruct->layoutId = Uuid::fromString('d8e55af7-cf62-5f28-ae15-331b457d82e9');
         $ruleUpdateStruct->comment = 'Updated comment';
 
         $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
@@ -340,7 +340,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $rule = $this->layoutResolverService->loadRule(5);
 
         $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
-        $ruleUpdateStruct->layoutId = 3;
+        $ruleUpdateStruct->layoutId = Uuid::fromString('d8e55af7-cf62-5f28-ae15-331b457d82e9');
         $ruleUpdateStruct->comment = 'Updated comment';
 
         $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);

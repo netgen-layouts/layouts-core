@@ -12,9 +12,9 @@ interface IdProviderInterface
     /**
      * Extracts all relevant IDs for a given layout.
      *
-     * @param int|string $layoutId
+     * @param string $layoutId
      *
-     * @return int[]|string[]
+     * @return string[]
      */
     public function provideIds($layoutId): array;
 }

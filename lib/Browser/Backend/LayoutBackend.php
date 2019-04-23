@@ -49,7 +49,7 @@ final class LayoutBackend implements BackendInterface
     public function loadItem($value): ItemInterface
     {
         try {
-            $layout = $this->layoutService->loadLayout(Uuid::fromString($value));
+            $layout = $this->layoutService->loadLayout(Uuid::fromString((string) $value));
         } catch (BaseNotFoundException $e) {
             throw new NotFoundException(
                 sprintf('Item with value "%s" not found.', $value),

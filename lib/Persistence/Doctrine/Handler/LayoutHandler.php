@@ -51,7 +51,8 @@ final class LayoutHandler implements LayoutHandlerInterface
 
     public function loadLayout($layoutId, int $status): Layout
     {
-        $data = $this->queryHandler->loadLayoutData((string) $layoutId, $status);
+        $layoutId = $layoutId instanceof UuidInterface ? $layoutId->toString() : $layoutId;
+        $data = $this->queryHandler->loadLayoutData($layoutId, $status);
 
         if (count($data) === 0) {
             throw new NotFoundException('layout', $layoutId);
@@ -62,7 +63,8 @@ final class LayoutHandler implements LayoutHandlerInterface
 
     public function loadZone($layoutId, int $status, string $identifier): Zone
     {
-        $data = $this->queryHandler->loadZoneData((string) $layoutId, $status, $identifier);
+        $layoutId = $layoutId instanceof UuidInterface ? $layoutId->toString() : $layoutId;
+        $data = $this->queryHandler->loadZoneData($layoutId, $status, $identifier);
 
         if (count($data) === 0) {
             throw new NotFoundException('zone', $identifier);
@@ -124,7 +126,9 @@ final class LayoutHandler implements LayoutHandlerInterface
 
     public function layoutExists($layoutId, int $status): bool
     {
-        return $this->queryHandler->layoutExists((string) $layoutId, $status);
+        $layoutId = $layoutId instanceof UuidInterface ? $layoutId->toString() : $layoutId;
+
+        return $this->queryHandler->layoutExists($layoutId, $status);
     }
 
     public function loadLayoutZones(Layout $layout): array

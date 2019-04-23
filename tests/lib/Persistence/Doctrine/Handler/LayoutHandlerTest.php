@@ -776,7 +776,6 @@ final class LayoutHandlerTest extends TestCase
         $createdLayout = $this->layoutHandler->createLayout($layoutCreateStruct);
 
         self::assertSame(8, $createdLayout->id);
-        self::assertIsString($createdLayout->uuid);
         self::assertNotEmpty($createdLayout->uuid);
 
         self::assertSame('new_layout', $createdLayout->type);
@@ -995,8 +994,8 @@ final class LayoutHandlerTest extends TestCase
         $copiedLayout = $this->layoutHandler->copyLayout($originalLayout, $copyStruct);
 
         self::assertSame(8, $copiedLayout->id);
-        self::assertIsString($copiedLayout->uuid);
         self::assertNotEmpty($copiedLayout->uuid);
+        self::assertNotSame($originalLayout->uuid, $copiedLayout->uuid);
 
         self::assertSame('4_zones_a', $copiedLayout->type);
         self::assertSame('New name', $copiedLayout->name);
