@@ -32,7 +32,7 @@ final class CopyTest extends JsonApiTestCase
             $data
         );
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/blocks/copy_block',
             Response::HTTP_CREATED

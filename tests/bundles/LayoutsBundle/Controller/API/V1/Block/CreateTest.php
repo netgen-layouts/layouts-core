@@ -36,7 +36,7 @@ final class CreateTest extends JsonApiTestCase
             $data
         );
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/blocks/create_block',
             Response::HTTP_CREATED
@@ -67,7 +67,7 @@ final class CreateTest extends JsonApiTestCase
             $data
         );
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/blocks/create_block_with_view_type',
             Response::HTTP_CREATED
@@ -98,7 +98,7 @@ final class CreateTest extends JsonApiTestCase
             $data
         );
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/blocks/create_block_with_item_view_type',
             Response::HTTP_CREATED
@@ -128,7 +128,7 @@ final class CreateTest extends JsonApiTestCase
             $data
         );
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/blocks/create_block_at_end',
             Response::HTTP_CREATED

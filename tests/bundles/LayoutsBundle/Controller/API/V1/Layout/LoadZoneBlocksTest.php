@@ -18,7 +18,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
     {
         $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/layouts/1/zones/right/blocks?html=false');
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/layouts/load_zone_blocks',
             Response::HTTP_OK
@@ -32,7 +32,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
     {
         $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/layouts/1/zones/right/blocks?published=true&html=false');
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/layouts/load_published_zone_blocks',
             Response::HTTP_OK

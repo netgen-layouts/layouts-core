@@ -32,7 +32,7 @@ final class CopyTest extends JsonApiTestCase
             $data
         );
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/layouts/copy_layout',
             Response::HTTP_CREATED
@@ -60,7 +60,7 @@ final class CopyTest extends JsonApiTestCase
             $data
         );
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/layouts/copy_published_layout',
             Response::HTTP_CREATED
@@ -87,7 +87,7 @@ final class CopyTest extends JsonApiTestCase
             $data
         );
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/layouts/copy_layout_without_description',
             Response::HTTP_CREATED
@@ -115,7 +115,7 @@ final class CopyTest extends JsonApiTestCase
             $data
         );
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/layouts/copy_layout_empty_description',
             Response::HTTP_CREATED

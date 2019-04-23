@@ -36,7 +36,7 @@ final class CreateInZoneTest extends JsonApiTestCase
             $data
         );
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/blocks/create_block_in_zone',
             Response::HTTP_CREATED
@@ -67,7 +67,7 @@ final class CreateInZoneTest extends JsonApiTestCase
             $data
         );
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/blocks/create_block_in_zone_at_end',
             Response::HTTP_CREATED

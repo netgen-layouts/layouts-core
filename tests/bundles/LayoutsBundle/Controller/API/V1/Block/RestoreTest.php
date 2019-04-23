@@ -27,7 +27,7 @@ final class RestoreTest extends JsonApiTestCase
             $data
         );
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/blocks/restore_block',
             Response::HTTP_OK

@@ -17,7 +17,7 @@ final class LoadItemTest extends JsonApiTestCase
     {
         $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/collections/items/7');
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/collections/load_item',
             Response::HTTP_OK

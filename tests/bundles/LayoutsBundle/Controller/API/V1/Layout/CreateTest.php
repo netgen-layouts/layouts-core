@@ -35,7 +35,7 @@ final class CreateTest extends JsonApiTestCase
             $data
         );
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/layouts/create_layout',
             Response::HTTP_CREATED
@@ -65,7 +65,7 @@ final class CreateTest extends JsonApiTestCase
             $data
         );
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/layouts/create_layout_empty_description',
             Response::HTTP_CREATED
@@ -96,7 +96,7 @@ final class CreateTest extends JsonApiTestCase
             $data
         );
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/layouts/create_layout_empty_description',
             Response::HTTP_CREATED

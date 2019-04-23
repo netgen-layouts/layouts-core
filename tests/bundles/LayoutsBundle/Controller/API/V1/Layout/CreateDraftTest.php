@@ -27,7 +27,7 @@ final class CreateDraftTest extends JsonApiTestCase
             $data
         );
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/layouts/create_layout_draft',
             Response::HTTP_CREATED

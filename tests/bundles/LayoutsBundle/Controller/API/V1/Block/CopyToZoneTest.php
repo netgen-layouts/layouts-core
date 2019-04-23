@@ -32,7 +32,7 @@ final class CopyToZoneTest extends JsonApiTestCase
             $data
         );
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/blocks/copy_block_to_zone',
             Response::HTTP_CREATED

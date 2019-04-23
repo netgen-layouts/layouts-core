@@ -18,7 +18,7 @@ final class LoadLayoutBlocksTest extends JsonApiTestCase
     {
         $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/layouts/1/blocks?html=false');
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/layouts/load_layout_blocks',
             Response::HTTP_OK
@@ -32,7 +32,7 @@ final class LoadLayoutBlocksTest extends JsonApiTestCase
     {
         $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/layouts/1/blocks?published=true&html=false');
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/layouts/load_published_layout_blocks',
             Response::HTTP_OK

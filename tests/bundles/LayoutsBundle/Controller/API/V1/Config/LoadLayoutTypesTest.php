@@ -20,7 +20,7 @@ final class LoadLayoutTypesTest extends JsonApiTestCase
 
         $response = $this->client->getResponse();
 
-        self::assertResponseCode($response, Response::HTTP_OK);
+        $this->assertResponseCode($response, Response::HTTP_OK);
 
         $responseContent = json_decode($response->getContent(), true);
 

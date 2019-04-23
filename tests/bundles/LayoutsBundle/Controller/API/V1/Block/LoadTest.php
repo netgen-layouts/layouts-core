@@ -17,7 +17,7 @@ final class LoadTest extends JsonApiTestCase
     {
         $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/blocks/31?html=false');
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/blocks/view_block',
             Response::HTTP_OK
@@ -31,7 +31,7 @@ final class LoadTest extends JsonApiTestCase
     {
         $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/blocks/31?published=true&html=false');
 
-        self::assertResponse(
+        $this->assertResponse(
             $this->client->getResponse(),
             'v1/blocks/view_published_block',
             Response::HTTP_OK
