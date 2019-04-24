@@ -25,6 +25,7 @@ final class BlockMapper
             if (!isset($blocks[$blockId])) {
                 $blocks[$blockId] = [
                     'id' => $blockId,
+                    'uuid' => $dataItem['uuid'],
                     'layoutId' => (int) $dataItem['layout_id'],
                     'layoutUuid' => $layoutUuid ?? $dataItem['layout_uuid'] ?? '',
                     'depth' => (int) $dataItem['depth'],

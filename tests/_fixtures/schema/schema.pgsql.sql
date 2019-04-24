@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS "nglayouts_layout_translation" (
 CREATE TABLE IF NOT EXISTS "nglayouts_block" (
   "id" integer NOT NULL,
   "status" integer NOT NULL,
+  "uuid" character(36) NOT NULL,
   "layout_id" integer NOT NULL,
   "depth" integer NOT NULL,
   "path" character varying(255) NOT NULL,

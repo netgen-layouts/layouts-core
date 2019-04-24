@@ -27,7 +27,7 @@
                     "linked_zone": null,
                     "blocks": [
                         {
-                            "id": "@integer@",
+                            "id": "@uuid@",
                             "definition_identifier": "list",
                             "is_translatable": true,
                             "is_always_available": true,
@@ -77,7 +77,7 @@
                     "linked_zone": null,
                     "blocks": [
                         {
-                            "id": "@integer@",
+                            "id": "@uuid@",
                             "definition_identifier": "list",
                             "is_translatable": true,
                             "is_always_available": true,
@@ -264,7 +264,7 @@
                             }
                         },
                         {
-                            "id": "@integer@",
+                            "id": "@uuid@",
                             "definition_identifier": "list",
                             "is_translatable": false,
                             "is_always_available": true,
@@ -396,7 +396,7 @@
                     "linked_zone": null,
                     "blocks": [
                         {
-                            "id": "@integer@",
+                            "id": "@uuid@",
                             "definition_identifier": "title",
                             "is_translatable": false,
                             "is_always_available": true,
@@ -439,7 +439,7 @@
                     "linked_zone": null,
                     "blocks": [
                         {
-                            "id": "@integer@",
+                            "id": "@uuid@",
                             "definition_identifier": "two_columns",
                             "is_translatable": true,
                             "is_always_available": true,
@@ -455,7 +455,7 @@
                                     "identifier": "left",
                                     "blocks": [
                                         {
-                                            "id": "@integer@",
+                                            "id": "@uuid@",
                                             "definition_identifier": "text",
                                             "is_translatable": false,
                                             "is_always_available": true,

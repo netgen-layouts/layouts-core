@@ -18,7 +18,7 @@ final class MoveTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'parent_block_id' => 33,
+                'parent_block_id' => 'e666109d-f1db-5fd5-97fa-346f50e9ae59',
                 'parent_placeholder' => 'left',
                 'parent_position' => 0,
             ]
@@ -26,7 +26,7 @@ final class MoveTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/34/move',
+            '/nglayouts/api/v1/en/blocks/42446cc9-24c3-573c-9022-6b3a764727b5/move',
             [],
             [],
             [],
@@ -43,7 +43,7 @@ final class MoveTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'parent_block_id' => 33,
+                'parent_block_id' => 'e666109d-f1db-5fd5-97fa-346f50e9ae59',
                 'parent_placeholder' => 'right',
                 'parent_position' => 0,
             ]
@@ -51,7 +51,7 @@ final class MoveTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/37/move',
+            '/nglayouts/api/v1/en/blocks/129f51de-a535-5094-8517-45d672e06302/move',
             [],
             [],
             [],
@@ -68,7 +68,7 @@ final class MoveTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'parent_block_id' => 38,
+                'parent_block_id' => 'a2806e8a-ea8c-5c3b-8f84-2cbdae1a07f6',
                 'parent_placeholder' => 'main',
                 'parent_position' => 0,
             ]
@@ -76,7 +76,7 @@ final class MoveTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/37/move',
+            '/nglayouts/api/v1/en/blocks/129f51de-a535-5094-8517-45d672e06302/move',
             [],
             [],
             [],
@@ -95,7 +95,7 @@ final class MoveTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/9999/move/zone',
+            '/nglayouts/api/v1/en/blocks/ffffffff-ffff-ffff-ffff-ffffffffffff/move/zone',
             [],
             [],
             [],
@@ -105,7 +105,7 @@ final class MoveTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find block with identifier "9999"'
+            'Could not find block with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"'
         );
     }
 
@@ -116,7 +116,7 @@ final class MoveTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'parent_block_id' => 9999,
+                'parent_block_id' => 'ffffffff-ffff-ffff-ffff-ffffffffffff',
                 'parent_placeholder' => 'main',
                 'parent_position' => 1,
             ]
@@ -124,7 +124,7 @@ final class MoveTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/32/move',
+            '/nglayouts/api/v1/en/blocks/b07d3a85-bcdb-5af2-9b6f-deba36c700e7/move',
             [],
             [],
             [],
@@ -134,7 +134,7 @@ final class MoveTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find block with identifier "9999"'
+            'Could not find block with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"'
         );
     }
 
@@ -145,7 +145,7 @@ final class MoveTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'parent_block_id' => 33,
+                'parent_block_id' => 'e666109d-f1db-5fd5-97fa-346f50e9ae59',
                 'parent_placeholder' => 'unknown',
                 'parent_position' => 1,
             ]
@@ -153,7 +153,7 @@ final class MoveTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/34/move',
+            '/nglayouts/api/v1/en/blocks/42446cc9-24c3-573c-9022-6b3a764727b5/move',
             [],
             [],
             [],
@@ -174,7 +174,7 @@ final class MoveTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'parent_block_id' => 32,
+                'parent_block_id' => 'b07d3a85-bcdb-5af2-9b6f-deba36c700e7',
                 'parent_placeholder' => 'main',
                 'parent_position' => 0,
             ]
@@ -182,7 +182,7 @@ final class MoveTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/31/move',
+            '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de/move',
             [],
             [],
             [],
@@ -203,7 +203,7 @@ final class MoveTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'parent_block_id' => 33,
+                'parent_block_id' => 'e666109d-f1db-5fd5-97fa-346f50e9ae59',
                 'parent_placeholder' => 'left',
                 'parent_position' => 9999,
             ]
@@ -211,7 +211,7 @@ final class MoveTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/34/move',
+            '/nglayouts/api/v1/en/blocks/42446cc9-24c3-573c-9022-6b3a764727b5/move',
             [],
             [],
             [],
@@ -232,7 +232,7 @@ final class MoveTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'parent_block_id' => 38,
+                'parent_block_id' => 'a2806e8a-ea8c-5c3b-8f84-2cbdae1a07f6',
                 'parent_placeholder' => 'main',
                 'parent_position' => 0,
             ]
@@ -240,7 +240,7 @@ final class MoveTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/33/move',
+            '/nglayouts/api/v1/en/blocks/e666109d-f1db-5fd5-97fa-346f50e9ae59/move',
             [],
             [],
             [],
@@ -261,7 +261,7 @@ final class MoveTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'parent_block_id' => [42],
+                'parent_block_id' => 42,
                 'parent_placeholder' => 'main',
                 'parent_position' => 1,
             ]
@@ -269,7 +269,7 @@ final class MoveTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/32/move',
+            '/nglayouts/api/v1/en/blocks/b07d3a85-bcdb-5af2-9b6f-deba36c700e7/move',
             [],
             [],
             [],
@@ -279,7 +279,7 @@ final class MoveTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "blockId": This value should be of type scalar.'
+            'Invalid UUID string: 42'
         );
     }
 
@@ -297,7 +297,7 @@ final class MoveTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/32/move',
+            '/nglayouts/api/v1/en/blocks/b07d3a85-bcdb-5af2-9b6f-deba36c700e7/move',
             [],
             [],
             [],
@@ -307,7 +307,7 @@ final class MoveTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "blockId": This value should not be blank.'
+            'Invalid UUID string: '
         );
     }
 }

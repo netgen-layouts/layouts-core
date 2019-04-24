@@ -8,6 +8,7 @@ use Netgen\Layouts\Core\StructBuilder\BlockStructBuilder;
 use Netgen\Layouts\Core\StructBuilder\ConfigStructBuilder;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
+use Ramsey\Uuid\Uuid;
 
 abstract class BlockStructBuilderTest extends CoreTestCase
 {
@@ -80,7 +81,7 @@ abstract class BlockStructBuilderTest extends CoreTestCase
      */
     public function testNewBlockUpdateStructFromBlock(): void
     {
-        $block = $this->blockService->loadBlockDraft(36);
+        $block = $this->blockService->loadBlockDraft(Uuid::fromString('b40aa688-b8e8-5e07-bf82-4a97e5ed8bad'));
         $struct = $this->structBuilder->newBlockUpdateStruct('en', $block);
 
         self::assertArrayHasKey('key', $struct->getConfigStructs());

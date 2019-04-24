@@ -9,6 +9,7 @@ use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Serializer\Values\View;
 use Netgen\Layouts\Serializer\Version;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -40,7 +41,7 @@ final class Copy extends AbstractController
         $requestData = $request->attributes->get('data');
 
         $targetBlock = $this->blockService->loadBlockDraft(
-            $requestData->get('parent_block_id')
+            Uuid::fromString($requestData->get('parent_block_id'))
         );
 
         $copiedBlock = $this->blockService->copyBlock(

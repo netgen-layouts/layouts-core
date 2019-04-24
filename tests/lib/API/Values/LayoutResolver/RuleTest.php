@@ -49,7 +49,7 @@ final class RuleTest extends TestCase
 
         $condition = new Condition();
 
-        $layout = Layout::fromArray(['id' => 24]);
+        $layout = new Layout();
 
         $rule = Rule::fromArray(
             [

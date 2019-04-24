@@ -16,6 +16,7 @@ final class RuleTest extends TestCase
             [
                 'id' => 43,
                 'layoutId' => 25,
+                'layoutUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'enabled' => true,
                 'priority' => 3,
                 'comment' => 'Comment',
@@ -25,6 +26,7 @@ final class RuleTest extends TestCase
 
         self::assertSame(43, $rule->id);
         self::assertSame(25, $rule->layoutId);
+        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $rule->layoutUuid);
         self::assertTrue($rule->enabled);
         self::assertSame(3, $rule->priority);
         self::assertSame('Comment', $rule->comment);

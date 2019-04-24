@@ -8,6 +8,7 @@ use Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\CollectionPager\RouteGen
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Context\ContextInterface;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpKernel\UriSigner;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
@@ -55,7 +56,7 @@ final class RouteGeneratorTest extends TestCase
     {
         $block = Block::fromArray(
             [
-                'id' => 42,
+                'id' => Uuid::uuid4(),
                 'locale' => 'en',
             ]
         );
@@ -70,7 +71,7 @@ final class RouteGeneratorTest extends TestCase
                 self::identicalTo('nglayouts_ajax_block'),
                 self::identicalTo(
                     [
-                        'blockId' => 42,
+                        'blockId' => $block->getId()->toString(),
                         'locale' => 'en',
                         'collectionIdentifier' => 'default',
                         'nglContext' => ['var' => 'value'],

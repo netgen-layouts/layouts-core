@@ -16,6 +16,7 @@ final class ZoneTest extends TestCase
             [
                 'identifier' => 'left',
                 'layoutId' => 84,
+                'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'status' => Value::STATUS_PUBLISHED,
                 'rootBlockId' => 42,
                 'linkedLayoutId' => 24,
@@ -25,6 +26,7 @@ final class ZoneTest extends TestCase
 
         self::assertSame('left', $zone->identifier);
         self::assertSame(84, $zone->layoutId);
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $zone->layoutUuid);
         self::assertSame(Value::STATUS_PUBLISHED, $zone->status);
         self::assertSame(42, $zone->rootBlockId);
         self::assertSame(24, $zone->linkedLayoutId);

@@ -8,6 +8,7 @@ use Netgen\Bundle\LayoutsBundle\ParamConverter\Block\BlockParamConverter;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Block\Block;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class BlockParamConverterTest extends TestCase
 {
@@ -60,17 +61,19 @@ final class BlockParamConverterTest extends TestCase
     {
         $block = new Block();
 
+        $uuid = Uuid::uuid4();
+
         $this->blockServiceMock
             ->expects(self::once())
             ->method('loadBlock')
-            ->with(self::identicalTo(42))
+            ->with(self::equalTo($uuid))
             ->willReturn($block);
 
         self::assertSame(
             $block,
             $this->paramConverter->loadValue(
                 [
-                    'blockId' => 42,
+                    'blockId' => $uuid->toString(),
                     'status' => 'published',
                 ]
             )
@@ -84,17 +87,19 @@ final class BlockParamConverterTest extends TestCase
     {
         $block = new Block();
 
+        $uuid = Uuid::uuid4();
+
         $this->blockServiceMock
             ->expects(self::once())
             ->method('loadBlockDraft')
-            ->with(self::identicalTo(42))
+            ->with(self::equalTo($uuid))
             ->willReturn($block);
 
         self::assertSame(
             $block,
             $this->paramConverter->loadValue(
                 [
-                    'blockId' => 42,
+                    'blockId' => $uuid->toString(),
                     'status' => 'draft',
                 ]
             )

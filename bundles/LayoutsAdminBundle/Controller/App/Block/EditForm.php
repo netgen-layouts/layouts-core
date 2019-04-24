@@ -42,7 +42,7 @@ final class EditForm extends AbstractController
                 'action' => $this->generateUrl(
                     'nglayouts_app_block_form_edit',
                     [
-                        'blockId' => $block->getId(),
+                        'blockId' => $block->getId()->toString(),
                         'locale' => $locale,
                         'formName' => $formName,
                     ]

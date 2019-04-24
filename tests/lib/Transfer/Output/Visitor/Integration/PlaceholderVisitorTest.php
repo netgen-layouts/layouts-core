@@ -10,6 +10,7 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Transfer\Output\Visitor\PlaceholderVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
+use Ramsey\Uuid\Uuid;
 
 abstract class PlaceholderVisitorTest extends VisitorTest
 {
@@ -38,8 +39,8 @@ abstract class PlaceholderVisitorTest extends VisitorTest
     public function visitProvider(): array
     {
         return [
-            [function (): Placeholder { return $this->blockService->loadBlock(33)->getPlaceholder('left'); }, 'placeholder/block_33_left.json'],
-            [function (): Placeholder { return $this->blockService->loadBlock(33)->getPlaceholder('right'); }, 'placeholder/block_33_right.json'],
+            [function (): Placeholder { return $this->blockService->loadBlock(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'))->getPlaceholder('left'); }, 'placeholder/block_33_left.json'],
+            [function (): Placeholder { return $this->blockService->loadBlock(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'))->getPlaceholder('right'); }, 'placeholder/block_33_right.json'],
         ];
     }
 }

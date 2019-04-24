@@ -67,11 +67,12 @@ final class BlockTest extends TestCase
         $placeholder = Placeholder::fromArray(['identifier' => 'main']);
         $collection = Collection::fromArray(['id' => 42]);
 
+        $blockUuid = Uuid::uuid4();
         $layoutUuid = Uuid::uuid4();
 
         $block = Block::fromArray(
             [
-                'id' => 42,
+                'id' => $blockUuid,
                 'layoutId' => $layoutUuid,
                 'definition' => $definition,
                 'viewType' => 'default',
@@ -95,7 +96,7 @@ final class BlockTest extends TestCase
             ]
         );
 
-        self::assertSame(42, $block->getId());
+        self::assertSame($blockUuid->toString(), $block->getId()->toString());
         self::assertSame($layoutUuid->toString(), $block->getLayoutId()->toString());
         self::assertSame($definition, $block->getDefinition());
         self::assertSame($placeholder, $block->getPlaceholder('main'));

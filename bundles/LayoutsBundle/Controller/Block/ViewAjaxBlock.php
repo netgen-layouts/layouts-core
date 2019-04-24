@@ -47,7 +47,7 @@ final class ViewAjaxBlock extends AbstractController
         } catch (Throwable $t) {
             $message = sprintf(
                 'Error rendering an AJAX block with ID %s and collection %s',
-                $block->getId(),
+                $block->getId()->toString(),
                 $collectionIdentifier
             );
 

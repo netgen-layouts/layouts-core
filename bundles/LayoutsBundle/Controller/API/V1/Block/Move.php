@@ -7,6 +7,7 @@ namespace Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Block\Block;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -32,7 +33,7 @@ final class Move extends AbstractController
         $requestData = $request->attributes->get('data');
 
         $targetBlock = $this->blockService->loadBlockDraft(
-            $requestData->get('parent_block_id')
+            Uuid::fromString($requestData->get('parent_block_id'))
         );
 
         $this->blockService->moveBlock(

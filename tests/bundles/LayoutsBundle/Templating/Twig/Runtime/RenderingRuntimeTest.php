@@ -18,6 +18,7 @@ use Netgen\Layouts\View\RendererInterface;
 use Netgen\Layouts\View\Twig\ContextualizedTwigTemplate;
 use Netgen\Layouts\View\ViewInterface;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
 use Twig\Template;
@@ -216,7 +217,7 @@ final class RenderingRuntimeTest extends TestCase
      */
     public function testRenderBlockReturnsEmptyStringOnException(): void
     {
-        $block = Block::fromArray(['definition' => new BlockDefinition()]);
+        $block = Block::fromArray(['id' => Uuid::uuid4(), 'definition' => new BlockDefinition()]);
 
         $this->rendererMock
             ->expects(self::once())
@@ -245,7 +246,7 @@ final class RenderingRuntimeTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->errorHandler->setThrow(true);
-        $block = Block::fromArray(['definition' => new BlockDefinition()]);
+        $block = Block::fromArray(['id' => Uuid::uuid4(), 'definition' => new BlockDefinition()]);
 
         $this->rendererMock
             ->expects(self::once())
@@ -271,6 +272,7 @@ final class RenderingRuntimeTest extends TestCase
         $placeholder = new Placeholder();
         $block = Block::fromArray(
             [
+                'id' => Uuid::uuid4(),
                 'placeholders' => [
                     'main' => $placeholder,
                 ],
@@ -320,6 +322,7 @@ final class RenderingRuntimeTest extends TestCase
         $placeholder = new Placeholder();
         $block = Block::fromArray(
             [
+                'id' => Uuid::uuid4(),
                 'placeholders' => [
                     'main' => $placeholder,
                 ],
@@ -365,6 +368,7 @@ final class RenderingRuntimeTest extends TestCase
         $placeholder = new Placeholder();
         $block = Block::fromArray(
             [
+                'id' => Uuid::uuid4(),
                 'placeholders' => [
                     'main' => $placeholder,
                 ],
@@ -415,6 +419,7 @@ final class RenderingRuntimeTest extends TestCase
         $placeholder = new Placeholder();
         $block = Block::fromArray(
             [
+                'id' => Uuid::uuid4(),
                 'placeholders' => [
                     'main' => $placeholder,
                 ],
@@ -462,7 +467,7 @@ final class RenderingRuntimeTest extends TestCase
      */
     public function testRenderPlaceholderReturnsEmptyStringOnException(): void
     {
-        $block = Block::fromArray(['placeholders' => ['main' => new Placeholder()]]);
+        $block = Block::fromArray(['id' => Uuid::uuid4(), 'placeholders' => ['main' => new Placeholder()]]);
 
         $this->rendererMock
             ->expects(self::once())
@@ -492,7 +497,7 @@ final class RenderingRuntimeTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->errorHandler->setThrow(true);
-        $block = Block::fromArray(['placeholders' => ['main' => new Placeholder()]]);
+        $block = Block::fromArray(['id' => Uuid::uuid4(), 'placeholders' => ['main' => new Placeholder()]]);
 
         $this->rendererMock
             ->expects(self::once())
@@ -806,7 +811,7 @@ final class RenderingRuntimeTest extends TestCase
      */
     public function testRenderStringTemplate(): void
     {
-        $objectWithoutCast = Block::fromArray([]);
+        $objectWithoutCast = Block::fromArray(['id' => Uuid::uuid4()]);
         $objectWithCast = new class() {
             public function __toString(): string
             {

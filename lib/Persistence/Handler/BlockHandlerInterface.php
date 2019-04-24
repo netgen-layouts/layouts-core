@@ -18,7 +18,9 @@ interface BlockHandlerInterface
     /**
      * Loads a block with specified ID.
      *
-     * @param int|string $blockId
+     * Block ID can be an auto-incremented ID or an UUID.
+     *
+     * @param int|string|\Ramsey\Uuid\UuidInterface $blockId
      * @param int $status
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If block with specified ID does not exist
@@ -30,7 +32,9 @@ interface BlockHandlerInterface
     /**
      * Returns if block with specified ID exists.
      *
-     * @param int|string $blockId
+     * Block ID can be an auto-incremented ID or an UUID.
+     *
+     * @param int|string|\Ramsey\Uuid\UuidInterface $blockId
      * @param int $status
      *
      * @return bool
@@ -166,11 +170,8 @@ interface BlockHandlerInterface
 
     /**
      * Deletes all blocks belonging to specified layout.
-     *
-     * @param int|string $layoutId
-     * @param int $status
      */
-    public function deleteLayoutBlocks($layoutId, ?int $status = null): void;
+    public function deleteLayoutBlocks(int $layoutId, ?int $status = null): void;
 
     /**
      * Deletes provided blocks.

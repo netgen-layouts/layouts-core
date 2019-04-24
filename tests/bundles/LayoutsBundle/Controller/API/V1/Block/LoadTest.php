@@ -15,7 +15,7 @@ final class LoadTest extends JsonApiTestCase
      */
     public function testLoad(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/blocks/31?html=false');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de?html=false');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -29,7 +29,7 @@ final class LoadTest extends JsonApiTestCase
      */
     public function testLoadInPublishedState(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/blocks/31?published=true&html=false');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de?published=true&html=false');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -43,12 +43,12 @@ final class LoadTest extends JsonApiTestCase
      */
     public function testLoadWithNonExistentBlock(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/blocks/9999');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/blocks/ffffffff-ffff-ffff-ffff-ffffffffffff');
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find block with identifier "9999"'
+            'Could not find block with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"'
         );
     }
 }

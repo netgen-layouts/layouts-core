@@ -70,7 +70,7 @@ final class BlockNormalizerTest extends TestCase
 
         $block = Block::fromArray(
             [
-                'id' => 42,
+                'id' => Uuid::uuid4(),
                 'layoutId' => Uuid::uuid4(),
                 'definition' => BlockDefinition::fromArray(['identifier' => 'definition']),
                 'viewType' => 'default',
@@ -112,7 +112,7 @@ final class BlockNormalizerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => $block->getId(),
+                'id' => $block->getId()->toString(),
                 'layout_id' => $block->getLayoutId()->toString(),
                 'definition_identifier' => $block->getDefinition()->getIdentifier(),
                 'name' => $block->getName(),
@@ -150,7 +150,7 @@ final class BlockNormalizerTest extends TestCase
     {
         $block = Block::fromArray(
             [
-                'id' => 42,
+                'id' => Uuid::uuid4(),
                 'layoutId' => Uuid::uuid4(),
                 'definition' => ContainerDefinition::fromArray(
                     [

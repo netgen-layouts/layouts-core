@@ -25,7 +25,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/31/collections/default/change_type',
+            '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/default/change_type',
             [],
             [],
             [],
@@ -50,7 +50,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/31/collections/default/change_type',
+            '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/default/change_type',
             [],
             [],
             [],
@@ -74,7 +74,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/31/collections/featured/change_type',
+            '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/featured/change_type',
             [],
             [],
             [],
@@ -99,7 +99,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/31/collections/featured/change_type',
+            '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/featured/change_type',
             [],
             [],
             [],

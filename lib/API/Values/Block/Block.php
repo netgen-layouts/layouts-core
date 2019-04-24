@@ -27,7 +27,7 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
     use ParameterCollectionTrait;
 
     /**
-     * @var int|string
+     * @var \Ramsey\Uuid\UuidInterface
      */
     private $id;
 
@@ -117,11 +117,9 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
     }
 
     /**
-     * Returns the block ID.
-     *
-     * @return int|string
+     * Returns the block UUID.
      */
-    public function getId()
+    public function getId(): UuidInterface
     {
         return $this->id;
     }

@@ -164,7 +164,7 @@ final class RenderingRuntime
                 ] + $parameters
             );
         } catch (Throwable $t) {
-            $message = sprintf('Error rendering a block with ID "%s"', $block->getId());
+            $message = sprintf('Error rendering a block with ID "%s"', $block->getId()->toString());
 
             $this->errorHandler->handleError($t, $message);
         }
@@ -190,7 +190,7 @@ final class RenderingRuntime
             $message = sprintf(
                 'Error rendering a placeholder "%s" in block with ID "%s"',
                 $placeholder,
-                $block->getId()
+                $block->getId()->toString()
             );
 
             $this->errorHandler->handleError($t, $message);

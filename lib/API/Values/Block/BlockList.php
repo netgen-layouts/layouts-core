@@ -29,7 +29,7 @@ final class BlockList extends ArrayCollection
     }
 
     /**
-     * @return int[]|string[]
+     * @return \Ramsey\Uuid\UuidInterface[]
      */
     public function getBlockIds(): array
     {

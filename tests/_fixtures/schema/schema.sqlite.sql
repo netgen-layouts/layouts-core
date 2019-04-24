@@ -46,6 +46,7 @@ CREATE TABLE `nglayouts_layout_translation` (
 CREATE TABLE `nglayouts_block` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
+  `uuid` text(36) NOT NULL,
   `layout_id` integer NOT NULL,
   `depth` integer NOT NULL,
   `path` text(255) NOT NULL,

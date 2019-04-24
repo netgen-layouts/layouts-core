@@ -14,9 +14,16 @@ final class Block extends Value
     /**
      * Block ID.
      *
-     * @var int|string
+     * @var int
      */
     public $id;
+
+    /**
+     * Block UUID.
+     *
+     * @var string
+     */
+    public $uuid;
 
     /**
      * ID of the layout where block is located.

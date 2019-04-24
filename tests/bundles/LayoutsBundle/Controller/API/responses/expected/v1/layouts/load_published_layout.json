@@ -29,7 +29,7 @@
             "identifier": "left",
             "name": "Left",
             "block_ids": [
-                32
+                "b07d3a85-bcdb-5af2-9b6f-deba36c700e7"
             ],
             "allowed_block_definitions": true,
             "linked_layout_id": null,
@@ -39,8 +39,8 @@
             "identifier": "right",
             "name": "Right",
             "block_ids": [
-                31,
-                35
+                "28df256a-2467-5527-b398-9269ccc652de",
+                "c2a30ea3-95ef-55b0-a584-fbcfd93cec9e"
             ],
             "allowed_block_definitions": true,
             "linked_layout_id": null,

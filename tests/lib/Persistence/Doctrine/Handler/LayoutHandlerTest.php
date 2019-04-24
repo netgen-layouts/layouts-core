@@ -16,12 +16,15 @@ use Netgen\Layouts\Persistence\Values\Layout\ZoneUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Value;
 use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
+use Netgen\Layouts\Tests\TestCase\UuidGeneratorTrait;
 use PHPUnit\Framework\TestCase;
 
 final class LayoutHandlerTest extends TestCase
 {
     use TestCaseTrait;
     use ExportObjectTrait;
+    use UuidGeneratorTrait;
+
     /**
      * @var \Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface
      */
@@ -884,9 +887,15 @@ final class LayoutHandlerTest extends TestCase
         $zoneCreateStruct->identifier = 'new_zone';
         $zoneCreateStruct->linkedZone = $linkedZone;
 
-        $createdZone = $this->layoutHandler->createZone(
-            $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
-            $zoneCreateStruct
+        /** @var \Netgen\Layouts\Persistence\Values\Layout\Zone $createdZone */
+        $createdZone = $this->withUuids(
+            function () use ($zoneCreateStruct): Zone {
+                return $this->layoutHandler->createZone(
+                    $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
+                    $zoneCreateStruct
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
         self::assertSame(1, $createdZone->layoutId);
@@ -902,6 +911,7 @@ final class LayoutHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 39,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'layoutId' => $createdZone->layoutId,
                 'layoutUuid' => $createdZone->layoutUuid,
                 'depth' => 0,
@@ -991,7 +1001,23 @@ final class LayoutHandlerTest extends TestCase
         $copyStruct->description = 'New description';
 
         $originalLayout = $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED);
-        $copiedLayout = $this->layoutHandler->copyLayout($originalLayout, $copyStruct);
+
+        /** @var \Netgen\Layouts\Persistence\Values\Layout\Layout $copiedLayout */
+        $copiedLayout = $this->withUuids(
+            function () use ($originalLayout, $copyStruct): Layout {
+                return $this->layoutHandler->copyLayout($originalLayout, $copyStruct);
+            },
+            [
+                'b90ece3f-9520-54e8-8f43-e625051df284',
+                'efd1d54a-5d53-518f-91a5-f4965c242a67',
+                '1169074c-8779-5b64-afec-c910705e418a',
+                'aaa3659b-b574-5e6b-8902-0ea37f576469',
+                '8abc6a32-d8a7-5c30-afa5-9a9efa99b6ae',
+                '6f76b761-0dea-55cd-b963-ff4c0cc2184d',
+                'dac29092-e4cb-588b-bad5-a6633eee3b74',
+                '7fd3bef4-6ed0-561d-ac32-4ca0ead7ee03',
+            ]
+        );
 
         self::assertSame(8, $copiedLayout->id);
         self::assertNotEmpty($copiedLayout->uuid);
@@ -1056,6 +1082,7 @@ final class LayoutHandlerTest extends TestCase
             [
                 [
                     'id' => 41,
+                    'uuid' => 'aaa3659b-b574-5e6b-8902-0ea37f576469',
                     'layoutId' => $copiedLayout->id,
                     'layoutUuid' => $copiedLayout->uuid,
                     'depth' => 1,
@@ -1098,6 +1125,7 @@ final class LayoutHandlerTest extends TestCase
             [
                 [
                     'id' => 43,
+                    'uuid' => '6f76b761-0dea-55cd-b963-ff4c0cc2184d',
                     'layoutId' => $copiedLayout->id,
                     'layoutUuid' => $copiedLayout->uuid,
                     'depth' => 1,
@@ -1126,6 +1154,7 @@ final class LayoutHandlerTest extends TestCase
                 ],
                 [
                     'id' => 44,
+                    'uuid' => 'dac29092-e4cb-588b-bad5-a6633eee3b74',
                     'layoutId' => $copiedLayout->id,
                     'layoutUuid' => $copiedLayout->uuid,
                     'depth' => 1,
@@ -1276,6 +1305,7 @@ final class LayoutHandlerTest extends TestCase
             [
                 [
                     'id' => 32,
+                    'uuid' => 'b07d3a85-bcdb-5af2-9b6f-deba36c700e7',
                     'layoutId' => 1,
                     'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                     'depth' => 1,
@@ -1308,6 +1338,7 @@ final class LayoutHandlerTest extends TestCase
                 ],
                 [
                     'id' => 31,
+                    'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                     'layoutId' => 1,
                     'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                     'depth' => 1,
@@ -1339,6 +1370,7 @@ final class LayoutHandlerTest extends TestCase
                 ],
                 [
                     'id' => 35,
+                    'uuid' => 'c2a30ea3-95ef-55b0-a584-fbcfd93cec9e',
                     'layoutId' => 1,
                     'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                     'depth' => 1,
@@ -1472,6 +1504,7 @@ final class LayoutHandlerTest extends TestCase
             [
                 [
                     'id' => 32,
+                    'uuid' => 'b07d3a85-bcdb-5af2-9b6f-deba36c700e7',
                     'layoutId' => 1,
                     'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                     'depth' => 1,
@@ -1514,6 +1547,7 @@ final class LayoutHandlerTest extends TestCase
             [
                 [
                     'id' => 31,
+                    'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                     'layoutId' => 1,
                     'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                     'depth' => 1,
@@ -1542,6 +1576,7 @@ final class LayoutHandlerTest extends TestCase
                 ],
                 [
                     'id' => 35,
+                    'uuid' => 'c2a30ea3-95ef-55b0-a584-fbcfd93cec9e',
                     'layoutId' => 1,
                     'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                     'depth' => 1,

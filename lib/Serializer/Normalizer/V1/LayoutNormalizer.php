@@ -101,7 +101,7 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
             yield [
                 'identifier' => $zoneIdentifier,
                 'name' => $this->getZoneName($zone, $layoutType),
-                'block_ids' => $this->blockService->loadZoneBlocks($zone)->getBlockIds(),
+                'block_ids' => array_map('strval', $this->blockService->loadZoneBlocks($zone)->getBlockIds()),
                 'allowed_block_definitions' => $this->getAllowedBlocks(
                     $zone,
                     $layoutType

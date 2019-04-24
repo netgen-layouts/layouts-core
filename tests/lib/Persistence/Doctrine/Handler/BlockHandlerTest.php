@@ -15,12 +15,14 @@ use Netgen\Layouts\Persistence\Values\Block\CollectionReference;
 use Netgen\Layouts\Persistence\Values\Value;
 use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
+use Netgen\Layouts\Tests\TestCase\UuidGeneratorTrait;
 use PHPUnit\Framework\TestCase;
 
 final class BlockHandlerTest extends TestCase
 {
     use TestCaseTrait;
     use ExportObjectTrait;
+    use UuidGeneratorTrait;
 
     /**
      * @var \Netgen\Layouts\Persistence\Handler\BlockHandlerInterface
@@ -68,6 +70,7 @@ final class BlockHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 31,
+                'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'layoutId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
@@ -179,6 +182,7 @@ final class BlockHandlerTest extends TestCase
             [
                 [
                     'id' => 31,
+                    'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                     'layoutId' => 1,
                     'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                     'depth' => 1,
@@ -207,6 +211,7 @@ final class BlockHandlerTest extends TestCase
                 ],
                 [
                     'id' => 35,
+                    'uuid' => 'c2a30ea3-95ef-55b0-a584-fbcfd93cec9e',
                     'layoutId' => 1,
                     'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                     'depth' => 1,
@@ -252,6 +257,7 @@ final class BlockHandlerTest extends TestCase
             [
                 [
                     'id' => 37,
+                    'uuid' => '129f51de-a535-5094-8517-45d672e06302',
                     'layoutId' => 2,
                     'layoutUuid' => '71cbe281-430c-51d5-8e21-c3cc4e656dac',
                     'depth' => 2,
@@ -391,16 +397,22 @@ final class BlockHandlerTest extends TestCase
             'config_param' => 'Config value',
         ];
 
-        $createdBlock = $this->blockHandler->createBlock(
-            $blockCreateStruct,
-            $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
-            $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
-            'root'
+        $createdBlock = $this->withUuids(
+            function () use ($blockCreateStruct): Block {
+                return $this->blockHandler->createBlock(
+                    $blockCreateStruct,
+                    $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
+                    $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+                    'root'
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
         self::assertSame(
             [
                 'id' => 39,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'layoutId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
@@ -451,6 +463,7 @@ final class BlockHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 31,
+                'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'layoutId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
@@ -504,6 +517,7 @@ final class BlockHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 31,
+                'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'layoutId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
@@ -598,14 +612,20 @@ final class BlockHandlerTest extends TestCase
             'config_param' => 'Config value',
         ];
 
-        $block = $this->blockHandler->createBlock(
-            $blockCreateStruct,
-            $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT)
+        $block = $this->withUuids(
+            function () use ($blockCreateStruct): Block {
+                return $this->blockHandler->createBlock(
+                    $blockCreateStruct,
+                    $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT)
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
         self::assertSame(
             [
                 'id' => 39,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'layoutId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 0,
@@ -659,16 +679,22 @@ final class BlockHandlerTest extends TestCase
             'config' => 'Config value',
         ];
 
-        $block = $this->blockHandler->createBlock(
-            $blockCreateStruct,
-            $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
-            $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
-            'root'
+        $block = $this->withUuids(
+            function () use ($blockCreateStruct): Block {
+                return $this->blockHandler->createBlock(
+                    $blockCreateStruct,
+                    $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
+                    $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+                    'root'
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
         self::assertSame(
             [
                 'id' => 39,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'layoutId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
@@ -844,6 +870,7 @@ final class BlockHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 31,
+                'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'layoutId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
@@ -893,6 +920,7 @@ final class BlockHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 31,
+                'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'layoutId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
@@ -948,6 +976,7 @@ final class BlockHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 31,
+                'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'layoutId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
@@ -997,6 +1026,7 @@ final class BlockHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 31,
+                'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'layoutId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
@@ -1079,15 +1109,21 @@ final class BlockHandlerTest extends TestCase
      */
     public function testCopyBlock(): void
     {
-        $copiedBlock = $this->blockHandler->copyBlock(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-            $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
-            'root'
+        $copiedBlock = $this->withUuids(
+            function (): Block {
+                return $this->blockHandler->copyBlock(
+                    $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+                    $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+                    'root'
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
         self::assertSame(
             [
                 'id' => 39,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'layoutId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
@@ -1152,16 +1188,22 @@ final class BlockHandlerTest extends TestCase
      */
     public function testCopyBlockWithPosition(): void
     {
-        $copiedBlock = $this->blockHandler->copyBlock(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-            $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
-            'root',
-            1
+        $copiedBlock = $this->withUuids(
+            function (): Block {
+                return $this->blockHandler->copyBlock(
+                    $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+                    $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+                    'root',
+                    1
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
         self::assertSame(
             [
                 'id' => 39,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'layoutId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
@@ -1204,16 +1246,22 @@ final class BlockHandlerTest extends TestCase
      */
     public function testCopyBlockWithSamePosition(): void
     {
-        $copiedBlock = $this->blockHandler->copyBlock(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-            $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
-            'root',
-            0
+        $copiedBlock = $this->withUuids(
+            function (): Block {
+                return $this->blockHandler->copyBlock(
+                    $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+                    $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+                    'root',
+                    0
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
         self::assertSame(
             [
                 'id' => 39,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'layoutId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
@@ -1256,16 +1304,22 @@ final class BlockHandlerTest extends TestCase
      */
     public function testCopyBlockWithLastPosition(): void
     {
-        $copiedBlock = $this->blockHandler->copyBlock(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-            $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
-            'root',
-            2
+        $copiedBlock = $this->withUuids(
+            function (): Block {
+                return $this->blockHandler->copyBlock(
+                    $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+                    $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+                    'root',
+                    2
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
         self::assertSame(
             [
                 'id' => 39,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'layoutId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
@@ -1308,16 +1362,22 @@ final class BlockHandlerTest extends TestCase
      */
     public function testCopyBlockWithLowerPosition(): void
     {
-        $copiedBlock = $this->blockHandler->copyBlock(
-            $this->blockHandler->loadBlock(35, Value::STATUS_DRAFT),
-            $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
-            'root',
-            0
+        $copiedBlock = $this->withUuids(
+            function (): Block {
+                return $this->blockHandler->copyBlock(
+                    $this->blockHandler->loadBlock(35, Value::STATUS_DRAFT),
+                    $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+                    'root',
+                    0
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
         self::assertSame(
             [
                 'id' => 39,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'layoutId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
@@ -1386,15 +1446,21 @@ final class BlockHandlerTest extends TestCase
      */
     public function testCopyBlockWithChildBlocks(): void
     {
-        $copiedBlock = $this->blockHandler->copyBlock(
-            $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
-            $this->blockHandler->loadBlock(7, Value::STATUS_DRAFT),
-            'root'
+        $copiedBlock = $this->withUuids(
+            function (): Block {
+                return $this->blockHandler->copyBlock(
+                    $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
+                    $this->blockHandler->loadBlock(7, Value::STATUS_DRAFT),
+                    'root'
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc', '4adf0f00-f6c2-5297-9f96-039bfabe8d3b']
         );
 
         self::assertSame(
             [
                 'id' => 39,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'layoutId' => 2,
                 'layoutUuid' => '71cbe281-430c-51d5-8e21-c3cc4e656dac',
                 'depth' => 1,
@@ -1424,6 +1490,7 @@ final class BlockHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 40,
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'layoutId' => 2,
                 'layoutUuid' => '71cbe281-430c-51d5-8e21-c3cc4e656dac',
                 'depth' => 2,
@@ -1475,15 +1542,21 @@ final class BlockHandlerTest extends TestCase
      */
     public function testCopyBlockToBlockInDifferentLayout(): void
     {
-        $copiedBlock = $this->blockHandler->copyBlock(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-            $this->blockHandler->loadBlock(8, Value::STATUS_DRAFT),
-            'root'
+        $copiedBlock = $this->withUuids(
+            function (): Block {
+                return $this->blockHandler->copyBlock(
+                    $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+                    $this->blockHandler->loadBlock(8, Value::STATUS_DRAFT),
+                    'root'
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
         self::assertSame(
             [
                 'id' => 39,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'layoutId' => 2,
                 'layoutUuid' => '71cbe281-430c-51d5-8e21-c3cc4e656dac',
                 'depth' => 1,
@@ -1584,6 +1657,7 @@ final class BlockHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 33,
+                'uuid' => 'e666109d-f1db-5fd5-97fa-346f50e9ae59',
                 'layoutId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
@@ -1611,6 +1685,7 @@ final class BlockHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 37,
+                'uuid' => '129f51de-a535-5094-8517-45d672e06302',
                 'layoutId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 2,
@@ -1733,6 +1808,7 @@ final class BlockHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 31,
+                'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'layoutId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
@@ -1784,6 +1860,7 @@ final class BlockHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 35,
+                'uuid' => 'c2a30ea3-95ef-55b0-a584-fbcfd93cec9e',
                 'layoutId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
@@ -1879,6 +1956,7 @@ final class BlockHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 31,
+                'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'layoutId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
@@ -1940,6 +2018,7 @@ final class BlockHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 31,
+                'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'layoutId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,
@@ -2064,6 +2143,7 @@ final class BlockHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 31,
+                'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'layoutId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'depth' => 1,

@@ -84,9 +84,11 @@ final class LayoutNormalizerTest extends TestCase
         $date1 = new DateTimeImmutable();
         $date1 = $date1->setTimestamp(123);
 
+        $blockUuid = Uuid::uuid4();
+
         $block = Block::fromArray(
             [
-                'id' => 24,
+                'id' => $blockUuid,
             ]
         );
 
@@ -184,7 +186,7 @@ final class LayoutNormalizerTest extends TestCase
                     [
                         'identifier' => 'left',
                         'name' => 'Left',
-                        'block_ids' => [24],
+                        'block_ids' => [$blockUuid->toString()],
                         'allowed_block_definitions' => ['title'],
                         'linked_layout_id' => null,
                         'linked_zone_identifier' => null,

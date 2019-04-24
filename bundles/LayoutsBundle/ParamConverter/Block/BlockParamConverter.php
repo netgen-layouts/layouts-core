@@ -8,6 +8,7 @@ use Netgen\Bundle\LayoutsBundle\ParamConverter\ParamConverter;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Value;
+use Ramsey\Uuid\Uuid;
 
 final class BlockParamConverter extends ParamConverter
 {
@@ -42,9 +43,9 @@ final class BlockParamConverter extends ParamConverter
         $locales = isset($values['locale']) ? [$values['locale']] : null;
 
         if ($values['status'] === self::STATUS_PUBLISHED) {
-            return $this->blockService->loadBlock($values['blockId'], $locales);
+            return $this->blockService->loadBlock(Uuid::fromString($values['blockId']), $locales);
         }
 
-        return $this->blockService->loadBlockDraft($values['blockId'], $locales);
+        return $this->blockService->loadBlockDraft(Uuid::fromString($values['blockId']), $locales);
     }
 }

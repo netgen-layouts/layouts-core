@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Tests\API\Values\Block;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\BlockList;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 use stdClass;
 use TypeError;
 
@@ -47,8 +48,14 @@ final class BlockListTest extends TestCase
      */
     public function testGetBlockIds(): void
     {
-        $blocks = [Block::fromArray(['id' => 42]), Block::fromArray(['id' => 24])];
+        $uuid1 = Uuid::uuid4();
+        $uuid2 = Uuid::uuid4();
 
-        self::assertSame([42, 24], (new BlockList($blocks))->getBlockIds());
+        $blocks = [Block::fromArray(['id' => $uuid1]), Block::fromArray(['id' => $uuid2])];
+
+        self::assertSame(
+            [$uuid1->toString(), $uuid2->toString()],
+            array_map('strval', (new BlockList($blocks))->getBlockIds())
+        );
     }
 }

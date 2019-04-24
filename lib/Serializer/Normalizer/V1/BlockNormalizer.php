@@ -45,7 +45,7 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
         })();
 
         $data = [
-            'id' => $block->getId(),
+            'id' => $block->getId()->toString(),
             'layout_id' => $block->getLayoutId()->toString(),
             'definition_identifier' => $blockDefinition->getIdentifier(),
             'name' => $block->getName(),

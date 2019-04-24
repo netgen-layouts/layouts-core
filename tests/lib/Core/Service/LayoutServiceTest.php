@@ -770,9 +770,9 @@ abstract class LayoutServiceTest extends CoreTestCase
         self::assertCount(0, $rightZoneBlocks);
         self::assertCount(0, $bottomZoneBlocks);
 
-        self::assertSame(32, $topZoneBlocks[0]->getId());
-        self::assertSame(31, $topZoneBlocks[1]->getId());
-        self::assertSame(35, $topZoneBlocks[2]->getId());
+        self::assertSame('b07d3a85-bcdb-5af2-9b6f-deba36c700e7', $topZoneBlocks[0]->getId()->toString());
+        self::assertSame('28df256a-2467-5527-b398-9269ccc652de', $topZoneBlocks[1]->getId()->toString());
+        self::assertSame('c2a30ea3-95ef-55b0-a584-fbcfd93cec9e', $topZoneBlocks[2]->getId()->toString());
     }
 
     /**
@@ -821,9 +821,9 @@ abstract class LayoutServiceTest extends CoreTestCase
         self::assertCount(0, $rightZoneBlocks);
         self::assertCount(0, $bottomZoneBlocks);
 
-        self::assertSame(32, $topZoneBlocks[0]->getId());
-        self::assertSame(31, $topZoneBlocks[1]->getId());
-        self::assertSame(35, $topZoneBlocks[2]->getId());
+        self::assertSame('b07d3a85-bcdb-5af2-9b6f-deba36c700e7', $topZoneBlocks[0]->getId()->toString());
+        self::assertSame('28df256a-2467-5527-b398-9269ccc652de', $topZoneBlocks[1]->getId()->toString());
+        self::assertSame('c2a30ea3-95ef-55b0-a584-fbcfd93cec9e', $topZoneBlocks[2]->getId()->toString());
     }
 
     /**

@@ -32,7 +32,7 @@
                     "linked_zone": null,
                     "blocks": [
                         {
-                            "id": "@integer@",
+                            "id": "@uuid@",
                             "definition_identifier": "list",
                             "is_translatable": true,
                             "is_always_available": true,

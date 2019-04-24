@@ -18,6 +18,8 @@ final class MigrateUuidCommand extends Command
 {
     private const NAMESPACE_LAYOUT = 'a3468550-de48-4cc3-818d-7a3350ee5d40';
 
+    private const NAMESPACE_BLOCK = 'a3468551-de48-4cc3-818d-7a3350ee5d40';
+
     /**
      * @var \Doctrine\DBAL\Connection
      */

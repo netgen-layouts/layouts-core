@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Core\Service;
 
+use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Collection\CollectionCreateStruct;
 use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\API\Values\Collection\QueryCreateStruct;
@@ -12,11 +13,13 @@ use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
+use Netgen\Layouts\Tests\TestCase\UuidGeneratorTrait;
 use Ramsey\Uuid\Uuid;
 
 abstract class BlockServiceTest extends CoreTestCase
 {
     use ExportObjectTrait;
+    use UuidGeneratorTrait;
 
     /**
      * @covers \Netgen\Layouts\Core\Service\BlockService::__construct
@@ -24,7 +27,7 @@ abstract class BlockServiceTest extends CoreTestCase
      */
     public function testLoadBlock(): void
     {
-        $block = $this->blockService->loadBlock(31);
+        $block = $this->blockService->loadBlock(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
 
         self::assertTrue($block->isPublished());
     }
@@ -35,9 +38,9 @@ abstract class BlockServiceTest extends CoreTestCase
     public function testLoadBlockThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find block with identifier "999999"');
+        $this->expectExceptionMessage('Could not find block with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
 
-        $this->blockService->loadBlock(999999);
+        $this->blockService->loadBlock(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
     /**
@@ -46,9 +49,9 @@ abstract class BlockServiceTest extends CoreTestCase
     public function testLoadBlockThrowsNotFoundExceptionOnLoadingInternalBlock(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find block with identifier "1"');
+        $this->expectExceptionMessage('Could not find block with identifier "01f0c14e-2e15-54a1-8b41-58a3a8a9a917"');
 
-        $this->blockService->loadBlock(1);
+        $this->blockService->loadBlock(Uuid::fromString('01f0c14e-2e15-54a1-8b41-58a3a8a9a917'));
     }
 
     /**
@@ -57,7 +60,7 @@ abstract class BlockServiceTest extends CoreTestCase
      */
     public function testLoadBlockDraft(): void
     {
-        $block = $this->blockService->loadBlockDraft(31);
+        $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
 
         self::assertTrue($block->isDraft());
     }
@@ -68,9 +71,9 @@ abstract class BlockServiceTest extends CoreTestCase
     public function testLoadBlockDraftThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find block with identifier "999999"');
+        $this->expectExceptionMessage('Could not find block with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
 
-        $this->blockService->loadBlockDraft(999999);
+        $this->blockService->loadBlockDraft(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
     /**
@@ -79,9 +82,9 @@ abstract class BlockServiceTest extends CoreTestCase
     public function testLoadBlockDraftThrowsNotFoundExceptionOnLoadingInternalBlock(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find block with identifier "1"');
+        $this->expectExceptionMessage('Could not find block with identifier "01f0c14e-2e15-54a1-8b41-58a3a8a9a917"');
 
-        $this->blockService->loadBlockDraft(1);
+        $this->blockService->loadBlockDraft(Uuid::fromString('01f0c14e-2e15-54a1-8b41-58a3a8a9a917'));
     }
 
     /**
@@ -115,7 +118,7 @@ abstract class BlockServiceTest extends CoreTestCase
      */
     public function testHasPublishedState(): void
     {
-        $block = $this->blockService->loadBlock(31);
+        $block = $this->blockService->loadBlock(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
 
         self::assertTrue($this->blockService->hasPublishedState($block));
     }
@@ -125,7 +128,7 @@ abstract class BlockServiceTest extends CoreTestCase
      */
     public function testHasPublishedStateReturnsFalse(): void
     {
-        $block = $this->blockService->loadBlockDraft(36);
+        $block = $this->blockService->loadBlockDraft(Uuid::fromString('b40aa688-b8e8-5e07-bf82-4a97e5ed8bad'));
 
         self::assertFalse($this->blockService->hasPublishedState($block));
     }
@@ -140,17 +143,23 @@ abstract class BlockServiceTest extends CoreTestCase
             $this->blockDefinitionRegistry->getBlockDefinition('list')
         );
 
-        $targetBlock = $this->blockService->loadBlockDraft(33);
+        $targetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
 
-        $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'left', 0);
+        /** @var \Netgen\Layouts\API\Values\Block\Block $block */
+        $block = $this->withUuids(
+            function () use ($blockCreateStruct, $targetBlock): Block {
+                return $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'left', 0);
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+        );
 
-        $targetBlock = $this->blockService->loadBlockDraft(33);
+        $targetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
         $leftPlaceholder = $targetBlock->getPlaceholder('left');
 
         self::assertTrue($block->isDraft());
-        self::assertSame($block->getId(), $leftPlaceholder->getBlocks()[0]->getId());
+        self::assertSame($block->getId()->toString(), $leftPlaceholder->getBlocks()[0]->getId()->toString());
 
-        self::assertSame(37, $leftPlaceholder->getBlocks()[1]->getId());
+        self::assertSame('129f51de-a535-5094-8517-45d672e06302', $leftPlaceholder->getBlocks()[1]->getId()->toString());
 
         self::assertFalse($block->isTranslatable());
         self::assertTrue($block->isAlwaysAvailable());
@@ -169,8 +178,8 @@ abstract class BlockServiceTest extends CoreTestCase
         );
 
         $blockCreateStruct->addCollectionCreateStruct('default', new CollectionCreateStruct());
+        $targetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
 
-        $targetBlock = $this->blockService->loadBlockDraft(33);
         $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'left', 0);
 
         self::assertTrue($block->isDraft());
@@ -212,7 +221,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $blockCreateStruct->addCollectionCreateStruct('default', $collectionCreateStruct);
 
-        $targetBlock = $this->blockService->loadBlockDraft(33);
+        $targetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
         $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'left', 0);
 
         self::assertTrue($block->isDraft());
@@ -270,7 +279,7 @@ abstract class BlockServiceTest extends CoreTestCase
         );
 
         $targetBlock = $this->blockService->disableTranslations(
-            $this->blockService->loadBlockDraft(33)
+            $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'))
         );
 
         $block = $this->blockService->createBlock(
@@ -308,7 +317,7 @@ abstract class BlockServiceTest extends CoreTestCase
             $configStruct
         );
 
-        $targetBlock = $this->blockService->loadBlockDraft(33);
+        $targetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
         $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'left', 0);
 
         self::assertTrue($block->isDraft());
@@ -337,7 +346,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $this->blockService->createBlock(
             $blockCreateStruct,
-            $this->blockService->loadBlock(33),
+            $this->blockService->loadBlock(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
             'left',
             0
         );
@@ -357,7 +366,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $this->blockService->createBlock(
             $blockCreateStruct,
-            $this->blockService->loadBlockDraft(31),
+            $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
             'main'
         );
     }
@@ -376,7 +385,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $this->blockService->createBlock(
             $blockCreateStruct,
-            $this->blockService->loadBlockDraft(33),
+            $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
             'non_existing'
         );
     }
@@ -391,15 +400,21 @@ abstract class BlockServiceTest extends CoreTestCase
             $this->blockDefinitionRegistry->getBlockDefinition('list')
         );
 
-        $targetBlock = $this->blockService->loadBlockDraft(33);
+        $targetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
 
-        $block = $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'left');
+        /** @var \Netgen\Layouts\API\Values\Block\Block $block */
+        $block = $this->withUuids(
+            function () use ($blockCreateStruct, $targetBlock): Block {
+                return $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'left');
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+        );
 
-        $targetBlock = $this->blockService->loadBlockDraft(33);
+        $targetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
         $leftPlaceholder = $targetBlock->getPlaceholder('left');
 
         self::assertTrue($block->isDraft());
-        self::assertSame($block->getId(), $leftPlaceholder->getBlocks()[1]->getId());
+        self::assertSame($block->getId()->toString(), $leftPlaceholder->getBlocks()[1]->getId()->toString());
     }
 
     /**
@@ -416,7 +431,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $this->blockService->createBlock(
             $blockCreateStruct,
-            $this->blockService->loadBlockDraft(33),
+            $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
             'left',
             9999
         );
@@ -436,7 +451,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $this->blockService->createBlock(
             $blockCreateStruct,
-            $this->blockService->loadBlockDraft(33),
+            $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
             'left'
         );
     }
@@ -451,19 +466,25 @@ abstract class BlockServiceTest extends CoreTestCase
             $this->blockDefinitionRegistry->getBlockDefinition('list')
         );
 
-        $block = $this->blockService->createBlockInZone(
-            $blockCreateStruct,
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
-            0
+        /** @var \Netgen\Layouts\API\Values\Block\Block $block */
+        $block = $this->withUuids(
+            function () use ($blockCreateStruct): Block {
+                return $this->blockService->createBlockInZone(
+                    $blockCreateStruct,
+                    $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
+                    0
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
         $zone = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right');
         $blocks = $this->blockService->loadZoneBlocks($zone);
 
         self::assertTrue($block->isDraft());
-        self::assertSame($block->getId(), $blocks[0]->getId());
+        self::assertSame($block->getId()->toString(), $blocks[0]->getId()->toString());
 
-        self::assertSame(31, $blocks[1]->getId());
+        self::assertSame('28df256a-2467-5527-b398-9269ccc652de', $blocks[1]->getId()->toString());
     }
 
     /**
@@ -498,19 +519,25 @@ abstract class BlockServiceTest extends CoreTestCase
             $this->blockDefinitionRegistry->getBlockDefinition('title')
         );
 
-        $block = $this->blockService->createBlockInZone(
-            $blockCreateStruct,
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
-            0
+        /** @var \Netgen\Layouts\API\Values\Block\Block $block */
+        $block = $this->withUuids(
+            function () use ($blockCreateStruct): Block {
+                return $this->blockService->createBlockInZone(
+                    $blockCreateStruct,
+                    $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
+                    0
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
         $zone = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right');
         $blocks = $this->blockService->loadZoneBlocks($zone);
 
         self::assertTrue($block->isDraft());
-        self::assertSame($block->getId(), $blocks[0]->getId());
+        self::assertSame($block->getId()->toString(), $blocks[0]->getId()->toString());
 
-        self::assertSame(31, $blocks[1]->getId());
+        self::assertSame('28df256a-2467-5527-b398-9269ccc652de', $blocks[1]->getId()->toString());
 
         $collections = $block->getCollections();
         self::assertCount(0, $collections);
@@ -582,16 +609,22 @@ abstract class BlockServiceTest extends CoreTestCase
             $this->blockDefinitionRegistry->getBlockDefinition('title')
         );
 
-        $block = $this->blockService->createBlockInZone(
-            $blockCreateStruct,
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right')
+        /** @var \Netgen\Layouts\API\Values\Block\Block $block */
+        $block = $this->withUuids(
+            function () use ($blockCreateStruct): Block {
+                return $this->blockService->createBlockInZone(
+                    $blockCreateStruct,
+                    $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right')
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
         $zone = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right');
         $blocks = $this->blockService->loadZoneBlocks($zone);
 
         self::assertTrue($block->isDraft());
-        self::assertSame($block->getId(), $blocks[2]->getId());
+        self::assertSame($block->getId()->toString(), $blocks[2]->getId()->toString());
     }
 
     /**
@@ -637,7 +670,7 @@ abstract class BlockServiceTest extends CoreTestCase
      */
     public function testUpdateBlock(): void
     {
-        $block = $this->blockService->loadBlockDraft(31, ['en']);
+        $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'), ['en']);
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('hr');
         $blockUpdateStruct->viewType = 'small';
@@ -654,7 +687,7 @@ abstract class BlockServiceTest extends CoreTestCase
         self::assertSame('css-class', $updatedBlock->getParameter('css_class')->getValue());
         self::assertSame('css-id', $updatedBlock->getParameter('css_id')->getValue());
 
-        $croBlock = $this->blockService->loadBlockDraft(31, ['hr']);
+        $croBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'), ['hr']);
 
         self::assertSame('test_value', $croBlock->getParameter('css_class')->getValue());
 
@@ -668,7 +701,7 @@ abstract class BlockServiceTest extends CoreTestCase
      */
     public function testUpdateBlockInMainLocale(): void
     {
-        $block = $this->blockService->loadBlockDraft(31, ['en']);
+        $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'), ['en']);
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('en');
         $blockUpdateStruct->viewType = 'small';
@@ -685,7 +718,7 @@ abstract class BlockServiceTest extends CoreTestCase
         self::assertSame('test_value', $updatedBlock->getParameter('css_class')->getValue());
         self::assertSame('some_other_test_value', $updatedBlock->getParameter('css_id')->getValue());
 
-        $croBlock = $this->blockService->loadBlockDraft(31, ['hr']);
+        $croBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'), ['hr']);
 
         self::assertSame('css-class-hr', $croBlock->getParameter('css_class')->getValue());
 
@@ -699,7 +732,7 @@ abstract class BlockServiceTest extends CoreTestCase
      */
     public function testUpdateBlockWithUntranslatableParameters(): void
     {
-        $block = $this->blockService->loadBlockDraft(31, ['en']);
+        $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'), ['en']);
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('en');
         $blockUpdateStruct->setParameterValue('css_id', 'some_other_test_value');
@@ -713,7 +746,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $block = $this->blockService->updateBlock($block, $blockUpdateStruct);
 
-        $croBlock = $this->blockService->loadBlockDraft(31, ['hr']);
+        $croBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'), ['hr']);
 
         self::assertSame('english_css', $block->getParameter('css_class')->getValue());
         self::assertSame('some_other_test_value', $block->getParameter('css_id')->getValue());
@@ -728,7 +761,7 @@ abstract class BlockServiceTest extends CoreTestCase
      */
     public function testUpdateBlockWithConfig(): void
     {
-        $block = $this->blockService->loadBlockDraft(32);
+        $block = $this->blockService->loadBlockDraft(Uuid::fromString('b07d3a85-bcdb-5af2-9b6f-deba36c700e7'));
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('hr');
 
@@ -754,7 +787,7 @@ abstract class BlockServiceTest extends CoreTestCase
      */
     public function testUpdateBlockWithBlankName(): void
     {
-        $block = $this->blockService->loadBlockDraft(31);
+        $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('en');
         $blockUpdateStruct->viewType = 'small';
@@ -777,7 +810,7 @@ abstract class BlockServiceTest extends CoreTestCase
      */
     public function testUpdateBlockWithBlankViewType(): void
     {
-        $block = $this->blockService->loadBlockDraft(31);
+        $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('en');
         $blockUpdateStruct->name = 'Super cool block';
@@ -802,7 +835,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "block" has an invalid state. Only draft blocks can be updated.');
 
-        $block = $this->blockService->loadBlock(31);
+        $block = $this->blockService->loadBlock(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('en');
         $blockUpdateStruct->viewType = 'small';
@@ -821,7 +854,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "block" has an invalid state. Block does not have the specified translation.');
 
-        $block = $this->blockService->loadBlockDraft(31);
+        $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
 
         $blockUpdateStruct = $this->blockService->newBlockUpdateStruct('de');
         $blockUpdateStruct->viewType = 'small';
@@ -837,17 +870,23 @@ abstract class BlockServiceTest extends CoreTestCase
      */
     public function testCopyBlock(): void
     {
-        $copiedBlock = $this->blockService->copyBlock(
-            $this->blockService->loadBlockDraft(34),
-            $this->blockService->loadBlockDraft(33),
-            'left'
+        /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
+        $copiedBlock = $this->withUuids(
+            function (): Block {
+                return $this->blockService->copyBlock(
+                    $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
+                    $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
+                    'left'
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
-        $originalBlock = $this->blockService->loadBlockDraft(34);
+        $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5'));
         self::assertSame(0, $originalBlock->getPosition());
 
         self::assertTrue($copiedBlock->isDraft());
-        self::assertSame(39, $copiedBlock->getId());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->getId()->toString());
         self::assertSame(1, $copiedBlock->getPosition());
     }
 
@@ -856,18 +895,24 @@ abstract class BlockServiceTest extends CoreTestCase
      */
     public function testCopyBlockWithPosition(): void
     {
-        $copiedBlock = $this->blockService->copyBlock(
-            $this->blockService->loadBlockDraft(34),
-            $this->blockService->loadBlockDraft(33),
-            'left',
-            1
+        /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
+        $copiedBlock = $this->withUuids(
+            function (): Block {
+                return $this->blockService->copyBlock(
+                    $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
+                    $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
+                    'left',
+                    1
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
-        $originalBlock = $this->blockService->loadBlockDraft(34);
+        $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5'));
         self::assertSame(0, $originalBlock->getPosition());
 
         self::assertTrue($copiedBlock->isDraft());
-        self::assertSame(39, $copiedBlock->getId());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->getId()->toString());
         self::assertSame(1, $copiedBlock->getPosition());
     }
 
@@ -876,18 +921,24 @@ abstract class BlockServiceTest extends CoreTestCase
      */
     public function testCopyBlockWithSamePosition(): void
     {
-        $copiedBlock = $this->blockService->copyBlock(
-            $this->blockService->loadBlockDraft(34),
-            $this->blockService->loadBlockDraft(33),
-            'left',
-            0
+        /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
+        $copiedBlock = $this->withUuids(
+            function (): Block {
+                return $this->blockService->copyBlock(
+                    $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
+                    $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
+                    'left',
+                    0
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
-        $firstBlockInTargetBlock = $this->blockService->loadBlockDraft(37);
+        $firstBlockInTargetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('129f51de-a535-5094-8517-45d672e06302'));
         self::assertSame(1, $firstBlockInTargetBlock->getPosition());
 
         self::assertTrue($copiedBlock->isDraft());
-        self::assertSame(39, $copiedBlock->getId());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->getId()->toString());
         self::assertSame(0, $copiedBlock->getPosition());
     }
 
@@ -900,8 +951,8 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
 
         $this->blockService->copyBlock(
-            $this->blockService->loadBlockDraft(34),
-            $this->blockService->loadBlockDraft(33),
+            $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
+            $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
             'left',
             9999
         );
@@ -916,8 +967,8 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "block" has an invalid state. Only draft blocks can be copied.');
 
         $this->blockService->copyBlock(
-            $this->blockService->loadBlock(34),
-            $this->blockService->loadBlockDraft(33),
+            $this->blockService->loadBlock(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
+            $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
             'main'
         );
     }
@@ -931,8 +982,8 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. You can only copy blocks to draft blocks.');
 
         $this->blockService->copyBlock(
-            $this->blockService->loadBlockDraft(34),
-            $this->blockService->loadBlock(33),
+            $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
+            $this->blockService->loadBlock(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
             'main'
         );
     }
@@ -946,8 +997,8 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. Target block is not a container.');
 
         $this->blockService->copyBlock(
-            $this->blockService->loadBlockDraft(34),
-            $this->blockService->loadBlockDraft(37),
+            $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
+            $this->blockService->loadBlockDraft(Uuid::fromString('129f51de-a535-5094-8517-45d672e06302')),
             'main'
         );
     }
@@ -961,8 +1012,8 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "placeholder" has an invalid state. Target block does not have the specified placeholder.');
 
         $this->blockService->copyBlock(
-            $this->blockService->loadBlockDraft(34),
-            $this->blockService->loadBlockDraft(33),
+            $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
+            $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
             'non_existing'
         );
     }
@@ -976,8 +1027,8 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "block" has an invalid state. Containers cannot be placed inside containers.');
 
         $this->blockService->copyBlock(
-            $this->blockService->loadBlockDraft(33),
-            $this->blockService->loadBlockDraft(38),
+            $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
+            $this->blockService->loadBlockDraft(Uuid::fromString('a2806e8a-ea8c-5c3b-8f84-2cbdae1a07f6')),
             'main'
         );
     }
@@ -991,8 +1042,8 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. You can only copy block to blocks in the same layout.');
 
         $this->blockService->copyBlock(
-            $this->blockService->loadBlockDraft(31),
-            $this->blockService->loadBlockDraft(33),
+            $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
+            $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
             'left'
         );
     }
@@ -1002,19 +1053,25 @@ abstract class BlockServiceTest extends CoreTestCase
      */
     public function testCopyBlockToZone(): void
     {
-        $copiedBlock = $this->blockService->copyBlockToZone(
-            $this->blockService->loadBlockDraft(31),
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right')
+        /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
+        $copiedBlock = $this->withUuids(
+            function (): Block {
+                return $this->blockService->copyBlockToZone(
+                    $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
+                    $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right')
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
-        $originalBlock = $this->blockService->loadBlockDraft(31);
+        $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
         self::assertSame(0, $originalBlock->getPosition());
 
-        $secondBlock = $this->blockService->loadBlockDraft(35);
+        $secondBlock = $this->blockService->loadBlockDraft(Uuid::fromString('c2a30ea3-95ef-55b0-a584-fbcfd93cec9e'));
         self::assertSame(1, $secondBlock->getPosition());
 
         self::assertTrue($copiedBlock->isDraft());
-        self::assertSame(39, $copiedBlock->getId());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->getId()->toString());
         self::assertSame(2, $copiedBlock->getPosition());
 
         $copiedCollection = $this->collectionService->loadCollectionDraft(7);
@@ -1029,20 +1086,26 @@ abstract class BlockServiceTest extends CoreTestCase
      */
     public function testCopyBlockToZoneWithPosition(): void
     {
-        $copiedBlock = $this->blockService->copyBlockToZone(
-            $this->blockService->loadBlockDraft(31),
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
-            1
+        /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
+        $copiedBlock = $this->withUuids(
+            function (): Block {
+                return $this->blockService->copyBlockToZone(
+                    $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
+                    $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
+                    1
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
-        $originalBlock = $this->blockService->loadBlockDraft(31);
+        $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
         self::assertSame(0, $originalBlock->getPosition());
 
-        $secondBlock = $this->blockService->loadBlockDraft(35);
+        $secondBlock = $this->blockService->loadBlockDraft(Uuid::fromString('c2a30ea3-95ef-55b0-a584-fbcfd93cec9e'));
         self::assertSame(2, $secondBlock->getPosition());
 
         self::assertTrue($copiedBlock->isDraft());
-        self::assertSame(39, $copiedBlock->getId());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->getId()->toString());
         self::assertSame(1, $copiedBlock->getPosition());
     }
 
@@ -1051,20 +1114,26 @@ abstract class BlockServiceTest extends CoreTestCase
      */
     public function testCopyBlockToZoneWithSamePosition(): void
     {
-        $copiedBlock = $this->blockService->copyBlockToZone(
-            $this->blockService->loadBlockDraft(31),
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
-            0
+        /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
+        $copiedBlock = $this->withUuids(
+            function (): Block {
+                return $this->blockService->copyBlockToZone(
+                    $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
+                    $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
+                    0
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
-        $originalBlock = $this->blockService->loadBlockDraft(31);
+        $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
         self::assertSame(1, $originalBlock->getPosition());
 
-        $secondBlock = $this->blockService->loadBlockDraft(35);
+        $secondBlock = $this->blockService->loadBlockDraft(Uuid::fromString('c2a30ea3-95ef-55b0-a584-fbcfd93cec9e'));
         self::assertSame(2, $secondBlock->getPosition());
 
         self::assertTrue($copiedBlock->isDraft());
-        self::assertSame(39, $copiedBlock->getId());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->getId()->toString());
         self::assertSame(0, $copiedBlock->getPosition());
     }
 
@@ -1073,20 +1142,26 @@ abstract class BlockServiceTest extends CoreTestCase
      */
     public function testCopyBlockToZoneWithLastPosition(): void
     {
-        $copiedBlock = $this->blockService->copyBlockToZone(
-            $this->blockService->loadBlockDraft(31),
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
-            2
+        /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
+        $copiedBlock = $this->withUuids(
+            function (): Block {
+                return $this->blockService->copyBlockToZone(
+                    $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
+                    $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
+                    2
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
-        $originalBlock = $this->blockService->loadBlockDraft(31);
+        $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
         self::assertSame(0, $originalBlock->getPosition());
 
-        $secondBlock = $this->blockService->loadBlockDraft(35);
+        $secondBlock = $this->blockService->loadBlockDraft(Uuid::fromString('c2a30ea3-95ef-55b0-a584-fbcfd93cec9e'));
         self::assertSame(1, $secondBlock->getPosition());
 
         self::assertTrue($copiedBlock->isDraft());
-        self::assertSame(39, $copiedBlock->getId());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->getId()->toString());
         self::assertSame(2, $copiedBlock->getPosition());
     }
 
@@ -1095,20 +1170,26 @@ abstract class BlockServiceTest extends CoreTestCase
      */
     public function testCopyBlockToZoneWithLowerPosition(): void
     {
-        $copiedBlock = $this->blockService->copyBlockToZone(
-            $this->blockService->loadBlockDraft(35),
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
-            0
+        /** @var \Netgen\Layouts\API\Values\Block\Block $copiedBlock */
+        $copiedBlock = $this->withUuids(
+            function (): Block {
+                return $this->blockService->copyBlockToZone(
+                    $this->blockService->loadBlockDraft(Uuid::fromString('c2a30ea3-95ef-55b0-a584-fbcfd93cec9e')),
+                    $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
+                    0
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
-        $originalBlock = $this->blockService->loadBlockDraft(31);
+        $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
         self::assertSame(1, $originalBlock->getPosition());
 
-        $secondBlock = $this->blockService->loadBlockDraft(35);
+        $secondBlock = $this->blockService->loadBlockDraft(Uuid::fromString('c2a30ea3-95ef-55b0-a584-fbcfd93cec9e'));
         self::assertSame(2, $secondBlock->getPosition());
 
         self::assertTrue($copiedBlock->isDraft());
-        self::assertSame(39, $copiedBlock->getId());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->getId()->toString());
         self::assertSame(0, $copiedBlock->getPosition());
     }
 
@@ -1121,7 +1202,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
 
         $this->blockService->copyBlockToZone(
-            $this->blockService->loadBlockDraft(31),
+            $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
             $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
             9999
         );
@@ -1136,7 +1217,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "block" has an invalid state. Only draft blocks can be copied.');
 
         $this->blockService->copyBlockToZone(
-            $this->blockService->loadBlock(31),
+            $this->blockService->loadBlock(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
             $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('left')
         );
     }
@@ -1150,7 +1231,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "zone" has an invalid state. You can only copy blocks in draft zones.');
 
         $this->blockService->copyBlockToZone(
-            $this->blockService->loadBlockDraft(31),
+            $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
             $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('left')
         );
     }
@@ -1164,7 +1245,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "zone" has an invalid state. Block is not allowed in specified zone.');
 
         $this->blockService->copyBlockToZone(
-            $this->blockService->loadBlockDraft(31),
+            $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
             $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('bottom')
         );
     }
@@ -1178,7 +1259,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "zone" has an invalid state. You can only copy block to zone in the same layout.');
 
         $this->blockService->copyBlockToZone(
-            $this->blockService->loadBlockDraft(32),
+            $this->blockService->loadBlockDraft(Uuid::fromString('b07d3a85-bcdb-5af2-9b6f-deba36c700e7')),
             $this->layoutService->loadLayoutDraft(Uuid::fromString('8626a1ca-6413-5f54-acef-de7db06272ce'))->getZone('bottom')
         );
     }
@@ -1190,19 +1271,19 @@ abstract class BlockServiceTest extends CoreTestCase
     public function testMoveBlock(): void
     {
         $movedBlock = $this->blockService->moveBlock(
-            $this->blockService->loadBlockDraft(34),
-            $this->blockService->loadBlockDraft(33),
+            $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
+            $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
             'left',
             0
         );
 
         self::assertTrue($movedBlock->isDraft());
-        self::assertSame(34, $movedBlock->getId());
+        self::assertSame('42446cc9-24c3-573c-9022-6b3a764727b5', $movedBlock->getId()->toString());
 
-        $targetBlock = $this->blockService->loadBlockDraft(33);
+        $targetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
         $leftPlaceholder = $targetBlock->getPlaceholder('left');
 
-        self::assertSame($movedBlock->getId(), $leftPlaceholder->getBlocks()[0]->getId());
+        self::assertSame($movedBlock->getId()->toString(), $leftPlaceholder->getBlocks()[0]->getId()->toString());
     }
 
     /**
@@ -1212,21 +1293,21 @@ abstract class BlockServiceTest extends CoreTestCase
     public function testMoveBlockToDifferentPlaceholder(): void
     {
         $movedBlock = $this->blockService->moveBlock(
-            $this->blockService->loadBlockDraft(37),
-            $this->blockService->loadBlockDraft(33),
+            $this->blockService->loadBlockDraft(Uuid::fromString('129f51de-a535-5094-8517-45d672e06302')),
+            $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
             'right',
             0
         );
 
         self::assertTrue($movedBlock->isDraft());
-        self::assertSame(37, $movedBlock->getId());
+        self::assertSame('129f51de-a535-5094-8517-45d672e06302', $movedBlock->getId()->toString());
 
-        $targetBlock = $this->blockService->loadBlockDraft(33);
+        $targetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
         $leftPlaceholder = $targetBlock->getPlaceholder('left');
         $rightPlaceholder = $targetBlock->getPlaceholder('right');
 
         self::assertEmpty($leftPlaceholder->getBlocks());
-        self::assertSame($movedBlock->getId(), $rightPlaceholder->getBlocks()[0]->getId());
+        self::assertSame($movedBlock->getId()->toString(), $rightPlaceholder->getBlocks()[0]->getId()->toString());
     }
 
     /**
@@ -1236,22 +1317,22 @@ abstract class BlockServiceTest extends CoreTestCase
     public function testMoveBlockToDifferentBlock(): void
     {
         $movedBlock = $this->blockService->moveBlock(
-            $this->blockService->loadBlockDraft(37),
-            $this->blockService->loadBlockDraft(38),
+            $this->blockService->loadBlockDraft(Uuid::fromString('129f51de-a535-5094-8517-45d672e06302')),
+            $this->blockService->loadBlockDraft(Uuid::fromString('a2806e8a-ea8c-5c3b-8f84-2cbdae1a07f6')),
             'main',
             0
         );
 
         self::assertTrue($movedBlock->isDraft());
-        self::assertSame(37, $movedBlock->getId());
+        self::assertSame('129f51de-a535-5094-8517-45d672e06302', $movedBlock->getId()->toString());
 
-        $originalBlock = $this->blockService->loadBlockDraft(33);
-        $targetBlock = $this->blockService->loadBlockDraft(38);
+        $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
+        $targetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('a2806e8a-ea8c-5c3b-8f84-2cbdae1a07f6'));
         $originalPlaceholder = $originalBlock->getPlaceholder('left');
         $targetPlaceholder = $targetBlock->getPlaceholder('main');
 
         self::assertEmpty($originalPlaceholder->getBlocks());
-        self::assertSame($movedBlock->getId(), $targetPlaceholder->getBlocks()[0]->getId());
+        self::assertSame($movedBlock->getId()->toString(), $targetPlaceholder->getBlocks()[0]->getId()->toString());
     }
 
     /**
@@ -1263,8 +1344,8 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "block" has an invalid state. Only draft blocks can be moved.');
 
         $this->blockService->moveBlock(
-            $this->blockService->loadBlock(31),
-            $this->blockService->loadBlockDraft(33),
+            $this->blockService->loadBlock(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
+            $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
             'left',
             0
         );
@@ -1279,8 +1360,8 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. You can only move blocks to draft blocks.');
 
         $this->blockService->moveBlock(
-            $this->blockService->loadBlockDraft(31),
-            $this->blockService->loadBlock(33),
+            $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
+            $this->blockService->loadBlock(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
             'left',
             0
         );
@@ -1295,8 +1376,8 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. Target block is not a container.');
 
         $this->blockService->moveBlock(
-            $this->blockService->loadBlockDraft(32),
-            $this->blockService->loadBlockDraft(31),
+            $this->blockService->loadBlockDraft(Uuid::fromString('b07d3a85-bcdb-5af2-9b6f-deba36c700e7')),
+            $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
             'left',
             0
         );
@@ -1311,8 +1392,8 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "placeholder" has an invalid state. Target block does not have the specified placeholder.');
 
         $this->blockService->moveBlock(
-            $this->blockService->loadBlockDraft(34),
-            $this->blockService->loadBlockDraft(33),
+            $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
+            $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
             'non_existing',
             0
         );
@@ -1327,8 +1408,8 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "block" has an invalid state. Containers cannot be placed inside containers.');
 
         $this->blockService->moveBlock(
-            $this->blockService->loadBlockDraft(33),
-            $this->blockService->loadBlockDraft(38),
+            $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
+            $this->blockService->loadBlockDraft(Uuid::fromString('a2806e8a-ea8c-5c3b-8f84-2cbdae1a07f6')),
             'main',
             0
         );
@@ -1343,8 +1424,8 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
 
         $this->blockService->moveBlock(
-            $this->blockService->loadBlockDraft(34),
-            $this->blockService->loadBlockDraft(33),
+            $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
+            $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
             'left',
             9999
         );
@@ -1359,8 +1440,8 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. You can only move block to blocks in the same layout.');
 
         $this->blockService->moveBlock(
-            $this->blockService->loadBlockDraft(31),
-            $this->blockService->loadBlockDraft(33),
+            $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
+            $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
             'left',
             0
         );
@@ -1373,18 +1454,18 @@ abstract class BlockServiceTest extends CoreTestCase
     public function testMoveBlockToZone(): void
     {
         $movedBlock = $this->blockService->moveBlockToZone(
-            $this->blockService->loadBlockDraft(32),
+            $this->blockService->loadBlockDraft(Uuid::fromString('b07d3a85-bcdb-5af2-9b6f-deba36c700e7')),
             $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('left'),
             0
         );
 
         self::assertTrue($movedBlock->isDraft());
-        self::assertSame(32, $movedBlock->getId());
+        self::assertSame('b07d3a85-bcdb-5af2-9b6f-deba36c700e7', $movedBlock->getId()->toString());
 
         $zone = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('left');
         $blocks = $this->blockService->loadZoneBlocks($zone);
 
-        self::assertSame($movedBlock->getId(), $blocks[0]->getId());
+        self::assertSame($movedBlock->getId()->toString(), $blocks[0]->getId()->toString());
     }
 
     /**
@@ -1394,18 +1475,18 @@ abstract class BlockServiceTest extends CoreTestCase
     public function testMoveBlockToDifferentZone(): void
     {
         $movedBlock = $this->blockService->moveBlockToZone(
-            $this->blockService->loadBlockDraft(32),
+            $this->blockService->loadBlockDraft(Uuid::fromString('b07d3a85-bcdb-5af2-9b6f-deba36c700e7')),
             $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
             0
         );
 
         self::assertTrue($movedBlock->isDraft());
-        self::assertSame(32, $movedBlock->getId());
+        self::assertSame('b07d3a85-bcdb-5af2-9b6f-deba36c700e7', $movedBlock->getId()->toString());
 
         $zone = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right');
         $blocks = $this->blockService->loadZoneBlocks($zone);
 
-        self::assertSame($movedBlock->getId(), $blocks[0]->getId());
+        self::assertSame($movedBlock->getId()->toString(), $blocks[0]->getId()->toString());
     }
 
     /**
@@ -1417,7 +1498,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "block" has an invalid state. Only draft blocks can be moved.');
 
         $this->blockService->moveBlockToZone(
-            $this->blockService->loadBlock(31),
+            $this->blockService->loadBlock(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
             $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('left'),
             0
         );
@@ -1432,7 +1513,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "zone" has an invalid state. You can only move blocks in draft zones.');
 
         $this->blockService->moveBlockToZone(
-            $this->blockService->loadBlockDraft(31),
+            $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
             $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('left'),
             0
         );
@@ -1447,7 +1528,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
 
         $this->blockService->moveBlockToZone(
-            $this->blockService->loadBlockDraft(31),
+            $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
             $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('left'),
             9999
         );
@@ -1462,7 +1543,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "zone" has an invalid state. You can only move block to zone in the same layout.');
 
         $this->blockService->moveBlockToZone(
-            $this->blockService->loadBlockDraft(32),
+            $this->blockService->loadBlockDraft(Uuid::fromString('b07d3a85-bcdb-5af2-9b6f-deba36c700e7')),
             $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('bottom'),
             0
         );
@@ -1477,7 +1558,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "zone" has an invalid state. Block is not allowed in specified zone.');
 
         $this->blockService->moveBlockToZone(
-            $this->blockService->loadBlockDraft(31),
+            $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
             $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('bottom'),
             0
         );
@@ -1488,7 +1569,7 @@ abstract class BlockServiceTest extends CoreTestCase
      */
     public function testRestoreBlock(): void
     {
-        $block = $this->blockService->loadBlockDraft(31);
+        $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
 
         // Move block so we can make sure position is kept while restoring the block.
 
@@ -1531,7 +1612,7 @@ abstract class BlockServiceTest extends CoreTestCase
      */
     public function testRestoreBlockRestoresMissingTranslations(): void
     {
-        $block = $this->blockService->loadBlockDraft(31);
+        $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
 
         $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
         $this->layoutService->addTranslation($layout, 'de', 'en');
@@ -1554,7 +1635,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "block" has an invalid state. Only draft blocks can be restored.');
 
-        $block = $this->blockService->loadBlock(31);
+        $block = $this->blockService->loadBlock(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
 
         $this->blockService->restoreBlock($block);
     }
@@ -1564,7 +1645,7 @@ abstract class BlockServiceTest extends CoreTestCase
      */
     public function testEnableTranslations(): void
     {
-        $block = $this->blockService->loadBlockDraft(37);
+        $block = $this->blockService->loadBlockDraft(Uuid::fromString('129f51de-a535-5094-8517-45d672e06302'));
 
         $updatedBlock = $this->blockService->enableTranslations($block);
 
@@ -1584,7 +1665,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "block" has an invalid state. You can only enable translations for draft blocks.');
 
-        $block = $this->blockService->loadBlock(35);
+        $block = $this->blockService->loadBlock(Uuid::fromString('c2a30ea3-95ef-55b0-a584-fbcfd93cec9e'));
 
         $this->blockService->enableTranslations($block);
     }
@@ -1597,7 +1678,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "block" has an invalid state. Block is already translatable.');
 
-        $block = $this->blockService->loadBlockDraft(31);
+        $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
 
         $this->blockService->enableTranslations($block);
     }
@@ -1610,10 +1691,10 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('You can only enable translations if parent block is also translatable.');
 
-        $parentBlock = $this->blockService->loadBlockDraft(33);
+        $parentBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
         $this->blockService->disableTranslations($parentBlock);
 
-        $block = $this->blockService->loadBlockDraft(37);
+        $block = $this->blockService->loadBlockDraft(Uuid::fromString('129f51de-a535-5094-8517-45d672e06302'));
 
         $this->blockService->enableTranslations($block);
     }
@@ -1624,7 +1705,7 @@ abstract class BlockServiceTest extends CoreTestCase
      */
     public function testDisableTranslations(): void
     {
-        $block = $this->blockService->loadBlockDraft(31);
+        $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
 
         $updatedBlock = $this->blockService->disableTranslations($block);
 
@@ -1640,8 +1721,8 @@ abstract class BlockServiceTest extends CoreTestCase
      */
     public function testDisableTranslationsOnContainer(): void
     {
-        $block = $this->blockService->loadBlockDraft(33);
-        $childBlock = $this->blockService->loadBlockDraft(37);
+        $block = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
+        $childBlock = $this->blockService->loadBlockDraft(Uuid::fromString('129f51de-a535-5094-8517-45d672e06302'));
 
         $this->blockService->enableTranslations($childBlock);
         $block = $this->blockService->disableTranslations($block);
@@ -1651,7 +1732,7 @@ abstract class BlockServiceTest extends CoreTestCase
         self::assertNotContains('hr', $block->getAvailableLocales());
         self::assertContains('en', $block->getAvailableLocales());
 
-        $childBlock = $this->blockService->loadBlockDraft(37);
+        $childBlock = $this->blockService->loadBlockDraft(Uuid::fromString('129f51de-a535-5094-8517-45d672e06302'));
 
         self::assertFalse($childBlock->isTranslatable());
 
@@ -1667,7 +1748,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "block" has an invalid state. You can only disable translations for draft blocks.');
 
-        $block = $this->blockService->loadBlock(31);
+        $block = $this->blockService->loadBlock(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
 
         $this->blockService->disableTranslations($block);
     }
@@ -1680,7 +1761,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "block" has an invalid state. Block is not translatable.');
 
-        $block = $this->blockService->loadBlockDraft(35);
+        $block = $this->blockService->loadBlockDraft(Uuid::fromString('c2a30ea3-95ef-55b0-a584-fbcfd93cec9e'));
 
         $this->blockService->disableTranslations($block);
     }
@@ -1691,9 +1772,9 @@ abstract class BlockServiceTest extends CoreTestCase
     public function testDeleteBlock(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find block with identifier "31"');
+        $this->expectExceptionMessage('Could not find block with identifier "28df256a-2467-5527-b398-9269ccc652de"');
 
-        $block = $this->blockService->loadBlockDraft(31);
+        $block = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
         $this->blockService->deleteBlock($block);
 
         $this->blockService->loadBlockDraft($block->getId());
@@ -1707,7 +1788,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "block" has an invalid state. Only draft blocks can be deleted.');
 
-        $block = $this->blockService->loadBlock(31);
+        $block = $this->blockService->loadBlock(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
         $this->blockService->deleteBlock($block);
     }
 
@@ -1765,7 +1846,7 @@ abstract class BlockServiceTest extends CoreTestCase
      */
     public function testNewBlockUpdateStructFromBlock(): void
     {
-        $block = $this->blockService->loadBlockDraft(36);
+        $block = $this->blockService->loadBlockDraft(Uuid::fromString('b40aa688-b8e8-5e07-bf82-4a97e5ed8bad'));
         $struct = $this->blockService->newBlockUpdateStruct('en', $block);
 
         self::assertArrayHasKey('key', $struct->getConfigStructs());

@@ -20,6 +20,8 @@ use Netgen\Layouts\Persistence\Values\Collection\Collection;
 use Netgen\Layouts\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
 use Netgen\Layouts\Persistence\Values\Layout\Zone;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 final class BlockHandler implements BlockHandlerInterface
 {
@@ -57,6 +59,7 @@ final class BlockHandler implements BlockHandlerInterface
 
     public function loadBlock($blockId, int $status): Block
     {
+        $blockId = $blockId instanceof UuidInterface ? $blockId->toString() : $blockId;
         $data = $this->queryHandler->loadBlockData($blockId, $status);
 
         if (count($data) === 0) {
@@ -68,6 +71,8 @@ final class BlockHandler implements BlockHandlerInterface
 
     public function blockExists($blockId, int $status): bool
     {
+        $blockId = $blockId instanceof UuidInterface ? $blockId->toString() : $blockId;
+
         return $this->queryHandler->blockExists($blockId, $status);
     }
 
@@ -118,6 +123,7 @@ final class BlockHandler implements BlockHandlerInterface
 
         $newBlock = Block::fromArray(
             [
+                'uuid' => Uuid::uuid4()->toString(),
                 'depth' => $targetBlock !== null ? $targetBlock->depth + 1 : 0,
                 'path' => $targetBlock !== null ? $targetBlock->path : '/',
                 'parentId' => $targetBlock !== null ? $targetBlock->id : null,
@@ -307,6 +313,7 @@ final class BlockHandler implements BlockHandlerInterface
 
         $newBlock = clone $block;
         $newBlock->id = null;
+        $newBlock->uuid = Uuid::uuid4()->toString();
 
         $newBlock->layoutId = $targetBlock->layoutId;
         $newBlock->layoutUuid = $targetBlock->layoutUuid;
@@ -486,7 +493,7 @@ final class BlockHandler implements BlockHandlerInterface
         return $this->loadBlock($block->id, $block->status);
     }
 
-    public function deleteLayoutBlocks($layoutId, ?int $status = null): void
+    public function deleteLayoutBlocks(int $layoutId, ?int $status = null): void
     {
         $blockIds = $this->queryHandler->loadLayoutBlockIds($layoutId, $status);
         $this->deleteBlocks($blockIds, $status);

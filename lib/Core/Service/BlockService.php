@@ -35,6 +35,7 @@ use Netgen\Layouts\Persistence\Values\Block\BlockUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\CollectionCreateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\Layout as PersistenceLayout;
+use Ramsey\Uuid\UuidInterface;
 
 final class BlockService extends Service implements BlockServiceInterface
 {
@@ -108,29 +109,25 @@ final class BlockService extends Service implements BlockServiceInterface
         $this->collectionHandler = $collectionHandler;
     }
 
-    public function loadBlock($blockId, ?array $locales = null, bool $useMainLocale = true): Block
+    public function loadBlock(UuidInterface $blockId, ?array $locales = null, bool $useMainLocale = true): Block
     {
-        $this->validator->validateId($blockId, 'blockId');
-
         $block = $this->blockHandler->loadBlock($blockId, Value::STATUS_PUBLISHED);
 
         if ($block->parentId === null) {
             // We do not allow loading root zone blocks
-            throw new NotFoundException('block', $blockId);
+            throw new NotFoundException('block', $blockId->toString());
         }
 
         return $this->mapper->mapBlock($block, $locales, $useMainLocale);
     }
 
-    public function loadBlockDraft($blockId, ?array $locales = null, bool $useMainLocale = true): Block
+    public function loadBlockDraft(UuidInterface $blockId, ?array $locales = null, bool $useMainLocale = true): Block
     {
-        $this->validator->validateId($blockId, 'blockId');
-
         $block = $this->blockHandler->loadBlock($blockId, Value::STATUS_DRAFT);
 
         if ($block->parentId === null) {
             // We do not allow loading root zone blocks
-            throw new NotFoundException('block', $blockId);
+            throw new NotFoundException('block', $blockId->toString());
         }
 
         return $this->mapper->mapBlock($block, $locales, $useMainLocale);

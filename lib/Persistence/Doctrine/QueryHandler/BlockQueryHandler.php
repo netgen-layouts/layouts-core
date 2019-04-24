@@ -26,11 +26,8 @@ final class BlockQueryHandler extends QueryHandler
     public function loadBlockData($blockId, int $status): array
     {
         $query = $this->getBlockWithLayoutSelectQuery();
-        $query->where(
-            $query->expr()->eq('b.id', ':id')
-        )
-        ->setParameter('id', $blockId, Type::INTEGER);
 
+        $this->applyIdCondition($query, $blockId, 'b.id', 'b.uuid');
         $this->applyStatusCondition($query, $status, 'b.status');
 
         return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
@@ -129,12 +126,9 @@ final class BlockQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
-            ->from('nglayouts_block')
-            ->where(
-                $query->expr()->eq('id', ':id')
-            )
-            ->setParameter('id', $blockId, Type::INTEGER);
+            ->from('nglayouts_block');
 
+        $this->applyIdCondition($query, $blockId);
         $this->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
@@ -153,6 +147,7 @@ final class BlockQueryHandler extends QueryHandler
                 [
                     'id' => ':id',
                     'status' => ':status',
+                    'uuid' => ':uuid',
                     'layout_id' => ':layout_id',
                     'depth' => ':depth',
                     'path' => ':path',
@@ -169,13 +164,9 @@ final class BlockQueryHandler extends QueryHandler
                     'config' => ':config',
                 ]
             )
-            ->setValue(
-                'id',
-                $block->id !== null ?
-                    (int) $block->id :
-                    $this->connectionHelper->getAutoIncrementValue('nglayouts_block')
-            )
+            ->setValue('id', $block->id ?? $this->connectionHelper->getAutoIncrementValue('nglayouts_block'))
             ->setParameter('status', $block->status, Type::INTEGER)
+            ->setParameter('uuid', $block->uuid, Type::STRING)
             ->setParameter('layout_id', $block->layoutId, Type::INTEGER)
             ->setParameter('depth', $block->depth, Type::STRING)
             // Materialized path is updated after block is created
@@ -278,6 +269,7 @@ final class BlockQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder();
         $query
             ->update('nglayouts_block')
+            ->set('uuid', ':uuid')
             ->set('layout_id', ':layout_id')
             ->set('depth', ':depth')
             ->set('path', ':path')
@@ -296,6 +288,7 @@ final class BlockQueryHandler extends QueryHandler
                 $query->expr()->eq('id', ':id')
             )
             ->setParameter('id', $block->id, Type::INTEGER)
+            ->setParameter('uuid', $block->uuid, Type::STRING)
             ->setParameter('layout_id', $block->layoutId, Type::INTEGER)
             ->setParameter('depth', $block->depth, Type::STRING)
             ->setParameter('path', $block->path, Type::STRING)
@@ -483,13 +476,8 @@ final class BlockQueryHandler extends QueryHandler
 
     /**
      * Loads all layout block IDs.
-     *
-     * @param int|string $layoutId
-     * @param int $status
-     *
-     * @return array
      */
-    public function loadLayoutBlockIds($layoutId, ?int $status = null): array
+    public function loadLayoutBlockIds(int $layoutId, ?int $status = null): array
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT id')

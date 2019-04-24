@@ -10,6 +10,7 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Transfer\Output\Visitor\BlockVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
+use Ramsey\Uuid\Uuid;
 
 abstract class BlockVisitorTest extends VisitorTest
 {
@@ -38,8 +39,8 @@ abstract class BlockVisitorTest extends VisitorTest
     public function visitProvider(): array
     {
         return [
-            [function (): Block { return $this->blockService->loadBlock(31); }, 'block/block_31.json'],
-            [function (): Block { return $this->blockService->loadBlock(33); }, 'block/block_33.json'],
+            [function (): Block { return $this->blockService->loadBlock(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')); }, 'block/block_31.json'],
+            [function (): Block { return $this->blockService->loadBlock(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')); }, 'block/block_33.json'],
         ];
     }
 }

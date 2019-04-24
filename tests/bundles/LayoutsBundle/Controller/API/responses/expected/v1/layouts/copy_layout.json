@@ -29,7 +29,7 @@
             "identifier": "left",
             "name": "Left",
             "block_ids": [
-                41
+                "@uuid@"
             ],
             "allowed_block_definitions": true,
             "linked_layout_id": null,
@@ -39,8 +39,8 @@
             "identifier": "right",
             "name": "Right",
             "block_ids": [
-                43,
-                44
+                "@uuid@",
+                "@uuid@"
             ],
             "allowed_block_definitions": true,
             "linked_layout_id": null,

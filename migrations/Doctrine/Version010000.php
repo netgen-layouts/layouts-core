@@ -34,11 +34,18 @@ final class Version010000 extends AbstractMigration
         $this->addSql('ALTER TABLE nglayouts_layout ADD COLUMN uuid char(36) NOT NULL AFTER status');
         $this->addSql('UPDATE nglayouts_layout SET uuid = id');
         $this->addSql('ALTER TABLE nglayouts_layout ADD UNIQUE INDEX idx_ngl_layout_uuid (uuid, status)');
+
+        $this->addSql('ALTER TABLE nglayouts_block ADD COLUMN uuid char(36) NOT NULL AFTER status');
+        $this->addSql('UPDATE nglayouts_block SET uuid = id');
+        $this->addSql('ALTER TABLE nglayouts_block ADD UNIQUE INDEX idx_ngl_block_uuid (uuid, status)');
     }
 
     public function down(Schema $schema): void
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
+
+        $this->addSql('ALTER TABLE nglayouts_block DROP INDEX idx_ngl_block_uuid');
+        $this->addSql('ALTER TABLE nglayouts_block DROP COLUMN uuid');
 
         $this->addSql('ALTER TABLE nglayouts_layout DROP INDEX idx_ngl_layout_uuid');
         $this->addSql('ALTER TABLE nglayouts_layout DROP COLUMN uuid');

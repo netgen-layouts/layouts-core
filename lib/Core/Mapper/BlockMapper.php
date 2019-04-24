@@ -110,7 +110,7 @@ final class BlockMapper
         );
 
         $blockData = [
-            'id' => $block->id,
+            'id' => Uuid::fromString($block->uuid),
             'layoutId' => Uuid::fromString($block->layoutUuid),
             'definition' => $blockDefinition,
             'viewType' => $block->viewType,

@@ -1,6 +1,6 @@
 [
     {
-        "id": 31,
+        "id": "28df256a-2467-5527-b398-9269ccc652de",
         "layout_id": "81168ed3-86f9-55ea-b153-101f96f2c136",
         "definition_identifier": "list",
         "name": "My block",
@@ -43,7 +43,7 @@
         "config": []
     },
     {
-        "id": 35,
+        "id": "c2a30ea3-95ef-55b0-a584-fbcfd93cec9e",
         "layout_id": "81168ed3-86f9-55ea-b153-101f96f2c136",
         "definition_identifier": "list",
         "name": "My fourth block",

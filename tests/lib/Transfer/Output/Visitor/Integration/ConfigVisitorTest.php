@@ -10,6 +10,7 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Transfer\Output\Visitor\ConfigVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
+use Ramsey\Uuid\Uuid;
 
 abstract class ConfigVisitorTest extends VisitorTest
 {
@@ -38,7 +39,7 @@ abstract class ConfigVisitorTest extends VisitorTest
     public function visitProvider(): array
     {
         return [
-            [function (): Config { return $this->blockService->loadBlock(31)->getConfig('key'); }, 'config/block_31.json'],
+            [function (): Config { return $this->blockService->loadBlock(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'))->getConfig('key'); }, 'config/block_31.json'],
         ];
     }
 }

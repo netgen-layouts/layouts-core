@@ -42,7 +42,7 @@ final class RouteGenerator
     public function __invoke(Block $block, string $collectionIdentifier, int $page): string
     {
         $routeParams = [
-            'blockId' => $block->getId(),
+            'blockId' => $block->getId()->toString(),
             'locale' => $block->getLocale(),
             'collectionIdentifier' => $collectionIdentifier,
             'nglContext' => $this->context->all(),

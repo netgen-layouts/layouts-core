@@ -34,6 +34,7 @@ final class BlockMapperTest extends TestCase
         $data = [
             [
                 'id' => '42',
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'layout_id' => '24',
                 'depth' => '1',
                 'path' => '/22/42/',
@@ -55,6 +56,7 @@ final class BlockMapperTest extends TestCase
             ],
             [
                 'id' => 84,
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'layout_id' => 48,
                 'depth' => 1,
                 'path' => '/23/84/',
@@ -79,6 +81,7 @@ final class BlockMapperTest extends TestCase
         $expectedData = [
             [
                 'id' => 42,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'layoutId' => 24,
                 'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'depth' => 1,
@@ -106,6 +109,7 @@ final class BlockMapperTest extends TestCase
             ],
             [
                 'id' => 84,
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'layoutId' => 48,
                 'layoutUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'depth' => 1,
@@ -148,6 +152,7 @@ final class BlockMapperTest extends TestCase
         $data = [
             [
                 'id' => '42',
+                'uuid' => '01f0c14e-2e15-54a1-8b41-58a3a8a9a917',
                 'layout_id' => '24',
                 'depth' => '1',
                 'path' => '/22/42/',
@@ -172,6 +177,7 @@ final class BlockMapperTest extends TestCase
         $expectedData = [
             [
                 'id' => 42,
+                'uuid' => '01f0c14e-2e15-54a1-8b41-58a3a8a9a917',
                 'layoutId' => 24,
                 'layoutUuid' => 'abcdef01-abcd-abcd-abcd-0123456789ab',
                 'depth' => 1,

@@ -11,6 +11,7 @@ use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\Block\BlockDefinitionInterface;
+use Ramsey\Uuid\UuidInterface;
 
 interface BlockService extends Service
 {
@@ -24,15 +25,9 @@ interface BlockService extends Service
      * set to true, block in main locale will be returned if none of the
      * locales in $locales array are found.
      *
-     * @param int|string $blockId
-     * @param string[] $locales
-     * @param bool $useMainLocale
-     *
      * @throws \Netgen\Layouts\Exception\NotFoundException If block with specified ID does not exist
-     *
-     * @return \Netgen\Layouts\API\Values\Block\Block
      */
-    public function loadBlock($blockId, ?array $locales = null, bool $useMainLocale = true): Block;
+    public function loadBlock(UuidInterface $blockId, ?array $locales = null, bool $useMainLocale = true): Block;
 
     /**
      * Loads a block draft with specified ID.
@@ -44,15 +39,9 @@ interface BlockService extends Service
      * set to true, block in main locale will be returned if none of the
      * locales in $locales array are found.
      *
-     * @param int|string $blockId
-     * @param string[] $locales
-     * @param bool $useMainLocale
-     *
      * @throws \Netgen\Layouts\Exception\NotFoundException If block with specified ID does not exist
-     *
-     * @return \Netgen\Layouts\API\Values\Block\Block
      */
-    public function loadBlockDraft($blockId, ?array $locales = null, bool $useMainLocale = true): Block;
+    public function loadBlockDraft(UuidInterface $blockId, ?array $locales = null, bool $useMainLocale = true): Block;
 
     /**
      * Loads all blocks belonging to provided zone.

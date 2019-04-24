@@ -15,7 +15,9 @@ final class BlockTest extends TestCase
         $block = Block::fromArray(
             [
                 'id' => 42,
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'layoutId' => 84,
+                'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'depth' => 2,
                 'path' => '/1/22/42/',
                 'parentId' => 22,
@@ -37,7 +39,9 @@ final class BlockTest extends TestCase
         );
 
         self::assertSame(42, $block->id);
+        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $block->uuid);
         self::assertSame(84, $block->layoutId);
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $block->layoutUuid);
         self::assertSame(2, $block->depth);
         self::assertSame('/1/22/42/', $block->path);
         self::assertSame(22, $block->parentId);

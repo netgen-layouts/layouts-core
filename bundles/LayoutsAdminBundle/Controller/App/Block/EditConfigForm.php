@@ -51,7 +51,7 @@ final class EditConfigForm extends AbstractController
                 'action' => $this->generateUrl(
                     'nglayouts_app_block_form_edit_config',
                     [
-                        'blockId' => $block->getId(),
+                        'blockId' => $block->getId()->toString(),
                         'locale' => $locale,
                         'configKey' => $configKey,
                     ]
