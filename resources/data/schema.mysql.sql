@@ -25,6 +25,7 @@ DROP TABLE IF EXISTS `nglayouts_block`;
 CREATE TABLE `nglayouts_block` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
+  `uuid` char(36) NOT NULL,
   `layout_id` int(11) NOT NULL,
   `depth` int(11) NOT NULL,
   `path` varchar(191) NOT NULL,
@@ -40,6 +41,7 @@ CREATE TABLE `nglayouts_block` (
   `main_locale` varchar(191) NOT NULL,
   `always_available` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`,`status`),
+  UNIQUE KEY `idx_ngl_block_uuid` (`uuid`, `status`),
   KEY `idx_ngl_layout` (`layout_id`,`status`),
   KEY `idx_ngl_parent_block` (`parent_id`,`placeholder`,`status`),
   CONSTRAINT `fk_ngl_block_layout` FOREIGN KEY (`layout_id`, `status`)
