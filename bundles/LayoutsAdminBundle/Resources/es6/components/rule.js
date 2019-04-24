@@ -328,7 +328,7 @@ export default class NlRule {
         e.stopPropagation();
         const { dataset } = e.target.closest('.js-link-layout');
         const browser = new Browser({
-            disabled_item_values: [parseInt(dataset.linkedLayout, 10)],
+            disabled_item_values: [dataset.linkedLayout],
             tree_config: {
                 overrides: {
                     max_selected: 1,
