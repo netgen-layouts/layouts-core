@@ -31,7 +31,7 @@
                         <td>{{ related_layout.name }}</td>
                         <td colspan="2">
                             {% for zone in related_layout.zones %}
-                                {% if zone.hasLinkedZone and zone.linkedZone.layoutId == layout.id %}
+                                {% if zone.hasLinkedZone and zone.linkedZone.layoutId.toString == layout.id.toString %}
                                     <p>{{ related_layout.layoutType.zone(zone.identifier).name }}</p>
                                 {% endif %}
                             {% endfor %}
