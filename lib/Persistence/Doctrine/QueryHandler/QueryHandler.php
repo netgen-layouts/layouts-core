@@ -39,14 +39,17 @@ abstract class QueryHandler
      */
     public function applyIdCondition(QueryBuilder $query, $id, string $idColumn = 'id', string $uuidColumn = 'uuid', string $idParamName = 'id', string $uuidParamName = 'uuid'): void
     {
+        $isUuid = is_string($id);
+
         $query->andWhere(
-            $query->expr()->orX(
-                $query->expr()->eq($idColumn, ':' . $idParamName),
-                $query->expr()->eq($uuidColumn, ':' . $uuidParamName)
-            )
-        )
-        ->setParameter($idParamName, $id, Type::STRING)
-        ->setParameter($uuidParamName, $id, Type::STRING);
+            $isUuid ?
+                $query->expr()->eq($uuidColumn, ':' . $uuidParamName) :
+                $query->expr()->eq($idColumn, ':' . $idParamName)
+        )->setParameter(
+            $isUuid ? $uuidParamName : $idParamName,
+            $id,
+            $isUuid ? Type::STRING : Type::INTEGER
+        );
     }
 
     /**

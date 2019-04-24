@@ -338,10 +338,17 @@ final class LayoutQueryHandler extends QueryHandler
             ->setParameter('name', trim($name), Type::STRING);
 
         if ($excludedLayoutId !== null) {
-            $query->andWhere($query->expr()->neq('id', ':id'))
-                ->andWhere($query->expr()->neq('uuid', ':uuid'))
-                ->setParameter('id', $excludedLayoutId, Type::STRING)
-                ->setParameter('uuid', $excludedLayoutId, Type::STRING);
+            $isUuid = is_string($excludedLayoutId);
+
+            $query->andWhere(
+                $isUuid ?
+                    $query->expr()->neq('uuid', ':uuid') :
+                    $query->expr()->neq('id', ':id')
+            )->setParameter(
+                $isUuid ? 'uuid' : 'id',
+                $excludedLayoutId,
+                $isUuid ? Type::STRING : Type::INTEGER
+            );
         }
 
         $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
