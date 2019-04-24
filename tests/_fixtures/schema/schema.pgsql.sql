@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS "nglayouts_layout" (
   "modified" integer NOT NULL,
   "shared" boolean NOT NULL,
   "main_locale" character varying(255) NOT NULL,
-  PRIMARY KEY ("id", "status")
+  PRIMARY KEY ("id", "status"),
+  UNIQUE KEY ("uuid", "status")
 );
 
 CREATE TABLE IF NOT EXISTS "nglayouts_layout_translation" (
@@ -39,6 +40,7 @@ CREATE TABLE IF NOT EXISTS "nglayouts_block" (
   "main_locale" character varying(255) NOT NULL,
   "always_available" boolean NOT NULL,
   PRIMARY KEY ("id", "status"),
+  UNIQUE KEY ("uuid", "status")
   FOREIGN KEY ("layout_id", "status") REFERENCES nglayouts_layout ("id", "status")
 );
 

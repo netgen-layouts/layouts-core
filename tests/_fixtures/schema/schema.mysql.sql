@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS `nglayouts_layout` (
   `modified` int(11) NOT NULL,
   `shared` tinyint NOT NULL,
   `main_locale` varchar(191) NOT NULL,
-  PRIMARY KEY (`id`, `status`)
+  PRIMARY KEY (`id`, `status`),
+  UNIQUE KEY (`uuid`, `status`)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `nglayouts_layout_translation` (
@@ -40,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `nglayouts_block` (
   `main_locale` varchar(191) NOT NULL,
   `always_available` tinyint NOT NULL,
   PRIMARY KEY (`id`, `status`),
+  UNIQUE KEY (`uuid`, `status`),
   FOREIGN KEY (`layout_id`, `status`)
     REFERENCES nglayouts_layout (`id`, `status`)
 ) ENGINE=InnoDB;

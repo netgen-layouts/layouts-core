@@ -27,7 +27,8 @@ CREATE TABLE nglayouts_layout (
   modified int NOT NULL,
   shared tinyint NOT NULL,
   main_locale nvarchar(255) NOT NULL,
-  PRIMARY KEY (id, status)
+  PRIMARY KEY (id, status),
+  UNIQUE KEY (uuid, status)
 );
 
 CREATE TABLE nglayouts_layout_translation (
@@ -58,6 +59,7 @@ CREATE TABLE nglayouts_block (
   main_locale nvarchar(255) NOT NULL,
   always_available tinyint NOT NULL,
   PRIMARY KEY (id, status),
+  UNIQUE KEY (uuid, status),
   FOREIGN KEY (layout_id, status)
     REFERENCES nglayouts_layout (id, status)
 );

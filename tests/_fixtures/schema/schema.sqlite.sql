@@ -31,7 +31,8 @@ CREATE TABLE `nglayouts_layout` (
   `modified` integer NOT NULL,
   `shared` integer NOT NULL,
   `main_locale` text(255) NOT NULL,
-  PRIMARY KEY (`id`, `status`)
+  PRIMARY KEY (`id`, `status`),
+  UNIQUE (`uuid`, `status`)
 );
 
 CREATE TABLE `nglayouts_layout_translation` (
@@ -62,6 +63,7 @@ CREATE TABLE `nglayouts_block` (
   `main_locale` text(255) NOT NULL,
   `always_available` integer NOT NULL,
   PRIMARY KEY (`id`, `status`),
+  UNIQUE (`uuid`, `status`),
   FOREIGN KEY (`layout_id`, `status`)
     REFERENCES `nglayouts_layout` (`id`, `status`)
 );
