@@ -6,6 +6,7 @@ namespace Netgen\BlockManager\Utils;
 
 use HTMLPurifier as BaseHTMLPurifier;
 use HTMLPurifier_Config;
+use HTMLPurifier_HTML5Config;
 
 /**
  * Filter used to remove all unsafe HTML from the provided value.
@@ -20,8 +21,8 @@ final class HtmlPurifier
     public function __construct(?HTMLPurifier_Config $config = null)
     {
         if ($config === null) {
-            $config = HTMLPurifier_Config::create(['Cache.DefinitionImpl' => null]);
-            $config->set('HTML.Doctype', 'XHTML 1.0 Strict');
+            $config = HTMLPurifier_HTML5Config::create(['Cache.DefinitionImpl' => null]);
+            $config->set('Attr.AllowedFrameTargets', ['_blank']);
         }
 
         $this->purifier = new BaseHTMLPurifier($config);
