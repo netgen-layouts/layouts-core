@@ -41,7 +41,7 @@ final class EditQueryForm extends AbstractController
                 'action' => $this->generateUrl(
                     'nglayouts_app_collection_query_form_edit',
                     [
-                        'queryId' => $query->getId(),
+                        'queryId' => $query->getId()->toString(),
                         'locale' => $locale,
                     ]
                 ),

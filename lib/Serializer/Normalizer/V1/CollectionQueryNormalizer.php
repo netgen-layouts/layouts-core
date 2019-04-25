@@ -24,7 +24,7 @@ final class CollectionQueryNormalizer implements NormalizerInterface, Normalizer
         $parameters = $this->buildVersionedValues($query->getParameters(), $object->getVersion());
 
         return [
-            'id' => $query->getId(),
+            'id' => $query->getId()->toString(),
             'collection_id' => $query->getCollectionId()->toString(),
             'type' => $query->getQueryType()->getType(),
             'locale' => $query->getLocale(),

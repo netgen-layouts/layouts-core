@@ -1121,6 +1121,13 @@ final class BlockHandlerTest extends TestCase
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'cf29cf92-0294-5581-abdb-58d11978186b',
                 '805895b2-6292-5243-a0c0-06a6ec0e28a2',
+                '76b05000-33ac-53f7-adfd-c91936d1f6b1',
+                '6dc13cc7-fd76-5e41-8b0c-1ed93ece7fcf',
+                '70fe4f3a-7e9d-5a1f-9e6a-b038c06ea117',
+                '3a3aa59a-76fe-532f-8a03-c04a93d803f6',
+                'f08717e5-5910-574d-b976-03d877c4729b',
+                'e804ebd6-dc99-53bb-85d5-196d68933761',
+                '910f4fe2-97b0-5599-8a45-8fb8a8e0ca6d',
             ]
         );
 
@@ -1205,6 +1212,13 @@ final class BlockHandlerTest extends TestCase
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'cf29cf92-0294-5581-abdb-58d11978186b',
                 '805895b2-6292-5243-a0c0-06a6ec0e28a2',
+                '76b05000-33ac-53f7-adfd-c91936d1f6b1',
+                '6dc13cc7-fd76-5e41-8b0c-1ed93ece7fcf',
+                '70fe4f3a-7e9d-5a1f-9e6a-b038c06ea117',
+                '3a3aa59a-76fe-532f-8a03-c04a93d803f6',
+                'f08717e5-5910-574d-b976-03d877c4729b',
+                'e804ebd6-dc99-53bb-85d5-196d68933761',
+                '910f4fe2-97b0-5599-8a45-8fb8a8e0ca6d',
             ]
         );
 
@@ -1267,6 +1281,13 @@ final class BlockHandlerTest extends TestCase
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'cf29cf92-0294-5581-abdb-58d11978186b',
                 '805895b2-6292-5243-a0c0-06a6ec0e28a2',
+                '76b05000-33ac-53f7-adfd-c91936d1f6b1',
+                '6dc13cc7-fd76-5e41-8b0c-1ed93ece7fcf',
+                '70fe4f3a-7e9d-5a1f-9e6a-b038c06ea117',
+                '3a3aa59a-76fe-532f-8a03-c04a93d803f6',
+                'f08717e5-5910-574d-b976-03d877c4729b',
+                'e804ebd6-dc99-53bb-85d5-196d68933761',
+                '910f4fe2-97b0-5599-8a45-8fb8a8e0ca6d',
             ]
         );
 
@@ -1329,6 +1350,13 @@ final class BlockHandlerTest extends TestCase
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'cf29cf92-0294-5581-abdb-58d11978186b',
                 '805895b2-6292-5243-a0c0-06a6ec0e28a2',
+                '76b05000-33ac-53f7-adfd-c91936d1f6b1',
+                '6dc13cc7-fd76-5e41-8b0c-1ed93ece7fcf',
+                '70fe4f3a-7e9d-5a1f-9e6a-b038c06ea117',
+                '3a3aa59a-76fe-532f-8a03-c04a93d803f6',
+                'f08717e5-5910-574d-b976-03d877c4729b',
+                'e804ebd6-dc99-53bb-85d5-196d68933761',
+                '910f4fe2-97b0-5599-8a45-8fb8a8e0ca6d',
             ]
         );
 
@@ -1390,6 +1418,10 @@ final class BlockHandlerTest extends TestCase
             [
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'cf29cf92-0294-5581-abdb-58d11978186b',
+                '76b05000-33ac-53f7-adfd-c91936d1f6b1',
+                '6dc13cc7-fd76-5e41-8b0c-1ed93ece7fcf',
+                '70fe4f3a-7e9d-5a1f-9e6a-b038c06ea117',
+                '3a3aa59a-76fe-532f-8a03-c04a93d803f6',
             ]
         );
 
@@ -1577,6 +1609,13 @@ final class BlockHandlerTest extends TestCase
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'cf29cf92-0294-5581-abdb-58d11978186b',
                 '805895b2-6292-5243-a0c0-06a6ec0e28a2',
+                '76b05000-33ac-53f7-adfd-c91936d1f6b1',
+                '6dc13cc7-fd76-5e41-8b0c-1ed93ece7fcf',
+                '70fe4f3a-7e9d-5a1f-9e6a-b038c06ea117',
+                '3a3aa59a-76fe-532f-8a03-c04a93d803f6',
+                'f08717e5-5910-574d-b976-03d877c4729b',
+                'e804ebd6-dc99-53bb-85d5-196d68933761',
+                '910f4fe2-97b0-5599-8a45-8fb8a8e0ca6d',
             ]
         );
 

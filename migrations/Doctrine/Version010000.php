@@ -54,11 +54,25 @@ final class Version010000 extends AbstractMigration
         $this->addSql('ALTER TABLE nglayouts_collection ADD COLUMN uuid char(36) NOT NULL AFTER status');
         $this->addSql('UPDATE nglayouts_collection SET uuid = id');
         $this->addSql('ALTER TABLE nglayouts_collection ADD UNIQUE INDEX idx_ngl_collection_uuid (uuid, status)');
+
+        $this->addSql('ALTER TABLE nglayouts_collection_item ADD COLUMN uuid char(36) NOT NULL AFTER status');
+        $this->addSql('UPDATE nglayouts_collection_item SET uuid = id');
+        $this->addSql('ALTER TABLE nglayouts_collection_item ADD UNIQUE INDEX idx_ngl_collection_item_uuid (uuid, status)');
+
+        $this->addSql('ALTER TABLE nglayouts_collection_query ADD COLUMN uuid char(36) NOT NULL AFTER status');
+        $this->addSql('UPDATE nglayouts_collection_query SET uuid = id');
+        $this->addSql('ALTER TABLE nglayouts_collection_query ADD UNIQUE INDEX idx_ngl_collection_query_uuid (uuid, status)');
     }
 
     public function down(Schema $schema): void
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
+
+        $this->addSql('ALTER TABLE nglayouts_collection_query DROP INDEX idx_ngl_collection_query_uuid');
+        $this->addSql('ALTER TABLE nglayouts_collection_query DROP COLUMN uuid');
+
+        $this->addSql('ALTER TABLE nglayouts_collection_item DROP INDEX idx_ngl_collection_item_uuid');
+        $this->addSql('ALTER TABLE nglayouts_collection_item DROP COLUMN uuid');
 
         $this->addSql('ALTER TABLE nglayouts_collection DROP INDEX idx_ngl_collection_uuid');
         $this->addSql('ALTER TABLE nglayouts_collection DROP COLUMN uuid');

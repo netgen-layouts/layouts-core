@@ -137,10 +137,8 @@ final class CollectionService extends Service implements APICollectionService
         return $this->mapper->mapCollection($updatedCollection, [$collection->getLocale()]);
     }
 
-    public function loadItem($itemId): Item
+    public function loadItem(UuidInterface $itemId): Item
     {
-        $this->validator->validateId($itemId, 'itemId');
-
         return $this->mapper->mapItem(
             $this->collectionHandler->loadItem(
                 $itemId,
@@ -149,10 +147,8 @@ final class CollectionService extends Service implements APICollectionService
         );
     }
 
-    public function loadItemDraft($itemId): Item
+    public function loadItemDraft(UuidInterface $itemId): Item
     {
-        $this->validator->validateId($itemId, 'itemId');
-
         return $this->mapper->mapItem(
             $this->collectionHandler->loadItem(
                 $itemId,
@@ -161,10 +157,8 @@ final class CollectionService extends Service implements APICollectionService
         );
     }
 
-    public function loadQuery($queryId, ?array $locales = null, bool $useMainLocale = true): Query
+    public function loadQuery(UuidInterface $queryId, ?array $locales = null, bool $useMainLocale = true): Query
     {
-        $this->validator->validateId($queryId, 'queryId');
-
         return $this->mapper->mapQuery(
             $this->collectionHandler->loadQuery(
                 $queryId,
@@ -175,10 +169,8 @@ final class CollectionService extends Service implements APICollectionService
         );
     }
 
-    public function loadQueryDraft($queryId, ?array $locales = null, bool $useMainLocale = true): Query
+    public function loadQueryDraft(UuidInterface $queryId, ?array $locales = null, bool $useMainLocale = true): Query
     {
-        $this->validator->validateId($queryId, 'queryId');
-
         return $this->mapper->mapQuery(
             $this->collectionHandler->loadQuery(
                 $queryId,

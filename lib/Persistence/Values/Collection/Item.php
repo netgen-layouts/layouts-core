@@ -14,9 +14,16 @@ final class Item extends Value
     /**
      * Item ID.
      *
-     * @var int|string
+     * @var int
      */
     public $id;
+
+    /**
+     * Item UUID.
+     *
+     * @var string
+     */
+    public $uuid;
 
     /**
      * ID of the collection to which this item belongs.

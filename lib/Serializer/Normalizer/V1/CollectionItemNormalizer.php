@@ -48,7 +48,7 @@ final class CollectionItemNormalizer implements NormalizerInterface, NormalizerA
         })();
 
         $data = [
-            'id' => $collectionItem->getId(),
+            'id' => $collectionItem->getId()->toString(),
             'collection_id' => $collectionItem->getCollectionId()->toString(),
             'position' => $collectionItem->getPosition(),
             'visible' => $this->visibilityResolver->isVisible($collectionItem),

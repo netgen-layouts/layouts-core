@@ -64,6 +64,7 @@ final class CollectionMapper
             $items[] = Item::fromArray(
                 [
                     'id' => (int) $dataItem['id'],
+                    'uuid' => $dataItem['uuid'],
                     'collectionId' => (int) $dataItem['collection_id'],
                     'collectionUuid' => $dataItem['collection_uuid'],
                     'position' => (int) $dataItem['position'],
@@ -92,6 +93,7 @@ final class CollectionMapper
             if (!isset($queries[$queryId])) {
                 $queries[$queryId] = [
                     'id' => $queryId,
+                    'uuid' => $dataItem['uuid'],
                     'collectionId' => (int) $dataItem['collection_id'],
                     'collectionUuid' => $dataItem['collection_uuid'],
                     'type' => $dataItem['type'],

@@ -132,7 +132,7 @@
                                     ],
                                     "items": [
                                         {
-                                            "id": "@integer@",
+                                            "id": "@uuid@",
                                             "position": 1,
                                             "value": "72",
                                             "value_type": "my_value_type",
@@ -144,7 +144,7 @@
                                             }
                                         },
                                         {
-                                            "id": "@integer@",
+                                            "id": "@uuid@",
                                             "position": 2,
                                             "value": "73",
                                             "value_type": "my_value_type",
@@ -156,7 +156,7 @@
                                             }
                                         },
                                         {
-                                            "id": "@integer@",
+                                            "id": "@uuid@",
                                             "position": 5,
                                             "value": "74",
                                             "value_type": "my_value_type",
@@ -169,7 +169,7 @@
                                         }
                                     ],
                                     "query": {
-                                        "id": "@integer@",
+                                        "id": "@uuid@",
                                         "is_translatable": true,
                                         "is_always_available": true,
                                         "main_locale": "en",
@@ -203,7 +203,7 @@
                                     ],
                                     "items": [
                                         {
-                                            "id": "@integer@",
+                                            "id": "@uuid@",
                                             "position": 2,
                                             "value": "72",
                                             "value_type": "my_value_type",
@@ -215,7 +215,7 @@
                                             }
                                         },
                                         {
-                                            "id": "@integer@",
+                                            "id": "@uuid@",
                                             "position": 3,
                                             "value": "73",
                                             "value_type": "my_value_type",
@@ -227,7 +227,7 @@
                                             }
                                         },
                                         {
-                                            "id": "@integer@",
+                                            "id": "@uuid@",
                                             "position": 5,
                                             "value": "74",
                                             "value_type": "my_value_type",
@@ -240,7 +240,7 @@
                                         }
                                     ],
                                     "query": {
-                                        "id": "@integer@",
+                                        "id": "@uuid@",
                                         "is_translatable": true,
                                         "is_always_available": true,
                                         "main_locale": "en",
@@ -307,7 +307,7 @@
                                     ],
                                     "items": [
                                         {
-                                            "id": "@integer@",
+                                            "id": "@uuid@",
                                             "position": 2,
                                             "value": "72",
                                             "value_type": "my_value_type",
@@ -319,7 +319,7 @@
                                             }
                                         },
                                         {
-                                            "id": "@integer@",
+                                            "id": "@uuid@",
                                             "position": 3,
                                             "value": "73",
                                             "value_type": "my_value_type",
@@ -331,7 +331,7 @@
                                             }
                                         },
                                         {
-                                            "id": "@integer@",
+                                            "id": "@uuid@",
                                             "position": 5,
                                             "value": "74",
                                             "value_type": "my_value_type",
@@ -344,7 +344,7 @@
                                         }
                                     ],
                                     "query": {
-                                        "id": "@integer@",
+                                        "id": "@uuid@",
                                         "is_translatable": false,
                                         "is_always_available": true,
                                         "main_locale": "en",

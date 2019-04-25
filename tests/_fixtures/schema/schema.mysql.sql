@@ -95,12 +95,14 @@ CREATE TABLE IF NOT EXISTS `nglayouts_collection_translation` (
 CREATE TABLE IF NOT EXISTS `nglayouts_collection_item` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
+  `uuid` char(36) NOT NULL,
   `collection_id` int(11) NOT NULL,
   `position` int(11) NOT NULL,
   `value` varchar(191),
   `value_type` varchar(191) NOT NULL,
   `config` text NOT NULL,
   PRIMARY KEY (`id`, `status`),
+  UNIQUE KEY (`uuid`, `status`),
   FOREIGN KEY (`collection_id`, `status`)
     REFERENCES nglayouts_collection (`id`, `status`)
 ) ENGINE=InnoDB;
@@ -108,9 +110,11 @@ CREATE TABLE IF NOT EXISTS `nglayouts_collection_item` (
 CREATE TABLE IF NOT EXISTS `nglayouts_collection_query` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
+  `uuid` char(36) NOT NULL,
   `collection_id` int(11) NOT NULL,
   `type` varchar(191) NOT NULL,
   PRIMARY KEY (`id`, `status`),
+  UNIQUE KEY (`uuid`, `status`),
   FOREIGN KEY (`collection_id`, `status`)
     REFERENCES nglayouts_collection (`id`, `status`)
 ) ENGINE=InnoDB;

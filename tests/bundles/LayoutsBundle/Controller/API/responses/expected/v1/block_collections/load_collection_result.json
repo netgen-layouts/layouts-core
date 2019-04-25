@@ -27,7 +27,7 @@
             "position": 1
         },
         {
-            "id": 10,
+            "id": "206a443c-30b8-574f-9afb-08cafeb4119a",
             "collection_id": "08937ca0-18f4-5806-84df-8c132c36cabe",
             "visible": true,
             "is_dynamic": false,
@@ -40,7 +40,7 @@
             "position": 2
         },
         {
-            "id": 11,
+            "id": "f762d0f8-1ff2-54e6-bfe3-096b2c277d9d",
             "collection_id": "08937ca0-18f4-5806-84df-8c132c36cabe",
             "visible": true,
             "is_dynamic": false,
@@ -66,7 +66,7 @@
             "position": 4
         },
         {
-            "id": 12,
+            "id": "3562a253-72d1-54d1-8b31-ef1b55409cb5",
             "collection_id": "08937ca0-18f4-5806-84df-8c132c36cabe",
             "visible": true,
             "is_dynamic": false,

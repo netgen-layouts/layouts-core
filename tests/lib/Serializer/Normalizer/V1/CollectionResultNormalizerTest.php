@@ -53,7 +53,7 @@ final class CollectionResultNormalizerTest extends TestCase
     {
         $collectionItem = Item::fromArray(
             [
-                'id' => 42,
+                'id' => Uuid::uuid4(),
                 'collectionId' => Uuid::uuid4(),
                 'cmsItem' => CmsItem::fromArray(
                     [
@@ -86,7 +86,7 @@ final class CollectionResultNormalizerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => $collectionItem->getId(),
+                'id' => $collectionItem->getId()->toString(),
                 'collection_id' => $collectionItem->getCollectionId()->toString(),
                 'visible' => true,
                 'is_dynamic' => false,
@@ -163,7 +163,7 @@ final class CollectionResultNormalizerTest extends TestCase
 
         $collectionItem = Item::fromArray(
             [
-                'id' => 42,
+                'id' => Uuid::uuid4(),
                 'collectionId' => Uuid::uuid4(),
                 'cmsItem' => $item,
             ]
@@ -207,7 +207,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'config' => [],
                 'position' => $result->getPosition(),
                 'override_item' => [
-                    'id' => $collectionItem->getId(),
+                    'id' => $collectionItem->getId()->toString(),
                     'collection_id' => $collectionItem->getCollectionId()->toString(),
                     'visible' => true,
                     'is_dynamic' => false,

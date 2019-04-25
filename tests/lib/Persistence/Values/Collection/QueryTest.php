@@ -15,6 +15,7 @@ final class QueryTest extends TestCase
         $query = Query::fromArray(
             [
                 'id' => 42,
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'collectionId' => 30,
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => 'my_query_type',
@@ -28,6 +29,7 @@ final class QueryTest extends TestCase
         );
 
         self::assertSame(42, $query->id);
+        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $query->uuid);
         self::assertSame(30, $query->collectionId);
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $query->collectionUuid);
         self::assertSame('my_query_type', $query->type);

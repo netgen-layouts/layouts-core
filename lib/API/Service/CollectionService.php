@@ -55,29 +55,21 @@ interface CollectionService extends Service
     public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct): Collection;
 
     /**
-     * Loads an item with specified ID.
-     *
-     * @param int|string $itemId
+     * Loads an item with specified UUID.
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If item with specified ID does not exist
-     *
-     * @return \Netgen\Layouts\API\Values\Collection\Item
      */
-    public function loadItem($itemId): Item;
+    public function loadItem(UuidInterface $itemId): Item;
 
     /**
-     * Loads an item draft with specified ID.
-     *
-     * @param int|string $itemId
+     * Loads an item draft with specified UUID.
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If item with specified ID does not exist
-     *
-     * @return \Netgen\Layouts\API\Values\Collection\Item
      */
-    public function loadItemDraft($itemId): Item;
+    public function loadItemDraft(UuidInterface $itemId): Item;
 
     /**
-     * Loads a query with specified ID.
+     * Loads a query with specified UUID.
      *
      * By default, query is loaded in main locale.
      *
@@ -86,18 +78,12 @@ interface CollectionService extends Service
      * set to true, query in main locale will be returned if none of the
      * locales in $locales array are found.
      *
-     * @param int|string $queryId
-     * @param string[] $locales
-     * @param bool $useMainLocale
-     *
      * @throws \Netgen\Layouts\Exception\NotFoundException If query with specified ID does not exist
-     *
-     * @return \Netgen\Layouts\API\Values\Collection\Query
      */
-    public function loadQuery($queryId, ?array $locales = null, bool $useMainLocale = true): Query;
+    public function loadQuery(UuidInterface $queryId, ?array $locales = null, bool $useMainLocale = true): Query;
 
     /**
-     * Loads a query with specified ID.
+     * Loads a query with specified UUID.
      *
      * By default, query is loaded in main locale.
      *
@@ -106,15 +92,9 @@ interface CollectionService extends Service
      * set to true, query in main locale will be returned if none of the
      * locales in $locales array are found.
      *
-     * @param int|string $queryId
-     * @param string[] $locales
-     * @param bool $useMainLocale
-     *
      * @throws \Netgen\Layouts\Exception\NotFoundException If query with specified ID does not exist
-     *
-     * @return \Netgen\Layouts\API\Values\Collection\Query
      */
-    public function loadQueryDraft($queryId, ?array $locales = null, bool $useMainLocale = true): Query;
+    public function loadQueryDraft(UuidInterface $queryId, ?array $locales = null, bool $useMainLocale = true): Query;
 
     /**
      * Changes the type of specified collection.

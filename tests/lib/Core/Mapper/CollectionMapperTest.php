@@ -212,6 +212,7 @@ abstract class CollectionMapperTest extends CoreTestCase
         $persistenceItem = Item::fromArray(
             [
                 'id' => 1,
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'status' => Value::STATUS_PUBLISHED,
                 'collectionId' => 42,
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
@@ -237,7 +238,7 @@ abstract class CollectionMapperTest extends CoreTestCase
 
         $item = $this->mapper->mapItem($persistenceItem);
 
-        self::assertSame(1, $item->getId());
+        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $item->getId()->toString());
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $item->getCollectionId()->toString());
         self::assertSame($this->itemDefinitionRegistry->getItemDefinition('my_value_type'), $item->getDefinition());
         self::assertSame(1, $item->getPosition());
@@ -261,6 +262,7 @@ abstract class CollectionMapperTest extends CoreTestCase
         $persistenceItem = Item::fromArray(
             [
                 'id' => 1,
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'status' => Value::STATUS_PUBLISHED,
                 'collectionId' => 42,
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
@@ -286,7 +288,7 @@ abstract class CollectionMapperTest extends CoreTestCase
 
         $item = $this->mapper->mapItem($persistenceItem);
 
-        self::assertSame(1, $item->getId());
+        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $item->getId()->toString());
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $item->getCollectionId()->toString());
         self::assertInstanceOf(NullItemDefinition::class, $item->getDefinition());
         self::assertSame(1, $item->getPosition());
@@ -305,6 +307,7 @@ abstract class CollectionMapperTest extends CoreTestCase
         $persistenceQuery = Query::fromArray(
             [
                 'id' => 1,
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'status' => Value::STATUS_PUBLISHED,
                 'collectionId' => 42,
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
@@ -328,7 +331,7 @@ abstract class CollectionMapperTest extends CoreTestCase
             $query->getQueryType()
         );
 
-        self::assertSame(1, $query->getId());
+        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $query->getId()->toString());
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $query->getCollectionId()->toString());
         self::assertTrue($query->isPublished());
         self::assertTrue($query->isTranslatable());
@@ -353,6 +356,7 @@ abstract class CollectionMapperTest extends CoreTestCase
     {
         $persistenceQuery = Query::fromArray(
             [
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => 'my_query_type',
                 'mainLocale' => 'en',
@@ -375,6 +379,7 @@ abstract class CollectionMapperTest extends CoreTestCase
     {
         $persistenceQuery = Query::fromArray(
             [
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => 'my_query_type',
                 'mainLocale' => 'en',
@@ -397,6 +402,7 @@ abstract class CollectionMapperTest extends CoreTestCase
     {
         $persistenceQuery = Query::fromArray(
             [
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => 'my_query_type',
                 'alwaysAvailable' => true,
@@ -424,6 +430,7 @@ abstract class CollectionMapperTest extends CoreTestCase
         $persistenceQuery = Query::fromArray(
             [
                 'id' => 42,
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => 'my_query_type',
                 'alwaysAvailable' => true,
@@ -448,6 +455,7 @@ abstract class CollectionMapperTest extends CoreTestCase
         $persistenceQuery = Query::fromArray(
             [
                 'id' => 42,
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => 'my_query_type',
                 'alwaysAvailable' => false,
@@ -468,6 +476,7 @@ abstract class CollectionMapperTest extends CoreTestCase
         $persistenceQuery = Query::fromArray(
             [
                 'id' => 1,
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'status' => Value::STATUS_PUBLISHED,
                 'collectionId' => 42,
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
@@ -488,7 +497,7 @@ abstract class CollectionMapperTest extends CoreTestCase
 
         self::assertInstanceOf(NullQueryType::class, $query->getQueryType());
 
-        self::assertSame(1, $query->getId());
+        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $query->getId()->toString());
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $query->getCollectionId()->toString());
         self::assertTrue($query->isPublished());
         self::assertTrue($query->isTranslatable());

@@ -33,7 +33,9 @@ interface CollectionHandlerInterface
     /**
      * Loads an item with specified ID.
      *
-     * @param int|string $itemId
+     * Item ID can be an auto-incremented ID or an UUID.
+     *
+     * @param int|string|\Ramsey\Uuid\UuidInterface $itemId
      * @param int $status
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If item with specified ID does not exist
@@ -59,7 +61,9 @@ interface CollectionHandlerInterface
     /**
      * Loads a query with specified ID.
      *
-     * @param int|string $queryId
+     * Query ID can be an auto-incremented ID or an UUID.
+     *
+     * @param int|string|\Ramsey\Uuid\UuidInterface $queryId
      * @param int $status
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If query with specified ID does not exist

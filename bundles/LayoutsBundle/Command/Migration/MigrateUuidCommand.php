@@ -28,6 +28,10 @@ final class MigrateUuidCommand extends Command
 
     private const NAMESPACE_COLLECTION = 'a3468555-de48-4cc3-818d-7a3350ee5d40';
 
+    private const NAMESPACE_ITEM = 'a3468556-de48-4cc3-818d-7a3350ee5d40';
+
+    private const NAMESPACE_QUERY = 'a3468557-de48-4cc3-818d-7a3350ee5d40';
+
     /**
      * @var \Doctrine\DBAL\Connection
      */
@@ -94,6 +98,8 @@ final class MigrateUuidCommand extends Command
         $this->updateTable('nglayouts_rule_target', self::NAMESPACE_TARGET, 'targets');
         $this->updateTable('nglayouts_rule_condition', self::NAMESPACE_CONDITION, 'conditions');
         $this->updateTable('nglayouts_collection', self::NAMESPACE_COLLECTION, 'collections');
+        $this->updateTable('nglayouts_collection_item', self::NAMESPACE_ITEM, 'collection items');
+        $this->updateTable('nglayouts_collection_query', self::NAMESPACE_QUERY, 'collection queries');
 
         $this->io->success('Generating UUIDs done.');
 

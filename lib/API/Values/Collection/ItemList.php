@@ -29,7 +29,7 @@ final class ItemList extends ArrayCollection
     }
 
     /**
-     * @return int[]|string[]
+     * @return \Ramsey\Uuid\UuidInterface[]
      */
     public function getItemIds(): array
     {

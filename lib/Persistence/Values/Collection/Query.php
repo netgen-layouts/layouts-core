@@ -14,9 +14,16 @@ final class Query extends Value
     /**
      * Query ID.
      *
-     * @var int|string
+     * @var int
      */
     public $id;
+
+    /**
+     * Query UUID.
+     *
+     * @var string
+     */
+    public $uuid;
 
     /**
      * ID of the collection to which this query belongs.

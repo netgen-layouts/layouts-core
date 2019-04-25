@@ -20,7 +20,7 @@ final class DeleteItemTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_DELETE,
-            '/nglayouts/api/v1/collections/items/7',
+            '/nglayouts/api/v1/collections/items/89c214a3-204f-5352-85d7-8852b26ab6b0',
             [],
             [],
             [],
@@ -39,7 +39,7 @@ final class DeleteItemTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_DELETE,
-            '/nglayouts/api/v1/collections/items/9999',
+            '/nglayouts/api/v1/collections/items/ffffffff-ffff-ffff-ffff-ffffffffffff',
             [],
             [],
             [],
@@ -49,7 +49,7 @@ final class DeleteItemTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find item with identifier "9999"'
+            'Could not find item with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"'
         );
     }
 }

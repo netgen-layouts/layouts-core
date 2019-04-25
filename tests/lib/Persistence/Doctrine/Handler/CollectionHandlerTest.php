@@ -12,6 +12,7 @@ use Netgen\Layouts\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\Item;
 use Netgen\Layouts\Persistence\Values\Collection\ItemCreateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\ItemUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\Query;
 use Netgen\Layouts\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\QueryTranslationUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Value;
@@ -97,6 +98,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 1,
+                'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                 'collectionId' => 1,
                 'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 'position' => 0,
@@ -136,6 +138,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 1,
+                'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                 'collectionId' => 1,
                 'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 'position' => 0,
@@ -189,6 +192,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 1,
+                'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
                 'collectionId' => 2,
                 'collectionUuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
                 'type' => 'my_query_type',
@@ -241,6 +245,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 1,
+                'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
                 'collectionId' => 2,
                 'collectionUuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
                 'type' => 'my_query_type',
@@ -379,6 +384,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 1,
+                'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
                 'collectionId' => $collection->id,
                 'collectionUuid' => $collection->uuid,
                 'type' => 'my_query_type',
@@ -444,6 +450,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 1,
+                'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
                 'collectionId' => $collection->id,
                 'collectionUuid' => $collection->uuid,
                 'type' => 'my_query_type',
@@ -686,7 +693,13 @@ final class CollectionHandlerTest extends TestCase
                     $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED)
                 );
             },
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+            [
+                'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                '76b05000-33ac-53f7-adfd-c91936d1f6b1',
+                '6dc13cc7-fd76-5e41-8b0c-1ed93ece7fcf',
+                '70fe4f3a-7e9d-5a1f-9e6a-b038c06ea117',
+                '3a3aa59a-76fe-532f-8a03-c04a93d803f6',
+            ]
         );
 
         self::assertSame(
@@ -708,6 +721,7 @@ final class CollectionHandlerTest extends TestCase
             [
                 [
                     'id' => 13,
+                    'uuid' => '76b05000-33ac-53f7-adfd-c91936d1f6b1',
                     'collectionId' => $copiedCollection->id,
                     'collectionUuid' => $copiedCollection->uuid,
                     'position' => 2,
@@ -718,6 +732,7 @@ final class CollectionHandlerTest extends TestCase
                 ],
                 [
                     'id' => 14,
+                    'uuid' => '6dc13cc7-fd76-5e41-8b0c-1ed93ece7fcf',
                     'collectionId' => $copiedCollection->id,
                     'collectionUuid' => $copiedCollection->uuid,
                     'position' => 3,
@@ -728,6 +743,7 @@ final class CollectionHandlerTest extends TestCase
                 ],
                 [
                     'id' => 15,
+                    'uuid' => '70fe4f3a-7e9d-5a1f-9e6a-b038c06ea117',
                     'collectionId' => $copiedCollection->id,
                     'collectionUuid' => $copiedCollection->uuid,
                     'position' => 5,
@@ -747,6 +763,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 5,
+                'uuid' => '3a3aa59a-76fe-532f-8a03-c04a93d803f6',
                 'collectionId' => $copiedCollection->id,
                 'collectionUuid' => $copiedCollection->uuid,
                 'type' => 'my_query_type',
@@ -789,7 +806,12 @@ final class CollectionHandlerTest extends TestCase
                     $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT)
                 );
             },
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+            [
+                'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                '76b05000-33ac-53f7-adfd-c91936d1f6b1',
+                '6dc13cc7-fd76-5e41-8b0c-1ed93ece7fcf',
+                '70fe4f3a-7e9d-5a1f-9e6a-b038c06ea117',
+            ]
         );
 
         self::assertSame(
@@ -811,6 +833,7 @@ final class CollectionHandlerTest extends TestCase
             [
                 [
                     'id' => 13,
+                    'uuid' => '76b05000-33ac-53f7-adfd-c91936d1f6b1',
                     'collectionId' => $copiedCollection->id,
                     'collectionUuid' => $copiedCollection->uuid,
                     'position' => 0,
@@ -821,6 +844,7 @@ final class CollectionHandlerTest extends TestCase
                 ],
                 [
                     'id' => 14,
+                    'uuid' => '6dc13cc7-fd76-5e41-8b0c-1ed93ece7fcf',
                     'collectionId' => $copiedCollection->id,
                     'collectionUuid' => $copiedCollection->uuid,
                     'position' => 1,
@@ -831,6 +855,7 @@ final class CollectionHandlerTest extends TestCase
                 ],
                 [
                     'id' => 15,
+                    'uuid' => '70fe4f3a-7e9d-5a1f-9e6a-b038c06ea117',
                     'collectionId' => $copiedCollection->id,
                     'collectionUuid' => $copiedCollection->uuid,
                     'position' => 2,
@@ -881,6 +906,7 @@ final class CollectionHandlerTest extends TestCase
             [
                 [
                     'id' => 7,
+                    'uuid' => '89c214a3-204f-5352-85d7-8852b26ab6b0',
                     'collectionId' => 3,
                     'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
                     'position' => 2,
@@ -891,6 +917,7 @@ final class CollectionHandlerTest extends TestCase
                 ],
                 [
                     'id' => 8,
+                    'uuid' => 'f6eb491a-e273-5ab0-85a3-f5765195b2dd',
                     'collectionId' => 3,
                     'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
                     'position' => 3,
@@ -901,6 +928,7 @@ final class CollectionHandlerTest extends TestCase
                 ],
                 [
                     'id' => 9,
+                    'uuid' => '9701e116-51f4-5ff6-b9b5-5660cb2ab21d',
                     'collectionId' => 3,
                     'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
                     'position' => 5,
@@ -918,6 +946,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 2,
+                'uuid' => '0303abc4-c894-59b5-ba95-5cf330b99c66',
                 'collectionId' => 3,
                 'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
                 'type' => 'my_query_type',
@@ -980,6 +1009,7 @@ final class CollectionHandlerTest extends TestCase
             [
                 [
                     'id' => 1,
+                    'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                     'collectionId' => 1,
                     'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                     'position' => 0,
@@ -990,6 +1020,7 @@ final class CollectionHandlerTest extends TestCase
                 ],
                 [
                     'id' => 2,
+                    'uuid' => '21e5d25d-7f2e-5020-a423-4cca08a5a7c9',
                     'collectionId' => 1,
                     'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                     'position' => 1,
@@ -1000,6 +1031,7 @@ final class CollectionHandlerTest extends TestCase
                 ],
                 [
                     'id' => 3,
+                    'uuid' => '02e890ee-6d30-513a-9d13-a3897bb6c3ab',
                     'collectionId' => 1,
                     'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                     'position' => 2,
@@ -1106,6 +1138,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 1,
+                'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
                 'collectionId' => $collection->id,
                 'collectionUuid' => $collection->uuid,
                 'type' => 'my_query_type',
@@ -1199,14 +1232,20 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->valueType = 'my_value_type';
         $itemCreateStruct->config = ['config' => ['value' => 42]];
 
-        $item = $this->collectionHandler->addItem(
-            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
-            $itemCreateStruct
+        $item = $this->withUuids(
+            function () use ($itemCreateStruct): Item {
+                return $this->collectionHandler->addItem(
+                    $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+                    $itemCreateStruct
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
         self::assertSame(
             [
                 'id' => 13,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'collectionId' => 1,
                 'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 'position' => 1,
@@ -1237,14 +1276,20 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->valueType = 'my_value_type';
         $itemCreateStruct->config = ['config' => ['value' => 42]];
 
-        $item = $this->collectionHandler->addItem(
-            $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT),
-            $itemCreateStruct
+        $item = $this->withUuids(
+            function () use ($itemCreateStruct): Item {
+                return $this->collectionHandler->addItem(
+                    $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT),
+                    $itemCreateStruct
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
         self::assertSame(
             [
                 'id' => 13,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'collectionId' => 3,
                 'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
                 'position' => 2,
@@ -1281,14 +1326,20 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->valueType = 'my_value_type';
         $itemCreateStruct->config = ['config' => ['value' => 42]];
 
-        $item = $this->collectionHandler->addItem(
-            $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT),
-            $itemCreateStruct
+        $item = $this->withUuids(
+            function () use ($itemCreateStruct): Item {
+                return $this->collectionHandler->addItem(
+                    $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT),
+                    $itemCreateStruct
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
         self::assertSame(
             [
                 'id' => 13,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'collectionId' => 3,
                 'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
                 'position' => 4,
@@ -1318,14 +1369,20 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->valueType = 'my_value_type';
         $itemCreateStruct->config = ['config' => ['value' => 42]];
 
-        $item = $this->collectionHandler->addItem(
-            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
-            $itemCreateStruct
+        $item = $this->withUuids(
+            function () use ($itemCreateStruct): Item {
+                return $this->collectionHandler->addItem(
+                    $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+                    $itemCreateStruct
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
         self::assertSame(
             [
                 'id' => 13,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'collectionId' => 1,
                 'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 'position' => 3,
@@ -1428,6 +1485,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 1,
+                'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                 'collectionId' => 1,
                 'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 'position' => 0,
@@ -1458,6 +1516,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 12,
+                'uuid' => '3562a253-72d1-54d1-8b31-ef1b55409cb5',
                 'collectionId' => 4,
                 'collectionUuid' => '08937ca0-18f4-5806-84df-8c132c36cabe',
                 'position' => 2,
@@ -1494,6 +1553,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 1,
+                'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                 'collectionId' => 1,
                 'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 'position' => 1,
@@ -1530,6 +1590,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 1,
+                'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
                 'collectionId' => 1,
                 'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 'position' => 0,
@@ -1566,6 +1627,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 2,
+                'uuid' => '21e5d25d-7f2e-5020-a423-4cca08a5a7c9',
                 'collectionId' => 1,
                 'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 'position' => 0,
@@ -1599,6 +1661,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 3,
+                'uuid' => '02e890ee-6d30-513a-9d13-a3897bb6c3ab',
                 'collectionId' => 1,
                 'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 'position' => 1,
@@ -1635,6 +1698,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 7,
+                'uuid' => '89c214a3-204f-5352-85d7-8852b26ab6b0',
                 'collectionId' => 3,
                 'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
                 'position' => 4,
@@ -1671,6 +1735,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 8,
+                'uuid' => 'f6eb491a-e273-5ab0-85a3-f5765195b2dd',
                 'collectionId' => 3,
                 'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
                 'position' => 2,
@@ -1842,14 +1907,20 @@ final class CollectionHandlerTest extends TestCase
             'param' => 'value',
         ];
 
-        $createdQuery = $this->collectionHandler->createQuery(
-            $collection,
-            $queryCreateStruct
+        $createdQuery = $this->withUuids(
+            function () use ($collection, $queryCreateStruct): Query {
+                return $this->collectionHandler->createQuery(
+                    $collection,
+                    $queryCreateStruct
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
         self::assertSame(
             [
                 'id' => 5,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'collectionId' => $collection->id,
                 'collectionUuid' => $collection->uuid,
                 'type' => 'my_query_type',
@@ -1914,6 +1985,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 1,
+                'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
                 'collectionId' => 2,
                 'collectionUuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
                 'type' => 'my_query_type',
@@ -1956,6 +2028,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 1,
+                'uuid' => '86c5af5d-bcb3-5a93-aeed-754466d76878',
                 'collectionId' => 2,
                 'collectionUuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
                 'type' => 'my_query_type',

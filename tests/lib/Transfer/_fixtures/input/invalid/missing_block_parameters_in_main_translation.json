@@ -77,7 +77,7 @@
                                     ],
                                     "items": [],
                                     "query": {
-                                        "id": "@integer@",
+                                        "id": "@uuid@",
                                         "is_translatable": false,
                                         "is_always_available": true,
                                         "main_locale": "en",

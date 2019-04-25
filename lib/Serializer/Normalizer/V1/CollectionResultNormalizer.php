@@ -87,7 +87,7 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
         })();
 
         $data = [
-            'id' => $collectionItem !== null ? $collectionItem->getId() : null,
+            'id' => $collectionItem !== null ? $collectionItem->getId()->toString() : null,
             'collection_id' => $collectionItem !== null ? $collectionItem->getCollectionId()->toString() : null,
             'visible' => $collectionItem !== null ?
                 $this->visibilityResolver->isVisible($collectionItem) :

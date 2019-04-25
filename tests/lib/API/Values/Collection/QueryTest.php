@@ -41,11 +41,12 @@ final class QueryTest extends TestCase
     {
         $queryType = new QueryType('query_type');
 
+        $queryUuid = Uuid::uuid4();
         $collectionUuid = Uuid::uuid4();
 
         $query = Query::fromArray(
             [
-                'id' => 42,
+                'id' => $queryUuid,
                 'collectionId' => $collectionUuid,
                 'queryType' => $queryType,
                 'isTranslatable' => true,
@@ -57,7 +58,7 @@ final class QueryTest extends TestCase
             ]
         );
 
-        self::assertSame(42, $query->getId());
+        self::assertSame($queryUuid->toString(), $query->getId()->toString());
         self::assertSame($collectionUuid->toString(), $query->getCollectionId()->toString());
         self::assertSame($queryType, $query->getQueryType());
         self::assertTrue($query->isTranslatable());
@@ -74,6 +75,7 @@ final class QueryTest extends TestCase
     {
         $query = Query::fromArray(
             [
+                'id' => Uuid::uuid4(),
                 'collectionId' => Uuid::uuid4(),
                 'queryType' => new QueryType('query_type'),
             ]

@@ -103,7 +103,7 @@ final class CollectionServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->collectionService->updateItem(
-            Item::fromArray(['status' => Value::STATUS_DRAFT, 'definition' => new ItemDefinition()]),
+            Item::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT, 'definition' => new ItemDefinition()]),
             new ItemUpdateStruct()
         );
     }
@@ -130,7 +130,7 @@ final class CollectionServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->moveItem(Item::fromArray(['status' => Value::STATUS_DRAFT]), 0);
+        $this->collectionService->moveItem(Item::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]), 0);
     }
 
     /**
@@ -155,7 +155,7 @@ final class CollectionServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->deleteItem(Item::fromArray(['status' => Value::STATUS_DRAFT]));
+        $this->collectionService->deleteItem(Item::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]));
     }
 
     /**
@@ -219,6 +219,7 @@ final class CollectionServiceTest extends TestCase
         $this->collectionService->updateQuery(
             Query::fromArray(
                 [
+                    'id' => Uuid::uuid4(),
                     'status' => Value::STATUS_DRAFT,
                     'queryType' => new QueryType('type'),
                 ]

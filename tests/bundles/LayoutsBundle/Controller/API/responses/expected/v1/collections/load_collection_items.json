@@ -1,6 +1,6 @@
 [
     {
-        "id": 7,
+        "id": "89c214a3-204f-5352-85d7-8852b26ab6b0",
         "collection_id": "da050624-8ae0-5fb9-ae85-092bf8242b89",
         "position": 2,
         "visible": true,
@@ -12,7 +12,7 @@
         "config": []
     },
     {
-        "id": 8,
+        "id": "f6eb491a-e273-5ab0-85a3-f5765195b2dd",
         "collection_id": "da050624-8ae0-5fb9-ae85-092bf8242b89",
         "position": 3,
         "visible": true,
@@ -24,7 +24,7 @@
         "config": []
     },
     {
-        "id": 9,
+        "id": "9701e116-51f4-5ff6-b9b5-5660cb2ab21d",
         "collection_id": "da050624-8ae0-5fb9-ae85-092bf8242b89",
         "position": 5,
         "visible": true,

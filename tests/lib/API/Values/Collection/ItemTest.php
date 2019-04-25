@@ -33,11 +33,12 @@ final class ItemTest extends TestCase
         $cmsItem = new CmsItem();
         $definition = new ItemDefinition();
 
+        $itemUuid = Uuid::uuid4();
         $collectionUuid = Uuid::uuid4();
 
         $item = Item::fromArray(
             [
-                'id' => 42,
+                'id' => $itemUuid,
                 'collectionId' => $collectionUuid,
                 'definition' => $definition,
                 'position' => 3,
@@ -48,7 +49,7 @@ final class ItemTest extends TestCase
             ]
         );
 
-        self::assertSame(42, $item->getId());
+        self::assertSame($itemUuid->toString(), $item->getId()->toString());
         self::assertSame($collectionUuid->toString(), $item->getCollectionId()->toString());
         self::assertSame($definition, $item->getDefinition());
         self::assertSame(3, $item->getPosition());
@@ -64,6 +65,7 @@ final class ItemTest extends TestCase
     {
         $item = Item::fromArray(
             [
+                'id' => Uuid::uuid4(),
                 'collectionId' => Uuid::uuid4(),
                 'definition' => new ItemDefinition(),
                 'cmsItem' => CmsItem::fromArray(['isVisible' => $cmsItemVisible]),
@@ -80,6 +82,7 @@ final class ItemTest extends TestCase
     {
         $item = Item::fromArray(
             [
+                'id' => Uuid::uuid4(),
                 'collectionId' => Uuid::uuid4(),
                 'cmsItem' => new NullCmsItem('value'),
             ]

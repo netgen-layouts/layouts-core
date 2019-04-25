@@ -42,7 +42,7 @@ final class CollectionQueryNormalizerTest extends TestCase
     {
         $query = Query::fromArray(
             [
-                'id' => 42,
+                'id' => Uuid::uuid4(),
                 'collectionId' => Uuid::uuid4(),
                 'queryType' => new QueryType('my_query_type'),
                 'isTranslatable' => true,
@@ -83,7 +83,7 @@ final class CollectionQueryNormalizerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => $query->getId(),
+                'id' => $query->getId()->toString(),
                 'collection_id' => $query->getCollectionId()->toString(),
                 'type' => $query->getQueryType()->getType(),
                 'locale' => $query->getLocale(),

@@ -140,7 +140,7 @@ final class CollectionMapper
         }
 
         $itemData = [
-            'id' => $item->id,
+            'id' => Uuid::fromString($item->uuid),
             'status' => $item->status,
             'definition' => $itemDefinition,
             'collectionId' => Uuid::fromString($item->collectionUuid),
@@ -201,7 +201,7 @@ final class CollectionMapper
         );
 
         $queryData = [
-            'id' => $query->id,
+            'id' => Uuid::fromString($query->uuid),
             'status' => $query->status,
             'collectionId' => Uuid::fromString($query->collectionUuid),
             'queryType' => $queryType,

@@ -125,7 +125,7 @@ abstract class CollectionServiceTest extends CoreTestCase
      */
     public function testLoadItem(): void
     {
-        $item = $this->collectionService->loadItem(7);
+        $item = $this->collectionService->loadItem(Uuid::fromString('89c214a3-204f-5352-85d7-8852b26ab6b0'));
 
         self::assertTrue($item->isPublished());
     }
@@ -136,9 +136,9 @@ abstract class CollectionServiceTest extends CoreTestCase
     public function testLoadItemThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find item with identifier "999999"');
+        $this->expectExceptionMessage('Could not find item with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
 
-        $this->collectionService->loadItem(999999);
+        $this->collectionService->loadItem(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
     /**
@@ -146,7 +146,7 @@ abstract class CollectionServiceTest extends CoreTestCase
      */
     public function testLoadItemDraft(): void
     {
-        $item = $this->collectionService->loadItemDraft(7);
+        $item = $this->collectionService->loadItemDraft(Uuid::fromString('89c214a3-204f-5352-85d7-8852b26ab6b0'));
 
         self::assertTrue($item->isDraft());
     }
@@ -157,9 +157,9 @@ abstract class CollectionServiceTest extends CoreTestCase
     public function testLoadItemDraftThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find item with identifier "999999"');
+        $this->expectExceptionMessage('Could not find item with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
 
-        $this->collectionService->loadItem(999999);
+        $this->collectionService->loadItem(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
     /**
@@ -167,7 +167,7 @@ abstract class CollectionServiceTest extends CoreTestCase
      */
     public function testLoadQuery(): void
     {
-        $query = $this->collectionService->loadQuery(2);
+        $query = $this->collectionService->loadQuery(Uuid::fromString('0303abc4-c894-59b5-ba95-5cf330b99c66'));
 
         self::assertTrue($query->isPublished());
     }
@@ -178,9 +178,9 @@ abstract class CollectionServiceTest extends CoreTestCase
     public function testLoadQueryThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find query with identifier "999999"');
+        $this->expectExceptionMessage('Could not find query with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
 
-        $this->collectionService->loadQuery(999999);
+        $this->collectionService->loadQuery(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
     /**
@@ -188,7 +188,7 @@ abstract class CollectionServiceTest extends CoreTestCase
      */
     public function testLoadQueryDraft(): void
     {
-        $query = $this->collectionService->loadQueryDraft(2);
+        $query = $this->collectionService->loadQueryDraft(Uuid::fromString('0303abc4-c894-59b5-ba95-5cf330b99c66'));
 
         self::assertTrue($query->isDraft());
     }
@@ -199,9 +199,9 @@ abstract class CollectionServiceTest extends CoreTestCase
     public function testLoadQueryDraftThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find query with identifier "999999"');
+        $this->expectExceptionMessage('Could not find query with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
 
-        $this->collectionService->loadQueryDraft(999999);
+        $this->collectionService->loadQueryDraft(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
     /**
@@ -371,7 +371,7 @@ abstract class CollectionServiceTest extends CoreTestCase
 
         $itemUpdateStruct->setConfigStruct('key', $configStruct);
 
-        $item = $this->collectionService->loadItemDraft(1);
+        $item = $this->collectionService->loadItemDraft(Uuid::fromString('8ae55a69-8633-51dd-9ff5-d820d040c1c1'));
 
         $updatedItem = $this->collectionService->updateItem($item, $itemUpdateStruct);
 
@@ -392,7 +392,7 @@ abstract class CollectionServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "item" has an invalid state. Only draft items can be updated.');
 
         $itemUpdateStruct = $this->collectionService->newItemUpdateStruct();
-        $item = $this->collectionService->loadItem(4);
+        $item = $this->collectionService->loadItem(Uuid::fromString('79b6f162-d801-57e0-8b2d-a4b568a74231'));
 
         $this->collectionService->updateItem($item, $itemUpdateStruct);
     }
@@ -403,14 +403,14 @@ abstract class CollectionServiceTest extends CoreTestCase
     public function testMoveItem(): void
     {
         $movedItem = $this->collectionService->moveItem(
-            $this->collectionService->loadItemDraft(1),
+            $this->collectionService->loadItemDraft(Uuid::fromString('8ae55a69-8633-51dd-9ff5-d820d040c1c1')),
             1
         );
 
         self::assertTrue($movedItem->isDraft());
         self::assertSame(1, $movedItem->getPosition());
 
-        $secondItem = $this->collectionService->loadItemDraft(2);
+        $secondItem = $this->collectionService->loadItemDraft(Uuid::fromString('21e5d25d-7f2e-5020-a423-4cca08a5a7c9'));
         self::assertSame(0, $secondItem->getPosition());
     }
 
@@ -423,7 +423,7 @@ abstract class CollectionServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "item" has an invalid state. Only draft items can be moved.');
 
         $this->collectionService->moveItem(
-            $this->collectionService->loadItem(4),
+            $this->collectionService->loadItem(Uuid::fromString('79b6f162-d801-57e0-8b2d-a4b568a74231')),
             1
         );
     }
@@ -437,7 +437,7 @@ abstract class CollectionServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
 
         $this->collectionService->moveItem(
-            $this->collectionService->loadItemDraft(1),
+            $this->collectionService->loadItemDraft(Uuid::fromString('8ae55a69-8633-51dd-9ff5-d820d040c1c1')),
             9999
         );
     }
@@ -447,7 +447,7 @@ abstract class CollectionServiceTest extends CoreTestCase
      */
     public function testDeleteItem(): void
     {
-        $item = $this->collectionService->loadItemDraft(1);
+        $item = $this->collectionService->loadItemDraft(Uuid::fromString('8ae55a69-8633-51dd-9ff5-d820d040c1c1'));
         $this->collectionService->deleteItem($item);
 
         try {
@@ -457,7 +457,7 @@ abstract class CollectionServiceTest extends CoreTestCase
             // Do nothing
         }
 
-        $secondItem = $this->collectionService->loadItemDraft(2);
+        $secondItem = $this->collectionService->loadItemDraft(Uuid::fromString('21e5d25d-7f2e-5020-a423-4cca08a5a7c9'));
         self::assertSame(0, $secondItem->getPosition());
     }
 
@@ -469,7 +469,7 @@ abstract class CollectionServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "item" has an invalid state. Only draft items can be deleted.');
 
-        $item = $this->collectionService->loadItem(4);
+        $item = $this->collectionService->loadItem(Uuid::fromString('79b6f162-d801-57e0-8b2d-a4b568a74231'));
         $this->collectionService->deleteItem($item);
     }
 
@@ -502,7 +502,7 @@ abstract class CollectionServiceTest extends CoreTestCase
      */
     public function testUpdateQuery(): void
     {
-        $query = $this->collectionService->loadQueryDraft(2, ['en']);
+        $query = $this->collectionService->loadQueryDraft(Uuid::fromString('0303abc4-c894-59b5-ba95-5cf330b99c66'), ['en']);
 
         $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct('hr');
 
@@ -517,7 +517,7 @@ abstract class CollectionServiceTest extends CoreTestCase
         self::assertNull($updatedQuery->getParameter('param')->getValue());
         self::assertNull($updatedQuery->getParameter('param2')->getValue());
 
-        $croQuery = $this->collectionService->loadQueryDraft(2, ['hr']);
+        $croQuery = $this->collectionService->loadQueryDraft(Uuid::fromString('0303abc4-c894-59b5-ba95-5cf330b99c66'), ['hr']);
 
         // "param" parameter is untranslatable, meaning it keeps the value from main locale
         self::assertNull($croQuery->getParameter('param')->getValue());
@@ -531,7 +531,7 @@ abstract class CollectionServiceTest extends CoreTestCase
      */
     public function testUpdateQueryInMainLocale(): void
     {
-        $query = $this->collectionService->loadQueryDraft(2, ['en']);
+        $query = $this->collectionService->loadQueryDraft(Uuid::fromString('0303abc4-c894-59b5-ba95-5cf330b99c66'), ['en']);
 
         $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct('en');
 
@@ -543,7 +543,7 @@ abstract class CollectionServiceTest extends CoreTestCase
         self::assertTrue($updatedQuery->isDraft());
         self::assertSame('my_query_type', $updatedQuery->getQueryType()->getType());
 
-        $croQuery = $this->collectionService->loadQueryDraft(2, ['hr']);
+        $croQuery = $this->collectionService->loadQueryDraft(Uuid::fromString('0303abc4-c894-59b5-ba95-5cf330b99c66'), ['hr']);
 
         self::assertSame('new_value', $updatedQuery->getParameter('param')->getValue());
         self::assertSame(3, $updatedQuery->getParameter('param2')->getValue());
@@ -562,7 +562,7 @@ abstract class CollectionServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "query" has an invalid state. Only draft queries can be updated.');
 
-        $query = $this->collectionService->loadQuery(2);
+        $query = $this->collectionService->loadQuery(Uuid::fromString('0303abc4-c894-59b5-ba95-5cf330b99c66'));
 
         $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct('en');
         $queryUpdateStruct->setParameterValue('param', 'value');
@@ -579,7 +579,7 @@ abstract class CollectionServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "query" has an invalid state. Query does not have the specified translation.');
 
-        $query = $this->collectionService->loadQueryDraft(2);
+        $query = $this->collectionService->loadQueryDraft(Uuid::fromString('0303abc4-c894-59b5-ba95-5cf330b99c66'));
 
         $queryUpdateStruct = $this->collectionService->newQueryUpdateStruct('non-existing');
         $queryUpdateStruct->setParameterValue('param', 'value');
@@ -696,7 +696,7 @@ abstract class CollectionServiceTest extends CoreTestCase
      */
     public function testNewItemUpdateStructFromItem(): void
     {
-        $item = $this->collectionService->loadItemDraft(1);
+        $item = $this->collectionService->loadItemDraft(Uuid::fromString('8ae55a69-8633-51dd-9ff5-d820d040c1c1'));
         $struct = $this->collectionService->newItemUpdateStruct($item);
 
         self::assertArrayHasKey('key', $struct->getConfigStructs());
@@ -758,7 +758,7 @@ abstract class CollectionServiceTest extends CoreTestCase
      */
     public function testNewQueryUpdateStructFromQuery(): void
     {
-        $query = $this->collectionService->loadQueryDraft(4);
+        $query = $this->collectionService->loadQueryDraft(Uuid::fromString('6d60fcbc-ae38-57c2-af72-e462a3e5c9f2'));
         $struct = $this->collectionService->newQueryUpdateStruct('en', $query);
 
         self::assertSame(

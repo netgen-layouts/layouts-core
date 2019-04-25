@@ -63,6 +63,7 @@ final class CollectionHandler implements CollectionHandlerInterface
 
     public function loadItem($itemId, int $status): Item
     {
+        $itemId = $itemId instanceof UuidInterface ? $itemId->toString() : $itemId;
         $data = $this->queryHandler->loadItemData($itemId, $status);
 
         if (count($data) === 0) {
@@ -98,6 +99,7 @@ final class CollectionHandler implements CollectionHandlerInterface
 
     public function loadQuery($queryId, int $status): Query
     {
+        $queryId = $queryId instanceof UuidInterface ? $queryId->toString() : $queryId;
         $data = $this->queryHandler->loadQueryData($queryId, $status);
 
         if (count($data) === 0) {
@@ -257,6 +259,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         foreach ($collectionItems as $collectionItem) {
             $newItem = clone $collectionItem;
             $newItem->id = null;
+            $newItem->uuid = Uuid::uuid4()->toString();
 
             $newItem->collectionId = $newCollection->id;
             $newItem->collectionUuid = $newCollection->uuid;
@@ -275,6 +278,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         if ($collectionQuery instanceof Query) {
             $newQuery = clone $collectionQuery;
             $newQuery->id = null;
+            $newQuery->uuid = Uuid::uuid4()->toString();
 
             $newQuery->collectionId = $newCollection->id;
             $newQuery->collectionUuid = $newCollection->uuid;
@@ -367,6 +371,7 @@ final class CollectionHandler implements CollectionHandlerInterface
 
         $newItem = Item::fromArray(
             [
+                'uuid' => Uuid::uuid4()->toString(),
                 'collectionId' => $collection->id,
                 'collectionUuid' => $collection->uuid,
                 'position' => $position,
@@ -482,6 +487,7 @@ final class CollectionHandler implements CollectionHandlerInterface
 
         $newQuery = Query::fromArray(
             [
+                'uuid' => Uuid::uuid4()->toString(),
                 'collectionId' => $collection->id,
                 'collectionUuid' => $collection->uuid,
                 'type' => $queryCreateStruct->type,

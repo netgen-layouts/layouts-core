@@ -34,7 +34,7 @@ final class ItemVisitor implements VisitorInterface
         }
 
         return [
-            'id' => $value->getId(),
+            'id' => $value->getId()->toString(),
             'position' => $value->getPosition(),
             'value' => $value->getCmsItem()->getRemoteId(),
             'value_type' => $value->getDefinition()->getValueType(),

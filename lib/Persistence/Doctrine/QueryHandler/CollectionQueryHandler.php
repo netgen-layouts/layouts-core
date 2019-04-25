@@ -43,11 +43,8 @@ final class CollectionQueryHandler extends QueryHandler
     public function loadItemData($itemId, int $status): array
     {
         $query = $this->getItemSelectQuery();
-        $query->where(
-            $query->expr()->eq('i.id', ':id')
-        )
-        ->setParameter('id', $itemId, Type::INTEGER);
 
+        $this->applyIdCondition($query, $itemId, 'i.id', 'i.uuid');
         $this->applyStatusCondition($query, $status, 'i.status');
 
         return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
@@ -84,11 +81,8 @@ final class CollectionQueryHandler extends QueryHandler
     public function loadQueryData($queryId, int $status): array
     {
         $query = $this->getQuerySelectQuery();
-        $query->where(
-            $query->expr()->eq('q.id', ':id')
-        )
-        ->setParameter('id', $queryId, Type::INTEGER);
 
+        $this->applyIdCondition($query, $queryId, 'q.id', 'q.uuid');
         $this->applyStatusCondition($query, $status, 'q.status');
 
         return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
@@ -331,6 +325,7 @@ final class CollectionQueryHandler extends QueryHandler
             ->values(
                 [
                     'id' => ':id',
+                    'uuid' => ':uuid',
                     'status' => ':status',
                     'collection_id' => ':collection_id',
                     'position' => ':position',
@@ -339,12 +334,8 @@ final class CollectionQueryHandler extends QueryHandler
                     'config' => ':config',
                 ]
             )
-            ->setValue(
-                'id',
-                $item->id !== null ?
-                    (int) $item->id :
-                    $this->connectionHelper->getAutoIncrementValue('nglayouts_collection_item')
-            )
+            ->setValue('id', $item->id ?? $this->connectionHelper->getAutoIncrementValue('nglayouts_collection_item'))
+            ->setParameter('uuid', $item->uuid, Type::STRING)
             ->setParameter('status', $item->status, Type::INTEGER)
             ->setParameter('collection_id', $item->collectionId, Type::INTEGER)
             ->setParameter('position', $item->position, Type::INTEGER)
@@ -368,6 +359,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $query
             ->update('nglayouts_collection_item')
+            ->set('uuid', ':uuid')
             ->set('collection_id', ':collection_id')
             ->set('position', ':position')
             ->set('value', ':value')
@@ -377,6 +369,7 @@ final class CollectionQueryHandler extends QueryHandler
                 $query->expr()->eq('id', ':id')
             )
             ->setParameter('id', $item->id, Type::INTEGER)
+            ->setParameter('uuid', $item->uuid, Type::STRING)
             ->setParameter('collection_id', $item->collectionId, Type::INTEGER)
             ->setParameter('position', $item->position, Type::INTEGER)
             ->setParameter('value', $item->value, Type::STRING)
@@ -460,17 +453,14 @@ final class CollectionQueryHandler extends QueryHandler
             ->values(
                 [
                     'id' => ':id',
+                    'uuid' => ':uuid',
                     'status' => ':status',
                     'collection_id' => ':collection_id',
                     'type' => ':type',
                 ]
             )
-            ->setValue(
-                'id',
-                $query->id !== null ?
-                    (int) $query->id :
-                    $this->connectionHelper->getAutoIncrementValue('nglayouts_collection_query')
-            )
+            ->setValue('id', $query->id ?? $this->connectionHelper->getAutoIncrementValue('nglayouts_collection_query'))
+            ->setParameter('uuid', $query->uuid, Type::STRING)
             ->setParameter('status', $query->status, Type::INTEGER)
             ->setParameter('collection_id', $query->collectionId, Type::INTEGER)
             ->setParameter('type', $query->type, Type::STRING);

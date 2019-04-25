@@ -121,12 +121,14 @@ DROP TABLE IF EXISTS `nglayouts_collection_item`;
 CREATE TABLE `nglayouts_collection_item` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
+  `uuid` char(36) NOT NULL,
   `collection_id` int(11) NOT NULL,
   `position` int(11) NOT NULL,
   `value` varchar(191) DEFAULT NULL,
   `value_type` varchar(191) NOT NULL,
   `config` text NOT NULL,
   PRIMARY KEY (`id`,`status`),
+  UNIQUE KEY `idx_ngl_collection_item_uuid` (`uuid`, `status`),
   KEY `idx_ngl_collection` (`collection_id`,`status`),
   CONSTRAINT `fk_ngl_item_collection` FOREIGN KEY (`collection_id`, `status`)
     REFERENCES `nglayouts_collection` (`id`, `status`)
@@ -143,9 +145,11 @@ DROP TABLE IF EXISTS `nglayouts_collection_query`;
 CREATE TABLE `nglayouts_collection_query` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
+  `uuid` char(36) NOT NULL,
   `collection_id` int(11) NOT NULL,
   `type` varchar(191) NOT NULL,
   PRIMARY KEY (`id`,`status`),
+  UNIQUE KEY `idx_ngl_collection_query_uuid` (`uuid`, `status`),
   KEY `idx_ngl_collection` (`collection_id`,`status`),
   KEY `idx_ngl_collection_identifier` (`collection_id`,`status`),
   CONSTRAINT `fk_ngl_query_collection` FOREIGN KEY (`collection_id`, `status`)

@@ -138,7 +138,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
      */
     public function testNewItemUpdateStructFromItem(): void
     {
-        $item = $this->collectionService->loadItemDraft(1);
+        $item = $this->collectionService->loadItemDraft(Uuid::fromString('8ae55a69-8633-51dd-9ff5-d820d040c1c1'));
         $struct = $this->structBuilder->newItemUpdateStruct($item);
 
         self::assertArrayHasKey('key', $struct->getConfigStructs());
@@ -200,7 +200,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
      */
     public function testNewQueryUpdateStructFromQuery(): void
     {
-        $query = $this->collectionService->loadQueryDraft(4);
+        $query = $this->collectionService->loadQueryDraft(Uuid::fromString('6d60fcbc-ae38-57c2-af72-e462a3e5c9f2'));
         $struct = $this->structBuilder->newQueryUpdateStruct('en', $query);
 
         self::assertSame(

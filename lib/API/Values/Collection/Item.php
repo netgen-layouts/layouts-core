@@ -23,7 +23,7 @@ final class Item implements Value, ConfigAwareValue
     use LazyPropertyTrait;
 
     /**
-     * @var int|string
+     * @var \Ramsey\Uuid\UuidInterface
      */
     private $id;
 
@@ -53,11 +53,9 @@ final class Item implements Value, ConfigAwareValue
     private $cmsItem;
 
     /**
-     * Returns the item ID.
-     *
-     * @return int|string
+     * Returns the item UUID.
      */
-    public function getId()
+    public function getId(): UuidInterface
     {
         return $this->id;
     }

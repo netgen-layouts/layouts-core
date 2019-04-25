@@ -117,12 +117,14 @@ CREATE TABLE `nglayouts_collection_translation` (
 CREATE TABLE `nglayouts_collection_item` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
+  `uuid` text(36) NOT NULL,
   `collection_id` integer NOT NULL,
   `position` integer NOT NULL,
   `value` text(255),
   `value_type` text(255) NOT NULL,
   `config` text NOT NULL,
   PRIMARY KEY (`id`, `status`),
+  UNIQUE (`uuid`, `status`),
   FOREIGN KEY (`collection_id`, `status`)
     REFERENCES `nglayouts_collection` (`id`, `status`)
 );
@@ -130,9 +132,11 @@ CREATE TABLE `nglayouts_collection_item` (
 CREATE TABLE `nglayouts_collection_query` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
+  `uuid` text(36) NOT NULL,
   `collection_id` integer NOT NULL,
   `type` text(255) NOT NULL,
   PRIMARY KEY (`id`, `status`),
+  UNIQUE (`uuid`, `status`),
   FOREIGN KEY (`collection_id`, `status`)
     REFERENCES `nglayouts_collection` (`id`, `status`)
 );

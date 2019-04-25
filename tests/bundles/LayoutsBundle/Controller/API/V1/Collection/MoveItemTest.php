@@ -24,7 +24,7 @@ final class MoveItemTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/collections/items/1/move',
+            '/nglayouts/api/v1/collections/items/8ae55a69-8633-51dd-9ff5-d820d040c1c1/move',
             [],
             [],
             [],
@@ -43,7 +43,7 @@ final class MoveItemTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/collections/items/9999/move',
+            '/nglayouts/api/v1/collections/items/ffffffff-ffff-ffff-ffff-ffffffffffff/move',
             [],
             [],
             [],
@@ -53,7 +53,7 @@ final class MoveItemTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find item with identifier "9999"'
+            'Could not find item with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"'
         );
     }
 
@@ -70,7 +70,7 @@ final class MoveItemTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/collections/items/1/move',
+            '/nglayouts/api/v1/collections/items/8ae55a69-8633-51dd-9ff5-d820d040c1c1/move',
             [],
             [],
             [],

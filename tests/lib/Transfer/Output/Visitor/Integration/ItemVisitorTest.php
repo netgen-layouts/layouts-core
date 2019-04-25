@@ -11,6 +11,7 @@ use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Transfer\Output\Visitor\ItemVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
+use Ramsey\Uuid\Uuid;
 
 abstract class ItemVisitorTest extends VisitorTest
 {
@@ -49,8 +50,8 @@ abstract class ItemVisitorTest extends VisitorTest
     public function visitProvider(): array
     {
         return [
-            [function (): Item { return $this->collectionService->loadItem(4); }, 'item/item_4.json'],
-            [function (): Item { return $this->collectionService->loadItem(5); }, 'item/item_5.json'],
+            [function (): Item { return $this->collectionService->loadItem(Uuid::fromString('79b6f162-d801-57e0-8b2d-a4b568a74231')); }, 'item/item_4.json'],
+            [function (): Item { return $this->collectionService->loadItem(Uuid::fromString('966e55da-9671-581a-b3b4-84363f7db33d')); }, 'item/item_5.json'],
         ];
     }
 }

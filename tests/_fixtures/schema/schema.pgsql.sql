@@ -86,6 +86,7 @@ CREATE TABLE IF NOT EXISTS "nglayouts_collection_translation" (
 CREATE TABLE IF NOT EXISTS "nglayouts_collection_item" (
   "id" integer NOT NULL,
   "status" integer NOT NULL,
+  "uuid" character(36) NOT NULL,
   "collection_id" integer NOT NULL,
   "position" integer NOT NULL,
   "value" character varying(255),
@@ -98,6 +99,7 @@ CREATE TABLE IF NOT EXISTS "nglayouts_collection_item" (
 CREATE TABLE IF NOT EXISTS "nglayouts_collection_query" (
   "id" integer NOT NULL,
   "status" integer NOT NULL,
+  "uuid" character(36) NOT NULL,
   "collection_id" integer NOT NULL,
   "type" character varying(255) NOT NULL,
   PRIMARY KEY ("id", "status"),
@@ -218,10 +220,12 @@ CREATE UNIQUE INDEX IF NOT EXISTS idx_ngl_collection_uuid ON nglayouts_collectio
 CREATE SEQUENCE IF NOT EXISTS nglayouts_collection_item_id_seq;
 ALTER SEQUENCE nglayouts_collection_item_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY nglayouts_collection_item ALTER COLUMN id SET DEFAULT nextval('nglayouts_collection_item_id_seq'::regclass);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_ngl_collection_item_uuid ON nglayouts_collection_item (uuid, status);
 
 CREATE SEQUENCE IF NOT EXISTS nglayouts_collection_query_id_seq;
 ALTER SEQUENCE nglayouts_collection_query_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY nglayouts_collection_query ALTER COLUMN id SET DEFAULT nextval('nglayouts_collection_query_id_seq'::regclass);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_ngl_collection_query_uuid ON nglayouts_collection_query (uuid, status);
 
 CREATE SEQUENCE IF NOT EXISTS nglayouts_role_id_seq;
 ALTER SEQUENCE nglayouts_role_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;

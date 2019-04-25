@@ -50,7 +50,7 @@ final class CollectionItemNormalizerTest extends TestCase
     {
         $item = Item::fromArray(
             [
-                'id' => 42,
+                'id' => Uuid::uuid4(),
                 'collectionId' => Uuid::uuid4(),
                 'position' => 3,
                 'value' => 12,
@@ -86,7 +86,7 @@ final class CollectionItemNormalizerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => $item->getId(),
+                'id' => $item->getId()->toString(),
                 'collection_id' => $item->getCollectionId()->toString(),
                 'position' => $item->getPosition(),
                 'visible' => true,

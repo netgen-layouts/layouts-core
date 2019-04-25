@@ -15,6 +15,7 @@ final class ItemTest extends TestCase
         $item = Item::fromArray(
             [
                 'id' => 42,
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'collectionId' => 30,
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'position' => 3,
@@ -26,6 +27,7 @@ final class ItemTest extends TestCase
         );
 
         self::assertSame(42, $item->id);
+        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $item->uuid);
         self::assertSame(30, $item->collectionId);
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $item->collectionUuid);
         self::assertSame(3, $item->position);

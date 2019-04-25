@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Tests\API\Values\Collection;
 use Netgen\Layouts\API\Values\Collection\Item;
 use Netgen\Layouts\API\Values\Collection\ItemList;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 use stdClass;
 use TypeError;
 
@@ -47,8 +48,11 @@ final class ItemListTest extends TestCase
      */
     public function testGetItemIds(): void
     {
-        $items = [Item::fromArray(['id' => 42]), Item::fromArray(['id' => 24])];
+        $uuid1 = Uuid::uuid4();
+        $uuid2 = Uuid::uuid4();
 
-        self::assertSame([42, 24], (new ItemList($items))->getItemIds());
+        $items = [Item::fromArray(['id' => $uuid1]), Item::fromArray(['id' => $uuid2])];
+
+        self::assertSame([$uuid1, $uuid2], (new ItemList($items))->getItemIds());
     }
 }

@@ -8,6 +8,7 @@ use Netgen\Bundle\LayoutsBundle\ParamConverter\Collection\QueryParamConverter;
 use Netgen\Layouts\API\Service\CollectionService;
 use Netgen\Layouts\API\Values\Collection\Query;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class QueryParamConverterTest extends TestCase
 {
@@ -60,17 +61,19 @@ final class QueryParamConverterTest extends TestCase
     {
         $query = new Query();
 
+        $uuid = Uuid::uuid4();
+
         $this->collectionServiceMock
             ->expects(self::once())
             ->method('loadQuery')
-            ->with(self::identicalTo(42))
+            ->with(self::equalTo($uuid))
             ->willReturn($query);
 
         self::assertSame(
             $query,
             $this->paramConverter->loadValue(
                 [
-                    'queryId' => 42,
+                    'queryId' => $uuid->toString(),
                     'status' => 'published',
                 ]
             )
@@ -84,17 +87,19 @@ final class QueryParamConverterTest extends TestCase
     {
         $query = new Query();
 
+        $uuid = Uuid::uuid4();
+
         $this->collectionServiceMock
             ->expects(self::once())
             ->method('loadQueryDraft')
-            ->with(self::identicalTo(42))
+            ->with(self::equalTo($uuid))
             ->willReturn($query);
 
         self::assertSame(
             $query,
             $this->paramConverter->loadValue(
                 [
-                    'queryId' => 42,
+                    'queryId' => $uuid->toString(),
                     'status' => 'draft',
                 ]
             )

@@ -19,7 +19,7 @@ final class Query implements Value, ParameterCollectionInterface
     use ParameterCollectionTrait;
 
     /**
-     * @var int|string
+     * @var \Ramsey\Uuid\UuidInterface
      */
     private $id;
 
@@ -59,11 +59,9 @@ final class Query implements Value, ParameterCollectionInterface
     private $locale;
 
     /**
-     * Returns the query ID.
-     *
-     * @return int|string
+     * Returns the query UUID.
      */
-    public function getId()
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
