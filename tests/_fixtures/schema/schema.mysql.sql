@@ -145,20 +145,24 @@ CREATE TABLE IF NOT EXISTS `nglayouts_block_collection` (
 CREATE TABLE IF NOT EXISTS `nglayouts_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
+  `uuid` char(36) NOT NULL,
   `name` varchar(191) NOT NULL,
   `identifier` varchar(191) NOT NULL,
   `description` text NOT NULL,
-  PRIMARY KEY (`id`, `status`)
+  PRIMARY KEY (`id`, `status`),
+  UNIQUE KEY (`uuid`, `status`)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `nglayouts_role_policy` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
+  `uuid` char(36) NOT NULL,
   `role_id` int(11) NOT NULL,
   `component` varchar(191) DEFAULT NULL,
   `permission` varchar(191) DEFAULT NULL,
   `limitations` text NOT NULL,
   PRIMARY KEY (`id`, `status`),
+  UNIQUE KEY (`uuid`, `status`),
   FOREIGN KEY (`role_id`, `status`)
     REFERENCES nglayouts_role (`id`, `status`)
 ) ENGINE=InnoDB;

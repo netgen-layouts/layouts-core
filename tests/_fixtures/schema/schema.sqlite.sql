@@ -167,11 +167,13 @@ CREATE TABLE `nglayouts_block_collection` (
 CREATE TABLE `nglayouts_role_policy` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
+  `uuid` text(36) NOT NULL,
   `role_id` integer NOT NULL,
   `component` text(255) DEFAULT NULL,
   `permission` text(255) DEFAULT NULL,
   `limitations` text NOT NULL,
   PRIMARY KEY (`id`, `status`),
+  UNIQUE (`uuid`, `status`),
   FOREIGN KEY (`role_id`, `status`)
     REFERENCES `nglayouts_role` (`id`, `status`)
 );
@@ -179,10 +181,12 @@ CREATE TABLE `nglayouts_role_policy` (
 CREATE TABLE `nglayouts_role` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
+  `uuid` text(36) NOT NULL,
   `name` text(255) NOT NULL,
   `identifier` text(255) NOT NULL,
   `description` text NOT NULL,
-  PRIMARY KEY (`id`, `status`)
+  PRIMARY KEY (`id`, `status`),
+  UNIQUE (`uuid`, `status`)
 );
 
 CREATE TABLE `nglayouts_rule_data` (

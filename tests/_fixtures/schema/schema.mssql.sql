@@ -163,20 +163,24 @@ CREATE TABLE nglayouts_block_collection (
 CREATE TABLE nglayouts_role (
   id int IDENTITY(1, 1),
   status int NOT NULL,
+  uuid nchar(36) NOT NULL,
   name nvarchar(255) NOT NULL,
   identifier nvarchar(255) NOT NULL,
   description nvarchar(max) NOT NULL,
-  PRIMARY KEY (id, status)
+  PRIMARY KEY (id, status),
+  UNIQUE (uuid, status)
 );
 
 CREATE TABLE nglayouts_role_policy (
   id int IDENTITY(1, 1),
   status int NOT NULL,
+  uuid nchar(36) NOT NULL,
   role_id int NOT NULL,
   component nvarchar(255) DEFAULT NULL,
   permission nvarchar(255) DEFAULT NULL,
   limitations nvarchar(max) NOT NULL,
   PRIMARY KEY (id, status),
+  UNIQUE (uuid, status),
   FOREIGN KEY (role_id, status)
     REFERENCES nglayouts_role (id, status)
 );

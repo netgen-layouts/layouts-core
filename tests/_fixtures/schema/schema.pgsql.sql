@@ -129,6 +129,7 @@ CREATE TABLE IF NOT EXISTS "nglayouts_block_collection" (
 CREATE TABLE IF NOT EXISTS "nglayouts_role" (
   "id" integer NOT NULL,
   "status" integer NOT NULL,
+  "uuid" character(36) NOT NULL,
   "name" character varying(255) NOT NULL,
   "identifier" character varying(255) NOT NULL,
   "description" text NOT NULL,
@@ -138,6 +139,7 @@ CREATE TABLE IF NOT EXISTS "nglayouts_role" (
 CREATE TABLE IF NOT EXISTS "nglayouts_role_policy" (
   "id" integer NOT NULL,
   "status" integer NOT NULL,
+  "uuid" character(36) NOT NULL,
   "role_id" integer NOT NULL,
   "component" character varying(255),
   "permission" character varying(255),
@@ -230,10 +232,12 @@ CREATE UNIQUE INDEX IF NOT EXISTS idx_ngl_collection_query_uuid ON nglayouts_col
 CREATE SEQUENCE IF NOT EXISTS nglayouts_role_id_seq;
 ALTER SEQUENCE nglayouts_role_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY nglayouts_role ALTER COLUMN id SET DEFAULT nextval('nglayouts_role_id_seq'::regclass);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_ngl_role_uuid ON nglayouts_role (uuid, status);
 
 CREATE SEQUENCE IF NOT EXISTS nglayouts_role_policy_id_seq;
 ALTER SEQUENCE nglayouts_role_policy_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY nglayouts_role_policy ALTER COLUMN id SET DEFAULT nextval('nglayouts_role_policy_id_seq'::regclass);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_ngl_role_policy_uuid ON nglayouts_role_policy (uuid, status);
 
 CREATE SEQUENCE IF NOT EXISTS nglayouts_rule_id_seq;
 ALTER SEQUENCE nglayouts_rule_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;

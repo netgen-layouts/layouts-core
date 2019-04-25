@@ -335,9 +335,10 @@ UNLOCK TABLES;
 
 LOCK TABLES `nglayouts_role` WRITE;
 /*!40000 ALTER TABLE `nglayouts_role` DISABLE KEYS */;
-INSERT INTO `nglayouts_role` VALUES (1,1,'Admin','admin','Admin role');
-INSERT INTO `nglayouts_role` VALUES (2,0,'Editor','editor','Editor role');
-INSERT INTO `nglayouts_role` VALUES (2,1,'Editor','editor','Editor role');
+INSERT INTO `nglayouts_role` VALUES (1,1,'15f9091a-5b2f-58f8-a1b4-1a44bca42c12','Admin','admin','Admin role');
+INSERT INTO `nglayouts_role` VALUES (2,0,'a506142f-a8c2-5e28-b106-16c666e97c2f','Editor','editor','Editor role');
+INSERT INTO `nglayouts_role` VALUES (2,1,'a506142f-a8c2-5e28-b106-16c666e97c2f','Editor','editor','Editor role');
+INSERT INTO `nglayouts_role` VALUES (2,2,'a506142f-a8c2-5e28-b106-16c666e97c2f','Editor','editor','Editor role');
 /*!40000 ALTER TABLE `nglayouts_role` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -347,13 +348,16 @@ UNLOCK TABLES;
 
 LOCK TABLES `nglayouts_role_policy` WRITE;
 /*!40000 ALTER TABLE `nglayouts_role_policy` DISABLE KEYS */;
-INSERT INTO `nglayouts_role_policy` VALUES (1,1,1,NULL,NULL,'{}');
-INSERT INTO `nglayouts_role_policy` VALUES (2,0,2,'block','add','{}');
-INSERT INTO `nglayouts_role_policy` VALUES (2,1,2,'block','add','{}');
-INSERT INTO `nglayouts_role_policy` VALUES (3,0,2,'block','edit','{\"block_definition\": [\"title\",\"list\"]}');
-INSERT INTO `nglayouts_role_policy` VALUES (3,1,2,'block','edit','{\"block_definition\": [\"title\",\"list\"]}');
-INSERT INTO `nglayouts_role_policy` VALUES (4,0,2,'layout',NULL,'{}');
-INSERT INTO `nglayouts_role_policy` VALUES (4,1,2,'layout',NULL,'{}');
+INSERT INTO `nglayouts_role_policy` VALUES (1,1,'2622292b-0a9d-5149-a6c0-cb31d7a868b6',1,NULL,NULL,'{}');
+INSERT INTO `nglayouts_role_policy` VALUES (2,0,'4989a942-73f8-50e2-830c-3dbf797345d3',2,'block','add','{}');
+INSERT INTO `nglayouts_role_policy` VALUES (2,1,'4989a942-73f8-50e2-830c-3dbf797345d3',2,'block','add','{}');
+INSERT INTO `nglayouts_role_policy` VALUES (2,2,'4989a942-73f8-50e2-830c-3dbf797345d3',2,'block','add','{}');
+INSERT INTO `nglayouts_role_policy` VALUES (3,0,'9c25ec1a-eb65-5dac-b3a8-bc106fdd91cb',2,'block','edit','{\"block_definition\": [\"title\",\"list\"]}');
+INSERT INTO `nglayouts_role_policy` VALUES (3,1,'9c25ec1a-eb65-5dac-b3a8-bc106fdd91cb',2,'block','edit','{\"block_definition\": [\"title\",\"list\"]}');
+INSERT INTO `nglayouts_role_policy` VALUES (3,2,'9c25ec1a-eb65-5dac-b3a8-bc106fdd91cb',2,'block','edit','{\"block_definition\": [\"title\",\"list\"]}');
+INSERT INTO `nglayouts_role_policy` VALUES (4,0,'10e4ea9d-bab1-58ec-bcbf-1c23ad630cb3',2,'layout',NULL,'{}');
+INSERT INTO `nglayouts_role_policy` VALUES (4,1,'10e4ea9d-bab1-58ec-bcbf-1c23ad630cb3',2,'layout',NULL,'{}');
+INSERT INTO `nglayouts_role_policy` VALUES (4,2,'10e4ea9d-bab1-58ec-bcbf-1c23ad630cb3',2,'layout',NULL,'{}');
 /*!40000 ALTER TABLE `nglayouts_role_policy` ENABLE KEYS */;
 UNLOCK TABLES;
 

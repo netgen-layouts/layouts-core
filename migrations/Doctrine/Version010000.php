@@ -62,11 +62,25 @@ final class Version010000 extends AbstractMigration
         $this->addSql('ALTER TABLE nglayouts_collection_query ADD COLUMN uuid char(36) NOT NULL AFTER status');
         $this->addSql('UPDATE nglayouts_collection_query SET uuid = id');
         $this->addSql('ALTER TABLE nglayouts_collection_query ADD UNIQUE INDEX idx_ngl_collection_query_uuid (uuid, status)');
+
+        $this->addSql('ALTER TABLE nglayouts_role ADD COLUMN uuid char(36) NOT NULL AFTER status');
+        $this->addSql('UPDATE nglayouts_role SET uuid = id');
+        $this->addSql('ALTER TABLE nglayouts_role ADD UNIQUE INDEX idx_ngl_role_uuid (uuid, status)');
+
+        $this->addSql('ALTER TABLE nglayouts_role_policy ADD COLUMN uuid char(36) NOT NULL AFTER status');
+        $this->addSql('UPDATE nglayouts_role_policy SET uuid = id');
+        $this->addSql('ALTER TABLE nglayouts_role_policy ADD UNIQUE INDEX idx_ngl_role_policy_uuid (uuid, status)');
     }
 
     public function down(Schema $schema): void
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
+
+        $this->addSql('ALTER TABLE nglayouts_role_policy DROP INDEX idx_ngl_role_policy_uuid');
+        $this->addSql('ALTER TABLE nglayouts_role_policy DROP COLUMN uuid');
+
+        $this->addSql('ALTER TABLE nglayouts_role DROP INDEX idx_ngl_role_uuid');
+        $this->addSql('ALTER TABLE nglayouts_role DROP COLUMN uuid');
 
         $this->addSql('ALTER TABLE nglayouts_collection_query DROP INDEX idx_ngl_collection_query_uuid');
         $this->addSql('ALTER TABLE nglayouts_collection_query DROP COLUMN uuid');
