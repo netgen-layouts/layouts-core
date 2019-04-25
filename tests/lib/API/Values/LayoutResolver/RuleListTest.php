@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Tests\API\Values\LayoutResolver;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleList;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 use stdClass;
 use TypeError;
 
@@ -47,8 +48,11 @@ final class RuleListTest extends TestCase
      */
     public function testGetRuleIds(): void
     {
-        $rules = [Rule::fromArray(['id' => 42]), Rule::fromArray(['id' => 24])];
+        $uuid1 = Uuid::uuid4();
+        $uuid2 = Uuid::uuid4();
 
-        self::assertSame([42, 24], (new RuleList($rules))->getRuleIds());
+        $rules = [Rule::fromArray(['id' => $uuid1]), Rule::fromArray(['id' => $uuid2])];
+
+        self::assertSame([$uuid1, $uuid2], (new RuleList($rules))->getRuleIds());
     }
 }

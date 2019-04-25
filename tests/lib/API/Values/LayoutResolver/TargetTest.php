@@ -8,6 +8,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\TargetType1;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class TargetTest extends TestCase
 {
@@ -26,17 +27,19 @@ final class TargetTest extends TestCase
     {
         $targetType = new TargetType1();
 
+        $ruleUuid = Uuid::uuid4();
+
         $target = Target::fromArray(
             [
                 'id' => 42,
-                'ruleId' => 30,
+                'ruleId' => $ruleUuid,
                 'targetType' => $targetType,
                 'value' => 32,
             ]
         );
 
         self::assertSame(42, $target->getId());
-        self::assertSame(30, $target->getRuleId());
+        self::assertSame($ruleUuid->toString(), $target->getRuleId()->toString());
         self::assertSame($targetType, $target->getTargetType());
         self::assertSame(32, $target->getValue());
     }

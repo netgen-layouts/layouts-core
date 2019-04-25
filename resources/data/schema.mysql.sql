@@ -309,9 +309,11 @@ DROP TABLE IF EXISTS `nglayouts_rule`;
 CREATE TABLE `nglayouts_rule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
+  `uuid` char(36) NOT NULL,
   `layout_id` int(11) DEFAULT NULL,
   `comment` text NOT NULL,
   PRIMARY KEY (`id`,`status`),
+  UNIQUE KEY `idx_ngl_rule_uuid` (`uuid`, `status`),
   KEY `idx_ngl_related_layout` (`layout_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;

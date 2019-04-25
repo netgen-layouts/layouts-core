@@ -10,6 +10,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Transfer\Output\Visitor\RuleVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
+use Ramsey\Uuid\Uuid;
 
 abstract class RuleVisitorTest extends VisitorTest
 {
@@ -38,8 +39,8 @@ abstract class RuleVisitorTest extends VisitorTest
     public function visitProvider(): array
     {
         return [
-            [function (): Rule { return $this->layoutResolverService->loadRule(2); }, 'rule/rule_2.json'],
-            [function (): Rule { return $this->layoutResolverService->loadRule(11); }, 'rule/rule_11.json'],
+            [function (): Rule { return $this->layoutResolverService->loadRule(Uuid::fromString('55622437-f700-5378-99c9-7dafe89a8fb6')); }, 'rule/rule_2.json'],
+            [function (): Rule { return $this->layoutResolverService->loadRule(Uuid::fromString('c6891782-9d3e-58b7-95ac-261f491cc1ae')); }, 'rule/rule_11.json'],
         ];
     }
 }

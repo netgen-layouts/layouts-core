@@ -17,7 +17,7 @@
 <div class="nl-rule-cell rule-priority">{{ rule.priority }}</div>
 <div class="nl-rule-content
     {% if not rule.enabled %}disabled{% endif %}"
-    data-id="{{ rule.id }}"
+    data-id="{{ rule.id.toString }}"
     data-target-type="{{ target_type_identifier }}"
     >
     <div class="nl-rule-head">

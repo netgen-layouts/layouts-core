@@ -15,6 +15,7 @@ final class RuleTest extends TestCase
         $rule = Rule::fromArray(
             [
                 'id' => 43,
+                'uuid' => 'f4e3d39e-42ba-59b4-82ff-bc38dd6bf7ee',
                 'layoutId' => 25,
                 'layoutUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'enabled' => true,
@@ -25,6 +26,7 @@ final class RuleTest extends TestCase
         );
 
         self::assertSame(43, $rule->id);
+        self::assertSame('f4e3d39e-42ba-59b4-82ff-bc38dd6bf7ee', $rule->uuid);
         self::assertSame(25, $rule->layoutId);
         self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $rule->layoutUuid);
         self::assertTrue($rule->enabled);

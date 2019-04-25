@@ -9,6 +9,7 @@ use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Validator\ValidatorTrait;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints;
@@ -58,7 +59,7 @@ final class UpdateRulePriorities extends AbstractController
 
                     foreach (array_values($ruleIds) as $ruleId) {
                         try {
-                            $rule = $this->layoutResolverService->loadRule($ruleId);
+                            $rule = $this->layoutResolverService->loadRule(Uuid::fromString($ruleId));
                         } catch (NotFoundException $e) {
                             continue;
                         }

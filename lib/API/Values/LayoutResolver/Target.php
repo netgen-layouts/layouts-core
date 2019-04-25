@@ -8,6 +8,7 @@ use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Layout\Resolver\TargetTypeInterface;
 use Netgen\Layouts\Utils\HydratorTrait;
+use Ramsey\Uuid\UuidInterface;
 
 final class Target implements Value
 {
@@ -20,7 +21,7 @@ final class Target implements Value
     private $id;
 
     /**
-     * @var int|string
+     * @var \Ramsey\Uuid\UuidInterface
      */
     private $ruleId;
 
@@ -45,11 +46,9 @@ final class Target implements Value
     }
 
     /**
-     * Returns the ID of the rule where this target belongs.
-     *
-     * @return int|string
+     * Returns the UUID of the rule where this target belongs.
      */
-    public function getRuleId()
+    public function getRuleId(): UuidInterface
     {
         return $this->ruleId;
     }

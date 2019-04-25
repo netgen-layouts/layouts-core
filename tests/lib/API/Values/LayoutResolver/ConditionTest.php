@@ -8,6 +8,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\Condition;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionType1;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class ConditionTest extends TestCase
 {
@@ -26,17 +27,19 @@ final class ConditionTest extends TestCase
     {
         $conditionType = new ConditionType1();
 
+        $ruleUuid = Uuid::uuid4();
+
         $condition = Condition::fromArray(
             [
                 'id' => 42,
-                'ruleId' => 30,
+                'ruleId' => $ruleUuid,
                 'conditionType' => $conditionType,
                 'value' => 32,
             ]
         );
 
         self::assertSame(42, $condition->getId());
-        self::assertSame(30, $condition->getRuleId());
+        self::assertSame($ruleUuid->toString(), $condition->getRuleId()->toString());
         self::assertSame($conditionType, $condition->getConditionType());
         self::assertSame(32, $condition->getValue());
     }

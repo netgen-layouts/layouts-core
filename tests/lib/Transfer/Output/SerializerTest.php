@@ -148,42 +148,45 @@ final class SerializerTest extends TestCase
      */
     public function testSerializeRules(): void
     {
-        $rule1 = Rule::fromArray(['id' => 42]);
-        $rule2 = Rule::fromArray(['id' => 24]);
+        $uuid1 = Uuid::uuid4();
+        $uuid2 = Uuid::uuid4();
+
+        $rule1 = Rule::fromArray(['id' => $uuid1]);
+        $rule2 = Rule::fromArray(['id' => $uuid2]);
 
         $this->layoutResolverServiceMock
             ->expects(self::at(0))
             ->method('loadRule')
-            ->with(self::identicalTo(42))
+            ->with(self::equalTo($uuid1))
             ->willReturn($rule1);
 
         $this->layoutResolverServiceMock
             ->expects(self::at(1))
             ->method('loadRule')
-            ->with(self::identicalTo(24))
+            ->with(self::equalTo($uuid2))
             ->willReturn($rule2);
 
         $this->visitorMock
             ->expects(self::at(0))
             ->method('visit')
             ->with(self::identicalTo($rule1))
-            ->willReturn('serialized_rule_42');
+            ->willReturn('serialized_rule_1');
 
         $this->visitorMock
             ->expects(self::at(1))
             ->method('visit')
             ->with(self::identicalTo($rule2))
-            ->willReturn('serialized_rule_24');
+            ->willReturn('serialized_rule_2');
 
         self::assertSame(
             [
                 '__version' => Descriptor::FORMAT_VERSION,
                 'entities' => [
-                    'serialized_rule_42',
-                    'serialized_rule_24',
+                    'serialized_rule_1',
+                    'serialized_rule_2',
                 ],
             ],
-            $this->serializer->serializeRules([42, 24])
+            $this->serializer->serializeRules([$uuid1->toString(), $uuid2->toString()])
         );
     }
 
@@ -194,34 +197,37 @@ final class SerializerTest extends TestCase
      */
     public function testSerializeRulesWithNonExistentRule(): void
     {
-        $rule = Rule::fromArray(['id' => 42]);
+        $uuid1 = Uuid::uuid4();
+        $uuid2 = Uuid::uuid4();
+
+        $rule = Rule::fromArray(['id' => $uuid2]);
 
         $this->layoutResolverServiceMock
             ->expects(self::at(0))
             ->method('loadRule')
-            ->with(self::identicalTo(24))
-            ->willThrowException(new NotFoundException('rule', 24));
+            ->with(self::equalTo($uuid1))
+            ->willThrowException(new NotFoundException('rule', $uuid1->toString()));
 
         $this->layoutResolverServiceMock
             ->expects(self::at(1))
             ->method('loadRule')
-            ->with(self::identicalTo(42))
+            ->with(self::equalTo($uuid2))
             ->willReturn($rule);
 
         $this->visitorMock
             ->expects(self::at(0))
             ->method('visit')
             ->with(self::identicalTo($rule))
-            ->willReturn('serialized_rule_42');
+            ->willReturn('serialized_rule_2');
 
         self::assertSame(
             [
                 '__version' => Descriptor::FORMAT_VERSION,
                 'entities' => [
-                    'serialized_rule_42',
+                    'serialized_rule_2',
                 ],
             ],
-            $this->serializer->serializeRules([24, 42])
+            $this->serializer->serializeRules([$uuid1->toString(), $uuid2->toString()])
         );
     }
 }

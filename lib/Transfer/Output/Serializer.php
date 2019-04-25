@@ -88,7 +88,7 @@ final class Serializer implements SerializerInterface
     {
         foreach ($ruleIds as $ruleId) {
             try {
-                yield $this->layoutResolverService->loadRule($ruleId);
+                yield $this->layoutResolverService->loadRule(Uuid::fromString($ruleId));
             } catch (NotFoundException $e) {
                 continue;
             }

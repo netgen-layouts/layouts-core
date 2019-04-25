@@ -10,6 +10,7 @@ use Netgen\Layouts\API\Values\LazyPropertyTrait;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Utils\HydratorTrait;
+use Ramsey\Uuid\UuidInterface;
 
 final class Rule implements Value
 {
@@ -18,7 +19,7 @@ final class Rule implements Value
     use LazyPropertyTrait;
 
     /**
-     * @var int|string
+     * @var \Ramsey\Uuid\UuidInterface
      */
     private $id;
 
@@ -59,11 +60,9 @@ final class Rule implements Value
     }
 
     /**
-     * Returns the rule ID.
-     *
-     * @return int|string
+     * Returns the rule UUID.
      */
-    public function getId()
+    public function getId(): UuidInterface
     {
         return $this->id;
     }

@@ -21,9 +21,16 @@ final class Condition extends Value
     /**
      * ID of the rule where the condition is located.
      *
-     * @var int|string
+     * @var int
      */
     public $ruleId;
+
+    /**
+     * UUID of the rule where the condition is located.
+     *
+     * @var string
+     */
+    public $ruleUuid;
 
     /**
      * Identifier of the condition type.

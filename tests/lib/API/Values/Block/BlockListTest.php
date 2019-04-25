@@ -53,9 +53,6 @@ final class BlockListTest extends TestCase
 
         $blocks = [Block::fromArray(['id' => $uuid1]), Block::fromArray(['id' => $uuid2])];
 
-        self::assertSame(
-            [$uuid1->toString(), $uuid2->toString()],
-            array_map('strval', (new BlockList($blocks))->getBlockIds())
-        );
+        self::assertSame([$uuid1, $uuid2], (new BlockList($blocks))->getBlockIds());
     }
 }

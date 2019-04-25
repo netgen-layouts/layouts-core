@@ -211,7 +211,9 @@ CREATE TABLE `nglayouts_rule_condition` (
 CREATE TABLE `nglayouts_rule` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
+  `uuid` text(36) NOT NULL,
   `layout_id` integer DEFAULT NULL,
   `comment` text NOT NULL,
-  PRIMARY KEY (`id`, `status`)
+  PRIMARY KEY (`id`, `status`),
+  UNIQUE (`uuid`, `status`)
 );

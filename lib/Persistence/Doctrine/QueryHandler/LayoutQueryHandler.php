@@ -281,12 +281,12 @@ final class LayoutQueryHandler extends QueryHandler
     {
         $query = $this->getZoneSelectQuery();
         $query->where(
-            $query->expr()->eq('l.id', ':layout_id')
+            $query->expr()->eq('z.layout_id', ':layout_id')
         )
         ->setParameter('layout_id', $layout->id, Type::INTEGER)
         ->orderBy('z.identifier', 'ASC');
 
-        $this->applyStatusCondition($query, $layout->status, 'l.status');
+        $this->applyStatusCondition($query, $layout->status, 'z.status');
 
         return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }

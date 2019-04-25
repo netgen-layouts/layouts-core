@@ -51,11 +51,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
     public function loadRuleData($ruleId, int $status): array
     {
         $query = $this->getRuleSelectQuery();
-        $query->where(
-            $query->expr()->eq('r.id', ':id')
-        )
-        ->setParameter('id', $ruleId, Type::INTEGER);
 
+        $this->applyIdCondition($query, $ruleId, 'r.id', 'r.uuid');
         $this->applyStatusCondition($query, $status, 'r.status');
 
         return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
@@ -156,11 +153,11 @@ final class LayoutResolverQueryHandler extends QueryHandler
     {
         $query = $this->getTargetSelectQuery();
         $query->where(
-            $query->expr()->eq('id', ':id')
+            $query->expr()->eq('t.id', ':id')
         )
         ->setParameter('id', $targetId, Type::INTEGER);
 
-        $this->applyStatusCondition($query, $status);
+        $this->applyStatusCondition($query, $status, 't.status');
 
         return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -172,12 +169,12 @@ final class LayoutResolverQueryHandler extends QueryHandler
     {
         $query = $this->getTargetSelectQuery();
         $query->where(
-            $query->expr()->eq('rule_id', ':rule_id')
+            $query->expr()->eq('t.rule_id', ':rule_id')
         )
         ->setParameter('rule_id', $rule->id, Type::INTEGER)
-        ->orderBy('id', 'ASC');
+        ->orderBy('t.id', 'ASC');
 
-        $this->applyStatusCondition($query, $rule->status);
+        $this->applyStatusCondition($query, $rule->status, 't.status');
 
         return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -214,11 +211,11 @@ final class LayoutResolverQueryHandler extends QueryHandler
     {
         $query = $this->getConditionSelectQuery();
         $query->where(
-            $query->expr()->eq('id', ':id')
+            $query->expr()->eq('c.id', ':id')
         )
         ->setParameter('id', $conditionId, Type::INTEGER);
 
-        $this->applyStatusCondition($query, $status);
+        $this->applyStatusCondition($query, $status, 'c.status');
 
         return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -230,12 +227,12 @@ final class LayoutResolverQueryHandler extends QueryHandler
     {
         $query = $this->getConditionSelectQuery();
         $query->where(
-            $query->expr()->eq('rule_id', ':rule_id')
+            $query->expr()->eq('c.rule_id', ':rule_id')
         )
         ->setParameter('rule_id', $rule->id, Type::INTEGER)
-        ->orderBy('id', 'ASC');
+        ->orderBy('c.id', 'ASC');
 
-        $this->applyStatusCondition($query, $rule->status);
+        $this->applyStatusCondition($query, $rule->status, 'c.status');
 
         return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -252,11 +249,9 @@ final class LayoutResolverQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
-            ->from('nglayouts_rule')
-            ->where(
-                $query->expr()->eq('id', ':id')
-            )
-            ->setParameter('id', $ruleId, Type::INTEGER);
+            ->from('nglayouts_rule');
+
+        $this->applyIdCondition($query, $ruleId);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status);
@@ -294,17 +289,14 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->values(
                 [
                     'id' => ':id',
+                    'uuid' => ':uuid',
                     'status' => ':status',
                     'layout_id' => ':layout_id',
                     'comment' => ':comment',
                 ]
             )
-            ->setValue(
-                'id',
-                $rule->id !== null ?
-                    (int) $rule->id :
-                    $this->connectionHelper->getAutoIncrementValue('nglayouts_rule')
-            )
+            ->setValue('id', $rule->id ?? $this->connectionHelper->getAutoIncrementValue('nglayouts_rule'))
+            ->setParameter('uuid', $rule->uuid, Type::STRING)
             ->setParameter('status', $rule->status, Type::INTEGER)
             ->setParameter('layout_id', $rule->layoutId, Type::INTEGER)
             ->setParameter('comment', $rule->comment, Type::STRING);
@@ -341,12 +333,14 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder();
         $query
             ->update('nglayouts_rule')
+            ->set('uuid', ':uuid')
             ->set('layout_id', ':layout_id')
             ->set('comment', ':comment')
             ->where(
                 $query->expr()->eq('id', ':id')
             )
             ->setParameter('id', $rule->id, Type::INTEGER)
+            ->setParameter('uuid', $rule->uuid, Type::STRING)
             ->setParameter('layout_id', $rule->layoutId, Type::INTEGER)
             ->setParameter('comment', $rule->comment, Type::STRING);
 
@@ -377,11 +371,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Deletes all rule targets.
-     *
-     * @param int|string $ruleId
-     * @param int $status
      */
-    public function deleteRuleTargets($ruleId, ?int $status = null): void
+    public function deleteRuleTargets(int $ruleId, ?int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -400,11 +391,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Delete all rule conditions.
-     *
-     * @param int|string $ruleId
-     * @param int $status
      */
-    public function deleteRuleConditions($ruleId, ?int $status = null): void
+    public function deleteRuleConditions(int $ruleId, ?int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -423,11 +411,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Deletes a rule.
-     *
-     * @param int|string $ruleId
-     * @param int $status
      */
-    public function deleteRule($ruleId, ?int $status = null): void
+    public function deleteRule(int $ruleId, ?int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
         $query->delete('nglayouts_rule')
@@ -644,8 +629,17 @@ final class LayoutResolverQueryHandler extends QueryHandler
     private function getTargetSelectQuery(): QueryBuilder
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT nglayouts_rule_target.*')
-            ->from('nglayouts_rule_target');
+        $query->select('DISTINCT t.*, r.uuid AS rule_uuid')
+            ->from('nglayouts_rule_target', 't')
+            ->innerJoin(
+                't',
+                'nglayouts_rule',
+                'r',
+                $query->expr()->andX(
+                    $query->expr()->eq('r.id', 't.rule_id'),
+                    $query->expr()->eq('r.status', 't.status')
+                )
+            );
 
         return $query;
     }
@@ -656,8 +650,17 @@ final class LayoutResolverQueryHandler extends QueryHandler
     private function getConditionSelectQuery(): QueryBuilder
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT nglayouts_rule_condition.*')
-            ->from('nglayouts_rule_condition');
+        $query->select('DISTINCT c.*, r.uuid AS rule_uuid')
+            ->from('nglayouts_rule_condition', 'c')
+            ->innerJoin(
+                'c',
+                'nglayouts_rule',
+                'r',
+                $query->expr()->andX(
+                    $query->expr()->eq('r.id', 'c.rule_id'),
+                    $query->expr()->eq('r.status', 'c.status')
+                )
+            );
 
         return $query;
     }

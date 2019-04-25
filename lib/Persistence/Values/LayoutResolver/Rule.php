@@ -14,9 +14,16 @@ final class Rule extends Value
     /**
      * Rule ID.
      *
-     * @var int|string
+     * @var int
      */
     public $id;
+
+    /**
+     * Rule UUID.
+     *
+     * @var string
+     */
+    public $uuid;
 
     /**
      * ID of the layout mapped to this rule. Can be null if there's no mapped layout.

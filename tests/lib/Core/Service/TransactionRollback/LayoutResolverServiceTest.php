@@ -21,6 +21,7 @@ use Netgen\Layouts\Layout\Resolver\TargetType\Route;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition as PersistenceCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
+use Ramsey\Uuid\Uuid;
 
 final class LayoutResolverServiceTest extends TestCase
 {
@@ -55,7 +56,7 @@ final class LayoutResolverServiceTest extends TestCase
         $this->layoutResolverHandler
             ->expects(self::at(0))
             ->method('loadRule')
-            ->willReturn(new PersistenceRule());
+            ->willReturn(PersistenceRule::fromArray(['id' => 42]));
 
         $this->layoutResolverHandler
             ->expects(self::at(1))
@@ -67,7 +68,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->updateRule(
-            Rule::fromArray(['status' => Value::STATUS_DRAFT]),
+            Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]),
             new RuleUpdateStruct()
         );
     }
@@ -83,7 +84,7 @@ final class LayoutResolverServiceTest extends TestCase
         $this->layoutResolverHandler
             ->expects(self::at(0))
             ->method('loadRule')
-            ->willReturn(new PersistenceRule());
+            ->willReturn(PersistenceRule::fromArray(['id' => 42]));
 
         $this->layoutResolverHandler
             ->expects(self::at(1))
@@ -95,7 +96,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->updateRuleMetadata(
-            Rule::fromArray(['status' => Value::STATUS_PUBLISHED]),
+            Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_PUBLISHED]),
             new RuleMetadataUpdateStruct()
         );
     }
@@ -111,7 +112,7 @@ final class LayoutResolverServiceTest extends TestCase
         $this->layoutResolverHandler
             ->expects(self::at(0))
             ->method('loadRule')
-            ->willReturn(new PersistenceRule());
+            ->willReturn(PersistenceRule::fromArray(['id' => 42]));
 
         $this->layoutResolverHandler
             ->expects(self::at(1))
@@ -122,7 +123,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->copyRule(Rule::fromArray(['status' => Rule::STATUS_DRAFT]));
+        $this->layoutResolverService->copyRule(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Rule::STATUS_DRAFT]));
     }
 
     /**
@@ -136,7 +137,7 @@ final class LayoutResolverServiceTest extends TestCase
         $this->layoutResolverHandler
             ->expects(self::at(0))
             ->method('loadRule')
-            ->willReturn(new PersistenceRule());
+            ->willReturn(PersistenceRule::fromArray(['id' => 42]));
 
         $this->layoutResolverHandler
             ->expects(self::at(1))
@@ -152,7 +153,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->createDraft(Rule::fromArray(['status' => Value::STATUS_PUBLISHED]));
+        $this->layoutResolverService->createDraft(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_PUBLISHED]));
     }
 
     /**
@@ -166,7 +167,7 @@ final class LayoutResolverServiceTest extends TestCase
         $this->layoutResolverHandler
             ->expects(self::at(0))
             ->method('loadRule')
-            ->willReturn(new PersistenceRule());
+            ->willReturn(PersistenceRule::fromArray(['id' => 42]));
 
         $this->layoutResolverHandler
             ->expects(self::at(1))
@@ -177,7 +178,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->discardDraft(Rule::fromArray(['status' => Value::STATUS_DRAFT]));
+        $this->layoutResolverService->discardDraft(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]));
     }
 
     /**
@@ -191,7 +192,7 @@ final class LayoutResolverServiceTest extends TestCase
         $this->layoutResolverHandler
             ->expects(self::at(0))
             ->method('loadRule')
-            ->willReturn(new PersistenceRule());
+            ->willReturn(PersistenceRule::fromArray(['id' => 42]));
 
         $this->layoutResolverHandler
             ->expects(self::at(1))
@@ -202,7 +203,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->publishRule(Rule::fromArray(['status' => Value::STATUS_DRAFT]));
+        $this->layoutResolverService->publishRule(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]));
     }
 
     /**
@@ -216,12 +217,12 @@ final class LayoutResolverServiceTest extends TestCase
         $this->layoutResolverHandler
             ->expects(self::at(0))
             ->method('loadRule')
-            ->willReturn(new PersistenceRule());
+            ->willReturn(PersistenceRule::fromArray(['id' => 42]));
 
         $this->layoutResolverHandler
             ->expects(self::at(1))
             ->method('loadRule')
-            ->willReturn(new PersistenceRule());
+            ->willReturn(PersistenceRule::fromArray(['id' => 42]));
 
         $this->layoutResolverHandler
             ->expects(self::at(2))
@@ -232,7 +233,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->restoreFromArchive(Rule::fromArray(['status' => Rule::STATUS_ARCHIVED]));
+        $this->layoutResolverService->restoreFromArchive(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Rule::STATUS_ARCHIVED]));
     }
 
     /**
@@ -246,7 +247,7 @@ final class LayoutResolverServiceTest extends TestCase
         $this->layoutResolverHandler
             ->expects(self::at(0))
             ->method('loadRule')
-            ->willReturn(new PersistenceRule());
+            ->willReturn(PersistenceRule::fromArray(['id' => 42]));
 
         $this->layoutResolverHandler
             ->expects(self::at(1))
@@ -257,7 +258,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->deleteRule(Rule::fromArray(['status' => Rule::STATUS_DRAFT]));
+        $this->layoutResolverService->deleteRule(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Rule::STATUS_DRAFT]));
     }
 
     /**
@@ -289,7 +290,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->enableRule(Rule::fromArray(['status' => Value::STATUS_PUBLISHED]));
+        $this->layoutResolverService->enableRule(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_PUBLISHED]));
     }
 
     /**
@@ -320,7 +321,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->disableRule(Rule::fromArray(['status' => Value::STATUS_PUBLISHED]));
+        $this->layoutResolverService->disableRule(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_PUBLISHED]));
     }
 
     /**
@@ -334,7 +335,7 @@ final class LayoutResolverServiceTest extends TestCase
         $this->layoutResolverHandler
             ->expects(self::at(0))
             ->method('loadRule')
-            ->willReturn(new PersistenceRule());
+            ->willReturn(PersistenceRule::fromArray(['id' => 42]));
 
         $this->layoutResolverHandler
             ->expects(self::at(1))
@@ -354,7 +355,7 @@ final class LayoutResolverServiceTest extends TestCase
         $targetCreateStruct->type = 'route';
 
         $this->layoutResolverService->addTarget(
-            Rule::fromArray(['status' => Value::STATUS_DRAFT]),
+            Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]),
             $targetCreateStruct
         );
     }
@@ -423,7 +424,7 @@ final class LayoutResolverServiceTest extends TestCase
         $this->layoutResolverHandler
             ->expects(self::at(0))
             ->method('loadRule')
-            ->willReturn(new PersistenceRule());
+            ->willReturn(PersistenceRule::fromArray(['id' => 42]));
 
         $this->layoutResolverHandler
             ->expects(self::at(1))
@@ -438,7 +439,7 @@ final class LayoutResolverServiceTest extends TestCase
         $conditionCreateStruct->type = 'route_parameter';
 
         $this->layoutResolverService->addCondition(
-            Rule::fromArray(['status' => Value::STATUS_DRAFT]),
+            Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]),
             $conditionCreateStruct
         );
     }

@@ -11,6 +11,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\API\Values\Value;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class RuleTest extends TestCase
 {
@@ -51,9 +52,11 @@ final class RuleTest extends TestCase
 
         $layout = new Layout();
 
+        $uuid = Uuid::uuid4();
+
         $rule = Rule::fromArray(
             [
-                'id' => 42,
+                'id' => $uuid,
                 'layout' => $layout,
                 'priority' => 13,
                 'enabled' => true,
@@ -63,7 +66,7 @@ final class RuleTest extends TestCase
             ]
         );
 
-        self::assertSame(42, $rule->getId());
+        self::assertSame($uuid->toString(), $rule->getId()->toString());
         self::assertSame($layout, $rule->getLayout());
         self::assertSame(13, $rule->getPriority());
         self::assertTrue($rule->isEnabled());

@@ -9,8 +9,7 @@ CREATE TABLE IF NOT EXISTS "nglayouts_layout" (
   "modified" integer NOT NULL,
   "shared" boolean NOT NULL,
   "main_locale" character varying(255) NOT NULL,
-  PRIMARY KEY ("id", "status"),
-  UNIQUE KEY ("uuid", "status")
+  PRIMARY KEY ("id", "status")
 );
 
 CREATE TABLE IF NOT EXISTS "nglayouts_layout_translation" (
@@ -40,7 +39,6 @@ CREATE TABLE IF NOT EXISTS "nglayouts_block" (
   "main_locale" character varying(255) NOT NULL,
   "always_available" boolean NOT NULL,
   PRIMARY KEY ("id", "status"),
-  UNIQUE KEY ("uuid", "status")
   FOREIGN KEY ("layout_id", "status") REFERENCES nglayouts_layout ("id", "status")
 );
 
@@ -148,6 +146,7 @@ CREATE TABLE IF NOT EXISTS "nglayouts_role_policy" (
 CREATE TABLE IF NOT EXISTS "nglayouts_rule" (
   "id" integer NOT NULL,
   "status" integer NOT NULL,
+  "uuid" character(36) NOT NULL,
   "layout_id" integer,
   "comment" text NOT NULL,
   PRIMARY KEY ("id", "status")
@@ -201,10 +200,12 @@ DELETE FROM "nglayouts_rule";
 CREATE SEQUENCE IF NOT EXISTS nglayouts_layout_id_seq;
 ALTER SEQUENCE nglayouts_layout_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY nglayouts_layout ALTER COLUMN id SET DEFAULT nextval('nglayouts_layout_id_seq'::regclass);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_ngl_layout_uuid ON nglayouts_layout (uuid, status);
 
 CREATE SEQUENCE IF NOT EXISTS nglayouts_block_id_seq;
 ALTER SEQUENCE nglayouts_block_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY nglayouts_block ALTER COLUMN id SET DEFAULT nextval('nglayouts_block_id_seq'::regclass);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_ngl_block_uuid ON nglayouts_block (uuid, status);
 
 CREATE SEQUENCE IF NOT EXISTS nglayouts_collection_id_seq;
 ALTER SEQUENCE nglayouts_collection_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
@@ -229,6 +230,7 @@ ALTER TABLE ONLY nglayouts_role_policy ALTER COLUMN id SET DEFAULT nextval('ngla
 CREATE SEQUENCE IF NOT EXISTS nglayouts_rule_id_seq;
 ALTER SEQUENCE nglayouts_rule_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY nglayouts_rule ALTER COLUMN id SET DEFAULT nextval('nglayouts_rule_id_seq'::regclass);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_ngl_rule_uuid ON nglayouts_rule (uuid, status);
 
 CREATE SEQUENCE IF NOT EXISTS nglayouts_rule_target_id_seq;
 ALTER SEQUENCE nglayouts_rule_target_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;

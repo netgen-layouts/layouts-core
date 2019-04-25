@@ -8,6 +8,7 @@ use Netgen\Bundle\LayoutsBundle\ParamConverter\ParamConverter;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\API\Values\Value;
+use Ramsey\Uuid\Uuid;
 
 final class RuleParamConverter extends ParamConverter
 {
@@ -39,13 +40,13 @@ final class RuleParamConverter extends ParamConverter
     public function loadValue(array $values): Value
     {
         if ($values['status'] === self::STATUS_PUBLISHED) {
-            return $this->layoutResolverService->loadRule($values['ruleId']);
+            return $this->layoutResolverService->loadRule(Uuid::fromString($values['ruleId']));
         }
 
         if ($values['status'] === self::STATUS_ARCHIVED) {
-            return $this->layoutResolverService->loadRuleArchive($values['ruleId']);
+            return $this->layoutResolverService->loadRuleArchive(Uuid::fromString($values['ruleId']));
         }
 
-        return $this->layoutResolverService->loadRuleDraft($values['ruleId']);
+        return $this->layoutResolverService->loadRuleDraft(Uuid::fromString($values['ruleId']));
     }
 }

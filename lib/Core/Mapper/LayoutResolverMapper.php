@@ -63,7 +63,7 @@ final class LayoutResolverMapper
     public function mapRule(PersistenceRule $rule): Rule
     {
         $ruleData = [
-            'id' => $rule->id,
+            'id' => Uuid::fromString($rule->uuid),
             'status' => $rule->status,
             'layout' => function () use ($rule): ?Layout {
                 try {
@@ -119,7 +119,7 @@ final class LayoutResolverMapper
         $targetData = [
             'id' => $target->id,
             'status' => $target->status,
-            'ruleId' => $target->ruleId,
+            'ruleId' => Uuid::fromString($target->ruleUuid),
             'targetType' => $targetType,
             'value' => $target->value,
         ];
@@ -143,7 +143,7 @@ final class LayoutResolverMapper
         $conditionData = [
             'id' => $condition->id,
             'status' => $condition->status,
-            'ruleId' => $condition->ruleId,
+            'ruleId' => Uuid::fromString($condition->ruleUuid),
             'conditionType' => $conditionType,
             'value' => $condition->value,
         ];

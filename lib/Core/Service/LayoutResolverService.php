@@ -82,10 +82,8 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         $this->layoutHandler = $layoutHandler;
     }
 
-    public function loadRule($ruleId): Rule
+    public function loadRule(UuidInterface $ruleId): Rule
     {
-        $this->validator->validateId($ruleId, 'ruleId');
-
         return $this->mapper->mapRule(
             $this->layoutResolverHandler->loadRule(
                 $ruleId,
@@ -94,10 +92,8 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         );
     }
 
-    public function loadRuleDraft($ruleId): Rule
+    public function loadRuleDraft(UuidInterface $ruleId): Rule
     {
-        $this->validator->validateId($ruleId, 'ruleId');
-
         return $this->mapper->mapRule(
             $this->layoutResolverHandler->loadRule(
                 $ruleId,
@@ -106,10 +102,8 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         );
     }
 
-    public function loadRuleArchive($ruleId): Rule
+    public function loadRuleArchive(UuidInterface $ruleId): Rule
     {
-        $this->validator->validateId($ruleId, 'ruleId');
-
         return $this->mapper->mapRule(
             $this->layoutResolverHandler->loadRule(
                 $ruleId,
@@ -508,7 +502,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
                 'rule',
                 sprintf(
                     'Rule with ID "%s" only accepts targets with "%s" target type.',
-                    $rule->getId(),
+                    $rule->getId()->toString(),
                     $ruleTargets[0]->type
                 )
             );

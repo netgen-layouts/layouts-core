@@ -51,7 +51,7 @@ final class CreateConditionForm extends AbstractController
                 'action' => $this->generateUrl(
                     'nglayouts_admin_layout_resolver_condition_form_create',
                     [
-                        'ruleId' => $rule->getId(),
+                        'ruleId' => $rule->getId()->toString(),
                         'type' => $type,
                     ]
                 ),

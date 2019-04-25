@@ -8,6 +8,7 @@ use Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver\RuleParamConverter
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class RuleParamConverterTest extends TestCase
 {
@@ -60,17 +61,19 @@ final class RuleParamConverterTest extends TestCase
     {
         $rule = new Rule();
 
+        $uuid = Uuid::uuid4();
+
         $this->layoutResolverServiceMock
             ->expects(self::once())
             ->method('loadRule')
-            ->with(self::identicalTo(42))
+            ->with(self::equalTo($uuid))
             ->willReturn($rule);
 
         self::assertSame(
             $rule,
             $this->paramConverter->loadValue(
                 [
-                    'ruleId' => 42,
+                    'ruleId' => $uuid->toString(),
                     'status' => 'published',
                 ]
             )
@@ -84,17 +87,19 @@ final class RuleParamConverterTest extends TestCase
     {
         $rule = new Rule();
 
+        $uuid = Uuid::uuid4();
+
         $this->layoutResolverServiceMock
             ->expects(self::once())
             ->method('loadRuleArchive')
-            ->with(self::identicalTo(42))
+            ->with(self::equalTo($uuid))
             ->willReturn($rule);
 
         self::assertSame(
             $rule,
             $this->paramConverter->loadValue(
                 [
-                    'ruleId' => 42,
+                    'ruleId' => $uuid->toString(),
                     'status' => 'archived',
                 ]
             )
@@ -108,17 +113,19 @@ final class RuleParamConverterTest extends TestCase
     {
         $rule = new Rule();
 
+        $uuid = Uuid::uuid4();
+
         $this->layoutResolverServiceMock
             ->expects(self::once())
             ->method('loadRuleDraft')
-            ->with(self::identicalTo(42))
+            ->with(self::equalTo($uuid))
             ->willReturn($rule);
 
         self::assertSame(
             $rule,
             $this->paramConverter->loadValue(
                 [
-                    'ruleId' => 42,
+                    'ruleId' => $uuid->toString(),
                     'status' => 'draft',
                 ]
             )

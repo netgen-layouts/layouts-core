@@ -21,7 +21,9 @@ interface LayoutResolverHandlerInterface
     /**
      * Loads a rule with specified ID.
      *
-     * @param int|string $ruleId
+     * Rule ID can be an auto-incremented ID or an UUID.
+     *
+     * @param int|string|\Ramsey\Uuid\UuidInterface $ruleId
      * @param int $status
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If rule with specified ID does not exist
@@ -102,7 +104,9 @@ interface LayoutResolverHandlerInterface
     /**
      * Returns if rule with specified ID exists.
      *
-     * @param int|string $ruleId
+     * Rule ID can be an auto-incremented ID or an UUID.
+     *
+     * @param int|string|\Ramsey\Uuid\UuidInterface $ruleId
      * @param int $status
      *
      * @return bool
@@ -136,11 +140,8 @@ interface LayoutResolverHandlerInterface
 
     /**
      * Deletes a rule with specified ID.
-     *
-     * @param int|string $ruleId
-     * @param int $status
      */
-    public function deleteRule($ruleId, ?int $status = null): void;
+    public function deleteRule(int $ruleId, ?int $status = null): void;
 
     /**
      * Adds a target to rule.

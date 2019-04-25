@@ -101,7 +101,7 @@ final class LayoutsDataCollector extends DataCollector
     public function collectRule(Rule $rule): void
     {
         $this->data['rule'] = [
-            'id' => $rule->getId(),
+            'id' => $rule->getId()->toString(),
         ];
 
         foreach ($rule->getTargets() as $target) {

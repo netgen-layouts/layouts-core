@@ -776,11 +776,15 @@ final class LayoutHandlerTest extends TestCase
         $layoutCreateStruct->status = Value::STATUS_DRAFT;
         $layoutCreateStruct->mainLocale = 'en';
 
-        $createdLayout = $this->layoutHandler->createLayout($layoutCreateStruct);
+        $createdLayout = $this->withUuids(
+            function () use ($layoutCreateStruct): Layout {
+                return $this->layoutHandler->createLayout($layoutCreateStruct);
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+        );
 
         self::assertSame(8, $createdLayout->id);
-        self::assertNotEmpty($createdLayout->uuid);
-
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $createdLayout->uuid);
         self::assertSame('new_layout', $createdLayout->type);
         self::assertSame('New layout', $createdLayout->name);
         self::assertSame('New description', $createdLayout->description);
@@ -1020,9 +1024,7 @@ final class LayoutHandlerTest extends TestCase
         );
 
         self::assertSame(8, $copiedLayout->id);
-        self::assertNotEmpty($copiedLayout->uuid);
-        self::assertNotSame($originalLayout->uuid, $copiedLayout->uuid);
-
+        self::assertSame('b90ece3f-9520-54e8-8f43-e625051df284', $copiedLayout->uuid);
         self::assertSame('4_zones_a', $copiedLayout->type);
         self::assertSame('New name', $copiedLayout->name);
         self::assertSame('New description', $copiedLayout->description);

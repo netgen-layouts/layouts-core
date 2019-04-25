@@ -29,7 +29,7 @@ final class RuleList extends ArrayCollection
     }
 
     /**
-     * @return int[]|string[]
+     * @return \Ramsey\Uuid\UuidInterface[]
      */
     public function getRuleIds(): array
     {

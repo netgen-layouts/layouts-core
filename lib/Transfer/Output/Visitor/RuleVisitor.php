@@ -35,7 +35,7 @@ final class RuleVisitor implements VisitorInterface
         $layout = $value->getLayout();
 
         return [
-            'id' => $value->getId(),
+            'id' => $value->getId()->toString(),
             'status' => $this->getStatusString($value),
             'layout_id' => $layout instanceof Layout ? $layout->getId()->toString() : null,
             'is_enabled' => $value->isEnabled(),

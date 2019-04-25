@@ -23,6 +23,7 @@ final class LayoutResolverMapper
             $rules[] = Rule::fromArray(
                 [
                     'id' => (int) $dataItem['id'],
+                    'uuid' => $dataItem['uuid'],
                     'status' => (int) $dataItem['status'],
                     'layoutId' => $dataItem['layout_id'] !== null ? (int) $dataItem['layout_id'] : null,
                     'layoutUuid' => $dataItem['layout_uuid'] ?? null,
@@ -51,6 +52,7 @@ final class LayoutResolverMapper
                     'id' => (int) $dataItem['id'],
                     'status' => (int) $dataItem['status'],
                     'ruleId' => (int) $dataItem['rule_id'],
+                    'ruleUuid' => $dataItem['rule_uuid'],
                     'type' => $dataItem['type'],
                     'value' => $dataItem['value'],
                 ]
@@ -75,6 +77,7 @@ final class LayoutResolverMapper
                     'id' => (int) $dataItem['id'],
                     'status' => (int) $dataItem['status'],
                     'ruleId' => (int) $dataItem['rule_id'],
+                    'ruleUuid' => $dataItem['rule_uuid'],
                     'type' => $dataItem['type'],
                     'value' => json_decode($dataItem['value'], true),
                 ]

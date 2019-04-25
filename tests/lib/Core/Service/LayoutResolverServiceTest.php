@@ -5,16 +5,19 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Core\Service;
 
 use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
+use Netgen\Layouts\Tests\TestCase\UuidGeneratorTrait;
 use Ramsey\Uuid\Uuid;
 
 abstract class LayoutResolverServiceTest extends CoreTestCase
 {
     use ExportObjectTrait;
+    use UuidGeneratorTrait;
 
     /**
      * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::__construct
@@ -22,7 +25,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
      */
     public function testLoadRule(): void
     {
-        $rule = $this->layoutResolverService->loadRule(3);
+        $rule = $this->layoutResolverService->loadRule(Uuid::fromString('23eece92-8cce-5155-9fef-58fb5e3decd6'));
 
         self::assertTrue($rule->isPublished());
     }
@@ -33,9 +36,9 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     public function testLoadRuleThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find rule with identifier "999999"');
+        $this->expectExceptionMessage('Could not find rule with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
 
-        $this->layoutResolverService->loadRule(999999);
+        $this->layoutResolverService->loadRule(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
     /**
@@ -44,7 +47,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
      */
     public function testLoadRuleDraft(): void
     {
-        $rule = $this->layoutResolverService->loadRuleDraft(7);
+        $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('816c00bb-8253-5bba-a067-ba6de1f94a65'));
 
         self::assertTrue($rule->isDraft());
     }
@@ -55,9 +58,9 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     public function testLoadRuleDraftThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find rule with identifier "999999"');
+        $this->expectExceptionMessage('Could not find rule with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
 
-        $this->layoutResolverService->loadRuleDraft(999999);
+        $this->layoutResolverService->loadRuleDraft(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
     /**
@@ -65,10 +68,10 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
      */
     public function testLoadRuleArchive(): void
     {
-        $ruleDraft = $this->layoutResolverService->loadRuleDraft(7);
+        $ruleDraft = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('816c00bb-8253-5bba-a067-ba6de1f94a65'));
         $this->layoutResolverService->publishRule($ruleDraft);
 
-        $ruleArchive = $this->layoutResolverService->loadRuleArchive(7);
+        $ruleArchive = $this->layoutResolverService->loadRuleArchive(Uuid::fromString('816c00bb-8253-5bba-a067-ba6de1f94a65'));
 
         self::assertTrue($ruleArchive->isArchived());
     }
@@ -79,9 +82,9 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     public function testLoadRuleArchiveThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find rule with identifier "999999"');
+        $this->expectExceptionMessage('Could not find rule with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
 
-        $this->layoutResolverService->loadRuleArchive(999999);
+        $this->layoutResolverService->loadRuleArchive(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
     /**
@@ -277,7 +280,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
      */
     public function testUpdateRule(): void
     {
-        $rule = $this->layoutResolverService->loadRuleDraft(5);
+        $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
 
         $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
         $ruleUpdateStruct->layoutId = Uuid::fromString('d8e55af7-cf62-5f28-ae15-331b457d82e9');
@@ -297,7 +300,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
      */
     public function testUpdateRuleWithNoLayout(): void
     {
-        $rule = $this->layoutResolverService->loadRuleDraft(5);
+        $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
 
         $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
         $ruleUpdateStruct->comment = 'Updated comment';
@@ -316,7 +319,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
      */
     public function testUpdateRuleWithRemovalOfLinkedLayout(): void
     {
-        $rule = $this->layoutResolverService->loadRuleDraft(5);
+        $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
 
         $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
         $ruleUpdateStruct->layoutId = false;
@@ -337,7 +340,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "rule" has an invalid state. Only draft rules can be updated.');
 
-        $rule = $this->layoutResolverService->loadRule(5);
+        $rule = $this->layoutResolverService->loadRule(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
 
         $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
         $ruleUpdateStruct->layoutId = Uuid::fromString('d8e55af7-cf62-5f28-ae15-331b457d82e9');
@@ -351,7 +354,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
      */
     public function testUpdateRuleMetadata(): void
     {
-        $rule = $this->layoutResolverService->loadRule(4);
+        $rule = $this->layoutResolverService->loadRule(Uuid::fromString('d5bcbdfc-2e75-5f06-8c47-c26d68bb7b5e'));
 
         $struct = new RuleMetadataUpdateStruct();
         $struct->priority = 50;
@@ -373,7 +376,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "rule" has an invalid state. Metadata can be updated only for published rules.');
 
-        $rule = $this->layoutResolverService->loadRuleDraft(7);
+        $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('816c00bb-8253-5bba-a067-ba6de1f94a65'));
 
         $struct = new RuleMetadataUpdateStruct();
         $struct->priority = 50;
@@ -386,11 +389,18 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
      */
     public function testCopyRule(): void
     {
-        $rule = $this->layoutResolverService->loadRule(2);
-        $copiedRule = $this->layoutResolverService->copyRule($rule);
+        $rule = $this->layoutResolverService->loadRule(Uuid::fromString('55622437-f700-5378-99c9-7dafe89a8fb6'));
+
+        /** @var \Netgen\Layouts\API\Values\LayoutResolver\Rule $copiedRule */
+        $copiedRule = $this->withUuids(
+            function () use ($rule): Rule {
+                return $this->layoutResolverService->copyRule($rule);
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+        );
 
         self::assertSame($rule->isPublished(), $copiedRule->isPublished());
-        self::assertSame(13, $copiedRule->getId());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedRule->getId()->toString());
     }
 
     /**
@@ -398,7 +408,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
      */
     public function testCreateDraft(): void
     {
-        $rule = $this->layoutResolverService->loadRule(3);
+        $rule = $this->layoutResolverService->loadRule(Uuid::fromString('23eece92-8cce-5155-9fef-58fb5e3decd6'));
 
         $draftRule = $this->layoutResolverService->createDraft($rule);
 
@@ -410,7 +420,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
      */
     public function testCreateDraftWithDiscardingExistingDraft(): void
     {
-        $rule = $this->layoutResolverService->loadRule(3);
+        $rule = $this->layoutResolverService->loadRule(Uuid::fromString('23eece92-8cce-5155-9fef-58fb5e3decd6'));
         $this->layoutResolverService->createDraft($rule);
 
         $draftRule = $this->layoutResolverService->createDraft($rule, true);
@@ -426,7 +436,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "rule" has an invalid state. Drafts can only be created from published rules.');
 
-        $rule = $this->layoutResolverService->loadRuleDraft(7);
+        $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('816c00bb-8253-5bba-a067-ba6de1f94a65'));
 
         $this->layoutResolverService->createDraft($rule);
     }
@@ -439,7 +449,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "rule" has an invalid state. The provided rule already has a draft.');
 
-        $rule = $this->layoutResolverService->loadRule(3);
+        $rule = $this->layoutResolverService->loadRule(Uuid::fromString('23eece92-8cce-5155-9fef-58fb5e3decd6'));
         $this->layoutResolverService->createDraft($rule);
 
         $this->layoutResolverService->createDraft($rule);
@@ -451,9 +461,9 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     public function testDiscardDraft(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find rule with identifier "5"');
+        $this->expectExceptionMessage('Could not find rule with identifier "de086bdf-0014-5f4f-89e4-fc0aff21da90"');
 
-        $rule = $this->layoutResolverService->loadRuleDraft(5);
+        $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
         $this->layoutResolverService->discardDraft($rule);
 
         $this->layoutResolverService->loadRuleDraft($rule->getId());
@@ -467,7 +477,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "rule" has an invalid state. Only draft rules can be discarded.');
 
-        $rule = $this->layoutResolverService->loadRule(5);
+        $rule = $this->layoutResolverService->loadRule(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
         $this->layoutResolverService->discardDraft($rule);
     }
 
@@ -476,7 +486,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
      */
     public function testPublishRule(): void
     {
-        $rule = $this->layoutResolverService->loadRuleDraft(5);
+        $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
         $publishedRule = $this->layoutResolverService->publishRule($rule);
 
         self::assertTrue($publishedRule->isPublished());
@@ -498,7 +508,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "rule" has an invalid state. Only draft rules can be published.');
 
-        $rule = $this->layoutResolverService->loadRule(5);
+        $rule = $this->layoutResolverService->loadRule(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
         $this->layoutResolverService->publishRule($rule);
     }
 
@@ -508,7 +518,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     public function testRestoreFromArchive(): void
     {
         $restoredRule = $this->layoutResolverService->restoreFromArchive(
-            $this->layoutResolverService->loadRuleArchive(2)
+            $this->layoutResolverService->loadRuleArchive(Uuid::fromString('55622437-f700-5378-99c9-7dafe89a8fb6'))
         );
 
         self::assertTrue($restoredRule->isDraft());
@@ -523,7 +533,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Only archived rules can be restored.');
 
         $this->layoutResolverService->restoreFromArchive(
-            $this->layoutResolverService->loadRule(2)
+            $this->layoutResolverService->loadRule(Uuid::fromString('55622437-f700-5378-99c9-7dafe89a8fb6'))
         );
     }
 
@@ -533,9 +543,9 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     public function testDeleteRule(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find rule with identifier "5"');
+        $this->expectExceptionMessage('Could not find rule with identifier "de086bdf-0014-5f4f-89e4-fc0aff21da90"');
 
-        $rule = $this->layoutResolverService->loadRule(5);
+        $rule = $this->layoutResolverService->loadRule(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
 
         $this->layoutResolverService->deleteRule($rule);
 
@@ -547,7 +557,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
      */
     public function testEnableRule(): void
     {
-        $rule = $this->layoutResolverService->loadRule(4);
+        $rule = $this->layoutResolverService->loadRule(Uuid::fromString('d5bcbdfc-2e75-5f06-8c47-c26d68bb7b5e'));
 
         $enabledRule = $this->layoutResolverService->enableRule($rule);
 
@@ -563,7 +573,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "rule" has an invalid state. Only published rules can be enabled.');
 
-        $rule = $this->layoutResolverService->loadRuleDraft(7);
+        $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('816c00bb-8253-5bba-a067-ba6de1f94a65'));
 
         $this->layoutResolverService->enableRule($rule);
     }
@@ -576,7 +586,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "rule" has an invalid state. Rule is already enabled.');
 
-        $rule = $this->layoutResolverService->loadRule(1);
+        $rule = $this->layoutResolverService->loadRule(Uuid::fromString('26768324-03dd-5952-8a55-4b449d6cd634'));
 
         $this->layoutResolverService->enableRule($rule);
     }
@@ -586,7 +596,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
      */
     public function testDisableRule(): void
     {
-        $rule = $this->layoutResolverService->loadRule(1);
+        $rule = $this->layoutResolverService->loadRule(Uuid::fromString('26768324-03dd-5952-8a55-4b449d6cd634'));
 
         $disabledRule = $this->layoutResolverService->disableRule($rule);
 
@@ -602,7 +612,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "rule" has an invalid state. Only published rules can be disabled.');
 
-        $rule = $this->layoutResolverService->loadRuleDraft(7);
+        $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('816c00bb-8253-5bba-a067-ba6de1f94a65'));
 
         $this->layoutResolverService->disableRule($rule);
     }
@@ -615,7 +625,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "rule" has an invalid state. Rule is already disabled.');
 
-        $rule = $this->layoutResolverService->loadRule(4);
+        $rule = $this->layoutResolverService->loadRule(Uuid::fromString('d5bcbdfc-2e75-5f06-8c47-c26d68bb7b5e'));
 
         $this->layoutResolverService->disableRule($rule);
     }
@@ -631,7 +641,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $targetCreateStruct->value = 'some_route_';
 
-        $rule = $this->layoutResolverService->loadRuleDraft(5);
+        $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
 
         $createdTarget = $this->layoutResolverService->addTarget(
             $rule,
@@ -655,7 +665,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $targetCreateStruct->value = 'some_route_';
 
-        $rule = $this->layoutResolverService->loadRule(5);
+        $rule = $this->layoutResolverService->loadRule(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
 
         $this->layoutResolverService->addTarget(
             $rule,
@@ -669,7 +679,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     public function testAddTargetOfDifferentKindThrowsBadStateException(): void
     {
         $this->expectException(BadStateException::class);
-        $this->expectExceptionMessage('Argument "rule" has an invalid state. Rule with ID "5" only accepts targets with "route_prefix" target type.');
+        $this->expectExceptionMessage('Argument "rule" has an invalid state. Rule with ID "de086bdf-0014-5f4f-89e4-fc0aff21da90" only accepts targets with "route_prefix" target type.');
 
         $targetCreateStruct = $this->layoutResolverService->newTargetCreateStruct(
             'route'
@@ -677,7 +687,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $targetCreateStruct->value = 'some_route';
 
-        $rule = $this->layoutResolverService->loadRuleDraft(5);
+        $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
 
         $this->layoutResolverService->addTarget(
             $rule,
@@ -756,7 +766,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $conditionCreateStruct->value = 'value';
 
-        $rule = $this->layoutResolverService->loadRuleDraft(5);
+        $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
 
         $createdCondition = $this->layoutResolverService->addCondition(
             $rule,
@@ -780,7 +790,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $conditionCreateStruct->value = 'value';
 
-        $rule = $this->layoutResolverService->loadRule(5);
+        $rule = $this->layoutResolverService->loadRule(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
 
         $this->layoutResolverService->addCondition(
             $rule,

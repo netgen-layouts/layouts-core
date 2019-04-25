@@ -16,41 +16,30 @@ use Netgen\Layouts\API\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetUpdateStruct;
+use Ramsey\Uuid\UuidInterface;
 
 interface LayoutResolverService extends Service
 {
     /**
-     * Loads a rule by its' ID.
-     *
-     * @param int|string $ruleId
+     * Loads a rule by its' UUID.
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If rule with specified ID does not exist
-     *
-     * @return \Netgen\Layouts\API\Values\LayoutResolver\Rule
      */
-    public function loadRule($ruleId): Rule;
+    public function loadRule(UuidInterface $ruleId): Rule;
 
     /**
-     * Loads a rule draft by its' ID.
-     *
-     * @param int|string $ruleId
+     * Loads a rule draft by its' UUID.
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If rule with specified ID does not exist
-     *
-     * @return \Netgen\Layouts\API\Values\LayoutResolver\Rule
      */
-    public function loadRuleDraft($ruleId): Rule;
+    public function loadRuleDraft(UuidInterface $ruleId): Rule;
 
     /**
-     * Loads a rule archive by its' ID.
-     *
-     * @param int|string $ruleId
+     * Loads a rule archive by its' UUID.
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If rule with specified ID does not exist
-     *
-     * @return \Netgen\Layouts\API\Values\LayoutResolver\Rule
      */
-    public function loadRuleArchive($ruleId): Rule;
+    public function loadRuleArchive(UuidInterface $ruleId): Rule;
 
     /**
      * Loads all published rules.

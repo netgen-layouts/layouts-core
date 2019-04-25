@@ -21,6 +21,8 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Value;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 {
@@ -51,6 +53,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
     public function loadRule($ruleId, int $status): Rule
     {
+        $ruleId = $ruleId instanceof UuidInterface ? $ruleId->toString() : $ruleId;
         $data = $this->queryHandler->loadRuleData($ruleId, $status);
 
         if (count($data) === 0) {
@@ -126,6 +129,8 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
     public function ruleExists($ruleId, int $status): bool
     {
+        $ruleId = $ruleId instanceof UuidInterface ? $ruleId->toString() : $ruleId;
+
         return $this->queryHandler->ruleExists($ruleId, $status);
     }
 
@@ -138,6 +143,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
         $newRule = Rule::fromArray(
             [
+                'uuid' => Uuid::uuid4()->toString(),
                 'status' => $ruleCreateStruct->status,
                 'layoutId' => $layout instanceof Layout ? $layout->id : null,
                 'layoutUuid' => $layout instanceof Layout ? $layout->uuid : null,
@@ -197,6 +203,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
         $copiedRule = clone $rule;
         $copiedRule->id = null;
+        $copiedRule->uuid = Uuid::uuid4()->toString();
 
         $copiedRule = $this->queryHandler->createRule($copiedRule);
 
@@ -209,6 +216,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
             $copiedTarget->id = null;
 
             $copiedTarget->ruleId = $copiedRule->id;
+            $copiedTarget->ruleUuid = $copiedRule->uuid;
 
             $this->queryHandler->addTarget($copiedTarget);
         }
@@ -222,6 +230,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
             $copiedCondition->id = null;
 
             $copiedCondition->ruleId = $copiedRule->id;
+            $copiedCondition->ruleUuid = $copiedRule->uuid;
 
             $this->queryHandler->addCondition($copiedCondition);
         }
@@ -263,7 +272,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $copiedRule;
     }
 
-    public function deleteRule($ruleId, ?int $status = null): void
+    public function deleteRule(int $ruleId, ?int $status = null): void
     {
         $this->queryHandler->deleteRuleTargets($ruleId, $status);
         $this->queryHandler->deleteRuleConditions($ruleId, $status);
@@ -276,6 +285,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
             [
                 'status' => $rule->status,
                 'ruleId' => $rule->id,
+                'ruleUuid' => $rule->uuid,
                 'type' => $targetCreateStruct->type,
                 'value' => $targetCreateStruct->value,
             ]
@@ -305,6 +315,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
             [
                 'status' => $rule->status,
                 'ruleId' => $rule->id,
+                'ruleUuid' => $rule->uuid,
                 'type' => $conditionCreateStruct->type,
                 'value' => $conditionCreateStruct->value,
             ]

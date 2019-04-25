@@ -53,9 +53,6 @@ final class LayoutListTest extends TestCase
 
         $layouts = [Layout::fromArray(['id' => $uuid1]), Layout::fromArray(['id' => $uuid2])];
 
-        self::assertSame(
-            [$uuid1->toString(), $uuid2->toString()],
-            array_map('strval', (new LayoutList($layouts))->getLayoutIds())
-        );
+        self::assertSame([$uuid1, $uuid2], (new LayoutList($layouts))->getLayoutIds());
     }
 }
