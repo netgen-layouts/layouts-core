@@ -33,25 +33,6 @@ final class ValidatorTest extends TestCase
     }
 
     /**
-     * @param int|string $id
-     * @param bool $isValid
-     *
-     * @covers \Netgen\Layouts\Core\Validator\Validator::validateId
-     * @dataProvider validateIdDataProvider
-     */
-    public function testValidateId($id, bool $isValid): void
-    {
-        if (!$isValid) {
-            $this->expectException(ValidationException::class);
-        }
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
-
-        $this->validator->validateId($id);
-    }
-
-    /**
      * @param mixed $identifier
      * @param bool $isValid
      *
