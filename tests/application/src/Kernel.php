@@ -34,6 +34,9 @@ class Kernel extends BaseKernel
         $databaseUrl = getenv('DATABASE');
         $databaseUrl = $databaseUrl ?: 'sqlite:///' . $this->getCacheDir() . '/nglayouts.db';
         putenv('DATABASE=' . $databaseUrl);
+
+        $databaseCharset = mb_stripos($databaseUrl, 'mysql://') === 0 ? 'utf8mb4' : 'utf8';
+        putenv('DATABASE_CHARSET=' . $databaseCharset);
     }
 
     public function getProjectDir(): string

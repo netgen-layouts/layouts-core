@@ -1,9 +1,10 @@
 parameters:
     env(DATABASE): ''
+    env(DATABASE_CHARSET): ''
 
 doctrine:
     dbal:
         connections:
             default:
                 url: '%env(resolve:DATABASE)%'
-                charset: utf8mb4
+                charset: '%env(resolve:DATABASE_CHARSET)%'
