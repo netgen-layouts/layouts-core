@@ -44,7 +44,7 @@ final class EditConditionForm extends AbstractController
                 'action' => $this->generateUrl(
                     'nglayouts_admin_layout_resolver_condition_form_edit',
                     [
-                        'conditionId' => $condition->getId(),
+                        'conditionId' => $condition->getId()->toString(),
                     ]
                 ),
             ]

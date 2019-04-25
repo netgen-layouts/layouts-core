@@ -174,10 +174,8 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         );
     }
 
-    public function loadTarget($targetId): Target
+    public function loadTarget(UuidInterface $targetId): Target
     {
-        $this->validator->validateId($targetId, 'targetId');
-
         return $this->mapper->mapTarget(
             $this->layoutResolverHandler->loadTarget(
                 $targetId,
@@ -186,10 +184,8 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         );
     }
 
-    public function loadTargetDraft($targetId): Target
+    public function loadTargetDraft(UuidInterface $targetId): Target
     {
-        $this->validator->validateId($targetId, 'targetId');
-
         return $this->mapper->mapTarget(
             $this->layoutResolverHandler->loadTarget(
                 $targetId,
@@ -198,10 +194,8 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         );
     }
 
-    public function loadCondition($conditionId): Condition
+    public function loadCondition(UuidInterface $conditionId): Condition
     {
-        $this->validator->validateId($conditionId, 'conditionId');
-
         return $this->mapper->mapCondition(
             $this->layoutResolverHandler->loadCondition(
                 $conditionId,
@@ -210,10 +204,8 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         );
     }
 
-    public function loadConditionDraft($conditionId): Condition
+    public function loadConditionDraft(UuidInterface $conditionId): Condition
     {
-        $this->validator->validateId($conditionId, 'conditionId');
-
         return $this->mapper->mapCondition(
             $this->layoutResolverHandler->loadCondition(
                 $conditionId,

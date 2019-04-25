@@ -4,7 +4,7 @@
 
 <span
     {% if can_edit %}
-        class="settings-value editable-value js-setting-edit" data-setting-id="{{ condition.id }}" data-setting-type="condition"
+        class="settings-value editable-value js-setting-edit" data-setting-id="{{ condition.id.toString }}" data-setting-type="condition"
     {% else %}
         class="settings-value"
     {% endif %}
@@ -15,7 +15,7 @@
 </span>
 
 {% if can_edit %}
-    <a href="#" class="remove-setting js-setting-delete" data-setting-id="{{ condition.id }}" data-setting-type="condition">
+    <a href="#" class="remove-setting js-setting-delete" data-setting-id="{{ condition.id.toString }}" data-setting-type="condition">
         <i class="material-icons">clear</i>
     </a>
 {% endif %}

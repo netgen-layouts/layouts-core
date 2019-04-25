@@ -8,6 +8,7 @@ use Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver\TargetParamConvert
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class TargetParamConverterTest extends TestCase
 {
@@ -60,17 +61,19 @@ final class TargetParamConverterTest extends TestCase
     {
         $target = new Target();
 
+        $uuid = Uuid::uuid4();
+
         $this->layoutResolverServiceMock
             ->expects(self::once())
             ->method('loadTarget')
-            ->with(self::identicalTo(42))
+            ->with(self::equalTo($uuid))
             ->willReturn($target);
 
         self::assertSame(
             $target,
             $this->paramConverter->loadValue(
                 [
-                    'targetId' => 42,
+                    'targetId' => $uuid->toString(),
                     'status' => 'published',
                 ]
             )
@@ -84,17 +87,19 @@ final class TargetParamConverterTest extends TestCase
     {
         $target = new Target();
 
+        $uuid = Uuid::uuid4();
+
         $this->layoutResolverServiceMock
             ->expects(self::once())
             ->method('loadTargetDraft')
-            ->with(self::identicalTo(42))
+            ->with(self::equalTo($uuid))
             ->willReturn($target);
 
         self::assertSame(
             $target,
             $this->paramConverter->loadValue(
                 [
-                    'targetId' => 42,
+                    'targetId' => $uuid->toString(),
                     'status' => 'draft',
                 ]
             )

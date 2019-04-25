@@ -172,6 +172,7 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 1,
+                'uuid' => 'c7c5cdca-02da-5ba5-ad9e-d25cbc4b1b46',
                 'ruleId' => 1,
                 'ruleUuid' => '26768324-03dd-5952-8a55-4b449d6cd634',
                 'type' => 'route',
@@ -233,6 +234,7 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 1,
+                'uuid' => '35f4594c-6674-5815-add6-07f288b79686',
                 'ruleId' => 2,
                 'ruleUuid' => '55622437-f700-5378-99c9-7dafe89a8fb6',
                 'type' => 'route_parameter',
@@ -504,7 +506,12 @@ final class LayoutResolverHandlerTest extends TestCase
             function () use ($rule): Rule {
                 return $this->handler->copyRule($rule);
             },
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+            [
+                'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'efd1d54a-5d53-518f-91a5-f4965c242a67',
+                '1169074c-8779-5b64-afec-c910705e418a',
+                'aaa3659b-b574-5e6b-8902-0ea37f576469',
+            ]
         );
 
         self::assertSame(13, $copiedRule->id);
@@ -520,6 +527,7 @@ final class LayoutResolverHandlerTest extends TestCase
             [
                 [
                     'id' => 21,
+                    'uuid' => 'efd1d54a-5d53-518f-91a5-f4965c242a67',
                     'ruleId' => $copiedRule->id,
                     'ruleUuid' => $copiedRule->uuid,
                     'type' => 'route_prefix',
@@ -528,6 +536,7 @@ final class LayoutResolverHandlerTest extends TestCase
                 ],
                 [
                     'id' => 22,
+                    'uuid' => '1169074c-8779-5b64-afec-c910705e418a',
                     'ruleId' => $copiedRule->id,
                     'ruleUuid' => $copiedRule->uuid,
                     'type' => 'route_prefix',
@@ -544,6 +553,7 @@ final class LayoutResolverHandlerTest extends TestCase
             [
                 [
                     'id' => 5,
+                    'uuid' => 'aaa3659b-b574-5e6b-8902-0ea37f576469',
                     'ruleId' => $copiedRule->id,
                     'ruleUuid' => $copiedRule->uuid,
                     'type' => 'condition1',
@@ -584,6 +594,7 @@ final class LayoutResolverHandlerTest extends TestCase
             [
                 [
                     'id' => 5,
+                    'uuid' => '445e885e-1ad5-584b-b51b-263fb66805c2',
                     'ruleId' => 3,
                     'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
                     'type' => 'route',
@@ -592,6 +603,7 @@ final class LayoutResolverHandlerTest extends TestCase
                 ],
                 [
                     'id' => 6,
+                    'uuid' => 'feee231e-4fee-514a-a938-a2769036c07b',
                     'ruleId' => 3,
                     'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
                     'type' => 'route',
@@ -608,6 +620,7 @@ final class LayoutResolverHandlerTest extends TestCase
             [
                 [
                     'id' => 2,
+                    'uuid' => '9a6c8459-5fda-5d4b-b06e-06f637ab6e01',
                     'ruleId' => 3,
                     'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
                     'type' => 'route_parameter',
@@ -619,6 +632,7 @@ final class LayoutResolverHandlerTest extends TestCase
                 ],
                 [
                     'id' => 3,
+                    'uuid' => 'dd49afcd-aab0-5970-b7b8-413238faf539',
                     'ruleId' => 3,
                     'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
                     'type' => 'route_parameter',
@@ -684,14 +698,20 @@ final class LayoutResolverHandlerTest extends TestCase
         $targetCreateStruct->type = 'target';
         $targetCreateStruct->value = '42';
 
-        $target = $this->handler->addTarget(
-            $this->handler->loadRule(1, Value::STATUS_PUBLISHED),
-            $targetCreateStruct
+        $target = $this->withUuids(
+            function () use ($targetCreateStruct): Target {
+                return $this->handler->addTarget(
+                    $this->handler->loadRule(1, Value::STATUS_PUBLISHED),
+                    $targetCreateStruct
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
         self::assertSame(
             [
                 'id' => 21,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'ruleId' => 1,
                 'ruleUuid' => '26768324-03dd-5952-8a55-4b449d6cd634',
                 'type' => 'target',
@@ -719,6 +739,7 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 1,
+                'uuid' => 'c7c5cdca-02da-5ba5-ad9e-d25cbc4b1b46',
                 'ruleId' => 1,
                 'ruleUuid' => '26768324-03dd-5952-8a55-4b449d6cd634',
                 'type' => 'route',
@@ -755,14 +776,20 @@ final class LayoutResolverHandlerTest extends TestCase
         $conditionCreateStruct->type = 'condition';
         $conditionCreateStruct->value = ['param' => 'value'];
 
-        $condition = $this->handler->addCondition(
-            $this->handler->loadRule(3, Value::STATUS_PUBLISHED),
-            $conditionCreateStruct
+        $condition = $this->withUuids(
+            function () use ($conditionCreateStruct): Condition {
+                return $this->handler->addCondition(
+                    $this->handler->loadRule(3, Value::STATUS_PUBLISHED),
+                    $conditionCreateStruct
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
         self::assertSame(
             [
                 'id' => 5,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'ruleId' => 3,
                 'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
                 'type' => 'condition',
@@ -790,6 +817,7 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 1,
+                'uuid' => '35f4594c-6674-5815-add6-07f288b79686',
                 'ruleId' => 2,
                 'ruleUuid' => '55622437-f700-5378-99c9-7dafe89a8fb6',
                 'type' => 'route_parameter',

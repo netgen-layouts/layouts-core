@@ -117,7 +117,7 @@ final class LayoutResolverMapper
         }
 
         $targetData = [
-            'id' => $target->id,
+            'id' => Uuid::fromString($target->uuid),
             'status' => $target->status,
             'ruleId' => Uuid::fromString($target->ruleUuid),
             'targetType' => $targetType,
@@ -141,7 +141,7 @@ final class LayoutResolverMapper
         }
 
         $conditionData = [
-            'id' => $condition->id,
+            'id' => Uuid::fromString($condition->uuid),
             'status' => $condition->status,
             'ruleId' => Uuid::fromString($condition->ruleUuid),
             'conditionType' => $conditionType,

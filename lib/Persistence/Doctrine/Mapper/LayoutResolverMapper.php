@@ -50,6 +50,7 @@ final class LayoutResolverMapper
             $targets[] = Target::fromArray(
                 [
                     'id' => (int) $dataItem['id'],
+                    'uuid' => $dataItem['uuid'],
                     'status' => (int) $dataItem['status'],
                     'ruleId' => (int) $dataItem['rule_id'],
                     'ruleUuid' => $dataItem['rule_uuid'],
@@ -75,6 +76,7 @@ final class LayoutResolverMapper
             $conditions[] = Condition::fromArray(
                 [
                     'id' => (int) $dataItem['id'],
+                    'uuid' => $dataItem['uuid'],
                     'status' => (int) $dataItem['status'],
                     'ruleId' => (int) $dataItem['rule_id'],
                     'ruleUuid' => $dataItem['rule_uuid'],

@@ -88,6 +88,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
     public function loadTarget($targetId, int $status): Target
     {
+        $targetId = $targetId instanceof UuidInterface ? $targetId->toString() : $targetId;
         $data = $this->queryHandler->loadTargetData($targetId, $status);
 
         if (count($data) === 0) {
@@ -111,6 +112,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
     public function loadCondition($conditionId, int $status): Condition
     {
+        $conditionId = $conditionId instanceof UuidInterface ? $conditionId->toString() : $conditionId;
         $data = $this->queryHandler->loadConditionData($conditionId, $status);
 
         if (count($data) === 0) {
@@ -214,6 +216,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         foreach ($ruleTargets as $ruleTarget) {
             $copiedTarget = clone $ruleTarget;
             $copiedTarget->id = null;
+            $copiedTarget->uuid = Uuid::uuid4()->toString();
 
             $copiedTarget->ruleId = $copiedRule->id;
             $copiedTarget->ruleUuid = $copiedRule->uuid;
@@ -228,6 +231,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         foreach ($ruleConditions as $ruleCondition) {
             $copiedCondition = clone $ruleCondition;
             $copiedCondition->id = null;
+            $copiedCondition->uuid = Uuid::uuid4()->toString();
 
             $copiedCondition->ruleId = $copiedRule->id;
             $copiedCondition->ruleUuid = $copiedRule->uuid;
@@ -283,6 +287,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
     {
         $newTarget = Target::fromArray(
             [
+                'uuid' => Uuid::uuid4()->toString(),
                 'status' => $rule->status,
                 'ruleId' => $rule->id,
                 'ruleUuid' => $rule->uuid,
@@ -313,6 +318,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
     {
         $newCondition = Condition::fromArray(
             [
+                'uuid' => Uuid::uuid4()->toString(),
                 'status' => $rule->status,
                 'ruleId' => $rule->id,
                 'ruleUuid' => $rule->uuid,

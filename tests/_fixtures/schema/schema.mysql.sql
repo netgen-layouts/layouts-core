@@ -177,10 +177,12 @@ CREATE TABLE IF NOT EXISTS `nglayouts_rule_data` (
 CREATE TABLE IF NOT EXISTS `nglayouts_rule_target` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
+  `uuid` char(36) NOT NULL,
   `rule_id` int(11) NOT NULL,
   `type` varchar(191) NOT NULL,
   `value` text,
   PRIMARY KEY (`id`, `status`),
+  UNIQUE KEY (`uuid`, `status`),
   FOREIGN KEY (`rule_id`, `status`)
     REFERENCES nglayouts_rule (`id`, `status`)
 ) ENGINE=InnoDB;
@@ -188,10 +190,12 @@ CREATE TABLE IF NOT EXISTS `nglayouts_rule_target` (
 CREATE TABLE IF NOT EXISTS `nglayouts_rule_condition` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
+  `uuid` char(36) NOT NULL,
   `rule_id` int(11) NOT NULL,
   `type` varchar(191) NOT NULL,
   `value` text,
   PRIMARY KEY (`id`, `status`),
+  UNIQUE KEY (`uuid`, `status`),
   FOREIGN KEY (`rule_id`, `status`)
     REFERENCES nglayouts_rule (`id`, `status`)
 ) ENGINE=InnoDB;

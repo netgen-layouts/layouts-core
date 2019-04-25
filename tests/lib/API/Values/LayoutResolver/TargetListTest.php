@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Tests\API\Values\LayoutResolver;
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetList;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 use stdClass;
 use TypeError;
 
@@ -47,8 +48,11 @@ final class TargetListTest extends TestCase
      */
     public function testGetTargetIds(): void
     {
-        $targets = [Target::fromArray(['id' => 42]), Target::fromArray(['id' => 24])];
+        $uuid1 = Uuid::uuid4();
+        $uuid2 = Uuid::uuid4();
 
-        self::assertSame([42, 24], (new TargetList($targets))->getTargetIds());
+        $targets = [Target::fromArray(['id' => $uuid1]), Target::fromArray(['id' => $uuid2])];
+
+        self::assertSame([$uuid1, $uuid2], (new TargetList($targets))->getTargetIds());
     }
 }

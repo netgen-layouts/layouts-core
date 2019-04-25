@@ -29,7 +29,7 @@ final class TargetList extends ArrayCollection
     }
 
     /**
-     * @return int[]|string[]
+     * @return \Ramsey\Uuid\UuidInterface[]
      */
     public function getTargetIds(): array
     {

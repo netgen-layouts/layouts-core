@@ -162,6 +162,7 @@ CREATE TABLE IF NOT EXISTS "nglayouts_rule_data" (
 CREATE TABLE IF NOT EXISTS "nglayouts_rule_target" (
   "id" integer NOT NULL,
   "status" integer NOT NULL,
+  "uuid" character(36) NOT NULL,
   "rule_id" integer NOT NULL,
   "type" character varying(255) NOT NULL,
   "value" text,
@@ -172,6 +173,7 @@ CREATE TABLE IF NOT EXISTS "nglayouts_rule_target" (
 CREATE TABLE IF NOT EXISTS "nglayouts_rule_condition" (
   "id" integer NOT NULL,
   "status" integer NOT NULL,
+  "uuid" character(36) NOT NULL,
   "rule_id" integer NOT NULL,
   "type" character varying(255) NOT NULL,
   "value" text,
@@ -235,7 +237,9 @@ CREATE UNIQUE INDEX IF NOT EXISTS idx_ngl_rule_uuid ON nglayouts_rule (uuid, sta
 CREATE SEQUENCE IF NOT EXISTS nglayouts_rule_target_id_seq;
 ALTER SEQUENCE nglayouts_rule_target_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY nglayouts_rule_target ALTER COLUMN id SET DEFAULT nextval('nglayouts_rule_target_id_seq'::regclass);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_ngl_rule_target_uuid ON nglayouts_rule_target (uuid, status);
 
 CREATE SEQUENCE IF NOT EXISTS nglayouts_rule_condition_id_seq;
 ALTER SEQUENCE nglayouts_rule_condition_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY nglayouts_rule_condition ALTER COLUMN id SET DEFAULT nextval('nglayouts_rule_condition_id_seq'::regclass);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_ngl_rule_condition_uuid ON nglayouts_rule_condition (uuid, status);

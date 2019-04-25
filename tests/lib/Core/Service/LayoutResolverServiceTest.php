@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Core\Service;
 
 use Netgen\Layouts\API\Values\Layout\Layout;
-use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
@@ -184,7 +183,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
      */
     public function testLoadTarget(): void
     {
-        $target = $this->layoutResolverService->loadTarget(7);
+        $target = $this->layoutResolverService->loadTarget(Uuid::fromString('5f086fc4-4e1c-55eb-ae54-79fc296cda37'));
 
         self::assertTrue($target->isPublished());
     }
@@ -195,9 +194,9 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     public function testLoadTargetThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find target with identifier "999999"');
+        $this->expectExceptionMessage('Could not find target with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
 
-        $this->layoutResolverService->loadTarget(999999);
+        $this->layoutResolverService->loadTarget(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
     /**
@@ -205,7 +204,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
      */
     public function testLoadTargetDraft(): void
     {
-        $target = $this->layoutResolverService->loadTargetDraft(9);
+        $target = $this->layoutResolverService->loadTargetDraft(Uuid::fromString('5104e4e7-1a20-5db8-8857-5ab99f1290b9'));
 
         self::assertTrue($target->isDraft());
     }
@@ -216,9 +215,9 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     public function testLoadTargetDraftThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find target with identifier "999999"');
+        $this->expectExceptionMessage('Could not find target with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
 
-        $this->layoutResolverService->loadTargetDraft(999999);
+        $this->layoutResolverService->loadTargetDraft(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
     /**
@@ -226,7 +225,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
      */
     public function testLoadCondition(): void
     {
-        $condition = $this->layoutResolverService->loadCondition(1);
+        $condition = $this->layoutResolverService->loadCondition(Uuid::fromString('35f4594c-6674-5815-add6-07f288b79686'));
 
         self::assertTrue($condition->isPublished());
     }
@@ -237,9 +236,9 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     public function testLoadConditionThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find condition with identifier "999999"');
+        $this->expectExceptionMessage('Could not find condition with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
 
-        $this->layoutResolverService->loadCondition(999999);
+        $this->layoutResolverService->loadCondition(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
     /**
@@ -247,7 +246,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
      */
     public function testLoadConditionDraft(): void
     {
-        $condition = $this->layoutResolverService->loadConditionDraft(4);
+        $condition = $this->layoutResolverService->loadConditionDraft(Uuid::fromString('7db46c94-3139-5a3d-9b2a-b2d28e7573ca'));
 
         self::assertTrue($condition->isDraft());
     }
@@ -258,9 +257,9 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     public function testLoadConditionDraftThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find condition with identifier "999999"');
+        $this->expectExceptionMessage('Could not find condition with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
 
-        $this->layoutResolverService->loadConditionDraft(999999);
+        $this->layoutResolverService->loadConditionDraft(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
     /**
@@ -391,16 +390,10 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     {
         $rule = $this->layoutResolverService->loadRule(Uuid::fromString('55622437-f700-5378-99c9-7dafe89a8fb6'));
 
-        /** @var \Netgen\Layouts\API\Values\LayoutResolver\Rule $copiedRule */
-        $copiedRule = $this->withUuids(
-            function () use ($rule): Rule {
-                return $this->layoutResolverService->copyRule($rule);
-            },
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
-        );
+        $copiedRule = $this->layoutResolverService->copyRule($rule);
 
         self::assertSame($rule->isPublished(), $copiedRule->isPublished());
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedRule->getId()->toString());
+        self::assertNotSame($rule->getId()->toString(), $copiedRule->getId()->toString());
     }
 
     /**
@@ -700,7 +693,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
      */
     public function testUpdateTarget(): void
     {
-        $target = $this->layoutResolverService->loadTargetDraft(9);
+        $target = $this->layoutResolverService->loadTargetDraft(Uuid::fromString('5104e4e7-1a20-5db8-8857-5ab99f1290b9'));
 
         $targetUpdateStruct = $this->layoutResolverService->newTargetUpdateStruct();
         $targetUpdateStruct->value = 'new_value';
@@ -719,7 +712,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "target" has an invalid state. Only draft targets can be updated.');
 
-        $target = $this->layoutResolverService->loadTarget(9);
+        $target = $this->layoutResolverService->loadTarget(Uuid::fromString('5104e4e7-1a20-5db8-8857-5ab99f1290b9'));
 
         $targetUpdateStruct = $this->layoutResolverService->newTargetUpdateStruct();
         $targetUpdateStruct->value = 'new_value';
@@ -733,9 +726,9 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     public function testDeleteTarget(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find target with identifier "9"');
+        $this->expectExceptionMessage('Could not find target with identifier "5104e4e7-1a20-5db8-8857-5ab99f1290b9"');
 
-        $target = $this->layoutResolverService->loadTargetDraft(9);
+        $target = $this->layoutResolverService->loadTargetDraft(Uuid::fromString('5104e4e7-1a20-5db8-8857-5ab99f1290b9'));
 
         $this->layoutResolverService->deleteTarget($target);
 
@@ -750,7 +743,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "target" has an invalid state. Only draft targets can be deleted.');
 
-        $target = $this->layoutResolverService->loadTarget(9);
+        $target = $this->layoutResolverService->loadTarget(Uuid::fromString('5104e4e7-1a20-5db8-8857-5ab99f1290b9'));
 
         $this->layoutResolverService->deleteTarget($target);
     }
@@ -803,7 +796,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
      */
     public function testUpdateCondition(): void
     {
-        $condition = $this->layoutResolverService->loadConditionDraft(4);
+        $condition = $this->layoutResolverService->loadConditionDraft(Uuid::fromString('7db46c94-3139-5a3d-9b2a-b2d28e7573ca'));
 
         $conditionUpdateStruct = $this->layoutResolverService->newConditionUpdateStruct();
         $conditionUpdateStruct->value = 'new_value';
@@ -822,7 +815,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "condition" has an invalid state. Only draft conditions can be updated.');
 
-        $condition = $this->layoutResolverService->loadCondition(4);
+        $condition = $this->layoutResolverService->loadCondition(Uuid::fromString('7db46c94-3139-5a3d-9b2a-b2d28e7573ca'));
 
         $conditionUpdateStruct = $this->layoutResolverService->newConditionUpdateStruct();
         $conditionUpdateStruct->value = 'new_value';
@@ -836,9 +829,9 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     public function testDeleteCondition(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find condition with identifier "4"');
+        $this->expectExceptionMessage('Could not find condition with identifier "7db46c94-3139-5a3d-9b2a-b2d28e7573ca"');
 
-        $condition = $this->layoutResolverService->loadConditionDraft(4);
+        $condition = $this->layoutResolverService->loadConditionDraft(Uuid::fromString('7db46c94-3139-5a3d-9b2a-b2d28e7573ca'));
         $this->layoutResolverService->deleteCondition($condition);
 
         $this->layoutResolverService->loadConditionDraft($condition->getId());
@@ -852,7 +845,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "condition" has an invalid state. Only draft conditions can be deleted.');
 
-        $condition = $this->layoutResolverService->loadCondition(4);
+        $condition = $this->layoutResolverService->loadCondition(Uuid::fromString('7db46c94-3139-5a3d-9b2a-b2d28e7573ca'));
         $this->layoutResolverService->deleteCondition($condition);
     }
 

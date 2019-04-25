@@ -61,7 +61,9 @@ interface LayoutResolverHandlerInterface
     /**
      * Loads an target with specified ID.
      *
-     * @param int|string $targetId
+     * Target ID can be an auto-incremented ID or an UUID.
+     *
+     * @param int|string|\Ramsey\Uuid\UuidInterface $targetId
      * @param int $status
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If target with specified ID does not exist
@@ -85,7 +87,9 @@ interface LayoutResolverHandlerInterface
     /**
      * Loads a condition with specified ID.
      *
-     * @param int|string $conditionId
+     * Condition ID can be an auto-incremented ID or an UUID.
+     *
+     * @param int|string|\Ramsey\Uuid\UuidInterface $conditionId
      * @param int $status
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified ID does not exist

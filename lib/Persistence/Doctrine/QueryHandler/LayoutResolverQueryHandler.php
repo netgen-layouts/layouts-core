@@ -152,11 +152,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
     public function loadTargetData($targetId, int $status): array
     {
         $query = $this->getTargetSelectQuery();
-        $query->where(
-            $query->expr()->eq('t.id', ':id')
-        )
-        ->setParameter('id', $targetId, Type::INTEGER);
 
+        $this->applyIdCondition($query, $targetId, 't.id', 't.uuid');
         $this->applyStatusCondition($query, $status, 't.status');
 
         return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
@@ -210,11 +207,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
     public function loadConditionData($conditionId, int $status): array
     {
         $query = $this->getConditionSelectQuery();
-        $query->where(
-            $query->expr()->eq('c.id', ':id')
-        )
-        ->setParameter('id', $conditionId, Type::INTEGER);
 
+        $this->applyIdCondition($query, $conditionId, 'c.id', 'c.uuid');
         $this->applyStatusCondition($query, $status, 'c.status');
 
         return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
@@ -449,18 +443,15 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->values(
                 [
                     'id' => ':id',
+                    'uuid' => ':uuid',
                     'status' => ':status',
                     'rule_id' => ':rule_id',
                     'type' => ':type',
                     'value' => ':value',
                 ]
             )
-            ->setValue(
-                'id',
-                $target->id !== null ?
-                    (int) $target->id :
-                    $this->connectionHelper->getAutoIncrementValue('nglayouts_rule_target')
-            )
+            ->setValue('id', $target->id ?? $this->connectionHelper->getAutoIncrementValue('nglayouts_rule_target'))
+            ->setParameter('uuid', $target->uuid, Type::STRING)
             ->setParameter('status', $target->status, Type::INTEGER)
             ->setParameter('rule_id', $target->ruleId, Type::INTEGER)
             ->setParameter('type', $target->type, Type::STRING)
@@ -481,6 +472,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder();
         $query
             ->update('nglayouts_rule_target')
+            ->set('uuid', ':uuid')
             ->set('rule_id', ':rule_id')
             ->set('type', ':type')
             ->set('value', ':value')
@@ -488,6 +480,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 $query->expr()->eq('id', ':id')
             )
             ->setParameter('id', $target->id, Type::INTEGER)
+            ->setParameter('uuid', $target->uuid, Type::STRING)
             ->setParameter('rule_id', $target->ruleId, Type::INTEGER)
             ->setParameter('type', $target->type, Type::STRING)
             ->setParameter('value', $target->value, is_array($target->value) ? Type::JSON_ARRAY : Type::STRING);
@@ -499,11 +492,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Deletes a target.
-     *
-     * @param int|string $targetId
-     * @param int $status
      */
-    public function deleteTarget($targetId, int $status): void
+    public function deleteTarget(int $targetId, int $status): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -528,18 +518,15 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->values(
                 [
                     'id' => ':id',
+                    'uuid' => ':uuid',
                     'status' => ':status',
                     'rule_id' => ':rule_id',
                     'type' => ':type',
                     'value' => ':value',
                 ]
             )
-            ->setValue(
-                'id',
-                $condition->id !== null ?
-                    (int) $condition->id :
-                    $this->connectionHelper->getAutoIncrementValue('nglayouts_rule_condition')
-            )
+            ->setValue('id', $condition->id ?? $this->connectionHelper->getAutoIncrementValue('nglayouts_rule_condition'))
+            ->setParameter('uuid', $condition->uuid, Type::STRING)
             ->setParameter('status', $condition->status, Type::INTEGER)
             ->setParameter('rule_id', $condition->ruleId, Type::INTEGER)
             ->setParameter('type', $condition->type, Type::STRING)
@@ -560,6 +547,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder();
         $query
             ->update('nglayouts_rule_condition')
+            ->set('uuid', ':uuid')
             ->set('rule_id', ':rule_id')
             ->set('type', ':type')
             ->set('value', ':value')
@@ -567,6 +555,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 $query->expr()->eq('id', ':id')
             )
             ->setParameter('id', $condition->id, Type::INTEGER)
+            ->setParameter('uuid', $condition->uuid, Type::STRING)
             ->setParameter('rule_id', $condition->ruleId, Type::INTEGER)
             ->setParameter('type', $condition->type, Type::STRING)
             ->setParameter('value', json_encode($condition->value), Type::STRING);
@@ -578,11 +567,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Deletes a condition.
-     *
-     * @param int|string $conditionId
-     * @param int $status
      */
-    public function deleteCondition($conditionId, int $status): void
+    public function deleteCondition(int $conditionId, int $status): void
     {
         $query = $this->connection->createQueryBuilder();
 

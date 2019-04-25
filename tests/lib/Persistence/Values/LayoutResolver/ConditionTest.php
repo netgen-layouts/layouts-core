@@ -15,6 +15,7 @@ final class ConditionTest extends TestCase
         $condition = Condition::fromArray(
             [
                 'id' => 42,
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'ruleId' => 30,
                 'ruleUuid' => 'f4e3d39e-42ba-59b4-82ff-bc38dd6bf7ee',
                 'type' => 'condition',
@@ -24,6 +25,7 @@ final class ConditionTest extends TestCase
         );
 
         self::assertSame(42, $condition->id);
+        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $condition->uuid);
         self::assertSame(30, $condition->ruleId);
         self::assertSame('f4e3d39e-42ba-59b4-82ff-bc38dd6bf7ee', $condition->ruleUuid);
         self::assertSame('condition', $condition->type);

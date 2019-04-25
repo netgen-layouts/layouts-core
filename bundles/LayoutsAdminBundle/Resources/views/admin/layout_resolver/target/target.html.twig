@@ -3,7 +3,7 @@
 
 <span
     {% if can_edit %}
-        class="settings-value editable-value js-setting-edit" data-setting-id="{{ target.id }}" data-setting-type="target"
+        class="settings-value editable-value js-setting-edit" data-setting-id="{{ target.id.toString }}" data-setting-type="target"
     {% else %}
         class="settings-value"
     {% endif %}
@@ -12,7 +12,7 @@
 </span>
 
 {% if can_edit %}
-    <a href="#" class="remove-setting js-setting-delete" data-setting-id="{{ target.id }}" data-setting-type="target">
+    <a href="#" class="remove-setting js-setting-delete" data-setting-id="{{ target.id.toString }}" data-setting-type="target">
         <i class="material-icons">clear</i>
     </a>
 {% endif %}

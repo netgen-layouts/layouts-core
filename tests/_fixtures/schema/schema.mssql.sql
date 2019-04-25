@@ -195,10 +195,12 @@ CREATE TABLE nglayouts_rule_data (
 CREATE TABLE nglayouts_rule_target (
   id int IDENTITY(1, 1),
   status int NOT NULL,
+  uuid nchar(36) NOT NULL,
   rule_id int NOT NULL,
   type nvarchar(255) NOT NULL,
   value nvarchar(max) NOT NULL,
   PRIMARY KEY (id, status),
+  UNIQUE (uuid, status),
   FOREIGN KEY (rule_id, status)
     REFERENCES nglayouts_rule (id, status)
 );
@@ -206,10 +208,12 @@ CREATE TABLE nglayouts_rule_target (
 CREATE TABLE nglayouts_rule_condition (
   id int IDENTITY(1, 1),
   status int NOT NULL,
+  uuid nchar(36) NOT NULL,
   rule_id int NOT NULL,
   type nvarchar(255) NOT NULL,
   value nvarchar(max) NOT NULL,
   PRIMARY KEY (id, status),
+  UNIQUE (uuid, status),
   FOREIGN KEY (rule_id, status)
     REFERENCES nglayouts_rule (id, status)
 );

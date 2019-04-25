@@ -86,6 +86,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
         $persistenceTarget = Target::fromArray(
             [
                 'id' => 1,
+                'uuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'status' => Value::STATUS_PUBLISHED,
                 'ruleId' => 42,
                 'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
@@ -101,7 +102,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
             $target->getTargetType()
         );
 
-        self::assertSame(1, $target->getId());
+        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $target->getId()->toString());
         self::assertTrue($target->isPublished());
         self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $target->getRuleId()->toString());
         self::assertSame(42, $target->getValue());
@@ -115,6 +116,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
         $persistenceTarget = Target::fromArray(
             [
                 'id' => 1,
+                'uuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'status' => Value::STATUS_PUBLISHED,
                 'ruleId' => 42,
                 'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
@@ -127,7 +129,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
 
         self::assertInstanceOf(NullTargetType::class, $target->getTargetType());
 
-        self::assertSame(1, $target->getId());
+        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $target->getId()->toString());
         self::assertTrue($target->isPublished());
         self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $target->getRuleId()->toString());
         self::assertSame(42, $target->getValue());
@@ -141,6 +143,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
         $persistenceCondition = Condition::fromArray(
             [
                 'id' => 1,
+                'uuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'status' => Value::STATUS_PUBLISHED,
                 'ruleId' => 42,
                 'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
@@ -156,7 +159,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
             $condition->getConditionType()
         );
 
-        self::assertSame(1, $condition->getId());
+        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $condition->getId()->toString());
         self::assertTrue($condition->isPublished());
         self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $condition->getRuleId()->toString());
         self::assertSame(42, $condition->getValue());
@@ -170,6 +173,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
         $persistenceCondition = Condition::fromArray(
             [
                 'id' => 1,
+                'uuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'status' => Value::STATUS_PUBLISHED,
                 'ruleId' => 42,
                 'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
@@ -182,7 +186,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
 
         self::assertInstanceOf(NullConditionType::class, $condition->getConditionType());
 
-        self::assertSame(1, $condition->getId());
+        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $condition->getId()->toString());
         self::assertTrue($condition->isPublished());
         self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $condition->getRuleId()->toString());
         self::assertSame(42, $condition->getValue());

@@ -28,7 +28,7 @@ final class ConditionVisitor implements VisitorInterface
     public function visit($value, ?VisitorInterface $subVisitor = null)
     {
         return [
-            'id' => $value->getId(),
+            'id' => $value->getId()->toString(),
             'type' => $value->getConditionType()::getType(),
             'value' => $value->getValue(),
         ];

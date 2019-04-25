@@ -52,7 +52,7 @@ final class RuleVisitor implements VisitorInterface
     private function visitTargets(Rule $rule, VisitorInterface $subVisitor): Generator
     {
         foreach ($rule->getTargets() as $target) {
-            yield $target->getId() => $subVisitor->visit($target);
+            yield $target->getId()->toString() => $subVisitor->visit($target);
         }
     }
 
@@ -62,7 +62,7 @@ final class RuleVisitor implements VisitorInterface
     private function visitConditions(Rule $rule, VisitorInterface $subVisitor): Generator
     {
         foreach ($rule->getConditions() as $condition) {
-            yield $condition->getId() => $subVisitor->visit($condition);
+            yield $condition->getId()->toString() => $subVisitor->visit($condition);
         }
     }
 }

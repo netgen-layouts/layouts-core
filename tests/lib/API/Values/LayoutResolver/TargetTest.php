@@ -27,18 +27,19 @@ final class TargetTest extends TestCase
     {
         $targetType = new TargetType1();
 
+        $targetUuid = Uuid::uuid4();
         $ruleUuid = Uuid::uuid4();
 
         $target = Target::fromArray(
             [
-                'id' => 42,
+                'id' => $targetUuid,
                 'ruleId' => $ruleUuid,
                 'targetType' => $targetType,
                 'value' => 32,
             ]
         );
 
-        self::assertSame(42, $target->getId());
+        self::assertSame($targetUuid->toString(), $target->getId()->toString());
         self::assertSame($ruleUuid->toString(), $target->getRuleId()->toString());
         self::assertSame($targetType, $target->getTargetType());
         self::assertSame(32, $target->getValue());

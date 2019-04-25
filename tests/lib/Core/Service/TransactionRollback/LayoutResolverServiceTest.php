@@ -383,7 +383,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->updateTarget(
-            Target::fromArray(['status' => Value::STATUS_DRAFT, 'targetType' => new Route()]),
+            Target::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT, 'targetType' => new Route()]),
             new TargetUpdateStruct()
         );
     }
@@ -410,7 +410,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->deleteTarget(Target::fromArray(['status' => Value::STATUS_DRAFT]));
+        $this->layoutResolverService->deleteTarget(Target::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]));
     }
 
     /**
@@ -467,7 +467,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->updateCondition(
-            Condition::fromArray(['status' => Value::STATUS_DRAFT, 'conditionType' => new RouteParameter()]),
+            Condition::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT, 'conditionType' => new RouteParameter()]),
             new ConditionUpdateStruct()
         );
     }
@@ -494,6 +494,6 @@ final class LayoutResolverServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->deleteCondition(Condition::fromArray(['status' => Value::STATUS_DRAFT]));
+        $this->layoutResolverService->deleteCondition(Condition::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]));
     }
 }

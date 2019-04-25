@@ -44,7 +44,7 @@ final class EditTargetForm extends AbstractController
                 'action' => $this->generateUrl(
                     'nglayouts_admin_layout_resolver_target_form_edit',
                     [
-                        'targetId' => $target->getId(),
+                        'targetId' => $target->getId()->toString(),
                     ]
                 ),
             ]

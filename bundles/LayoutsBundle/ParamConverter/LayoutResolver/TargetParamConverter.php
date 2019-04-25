@@ -8,6 +8,7 @@ use Netgen\Bundle\LayoutsBundle\ParamConverter\ParamConverter;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\API\Values\Value;
+use Ramsey\Uuid\Uuid;
 
 final class TargetParamConverter extends ParamConverter
 {
@@ -39,9 +40,9 @@ final class TargetParamConverter extends ParamConverter
     public function loadValue(array $values): Value
     {
         if ($values['status'] === self::STATUS_PUBLISHED) {
-            return $this->layoutResolverService->loadTarget($values['targetId']);
+            return $this->layoutResolverService->loadTarget(Uuid::fromString($values['targetId']));
         }
 
-        return $this->layoutResolverService->loadTargetDraft($values['targetId']);
+        return $this->layoutResolverService->loadTargetDraft(Uuid::fromString($values['targetId']));
     }
 }

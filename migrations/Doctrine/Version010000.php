@@ -42,6 +42,14 @@ final class Version010000 extends AbstractMigration
         $this->addSql('ALTER TABLE nglayouts_rule ADD COLUMN uuid char(36) NOT NULL AFTER status');
         $this->addSql('UPDATE nglayouts_rule SET uuid = id');
         $this->addSql('ALTER TABLE nglayouts_rule ADD UNIQUE INDEX idx_ngl_rule_uuid (uuid, status)');
+
+        $this->addSql('ALTER TABLE nglayouts_rule_target ADD COLUMN uuid char(36) NOT NULL AFTER status');
+        $this->addSql('UPDATE nglayouts_rule_target SET uuid = id');
+        $this->addSql('ALTER TABLE nglayouts_rule_target ADD UNIQUE INDEX idx_ngl_rule_target_uuid (uuid, status)');
+
+        $this->addSql('ALTER TABLE nglayouts_rule_condition ADD COLUMN uuid char(36) NOT NULL AFTER status');
+        $this->addSql('UPDATE nglayouts_rule_condition SET uuid = id');
+        $this->addSql('ALTER TABLE nglayouts_rule_condition ADD UNIQUE INDEX idx_ngl_rule_condition_uuid (uuid, status)');
     }
 
     public function down(Schema $schema): void

@@ -6,10 +6,10 @@
     "priority": 8,
     "comment": "My other comment",
     "targets": {
-        "3": ["sub_visit_value"],
-        "4": ["sub_visit_value"]
+        "59cbea15-a034-5fcf-ba9b-d59426d6b601": ["sub_visit_value"],
+        "48c8c075-83f0-53f5-8192-4530b6d5a17b": ["sub_visit_value"]
     },
     "conditions": {
-        "1": ["sub_visit_value"]
+        "35f4594c-6674-5815-add6-07f288b79686": ["sub_visit_value"]
     }
 }

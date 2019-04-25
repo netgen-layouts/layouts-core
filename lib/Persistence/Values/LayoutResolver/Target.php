@@ -14,9 +14,16 @@ final class Target extends Value
     /**
      * Target ID.
      *
-     * @var int|string
+     * @var int
      */
     public $id;
+
+    /**
+     * Target UUID.
+     *
+     * @var string
+     */
+    public $uuid;
 
     /**
      * ID of the rule where this target is located.

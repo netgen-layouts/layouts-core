@@ -27,18 +27,19 @@ final class ConditionTest extends TestCase
     {
         $conditionType = new ConditionType1();
 
+        $conditionUuid = Uuid::uuid4();
         $ruleUuid = Uuid::uuid4();
 
         $condition = Condition::fromArray(
             [
-                'id' => 42,
+                'id' => $conditionUuid,
                 'ruleId' => $ruleUuid,
                 'conditionType' => $conditionType,
                 'value' => 32,
             ]
         );
 
-        self::assertSame(42, $condition->getId());
+        self::assertSame($conditionUuid->toString(), $condition->getId()->toString());
         self::assertSame($ruleUuid->toString(), $condition->getRuleId()->toString());
         self::assertSame($conditionType, $condition->getConditionType());
         self::assertSame(32, $condition->getValue());

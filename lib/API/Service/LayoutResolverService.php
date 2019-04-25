@@ -70,48 +70,32 @@ interface LayoutResolverService extends Service
     public function matchRules(string $targetType, $targetValue): RuleList;
 
     /**
-     * Loads a target by its' ID.
-     *
-     * @param int|string $targetId
+     * Loads a target by its' UUID.
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If target with specified ID does not exist
-     *
-     * @return \Netgen\Layouts\API\Values\LayoutResolver\Target
      */
-    public function loadTarget($targetId): Target;
+    public function loadTarget(UuidInterface $targetId): Target;
 
     /**
-     * Loads a target draft by its' ID.
-     *
-     * @param int|string $targetId
+     * Loads a target draft by its' UUID.
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If target with specified ID does not exist
-     *
-     * @return \Netgen\Layouts\API\Values\LayoutResolver\Target
      */
-    public function loadTargetDraft($targetId): Target;
+    public function loadTargetDraft(UuidInterface $targetId): Target;
 
     /**
-     * Loads a condition by its' ID.
-     *
-     * @param int|string $conditionId
+     * Loads a condition by its' UUID.
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified ID does not exist
-     *
-     * @return \Netgen\Layouts\API\Values\LayoutResolver\Condition
      */
-    public function loadCondition($conditionId): Condition;
+    public function loadCondition(UuidInterface $conditionId): Condition;
 
     /**
-     * Loads a condition draft by its' ID.
-     *
-     * @param int|string $conditionId
+     * Loads a condition draft by its' UUID.
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified ID does not exist
-     *
-     * @return \Netgen\Layouts\API\Values\LayoutResolver\Condition
      */
-    public function loadConditionDraft($conditionId): Condition;
+    public function loadConditionDraft(UuidInterface $conditionId): Condition;
 
     /**
      * Creates a rule.

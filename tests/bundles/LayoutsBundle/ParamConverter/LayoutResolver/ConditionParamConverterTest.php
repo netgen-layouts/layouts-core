@@ -8,6 +8,7 @@ use Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver\ConditionParamConv
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\LayoutResolver\Condition;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class ConditionParamConverterTest extends TestCase
 {
@@ -60,17 +61,19 @@ final class ConditionParamConverterTest extends TestCase
     {
         $condition = new Condition();
 
+        $uuid = Uuid::uuid4();
+
         $this->layoutResolverServiceMock
             ->expects(self::once())
             ->method('loadCondition')
-            ->with(self::identicalTo(42))
+            ->with(self::equalTo($uuid))
             ->willReturn($condition);
 
         self::assertSame(
             $condition,
             $this->paramConverter->loadValue(
                 [
-                    'conditionId' => 42,
+                    'conditionId' => $uuid->toString(),
                     'status' => 'published',
                 ]
             )
@@ -84,17 +87,19 @@ final class ConditionParamConverterTest extends TestCase
     {
         $condition = new Condition();
 
+        $uuid = Uuid::uuid4();
+
         $this->layoutResolverServiceMock
             ->expects(self::once())
             ->method('loadConditionDraft')
-            ->with(self::identicalTo(42))
+            ->with(self::equalTo($uuid))
             ->willReturn($condition);
 
         self::assertSame(
             $condition,
             $this->paramConverter->loadValue(
                 [
-                    'conditionId' => 42,
+                    'conditionId' => $uuid->toString(),
                     'status' => 'draft',
                 ]
             )

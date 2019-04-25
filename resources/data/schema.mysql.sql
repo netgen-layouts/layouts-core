@@ -328,10 +328,12 @@ DROP TABLE IF EXISTS `nglayouts_rule_condition`;
 CREATE TABLE `nglayouts_rule_condition` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
+  `uuid` char(36) NOT NULL,
   `rule_id` int(11) NOT NULL,
   `type` varchar(191) NOT NULL,
   `value` text,
   PRIMARY KEY (`id`,`status`),
+  UNIQUE KEY `idx_ngl_rule_condition_uuid` (`uuid`, `status`),
   KEY `idx_ngl_rule` (`rule_id`,`status`),
   CONSTRAINT `fk_ngl_condition_rule` FOREIGN KEY (`rule_id`, `status`)
     REFERENCES `nglayouts_rule` (`id`, `status`)
@@ -363,10 +365,12 @@ DROP TABLE IF EXISTS `nglayouts_rule_target`;
 CREATE TABLE `nglayouts_rule_target` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
+  `uuid` char(36) NOT NULL,
   `rule_id` int(11) NOT NULL,
   `type` varchar(191) NOT NULL,
   `value` text,
   PRIMARY KEY (`id`,`status`),
+  UNIQUE KEY `idx_ngl_rule_target_uuid` (`uuid`, `status`),
   KEY `idx_ngl_rule` (`rule_id`,`status`),
   KEY `idx_ngl_target_type` (`type`),
   CONSTRAINT `fk_ngl_target_rule` FOREIGN KEY (`rule_id`, `status`)

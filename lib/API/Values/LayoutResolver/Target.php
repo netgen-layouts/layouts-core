@@ -16,7 +16,7 @@ final class Target implements Value
     use ValueStatusTrait;
 
     /**
-     * @var int|string
+     * @var \Ramsey\Uuid\UuidInterface
      */
     private $id;
 
@@ -36,11 +36,9 @@ final class Target implements Value
     private $value;
 
     /**
-     * Returns the target ID.
-     *
-     * @return int|string
+     * Returns the target UUID.
      */
-    public function getId()
+    public function getId(): UuidInterface
     {
         return $this->id;
     }
