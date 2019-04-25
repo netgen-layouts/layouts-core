@@ -8,6 +8,7 @@ use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class QueryTest extends TestCase
 {
@@ -40,10 +41,12 @@ final class QueryTest extends TestCase
     {
         $queryType = new QueryType('query_type');
 
+        $collectionUuid = Uuid::uuid4();
+
         $query = Query::fromArray(
             [
                 'id' => 42,
-                'collectionId' => 30,
+                'collectionId' => $collectionUuid,
                 'queryType' => $queryType,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
@@ -55,7 +58,7 @@ final class QueryTest extends TestCase
         );
 
         self::assertSame(42, $query->getId());
-        self::assertSame(30, $query->getCollectionId());
+        self::assertSame($collectionUuid->toString(), $query->getCollectionId()->toString());
         self::assertSame($queryType, $query->getQueryType());
         self::assertTrue($query->isTranslatable());
         self::assertSame('en', $query->getMainLocale());
@@ -71,6 +74,7 @@ final class QueryTest extends TestCase
     {
         $query = Query::fromArray(
             [
+                'collectionId' => Uuid::uuid4(),
                 'queryType' => new QueryType('query_type'),
             ]
         );

@@ -26,6 +26,7 @@ final class CollectionMapper
             if (!isset($collections[$collectionId])) {
                 $collections[$collectionId] = [
                     'id' => $collectionId,
+                    'uuid' => $dataItem['uuid'],
                     'status' => (int) $dataItem['status'],
                     'offset' => (int) $dataItem['start'],
                     'limit' => $dataItem['length'] !== null ? (int) $dataItem['length'] : null,
@@ -64,6 +65,7 @@ final class CollectionMapper
                 [
                     'id' => (int) $dataItem['id'],
                     'collectionId' => (int) $dataItem['collection_id'],
+                    'collectionUuid' => $dataItem['collection_uuid'],
                     'position' => (int) $dataItem['position'],
                     'value' => $dataItem['value'],
                     'valueType' => $dataItem['value_type'],
@@ -91,6 +93,7 @@ final class CollectionMapper
                 $queries[$queryId] = [
                     'id' => $queryId,
                     'collectionId' => (int) $dataItem['collection_id'],
+                    'collectionUuid' => $dataItem['collection_uuid'],
                     'type' => $dataItem['type'],
                     'status' => (int) $dataItem['status'],
                 ];

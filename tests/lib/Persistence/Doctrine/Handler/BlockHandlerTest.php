@@ -1117,7 +1117,11 @@ final class BlockHandlerTest extends TestCase
                     'root'
                 );
             },
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+            [
+                'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'cf29cf92-0294-5581-abdb-58d11978186b',
+                '805895b2-6292-5243-a0c0-06a6ec0e28a2',
+            ]
         );
 
         self::assertSame(
@@ -1197,7 +1201,11 @@ final class BlockHandlerTest extends TestCase
                     1
                 );
             },
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+            [
+                'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'cf29cf92-0294-5581-abdb-58d11978186b',
+                '805895b2-6292-5243-a0c0-06a6ec0e28a2',
+            ]
         );
 
         self::assertSame(
@@ -1255,7 +1263,11 @@ final class BlockHandlerTest extends TestCase
                     0
                 );
             },
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+            [
+                'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'cf29cf92-0294-5581-abdb-58d11978186b',
+                '805895b2-6292-5243-a0c0-06a6ec0e28a2',
+            ]
         );
 
         self::assertSame(
@@ -1313,7 +1325,11 @@ final class BlockHandlerTest extends TestCase
                     2
                 );
             },
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+            [
+                'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'cf29cf92-0294-5581-abdb-58d11978186b',
+                '805895b2-6292-5243-a0c0-06a6ec0e28a2',
+            ]
         );
 
         self::assertSame(
@@ -1371,7 +1387,10 @@ final class BlockHandlerTest extends TestCase
                     0
                 );
             },
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+            [
+                'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'cf29cf92-0294-5581-abdb-58d11978186b',
+            ]
         );
 
         self::assertSame(
@@ -1454,7 +1473,11 @@ final class BlockHandlerTest extends TestCase
                     'root'
                 );
             },
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc', '4adf0f00-f6c2-5297-9f96-039bfabe8d3b']
+            [
+                'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
+                '805895b2-6292-5243-a0c0-06a6ec0e28a2',
+            ]
         );
 
         self::assertSame(
@@ -1550,7 +1573,11 @@ final class BlockHandlerTest extends TestCase
                     'root'
                 );
             },
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+            [
+                'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'cf29cf92-0294-5581-abdb-58d11978186b',
+                '805895b2-6292-5243-a0c0-06a6ec0e28a2',
+            ]
         );
 
         self::assertSame(

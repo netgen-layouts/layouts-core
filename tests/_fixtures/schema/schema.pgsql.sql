@@ -66,6 +66,7 @@ CREATE TABLE IF NOT EXISTS "nglayouts_zone" (
 CREATE TABLE IF NOT EXISTS "nglayouts_collection" (
   "id" integer NOT NULL,
   "status" integer NOT NULL,
+  "uuid" character(36) NOT NULL,
   "start" integer NOT NULL,
   "length" integer,
   "translatable" boolean NOT NULL,
@@ -212,6 +213,7 @@ CREATE UNIQUE INDEX IF NOT EXISTS idx_ngl_block_uuid ON nglayouts_block (uuid, s
 CREATE SEQUENCE IF NOT EXISTS nglayouts_collection_id_seq;
 ALTER SEQUENCE nglayouts_collection_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY nglayouts_collection ALTER COLUMN id SET DEFAULT nextval('nglayouts_collection_id_seq'::regclass);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_ngl_collection_uuid ON nglayouts_collection (uuid, status);
 
 CREATE SEQUENCE IF NOT EXISTS nglayouts_collection_item_id_seq;
 ALTER SEQUENCE nglayouts_collection_item_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;

@@ -15,11 +15,12 @@ use Netgen\Layouts\API\Values\Collection\QueryCreateStruct;
 use Netgen\Layouts\API\Values\Collection\QueryUpdateStruct;
 use Netgen\Layouts\Collection\Item\ItemDefinitionInterface;
 use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
+use Ramsey\Uuid\UuidInterface;
 
 interface CollectionService extends Service
 {
     /**
-     * Loads a collection with specified ID.
+     * Loads a collection with specified UUID.
      *
      * By default, collection is loaded in main locale.
      *
@@ -28,18 +29,12 @@ interface CollectionService extends Service
      * set to true, collection in main locale will be returned if none of the
      * locales in $locales array are found.
      *
-     * @param int|string $collectionId
-     * @param string[] $locales
-     * @param bool $useMainLocale
-     *
      * @throws \Netgen\Layouts\Exception\NotFoundException If collection with specified ID does not exist
-     *
-     * @return \Netgen\Layouts\API\Values\Collection\Collection
      */
-    public function loadCollection($collectionId, ?array $locales = null, bool $useMainLocale = true): Collection;
+    public function loadCollection(UuidInterface $collectionId, ?array $locales = null, bool $useMainLocale = true): Collection;
 
     /**
-     * Loads a collection draft with specified ID.
+     * Loads a collection draft with specified UUID.
      *
      * By default, collection is loaded in main locale.
      *
@@ -48,15 +43,9 @@ interface CollectionService extends Service
      * set to true, collection in main locale will be returned if none of the
      * locales in $locales array are found.
      *
-     * @param int|string $collectionId
-     * @param string[] $locales
-     * @param bool $useMainLocale
-     *
      * @throws \Netgen\Layouts\Exception\NotFoundException If collection with specified ID does not exist
-     *
-     * @return \Netgen\Layouts\API\Values\Collection\Collection
      */
-    public function loadCollectionDraft($collectionId, ?array $locales = null, bool $useMainLocale = true): Collection;
+    public function loadCollectionDraft(UuidInterface $collectionId, ?array $locales = null, bool $useMainLocale = true): Collection;
 
     /**
      * Updates a collection.

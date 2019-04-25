@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Tests\API\Values\Collection;
 use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Collection\CollectionList;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 use stdClass;
 use TypeError;
 
@@ -47,8 +48,11 @@ final class CollectionListTest extends TestCase
      */
     public function testGetCollectionIds(): void
     {
-        $collections = [Collection::fromArray(['id' => 42]), Collection::fromArray(['id' => 24])];
+        $uuid1 = Uuid::uuid4();
+        $uuid2 = Uuid::uuid4();
 
-        self::assertSame([42, 24], (new CollectionList($collections))->getCollectionIds());
+        $collections = [Collection::fromArray(['id' => $uuid1]), Collection::fromArray(['id' => $uuid2])];
+
+        self::assertSame([$uuid1, $uuid2], (new CollectionList($collections))->getCollectionIds());
     }
 }

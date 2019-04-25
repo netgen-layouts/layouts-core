@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\Persistence\Doctrine\Handler;
 
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Persistence\Values\Collection\Collection;
 use Netgen\Layouts\Persistence\Values\Collection\CollectionCreateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\Item;
@@ -16,12 +17,14 @@ use Netgen\Layouts\Persistence\Values\Collection\QueryTranslationUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Value;
 use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
+use Netgen\Layouts\Tests\TestCase\UuidGeneratorTrait;
 use PHPUnit\Framework\TestCase;
 
 final class CollectionHandlerTest extends TestCase
 {
     use TestCaseTrait;
     use ExportObjectTrait;
+    use UuidGeneratorTrait;
 
     /**
      * @var \Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface
@@ -57,6 +60,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 1,
+                'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 'offset' => 0,
                 'limit' => null,
                 'isTranslatable' => true,
@@ -94,6 +98,7 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 1,
                 'collectionId' => 1,
+                'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 'position' => 0,
                 'value' => '72',
                 'valueType' => 'my_value_type',
@@ -132,6 +137,7 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 1,
                 'collectionId' => 1,
+                'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 'position' => 0,
                 'value' => '72',
                 'valueType' => 'my_value_type',
@@ -184,6 +190,7 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 1,
                 'collectionId' => 2,
+                'collectionUuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
                 'type' => 'my_query_type',
                 'parameters' => [
                     'en' => [
@@ -235,6 +242,7 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 1,
                 'collectionId' => 2,
+                'collectionUuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
                 'type' => 'my_query_type',
                 'parameters' => [
                     'en' => [
@@ -315,11 +323,17 @@ final class CollectionHandlerTest extends TestCase
         $collectionCreateStruct->isTranslatable = true;
         $collectionCreateStruct->alwaysAvailable = true;
 
-        $createdCollection = $this->collectionHandler->createCollection($collectionCreateStruct);
+        $createdCollection = $this->withUuids(
+            function () use ($collectionCreateStruct): Collection {
+                return $this->collectionHandler->createCollection($collectionCreateStruct);
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+        );
 
         self::assertSame(
             [
                 'id' => 7,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'offset' => 5,
                 'limit' => 10,
                 'isTranslatable' => true,
@@ -348,6 +362,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 2,
+                'uuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
                 'offset' => 0,
                 'limit' => null,
                 'isTranslatable' => true,
@@ -365,6 +380,7 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 1,
                 'collectionId' => $collection->id,
+                'collectionUuid' => $collection->uuid,
                 'type' => 'my_query_type',
                 'parameters' => [
                     'de' => [
@@ -411,6 +427,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 2,
+                'uuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
                 'offset' => 0,
                 'limit' => null,
                 'isTranslatable' => true,
@@ -428,6 +445,7 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 1,
                 'collectionId' => $collection->id,
+                'collectionUuid' => $collection->uuid,
                 'type' => 'my_query_type',
                 'parameters' => [
                     'de' => [
@@ -474,6 +492,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 1,
+                'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 'offset' => 0,
                 'limit' => null,
                 'isTranslatable' => true,
@@ -577,6 +596,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 1,
+                'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 'offset' => 5,
                 'limit' => 10,
                 'isTranslatable' => false,
@@ -607,6 +627,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 3,
+                'uuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
                 'offset' => 5,
                 'limit' => null,
                 'isTranslatable' => true,
@@ -635,6 +656,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 1,
+                'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 'offset' => 0,
                 'limit' => null,
                 'isTranslatable' => true,
@@ -658,13 +680,19 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testCopyCollection(): void
     {
-        $copiedCollection = $this->collectionHandler->copyCollection(
-            $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED)
+        $copiedCollection = $this->withUuids(
+            function (): Collection {
+                return $this->collectionHandler->copyCollection(
+                    $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED)
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
         self::assertSame(
             [
                 'id' => 7,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'offset' => 4,
                 'limit' => 2,
                 'isTranslatable' => true,
@@ -681,6 +709,7 @@ final class CollectionHandlerTest extends TestCase
                 [
                     'id' => 13,
                     'collectionId' => $copiedCollection->id,
+                    'collectionUuid' => $copiedCollection->uuid,
                     'position' => 2,
                     'value' => '72',
                     'valueType' => 'my_value_type',
@@ -690,6 +719,7 @@ final class CollectionHandlerTest extends TestCase
                 [
                     'id' => 14,
                     'collectionId' => $copiedCollection->id,
+                    'collectionUuid' => $copiedCollection->uuid,
                     'position' => 3,
                     'value' => '73',
                     'valueType' => 'my_value_type',
@@ -699,6 +729,7 @@ final class CollectionHandlerTest extends TestCase
                 [
                     'id' => 15,
                     'collectionId' => $copiedCollection->id,
+                    'collectionUuid' => $copiedCollection->uuid,
                     'position' => 5,
                     'value' => '74',
                     'valueType' => 'my_value_type',
@@ -717,6 +748,7 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 5,
                 'collectionId' => $copiedCollection->id,
+                'collectionUuid' => $copiedCollection->uuid,
                 'type' => 'my_query_type',
                 'parameters' => [
                     'en' => [
@@ -751,13 +783,19 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testCopyCollectionWithoutQuery(): void
     {
-        $copiedCollection = $this->collectionHandler->copyCollection(
-            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT)
+        $copiedCollection = $this->withUuids(
+            function (): Collection {
+                return $this->collectionHandler->copyCollection(
+                    $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT)
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
         self::assertSame(
             [
                 'id' => 7,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'offset' => 0,
                 'limit' => null,
                 'isTranslatable' => true,
@@ -774,6 +812,7 @@ final class CollectionHandlerTest extends TestCase
                 [
                     'id' => 13,
                     'collectionId' => $copiedCollection->id,
+                    'collectionUuid' => $copiedCollection->uuid,
                     'position' => 0,
                     'value' => '72',
                     'valueType' => 'my_value_type',
@@ -783,6 +822,7 @@ final class CollectionHandlerTest extends TestCase
                 [
                     'id' => 14,
                     'collectionId' => $copiedCollection->id,
+                    'collectionUuid' => $copiedCollection->uuid,
                     'position' => 1,
                     'value' => '73',
                     'valueType' => 'my_value_type',
@@ -792,6 +832,7 @@ final class CollectionHandlerTest extends TestCase
                 [
                     'id' => 15,
                     'collectionId' => $copiedCollection->id,
+                    'collectionUuid' => $copiedCollection->uuid,
                     'position' => 2,
                     'value' => '74',
                     'valueType' => 'my_value_type',
@@ -824,6 +865,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 3,
+                'uuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
                 'offset' => 4,
                 'limit' => 2,
                 'isTranslatable' => true,
@@ -840,6 +882,7 @@ final class CollectionHandlerTest extends TestCase
                 [
                     'id' => 7,
                     'collectionId' => 3,
+                    'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
                     'position' => 2,
                     'value' => '72',
                     'valueType' => 'my_value_type',
@@ -849,6 +892,7 @@ final class CollectionHandlerTest extends TestCase
                 [
                     'id' => 8,
                     'collectionId' => 3,
+                    'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
                     'position' => 3,
                     'value' => '73',
                     'valueType' => 'my_value_type',
@@ -858,6 +902,7 @@ final class CollectionHandlerTest extends TestCase
                 [
                     'id' => 9,
                     'collectionId' => 3,
+                    'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
                     'position' => 5,
                     'value' => '74',
                     'valueType' => 'my_value_type',
@@ -874,6 +919,7 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 2,
                 'collectionId' => 3,
+                'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
                 'type' => 'my_query_type',
                 'parameters' => [
                     'en' => [
@@ -918,6 +964,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 1,
+                'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 'offset' => 0,
                 'limit' => null,
                 'isTranslatable' => true,
@@ -934,6 +981,7 @@ final class CollectionHandlerTest extends TestCase
                 [
                     'id' => 1,
                     'collectionId' => 1,
+                    'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                     'position' => 0,
                     'value' => '72',
                     'valueType' => 'my_value_type',
@@ -943,6 +991,7 @@ final class CollectionHandlerTest extends TestCase
                 [
                     'id' => 2,
                     'collectionId' => 1,
+                    'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                     'position' => 1,
                     'value' => '73',
                     'valueType' => 'my_value_type',
@@ -952,6 +1001,7 @@ final class CollectionHandlerTest extends TestCase
                 [
                     'id' => 3,
                     'collectionId' => 1,
+                    'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                     'position' => 2,
                     'value' => '74',
                     'valueType' => 'my_value_type',
@@ -1039,6 +1089,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 2,
+                'uuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
                 'offset' => 0,
                 'limit' => null,
                 'isTranslatable' => true,
@@ -1056,6 +1107,7 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 1,
                 'collectionId' => $collection->id,
+                'collectionUuid' => $collection->uuid,
                 'type' => 'my_query_type',
                 'parameters' => [
                     'en' => [
@@ -1089,6 +1141,7 @@ final class CollectionHandlerTest extends TestCase
         self::assertSame(
             [
                 'id' => 1,
+                'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 'offset' => 0,
                 'limit' => null,
                 'isTranslatable' => true,
@@ -1155,6 +1208,7 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 13,
                 'collectionId' => 1,
+                'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 'position' => 1,
                 'value' => '42',
                 'valueType' => 'my_value_type',
@@ -1192,6 +1246,7 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 13,
                 'collectionId' => 3,
+                'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
                 'position' => 2,
                 'value' => '42',
                 'valueType' => 'my_value_type',
@@ -1235,6 +1290,7 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 13,
                 'collectionId' => 3,
+                'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
                 'position' => 4,
                 'value' => '42',
                 'valueType' => 'my_value_type',
@@ -1271,6 +1327,7 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 13,
                 'collectionId' => 1,
+                'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 'position' => 3,
                 'value' => '42',
                 'valueType' => 'my_value_type',
@@ -1372,6 +1429,7 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 1,
                 'collectionId' => 1,
+                'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 'position' => 0,
                 'value' => '72',
                 'valueType' => 'my_value_type',
@@ -1401,6 +1459,7 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 12,
                 'collectionId' => 4,
+                'collectionUuid' => '08937ca0-18f4-5806-84df-8c132c36cabe',
                 'position' => 2,
                 'value' => '74',
                 'valueType' => 'my_value_type',
@@ -1436,6 +1495,7 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 1,
                 'collectionId' => 1,
+                'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 'position' => 1,
                 'value' => '72',
                 'valueType' => 'my_value_type',
@@ -1471,6 +1531,7 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 1,
                 'collectionId' => 1,
+                'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 'position' => 0,
                 'value' => '72',
                 'valueType' => 'my_value_type',
@@ -1506,6 +1567,7 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 2,
                 'collectionId' => 1,
+                'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 'position' => 0,
                 'value' => '73',
                 'valueType' => 'my_value_type',
@@ -1538,6 +1600,7 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 3,
                 'collectionId' => 1,
+                'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
                 'position' => 1,
                 'value' => '74',
                 'valueType' => 'my_value_type',
@@ -1573,6 +1636,7 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 7,
                 'collectionId' => 3,
+                'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
                 'position' => 4,
                 'value' => '72',
                 'valueType' => 'my_value_type',
@@ -1608,6 +1672,7 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 8,
                 'collectionId' => 3,
+                'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
                 'position' => 2,
                 'value' => '73',
                 'valueType' => 'my_value_type',
@@ -1786,6 +1851,7 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 5,
                 'collectionId' => $collection->id,
+                'collectionUuid' => $collection->uuid,
                 'type' => 'my_query_type',
                 'parameters' => [
                     'en' => [
@@ -1849,6 +1915,7 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 1,
                 'collectionId' => 2,
+                'collectionUuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
                 'type' => 'my_query_type',
                 'parameters' => [
                     'en' => [
@@ -1890,6 +1957,7 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 1,
                 'collectionId' => 2,
+                'collectionUuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
                 'type' => 'my_query_type',
                 'parameters' => [
                     'en' => [

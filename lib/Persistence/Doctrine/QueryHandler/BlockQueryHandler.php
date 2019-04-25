@@ -449,13 +449,8 @@ final class BlockQueryHandler extends QueryHandler
 
     /**
      * Loads all sub block IDs.
-     *
-     * @param int|string $blockId
-     * @param int $status
-     *
-     * @return array
      */
-    public function loadSubBlockIds($blockId, ?int $status = null): array
+    public function loadSubBlockIds(int $blockId, ?int $status = null): array
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT id')
@@ -463,7 +458,7 @@ final class BlockQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->like('path', ':path')
             )
-            ->setParameter('path', '%/' . (int) $blockId . '/%', Type::STRING);
+            ->setParameter('path', '%/' . $blockId . '/%', Type::STRING);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status);
@@ -471,7 +466,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $result = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
-        return array_column($result, 'id');
+        return array_map('intval', array_column($result, 'id'));
     }
 
     /**
@@ -493,7 +488,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $result = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
-        return array_column($result, 'id');
+        return array_map('intval', array_column($result, 'id'));
     }
 
     /**
@@ -515,7 +510,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $result = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
-        return array_column($result, 'collection_id');
+        return array_map('intval', array_column($result, 'collection_id'));
     }
 
     /**

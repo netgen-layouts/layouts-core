@@ -50,11 +50,24 @@ final class Version010000 extends AbstractMigration
         $this->addSql('ALTER TABLE nglayouts_rule_condition ADD COLUMN uuid char(36) NOT NULL AFTER status');
         $this->addSql('UPDATE nglayouts_rule_condition SET uuid = id');
         $this->addSql('ALTER TABLE nglayouts_rule_condition ADD UNIQUE INDEX idx_ngl_rule_condition_uuid (uuid, status)');
+
+        $this->addSql('ALTER TABLE nglayouts_collection ADD COLUMN uuid char(36) NOT NULL AFTER status');
+        $this->addSql('UPDATE nglayouts_collection SET uuid = id');
+        $this->addSql('ALTER TABLE nglayouts_collection ADD UNIQUE INDEX idx_ngl_collection_uuid (uuid, status)');
     }
 
     public function down(Schema $schema): void
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
+
+        $this->addSql('ALTER TABLE nglayouts_collection DROP INDEX idx_ngl_collection_uuid');
+        $this->addSql('ALTER TABLE nglayouts_collection DROP COLUMN uuid');
+
+        $this->addSql('ALTER TABLE nglayouts_rule_condition DROP INDEX idx_ngl_rule_condition_uuid');
+        $this->addSql('ALTER TABLE nglayouts_rule_condition DROP COLUMN uuid');
+
+        $this->addSql('ALTER TABLE nglayouts_rule_target DROP INDEX idx_ngl_rule_target_uuid');
+        $this->addSql('ALTER TABLE nglayouts_rule_target DROP COLUMN uuid');
 
         $this->addSql('ALTER TABLE nglayouts_rule DROP INDEX idx_ngl_rule_uuid');
         $this->addSql('ALTER TABLE nglayouts_rule DROP COLUMN uuid');

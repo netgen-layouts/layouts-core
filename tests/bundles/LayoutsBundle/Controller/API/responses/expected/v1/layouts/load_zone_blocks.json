@@ -27,14 +27,14 @@
         "collections": [
             {
                 "identifier": "default",
-                "collection_id": 1,
+                "collection_id": "a79dde13-1f5c-51a6-bea9-b766236be49e",
                 "collection_type": 0,
                 "offset": 0,
                 "limit": null
             },
             {
                 "identifier": "featured",
-                "collection_id": 3,
+                "collection_id": "da050624-8ae0-5fb9-ae85-092bf8242b89",
                 "collection_type": 1,
                 "offset": 4,
                 "limit": 2
@@ -70,7 +70,7 @@
         "collections": [
             {
                 "identifier": "default",
-                "collection_id": 4,
+                "collection_id": "08937ca0-18f4-5806-84df-8c132c36cabe",
                 "collection_type": 1,
                 "offset": 0,
                 "limit": null

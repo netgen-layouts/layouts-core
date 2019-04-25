@@ -8,6 +8,7 @@ use Netgen\Bundle\LayoutsBundle\ParamConverter\Collection\CollectionParamConvert
 use Netgen\Layouts\API\Service\CollectionService;
 use Netgen\Layouts\API\Values\Collection\Collection;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class CollectionParamConverterTest extends TestCase
 {
@@ -60,17 +61,19 @@ final class CollectionParamConverterTest extends TestCase
     {
         $collection = new Collection();
 
+        $uuid = Uuid::uuid4();
+
         $this->collectionServiceMock
             ->expects(self::once())
             ->method('loadCollection')
-            ->with(self::identicalTo(42))
+            ->with(self::equalTo($uuid))
             ->willReturn($collection);
 
         self::assertSame(
             $collection,
             $this->paramConverter->loadValue(
                 [
-                    'collectionId' => 42,
+                    'collectionId' => $uuid->toString(),
                     'status' => 'published',
                 ]
             )
@@ -84,17 +87,19 @@ final class CollectionParamConverterTest extends TestCase
     {
         $collection = new Collection();
 
+        $uuid = Uuid::uuid4();
+
         $this->collectionServiceMock
             ->expects(self::once())
             ->method('loadCollectionDraft')
-            ->with(self::identicalTo(42))
+            ->with(self::equalTo($uuid))
             ->willReturn($collection);
 
         self::assertSame(
             $collection,
             $this->paramConverter->loadValue(
                 [
-                    'collectionId' => 42,
+                    'collectionId' => $uuid->toString(),
                     'status' => 'draft',
                 ]
             )

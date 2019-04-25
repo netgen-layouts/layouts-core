@@ -17,7 +17,7 @@ final class CollectionNormalizer implements NormalizerInterface
         $collection = $object->getValue();
 
         return [
-            'id' => $collection->getId(),
+            'id' => $collection->getId()->toString(),
             'type' => $collection->hasQuery() ? Collection::TYPE_DYNAMIC : Collection::TYPE_MANUAL,
             'is_translatable' => $collection->isTranslatable(),
             'main_locale' => $collection->getMainLocale(),

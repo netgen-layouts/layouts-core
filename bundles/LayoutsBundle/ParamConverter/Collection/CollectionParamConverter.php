@@ -8,6 +8,7 @@ use Netgen\Bundle\LayoutsBundle\ParamConverter\ParamConverter;
 use Netgen\Layouts\API\Service\CollectionService;
 use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Value;
+use Ramsey\Uuid\Uuid;
 
 final class CollectionParamConverter extends ParamConverter
 {
@@ -42,9 +43,9 @@ final class CollectionParamConverter extends ParamConverter
         $locales = isset($values['locale']) ? [$values['locale']] : null;
 
         if ($values['status'] === self::STATUS_PUBLISHED) {
-            return $this->collectionService->loadCollection($values['collectionId'], $locales);
+            return $this->collectionService->loadCollection(Uuid::fromString($values['collectionId']), $locales);
         }
 
-        return $this->collectionService->loadCollectionDraft($values['collectionId'], $locales);
+        return $this->collectionService->loadCollectionDraft(Uuid::fromString($values['collectionId']), $locales);
     }
 }

@@ -14,6 +14,7 @@ use Netgen\Layouts\Serializer\Normalizer\V1\CollectionResultNormalizer;
 use Netgen\Layouts\Serializer\Values\VersionedValue;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class CollectionResultNormalizerTest extends TestCase
@@ -53,7 +54,7 @@ final class CollectionResultNormalizerTest extends TestCase
         $collectionItem = Item::fromArray(
             [
                 'id' => 42,
-                'collectionId' => 24,
+                'collectionId' => Uuid::uuid4(),
                 'cmsItem' => CmsItem::fromArray(
                     [
                         'name' => 'Value name',
@@ -86,7 +87,7 @@ final class CollectionResultNormalizerTest extends TestCase
         self::assertSame(
             [
                 'id' => $collectionItem->getId(),
-                'collection_id' => $collectionItem->getCollectionId(),
+                'collection_id' => $collectionItem->getCollectionId()->toString(),
                 'visible' => true,
                 'is_dynamic' => false,
                 'value' => $collectionItem->getCmsItem()->getValue(),
@@ -163,7 +164,7 @@ final class CollectionResultNormalizerTest extends TestCase
         $collectionItem = Item::fromArray(
             [
                 'id' => 42,
-                'collectionId' => 24,
+                'collectionId' => Uuid::uuid4(),
                 'cmsItem' => $item,
             ]
         );
@@ -207,7 +208,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'position' => $result->getPosition(),
                 'override_item' => [
                     'id' => $collectionItem->getId(),
-                    'collection_id' => $collectionItem->getCollectionId(),
+                    'collection_id' => $collectionItem->getCollectionId()->toString(),
                     'visible' => true,
                     'is_dynamic' => false,
                     'value' => $collectionItem->getCmsItem()->getValue(),

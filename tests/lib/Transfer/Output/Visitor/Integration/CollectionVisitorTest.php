@@ -10,6 +10,7 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Transfer\Output\Visitor\CollectionVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
+use Ramsey\Uuid\Uuid;
 
 abstract class CollectionVisitorTest extends VisitorTest
 {
@@ -38,9 +39,9 @@ abstract class CollectionVisitorTest extends VisitorTest
     public function visitProvider(): array
     {
         return [
-            [function (): Collection { return $this->collectionService->loadCollection(2); }, 'collection/collection_2.json'],
-            [function (): Collection { return $this->collectionService->loadCollection(3); }, 'collection/collection_3.json'],
-            [function (): Collection { return $this->collectionService->loadCollection(6); }, 'collection/collection_6.json'],
+            [function (): Collection { return $this->collectionService->loadCollection(Uuid::fromString('45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a')); }, 'collection/collection_2.json'],
+            [function (): Collection { return $this->collectionService->loadCollection(Uuid::fromString('da050624-8ae0-5fb9-ae85-092bf8242b89')); }, 'collection/collection_3.json'],
+            [function (): Collection { return $this->collectionService->loadCollection(Uuid::fromString('00872ad1-60e2-5947-95c2-e2eb75427af6')); }, 'collection/collection_6.json'],
         ];
     }
 }

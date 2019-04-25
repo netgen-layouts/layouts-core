@@ -91,12 +91,14 @@ CREATE TABLE nglayouts_zone (
 CREATE TABLE nglayouts_collection (
   id int IDENTITY(1, 1),
   status int NOT NULL,
+  uuid nchar(36) NOT NULL,
   start int NOT NULL,
   length int,
   translatable tinyint NOT NULL,
   main_locale nvarchar(255) NOT NULL,
   always_available tinyint NOT NULL,
-  PRIMARY KEY (id, status)
+  PRIMARY KEY (id, status),
+  UNIQUE (uuid, status)
 );
 
 CREATE TABLE nglayouts_collection_translation (

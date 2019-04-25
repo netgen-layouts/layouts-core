@@ -25,11 +25,8 @@ final class CollectionQueryHandler extends QueryHandler
     public function loadCollectionData($collectionId, int $status): array
     {
         $query = $this->getCollectionSelectQuery();
-        $query->where(
-            $query->expr()->eq('c.id', ':id')
-        )
-        ->setParameter('id', $collectionId, Type::INTEGER);
 
+        $this->applyIdCondition($query, $collectionId, 'c.id', 'c.uuid');
         $this->applyStatusCondition($query, $status, 'c.status');
 
         return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
@@ -47,11 +44,11 @@ final class CollectionQueryHandler extends QueryHandler
     {
         $query = $this->getItemSelectQuery();
         $query->where(
-            $query->expr()->eq('id', ':id')
+            $query->expr()->eq('i.id', ':id')
         )
         ->setParameter('id', $itemId, Type::INTEGER);
 
-        $this->applyStatusCondition($query, $status);
+        $this->applyStatusCondition($query, $status, 'i.status');
 
         return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -64,14 +61,14 @@ final class CollectionQueryHandler extends QueryHandler
         $query = $this->getItemSelectQuery();
         $query->where(
             $query->expr()->andX(
-                $query->expr()->eq('collection_id', ':collection_id'),
-                $query->expr()->eq('position', ':position')
+                $query->expr()->eq('i.collection_id', ':collection_id'),
+                $query->expr()->eq('i.position', ':position')
             )
         )
         ->setParameter('collection_id', $collection->id, Type::INTEGER)
         ->setParameter('position', $position, Type::INTEGER);
 
-        $this->applyStatusCondition($query, $collection->status);
+        $this->applyStatusCondition($query, $collection->status, 'i.status');
 
         return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -104,26 +101,21 @@ final class CollectionQueryHandler extends QueryHandler
     {
         $query = $this->getItemSelectQuery();
         $query->where(
-            $query->expr()->eq('collection_id', ':collection_id')
+            $query->expr()->eq('i.collection_id', ':collection_id')
         )
         ->setParameter('collection_id', $collection->id, Type::INTEGER);
 
-        $this->applyStatusCondition($query, $collection->status);
+        $this->applyStatusCondition($query, $collection->status, 'i.status');
 
-        $query->addOrderBy('position', 'ASC');
+        $query->addOrderBy('i.position', 'ASC');
 
         return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
      * Loads all collection query IDs.
-     *
-     * @param int|string $collectionId
-     * @param int $status
-     *
-     * @return array
      */
-    public function loadCollectionQueryIds($collectionId, ?int $status = null): array
+    public function loadCollectionQueryIds(int $collectionId, ?int $status = null): array
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT id')
@@ -139,7 +131,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $result = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
-        return array_column($result, 'id');
+        return array_map('intval', array_column($result, 'id'));
     }
 
     /**
@@ -170,12 +162,9 @@ final class CollectionQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
-            ->from('nglayouts_collection')
-            ->where(
-                $query->expr()->eq('id', ':id')
-            )
-            ->setParameter('id', $collectionId, Type::INTEGER);
+            ->from('nglayouts_collection');
 
+        $this->applyIdCondition($query, $collectionId);
         $this->applyStatusCondition($query, $status);
 
         $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
@@ -193,6 +182,7 @@ final class CollectionQueryHandler extends QueryHandler
             ->values(
                 [
                     'id' => ':id',
+                    'uuid' => ':uuid',
                     'status' => ':status',
                     'start' => ':start',
                     'length' => ':length',
@@ -201,12 +191,8 @@ final class CollectionQueryHandler extends QueryHandler
                     'always_available' => ':always_available',
                 ]
             )
-            ->setValue(
-                'id',
-                $collection->id !== null ?
-                    (int) $collection->id :
-                    $this->connectionHelper->getAutoIncrementValue('nglayouts_collection')
-            )
+            ->setValue('id', $collection->id ?? $this->connectionHelper->getAutoIncrementValue('nglayouts_collection'))
+            ->setParameter('uuid', $collection->uuid, Type::STRING)
             ->setParameter('status', $collection->status, Type::INTEGER)
             ->setParameter('start', $collection->offset, Type::INTEGER)
             ->setParameter('length', $collection->limit, Type::INTEGER)
@@ -250,6 +236,7 @@ final class CollectionQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder();
         $query
             ->update('nglayouts_collection')
+            ->set('uuid', ':uuid')
             ->set('start', ':start')
             ->set('length', ':length')
             ->set('translatable', ':translatable')
@@ -259,6 +246,7 @@ final class CollectionQueryHandler extends QueryHandler
                 $query->expr()->eq('id', ':id')
             )
             ->setParameter('id', $collection->id, Type::INTEGER)
+            ->setParameter('uuid', $collection->uuid, Type::STRING)
             ->setParameter('start', $collection->offset, Type::INTEGER)
             ->setParameter('length', $collection->limit, Type::INTEGER)
             ->setParameter('translatable', $collection->isTranslatable, Type::BOOLEAN)
@@ -272,11 +260,8 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Deletes a collection.
-     *
-     * @param int|string $collectionId
-     * @param int $status
      */
-    public function deleteCollection($collectionId, ?int $status = null): void
+    public function deleteCollection(int $collectionId, ?int $status = null): void
     {
         // Delete all connections between blocks and collections
 
@@ -312,12 +297,8 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Deletes collection translations.
-     *
-     * @param int|string $collectionId
-     * @param int $status
-     * @param string $locale
      */
-    public function deleteCollectionTranslations($collectionId, ?int $status = null, ?string $locale = null): void
+    public function deleteCollectionTranslations(int $collectionId, ?int $status = null, ?string $locale = null): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -433,11 +414,8 @@ final class CollectionQueryHandler extends QueryHandler
      *
      * If item type (one of Item::TYPE_* constants) is provided, only items
      * of that type are removed (manual or override).
-     *
-     * @param int|string $collectionId
-     * @param int $status
      */
-    public function deleteItems($collectionId, int $status): void
+    public function deleteItems(int $collectionId, int $status): void
     {
         $query = $this->connection->createQueryBuilder();
 
@@ -454,11 +432,8 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Deletes all collection items.
-     *
-     * @param int|string $collectionId
-     * @param int $status
      */
-    public function deleteCollectionItems($collectionId, ?int $status = null): void
+    public function deleteCollectionItems(int $collectionId, ?int $status = null): void
     {
         $query = $this->connection->createQueryBuilder();
         $query
@@ -628,8 +603,17 @@ final class CollectionQueryHandler extends QueryHandler
     private function getItemSelectQuery(): QueryBuilder
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT nglayouts_collection_item.*')
-            ->from('nglayouts_collection_item');
+        $query->select('DISTINCT i.*, c.uuid AS collection_uuid')
+            ->from('nglayouts_collection_item', 'i')
+            ->innerJoin(
+                'i',
+                'nglayouts_collection',
+                'c',
+                $query->expr()->andX(
+                    $query->expr()->eq('c.id', 'i.collection_id'),
+                    $query->expr()->eq('c.status', 'i.status')
+                )
+            );
 
         return $query;
     }
@@ -640,7 +624,7 @@ final class CollectionQueryHandler extends QueryHandler
     private function getQuerySelectQuery(): QueryBuilder
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT q.*, qt.*')
+        $query->select('DISTINCT q.*, qt.*, c.uuid as collection_uuid')
             ->from('nglayouts_collection_query', 'q')
             ->innerJoin(
                 'q',
@@ -649,6 +633,14 @@ final class CollectionQueryHandler extends QueryHandler
                 $query->expr()->andX(
                     $query->expr()->eq('qt.query_id', 'q.id'),
                     $query->expr()->eq('qt.status', 'q.status')
+                )
+            )->innerJoin(
+                'q',
+                'nglayouts_collection',
+                'c',
+                $query->expr()->andX(
+                    $query->expr()->eq('c.id', 'q.collection_id'),
+                    $query->expr()->eq('c.status', 'q.status')
                 )
             );
 

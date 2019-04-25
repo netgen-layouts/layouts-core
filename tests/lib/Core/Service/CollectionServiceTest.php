@@ -14,6 +14,7 @@ use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
+use Ramsey\Uuid\Uuid;
 
 abstract class CollectionServiceTest extends CoreTestCase
 {
@@ -25,7 +26,7 @@ abstract class CollectionServiceTest extends CoreTestCase
      */
     public function testLoadCollection(): void
     {
-        $collection = $this->collectionService->loadCollection(3);
+        $collection = $this->collectionService->loadCollection(Uuid::fromString('da050624-8ae0-5fb9-ae85-092bf8242b89'));
 
         self::assertTrue($collection->isPublished());
     }
@@ -36,9 +37,9 @@ abstract class CollectionServiceTest extends CoreTestCase
     public function testLoadCollectionThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find collection with identifier "999999"');
+        $this->expectExceptionMessage('Could not find collection with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
 
-        $this->collectionService->loadCollection(999999);
+        $this->collectionService->loadCollection(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
     /**
@@ -47,7 +48,7 @@ abstract class CollectionServiceTest extends CoreTestCase
      */
     public function testLoadCollectionDraft(): void
     {
-        $collection = $this->collectionService->loadCollectionDraft(3);
+        $collection = $this->collectionService->loadCollectionDraft(Uuid::fromString('da050624-8ae0-5fb9-ae85-092bf8242b89'));
 
         self::assertTrue($collection->isDraft());
     }
@@ -58,9 +59,9 @@ abstract class CollectionServiceTest extends CoreTestCase
     public function testLoadCollectionDraftThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find collection with identifier "999999"');
+        $this->expectExceptionMessage('Could not find collection with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
 
-        $this->collectionService->loadCollectionDraft(999999);
+        $this->collectionService->loadCollectionDraft(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
     }
 
     /**
@@ -68,7 +69,7 @@ abstract class CollectionServiceTest extends CoreTestCase
      */
     public function testUpdateCollection(): void
     {
-        $collection = $this->collectionService->loadCollectionDraft(3);
+        $collection = $this->collectionService->loadCollectionDraft(Uuid::fromString('da050624-8ae0-5fb9-ae85-092bf8242b89'));
 
         $collectionUpdateStruct = $this->collectionService->newCollectionUpdateStruct();
 
@@ -87,7 +88,7 @@ abstract class CollectionServiceTest extends CoreTestCase
      */
     public function testUpdateCollectionWithNoLimit(): void
     {
-        $collection = $this->collectionService->loadCollectionDraft(3);
+        $collection = $this->collectionService->loadCollectionDraft(Uuid::fromString('da050624-8ae0-5fb9-ae85-092bf8242b89'));
 
         $collectionUpdateStruct = $this->collectionService->newCollectionUpdateStruct();
 
@@ -109,7 +110,7 @@ abstract class CollectionServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "collection" has an invalid state. Only draft collections can be updated.');
 
-        $collection = $this->collectionService->loadCollection(3);
+        $collection = $this->collectionService->loadCollection(Uuid::fromString('da050624-8ae0-5fb9-ae85-092bf8242b89'));
 
         $collectionUpdateStruct = $this->collectionService->newCollectionUpdateStruct();
 
@@ -208,7 +209,7 @@ abstract class CollectionServiceTest extends CoreTestCase
      */
     public function testChangeCollectionTypeFromManualToDynamic(): void
     {
-        $collection = $this->collectionService->loadCollectionDraft(1);
+        $collection = $this->collectionService->loadCollectionDraft(Uuid::fromString('a79dde13-1f5c-51a6-bea9-b766236be49e'));
 
         $updatedCollection = $this->collectionService->changeCollectionType(
             $collection,
@@ -228,7 +229,7 @@ abstract class CollectionServiceTest extends CoreTestCase
      */
     public function testChangeCollectionTypeFromDynamicToManual(): void
     {
-        $collection = $this->collectionService->loadCollectionDraft(3);
+        $collection = $this->collectionService->loadCollectionDraft(Uuid::fromString('da050624-8ae0-5fb9-ae85-092bf8242b89'));
 
         $updatedCollection = $this->collectionService->changeCollectionType(
             $collection,
@@ -254,7 +255,7 @@ abstract class CollectionServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "collection" has an invalid state. Type can be changed only for draft collections.');
 
-        $collection = $this->collectionService->loadCollection(4);
+        $collection = $this->collectionService->loadCollection(Uuid::fromString('08937ca0-18f4-5806-84df-8c132c36cabe'));
 
         $this->collectionService->changeCollectionType(
             $collection,
@@ -270,7 +271,7 @@ abstract class CollectionServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "newType" has an invalid state. New collection type must be manual or dynamic.');
 
-        $collection = $this->collectionService->loadCollectionDraft(1);
+        $collection = $this->collectionService->loadCollectionDraft(Uuid::fromString('a79dde13-1f5c-51a6-bea9-b766236be49e'));
 
         $this->collectionService->changeCollectionType(
             $collection,
@@ -289,7 +290,7 @@ abstract class CollectionServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "queryCreateStruct" has an invalid state. Query create struct must be defined when converting to dynamic collection.');
 
-        $collection = $this->collectionService->loadCollectionDraft(1);
+        $collection = $this->collectionService->loadCollectionDraft(Uuid::fromString('a79dde13-1f5c-51a6-bea9-b766236be49e'));
 
         $this->collectionService->changeCollectionType(
             $collection,
@@ -307,7 +308,7 @@ abstract class CollectionServiceTest extends CoreTestCase
             '66'
         );
 
-        $collection = $this->collectionService->loadCollectionDraft(1);
+        $collection = $this->collectionService->loadCollectionDraft(Uuid::fromString('a79dde13-1f5c-51a6-bea9-b766236be49e'));
 
         $createdItem = $this->collectionService->addItem(
             $collection,
@@ -331,7 +332,7 @@ abstract class CollectionServiceTest extends CoreTestCase
             '66'
         );
 
-        $collection = $this->collectionService->loadCollection(4);
+        $collection = $this->collectionService->loadCollection(Uuid::fromString('08937ca0-18f4-5806-84df-8c132c36cabe'));
 
         $this->collectionService->addItem(
             $collection,
@@ -353,7 +354,7 @@ abstract class CollectionServiceTest extends CoreTestCase
             '66'
         );
 
-        $collection = $this->collectionService->loadCollectionDraft(1);
+        $collection = $this->collectionService->loadCollectionDraft(Uuid::fromString('a79dde13-1f5c-51a6-bea9-b766236be49e'));
 
         $this->collectionService->addItem($collection, $itemCreateStruct, 9999);
     }
@@ -477,7 +478,7 @@ abstract class CollectionServiceTest extends CoreTestCase
      */
     public function testDeleteItems(): void
     {
-        $collection = $this->collectionService->loadCollectionDraft(3);
+        $collection = $this->collectionService->loadCollectionDraft(Uuid::fromString('da050624-8ae0-5fb9-ae85-092bf8242b89'));
         $collection = $this->collectionService->deleteItems($collection);
 
         self::assertCount(0, $collection->getItems());
@@ -491,7 +492,7 @@ abstract class CollectionServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "collection" has an invalid state. Only items in draft collections can be deleted.');
 
-        $collection = $this->collectionService->loadCollection(3);
+        $collection = $this->collectionService->loadCollection(Uuid::fromString('da050624-8ae0-5fb9-ae85-092bf8242b89'));
         $this->collectionService->deleteItems($collection);
     }
 
@@ -627,7 +628,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     public function testNewCollectionUpdateStructWithCollection(): void
     {
         $struct = $this->collectionService->newCollectionUpdateStruct(
-            $this->collectionService->loadCollectionDraft(3)
+            $this->collectionService->loadCollectionDraft(Uuid::fromString('da050624-8ae0-5fb9-ae85-092bf8242b89'))
         );
 
         self::assertSame(
@@ -645,7 +646,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     public function testNewCollectionUpdateStructWithUnlimitedCollection(): void
     {
         $struct = $this->collectionService->newCollectionUpdateStruct(
-            $this->collectionService->loadCollectionDraft(1)
+            $this->collectionService->loadCollectionDraft(Uuid::fromString('a79dde13-1f5c-51a6-bea9-b766236be49e'))
         );
 
         self::assertSame(

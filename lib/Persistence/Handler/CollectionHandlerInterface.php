@@ -19,7 +19,9 @@ interface CollectionHandlerInterface
     /**
      * Loads a collection with specified ID.
      *
-     * @param int|string $collectionId
+     * Collection ID can be an auto-incremented ID or an UUID.
+     *
+     * @param int|string|\Ramsey\Uuid\UuidInterface $collectionId
      * @param int $status
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If collection with specified ID does not exist
@@ -76,7 +78,9 @@ interface CollectionHandlerInterface
     /**
      * Returns if collection with specified ID exists.
      *
-     * @param int|string $collectionId
+     * Collection ID can be an auto-incremented ID or an UUID.
+     *
+     * @param int|string|\Ramsey\Uuid\UuidInterface $collectionId
      * @param int $status
      *
      * @return bool
@@ -120,11 +124,8 @@ interface CollectionHandlerInterface
 
     /**
      * Deletes a collection with specified ID.
-     *
-     * @param int|string $collectionId
-     * @param int $status
      */
-    public function deleteCollection($collectionId, ?int $status = null): void;
+    public function deleteCollection(int $collectionId, ?int $status = null): void;
 
     /**
      * Deletes provided collection translation.

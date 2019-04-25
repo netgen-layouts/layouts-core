@@ -75,7 +75,7 @@
                             },
                             "collections": {
                                 "default": {
-                                    "id": "@integer@",
+                                    "id": "@uuid@",
                                     "offset": 0,
                                     "limit": null,
                                     "is_translatable": true,

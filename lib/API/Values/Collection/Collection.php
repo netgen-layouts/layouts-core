@@ -11,6 +11,7 @@ use Netgen\Layouts\API\Values\LazyPropertyTrait;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Utils\HydratorTrait;
+use Ramsey\Uuid\UuidInterface;
 
 final class Collection implements Value
 {
@@ -29,7 +30,7 @@ final class Collection implements Value
     public const TYPE_DYNAMIC = 1;
 
     /**
-     * @var int|string
+     * @var \Ramsey\Uuid\UuidInterface
      */
     private $id;
 
@@ -84,11 +85,9 @@ final class Collection implements Value
     }
 
     /**
-     * Returns the collection ID.
-     *
-     * @return int|string
+     * Returns the collection UUID.
      */
-    public function getId()
+    public function getId(): UuidInterface
     {
         return $this->id;
     }

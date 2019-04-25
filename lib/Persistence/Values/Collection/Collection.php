@@ -14,9 +14,16 @@ final class Collection extends Value
     /**
      * Collection ID.
      *
-     * @var int|string
+     * @var int
      */
     public $id;
+
+    /**
+     * Collection UUID.
+     *
+     * @var string
+     */
+    public $uuid;
 
     /**
      * The starting offset for the collection results.

@@ -188,16 +188,16 @@ abstract class BlockServiceTest extends CoreTestCase
         self::assertCount(1, $collections);
         self::assertArrayHasKey('default', $collections);
 
-        self::assertSame(0, $collections['default']->getOffset());
-        self::assertNull($collections['default']->getLimit());
+        /** @var \Netgen\Layouts\API\Values\Collection\Collection $defaultCollection */
+        $defaultCollection = $collections['default'];
 
-        $collection = $this->collectionService->loadCollectionDraft(7);
-        self::assertFalse($collection->hasQuery());
-
-        self::assertSame($block->isTranslatable(), $collection->isTranslatable());
-        self::assertSame($block->isAlwaysAvailable(), $collection->isAlwaysAvailable());
-        self::assertSame($block->getAvailableLocales(), $collection->getAvailableLocales());
-        self::assertSame($block->getMainLocale(), $collection->getMainLocale());
+        self::assertSame(0, $defaultCollection->getOffset());
+        self::assertNull($defaultCollection->getLimit());
+        self::assertFalse($defaultCollection->hasQuery());
+        self::assertSame($block->isTranslatable(), $defaultCollection->isTranslatable());
+        self::assertSame($block->isAlwaysAvailable(), $defaultCollection->isAlwaysAvailable());
+        self::assertSame($block->getAvailableLocales(), $defaultCollection->getAvailableLocales());
+        self::assertSame($block->getMainLocale(), $defaultCollection->getMainLocale());
     }
 
     /**
@@ -230,18 +230,18 @@ abstract class BlockServiceTest extends CoreTestCase
         self::assertCount(1, $collections);
         self::assertArrayHasKey('default', $collections);
 
-        self::assertSame(0, $collections['default']->getOffset());
-        self::assertNull($collections['default']->getLimit());
+        /** @var \Netgen\Layouts\API\Values\Collection\Collection $defaultCollection */
+        $defaultCollection = $collections['default'];
 
-        $collection = $this->collectionService->loadCollectionDraft(7);
-        self::assertTrue($collection->hasQuery());
-        self::assertInstanceOf(Query::class, $collection->getQuery());
-        self::assertSame('my_query_type', $collection->getQuery()->getQueryType()->getType());
-
-        self::assertSame($block->isTranslatable(), $collection->isTranslatable());
-        self::assertSame($block->isAlwaysAvailable(), $collection->isAlwaysAvailable());
-        self::assertSame($block->getAvailableLocales(), $collection->getAvailableLocales());
-        self::assertSame($block->getMainLocale(), $collection->getMainLocale());
+        self::assertSame(0, $defaultCollection->getOffset());
+        self::assertNull($defaultCollection->getLimit());
+        self::assertTrue($defaultCollection->hasQuery());
+        self::assertInstanceOf(Query::class, $defaultCollection->getQuery());
+        self::assertSame('my_query_type', $defaultCollection->getQuery()->getQueryType()->getType());
+        self::assertSame($block->isTranslatable(), $defaultCollection->isTranslatable());
+        self::assertSame($block->isAlwaysAvailable(), $defaultCollection->isAlwaysAvailable());
+        self::assertSame($block->getAvailableLocales(), $defaultCollection->getAvailableLocales());
+        self::assertSame($block->getMainLocale(), $defaultCollection->getMainLocale());
     }
 
     /**
@@ -1061,7 +1061,11 @@ abstract class BlockServiceTest extends CoreTestCase
                     $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right')
                 );
             },
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+            [
+                'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
+                '805895b2-6292-5243-a0c0-06a6ec0e28a2',
+            ]
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
@@ -1074,11 +1078,8 @@ abstract class BlockServiceTest extends CoreTestCase
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedBlock->getId()->toString());
         self::assertSame(2, $copiedBlock->getPosition());
 
-        $copiedCollection = $this->collectionService->loadCollectionDraft(7);
-        self::assertTrue($copiedCollection->isDraft());
-
-        $copiedCollection2 = $this->collectionService->loadCollectionDraft(8);
-        self::assertTrue($copiedCollection2->isDraft());
+        self::assertTrue($copiedBlock->getCollection('default')->isDraft());
+        self::assertTrue($copiedBlock->getCollection('featured')->isDraft());
     }
 
     /**
@@ -1095,7 +1096,11 @@ abstract class BlockServiceTest extends CoreTestCase
                     1
                 );
             },
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+            [
+                'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
+                '805895b2-6292-5243-a0c0-06a6ec0e28a2',
+            ]
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
@@ -1123,7 +1128,11 @@ abstract class BlockServiceTest extends CoreTestCase
                     0
                 );
             },
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+            [
+                'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
+                '805895b2-6292-5243-a0c0-06a6ec0e28a2',
+            ]
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
@@ -1151,7 +1160,11 @@ abstract class BlockServiceTest extends CoreTestCase
                     2
                 );
             },
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+            [
+                'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
+                '805895b2-6292-5243-a0c0-06a6ec0e28a2',
+            ]
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
@@ -1179,7 +1192,10 @@ abstract class BlockServiceTest extends CoreTestCase
                     0
                 );
             },
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+            [
+                'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
+            ]
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
@@ -1592,8 +1608,8 @@ abstract class BlockServiceTest extends CoreTestCase
         self::assertArrayHasKey('default', $collections);
         self::assertArrayHasKey('featured', $collections);
 
-        self::assertSame(2, $collections['default']->getId());
-        self::assertSame(3, $collections['featured']->getId());
+        self::assertSame('45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a', $collections['default']->getId()->toString());
+        self::assertSame('da050624-8ae0-5fb9-ae85-092bf8242b89', $collections['featured']->getId()->toString());
 
         $restoredPersistenceBlock = $this->blockHandler->loadBlock($restoredBlock->getId(), $restoredBlock->getStatus());
 

@@ -11,6 +11,7 @@ use Netgen\Layouts\Serializer\Values\VersionedValue;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class CollectionQueryNormalizerTest extends TestCase
@@ -42,7 +43,7 @@ final class CollectionQueryNormalizerTest extends TestCase
         $query = Query::fromArray(
             [
                 'id' => 42,
-                'collectionId' => 24,
+                'collectionId' => Uuid::uuid4(),
                 'queryType' => new QueryType('my_query_type'),
                 'isTranslatable' => true,
                 'alwaysAvailable' => true,
@@ -83,7 +84,7 @@ final class CollectionQueryNormalizerTest extends TestCase
         self::assertSame(
             [
                 'id' => $query->getId(),
-                'collection_id' => $query->getCollectionId(),
+                'collection_id' => $query->getCollectionId()->toString(),
                 'type' => $query->getQueryType()->getType(),
                 'locale' => $query->getLocale(),
                 'is_translatable' => $query->isTranslatable(),

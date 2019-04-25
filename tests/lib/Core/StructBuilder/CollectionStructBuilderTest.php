@@ -11,6 +11,7 @@ use Netgen\Layouts\Core\StructBuilder\ConfigStructBuilder;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
+use Ramsey\Uuid\Uuid;
 
 abstract class CollectionStructBuilderTest extends CoreTestCase
 {
@@ -69,7 +70,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
     public function testNewCollectionUpdateStructWithCollection(): void
     {
         $struct = $this->structBuilder->newCollectionUpdateStruct(
-            $this->collectionService->loadCollectionDraft(3)
+            $this->collectionService->loadCollectionDraft(Uuid::fromString('da050624-8ae0-5fb9-ae85-092bf8242b89'))
         );
 
         self::assertSame(
@@ -87,7 +88,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
     public function testNewCollectionUpdateStructWithUnlimitedCollection(): void
     {
         $struct = $this->structBuilder->newCollectionUpdateStruct(
-            $this->collectionService->loadCollectionDraft(1)
+            $this->collectionService->loadCollectionDraft(Uuid::fromString('a79dde13-1f5c-51a6-bea9-b766236be49e'))
         );
 
         self::assertSame(

@@ -35,7 +35,7 @@ final class CollectionVisitor implements VisitorInterface
         }
 
         return [
-            'id' => $value->getId(),
+            'id' => $value->getId()->toString(),
             'offset' => $value->getOffset(),
             'limit' => $value->getLimit(),
             'is_translatable' => $value->isTranslatable(),

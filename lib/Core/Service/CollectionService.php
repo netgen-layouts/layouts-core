@@ -33,6 +33,7 @@ use Netgen\Layouts\Persistence\Values\Collection\ItemUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\Query as PersistenceQuery;
 use Netgen\Layouts\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\QueryTranslationUpdateStruct;
+use Ramsey\Uuid\UuidInterface;
 
 final class CollectionService extends Service implements APICollectionService
 {
@@ -85,10 +86,8 @@ final class CollectionService extends Service implements APICollectionService
         $this->collectionHandler = $collectionHandler;
     }
 
-    public function loadCollection($collectionId, ?array $locales = null, bool $useMainLocale = true): Collection
+    public function loadCollection(UuidInterface $collectionId, ?array $locales = null, bool $useMainLocale = true): Collection
     {
-        $this->validator->validateId($collectionId, 'collectionId');
-
         return $this->mapper->mapCollection(
             $this->collectionHandler->loadCollection(
                 $collectionId,
@@ -99,10 +98,8 @@ final class CollectionService extends Service implements APICollectionService
         );
     }
 
-    public function loadCollectionDraft($collectionId, ?array $locales = null, bool $useMainLocale = true): Collection
+    public function loadCollectionDraft(UuidInterface $collectionId, ?array $locales = null, bool $useMainLocale = true): Collection
     {
-        $this->validator->validateId($collectionId, 'collectionId');
-
         return $this->mapper->mapCollection(
             $this->collectionHandler->loadCollection(
                 $collectionId,

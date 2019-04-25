@@ -19,6 +19,8 @@ use Netgen\Layouts\Persistence\Values\Collection\ItemUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\Query;
 use Netgen\Layouts\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\QueryTranslationUpdateStruct;
+use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 final class CollectionHandler implements CollectionHandlerInterface
 {
@@ -49,6 +51,7 @@ final class CollectionHandler implements CollectionHandlerInterface
 
     public function loadCollection($collectionId, int $status): Collection
     {
+        $collectionId = $collectionId instanceof UuidInterface ? $collectionId->toString() : $collectionId;
         $data = $this->queryHandler->loadCollectionData($collectionId, $status);
 
         if (count($data) === 0) {
@@ -131,6 +134,8 @@ final class CollectionHandler implements CollectionHandlerInterface
 
     public function collectionExists($collectionId, int $status): bool
     {
+        $collectionId = $collectionId instanceof UuidInterface ? $collectionId->toString() : $collectionId;
+
         return $this->queryHandler->collectionExists($collectionId, $status);
     }
 
@@ -138,6 +143,7 @@ final class CollectionHandler implements CollectionHandlerInterface
     {
         $newCollection = Collection::fromArray(
             [
+                'uuid' => Uuid::uuid4()->toString(),
                 'status' => $collectionCreateStruct->status,
                 'offset' => $collectionCreateStruct->offset,
                 'limit' => $collectionCreateStruct->limit,
@@ -238,6 +244,7 @@ final class CollectionHandler implements CollectionHandlerInterface
     {
         $newCollection = clone $collection;
         $newCollection->id = null;
+        $newCollection->uuid = Uuid::uuid4()->toString();
 
         $newCollection = $this->queryHandler->createCollection($newCollection);
 
@@ -252,6 +259,7 @@ final class CollectionHandler implements CollectionHandlerInterface
             $newItem->id = null;
 
             $newItem->collectionId = $newCollection->id;
+            $newItem->collectionUuid = $newCollection->uuid;
 
             $this->queryHandler->addItem($newItem);
         }
@@ -269,6 +277,7 @@ final class CollectionHandler implements CollectionHandlerInterface
             $newQuery->id = null;
 
             $newQuery->collectionId = $newCollection->id;
+            $newQuery->collectionUuid = $newCollection->uuid;
 
             $this->queryHandler->createQuery($newQuery);
 
@@ -322,7 +331,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $newCollection;
     }
 
-    public function deleteCollection($collectionId, ?int $status = null): void
+    public function deleteCollection(int $collectionId, ?int $status = null): void
     {
         $this->queryHandler->deleteCollectionItems($collectionId, $status);
 
@@ -359,6 +368,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         $newItem = Item::fromArray(
             [
                 'collectionId' => $collection->id,
+                'collectionUuid' => $collection->uuid,
                 'position' => $position,
                 'value' => $itemCreateStruct->value,
                 'valueType' => $itemCreateStruct->valueType,
@@ -473,6 +483,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         $newQuery = Query::fromArray(
             [
                 'collectionId' => $collection->id,
+                'collectionUuid' => $collection->uuid,
                 'type' => $queryCreateStruct->type,
                 'status' => $collection->status,
                 'isTranslatable' => $collection->isTranslatable,

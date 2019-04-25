@@ -10,6 +10,7 @@ use Netgen\Layouts\Serializer\Normalizer\V1\CollectionNormalizer;
 use Netgen\Layouts\Serializer\Values\VersionedValue;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class CollectionNormalizerTest extends TestCase
 {
@@ -30,7 +31,7 @@ final class CollectionNormalizerTest extends TestCase
     {
         $collection = Collection::fromArray(
             [
-                'id' => 42,
+                'id' => Uuid::uuid4(),
                 'query' => new Query(),
                 'isTranslatable' => true,
                 'alwaysAvailable' => true,
@@ -41,7 +42,7 @@ final class CollectionNormalizerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => $collection->getId(),
+                'id' => $collection->getId()->toString(),
                 'type' => Collection::TYPE_DYNAMIC,
                 'is_translatable' => $collection->isTranslatable(),
                 'main_locale' => $collection->getMainLocale(),

@@ -84,7 +84,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $result = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
-        return array_column($result, 'id');
+        return array_map('intval', array_column($result, 'id'));
     }
 
     /**

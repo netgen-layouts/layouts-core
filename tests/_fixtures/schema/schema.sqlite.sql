@@ -95,12 +95,14 @@ CREATE TABLE `nglayouts_zone` (
 CREATE TABLE `nglayouts_collection` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
+  `uuid` text(36) NOT NULL,
   `start` integer NOT NULL,
   `length` integer DEFAULT NULL,
   `translatable` integer NOT NULL,
   `main_locale` text(255) NOT NULL,
   `always_available` integer NOT NULL,
-  PRIMARY KEY (`id`, `status`)
+  PRIMARY KEY (`id`, `status`),
+  UNIQUE (`uuid`, `status`)
 );
 
 CREATE TABLE `nglayouts_collection_translation` (

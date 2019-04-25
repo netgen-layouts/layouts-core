@@ -59,7 +59,7 @@ final class BlockNormalizerTest extends TestCase
     {
         $collection = Collection::fromArray(
             [
-                'id' => 24,
+                'id' => Uuid::uuid4(),
                 'status' => Value::STATUS_PUBLISHED,
                 'offset' => 10,
                 'limit' => 5,
@@ -130,7 +130,7 @@ final class BlockNormalizerTest extends TestCase
                 'collections' => [
                     [
                         'identifier' => 'default',
-                        'collection_id' => $collection->getId(),
+                        'collection_id' => $collection->getId()->toString(),
                         'collection_type' => Collection::TYPE_MANUAL,
                         'offset' => $collection->getOffset(),
                         'limit' => $collection->getLimit(),

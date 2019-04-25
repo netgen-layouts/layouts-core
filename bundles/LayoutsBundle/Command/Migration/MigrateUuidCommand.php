@@ -26,6 +26,8 @@ final class MigrateUuidCommand extends Command
 
     private const NAMESPACE_CONDITION = 'a3468554-de48-4cc3-818d-7a3350ee5d40';
 
+    private const NAMESPACE_COLLECTION = 'a3468555-de48-4cc3-818d-7a3350ee5d40';
+
     /**
      * @var \Doctrine\DBAL\Connection
      */
@@ -90,6 +92,7 @@ final class MigrateUuidCommand extends Command
         $this->updateRules();
         $this->updateTargets();
         $this->updateConditions();
+        $this->updateCollections();
 
         $this->io->success('Generating UUIDs done.');
 
@@ -276,6 +279,42 @@ final class MigrateUuidCommand extends Command
                 )
                 ->setParameter('id', $conditionData['id'], Type::INTEGER)
                 ->setParameter('status', $conditionData['status'], Type::INTEGER)
+                ->setParameter('uuid', $uuid->toString(), Type::STRING);
+
+            $queryBuilder->execute();
+
+            $progressBar->advance();
+        }
+
+        $this->io->writeln(['', '']);
+    }
+
+    private function updateCollections(): void
+    {
+        $queryBuilder = $this->connection->createQueryBuilder();
+        $queryBuilder->select('id, status')
+            ->from('nglayouts_collection');
+
+        $data = $queryBuilder->execute()->fetchAll(PDO::FETCH_ASSOC);
+
+        $this->io->writeln(['Generating UUIDs for collections...', '']);
+        $progressBar = $this->io->createProgressBar(count($data));
+
+        foreach ($data as $collectionData) {
+            $uuid = Uuid::uuid5(self::NAMESPACE_COLLECTION, $collectionData['id']);
+
+            $queryBuilder = $this->connection->createQueryBuilder();
+            $queryBuilder
+                ->update('nglayouts_collection')
+                ->set('uuid', ':uuid')
+                ->where(
+                    $queryBuilder->expr()->andX(
+                        $queryBuilder->expr()->eq('id', ':id'),
+                        $queryBuilder->expr()->eq('status', ':status')
+                    )
+                )
+                ->setParameter('id', $collectionData['id'], Type::INTEGER)
+                ->setParameter('status', $collectionData['status'], Type::INTEGER)
                 ->setParameter('uuid', $uuid->toString(), Type::STRING);
 
             $queryBuilder->execute();

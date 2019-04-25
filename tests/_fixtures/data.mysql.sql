@@ -193,15 +193,15 @@ UNLOCK TABLES;
 
 LOCK TABLES `nglayouts_collection` WRITE;
 /*!40000 ALTER TABLE `nglayouts_collection` DISABLE KEYS */;
-INSERT INTO `nglayouts_collection` VALUES (1,0,0,NULL,1,'en',1);
-INSERT INTO `nglayouts_collection` VALUES (2,1,0,NULL,1,'en',1);
-INSERT INTO `nglayouts_collection` VALUES (3,0,4,2,1,'en',1);
-INSERT INTO `nglayouts_collection` VALUES (3,1,4,2,1,'en',1);
-INSERT INTO `nglayouts_collection` VALUES (4,0,0,NULL,0,'en',1);
-INSERT INTO `nglayouts_collection` VALUES (4,1,0,NULL,0,'en',1);
-INSERT INTO `nglayouts_collection` VALUES (6,0,10,5,0,'en',1);
-INSERT INTO `nglayouts_collection` VALUES (6,1,10,5,0,'en',1);
-INSERT INTO `nglayouts_collection` VALUES (6,2,10,5,0,'en',1);
+INSERT INTO `nglayouts_collection` VALUES (1,0,'a79dde13-1f5c-51a6-bea9-b766236be49e',0,NULL,1,'en',1);
+INSERT INTO `nglayouts_collection` VALUES (2,1,'45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',0,NULL,1,'en',1);
+INSERT INTO `nglayouts_collection` VALUES (3,0,'da050624-8ae0-5fb9-ae85-092bf8242b89',4,2,1,'en',1);
+INSERT INTO `nglayouts_collection` VALUES (3,1,'da050624-8ae0-5fb9-ae85-092bf8242b89',4,2,1,'en',1);
+INSERT INTO `nglayouts_collection` VALUES (4,0,'08937ca0-18f4-5806-84df-8c132c36cabe',0,NULL,0,'en',1);
+INSERT INTO `nglayouts_collection` VALUES (4,1,'08937ca0-18f4-5806-84df-8c132c36cabe',0,NULL,0,'en',1);
+INSERT INTO `nglayouts_collection` VALUES (6,0,'00872ad1-60e2-5947-95c2-e2eb75427af6',10,5,0,'en',1);
+INSERT INTO `nglayouts_collection` VALUES (6,1,'00872ad1-60e2-5947-95c2-e2eb75427af6',10,5,0,'en',1);
+INSERT INTO `nglayouts_collection` VALUES (6,2,'00872ad1-60e2-5947-95c2-e2eb75427af6',10,5,0,'en',1);
 /*!40000 ALTER TABLE `nglayouts_collection` ENABLE KEYS */;
 UNLOCK TABLES;
 

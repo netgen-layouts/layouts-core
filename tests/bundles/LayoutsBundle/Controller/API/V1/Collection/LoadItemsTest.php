@@ -15,7 +15,7 @@ final class LoadItemsTest extends JsonApiTestCase
      */
     public function testLoadItems(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/collections/3/items');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/collections/da050624-8ae0-5fb9-ae85-092bf8242b89/items');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -29,12 +29,12 @@ final class LoadItemsTest extends JsonApiTestCase
      */
     public function testLoadItemsWithNonExistentCollection(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/collections/9999/items');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/collections/ffffffff-ffff-ffff-ffff-ffffffffffff/items');
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find collection with identifier "9999"'
+            'Could not find collection with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"'
         );
     }
 }

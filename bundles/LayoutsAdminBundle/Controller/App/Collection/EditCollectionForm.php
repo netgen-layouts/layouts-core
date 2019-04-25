@@ -41,7 +41,7 @@ final class EditCollectionForm extends AbstractController
                 'action' => $this->generateUrl(
                     'nglayouts_app_collection_collection_form_edit',
                     [
-                        'collectionId' => $collection->getId(),
+                        'collectionId' => $collection->getId()->toString(),
                     ]
                 ),
             ]

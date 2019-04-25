@@ -73,12 +73,14 @@ CREATE TABLE IF NOT EXISTS `nglayouts_zone` (
 CREATE TABLE IF NOT EXISTS `nglayouts_collection` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
+  `uuid` char(36) NOT NULL,
   `start` int(11) NOT NULL,
   `length` int(11),
   `translatable` tinyint NOT NULL,
   `main_locale` varchar(191) NOT NULL,
   `always_available` tinyint NOT NULL,
-  PRIMARY KEY (`id`, `status`)
+  PRIMARY KEY (`id`, `status`),
+  UNIQUE KEY (`uuid`, `status`)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `nglayouts_collection_translation` (

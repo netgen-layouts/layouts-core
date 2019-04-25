@@ -31,6 +31,7 @@ final class BlockTest extends TestCase
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',
+                'isTranslatable' => true,
                 'alwaysAvailable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
@@ -52,6 +53,7 @@ final class BlockTest extends TestCase
         self::assertSame('standard', $block->itemViewType);
         self::assertSame('My block', $block->name);
         self::assertSame('en', $block->mainLocale);
+        self::assertTrue($block->isTranslatable);
         self::assertTrue($block->alwaysAvailable);
         self::assertSame(['en'], $block->availableLocales);
         self::assertSame(Value::STATUS_DRAFT, $block->status);

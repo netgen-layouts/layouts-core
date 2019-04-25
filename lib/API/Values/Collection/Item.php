@@ -13,6 +13,7 @@ use Netgen\Layouts\Collection\Item\ItemDefinitionInterface;
 use Netgen\Layouts\Item\CmsItemInterface;
 use Netgen\Layouts\Item\NullCmsItem;
 use Netgen\Layouts\Utils\HydratorTrait;
+use Ramsey\Uuid\UuidInterface;
 
 final class Item implements Value, ConfigAwareValue
 {
@@ -27,7 +28,7 @@ final class Item implements Value, ConfigAwareValue
     private $id;
 
     /**
-     * @var int|string
+     * @var \Ramsey\Uuid\UuidInterface
      */
     private $collectionId;
 
@@ -62,11 +63,9 @@ final class Item implements Value, ConfigAwareValue
     }
 
     /**
-     * Returns the ID of the collection to which the item belongs.
-     *
-     * @return int|string
+     * Returns the UUID of the collection to which the item belongs.
      */
-    public function getCollectionId()
+    public function getCollectionId(): UuidInterface
     {
         return $this->collectionId;
     }

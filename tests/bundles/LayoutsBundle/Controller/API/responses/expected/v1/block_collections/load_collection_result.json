@@ -28,7 +28,7 @@
         },
         {
             "id": 10,
-            "collection_id": 4,
+            "collection_id": "08937ca0-18f4-5806-84df-8c132c36cabe",
             "visible": true,
             "is_dynamic": false,
             "cms_url": "/value/72/some/url",
@@ -41,7 +41,7 @@
         },
         {
             "id": 11,
-            "collection_id": 4,
+            "collection_id": "08937ca0-18f4-5806-84df-8c132c36cabe",
             "visible": true,
             "is_dynamic": false,
             "cms_url": "/value/73/some/url",
@@ -67,7 +67,7 @@
         },
         {
             "id": 12,
-            "collection_id": 4,
+            "collection_id": "08937ca0-18f4-5806-84df-8c132c36cabe",
             "visible": true,
             "is_dynamic": false,
             "cms_url": "/value/74/some/url",

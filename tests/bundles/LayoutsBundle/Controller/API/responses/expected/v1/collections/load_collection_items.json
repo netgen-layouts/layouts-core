@@ -1,7 +1,7 @@
 [
     {
         "id": 7,
-        "collection_id": 3,
+        "collection_id": "da050624-8ae0-5fb9-ae85-092bf8242b89",
         "position": 2,
         "visible": true,
         "value": 72,
@@ -13,7 +13,7 @@
     },
     {
         "id": 8,
-        "collection_id": 3,
+        "collection_id": "da050624-8ae0-5fb9-ae85-092bf8242b89",
         "position": 3,
         "visible": true,
         "value": 73,
@@ -25,7 +25,7 @@
     },
     {
         "id": 9,
-        "collection_id": 3,
+        "collection_id": "da050624-8ae0-5fb9-ae85-092bf8242b89",
         "position": 5,
         "visible": true,
         "value": 74,

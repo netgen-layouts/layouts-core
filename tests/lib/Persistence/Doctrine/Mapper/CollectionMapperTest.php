@@ -34,6 +34,7 @@ final class CollectionMapperTest extends TestCase
         $data = [
             [
                 'id' => '42',
+                'uuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
                 'status' => '1',
                 'start' => '5',
                 'length' => '10',
@@ -44,6 +45,7 @@ final class CollectionMapperTest extends TestCase
             ],
             [
                 'id' => 43,
+                'uuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
                 'status' => Value::STATUS_DRAFT,
                 'start' => 10,
                 'length' => 20,
@@ -54,6 +56,7 @@ final class CollectionMapperTest extends TestCase
             ],
             [
                 'id' => 43,
+                'uuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
                 'status' => Value::STATUS_DRAFT,
                 'start' => 10,
                 'length' => 20,
@@ -67,6 +70,7 @@ final class CollectionMapperTest extends TestCase
         $expectedData = [
             [
                 'id' => 42,
+                'uuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
                 'offset' => 5,
                 'limit' => 10,
                 'isTranslatable' => false,
@@ -77,6 +81,7 @@ final class CollectionMapperTest extends TestCase
             ],
             [
                 'id' => 43,
+                'uuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
                 'offset' => 10,
                 'limit' => 20,
                 'isTranslatable' => false,
@@ -102,6 +107,7 @@ final class CollectionMapperTest extends TestCase
             [
                 'id' => '42',
                 'collection_id' => '1',
+                'collection_uuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
                 'position' => '2',
                 'value' => '32',
                 'value_type' => 'my_value_type',
@@ -111,6 +117,7 @@ final class CollectionMapperTest extends TestCase
             [
                 'id' => 43,
                 'collection_id' => 2,
+                'collection_uuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
                 'position' => 5,
                 'value' => '42',
                 'value_type' => 'my_value_type',
@@ -123,6 +130,7 @@ final class CollectionMapperTest extends TestCase
             [
                 'id' => 42,
                 'collectionId' => 1,
+                'collectionUuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
                 'position' => 2,
                 'value' => '32',
                 'valueType' => 'my_value_type',
@@ -136,6 +144,7 @@ final class CollectionMapperTest extends TestCase
             [
                 'id' => 43,
                 'collectionId' => 2,
+                'collectionUuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
                 'position' => 5,
                 'value' => '42',
                 'valueType' => 'my_value_type',
@@ -160,6 +169,7 @@ final class CollectionMapperTest extends TestCase
             [
                 'id' => '43',
                 'collection_id' => '1',
+                'collection_uuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
                 'type' => 'my_query_type',
                 'locale' => 'en',
                 'parameters' => '{"param":"value"}',
@@ -168,6 +178,7 @@ final class CollectionMapperTest extends TestCase
             [
                 'id' => 42,
                 'collection_id' => 1,
+                'collection_uuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
                 'type' => 'my_query_type',
                 'locale' => 'en',
                 'parameters' => '{"param":"value"}',
@@ -176,6 +187,7 @@ final class CollectionMapperTest extends TestCase
             [
                 'id' => 42,
                 'collection_id' => 1,
+                'collection_uuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
                 'type' => 'my_query_type',
                 'locale' => 'hr',
                 'parameters' => '{"param2":"value2"}',
@@ -187,6 +199,7 @@ final class CollectionMapperTest extends TestCase
             [
                 'id' => 43,
                 'collectionId' => 1,
+                'collectionUuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
                 'type' => 'my_query_type',
                 'parameters' => [
                     'en' => [
@@ -202,6 +215,7 @@ final class CollectionMapperTest extends TestCase
             [
                 'id' => 42,
                 'collectionId' => 1,
+                'collectionUuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
                 'type' => 'my_query_type',
                 'parameters' => [
                     'en' => [

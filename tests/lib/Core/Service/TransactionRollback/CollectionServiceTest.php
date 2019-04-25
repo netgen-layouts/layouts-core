@@ -17,6 +17,7 @@ use Netgen\Layouts\Persistence\Values\Collection\Collection as PersistenceCollec
 use Netgen\Layouts\Persistence\Values\Collection\Item as PersistenceItem;
 use Netgen\Layouts\Persistence\Values\Collection\Query as PersistenceQuery;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
+use Ramsey\Uuid\Uuid;
 
 final class CollectionServiceTest extends TestCase
 {
@@ -43,7 +44,7 @@ final class CollectionServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->collectionService->changeCollectionType(
-            Collection::fromArray(['status' => Value::STATUS_DRAFT, 'query' => new Query()]),
+            Collection::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT, 'query' => new Query()]),
             Collection::TYPE_MANUAL
         );
     }
@@ -74,7 +75,7 @@ final class CollectionServiceTest extends TestCase
         $itemCreateStruct->definition = ItemDefinition::fromArray(['valueType' => 'value_type']);
 
         $this->collectionService->addItem(
-            Collection::fromArray(['status' => Value::STATUS_DRAFT]),
+            Collection::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]),
             $itemCreateStruct
         );
     }
@@ -179,7 +180,7 @@ final class CollectionServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
-        $this->collectionService->deleteItems(Collection::fromArray(['status' => Value::STATUS_DRAFT]));
+        $this->collectionService->deleteItems(Collection::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]));
     }
 
     /**

@@ -21,6 +21,7 @@ use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\Layouts\Persistence\Values\Collection\Collection as PersistenceCollection;
 use Netgen\Layouts\Persistence\Values\Collection\Item as PersistenceItem;
 use Netgen\Layouts\Persistence\Values\Collection\Query as PersistenceQuery;
+use Ramsey\Uuid\Uuid;
 
 final class CollectionMapper
 {
@@ -94,7 +95,7 @@ final class CollectionMapper
         }
 
         $collectionData = [
-            'id' => $collection->id,
+            'id' => Uuid::fromString($collection->uuid),
             'status' => $collection->status,
             'offset' => $collection->offset,
             'limit' => $collection->limit,
@@ -142,7 +143,7 @@ final class CollectionMapper
             'id' => $item->id,
             'status' => $item->status,
             'definition' => $itemDefinition,
-            'collectionId' => $item->collectionId,
+            'collectionId' => Uuid::fromString($item->collectionUuid),
             'position' => $item->position,
             'value' => $item->value,
             'configs' => iterator_to_array(
@@ -202,7 +203,7 @@ final class CollectionMapper
         $queryData = [
             'id' => $query->id,
             'status' => $query->status,
-            'collectionId' => $query->collectionId,
+            'collectionId' => Uuid::fromString($query->collectionUuid),
             'queryType' => $queryType,
             'isTranslatable' => $query->isTranslatable,
             'mainLocale' => $query->mainLocale,

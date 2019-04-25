@@ -13,6 +13,7 @@ use Netgen\Layouts\Serializer\Normalizer\V1\CollectionItemNormalizer;
 use Netgen\Layouts\Serializer\Values\VersionedValue;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class CollectionItemNormalizerTest extends TestCase
@@ -50,7 +51,7 @@ final class CollectionItemNormalizerTest extends TestCase
         $item = Item::fromArray(
             [
                 'id' => 42,
-                'collectionId' => 24,
+                'collectionId' => Uuid::uuid4(),
                 'position' => 3,
                 'value' => 12,
                 'definition' => ItemDefinition::fromArray(['valueType' => 'my_value_type']),
@@ -86,7 +87,7 @@ final class CollectionItemNormalizerTest extends TestCase
         self::assertSame(
             [
                 'id' => $item->getId(),
-                'collection_id' => $item->getCollectionId(),
+                'collection_id' => $item->getCollectionId()->toString(),
                 'position' => $item->getPosition(),
                 'visible' => true,
                 'value' => $item->getValue(),

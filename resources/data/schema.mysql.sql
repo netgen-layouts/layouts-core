@@ -100,12 +100,14 @@ DROP TABLE IF EXISTS `nglayouts_collection`;
 CREATE TABLE `nglayouts_collection` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
+  `uuid` char(36) NOT NULL,
   `start` int(11) NOT NULL,
   `length` int(11) DEFAULT NULL,
   `translatable` tinyint(4) NOT NULL,
   `main_locale` varchar(191) NOT NULL,
   `always_available` tinyint(4) NOT NULL,
-  PRIMARY KEY (`id`,`status`)
+  PRIMARY KEY (`id`,`status`),
+  UNIQUE KEY `idx_ngl_collection_uuid` (`uuid`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

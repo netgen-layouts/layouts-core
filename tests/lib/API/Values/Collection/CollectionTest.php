@@ -11,6 +11,7 @@ use Netgen\Layouts\API\Values\Collection\ItemList;
 use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\API\Values\Value;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class CollectionTest extends TestCase
 {
@@ -57,9 +58,11 @@ final class CollectionTest extends TestCase
 
         $query = new Query();
 
+        $uuid = Uuid::uuid4();
+
         $collection = Collection::fromArray(
             [
-                'id' => 42,
+                'id' => $uuid,
                 'offset' => 5,
                 'limit' => 10,
                 'mainLocale' => 'en',
@@ -72,7 +75,7 @@ final class CollectionTest extends TestCase
             ]
         );
 
-        self::assertSame(42, $collection->getId());
+        self::assertSame($uuid->toString(), $collection->getId()->toString());
         self::assertSame(5, $collection->getOffset());
         self::assertSame(10, $collection->getLimit());
         self::assertSame('en', $collection->getMainLocale());
@@ -103,6 +106,7 @@ final class CollectionTest extends TestCase
     {
         $collection = Collection::fromArray(
             [
+                'id' => Uuid::uuid4(),
                 'offset' => 5,
             ]
         );
@@ -117,6 +121,7 @@ final class CollectionTest extends TestCase
     {
         $collection = Collection::fromArray(
             [
+                'id' => Uuid::uuid4(),
                 'items' => new ItemList([Item::fromArray(['position' => 0])]),
             ]
         );

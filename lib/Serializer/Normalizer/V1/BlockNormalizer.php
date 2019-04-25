@@ -85,7 +85,7 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
         foreach ($block->getCollections() as $identifier => $collection) {
             yield [
                 'identifier' => $identifier,
-                'collection_id' => $collection->getId(),
+                'collection_id' => $collection->getId()->toString(),
                 'collection_type' => $collection->hasQuery() ? Collection::TYPE_DYNAMIC : Collection::TYPE_MANUAL,
                 'offset' => $collection->getOffset(),
                 'limit' => $collection->getLimit(),

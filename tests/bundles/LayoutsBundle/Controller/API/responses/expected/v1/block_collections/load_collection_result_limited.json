@@ -2,7 +2,7 @@
     "items": [
         {
             "id": 10,
-            "collection_id": 4,
+            "collection_id": "08937ca0-18f4-5806-84df-8c132c36cabe",
             "position": 2,
             "type": 0,
             "visible": true,
@@ -14,7 +14,7 @@
         },
         {
             "id": 11,
-            "collection_id": 4,
+            "collection_id": "08937ca0-18f4-5806-84df-8c132c36cabe",
             "position": 3,
             "type": 0,
             "visible": true,

@@ -25,7 +25,7 @@ final class CollectionQueryNormalizer implements NormalizerInterface, Normalizer
 
         return [
             'id' => $query->getId(),
-            'collection_id' => $query->getCollectionId(),
+            'collection_id' => $query->getCollectionId()->toString(),
             'type' => $query->getQueryType()->getType(),
             'locale' => $query->getLocale(),
             'is_translatable' => $query->isTranslatable(),

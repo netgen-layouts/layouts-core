@@ -10,6 +10,7 @@ use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
 use Netgen\Layouts\Parameters\ParameterCollectionInterface;
 use Netgen\Layouts\Parameters\ParameterCollectionTrait;
 use Netgen\Layouts\Utils\HydratorTrait;
+use Ramsey\Uuid\UuidInterface;
 
 final class Query implements Value, ParameterCollectionInterface
 {
@@ -23,7 +24,7 @@ final class Query implements Value, ParameterCollectionInterface
     private $id;
 
     /**
-     * @var int|string
+     * @var \Ramsey\Uuid\UuidInterface
      */
     private $collectionId;
 
@@ -68,11 +69,9 @@ final class Query implements Value, ParameterCollectionInterface
     }
 
     /**
-     * Returns the ID of the collection to which this query belongs.
-     *
-     * @return int|string
+     * Returns the UUID of the collection to which this query belongs.
      */
-    public function getCollectionId()
+    public function getCollectionId(): UuidInterface
     {
         return $this->collectionId;
     }

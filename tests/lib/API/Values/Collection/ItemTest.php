@@ -11,6 +11,7 @@ use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Item\CmsItemInterface;
 use Netgen\Layouts\Item\NullCmsItem;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class ItemTest extends TestCase
 {
@@ -32,10 +33,12 @@ final class ItemTest extends TestCase
         $cmsItem = new CmsItem();
         $definition = new ItemDefinition();
 
+        $collectionUuid = Uuid::uuid4();
+
         $item = Item::fromArray(
             [
                 'id' => 42,
-                'collectionId' => 30,
+                'collectionId' => $collectionUuid,
                 'definition' => $definition,
                 'position' => 3,
                 'value' => 32,
@@ -46,7 +49,7 @@ final class ItemTest extends TestCase
         );
 
         self::assertSame(42, $item->getId());
-        self::assertSame(30, $item->getCollectionId());
+        self::assertSame($collectionUuid->toString(), $item->getCollectionId()->toString());
         self::assertSame($definition, $item->getDefinition());
         self::assertSame(3, $item->getPosition());
         self::assertSame(32, $item->getValue());
@@ -61,6 +64,7 @@ final class ItemTest extends TestCase
     {
         $item = Item::fromArray(
             [
+                'collectionId' => Uuid::uuid4(),
                 'definition' => new ItemDefinition(),
                 'cmsItem' => CmsItem::fromArray(['isVisible' => $cmsItemVisible]),
             ]
@@ -76,6 +80,7 @@ final class ItemTest extends TestCase
     {
         $item = Item::fromArray(
             [
+                'collectionId' => Uuid::uuid4(),
                 'cmsItem' => new NullCmsItem('value'),
             ]
         );
