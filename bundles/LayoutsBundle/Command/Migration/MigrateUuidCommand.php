@@ -88,11 +88,12 @@ final class MigrateUuidCommand extends Command
         }
 
         $this->updateLayouts();
-        $this->updateBlocks();
-        $this->updateRules();
-        $this->updateTargets();
-        $this->updateConditions();
-        $this->updateCollections();
+
+        $this->updateTable('nglayouts_block', self::NAMESPACE_BLOCK, 'blocks');
+        $this->updateTable('nglayouts_rule', self::NAMESPACE_RULE, 'rules');
+        $this->updateTable('nglayouts_rule_target', self::NAMESPACE_TARGET, 'targets');
+        $this->updateTable('nglayouts_rule_condition', self::NAMESPACE_CONDITION, 'conditions');
+        $this->updateTable('nglayouts_collection', self::NAMESPACE_COLLECTION, 'collections');
 
         $this->io->success('Generating UUIDs done.');
 
@@ -145,23 +146,23 @@ final class MigrateUuidCommand extends Command
         $this->io->writeln(['', '']);
     }
 
-    private function updateBlocks(): void
+    private function updateTable(string $tableName, string $uuidNamespace, string $entityName): void
     {
         $queryBuilder = $this->connection->createQueryBuilder();
         $queryBuilder->select('id, status')
-            ->from('nglayouts_block');
+            ->from($tableName);
 
         $data = $queryBuilder->execute()->fetchAll(PDO::FETCH_ASSOC);
 
-        $this->io->writeln(['Generating UUIDs for blocks...', '']);
+        $this->io->writeln([sprintf('Generating UUIDs for %s...', $entityName), '']);
         $progressBar = $this->io->createProgressBar(count($data));
 
-        foreach ($data as $blockData) {
-            $uuid = Uuid::uuid5(self::NAMESPACE_BLOCK, $blockData['id']);
+        foreach ($data as $dataItem) {
+            $uuid = Uuid::uuid5($uuidNamespace, $dataItem['id']);
 
             $queryBuilder = $this->connection->createQueryBuilder();
             $queryBuilder
-                ->update('nglayouts_block')
+                ->update($tableName)
                 ->set('uuid', ':uuid')
                 ->where(
                     $queryBuilder->expr()->andX(
@@ -169,152 +170,8 @@ final class MigrateUuidCommand extends Command
                         $queryBuilder->expr()->eq('status', ':status')
                     )
                 )
-                ->setParameter('id', $blockData['id'], Type::INTEGER)
-                ->setParameter('status', $blockData['status'], Type::INTEGER)
-                ->setParameter('uuid', $uuid->toString(), Type::STRING);
-
-            $queryBuilder->execute();
-
-            $progressBar->advance();
-        }
-
-        $this->io->writeln(['', '']);
-    }
-
-    private function updateRules(): void
-    {
-        $queryBuilder = $this->connection->createQueryBuilder();
-        $queryBuilder->select('id, status')
-            ->from('nglayouts_rule');
-
-        $data = $queryBuilder->execute()->fetchAll(PDO::FETCH_ASSOC);
-
-        $this->io->writeln(['Generating UUIDs for rules...', '']);
-        $progressBar = $this->io->createProgressBar(count($data));
-
-        foreach ($data as $ruleData) {
-            $uuid = Uuid::uuid5(self::NAMESPACE_RULE, $ruleData['id']);
-
-            $queryBuilder = $this->connection->createQueryBuilder();
-            $queryBuilder
-                ->update('nglayouts_rule')
-                ->set('uuid', ':uuid')
-                ->where(
-                    $queryBuilder->expr()->andX(
-                        $queryBuilder->expr()->eq('id', ':id'),
-                        $queryBuilder->expr()->eq('status', ':status')
-                    )
-                )
-                ->setParameter('id', $ruleData['id'], Type::INTEGER)
-                ->setParameter('status', $ruleData['status'], Type::INTEGER)
-                ->setParameter('uuid', $uuid->toString(), Type::STRING);
-
-            $queryBuilder->execute();
-
-            $progressBar->advance();
-        }
-
-        $this->io->writeln(['', '']);
-    }
-
-    private function updateTargets(): void
-    {
-        $queryBuilder = $this->connection->createQueryBuilder();
-        $queryBuilder->select('id, status')
-            ->from('nglayouts_rule_target');
-
-        $data = $queryBuilder->execute()->fetchAll(PDO::FETCH_ASSOC);
-
-        $this->io->writeln(['Generating UUIDs for targets...', '']);
-        $progressBar = $this->io->createProgressBar(count($data));
-
-        foreach ($data as $targetData) {
-            $uuid = Uuid::uuid5(self::NAMESPACE_TARGET, $targetData['id']);
-
-            $queryBuilder = $this->connection->createQueryBuilder();
-            $queryBuilder
-                ->update('nglayouts_rule_target')
-                ->set('uuid', ':uuid')
-                ->where(
-                    $queryBuilder->expr()->andX(
-                        $queryBuilder->expr()->eq('id', ':id'),
-                        $queryBuilder->expr()->eq('status', ':status')
-                    )
-                )
-                ->setParameter('id', $targetData['id'], Type::INTEGER)
-                ->setParameter('status', $targetData['status'], Type::INTEGER)
-                ->setParameter('uuid', $uuid->toString(), Type::STRING);
-
-            $queryBuilder->execute();
-
-            $progressBar->advance();
-        }
-
-        $this->io->writeln(['', '']);
-    }
-
-    private function updateConditions(): void
-    {
-        $queryBuilder = $this->connection->createQueryBuilder();
-        $queryBuilder->select('id, status')
-            ->from('nglayouts_rule_condition');
-
-        $data = $queryBuilder->execute()->fetchAll(PDO::FETCH_ASSOC);
-
-        $this->io->writeln(['Generating UUIDs for conditions...', '']);
-        $progressBar = $this->io->createProgressBar(count($data));
-
-        foreach ($data as $conditionData) {
-            $uuid = Uuid::uuid5(self::NAMESPACE_CONDITION, $conditionData['id']);
-
-            $queryBuilder = $this->connection->createQueryBuilder();
-            $queryBuilder
-                ->update('nglayouts_rule_condition')
-                ->set('uuid', ':uuid')
-                ->where(
-                    $queryBuilder->expr()->andX(
-                        $queryBuilder->expr()->eq('id', ':id'),
-                        $queryBuilder->expr()->eq('status', ':status')
-                    )
-                )
-                ->setParameter('id', $conditionData['id'], Type::INTEGER)
-                ->setParameter('status', $conditionData['status'], Type::INTEGER)
-                ->setParameter('uuid', $uuid->toString(), Type::STRING);
-
-            $queryBuilder->execute();
-
-            $progressBar->advance();
-        }
-
-        $this->io->writeln(['', '']);
-    }
-
-    private function updateCollections(): void
-    {
-        $queryBuilder = $this->connection->createQueryBuilder();
-        $queryBuilder->select('id, status')
-            ->from('nglayouts_collection');
-
-        $data = $queryBuilder->execute()->fetchAll(PDO::FETCH_ASSOC);
-
-        $this->io->writeln(['Generating UUIDs for collections...', '']);
-        $progressBar = $this->io->createProgressBar(count($data));
-
-        foreach ($data as $collectionData) {
-            $uuid = Uuid::uuid5(self::NAMESPACE_COLLECTION, $collectionData['id']);
-
-            $queryBuilder = $this->connection->createQueryBuilder();
-            $queryBuilder
-                ->update('nglayouts_collection')
-                ->set('uuid', ':uuid')
-                ->where(
-                    $queryBuilder->expr()->andX(
-                        $queryBuilder->expr()->eq('id', ':id'),
-                        $queryBuilder->expr()->eq('status', ':status')
-                    )
-                )
-                ->setParameter('id', $collectionData['id'], Type::INTEGER)
-                ->setParameter('status', $collectionData['status'], Type::INTEGER)
+                ->setParameter('id', $dataItem['id'], Type::INTEGER)
+                ->setParameter('status', $dataItem['status'], Type::INTEGER)
                 ->setParameter('uuid', $uuid->toString(), Type::STRING);
 
             $queryBuilder->execute();
