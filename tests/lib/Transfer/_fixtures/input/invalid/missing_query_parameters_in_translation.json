@@ -3,7 +3,7 @@
     "entities": [
         {
             "__type": "layout",
-            "id": "@uuid@",
+            "id": "22a6592a-afed-497c-a793-22a78ab168ea",
             "type_identifier": "4_zones_a",
             "name": "My layout",
             "description": "My layout description",
@@ -32,7 +32,7 @@
                     "linked_zone": null,
                     "blocks": [
                         {
-                            "id": "@uuid@",
+                            "id": "842c94cf-32ed-417b-bae6-9cc055c73cbf",
                             "definition_identifier": "list",
                             "is_translatable": true,
                             "is_always_available": true,
@@ -75,7 +75,7 @@
                             },
                             "collections": {
                                 "default": {
-                                    "id": "@uuid@",
+                                    "id": "2b34de33-9be1-4d4b-be24-cb901dfcdfb0",
                                     "offset": 0,
                                     "limit": null,
                                     "is_translatable": true,
@@ -87,7 +87,7 @@
                                     ],
                                     "items": [],
                                     "query": {
-                                        "id": "@uuid@",
+                                        "id": "8c2704d0-6a23-414d-b34e-b37e2698451f",
                                         "is_translatable": false,
                                         "is_always_available": true,
                                         "main_locale": "en",

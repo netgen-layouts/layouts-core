@@ -3,7 +3,7 @@
     "entities": [
         {
             "__type": "layout",
-            "id": "@uuid@",
+            "id": "fb232345-36dc-4afb-83c2-2ea7658e7751",
             "type_identifier": "4_zones_a",
             "name": "My layout",
             "description": "My layout description",
@@ -27,7 +27,7 @@
                     "linked_zone": null,
                     "blocks": [
                         {
-                            "id": "@uuid@",
+                            "id": "f5948e0a-f0c5-4cd6-a2c4-c0f47ffe6472",
                             "definition_identifier": "list",
                             "is_translatable": true,
                             "is_always_available": true,
@@ -77,7 +77,7 @@
                     "linked_zone": null,
                     "blocks": [
                         {
-                            "id": "@uuid@",
+                            "id": "81556439-9867-4015-8d5f-bbd705744a97",
                             "definition_identifier": "list",
                             "is_translatable": true,
                             "is_always_available": true,
@@ -120,7 +120,7 @@
                             },
                             "collections": {
                                 "default": {
-                                    "id": "@uuid@",
+                                    "id": "a2bf45a8-1139-430c-b772-8c1cd0069c61",
                                     "offset": 0,
                                     "limit": null,
                                     "is_translatable": true,
@@ -132,7 +132,7 @@
                                     ],
                                     "items": [
                                         {
-                                            "id": "@uuid@",
+                                            "id": "bd23d1f6-e15c-4f58-aef6-a2ea591835a3",
                                             "position": 1,
                                             "value": "72",
                                             "value_type": "my_value_type",
@@ -144,7 +144,7 @@
                                             }
                                         },
                                         {
-                                            "id": "@uuid@",
+                                            "id": "4f63f3ea-af72-4479-986d-d110b9e60da7",
                                             "position": 2,
                                             "value": "73",
                                             "value_type": "my_value_type",
@@ -156,7 +156,7 @@
                                             }
                                         },
                                         {
-                                            "id": "@uuid@",
+                                            "id": "3ed24050-dc40-4fc4-9edf-3db4ba2084d0",
                                             "position": 5,
                                             "value": "74",
                                             "value_type": "my_value_type",
@@ -169,7 +169,7 @@
                                         }
                                     ],
                                     "query": {
-                                        "id": "@uuid@",
+                                        "id": "926b6853-f18a-497e-bb65-82d712c2969c",
                                         "is_translatable": true,
                                         "is_always_available": true,
                                         "main_locale": "en",
@@ -191,7 +191,7 @@
                                     }
                                 },
                                 "featured": {
-                                    "id": "@uuid@",
+                                    "id": "689a21b3-e4b1-432c-b857-08d146bac43a",
                                     "offset": 4,
                                     "limit": 2,
                                     "is_translatable": true,
@@ -203,7 +203,7 @@
                                     ],
                                     "items": [
                                         {
-                                            "id": "@uuid@",
+                                            "id": "c5436bf5-406a-4063-b03d-6d126b125de1",
                                             "position": 2,
                                             "value": "72",
                                             "value_type": "my_value_type",
@@ -215,7 +215,7 @@
                                             }
                                         },
                                         {
-                                            "id": "@uuid@",
+                                            "id": "aa9ef972-7edf-4ade-931f-434e8aa267e4",
                                             "position": 3,
                                             "value": "73",
                                             "value_type": "my_value_type",
@@ -227,7 +227,7 @@
                                             }
                                         },
                                         {
-                                            "id": "@uuid@",
+                                            "id": "bc57c22d-999c-4199-b689-2c5b5e4b0fb7",
                                             "position": 5,
                                             "value": "74",
                                             "value_type": "my_value_type",
@@ -240,7 +240,7 @@
                                         }
                                     ],
                                     "query": {
-                                        "id": "@uuid@",
+                                        "id": "f21625c0-4f84-41b6-ae6f-21e259554f7e",
                                         "is_translatable": true,
                                         "is_always_available": true,
                                         "main_locale": "en",
@@ -264,7 +264,7 @@
                             }
                         },
                         {
-                            "id": "@uuid@",
+                            "id": "7fea06c6-3da9-4da7-886c-68c03594d6fa",
                             "definition_identifier": "list",
                             "is_translatable": false,
                             "is_always_available": true,
@@ -296,7 +296,7 @@
                             },
                             "collections": {
                                 "default": {
-                                    "id": "@uuid@",
+                                    "id": "c5e69f12-774d-4d42-86a3-a675cecba93d",
                                     "offset": 0,
                                     "limit": null,
                                     "is_translatable": false,
@@ -307,7 +307,7 @@
                                     ],
                                     "items": [
                                         {
-                                            "id": "@uuid@",
+                                            "id": "21feb8a3-8392-40b9-9e32-8669ebf80cab",
                                             "position": 2,
                                             "value": "72",
                                             "value_type": "my_value_type",
@@ -319,7 +319,7 @@
                                             }
                                         },
                                         {
-                                            "id": "@uuid@",
+                                            "id": "e2f00f91-f893-4e33-895c-6b6b684bdce9",
                                             "position": 3,
                                             "value": "73",
                                             "value_type": "my_value_type",
@@ -331,7 +331,7 @@
                                             }
                                         },
                                         {
-                                            "id": "@uuid@",
+                                            "id": "728fe4a2-04c3-43c5-ba9f-544099813ccf",
                                             "position": 5,
                                             "value": "74",
                                             "value_type": "my_value_type",
@@ -344,7 +344,7 @@
                                         }
                                     ],
                                     "query": {
-                                        "id": "@uuid@",
+                                        "id": "5b30cc53-09e3-4df3-94bd-73d702de96fb",
                                         "is_translatable": false,
                                         "is_always_available": true,
                                         "main_locale": "en",
@@ -373,7 +373,7 @@
         },
         {
             "__type": "layout",
-            "id": "@uuid@",
+            "id": "505e4f35-dbf4-4fcd-bd01-dee758ea0313",
             "type_identifier": "4_zones_b",
             "name": "My other layout",
             "description": "My other layout description",
@@ -396,7 +396,7 @@
                     "linked_zone": null,
                     "blocks": [
                         {
-                            "id": "@uuid@",
+                            "id": "f2cfe10d-f0b3-47ab-81c7-27b10d32db72",
                             "definition_identifier": "title",
                             "is_translatable": false,
                             "is_always_available": true,
@@ -439,7 +439,7 @@
                     "linked_zone": null,
                     "blocks": [
                         {
-                            "id": "@uuid@",
+                            "id": "bb26b64f-41f6-45e3-ab6a-430052dea5cc",
                             "definition_identifier": "two_columns",
                             "is_translatable": true,
                             "is_always_available": true,
@@ -455,7 +455,7 @@
                                     "identifier": "left",
                                     "blocks": [
                                         {
-                                            "id": "@uuid@",
+                                            "id": "34840a8c-532b-4b54-90d4-3617f0a8713c",
                                             "definition_identifier": "text",
                                             "is_translatable": false,
                                             "is_always_available": true,
@@ -483,7 +483,7 @@
                                             },
                                             "collections": {
                                                 "default": {
-                                                    "id": "@uuid@",
+                                                    "id": "de361eb0-08c9-4de1-82e2-d61679d068b8",
                                                     "offset": 0,
                                                     "limit": 5,
                                                     "is_translatable": false,
@@ -533,7 +533,7 @@
         },
         {
             "__type": "layout",
-            "id": "@uuid@",
+            "id": "50f741a2-8ae2-4a3d-9533-3ff62ca99424",
             "type_identifier": "4_zones_b",
             "name": "My third layout",
             "description": "My third layout description",
@@ -570,7 +570,7 @@
         },
         {
             "__type": "layout",
-            "id": "@uuid@",
+            "id": "0d185e89-04e9-40ca-a76e-f106dea11c24",
             "type_identifier": "4_zones_b",
             "name": "My fifth layout",
             "description": "My fifth layout description",
@@ -607,7 +607,7 @@
         },
         {
             "__type": "layout",
-            "id": "@uuid@",
+            "id": "0bd1c99a-29f1-4762-85d6-187c423e6a91",
             "type_identifier": "4_zones_b",
             "name": "My sixth layout",
             "description": "My sixth layout description",

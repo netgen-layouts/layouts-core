@@ -127,7 +127,7 @@ abstract class ImporterTest extends CoreTestCase
     public function testImportData(): void
     {
         $importData = (string) file_get_contents(__DIR__ . '/../../_fixtures/input/layouts.json');
-        $decodedData = json_decode($importData, true);
+        $decodedData = json_decode(preg_replace('/[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}/', '@uuid@', $importData), true);
 
         foreach ($this->importer->importData($importData) as $index => $result) {
             self::assertInstanceOf(SuccessResult::class, $result);
