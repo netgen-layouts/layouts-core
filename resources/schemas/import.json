@@ -26,11 +26,12 @@
     },
     "definitions": {
         "simple": {
-            "unique_id": {
-                "type": ["integer", "string"],
-                "description": "A definition representing a unique database ID",
-                "minimum": 1,
-                "minLength": 1
+            "uuid": {
+                "type": "string",
+                "format": "uuid",
+                "description": "A definition representing a unique entity ID (UUID)",
+                "minLength": 36,
+                "maxLength": 36
             },
             "identifier": {
                 "type": "string",
@@ -98,8 +99,8 @@
                         "const": "layout"
                     },
                     "id": {
-                        "$ref": "#/definitions/simple/unique_id",
-                        "description": "The ID of the layout"
+                        "$ref": "#/definitions/simple/uuid",
+                        "description": "The UUID of the layout"
                     },
                     "status": {
                         "type": "string",
@@ -187,8 +188,8 @@
                         "description": "The identifier of the linked zone"
                     },
                     "layout_id": {
-                        "$ref": "#/definitions/simple/unique_id",
-                        "description": "The layout ID of the linked zone"
+                        "$ref": "#/definitions/simple/uuid",
+                        "description": "The layout UUID of the linked zone"
                     }
                 }
             },
@@ -199,8 +200,8 @@
                 "additionalProperties": false,
                 "properties": {
                     "id": {
-                        "$ref": "#/definitions/simple/unique_id",
-                        "description": "The ID of the block"
+                        "$ref": "#/definitions/simple/uuid",
+                        "description": "The UUID of the block"
                     },
                     "definition_identifier": {
                         "$ref": "#/definitions/simple/identifier",
@@ -304,8 +305,8 @@
                 "additionalProperties": false,
                 "properties": {
                     "id": {
-                        "$ref": "#/definitions/simple/unique_id",
-                        "description": "The ID of the collection"
+                        "$ref": "#/definitions/simple/uuid",
+                        "description": "The UUID of the collection"
                     },
                     "offset": {
                         "type": "integer",
@@ -355,8 +356,8 @@
                 "additionalProperties": false,
                 "properties": {
                     "id": {
-                        "$ref": "#/definitions/simple/unique_id",
-                        "description": "The ID of the collection item"
+                        "$ref": "#/definitions/simple/uuid",
+                        "description": "The UUID of the collection item"
                     },
                     "position": {
                         "type": "integer",
@@ -394,8 +395,8 @@
                 "additionalProperties": false,
                 "properties": {
                     "id": {
-                        "$ref": "#/definitions/simple/unique_id",
-                        "description": "The ID of the collection query"
+                        "$ref": "#/definitions/simple/uuid",
+                        "description": "The UUID of the collection query"
                     },
                     "query_type": {
                         "$ref": "#/definitions/simple/identifier",
