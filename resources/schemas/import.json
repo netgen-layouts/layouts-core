@@ -30,8 +30,7 @@
                 "type": "string",
                 "format": "uuid",
                 "description": "A definition representing a unique entity ID (UUID)",
-                "minLength": 36,
-                "maxLength": 36
+                "pattern": "^[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}$"
             },
             "identifier": {
                 "type": "string",
