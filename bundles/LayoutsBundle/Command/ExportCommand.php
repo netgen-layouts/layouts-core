@@ -40,7 +40,7 @@ final class ExportCommand extends Command
         $this
             ->setDescription('Exports Netgen Layouts entities')
             ->addArgument('type', InputArgument::REQUIRED, 'Type of the entity to export')
-            ->addArgument('ids', InputArgument::REQUIRED, 'Comma-separated list of IDs of the entities to export')
+            ->addArgument('ids', InputArgument::REQUIRED, 'Comma-separated list of UUIDs of the entities to export')
             ->setHelp('The command <info>%command.name%</info> exports Netgen Layouts entities.');
     }
 

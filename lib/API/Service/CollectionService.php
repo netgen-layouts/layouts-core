@@ -29,7 +29,7 @@ interface CollectionService extends Service
      * set to true, collection in main locale will be returned if none of the
      * locales in $locales array are found.
      *
-     * @throws \Netgen\Layouts\Exception\NotFoundException If collection with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If collection with specified UUID does not exist
      */
     public function loadCollection(UuidInterface $collectionId, ?array $locales = null, bool $useMainLocale = true): Collection;
 
@@ -43,7 +43,7 @@ interface CollectionService extends Service
      * set to true, collection in main locale will be returned if none of the
      * locales in $locales array are found.
      *
-     * @throws \Netgen\Layouts\Exception\NotFoundException If collection with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If collection with specified UUID does not exist
      */
     public function loadCollectionDraft(UuidInterface $collectionId, ?array $locales = null, bool $useMainLocale = true): Collection;
 
@@ -57,14 +57,14 @@ interface CollectionService extends Service
     /**
      * Loads an item with specified UUID.
      *
-     * @throws \Netgen\Layouts\Exception\NotFoundException If item with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If item with specified UUID does not exist
      */
     public function loadItem(UuidInterface $itemId): Item;
 
     /**
      * Loads an item draft with specified UUID.
      *
-     * @throws \Netgen\Layouts\Exception\NotFoundException If item with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If item with specified UUID does not exist
      */
     public function loadItemDraft(UuidInterface $itemId): Item;
 
@@ -78,7 +78,7 @@ interface CollectionService extends Service
      * set to true, query in main locale will be returned if none of the
      * locales in $locales array are found.
      *
-     * @throws \Netgen\Layouts\Exception\NotFoundException If query with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If query with specified UUID does not exist
      */
     public function loadQuery(UuidInterface $queryId, ?array $locales = null, bool $useMainLocale = true): Query;
 
@@ -92,7 +92,7 @@ interface CollectionService extends Service
      * set to true, query in main locale will be returned if none of the
      * locales in $locales array are found.
      *
-     * @throws \Netgen\Layouts\Exception\NotFoundException If query with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If query with specified UUID does not exist
      */
     public function loadQueryDraft(UuidInterface $queryId, ?array $locales = null, bool $useMainLocale = true): Query;
 

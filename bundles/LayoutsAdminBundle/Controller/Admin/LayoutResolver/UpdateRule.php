@@ -56,7 +56,7 @@ final class UpdateRule extends AbstractController
                 throw new BadStateException(
                     'layout_id',
                     sprintf(
-                        'Layout with ID "%s" does not exist.',
+                        'Layout with UUID "%s" does not exist.',
                         $layoutId
                     ),
                     $e

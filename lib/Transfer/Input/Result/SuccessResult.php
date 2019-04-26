@@ -48,7 +48,7 @@ final class SuccessResult implements ResultInterface
     }
 
     /**
-     * Returns the ID of the entity which was imported.
+     * Returns the UUID of the entity which was imported.
      */
     public function getEntityId(): UuidInterface
     {

@@ -17,8 +17,6 @@ final class LayoutQueryHandler extends QueryHandler
     /**
      * Loads all data for layout with specified ID.
      *
-     * Layout ID can be an auto-incremented ID or an UUID.
-     *
      * @param int|string $layoutId
      * @param int $status
      *
@@ -88,7 +86,7 @@ final class LayoutQueryHandler extends QueryHandler
     }
 
     /**
-     * Loads all layout IDs for provided parameters. If $includeDrafts is set to true, drafts which have no
+     * Loads the layout count for provided parameters. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
      */
     public function getLayoutsCount(bool $includeDrafts, ?bool $shared = null): int
@@ -247,8 +245,6 @@ final class LayoutQueryHandler extends QueryHandler
     /**
      * Loads all zone data with provided identifier.
      *
-     * Layout ID can be an auto-incremented ID or an UUID.
-     *
      * @param int|string $layoutId
      * @param int $status
      * @param string $identifier
@@ -289,8 +285,6 @@ final class LayoutQueryHandler extends QueryHandler
     /**
      * Returns if the layout exists.
      *
-     * Layout ID can be an auto-incremented ID or an UUID.
-     *
      * @param int|string $layoutId
      * @param int $status
      *
@@ -312,8 +306,6 @@ final class LayoutQueryHandler extends QueryHandler
 
     /**
      * Returns if the layout with provided name exists.
-     *
-     * Excluded layout ID can be an auto-incremented ID or an UUID.
      *
      * @param string $name
      * @param int|string|null $excludedLayoutId

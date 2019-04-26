@@ -493,7 +493,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
             throw new BadStateException(
                 'rule',
                 sprintf(
-                    'Rule with ID "%s" only accepts targets with "%s" target type.',
+                    'Rule with UUID "%s" only accepts targets with "%s" target type.',
                     $rule->getId()->toString(),
                     $ruleTargets[0]->type
                 )

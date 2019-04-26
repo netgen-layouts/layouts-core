@@ -68,7 +68,11 @@ final class Serializer implements SerializerInterface
     }
 
     /**
-     * Loads the layouts for provided IDs.
+     * Loads the layouts for provided UUIDs.
+     *
+     * @param string[] $layoutIds
+     *
+     * @return \Generator
      */
     private function loadLayouts(array $layoutIds): Generator
     {
@@ -82,7 +86,11 @@ final class Serializer implements SerializerInterface
     }
 
     /**
-     * Loads the rules for provided IDs.
+     * Loads the rules for provided UUIDs.
+     *
+     * @param string[] $ruleIds
+     *
+     * @return \Generator
      */
     private function loadRules(array $ruleIds): Generator
     {

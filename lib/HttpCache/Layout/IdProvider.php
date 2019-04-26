@@ -9,10 +9,10 @@ use Netgen\Layouts\Exception\NotFoundException;
 use Ramsey\Uuid\Uuid;
 
 /**
- * Extracts all relevant IDs for a given layout.
+ * Extracts all relevant UUIDs for a given layout.
  *
- * 1) If layout is shared, its ID and IDs of all reverse related layouts is returned.
- * 2) Otherwise, only the provided layout ID is returned.
+ * 1) If layout is shared, its UUID and UUIDs of all reverse related layouts is returned.
+ * 2) Otherwise, only the provided layout UUID is returned.
  */
 final class IdProvider implements IdProviderInterface
 {

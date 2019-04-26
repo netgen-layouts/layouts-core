@@ -23,21 +23,21 @@ interface LayoutResolverService extends Service
     /**
      * Loads a rule by its' UUID.
      *
-     * @throws \Netgen\Layouts\Exception\NotFoundException If rule with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If rule with specified UUID does not exist
      */
     public function loadRule(UuidInterface $ruleId): Rule;
 
     /**
      * Loads a rule draft by its' UUID.
      *
-     * @throws \Netgen\Layouts\Exception\NotFoundException If rule with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If rule with specified UUID does not exist
      */
     public function loadRuleDraft(UuidInterface $ruleId): Rule;
 
     /**
      * Loads a rule archive by its' UUID.
      *
-     * @throws \Netgen\Layouts\Exception\NotFoundException If rule with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If rule with specified UUID does not exist
      */
     public function loadRuleArchive(UuidInterface $ruleId): Rule;
 
@@ -72,28 +72,28 @@ interface LayoutResolverService extends Service
     /**
      * Loads a target by its' UUID.
      *
-     * @throws \Netgen\Layouts\Exception\NotFoundException If target with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If target with specified UUID does not exist
      */
     public function loadTarget(UuidInterface $targetId): Target;
 
     /**
      * Loads a target draft by its' UUID.
      *
-     * @throws \Netgen\Layouts\Exception\NotFoundException If target with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If target with specified UUID does not exist
      */
     public function loadTargetDraft(UuidInterface $targetId): Target;
 
     /**
      * Loads a condition by its' UUID.
      *
-     * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified UUID does not exist
      */
     public function loadCondition(UuidInterface $conditionId): Condition;
 
     /**
      * Loads a condition draft by its' UUID.
      *
-     * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified ID does not exist
+     * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified UUID does not exist
      */
     public function loadConditionDraft(UuidInterface $conditionId): Condition;
 

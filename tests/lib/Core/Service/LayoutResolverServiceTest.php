@@ -672,7 +672,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     public function testAddTargetOfDifferentKindThrowsBadStateException(): void
     {
         $this->expectException(BadStateException::class);
-        $this->expectExceptionMessage('Argument "rule" has an invalid state. Rule with ID "de086bdf-0014-5f4f-89e4-fc0aff21da90" only accepts targets with "route_prefix" target type.');
+        $this->expectExceptionMessage('Argument "rule" has an invalid state. Rule with UUID "de086bdf-0014-5f4f-89e4-fc0aff21da90" only accepts targets with "route_prefix" target type.');
 
         $targetCreateStruct = $this->layoutResolverService->newTargetCreateStruct(
             'route'

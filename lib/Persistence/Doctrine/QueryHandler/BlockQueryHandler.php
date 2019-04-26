@@ -335,7 +335,7 @@ final class BlockQueryHandler extends QueryHandler
 
     /**
      * Moves a block. If the target block is not provided, the block is only moved within its
-     * current parent ID and placeholder.
+     * current parent block and placeholder.
      */
     public function moveBlock(Block $block, Block $targetBlock, string $placeholder, int $position): void
     {

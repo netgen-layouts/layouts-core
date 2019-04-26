@@ -75,7 +75,7 @@ final class ImportCommand extends Command
             if ($result instanceof SuccessResult) {
                 $this->io->note(
                     sprintf(
-                        'Imported %1$s #%2$d into %1$s ID %3$s',
+                        'Imported %1$s #%2$d into %1$s UUID %3$s',
                         $result->getEntityType(),
                         $index + 1,
                         $result->getEntityId()->toString()
