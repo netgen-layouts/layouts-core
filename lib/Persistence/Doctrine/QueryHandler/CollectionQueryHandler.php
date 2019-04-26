@@ -383,11 +383,8 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Deletes an item.
-     *
-     * @param int|string $itemId
-     * @param int $status
      */
-    public function deleteItem($itemId, int $status): void
+    public function deleteItem(int $itemId, int $status): void
     {
         $query = $this->connection->createQueryBuilder();
 

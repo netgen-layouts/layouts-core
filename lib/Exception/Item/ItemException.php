@@ -20,7 +20,7 @@ final class ItemException extends InvalidArgumentException implements Exception
     }
 
     /**
-     * @param string|int $value
+     * @param int|string $value
      *
      * @return \Netgen\Layouts\Exception\Item\ItemException
      */
@@ -35,7 +35,7 @@ final class ItemException extends InvalidArgumentException implements Exception
     }
 
     /**
-     * @param string|int $value
+     * @param int|string $value
      *
      * @return \Netgen\Layouts\Exception\Item\ItemException
      */

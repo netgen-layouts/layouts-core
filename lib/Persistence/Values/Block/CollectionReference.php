@@ -13,7 +13,7 @@ final class CollectionReference
     /**
      * Block ID.
      *
-     * @var int|string
+     * @var int
      */
     public $blockId;
 
@@ -27,7 +27,7 @@ final class CollectionReference
     /**
      * Collection ID.
      *
-     * @var int|string
+     * @var int
      */
     public $collectionId;
 

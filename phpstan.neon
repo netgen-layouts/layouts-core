@@ -34,7 +34,7 @@ parameters:
         - '#Call to an undefined method Netgen\\Layouts\\Block\\BlockDefinition\\BlockDefinitionHandlerInterface::getPlaceholderIdentifiers\(\).#'
         - '#Call to an undefined method Netgen\\Layouts\\Block\\BlockDefinition\\BlockDefinitionHandlerInterface::getTwigBlockName\(\).#'
         - '#Parameter \#2 \$value of class Symfony\\Component\\Security\\Csrf\\CsrfToken constructor expects string\|null, array<string>\|string\|null given.#'
-        - '#Property Netgen\\Layouts\\Persistence\\Values\\.+::\$\w+ \(int(\|string)?\) does not accept null.#'
+        - '#Property Netgen\\Layouts\\Persistence\\Values\\.+::\$\w+ \(int\) does not accept null.#'
         -
             message: '#Else branch is unreachable because ternary operator condition is always true.#'
             path: lib/Core/Validator/LayoutValidator.php

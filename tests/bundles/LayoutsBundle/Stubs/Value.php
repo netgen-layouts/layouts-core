@@ -14,7 +14,7 @@ final class Value implements APIValue
     use ValueStatusTrait;
 
     /**
-     * @var int|string
+     * @var string
      */
     private $id;
 
@@ -23,10 +23,7 @@ final class Value implements APIValue
      */
     private $locale;
 
-    /**
-     * @return int|string
-     */
-    public function getId()
+    public function getId(): string
     {
         return $this->id;
     }

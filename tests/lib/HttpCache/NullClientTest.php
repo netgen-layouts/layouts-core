@@ -47,7 +47,7 @@ final class NullClientTest extends TestCase
      */
     public function testInvalidateBlocks(): void
     {
-        $this->client->invalidateBlocks([24, 42]);
+        $this->client->invalidateBlocks([Uuid::uuid4()->toString(), Uuid::uuid4()->toString()]);
 
         // We fake the assertion count to disable risky warning
         $this->addToAssertionCount(1);

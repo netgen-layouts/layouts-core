@@ -647,13 +647,8 @@ final class CollectionHandler implements CollectionHandlerInterface
 
     /**
      * Builds the condition array that will be used with position helper and items in collections.
-     *
-     * @param int|string $collectionId
-     * @param int $status
-     *
-     * @return array<string, mixed>
      */
-    private function getPositionHelperItemConditions($collectionId, int $status): array
+    private function getPositionHelperItemConditions(int $collectionId, int $status): array
     {
         return [
             'table' => 'nglayouts_collection_item',

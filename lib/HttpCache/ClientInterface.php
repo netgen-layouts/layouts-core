@@ -21,7 +21,7 @@ interface ClientInterface
     /**
      * Invalidates all provided blocks.
      *
-     * @param int[]|string[] $blockIds
+     * @param string[] $blockIds
      */
     public function invalidateBlocks(array $blockIds): void;
 

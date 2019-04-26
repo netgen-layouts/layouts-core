@@ -140,11 +140,6 @@ final class LayoutQueryHandler extends QueryHandler
     /**
      * Loads all data for layouts with provided IDs. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
-     *
-     * @param int[] $layoutIds
-     * @param bool $includeDrafts
-     *
-     * @return array
      */
     public function loadLayoutsData(array $layoutIds, bool $includeDrafts): array
     {

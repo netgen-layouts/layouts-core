@@ -126,18 +126,21 @@ final class VarnishClientTest extends TestCase
      */
     public function testInvalidateBlocks(): void
     {
+        $uuid1 = Uuid::uuid4();
+        $uuid2 = Uuid::uuid4();
+
         $this->fosInvalidatorMock
             ->expects(self::once())
             ->method('invalidate')
             ->with(
                 self::identicalTo(
                     [
-                        'X-Block-Id' => '^(24|42)$',
+                        'X-Block-Id' => sprintf('^(%s|%s)$', $uuid1->toString(), $uuid2->toString()),
                     ]
                 )
             );
 
-        $this->client->invalidateBlocks([24, 42]);
+        $this->client->invalidateBlocks([$uuid1->toString(), $uuid2->toString()]);
     }
 
     /**

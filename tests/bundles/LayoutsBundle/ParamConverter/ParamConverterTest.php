@@ -29,7 +29,7 @@ final class ParamConverterTest extends TestCase
     public function testApply(): void
     {
         $request = Request::create('/');
-        $request->attributes->set('id', '42');
+        $request->attributes->set('id', 'f06f245a-f951-52c8-bfa3-84c80154eadc');
         $configuration = new ParamConverterConfiguration([]);
         $configuration->setClass(Value::class);
 
@@ -39,7 +39,7 @@ final class ParamConverterTest extends TestCase
         $value = $request->attributes->get('value');
 
         self::assertInstanceOf(Value::class, $value);
-        self::assertSame('42', $value->getId());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $value->getId());
         self::assertSame(Value::STATUS_DRAFT, $value->getStatus());
     }
 
@@ -49,7 +49,7 @@ final class ParamConverterTest extends TestCase
     public function testApplyWithLocale(): void
     {
         $request = Request::create('/');
-        $request->attributes->set('id', '42');
+        $request->attributes->set('id', 'f06f245a-f951-52c8-bfa3-84c80154eadc');
         $request->attributes->set('locale', 'en');
         $configuration = new ParamConverterConfiguration([]);
         $configuration->setClass(Value::class);
@@ -60,7 +60,7 @@ final class ParamConverterTest extends TestCase
         $value = $request->attributes->get('value');
 
         self::assertInstanceOf(Value::class, $value);
-        self::assertSame('42', $value->getId());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $value->getId());
         self::assertSame('en', $value->getLocale());
         self::assertSame(Value::STATUS_DRAFT, $value->getStatus());
     }
@@ -71,7 +71,7 @@ final class ParamConverterTest extends TestCase
     public function testApplyWithPublishedRouteStatusParam(): void
     {
         $request = Request::create('/');
-        $request->attributes->set('id', '42');
+        $request->attributes->set('id', 'f06f245a-f951-52c8-bfa3-84c80154eadc');
         $request->attributes->set('_nglayouts_status', 'published');
         $configuration = new ParamConverterConfiguration([]);
         $configuration->setClass(Value::class);
@@ -82,7 +82,7 @@ final class ParamConverterTest extends TestCase
         $value = $request->attributes->get('value');
 
         self::assertInstanceOf(Value::class, $value);
-        self::assertSame('42', $value->getId());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $value->getId());
         self::assertSame(Value::STATUS_PUBLISHED, $value->getStatus());
     }
 
@@ -92,7 +92,7 @@ final class ParamConverterTest extends TestCase
     public function testApplyWithArchivedRouteStatusParam(): void
     {
         $request = Request::create('/');
-        $request->attributes->set('id', '42');
+        $request->attributes->set('id', 'f06f245a-f951-52c8-bfa3-84c80154eadc');
         $request->attributes->set('_nglayouts_status', 'archived');
         $configuration = new ParamConverterConfiguration([]);
         $configuration->setClass(Value::class);
@@ -103,7 +103,7 @@ final class ParamConverterTest extends TestCase
         $value = $request->attributes->get('value');
 
         self::assertInstanceOf(Value::class, $value);
-        self::assertSame('42', $value->getId());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $value->getId());
         self::assertSame(Value::STATUS_ARCHIVED, $value->getStatus());
     }
 
@@ -113,7 +113,7 @@ final class ParamConverterTest extends TestCase
     public function testApplyWithDraftRouteStatusParam(): void
     {
         $request = Request::create('/');
-        $request->attributes->set('id', '42');
+        $request->attributes->set('id', 'f06f245a-f951-52c8-bfa3-84c80154eadc');
         $request->attributes->set('_nglayouts_status', 'draft');
         $configuration = new ParamConverterConfiguration([]);
         $configuration->setClass(Value::class);
@@ -124,7 +124,7 @@ final class ParamConverterTest extends TestCase
         $value = $request->attributes->get('value');
 
         self::assertInstanceOf(Value::class, $value);
-        self::assertSame('42', $value->getId());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $value->getId());
         self::assertSame(Value::STATUS_DRAFT, $value->getStatus());
     }
 
@@ -134,7 +134,7 @@ final class ParamConverterTest extends TestCase
     public function testApplyWithPublishedQueryStatusParam(): void
     {
         $request = Request::create('/');
-        $request->attributes->set('id', '42');
+        $request->attributes->set('id', 'f06f245a-f951-52c8-bfa3-84c80154eadc');
         $request->query->set('published', 'true');
         $configuration = new ParamConverterConfiguration([]);
         $configuration->setClass(Value::class);
@@ -145,7 +145,7 @@ final class ParamConverterTest extends TestCase
         $value = $request->attributes->get('value');
 
         self::assertInstanceOf(Value::class, $value);
-        self::assertSame('42', $value->getId());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $value->getId());
         self::assertSame(Value::STATUS_PUBLISHED, $value->getStatus());
     }
 
@@ -155,7 +155,7 @@ final class ParamConverterTest extends TestCase
     public function testApplyWithDraftQueryStatusParam(): void
     {
         $request = Request::create('/');
-        $request->attributes->set('id', '42');
+        $request->attributes->set('id', 'f06f245a-f951-52c8-bfa3-84c80154eadc');
         $request->query->set('published', 'false');
         $configuration = new ParamConverterConfiguration([]);
         $configuration->setClass(Value::class);
@@ -166,7 +166,7 @@ final class ParamConverterTest extends TestCase
         $value = $request->attributes->get('value');
 
         self::assertInstanceOf(Value::class, $value);
-        self::assertSame('42', $value->getId());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $value->getId());
         self::assertSame(Value::STATUS_DRAFT, $value->getStatus());
     }
 
