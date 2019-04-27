@@ -85,7 +85,8 @@ final class BlockHandler implements BlockHandlerInterface
 
     public function loadZoneBlocks(Zone $zone): array
     {
-        $data = $this->queryHandler->loadZoneBlocksData($zone);
+        $rootBlock = $this->loadBlock($zone->rootBlockId, $zone->status);
+        $data = $this->queryHandler->loadAllChildBlocksData($rootBlock);
 
         return $this->blockMapper->mapBlocks($data, $zone->layoutUuid);
     }
@@ -127,6 +128,7 @@ final class BlockHandler implements BlockHandlerInterface
                 'depth' => $targetBlock !== null ? $targetBlock->depth + 1 : 0,
                 'path' => $targetBlock !== null ? $targetBlock->path : '/',
                 'parentId' => $targetBlock !== null ? $targetBlock->id : null,
+                'parentUuid' => $targetBlock !== null ? $targetBlock->uuid : null,
                 'placeholder' => $targetBlock !== null ? $placeholder : null,
                 'layoutId' => $layout->id,
                 'layoutUuid' => $layout->uuid,
@@ -323,6 +325,7 @@ final class BlockHandler implements BlockHandlerInterface
         // Full path is updated after we get the block ID.
         $newBlock->path = $targetBlock->path;
         $newBlock->parentId = $targetBlock->id;
+        $newBlock->parentUuid = $targetBlock->uuid;
         $newBlock->placeholder = $placeholder;
 
         $newBlock->position = $this->positionHelper->createPosition(
@@ -443,6 +446,7 @@ final class BlockHandler implements BlockHandlerInterface
         $newBlock->layoutUuid = $block->layoutUuid;
         $newBlock->position = $block->position;
         $newBlock->parentId = $block->parentId;
+        $newBlock->parentUuid = $block->parentUuid;
         $newBlock->path = $block->path;
         $newBlock->depth = $block->depth;
 
@@ -588,14 +592,8 @@ final class BlockHandler implements BlockHandlerInterface
 
     /**
      * Builds the condition array that will be used with position helper.
-     *
-     * @param int|string $parentId
-     * @param int $status
-     * @param string $placeholder
-     *
-     * @return array<string, mixed>
      */
-    private function getPositionHelperConditions($parentId, int $status, string $placeholder): array
+    private function getPositionHelperConditions(int $parentId, int $status, string $placeholder): array
     {
         return [
             'table' => 'nglayouts_block',

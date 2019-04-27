@@ -56,9 +56,16 @@ final class Block extends Value
     /**
      * ID of the parent block or null if block has no parent.
      *
-     * @var int|string|null
+     * @var int|null
      */
     public $parentId;
+
+    /**
+     * UUID of the parent block or null if block has no parent.
+     *
+     * @var string|null
+     */
+    public $parentUuid;
 
     /**
      * Placeholder to which this block belongs in the parent block or null if block has no parent.

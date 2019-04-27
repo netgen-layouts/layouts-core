@@ -10,7 +10,6 @@ use Doctrine\DBAL\Types\Type;
 use Netgen\Layouts\Persistence\Values\Block\Block;
 use Netgen\Layouts\Persistence\Values\Block\CollectionReference;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
-use Netgen\Layouts\Persistence\Values\Layout\Zone;
 use PDO;
 
 final class BlockQueryHandler extends QueryHandler
@@ -30,7 +29,50 @@ final class BlockQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $blockId, 'b.id', 'b.uuid');
         $this->applyStatusCondition($query, $status, 'b.status');
 
-        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        $blocksData = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+
+        if (count($blocksData) > 0 && $blocksData[0]['parent_id'] > 0) {
+            $parentUuid = $this->getBlockUuid((int) $blocksData[0]['parent_id']);
+            if ($parentUuid === null) {
+                // Having a parent ID, but not being able to find the UUID should not happen.
+                // If it does, return any empty array as if the block with provided ID and status
+                // does not exist.
+                return [];
+            }
+
+            foreach ($blocksData as &$blockData) {
+                $blockData['parent_uuid'] = $parentUuid;
+            }
+        }
+
+        return $blocksData;
+    }
+
+    /**
+     * Returns the block UUID for provided block ID.
+     *
+     * If block with provided ID does not exist, null is returned.
+     */
+    public function getBlockUuid(int $blockId): ?string
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        $query->select('b.uuid')
+            ->from('nglayouts_block', 'b')
+            ->where(
+                $query->expr()->eq('b.id', ':id')
+            )
+            ->setParameter('id', $blockId, Type::INTEGER);
+
+        $this->applyOffsetAndLimit($query, 0, 1);
+
+        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+
+        if (count($data) === 0) {
+            return null;
+        }
+
+        return $data[0]['uuid'];
     }
 
     /**
@@ -70,27 +112,59 @@ final class BlockQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $layout->status, 'b.status');
 
-        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        $blocksData = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+
+        $idToUuidMap = [];
+
+        foreach ($blocksData as $blockData) {
+            $idToUuidMap[(int) $blockData['id']] = $blockData['uuid'];
+        }
+
+        foreach ($blocksData as &$blockData) {
+            $parentId = $blockData['parent_id'] > 0 ? (int) $blockData['parent_id'] : null;
+            $parentUuid = $parentId !== null ? ($idToUuidMap[$parentId] ?? null) : null;
+            $blockData['parent_uuid'] = $parentUuid;
+        }
+
+        return $blocksData;
     }
 
     /**
-     * Loads all zone block data.
+     * Loads all child block data from specified block.
+     *
+     * This method returns the complete tree of blocks under the specified block.
      */
-    public function loadZoneBlocksData(Zone $zone): array
+    public function loadAllChildBlocksData(Block $block): array
     {
         $query = $this->getBlockSelectQuery();
         $query->where(
             $query->expr()->like('b.path', ':path')
         )
-        ->setParameter('path', '%/' . $zone->rootBlockId . '/%', Type::STRING);
+        ->setParameter('path', '%/' . $block->id . '/%', Type::STRING);
 
-        $this->applyStatusCondition($query, $zone->status, 'b.status');
+        $this->applyStatusCondition($query, $block->status, 'b.status');
 
-        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        $blocksData = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+
+        $idToUuidMap = [$block->id => $block->uuid];
+
+        foreach ($blocksData as $blockData) {
+            $idToUuidMap[(int) $blockData['id']] = $blockData['uuid'];
+        }
+
+        foreach ($blocksData as &$blockData) {
+            $parentId = $blockData['parent_id'] > 0 ? (int) $blockData['parent_id'] : null;
+            $parentUuid = $parentId !== null ? ($idToUuidMap[$parentId] ?? null) : null;
+            $blockData['parent_uuid'] = $parentUuid;
+        }
+
+        return $blocksData;
     }
 
     /**
-     * Loads all child block data from specified block, optionally filtered by placeholder.
+     * Loads child block data from specified block, optionally filtered by placeholder.
+     *
+     * This method return only the first level of blocks under the specified block.
      */
     public function loadChildBlocksData(Block $block, ?string $placeholder = null): array
     {
@@ -111,7 +185,21 @@ final class BlockQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $block->status, 'b.status');
 
-        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        $blocksData = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+
+        $idToUuidMap = [$block->id => $block->uuid];
+
+        foreach ($blocksData as $blockData) {
+            $idToUuidMap[(int) $blockData['id']] = $blockData['uuid'];
+        }
+
+        foreach ($blocksData as &$blockData) {
+            $parentId = $blockData['parent_id'] > 0 ? (int) $blockData['parent_id'] : null;
+            $parentUuid = $parentId !== null ? ($idToUuidMap[$parentId] ?? null) : null;
+            $blockData['parent_uuid'] = $parentUuid;
+        }
+
+        return $blocksData;
     }
 
     /**

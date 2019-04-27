@@ -9,6 +9,7 @@ use Netgen\Layouts\Block\NullBlockDefinition;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Persistence\Values\Block\Block;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
+use Ramsey\Uuid\UuidInterface;
 
 abstract class BlockMapperTest extends CoreTestCase
 {
@@ -43,7 +44,7 @@ abstract class BlockMapperTest extends CoreTestCase
                 'name' => 'My block',
                 'depth' => 2,
                 'position' => 3,
-                'parentId' => 42,
+                'parentUuid' => 'cbca9628-3ff1-5440-b1c3-0018331d3544',
                 'placeholder' => 'main',
                 'alwaysAvailable' => false,
                 'isTranslatable' => true,
@@ -78,7 +79,8 @@ abstract class BlockMapperTest extends CoreTestCase
         self::assertSame('standard', $block->getItemViewType());
         self::assertSame('My block', $block->getName());
         self::assertSame(3, $block->getPosition());
-        self::assertSame(42, $block->getParentBlockId());
+        self::assertInstanceOf(UuidInterface::class, $block->getParentBlockId());
+        self::assertSame('cbca9628-3ff1-5440-b1c3-0018331d3544', $block->getParentBlockId()->toString());
         self::assertSame('main', $block->getParentPlaceholder());
         self::assertTrue($block->isPublished());
         self::assertSame('test', $block->getParameter('css_class')->getValue());
@@ -113,7 +115,7 @@ abstract class BlockMapperTest extends CoreTestCase
                 'definitionIdentifier' => 'text',
                 'depth' => 1,
                 'position' => 3,
-                'parentId' => 42,
+                'parentUuid' => 'cbca9628-3ff1-5440-b1c3-0018331d3544',
                 'placeholder' => 'main',
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
@@ -140,6 +142,7 @@ abstract class BlockMapperTest extends CoreTestCase
             [
                 'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'parentUuid' => 'cbca9628-3ff1-5440-b1c3-0018331d3544',
                 'definitionIdentifier' => 'text',
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
@@ -165,6 +168,7 @@ abstract class BlockMapperTest extends CoreTestCase
             [
                 'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'parentUuid' => 'cbca9628-3ff1-5440-b1c3-0018331d3544',
                 'definitionIdentifier' => 'text',
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
@@ -190,6 +194,7 @@ abstract class BlockMapperTest extends CoreTestCase
             [
                 'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'parentUuid' => 'cbca9628-3ff1-5440-b1c3-0018331d3544',
                 'definitionIdentifier' => 'text',
                 'alwaysAvailable' => true,
                 'mainLocale' => 'en',
@@ -220,6 +225,7 @@ abstract class BlockMapperTest extends CoreTestCase
                 'id' => 42,
                 'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'parentUuid' => 'cbca9628-3ff1-5440-b1c3-0018331d3544',
                 'definitionIdentifier' => 'text',
                 'alwaysAvailable' => true,
                 'mainLocale' => 'en',
@@ -247,6 +253,7 @@ abstract class BlockMapperTest extends CoreTestCase
                 'id' => 42,
                 'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'parentUuid' => 'cbca9628-3ff1-5440-b1c3-0018331d3544',
                 'definitionIdentifier' => 'text',
                 'alwaysAvailable' => false,
                 'mainLocale' => 'en',
@@ -274,6 +281,7 @@ abstract class BlockMapperTest extends CoreTestCase
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',
+                'parentUuid' => 'cbca9628-3ff1-5440-b1c3-0018331d3544',
                 'position' => 3,
                 'alwaysAvailable' => false,
                 'isTranslatable' => true,
@@ -332,6 +340,7 @@ abstract class BlockMapperTest extends CoreTestCase
                 'id' => 33,
                 'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'parentUuid' => 'cbca9628-3ff1-5440-b1c3-0018331d3544',
                 'definitionIdentifier' => 'two_columns',
                 'status' => Value::STATUS_PUBLISHED,
                 'name' => 'My block',
@@ -383,6 +392,7 @@ abstract class BlockMapperTest extends CoreTestCase
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
                 'name' => 'My block',
+                'parentUuid' => 'cbca9628-3ff1-5440-b1c3-0018331d3544',
                 'alwaysAvailable' => false,
                 'isTranslatable' => true,
                 'mainLocale' => 'en',

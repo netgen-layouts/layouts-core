@@ -21,6 +21,7 @@ final class BlockTest extends TestCase
                 'depth' => 2,
                 'path' => '/1/22/42/',
                 'parentId' => 22,
+                'parentUuid' => 'cbca9628-3ff1-5440-b1c3-0018331d3544',
                 'placeholder' => 'top',
                 'position' => 4,
                 'definitionIdentifier' => 'text',
@@ -46,6 +47,7 @@ final class BlockTest extends TestCase
         self::assertSame(2, $block->depth);
         self::assertSame('/1/22/42/', $block->path);
         self::assertSame(22, $block->parentId);
+        self::assertSame('cbca9628-3ff1-5440-b1c3-0018331d3544', $block->parentUuid);
         self::assertSame('top', $block->placeholder);
         self::assertSame(4, $block->position);
         self::assertSame('text', $block->definitionIdentifier);

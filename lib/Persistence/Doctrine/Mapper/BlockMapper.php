@@ -31,6 +31,7 @@ final class BlockMapper
                     'depth' => (int) $dataItem['depth'],
                     'path' => $dataItem['path'],
                     'parentId' => $dataItem['parent_id'] > 0 ? (int) $dataItem['parent_id'] : null,
+                    'parentUuid' => $dataItem['parent_uuid'] ?? null,
                     'placeholder' => $dataItem['placeholder'],
                     'position' => $dataItem['parent_id'] > 0 ? (int) $dataItem['position'] : null,
                     'definitionIdentifier' => $dataItem['definition_identifier'],

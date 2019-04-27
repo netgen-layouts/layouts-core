@@ -921,6 +921,7 @@ final class LayoutHandlerTest extends TestCase
                 'depth' => 0,
                 'path' => '/39/',
                 'parentId' => null,
+                'parentUuid' => null,
                 'placeholder' => null,
                 'position' => null,
                 'definitionIdentifier' => '',
@@ -1095,6 +1096,8 @@ final class LayoutHandlerTest extends TestCase
             )
         );
 
+        $rootBlock = $this->blockHandler->loadBlock(40, Value::STATUS_PUBLISHED);
+
         self::assertSame(
             [
                 [
@@ -1104,7 +1107,8 @@ final class LayoutHandlerTest extends TestCase
                     'layoutUuid' => $copiedLayout->uuid,
                     'depth' => 1,
                     'path' => '/40/41/',
-                    'parentId' => 40,
+                    'parentId' => $rootBlock->id,
+                    'parentUuid' => $rootBlock->uuid,
                     'placeholder' => 'root',
                     'position' => 0,
                     'definitionIdentifier' => 'list',
@@ -1132,11 +1136,11 @@ final class LayoutHandlerTest extends TestCase
                 ],
             ],
             $this->exportObjectList(
-                $this->blockHandler->loadChildBlocks(
-                    $this->blockHandler->loadBlock(40, Value::STATUS_PUBLISHED)
-                )
+                $this->blockHandler->loadChildBlocks($rootBlock)
             )
         );
+
+        $rootBlock = $this->blockHandler->loadBlock(42, Value::STATUS_PUBLISHED);
 
         self::assertSame(
             [
@@ -1147,7 +1151,8 @@ final class LayoutHandlerTest extends TestCase
                     'layoutUuid' => $copiedLayout->uuid,
                     'depth' => 1,
                     'path' => '/42/43/',
-                    'parentId' => 42,
+                    'parentId' => $rootBlock->id,
+                    'parentUuid' => $rootBlock->uuid,
                     'placeholder' => 'root',
                     'position' => 0,
                     'definitionIdentifier' => 'list',
@@ -1176,7 +1181,8 @@ final class LayoutHandlerTest extends TestCase
                     'layoutUuid' => $copiedLayout->uuid,
                     'depth' => 1,
                     'path' => '/42/44/',
-                    'parentId' => 42,
+                    'parentId' => $rootBlock->id,
+                    'parentUuid' => $rootBlock->uuid,
                     'placeholder' => 'root',
                     'position' => 1,
                     'definitionIdentifier' => 'list',
@@ -1197,9 +1203,7 @@ final class LayoutHandlerTest extends TestCase
                 ],
             ],
             $this->exportObjectList(
-                $this->blockHandler->loadChildBlocks(
-                    $this->blockHandler->loadBlock(42, Value::STATUS_PUBLISHED)
-                )
+                $this->blockHandler->loadChildBlocks($rootBlock)
             )
         );
 
@@ -1318,6 +1322,8 @@ final class LayoutHandlerTest extends TestCase
             )
         );
 
+        $rootBlock = $this->blockHandler->loadBlock(39, Value::STATUS_DRAFT);
+
         self::assertSame(
             [
                 [
@@ -1327,7 +1333,8 @@ final class LayoutHandlerTest extends TestCase
                     'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                     'depth' => 1,
                     'path' => '/39/32/',
-                    'parentId' => 39,
+                    'parentId' => $rootBlock->id,
+                    'parentUuid' => $rootBlock->uuid,
                     'placeholder' => 'root',
                     'position' => 0,
                     'definitionIdentifier' => 'list',
@@ -1360,7 +1367,8 @@ final class LayoutHandlerTest extends TestCase
                     'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                     'depth' => 1,
                     'path' => '/39/31/',
-                    'parentId' => 39,
+                    'parentId' => $rootBlock->id,
+                    'parentUuid' => $rootBlock->uuid,
                     'placeholder' => 'root',
                     'position' => 1,
                     'definitionIdentifier' => 'list',
@@ -1392,7 +1400,8 @@ final class LayoutHandlerTest extends TestCase
                     'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                     'depth' => 1,
                     'path' => '/39/35/',
-                    'parentId' => 39,
+                    'parentId' => $rootBlock->id,
+                    'parentUuid' => $rootBlock->uuid,
                     'placeholder' => 'root',
                     'position' => 2,
                     'definitionIdentifier' => 'list',
@@ -1413,9 +1422,7 @@ final class LayoutHandlerTest extends TestCase
                 ],
             ],
             $this->exportObjectList(
-                $this->blockHandler->loadChildBlocks(
-                    $this->blockHandler->loadBlock(39, Value::STATUS_DRAFT)
-                )
+                $this->blockHandler->loadChildBlocks($rootBlock)
             )
         );
 
@@ -1527,6 +1534,7 @@ final class LayoutHandlerTest extends TestCase
                     'depth' => 1,
                     'path' => '/2/32/',
                     'parentId' => 2,
+                    'parentUuid' => '39d3ab66-1589-540f-95c4-6381acb4f010',
                     'placeholder' => 'root',
                     'position' => 0,
                     'definitionIdentifier' => 'list',
@@ -1570,6 +1578,7 @@ final class LayoutHandlerTest extends TestCase
                     'depth' => 1,
                     'path' => '/3/31/',
                     'parentId' => 3,
+                    'parentUuid' => '96c7f078-a430-5a82-8d19-107182fb463f',
                     'placeholder' => 'root',
                     'position' => 0,
                     'definitionIdentifier' => 'list',
@@ -1599,6 +1608,7 @@ final class LayoutHandlerTest extends TestCase
                     'depth' => 1,
                     'path' => '/3/35/',
                     'parentId' => 3,
+                    'parentUuid' => '96c7f078-a430-5a82-8d19-107182fb463f',
                     'placeholder' => 'root',
                     'position' => 1,
                     'definitionIdentifier' => 'list',

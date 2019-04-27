@@ -62,7 +62,7 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
     private $position;
 
     /**
-     * @var int|string|null
+     * @var \Ramsey\Uuid\UuidInterface|null
      */
     private $parentBlockId;
 
@@ -173,13 +173,11 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
     }
 
     /**
-     * Returns the ID of the parent block where this block is located.
+     * Returns the UUID of the parent block where this block is located.
      *
      * If block does not have a parent block, null is returned.
-     *
-     * @return int|string|null
      */
-    public function getParentBlockId()
+    public function getParentBlockId(): ?UuidInterface
     {
         return $this->parentBlockId;
     }

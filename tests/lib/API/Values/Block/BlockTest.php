@@ -14,6 +14,7 @@ use Netgen\Layouts\Exception\API\BlockException;
 use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandler;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 final class BlockTest extends TestCase
 {
@@ -68,6 +69,7 @@ final class BlockTest extends TestCase
         $collection = Collection::fromArray(['id' => 42]);
 
         $blockUuid = Uuid::uuid4();
+        $parentUuid = Uuid::uuid4();
         $layoutUuid = Uuid::uuid4();
 
         $block = Block::fromArray(
@@ -79,7 +81,7 @@ final class BlockTest extends TestCase
                 'itemViewType' => 'standard',
                 'name' => 'My block',
                 'position' => 3,
-                'parentBlockId' => 50,
+                'parentBlockId' => $parentUuid,
                 'parentPlaceholder' => 'main',
                 'placeholders' => [
                     'main' => $placeholder,
@@ -109,7 +111,8 @@ final class BlockTest extends TestCase
         self::assertSame('standard', $block->getItemViewType());
         self::assertSame('My block', $block->getName());
         self::assertSame(3, $block->getPosition());
-        self::assertSame(50, $block->getParentBlockId());
+        self::assertInstanceOf(UuidInterface::class, $block->getParentBlockId());
+        self::assertSame($parentUuid->toString(), $block->getParentBlockId()->toString());
         self::assertSame('main', $block->getParentPlaceholder());
         self::assertTrue($block->isTranslatable());
         self::assertSame('en', $block->getMainLocale());

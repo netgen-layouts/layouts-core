@@ -117,7 +117,9 @@ final class BlockMapper
             'itemViewType' => $block->itemViewType,
             'name' => $block->name,
             'position' => $block->position,
-            'parentBlockId' => $block->depth > 1 ? $block->parentId : null,
+            'parentBlockId' => $block->depth > 1 && $block->parentUuid !== null ?
+                Uuid::fromString($block->parentUuid) :
+                null,
             'parentPlaceholder' => $block->depth > 1 ? $block->placeholder : null,
             'status' => $block->status,
             'placeholders' => iterator_to_array($this->mapPlaceholders($block, $blockDefinition, $locales)),
