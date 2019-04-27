@@ -22,7 +22,7 @@ final class BlockParamConverterTest extends TestCase
      */
     private $paramConverter;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->blockServiceMock = $this->createMock(BlockService::class);
 

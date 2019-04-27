@@ -22,7 +22,7 @@ final class ZoneViewProviderTest extends TestCase
      */
     private $ZoneViewProvider;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->ZoneViewProvider = new ZoneViewProvider();
     }

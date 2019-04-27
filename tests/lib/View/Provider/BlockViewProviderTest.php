@@ -18,7 +18,7 @@ final class BlockViewProviderTest extends TestCase
      */
     private $blockViewProvider;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->blockViewProvider = new BlockViewProvider();
     }

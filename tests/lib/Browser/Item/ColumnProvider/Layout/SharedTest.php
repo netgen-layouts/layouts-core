@@ -17,7 +17,7 @@ final class SharedTest extends TestCase
      */
     private $provider;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->provider = new Shared();
     }

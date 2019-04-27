@@ -31,7 +31,7 @@ final class NetgenLayoutsExtensionTest extends AbstractExtensionTestCase
      */
     private $extension;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

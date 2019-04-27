@@ -27,7 +27,7 @@ final class TwigExtensionsListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->twigMock = $this->createMock(Environment::class);
 

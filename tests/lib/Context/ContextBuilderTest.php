@@ -21,7 +21,7 @@ final class ContextBuilderTest extends TestCase
      */
     private $contextBuilder;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->context = new Context();
     }

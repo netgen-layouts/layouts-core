@@ -35,7 +35,7 @@ final class ItemRuntimeTest extends TestCase
      */
     private $runtime;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
         $this->urlGeneratorMock = $this->createMock(UrlGeneratorInterface::class);

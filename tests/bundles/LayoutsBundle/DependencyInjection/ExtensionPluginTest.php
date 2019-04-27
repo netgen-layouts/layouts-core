@@ -17,7 +17,7 @@ final class ExtensionPluginTest extends TestCase
      */
     private $plugin;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->plugin = $this->getMockForAbstractClass(ExtensionPlugin::class);
     }

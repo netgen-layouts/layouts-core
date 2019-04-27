@@ -16,7 +16,7 @@ final class ConfigAwareStructTraitTest extends TestCase
      */
     private $struct;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->struct = new ConfigAwareStruct();
     }

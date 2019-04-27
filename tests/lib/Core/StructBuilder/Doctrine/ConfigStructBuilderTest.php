@@ -11,7 +11,7 @@ final class ConfigStructBuilderTest extends BaseConfigStructBuilderTest
 {
     use TestCaseTrait;
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->closeDatabase();
     }

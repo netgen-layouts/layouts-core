@@ -31,7 +31,7 @@ final class ViewNormalizerTest extends TestCase
      */
     private $normalizer;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->viewRendererMock = $this->createMock(RendererInterface::class);
         $this->normalizerMock = $this->createMock(NormalizerInterface::class);

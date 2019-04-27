@@ -30,7 +30,7 @@ final class BlockCreateStructTest extends TestCase
      */
     private $collectionStruct;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->blockDefinition = $this->buildBlockDefinition();
         $this->collectionStruct = new CollectionCreateStruct();

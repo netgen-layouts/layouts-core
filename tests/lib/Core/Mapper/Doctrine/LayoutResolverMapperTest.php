@@ -11,7 +11,7 @@ final class LayoutResolverMapperTest extends BaseLayoutResolverMapperTest
 {
     use TestCaseTrait;
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->closeDatabase();
     }

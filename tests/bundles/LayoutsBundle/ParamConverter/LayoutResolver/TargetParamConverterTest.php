@@ -22,7 +22,7 @@ final class TargetParamConverterTest extends TestCase
      */
     private $paramConverter;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->layoutResolverServiceMock = $this->createMock(LayoutResolverService::class);
 

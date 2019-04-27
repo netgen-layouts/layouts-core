@@ -40,7 +40,7 @@ final class BlockNormalizerTest extends TestCase
      */
     private $normalizer;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->normalizerMock = $this->createMock(NormalizerInterface::class);
         $this->blockServiceMock = $this->createMock(BlockService::class);

@@ -28,7 +28,7 @@ final class CsrfTokenValidatorTest extends TestCase
      */
     private $validator;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->csrfTokenManagerMock = $this->createMock(
             CsrfTokenManagerInterface::class

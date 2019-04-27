@@ -44,7 +44,7 @@ final class LayoutNormalizerTest extends TestCase
      */
     private $normalizer;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->layoutServiceMock = $this->createMock(LayoutService::class);
         $this->blockServiceMock = $this->createMock(BlockService::class);

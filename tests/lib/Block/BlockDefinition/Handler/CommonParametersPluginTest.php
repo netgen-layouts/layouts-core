@@ -28,7 +28,7 @@ final class CommonParametersPluginTest extends TestCase
      */
     private $parameterBuilderFactory;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->plugin = new CommonParametersPlugin(['group']);
 

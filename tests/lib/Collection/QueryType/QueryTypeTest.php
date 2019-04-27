@@ -16,7 +16,7 @@ final class QueryTypeTest extends TestCase
      */
     private $queryType;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->queryType = QueryType::fromArray(
             [

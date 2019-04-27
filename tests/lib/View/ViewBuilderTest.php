@@ -33,7 +33,7 @@ final class ViewBuilderTest extends TestCase
      */
     private $eventDispatcherMock;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->viewProviderMock = $this->createMock(ViewProviderInterface::class);
         $this->templateResolverMock = $this->createMock(TemplateResolverInterface::class);

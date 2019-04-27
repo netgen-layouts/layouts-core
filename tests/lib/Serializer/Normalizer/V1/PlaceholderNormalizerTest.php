@@ -21,7 +21,7 @@ final class PlaceholderNormalizerTest extends TestCase
      */
     private $normalizer;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->normalizer = new PlaceholderNormalizer();
         $this->normalizer->setNormalizer(new Serializer([new NormalizerStub()]));

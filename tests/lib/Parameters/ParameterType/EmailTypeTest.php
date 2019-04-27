@@ -13,7 +13,7 @@ final class EmailTypeTest extends TestCase
 {
     use ParameterTypeTestTrait;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->type = new EmailType();
     }

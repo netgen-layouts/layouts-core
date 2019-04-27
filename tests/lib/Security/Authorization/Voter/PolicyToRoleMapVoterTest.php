@@ -22,7 +22,7 @@ final class PolicyToRoleMapVoterTest extends TestCase
      */
     private $accessDecisionManagerMock;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->accessDecisionManagerMock = $this->createMock(AccessDecisionManagerInterface::class);
 

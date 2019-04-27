@@ -49,7 +49,7 @@ final class GlobalVariableTest extends TestCase
      */
     private $requestStack;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->configMock = $this->createMock(ConfigurationInterface::class);
         $this->layoutResolverMock = $this->createMock(LayoutResolverInterface::class);

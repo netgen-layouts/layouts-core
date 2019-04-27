@@ -14,7 +14,7 @@ final class ZoneTest extends TestCase
      */
     private $zone;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->zone = Zone::fromArray(
             [

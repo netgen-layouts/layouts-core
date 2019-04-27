@@ -28,7 +28,7 @@ final class CollectionPagerRuntimeTest extends TestCase
      */
     private $runtime;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->routeGenerator = static function (Block $block, string $collectionIdentifier, int $page): string {
             return '/generated/uri' . '?page=' . $page;

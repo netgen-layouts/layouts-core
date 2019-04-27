@@ -14,7 +14,7 @@ final class ValueTypeTest extends TestCase
      */
     private $valueType;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->valueType = ValueType::fromArray(
             [

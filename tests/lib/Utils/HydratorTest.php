@@ -16,7 +16,7 @@ final class HydratorTest extends TestCase
      */
     private $hydrator;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->hydrator = new Hydrator();
     }

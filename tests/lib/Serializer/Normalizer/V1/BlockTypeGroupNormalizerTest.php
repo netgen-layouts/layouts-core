@@ -18,7 +18,7 @@ final class BlockTypeGroupNormalizerTest extends TestCase
      */
     private $normalizer;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->normalizer = new BlockTypeGroupNormalizer();
     }

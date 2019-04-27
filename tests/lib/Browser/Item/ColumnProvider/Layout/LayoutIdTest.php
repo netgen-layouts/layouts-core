@@ -18,7 +18,7 @@ final class LayoutIdTest extends TestCase
      */
     private $provider;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->provider = new LayoutId();
     }

@@ -28,7 +28,7 @@ final class QueryTypeRegistryTest extends TestCase
      */
     private $registry;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->queryType1 = new QueryType('query_type1');
         $this->queryType2 = new QueryType('query_type2', [], null, false, false);

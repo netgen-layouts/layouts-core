@@ -19,7 +19,7 @@ final class UrlGeneratorTest extends TestCase
      */
     private $urlGenerator;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->urlGenerator = new UrlGenerator(
             ['value' => new ValueUrlGenerator()]

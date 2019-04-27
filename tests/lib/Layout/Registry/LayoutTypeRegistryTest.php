@@ -28,7 +28,7 @@ final class LayoutTypeRegistryTest extends TestCase
      */
     private $registry;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->layoutType1 = LayoutType::fromArray(['identifier' => 'layout_type1', 'isEnabled' => true]);
         $this->layoutType2 = LayoutType::fromArray(['identifier' => 'layout_type2', 'isEnabled' => false]);

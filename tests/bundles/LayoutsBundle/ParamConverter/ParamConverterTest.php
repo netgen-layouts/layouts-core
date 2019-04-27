@@ -18,7 +18,7 @@ final class ParamConverterTest extends TestCase
      */
     private $paramConverter;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->paramConverter = new ParamConverter();
     }

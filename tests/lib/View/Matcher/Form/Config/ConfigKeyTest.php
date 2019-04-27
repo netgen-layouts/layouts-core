@@ -24,7 +24,7 @@ final class ConfigKeyTest extends TestCase
      */
     private $matcher;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->formFactory = Forms::createFormFactoryBuilder()
             ->getFormFactory();

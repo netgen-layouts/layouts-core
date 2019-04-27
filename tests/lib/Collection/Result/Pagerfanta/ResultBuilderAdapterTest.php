@@ -17,7 +17,7 @@ final class ResultBuilderAdapterTest extends TestCase
      */
     private $resultBuilderMock;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->resultBuilderMock = $this->createMock(ResultBuilderInterface::class);
     }

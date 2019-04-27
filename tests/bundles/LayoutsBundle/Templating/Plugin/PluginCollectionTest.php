@@ -25,7 +25,7 @@ final class PluginCollectionTest extends TestCase
      */
     private $pluginCollection;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->plugin1 = new SimplePlugin('template1.html.twig');
         $this->plugin2 = new SimplePlugin('template2.html.twig');

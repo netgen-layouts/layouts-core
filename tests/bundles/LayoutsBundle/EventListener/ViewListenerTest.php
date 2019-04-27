@@ -20,7 +20,7 @@ final class ViewListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->listener = new ViewListener();
     }

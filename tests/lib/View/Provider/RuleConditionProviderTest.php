@@ -18,7 +18,7 @@ final class RuleConditionProviderTest extends TestCase
      */
     private $ruleConditionViewProvider;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->ruleConditionViewProvider = new RuleConditionViewProvider();
     }

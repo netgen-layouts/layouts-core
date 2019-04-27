@@ -29,7 +29,7 @@ final class ViewRendererListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->viewRendererMock = $this->createMock(ViewRendererInterface::class);
         $this->listener = new ViewRendererListener(

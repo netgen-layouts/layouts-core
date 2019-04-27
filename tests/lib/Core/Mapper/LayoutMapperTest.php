@@ -18,7 +18,7 @@ abstract class LayoutMapperTest extends CoreTestCase
      */
     private $mapper;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

@@ -14,7 +14,7 @@ final class RangeTypeTest extends TestCase
 {
     use ParameterTypeTestTrait;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->type = new RangeType();
     }

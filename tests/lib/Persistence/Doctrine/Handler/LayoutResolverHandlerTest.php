@@ -37,7 +37,7 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     private $layoutHandler;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->createDatabase();
 
@@ -48,7 +48,7 @@ final class LayoutResolverHandlerTest extends TestCase
     /**
      * Tears down the tests.
      */
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->closeDatabase();
     }

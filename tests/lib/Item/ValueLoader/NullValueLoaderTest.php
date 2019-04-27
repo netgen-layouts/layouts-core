@@ -14,7 +14,7 @@ final class NullValueLoaderTest extends TestCase
      */
     private $valueLoader;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->valueLoader = new NullValueLoader();
     }

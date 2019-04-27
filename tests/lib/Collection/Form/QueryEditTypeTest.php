@@ -29,7 +29,7 @@ final class QueryEditTypeTest extends FormTestCase
      */
     private $query;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

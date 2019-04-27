@@ -12,7 +12,6 @@ return PhpCsFixer\Config::create()
         'multiline_whitespace_before_semicolons' => false,
         'native_function_invocation' => false,
         'php_unit_internal_class' => false,
-        'php_unit_set_up_tear_down_visibility' => false,
         'php_unit_test_case_static_method_calls' => ['call_type' => 'self'],
         'php_unit_test_class_requires_covers' => false,
         'phpdoc_align' => false,

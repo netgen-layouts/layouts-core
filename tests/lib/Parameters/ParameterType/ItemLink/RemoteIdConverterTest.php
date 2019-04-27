@@ -22,7 +22,7 @@ final class RemoteIdConverterTest extends TestCase
      */
     private $remoteIdConverter;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
 

@@ -25,7 +25,7 @@ final class BlockTypeGroupTest extends TestCase
      */
     private $blockType2;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->blockType1 = BlockType::fromArray(['isEnabled' => true, 'identifier' => 'type']);
         $this->blockType2 = BlockType::fromArray(['isEnabled' => false, 'identifier' => 'type2']);

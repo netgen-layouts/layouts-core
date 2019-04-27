@@ -51,7 +51,7 @@ final class RenderingRuntimeTest extends TestCase
      */
     private $runtime;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->blockServiceMock = $this->createMock(BlockService::class);
         $this->rendererMock = $this->createMock(RendererInterface::class);

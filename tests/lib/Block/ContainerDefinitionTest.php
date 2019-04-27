@@ -20,7 +20,7 @@ final class ContainerDefinitionTest extends TestCase
      */
     private $blockDefinition;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->handler = new ContainerDefinitionHandler();
 

@@ -40,7 +40,7 @@ final class LinkMapperTest extends TestCase
      */
     private $mapper;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->valueTypeRegistry = new ValueTypeRegistry(['default' => ValueType::fromArray(['isEnabled' => true])]);
 

@@ -21,7 +21,7 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
      */
     private $cmsItemLoaderMock;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->constraint = new ItemLink();
 

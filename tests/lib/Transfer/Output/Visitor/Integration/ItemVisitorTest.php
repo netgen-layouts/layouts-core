@@ -15,7 +15,7 @@ use Ramsey\Uuid\Uuid;
 
 abstract class ItemVisitorTest extends VisitorTest
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

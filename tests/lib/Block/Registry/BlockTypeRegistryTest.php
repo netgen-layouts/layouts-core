@@ -28,7 +28,7 @@ final class BlockTypeRegistryTest extends TestCase
      */
     private $registry;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->blockType = BlockType::fromArray(['isEnabled' => true, 'identifier' => 'block_type']);
         $this->blockType2 = BlockType::fromArray(['isEnabled' => false, 'identifier' => 'block_type2']);

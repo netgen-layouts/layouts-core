@@ -14,7 +14,7 @@ final class CollectionTest extends TestCase
      */
     private $collection;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->collection = Collection::fromArray(
             [

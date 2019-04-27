@@ -33,7 +33,7 @@ final class LayoutValidatorTest extends TestCase
      */
     private $layoutValidator;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->validator = Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(new ValidatorFactory($this))

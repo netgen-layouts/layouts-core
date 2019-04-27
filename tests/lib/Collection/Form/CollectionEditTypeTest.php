@@ -21,7 +21,7 @@ final class CollectionEditTypeTest extends FormTestCase
      */
     private $collection;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

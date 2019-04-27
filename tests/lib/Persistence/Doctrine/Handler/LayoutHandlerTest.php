@@ -40,7 +40,7 @@ final class LayoutHandlerTest extends TestCase
      */
     private $collectionHandler;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->createDatabase();
 
@@ -52,7 +52,7 @@ final class LayoutHandlerTest extends TestCase
     /**
      * Tears down the tests.
      */
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->closeDatabase();
     }

@@ -19,7 +19,7 @@ final class ParameterViewProviderTest extends TestCase
      */
     private $parameterViewProvider;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->parameterViewProvider = new ParameterViewProvider();
     }

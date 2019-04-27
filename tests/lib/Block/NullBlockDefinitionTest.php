@@ -18,7 +18,7 @@ final class NullBlockDefinitionTest extends TestCase
      */
     private $blockDefinition;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->blockDefinition = new NullBlockDefinition('definition');
     }

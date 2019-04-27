@@ -27,7 +27,7 @@ final class FilesystemLoaderTest extends TestCase
      */
     private $loader;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->innerLoaderMock = $this->createMock(LoaderInterface::class);
         $this->configurationMock = $this->createMock(ConfigurationInterface::class);

@@ -25,7 +25,7 @@ final class CollectionResultSetNormalizerTest extends TestCase
      */
     private $normalizer;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->normalizer = new CollectionResultSetNormalizer();
         $this->normalizer->setNormalizer(new Serializer([new ValueNormalizer(), new NormalizerStub()]));

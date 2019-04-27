@@ -15,7 +15,7 @@ final class RequestUriPrefixTest extends TestCase
      */
     private $mapper;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->mapper = new RequestUriPrefix();
     }

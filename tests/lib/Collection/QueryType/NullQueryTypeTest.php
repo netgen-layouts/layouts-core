@@ -15,7 +15,7 @@ final class NullQueryTypeTest extends TestCase
      */
     private $queryType;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->queryType = new NullQueryType('type');
     }

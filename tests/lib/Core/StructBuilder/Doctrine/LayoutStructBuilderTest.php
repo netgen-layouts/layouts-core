@@ -11,7 +11,7 @@ final class LayoutStructBuilderTest extends BaseLayoutStructBuilderTest
 {
     use TestCaseTrait;
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->closeDatabase();
     }

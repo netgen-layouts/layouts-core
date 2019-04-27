@@ -14,7 +14,7 @@ final class FormTest extends TestCase
      */
     private $form;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->form = Form::fromArray(['identifier' => 'content', 'type' => 'form_type']);
     }

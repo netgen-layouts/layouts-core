@@ -18,7 +18,7 @@ final class RuleViewProviderTest extends TestCase
      */
     private $ruleViewProvider;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->ruleViewProvider = new RuleViewProvider();
     }

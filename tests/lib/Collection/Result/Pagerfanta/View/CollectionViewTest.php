@@ -23,7 +23,7 @@ final class CollectionViewTest extends TestCase
      */
     private $collectionView;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->twigMock = $this->createMock(Environment::class);
 

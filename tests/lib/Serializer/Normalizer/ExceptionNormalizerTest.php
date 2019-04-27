@@ -18,7 +18,7 @@ final class ExceptionNormalizerTest extends TestCase
      */
     private $exceptionNormalizer;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->exceptionNormalizer = new ExceptionNormalizer(false);
     }

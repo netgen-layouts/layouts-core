@@ -29,7 +29,7 @@ final class BlockDefinitionHandlerTest extends TestCase
      */
     private $parameterBuilderFactory;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->handler = $this->getMockForAbstractClass(BlockDefinitionHandler::class);
 

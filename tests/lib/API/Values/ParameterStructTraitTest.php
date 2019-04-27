@@ -21,7 +21,7 @@ final class ParameterStructTraitTest extends TestCase
      */
     private $struct;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->struct = new ParameterStruct();
     }

@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 final class DateTimeValidatorTest extends ValidatorTestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->constraint = new DateTimeConstraint();
         $this->constraint->allowArray = true;

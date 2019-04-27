@@ -19,7 +19,7 @@ final class TimeTest extends FormTestCase
      */
     private $conditionType;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

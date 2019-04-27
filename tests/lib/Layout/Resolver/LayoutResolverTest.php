@@ -43,7 +43,7 @@ final class LayoutResolverTest extends TestCase
      */
     private $layoutResolver;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->layoutResolverServiceMock = $this->createMock(LayoutResolverService::class);
 

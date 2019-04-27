@@ -11,7 +11,7 @@ final class BlockStructBuilderTest extends BaseBlockStructBuilderTest
 {
     use TestCaseTrait;
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->closeDatabase();
     }

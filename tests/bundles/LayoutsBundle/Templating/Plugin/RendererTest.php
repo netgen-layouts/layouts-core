@@ -22,7 +22,7 @@ final class RendererTest extends TestCase
      */
     private $renderer;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->twigMock = $this->createMock(Environment::class);
 

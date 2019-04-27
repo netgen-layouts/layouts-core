@@ -14,7 +14,7 @@ final class SimplePluginTest extends TestCase
      */
     private $plugin;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->plugin = new SimplePlugin('template.html.twig', ['param' => 'value']);
     }

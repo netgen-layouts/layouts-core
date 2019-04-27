@@ -24,7 +24,7 @@ final class ValueNormalizerTest extends TestCase
      */
     private $normalizer;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->normalizerMock = $this->createMock(NormalizerInterface::class);
 

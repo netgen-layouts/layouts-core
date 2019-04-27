@@ -16,7 +16,7 @@ final class VersionedValueTest extends TestCase
      */
     private $value;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->value = new VersionedValue(new Value(), 42, Response::HTTP_ACCEPTED);
     }

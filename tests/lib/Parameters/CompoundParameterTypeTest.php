@@ -21,7 +21,7 @@ final class CompoundParameterTypeTest extends TestCase
      */
     private $parameterType;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->parameterType = new CompoundParameterType();
     }

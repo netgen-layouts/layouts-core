@@ -18,7 +18,7 @@ final class TaggerTest extends TestCase
      */
     private $tagger;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->tagger = new Tagger();
     }

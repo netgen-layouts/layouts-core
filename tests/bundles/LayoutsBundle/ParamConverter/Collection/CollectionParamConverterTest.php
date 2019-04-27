@@ -22,7 +22,7 @@ final class CollectionParamConverterTest extends TestCase
      */
     private $paramConverter;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->collectionServiceMock = $this->createMock(CollectionService::class);
 

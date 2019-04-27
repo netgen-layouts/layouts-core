@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 final class TimeValidatorTest extends ValidatorTestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->constraint = new Time();
 

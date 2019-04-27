@@ -17,7 +17,7 @@ final class SqliteTest extends TestCase
      */
     private $helper;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->createDatabase(__DIR__ . '/../../../../../_fixtures');
 
@@ -27,7 +27,7 @@ final class SqliteTest extends TestCase
     /**
      * Tears down the tests.
      */
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->closeDatabase();
     }

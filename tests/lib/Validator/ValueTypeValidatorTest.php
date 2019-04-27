@@ -15,7 +15,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 final class ValueTypeValidatorTest extends ValidatorTestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->constraint = new ValueTypeConstraint();
 

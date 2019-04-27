@@ -14,7 +14,7 @@ final class HtmlPurifierTest extends TestCase
      */
     private $htmlPurifier;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->htmlPurifier = new HtmlPurifier();
     }

@@ -23,7 +23,7 @@ final class CacheEnabledListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->listener = new CacheEnabledListener(new NullClient());
     }

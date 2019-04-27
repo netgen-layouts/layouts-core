@@ -27,7 +27,7 @@ final class ZoneReferenceTest extends TestCase
      */
     private $zoneReference;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->zone = Zone::fromArray(['identifier' => 'left']);
         $this->layout = Layout::fromArray(['zones' => new ZoneList(['left' => $this->zone])]);

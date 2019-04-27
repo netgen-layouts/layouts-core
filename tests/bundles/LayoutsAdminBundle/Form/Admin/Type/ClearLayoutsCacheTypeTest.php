@@ -20,7 +20,7 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
      */
     private $layouts;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

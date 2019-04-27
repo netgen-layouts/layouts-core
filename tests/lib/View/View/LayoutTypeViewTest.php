@@ -20,7 +20,7 @@ final class LayoutTypeViewTest extends TestCase
      */
     private $view;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->layoutType = LayoutType::fromArray(['identifier' => 'layout']);
 

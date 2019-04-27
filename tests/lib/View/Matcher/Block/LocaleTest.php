@@ -18,7 +18,7 @@ final class LocaleTest extends TestCase
      */
     private $matcher;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->matcher = new Locale();
     }

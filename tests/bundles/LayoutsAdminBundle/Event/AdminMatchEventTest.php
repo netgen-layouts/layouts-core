@@ -26,7 +26,7 @@ final class AdminMatchEventTest extends TestCase
      */
     private $event;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->request = Request::create('/');
         $this->requestType = HttpKernelInterface::SUB_REQUEST;

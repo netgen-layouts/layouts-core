@@ -34,7 +34,7 @@ final class ResultBuilderTest extends TestCase
      */
     private $resultBuilder;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->cmsItemBuilder = new CmsItemBuilder(
             [new ValueConverter()]

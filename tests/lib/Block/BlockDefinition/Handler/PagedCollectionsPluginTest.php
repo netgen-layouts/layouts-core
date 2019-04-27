@@ -28,7 +28,7 @@ final class PagedCollectionsPluginTest extends TestCase
      */
     private $parameterBuilderFactory;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->plugin = new PagedCollectionsPlugin(['load_more' => 'Load more'], ['group']);
 

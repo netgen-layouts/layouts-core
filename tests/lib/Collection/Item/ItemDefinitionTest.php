@@ -21,7 +21,7 @@ final class ItemDefinitionTest extends TestCase
      */
     private $configDefinition;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->configDefinition = new ConfigDefinition();
 

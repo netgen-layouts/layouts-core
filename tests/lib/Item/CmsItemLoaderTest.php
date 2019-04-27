@@ -25,7 +25,7 @@ final class CmsItemLoaderTest extends TestCase
      */
     private $cmsItemLoader;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->cmsItemBuilderMock = $this->createMock(CmsItemBuilderInterface::class);
     }

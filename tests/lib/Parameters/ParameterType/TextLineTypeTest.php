@@ -13,7 +13,7 @@ final class TextLineTypeTest extends TestCase
 {
     use ParameterTypeTestTrait;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->type = new TextLineType();
     }

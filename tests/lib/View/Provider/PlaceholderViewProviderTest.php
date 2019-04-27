@@ -19,7 +19,7 @@ final class PlaceholderViewProviderTest extends TestCase
      */
     private $placeholderViewProvider;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->placeholderViewProvider = new PlaceholderViewProvider();
     }

@@ -19,7 +19,7 @@ final class LayoutViewProviderTest extends TestCase
      */
     private $layoutViewProvider;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->layoutViewProvider = new LayoutViewProvider();
     }

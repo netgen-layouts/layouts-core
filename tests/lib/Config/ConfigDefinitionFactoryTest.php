@@ -27,7 +27,7 @@ final class ConfigDefinitionFactoryTest extends TestCase
      */
     private $factory;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->parameterBuilderFactoryMock = $this->createMock(ParameterBuilderFactoryInterface::class);
         $this->parameterBuilderFactoryMock

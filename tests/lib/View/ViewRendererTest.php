@@ -31,7 +31,7 @@ final class ViewRendererTest extends TestCase
      */
     private $viewRenderer;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->eventDispatcherMock = $this
             ->createMock(EventDispatcherInterface::class);

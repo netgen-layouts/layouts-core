@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 final class ParameterStructValidatorTest extends ValidatorTestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         $compoundParameter = CompoundParameterDefinition::fromArray(
             [

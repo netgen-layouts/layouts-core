@@ -27,7 +27,7 @@ final class PluginRenderingRuntimeTest extends TestCase
      */
     private $runtime;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->pluginRendererMock = $this->createMock(RendererInterface::class);
         $this->errorHandler = new ErrorHandler();

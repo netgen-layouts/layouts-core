@@ -14,7 +14,7 @@ final class DynamicParametersTest extends TestCase
      */
     private $dynamicParams;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->dynamicParams = new DynamicParameters();
 

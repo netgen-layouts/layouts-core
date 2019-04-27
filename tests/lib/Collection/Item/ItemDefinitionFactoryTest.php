@@ -24,7 +24,7 @@ final class ItemDefinitionFactoryTest extends TestCase
      */
     private $factory;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->configDefinitionFactory = new ConfigDefinitionFactory(
             new ParameterBuilderFactory(

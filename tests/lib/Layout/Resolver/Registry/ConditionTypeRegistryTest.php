@@ -23,7 +23,7 @@ final class ConditionTypeRegistryTest extends TestCase
      */
     private $registry;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->conditionType = new ConditionType1();
 

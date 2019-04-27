@@ -22,7 +22,7 @@ final class ServiceTest extends TestCase
      */
     private $service;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->transactionHandlerMock = $this->createMock(TransactionHandlerInterface::class);
 

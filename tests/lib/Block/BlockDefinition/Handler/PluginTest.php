@@ -29,7 +29,7 @@ final class PluginTest extends TestCase
      */
     private $parameterBuilderFactory;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->plugin = $this->getMockForAbstractClass(Plugin::class);
 

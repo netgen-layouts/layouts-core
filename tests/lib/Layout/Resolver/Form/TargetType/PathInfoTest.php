@@ -19,7 +19,7 @@ final class PathInfoTest extends FormTestCase
      */
     private $targetType;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

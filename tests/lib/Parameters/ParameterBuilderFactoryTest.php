@@ -22,7 +22,7 @@ final class ParameterBuilderFactoryTest extends TestCase
      */
     private $factory;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->registry = new ParameterTypeRegistry(
             [

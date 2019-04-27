@@ -19,7 +19,7 @@ final class ParameterNormalizerTest extends TestCase
      */
     private $normalizer;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->normalizer = new ParameterNormalizer();
     }

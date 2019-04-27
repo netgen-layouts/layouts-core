@@ -22,7 +22,7 @@ abstract class AbstractTargetHandlerTest extends TestCase
      */
     protected $handler;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->createDatabase();
 
@@ -40,7 +40,7 @@ abstract class AbstractTargetHandlerTest extends TestCase
     /**
      * Tears down the tests.
      */
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->closeDatabase();
     }

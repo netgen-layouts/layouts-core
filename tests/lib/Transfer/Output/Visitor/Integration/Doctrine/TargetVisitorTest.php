@@ -14,7 +14,7 @@ final class TargetVisitorTest extends BaseTargetVisitorTest
 {
     use TestCaseTrait;
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->closeDatabase();
     }

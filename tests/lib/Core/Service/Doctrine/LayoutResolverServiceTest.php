@@ -11,7 +11,7 @@ final class LayoutResolverServiceTest extends BaseLayoutResolverServiceTest
 {
     use TestCaseTrait;
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->closeDatabase();
     }

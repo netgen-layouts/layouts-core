@@ -29,7 +29,7 @@ final class ItemLinkTypeTest extends TestCase
      */
     private $cmsItemLoaderMock;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->valueTypeRegistry = new ValueTypeRegistry(
             [

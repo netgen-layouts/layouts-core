@@ -34,7 +34,7 @@ final class RouteGeneratorTest extends TestCase
      */
     private $routeGenerator;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->contextMock = $this->createMock(ContextInterface::class);
         $this->uriSignerMock = $this->createMock(UriSigner::class);

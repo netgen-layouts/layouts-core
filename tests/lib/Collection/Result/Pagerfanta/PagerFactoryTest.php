@@ -22,7 +22,7 @@ final class PagerFactoryTest extends TestCase
      */
     private $pagerFactory;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->resultBuilderMock = $this->createMock(ResultBuilderInterface::class);
 

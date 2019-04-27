@@ -20,7 +20,7 @@ final class RuleViewTest extends TestCase
      */
     private $view;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->rule = Rule::fromArray(['id' => 42]);
 

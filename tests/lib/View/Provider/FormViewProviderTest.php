@@ -19,7 +19,7 @@ final class FormViewProviderTest extends TestCase
      */
     private $formViewProvider;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->formViewProvider = new FormViewProvider();
     }

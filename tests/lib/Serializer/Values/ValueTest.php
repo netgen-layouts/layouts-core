@@ -20,7 +20,7 @@ final class ValueTest extends TestCase
      */
     private $innerValue;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->value = new Value($this->innerValue, Response::HTTP_ACCEPTED);
     }

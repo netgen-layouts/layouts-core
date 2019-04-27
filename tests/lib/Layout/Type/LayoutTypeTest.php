@@ -27,7 +27,7 @@ final class LayoutTypeTest extends TestCase
      */
     private $zone2;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->zone1 = Zone::fromArray(
             [

@@ -15,7 +15,7 @@ final class NullClientTest extends TestCase
      */
     private $client;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->client = new NullClient();
     }

@@ -26,7 +26,7 @@ final class ConnectionHelperTest extends TestCase
      */
     private $connectionHelper;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->databasePlatformMock = $this->createMock(AbstractPlatform::class);
         $this->databaseConnectionMock = $this->createMock(Connection::class);

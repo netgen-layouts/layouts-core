@@ -15,7 +15,7 @@ final class JsonValidatorTest extends TestCase
      */
     private $validator;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->validator = new JsonValidator();
     }

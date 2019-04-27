@@ -21,7 +21,7 @@ final class DebugErrorHandlerTest extends TestCase
      */
     private $errorHandler;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->loggerMock = $this->createMock(LoggerInterface::class);
 

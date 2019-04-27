@@ -19,7 +19,7 @@ final class AggregateVisitorTest extends TestCase
      */
     private $visitor;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->visitor = new AggregateVisitor([new VisitorStub()]);
     }

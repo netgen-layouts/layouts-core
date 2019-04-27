@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 
 final class ThemePassTest extends AbstractCompilerPassTestCase
 {
-    public function setUp(): void
+    protected function setUp(): void
     {
         @mkdir('/tmp/nglayouts/templates/nglayouts/themes/theme2', 0777, true);
         @mkdir('/tmp/nglayouts/templates/nglayouts/themes/theme3', 0777, true);

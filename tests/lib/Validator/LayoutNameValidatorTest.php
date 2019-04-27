@@ -19,7 +19,7 @@ final class LayoutNameValidatorTest extends ValidatorTestCase
      */
     private $layoutServiceMock;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->constraint = new LayoutName();
 

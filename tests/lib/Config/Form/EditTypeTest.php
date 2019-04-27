@@ -27,7 +27,7 @@ final class EditTypeTest extends FormTestCase
      */
     private $configurable;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

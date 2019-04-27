@@ -20,7 +20,7 @@ final class TransactionHandlerTest extends TestCase
      */
     private $handler;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->connectionMock = $this->createMock(Connection::class);
 

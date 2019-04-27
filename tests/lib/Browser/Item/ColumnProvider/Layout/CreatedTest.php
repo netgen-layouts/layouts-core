@@ -18,7 +18,7 @@ final class CreatedTest extends TestCase
      */
     private $provider;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->provider = new Created('d.m.Y H:i:s');
     }

@@ -26,7 +26,7 @@ final class ConfigureMenuEventTest extends TestCase
      */
     private $event;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->factory = new MenuFactory();
         $this->menu = new MenuItem('root', $this->factory);

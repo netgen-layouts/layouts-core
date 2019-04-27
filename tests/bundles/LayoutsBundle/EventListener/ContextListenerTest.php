@@ -36,7 +36,7 @@ final class ContextListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->context = new Context();
 

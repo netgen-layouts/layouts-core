@@ -11,7 +11,7 @@ final class BlockMapperTest extends BaseBlockMapperTest
 {
     use TestCaseTrait;
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->closeDatabase();
     }

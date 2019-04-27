@@ -13,7 +13,7 @@ final class BooleanTypeTest extends TestCase
 {
     use ParameterTypeTestTrait;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->type = new BooleanType();
     }

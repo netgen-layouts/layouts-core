@@ -20,7 +20,7 @@ final class ParametersTypeExtensionTest extends TestCase
      */
     private $formTypeExtension;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->formTypeExtension = new ParametersTypeExtension();
     }

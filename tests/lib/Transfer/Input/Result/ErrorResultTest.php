@@ -20,7 +20,7 @@ final class ErrorResultTest extends TestCase
      */
     private $error;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->error = new Exception();
 

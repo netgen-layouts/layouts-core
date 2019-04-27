@@ -25,7 +25,7 @@ final class MainMenuBuilderTest extends TestCase
      */
     private $builder;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $urlGeneratorMock = $this->createMock(UrlGeneratorInterface::class);
         $urlGeneratorMock

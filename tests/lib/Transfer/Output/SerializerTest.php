@@ -37,7 +37,7 @@ final class SerializerTest extends TestCase
      */
     private $serializer;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->layoutServiceMock = $this->createMock(LayoutService::class);
         $this->layoutResolverServiceMock = $this->createMock(LayoutResolverService::class);

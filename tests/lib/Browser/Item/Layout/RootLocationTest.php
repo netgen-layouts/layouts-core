@@ -14,7 +14,7 @@ final class RootLocationTest extends TestCase
      */
     private $location;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->location = new RootLocation();
     }

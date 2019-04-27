@@ -31,7 +31,7 @@ final class AdminCsrfValidationListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->csrfTokenValidatorMock = $this->createMock(
             CsrfTokenValidatorInterface::class

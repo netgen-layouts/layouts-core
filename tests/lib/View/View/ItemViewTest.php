@@ -20,7 +20,7 @@ final class ItemViewTest extends TestCase
      */
     private $view;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->item = CmsItem::fromArray(
             [

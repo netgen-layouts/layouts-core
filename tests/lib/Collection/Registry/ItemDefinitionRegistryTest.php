@@ -23,7 +23,7 @@ final class ItemDefinitionRegistryTest extends TestCase
      */
     private $registry;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->itemDefinition = ItemDefinition::fromArray(['valueType' => 'item_definition']);
 

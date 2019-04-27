@@ -43,7 +43,7 @@ final class GetCollectionPagerListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->resultBuilderMock = $this->createMock(ResultBuilderInterface::class);
         $this->requestStack = new RequestStack();

@@ -29,7 +29,7 @@ final class LayoutBackendTest extends TestCase
      */
     private $backend;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->layoutServiceMock = $this->createMock(LayoutService::class);
 

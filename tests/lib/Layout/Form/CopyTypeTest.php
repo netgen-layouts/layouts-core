@@ -20,7 +20,7 @@ final class CopyTypeTest extends FormTestCase
      */
     private $layout;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

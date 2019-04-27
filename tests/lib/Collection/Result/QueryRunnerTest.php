@@ -20,7 +20,7 @@ final class QueryRunnerTest extends TestCase
      */
     private $cmsItemBuilderMock;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->cmsItemBuilderMock = $this->createMock(CmsItemBuilderInterface::class);
 

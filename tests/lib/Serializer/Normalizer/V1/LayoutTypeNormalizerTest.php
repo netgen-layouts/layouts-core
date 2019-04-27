@@ -19,7 +19,7 @@ final class LayoutTypeNormalizerTest extends TestCase
      */
     private $normalizer;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->normalizer = new LayoutTypeNormalizer();
         $this->normalizer->setNormalizer(new Serializer());

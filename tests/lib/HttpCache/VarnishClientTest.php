@@ -28,7 +28,7 @@ final class VarnishClientTest extends TestCase
      */
     private $client;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->fosInvalidatorMock = $this->createMock(CacheInvalidator::class);
         $this->idProviderMock = $this->createMock(IdProviderInterface::class);

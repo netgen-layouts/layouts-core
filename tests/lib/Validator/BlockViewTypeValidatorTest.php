@@ -21,7 +21,7 @@ final class BlockViewTypeValidatorTest extends ValidatorTestCase
      */
     private $blockDefinition;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->blockDefinition = BlockDefinition::fromArray(
             [

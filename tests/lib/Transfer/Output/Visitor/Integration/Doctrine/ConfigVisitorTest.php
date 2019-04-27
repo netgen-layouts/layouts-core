@@ -14,7 +14,7 @@ final class ConfigVisitorTest extends BaseConfigVisitorTest
 {
     use TestCaseTrait;
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->closeDatabase();
     }

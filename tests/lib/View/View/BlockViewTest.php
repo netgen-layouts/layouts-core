@@ -20,7 +20,7 @@ final class BlockViewTest extends TestCase
      */
     private $view;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->block = Block::fromArray(['id' => 42]);
 

@@ -19,7 +19,7 @@ final class ItemViewProviderTest extends TestCase
      */
     private $itemViewProvider;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->itemViewProvider = new ItemViewProvider();
     }

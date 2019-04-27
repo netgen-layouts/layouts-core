@@ -26,7 +26,7 @@ final class PlaceholderViewTest extends TestCase
      */
     private $block;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->block = Block::fromArray(['id' => 42]);
         $this->placeholder = Placeholder::fromArray(['identifier' => 'main']);

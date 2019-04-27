@@ -22,7 +22,7 @@ final class ViewTest extends TestCase
      */
     private $value;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->value = new Value();
 

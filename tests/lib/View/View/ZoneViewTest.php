@@ -34,7 +34,7 @@ final class ZoneViewTest extends TestCase
      */
     private $view;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->zone = Zone::fromArray(['identifier' => 'zone']);
         $this->layout = Layout::fromArray(

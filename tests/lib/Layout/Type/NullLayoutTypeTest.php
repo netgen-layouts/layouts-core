@@ -16,7 +16,7 @@ final class NullLayoutTypeTest extends TestCase
      */
     private $layoutType;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->layoutType = new NullLayoutType('type');
     }

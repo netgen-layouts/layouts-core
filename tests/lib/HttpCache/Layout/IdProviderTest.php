@@ -24,7 +24,7 @@ final class IdProviderTest extends TestCase
      */
     private $idProvider;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->layoutServiceMock = $this->createMock(LayoutService::class);
 

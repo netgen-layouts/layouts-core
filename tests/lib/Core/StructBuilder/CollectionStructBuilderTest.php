@@ -22,7 +22,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
      */
     private $structBuilder;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

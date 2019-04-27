@@ -20,7 +20,7 @@ final class CreateTypeTest extends FormTestCase
      */
     private $layoutTypeRegistry;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $layoutType1 = LayoutType::fromArray(
             [

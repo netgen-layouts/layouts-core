@@ -20,7 +20,7 @@ final class QueryHandlerTest extends TestCase
      */
     private $queryHandler;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->databaseConnection = DriverManager::getConnection(
             [

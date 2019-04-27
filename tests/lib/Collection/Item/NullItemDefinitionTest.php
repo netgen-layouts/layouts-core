@@ -14,7 +14,7 @@ final class NullItemDefinitionTest extends TestCase
      */
     private $itemDefinition;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->itemDefinition = new NullItemDefinition('value');
     }

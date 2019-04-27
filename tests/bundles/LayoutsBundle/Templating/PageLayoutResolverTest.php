@@ -14,7 +14,7 @@ final class PageLayoutResolverTest extends TestCase
      */
     private $resolver;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->resolver = new PageLayoutResolver('defaultPagelayout');
     }

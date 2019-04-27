@@ -37,7 +37,7 @@ final class ParameterBuilderTest extends TestCase
      */
     private $builder;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->registry = new ParameterTypeRegistry(
             [

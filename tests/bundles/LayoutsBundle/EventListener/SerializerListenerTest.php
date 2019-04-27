@@ -28,7 +28,7 @@ final class SerializerListenerTest extends TestCase
      */
     private $listener;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->serializerMock = $this->createMock(SerializerInterface::class);
 

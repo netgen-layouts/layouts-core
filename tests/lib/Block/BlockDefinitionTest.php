@@ -56,7 +56,7 @@ final class BlockDefinitionTest extends TestCase
      */
     private $configDefinition;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->handler = new BlockDefinitionHandler([], true);
 

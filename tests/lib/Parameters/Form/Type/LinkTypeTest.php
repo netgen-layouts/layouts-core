@@ -33,7 +33,7 @@ final class LinkTypeTest extends FormTestCase
      */
     private $parameterType;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->parameterType = new LinkParameterType(
             new ValueTypeRegistry([]),

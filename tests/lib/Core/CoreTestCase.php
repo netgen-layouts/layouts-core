@@ -161,7 +161,7 @@ abstract class CoreTestCase extends TestCase
      */
     protected $layoutResolverService;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->transactionHandler = $this->createTransactionHandler();
         $this->layoutHandler = $this->createLayoutHandler();

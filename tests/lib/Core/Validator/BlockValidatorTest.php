@@ -37,7 +37,7 @@ final class BlockValidatorTest extends TestCase
      */
     private $blockValidator;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->validator = Validation::createValidatorBuilder()
             ->setConstraintValidatorFactory(new ValidatorFactory($this))

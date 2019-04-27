@@ -52,7 +52,7 @@ abstract class ImporterTest extends CoreTestCase
      */
     private $matcherFactory;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 

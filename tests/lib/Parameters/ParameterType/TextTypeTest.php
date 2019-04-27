@@ -13,7 +13,7 @@ final class TextTypeTest extends TestCase
 {
     use ParameterTypeTestTrait;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->type = new TextType();
     }

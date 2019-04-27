@@ -23,7 +23,7 @@ final class ParameterTypeRegistryTest extends TestCase
      */
     private $registry;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->parameterType = new ParameterType();
 

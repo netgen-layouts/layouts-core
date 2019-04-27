@@ -26,7 +26,7 @@ final class SuccessResultTest extends TestCase
      */
     private $entityId;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->entity = new Value();
         $this->entityId = Uuid::uuid4();

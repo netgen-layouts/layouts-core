@@ -25,7 +25,7 @@ final class BlockTypeNormalizerTest extends TestCase
      */
     private $blockDefinition;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->blockDefinition = BlockDefinition::fromArray(['identifier' => 'title']);
 

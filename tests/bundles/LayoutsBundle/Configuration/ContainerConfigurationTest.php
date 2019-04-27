@@ -21,7 +21,7 @@ final class ContainerConfigurationTest extends TestCase
      */
     private $configuration;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->createConfiguration();
     }

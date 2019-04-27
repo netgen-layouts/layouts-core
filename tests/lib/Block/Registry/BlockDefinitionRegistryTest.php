@@ -23,7 +23,7 @@ final class BlockDefinitionRegistryTest extends TestCase
      */
     private $registry;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->blockDefinition = new BlockDefinition();
 

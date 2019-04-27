@@ -27,7 +27,7 @@ final class DefaultContextTest extends TestCase
      */
     private $parser;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->environment = new Environment(
             $this->createMock(LoaderInterface::class),

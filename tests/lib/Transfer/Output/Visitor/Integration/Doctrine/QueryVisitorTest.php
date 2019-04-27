@@ -14,7 +14,7 @@ final class QueryVisitorTest extends BaseQueryVisitorTest
 {
     use TestCaseTrait;
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->closeDatabase();
     }

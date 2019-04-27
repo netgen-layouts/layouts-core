@@ -26,7 +26,7 @@ final class CollectionRunnerFactoryTest extends TestCase
      */
     private $factory;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->cmsItemBuilderMock = $this->createMock(CmsItemBuilderInterface::class);
 

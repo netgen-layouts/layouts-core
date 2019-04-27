@@ -23,7 +23,7 @@ final class HelpersRuntimeTest extends TestCase
      */
     private $layoutServiceMock;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->layoutServiceMock = $this->createMock(LayoutService::class);
 
