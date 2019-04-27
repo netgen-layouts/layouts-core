@@ -31,6 +31,9 @@ final class BlockQueryHandler extends QueryHandler
 
         $blocksData = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
+        // Inject the parent UUID into the result
+        // This is to avoid inner joining the block table with itself
+
         if (count($blocksData) > 0 && $blocksData[0]['parent_id'] > 0) {
             $parentUuid = $this->getBlockUuid((int) $blocksData[0]['parent_id']);
             if ($parentUuid === null) {
@@ -46,33 +49,6 @@ final class BlockQueryHandler extends QueryHandler
         }
 
         return $blocksData;
-    }
-
-    /**
-     * Returns the block UUID for provided block ID.
-     *
-     * If block with provided ID does not exist, null is returned.
-     */
-    public function getBlockUuid(int $blockId): ?string
-    {
-        $query = $this->connection->createQueryBuilder();
-
-        $query->select('b.uuid')
-            ->from('nglayouts_block', 'b')
-            ->where(
-                $query->expr()->eq('b.id', ':id')
-            )
-            ->setParameter('id', $blockId, Type::INTEGER);
-
-        $this->applyOffsetAndLimit($query, 0, 1);
-
-        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
-
-        if (count($data) === 0) {
-            return null;
-        }
-
-        return $data[0]['uuid'];
     }
 
     /**
@@ -114,6 +90,9 @@ final class BlockQueryHandler extends QueryHandler
 
         $blocksData = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
+        // Map block IDs to UUIDs to inject parent UUID into the result
+        // This is to avoid inner joining the block table with itself
+
         $idToUuidMap = [];
 
         foreach ($blocksData as $blockData) {
@@ -145,6 +124,9 @@ final class BlockQueryHandler extends QueryHandler
         $this->applyStatusCondition($query, $block->status, 'b.status');
 
         $blocksData = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+
+        // Map block IDs to UUIDs to inject parent UUID into the result
+        // This is to avoid inner joining the block table with itself
 
         $idToUuidMap = [$block->id => $block->uuid];
 
@@ -186,6 +168,9 @@ final class BlockQueryHandler extends QueryHandler
         $this->applyStatusCondition($query, $block->status, 'b.status');
 
         $blocksData = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+
+        // Map block IDs to UUIDs to inject parent UUID into the result
+        // This is to avoid inner joining the block table with itself
 
         $idToUuidMap = [$block->id => $block->uuid];
 
@@ -599,6 +584,33 @@ final class BlockQueryHandler extends QueryHandler
         $result = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
         return array_map('intval', array_column($result, 'collection_id'));
+    }
+
+    /**
+     * Returns the block UUID for provided block ID.
+     *
+     * If block with provided ID does not exist, null is returned.
+     */
+    private function getBlockUuid(int $blockId): ?string
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        $query->select('b.uuid')
+            ->from('nglayouts_block', 'b')
+            ->where(
+                $query->expr()->eq('b.id', ':id')
+            )
+            ->setParameter('id', $blockId, Type::INTEGER);
+
+        $this->applyOffsetAndLimit($query, 0, 1);
+
+        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+
+        if (count($data) === 0) {
+            return null;
+        }
+
+        return $data[0]['uuid'];
     }
 
     /**
