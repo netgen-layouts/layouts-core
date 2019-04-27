@@ -74,7 +74,7 @@
         "phpspec/php-diff": "^1.1",
         "matthiasnoback/symfony-dependency-injection-test": "^4.0",
         "matthiasnoback/symfony-config-test": "^4.0.1",
-        "lchrusciel/api-test-case": "^4.0",
+        "lchrusciel/api-test-case": "dev-master",
         "webmozart/assert": "^1.4",
         "behat/behat": "^3.5",
         "behat/mink": "^1.7",
