@@ -55,6 +55,8 @@ matrix:
         - grunt build --gruntfile=bundles/LayoutsAdminBundle/Gruntfile.js
   allow_failures:
     -
+      env: RUN_BEHAT="yes"
+    -
       env: RUN_COVERAGE="yes"
   fast_finish: true
 
