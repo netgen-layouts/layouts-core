@@ -4,89 +4,35 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Behat\Page;
 
-use Behat\Mink\Session;
-use Netgen\Layouts\Behat\Exception\PageException;
-use Symfony\Component\Routing\RouterInterface;
+use FriendsOfBehat\PageObjectExtension\Page\SymfonyPage as BaseSymfonyPage;
+use FriendsOfBehat\PageObjectExtension\Page\UnexpectedPageException;
 
-abstract class SymfonyPage extends Page
+abstract class SymfonyPage extends BaseSymfonyPage
 {
-    /**
-     * @var \Symfony\Component\Routing\RouterInterface
-     */
-    private $router;
-
-    public function __construct(Session $session, $minkParameters, RouterInterface $router)
+    public function verifyUrlFragment(string $fragment): void
     {
-        parent::__construct($session, $minkParameters);
+        $parsedUrl = parse_url($this->getDriver()->getCurrentUrl());
 
-        $this->router = $router;
-    }
-
-    abstract public function getRouteName(): string;
-
-    public function verifyRoute(array $requiredUrlParameters = []): void
-    {
-        $url = $this->getDriver()->getCurrentUrl();
-        $parsedUrl = parse_url($url);
-
-        if (!is_array($parsedUrl) || !array_key_exists('path', $parsedUrl)) {
-            throw new PageException(sprintf('%s URL is not valid or does not contain a path', $url));
+        if (!is_array($parsedUrl) || !array_key_exists('fragment', $parsedUrl)) {
+            throw new UnexpectedPageException(sprintf('%s URL is not valid or does not contain a fragment', $this->getDriver()->getCurrentUrl()));
         }
 
-        $matchedRoute = $this->router->match($parsedUrl['path']);
-
-        $this->verifyStatusCode();
-        $this->verifyRouteName($matchedRoute, $url);
-        $this->verifyRouteParameters($requiredUrlParameters, $matchedRoute);
-    }
-
-    protected function getUrl(array $urlParameters = []): string
-    {
-        $path = $this->router->generate($this->getRouteName(), $urlParameters);
-
-        return $this->makePathAbsolute($path);
-    }
-
-    private function makePathAbsolute(string $path): string
-    {
-        $baseUrl = rtrim($this->getParameter('base_url'), '/') . '/';
-
-        return 0 !== mb_strpos($path, 'http') ? $baseUrl . ltrim($path, '/') : $path;
-    }
-
-    /**
-     * @throws \Netgen\Layouts\Behat\Exception\PageException
-     */
-    private function verifyRouteName(array $matchedRoute, string $url): void
-    {
-        if ($matchedRoute['_route'] !== $this->getRouteName()) {
-            throw new PageException(
-                sprintf(
-                    "Matched route '%s' does not match the expected route '%s' for URL '%s'",
-                    $matchedRoute['_route'],
-                    $this->getRouteName(),
-                    $url
-                )
-            );
+        if (mb_strpos($parsedUrl['fragment'], $fragment) !== false) {
+            return;
         }
+
+        throw new UnexpectedPageException(sprintf('Expected to have "%s" fragment but found "%s" instead', $fragment, $parsedUrl['fragment']));
     }
 
-    /**
-     * @throws \Netgen\Layouts\Behat\Exception\PageException
-     */
-    private function verifyRouteParameters(array $requiredUrlParameters, array $matchedRoute): void
+    protected function waitForElement(int $timeout, string $elementName, array $parameters = [], bool $waitForRemoval = false): void
     {
-        foreach ($requiredUrlParameters as $key => $value) {
-            if (!isset($matchedRoute[$key]) || $matchedRoute[$key] !== $value) {
-                throw new PageException(
-                    sprintf(
-                        "Matched route does not match the expected parameter '%s'='%s' (%s found)",
-                        $key,
-                        $value,
-                        $matchedRoute[$key] ?? 'null'
-                    )
-                );
+        $this->getDocument()->waitFor(
+            $timeout,
+            function () use ($elementName, $parameters, $waitForRemoval): bool {
+                $hasElement = $this->hasElement($elementName, $parameters);
+
+                return $waitForRemoval ? !$hasElement : $hasElement;
             }
-        }
+        );
     }
 }

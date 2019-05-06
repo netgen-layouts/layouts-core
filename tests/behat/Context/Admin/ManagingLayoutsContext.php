@@ -118,7 +118,7 @@ final class ManagingLayoutsContext extends AdminContext
     public function editInterfaceShouldOpen(Layout $layout): void
     {
         $this->appPage->verifyRoute();
-        $this->appPage->verifyFragment('layout/' . $layout->getId()->toString());
+        $this->appPage->verifyUrlFragment('layout/' . $layout->getId()->toString());
         $this->appPage->verifyLayout($layout->getName());
     }
 
