@@ -3,16 +3,10 @@ imports:
     - pages/app.yml
 
 services:
-    netgen_layouts.behat.page:
-        class: Netgen\Layouts\Behat\Page\Page
+    netgen_layouts.behat.symfony_page:
+        class: Netgen\Layouts\Behat\Page\SymfonyPage
         abstract: true
         arguments:
             - "@behat.mink.default_session"
             - "@behat.mink.parameters"
-
-    netgen_layouts.behat.symfony_page:
-        class: Netgen\Layouts\Behat\Page\SymfonyPage
-        parent: netgen_layouts.behat.page
-        abstract: true
-        arguments:
             - "@router"
