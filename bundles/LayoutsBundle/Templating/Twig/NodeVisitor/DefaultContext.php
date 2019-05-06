@@ -15,9 +15,9 @@ use Twig\Node\Expression\NameExpression;
 use Twig\Node\ModuleNode;
 use Twig\Node\Node;
 use Twig\Node\SetNode;
-use Twig\NodeVisitor\AbstractNodeVisitor;
+use Twig\NodeVisitor\NodeVisitorInterface;
 
-final class DefaultContext extends AbstractNodeVisitor
+final class DefaultContext implements NodeVisitorInterface
 {
     /**
      * @var \Symfony\Bridge\Twig\NodeVisitor\Scope|null
@@ -34,7 +34,7 @@ final class DefaultContext extends AbstractNodeVisitor
         return -10;
     }
 
-    protected function doEnterNode(Node $node, Environment $env): Node
+    public function enterNode(Node $node, Environment $env): Node
     {
         if (!$this->scope instanceof Scope) {
             return $node;
@@ -69,10 +69,10 @@ final class DefaultContext extends AbstractNodeVisitor
         return $node;
     }
 
-    protected function doLeaveNode(Node $node, Environment $env)
+    public function leaveNode(Node $node, Environment $env): ?Node
     {
         if ($node instanceof DefaultContextNode) {
-            return false;
+            return null;
         }
 
         if ($this->scope instanceof Scope && ($node instanceof BlockNode || $node instanceof ModuleNode)) {
