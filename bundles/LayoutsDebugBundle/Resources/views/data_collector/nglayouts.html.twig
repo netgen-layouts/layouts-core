@@ -223,7 +223,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">Block UUID</th>
-                                <th scope="col">Layout UUID</th>
+                                <th scope="col">Layout info</th>
                                 <th scope="col">Block info</th>
                                 <th scope="col">Template</th>
                             </tr>
@@ -232,8 +232,13 @@
                         {% for block in blocks %}
                             <tr>
                                 <th>{{ block.id }}</th>
-                                <th>{{ block.layout_id }}</th>
+                                <td class="font-normal"><a href="{{ macros.layout_path(block.layout_id) }}">{{ block.layout_name }}</a></td>
                                 <td class="font-normal">
+                                    {% if block.name is not empty %}
+                                        <div class="metadata">
+                                            <strong>Name</strong>: {{ block.name }}
+                                        </div>
+                                    {% endif %}
                                     <div class="metadata">
                                         <strong>Block definition</strong>: {{ block.definition }}
                                     </div>

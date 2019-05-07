@@ -7,6 +7,7 @@ namespace Netgen\Bundle\LayoutsDebugBundle\DataCollector;
 use Exception;
 use Jean85\PrettyVersions;
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\GlobalVariable;
+use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\View\View\BlockViewInterface;
 use Netgen\Layouts\View\View\LayoutViewInterface;
@@ -21,6 +22,11 @@ use Version\Version;
 final class LayoutsDataCollector extends DataCollector
 {
     /**
+     * @var \Netgen\Layouts\API\Service\LayoutService
+     */
+    private $layoutService;
+
+    /**
      * @var \Netgen\Bundle\LayoutsBundle\Templating\Twig\GlobalVariable
      */
     private $globalVariable;
@@ -30,8 +36,14 @@ final class LayoutsDataCollector extends DataCollector
      */
     private $twig;
 
-    public function __construct(GlobalVariable $globalVariable, Environment $twig)
+    /**
+     * @var \Netgen\Layouts\API\Values\Layout\Layout[]
+     */
+    private $layoutCache = [];
+
+    public function __construct(LayoutService $layoutService, GlobalVariable $globalVariable, Environment $twig)
     {
+        $this->layoutService = $layoutService;
         $this->globalVariable = $globalVariable;
         $this->twig = $twig;
 
@@ -127,9 +139,14 @@ final class LayoutsDataCollector extends DataCollector
         $block = $blockView->getBlock();
         $blockDefinition = $block->getDefinition();
 
+        $layoutId = $block->getLayoutId()->toString();
+        $this->layoutCache[$layoutId] = $this->layoutCache[$layoutId] ?? $this->layoutService->loadLayout($block->getLayoutId());
+
         $blockData = [
             'id' => $block->getId()->toString(),
-            'layout_id' => $block->getLayoutId()->toString(),
+            'name' => $block->getName(),
+            'layout_id' => $layoutId,
+            'layout_name' => $this->layoutCache[$layoutId]->getName(),
             'definition' => $blockDefinition->getName(),
             'view_type' => $blockDefinition->hasViewType($block->getViewType()) ?
                 $blockDefinition->getViewType($block->getViewType())->getName() :
