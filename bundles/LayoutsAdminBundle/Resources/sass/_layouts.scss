@@ -220,7 +220,7 @@
             flex:1;
         }
         .nl-layout-name {
-            padding:.25em $gutter .25em 0;
+            padding:0 $gutter 0 0;
             width:30%;
             .nl-layout-export-checkbox {
                 vertical-align: middle;
@@ -259,6 +259,9 @@
             margin:0 0 -1px;
             display:flex;
             min-height:60px;
+            .nl-layout-name {
+                padding:.25em $gutter .25em 0;
+            }
             > * {
                 display:flex;
                 align-items:center;
