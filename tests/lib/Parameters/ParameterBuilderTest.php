@@ -23,7 +23,7 @@ final class ParameterBuilderTest extends TestCase
     use ExportObjectTrait;
 
     /**
-     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistryInterface
+     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry
      */
     private $registry;
 

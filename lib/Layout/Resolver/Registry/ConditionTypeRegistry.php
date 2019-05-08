@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Layout\Resolver\Registry;
 
+use ArrayAccess;
+use Countable;
+use IteratorAggregate;
 use ArrayIterator;
 use Netgen\Layouts\Exception\Layout\ConditionTypeException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Layout\Resolver\ConditionTypeInterface;
 use Traversable;
 
-final class ConditionTypeRegistry implements ConditionTypeRegistryInterface
+final class ConditionTypeRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
      * @var \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface[]
@@ -26,11 +29,19 @@ final class ConditionTypeRegistry implements ConditionTypeRegistryInterface
         }
     }
 
+    /**
+     * Returns if registry has a condition type.
+     */
     public function hasConditionType(string $type): bool
     {
         return isset($this->conditionTypes[$type]);
     }
 
+    /**
+     * Returns a condition type with provided type.
+     *
+     * @throws \Netgen\Layouts\Exception\Layout\ConditionTypeException If condition type does not exist
+     */
     public function getConditionType(string $type): ConditionTypeInterface
     {
         if (!$this->hasConditionType($type)) {
@@ -40,6 +51,11 @@ final class ConditionTypeRegistry implements ConditionTypeRegistryInterface
         return $this->conditionTypes[$type];
     }
 
+    /**
+     * Returns all condition types.
+     *
+     * @return \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface[]
+     */
     public function getConditionTypes(): array
     {
         return $this->conditionTypes;

@@ -7,7 +7,7 @@ namespace Netgen\Layouts\Layout\Resolver;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
-use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistryInterface;
+use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -19,7 +19,7 @@ final class LayoutResolver implements LayoutResolverInterface
     private $layoutResolverService;
 
     /**
-     * @var \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry
      */
     private $targetTypeRegistry;
 
@@ -30,7 +30,7 @@ final class LayoutResolver implements LayoutResolverInterface
 
     public function __construct(
         LayoutResolverService $layoutResolverService,
-        TargetTypeRegistryInterface $targetTypeRegistry,
+        TargetTypeRegistry $targetTypeRegistry,
         RequestStack $requestStack
     ) {
         $this->layoutResolverService = $layoutResolverService;

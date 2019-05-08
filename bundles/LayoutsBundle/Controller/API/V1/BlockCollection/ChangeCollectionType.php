@@ -8,7 +8,7 @@ use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\CollectionService;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Collection\Collection;
-use Netgen\Layouts\Collection\Registry\QueryTypeRegistryInterface;
+use Netgen\Layouts\Collection\Registry\QueryTypeRegistry;
 use Netgen\Layouts\Exception\Validation\ValidationException;
 use Netgen\Layouts\Validator\ValidatorTrait;
 use Symfony\Component\HttpFoundation\Request;
@@ -25,13 +25,13 @@ final class ChangeCollectionType extends AbstractController
     private $collectionService;
 
     /**
-     * @var \Netgen\Layouts\Collection\Registry\QueryTypeRegistryInterface
+     * @var \Netgen\Layouts\Collection\Registry\QueryTypeRegistry
      */
     private $queryTypeRegistry;
 
     public function __construct(
         CollectionService $collectionService,
-        QueryTypeRegistryInterface $queryTypeRegistry
+        QueryTypeRegistry $queryTypeRegistry
     ) {
         $this->collectionService = $collectionService;
         $this->queryTypeRegistry = $queryTypeRegistry;

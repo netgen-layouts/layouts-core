@@ -9,7 +9,7 @@ use Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructBuilde
 use Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructValidator;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Block\Block;
-use Netgen\Layouts\Block\Registry\BlockTypeRegistryInterface;
+use Netgen\Layouts\Block\Registry\BlockTypeRegistry;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\Block\BlockTypeException;
 use Netgen\Layouts\Serializer\Values\View;
@@ -35,7 +35,7 @@ final class Create extends AbstractController
     private $createStructValidator;
 
     /**
-     * @var \Netgen\Layouts\Block\Registry\BlockTypeRegistryInterface
+     * @var \Netgen\Layouts\Block\Registry\BlockTypeRegistry
      */
     private $blockTypeRegistry;
 
@@ -43,7 +43,7 @@ final class Create extends AbstractController
         BlockService $blockService,
         CreateStructBuilder $createStructBuilder,
         CreateStructValidator $createStructValidator,
-        BlockTypeRegistryInterface $blockTypeRegistry
+        BlockTypeRegistry $blockTypeRegistry
     ) {
         $this->blockService = $blockService;
         $this->createStructBuilder = $createStructBuilder;

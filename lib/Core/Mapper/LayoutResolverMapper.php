@@ -14,8 +14,8 @@ use Netgen\Layouts\Exception\Layout\ConditionTypeException;
 use Netgen\Layouts\Exception\Layout\TargetTypeException;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Layout\Resolver\ConditionType\NullConditionType;
-use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
-use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistryInterface;
+use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry;
+use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\Layouts\Layout\Resolver\TargetType\NullTargetType;
 use Netgen\Layouts\Persistence\Handler\LayoutResolverHandlerInterface;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition as PersistenceCondition;
@@ -31,12 +31,12 @@ final class LayoutResolverMapper
     private $layoutResolverHandler;
 
     /**
-     * @var \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry
      */
     private $targetTypeRegistry;
 
     /**
-     * @var \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry
      */
     private $conditionTypeRegistry;
 
@@ -47,8 +47,8 @@ final class LayoutResolverMapper
 
     public function __construct(
         LayoutResolverHandlerInterface $layoutResolverHandler,
-        TargetTypeRegistryInterface $targetTypeRegistry,
-        ConditionTypeRegistryInterface $conditionTypeRegistry,
+        TargetTypeRegistry $targetTypeRegistry,
+        ConditionTypeRegistry $conditionTypeRegistry,
         LayoutService $layoutService
     ) {
         $this->layoutResolverHandler = $layoutResolverHandler;

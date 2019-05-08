@@ -12,7 +12,6 @@ use Netgen\Layouts\Block\BlockDefinition\Handler\CommonParametersPlugin;
 use Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
 use Netgen\Layouts\Block\BlockDefinitionFactory;
 use Netgen\Layouts\Block\Registry\BlockDefinitionRegistry;
-use Netgen\Layouts\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\Layouts\Block\Registry\HandlerPluginRegistry;
 use Netgen\Layouts\Config\ConfigDefinitionFactory;
 use Netgen\Layouts\Exception\RuntimeException;
@@ -255,7 +254,7 @@ abstract class ImporterTest extends CoreTestCase
         self::assertSame('Missing data for zone "right"', $result[0]->getError()->getMessage());
     }
 
-    protected function createBlockDefinitionRegistry(): BlockDefinitionRegistryInterface
+    protected function createBlockDefinitionRegistry(): BlockDefinitionRegistry
     {
         $data = ['translatable' => true, 'view_types' => ['view_type' => ['enabled' => true]]];
         $configHandlers = ['key' => new ConfigHandler()];

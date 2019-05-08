@@ -14,12 +14,9 @@ use Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\Layouts\Block\ContainerDefinition;
 use Netgen\Layouts\Block\Registry\BlockDefinitionRegistry;
-use Netgen\Layouts\Block\Registry\BlockDefinitionRegistryInterface;
 use Netgen\Layouts\Collection\Item\ItemDefinition;
 use Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry;
-use Netgen\Layouts\Collection\Registry\ItemDefinitionRegistryInterface;
 use Netgen\Layouts\Collection\Registry\QueryTypeRegistry;
-use Netgen\Layouts\Collection\Registry\QueryTypeRegistryInterface;
 use Netgen\Layouts\Config\ConfigDefinition;
 use Netgen\Layouts\Core\Mapper\BlockMapper;
 use Netgen\Layouts\Core\Mapper\CollectionMapper;
@@ -43,19 +40,15 @@ use Netgen\Layouts\Core\Validator\LayoutValidator;
 use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Item\Registry\ValueTypeRegistry;
 use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
-use Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface;
 use Netgen\Layouts\Layout\Resolver\ConditionType;
 use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry;
-use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
 use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry;
-use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistryInterface;
 use Netgen\Layouts\Layout\Resolver\TargetType;
 use Netgen\Layouts\Layout\Type\LayoutType;
 use Netgen\Layouts\Layout\Type\Zone;
 use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
-use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistryInterface;
 use Netgen\Layouts\Persistence\Handler\BlockHandlerInterface;
 use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface;
@@ -82,37 +75,37 @@ abstract class CoreTestCase extends TestCase
     protected $cmsItemLoaderMock;
 
     /**
-     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry
      */
     protected $layoutTypeRegistry;
 
     /**
-     * @var \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistryInterface
+     * @var \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry
      */
     protected $itemDefinitionRegistry;
 
     /**
-     * @var \Netgen\Layouts\Collection\Registry\QueryTypeRegistryInterface
+     * @var \Netgen\Layouts\Collection\Registry\QueryTypeRegistry
      */
     protected $queryTypeRegistry;
 
     /**
-     * @var \Netgen\Layouts\Block\Registry\BlockDefinitionRegistryInterface
+     * @var \Netgen\Layouts\Block\Registry\BlockDefinitionRegistry
      */
     protected $blockDefinitionRegistry;
 
     /**
-     * @var \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry
      */
     protected $targetTypeRegistry;
 
     /**
-     * @var \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry
      */
     protected $conditionTypeRegistry;
 
     /**
-     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistryInterface
+     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry
      */
     protected $parameterTypeRegistry;
 
@@ -365,7 +358,7 @@ abstract class CoreTestCase extends TestCase
         return new ConfigMapper($this->createParameterMapper());
     }
 
-    protected function createLayoutTypeRegistry(): LayoutTypeRegistryInterface
+    protected function createLayoutTypeRegistry(): LayoutTypeRegistry
     {
         $layoutType1 = LayoutType::fromArray(
             [
@@ -399,7 +392,7 @@ abstract class CoreTestCase extends TestCase
         );
     }
 
-    protected function createItemDefinitionRegistry(): ItemDefinitionRegistryInterface
+    protected function createItemDefinitionRegistry(): ItemDefinitionRegistry
     {
         $itemConfigHandler = new ItemConfigHandler();
         $itemConfigDefinition = ConfigDefinition::fromArray(
@@ -420,12 +413,12 @@ abstract class CoreTestCase extends TestCase
         return new ItemDefinitionRegistry(['my_value_type' => $itemDefinition]);
     }
 
-    protected function createQueryTypeRegistry(): QueryTypeRegistryInterface
+    protected function createQueryTypeRegistry(): QueryTypeRegistry
     {
         return new QueryTypeRegistry(['my_query_type' => new QueryType('my_query_type')]);
     }
 
-    protected function createBlockDefinitionRegistry(): BlockDefinitionRegistryInterface
+    protected function createBlockDefinitionRegistry(): BlockDefinitionRegistry
     {
         $configHandler = new BlockConfigHandler();
         $configDefinition = ConfigDefinition::fromArray(
@@ -557,7 +550,7 @@ abstract class CoreTestCase extends TestCase
         );
     }
 
-    protected function createTargetTypeRegistry(): TargetTypeRegistryInterface
+    protected function createTargetTypeRegistry(): TargetTypeRegistry
     {
         return new TargetTypeRegistry(
             [
@@ -572,7 +565,7 @@ abstract class CoreTestCase extends TestCase
         );
     }
 
-    protected function createConditionTypeRegistry(): ConditionTypeRegistryInterface
+    protected function createConditionTypeRegistry(): ConditionTypeRegistry
     {
         return new ConditionTypeRegistry(
             [
@@ -582,7 +575,7 @@ abstract class CoreTestCase extends TestCase
         );
     }
 
-    protected function createParameterTypeRegistry(): ParameterTypeRegistryInterface
+    protected function createParameterTypeRegistry(): ParameterTypeRegistry
     {
         $remoteIdConverter = new RemoteIdConverter($this->cmsItemLoaderMock);
 

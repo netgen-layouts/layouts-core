@@ -8,7 +8,7 @@ use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\Layout\LayoutTypeException;
-use Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface;
+use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
 use Netgen\Layouts\Serializer\Values\View;
 use Netgen\Layouts\Serializer\Version;
 use Netgen\Layouts\Validator\Constraint\Locale as LocaleConstraint;
@@ -28,13 +28,13 @@ final class Create extends AbstractController
     private $layoutService;
 
     /**
-     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry
      */
     private $layoutTypeRegistry;
 
     public function __construct(
         LayoutService $layoutService,
-        LayoutTypeRegistryInterface $layoutTypeRegistry
+        LayoutTypeRegistry $layoutTypeRegistry
     ) {
         $this->layoutService = $layoutService;
         $this->layoutTypeRegistry = $layoutTypeRegistry;

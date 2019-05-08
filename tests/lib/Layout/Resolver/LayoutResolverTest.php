@@ -29,7 +29,7 @@ final class LayoutResolverTest extends TestCase
     private $layoutResolverServiceMock;
 
     /**
-     * @var \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry
      */
     private $targetTypeRegistry;
 

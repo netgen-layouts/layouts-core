@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Controller\API\V1\Config;
 
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
-use Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface;
+use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
 use Netgen\Layouts\Serializer\Values\Value;
 use Netgen\Layouts\Serializer\Values\View;
 use Netgen\Layouts\Serializer\Version;
@@ -13,11 +13,11 @@ use Netgen\Layouts\Serializer\Version;
 final class LoadLayoutTypes extends AbstractController
 {
     /**
-     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry
      */
     private $layoutTypeRegistry;
 
-    public function __construct(LayoutTypeRegistryInterface $layoutTypeRegistry)
+    public function __construct(LayoutTypeRegistry $layoutTypeRegistry)
     {
         $this->layoutTypeRegistry = $layoutTypeRegistry;
     }

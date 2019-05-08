@@ -20,7 +20,7 @@ final class PluginTest extends TestCase
     private $plugin;
 
     /**
-     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistryInterface
+     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry
      */
     private $parameterTypeRegistry;
 

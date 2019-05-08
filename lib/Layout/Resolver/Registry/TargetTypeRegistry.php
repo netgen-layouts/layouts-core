@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Layout\Resolver\Registry;
 
+use ArrayAccess;
+use Countable;
+use IteratorAggregate;
 use ArrayIterator;
 use Netgen\Layouts\Exception\Layout\TargetTypeException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Layout\Resolver\TargetTypeInterface;
 use Traversable;
 
-final class TargetTypeRegistry implements TargetTypeRegistryInterface
+final class TargetTypeRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
      * @var \Netgen\Layouts\Layout\Resolver\TargetTypeInterface[]
@@ -26,11 +29,19 @@ final class TargetTypeRegistry implements TargetTypeRegistryInterface
         }
     }
 
+    /**
+     * Returns if registry has a target type.
+     */
     public function hasTargetType(string $type): bool
     {
         return isset($this->targetTypes[$type]);
     }
 
+    /**
+     * Returns a target type with provided type.
+     *
+     * @throws \Netgen\Layouts\Exception\Layout\TargetTypeException If target type does not exist
+     */
     public function getTargetType(string $type): TargetTypeInterface
     {
         if (!$this->hasTargetType($type)) {
@@ -40,6 +51,11 @@ final class TargetTypeRegistry implements TargetTypeRegistryInterface
         return $this->targetTypes[$type];
     }
 
+    /**
+     * Returns all target types.
+     *
+     * @return \Netgen\Layouts\Layout\Resolver\TargetTypeInterface[]
+     */
     public function getTargetTypes(): array
     {
         return $this->targetTypes;

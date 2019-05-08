@@ -8,7 +8,7 @@ use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Layout\Resolver\Form\TargetType;
-use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistryInterface;
+use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,13 +21,13 @@ final class CreateTargetForm extends AbstractController
     private $layoutResolverService;
 
     /**
-     * @var \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry
      */
     private $targetTypeRegistry;
 
     public function __construct(
         LayoutResolverService $layoutResolverService,
-        TargetTypeRegistryInterface $targetTypeRegistry
+        TargetTypeRegistry $targetTypeRegistry
     ) {
         $this->layoutResolverService = $layoutResolverService;
         $this->targetTypeRegistry = $targetTypeRegistry;

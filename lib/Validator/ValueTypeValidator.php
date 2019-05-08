@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Validator;
 
-use Netgen\Layouts\Item\Registry\ValueTypeRegistryInterface;
+use Netgen\Layouts\Item\Registry\ValueTypeRegistry;
 use Netgen\Layouts\Validator\Constraint\ValueType;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -16,11 +16,11 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 final class ValueTypeValidator extends ConstraintValidator
 {
     /**
-     * @var \Netgen\Layouts\Item\Registry\ValueTypeRegistryInterface
+     * @var \Netgen\Layouts\Item\Registry\ValueTypeRegistry
      */
     private $valueTypeRegistry;
 
-    public function __construct(ValueTypeRegistryInterface $valueTypeRegistry)
+    public function __construct(ValueTypeRegistry $valueTypeRegistry)
     {
         $this->valueTypeRegistry = $valueTypeRegistry;
     }

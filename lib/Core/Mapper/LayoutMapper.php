@@ -9,7 +9,7 @@ use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\API\Values\LazyCollection;
 use Netgen\Layouts\Exception\Layout\LayoutTypeException;
 use Netgen\Layouts\Exception\NotFoundException;
-use Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface;
+use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
 use Netgen\Layouts\Layout\Type\NullLayoutType;
 use Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface;
 use Netgen\Layouts\Persistence\Values\Layout\Layout as PersistenceLayout;
@@ -26,11 +26,11 @@ final class LayoutMapper
     private $layoutHandler;
 
     /**
-     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry
      */
     private $layoutTypeRegistry;
 
-    public function __construct(LayoutHandlerInterface $layoutHandler, LayoutTypeRegistryInterface $layoutTypeRegistry)
+    public function __construct(LayoutHandlerInterface $layoutHandler, LayoutTypeRegistry $layoutTypeRegistry)
     {
         $this->layoutHandler = $layoutHandler;
         $this->layoutTypeRegistry = $layoutTypeRegistry;

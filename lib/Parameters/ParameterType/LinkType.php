@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Parameters\ParameterType;
 
-use Netgen\Layouts\Item\Registry\ValueTypeRegistryInterface;
+use Netgen\Layouts\Item\Registry\ValueTypeRegistry;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter;
@@ -21,7 +21,7 @@ use Symfony\Component\Validator\Constraints;
 final class LinkType extends ParameterType
 {
     /**
-     * @var \Netgen\Layouts\Item\Registry\ValueTypeRegistryInterface
+     * @var \Netgen\Layouts\Item\Registry\ValueTypeRegistry
      */
     private $valueTypeRegistry;
 
@@ -30,7 +30,7 @@ final class LinkType extends ParameterType
      */
     private $remoteIdConverter;
 
-    public function __construct(ValueTypeRegistryInterface $valueTypeRegistry, RemoteIdConverter $remoteIdConverter)
+    public function __construct(ValueTypeRegistry $valueTypeRegistry, RemoteIdConverter $remoteIdConverter)
     {
         $this->valueTypeRegistry = $valueTypeRegistry;
         $this->remoteIdConverter = $remoteIdConverter;

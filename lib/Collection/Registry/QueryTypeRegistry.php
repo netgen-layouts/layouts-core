@@ -9,8 +9,11 @@ use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
 use Netgen\Layouts\Exception\Collection\QueryTypeException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Traversable;
+use ArrayAccess;
+use Countable;
+use IteratorAggregate;
 
-final class QueryTypeRegistry implements QueryTypeRegistryInterface
+final class QueryTypeRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
      * @var \Netgen\Layouts\Collection\QueryType\QueryTypeInterface[]
@@ -30,11 +33,19 @@ final class QueryTypeRegistry implements QueryTypeRegistryInterface
         );
     }
 
+    /**
+     * Returns if registry has a query type.
+     */
     public function hasQueryType(string $type): bool
     {
         return isset($this->queryTypes[$type]);
     }
 
+    /**
+     * Returns a query type with provided identifier.
+     *
+     * @throws \Netgen\Layouts\Exception\Collection\QueryTypeException If query type does not exist
+     */
     public function getQueryType(string $type): QueryTypeInterface
     {
         if (!$this->hasQueryType($type)) {
@@ -44,6 +55,13 @@ final class QueryTypeRegistry implements QueryTypeRegistryInterface
         return $this->queryTypes[$type];
     }
 
+    /**
+     * Returns all query types.
+     *
+     * @param bool $onlyEnabled
+     *
+     * @return \Netgen\Layouts\Collection\QueryType\QueryTypeInterface[]
+     */
     public function getQueryTypes(bool $onlyEnabled = false): array
     {
         if (!$onlyEnabled) {

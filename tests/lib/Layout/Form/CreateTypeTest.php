@@ -16,7 +16,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class CreateTypeTest extends FormTestCase
 {
     /**
-     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry
      */
     private $layoutTypeRegistry;
 

@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Item\Registry;
 
+use ArrayAccess;
+use Countable;
+use IteratorAggregate;
 use ArrayIterator;
 use Netgen\Layouts\Exception\Item\ItemException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Item\ValueType\ValueType;
 use Traversable;
 
-final class ValueTypeRegistry implements ValueTypeRegistryInterface
+final class ValueTypeRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
      * @var \Netgen\Layouts\Item\ValueType\ValueType[]
@@ -30,11 +33,19 @@ final class ValueTypeRegistry implements ValueTypeRegistryInterface
         );
     }
 
+    /**
+     * Returns if registry has a value type.
+     */
     public function hasValueType(string $identifier): bool
     {
         return isset($this->valueTypes[$identifier]);
     }
 
+    /**
+     * Returns a value type for provided identifier.
+     *
+     * @throws \Netgen\Layouts\Exception\Item\ItemException If value type does not exist
+     */
     public function getValueType(string $identifier): ValueType
     {
         if (!$this->hasValueType($identifier)) {
@@ -44,6 +55,13 @@ final class ValueTypeRegistry implements ValueTypeRegistryInterface
         return $this->valueTypes[$identifier];
     }
 
+    /**
+     * Returns all value types.
+     *
+     * @param bool $onlyEnabled
+     *
+     * @return \Netgen\Layouts\Item\ValueType\ValueType[]
+     */
     public function getValueTypes(bool $onlyEnabled = false): array
     {
         if (!$onlyEnabled) {

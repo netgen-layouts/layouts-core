@@ -8,7 +8,7 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Types\Type;
 use Generator;
 use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
-use Netgen\Layouts\Collection\Registry\QueryTypeRegistryInterface;
+use Netgen\Layouts\Collection\Registry\QueryTypeRegistry;
 use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use PDO;
 use Symfony\Component\Console\Command\Command;
@@ -42,7 +42,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
     ];
 
     /**
-     * @var \Netgen\Layouts\Collection\Registry\QueryTypeRegistryInterface
+     * @var \Netgen\Layouts\Collection\Registry\QueryTypeRegistry
      */
     private $queryTypeRegistry;
 
@@ -66,7 +66,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
      */
     private $io;
 
-    public function __construct(QueryTypeRegistryInterface $queryTypeRegistry, Connection $connection)
+    public function __construct(QueryTypeRegistry $queryTypeRegistry, Connection $connection)
     {
         $this->queryTypeRegistry = $queryTypeRegistry;
         $this->connection = $connection;

@@ -9,8 +9,11 @@ use Netgen\Layouts\Collection\Item\ItemDefinitionInterface;
 use Netgen\Layouts\Exception\Collection\ItemDefinitionException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Traversable;
+use ArrayAccess;
+use Countable;
+use IteratorAggregate;
 
-final class ItemDefinitionRegistry implements ItemDefinitionRegistryInterface
+final class ItemDefinitionRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
      * @var \Netgen\Layouts\Collection\Item\ItemDefinitionInterface[]
@@ -30,11 +33,19 @@ final class ItemDefinitionRegistry implements ItemDefinitionRegistryInterface
         );
     }
 
+    /**
+     * Returns if registry has a item definition.
+     */
     public function hasItemDefinition(string $valueType): bool
     {
         return isset($this->itemDefinitions[$valueType]);
     }
 
+    /**
+     * Returns a item definition with provided value type.
+     *
+     * @throws \Netgen\Layouts\Exception\Collection\ItemDefinitionException If item definition does not exist
+     */
     public function getItemDefinition(string $valueType): ItemDefinitionInterface
     {
         if (!$this->hasItemDefinition($valueType)) {
@@ -44,6 +55,11 @@ final class ItemDefinitionRegistry implements ItemDefinitionRegistryInterface
         return $this->itemDefinitions[$valueType];
     }
 
+    /**
+     * Returns all item definitions.
+     *
+     * @return \Netgen\Layouts\Collection\Item\ItemDefinitionInterface[]
+     */
     public function getItemDefinitions(): array
     {
         return $this->itemDefinitions;

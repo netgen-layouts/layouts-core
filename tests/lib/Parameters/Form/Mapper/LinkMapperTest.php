@@ -21,7 +21,7 @@ use Symfony\Component\Form\FormFactoryInterface;
 final class LinkMapperTest extends TestCase
 {
     /**
-     * @var \Netgen\Layouts\Item\Registry\ValueTypeRegistryInterface
+     * @var \Netgen\Layouts\Item\Registry\ValueTypeRegistry
      */
     private $valueTypeRegistry;
 

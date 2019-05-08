@@ -15,13 +15,13 @@ use Netgen\Layouts\API\Values\Config\ConfigAwareStruct;
 use Netgen\Layouts\API\Values\Config\ConfigStruct;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
-use Netgen\Layouts\Block\Registry\BlockDefinitionRegistryInterface;
-use Netgen\Layouts\Collection\Registry\ItemDefinitionRegistryInterface;
-use Netgen\Layouts\Collection\Registry\QueryTypeRegistryInterface;
+use Netgen\Layouts\Block\Registry\BlockDefinitionRegistry;
+use Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry;
+use Netgen\Layouts\Collection\Registry\QueryTypeRegistry;
 use Netgen\Layouts\Config\ConfigDefinitionAwareInterface;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Item\CmsItemLoaderInterface;
-use Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface;
+use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -45,22 +45,22 @@ final class LayoutDataHandler
     private $layoutService;
 
     /**
-     * @var \Netgen\Layouts\Block\Registry\BlockDefinitionRegistryInterface
+     * @var \Netgen\Layouts\Block\Registry\BlockDefinitionRegistry
      */
     private $blockDefinitionRegistry;
 
     /**
-     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry
      */
     private $layoutTypeRegistry;
 
     /**
-     * @var \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistryInterface
+     * @var \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry
      */
     private $itemDefinitionRegistry;
 
     /**
-     * @var \Netgen\Layouts\Collection\Registry\QueryTypeRegistryInterface
+     * @var \Netgen\Layouts\Collection\Registry\QueryTypeRegistry
      */
     private $queryTypeRegistry;
 
@@ -73,10 +73,10 @@ final class LayoutDataHandler
         BlockService $blockService,
         CollectionService $collectionService,
         LayoutService $layoutService,
-        BlockDefinitionRegistryInterface $blockDefinitionRegistry,
-        LayoutTypeRegistryInterface $layoutTypeRegistry,
-        ItemDefinitionRegistryInterface $itemDefinitionRegistry,
-        QueryTypeRegistryInterface $queryTypeRegistry,
+        BlockDefinitionRegistry $blockDefinitionRegistry,
+        LayoutTypeRegistry $layoutTypeRegistry,
+        ItemDefinitionRegistry $itemDefinitionRegistry,
+        QueryTypeRegistry $queryTypeRegistry,
         CmsItemLoaderInterface $cmsItemLoader
     ) {
         $this->blockService = $blockService;

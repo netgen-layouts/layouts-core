@@ -6,7 +6,7 @@ namespace Netgen\Layouts\Block\Registry;
 
 use Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface;
 
-final class HandlerPluginRegistry implements HandlerPluginRegistryInterface
+final class HandlerPluginRegistry
 {
     /**
      * @var \Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface[]
@@ -22,6 +22,13 @@ final class HandlerPluginRegistry implements HandlerPluginRegistryInterface
         }
     }
 
+    /**
+     * Returns all handler plugins for the provided handler class.
+     *
+     * @param string $handlerClass
+     *
+     * @return \Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface[]
+     */
     public function getPlugins(string $handlerClass): array
     {
         return array_values(

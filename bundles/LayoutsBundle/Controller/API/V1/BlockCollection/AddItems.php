@@ -7,7 +7,7 @@ namespace Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\CollectionService;
 use Netgen\Layouts\API\Values\Block\Block;
-use Netgen\Layouts\Collection\Registry\ItemDefinitionRegistryInterface;
+use Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry;
 use Netgen\Layouts\Exception\Validation\ValidationException;
 use Netgen\Layouts\Validator\ValidatorTrait;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,13 +24,13 @@ final class AddItems extends AbstractController
     private $collectionService;
 
     /**
-     * @var \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistryInterface
+     * @var \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry
      */
     private $itemDefinitionRegistry;
 
     public function __construct(
         CollectionService $collectionService,
-        ItemDefinitionRegistryInterface $itemDefinitionRegistry
+        ItemDefinitionRegistry $itemDefinitionRegistry
     ) {
         $this->collectionService = $collectionService;
         $this->itemDefinitionRegistry = $itemDefinitionRegistry;

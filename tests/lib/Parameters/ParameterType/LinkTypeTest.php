@@ -24,7 +24,7 @@ final class LinkTypeTest extends TestCase
     use ParameterTypeTestTrait;
 
     /**
-     * @var \Netgen\Layouts\Item\Registry\ValueTypeRegistryInterface
+     * @var \Netgen\Layouts\Item\Registry\ValueTypeRegistry
      */
     private $valueTypeRegistry;
 

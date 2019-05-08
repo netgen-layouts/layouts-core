@@ -9,7 +9,7 @@ use Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructBuilde
 use Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructValidator;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Service\LayoutService;
-use Netgen\Layouts\Block\Registry\BlockTypeRegistryInterface;
+use Netgen\Layouts\Block\Registry\BlockTypeRegistry;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\Block\BlockTypeException;
 use Netgen\Layouts\Exception\NotFoundException;
@@ -42,7 +42,7 @@ final class CreateInZone extends AbstractController
     private $createStructValidator;
 
     /**
-     * @var \Netgen\Layouts\Block\Registry\BlockTypeRegistryInterface
+     * @var \Netgen\Layouts\Block\Registry\BlockTypeRegistry
      */
     private $blockTypeRegistry;
 
@@ -51,7 +51,7 @@ final class CreateInZone extends AbstractController
         LayoutService $layoutService,
         CreateStructBuilder $createStructBuilder,
         CreateStructValidator $createStructValidator,
-        BlockTypeRegistryInterface $blockTypeRegistry
+        BlockTypeRegistry $blockTypeRegistry
     ) {
         $this->blockService = $blockService;
         $this->layoutService = $layoutService;

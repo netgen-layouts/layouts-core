@@ -6,7 +6,7 @@ namespace Netgen\Layouts\Behat\Context\Setup;
 
 use Behat\Behat\Context\Context;
 use Netgen\Layouts\API\Service\LayoutService;
-use Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface;
+use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 
 final class LayoutContext implements Context
@@ -17,11 +17,11 @@ final class LayoutContext implements Context
     private $layoutService;
 
     /**
-     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry
      */
     private $layoutTypeRegistry;
 
-    public function __construct(LayoutService $layoutService, LayoutTypeRegistryInterface $layoutTypeRegistry)
+    public function __construct(LayoutService $layoutService, LayoutTypeRegistry $layoutTypeRegistry)
     {
         $this->layoutService = $layoutService;
         $this->layoutTypeRegistry = $layoutTypeRegistry;

@@ -23,7 +23,7 @@ use Netgen\Layouts\Core\StructBuilder\BlockStructBuilder;
 use Netgen\Layouts\Core\Validator\BlockValidator;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
-use Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface;
+use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
 use Netgen\Layouts\Persistence\Handler\BlockHandlerInterface;
 use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface;
@@ -80,7 +80,7 @@ final class BlockService extends Service implements BlockServiceInterface
     private $collectionHandler;
 
     /**
-     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry
      */
     private $layoutTypeRegistry;
 
@@ -91,7 +91,7 @@ final class BlockService extends Service implements BlockServiceInterface
         BlockStructBuilder $structBuilder,
         ParameterMapper $parameterMapper,
         ConfigMapper $configMapper,
-        LayoutTypeRegistryInterface $layoutTypeRegistry,
+        LayoutTypeRegistry $layoutTypeRegistry,
         BlockHandlerInterface $blockHandler,
         LayoutHandlerInterface $layoutHandler,
         CollectionHandlerInterface $collectionHandler

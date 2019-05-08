@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Block\Registry;
 
+use ArrayAccess;
+use Countable;
+use IteratorAggregate;
 use ArrayIterator;
 use Netgen\Layouts\Block\BlockDefinitionInterface;
 use Netgen\Layouts\Exception\Block\BlockDefinitionException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Traversable;
 
-final class BlockDefinitionRegistry implements BlockDefinitionRegistryInterface
+final class BlockDefinitionRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
      * @var \Netgen\Layouts\Block\BlockDefinitionInterface[]
@@ -30,11 +33,19 @@ final class BlockDefinitionRegistry implements BlockDefinitionRegistryInterface
         );
     }
 
+    /**
+     * Returns if registry has a block definition.
+     */
     public function hasBlockDefinition(string $identifier): bool
     {
         return isset($this->blockDefinitions[$identifier]);
     }
 
+    /**
+     * Returns a block definition with provided identifier.
+     *
+     * @throws \Netgen\Layouts\Exception\Block\BlockDefinitionException If block definition does not exist
+     */
     public function getBlockDefinition(string $identifier): BlockDefinitionInterface
     {
         if (!$this->hasBlockDefinition($identifier)) {
@@ -44,6 +55,11 @@ final class BlockDefinitionRegistry implements BlockDefinitionRegistryInterface
         return $this->blockDefinitions[$identifier];
     }
 
+    /**
+     * Returns all block definitions.
+     *
+     * @return \Netgen\Layouts\Block\BlockDefinitionInterface[]
+     */
     public function getBlockDefinitions(): array
     {
         return $this->blockDefinitions;

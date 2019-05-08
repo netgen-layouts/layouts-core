@@ -13,7 +13,7 @@ use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 final class TranslatableParameterBuilderTest extends TestCase
 {
     /**
-     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistryInterface
+     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry
      */
     private $registry;
 

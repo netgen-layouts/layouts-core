@@ -6,7 +6,7 @@ namespace Netgen\Layouts\Layout\Form;
 
 use Netgen\Layouts\API\Values\Layout\LayoutCreateStruct;
 use Netgen\Layouts\Form\AbstractType;
-use Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface;
+use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
 use Netgen\Layouts\Validator\Constraint\LayoutName;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -21,11 +21,11 @@ use Symfony\Component\Validator\Constraints;
 final class CreateType extends AbstractType
 {
     /**
-     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry
      */
     private $layoutTypeRegistry;
 
-    public function __construct(LayoutTypeRegistryInterface $layoutTypeRegistry)
+    public function __construct(LayoutTypeRegistry $layoutTypeRegistry)
     {
         $this->layoutTypeRegistry = $layoutTypeRegistry;
     }

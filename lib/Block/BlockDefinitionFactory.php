@@ -11,7 +11,7 @@ use Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\Layouts\Block\BlockDefinition\ContainerDefinitionHandlerInterface;
 use Netgen\Layouts\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
-use Netgen\Layouts\Block\Registry\HandlerPluginRegistryInterface;
+use Netgen\Layouts\Block\Registry\HandlerPluginRegistry;
 use Netgen\Layouts\Config\ConfigDefinitionFactory;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface;
@@ -24,7 +24,7 @@ final class BlockDefinitionFactory
     private $parameterBuilderFactory;
 
     /**
-     * @var \Netgen\Layouts\Block\Registry\HandlerPluginRegistryInterface
+     * @var \Netgen\Layouts\Block\Registry\HandlerPluginRegistry
      */
     private $handlerPluginRegistry;
 
@@ -35,7 +35,7 @@ final class BlockDefinitionFactory
 
     public function __construct(
         ParameterBuilderFactoryInterface $parameterBuilderFactory,
-        HandlerPluginRegistryInterface $handlerPluginRegistry,
+        HandlerPluginRegistry $handlerPluginRegistry,
         ConfigDefinitionFactory $configDefinitionFactory
     ) {
         $this->parameterBuilderFactory = $parameterBuilderFactory;

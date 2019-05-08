@@ -51,7 +51,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
 
         $searchResults = [new Value(140), new Value(79), new Value(78)];
 
-        /** @var \Netgen\Layouts\Collection\Registry\QueryTypeRegistryInterface $queryTypeRegistry */
+        /** @var \Netgen\Layouts\Collection\Registry\QueryTypeRegistry $queryTypeRegistry */
         $queryTypeRegistry = $clientContainer->get('netgen_layouts.collection.registry.query_type');
 
         $queryType = new QueryType('my_query_type', $searchResults, count($searchResults));

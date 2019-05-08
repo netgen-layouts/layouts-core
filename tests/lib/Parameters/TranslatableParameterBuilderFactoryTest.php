@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 final class TranslatableParameterBuilderFactoryTest extends TestCase
 {
     /**
-     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistryInterface
+     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry
      */
     private $registry;
 

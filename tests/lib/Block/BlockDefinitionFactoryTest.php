@@ -36,7 +36,7 @@ final class BlockDefinitionFactoryTest extends TestCase
     private $parameterBuilderFactory;
 
     /**
-     * @var \Netgen\Layouts\Block\Registry\HandlerPluginRegistryInterface
+     * @var \Netgen\Layouts\Block\Registry\HandlerPluginRegistry
      */
     private $handlerPluginRegistry;
 

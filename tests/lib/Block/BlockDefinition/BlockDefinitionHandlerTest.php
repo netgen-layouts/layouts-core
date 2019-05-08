@@ -20,7 +20,7 @@ final class BlockDefinitionHandlerTest extends TestCase
     private $handler;
 
     /**
-     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistryInterface
+     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry
      */
     private $parameterTypeRegistry;
 

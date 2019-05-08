@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Block\Registry;
 
+use ArrayAccess;
+use Countable;
+use IteratorAggregate;
 use ArrayIterator;
 use Netgen\Layouts\Block\BlockType\BlockType;
 use Netgen\Layouts\Exception\Block\BlockTypeException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Traversable;
 
-final class BlockTypeRegistry implements BlockTypeRegistryInterface
+final class BlockTypeRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
      * @var \Netgen\Layouts\Block\BlockType\BlockType[]
@@ -30,11 +33,19 @@ final class BlockTypeRegistry implements BlockTypeRegistryInterface
         );
     }
 
+    /**
+     * Returns if registry has a block type.
+     */
     public function hasBlockType(string $identifier): bool
     {
         return isset($this->blockTypes[$identifier]);
     }
 
+    /**
+     * Returns the block type with provided identifier.
+     *
+     * @throws \Netgen\Layouts\Exception\Block\BlockTypeException If block type with provided identifier does not exist
+     */
     public function getBlockType(string $identifier): BlockType
     {
         if (!$this->hasBlockType($identifier)) {
@@ -44,6 +55,13 @@ final class BlockTypeRegistry implements BlockTypeRegistryInterface
         return $this->blockTypes[$identifier];
     }
 
+    /**
+     * Returns all block types.
+     *
+     * @param bool $onlyEnabled
+     *
+     * @return \Netgen\Layouts\Block\BlockType\BlockType[]
+     */
     public function getBlockTypes(bool $onlyEnabled = false): array
     {
         if (!$onlyEnabled) {

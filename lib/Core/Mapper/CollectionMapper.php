@@ -10,8 +10,8 @@ use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\API\Values\LazyCollection;
 use Netgen\Layouts\Collection\Item\NullItemDefinition;
 use Netgen\Layouts\Collection\QueryType\NullQueryType;
-use Netgen\Layouts\Collection\Registry\ItemDefinitionRegistryInterface;
-use Netgen\Layouts\Collection\Registry\QueryTypeRegistryInterface;
+use Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry;
+use Netgen\Layouts\Collection\Registry\QueryTypeRegistry;
 use Netgen\Layouts\Exception\Collection\ItemDefinitionException;
 use Netgen\Layouts\Exception\Collection\QueryTypeException;
 use Netgen\Layouts\Exception\NotFoundException;
@@ -41,12 +41,12 @@ final class CollectionMapper
     private $configMapper;
 
     /**
-     * @var \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistryInterface
+     * @var \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry
      */
     private $itemDefinitionRegistry;
 
     /**
-     * @var \Netgen\Layouts\Collection\Registry\QueryTypeRegistryInterface
+     * @var \Netgen\Layouts\Collection\Registry\QueryTypeRegistry
      */
     private $queryTypeRegistry;
 
@@ -59,8 +59,8 @@ final class CollectionMapper
         CollectionHandlerInterface $collectionHandler,
         ParameterMapper $parameterMapper,
         ConfigMapper $configMapper,
-        ItemDefinitionRegistryInterface $itemDefinitionRegistry,
-        QueryTypeRegistryInterface $queryTypeRegistry,
+        ItemDefinitionRegistry $itemDefinitionRegistry,
+        QueryTypeRegistry $queryTypeRegistry,
         CmsItemLoaderInterface $cmsItemLoader
     ) {
         $this->collectionHandler = $collectionHandler;

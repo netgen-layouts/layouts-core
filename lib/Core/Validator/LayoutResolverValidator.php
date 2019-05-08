@@ -13,26 +13,26 @@ use Netgen\Layouts\API\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetUpdateStruct;
-use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
-use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistryInterface;
+use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry;
+use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints;
 
 final class LayoutResolverValidator extends Validator
 {
     /**
-     * @var \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry
      */
     private $targetTypeRegistry;
 
     /**
-     * @var \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry
      */
     private $conditionTypeRegistry;
 
     public function __construct(
-        TargetTypeRegistryInterface $targetTypeRegistry,
-        ConditionTypeRegistryInterface $conditionTypeRegistry
+        TargetTypeRegistry $targetTypeRegistry,
+        ConditionTypeRegistry $conditionTypeRegistry
     ) {
         $this->targetTypeRegistry = $targetTypeRegistry;
         $this->conditionTypeRegistry = $conditionTypeRegistry;

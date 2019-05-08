@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Parameters;
 
-use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistryInterface;
+use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ParameterBuilderFactory implements ParameterBuilderFactoryInterface
 {
     /**
-     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistryInterface
+     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry
      */
     private $parameterTypeRegistry;
 
-    public function __construct(ParameterTypeRegistryInterface $parameterTypeRegistry)
+    public function __construct(ParameterTypeRegistry $parameterTypeRegistry)
     {
         $this->parameterTypeRegistry = $parameterTypeRegistry;
     }

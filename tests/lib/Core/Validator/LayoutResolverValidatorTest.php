@@ -33,12 +33,12 @@ final class LayoutResolverValidatorTest extends TestCase
     private $validator;
 
     /**
-     * @var \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry
      */
     private $targetTypeRegistry;
 
     /**
-     * @var \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry
      */
     private $conditionTypeRegistry;
 

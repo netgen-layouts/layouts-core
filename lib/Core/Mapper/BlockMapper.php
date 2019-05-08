@@ -12,7 +12,7 @@ use Netgen\Layouts\API\Values\LazyCollection;
 use Netgen\Layouts\Block\BlockDefinitionInterface;
 use Netgen\Layouts\Block\ContainerDefinitionInterface;
 use Netgen\Layouts\Block\NullBlockDefinition;
-use Netgen\Layouts\Block\Registry\BlockDefinitionRegistryInterface;
+use Netgen\Layouts\Block\Registry\BlockDefinitionRegistry;
 use Netgen\Layouts\Exception\Block\BlockDefinitionException;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Persistence\Handler\BlockHandlerInterface;
@@ -49,7 +49,7 @@ final class BlockMapper
     private $configMapper;
 
     /**
-     * @var \Netgen\Layouts\Block\Registry\BlockDefinitionRegistryInterface
+     * @var \Netgen\Layouts\Block\Registry\BlockDefinitionRegistry
      */
     private $blockDefinitionRegistry;
 
@@ -59,7 +59,7 @@ final class BlockMapper
         CollectionMapper $collectionMapper,
         ParameterMapper $parameterMapper,
         ConfigMapper $configMapper,
-        BlockDefinitionRegistryInterface $blockDefinitionRegistry
+        BlockDefinitionRegistry $blockDefinitionRegistry
     ) {
         $this->blockHandler = $blockHandler;
         $this->collectionHandler = $collectionHandler;

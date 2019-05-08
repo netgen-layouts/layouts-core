@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Controller\API\V1\Config;
 
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
-use Netgen\Layouts\Block\Registry\BlockTypeGroupRegistryInterface;
-use Netgen\Layouts\Block\Registry\BlockTypeRegistryInterface;
+use Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry;
+use Netgen\Layouts\Block\Registry\BlockTypeRegistry;
 use Netgen\Layouts\Serializer\Values\Value;
 use Netgen\Layouts\Serializer\Values\VersionedValue;
 use Netgen\Layouts\Serializer\Version;
@@ -14,18 +14,18 @@ use Netgen\Layouts\Serializer\Version;
 final class LoadBlockTypes extends AbstractController
 {
     /**
-     * @var \Netgen\Layouts\Block\Registry\BlockTypeRegistryInterface
+     * @var \Netgen\Layouts\Block\Registry\BlockTypeRegistry
      */
     private $blockTypeRegistry;
 
     /**
-     * @var \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistryInterface
+     * @var \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry
      */
     private $blockTypeGroupRegistry;
 
     public function __construct(
-        BlockTypeRegistryInterface $blockTypeRegistry,
-        BlockTypeGroupRegistryInterface $blockTypeGroupRegistry
+        BlockTypeRegistry $blockTypeRegistry,
+        BlockTypeGroupRegistry $blockTypeGroupRegistry
     ) {
         $this->blockTypeRegistry = $blockTypeRegistry;
         $this->blockTypeGroupRegistry = $blockTypeGroupRegistry;

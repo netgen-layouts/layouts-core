@@ -7,7 +7,7 @@ namespace Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
-use Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface;
+use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
 use Netgen\Layouts\Serializer\Values\View;
 use Netgen\Layouts\Serializer\Version;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,11 +20,11 @@ final class ChangeType extends AbstractController
     private $layoutService;
 
     /**
-     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry
      */
     private $layoutTypeRegistry;
 
-    public function __construct(LayoutService $layoutService, LayoutTypeRegistryInterface $layoutTypeRegistry)
+    public function __construct(LayoutService $layoutService, LayoutTypeRegistry $layoutTypeRegistry)
     {
         $this->layoutService = $layoutService;
         $this->layoutTypeRegistry = $layoutTypeRegistry;

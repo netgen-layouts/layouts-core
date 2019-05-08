@@ -8,7 +8,7 @@ use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Layout\Resolver\Form\ConditionType;
-use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistryInterface;
+use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,13 +21,13 @@ final class CreateConditionForm extends AbstractController
     private $layoutResolverService;
 
     /**
-     * @var \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistryInterface
+     * @var \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry
      */
     private $conditionTypeRegistry;
 
     public function __construct(
         LayoutResolverService $layoutResolverService,
-        ConditionTypeRegistryInterface $conditionTypeRegistry
+        ConditionTypeRegistry $conditionTypeRegistry
     ) {
         $this->layoutResolverService = $layoutResolverService;
         $this->conditionTypeRegistry = $conditionTypeRegistry;
