@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Collection\Registry;
 
+use ArrayAccess;
 use ArrayIterator;
+use Countable;
+use IteratorAggregate;
 use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
 use Netgen\Layouts\Exception\Collection\QueryTypeException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Traversable;
-use ArrayAccess;
-use Countable;
-use IteratorAggregate;
 
 final class QueryTypeRegistry implements IteratorAggregate, Countable, ArrayAccess
 {

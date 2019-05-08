@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Layout\Resolver\Registry;
 
 use ArrayAccess;
+use ArrayIterator;
 use Countable;
 use IteratorAggregate;
-use ArrayIterator;
 use Netgen\Layouts\Exception\Layout\TargetTypeException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Layout\Resolver\TargetTypeInterface;

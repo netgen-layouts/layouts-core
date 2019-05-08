@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Parameters\Registry;
 
 use ArrayAccess;
+use ArrayIterator;
 use Countable;
 use IteratorAggregate;
-use ArrayIterator;
 use Netgen\Layouts\Exception\Parameters\ParameterTypeException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Parameters\ParameterTypeInterface;

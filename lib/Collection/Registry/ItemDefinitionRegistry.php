@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Collection\Registry;
 
+use ArrayAccess;
 use ArrayIterator;
+use Countable;
+use IteratorAggregate;
 use Netgen\Layouts\Collection\Item\ItemDefinitionInterface;
 use Netgen\Layouts\Exception\Collection\ItemDefinitionException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Traversable;
-use ArrayAccess;
-use Countable;
-use IteratorAggregate;
 
 final class ItemDefinitionRegistry implements IteratorAggregate, Countable, ArrayAccess
 {

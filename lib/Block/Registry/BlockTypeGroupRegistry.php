@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Block\Registry;
 
 use ArrayAccess;
+use ArrayIterator;
 use Countable;
 use IteratorAggregate;
-use ArrayIterator;
 use Netgen\Layouts\Block\BlockType\BlockTypeGroup;
 use Netgen\Layouts\Exception\Block\BlockTypeException;
 use Netgen\Layouts\Exception\RuntimeException;
