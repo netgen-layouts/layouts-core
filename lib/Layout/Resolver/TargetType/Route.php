@@ -8,7 +8,7 @@ use Netgen\Layouts\Layout\Resolver\TargetTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;
 
-class Route implements TargetTypeInterface
+final class Route implements TargetTypeInterface
 {
     public static function getType(): string
     {

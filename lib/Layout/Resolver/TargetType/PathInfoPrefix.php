@@ -4,10 +4,27 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Layout\Resolver\TargetType;
 
-final class PathInfoPrefix extends PathInfo
+use Netgen\Layouts\Layout\Resolver\TargetTypeInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints;
+
+final class PathInfoPrefix implements TargetTypeInterface
 {
     public static function getType(): string
     {
         return 'path_info_prefix';
+    }
+
+    public function getConstraints(): array
+    {
+        return [
+            new Constraints\NotBlank(),
+            new Constraints\Type(['type' => 'string']),
+        ];
+    }
+
+    public function provideValue(Request $request)
+    {
+        return $request->getPathInfo();
     }
 }
