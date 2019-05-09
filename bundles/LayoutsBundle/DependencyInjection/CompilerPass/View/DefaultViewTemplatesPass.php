@@ -7,7 +7,7 @@ namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\View;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class DefaultViewTemplatesPass implements CompilerPassInterface
+final class DefaultViewTemplatesPass implements CompilerPassInterface
 {
     public function process(ContainerBuilder $container): void
     {
@@ -24,7 +24,7 @@ class DefaultViewTemplatesPass implements CompilerPassInterface
     /**
      * Updates all view rules to add the default template match.
      */
-    protected function updateRules(ContainerBuilder $container, ?array $allRules): array
+    private function updateRules(ContainerBuilder $container, ?array $allRules): array
     {
         $allRules = is_array($allRules) ? $allRules : [];
 
@@ -50,7 +50,7 @@ class DefaultViewTemplatesPass implements CompilerPassInterface
     /**
      * Adds the default view template as a fallback to specified view rules.
      */
-    protected function addDefaultRule(string $viewName, string $context, array $rules, string $defaultTemplate): array
+    private function addDefaultRule(string $viewName, string $context, array $rules, string $defaultTemplate): array
     {
         $rules += [
             "___{$viewName}_{$context}_default___" => [
