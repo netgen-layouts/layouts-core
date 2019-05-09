@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Context\Stubs;
 
-use Netgen\Layouts\Context\ContextInterface;
+use Netgen\Layouts\Context\Context;
 use Netgen\Layouts\Context\ContextProviderInterface;
 
 final class ContextProvider implements ContextProviderInterface
@@ -19,7 +19,7 @@ final class ContextProvider implements ContextProviderInterface
         $this->variables = $variables;
     }
 
-    public function provideContext(ContextInterface $context): void
+    public function provideContext(Context $context): void
     {
         $context->add($this->variables);
     }

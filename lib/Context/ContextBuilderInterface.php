@@ -9,5 +9,5 @@ interface ContextBuilderInterface
     /**
      * Builds the provided context by using all registered context providers.
      */
-    public function buildContext(ContextInterface $context): void;
+    public function buildContext(Context $context): void;
 }

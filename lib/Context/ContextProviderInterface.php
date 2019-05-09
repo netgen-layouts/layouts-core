@@ -9,5 +9,5 @@ interface ContextProviderInterface
     /**
      * Updates the provided context with a set of scalar variables.
      */
-    public function provideContext(ContextInterface $context): void;
+    public function provideContext(Context $context): void;
 }

@@ -20,7 +20,7 @@ final class ContextBuilder implements ContextBuilderInterface
         }
     }
 
-    public function buildContext(ContextInterface $context): void
+    public function buildContext(Context $context): void
     {
         foreach ($this->contextProviders as $contextProvider) {
             $contextProvider->provideContext($context);

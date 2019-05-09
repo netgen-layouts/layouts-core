@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 final class ContextBuilderTest extends TestCase
 {
     /**
-     * @var \Netgen\Layouts\Context\ContextInterface
+     * @var \Netgen\Layouts\Context\Context
      */
     private $context;
 

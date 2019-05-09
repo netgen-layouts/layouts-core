@@ -17,7 +17,7 @@ use Symfony\Component\HttpKernel\UriSigner;
 final class ContextListenerTest extends TestCase
 {
     /**
-     * @var \Netgen\Layouts\Context\ContextInterface
+     * @var \Netgen\Layouts\Context\Context
      */
     private $context;
 

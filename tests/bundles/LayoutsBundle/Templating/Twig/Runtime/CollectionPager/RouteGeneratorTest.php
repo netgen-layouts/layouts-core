@@ -6,7 +6,7 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\Templating\Twig\Runtime\CollectionPa
 
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\CollectionPager\RouteGenerator;
 use Netgen\Layouts\API\Values\Block\Block;
-use Netgen\Layouts\Context\ContextInterface;
+use Netgen\Layouts\Context\Context;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpKernel\UriSigner;
@@ -15,9 +15,9 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 final class RouteGeneratorTest extends TestCase
 {
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\Layouts\Context\Context
      */
-    private $contextMock;
+    private $context;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
@@ -36,12 +36,12 @@ final class RouteGeneratorTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->contextMock = $this->createMock(ContextInterface::class);
+        $this->context = new Context();
         $this->uriSignerMock = $this->createMock(UriSigner::class);
         $this->urlGeneratorMock = $this->createMock(UrlGeneratorInterface::class);
 
         $this->routeGenerator = new RouteGenerator(
-            $this->contextMock,
+            $this->context,
             $this->uriSignerMock,
             $this->urlGeneratorMock
         );
@@ -61,9 +61,7 @@ final class RouteGeneratorTest extends TestCase
             ]
         );
 
-        $this->contextMock->expects(self::once())
-            ->method('all')
-            ->willReturn(['var' => 'value']);
+        $this->context->set('var', 'value');
 
         $this->urlGeneratorMock->expects(self::once())
             ->method('generate')

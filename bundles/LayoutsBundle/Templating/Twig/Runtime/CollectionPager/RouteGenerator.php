@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\CollectionPager;
 
 use Netgen\Layouts\API\Values\Block\Block;
-use Netgen\Layouts\Context\ContextInterface;
+use Netgen\Layouts\Context\Context;
 use Symfony\Component\HttpKernel\UriSigner;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 final class RouteGenerator
 {
     /**
-     * @var \Netgen\Layouts\Context\ContextInterface
+     * @var \Netgen\Layouts\Context\Context
      */
     private $context;
 
@@ -27,7 +27,7 @@ final class RouteGenerator
     private $urlGenerator;
 
     public function __construct(
-        ContextInterface $context,
+        Context $context,
         UriSigner $uriSigner,
         UrlGeneratorInterface $urlGenerator
     ) {

@@ -4,33 +4,58 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Context;
 
+use ArrayAccess;
 use ArrayIterator;
+use Countable;
+use IteratorAggregate;
 use Netgen\Layouts\Exception\Context\ContextException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Traversable;
 
-final class Context implements ContextInterface
+final class Context implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
      * @var array
      */
     private $contextVariables = [];
 
+    /**
+     * Sets a variable to the context. Variable value needs to be
+     * a scalar or an array/hash of scalars.
+     *
+     * @param string $variableName
+     * @param mixed $value
+     */
     public function set(string $variableName, $value): void
     {
         $this->contextVariables[$variableName] = $value;
     }
 
+    /**
+     * Adds the provided hash array of values to the context.
+     *
+     * This replaces already existing variables.
+     */
     public function add(array $context): void
     {
         $this->contextVariables = $context + $this->contextVariables;
     }
 
+    /**
+     * Returns if the variable with provided name exists in the context.
+     */
     public function has(string $variableName): bool
     {
         return array_key_exists($variableName, $this->contextVariables);
     }
 
+    /**
+     * Returns the variable with provided name from the context.
+     *
+     * @throws \Netgen\Layouts\Exception\Context\ContextException If variable with provided name does not exist
+     *
+     * @return mixed
+     */
     public function get(string $variableName)
     {
         if (!$this->has($variableName)) {
@@ -40,6 +65,9 @@ final class Context implements ContextInterface
         return $this->contextVariables[$variableName];
     }
 
+    /**
+     * Returns all variables from the context.
+     */
     public function all(): array
     {
         return $this->contextVariables;
