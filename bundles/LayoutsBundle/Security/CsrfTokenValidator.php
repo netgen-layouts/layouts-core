@@ -41,11 +41,8 @@ final class CsrfTokenValidator implements CsrfTokenValidatorInterface
             return false;
         }
 
-        $token = new CsrfToken(
-            $csrfTokenId,
-            $request->headers->get(self::CSRF_TOKEN_HEADER)
-        );
+        $token = (array) ($request->headers->get(self::CSRF_TOKEN_HEADER) ?? '');
 
-        return $this->csrfTokenManager->isTokenValid($token);
+        return $this->csrfTokenManager->isTokenValid(new CsrfToken($csrfTokenId, $token[0]));
     }
 }
