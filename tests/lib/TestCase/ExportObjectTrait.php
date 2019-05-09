@@ -19,12 +19,6 @@ trait ExportObjectTrait
         return $this->exportArray($data, $recursive);
     }
 
-    /**
-     * @param object[] $objects
-     * @param bool $recursive
-     *
-     * @return array
-     */
     private function exportObjectList(array $objects, bool $recursive = false): array
     {
         $data = [];

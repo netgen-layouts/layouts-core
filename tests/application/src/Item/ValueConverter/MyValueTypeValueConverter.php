@@ -19,16 +19,29 @@ final class MyValueTypeValueConverter implements ValueConverterInterface
         return 'my_value_type';
     }
 
+    /**
+     * @param \Netgen\Layouts\Tests\App\Item\Value $object
+     *
+     * @return int|string
+     */
     public function getId(object $object)
     {
         return $object->id;
     }
 
+    /**
+     * @param \Netgen\Layouts\Tests\App\Item\Value $object
+     *
+     * @return int|string
+     */
     public function getRemoteId(object $object)
     {
         return $object->id;
     }
 
+    /**
+     * @param \Netgen\Layouts\Tests\App\Item\Value $object
+     */
     public function getName(object $object): string
     {
         return 'Value with ID #' . $object->id;
