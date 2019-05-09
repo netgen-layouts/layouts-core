@@ -8,9 +8,9 @@ use Netgen\Layouts\API\Values\Config\Config;
 use Netgen\Layouts\API\Values\Config\ConfigAwareStruct;
 use Netgen\Layouts\API\Values\Config\ConfigAwareValue;
 use Netgen\Layouts\Config\ConfigDefinitionInterface;
-use Netgen\Layouts\Form\AbstractType;
 use Netgen\Layouts\Parameters\Form\Type\ParametersType;
 use Netgen\Layouts\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -21,7 +21,7 @@ final class EditType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver): void
     {
-        parent::configureOptions($resolver);
+        $resolver->setDefault('translation_domain', 'nglayouts_forms');
 
         $resolver->setRequired(['configurable', 'config_key', 'label_prefix']);
 

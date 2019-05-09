@@ -6,9 +6,9 @@ namespace Netgen\Layouts\Tests\Form\Stubs;
 
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
-use Netgen\Layouts\Form\AbstractType;
 use Netgen\Layouts\Form\TranslatableTypeTrait;
 use Netgen\Layouts\Parameters\Form\Type\ParametersType;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -19,8 +19,6 @@ final class TranslatableTypeStub extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        parent::configureOptions($resolver);
-
         $resolver->setRequired('block');
         $resolver->setAllowedTypes('block', Block::class);
         $resolver->setAllowedTypes('data', BlockUpdateStruct::class);

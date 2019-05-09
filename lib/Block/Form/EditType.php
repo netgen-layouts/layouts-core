@@ -7,9 +7,9 @@ namespace Netgen\Layouts\Block\Form;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
 use Netgen\Layouts\Block\BlockDefinitionInterface;
-use Netgen\Layouts\Form\AbstractType;
 use Netgen\Layouts\Parameters\Form\Type\ParametersType;
 use Netgen\Layouts\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -42,7 +42,7 @@ abstract class EditType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        parent::configureOptions($resolver);
+        $resolver->setDefault('translation_domain', 'nglayouts_forms');
 
         $resolver->setRequired('block');
         $resolver->setAllowedTypes('block', Block::class);

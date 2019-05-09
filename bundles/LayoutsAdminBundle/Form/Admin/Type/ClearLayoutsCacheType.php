@@ -6,7 +6,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type;
 
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\LayoutList;
-use Netgen\Layouts\Form\AbstractType;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -18,7 +18,7 @@ final class ClearLayoutsCacheType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver): void
     {
-        parent::configureOptions($resolver);
+        $resolver->setDefault('translation_domain', 'nglayouts_forms');
 
         $resolver->setRequired(['layouts']);
         $resolver->setAllowedTypes('layouts', LayoutList::class);

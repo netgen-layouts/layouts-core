@@ -6,8 +6,8 @@ namespace Netgen\Layouts\Collection\Form;
 
 use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Collection\CollectionUpdateStruct;
-use Netgen\Layouts\Form\AbstractType;
 use Netgen\Layouts\Form\TranslatableTypeTrait;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -21,7 +21,7 @@ final class CollectionEditType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        parent::configureOptions($resolver);
+        $resolver->setDefault('translation_domain', 'nglayouts_forms');
 
         $resolver->setRequired('collection');
         $resolver->setAllowedTypes('collection', Collection::class);

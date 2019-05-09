@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Layout\Form;
 
 use Netgen\Layouts\API\Values\Layout\LayoutCreateStruct;
-use Netgen\Layouts\Form\AbstractType;
 use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
 use Netgen\Layouts\Validator\Constraint\LayoutName;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -32,7 +32,7 @@ final class CreateType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        parent::configureOptions($resolver);
+        $resolver->setDefault('translation_domain', 'nglayouts_forms');
 
         $resolver->setAllowedTypes('data', LayoutCreateStruct::class);
     }

@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Form;
 
 use Netgen\Layouts\Form\DataMapper\DateTimeDataMapper;
 use Netgen\Layouts\Utils\DateTimeUtils;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType as BaseDateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,6 +23,8 @@ final class DateTimeType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
+        $resolver->setDefault('translation_domain', 'nglayouts_forms');
+
         $resolver->setRequired(['use_datetime']);
         $resolver->setAllowedTypes('use_datetime', 'bool');
         $resolver->setDefault('use_datetime', true);

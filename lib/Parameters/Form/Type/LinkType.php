@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Parameters\Form\Type;
 
 use Netgen\ContentBrowser\Form\Type\ContentBrowserDynamicType;
-use Netgen\Layouts\Form\AbstractType;
 use Netgen\Layouts\Parameters\Form\Type\DataMapper\ItemLinkDataMapper;
 use Netgen\Layouts\Parameters\Value\LinkValue;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -23,7 +23,7 @@ final class LinkType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver): void
     {
-        parent::configureOptions($resolver);
+        $resolver->setDefault('translation_domain', 'nglayouts_forms');
 
         $resolver->setRequired(['value_types']);
         $resolver->setAllowedTypes('value_types', 'string[]');

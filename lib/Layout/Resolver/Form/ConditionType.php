@@ -6,9 +6,9 @@ namespace Netgen\Layouts\Layout\Resolver\Form;
 
 use Netgen\Layouts\API\Values\LayoutResolver\ConditionStruct;
 use Netgen\Layouts\Exception\Layout\ConditionTypeException;
-use Netgen\Layouts\Form\AbstractType;
 use Netgen\Layouts\Layout\Resolver\ConditionTypeInterface;
 use Netgen\Layouts\Layout\Resolver\Form\ConditionType\MapperInterface;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -36,7 +36,7 @@ final class ConditionType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        parent::configureOptions($resolver);
+        $resolver->setDefault('translation_domain', 'nglayouts_forms');
 
         $resolver->setRequired('condition_type');
         $resolver->setAllowedTypes('condition_type', ConditionTypeInterface::class);

@@ -6,8 +6,8 @@ namespace Netgen\Layouts\Layout\Form;
 
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\LayoutCopyStruct;
-use Netgen\Layouts\Form\AbstractType;
 use Netgen\Layouts\Validator\Constraint\LayoutName;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -18,7 +18,7 @@ final class CopyType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver): void
     {
-        parent::configureOptions($resolver);
+        $resolver->setDefault('translation_domain', 'nglayouts_forms');
 
         $resolver->setRequired('layout');
         $resolver->setAllowedTypes('layout', Layout::class);

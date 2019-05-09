@@ -6,11 +6,11 @@ namespace Netgen\Layouts\Parameters\Form\Type;
 
 use Netgen\Layouts\API\Values\ParameterStruct;
 use Netgen\Layouts\Exception\Parameters\ParameterTypeException;
-use Netgen\Layouts\Form\AbstractType;
 use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\Form\MapperInterface;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -36,7 +36,7 @@ final class ParametersType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        parent::configureOptions($resolver);
+        $resolver->setDefault('translation_domain', 'nglayouts');
 
         $resolver->setRequired(
             [
@@ -51,7 +51,6 @@ final class ParametersType extends AbstractType
         $resolver->setAllowedTypes('label_prefix', 'string');
         $resolver->setAllowedTypes('groups', 'string[]');
 
-        $resolver->setDefault('translation_domain', 'nglayouts');
         $resolver->setDefault('groups', []);
     }
 

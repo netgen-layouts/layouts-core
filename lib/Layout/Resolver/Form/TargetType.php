@@ -6,9 +6,9 @@ namespace Netgen\Layouts\Layout\Resolver\Form;
 
 use Netgen\Layouts\API\Values\LayoutResolver\TargetStruct;
 use Netgen\Layouts\Exception\Layout\TargetTypeException;
-use Netgen\Layouts\Form\AbstractType;
 use Netgen\Layouts\Layout\Resolver\Form\TargetType\MapperInterface;
 use Netgen\Layouts\Layout\Resolver\TargetTypeInterface;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
@@ -36,7 +36,7 @@ final class TargetType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver): void
     {
-        parent::configureOptions($resolver);
+        $resolver->setDefault('translation_domain', 'nglayouts_forms');
 
         $resolver->setRequired('target_type');
         $resolver->setAllowedTypes('target_type', TargetTypeInterface::class);
