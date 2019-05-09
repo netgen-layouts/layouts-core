@@ -10,7 +10,7 @@ use Netgen\Layouts\Block\DynamicParameters;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType;
 
-class BlockDefinitionHandler extends BaseBlockDefinitionHandler
+final class BlockDefinitionHandler extends BaseBlockDefinitionHandler
 {
     /**
      * @var array

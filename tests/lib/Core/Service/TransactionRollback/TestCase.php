@@ -18,7 +18,7 @@ use Netgen\Layouts\Tests\Core\CoreTestCase;
  * @property \PHPUnit\Framework\MockObject\MockObject $collectionHandler
  * @property \PHPUnit\Framework\MockObject\MockObject $layoutResolverHandler
  */
-class TestCase extends CoreTestCase
+abstract class TestCase extends CoreTestCase
 {
     protected function createTransactionHandler(): TransactionHandlerInterface
     {
