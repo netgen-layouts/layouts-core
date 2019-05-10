@@ -20,22 +20,11 @@ abstract class AdminPage extends SymfonyPage
     public function submitModal(): void
     {
         $this->getElement('modal_confirm_button')->press();
-        $this->waitForElement(10, 'modal_dialog', [], true);
-        $this->verifyModalClosed();
-    }
-
-    public function submitModalWithError(): void
-    {
-        $this->getElement('modal_confirm_button')->press();
-        $this->waitForElement(10, 'modal_errors');
-        $this->verifyModalOpen();
     }
 
     public function cancelModal(): void
     {
         $this->getElement('modal_cancel_button')->press();
-        $this->waitForElement(10, 'modal_dialog', [], true);
-        $this->verifyModalClosed();
     }
 
     public function verifyModalOpen(): void
@@ -56,8 +45,17 @@ abstract class AdminPage extends SymfonyPage
         throw new PageException('Modal dialog was expected to be closed');
     }
 
+    public function verifyModalErrorDoesNotExist(): void
+    {
+        $this->waitForElement(10, 'modal_dialog', [], true);
+        $this->verifyModalClosed();
+    }
+
     public function modalErrorExists(string $errorMessage): bool
     {
+        $this->waitForElement(10, 'modal_errors');
+        $this->verifyModalOpen();
+
         return $this->hasElement('modal_error', ['%error-message%' => $errorMessage]);
     }
 

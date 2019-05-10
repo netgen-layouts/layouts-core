@@ -9,9 +9,13 @@ Feature: Deleting a layout
         And I am logged in as an administrator
 
     Scenario: Deleting a layout
-        When I delete a layout called "Example layout" and confirm deletion
-        Then a layout called "Example layout" should not exist
+        When I delete a layout called "Example layout"
+        And I confirm the action
+        Then there should be no error
+        And a layout called "Example layout" should not exist
 
     Scenario: Deleting a layout and cancelling
-        When I delete a layout called "Example layout" and cancel deletion
-        Then a layout called "Example layout" should exist
+        When I delete a layout called "Example layout"
+        And I cancel the action
+        Then there should be no error
+        And a layout called "Example layout" should exist

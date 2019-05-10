@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Behat\Page\Admin\Layouts;
 
+use Behat\Mink\Element\NodeElement;
 use Netgen\Layouts\Behat\Page\Admin\AdminPage;
 
 final class IndexPage extends AdminPage
@@ -49,14 +50,17 @@ final class IndexPage extends AdminPage
         );
     }
 
+    public function nameLayout(string $layoutName): void
+    {
+        $field = $this->getDocument()->find('css', 'input[name$="[name]"]');
+        if ($field instanceof NodeElement) {
+            $field->setValue($layoutName);
+        }
+    }
+
     public function layoutExists(string $layoutName): bool
     {
         return $this->hasElement('layout', ['%layout-name%' => $layoutName]);
-    }
-
-    public function nameDuplicatedLayout(string $layoutName): void
-    {
-        $this->getDocument()->fillField('copy_name', $layoutName);
     }
 
     protected function getDefinedElements(): array

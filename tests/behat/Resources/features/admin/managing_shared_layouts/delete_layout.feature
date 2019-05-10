@@ -9,9 +9,13 @@ Feature: Deleting a shared layout
         And I am logged in as an administrator
 
     Scenario: Deleting a shared layout
-        When I delete a shared layout called "Example layout" and confirm deletion
-        Then a shared layout called "Example layout" should not exist
+        When I delete a shared layout called "Example layout"
+        And I confirm the action
+        Then there should be no error
+        And a shared layout called "Example layout" should not exist
 
     Scenario: Deleting a shared layout and cancelling
-        When I delete a shared layout called "Example layout" and cancel deletion
-        Then a shared layout called "Example layout" should exist
+        When I delete a shared layout called "Example layout"
+        And I cancel the action
+        Then there should be no error
+        And a shared layout called "Example layout" should exist

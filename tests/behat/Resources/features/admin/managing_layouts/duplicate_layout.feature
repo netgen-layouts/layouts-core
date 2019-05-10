@@ -9,14 +9,23 @@ Feature: Duplicating a layout
         And I am logged in as an administrator
 
     Scenario: Duplicating a layout
-        When I duplicate a layout called "Example layout" with name "Copy of example layout"
-        Then a layout called "Copy of example layout" should exist
+        When I duplicate a layout called "Example layout"
+        And I set the layout name to "Copy of example layout"
+        And I confirm the action
+        Then there should be no error
+        And a layout called "Copy of example layout" should exist
+        And a layout called "Example layout" should exist
 
     Scenario: Duplicating a layout and cancelling
-        When I duplicate a layout called "Example layout" and cancel copying
-        Then a layout called "Copy of example layout" should not exist
+        When I duplicate a layout called "Example layout"
+        And I cancel the action
+        Then there should be no error
+        And a layout called "Example layout" should exist
+        And a layout called "Copy of example layout" should not exist
 
     Scenario: Duplicating a layout with existing name
         Given there is a layout called "Existing layout"
-        When I duplicate a layout called "Example layout" with name "Existing layout"
+        When I duplicate a layout called "Example layout"
+        And I set the layout name to "Existing layout"
+        And I confirm the action
         Then I should get an error saying "Layout with provided name already exists."

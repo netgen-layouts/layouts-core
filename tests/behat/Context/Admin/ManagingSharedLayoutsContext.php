@@ -65,51 +65,31 @@ final class ManagingSharedLayoutsContext extends AdminContext
     }
 
     /**
-     * @When /^I duplicate a (shared layout called "[^"]+") with name "([^"]+)"$/
+     * @When /^I duplicate a (shared layout called "[^"]+")$/
      */
-    public function iDuplicateASharedLayoutAndAccept(Layout $layout, string $copiedLayoutName): void
+    public function iDuplicateASharedLayout(Layout $layout): void
     {
         $this->indexPage->open();
 
         $this->indexPage->openDuplicateLayoutModal($layout->getName());
-        $this->indexPage->nameDuplicatedLayout($copiedLayoutName);
-
-        $this->layoutContext->hasLayoutWithName($copiedLayoutName) ?
-            $this->indexPage->submitModalWithError() :
-            $this->indexPage->submitModal();
     }
 
     /**
-     * @When /^I duplicate a (shared layout called "[^"]+") and cancel copying$/
+     * @When /^I set the shared layout name to "([^"]+)"$/
      */
-    public function iDuplicateASharedLayoutAndCancel(Layout $layout): void
+    public function iSetTheSharedLayoutName(string $newName): void
     {
-        $this->indexPage->open();
-
-        $this->indexPage->openDuplicateLayoutModal($layout->getName());
-        $this->indexPage->cancelModal();
+        $this->indexPage->nameLayout($newName);
     }
 
     /**
-     * @When /^I delete a (shared layout called "[^"]+") and confirm deletion$/
+     * @When /^I delete a (shared layout called "[^"]+")$/
      */
-    public function iDeleteASharedLayoutAndAccept(Layout $layout): void
+    public function iDeleteASharedLayout(Layout $layout): void
     {
         $this->indexPage->open();
 
         $this->indexPage->openDeleteLayoutModal($layout->getName());
-        $this->indexPage->submitModal();
-    }
-
-    /**
-     * @When /^I delete a (shared layout called "[^"]+") and cancel deletion$/
-     */
-    public function iDeleteASharedLayoutAndCancel(Layout $layout): void
-    {
-        $this->indexPage->open();
-
-        $this->indexPage->openDeleteLayoutModal($layout->getName());
-        $this->indexPage->cancelModal();
     }
 
     /**
@@ -132,6 +112,22 @@ final class ManagingSharedLayoutsContext extends AdminContext
     }
 
     /**
+     * @When /^I confirm the action$/
+     */
+    public function iConfirmTheAction(): void
+    {
+        $this->indexPage->submitModal();
+    }
+
+    /**
+     * @When /^I cancel the action$/
+     */
+    public function iCancelTheAction(): void
+    {
+        $this->indexPage->cancelModal();
+    }
+
+    /**
      * @Then /^a (shared layout called "[^"]+") should exist$/
      */
     public function sharedLayoutShouldExist(Layout $layout): void
@@ -146,6 +142,11 @@ final class ManagingSharedLayoutsContext extends AdminContext
     {
         Assert::false($this->layoutContext->hasLayoutWithName($layoutName));
         Assert::false($this->indexPage->layoutExists($layoutName));
+    }
+
+    public function thereShouldBeNoError(): void
+    {
+        $this->indexPage->verifyModalErrorDoesNotExist();
     }
 
     public function iShouldGetAnError(string $errorMessage): void
