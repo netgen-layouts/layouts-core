@@ -13,14 +13,14 @@ use Symfony\Bridge\PhpUnit\ClockMock;
 final class DateTimeUtilsTest extends TestCase
 {
     /**
-     * @covers \Netgen\Layouts\Utils\DateTimeUtils::createFromTimestamp
+     * @covers \Netgen\Layouts\Utils\DateTimeUtils::create
      */
-    public function testCreateFromTimestamp(): void
+    public function testCreate(): void
     {
         // Friday March 23, 2018 21:13:20, Antarctica/Casey
         ClockMock::withClockMock(1521800000);
 
-        $dateTime = DateTimeUtils::createFromTimestamp();
+        $dateTime = DateTimeUtils::create();
 
         self::assertInstanceOf(DateTimeImmutable::class, $dateTime);
         self::assertSame(1521800000, $dateTime->getTimestamp());
@@ -30,11 +30,11 @@ final class DateTimeUtilsTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Utils\DateTimeUtils::createFromTimestamp
+     * @covers \Netgen\Layouts\Utils\DateTimeUtils::create
      */
-    public function testCreateFromTimestampWithTimestamp(): void
+    public function testCreateWithTimestamp(): void
     {
-        $dateTime = DateTimeUtils::createFromTimestamp(123);
+        $dateTime = DateTimeUtils::create(123);
 
         self::assertInstanceOf(DateTimeImmutable::class, $dateTime);
         self::assertSame(123, $dateTime->getTimestamp());
@@ -42,11 +42,11 @@ final class DateTimeUtilsTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Utils\DateTimeUtils::createFromTimestamp
+     * @covers \Netgen\Layouts\Utils\DateTimeUtils::create
      */
-    public function testCreateFromTimestampWithTimestampAndTimeZone(): void
+    public function testCreateWithTimestampAndTimeZone(): void
     {
-        $dateTime = DateTimeUtils::createFromTimestamp(123, 'Antarctica/Casey');
+        $dateTime = DateTimeUtils::create(123, 'Antarctica/Casey');
 
         self::assertInstanceOf(DateTimeImmutable::class, $dateTime);
         self::assertSame(123, $dateTime->getTimestamp());

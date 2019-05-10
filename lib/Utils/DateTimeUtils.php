@@ -15,7 +15,7 @@ final class DateTimeUtils
      *
      * Current timestamp and timezones are used if not provided.
      */
-    public static function createFromTimestamp(?int $timestamp = null, ?string $timeZone = null): DateTimeInterface
+    public static function create(?int $timestamp = null, ?string $timeZone = null): DateTimeInterface
     {
         $dateTimeZone = is_string($timeZone) ? new DateTimeZone($timeZone) : null;
         $timestamp = is_int($timestamp) ? $timestamp : time();
@@ -53,10 +53,8 @@ final class DateTimeUtils
     /**
      * Returns if the provided DateTime instance is between the provided dates.
      */
-    public static function isBetweenDates(?DateTimeInterface $date = null, ?DateTimeInterface $from = null, ?DateTimeInterface $to = null): bool
+    public static function isBetweenDates(DateTimeInterface $date, ?DateTimeInterface $from = null, ?DateTimeInterface $to = null): bool
     {
-        $date = $date ?? self::createFromTimestamp();
-
         if ($from instanceof DateTimeInterface && $date < $from) {
             return false;
         }
@@ -111,7 +109,7 @@ final class DateTimeUtils
      */
     private static function buildOffsetString(string $timeZone): string
     {
-        $offset = self::createFromTimestamp(null, $timeZone)->getOffset();
+        $offset = self::create(null, $timeZone)->getOffset();
 
         $hours = intdiv($offset, 3600);
         $minutes = intdiv($offset % 3600, 60);

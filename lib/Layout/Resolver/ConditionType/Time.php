@@ -43,6 +43,6 @@ final class Time implements ConditionTypeInterface
             DateTimeUtils::createFromArray($value['to']) :
             null;
 
-        return DateTimeUtils::isBetweenDates(null, $visibleFrom, $visibleTo);
+        return DateTimeUtils::isBetweenDates(DateTimeUtils::create(), $visibleFrom, $visibleTo);
     }
 }
