@@ -118,8 +118,6 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
             throw new BadStateException('layout', 'Only published layouts can be used in rules.');
         }
 
-        $this->validator->validateOffsetAndLimit($offset, $limit);
-
         $persistenceLayout = null;
         if ($layout instanceof Layout) {
             $persistenceLayout = $this->layoutHandler->loadLayout(

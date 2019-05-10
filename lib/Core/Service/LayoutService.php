@@ -97,8 +97,6 @@ final class LayoutService extends Service implements LayoutServiceInterface
 
     public function loadLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): LayoutList
     {
-        $this->validator->validateOffsetAndLimit($offset, $limit);
-
         $persistenceLayouts = $this->layoutHandler->loadLayouts(
             $includeDrafts,
             $offset,
@@ -122,8 +120,6 @@ final class LayoutService extends Service implements LayoutServiceInterface
 
     public function loadSharedLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): LayoutList
     {
-        $this->validator->validateOffsetAndLimit($offset, $limit);
-
         $persistenceLayouts = $this->layoutHandler->loadSharedLayouts(
             $includeDrafts,
             $offset,
@@ -147,8 +143,6 @@ final class LayoutService extends Service implements LayoutServiceInterface
 
     public function loadAllLayouts(bool $includeDrafts = false, int $offset = 0, ?int $limit = null): LayoutList
     {
-        $this->validator->validateOffsetAndLimit($offset, $limit);
-
         $persistenceLayouts = $this->layoutHandler->loadAllLayouts(
             $includeDrafts,
             $offset,

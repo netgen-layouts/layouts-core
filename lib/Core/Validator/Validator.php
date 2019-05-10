@@ -57,32 +57,6 @@ abstract class Validator
     }
 
     /**
-     * Validates the provided offset and limit values to be integers.
-     *
-     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
-     */
-    public function validateOffsetAndLimit(?int $offset, ?int $limit): void
-    {
-        $this->validate(
-            $offset,
-            [
-                new Constraints\NotBlank(),
-            ],
-            'offset'
-        );
-
-        if ($limit !== null) {
-            $this->validate(
-                $limit,
-                [
-                    new Constraints\NotBlank(),
-                ],
-                'limit'
-            );
-        }
-    }
-
-    /**
      * Validates the provided locale.
      *
      * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed

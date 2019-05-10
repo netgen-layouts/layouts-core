@@ -83,26 +83,6 @@ final class ValidatorTest extends TestCase
     }
 
     /**
-     * @param mixed $offset
-     * @param mixed $limit
-     * @param bool $isValid
-     *
-     * @covers \Netgen\Layouts\Core\Validator\Validator::validateOffsetAndLimit
-     * @dataProvider validateOffsetAndLimitDataProvider
-     */
-    public function testValidateOffsetAndLimit($offset, $limit, bool $isValid): void
-    {
-        if (!$isValid) {
-            $this->expectException(ValidationException::class);
-        }
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
-
-        $this->validator->validateOffsetAndLimit($offset, $limit);
-    }
-
-    /**
      * @covers \Netgen\Layouts\Core\Validator\Validator::validateLocale
      * @dataProvider validateLocaleDataProvider
      */
