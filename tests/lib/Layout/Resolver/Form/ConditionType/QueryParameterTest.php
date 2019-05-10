@@ -9,6 +9,7 @@ use Netgen\Layouts\Form\KeyValuesType;
 use Netgen\Layouts\Layout\Resolver\ConditionType\QueryParameter;
 use Netgen\Layouts\Layout\Resolver\Form\ConditionType;
 use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\QueryParameter as QueryParameterMapper;
+use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
 
@@ -76,9 +77,11 @@ final class QueryParameterTest extends FormTestCase
     protected function getMainType(): FormTypeInterface
     {
         return new ConditionType(
-            [
-                'query_parameter' => new QueryParameterMapper(),
-            ]
+            new Container(
+                [
+                    'query_parameter' => new QueryParameterMapper(),
+                ]
+            )
         );
     }
 }

@@ -6,10 +6,12 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Lay
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\LayoutResolver\Form\ConditionTypePass;
+use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\DependencyInjection\ServiceLocator;
 
 final class ConditionTypePassTest extends AbstractCompilerPassTestCase
 {
@@ -19,7 +21,6 @@ final class ConditionTypePassTest extends AbstractCompilerPassTestCase
     public function testProcess(): void
     {
         $formType = new Definition();
-        $formType->addArgument([]);
         $this->setDefinition('netgen_layouts.layout.resolver.form.condition_type', $formType);
 
         $mapper = new Definition();
@@ -31,9 +32,14 @@ final class ConditionTypePassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_layouts.layout.resolver.form.condition_type',
             0,
-            [
-                'condition' => new Reference('netgen_layouts.layout.resolver.form.condition_type.mapper.test'),
-            ]
+            new Definition(
+                ServiceLocator::class,
+                [
+                    [
+                        'condition' => new ServiceClosureArgument(new Reference('netgen_layouts.layout.resolver.form.condition_type.mapper.test')),
+                    ],
+                ]
+            )
         );
     }
 

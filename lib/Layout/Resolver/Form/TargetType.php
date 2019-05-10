@@ -8,6 +8,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\TargetStruct;
 use Netgen\Layouts\Exception\Layout\TargetTypeException;
 use Netgen\Layouts\Layout\Resolver\Form\TargetType\MapperInterface;
 use Netgen\Layouts\Layout\Resolver\TargetTypeInterface;
+use Psr\Container\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
@@ -17,21 +18,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class TargetType extends AbstractType
 {
     /**
-     * @var \Netgen\Layouts\Layout\Resolver\Form\TargetType\MapperInterface[]
+     * @var \Psr\Container\ContainerInterface
      */
     private $mappers;
 
-    /**
-     * @param \Netgen\Layouts\Layout\Resolver\Form\TargetType\MapperInterface[] $mappers
-     */
-    public function __construct(array $mappers)
+    public function __construct(ContainerInterface $mappers)
     {
-        $this->mappers = array_filter(
-            $mappers,
-            static function (MapperInterface $mapper): bool {
-                return true;
-            }
-        );
+        $this->mappers = $mappers;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -48,11 +41,7 @@ final class TargetType extends AbstractType
         /** @var \Netgen\Layouts\Layout\Resolver\TargetTypeInterface $targetType */
         $targetType = $options['target_type'];
 
-        if (!isset($this->mappers[$targetType::getType()])) {
-            throw TargetTypeException::noFormMapper($targetType::getType());
-        }
-
-        $mapper = $this->mappers[$targetType::getType()];
+        $mapper = $this->getMapper($targetType::getType());
 
         $defaultOptions = [
             'label' => false,
@@ -76,5 +65,24 @@ final class TargetType extends AbstractType
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $view->vars['target_type'] = $options['target_type'];
+    }
+
+    /**
+     * Returns the mapper for provided target type from the collection.
+     *
+     * @throws \Netgen\Layouts\Exception\Layout\TargetTypeException If the mapper does not exist or is not of correct type
+     */
+    private function getMapper(string $targetType): MapperInterface
+    {
+        if (!$this->mappers->has($targetType)) {
+            throw TargetTypeException::noFormMapper($targetType);
+        }
+
+        $mapper = $this->mappers->get($targetType);
+        if (!$mapper instanceof MapperInterface) {
+            throw TargetTypeException::noFormMapper($targetType);
+        }
+
+        return $mapper;
     }
 }

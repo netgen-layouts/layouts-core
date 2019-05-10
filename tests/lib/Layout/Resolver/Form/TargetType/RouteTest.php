@@ -8,6 +8,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\Layout\Resolver\Form\TargetType;
 use Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper\Route as RouteMapper;
 use Netgen\Layouts\Layout\Resolver\TargetType\Route;
+use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormTypeInterface;
@@ -67,9 +68,11 @@ final class RouteTest extends FormTestCase
     protected function getMainType(): FormTypeInterface
     {
         return new TargetType(
-            [
-                'route' => new RouteMapper(),
-            ]
+            new Container(
+                [
+                    'route' => new RouteMapper(),
+                ]
+            )
         );
     }
 }

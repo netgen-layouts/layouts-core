@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\LayoutResolver\Form;
 
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\DefinitionClassTrait;
+use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\DependencyInjection\ServiceLocator;
 
 final class TargetTypePass implements CompilerPassInterface
 {
@@ -29,7 +32,7 @@ final class TargetTypePass implements CompilerPassInterface
         foreach ($mapperServices as $mapperService => $tags) {
             foreach ($tags as $tag) {
                 if (isset($tag['target_type'])) {
-                    $mappers[$tag['target_type']] = new Reference($mapperService);
+                    $mappers[$tag['target_type']] = new ServiceClosureArgument(new Reference($mapperService));
 
                     continue 2;
                 }
@@ -37,12 +40,12 @@ final class TargetTypePass implements CompilerPassInterface
 
             $mapperClass = $this->getDefinitionClass($container, $mapperService);
             if (isset($mapperClass::$defaultTargetType)) {
-                $mappers[$mapperClass::$defaultTargetType] = new Reference($mapperService);
+                $mappers[$mapperClass::$defaultTargetType] = new ServiceClosureArgument(new Reference($mapperService));
 
                 continue;
             }
         }
 
-        $formType->replaceArgument(0, $mappers);
+        $formType->addArgument(new Definition(ServiceLocator::class, [$mappers]));
     }
 }

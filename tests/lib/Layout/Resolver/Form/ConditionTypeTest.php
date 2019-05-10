@@ -9,6 +9,7 @@ use Netgen\Layouts\Exception\Layout\ConditionTypeException;
 use Netgen\Layouts\Layout\Resolver\Form\ConditionType as ConditionTypeForm;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionType1;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionTypeMapper;
+use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
@@ -127,6 +128,6 @@ final class ConditionTypeTest extends FormTestCase
 
     protected function getMainType(): FormTypeInterface
     {
-        return new ConditionTypeForm(['other_type' => new ConditionTypeMapper()]);
+        return new ConditionTypeForm(new Container(['other_type' => new ConditionTypeMapper()]));
     }
 }

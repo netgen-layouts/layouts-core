@@ -9,6 +9,7 @@ use Netgen\Layouts\Form\KeyValuesType;
 use Netgen\Layouts\Layout\Resolver\ConditionType\RouteParameter;
 use Netgen\Layouts\Layout\Resolver\Form\ConditionType;
 use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\RouteParameter as RouteParameterMapper;
+use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
 
@@ -76,9 +77,11 @@ final class RouteParameterTest extends FormTestCase
     protected function getMainType(): FormTypeInterface
     {
         return new ConditionType(
-            [
-                'route_parameter' => new RouteParameterMapper(),
-            ]
+            new Container(
+                [
+                    'route_parameter' => new RouteParameterMapper(),
+                ]
+            )
         );
     }
 }

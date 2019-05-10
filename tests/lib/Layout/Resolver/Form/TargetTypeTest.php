@@ -9,6 +9,7 @@ use Netgen\Layouts\Exception\Layout\TargetTypeException;
 use Netgen\Layouts\Layout\Resolver\Form\TargetType as TargetTypeForm;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\TargetType1;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\TargetTypeMapper;
+use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
@@ -127,6 +128,6 @@ final class TargetTypeTest extends FormTestCase
 
     protected function getMainType(): FormTypeInterface
     {
-        return new TargetTypeForm(['other_type' => new TargetTypeMapper()]);
+        return new TargetTypeForm(new Container(['other_type' => new TargetTypeMapper()]));
     }
 }

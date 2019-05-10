@@ -9,6 +9,7 @@ use Netgen\Layouts\Layout\Resolver\ConditionType\Time;
 use Netgen\Layouts\Layout\Resolver\Form\ConditionType;
 use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\Time as TimeMapper;
 use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Type\TimeType;
+use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
 
@@ -88,9 +89,11 @@ final class TimeTest extends FormTestCase
     protected function getMainType(): FormTypeInterface
     {
         return new ConditionType(
-            [
-                'time' => new TimeMapper(),
-            ]
+            new Container(
+                [
+                    'time' => new TimeMapper(),
+                ]
+            )
         );
     }
 }

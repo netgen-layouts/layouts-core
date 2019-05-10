@@ -8,6 +8,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\Layouts\Layout\Resolver\ConditionType\Exception;
 use Netgen\Layouts\Layout\Resolver\Form\ConditionType;
 use Netgen\Layouts\Layout\Resolver\Form\ConditionType\Mapper\Exception as ExceptionMapper;
+use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormTypeInterface;
@@ -64,9 +65,11 @@ final class ExceptionTest extends FormTestCase
     protected function getMainType(): FormTypeInterface
     {
         return new ConditionType(
-            [
-                'exception' => new ExceptionMapper(),
-            ]
+            new Container(
+                [
+                    'exception' => new ExceptionMapper(),
+                ]
+            )
         );
     }
 }
