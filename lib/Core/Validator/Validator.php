@@ -15,8 +15,6 @@ abstract class Validator
     /**
      * Validates the provided identifier to be a string.
      *
-     * If $isRequired is set to false, null value is also allowed.
-     *
      * Use the $propertyPath to change the name of the validated property in the error message.
      *
      * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
