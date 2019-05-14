@@ -14,7 +14,6 @@ final class CreateInZoneTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\CreateInZone::__construct
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\CreateInZone::__invoke
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructBuilder::buildCreateStruct
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateInZone(): void
     {
@@ -46,7 +45,6 @@ final class CreateInZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\CreateInZone::__invoke
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructBuilder::buildCreateStruct
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateInZoneWithNoPosition(): void
     {
@@ -76,7 +74,6 @@ final class CreateInZoneTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\CreateInZone::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateInZoneWithInvalidBlockType(): void
     {
@@ -107,7 +104,6 @@ final class CreateInZoneTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\CreateInZone::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateInZoneWithMissingBlockType(): void
     {
@@ -137,7 +133,6 @@ final class CreateInZoneTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\CreateInZone::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateInZoneWithInvalidLayoutId(): void
     {
@@ -168,7 +163,6 @@ final class CreateInZoneTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\CreateInZone::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateInZoneWithMissingLayoutId(): void
     {
@@ -198,7 +192,6 @@ final class CreateInZoneTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\CreateInZone::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateInZoneWithNonExistentBlockType(): void
     {
@@ -229,7 +222,6 @@ final class CreateInZoneTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\CreateInZone::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateInZoneWithNonExistentLayout(): void
     {
@@ -260,7 +252,6 @@ final class CreateInZoneTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\CreateInZone::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateInZoneWithNonExistentLayoutZone(): void
     {
@@ -291,7 +282,6 @@ final class CreateInZoneTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\CreateInZone::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateInZoneWithOutOfRangePosition(): void
     {
@@ -322,7 +312,6 @@ final class CreateInZoneTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\CreateInZone::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateInZoneWithNotAllowedBlockDefinition(): void
     {

@@ -15,7 +15,6 @@ final class CreateTest extends JsonApiTestCase
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Create::__invoke
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructBuilder::__construct
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructBuilder::buildCreateStruct
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreate(): void
     {
@@ -46,7 +45,6 @@ final class CreateTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Create::__invoke
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructBuilder::buildCreateStruct
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateWithViewType(): void
     {
@@ -77,7 +75,6 @@ final class CreateTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Create::__invoke
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructBuilder::buildCreateStruct
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateWithItemViewType(): void
     {
@@ -108,7 +105,6 @@ final class CreateTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Create::__invoke
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructBuilder::buildCreateStruct
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateWithNoPosition(): void
     {
@@ -137,7 +133,6 @@ final class CreateTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateWithNonContainerTargetBlock(): void
     {
@@ -167,7 +162,6 @@ final class CreateTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateWithContainerInsideContainer(): void
     {
@@ -197,7 +191,6 @@ final class CreateTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateWithInvalidBlockType(): void
     {
@@ -227,7 +220,6 @@ final class CreateTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateWithMissingBlockType(): void
     {
@@ -256,7 +248,6 @@ final class CreateTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateWithNonExistentBlockType(): void
     {
@@ -286,7 +277,6 @@ final class CreateTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateWithNonExistentPlaceholder(): void
     {
@@ -316,7 +306,6 @@ final class CreateTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructValidator::validateCreateBlock
      */
     public function testCreateWithOutOfRangePosition(): void
     {

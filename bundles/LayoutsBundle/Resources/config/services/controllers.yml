@@ -151,11 +151,6 @@ services:
         arguments:
             - "@netgen_layouts.api.service.block"
 
-    netgen_layouts.controller.api.v1.block.create_struct_validator:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructValidator
-        calls:
-            - [setValidator, ["@validator"]]
-
     netgen_layouts.controller.api.v1.block.load:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Load
         public: true
@@ -168,7 +163,6 @@ services:
         arguments:
             - "@netgen_layouts.api.service.block"
             - "@netgen_layouts.controller.api.v1.block.create_struct_builder"
-            - "@netgen_layouts.controller.api.v1.block.create_struct_validator"
             - "@netgen_layouts.block.registry.block_type"
 
     netgen_layouts.controller.api.v1.block.create_in_zone:
@@ -179,7 +173,6 @@ services:
             - "@netgen_layouts.api.service.block"
             - "@netgen_layouts.api.service.layout"
             - "@netgen_layouts.controller.api.v1.block.create_struct_builder"
-            - "@netgen_layouts.controller.api.v1.block.create_struct_validator"
             - "@netgen_layouts.block.registry.block_type"
 
     netgen_layouts.controller.api.v1.block.copy:

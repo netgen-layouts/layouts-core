@@ -6,7 +6,6 @@ namespace Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block;
 
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructBuilder;
-use Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructValidator;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Block\Registry\BlockTypeRegistry;
@@ -30,11 +29,6 @@ final class Create extends AbstractController
     private $createStructBuilder;
 
     /**
-     * @var \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructValidator
-     */
-    private $createStructValidator;
-
-    /**
      * @var \Netgen\Layouts\Block\Registry\BlockTypeRegistry
      */
     private $blockTypeRegistry;
@@ -42,12 +36,10 @@ final class Create extends AbstractController
     public function __construct(
         BlockService $blockService,
         CreateStructBuilder $createStructBuilder,
-        CreateStructValidator $createStructValidator,
         BlockTypeRegistry $blockTypeRegistry
     ) {
         $this->blockService = $blockService;
         $this->createStructBuilder = $createStructBuilder;
-        $this->createStructValidator = $createStructValidator;
         $this->blockTypeRegistry = $blockTypeRegistry;
     }
 
@@ -59,8 +51,6 @@ final class Create extends AbstractController
     public function __invoke(Block $block, Request $request): View
     {
         $requestData = $request->attributes->get('data');
-
-        $this->createStructValidator->validateCreateBlock($requestData);
 
         try {
             $blockType = $this->blockTypeRegistry->getBlockType($requestData->get('block_type'));
