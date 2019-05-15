@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\BlockManager\Block;
 
 use ArrayAccess;
+use Closure;
 use Countable;
 
 final class DynamicParameters implements ArrayAccess, Countable
@@ -40,7 +41,7 @@ final class DynamicParameters implements ArrayAccess, Countable
             return null;
         }
 
-        if (!is_callable($this->dynamicParameters[$offset])) {
+        if (!$this->dynamicParameters[$offset] instanceof Closure) {
             return $this->dynamicParameters[$offset];
         }
 
