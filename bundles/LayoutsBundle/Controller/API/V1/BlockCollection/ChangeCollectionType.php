@@ -54,7 +54,7 @@ final class ChangeCollectionType extends AbstractController
         $collection = $block->getCollection($collectionIdentifier);
         $queryCreateStruct = null;
 
-        $newType = $requestData->getInt('new_type');
+        $newType = $requestData->get('new_type');
 
         if ($newType === Collection::TYPE_MANUAL) {
             if (!$collection->hasQuery()) {
