@@ -62,7 +62,7 @@ final class CreateInZone extends AbstractController
         $requestData = $request->attributes->get('data');
 
         try {
-            $blockType = $this->blockTypeRegistry->getBlockType($requestData->get('block_type'));
+            $blockType = $this->blockTypeRegistry->getBlockType($requestData->get('block_type', ''));
         } catch (BlockTypeException $e) {
             throw new BadStateException('block_type', 'Block type does not exist.', $e);
         }
