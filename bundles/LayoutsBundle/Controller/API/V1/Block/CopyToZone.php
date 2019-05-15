@@ -11,12 +11,17 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Serializer\Values\View;
 use Netgen\Layouts\Serializer\Version;
+use Netgen\Layouts\Validator\ValidatorTrait;
 use Ramsey\Uuid\Uuid;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints;
 
 final class CopyToZone extends AbstractController
 {
+    use ValidatorTrait;
+
     /**
      * @var \Netgen\Layouts\API\Service\BlockService
      */
@@ -47,6 +52,7 @@ final class CopyToZone extends AbstractController
         );
 
         $requestData = $request->attributes->get('data');
+        $this->validateRequestData($requestData);
 
         $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString($requestData->get('layout_id')));
 
@@ -62,5 +68,39 @@ final class CopyToZone extends AbstractController
         );
 
         return new View($copiedBlock, Version::API_V1, Response::HTTP_CREATED);
+    }
+
+    /**
+     * Validates the provided parameter bag.
+     *
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If validation failed
+     */
+    private function validateRequestData(ParameterBag $data): void
+    {
+        $this->validate(
+            $data->get('layout_id'),
+            [
+                new Constraints\NotBlank(),
+                new Constraints\Uuid(),
+            ],
+            'layout_id'
+        );
+
+        $this->validate(
+            $data->get('zone_identifier'),
+            [
+                new Constraints\NotBlank(),
+                new Constraints\Type(['type' => 'string']),
+            ],
+            'zone_identifier'
+        );
+
+        $this->validate(
+            $data->get('parent_position'),
+            [
+                new Constraints\Type(['type' => 'integer']),
+            ],
+            'parent_position'
+        );
     }
 }

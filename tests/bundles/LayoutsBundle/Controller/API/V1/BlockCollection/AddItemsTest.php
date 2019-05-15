@@ -14,7 +14,7 @@ final class AddItemsTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::__construct
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::validateAddItems
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::validateRequestData
      */
     public function testAddItems(): void
     {
@@ -48,7 +48,7 @@ final class AddItemsTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::validateAddItems
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::validateRequestData
      */
     public function testAddItemsWithNonExistentBlock(): void
     {
@@ -86,7 +86,7 @@ final class AddItemsTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::validateAddItems
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::validateRequestData
      */
     public function testAddItemsWithNonExistentCollection(): void
     {
@@ -124,7 +124,7 @@ final class AddItemsTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::validateAddItems
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::validateRequestData
      */
     public function testAddItemsWithEmptyItems(): void
     {
@@ -152,7 +152,7 @@ final class AddItemsTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::validateAddItems
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::validateRequestData
      */
     public function testAddItemsWithInvalidItems(): void
     {
@@ -182,7 +182,7 @@ final class AddItemsTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::validateAddItems
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::validateRequestData
      */
     public function testAddItemsWithMissingItems(): void
     {
@@ -204,7 +204,7 @@ final class AddItemsTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::validateAddItems
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::validateRequestData
      */
     public function testAddItemsWithInvalidValue(): void
     {
@@ -238,7 +238,7 @@ final class AddItemsTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::validateAddItems
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::validateRequestData
      */
     public function testAddItemsWithMissingValue(): void
     {
@@ -271,7 +271,7 @@ final class AddItemsTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::validateAddItems
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::validateRequestData
      */
     public function testAddItemsWithInvalidValueType(): void
     {
@@ -305,7 +305,7 @@ final class AddItemsTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::validateAddItems
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::validateRequestData
      */
     public function testAddItemsWithMissingValueType(): void
     {
@@ -338,7 +338,7 @@ final class AddItemsTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::validateAddItems
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::validateRequestData
      */
     public function testAddItemsWithInvalidPosition(): void
     {
@@ -372,7 +372,7 @@ final class AddItemsTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::validateAddItems
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::validateRequestData
      */
     public function testAddItemsWithMissingPosition(): void
     {
@@ -405,7 +405,7 @@ final class AddItemsTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::validateAddItems
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems::validateRequestData
      */
     public function testAddItemsWithOutOfRangePosition(): void
     {

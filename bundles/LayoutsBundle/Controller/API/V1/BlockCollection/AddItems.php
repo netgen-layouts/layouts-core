@@ -10,6 +10,7 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry;
 use Netgen\Layouts\Exception\Validation\ValidationException;
 use Netgen\Layouts\Validator\ValidatorTrait;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints;
@@ -43,13 +44,12 @@ final class AddItems extends AbstractController
     {
         $this->denyAccessUnlessGranted('nglayouts:collection:items');
 
-        $items = $request->attributes->get('data')->get('items');
-
-        $this->validateAddItems($block, $collectionIdentifier, $items);
+        $requestData = $request->attributes->get('data');
+        $this->validateRequestData($block, $collectionIdentifier, $requestData);
 
         $this->collectionService->transaction(
-            function () use ($block, $collectionIdentifier, $items): void {
-                foreach ($items as $item) {
+            function () use ($block, $collectionIdentifier, $requestData): void {
+                foreach ($requestData->get('items') as $item) {
                     $itemCreateStruct = $this->collectionService->newItemCreateStruct(
                         $this->itemDefinitionRegistry->getItemDefinition($item['value_type']),
                         $item['value']
@@ -68,14 +68,14 @@ final class AddItems extends AbstractController
     }
 
     /**
-     * Validates item creation parameters from the request.
+     * Validates the provided parameter bag.
      *
-     * @param \Netgen\Layouts\API\Values\Block\Block $block
-     * @param string $collectionIdentifier
-     * @param mixed $items
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If validation failed
      */
-    private function validateAddItems(Block $block, string $collectionIdentifier, $items): void
+    private function validateRequestData(Block $block, string $collectionIdentifier, ParameterBag $data): void
     {
+        $items = $data->get('items');
+
         $this->validate(
             $items,
             [

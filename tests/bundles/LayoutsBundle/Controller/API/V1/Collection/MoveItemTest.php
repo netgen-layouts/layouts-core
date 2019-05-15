@@ -58,6 +58,81 @@ final class MoveItemTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Collection\MoveItem::__invoke
      */
+    public function testMoveItemWithInvalidPosition(): void
+    {
+        $data = $this->jsonEncode(
+            [
+                'position' => '0',
+            ]
+        );
+
+        $this->client->request(
+            Request::METHOD_POST,
+            '/nglayouts/api/v1/collections/items/8ae55a69-8633-51dd-9ff5-d820d040c1c1/move',
+            [],
+            [],
+            [],
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "position": This value should be of type integer.'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Collection\MoveItem::__invoke
+     */
+    public function testMoveItemWithMissingPosition(): void
+    {
+        $this->client->request(
+            Request::METHOD_POST,
+            '/nglayouts/api/v1/collections/items/8ae55a69-8633-51dd-9ff5-d820d040c1c1/move',
+            [],
+            [],
+            [],
+            $this->jsonEncode([])
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "position": This value should not be blank.'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Collection\MoveItem::__invoke
+     */
+    public function testMoveItemWithNegativePosition(): void
+    {
+        $data = $this->jsonEncode(
+            [
+                'position' => -2,
+            ]
+        );
+
+        $this->client->request(
+            Request::METHOD_POST,
+            '/nglayouts/api/v1/collections/items/8ae55a69-8633-51dd-9ff5-d820d040c1c1/move',
+            [],
+            [],
+            [],
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "position": This value should be greater than or equal to 0.'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Collection\MoveItem::__invoke
+     */
     public function testMoveItemWithOutOfRangePosition(): void
     {
         $data = $this->jsonEncode(

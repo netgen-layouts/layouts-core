@@ -13,7 +13,7 @@ final class CreateTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::__construct
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::validateCreateLayout
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::validateRequestData
      */
     public function testCreate(): void
     {
@@ -44,7 +44,7 @@ final class CreateTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::validateCreateLayout
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::validateRequestData
      */
     public function testCreateWithMissingDescription(): void
     {
@@ -74,7 +74,7 @@ final class CreateTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::validateCreateLayout
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::validateRequestData
      */
     public function testCreateWithEmptyDescription(): void
     {
@@ -105,7 +105,7 @@ final class CreateTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::validateCreateLayout
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::validateRequestData
      */
     public function testCreateWithInvalidLayoutType(): void
     {
@@ -135,7 +135,7 @@ final class CreateTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::validateCreateLayout
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::validateRequestData
      */
     public function testCreateWithMissingLayoutType(): void
     {
@@ -164,7 +164,156 @@ final class CreateTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::validateCreateLayout
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::validateRequestData
+     */
+    public function testCreateWithNonExistingLayoutType(): void
+    {
+        $data = $this->jsonEncode(
+            [
+                'layout_type' => 'unknown',
+                'name' => 'My new layout',
+                'locale' => 'en',
+            ]
+        );
+
+        $this->client->request(
+            Request::METHOD_POST,
+            '/nglayouts/api/v1/layouts',
+            [],
+            [],
+            [],
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "layout_type" has an invalid state. Layout type does not exist.'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::__invoke
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::validateRequestData
+     */
+    public function testCreateWithInvalidName(): void
+    {
+        $data = $this->jsonEncode(
+            [
+                'layout_type' => '4_zones_a',
+                'name' => 42,
+                'locale' => 'en',
+            ]
+        );
+
+        $this->client->request(
+            Request::METHOD_POST,
+            '/nglayouts/api/v1/layouts',
+            [],
+            [],
+            [],
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "name": This value should be of type string.'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::__invoke
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::validateRequestData
+     */
+    public function testCreateWithEmptyName(): void
+    {
+        $data = $this->jsonEncode(
+            [
+                'layout_type' => '4_zones_a',
+                'name' => '',
+                'locale' => 'en',
+            ]
+        );
+
+        $this->client->request(
+            Request::METHOD_POST,
+            '/nglayouts/api/v1/layouts',
+            [],
+            [],
+            [],
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "name": This value should not be blank.'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::__invoke
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::validateRequestData
+     */
+    public function testCreateWithMissingName(): void
+    {
+        $data = $this->jsonEncode(
+            [
+                'layout_type' => '4_zones_a',
+                'locale' => 'en',
+            ]
+        );
+
+        $this->client->request(
+            Request::METHOD_POST,
+            '/nglayouts/api/v1/layouts',
+            [],
+            [],
+            [],
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_BAD_REQUEST,
+            'There was an error validating "name": This value should not be blank.'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::__invoke
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::validateRequestData
+     */
+    public function testCreateWithExistingName(): void
+    {
+        $data = $this->jsonEncode(
+            [
+                'layout_type' => '4_zones_a',
+                'name' => 'My layout',
+                'locale' => 'en',
+            ]
+        );
+
+        $this->client->request(
+            Request::METHOD_POST,
+            '/nglayouts/api/v1/layouts',
+            [],
+            [],
+            [],
+            $data
+        );
+
+        $this->assertException(
+            $this->client->getResponse(),
+            Response::HTTP_UNPROCESSABLE_ENTITY,
+            'Argument "name" has an invalid state. Layout with provided name already exists.'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::__invoke
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::validateRequestData
      */
     public function testCreateWithInvalidDescription(): void
     {
@@ -195,7 +344,7 @@ final class CreateTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::validateCreateLayout
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::validateRequestData
      */
     public function testCreateWithInvalidLocale(): void
     {
@@ -226,7 +375,7 @@ final class CreateTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::validateCreateLayout
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::validateRequestData
      */
     public function testCreateWithMissingLocale(): void
     {
@@ -256,7 +405,7 @@ final class CreateTest extends JsonApiTestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::validateCreateLayout
+     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::validateRequestData
      */
     public function testCreateWithNonExistentLocale(): void
     {
@@ -282,66 +431,6 @@ final class CreateTest extends JsonApiTestCase
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
             'There was an error validating "locale": This value is not a valid locale.'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::validateCreateLayout
-     */
-    public function testCreateWithNonExistingLayoutType(): void
-    {
-        $data = $this->jsonEncode(
-            [
-                'layout_type' => 'unknown',
-                'name' => 'My new layout',
-                'locale' => 'en',
-            ]
-        );
-
-        $this->client->request(
-            Request::METHOD_POST,
-            '/nglayouts/api/v1/layouts',
-            [],
-            [],
-            [],
-            $data
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY,
-            'Argument "layout_type" has an invalid state. Layout type does not exist.'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::__invoke
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create::validateCreateLayout
-     */
-    public function testCreateWithExistingName(): void
-    {
-        $data = $this->jsonEncode(
-            [
-                'layout_type' => '4_zones_a',
-                'name' => 'My layout',
-                'locale' => 'en',
-            ]
-        );
-
-        $this->client->request(
-            Request::METHOD_POST,
-            '/nglayouts/api/v1/layouts',
-            [],
-            [],
-            [],
-            $data
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_UNPROCESSABLE_ENTITY,
-            'Argument "name" has an invalid state. Layout with provided name already exists.'
         );
     }
 }

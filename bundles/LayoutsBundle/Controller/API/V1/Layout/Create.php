@@ -50,8 +50,7 @@ final class Create extends AbstractController
         $this->denyAccessUnlessGranted('nglayouts:layout:add');
 
         $requestData = $request->attributes->get('data');
-
-        $this->validateCreateLayout($requestData);
+        $this->validateRequestData($requestData);
 
         try {
             $layoutType = $this->layoutTypeRegistry->getLayoutType($requestData->get('layout_type'));
@@ -73,11 +72,11 @@ final class Create extends AbstractController
     }
 
     /**
-     * Validates layout creation parameters from the request.
+     * Validates the provided parameter bag.
      *
      * @throws \Netgen\Layouts\Exception\Validation\ValidationException If validation failed
      */
-    private function validateCreateLayout(ParameterBag $data): void
+    private function validateRequestData(ParameterBag $data): void
     {
         $this->validate(
             $data->get('layout_type'),
@@ -86,6 +85,23 @@ final class Create extends AbstractController
                 new Constraints\Type(['type' => 'string']),
             ],
             'layout_type'
+        );
+
+        $this->validate(
+            $data->get('name'),
+            [
+                new Constraints\NotBlank(),
+                new Constraints\Type(['type' => 'string']),
+            ],
+            'name'
+        );
+
+        $this->validate(
+            $data->get('description'),
+            [
+                new Constraints\Type(['type' => 'string']),
+            ],
+            'description'
         );
 
         $this->validate(

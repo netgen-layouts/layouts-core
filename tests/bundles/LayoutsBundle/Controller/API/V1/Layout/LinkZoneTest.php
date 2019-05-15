@@ -100,7 +100,7 @@ final class LinkZoneTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'Invalid UUID string: '
+            'There was an error validating "linked_layout_id": This value should not be blank.'
         );
     }
 
@@ -128,7 +128,7 @@ final class LinkZoneTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'Invalid UUID string: 42'
+            'There was an error validating "linked_layout_id": This is not a valid UUID.'
         );
     }
 
@@ -167,7 +167,8 @@ final class LinkZoneTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'linked_layout_id' => 'ffffffff-ffff-ffff-ffff-ffffffffffff',
+                // This is a random UUID
+                'linked_layout_id' => 'e1513a93-e707-493a-8e6b-5d0bfb7a0594',
                 'linked_zone_identifier' => 'right',
             ]
         );
@@ -184,7 +185,7 @@ final class LinkZoneTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find layout with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"'
+            'Could not find layout with identifier "e1513a93-e707-493a-8e6b-5d0bfb7a0594"'
         );
     }
 

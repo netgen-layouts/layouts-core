@@ -67,7 +67,8 @@ final class CopyToZoneTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'layout_id' => 'ffffffff-ffff-ffff-ffff-ffffffffffff',
+                // This is a random UUID.
+                'layout_id' => 'd37383cc-fb37-46d5-9d3d-936970331dab',
                 'zone_identifier' => 'left',
             ]
         );
@@ -84,7 +85,7 @@ final class CopyToZoneTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find layout with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"'
+            'Could not find layout with identifier "d37383cc-fb37-46d5-9d3d-936970331dab"'
         );
     }
 
@@ -168,7 +169,7 @@ final class CopyToZoneTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'Invalid UUID string: 42'
+            'There was an error validating "layout_id": This is not a valid UUID.'
         );
     }
 
@@ -195,7 +196,7 @@ final class CopyToZoneTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'Invalid UUID string: '
+            'There was an error validating "layout_id": This value should not be blank.'
         );
     }
 }

@@ -76,6 +76,8 @@ services:
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
+        calls:
+            - [setValidator, ["@validator"]]
 
     netgen_layouts.controller.api.v1.layout.unlink_zone:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\UnlinkZone
@@ -100,6 +102,8 @@ services:
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
+        calls:
+            - [setValidator, ["@validator"]]
 
     netgen_layouts.controller.api.v1.layout.change_type:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\ChangeType
@@ -108,6 +112,8 @@ services:
         arguments:
             - "@netgen_layouts.api.service.layout"
             - "@netgen_layouts.layout.registry.layout_type"
+        calls:
+            - [setValidator, ["@validator"]]
 
     netgen_layouts.controller.api.v1.layout.create_draft:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\CreateDraft
@@ -164,6 +170,8 @@ services:
             - "@netgen_layouts.api.service.block"
             - "@netgen_layouts.controller.api.v1.block.create_struct_builder"
             - "@netgen_layouts.block.registry.block_type"
+        calls:
+            - [setValidator, ["@validator"]]
 
     netgen_layouts.controller.api.v1.block.create_in_zone:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\CreateInZone
@@ -174,6 +182,8 @@ services:
             - "@netgen_layouts.api.service.layout"
             - "@netgen_layouts.controller.api.v1.block.create_struct_builder"
             - "@netgen_layouts.block.registry.block_type"
+        calls:
+            - [setValidator, ["@validator"]]
 
     netgen_layouts.controller.api.v1.block.copy:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Copy
@@ -181,6 +191,8 @@ services:
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.block"
+        calls:
+            - [setValidator, ["@validator"]]
 
     netgen_layouts.controller.api.v1.block.copy_to_zone:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\CopyToZone
@@ -189,6 +201,8 @@ services:
         arguments:
             - "@netgen_layouts.api.service.block"
             - "@netgen_layouts.api.service.layout"
+        calls:
+            - [setValidator, ["@validator"]]
 
     netgen_layouts.controller.api.v1.block.move:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Move
@@ -196,6 +210,8 @@ services:
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.block"
+        calls:
+            - [setValidator, ["@validator"]]
 
     netgen_layouts.controller.api.v1.block.move_to_zone:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\MoveToZone
@@ -204,6 +220,8 @@ services:
         arguments:
             - "@netgen_layouts.api.service.block"
             - "@netgen_layouts.api.service.layout"
+        calls:
+            - [setValidator, ["@validator"]]
 
     netgen_layouts.controller.api.v1.block.restore:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Restore
@@ -272,6 +290,8 @@ services:
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.collection"
+        calls:
+            - [setValidator, ["@validator"]]
 
     netgen_layouts.controller.api.v1.collection.delete_item:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Collection\DeleteItem

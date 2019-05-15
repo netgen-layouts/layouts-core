@@ -67,7 +67,8 @@ final class CopyTest extends JsonApiTestCase
     {
         $data = $this->jsonEncode(
             [
-                'parent_block_id' => 'ffffffff-ffff-ffff-ffff-ffffffffffff',
+                // This is a random UUID.
+                'parent_block_id' => 'cbdb1617-9a2c-48e3-9870-d0f707dbff1f',
                 'parent_placeholder' => 'main',
             ]
         );
@@ -84,7 +85,7 @@ final class CopyTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find block with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"'
+            'Could not find block with identifier "cbdb1617-9a2c-48e3-9870-d0f707dbff1f"'
         );
     }
 
@@ -196,7 +197,7 @@ final class CopyTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'Invalid UUID string: 42'
+            'There was an error validating "parent_block_id": This is not a valid UUID.'
         );
     }
 
@@ -223,7 +224,7 @@ final class CopyTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'Invalid UUID string: '
+            'There was an error validating "parent_block_id": This value should not be blank.'
         );
     }
 }

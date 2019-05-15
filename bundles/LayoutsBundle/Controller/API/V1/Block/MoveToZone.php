@@ -9,12 +9,17 @@ use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Validator\ValidatorTrait;
 use Ramsey\Uuid\Uuid;
+use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints;
 
 final class MoveToZone extends AbstractController
 {
+    use ValidatorTrait;
+
     /**
      * @var \Netgen\Layouts\API\Service\BlockService
      */
@@ -39,6 +44,7 @@ final class MoveToZone extends AbstractController
         $this->denyAccessUnlessGranted('nglayouts:block:reorder', ['layout' => $block->getLayoutId()->toString()]);
 
         $requestData = $request->attributes->get('data');
+        $this->validateRequestData($requestData);
 
         $layout = $this->layoutService->loadLayoutDraft(Uuid::fromString($requestData->get('layout_id')));
 
@@ -54,5 +60,40 @@ final class MoveToZone extends AbstractController
         );
 
         return new Response(null, Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * Validates the provided parameter bag.
+     *
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If validation failed
+     */
+    private function validateRequestData(ParameterBag $data): void
+    {
+        $this->validate(
+            $data->get('layout_id'),
+            [
+                new Constraints\NotBlank(),
+                new Constraints\Uuid(),
+            ],
+            'layout_id'
+        );
+
+        $this->validate(
+            $data->get('zone_identifier'),
+            [
+                new Constraints\NotBlank(),
+                new Constraints\Type(['type' => 'string']),
+            ],
+            'zone_identifier'
+        );
+
+        $this->validate(
+            $data->get('parent_position'),
+            [
+                new Constraints\NotBlank(),
+                new Constraints\Type(['type' => 'integer']),
+            ],
+            'parent_position'
+        );
     }
 }
