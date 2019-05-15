@@ -40,15 +40,13 @@ final class LinkZoneTest extends JsonApiTestCase
      */
     public function testLinkZoneWithNonExistentZone(): void
     {
-        $data = $this->jsonEncode([]);
-
         $this->client->request(
             Request::METHOD_POST,
             '/nglayouts/api/v1/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/zones/unknown/link',
             [],
             [],
             [],
-            $data
+            $this->jsonEncode([])
         );
 
         $this->assertException(
@@ -63,15 +61,13 @@ final class LinkZoneTest extends JsonApiTestCase
      */
     public function testLinkZoneWithNonExistentLayout(): void
     {
-        $data = $this->jsonEncode([]);
-
         $this->client->request(
             Request::METHOD_POST,
             '/nglayouts/api/v1/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff/zones/right/link',
             [],
             [],
             [],
-            $data
+            $this->jsonEncode([])
         );
 
         $this->assertException(

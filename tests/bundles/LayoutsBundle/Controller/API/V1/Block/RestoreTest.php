@@ -16,15 +16,13 @@ final class RestoreTest extends JsonApiTestCase
      */
     public function testRestore(): void
     {
-        $data = $this->jsonEncode([]);
-
         $this->client->request(
             Request::METHOD_POST,
             '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de/restore?html=false',
             [],
             [],
             [],
-            $data
+            $this->jsonEncode([])
         );
 
         $this->assertResponse(
@@ -39,15 +37,13 @@ final class RestoreTest extends JsonApiTestCase
      */
     public function testRestoreWithNonExistentBlock(): void
     {
-        $data = $this->jsonEncode([]);
-
         $this->client->request(
             Request::METHOD_POST,
             '/nglayouts/api/v1/en/blocks/ffffffff-ffff-ffff-ffff-ffffffffffff/restore',
             [],
             [],
             [],
-            $data
+            $this->jsonEncode([])
         );
 
         $this->assertException(

@@ -39,15 +39,13 @@ final class MoveItemTest extends JsonApiTestCase
      */
     public function testMoveItemWithNonExistentItem(): void
     {
-        $data = $this->jsonEncode([]);
-
         $this->client->request(
             Request::METHOD_POST,
             '/nglayouts/api/v1/collections/items/ffffffff-ffff-ffff-ffff-ffffffffffff/move',
             [],
             [],
             [],
-            $data
+            $this->jsonEncode([])
         );
 
         $this->assertException(

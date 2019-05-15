@@ -91,15 +91,13 @@ final class MoveTest extends JsonApiTestCase
      */
     public function testMoveWithNonExistentBlock(): void
     {
-        $data = $this->jsonEncode([]);
-
         $this->client->request(
             Request::METHOD_POST,
             '/nglayouts/api/v1/en/blocks/ffffffff-ffff-ffff-ffff-ffffffffffff/move/zone',
             [],
             [],
             [],
-            $data
+            $this->jsonEncode([])
         );
 
         $this->assertException(

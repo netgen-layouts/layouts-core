@@ -16,15 +16,13 @@ final class UnlinkZoneTest extends JsonApiTestCase
      */
     public function testUnlinkZone(): void
     {
-        $data = $this->jsonEncode([]);
-
         $this->client->request(
             Request::METHOD_DELETE,
             '/nglayouts/api/v1/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/zones/right/link',
             [],
             [],
             [],
-            $data
+            $this->jsonEncode([])
         );
 
         $this->assertEmptyResponse($this->client->getResponse());
@@ -35,15 +33,13 @@ final class UnlinkZoneTest extends JsonApiTestCase
      */
     public function testUnlinkZoneWithNonExistentZone(): void
     {
-        $data = $this->jsonEncode([]);
-
         $this->client->request(
             Request::METHOD_DELETE,
             '/nglayouts/api/v1/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/zones/unknown/link',
             [],
             [],
             [],
-            $data
+            $this->jsonEncode([])
         );
 
         $this->assertException(
@@ -58,15 +54,13 @@ final class UnlinkZoneTest extends JsonApiTestCase
      */
     public function testUnlinkZoneWithNonExistentLayout(): void
     {
-        $data = $this->jsonEncode([]);
-
         $this->client->request(
             Request::METHOD_DELETE,
             '/nglayouts/api/v1/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff/zones/right/link',
             [],
             [],
             [],
-            $data
+            $this->jsonEncode([])
         );
 
         $this->assertException(

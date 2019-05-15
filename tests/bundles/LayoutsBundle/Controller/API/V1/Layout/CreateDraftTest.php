@@ -16,15 +16,13 @@ final class CreateDraftTest extends JsonApiTestCase
      */
     public function testCreateDraft(): void
     {
-        $data = $this->jsonEncode([]);
-
         $this->client->request(
             Request::METHOD_POST,
             '/nglayouts/api/v1/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/draft?html=false',
             [],
             [],
             [],
-            $data
+            $this->jsonEncode([])
         );
 
         $this->assertResponse(
@@ -39,15 +37,13 @@ final class CreateDraftTest extends JsonApiTestCase
      */
     public function testCreateDraftWithNonExistentLayout(): void
     {
-        $data = $this->jsonEncode([]);
-
         $this->client->request(
             Request::METHOD_POST,
             '/nglayouts/api/v1/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff/draft',
             [],
             [],
             [],
-            $data
+            $this->jsonEncode([])
         );
 
         $this->assertException(

@@ -16,15 +16,13 @@ final class DiscardDraftTest extends JsonApiTestCase
      */
     public function testDiscardDraft(): void
     {
-        $data = $this->jsonEncode([]);
-
         $this->client->request(
             Request::METHOD_DELETE,
             '/nglayouts/api/v1/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/draft',
             [],
             [],
             [],
-            $data
+            $this->jsonEncode([])
         );
 
         $this->assertEmptyResponse($this->client->getResponse());
@@ -35,15 +33,13 @@ final class DiscardDraftTest extends JsonApiTestCase
      */
     public function testDiscardDraftWithNonExistentLayout(): void
     {
-        $data = $this->jsonEncode([]);
-
         $this->client->request(
             Request::METHOD_DELETE,
             '/nglayouts/api/v1/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff/draft',
             [],
             [],
             [],
-            $data
+            $this->jsonEncode([])
         );
 
         $this->assertException(

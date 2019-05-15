@@ -16,15 +16,13 @@ final class DeleteItemTest extends JsonApiTestCase
      */
     public function testDeleteItem(): void
     {
-        $data = $this->jsonEncode([]);
-
         $this->client->request(
             Request::METHOD_DELETE,
             '/nglayouts/api/v1/collections/items/89c214a3-204f-5352-85d7-8852b26ab6b0',
             [],
             [],
             [],
-            $data
+            $this->jsonEncode([])
         );
 
         $this->assertEmptyResponse($this->client->getResponse());
@@ -35,15 +33,13 @@ final class DeleteItemTest extends JsonApiTestCase
      */
     public function testDeleteItemWithNonExistentItem(): void
     {
-        $data = $this->jsonEncode([]);
-
         $this->client->request(
             Request::METHOD_DELETE,
             '/nglayouts/api/v1/collections/items/ffffffff-ffff-ffff-ffff-ffffffffffff',
             [],
             [],
             [],
-            $data
+            $this->jsonEncode([])
         );
 
         $this->assertException(

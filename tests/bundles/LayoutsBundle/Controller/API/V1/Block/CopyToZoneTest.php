@@ -44,15 +44,13 @@ final class CopyToZoneTest extends JsonApiTestCase
      */
     public function testCopyToZoneWithNonExistentBlock(): void
     {
-        $data = $this->jsonEncode([]);
-
         $this->client->request(
             Request::METHOD_POST,
             '/nglayouts/api/v1/en/blocks/ffffffff-ffff-ffff-ffff-ffffffffffff/copy/zone',
             [],
             [],
             [],
-            $data
+            $this->jsonEncode([])
         );
 
         $this->assertException(

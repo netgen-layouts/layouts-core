@@ -186,15 +186,13 @@ final class AddItemsTest extends JsonApiTestCase
      */
     public function testAddItemsWithMissingItems(): void
     {
-        $data = $this->jsonEncode([]);
-
         $this->client->request(
             Request::METHOD_POST,
             '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/default/items',
             [],
             [],
             [],
-            $data
+            $this->jsonEncode([])
         );
 
         $this->assertException(
