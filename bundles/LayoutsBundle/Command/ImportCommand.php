@@ -4,15 +4,18 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Command;
 
+use Error;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Transfer\Input\ImporterInterface;
 use Netgen\Layouts\Transfer\Input\Result\ErrorResult;
 use Netgen\Layouts\Transfer\Input\Result\SuccessResult;
+use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\Debug\Exception\FatalThrowableError;
 use Throwable;
 
 /**
@@ -86,9 +89,8 @@ final class ImportCommand extends Command
             }
 
             if ($result instanceof ErrorResult) {
-                $this->io->error(sprintf('Could not import %s #%d', $result->getEntityType(), $index + 1));
-                $this->io->section('Error stack:');
-                $this->renderThrowableStack($result->getError());
+                $this->io->error(sprintf('Could not import %s #%d with UUID %s', $result->getEntityType(), $index + 1, $result->getEntityId()->toString()));
+                $this->renderError($result->getError());
                 $this->io->newLine();
 
                 ++$errorCount;
@@ -101,21 +103,15 @@ final class ImportCommand extends Command
     }
 
     /**
-     * Renders all stacked exception messages for the given $throwable.
+     * Renders the error to console output. It uses a verbose level to render it, to display as much info as possible.
      */
-    private function renderThrowableStack(Throwable $throwable, int $number = 0): void
+    private function renderError(Throwable $t): void
     {
-        $this->io->writeln(sprintf(' #%d:', $number));
-        $throwableClass = get_class($throwable);
-        $this->io->writeln(sprintf('  - <comment>exception:</comment> %s', $throwableClass));
-        $this->io->writeln(sprintf('  - <comment>file:</comment> <info>%s</info>', $throwable->getFile()));
-        $this->io->writeln(sprintf('  - <comment>line:</comment> %d', $throwable->getLine()));
-        $this->io->writeln(sprintf('  - <comment>message:</comment> %s', $throwable->getMessage()));
+        $previousVerbosity = $this->io->getVerbosity();
+        $this->io->setVerbosity(OutputInterface::VERBOSITY_VERBOSE);
 
-        $previous = $throwable->getPrevious();
+        (new Application())->renderException($t instanceof Error ? new FatalThrowableError($t) : $t, $this->io);
 
-        if ($previous !== null) {
-            $this->renderThrowableStack($previous, $number + 1);
-        }
+        $this->io->setVerbosity($previousVerbosity);
     }
 }
