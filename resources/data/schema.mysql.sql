@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.22, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.26, for Linux (x86_64)
 --
 -- Host: localhost    Database: netgen_layouts
 -- ------------------------------------------------------
--- Server version	5.7.22-0ubuntu18.04.1
+-- Server version	5.7.26-0ubuntu0.19.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -243,7 +243,8 @@ DROP TABLE IF EXISTS `nglayouts_migration_versions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8mb4 */;
 CREATE TABLE `nglayouts_migration_versions` (
-  `version` varchar(191) NOT NULL,
+  `version` varchar(14) NOT NULL,
+  `executed_at` datetime NOT NULL COMMENT '(DC2Type:datetime_immutable)',
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -254,14 +255,14 @@ CREATE TABLE `nglayouts_migration_versions` (
 
 LOCK TABLES `nglayouts_migration_versions` WRITE;
 /*!40000 ALTER TABLE `nglayouts_migration_versions` DISABLE KEYS */;
-INSERT INTO `nglayouts_migration_versions` VALUES ('000700');
-INSERT INTO `nglayouts_migration_versions` VALUES ('000800');
-INSERT INTO `nglayouts_migration_versions` VALUES ('000900');
-INSERT INTO `nglayouts_migration_versions` VALUES ('001000');
-INSERT INTO `nglayouts_migration_versions` VALUES ('001100');
-INSERT INTO `nglayouts_migration_versions` VALUES ('001200');
-INSERT INTO `nglayouts_migration_versions` VALUES ('001300');
-INSERT INTO `nglayouts_migration_versions` VALUES ('010000');
+INSERT INTO `nglayouts_migration_versions` VALUES ('000700','2019-05-15 12:00:00');
+INSERT INTO `nglayouts_migration_versions` VALUES ('000800','2019-05-15 12:00:00');
+INSERT INTO `nglayouts_migration_versions` VALUES ('000900','2019-05-15 12:00:00');
+INSERT INTO `nglayouts_migration_versions` VALUES ('001000','2019-05-15 12:00:00');
+INSERT INTO `nglayouts_migration_versions` VALUES ('001100','2019-05-15 12:00:00');
+INSERT INTO `nglayouts_migration_versions` VALUES ('001200','2019-05-15 12:00:00');
+INSERT INTO `nglayouts_migration_versions` VALUES ('001300','2019-05-15 12:00:00');
+INSERT INTO `nglayouts_migration_versions` VALUES ('010000','2019-05-15 12:00:00');
 /*!40000 ALTER TABLE `nglayouts_migration_versions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -305,7 +306,8 @@ CREATE TABLE `nglayouts_role_policy` (
   KEY `idx_ngl_role` (`role_id`,`status`),
   KEY `idx_ngl_policy_component` (`component`),
   KEY `idx_ngl_policy_component_permission` (`component`,`permission`),
-  CONSTRAINT `fk_ngl_policy_role` FOREIGN KEY (`role_id`, `status`) REFERENCES `nglayouts_role` (`id`, `status`)
+  CONSTRAINT `fk_ngl_policy_role` FOREIGN KEY (`role_id`, `status`)
+    REFERENCES `nglayouts_role` (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -412,8 +414,6 @@ CREATE TABLE `nglayouts_zone` (
     REFERENCES `nglayouts_layout` (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
-
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -424,4 +424,4 @@ CREATE TABLE `nglayouts_zone` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-06-30 12:00:00
+-- Dump completed on 2019-05-15 12:00:00
