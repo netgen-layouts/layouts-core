@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Tests\Transfer\Input\Result;
 use Exception;
 use Netgen\Layouts\Transfer\Input\Result\ErrorResult;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class ErrorResultTest extends TestCase
 {
@@ -16,15 +17,21 @@ final class ErrorResultTest extends TestCase
     private $result;
 
     /**
+     * @var \Ramsey\Uuid\UuidInterface
+     */
+    private $entityId;
+
+    /**
      * @var \Throwable
      */
     private $error;
 
     protected function setUp(): void
     {
+        $this->entityId = Uuid::uuid4();
         $this->error = new Exception();
 
-        $this->result = new ErrorResult('type', ['data'], $this->error);
+        $this->result = new ErrorResult('type', ['data'], $this->entityId, $this->error);
     }
 
     /**
@@ -42,6 +49,14 @@ final class ErrorResultTest extends TestCase
     public function testGetData(): void
     {
         self::assertSame(['data'], $this->result->getData());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Transfer\Input\Result\ErrorResult::getEntityId
+     */
+    public function testGetEntityId(): void
+    {
+        self::assertSame($this->entityId, $this->result->getEntityId());
     }
 
     /**

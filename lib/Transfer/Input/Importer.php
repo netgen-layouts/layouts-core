@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Transfer\Input;
 use Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler;
 use Netgen\Layouts\Transfer\Input\Result\ErrorResult;
 use Netgen\Layouts\Transfer\Input\Result\SuccessResult;
+use Ramsey\Uuid\Uuid;
 use Throwable;
 use Traversable;
 
@@ -48,7 +49,7 @@ final class Importer implements ImporterInterface
                 $layout = $this->layoutDataHandler->createLayout($entityData);
                 yield new SuccessResult('layout', $entityData, $layout->getId(), $layout);
             } catch (Throwable $t) {
-                yield new ErrorResult('layout', $entityData, $t);
+                yield new ErrorResult('layout', $entityData, Uuid::fromString($entityData['id']), $t);
             }
         }
     }

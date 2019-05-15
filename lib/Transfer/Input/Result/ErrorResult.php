@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Transfer\Input\Result;
 
+use Ramsey\Uuid\UuidInterface;
 use Throwable;
 
 final class ErrorResult implements ResultInterface
@@ -19,14 +20,20 @@ final class ErrorResult implements ResultInterface
     private $data;
 
     /**
+     * @var \Ramsey\Uuid\UuidInterface
+     */
+    private $entityId;
+
+    /**
      * @var \Throwable
      */
     private $error;
 
-    public function __construct(string $entityType, array $data, Throwable $error)
+    public function __construct(string $entityType, array $data, UuidInterface $entityId, Throwable $error)
     {
         $this->entityType = $entityType;
         $this->data = $data;
+        $this->entityId = $entityId;
         $this->error = $error;
     }
 
@@ -38,6 +45,11 @@ final class ErrorResult implements ResultInterface
     public function getData(): array
     {
         return $this->data;
+    }
+
+    public function getEntityId(): UuidInterface
+    {
+        return $this->entityId;
     }
 
     /**

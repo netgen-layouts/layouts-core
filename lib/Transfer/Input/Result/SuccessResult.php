@@ -47,9 +47,6 @@ final class SuccessResult implements ResultInterface
         return $this->data;
     }
 
-    /**
-     * Returns the UUID of the entity which was imported.
-     */
     public function getEntityId(): UuidInterface
     {
         return $this->entityId;
