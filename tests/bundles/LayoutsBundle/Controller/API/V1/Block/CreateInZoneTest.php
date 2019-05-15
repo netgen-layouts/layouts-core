@@ -75,65 +75,6 @@ final class CreateInZoneTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\CreateInZone::__invoke
      */
-    public function testCreateInZoneWithInvalidBlockType(): void
-    {
-        $data = $this->jsonEncode(
-            [
-                'block_type' => 42,
-                'layout_id' => '81168ed3-86f9-55ea-b153-101f96f2c136',
-                'zone_identifier' => 'bottom',
-                'parent_position' => 0,
-            ]
-        );
-
-        $this->client->request(
-            Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks',
-            [],
-            [],
-            [],
-            $data
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'There was an error validating "block_type": This value should be of type string.'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\CreateInZone::__invoke
-     */
-    public function testCreateInZoneWithMissingBlockType(): void
-    {
-        $data = $this->jsonEncode(
-            [
-                'layout_id' => '81168ed3-86f9-55ea-b153-101f96f2c136',
-                'zone_identifier' => 'bottom',
-                'parent_position' => 0,
-            ]
-        );
-
-        $this->client->request(
-            Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks',
-            [],
-            [],
-            [],
-            $data
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'There was an error validating "block_type": This value should not be blank.'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\CreateInZone::__invoke
-     */
     public function testCreateInZoneWithInvalidLayoutId(): void
     {
         $data = $this->jsonEncode(

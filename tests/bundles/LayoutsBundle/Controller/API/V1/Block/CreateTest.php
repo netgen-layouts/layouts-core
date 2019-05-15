@@ -192,63 +192,6 @@ final class CreateTest extends JsonApiTestCase
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Create::__invoke
      */
-    public function testCreateWithInvalidBlockType(): void
-    {
-        $data = $this->jsonEncode(
-            [
-                'block_type' => 42,
-                'parent_placeholder' => 'main',
-                'parent_position' => 0,
-            ]
-        );
-
-        $this->client->request(
-            Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/e666109d-f1db-5fd5-97fa-346f50e9ae59',
-            [],
-            [],
-            [],
-            $data
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'There was an error validating "block_type": This value should be of type string.'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Create::__invoke
-     */
-    public function testCreateWithMissingBlockType(): void
-    {
-        $data = $this->jsonEncode(
-            [
-                'parent_placeholder' => 'main',
-                'parent_position' => 0,
-            ]
-        );
-
-        $this->client->request(
-            Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/e666109d-f1db-5fd5-97fa-346f50e9ae59',
-            [],
-            [],
-            [],
-            $data
-        );
-
-        $this->assertException(
-            $this->client->getResponse(),
-            Response::HTTP_BAD_REQUEST,
-            'There was an error validating "block_type": This value should not be blank.'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Create::__invoke
-     */
     public function testCreateWithNonExistentBlockType(): void
     {
         $data = $this->jsonEncode(
