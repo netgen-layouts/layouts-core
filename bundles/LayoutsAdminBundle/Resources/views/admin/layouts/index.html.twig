@@ -2,6 +2,8 @@
 
 {% trans_default_domain 'nglayouts_admin' %}
 
+{% import '@NetgenLayoutsAdmin/admin/macros.html.twig' as macros %}
+
 {% block title %}
     {{ 'layouts.title'|trans }} - {{ 'pagelayout.title'|trans }}
 {% endblock %}
@@ -14,7 +16,7 @@
                 <a href="#" class="nl-btn js-export-layouts" title="{{ 'layouts.export.title'|trans }}"><i class="material-icons">file_download</i></a>
                 <a href="#" class="nl-btn js-change-layouts-view"></a>
                 {% if is_granted('nglayouts:layout:add') %}
-                    <a href="{{ path('nglayouts_app') }}" id="add-new-button" class="nl-btn nl-btn-primary js-open-ngl">
+                    <a href="{{ macros.layout_path() }}" id="add-new-button" class="nl-btn nl-btn-primary js-open-ngl">
                         <i class="material-icons">add</i> {{ 'layouts.new_layout'|trans }}
                     </a>
                 {% endif %}
