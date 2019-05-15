@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Command;
 
-use Error;
+use Exception;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Transfer\Input\ImporterInterface;
 use Netgen\Layouts\Transfer\Input\Result\ErrorResult;
@@ -110,7 +110,7 @@ final class ImportCommand extends Command
         $previousVerbosity = $this->io->getVerbosity();
         $this->io->setVerbosity(OutputInterface::VERBOSITY_VERBOSE);
 
-        (new Application())->renderException($t instanceof Error ? new FatalThrowableError($t) : $t, $this->io);
+        (new Application())->renderException($t instanceof Exception ? $t : new FatalThrowableError($t), $this->io);
 
         $this->io->setVerbosity($previousVerbosity);
     }
