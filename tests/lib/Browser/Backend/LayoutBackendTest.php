@@ -148,7 +148,10 @@ final class LayoutBackendTest extends TestCase
             )
             ->willReturn(new LayoutList([new Layout(), new Layout()]));
 
-        $items = $this->backend->getSubItems(new RootLocation());
+        $items = [];
+        foreach ($this->backend->getSubItems(new RootLocation()) as $item) {
+            $items[] = $item;
+        }
 
         self::assertCount(2, $items);
         self::assertContainsOnlyInstancesOf(ItemInterface::class, $items);
@@ -172,11 +175,10 @@ final class LayoutBackendTest extends TestCase
             )
             ->willReturn(new LayoutList([new Layout(), new Layout()]));
 
-        $items = $this->backend->getSubItems(
-            new RootLocation(),
-            5,
-            10
-        );
+        $items = [];
+        foreach ($this->backend->getSubItems(new RootLocation(), 5, 10) as $item) {
+            $items[] = $item;
+        }
 
         self::assertCount(2, $items);
         self::assertContainsOnlyInstancesOf(ItemInterface::class, $items);

@@ -78,7 +78,7 @@ final class LayoutBackend implements BackendInterface
             $this->layoutService->loadAllLayouts(false, $offset, $limit) :
             $this->layoutService->loadLayouts(false, $offset, $limit);
 
-        return iterator_to_array($this->buildItems($layouts));
+        return $this->buildItems($layouts);
     }
 
     public function getSubItemsCount(LocationInterface $location): int
