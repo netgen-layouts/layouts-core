@@ -19,7 +19,6 @@ use Netgen\Layouts\Persistence\Values\Block\CollectionReference;
 use Netgen\Layouts\Persistence\Values\Collection\Collection;
 use Netgen\Layouts\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
-use Netgen\Layouts\Persistence\Values\Layout\Zone;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -81,14 +80,6 @@ final class BlockHandler implements BlockHandlerInterface
         $data = $this->queryHandler->loadLayoutBlocksData($layout);
 
         return $this->blockMapper->mapBlocks($data, $layout->uuid);
-    }
-
-    public function loadZoneBlocks(Zone $zone): array
-    {
-        $rootBlock = $this->loadBlock($zone->rootBlockId, $zone->status);
-        $data = $this->queryHandler->loadAllChildBlocksData($rootBlock);
-
-        return $this->blockMapper->mapBlocks($data, $zone->layoutUuid);
     }
 
     public function loadChildBlocks(Block $block, ?string $placeholder = null): array

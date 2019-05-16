@@ -109,41 +109,6 @@ final class BlockQueryHandler extends QueryHandler
     }
 
     /**
-     * Loads all child block data from specified block.
-     *
-     * This method returns the complete tree of blocks under the specified block.
-     */
-    public function loadAllChildBlocksData(Block $block): array
-    {
-        $query = $this->getBlockSelectQuery();
-        $query->where(
-            $query->expr()->like('b.path', ':path')
-        )
-        ->setParameter('path', '%/' . $block->id . '/%', Type::STRING);
-
-        $this->applyStatusCondition($query, $block->status, 'b.status');
-
-        $blocksData = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
-
-        // Map block IDs to UUIDs to inject parent UUID into the result
-        // This is to avoid inner joining the block table with itself
-
-        $idToUuidMap = [$block->id => $block->uuid];
-
-        foreach ($blocksData as $blockData) {
-            $idToUuidMap[(int) $blockData['id']] = $blockData['uuid'];
-        }
-
-        foreach ($blocksData as &$blockData) {
-            $parentId = $blockData['parent_id'] > 0 ? (int) $blockData['parent_id'] : null;
-            $parentUuid = $parentId !== null ? ($idToUuidMap[$parentId] ?? null) : null;
-            $blockData['parent_uuid'] = $parentUuid;
-        }
-
-        return $blocksData;
-    }
-
-    /**
      * Loads child block data from specified block, optionally filtered by placeholder.
      *
      * This method return only the first level of blocks under the specified block.

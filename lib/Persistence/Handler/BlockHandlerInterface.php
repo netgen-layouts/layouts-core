@@ -11,7 +11,6 @@ use Netgen\Layouts\Persistence\Values\Block\BlockUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Block\CollectionReference;
 use Netgen\Layouts\Persistence\Values\Collection\Collection;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
-use Netgen\Layouts\Persistence\Values\Layout\Zone;
 
 interface BlockHandlerInterface
 {
@@ -47,13 +46,6 @@ interface BlockHandlerInterface
      * @return \Netgen\Layouts\Persistence\Values\Block\Block[]
      */
     public function loadLayoutBlocks(Layout $layout): array;
-
-    /**
-     * Loads all blocks from specified zone.
-     *
-     * @return \Netgen\Layouts\Persistence\Values\Block\Block[]
-     */
-    public function loadZoneBlocks(Zone $zone): array;
 
     /**
      * Loads all blocks from specified block, optionally filtered by placeholder.

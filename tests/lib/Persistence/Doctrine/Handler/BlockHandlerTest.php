@@ -155,19 +155,6 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::loadZoneBlocks
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadAllChildBlocksData
-     */
-    public function testLoadZoneBlocks(): void
-    {
-        $blocks = $this->blockHandler->loadZoneBlocks(
-            $this->layoutHandler->loadZone(1, Value::STATUS_PUBLISHED, 'right')
-        );
-
-        self::assertCount(3, $blocks);
-    }
-
-    /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::loadChildBlocks
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadChildBlocksData
      */
