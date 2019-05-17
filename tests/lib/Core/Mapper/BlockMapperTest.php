@@ -218,11 +218,10 @@ abstract class BlockMapperTest extends CoreTestCase
     public function testMapBlockWithLocalesAndAlwaysAvailableWithoutUsingMainLocale(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find block with identifier "42"');
+        $this->expectExceptionMessage('Could not find block with identifier "28df256a-2467-5527-b398-9269ccc652de"');
 
         $persistenceBlock = Block::fromArray(
             [
-                'id' => 42,
                 'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'parentUuid' => 'cbca9628-3ff1-5440-b1c3-0018331d3544',
@@ -246,11 +245,10 @@ abstract class BlockMapperTest extends CoreTestCase
     public function testMapBlockWithLocalesAndNotAlwaysAvailable(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find block with identifier "42"');
+        $this->expectExceptionMessage('Could not find block with identifier "28df256a-2467-5527-b398-9269ccc652de"');
 
         $persistenceBlock = Block::fromArray(
             [
-                'id' => 42,
                 'uuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'layoutUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'parentUuid' => 'cbca9628-3ff1-5440-b1c3-0018331d3544',

@@ -36,6 +36,8 @@ final class CollectionMapperTest extends TestCase
             [
                 'id' => '42',
                 'uuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
+                'block_id' => '24',
+                'block_uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'status' => '1',
                 'start' => '5',
                 'length' => '10',
@@ -47,6 +49,8 @@ final class CollectionMapperTest extends TestCase
             [
                 'id' => 43,
                 'uuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
+                'block_id' => 34,
+                'block_uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'status' => Value::STATUS_DRAFT,
                 'start' => 10,
                 'length' => 20,
@@ -58,6 +62,8 @@ final class CollectionMapperTest extends TestCase
             [
                 'id' => 43,
                 'uuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
+                'block_id' => 34,
+                'block_uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'status' => Value::STATUS_DRAFT,
                 'start' => 10,
                 'length' => 20,
@@ -72,6 +78,8 @@ final class CollectionMapperTest extends TestCase
             [
                 'id' => 42,
                 'uuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
+                'blockId' => 24,
+                'blockUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'offset' => 5,
                 'limit' => 10,
                 'isTranslatable' => false,
@@ -83,6 +91,8 @@ final class CollectionMapperTest extends TestCase
             [
                 'id' => 43,
                 'uuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
+                'blockId' => 34,
+                'blockUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'offset' => 10,
                 'limit' => 20,
                 'isTranslatable' => false,
@@ -94,6 +104,88 @@ final class CollectionMapperTest extends TestCase
         ];
 
         $collections = $this->mapper->mapCollections($data);
+
+        self::assertContainsOnlyInstancesOf(Collection::class, $collections);
+        self::assertSame($expectedData, $this->exportObjectList($collections));
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\CollectionMapper::mapCollections
+     */
+    public function testMapCollectionsWithBlockUuid(): void
+    {
+        $data = [
+            [
+                'id' => '42',
+                'uuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
+                'block_id' => '34',
+                'block_uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
+                'status' => '1',
+                'start' => '5',
+                'length' => '10',
+                'locale' => 'en',
+                'translatable' => '0',
+                'main_locale' => 'en',
+                'always_available' => '1',
+            ],
+            [
+                'id' => 43,
+                'uuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
+                'block_id' => 34,
+                'block_uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
+                'status' => Value::STATUS_DRAFT,
+                'start' => 10,
+                'length' => 20,
+                'locale' => 'en',
+                'translatable' => false,
+                'main_locale' => 'en',
+                'always_available' => true,
+            ],
+            [
+                'id' => 43,
+                'uuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
+                'block_id' => 34,
+                'block_uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
+                'status' => Value::STATUS_DRAFT,
+                'start' => 10,
+                'length' => 20,
+                'locale' => 'hr',
+                'translatable' => false,
+                'main_locale' => 'en',
+                'always_available' => true,
+            ],
+        ];
+
+        $expectedData = [
+            [
+                'id' => 42,
+                'uuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
+                'blockId' => 34,
+                'blockUuid' => '08f48ee7-da70-42a6-bb49-07ac14f7a6b0',
+                'offset' => 5,
+                'limit' => 10,
+                'isTranslatable' => false,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_PUBLISHED,
+            ],
+            [
+                'id' => 43,
+                'uuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
+                'blockId' => 34,
+                'blockUuid' => '08f48ee7-da70-42a6-bb49-07ac14f7a6b0',
+                'offset' => 10,
+                'limit' => 20,
+                'isTranslatable' => false,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en', 'hr'],
+                'alwaysAvailable' => true,
+                'status' => Value::STATUS_DRAFT,
+            ],
+        ];
+
+        $collections = $this->mapper->mapCollections($data, '08f48ee7-da70-42a6-bb49-07ac14f7a6b0');
 
         self::assertContainsOnlyInstancesOf(Collection::class, $collections);
         self::assertSame($expectedData, $this->exportObjectList($collections));

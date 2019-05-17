@@ -26,10 +26,23 @@ final class CollectionQueryHandler extends QueryHandler
      */
     public function loadCollectionData($collectionId, int $status): array
     {
-        $query = $this->getCollectionSelectQuery();
+        $query = $this->getCollectionWithBlockSelectQuery();
 
         $this->applyIdCondition($query, $collectionId, 'c.id', 'c.uuid');
         $this->applyStatusCondition($query, $status, 'c.status');
+
+        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Loads all collection data for block with specified ID.
+     */
+    public function loadBlockCollectionsData(Block $block): array
+    {
+        $query = $this->getCollectionSelectQuery();
+
+        $this->applyIdCondition($query, $block->id, 'bc.block_id');
+        $this->applyStatusCondition($query, $block->status, 'bc.block_status');
 
         return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -663,7 +676,7 @@ final class CollectionQueryHandler extends QueryHandler
     private function getCollectionSelectQuery(): QueryBuilder
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT c.*, ct.*')
+        $query->select('DISTINCT c.*, ct.*, bc.*')
             ->from('nglayouts_collection', 'c')
             ->innerJoin(
                 'c',
@@ -672,6 +685,51 @@ final class CollectionQueryHandler extends QueryHandler
                 $query->expr()->andX(
                     $query->expr()->eq('ct.collection_id', 'c.id'),
                     $query->expr()->eq('ct.status', 'c.status')
+                )
+            )->innerJoin(
+                'c',
+                'nglayouts_block_collection',
+                'bc',
+                $query->expr()->andX(
+                    $query->expr()->eq('c.id', 'bc.collection_id'),
+                    $query->expr()->eq('c.status', 'bc.collection_status')
+                )
+            );
+
+        return $query;
+    }
+
+    /**
+     * Builds and returns a collection database SELECT query.
+     */
+    private function getCollectionWithBlockSelectQuery(): QueryBuilder
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('DISTINCT c.*, ct.*, b.id as block_id, b.uuid as block_uuid')
+            ->from('nglayouts_collection', 'c')
+            ->innerJoin(
+                'c',
+                'nglayouts_collection_translation',
+                'ct',
+                $query->expr()->andX(
+                    $query->expr()->eq('ct.collection_id', 'c.id'),
+                    $query->expr()->eq('ct.status', 'c.status')
+                )
+            )->innerJoin(
+                'c',
+                'nglayouts_block_collection',
+                'bc',
+                $query->expr()->andX(
+                    $query->expr()->eq('c.id', 'bc.collection_id'),
+                    $query->expr()->eq('c.status', 'bc.collection_status')
+                )
+            )->innerJoin(
+                'bc',
+                'nglayouts_block',
+                'b',
+                $query->expr()->andX(
+                    $query->expr()->eq('bc.block_id', 'b.id'),
+                    $query->expr()->eq('bc.block_status', 'b.status')
                 )
             );
 

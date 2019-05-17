@@ -36,6 +36,7 @@ final class CollectionTest extends TestCase
     /**
      * @covers \Netgen\Layouts\API\Values\Collection\Collection::__construct
      * @covers \Netgen\Layouts\API\Values\Collection\Collection::getAvailableLocales
+     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getBlockId
      * @covers \Netgen\Layouts\API\Values\Collection\Collection::getId
      * @covers \Netgen\Layouts\API\Values\Collection\Collection::getItem
      * @covers \Netgen\Layouts\API\Values\Collection\Collection::getItems
@@ -59,10 +60,12 @@ final class CollectionTest extends TestCase
         $query = new Query();
 
         $uuid = Uuid::uuid4();
+        $blockUuid = Uuid::uuid4();
 
         $collection = Collection::fromArray(
             [
                 'id' => $uuid,
+                'blockId' => $blockUuid,
                 'offset' => 5,
                 'limit' => 10,
                 'mainLocale' => 'en',
@@ -76,6 +79,7 @@ final class CollectionTest extends TestCase
         );
 
         self::assertSame($uuid->toString(), $collection->getId()->toString());
+        self::assertSame($blockUuid->toString(), $collection->getBlockId()->toString());
         self::assertSame(5, $collection->getOffset());
         self::assertSame(10, $collection->getLimit());
         self::assertSame('en', $collection->getMainLocale());

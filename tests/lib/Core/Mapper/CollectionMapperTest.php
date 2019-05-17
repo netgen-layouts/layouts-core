@@ -40,6 +40,8 @@ abstract class CollectionMapperTest extends CoreTestCase
             [
                 'id' => 2,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'blockId' => 42,
+                'blockUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'offset' => 10,
                 'limit' => 20,
                 'alwaysAvailable' => false,
@@ -53,6 +55,7 @@ abstract class CollectionMapperTest extends CoreTestCase
         $collection = $this->mapper->mapCollection($persistenceCollection);
 
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $collection->getId()->toString());
+        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $collection->getBlockId()->toString());
         self::assertSame(10, $collection->getOffset());
         self::assertSame(20, $collection->getLimit());
         self::assertTrue($collection->isPublished());
@@ -74,6 +77,7 @@ abstract class CollectionMapperTest extends CoreTestCase
         $persistenceCollection = Collection::fromArray(
             [
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'blockUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
             ]
@@ -94,6 +98,7 @@ abstract class CollectionMapperTest extends CoreTestCase
         $persistenceCollection = Collection::fromArray(
             [
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'blockUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
             ]
@@ -114,6 +119,7 @@ abstract class CollectionMapperTest extends CoreTestCase
         $persistenceCollection = Collection::fromArray(
             [
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'blockUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'mainLocale' => 'en',
                 'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr', 'de'],
@@ -133,12 +139,12 @@ abstract class CollectionMapperTest extends CoreTestCase
     public function testMapCollectionWithLocalesAndAlwaysAvailableWithoutUsingMainLocale(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find collection with identifier "42"');
+        $this->expectExceptionMessage('Could not find collection with identifier "f06f245a-f951-52c8-bfa3-84c80154eadc"');
 
         $persistenceCollection = Collection::fromArray(
             [
-                'id' => 42,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'blockUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'mainLocale' => 'en',
                 'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr', 'de'],
@@ -155,12 +161,12 @@ abstract class CollectionMapperTest extends CoreTestCase
     public function testMapCollectionWithLocalesAndNotAlwaysAvailable(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find collection with identifier "42"');
+        $this->expectExceptionMessage('Could not find collection with identifier "f06f245a-f951-52c8-bfa3-84c80154eadc"');
 
         $persistenceCollection = Collection::fromArray(
             [
-                'id' => 42,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'blockUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'mainLocale' => 'en',
                 'alwaysAvailable' => false,
                 'availableLocales' => ['en', 'hr', 'de'],
@@ -179,6 +185,8 @@ abstract class CollectionMapperTest extends CoreTestCase
             [
                 'id' => 1,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'blockId' => 42,
+                'blockUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'offset' => 10,
                 'limit' => 20,
                 'alwaysAvailable' => false,
@@ -192,6 +200,7 @@ abstract class CollectionMapperTest extends CoreTestCase
         $collection = $this->mapper->mapCollection($persistenceCollection);
 
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $collection->getId()->toString());
+        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $collection->getBlockId()->toString());
         self::assertSame(0, $collection->getOffset());
         self::assertSame(20, $collection->getLimit());
         self::assertTrue($collection->isPublished());
@@ -425,11 +434,10 @@ abstract class CollectionMapperTest extends CoreTestCase
     public function testMapQueryWithLocalesAndAlwaysAvailableWithoutUsingMainLocale(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find query with identifier "42"');
+        $this->expectExceptionMessage('Could not find query with identifier "4adf0f00-f6c2-5297-9f96-039bfabe8d3b"');
 
         $persistenceQuery = Query::fromArray(
             [
-                'id' => 42,
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => 'my_query_type',
@@ -450,11 +458,10 @@ abstract class CollectionMapperTest extends CoreTestCase
     public function testMapQueryWithLocalesAndNotAlwaysAvailable(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find query with identifier "42"');
+        $this->expectExceptionMessage('Could not find query with identifier "4adf0f00-f6c2-5297-9f96-039bfabe8d3b"');
 
         $persistenceQuery = Query::fromArray(
             [
-                'id' => 42,
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => 'my_query_type',

@@ -26,6 +26,20 @@ final class Collection extends Value
     public $uuid;
 
     /**
+     * ID of the block where this collection is located.
+     *
+     * @var int
+     */
+    public $blockId;
+
+    /**
+     * UUID of the block where this collection is located.
+     *
+     * @var string
+     */
+    public $blockUuid;
+
+    /**
      * The starting offset for the collection results.
      *
      * @var int

@@ -65,18 +65,24 @@ final class CollectionHandler implements CollectionHandlerInterface
 
     public function loadCollections(Block $block): array
     {
-        $collectionReferences = $this->loadCollectionReferences($block);
+        $data = $this->queryHandler->loadBlockCollectionsData($block);
+        $collections = $this->collectionMapper->mapCollections($data, $block->uuid);
 
-        $collections = [];
+        // We need the collection identifier as a hash key, so we'll take it
+        // from the loaded data directly.
+        $collectionsWithIdentifier = [];
 
-        foreach ($collectionReferences as $collectionReference) {
-            $collections[$collectionReference->identifier] = $this->loadCollection(
-                $collectionReference->collectionId,
-                $collectionReference->collectionStatus
-            );
+        foreach ($collections as $collection) {
+            foreach ($data as $dataItem) {
+                if ($collection->uuid === $dataItem['uuid']) {
+                    $collectionsWithIdentifier[$dataItem['identifier']] = $collection;
+
+                    break;
+                }
+            }
         }
 
-        return $collections;
+        return $collectionsWithIdentifier;
     }
 
     public function loadCollectionReference(Block $block, string $identifier): CollectionReference
@@ -215,7 +221,8 @@ final class CollectionHandler implements CollectionHandlerInterface
 
         $this->queryHandler->createCollectionReference($newCollectionReference);
 
-        return $newCollection;
+        // Reload the collection to get the new block reference data
+        return $this->loadCollection($newCollection->id, $newCollection->status);
     }
 
     public function createCollectionTranslation(Collection $collection, string $locale, string $sourceLocale): Collection
@@ -378,7 +385,8 @@ final class CollectionHandler implements CollectionHandlerInterface
 
         $this->queryHandler->createCollectionReference($newCollectionReference);
 
-        return $newCollection;
+        // Reload the collection to get the new block reference data
+        return $this->loadCollection($newCollection->id, $newCollection->status);
     }
 
     public function createCollectionStatus(Collection $collection, int $newStatus): Collection

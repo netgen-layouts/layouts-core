@@ -58,7 +58,7 @@ final class CollectionHandlerTest extends TestCase
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::__construct
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadCollection
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::__construct
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::getCollectionSelectQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::getCollectionWithBlockSelectQuery
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionData
      */
     public function testLoadCollection(): void
@@ -69,6 +69,8 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 1,
                 'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'blockId' => 31,
+                'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'offset' => 0,
                 'limit' => null,
                 'isTranslatable' => true,
@@ -91,6 +93,49 @@ final class CollectionHandlerTest extends TestCase
         $this->expectExceptionMessage('Could not find collection with identifier "999999"');
 
         $this->collectionHandler->loadCollection(999999, Value::STATUS_PUBLISHED);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadCollections
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadBlockCollectionsData
+     */
+    public function testLoadCollections(): void
+    {
+        $collections = $this->collectionHandler->loadCollections(
+            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT)
+        );
+
+        self::assertSame(
+            [
+                'default' => [
+                    'id' => 1,
+                    'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                    'blockId' => 31,
+                    'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
+                    'offset' => 0,
+                    'limit' => null,
+                    'isTranslatable' => true,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en', 'hr'],
+                    'alwaysAvailable' => true,
+                    'status' => Value::STATUS_DRAFT,
+                ],
+                'featured' => [
+                    'id' => 3,
+                    'uuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
+                    'blockId' => 31,
+                    'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
+                    'offset' => 4,
+                    'limit' => 2,
+                    'isTranslatable' => true,
+                    'mainLocale' => 'en',
+                    'availableLocales' => ['en', 'hr'],
+                    'alwaysAvailable' => true,
+                    'status' => Value::STATUS_DRAFT,
+                ],
+            ],
+            $this->exportObjectList($collections)
+        );
     }
 
     /**
@@ -418,6 +463,8 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 7,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'blockId' => 38,
+                'blockUuid' => 'a2806e8a-ea8c-5c3b-8f84-2cbdae1a07f6',
                 'offset' => 5,
                 'limit' => 10,
                 'isTranslatable' => true,
@@ -469,6 +516,8 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 2,
                 'uuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
+                'blockId' => 31,
+                'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'offset' => 0,
                 'limit' => null,
                 'isTranslatable' => true,
@@ -535,6 +584,8 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 2,
                 'uuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
+                'blockId' => 31,
+                'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'offset' => 0,
                 'limit' => null,
                 'isTranslatable' => true,
@@ -601,6 +652,8 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 1,
                 'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'blockId' => 31,
+                'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'offset' => 0,
                 'limit' => null,
                 'isTranslatable' => true,
@@ -732,6 +785,8 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 1,
                 'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'blockId' => 31,
+                'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'offset' => 5,
                 'limit' => 10,
                 'isTranslatable' => false,
@@ -763,6 +818,8 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 3,
                 'uuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
+                'blockId' => 31,
+                'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'offset' => 5,
                 'limit' => null,
                 'isTranslatable' => true,
@@ -792,6 +849,8 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 1,
                 'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'blockId' => 31,
+                'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'offset' => 0,
                 'limit' => null,
                 'isTranslatable' => true,
@@ -838,6 +897,8 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 7,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'blockId' => 34,
+                'blockUuid' => '42446cc9-24c3-573c-9022-6b3a764727b5',
                 'offset' => 4,
                 'limit' => 2,
                 'isTranslatable' => true,
@@ -954,6 +1015,8 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 7,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'blockId' => 34,
+                'blockUuid' => '42446cc9-24c3-573c-9022-6b3a764727b5',
                 'offset' => 0,
                 'limit' => null,
                 'isTranslatable' => true,
@@ -1044,6 +1107,8 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 3,
                 'uuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
+                'blockId' => 31,
+                'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'offset' => 4,
                 'limit' => 2,
                 'isTranslatable' => true,
@@ -1147,6 +1212,8 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 1,
                 'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'blockId' => 31,
+                'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'offset' => 0,
                 'limit' => null,
                 'isTranslatable' => true,
@@ -1275,6 +1342,8 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 2,
                 'uuid' => '45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a',
+                'blockId' => 31,
+                'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'offset' => 0,
                 'limit' => null,
                 'isTranslatable' => true,
@@ -1328,6 +1397,8 @@ final class CollectionHandlerTest extends TestCase
             [
                 'id' => 1,
                 'uuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'blockId' => 31,
+                'blockUuid' => '28df256a-2467-5527-b398-9269ccc652de',
                 'offset' => 0,
                 'limit' => null,
                 'isTranslatable' => true,

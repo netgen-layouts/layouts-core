@@ -35,6 +35,11 @@ final class Collection implements Value
     private $id;
 
     /**
+     * @var \Ramsey\Uuid\UuidInterface
+     */
+    private $blockId;
+
+    /**
      * @var int
      */
     private $offset;
@@ -90,6 +95,14 @@ final class Collection implements Value
     public function getId(): UuidInterface
     {
         return $this->id;
+    }
+
+    /**
+     * Returns the UUID of the block where this collection located.
+     */
+    public function getBlockId(): UuidInterface
+    {
+        return $this->blockId;
     }
 
     /**

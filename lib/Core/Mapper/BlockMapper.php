@@ -97,7 +97,7 @@ final class BlockMapper
 
         $validLocales = array_unique(array_intersect($locales, $block->availableLocales));
         if (count($validLocales) === 0) {
-            throw new NotFoundException('block', $block->id);
+            throw new NotFoundException('block', $block->uuid);
         }
 
         /** @var string $blockLocale */

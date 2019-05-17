@@ -16,6 +16,8 @@ final class CollectionTest extends TestCase
             [
                 'id' => 42,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'blockId' => 24,
+                'blockUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'status' => Value::STATUS_PUBLISHED,
                 'offset' => 10,
                 'limit' => 20,
@@ -28,6 +30,8 @@ final class CollectionTest extends TestCase
 
         self::assertSame(42, $collection->id);
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $collection->uuid);
+        self::assertSame(24, $collection->blockId);
+        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $collection->blockUuid);
         self::assertSame(Value::STATUS_PUBLISHED, $collection->status);
         self::assertSame(10, $collection->offset);
         self::assertSame(20, $collection->limit);

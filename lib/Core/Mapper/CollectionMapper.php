@@ -91,11 +91,12 @@ final class CollectionMapper
 
         $validLocales = array_unique(array_intersect($locales, $collection->availableLocales));
         if (count($validLocales) === 0) {
-            throw new NotFoundException('collection', $collection->id);
+            throw new NotFoundException('collection', $collection->uuid);
         }
 
         $collectionData = [
             'id' => Uuid::fromString($collection->uuid),
+            'blockId' => Uuid::fromString($collection->blockUuid),
             'status' => $collection->status,
             'offset' => $collection->offset,
             'limit' => $collection->limit,
@@ -188,7 +189,7 @@ final class CollectionMapper
 
         $validLocales = array_unique(array_intersect($locales, $query->availableLocales));
         if (count($validLocales) === 0) {
-            throw new NotFoundException('query', $query->id);
+            throw new NotFoundException('query', $query->uuid);
         }
 
         /** @var string $queryLocale */

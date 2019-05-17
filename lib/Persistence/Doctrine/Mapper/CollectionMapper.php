@@ -14,9 +14,11 @@ final class CollectionMapper
     /**
      * Maps data from database to collection values.
      *
+     * If block UUID is provided, block UUID is mapped from it instead of data.
+     *
      * @return \Netgen\Layouts\Persistence\Values\Collection\Collection[]
      */
-    public function mapCollections(array $data): array
+    public function mapCollections(array $data, ?string $blockUuid = null): array
     {
         $collections = [];
 
@@ -28,6 +30,8 @@ final class CollectionMapper
                 $collections[$collectionId] = [
                     'id' => $collectionId,
                     'uuid' => $dataItem['uuid'],
+                    'blockId' => (int) $dataItem['block_id'],
+                    'blockUuid' => $blockUuid ?? $dataItem['block_uuid'] ?? '',
                     'status' => (int) $dataItem['status'],
                     'offset' => (int) $dataItem['start'],
                     'limit' => $dataItem['length'] !== null ? (int) $dataItem['length'] : null,
