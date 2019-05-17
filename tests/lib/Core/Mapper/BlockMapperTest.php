@@ -377,7 +377,6 @@ abstract class BlockMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::loadCollections
      * @covers \Netgen\Layouts\Core\Mapper\BlockMapper::mapBlock
      */
     public function testMapBlockWithCollections(): void

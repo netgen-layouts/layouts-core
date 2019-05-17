@@ -8,8 +8,6 @@ use Netgen\Layouts\Persistence\Values\Block\Block;
 use Netgen\Layouts\Persistence\Values\Block\BlockCreateStruct;
 use Netgen\Layouts\Persistence\Values\Block\BlockTranslationUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Block\BlockUpdateStruct;
-use Netgen\Layouts\Persistence\Values\Block\CollectionReference;
-use Netgen\Layouts\Persistence\Values\Collection\Collection;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
 
 interface BlockHandlerInterface
@@ -55,20 +53,6 @@ interface BlockHandlerInterface
     public function loadChildBlocks(Block $block, ?string $placeholder = null): array;
 
     /**
-     * Loads a collection reference.
-     *
-     * @throws \Netgen\Layouts\Exception\NotFoundException If collection reference with specified identifier does not exist
-     */
-    public function loadCollectionReference(Block $block, string $identifier): CollectionReference;
-
-    /**
-     * Loads all collection references belonging to the provided block.
-     *
-     * @return \Netgen\Layouts\Persistence\Values\Block\CollectionReference[]
-     */
-    public function loadCollectionReferences(Block $block): array;
-
-    /**
      * Creates a block in specified target block.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If provided position is out of range
@@ -83,11 +67,6 @@ interface BlockHandlerInterface
      *                                                          If translation with provided source locale does not exist
      */
     public function createBlockTranslation(Block $block, string $locale, string $sourceLocale): Block;
-
-    /**
-     * Adds the provided collection to the block and assigns it the specified identifier.
-     */
-    public function createCollectionReference(Block $block, Collection $collection, string $identifier): CollectionReference;
 
     /**
      * Updates a block with specified ID.

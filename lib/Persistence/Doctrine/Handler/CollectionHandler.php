@@ -10,6 +10,8 @@ use Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\Layouts\Persistence\Doctrine\Mapper\CollectionMapper;
 use Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler;
 use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
+use Netgen\Layouts\Persistence\Values\Block\Block;
+use Netgen\Layouts\Persistence\Values\Block\CollectionReference;
 use Netgen\Layouts\Persistence\Values\Collection\Collection;
 use Netgen\Layouts\Persistence\Values\Collection\CollectionCreateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\CollectionUpdateStruct;
@@ -59,6 +61,40 @@ final class CollectionHandler implements CollectionHandlerInterface
         }
 
         return $this->collectionMapper->mapCollections($data)[0];
+    }
+
+    public function loadCollections(Block $block): array
+    {
+        $collectionReferences = $this->loadCollectionReferences($block);
+
+        $collections = [];
+
+        foreach ($collectionReferences as $collectionReference) {
+            $collections[$collectionReference->identifier] = $this->loadCollection(
+                $collectionReference->collectionId,
+                $collectionReference->collectionStatus
+            );
+        }
+
+        return $collections;
+    }
+
+    public function loadCollectionReference(Block $block, string $identifier): CollectionReference
+    {
+        $data = $this->queryHandler->loadCollectionReferencesData($block, $identifier);
+
+        if (count($data) === 0) {
+            throw new NotFoundException('collection reference', $identifier);
+        }
+
+        return $this->collectionMapper->mapCollectionReferences($data)[0];
+    }
+
+    public function loadCollectionReferences(Block $block): array
+    {
+        $data = $this->queryHandler->loadCollectionReferencesData($block);
+
+        return $this->collectionMapper->mapCollectionReferences($data);
     }
 
     public function loadItem($itemId, int $status): Item
@@ -141,8 +177,12 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $this->queryHandler->collectionExists($collectionId, $status);
     }
 
-    public function createCollection(CollectionCreateStruct $collectionCreateStruct): Collection
+    public function createCollection(CollectionCreateStruct $collectionCreateStruct, Block $block, string $collectionIdentifier): Collection
     {
+        if ($collectionCreateStruct->status !== $block->status) {
+            throw new BadStateException('block', 'Collections can only be created in blocks with the same status.');
+        }
+
         $newCollection = Collection::fromArray(
             [
                 'uuid' => Uuid::uuid4()->toString(),
@@ -162,6 +202,18 @@ final class CollectionHandler implements CollectionHandlerInterface
             $newCollection,
             $collectionCreateStruct->mainLocale
         );
+
+        $newCollectionReference = CollectionReference::fromArray(
+            [
+                'blockId' => $block->id,
+                'blockStatus' => $block->status,
+                'collectionId' => $newCollection->id,
+                'collectionStatus' => $newCollection->status,
+                'identifier' => $collectionIdentifier,
+            ]
+        );
+
+        $this->queryHandler->createCollectionReference($newCollectionReference);
 
         return $newCollection;
     }
@@ -198,6 +250,26 @@ final class CollectionHandler implements CollectionHandlerInterface
         }
 
         return $updatedCollection;
+    }
+
+    /**
+     * Adds the provided collection to the block and assigns it the specified identifier.
+     */
+    public function createCollectionReference(Collection $collection, Block $block, string $collectionIdentifier): CollectionReference
+    {
+        $newCollectionReference = CollectionReference::fromArray(
+            [
+                'blockId' => $block->id,
+                'blockStatus' => $block->status,
+                'collectionId' => $collection->id,
+                'collectionStatus' => $collection->status,
+                'identifier' => $collectionIdentifier,
+            ]
+        );
+
+        $this->queryHandler->createCollectionReference($newCollectionReference);
+
+        return $newCollectionReference;
     }
 
     public function setMainTranslation(Collection $collection, string $mainLocale): Collection
@@ -242,8 +314,12 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $updatedCollection;
     }
 
-    public function copyCollection(Collection $collection): Collection
+    public function copyCollection(Collection $collection, Block $block, string $collectionIdentifier): Collection
     {
+        if ($collection->status !== $block->status) {
+            throw new BadStateException('block', 'Collections can only be copied to blocks with the same status.');
+        }
+
         $newCollection = clone $collection;
         $newCollection->id = null;
         $newCollection->uuid = Uuid::uuid4()->toString();
@@ -289,6 +365,18 @@ final class CollectionHandler implements CollectionHandlerInterface
                 $this->queryHandler->createQueryTranslation($newQuery, $locale);
             }
         }
+
+        $newCollectionReference = CollectionReference::fromArray(
+            [
+                'blockId' => $block->id,
+                'blockStatus' => $block->status,
+                'collectionId' => $newCollection->id,
+                'collectionStatus' => $newCollection->status,
+                'identifier' => $collectionIdentifier,
+            ]
+        );
+
+        $this->queryHandler->createCollectionReference($newCollectionReference);
 
         return $newCollection;
     }
@@ -363,6 +451,16 @@ final class CollectionHandler implements CollectionHandlerInterface
         $this->queryHandler->deleteCollectionTranslations($collection->id, $collection->status, $locale);
 
         return $this->loadCollection($collection->id, $collection->status);
+    }
+
+    public function deleteBlockCollections(array $blockIds, ?int $status = null): void
+    {
+        $collectionIds = $this->queryHandler->loadBlockCollectionIds($blockIds, $status);
+        foreach ($collectionIds as $collectionId) {
+            $this->deleteCollection($collectionId, $status);
+        }
+
+        $this->queryHandler->deleteCollectionReferences($blockIds, $status);
     }
 
     public function addItem(Collection $collection, ItemCreateStruct $itemCreateStruct): Item

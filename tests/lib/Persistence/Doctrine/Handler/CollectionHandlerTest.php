@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\Persistence\Doctrine\Handler;
 
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Persistence\Values\Block\CollectionReference;
 use Netgen\Layouts\Persistence\Values\Collection\Collection;
 use Netgen\Layouts\Persistence\Values\Collection\CollectionCreateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\CollectionUpdateStruct;
@@ -32,11 +33,17 @@ final class CollectionHandlerTest extends TestCase
      */
     private $collectionHandler;
 
+    /**
+     * @var \Netgen\Layouts\Persistence\Handler\BlockHandlerInterface
+     */
+    private $blockHandler;
+
     protected function setUp(): void
     {
         $this->createDatabase();
 
         $this->collectionHandler = $this->createCollectionHandler();
+        $this->blockHandler = $this->createBlockHandler();
     }
 
     /**
@@ -84,6 +91,77 @@ final class CollectionHandlerTest extends TestCase
         $this->expectExceptionMessage('Could not find collection with identifier "999999"');
 
         $this->collectionHandler->loadCollection(999999, Value::STATUS_PUBLISHED);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionReference
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionReferencesData
+     */
+    public function testLoadCollectionReference(): void
+    {
+        $reference = $this->collectionHandler->loadCollectionReference(
+            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            'default'
+        );
+
+        self::assertSame(
+            [
+                'blockId' => 31,
+                'blockStatus' => Value::STATUS_DRAFT,
+                'collectionId' => 1,
+                'collectionStatus' => Value::STATUS_DRAFT,
+                'identifier' => 'default',
+            ],
+            $this->exportObject($reference)
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionReference
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionReferencesData
+     */
+    public function testLoadCollectionReferenceThrowsNotFoundException(): void
+    {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find collection reference with identifier "non_existing"');
+
+        $this->collectionHandler->loadCollectionReference(
+            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+            'non_existing'
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionReferences
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionReferencesData
+     */
+    public function testLoadCollectionReferences(): void
+    {
+        $references = $this->collectionHandler->loadCollectionReferences(
+            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT)
+        );
+
+        self::assertContainsOnlyInstancesOf(CollectionReference::class, $references);
+
+        self::assertSame(
+            [
+                [
+                    'blockId' => 31,
+                    'blockStatus' => Value::STATUS_DRAFT,
+                    'collectionId' => 1,
+                    'collectionStatus' => Value::STATUS_DRAFT,
+                    'identifier' => 'default',
+                ],
+                [
+                    'blockId' => 31,
+                    'blockStatus' => Value::STATUS_DRAFT,
+                    'collectionId' => 3,
+                    'collectionStatus' => Value::STATUS_DRAFT,
+                    'identifier' => 'featured',
+                ],
+            ],
+            $this->exportObjectList($references)
+        );
     }
 
     /**
@@ -316,10 +394,11 @@ final class CollectionHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createCollection
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollection
      */
     public function testCreateCollection(): void
     {
+        $block = $this->blockHandler->loadBlock(38, Value::STATUS_DRAFT);
+
         $collectionCreateStruct = new CollectionCreateStruct();
         $collectionCreateStruct->status = Value::STATUS_DRAFT;
         $collectionCreateStruct->offset = 5;
@@ -329,8 +408,8 @@ final class CollectionHandlerTest extends TestCase
         $collectionCreateStruct->alwaysAvailable = true;
 
         $createdCollection = $this->withUuids(
-            function () use ($collectionCreateStruct): Collection {
-                return $this->collectionHandler->createCollection($collectionCreateStruct);
+            function () use ($collectionCreateStruct, $block): Collection {
+                return $this->collectionHandler->createCollection($collectionCreateStruct, $block, 'default');
             },
             ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
@@ -349,6 +428,28 @@ final class CollectionHandlerTest extends TestCase
             ],
             $this->exportObject($createdCollection)
         );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createCollection
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollection
+     */
+    public function testCreateCollectionThrowsBadStateExceptionWithBlockInDifferentStatus(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "block" has an invalid state. Collections can only be created in blocks with the same status.');
+
+        $block = $this->blockHandler->loadBlock(38, Value::STATUS_DRAFT);
+
+        $collectionCreateStruct = new CollectionCreateStruct();
+        $collectionCreateStruct->status = Value::STATUS_PUBLISHED;
+        $collectionCreateStruct->offset = 5;
+        $collectionCreateStruct->limit = 10;
+        $collectionCreateStruct->mainLocale = 'en';
+        $collectionCreateStruct->isTranslatable = true;
+        $collectionCreateStruct->alwaysAvailable = true;
+
+        $this->collectionHandler->createCollection($collectionCreateStruct, $block, 'default');
     }
 
     /**
@@ -545,6 +646,33 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::createCollectionReference
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::createCollectionReference
+     */
+    public function testCreateCollectionReference(): void
+    {
+        $block = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
+        $collection = $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED);
+
+        $reference = $this->collectionHandler->createCollectionReference(
+            $collection,
+            $block,
+            'new'
+        );
+
+        self::assertSame(
+            [
+                'blockId' => $block->id,
+                'blockStatus' => $block->status,
+                'collectionId' => $collection->id,
+                'collectionStatus' => $collection->status,
+                'identifier' => 'new',
+            ],
+            $this->exportObject($reference)
+        );
+    }
+
+    /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::setMainTranslation
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateCollection
      */
@@ -687,10 +815,14 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testCopyCollection(): void
     {
+        $block = $this->blockHandler->loadBlock(34, Value::STATUS_PUBLISHED);
+
         $copiedCollection = $this->withUuids(
-            function (): Collection {
+            function () use ($block): Collection {
                 return $this->collectionHandler->copyCollection(
-                    $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED)
+                    $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED),
+                    $block,
+                    'default'
                 );
             },
             [
@@ -800,10 +932,14 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testCopyCollectionWithoutQuery(): void
     {
+        $block = $this->blockHandler->loadBlock(34, Value::STATUS_DRAFT);
+
         $copiedCollection = $this->withUuids(
-            function (): Collection {
+            function () use ($block): Collection {
                 return $this->collectionHandler->copyCollection(
-                    $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT)
+                    $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+                    $block,
+                    'default'
                 );
             },
             [
@@ -868,6 +1004,23 @@ final class CollectionHandlerTest extends TestCase
             $this->exportObjectList(
                 $this->collectionHandler->loadCollectionItems($copiedCollection)
             )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::copyCollection
+     */
+    public function testCopyCollectionThrowsBadStateExceptionWithBlockInDifferentStatus(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "block" has an invalid state. Collections can only be copied to blocks with the same status.');
+
+        $block = $this->blockHandler->loadBlock(34, Value::STATUS_DRAFT);
+
+        $this->collectionHandler->copyCollection(
+            $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED),
+            $block,
+            'default'
         );
     }
 

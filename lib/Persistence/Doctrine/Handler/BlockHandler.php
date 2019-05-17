@@ -15,8 +15,6 @@ use Netgen\Layouts\Persistence\Values\Block\Block;
 use Netgen\Layouts\Persistence\Values\Block\BlockCreateStruct;
 use Netgen\Layouts\Persistence\Values\Block\BlockTranslationUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Block\BlockUpdateStruct;
-use Netgen\Layouts\Persistence\Values\Block\CollectionReference;
-use Netgen\Layouts\Persistence\Values\Collection\Collection;
 use Netgen\Layouts\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
 use Ramsey\Uuid\Uuid;
@@ -89,24 +87,6 @@ final class BlockHandler implements BlockHandlerInterface
         return $this->blockMapper->mapBlocks($data);
     }
 
-    public function loadCollectionReference(Block $block, string $identifier): CollectionReference
-    {
-        $data = $this->queryHandler->loadCollectionReferencesData($block, $identifier);
-
-        if (count($data) === 0) {
-            throw new NotFoundException('collection reference', $identifier);
-        }
-
-        return $this->blockMapper->mapCollectionReferences($data)[0];
-    }
-
-    public function loadCollectionReferences(Block $block): array
-    {
-        $data = $this->queryHandler->loadCollectionReferencesData($block);
-
-        return $this->blockMapper->mapCollectionReferences($data);
-    }
-
     public function createBlock(BlockCreateStruct $blockCreateStruct, Layout $layout, ?Block $targetBlock = null, ?string $placeholder = null): Block
     {
         if ($targetBlock !== null && $targetBlock->layoutId !== $layout->id) {
@@ -177,34 +157,11 @@ final class BlockHandler implements BlockHandlerInterface
 
         $this->queryHandler->createBlockTranslation($updatedBlock, $locale);
 
-        $collectionReferences = $this->loadCollectionReferences($block);
-        foreach ($collectionReferences as $collectionReference) {
-            $collection = $this->collectionHandler->loadCollection(
-                $collectionReference->collectionId,
-                $collectionReference->collectionStatus
-            );
-
+        foreach ($this->collectionHandler->loadCollections($block) as $collection) {
             $this->collectionHandler->createCollectionTranslation($collection, $locale, $sourceLocale);
         }
 
         return $updatedBlock;
-    }
-
-    public function createCollectionReference(Block $block, Collection $collection, string $identifier): CollectionReference
-    {
-        $newCollectionReference = CollectionReference::fromArray(
-            [
-                'blockId' => $block->id,
-                'blockStatus' => $block->status,
-                'collectionId' => $collection->id,
-                'collectionStatus' => $collection->status,
-                'identifier' => $identifier,
-            ]
-        );
-
-        $this->queryHandler->createCollectionReference($newCollectionReference);
-
-        return $newCollectionReference;
     }
 
     public function updateBlock(Block $block, BlockUpdateStruct $blockUpdateStruct): Block
@@ -237,13 +194,7 @@ final class BlockHandler implements BlockHandlerInterface
 
         $this->queryHandler->updateBlock($updatedBlock);
 
-        $collectionReferences = $this->loadCollectionReferences($block);
-        foreach ($collectionReferences as $collectionReference) {
-            $collection = $this->collectionHandler->loadCollection(
-                $collectionReference->collectionId,
-                $collectionReference->collectionStatus
-            );
-
+        foreach ($this->collectionHandler->loadCollections($block) as $collection) {
             $collectionUpdateStruct = CollectionUpdateStruct::fromArray(
                 [
                     'alwaysAvailable' => $updatedBlock->alwaysAvailable,
@@ -285,13 +236,7 @@ final class BlockHandler implements BlockHandlerInterface
 
         $this->queryHandler->updateBlock($updatedBlock);
 
-        $collectionReferences = $this->loadCollectionReferences($block);
-        foreach ($collectionReferences as $collectionReference) {
-            $collection = $this->collectionHandler->loadCollection(
-                $collectionReference->collectionId,
-                $collectionReference->collectionStatus
-            );
-
+        foreach ($this->collectionHandler->loadCollections($block) as $collection) {
             $this->collectionHandler->setMainTranslation($collection, $mainLocale);
         }
 
@@ -414,7 +359,25 @@ final class BlockHandler implements BlockHandlerInterface
             $this->queryHandler->createBlockTranslation($newBlock, $locale);
         }
 
-        $this->createBlockCollectionsStatus($block, $newStatus);
+        $collectionReferences = $this->collectionHandler->loadCollectionReferences($block);
+
+        foreach ($collectionReferences as $collectionReference) {
+            $collection = $this->collectionHandler->loadCollection(
+                $collectionReference->collectionId,
+                $collectionReference->collectionStatus
+            );
+
+            $newCollection = $this->collectionHandler->createCollectionStatus(
+                $collection,
+                $newStatus
+            );
+
+            $this->collectionHandler->createCollectionReference(
+                $newCollection,
+                $newBlock,
+                $collectionReference->identifier
+            );
+        }
 
         return $newBlock;
     }
@@ -475,13 +438,7 @@ final class BlockHandler implements BlockHandlerInterface
 
         $this->queryHandler->deleteBlockTranslations([$block->id], $block->status, $locale);
 
-        $collectionReferences = $this->loadCollectionReferences($block);
-        foreach ($collectionReferences as $collectionReference) {
-            $collection = $this->collectionHandler->loadCollection(
-                $collectionReference->collectionId,
-                $collectionReference->collectionStatus
-            );
-
+        foreach ($this->collectionHandler->loadCollections($block) as $collection) {
             $this->collectionHandler->deleteCollectionTranslation($collection, $locale);
         }
 
@@ -496,7 +453,7 @@ final class BlockHandler implements BlockHandlerInterface
 
     public function deleteBlocks(array $blockIds, ?int $status = null): void
     {
-        $this->deleteBlockCollections($blockIds, $status);
+        $this->collectionHandler->deleteBlockCollections($blockIds, $status);
         $this->queryHandler->deleteBlockTranslations($blockIds, $status);
         $this->queryHandler->deleteBlocks($blockIds, $status);
     }
@@ -506,7 +463,7 @@ final class BlockHandler implements BlockHandlerInterface
      */
     private function copyBlockCollections(Block $block, Block $targetBlock): void
     {
-        $collectionReferences = $this->loadCollectionReferences($block);
+        $collectionReferences = $this->collectionHandler->loadCollectionReferences($block);
 
         foreach ($collectionReferences as $collectionReference) {
             $collection = $this->collectionHandler->loadCollection(
@@ -514,71 +471,8 @@ final class BlockHandler implements BlockHandlerInterface
                 $collectionReference->collectionStatus
             );
 
-            $collection = $this->collectionHandler->copyCollection($collection);
-
-            $newCollectionReference = CollectionReference::fromArray(
-                [
-                    'blockId' => $targetBlock->id,
-                    'blockStatus' => $targetBlock->status,
-                    'collectionId' => $collection->id,
-                    'collectionStatus' => $collection->status,
-                    'identifier' => $collectionReference->identifier,
-                ]
-            );
-
-            $this->queryHandler->createCollectionReference($newCollectionReference);
+            $this->collectionHandler->copyCollection($collection, $targetBlock, $collectionReference->identifier);
         }
-    }
-
-    /**
-     * Creates a new status for all collections in specified block.
-     *
-     * This method does not create new status for sub-block collections,
-     * so any process that works with this method needs to take care of that.
-     */
-    private function createBlockCollectionsStatus(Block $block, int $newStatus): void
-    {
-        $collectionReferences = $this->loadCollectionReferences($block);
-
-        foreach ($collectionReferences as $collectionReference) {
-            $collection = $this->collectionHandler->loadCollection(
-                $collectionReference->collectionId,
-                $collectionReference->collectionStatus
-            );
-
-            $collection = $this->collectionHandler->createCollectionStatus(
-                $collection,
-                $newStatus
-            );
-
-            $newCollectionReference = CollectionReference::fromArray(
-                [
-                    'blockId' => $block->id,
-                    'blockStatus' => $newStatus,
-                    'collectionId' => $collection->id,
-                    'collectionStatus' => $collection->status,
-                    'identifier' => $collectionReference->identifier,
-                ]
-            );
-
-            $this->queryHandler->createCollectionReference($newCollectionReference);
-        }
-    }
-
-    /**
-     * Deletes block collections with specified block IDs.
-     *
-     * This method does not delete block collections from sub-blocks,
-     * so this should be used only when deleting the entire layout.
-     */
-    private function deleteBlockCollections(array $blockIds, ?int $status = null): void
-    {
-        $collectionIds = $this->queryHandler->loadBlockCollectionIds($blockIds, $status);
-        foreach ($collectionIds as $collectionId) {
-            $this->collectionHandler->deleteCollection($collectionId, $status);
-        }
-
-        $this->queryHandler->deleteCollectionReferences($blockIds, $status);
     }
 
     /**

@@ -129,7 +129,7 @@ final class BlockMapper
                         function (PersistenceCollection $collection) use ($locales): Collection {
                             return $this->collectionMapper->mapCollection($collection, $locales);
                         },
-                        iterator_to_array($this->loadCollections($block))
+                        $this->collectionHandler->loadCollections($block)
                     );
                 }
             ),
@@ -153,21 +153,6 @@ final class BlockMapper
         ];
 
         return Block::fromArray($blockData);
-    }
-
-    /**
-     * Loads all persistence collections belonging to the provided block.
-     */
-    private function loadCollections(PersistenceBlock $block): Generator
-    {
-        $collectionReferences = $this->blockHandler->loadCollectionReferences($block);
-
-        foreach ($collectionReferences as $collectionReference) {
-            yield $collectionReference->identifier => $this->collectionHandler->loadCollection(
-                $collectionReference->collectionId,
-                $collectionReference->collectionStatus
-            );
-        }
     }
 
     /**

@@ -8,7 +8,6 @@ use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Type;
 use Netgen\Layouts\Persistence\Values\Block\Block;
-use Netgen\Layouts\Persistence\Values\Block\CollectionReference;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
 use PDO;
 
@@ -49,30 +48,6 @@ final class BlockQueryHandler extends QueryHandler
         }
 
         return $blocksData;
-    }
-
-    /**
-     * Loads all collection reference data.
-     */
-    public function loadCollectionReferencesData(Block $block, ?string $identifier = null): array
-    {
-        $query = $this->connection->createQueryBuilder();
-        $query->select('block_id', 'block_status', 'collection_id', 'collection_status', 'identifier')
-            ->from('nglayouts_block_collection')
-            ->where(
-                $query->expr()->eq('block_id', ':block_id')
-            )
-            ->setParameter('block_id', $block->id, Type::INTEGER)
-            ->orderBy('identifier', 'ASC');
-
-        $this->applyStatusCondition($query, $block->status, 'block_status');
-
-        if ($identifier !== null) {
-            $query->andWhere($query->expr()->eq('identifier', ':identifier'))
-                ->setParameter('identifier', $identifier, Type::STRING);
-        }
-
-        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -274,32 +249,6 @@ final class BlockQueryHandler extends QueryHandler
     }
 
     /**
-     * Creates the collection reference.
-     */
-    public function createCollectionReference(CollectionReference $collectionReference): void
-    {
-        $query = $this->connection->createQueryBuilder();
-
-        $query->insert('nglayouts_block_collection')
-            ->values(
-                [
-                    'block_id' => ':block_id',
-                    'block_status' => ':block_status',
-                    'collection_id' => ':collection_id',
-                    'collection_status' => ':collection_status',
-                    'identifier' => ':identifier',
-                ]
-            )
-            ->setParameter('block_id', $collectionReference->blockId, Type::INTEGER)
-            ->setParameter('block_status', $collectionReference->blockStatus, Type::INTEGER)
-            ->setParameter('collection_id', $collectionReference->collectionId, Type::INTEGER)
-            ->setParameter('collection_status', $collectionReference->collectionStatus, Type::INTEGER)
-            ->setParameter('identifier', $collectionReference->identifier, Type::STRING);
-
-        $query->execute();
-    }
-
-    /**
      * Updates a block.
      */
     public function updateBlock(Block $block): void
@@ -466,26 +415,6 @@ final class BlockQueryHandler extends QueryHandler
     }
 
     /**
-     * Deletes the collection reference.
-     */
-    public function deleteCollectionReferences(array $blockIds, ?int $status = null): void
-    {
-        $query = $this->connection->createQueryBuilder();
-
-        $query->delete('nglayouts_block_collection')
-            ->where(
-                $query->expr()->in('block_id', [':block_id'])
-            )
-            ->setParameter('block_id', $blockIds, Connection::PARAM_INT_ARRAY);
-
-        if ($status !== null) {
-            $this->applyStatusCondition($query, $status, 'block_status', 'block_status');
-        }
-
-        $query->execute();
-    }
-
-    /**
      * Loads all sub block IDs.
      */
     public function loadSubBlockIds(int $blockId, ?int $status = null): array
@@ -527,28 +456,6 @@ final class BlockQueryHandler extends QueryHandler
         $result = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
         return array_map('intval', array_column($result, 'id'));
-    }
-
-    /**
-     * Loads all block collection IDs.
-     */
-    public function loadBlockCollectionIds(array $blockIds, ?int $status = null): array
-    {
-        $query = $this->connection->createQueryBuilder();
-        $query->select('DISTINCT bc.collection_id')
-            ->from('nglayouts_block_collection', 'bc')
-            ->where(
-                $query->expr()->in('bc.block_id', [':block_id'])
-            )
-            ->setParameter('block_id', $blockIds, Connection::PARAM_INT_ARRAY);
-
-        if ($status !== null) {
-            $this->applyStatusCondition($query, $status, 'bc.block_status', 'block_status');
-        }
-
-        $result = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
-
-        return array_map('intval', array_column($result, 'collection_id'));
     }
 
     /**

@@ -1214,14 +1214,14 @@ final class LayoutHandlerTest extends TestCase
         // Verify the state of the collection references
 
         // First block
-        $references = $this->blockHandler->loadCollectionReferences(
+        $references = $this->collectionHandler->loadCollectionReferences(
             $this->blockHandler->loadBlock(41, Value::STATUS_PUBLISHED)
         );
 
         self::assertCount(0, $references);
 
         // Second block
-        $references = $this->blockHandler->loadCollectionReferences(
+        $references = $this->collectionHandler->loadCollectionReferences(
             $this->blockHandler->loadBlock(43, Value::STATUS_PUBLISHED)
         );
 
@@ -1230,7 +1230,7 @@ final class LayoutHandlerTest extends TestCase
         self::assertContains($references[1]->collectionId, [7, 8]);
 
         // Third block
-        $references = $this->blockHandler->loadCollectionReferences(
+        $references = $this->collectionHandler->loadCollectionReferences(
             $this->blockHandler->loadBlock(44, Value::STATUS_PUBLISHED)
         );
 
@@ -1639,7 +1639,7 @@ final class LayoutHandlerTest extends TestCase
         $this->collectionHandler->loadCollection(2, Value::STATUS_ARCHIVED);
 
         // Verify the state of the collection references
-        $archivedReferences = $this->blockHandler->loadCollectionReferences(
+        $archivedReferences = $this->collectionHandler->loadCollectionReferences(
             $this->blockHandler->loadBlock(31, Value::STATUS_ARCHIVED)
         );
 
@@ -1648,7 +1648,7 @@ final class LayoutHandlerTest extends TestCase
         self::assertContains($archivedReferences[1]->collectionId, [2, 3]);
 
         // Second block
-        $archivedReferences = $this->blockHandler->loadCollectionReferences(
+        $archivedReferences = $this->collectionHandler->loadCollectionReferences(
             $this->blockHandler->loadBlock(35, Value::STATUS_ARCHIVED)
         );
 
@@ -1716,7 +1716,7 @@ final class LayoutHandlerTest extends TestCase
         $this->collectionHandler->loadCollection(4, Value::STATUS_PUBLISHED);
 
         // Verify the state of the collection references
-        $publishedReferences = $this->blockHandler->loadCollectionReferences(
+        $publishedReferences = $this->collectionHandler->loadCollectionReferences(
             $this->blockHandler->loadBlock(31, Value::STATUS_PUBLISHED)
         );
 
@@ -1725,7 +1725,7 @@ final class LayoutHandlerTest extends TestCase
         self::assertContains($publishedReferences[1]->collectionId, [2, 3]);
 
         // Second block
-        $publishedReferences = $this->blockHandler->loadCollectionReferences(
+        $publishedReferences = $this->collectionHandler->loadCollectionReferences(
             $this->blockHandler->loadBlock(35, Value::STATUS_PUBLISHED)
         );
 

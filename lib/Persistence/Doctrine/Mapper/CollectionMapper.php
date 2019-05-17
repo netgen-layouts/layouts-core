@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Persistence\Doctrine\Mapper;
 
+use Netgen\Layouts\Persistence\Values\Block\CollectionReference;
 use Netgen\Layouts\Persistence\Values\Collection\Collection;
 use Netgen\Layouts\Persistence\Values\Collection\Item;
 use Netgen\Layouts\Persistence\Values\Collection\Query;
@@ -49,6 +50,30 @@ final class CollectionMapper
                 $collections
             )
         );
+    }
+
+    /**
+     * Maps data from database to collection reference values.
+     *
+     * @return \Netgen\Layouts\Persistence\Values\Block\CollectionReference[]
+     */
+    public function mapCollectionReferences(array $data): array
+    {
+        $collectionReferences = [];
+
+        foreach ($data as $dataItem) {
+            $collectionReferences[] = CollectionReference::fromArray(
+                [
+                    'blockId' => (int) $dataItem['block_id'],
+                    'blockStatus' => (int) $dataItem['block_status'],
+                    'collectionId' => (int) $dataItem['collection_id'],
+                    'collectionStatus' => (int) $dataItem['collection_status'],
+                    'identifier' => $dataItem['identifier'],
+                ]
+            );
+        }
+
+        return $collectionReferences;
     }
 
     /**

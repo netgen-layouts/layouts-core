@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Persistence\Doctrine\Mapper;
 
 use Netgen\Layouts\Persistence\Doctrine\Mapper\CollectionMapper;
+use Netgen\Layouts\Persistence\Values\Block\CollectionReference;
 use Netgen\Layouts\Persistence\Values\Collection\Collection;
 use Netgen\Layouts\Persistence\Values\Collection\Item;
 use Netgen\Layouts\Persistence\Values\Collection\Query;
@@ -96,6 +97,51 @@ final class CollectionMapperTest extends TestCase
 
         self::assertContainsOnlyInstancesOf(Collection::class, $collections);
         self::assertSame($expectedData, $this->exportObjectList($collections));
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\CollectionMapper::mapCollectionReferences
+     */
+    public function testMapCollectionReferences(): void
+    {
+        $data = [
+            [
+                'block_id' => '1',
+                'block_status' => '1',
+                'collection_id' => '42',
+                'collection_status' => '1',
+                'identifier' => 'default',
+            ],
+            [
+                'block_id' => 2,
+                'block_status' => Value::STATUS_PUBLISHED,
+                'collection_id' => 43,
+                'collection_status' => Value::STATUS_PUBLISHED,
+                'identifier' => 'featured',
+            ],
+        ];
+
+        $expectedData = [
+            [
+                'blockId' => 1,
+                'blockStatus' => Value::STATUS_PUBLISHED,
+                'collectionId' => 42,
+                'collectionStatus' => Value::STATUS_PUBLISHED,
+                'identifier' => 'default',
+            ],
+            [
+                'blockId' => 2,
+                'blockStatus' => Value::STATUS_PUBLISHED,
+                'collectionId' => 43,
+                'collectionStatus' => Value::STATUS_PUBLISHED,
+                'identifier' => 'featured',
+            ],
+        ];
+
+        $collectionReferences = $this->mapper->mapCollectionReferences($data);
+
+        self::assertContainsOnlyInstancesOf(CollectionReference::class, $collectionReferences);
+        self::assertSame($expectedData, $this->exportObjectList($collectionReferences));
     }
 
     /**

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Persistence\Handler;
 
+use Netgen\Layouts\Persistence\Values\Block\Block;
+use Netgen\Layouts\Persistence\Values\Block\CollectionReference;
 use Netgen\Layouts\Persistence\Values\Collection\Collection;
 use Netgen\Layouts\Persistence\Values\Collection\CollectionCreateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\CollectionUpdateStruct;
@@ -29,6 +31,25 @@ interface CollectionHandlerInterface
      * @return \Netgen\Layouts\Persistence\Values\Collection\Collection
      */
     public function loadCollection($collectionId, int $status): Collection;
+
+    /**
+     * Loads all collections belonging to the provided block.
+     */
+    public function loadCollections(Block $block): array;
+
+    /**
+     * Loads a collection reference.
+     *
+     * @throws \Netgen\Layouts\Exception\NotFoundException If collection reference with specified identifier does not exist
+     */
+    public function loadCollectionReference(Block $block, string $identifier): CollectionReference;
+
+    /**
+     * Loads all collection references belonging to the provided block.
+     *
+     * @return \Netgen\Layouts\Persistence\Values\Block\CollectionReference[]
+     */
+    public function loadCollectionReferences(Block $block): array;
 
     /**
      * Loads an item with specified ID.
@@ -92,9 +113,9 @@ interface CollectionHandlerInterface
     public function collectionExists($collectionId, int $status): bool;
 
     /**
-     * Creates a collection.
+     * Creates a collection in the specified block.
      */
-    public function createCollection(CollectionCreateStruct $collectionCreateStruct): Collection;
+    public function createCollection(CollectionCreateStruct $collectionCreateStruct, Block $block, string $collectionIdentifier): Collection;
 
     /**
      * Creates a collection translation.
@@ -103,6 +124,11 @@ interface CollectionHandlerInterface
      *                                                          If translation with provided source locale does not exist
      */
     public function createCollectionTranslation(Collection $collection, string $locale, string $sourceLocale): Collection;
+
+    /**
+     * Adds the provided collection to the block and assigns it the specified identifier.
+     */
+    public function createCollectionReference(Collection $collection, Block $block, string $collectionIdentifier): CollectionReference;
 
     /**
      * Updates the main translation of the collection.
@@ -117,9 +143,9 @@ interface CollectionHandlerInterface
     public function updateCollection(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct): Collection;
 
     /**
-     * Copies a collection.
+     * Copies a collection to a specified block.
      */
-    public function copyCollection(Collection $collection): Collection;
+    public function copyCollection(Collection $collection, Block $block, string $collectionIdentifier): Collection;
 
     /**
      * Creates a new collection status.
@@ -130,6 +156,11 @@ interface CollectionHandlerInterface
      * Deletes a collection with specified ID.
      */
     public function deleteCollection(int $collectionId, ?int $status = null): void;
+
+    /**
+     * Deletes block collections with specified block IDs.
+     */
+    public function deleteBlockCollections(array $blockIds, ?int $status = null): void;
 
     /**
      * Deletes provided collection translation.

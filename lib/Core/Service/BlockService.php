@@ -665,7 +665,9 @@ final class BlockService extends Service implements BlockServiceInterface
                                     'isTranslatable' => $blockCreateStruct->isTranslatable,
                                     'mainLocale' => $layout->mainLocale,
                                 ]
-                            )
+                            ),
+                            $createdBlock,
+                            (string) $identifier
                         );
 
                         if ($collectionCreateStruct->queryCreateStruct instanceof APIQueryCreateStruct) {
@@ -697,12 +699,6 @@ final class BlockService extends Service implements BlockServiceInterface
                                 }
                             }
                         }
-
-                        $this->blockHandler->createCollectionReference(
-                            $createdBlock,
-                            $createdCollection,
-                            (string) $identifier
-                        );
                     }
                 }
 

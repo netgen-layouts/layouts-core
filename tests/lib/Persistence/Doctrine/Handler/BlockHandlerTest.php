@@ -11,7 +11,6 @@ use Netgen\Layouts\Persistence\Values\Block\Block;
 use Netgen\Layouts\Persistence\Values\Block\BlockCreateStruct;
 use Netgen\Layouts\Persistence\Values\Block\BlockTranslationUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Block\BlockUpdateStruct;
-use Netgen\Layouts\Persistence\Values\Block\CollectionReference;
 use Netgen\Layouts\Persistence\Values\Value;
 use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
@@ -288,77 +287,6 @@ final class BlockHandlerTest extends TestCase
                 $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
                 'unknown'
             )
-        );
-    }
-
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::loadCollectionReference
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadCollectionReferencesData
-     */
-    public function testLoadCollectionReference(): void
-    {
-        $reference = $this->blockHandler->loadCollectionReference(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-            'default'
-        );
-
-        self::assertSame(
-            [
-                'blockId' => 31,
-                'blockStatus' => Value::STATUS_DRAFT,
-                'collectionId' => 1,
-                'collectionStatus' => Value::STATUS_DRAFT,
-                'identifier' => 'default',
-            ],
-            $this->exportObject($reference)
-        );
-    }
-
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::loadCollectionReference
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadCollectionReferencesData
-     */
-    public function testLoadCollectionReferenceThrowsNotFoundException(): void
-    {
-        $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find collection reference with identifier "non_existing"');
-
-        $this->blockHandler->loadCollectionReference(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-            'non_existing'
-        );
-    }
-
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::loadCollectionReferences
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadCollectionReferencesData
-     */
-    public function testLoadCollectionReferences(): void
-    {
-        $references = $this->blockHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT)
-        );
-
-        self::assertContainsOnlyInstancesOf(CollectionReference::class, $references);
-
-        self::assertSame(
-            [
-                [
-                    'blockId' => 31,
-                    'blockStatus' => Value::STATUS_DRAFT,
-                    'collectionId' => 1,
-                    'collectionStatus' => Value::STATUS_DRAFT,
-                    'identifier' => 'default',
-                ],
-                [
-                    'blockId' => 31,
-                    'blockStatus' => Value::STATUS_DRAFT,
-                    'collectionId' => 3,
-                    'collectionStatus' => Value::STATUS_DRAFT,
-                    'identifier' => 'featured',
-                ],
-            ],
-            $this->exportObjectList($references)
         );
     }
 
@@ -817,33 +745,6 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::createCollectionReference
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createCollectionReference
-     */
-    public function testCreateCollectionReference(): void
-    {
-        $block = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
-        $collection = $this->collectionHandler->loadCollection(2, Value::STATUS_PUBLISHED);
-
-        $reference = $this->blockHandler->createCollectionReference(
-            $block,
-            $collection,
-            'new'
-        );
-
-        self::assertSame(
-            [
-                'blockId' => $block->id,
-                'blockStatus' => $block->status,
-                'collectionId' => $collection->id,
-                'collectionStatus' => $collection->status,
-                'identifier' => 'new',
-            ],
-            $this->exportObject($reference)
-        );
-    }
-
-    /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::updateBlock
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::updateBlock
      */
@@ -1186,7 +1087,7 @@ final class BlockHandlerTest extends TestCase
                 ],
             ],
             $this->exportObjectList(
-                $this->blockHandler->loadCollectionReferences($copiedBlock)
+                $this->collectionHandler->loadCollectionReferences($copiedBlock)
             )
         );
     }
@@ -1590,7 +1491,7 @@ final class BlockHandlerTest extends TestCase
                 ],
             ],
             $this->exportObjectList(
-                $this->blockHandler->loadCollectionReferences($copiedSubBlock)
+                $this->collectionHandler->loadCollectionReferences($copiedSubBlock)
             )
         );
     }
@@ -1680,7 +1581,7 @@ final class BlockHandlerTest extends TestCase
                     'identifier' => 'featured',
                 ],
             ],
-            $this->exportObjectList($this->blockHandler->loadCollectionReferences($copiedBlock))
+            $this->exportObjectList($this->collectionHandler->loadCollectionReferences($copiedBlock))
         );
     }
 
@@ -2016,7 +1917,6 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::createBlockCollectionsStatus
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::createBlockStatus
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::createBlock
      */
@@ -2065,7 +1965,7 @@ final class BlockHandlerTest extends TestCase
             $this->exportObject($block)
         );
 
-        $collectionReferences = $this->blockHandler->loadCollectionReferences($block);
+        $collectionReferences = $this->collectionHandler->loadCollectionReferences($block);
 
         self::assertCount(2, $collectionReferences);
 
@@ -2287,9 +2187,9 @@ final class BlockHandlerTest extends TestCase
     /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::deleteLayoutBlocks
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlocks
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteCollectionReferences
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadBlockCollectionIds
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadLayoutBlockIds
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionReferences
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadBlockCollectionIds
      */
     public function testDeleteLayoutBlocks(): void
     {
@@ -2316,11 +2216,11 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::deleteBlockCollections
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::deleteBlocks
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteBlockCollections
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlocks
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteCollectionReferences
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadBlockCollectionIds
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionReferences
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadBlockCollectionIds
      * @doesNotPerformAssertions
      */
     public function testDeleteBlocks(): void
@@ -2377,11 +2277,11 @@ final class BlockHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::deleteBlockCollections
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::deleteBlocks
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteBlockCollections
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteBlocks
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::deleteCollectionReferences
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadBlockCollectionIds
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionReferences
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadBlockCollectionIds
      */
     public function testDeleteBlocksInStatus(): void
     {
