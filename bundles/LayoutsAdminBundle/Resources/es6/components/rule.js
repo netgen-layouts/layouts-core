@@ -1,4 +1,4 @@
-import Browser from '@netgen/content-browser-ui';
+import { Browser, InputBrowse } from '@netgen/content-browser-ui';
 import NetgenCore from '@netgen/layouts-ui-core';
 import NlModal from './modal';
 import parser from '../helpers/parser';
@@ -9,11 +9,12 @@ const addedFormInit = (form) => {
     const cb = form.getElementsByClassName('js-input-browse')[0];
     if (cb) {
         form.style.visibility = 'hidden';
-        $(cb).input_browse();
-        $(cb).data('input_browse').$change();
-        $(cb).on('browser:change', () => {
+        const browser = new InputBrowse(cb);
+        browser.open();
+        cb.addEventListener('browser:change', () => {
             form.querySelector('[type="submit"]').click();
-        }).on('browser:cancel', () => {
+        });
+        cb.addEventListener('browser:cancel', () => {
             form.getElementsByClassName('js-cancel-add')[0].click();
         });
     }
@@ -328,35 +329,34 @@ export default class NlRule {
         e.stopPropagation();
         const { dataset } = e.target.closest('.js-link-layout');
         const browser = new Browser({
-            disabled_item_values: [dataset.linkedLayout],
-            tree_config: {
-                overrides: {
-                    max_selected: 1,
-                    min_selected: 1,
-                },
-                root_path: dataset.browserConfigName,
+            overrides: {
+                min_selected: 1,
+                max_selected: 1,
+            },
+            rootPath: dataset.browserConfigName,
+            disabledItems: [parseInt(dataset.linkedLayout, 10)],
+            onConfirm: (selected) => {
+                const newId = selected[0].value;
+                this.createDraft(() => {
+                    fetch(`${this.rules.baseUrl}rules/${this.id}`, {
+                        method: 'POST',
+                        credentials: 'same-origin',
+                        headers: {
+                            'X-CSRF-Token': this.rules.csrf,
+                        },
+                        body: new URLSearchParams(`layout_id=${newId}`),
+                    }).then((response) => {
+                        if (!response.ok) throw new Error(`HTTP error, status ${response.status}`);
+                        return response.text();
+                    }).then((data) => {
+                        this.renderEl(data);
+                    }).catch((error) => {
+                        console.log(error);
+                    });
+                });
             },
         });
-        browser.on('apply', () => {
-            const newId = browser.selected_collection.first().id;
-            this.createDraft(() => {
-                fetch(`${this.rules.baseUrl}rules/${this.id}`, {
-                    method: 'POST',
-                    credentials: 'same-origin',
-                    headers: {
-                        'X-CSRF-Token': this.rules.csrf,
-                    },
-                    body: new URLSearchParams(`layout_id=${newId}`),
-                }).then((response) => {
-                    if (!response.ok) throw new Error(`HTTP error, status ${response.status}`);
-                    return response.text();
-                }).then((data) => {
-                    this.renderEl(data);
-                }).catch((error) => {
-                    console.log(error);
-                });
-            });
-        }).load_and_open();
+        browser.open();
     }
 
     setupEvents() {

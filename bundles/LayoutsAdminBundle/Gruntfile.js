@@ -52,7 +52,7 @@ module.exports = function (grunt) {
                         debug: true,
                     },
                     transform: [
-                        ['babelify', { presets: ['env', 'es2015', 'stage-0'] }],
+                        ['babelify', { presets: ['@babel/env'] }],
                     ],
                 },
                 files: {
@@ -63,7 +63,7 @@ module.exports = function (grunt) {
             dist: {
                 options: {
                     transform: [
-                        ['babelify', { presets: ['env', 'es2015', 'stage-0'] }],
+                        ['babelify'],
                         ['uglifyify'],
                     ],
                     plugin: [collapse],
