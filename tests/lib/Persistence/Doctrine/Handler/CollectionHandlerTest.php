@@ -1542,7 +1542,7 @@ final class CollectionHandlerTest extends TestCase
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::isCollectionDynamic
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addItem
      */
-    public function testAddItemToDynamicCollectionInEmptySlot(): void
+    public function testAddItemToDynamicCollectionWithNoItemInPosition(): void
     {
         $itemCreateStruct = new ItemCreateStruct();
         $itemCreateStruct->position = 4;

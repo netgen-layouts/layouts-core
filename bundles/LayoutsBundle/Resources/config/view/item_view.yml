@@ -6,10 +6,10 @@ view:
                 match:
                     item\value_type: "null"
         api:
-            slot:
-                template: "@NetgenLayouts/api/item/slot.html.twig"
+            unknown:
+                template: "@NetgenLayouts/api/item/unknown_item.html.twig"
                 match:
-                    item\value_type: slot
+                    item\value_type: unknown
             invalid:
                 template: "@NetgenLayouts/api/item/invalid_item.html.twig"
                 match:

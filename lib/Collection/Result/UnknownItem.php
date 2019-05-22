@@ -7,10 +7,10 @@ namespace Netgen\Layouts\Collection\Result;
 use Netgen\Layouts\Item\CmsItemInterface;
 
 /**
- * The slot represents a placeholder for a CMS item when executing
+ * This class represents a placeholder for a CMS item when executing
  * a context dependant query when there's no context.
  */
-final class Slot implements CmsItemInterface
+final class UnknownItem implements CmsItemInterface
 {
     public function getValue()
     {
@@ -24,7 +24,7 @@ final class Slot implements CmsItemInterface
 
     public function getValueType(): string
     {
-        return 'slot';
+        return 'unknown';
     }
 
     public function getName(): string

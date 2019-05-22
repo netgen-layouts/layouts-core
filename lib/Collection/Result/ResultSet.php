@@ -29,9 +29,9 @@ final class ResultSet implements ArrayAccess, IteratorAggregate, Countable
     public const INCLUDE_INVALID_ITEMS = 1;
 
     /**
-     * If provided, any items not currently known will be shown as placeholder slots.
+     * If provided, any items not currently known will be shown as placeholders.
      *
-     * Slot may not be populated for example when query is a contextual one,
+     * Some items may not be known for example when query is a contextual one,
      * meaning that it cannot run when there's no real frontend request,
      * e.g. in layout editing app.
      */

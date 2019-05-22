@@ -48,9 +48,9 @@ final class CollectionRunnerFactory
      */
     private function getQueryRunner(Query $query, int $flags = 0): QueryRunnerInterface
     {
-        $showContextualSlots = (bool) ($flags & ResultSet::INCLUDE_UNKNOWN_ITEMS);
+        $showUnknownItems = (bool) ($flags & ResultSet::INCLUDE_UNKNOWN_ITEMS);
 
-        if ($showContextualSlots && $query->isContextual()) {
+        if ($showUnknownItems && $query->isContextual()) {
             return new ContextualQueryRunner();
         }
 

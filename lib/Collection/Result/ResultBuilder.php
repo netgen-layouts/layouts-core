@@ -48,8 +48,8 @@ final class ResultBuilder implements ResultBuilderInterface
 
         $collectionQuery = $collection->getQuery();
 
-        $showContextualSlots = (bool) ($flags & ResultSet::INCLUDE_UNKNOWN_ITEMS);
-        if ($showContextualSlots && $collectionQuery instanceof Query && $collectionQuery->isContextual()) {
+        $showUnknownItems = (bool) ($flags & ResultSet::INCLUDE_UNKNOWN_ITEMS);
+        if ($showUnknownItems && $collectionQuery instanceof Query && $collectionQuery->isContextual()) {
             $limit = $limit > 0 && $limit < $this->contextualLimit ? $limit : $this->contextualLimit;
         }
 
