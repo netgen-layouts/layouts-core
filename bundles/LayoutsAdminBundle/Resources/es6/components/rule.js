@@ -333,7 +333,7 @@ export default class NlRule {
                 min_selected: 1,
                 max_selected: 1,
             },
-            rootPath: dataset.browserConfigName,
+            itemType: dataset.browserConfigName,
             disabledItems: [parseInt(dataset.linkedLayout, 10)],
             onConfirm: (selected) => {
                 const newId = selected[0].value;
