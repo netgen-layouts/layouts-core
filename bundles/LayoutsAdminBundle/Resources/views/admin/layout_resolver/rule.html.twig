@@ -29,7 +29,7 @@
                 <div class="no-layout" title="{{ 'layout_resolver.rule.no_mapped_layout'|trans }}">
                     <span>{{ 'layout_resolver.rule.no_mapped_layout'|trans }}</span>
                     {% if can_edit %}
-                        <a class="js-link-layout" data-browser-config-name="layout" href="#">
+                        <a class="js-link-layout" data-browser-item-type="layout" href="#">
                             <i class="material-icons" role="presentation">link</i> {{ 'layout_resolver.rule.no_mapped_layout.link'|trans }}
                         </a>
                     {% endif %}
@@ -87,7 +87,7 @@
                     <li><a href="#" {% if rule.layout is empty %} disabled {% else %} class="js-rule-unlink" {% endif %}>{{ 'layout_resolver.rule.unlink_layout'|trans }}</a></li>
 
                     <li>
-                        <a class="js-link-layout" {% if rule.layout is not empty %}data-linked-layout="{{ rule.layout.id.toString }}"{% endif %} data-browser-config-name="layout" href="#">
+                        <a class="js-link-layout" {% if rule.layout is not empty %}data-linked-layout="{{ rule.layout.id.toString }}"{% endif %} data-browser-item-type="layout" href="#">
                             {% if rule.layout is not empty %}
                                 {{ 'layout_resolver.rule.link_other_layout'|trans }}
                             {% else %}
@@ -142,7 +142,7 @@
                     <div class="panel-name" title="{{ 'layout_resolver.rule.no_mapped_layout'|trans }}">
                         <p>{{ 'layout_resolver.rule.no_mapped_layout'|trans }}</p>
                         {% if can_edit %}
-                            <a class="js-link-layout" data-browser-config-name="layout" href="#">{{ 'layout_resolver.rule.link_layout'|trans }}</a>
+                            <a class="js-link-layout" data-browser-item-type="layout" href="#">{{ 'layout_resolver.rule.link_layout'|trans }}</a>
                         {% endif %}
                     </div>
                 {% endif %}
