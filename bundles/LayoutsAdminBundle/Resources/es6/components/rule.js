@@ -1,10 +1,8 @@
 import { Browser, InputBrowse } from '@netgen/content-browser-ui';
-import NetgenCore from '@netgen/layouts-ui-core';
 import NlModal from './modal';
 import MultiEntry from '../helpers/multientry';
+import DateTimePicker from '../helpers/datetimepicker';
 import parser from '../helpers/parser';
-
-const { $ } = NetgenCore;
 
 const addedFormInit = (form) => {
     const cb = form.getElementsByClassName('js-input-browse')[0];
@@ -33,17 +31,7 @@ const addedFormInit = (form) => {
         l > 10 && (l = 10);
         el.setAttribute('size', l);
     });
-    [...form.getElementsByClassName('datetimepicker')].forEach((el) => {
-        el.closest('form').classList.add('ngc');
-        return new NetgenCore.DateTimePicker({
-            el: $(el),
-            options: {
-                widgetPositioning: {
-                    vertical: 'bottom',
-                },
-            },
-        });
-    });
+    [...form.getElementsByClassName('datetimepicker')].forEach(el => new DateTimePicker(el));
 };
 
 /* nl rule plugin */
