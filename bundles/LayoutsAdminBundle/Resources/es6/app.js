@@ -4,7 +4,7 @@ import NlLayouts from './components/layouts';
 import NlRules from './components/rules';
 import dropdownInit from './helpers/dropdown';
 
-var ngLayoutsInit = () => {
+const ngLayoutsInit = () => {
     const layoutsEl = document.getElementById('layouts');
     const rulesEl = document.getElementById('rules');
     const nlLayouts = layoutsEl ? new NlLayouts(layoutsEl) : null;
