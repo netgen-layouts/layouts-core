@@ -118,23 +118,13 @@ interface CollectionHandlerInterface
     public function loadSlot($slotId, int $status): Slot;
 
     /**
-     * Loads a a slot with specified position in specified collection.
-     *
-     * @throws \Netgen\Layouts\Exception\NotFoundException If slot does not exist
-     */
-    public function loadSlotWithPosition(Collection $collection, int $position): Slot;
-
-    /**
      * Loads the slots that belong to specified collection.
      *
-     * If the positions are provided, only slots with those positions will be returned.
-     *
      * @param \Netgen\Layouts\Persistence\Values\Collection\Collection $collection
-     * @param int[] $positions
      *
      * @return \Netgen\Layouts\Persistence\Values\Collection\Slot[]
      */
-    public function loadCollectionSlots(Collection $collection, array $positions = []): array;
+    public function loadCollectionSlots(Collection $collection): array;
 
     /**
      * Returns if collection with specified ID exists.

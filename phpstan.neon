@@ -38,7 +38,6 @@ parameters:
             path: lib/Core/Validator/LayoutValidator.php
 
         - '#Call to function is_string\(\) with string will always evaluate to true.#'
-        - '#Call to function is_int\(\) with int will always evaluate to true.#'
         - '#Call to function is_array\(\) with array will always evaluate to true.#'
         - '#Instanceof between Netgen\\Layouts\\API\\Values\\ParameterStruct and Netgen\\Layouts\\API\\Values\\ParameterStruct will always evaluate to true.#'
         - '#Instanceof between Netgen\\Layouts\\Block\\BlockDefinitionInterface and Netgen\\Layouts\\Block\\BlockDefinitionInterface will always evaluate to true.#'

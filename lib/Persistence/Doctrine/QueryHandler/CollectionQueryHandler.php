@@ -203,44 +203,15 @@ final class CollectionQueryHandler extends QueryHandler
     }
 
     /**
-     * Loads a slot with specified position in specified collection.
-     */
-    public function loadSlotWithPositionData(Collection $collection, int $position): array
-    {
-        $query = $this->getSlotSelectQuery();
-        $query->where(
-            $query->expr()->andX(
-                $query->expr()->eq('s.collection_id', ':collection_id'),
-                $query->expr()->eq('s.position', ':position')
-            )
-        )
-        ->setParameter('collection_id', $collection->id, Type::INTEGER)
-        ->setParameter('position', $position, Type::INTEGER);
-
-        $this->applyStatusCondition($query, $collection->status, 's.status');
-
-        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    /**
      * Loads data for slots that belong to collection with specified ID.
-     *
-     * If the positions are provided, only slots with those positions will be returned.
      */
-    public function loadCollectionSlotsData(Collection $collection, array $positions = []): array
+    public function loadCollectionSlotsData(Collection $collection): array
     {
         $query = $this->getSlotSelectQuery();
         $query->where(
             $query->expr()->eq('s.collection_id', ':collection_id')
         )
         ->setParameter('collection_id', $collection->id, Type::INTEGER);
-
-        if (count($positions) > 0) {
-            $query->andWhere(
-                $query->expr()->in('s.position', [':positions'])
-            )
-            ->setParameter('positions', $positions, Connection::PARAM_INT_ARRAY);
-        }
 
         $this->applyStatusCondition($query, $collection->status, 's.status');
 

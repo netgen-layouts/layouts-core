@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Collection\Result;
 
+use Netgen\Layouts\API\Values\Collection\Slot;
 use Netgen\Layouts\Item\CmsItemInterface;
 
 /**
@@ -27,11 +28,17 @@ final class Result
      */
     private $subItem;
 
-    public function __construct(int $position, CmsItemInterface $item, ?CmsItemInterface $subItem = null)
+    /**
+     * @var \Netgen\Layouts\API\Values\Collection\Slot|null
+     */
+    private $slot;
+
+    public function __construct(int $position, CmsItemInterface $item, ?CmsItemInterface $subItem = null, ?Slot $slot = null)
     {
         $this->position = $position;
         $this->item = $item;
         $this->subItem = $subItem;
+        $this->slot = $slot;
     }
 
     /**
@@ -60,5 +67,13 @@ final class Result
     public function getSubItem(): ?CmsItemInterface
     {
         return $this->subItem;
+    }
+
+    /**
+     * If defined, returns the slot where the result in the result set is positioned.
+     */
+    public function getSlot(): ?Slot
+    {
+        return $this->slot;
     }
 }

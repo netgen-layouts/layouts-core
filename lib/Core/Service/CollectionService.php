@@ -16,7 +16,6 @@ use Netgen\Layouts\API\Values\Collection\QueryCreateStruct as APIQueryCreateStru
 use Netgen\Layouts\API\Values\Collection\QueryUpdateStruct as APIQueryUpdateStruct;
 use Netgen\Layouts\API\Values\Collection\Slot;
 use Netgen\Layouts\API\Values\Collection\SlotCreateStruct as APISlotCreateStruct;
-use Netgen\Layouts\API\Values\Collection\SlotList;
 use Netgen\Layouts\API\Values\Collection\SlotUpdateStruct as APISlotUpdateStruct;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Collection\Item\ItemDefinitionInterface;
@@ -27,7 +26,6 @@ use Netgen\Layouts\Core\Mapper\ParameterMapper;
 use Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder;
 use Netgen\Layouts\Core\Validator\CollectionValidator;
 use Netgen\Layouts\Exception\BadStateException;
-use Netgen\Layouts\Exception\InvalidArgumentException;
 use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\Layouts\Persistence\TransactionHandlerInterface;
 use Netgen\Layouts\Persistence\Values\Collection\Collection as PersistenceCollection;
@@ -213,39 +211,6 @@ final class CollectionService extends Service implements APICollectionService
             $this->collectionHandler->loadSlot(
                 $slotId,
                 Value::STATUS_DRAFT
-            )
-        );
-    }
-
-    public function loadSlotWithPosition(Collection $collection, int $position): Slot
-    {
-        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), $collection->getStatus());
-
-        return $this->mapper->mapSlot(
-            $this->collectionHandler->loadSlotWithPosition(
-                $persistenceCollection,
-                $position
-            )
-        );
-    }
-
-    public function loadCollectionSlots(Collection $collection, array $positions = []): SlotList
-    {
-        foreach ($positions as $position) {
-            if (!is_int($position)) {
-                throw new InvalidArgumentException('positions', 'The list of positions should be a list of integers.');
-            }
-        }
-
-        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), $collection->getStatus());
-        $persistenceSlots = $this->collectionHandler->loadCollectionSlots($persistenceCollection, $positions);
-
-        return new SlotList(
-            array_map(
-                function (PersistenceSlot $slot): Slot {
-                    return $this->mapper->mapSlot($slot);
-                },
-                $persistenceSlots
             )
         );
     }

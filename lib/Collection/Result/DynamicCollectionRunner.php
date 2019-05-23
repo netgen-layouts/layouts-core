@@ -40,9 +40,9 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
             $collectionItem = $collection->getItem($i);
 
             if ($collectionItem instanceof CollectionItem) {
-                $result = $this->buildManualResult($collectionItem, $queryIterator);
+                $result = $this->buildManualResult($collection, $collectionItem, $queryIterator);
             } elseif ($queryIterator->valid()) {
-                $result = new Result($i, $this->getQueryValue($queryIterator));
+                $result = new Result($i, $this->getQueryValue($queryIterator), null, $collection->getSlot($i));
             }
 
             if (!$result instanceof Result) {
@@ -81,7 +81,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
      * When manual items are invisible or invalid, they are pushed to the subitem role,
      * and the item which is displayed is the next query value.
      */
-    private function buildManualResult(CollectionItem $collectionItem, Iterator $queryIterator): ?Result
+    private function buildManualResult(Collection $collection, CollectionItem $collectionItem, Iterator $queryIterator): ?Result
     {
         if (!$this->visibilityResolver->isVisible($collectionItem) || !$collectionItem->isValid()) {
             $queryValue = $this->getQueryValue($queryIterator);
@@ -89,10 +89,20 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
                 return null;
             }
 
-            return new Result($collectionItem->getPosition(), $queryValue, new ManualItem($collectionItem));
+            return new Result(
+                $collectionItem->getPosition(),
+                $queryValue,
+                new ManualItem($collectionItem),
+                $collection->getSlot($collectionItem->getPosition())
+            );
         }
 
-        return new Result($collectionItem->getPosition(), new ManualItem($collectionItem));
+        return new Result(
+            $collectionItem->getPosition(),
+            new ManualItem($collectionItem),
+            null,
+            $collection->getSlot($collectionItem->getPosition())
+        );
     }
 
     /**

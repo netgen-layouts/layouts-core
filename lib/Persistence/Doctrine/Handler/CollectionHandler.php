@@ -191,27 +191,10 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $this->collectionMapper->mapSlots($data)[0];
     }
 
-    public function loadSlotWithPosition(Collection $collection, int $position): Slot
-    {
-        $data = $this->queryHandler->loadSlotWithPositionData($collection, $position);
-
-        if (count($data) === 0) {
-            throw new NotFoundException(
-                sprintf(
-                    'slot in collection with ID "%s" at position %d',
-                    $collection->id,
-                    $position
-                )
-            );
-        }
-
-        return $this->collectionMapper->mapSlots($data)[0];
-    }
-
-    public function loadCollectionSlots(Collection $collection, array $positions = []): array
+    public function loadCollectionSlots(Collection $collection): array
     {
         return $this->collectionMapper->mapSlots(
-            $this->queryHandler->loadCollectionSlotsData($collection, $positions)
+            $this->queryHandler->loadCollectionSlotsData($collection)
         );
     }
 

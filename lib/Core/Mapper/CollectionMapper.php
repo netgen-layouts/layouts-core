@@ -121,6 +121,16 @@ final class CollectionMapper
 
                 return $this->mapQuery($persistenceQuery, $locales, false);
             },
+            'slots' => new LazyCollection(
+                function () use ($collection): array {
+                    return array_map(
+                        function (PersistenceSlot $slot): Slot {
+                            return $this->mapSlot($slot);
+                        },
+                        $this->collectionHandler->loadCollectionSlots($collection)
+                    );
+                }
+            ),
             'isTranslatable' => $collection->isTranslatable,
             'mainLocale' => $collection->mainLocale,
             'alwaysAvailable' => $collection->alwaysAvailable,

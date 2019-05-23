@@ -58,6 +58,11 @@ final class Collection implements Value
     private $query;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $slots;
+
+    /**
      * @var string[]
      */
     private $availableLocales = [];
@@ -85,6 +90,7 @@ final class Collection implements Value
     public function __construct()
     {
         $this->items = $this->items ?? new ArrayCollection();
+        $this->slots = $this->slots ?? new ArrayCollection();
     }
 
     /**
@@ -172,6 +178,40 @@ final class Collection implements Value
     public function hasQuery(): bool
     {
         return $this->getQuery() instanceof Query;
+    }
+
+    /**
+     * Returns if the slot exists at specified position.
+     */
+    public function hasSlot(int $position): bool
+    {
+        return $this->slots->exists(
+            static function ($key, Slot $slot) use ($position): bool {
+                return $slot->getPosition() === $position;
+            }
+        );
+    }
+
+    /**
+     * Returns the slot at specified position.
+     */
+    public function getSlot(int $position): ?Slot
+    {
+        foreach ($this->slots as $slot) {
+            if ($slot->getPosition() === $position) {
+                return $slot;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Returns all collection slots.
+     */
+    public function getSlots(): SlotList
+    {
+        return new SlotList($this->slots->toArray());
     }
 
     /**

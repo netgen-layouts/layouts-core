@@ -15,7 +15,6 @@ use Netgen\Layouts\API\Values\Collection\QueryCreateStruct;
 use Netgen\Layouts\API\Values\Collection\QueryUpdateStruct;
 use Netgen\Layouts\API\Values\Collection\Slot;
 use Netgen\Layouts\API\Values\Collection\SlotCreateStruct;
-use Netgen\Layouts\API\Values\Collection\SlotList;
 use Netgen\Layouts\API\Values\Collection\SlotUpdateStruct;
 use Netgen\Layouts\Collection\Item\ItemDefinitionInterface;
 use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
@@ -113,27 +112,6 @@ interface CollectionService extends Service
      * @throws \Netgen\Layouts\Exception\NotFoundException If slot with specified UUID does not exist
      */
     public function loadSlotDraft(UuidInterface $slotId): Slot;
-
-    /**
-     * Loads a slot from a collection with specified position.
-     *
-     * @throws \Netgen\Layouts\Exception\NotFoundException If slot with specified position does not exist
-     */
-    public function loadSlotWithPosition(Collection $collection, int $position): Slot;
-
-    /**
-     * Loads the slots that belong to specified collection.
-     *
-     * If the positions are provided, only slots with those positions will be returned.
-     *
-     * @param \Netgen\Layouts\API\Values\Collection\Collection $collection
-     * @param int[] $positions
-     *
-     * @throws \Netgen\Layouts\Exception\InvalidArgumentException if any of the positions is not an integer
-     *
-     * @return \Netgen\Layouts\API\Values\Collection\SlotList
-     */
-    public function loadCollectionSlots(Collection $collection, array $positions = []): SlotList;
 
     /**
      * Changes the type of specified collection.
