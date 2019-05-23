@@ -1,6 +1,7 @@
 import { Browser, InputBrowse } from '@netgen/content-browser-ui';
 import NetgenCore from '@netgen/layouts-ui-core';
 import NlModal from './modal';
+import MultiEntry from '../helpers/multientry';
 import parser from '../helpers/parser';
 
 const { $ } = NetgenCore;
@@ -18,15 +19,15 @@ const addedFormInit = (form) => {
             form.getElementsByClassName('js-cancel-add')[0].click();
         });
     }
-    if (form.getElementsByClassName('multientry').length) {
-        const showMsg = (el) => {
-            el.getElementsByClassName('multientry-item').length === 0 && el.classList.add('show-message');
-        };
-        $('.multientry').multientry();
-        showMsg(form.getElementsByClassName('multientry')[0]);
-        $('.multientry').on('multientry:remove', e => showMsg(e.currentTarget));
-        $('.multientry').on('multientry:add', e => e.currentTarget.classList.remove('show-message'));
-    }
+    const showMsg = (el) => {
+        el.getElementsByClassName('multientry-item').length === 0 && el.classList.add('show-message');
+    };
+    [...form.getElementsByClassName('multientry')].forEach((el) => {
+        const multientry = new MultiEntry(el);
+        showMsg(el);
+        el.addEventListener('multientry:remove', () => showMsg(el));
+        el.addEventListener('multientry:add', () => el.classList.remove('show-message'));
+    });
     [...form.querySelectorAll('select[multiple]')].forEach((el) => {
         let l = el.childElementCount;
         l > 10 && (l = 10);
