@@ -1036,6 +1036,10 @@ final class LayoutHandlerTest extends TestCase
                 '6dc13cc7-fd76-5e41-8b0c-1ed93ece7fcf',
                 '70fe4f3a-7e9d-5a1f-9e6a-b038c06ea117',
                 '3a3aa59a-76fe-532f-8a03-c04a93d803f6',
+                '8634280c-f498-416e-b4a7-0b0bd0869c85',
+                '63326bc3-baee-49c9-82e7-7b2a9aca081a',
+                '3a17132d-9072-45f3-a0b3-b91bd4b0fcf3',
+                '29f091e0-81cc-4bd3-aec5-673cd06abce5',
             ]
         );
 
@@ -1176,7 +1180,7 @@ final class LayoutHandlerTest extends TestCase
                 ],
                 [
                     'id' => 44,
-                    'uuid' => 'f08717e5-5910-574d-b976-03d877c4729b',
+                    'uuid' => '6dc13cc7-fd76-5e41-8b0c-1ed93ece7fcf',
                     'layoutId' => $copiedLayout->id,
                     'layoutUuid' => $copiedLayout->uuid,
                     'depth' => 1,

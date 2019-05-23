@@ -264,6 +264,23 @@ INSERT INTO `nglayouts_collection_query_translation` VALUES (4,1,'en','{\"parent
 UNLOCK TABLES;
 
 --
+-- Dumping data for table `nglayouts_collection_slot`
+--
+
+LOCK TABLES `nglayouts_collection_slot` WRITE;
+/*!40000 ALTER TABLE `nglayouts_collection_slot` DISABLE KEYS */;
+INSERT INTO `nglayouts_collection_slot` VALUES (1,0,'de3a0641-c67f-48e0-96e7-7c83b6735265',1,0,'standard');
+INSERT INTO `nglayouts_collection_slot` VALUES (2,0,'ee232f5b-478c-4513-a4b4-19e7e8b03aab',1,2,'overlay');
+INSERT INTO `nglayouts_collection_slot` VALUES (3,1,'c63c9523-e579-4dc9-b1d2-f9d12470a014',2,1,'standard');
+INSERT INTO `nglayouts_collection_slot` VALUES (4,1,'2e0bbc16-8f14-4740-aa58-fbf6d547e734',2,5,'overlay');
+INSERT INTO `nglayouts_collection_slot` VALUES (5,0,'d0c55af8-5a45-4221-84e6-c7e4b975db0e',3,3,'standard');
+INSERT INTO `nglayouts_collection_slot` VALUES (5,1,'d0c55af8-5a45-4221-84e6-c7e4b975db0e',3,3,'standard');
+INSERT INTO `nglayouts_collection_slot` VALUES (6,0,'f520bcc4-e977-4c51-85cb-f68c79884e81',3,5,'overlay');
+INSERT INTO `nglayouts_collection_slot` VALUES (6,1,'f520bcc4-e977-4c51-85cb-f68c79884e81',3,5,'overlay');
+/*!40000 ALTER TABLE `nglayouts_collection_slot` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping data for table `nglayouts_collection_translation`
 --
 

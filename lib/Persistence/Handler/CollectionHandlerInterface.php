@@ -15,6 +15,9 @@ use Netgen\Layouts\Persistence\Values\Collection\ItemUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\Query;
 use Netgen\Layouts\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\QueryTranslationUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\Slot;
+use Netgen\Layouts\Persistence\Values\Collection\SlotCreateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\SlotUpdateStruct;
 
 interface CollectionHandlerInterface
 {
@@ -73,7 +76,7 @@ interface CollectionHandlerInterface
     public function loadItemWithPosition(Collection $collection, int $position): Item;
 
     /**
-     * Loads all items that belong to collection with specified ID.
+     * Loads all items that belong to specified collection.
      *
      * @return \Netgen\Layouts\Persistence\Values\Collection\Item[]
      */
@@ -99,6 +102,39 @@ interface CollectionHandlerInterface
      * @throws \Netgen\Layouts\Exception\NotFoundException If query for specified collection does not exist
      */
     public function loadCollectionQuery(Collection $collection): Query;
+
+    /**
+     * Loads a slot with specified ID.
+     *
+     * Slot ID can be an auto-incremented ID or an UUID.
+     *
+     * @param int|string|\Ramsey\Uuid\UuidInterface $slotId
+     * @param int $status
+     *
+     * @throws \Netgen\Layouts\Exception\NotFoundException If slot with specified ID does not exist
+     *
+     * @return \Netgen\Layouts\Persistence\Values\Collection\Slot
+     */
+    public function loadSlot($slotId, int $status): Slot;
+
+    /**
+     * Loads a a slot with specified position in specified collection.
+     *
+     * @throws \Netgen\Layouts\Exception\NotFoundException If slot does not exist
+     */
+    public function loadSlotWithPosition(Collection $collection, int $position): Slot;
+
+    /**
+     * Loads the slots that belong to specified collection.
+     *
+     * If the positions are provided, only slots with those positions will be returned.
+     *
+     * @param \Netgen\Layouts\Persistence\Values\Collection\Collection $collection
+     * @param int[] $positions
+     *
+     * @return \Netgen\Layouts\Persistence\Values\Collection\Slot[]
+     */
+    public function loadCollectionSlots(Collection $collection, array $positions = []): array;
 
     /**
      * Returns if collection with specified ID exists.
@@ -203,9 +239,36 @@ interface CollectionHandlerInterface
     public function deleteItem(Item $item): void;
 
     /**
-     * Removes all manual items from provided collection.
+     * Removes all items from provided collection.
      */
     public function deleteItems(Collection $collection): Collection;
+
+    /**
+     * Returns if the slot with specified position exists in the collection.
+     */
+    public function slotWithPositionExists(Collection $collection, int $position): bool;
+
+    /**
+     * Adds a slot to collection.
+     *
+     * @throws \Netgen\Layouts\Exception\BadStateException if slot with provided position already exists
+     */
+    public function addSlot(Collection $collection, SlotCreateStruct $slotCreateStruct): Slot;
+
+    /**
+     * Updates a slot with specified ID.
+     */
+    public function updateSlot(Slot $slot, SlotUpdateStruct $slotUpdateStruct): Slot;
+
+    /**
+     * Removes a slot.
+     */
+    public function deleteSlot(Slot $slot): void;
+
+    /**
+     * Removes all slots from provided collection.
+     */
+    public function deleteSlots(Collection $collection): Collection;
 
     /**
      * Adds a query to collection.

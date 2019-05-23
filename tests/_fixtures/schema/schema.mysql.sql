@@ -129,6 +129,19 @@ CREATE TABLE IF NOT EXISTS `nglayouts_collection_query_translation` (
     REFERENCES nglayouts_collection_query (`id`, `status`)
 ) ENGINE=InnoDB;
 
+CREATE TABLE IF NOT EXISTS `nglayouts_collection_slot` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `status` int(11) NOT NULL,
+  `uuid` char(36) NOT NULL,
+  `collection_id` int(11) NOT NULL,
+  `position` int(11) NOT NULL,
+  `view_type` varchar(191) NOT NULL,
+  PRIMARY KEY (`id`, `status`),
+  UNIQUE KEY (`uuid`, `status`),
+  FOREIGN KEY (`collection_id`, `status`)
+    REFERENCES nglayouts_collection (`id`, `status`)
+) ENGINE=InnoDB;
+
 CREATE TABLE IF NOT EXISTS `nglayouts_block_collection` (
   `block_id` int(11) NOT NULL,
   `block_status` int(11) NOT NULL,
@@ -211,6 +224,9 @@ CREATE TABLE IF NOT EXISTS `nglayouts_rule_condition` (
 ) ENGINE=InnoDB;
 
 DELETE FROM `nglayouts_block_collection`;
+
+DELETE FROM `nglayouts_collection_slot`;
+ALTER TABLE `nglayouts_collection_slot` AUTO_INCREMENT = 1;
 
 DELETE FROM `nglayouts_collection_item`;
 ALTER TABLE `nglayouts_collection_item` AUTO_INCREMENT = 1;

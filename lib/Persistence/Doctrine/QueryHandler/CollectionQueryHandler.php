@@ -12,6 +12,7 @@ use Netgen\Layouts\Persistence\Values\Block\CollectionReference;
 use Netgen\Layouts\Persistence\Values\Collection\Collection;
 use Netgen\Layouts\Persistence\Values\Collection\Item;
 use Netgen\Layouts\Persistence\Values\Collection\Query;
+use Netgen\Layouts\Persistence\Values\Collection\Slot;
 use PDO;
 
 final class CollectionQueryHandler extends QueryHandler
@@ -110,24 +111,6 @@ final class CollectionQueryHandler extends QueryHandler
     }
 
     /**
-     * Loads all data for a query.
-     *
-     * @param int|string $queryId
-     * @param int $status
-     *
-     * @return array
-     */
-    public function loadQueryData($queryId, int $status): array
-    {
-        $query = $this->getQuerySelectQuery();
-
-        $this->applyIdCondition($query, $queryId, 'q.id', 'q.uuid');
-        $this->applyStatusCondition($query, $status, 'q.status');
-
-        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    /**
      * Loads all data for items that belong to collection with specified ID.
      */
     public function loadCollectionItemsData(Collection $collection): array
@@ -141,6 +124,24 @@ final class CollectionQueryHandler extends QueryHandler
         $this->applyStatusCondition($query, $collection->status, 'i.status');
 
         $query->addOrderBy('i.position', 'ASC');
+
+        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Loads all data for a query.
+     *
+     * @param int|string $queryId
+     * @param int $status
+     *
+     * @return array
+     */
+    public function loadQueryData($queryId, int $status): array
+    {
+        $query = $this->getQuerySelectQuery();
+
+        $this->applyIdCondition($query, $queryId, 'q.id', 'q.uuid');
+        $this->applyStatusCondition($query, $status, 'q.status');
 
         return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -179,6 +180,71 @@ final class CollectionQueryHandler extends QueryHandler
         ->setParameter('collection_id', $collection->id, Type::INTEGER);
 
         $this->applyStatusCondition($query, $collection->status, 'q.status');
+
+        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Loads all data for a slot.
+     *
+     * @param int|string $slotId
+     * @param int $status
+     *
+     * @return array
+     */
+    public function loadSlotData($slotId, int $status): array
+    {
+        $query = $this->getSlotSelectQuery();
+
+        $this->applyIdCondition($query, $slotId, 's.id', 's.uuid');
+        $this->applyStatusCondition($query, $status, 's.status');
+
+        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Loads a slot with specified position in specified collection.
+     */
+    public function loadSlotWithPositionData(Collection $collection, int $position): array
+    {
+        $query = $this->getSlotSelectQuery();
+        $query->where(
+            $query->expr()->andX(
+                $query->expr()->eq('s.collection_id', ':collection_id'),
+                $query->expr()->eq('s.position', ':position')
+            )
+        )
+        ->setParameter('collection_id', $collection->id, Type::INTEGER)
+        ->setParameter('position', $position, Type::INTEGER);
+
+        $this->applyStatusCondition($query, $collection->status, 's.status');
+
+        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Loads data for slots that belong to collection with specified ID.
+     *
+     * If the positions are provided, only slots with those positions will be returned.
+     */
+    public function loadCollectionSlotsData(Collection $collection, array $positions = []): array
+    {
+        $query = $this->getSlotSelectQuery();
+        $query->where(
+            $query->expr()->eq('s.collection_id', ':collection_id')
+        )
+        ->setParameter('collection_id', $collection->id, Type::INTEGER);
+
+        if (count($positions) > 0) {
+            $query->andWhere(
+                $query->expr()->in('s.position', [':positions'])
+            )
+            ->setParameter('positions', $positions, Connection::PARAM_INT_ARRAY);
+        }
+
+        $this->applyStatusCondition($query, $collection->status, 's.status');
+
+        $query->addOrderBy('s.position', 'ASC');
 
         return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -436,6 +502,61 @@ final class CollectionQueryHandler extends QueryHandler
     }
 
     /**
+     * Returns if the slot with provided position exists in the collection.
+     */
+    public function slotWithPositionExists(Collection $collection, int $position): bool
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('count(*) AS count')
+            ->from('nglayouts_collection_slot')
+            ->where(
+                $query->expr()->andX(
+                    $query->expr()->eq('collection_id', ':collection_id'),
+                    $query->expr()->eq('position', ':position')
+                )
+            )
+            ->setParameter('collection_id', $collection->id, Type::INTEGER)
+            ->setParameter('position', $position, Type::INTEGER);
+
+        $this->applyStatusCondition($query, $collection->status);
+
+        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+
+        return (int) ($data[0]['count'] ?? 0) > 0;
+    }
+
+    /**
+     * Adds a slot.
+     */
+    public function addSlot(Slot $slot): Slot
+    {
+        $query = $this->connection->createQueryBuilder()
+            ->insert('nglayouts_collection_slot')
+            ->values(
+                [
+                    'id' => ':id',
+                    'uuid' => ':uuid',
+                    'status' => ':status',
+                    'collection_id' => ':collection_id',
+                    'position' => ':position',
+                    'view_type' => ':view_type',
+                ]
+            )
+            ->setValue('id', $slot->id ?? $this->connectionHelper->getAutoIncrementValue('nglayouts_collection_slot'))
+            ->setParameter('uuid', $slot->uuid, Type::STRING)
+            ->setParameter('status', $slot->status, Type::INTEGER)
+            ->setParameter('collection_id', $slot->collectionId, Type::INTEGER)
+            ->setParameter('position', $slot->position, Type::INTEGER)
+            ->setParameter('view_type', $slot->viewType, Type::STRING);
+
+        $query->execute();
+
+        $slot->id = $slot->id ?? (int) $this->connectionHelper->lastInsertId('nglayouts_collection_slot');
+
+        return $slot;
+    }
+
+    /**
      * Updates an item.
      */
     public function updateItem(Item $item): void
@@ -467,6 +588,33 @@ final class CollectionQueryHandler extends QueryHandler
     }
 
     /**
+     * Updates a slot.
+     */
+    public function updateSlot(Slot $slot): void
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        $query
+            ->update('nglayouts_collection_slot')
+            ->set('uuid', ':uuid')
+            ->set('collection_id', ':collection_id')
+            ->set('position', ':position')
+            ->set('view_type', ':view_type')
+            ->where(
+                $query->expr()->eq('id', ':id')
+            )
+            ->setParameter('id', $slot->id, Type::INTEGER)
+            ->setParameter('uuid', $slot->uuid, Type::STRING)
+            ->setParameter('collection_id', $slot->collectionId, Type::INTEGER)
+            ->setParameter('position', $slot->position, Type::INTEGER)
+            ->setParameter('view_type', $slot->viewType, Type::STRING);
+
+        $this->applyStatusCondition($query, $slot->status);
+
+        $query->execute();
+    }
+
+    /**
      * Deletes an item.
      */
     public function deleteItem(int $itemId, int $status): void
@@ -485,27 +633,6 @@ final class CollectionQueryHandler extends QueryHandler
     }
 
     /**
-     * Deletes all manual and override items from provided collection.
-     *
-     * If item type (one of Item::TYPE_* constants) is provided, only items
-     * of that type are removed (manual or override).
-     */
-    public function deleteItems(int $collectionId, int $status): void
-    {
-        $query = $this->connection->createQueryBuilder();
-
-        $query->delete('nglayouts_collection_item')
-            ->where(
-                $query->expr()->eq('collection_id', ':collection_id')
-            )
-            ->setParameter('collection_id', $collectionId, Type::INTEGER);
-
-        $this->applyStatusCondition($query, $status);
-
-        $query->execute();
-    }
-
-    /**
      * Deletes all collection items.
      */
     public function deleteCollectionItems(int $collectionId, ?int $status = null): void
@@ -513,6 +640,44 @@ final class CollectionQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder();
         $query
             ->delete('nglayouts_collection_item')
+            ->where(
+                $query->expr()->eq('collection_id', ':collection_id')
+            )
+            ->setParameter('collection_id', $collectionId, Type::INTEGER);
+
+        if ($status !== null) {
+            $this->applyStatusCondition($query, $status);
+        }
+
+        $query->execute();
+    }
+
+    /**
+     * Deletes a slot.
+     */
+    public function deleteSlot(int $slotId, int $status): void
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        $query->delete('nglayouts_collection_slot')
+            ->where(
+                $query->expr()->eq('id', ':id')
+            )
+            ->setParameter('id', $slotId, Type::INTEGER);
+
+        $this->applyStatusCondition($query, $status);
+
+        $query->execute();
+    }
+
+    /**
+     * Deletes all collection slots.
+     */
+    public function deleteCollectionSlots(int $collectionId, ?int $status = null): void
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query
+            ->delete('nglayouts_collection_slot')
             ->where(
                 $query->expr()->eq('collection_id', ':collection_id')
             )
@@ -780,6 +945,27 @@ final class CollectionQueryHandler extends QueryHandler
                 $query->expr()->andX(
                     $query->expr()->eq('c.id', 'q.collection_id'),
                     $query->expr()->eq('c.status', 'q.status')
+                )
+            );
+
+        return $query;
+    }
+
+    /**
+     * Builds and returns a slot database SELECT query.
+     */
+    private function getSlotSelectQuery(): QueryBuilder
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('DISTINCT s.*, c.uuid AS collection_uuid')
+            ->from('nglayouts_collection_slot', 's')
+            ->innerJoin(
+                's',
+                'nglayouts_collection',
+                'c',
+                $query->expr()->andX(
+                    $query->expr()->eq('c.id', 's.collection_id'),
+                    $query->expr()->eq('c.status', 's.status')
                 )
             );
 

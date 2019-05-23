@@ -2,6 +2,7 @@ IF OBJECT_ID('dbo.nglayouts_block_collection', 'U') IS NOT NULL DROP TABLE dbo.n
 IF OBJECT_ID('dbo.nglayouts_collection_item', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_collection_item;
 IF OBJECT_ID('dbo.nglayouts_collection_query_translation', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_collection_query_translation;
 IF OBJECT_ID('dbo.nglayouts_collection_query', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_collection_query;
+IF OBJECT_ID('dbo.nglayouts_collection_slot', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_collection_slot;
 IF OBJECT_ID('dbo.nglayouts_collection_translation', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_collection_translation;
 IF OBJECT_ID('dbo.nglayouts_collection', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_collection;
 IF OBJECT_ID('dbo.nglayouts_zone', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_zone;
@@ -145,6 +146,19 @@ CREATE TABLE nglayouts_collection_query_translation (
   PRIMARY KEY (query_id, status, locale),
   FOREIGN KEY (query_id, status)
     REFERENCES nglayouts_collection_query (id, status)
+);
+
+CREATE TABLE nglayouts_collection_slot (
+  id int IDENTITY(1, 1),
+  status int NOT NULL,
+  uuid nchar(36) NOT NULL,
+  collection_id int NOT NULL,
+  position int NOT NULL,
+  view_type nvarchar(255) NOT NULL,
+  PRIMARY KEY (id, status),
+  UNIQUE (uuid, status),
+  FOREIGN KEY (collection_id, status)
+    REFERENCES nglayouts_collection (id, status)
 );
 
 CREATE TABLE nglayouts_block_collection (

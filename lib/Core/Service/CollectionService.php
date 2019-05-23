@@ -14,6 +14,10 @@ use Netgen\Layouts\API\Values\Collection\ItemUpdateStruct as APIItemUpdateStruct
 use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\API\Values\Collection\QueryCreateStruct as APIQueryCreateStruct;
 use Netgen\Layouts\API\Values\Collection\QueryUpdateStruct as APIQueryUpdateStruct;
+use Netgen\Layouts\API\Values\Collection\Slot;
+use Netgen\Layouts\API\Values\Collection\SlotCreateStruct as APISlotCreateStruct;
+use Netgen\Layouts\API\Values\Collection\SlotList;
+use Netgen\Layouts\API\Values\Collection\SlotUpdateStruct as APISlotUpdateStruct;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Collection\Item\ItemDefinitionInterface;
 use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
@@ -23,6 +27,7 @@ use Netgen\Layouts\Core\Mapper\ParameterMapper;
 use Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder;
 use Netgen\Layouts\Core\Validator\CollectionValidator;
 use Netgen\Layouts\Exception\BadStateException;
+use Netgen\Layouts\Exception\InvalidArgumentException;
 use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\Layouts\Persistence\TransactionHandlerInterface;
 use Netgen\Layouts\Persistence\Values\Collection\Collection as PersistenceCollection;
@@ -33,6 +38,9 @@ use Netgen\Layouts\Persistence\Values\Collection\ItemUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\Query as PersistenceQuery;
 use Netgen\Layouts\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\QueryTranslationUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\Slot as PersistenceSlot;
+use Netgen\Layouts\Persistence\Values\Collection\SlotCreateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\SlotUpdateStruct;
 use Ramsey\Uuid\UuidInterface;
 
 final class CollectionService extends Service implements APICollectionService
@@ -86,8 +94,11 @@ final class CollectionService extends Service implements APICollectionService
         $this->collectionHandler = $collectionHandler;
     }
 
-    public function loadCollection(UuidInterface $collectionId, ?array $locales = null, bool $useMainLocale = true): Collection
-    {
+    public function loadCollection(
+        UuidInterface $collectionId,
+        ?array $locales = null,
+        bool $useMainLocale = true
+    ): Collection {
         return $this->mapper->mapCollection(
             $this->collectionHandler->loadCollection(
                 $collectionId,
@@ -98,8 +109,11 @@ final class CollectionService extends Service implements APICollectionService
         );
     }
 
-    public function loadCollectionDraft(UuidInterface $collectionId, ?array $locales = null, bool $useMainLocale = true): Collection
-    {
+    public function loadCollectionDraft(
+        UuidInterface $collectionId,
+        ?array $locales = null,
+        bool $useMainLocale = true
+    ): Collection {
         return $this->mapper->mapCollection(
             $this->collectionHandler->loadCollection(
                 $collectionId,
@@ -110,8 +124,10 @@ final class CollectionService extends Service implements APICollectionService
         );
     }
 
-    public function updateCollection(Collection $collection, APICollectionUpdateStruct $collectionUpdateStruct): Collection
-    {
+    public function updateCollection(
+        Collection $collection,
+        APICollectionUpdateStruct $collectionUpdateStruct
+    ): Collection {
         if (!$collection->isDraft()) {
             throw new BadStateException('collection', 'Only draft collections can be updated.');
         }
@@ -181,8 +197,64 @@ final class CollectionService extends Service implements APICollectionService
         );
     }
 
-    public function changeCollectionType(Collection $collection, int $newType, ?APIQueryCreateStruct $queryCreateStruct = null): Collection
+    public function loadSlot(UuidInterface $slotId): Slot
     {
+        return $this->mapper->mapSlot(
+            $this->collectionHandler->loadSlot(
+                $slotId,
+                Value::STATUS_PUBLISHED
+            )
+        );
+    }
+
+    public function loadSlotDraft(UuidInterface $slotId): Slot
+    {
+        return $this->mapper->mapSlot(
+            $this->collectionHandler->loadSlot(
+                $slotId,
+                Value::STATUS_DRAFT
+            )
+        );
+    }
+
+    public function loadSlotWithPosition(Collection $collection, int $position): Slot
+    {
+        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), $collection->getStatus());
+
+        return $this->mapper->mapSlot(
+            $this->collectionHandler->loadSlotWithPosition(
+                $persistenceCollection,
+                $position
+            )
+        );
+    }
+
+    public function loadCollectionSlots(Collection $collection, array $positions = []): SlotList
+    {
+        foreach ($positions as $position) {
+            if (!is_int($position)) {
+                throw new InvalidArgumentException('positions', 'The list of positions should be a list of integers.');
+            }
+        }
+
+        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), $collection->getStatus());
+        $persistenceSlots = $this->collectionHandler->loadCollectionSlots($persistenceCollection, $positions);
+
+        return new SlotList(
+            array_map(
+                function (PersistenceSlot $slot): Slot {
+                    return $this->mapper->mapSlot($slot);
+                },
+                $persistenceSlots
+            )
+        );
+    }
+
+    public function changeCollectionType(
+        Collection $collection,
+        int $newType,
+        ?APIQueryCreateStruct $queryCreateStruct = null
+    ): Collection {
         if (!$collection->isDraft()) {
             throw new BadStateException('collection', 'Type can be changed only for draft collections.');
         }
@@ -194,7 +266,10 @@ final class CollectionService extends Service implements APICollectionService
         }
 
         if ($newType === Collection::TYPE_DYNAMIC && $queryCreateStruct === null) {
-            throw new BadStateException('queryCreateStruct', 'Query create struct must be defined when converting to dynamic collection.');
+            throw new BadStateException(
+                'queryCreateStruct',
+                'Query create struct must be defined when converting to dynamic collection.'
+            );
         }
 
         $this->transaction(
@@ -397,6 +472,92 @@ final class CollectionService extends Service implements APICollectionService
         return $this->mapper->mapQuery($updatedQuery, [$query->getLocale()]);
     }
 
+    public function addSlot(Collection $collection, APISlotCreateStruct $slotCreateStruct, int $position): Slot
+    {
+        if (!$collection->isDraft()) {
+            throw new BadStateException('collection', 'Slots can only be added to draft collections.');
+        }
+
+        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
+
+        $this->validator->validatePosition($position, 'position', true);
+        $this->validator->validateSlotCreateStruct($slotCreateStruct);
+
+        $createdSlot = $this->transaction(
+            function () use ($persistenceCollection, $position, $slotCreateStruct): PersistenceSlot {
+                return $this->collectionHandler->addSlot(
+                    $persistenceCollection,
+                    SlotCreateStruct::fromArray(
+                        [
+                            'position' => $position,
+                            'viewType' => $slotCreateStruct->viewType,
+                        ]
+                    )
+                );
+            }
+        );
+
+        return $this->mapper->mapSlot($createdSlot);
+    }
+
+    public function updateSlot(Slot $slot, APISlotUpdateStruct $slotUpdateStruct): Slot
+    {
+        if (!$slot->isDraft()) {
+            throw new BadStateException('slot', 'Only draft slots can be updated.');
+        }
+
+        $persistenceSlot = $this->collectionHandler->loadSlot($slot->getId(), Value::STATUS_DRAFT);
+
+        $this->validator->validateSlotUpdateStruct($slotUpdateStruct);
+
+        $updatedSlot = $this->transaction(
+            function () use ($persistenceSlot, $slotUpdateStruct): PersistenceSlot {
+                return $this->collectionHandler->updateSlot(
+                    $persistenceSlot,
+                    SlotUpdateStruct::fromArray(
+                        [
+                            'viewType' => $slotUpdateStruct->viewType,
+                        ]
+                    )
+                );
+            }
+        );
+
+        return $this->mapper->mapSlot($updatedSlot);
+    }
+
+    public function deleteSlot(Slot $slot): void
+    {
+        if (!$slot->isDraft()) {
+            throw new BadStateException('slot', 'Only draft slots can be deleted.');
+        }
+
+        $persistenceSlot = $this->collectionHandler->loadSlot($slot->getId(), Value::STATUS_DRAFT);
+
+        $this->transaction(
+            function () use ($persistenceSlot): void {
+                $this->collectionHandler->deleteSlot($persistenceSlot);
+            }
+        );
+    }
+
+    public function deleteSlots(Collection $collection): Collection
+    {
+        if (!$collection->isDraft()) {
+            throw new BadStateException('collection', 'Only slots in draft collections can be deleted.');
+        }
+
+        $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
+
+        $updatedCollection = $this->transaction(
+            function () use ($persistenceCollection): PersistenceCollection {
+                return $this->collectionHandler->deleteSlots($persistenceCollection);
+            }
+        );
+
+        return $this->mapper->mapCollection($updatedCollection, [$collection->getLocale()]);
+    }
+
     public function newCollectionCreateStruct(?APIQueryCreateStruct $queryCreateStruct = null): APICollectionCreateStruct
     {
         return $this->structBuilder->newCollectionCreateStruct($queryCreateStruct);
@@ -425,6 +586,16 @@ final class CollectionService extends Service implements APICollectionService
     public function newQueryUpdateStruct(string $locale, ?Query $query = null): APIQueryUpdateStruct
     {
         return $this->structBuilder->newQueryUpdateStruct($locale, $query);
+    }
+
+    public function newSlotCreateStruct(): APISlotCreateStruct
+    {
+        return $this->structBuilder->newSlotCreateStruct();
+    }
+
+    public function newSlotUpdateStruct(?Slot $slot = null): APISlotUpdateStruct
+    {
+        return $this->structBuilder->newSlotUpdateStruct($slot);
     }
 
     /**

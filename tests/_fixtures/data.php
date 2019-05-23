@@ -278,6 +278,16 @@ return [
         ['id' => 4, 'status' => 0, 'uuid' => '6d60fcbc-ae38-57c2-af72-e462a3e5c9f2', 'collection_id' => 4, 'type' => 'my_query_type'],
         ['id' => 4, 'status' => 1, 'uuid' => '6d60fcbc-ae38-57c2-af72-e462a3e5c9f2', 'collection_id' => 4, 'type' => 'my_query_type'],
     ],
+    'nglayouts_collection_slot' => [
+        ['id' => 1, 'status' => 0, 'uuid' => 'de3a0641-c67f-48e0-96e7-7c83b6735265', 'collection_id' => 1, 'position' => 0, 'view_type' => 'standard'],
+        ['id' => 2, 'status' => 0, 'uuid' => 'ee232f5b-478c-4513-a4b4-19e7e8b03aab', 'collection_id' => 1, 'position' => 2, 'view_type' => 'overlay'],
+        ['id' => 3, 'status' => 1, 'uuid' => 'c63c9523-e579-4dc9-b1d2-f9d12470a014', 'collection_id' => 2, 'position' => 1, 'view_type' => 'standard'],
+        ['id' => 4, 'status' => 1, 'uuid' => '2e0bbc16-8f14-4740-aa58-fbf6d547e734', 'collection_id' => 2, 'position' => 5, 'view_type' => 'overlay'],
+        ['id' => 5, 'status' => 0, 'uuid' => 'd0c55af8-5a45-4221-84e6-c7e4b975db0e', 'collection_id' => 3, 'position' => 3, 'view_type' => 'standard'],
+        ['id' => 5, 'status' => 1, 'uuid' => 'd0c55af8-5a45-4221-84e6-c7e4b975db0e', 'collection_id' => 3, 'position' => 3, 'view_type' => 'standard'],
+        ['id' => 6, 'status' => 0, 'uuid' => 'f520bcc4-e977-4c51-85cb-f68c79884e81', 'collection_id' => 3, 'position' => 5, 'view_type' => 'overlay'],
+        ['id' => 6, 'status' => 1, 'uuid' => 'f520bcc4-e977-4c51-85cb-f68c79884e81', 'collection_id' => 3, 'position' => 5, 'view_type' => 'overlay'],
+    ],
     'nglayouts_collection_query_translation' => [
         ['query_id' => 1, 'status' => 1, 'locale' => 'en', 'parameters' => '{"parent_location_id": 2, "sort_direction": "descending", "sort_type": "date_published", "query_type": "list"}'],
         ['query_id' => 1, 'status' => 1, 'locale' => 'hr', 'parameters' => '{"parent_location_id": 2, "sort_direction": "descending", "sort_type": "date_published", "query_type": "list"}'],

@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Core\Mapper;
 use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Collection\Item;
 use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\API\Values\Collection\Slot;
 use Netgen\Layouts\API\Values\LazyCollection;
 use Netgen\Layouts\Collection\Item\NullItemDefinition;
 use Netgen\Layouts\Collection\QueryType\NullQueryType;
@@ -21,6 +22,7 @@ use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\Layouts\Persistence\Values\Collection\Collection as PersistenceCollection;
 use Netgen\Layouts\Persistence\Values\Collection\Item as PersistenceItem;
 use Netgen\Layouts\Persistence\Values\Collection\Query as PersistenceQuery;
+use Netgen\Layouts\Persistence\Values\Collection\Slot as PersistenceSlot;
 use Ramsey\Uuid\Uuid;
 
 final class CollectionMapper
@@ -220,5 +222,21 @@ final class CollectionMapper
         ];
 
         return Query::fromArray($queryData);
+    }
+
+    /**
+     * Builds the API slot value from persistence one.
+     */
+    public function mapSlot(PersistenceSlot $slot): Slot
+    {
+        $slotData = [
+            'id' => Uuid::fromString($slot->uuid),
+            'status' => $slot->status,
+            'collectionId' => Uuid::fromString($slot->collectionUuid),
+            'position' => $slot->position,
+            'viewType' => $slot->viewType,
+        ];
+
+        return Slot::fromArray($slotData);
     }
 }

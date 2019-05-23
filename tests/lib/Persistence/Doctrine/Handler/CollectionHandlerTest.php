@@ -890,6 +890,8 @@ final class CollectionHandlerTest extends TestCase
                 '6dc13cc7-fd76-5e41-8b0c-1ed93ece7fcf',
                 '70fe4f3a-7e9d-5a1f-9e6a-b038c06ea117',
                 '3a3aa59a-76fe-532f-8a03-c04a93d803f6',
+                '8634280c-f498-416e-b4a7-0b0bd0869c85',
+                '63326bc3-baee-49c9-82e7-7b2a9aca081a',
             ]
         );
 
@@ -982,6 +984,32 @@ final class CollectionHandlerTest extends TestCase
             ],
             $this->exportObject($query)
         );
+
+        self::assertSame(
+            [
+                3 => [
+                    'id' => 7,
+                    'uuid' => '8634280c-f498-416e-b4a7-0b0bd0869c85',
+                    'collectionId' => $copiedCollection->id,
+                    'collectionUuid' => $copiedCollection->uuid,
+                    'position' => 3,
+                    'viewType' => 'standard',
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+                5 => [
+                    'id' => 8,
+                    'uuid' => '63326bc3-baee-49c9-82e7-7b2a9aca081a',
+                    'collectionId' => $copiedCollection->id,
+                    'collectionUuid' => $copiedCollection->uuid,
+                    'position' => 5,
+                    'viewType' => 'overlay',
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+            ],
+            $this->exportObjectList(
+                $this->collectionHandler->loadCollectionSlots($copiedCollection)
+            )
+        );
     }
 
     /**
@@ -1008,6 +1036,8 @@ final class CollectionHandlerTest extends TestCase
                 '76b05000-33ac-53f7-adfd-c91936d1f6b1',
                 '6dc13cc7-fd76-5e41-8b0c-1ed93ece7fcf',
                 '70fe4f3a-7e9d-5a1f-9e6a-b038c06ea117',
+                '8634280c-f498-416e-b4a7-0b0bd0869c85',
+                '63326bc3-baee-49c9-82e7-7b2a9aca081a',
             ]
         );
 
@@ -1066,6 +1096,32 @@ final class CollectionHandlerTest extends TestCase
             ],
             $this->exportObjectList(
                 $this->collectionHandler->loadCollectionItems($copiedCollection)
+            )
+        );
+
+        self::assertSame(
+            [
+                0 => [
+                    'id' => 7,
+                    'uuid' => '8634280c-f498-416e-b4a7-0b0bd0869c85',
+                    'collectionId' => $copiedCollection->id,
+                    'collectionUuid' => $copiedCollection->uuid,
+                    'position' => 0,
+                    'viewType' => 'standard',
+                    'status' => Value::STATUS_DRAFT,
+                ],
+                2 => [
+                    'id' => 8,
+                    'uuid' => '63326bc3-baee-49c9-82e7-7b2a9aca081a',
+                    'collectionId' => $copiedCollection->id,
+                    'collectionUuid' => $copiedCollection->uuid,
+                    'position' => 2,
+                    'viewType' => 'overlay',
+                    'status' => Value::STATUS_DRAFT,
+                ],
+            ],
+            $this->exportObjectList(
+                $this->collectionHandler->loadCollectionSlots($copiedCollection)
             )
         );
     }
@@ -1192,6 +1248,32 @@ final class CollectionHandlerTest extends TestCase
                 $this->collectionHandler->loadCollectionQuery($copiedCollection)
             )
         );
+
+        self::assertSame(
+            [
+                3 => [
+                    'id' => 5,
+                    'uuid' => 'd0c55af8-5a45-4221-84e6-c7e4b975db0e',
+                    'collectionId' => 3,
+                    'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
+                    'position' => 3,
+                    'viewType' => 'standard',
+                    'status' => Value::STATUS_ARCHIVED,
+                ],
+                5 => [
+                    'id' => 6,
+                    'uuid' => 'f520bcc4-e977-4c51-85cb-f68c79884e81',
+                    'collectionId' => 3,
+                    'collectionUuid' => 'da050624-8ae0-5fb9-ae85-092bf8242b89',
+                    'position' => 5,
+                    'viewType' => 'overlay',
+                    'status' => Value::STATUS_ARCHIVED,
+                ],
+            ],
+            $this->exportObjectList(
+                $this->collectionHandler->loadCollectionSlots($copiedCollection)
+            )
+        );
     }
 
     /**
@@ -1263,6 +1345,32 @@ final class CollectionHandlerTest extends TestCase
             ],
             $this->exportObjectList(
                 $this->collectionHandler->loadCollectionItems($copiedCollection)
+            )
+        );
+
+        self::assertSame(
+            [
+                0 => [
+                    'id' => 1,
+                    'uuid' => 'de3a0641-c67f-48e0-96e7-7c83b6735265',
+                    'collectionId' => 1,
+                    'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                    'position' => 0,
+                    'viewType' => 'standard',
+                    'status' => Value::STATUS_ARCHIVED,
+                ],
+                2 => [
+                    'id' => 2,
+                    'uuid' => 'ee232f5b-478c-4513-a4b4-19e7e8b03aab',
+                    'collectionId' => 1,
+                    'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                    'position' => 2,
+                    'viewType' => 'overlay',
+                    'status' => Value::STATUS_ARCHIVED,
+                ],
+            ],
+            $this->exportObjectList(
+                $this->collectionHandler->loadCollectionSlots($copiedCollection)
             )
         );
     }
@@ -2106,7 +2214,7 @@ final class CollectionHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteItems
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteItems
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionItems
      */
     public function testDeleteItems(): void
     {

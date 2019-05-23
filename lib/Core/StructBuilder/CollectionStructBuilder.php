@@ -13,6 +13,9 @@ use Netgen\Layouts\API\Values\Collection\ItemUpdateStruct;
 use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\API\Values\Collection\QueryCreateStruct;
 use Netgen\Layouts\API\Values\Collection\QueryUpdateStruct;
+use Netgen\Layouts\API\Values\Collection\Slot;
+use Netgen\Layouts\API\Values\Collection\SlotCreateStruct;
+use Netgen\Layouts\API\Values\Collection\SlotUpdateStruct;
 use Netgen\Layouts\Collection\Item\ItemDefinitionInterface;
 use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
 
@@ -116,5 +119,31 @@ final class CollectionStructBuilder
         $queryUpdateStruct->fillParametersFromQuery($query);
 
         return $queryUpdateStruct;
+    }
+
+    /**
+     * Creates a new slot create struct.
+     */
+    public function newSlotCreateStruct(): SlotCreateStruct
+    {
+        return new SlotCreateStruct();
+    }
+
+    /**
+     * Creates a new slot update struct.
+     *
+     * If slot is provided, initial data is copied from the slot.
+     */
+    public function newSlotUpdateStruct(?Slot $slot = null): SlotUpdateStruct
+    {
+        $slotUpdateStruct = new SlotUpdateStruct();
+
+        if (!$slot instanceof Slot) {
+            return $slotUpdateStruct;
+        }
+
+        $slotUpdateStruct->viewType = $slot->getViewType();
+
+        return $slotUpdateStruct;
     }
 }

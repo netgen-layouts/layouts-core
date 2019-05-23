@@ -115,6 +115,17 @@ CREATE TABLE IF NOT EXISTS "nglayouts_collection_query_translation" (
   FOREIGN KEY ("query_id", "status") REFERENCES nglayouts_collection_query ("id", "status")
 );
 
+CREATE TABLE IF NOT EXISTS "nglayouts_collection_slot" (
+  "id" integer NOT NULL,
+  "status" integer NOT NULL,
+  "uuid" character(36) NOT NULL,
+  "collection_id" integer NOT NULL,
+  "position" integer NOT NULL,
+  "view_type" character varying(255) NOT NULL,
+  PRIMARY KEY ("id", "status"),
+  FOREIGN KEY ("collection_id", "status") REFERENCES nglayouts_collection ("id", "status")
+);
+
 CREATE TABLE IF NOT EXISTS "nglayouts_block_collection" (
   "block_id" integer NOT NULL,
   "block_status" integer NOT NULL,
@@ -190,6 +201,7 @@ DELETE FROM "nglayouts_block_collection";
 DELETE FROM "nglayouts_collection_item";
 DELETE FROM "nglayouts_collection_query_translation";
 DELETE FROM "nglayouts_collection_query";
+DELETE FROM "nglayouts_collection_slot";
 DELETE FROM "nglayouts_collection_translation";
 DELETE FROM "nglayouts_collection";
 DELETE FROM "nglayouts_zone";
@@ -228,6 +240,11 @@ CREATE SEQUENCE IF NOT EXISTS nglayouts_collection_query_id_seq;
 ALTER SEQUENCE nglayouts_collection_query_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
 ALTER TABLE ONLY nglayouts_collection_query ALTER COLUMN id SET DEFAULT nextval('nglayouts_collection_query_id_seq'::regclass);
 CREATE UNIQUE INDEX IF NOT EXISTS idx_ngl_collection_query_uuid ON nglayouts_collection_query (uuid, status);
+
+CREATE SEQUENCE IF NOT EXISTS nglayouts_collection_slot_id_seq;
+ALTER SEQUENCE nglayouts_collection_slot_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;
+ALTER TABLE ONLY nglayouts_collection_slot ALTER COLUMN id SET DEFAULT nextval('nglayouts_collection_slot_id_seq'::regclass);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_ngl_collection_slot_uuid ON nglayouts_collection_slot (uuid, status);
 
 CREATE SEQUENCE IF NOT EXISTS nglayouts_role_id_seq;
 ALTER SEQUENCE nglayouts_role_id_seq START WITH 1 INCREMENT BY 1 NO MINVALUE NO MAXVALUE CACHE 1;

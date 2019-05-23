@@ -176,6 +176,29 @@ CREATE TABLE `nglayouts_collection_query_translation` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Table structure for table `nglayouts_collection_slot`
+--
+
+DROP TABLE IF EXISTS `nglayouts_collection_slot`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `nglayouts_collection_slot` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `status` int(11) NOT NULL,
+  `uuid` char(36) NOT NULL,
+  `collection_id` int(11) NOT NULL,
+  `position` int(11) NOT NULL,
+  `view_type` varchar(191) NOT NULL,
+  PRIMARY KEY (`id`,`status`),
+  UNIQUE KEY `idx_ngl_collection_slot_uuid` (`uuid`, `status`),
+  KEY `idx_ngl_collection` (`collection_id`,`status`),
+  KEY `idx_ngl_position` (`collection_id`,`position`),
+  CONSTRAINT `fk_ngl_slot_collection` FOREIGN KEY (`collection_id`, `status`)
+    REFERENCES `nglayouts_collection` (`id`, `status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `nglayouts_collection_translation`
 --
 

@@ -13,6 +13,8 @@ use Netgen\Layouts\API\Values\Collection\ItemUpdateStruct;
 use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\API\Values\Collection\QueryCreateStruct;
 use Netgen\Layouts\API\Values\Collection\QueryUpdateStruct;
+use Netgen\Layouts\API\Values\Collection\SlotCreateStruct;
+use Netgen\Layouts\API\Values\Collection\SlotUpdateStruct;
 use Netgen\Layouts\Collection\Item\ItemDefinitionInterface;
 use Netgen\Layouts\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
 use Netgen\Layouts\Validator\Constraint\Structs\ParameterStruct;
@@ -195,5 +197,41 @@ final class CollectionValidator extends Validator
                 ),
             ]
         );
+    }
+
+    /**
+     * Validates the provided slot create struct.
+     *
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
+     */
+    public function validateSlotCreateStruct(SlotCreateStruct $slotCreateStruct): void
+    {
+        $this->validate(
+            $slotCreateStruct->viewType,
+            [
+                new Constraints\NotBlank(),
+                new Constraints\Type(['type' => 'string']),
+            ],
+            'viewType'
+        );
+    }
+
+    /**
+     * Validates the provided slot update struct.
+     *
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
+     */
+    public function validateSlotUpdateStruct(SlotUpdateStruct $slotUpdateStruct): void
+    {
+        if ($slotUpdateStruct->viewType !== null) {
+            $this->validate(
+                $slotUpdateStruct->viewType,
+                [
+                    new Constraints\NotBlank(),
+                    new Constraints\Type(['type' => 'string']),
+                ],
+                'viewType'
+            );
+        }
     }
 }

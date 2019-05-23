@@ -1029,6 +1029,10 @@ final class BlockHandlerTest extends TestCase
                 'f08717e5-5910-574d-b976-03d877c4729b',
                 'e804ebd6-dc99-53bb-85d5-196d68933761',
                 '910f4fe2-97b0-5599-8a45-8fb8a8e0ca6d',
+                '8634280c-f498-416e-b4a7-0b0bd0869c85',
+                '63326bc3-baee-49c9-82e7-7b2a9aca081a',
+                '3a17132d-9072-45f3-a0b3-b91bd4b0fcf3',
+                '29f091e0-81cc-4bd3-aec5-673cd06abce5',
             ]
         );
 
@@ -1121,6 +1125,10 @@ final class BlockHandlerTest extends TestCase
                 'f08717e5-5910-574d-b976-03d877c4729b',
                 'e804ebd6-dc99-53bb-85d5-196d68933761',
                 '910f4fe2-97b0-5599-8a45-8fb8a8e0ca6d',
+                '8634280c-f498-416e-b4a7-0b0bd0869c85',
+                '63326bc3-baee-49c9-82e7-7b2a9aca081a',
+                '3a17132d-9072-45f3-a0b3-b91bd4b0fcf3',
+                '29f091e0-81cc-4bd3-aec5-673cd06abce5',
             ]
         );
 
@@ -1191,6 +1199,10 @@ final class BlockHandlerTest extends TestCase
                 'f08717e5-5910-574d-b976-03d877c4729b',
                 'e804ebd6-dc99-53bb-85d5-196d68933761',
                 '910f4fe2-97b0-5599-8a45-8fb8a8e0ca6d',
+                '8634280c-f498-416e-b4a7-0b0bd0869c85',
+                '63326bc3-baee-49c9-82e7-7b2a9aca081a',
+                '3a17132d-9072-45f3-a0b3-b91bd4b0fcf3',
+                '29f091e0-81cc-4bd3-aec5-673cd06abce5',
             ]
         );
 
@@ -1261,6 +1273,10 @@ final class BlockHandlerTest extends TestCase
                 'f08717e5-5910-574d-b976-03d877c4729b',
                 'e804ebd6-dc99-53bb-85d5-196d68933761',
                 '910f4fe2-97b0-5599-8a45-8fb8a8e0ca6d',
+                '8634280c-f498-416e-b4a7-0b0bd0869c85',
+                '63326bc3-baee-49c9-82e7-7b2a9aca081a',
+                '3a17132d-9072-45f3-a0b3-b91bd4b0fcf3',
+                '29f091e0-81cc-4bd3-aec5-673cd06abce5',
             ]
         );
 
@@ -1524,6 +1540,10 @@ final class BlockHandlerTest extends TestCase
                 'f08717e5-5910-574d-b976-03d877c4729b',
                 'e804ebd6-dc99-53bb-85d5-196d68933761',
                 '910f4fe2-97b0-5599-8a45-8fb8a8e0ca6d',
+                '8634280c-f498-416e-b4a7-0b0bd0869c85',
+                '63326bc3-baee-49c9-82e7-7b2a9aca081a',
+                '3a17132d-9072-45f3-a0b3-b91bd4b0fcf3',
+                '29f091e0-81cc-4bd3-aec5-673cd06abce5',
             ]
         );
 

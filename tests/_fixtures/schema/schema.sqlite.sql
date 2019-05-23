@@ -3,6 +3,7 @@ PRAGMA journal_mode = MEMORY;
 PRAGMA synchronous = OFF;
 
 DROP TABLE IF EXISTS `nglayouts_block_collection`;
+DROP TABLE IF EXISTS `nglayouts_collection_slot`;
 DROP TABLE IF EXISTS `nglayouts_collection_item`;
 DROP TABLE IF EXISTS `nglayouts_collection_query_translation`;
 DROP TABLE IF EXISTS `nglayouts_collection_query`;
@@ -149,6 +150,19 @@ CREATE TABLE `nglayouts_collection_query_translation` (
   PRIMARY KEY (`query_id`, `status`, `locale`),
   FOREIGN KEY (`query_id`, `status`)
     REFERENCES `nglayouts_collection_query` (`id`, `status`)
+);
+
+CREATE TABLE `nglayouts_collection_slot` (
+  `id` integer NOT NULL,
+  `status` integer NOT NULL,
+  `uuid` text(36) NOT NULL,
+  `collection_id` integer NOT NULL,
+  `position` integer NOT NULL,
+  `view_type` text(255) NOT NULL,
+  PRIMARY KEY (`id`, `status`),
+  UNIQUE (`uuid`, `status`),
+  FOREIGN KEY (`collection_id`, `status`)
+    REFERENCES `nglayouts_collection` (`id`, `status`)
 );
 
 CREATE TABLE `nglayouts_block_collection` (

@@ -13,6 +13,10 @@ use Netgen\Layouts\API\Values\Collection\ItemUpdateStruct;
 use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\API\Values\Collection\QueryCreateStruct;
 use Netgen\Layouts\API\Values\Collection\QueryUpdateStruct;
+use Netgen\Layouts\API\Values\Collection\Slot;
+use Netgen\Layouts\API\Values\Collection\SlotCreateStruct;
+use Netgen\Layouts\API\Values\Collection\SlotList;
+use Netgen\Layouts\API\Values\Collection\SlotUpdateStruct;
 use Netgen\Layouts\Collection\Item\ItemDefinitionInterface;
 use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
 use Ramsey\Uuid\UuidInterface;
@@ -97,13 +101,48 @@ interface CollectionService extends Service
     public function loadQueryDraft(UuidInterface $queryId, ?array $locales = null, bool $useMainLocale = true): Query;
 
     /**
+     * Loads a slot with specified UUID.
+     *
+     * @throws \Netgen\Layouts\Exception\NotFoundException If slot with specified UUID does not exist
+     */
+    public function loadSlot(UuidInterface $slotId): Slot;
+
+    /**
+     * Loads a slot draft with specified UUID.
+     *
+     * @throws \Netgen\Layouts\Exception\NotFoundException If slot with specified UUID does not exist
+     */
+    public function loadSlotDraft(UuidInterface $slotId): Slot;
+
+    /**
+     * Loads a slot from a collection with specified position.
+     *
+     * @throws \Netgen\Layouts\Exception\NotFoundException If slot with specified position does not exist
+     */
+    public function loadSlotWithPosition(Collection $collection, int $position): Slot;
+
+    /**
+     * Loads the slots that belong to specified collection.
+     *
+     * If the positions are provided, only slots with those positions will be returned.
+     *
+     * @param \Netgen\Layouts\API\Values\Collection\Collection $collection
+     * @param int[] $positions
+     *
+     * @throws \Netgen\Layouts\Exception\InvalidArgumentException if any of the positions is not an integer
+     *
+     * @return \Netgen\Layouts\API\Values\Collection\SlotList
+     */
+    public function loadCollectionSlots(Collection $collection, array $positions = []): SlotList;
+
+    /**
      * Changes the type of specified collection.
      *
      * If new type is a dynamic collection, you also need to provide the QueryCreateStruct used to
      * create the query in the collection.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If collection is not a draft
-     *                                                          If collection type cannot be changed
+     *                                                     If collection type cannot be changed
      */
     public function changeCollectionType(Collection $collection, int $newType, ?QueryCreateStruct $queryCreateStruct = null): Collection;
 
@@ -113,7 +152,7 @@ interface CollectionService extends Service
      * If position is not provided, item is placed at the end of the collection.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If collection is not a draft
-     *                                                          If position is out of range (for manual collections)
+     *                                                     If position is out of range (for manual collections)
      */
     public function addItem(Collection $collection, ItemCreateStruct $itemCreateStruct, ?int $position = null): Item;
 
@@ -128,7 +167,7 @@ interface CollectionService extends Service
      * Moves an item within the collection.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If item is not a draft
-     *                                                          If position is out of range (for manual collections)
+     *                                                     If position is out of range (for manual collections)
      */
     public function moveItem(Item $item, int $position): Item;
 
@@ -140,7 +179,7 @@ interface CollectionService extends Service
     public function deleteItem(Item $item): void;
 
     /**
-     * Removes all manual items from provided collection.
+     * Removes all items from provided collection.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If collection is not a draft
      */
@@ -150,9 +189,38 @@ interface CollectionService extends Service
      * Updates a query.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If query is not a draft
-     *                                                          If query does not have a specified translation
+     *                                                     If query does not have a specified translation
      */
     public function updateQuery(Query $query, QueryUpdateStruct $queryUpdateStruct): Query;
+
+    /**
+     * Adds a slot to collection to a provided position.
+     *
+     * @throws \Netgen\Layouts\Exception\BadStateException If collection is not a draft
+     *                                                     If slot with provided position already exists in the collection
+     */
+    public function addSlot(Collection $collection, SlotCreateStruct $slotCreateStruct, int $position): Slot;
+
+    /**
+     * Updates a specified slot.
+     *
+     * @throws \Netgen\Layouts\Exception\BadStateException If slot is not a draft
+     */
+    public function updateSlot(Slot $slot, SlotUpdateStruct $slotUpdateStruct): Slot;
+
+    /**
+     * Removes an slot.
+     *
+     * @throws \Netgen\Layouts\Exception\BadStateException If slot is not a draft
+     */
+    public function deleteSlot(Slot $slot): void;
+
+    /**
+     * Removes all slots from provided collection.
+     *
+     * @throws \Netgen\Layouts\Exception\BadStateException If collection is not a draft
+     */
+    public function deleteSlots(Collection $collection): Collection;
 
     /**
      * Creates a new collection create struct.
@@ -194,4 +262,16 @@ interface CollectionService extends Service
      * If query is provided, initial data is copied from the query.
      */
     public function newQueryUpdateStruct(string $locale, ?Query $query = null): QueryUpdateStruct;
+
+    /**
+     * Creates a new slot create struct.
+     */
+    public function newSlotCreateStruct(): SlotCreateStruct;
+
+    /**
+     * Creates a new slot update struct.
+     *
+     * If slot is provided, initial data is copied from the slot.
+     */
+    public function newSlotUpdateStruct(?Slot $slot = null): SlotUpdateStruct;
 }

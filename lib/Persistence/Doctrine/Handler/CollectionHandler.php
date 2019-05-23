@@ -21,6 +21,9 @@ use Netgen\Layouts\Persistence\Values\Collection\ItemUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\Query;
 use Netgen\Layouts\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\QueryTranslationUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\Slot;
+use Netgen\Layouts\Persistence\Values\Collection\SlotCreateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\SlotUpdateStruct;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -174,6 +177,42 @@ final class CollectionHandler implements CollectionHandlerInterface
         $query->alwaysAvailable = $collection->alwaysAvailable;
 
         return $query;
+    }
+
+    public function loadSlot($slotId, int $status): Slot
+    {
+        $slotId = $slotId instanceof UuidInterface ? $slotId->toString() : $slotId;
+        $data = $this->queryHandler->loadSlotData($slotId, $status);
+
+        if (count($data) === 0) {
+            throw new NotFoundException('slot', $slotId);
+        }
+
+        return $this->collectionMapper->mapSlots($data)[0];
+    }
+
+    public function loadSlotWithPosition(Collection $collection, int $position): Slot
+    {
+        $data = $this->queryHandler->loadSlotWithPositionData($collection, $position);
+
+        if (count($data) === 0) {
+            throw new NotFoundException(
+                sprintf(
+                    'slot in collection with ID "%s" at position %d',
+                    $collection->id,
+                    $position
+                )
+            );
+        }
+
+        return $this->collectionMapper->mapSlots($data)[0];
+    }
+
+    public function loadCollectionSlots(Collection $collection, array $positions = []): array
+    {
+        return $this->collectionMapper->mapSlots(
+            $this->queryHandler->loadCollectionSlotsData($collection, $positions)
+        );
     }
 
     public function collectionExists($collectionId, int $status): bool
@@ -373,6 +412,19 @@ final class CollectionHandler implements CollectionHandlerInterface
             }
         }
 
+        $collectionSlots = $this->loadCollectionSlots($collection);
+
+        foreach ($collectionSlots as $collectionSlot) {
+            $newSlot = clone $collectionSlot;
+            $newSlot->id = null;
+            $newSlot->uuid = Uuid::uuid4()->toString();
+
+            $newSlot->collectionId = $newCollection->id;
+            $newSlot->collectionUuid = $newCollection->uuid;
+
+            $this->queryHandler->addSlot($newSlot);
+        }
+
         $newCollectionReference = CollectionReference::fromArray(
             [
                 'blockId' => $block->id,
@@ -428,11 +480,21 @@ final class CollectionHandler implements CollectionHandlerInterface
             }
         }
 
+        $collectionSlots = $this->loadCollectionSlots($collection);
+
+        foreach ($collectionSlots as $collectionSlot) {
+            $newSlot = clone $collectionSlot;
+            $newSlot->status = $newStatus;
+
+            $this->queryHandler->addSlot($newSlot);
+        }
+
         return $newCollection;
     }
 
     public function deleteCollection(int $collectionId, ?int $status = null): void
     {
+        $this->queryHandler->deleteCollectionSlots($collectionId, $status);
         $this->queryHandler->deleteCollectionItems($collectionId, $status);
 
         $queryIds = $this->queryHandler->loadCollectionQueryIds($collectionId, $status);
@@ -576,7 +638,57 @@ final class CollectionHandler implements CollectionHandlerInterface
 
     public function deleteItems(Collection $collection): Collection
     {
-        $this->queryHandler->deleteItems($collection->id, $collection->status);
+        $this->queryHandler->deleteCollectionItems($collection->id, $collection->status);
+
+        return $this->loadCollection($collection->id, $collection->status);
+    }
+
+    public function slotWithPositionExists(Collection $collection, int $position): bool
+    {
+        return $this->queryHandler->slotWithPositionExists($collection, $position);
+    }
+
+    public function addSlot(Collection $collection, SlotCreateStruct $slotCreateStruct): Slot
+    {
+        if ($this->slotWithPositionExists($collection, $slotCreateStruct->position)) {
+            throw new BadStateException('position', sprintf('Slot with provided position already exists in the collection with ID %d', $collection->id));
+        }
+
+        $newSlot = Slot::fromArray(
+            [
+                'uuid' => Uuid::uuid4()->toString(),
+                'collectionId' => $collection->id,
+                'collectionUuid' => $collection->uuid,
+                'position' => $slotCreateStruct->position,
+                'viewType' => $slotCreateStruct->viewType,
+                'status' => $collection->status,
+            ]
+        );
+
+        return $this->queryHandler->addSlot($newSlot);
+    }
+
+    public function updateSlot(Slot $slot, SlotUpdateStruct $slotUpdateStruct): Slot
+    {
+        $updatedSlot = clone $slot;
+
+        if (is_string($slotUpdateStruct->viewType)) {
+            $updatedSlot->viewType = $slotUpdateStruct->viewType;
+        }
+
+        $this->queryHandler->updateSlot($updatedSlot);
+
+        return $updatedSlot;
+    }
+
+    public function deleteSlot(Slot $slot): void
+    {
+        $this->queryHandler->deleteSlot($slot->id, $slot->status);
+    }
+
+    public function deleteSlots(Collection $collection): Collection
+    {
+        $this->queryHandler->deleteCollectionSlots($collection->id, $collection->status);
 
         return $this->loadCollection($collection->id, $collection->status);
     }
@@ -657,8 +769,7 @@ final class CollectionHandler implements CollectionHandlerInterface
     }
 
     /**
-     * Creates space for a new manual item by shifting positions of other items
-     * below the new position.
+     * Creates space for a new item by shifting positions of other items below the new position.
      *
      * In case of a manual collection, the case is simple, all items below the position
      * are incremented.
@@ -711,7 +822,7 @@ final class CollectionHandler implements CollectionHandlerInterface
     }
 
     /**
-     * Creates space for a new manual item by shifting positions of other items
+     * Creates space for a new item by shifting positions of other items
      * below the new position, but only up until the first break in positions,
      * or up to $maxPosition if provided.
      */

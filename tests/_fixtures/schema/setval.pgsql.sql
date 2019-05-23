@@ -3,6 +3,7 @@ SELECT setval('nglayouts_block_id_seq', max(id)) FROM nglayouts_block;
 SELECT setval('nglayouts_collection_id_seq', max(id)) FROM nglayouts_collection;
 SELECT setval('nglayouts_collection_item_id_seq', max(id)) FROM nglayouts_collection_item;
 SELECT setval('nglayouts_collection_query_id_seq', max(id)) FROM nglayouts_collection_query;
+SELECT setval('nglayouts_collection_slot_id_seq', max(id)) FROM nglayouts_collection_slot;
 SELECT setval('nglayouts_role_id_seq', max(id)) FROM nglayouts_role;
 SELECT setval('nglayouts_role_policy_id_seq', max(id)) FROM nglayouts_role_policy;
 SELECT setval('nglayouts_rule_id_seq', max(id)) FROM nglayouts_rule;

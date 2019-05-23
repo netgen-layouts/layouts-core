@@ -8,6 +8,7 @@ use Netgen\Layouts\Persistence\Values\Block\CollectionReference;
 use Netgen\Layouts\Persistence\Values\Collection\Collection;
 use Netgen\Layouts\Persistence\Values\Collection\Item;
 use Netgen\Layouts\Persistence\Values\Collection\Query;
+use Netgen\Layouts\Persistence\Values\Collection\Slot;
 
 final class CollectionMapper
 {
@@ -147,6 +148,33 @@ final class CollectionMapper
         );
 
         return $queries;
+    }
+
+    /**
+     * Maps data from database to slot values.
+     *
+     * @return \Netgen\Layouts\Persistence\Values\Collection\Slot[]
+     */
+    public function mapSlots(array $data): array
+    {
+        $slots = [];
+
+        foreach ($data as $dataItem) {
+            $position = (int) $dataItem['position'];
+            $slots[$position] = Slot::fromArray(
+                [
+                    'id' => (int) $dataItem['id'],
+                    'uuid' => $dataItem['uuid'],
+                    'collectionId' => (int) $dataItem['collection_id'],
+                    'collectionUuid' => $dataItem['collection_uuid'],
+                    'position' => $position,
+                    'viewType' => $dataItem['view_type'],
+                    'status' => (int) $dataItem['status'],
+                ]
+            );
+        }
+
+        return $slots;
     }
 
     /**
