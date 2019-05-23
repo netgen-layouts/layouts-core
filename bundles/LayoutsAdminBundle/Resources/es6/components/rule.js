@@ -314,10 +314,12 @@ export default class NlRule {
                     actionsEl.parentElement.insertBefore(formEl, actionsEl);
                     addedFormInit(formEl);
                     formEl.addEventListener('submit', this.addedFormAction.bind(this));
-                    formEl.getElementsByClassName('js-cancel-add')[0].addEventListener('click', (ev) => {
-                        ev.preventDefault();
-                        formEl.parentElement.removeChild(formEl);
-                        actionsEl.style.display = 'block';
+                    formEl.addEventListener('click', (ev) => {
+                        if (ev.target.closest('.js-cancel-add')) {
+                            ev.preventDefault();
+                            formEl.parentElement.removeChild(formEl);
+                            actionsEl.style.display = 'block';
+                        }
                     });
                 }).catch((error) => {
                     console.log(error);
