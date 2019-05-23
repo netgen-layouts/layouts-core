@@ -108,7 +108,7 @@ export default class NlRule {
         }).then((response) => {
             if (!response.ok) {
                 return response.text().then((data) => {
-                    formEl.innerHTML(data);
+                    formEl.innerHTML = data;
                     addedFormInit(formEl);
                     throw new Error(`HTTP error, status ${response.status}`);
                 });
