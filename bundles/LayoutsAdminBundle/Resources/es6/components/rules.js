@@ -1,7 +1,5 @@
-import NetgenCore from '@netgen/layouts-ui-core';
+import Sortable from 'sortablejs';
 import NlRule from './rule';
-
-const { $ } = NetgenCore;
 
 /* nl rules app plugin */
 export default class NlRules {
@@ -91,18 +89,16 @@ export default class NlRules {
     sortStart() {
         this.appContainer.classList.add('sorting');
         [...document.getElementsByClassName('nl-rule-between')].forEach(el => el.parentElement.removeChild(el));
-        $(this.rulesContainer).sortable({
-            items: '> .nl-rule',
-            axis: 'y',
-            update: () => {
-                this.sorted = true;
-            },
+        this.sortable = new Sortable(this.rulesContainer, {
+            draggable: '> .nl-rule',
+            direction: 'vertical',
         });
+        this.order = this.sortable.toArray();
     }
 
     sortSave() {
         this.appContainer.classList.add('ajax-loading');
-        const sorted = $(this.rulesContainer).sortable('toArray', { attribute: 'data-id' });
+        const sorted = this.sortable.toArray();
         const rules = sorted.map(rule => `rule_ids[]=${rule}`);
         const body = new URLSearchParams(rules.join('&'));
         fetch(`${this.baseUrl}rules/priorities`, {
@@ -124,11 +120,9 @@ export default class NlRules {
     }
 
     sortCancel() {
-        if (this.sorted) this.rules.forEach(rule => this.rulesContainer.appendChild(rule.el));
-        this.sorted = false;
-
+        this.sortable.sort(this.order);
+        this.sortable.destroy();
         this.appContainer.classList.remove('sorting');
-        $(this.rulesContainer).sortable('destroy');
         this.filterMappings();
     }
 
