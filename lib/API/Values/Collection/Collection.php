@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Layouts\API\Values\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Netgen\Layouts\API\Values\Collection\Item as APIItem;
-use Netgen\Layouts\API\Values\Collection\Query as APIQuery;
 use Netgen\Layouts\API\Values\LazyPropertyTrait;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
@@ -132,7 +130,7 @@ final class Collection implements Value
     public function hasItem(int $position): bool
     {
         return $this->items->exists(
-            static function ($key, APIItem $item) use ($position): bool {
+            static function ($key, Item $item) use ($position): bool {
                 return $item->getPosition() === $position;
             }
         );
@@ -141,7 +139,7 @@ final class Collection implements Value
     /**
      * Returns the item at specified position.
      */
-    public function getItem(int $position): ?APIItem
+    public function getItem(int $position): ?Item
     {
         foreach ($this->items as $item) {
             if ($item->getPosition() === $position) {
@@ -163,7 +161,7 @@ final class Collection implements Value
     /**
      * Returns the query from the collection or null if no query exists.
      */
-    public function getQuery(): ?APIQuery
+    public function getQuery(): ?Query
     {
         return $this->getLazyProperty($this->query);
     }
@@ -173,7 +171,7 @@ final class Collection implements Value
      */
     public function hasQuery(): bool
     {
-        return $this->getQuery() instanceof APIQuery;
+        return $this->getQuery() instanceof Query;
     }
 
     /**

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Layouts\API\Values\Block;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Netgen\Layouts\API\Values\Block\Placeholder as APIPlaceholder;
 use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Collection\CollectionList;
 use Netgen\Layouts\API\Values\Config\ConfigAwareValue;
@@ -205,7 +204,7 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
      *
      * @throws \Netgen\Layouts\Exception\API\BlockException If the placeholder does not exist
      */
-    public function getPlaceholder(string $identifier): APIPlaceholder
+    public function getPlaceholder(string $identifier): Placeholder
     {
         if ($this->hasPlaceholder($identifier)) {
             return $this->placeholders[$identifier];

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\Layout;
 
-use Netgen\Layouts\API\Values\Layout\Zone as APIZone;
 use Netgen\Layouts\API\Values\LazyPropertyTrait;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
@@ -53,13 +52,13 @@ final class Zone implements Value
      */
     public function hasLinkedZone(): bool
     {
-        return $this->getLinkedZone() instanceof APIZone;
+        return $this->getLinkedZone() instanceof self;
     }
 
     /**
      * Returns the linked zone or null if no linked zone exists.
      */
-    public function getLinkedZone(): ?APIZone
+    public function getLinkedZone(): ?self
     {
         return $this->getLazyProperty($this->linkedZone);
     }

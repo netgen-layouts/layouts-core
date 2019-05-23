@@ -9,7 +9,6 @@ use Countable;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use IteratorAggregate;
-use Netgen\Layouts\API\Values\Layout\Zone as APIZone;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Exception\API\LayoutException;
@@ -174,7 +173,7 @@ final class Layout implements Value, ArrayAccess, IteratorAggregate, Countable
      *
      * @throws \Netgen\Layouts\Exception\API\LayoutException If the zone does not exist
      */
-    public function getZone(string $zoneIdentifier): APIZone
+    public function getZone(string $zoneIdentifier): Zone
     {
         if ($this->hasZone($zoneIdentifier)) {
             return $this->zones->get($zoneIdentifier);

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\Config;
 
-use Netgen\Layouts\API\Values\Config\Config as APIConfig;
 use Netgen\Layouts\Exception\API\ConfigException;
 
 trait ConfigAwareValueTrait
@@ -27,7 +26,7 @@ trait ConfigAwareValueTrait
      *
      * @throws \Netgen\Layouts\Exception\API\ConfigException If the config does not exist
      */
-    public function getConfig(string $configKey): APIConfig
+    public function getConfig(string $configKey): Config
     {
         if ($this->hasConfig($configKey)) {
             return $this->configs[$configKey];
