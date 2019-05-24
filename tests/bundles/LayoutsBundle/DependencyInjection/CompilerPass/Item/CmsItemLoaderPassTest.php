@@ -7,10 +7,12 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Ite
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\CmsItemLoaderPass;
 use Netgen\Layouts\Exception\RuntimeException;
+use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\DependencyInjection\ServiceLocator;
 
 final class CmsItemLoaderPassTest extends AbstractCompilerPassTestCase
 {
@@ -21,7 +23,7 @@ final class CmsItemLoaderPassTest extends AbstractCompilerPassTestCase
     {
         $this->setDefinition(
             'netgen_layouts.item.item_loader',
-            new Definition(null, [null, null])
+            new Definition(null, [[]])
         );
 
         $valueLoader = new Definition();
@@ -33,9 +35,14 @@ final class CmsItemLoaderPassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_layouts.item.item_loader',
             1,
-            [
-                'test' => new Reference('netgen_layouts.item.value_loader.test'),
-            ]
+            new Definition(
+                ServiceLocator::class,
+                [
+                    [
+                        'test' => new ServiceClosureArgument(new Reference('netgen_layouts.item.value_loader.test')),
+                    ],
+                ]
+            )
         );
     }
 

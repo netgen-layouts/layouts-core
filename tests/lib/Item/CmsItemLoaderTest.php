@@ -11,6 +11,7 @@ use Netgen\Layouts\Item\CmsItemLoader;
 use Netgen\Layouts\Item\NullCmsItem;
 use Netgen\Layouts\Tests\Item\Stubs\Value;
 use Netgen\Layouts\Tests\Item\Stubs\ValueLoader;
+use Netgen\Layouts\Tests\Stubs\Container;
 use PHPUnit\Framework\TestCase;
 
 final class CmsItemLoaderTest extends TestCase
@@ -49,7 +50,7 @@ final class CmsItemLoaderTest extends TestCase
 
         $this->cmsItemLoader = new CmsItemLoader(
             $this->cmsItemBuilderMock,
-            ['value' => new ValueLoader(true)]
+            new Container(['value' => new ValueLoader(true)])
         );
 
         $this->cmsItemBuilderMock
@@ -67,7 +68,7 @@ final class CmsItemLoaderTest extends TestCase
     {
         $this->cmsItemLoader = new CmsItemLoader(
             $this->cmsItemBuilderMock,
-            ['value' => new ValueLoader(false)]
+            new Container(['value' => new ValueLoader(false)])
         );
 
         $loadedValue = $this->cmsItemLoader->load(42, 'value');
@@ -84,7 +85,7 @@ final class CmsItemLoaderTest extends TestCase
         $this->expectException(ItemException::class);
         $this->expectExceptionMessage('Value type "value" does not exist.');
 
-        $this->cmsItemLoader = new CmsItemLoader($this->cmsItemBuilderMock, []);
+        $this->cmsItemLoader = new CmsItemLoader($this->cmsItemBuilderMock, new Container());
 
         $this->cmsItemLoader->load(42, 'value');
     }
@@ -107,7 +108,7 @@ final class CmsItemLoaderTest extends TestCase
 
         $this->cmsItemLoader = new CmsItemLoader(
             $this->cmsItemBuilderMock,
-            ['value' => new ValueLoader(true)]
+            new Container(['value' => new ValueLoader(true)])
         );
 
         $this->cmsItemBuilderMock
@@ -125,7 +126,7 @@ final class CmsItemLoaderTest extends TestCase
     {
         $this->cmsItemLoader = new CmsItemLoader(
             $this->cmsItemBuilderMock,
-            ['value' => new ValueLoader(false)]
+            new Container(['value' => new ValueLoader(false)])
         );
 
         $loadedValue = $this->cmsItemLoader->loadByRemoteId(42, 'value');
@@ -142,7 +143,7 @@ final class CmsItemLoaderTest extends TestCase
         $this->expectException(ItemException::class);
         $this->expectExceptionMessage('Value type "value" does not exist.');
 
-        $this->cmsItemLoader = new CmsItemLoader($this->cmsItemBuilderMock, []);
+        $this->cmsItemLoader = new CmsItemLoader($this->cmsItemBuilderMock, new Container());
 
         $this->cmsItemLoader->loadByRemoteId(42, 'value');
     }

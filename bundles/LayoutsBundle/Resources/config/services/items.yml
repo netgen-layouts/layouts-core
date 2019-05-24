@@ -8,7 +8,6 @@ services:
         class: Netgen\Layouts\Item\CmsItemLoader
         arguments:
             - "@netgen_layouts.item.item_builder"
-            - []
 
     netgen_layouts.item.url_generator:
         class: Netgen\Layouts\Item\UrlGenerator

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Item;
 
 use Netgen\Layouts\Exception\Item\ItemException;
+use Psr\Container\ContainerInterface;
 
 final class CmsItemLoader implements CmsItemLoaderInterface
 {
@@ -14,33 +15,20 @@ final class CmsItemLoader implements CmsItemLoaderInterface
     private $cmsItemBuilder;
 
     /**
-     * @var \Netgen\Layouts\Item\ValueLoaderInterface[]
+     * @var \Psr\Container\ContainerInterface
      */
     private $valueLoaders;
 
-    /**
-     * @param \Netgen\Layouts\Item\CmsItemBuilderInterface $cmsItemBuilder
-     * @param \Netgen\Layouts\Item\ValueLoaderInterface[] $valueLoaders
-     */
-    public function __construct(CmsItemBuilderInterface $cmsItemBuilder, array $valueLoaders)
+    public function __construct(CmsItemBuilderInterface $cmsItemBuilder, ContainerInterface $valueLoaders)
     {
         $this->cmsItemBuilder = $cmsItemBuilder;
-
-        $this->valueLoaders = array_filter(
-            $valueLoaders,
-            static function (ValueLoaderInterface $valueLoader): bool {
-                return true;
-            }
-        );
+        $this->valueLoaders = $valueLoaders;
     }
 
     public function load($id, string $valueType): CmsItemInterface
     {
-        if (!isset($this->valueLoaders[$valueType])) {
-            throw ItemException::noValueType($valueType);
-        }
-
-        $value = $this->valueLoaders[$valueType]->load($id);
+        $valueLoader = $this->getValueLoader($valueType);
+        $value = $valueLoader->load($id);
 
         if ($value === null) {
             return new NullCmsItem($valueType);
@@ -51,16 +39,32 @@ final class CmsItemLoader implements CmsItemLoaderInterface
 
     public function loadByRemoteId($remoteId, string $valueType): CmsItemInterface
     {
-        if (!isset($this->valueLoaders[$valueType])) {
-            throw ItemException::noValueType($valueType);
-        }
-
-        $value = $this->valueLoaders[$valueType]->loadByRemoteId($remoteId);
+        $valueLoader = $this->getValueLoader($valueType);
+        $value = $valueLoader->loadByRemoteId($remoteId);
 
         if ($value === null) {
             return new NullCmsItem($valueType);
         }
 
         return $this->cmsItemBuilder->build($value);
+    }
+
+    /**
+     * Returns the value loader for provided value type from the collection.
+     *
+     * @throws \Netgen\Layouts\Exception\Item\ItemException If the value loader does not exist or is not of correct type
+     */
+    private function getValueLoader(string $valueType): ValueLoaderInterface
+    {
+        if (!$this->valueLoaders->has($valueType)) {
+            throw ItemException::noValueType($valueType);
+        }
+
+        $valueLoader = $this->valueLoaders->get($valueType);
+        if (!$valueLoader instanceof ValueLoaderInterface) {
+            throw ItemException::noValueType($valueType);
+        }
+
+        return $valueLoader;
     }
 }

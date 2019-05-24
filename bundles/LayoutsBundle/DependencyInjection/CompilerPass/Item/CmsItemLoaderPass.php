@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item;
 
 use Netgen\Layouts\Exception\RuntimeException;
+use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\DependencyInjection\ServiceLocator;
 
 final class CmsItemLoaderPass implements CompilerPassInterface
 {
@@ -37,10 +40,10 @@ final class CmsItemLoaderPass implements CompilerPassInterface
                     );
                 }
 
-                $valueLoaders[$tag['value_type']] = new Reference($serviceName);
+                $valueLoaders[$tag['value_type']] = new ServiceClosureArgument(new Reference($serviceName));
             }
         }
 
-        $cmsItemLoader->replaceArgument(1, $valueLoaders);
+        $cmsItemLoader->addArgument(new Definition(ServiceLocator::class, [$valueLoaders]));
     }
 }
