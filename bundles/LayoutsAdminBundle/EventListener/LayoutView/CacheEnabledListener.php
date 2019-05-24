@@ -9,6 +9,7 @@ use Netgen\Layouts\Event\LayoutsEvents;
 use Netgen\Layouts\HttpCache\ClientInterface;
 use Netgen\Layouts\HttpCache\NullClient;
 use Netgen\Layouts\View\View\LayoutViewInterface;
+use Netgen\Layouts\View\View\RuleViewInterface;
 use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -26,7 +27,10 @@ final class CacheEnabledListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents(): array
     {
-        return [sprintf('%s.%s', LayoutsEvents::BUILD_VIEW, 'layout') => 'onBuildView'];
+        return [
+            sprintf('%s.%s', LayoutsEvents::BUILD_VIEW, 'layout') => 'onBuildView',
+            sprintf('%s.%s', LayoutsEvents::BUILD_VIEW, 'rule') => 'onBuildView',
+        ];
     }
 
     /**
@@ -35,7 +39,7 @@ final class CacheEnabledListener implements EventSubscriberInterface
     public function onBuildView(CollectViewParametersEvent $event): void
     {
         $view = $event->getView();
-        if (!$view instanceof LayoutViewInterface) {
+        if (!$view instanceof LayoutViewInterface && !$view instanceof RuleViewInterface) {
             return;
         }
 
