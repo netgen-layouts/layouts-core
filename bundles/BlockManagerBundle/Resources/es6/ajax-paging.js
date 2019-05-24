@@ -23,8 +23,9 @@ const templateEngine = (html, options) => {
 
 class AjaxPaging {
     constructor(el) {
+        if (el.dataset.pagingRendered) return;
         this.el = el;
-        this.container = el.getElementsByClassName('ajax-container')[0];
+        [this.container] = el.getElementsByClassName('ajax-container');
         this.nav = [...el.getElementsByClassName('ajax-navigation')];
         this.loadInitial = this.el.hasAttribute('data-load-initial');
         this.baseUrl = this.el.dataset.baseUrl;
@@ -35,6 +36,7 @@ class AjaxPaging {
     init() {
         this.loadInitial && this.getPage(this.baseUrl);
         this.nav.length && this.initPaging();
+        this.el.dataset.pagingRendered = true;
     }
 
     initPaging() {
@@ -123,9 +125,14 @@ class AjaxPaging {
     }
 }
 
-window.addEventListener('load', function() {
-    const ajaxCollections = document.getElementsByClassName('ajax-collection');
-    [].forEach.call(ajaxCollections, (el) => {
-        const ajaxPaging = new AjaxPaging(el);
-    });
+const initPaging = () => {
+    [...document.getElementsByClassName('ajax-collection')].forEach(el => new AjaxPaging(el));
+};
+
+window.addEventListener('load', () => {
+    initPaging();
+});
+
+window.addEventListener('renderAjaxPaging', () => {
+    initPaging();
 });
