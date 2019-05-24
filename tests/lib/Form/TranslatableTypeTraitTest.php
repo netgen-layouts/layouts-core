@@ -13,6 +13,7 @@ use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandlerWithTranslatableCompo
 use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandlerWithUntranslatableCompoundParameter;
 use Netgen\Layouts\Tests\Form\Stubs\TranslatableTypeStub;
 use Netgen\Layouts\Tests\Parameters\Stubs\FormMapper;
+use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
 
@@ -104,6 +105,6 @@ final class TranslatableTypeTraitTest extends FormTestCase
             'compound_boolean' => new FormMapper(true),
         ];
 
-        return [new ParametersType($formMappers)];
+        return [new ParametersType(new Container($formMappers))];
     }
 }

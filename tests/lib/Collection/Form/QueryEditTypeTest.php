@@ -11,6 +11,7 @@ use Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension;
 use Netgen\Layouts\Parameters\Form\Mapper;
 use Netgen\Layouts\Parameters\Form\Type\ParametersType;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
+use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
@@ -231,6 +232,6 @@ final class QueryEditTypeTest extends FormTestCase
             'integer' => new Mapper\IntegerMapper(),
         ];
 
-        return [new ParametersType($formMappers)];
+        return [new ParametersType(new Container($formMappers))];
     }
 }

@@ -14,6 +14,7 @@ use Netgen\Layouts\Tests\API\Stubs\ConfigAwareStruct;
 use Netgen\Layouts\Tests\API\Stubs\ConfigAwareValue;
 use Netgen\Layouts\Tests\Config\Stubs\ConfigDefinitionHandler;
 use Netgen\Layouts\Tests\Parameters\Stubs\FormMapper;
+use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
@@ -316,6 +317,6 @@ final class EditTypeTest extends FormTestCase
 
     protected function getTypes(): array
     {
-        return [new ParametersType(['text_line' => new FormMapper()])];
+        return [new ParametersType(new Container(['text_line' => new FormMapper()]))];
     }
 }

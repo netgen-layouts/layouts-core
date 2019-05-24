@@ -6,10 +6,12 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Par
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Parameters\ParametersFormPass;
+use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\DependencyInjection\ServiceLocator;
 
 final class ParametersFormPassTest extends AbstractCompilerPassTestCase
 {
@@ -18,7 +20,7 @@ final class ParametersFormPassTest extends AbstractCompilerPassTestCase
      */
     public function testProcess(): void
     {
-        $this->setDefinition('netgen_layouts.parameters.form.parameters', new Definition(null, [[]]));
+        $this->setDefinition('netgen_layouts.parameters.form.parameters', new Definition());
 
         $formMapper = new Definition();
         $formMapper->addTag(
@@ -33,9 +35,14 @@ final class ParametersFormPassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_layouts.parameters.form.parameters',
             0,
-            [
-                'test' => new Reference('netgen_layouts.parameters.form.mapper.test'),
-            ]
+            new Definition(
+                ServiceLocator::class,
+                [
+                    [
+                        'test' => new ServiceClosureArgument(new Reference('netgen_layouts.parameters.form.mapper.test')),
+                    ],
+                ]
+            )
         );
     }
 

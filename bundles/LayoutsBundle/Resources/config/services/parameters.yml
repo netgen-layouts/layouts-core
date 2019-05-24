@@ -190,8 +190,6 @@ services:
 
     netgen_layouts.parameters.form.parameters:
         class: Netgen\Layouts\Parameters\Form\Type\ParametersType
-        arguments:
-            - []
         tags:
             - { name: form.type }
 

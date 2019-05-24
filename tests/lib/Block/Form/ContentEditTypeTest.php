@@ -15,6 +15,7 @@ use Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension;
 use Netgen\Layouts\Parameters\Form\Mapper\TextLineMapper;
 use Netgen\Layouts\Parameters\Form\Type\ParametersType;
 use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandler;
+use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
@@ -288,6 +289,6 @@ final class ContentEditTypeTest extends FormTestCase
 
     protected function getTypes(): array
     {
-        return [new ParametersType(['text_line' => new TextLineMapper()])];
+        return [new ParametersType(new Container(['text_line' => new TextLineMapper()]))];
     }
 }

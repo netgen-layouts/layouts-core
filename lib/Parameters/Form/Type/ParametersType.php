@@ -10,6 +10,7 @@ use Netgen\Layouts\Parameters\CompoundParameterDefinition;
 use Netgen\Layouts\Parameters\Form\MapperInterface;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface;
+use Psr\Container\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,21 +18,13 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 final class ParametersType extends AbstractType
 {
     /**
-     * @var \Netgen\Layouts\Parameters\Form\MapperInterface[]
+     * @var \Psr\Container\ContainerInterface
      */
     private $mappers;
 
-    /**
-     * @param \Netgen\Layouts\Parameters\Form\MapperInterface[] $mappers
-     */
-    public function __construct(array $mappers)
+    public function __construct(ContainerInterface $mappers)
     {
-        $this->mappers = array_filter(
-            $mappers,
-            static function (MapperInterface $mapper): bool {
-                return true;
-            }
-        );
+        $this->mappers = $mappers;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -66,13 +59,8 @@ final class ParametersType extends AbstractType
 
             $parameterName = $parameterDefinition->getName();
             $parameterLabel = $parameterDefinition->getLabel();
-            $parameterType = $parameterDefinition->getType()::getIdentifier();
 
-            if (!isset($this->mappers[$parameterType])) {
-                throw ParameterTypeException::noFormMapper($parameterType);
-            }
-
-            $mapper = $this->mappers[$parameterType];
+            $mapper = $this->getMapper($parameterDefinition->getType()::getIdentifier());
 
             $defaultOptions = [
                 'label' => $parameterLabel ?? $options['label_prefix'] . '.' . $parameterName,
@@ -116,5 +104,24 @@ final class ParametersType extends AbstractType
         }
 
         return count(array_intersect($parameterGroups, $groups)) > 0;
+    }
+
+    /**
+     * Returns the mapper for provided parameter type from the collection.
+     *
+     * @throws \Netgen\Layouts\Exception\Parameters\ParameterTypeException If the mapper does not exist or is not of correct type
+     */
+    private function getMapper(string $parameterType): MapperInterface
+    {
+        if (!$this->mappers->has($parameterType)) {
+            throw ParameterTypeException::noFormMapper($parameterType);
+        }
+
+        $mapper = $this->mappers->get($parameterType);
+        if (!$mapper instanceof MapperInterface) {
+            throw ParameterTypeException::noFormMapper($parameterType);
+        }
+
+        return $mapper;
     }
 }

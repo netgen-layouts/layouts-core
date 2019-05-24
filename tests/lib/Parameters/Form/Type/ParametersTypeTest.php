@@ -15,6 +15,7 @@ use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Tests\API\Stubs\ParameterStruct;
 use Netgen\Layouts\Tests\Parameters\Stubs\ParameterDefinitionCollection;
+use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -334,10 +335,12 @@ final class ParametersTypeTest extends FormTestCase
     protected function getMainType(): FormTypeInterface
     {
         return new ParametersType(
-            [
-                'text_line' => new TextLineMapper(),
-                'compound_boolean' => new BooleanMapper(),
-            ]
+            new Container(
+                [
+                    'text_line' => new TextLineMapper(),
+                    'compound_boolean' => new BooleanMapper(),
+                ]
+            )
         );
     }
 
