@@ -71,6 +71,8 @@ final class Version010000 extends AbstractMigration
         $this->addSql('UPDATE nglayouts_role_policy SET uuid = id');
         $this->addSql('ALTER TABLE nglayouts_role_policy ADD UNIQUE INDEX idx_ngl_role_policy_uuid (uuid, status)');
 
+        $this->addSql('ALTER TABLE nglayouts_collection_item ADD COLUMN view_type varchar(191) DEFAULT NULL AFTER value_type');
+
         $this->addSql(
             <<<'EOT'
 CREATE TABLE `ngbm_collection_slot` (
@@ -96,6 +98,8 @@ EOT
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
 
         $this->addSql('DROP TABLE nglayouts_collection_slot');
+
+        $this->addSql('ALTER TABLE nglayouts_collection_item DROP COLUMN view_type');
 
         $this->addSql('ALTER TABLE nglayouts_role_policy DROP INDEX idx_ngl_role_policy_uuid');
         $this->addSql('ALTER TABLE nglayouts_role_policy DROP COLUMN uuid');

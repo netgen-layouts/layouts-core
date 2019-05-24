@@ -21,6 +21,7 @@ final class ItemTest extends TestCase
                 'position' => 3,
                 'value' => 32,
                 'valueType' => 'my_value_type',
+                'viewType' => 'my_view_type',
                 'config' => ['param' => ['value']],
                 'status' => Value::STATUS_PUBLISHED,
             ]
@@ -33,6 +34,7 @@ final class ItemTest extends TestCase
         self::assertSame(3, $item->position);
         self::assertSame(32, $item->value);
         self::assertSame('my_value_type', $item->valueType);
+        self::assertSame('my_view_type', $item->viewType);
         self::assertSame(['param' => ['value']], $item->config);
         self::assertSame(Value::STATUS_PUBLISHED, $item->status);
     }

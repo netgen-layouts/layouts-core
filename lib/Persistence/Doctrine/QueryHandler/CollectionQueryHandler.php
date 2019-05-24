@@ -453,6 +453,7 @@ final class CollectionQueryHandler extends QueryHandler
                     'position' => ':position',
                     'value' => ':value',
                     'value_type' => ':value_type',
+                    'view_type' => ':view_type',
                     'config' => ':config',
                 ]
             )
@@ -463,6 +464,7 @@ final class CollectionQueryHandler extends QueryHandler
             ->setParameter('position', $item->position, Type::INTEGER)
             ->setParameter('value', $item->value, Type::STRING)
             ->setParameter('value_type', $item->valueType, Type::STRING)
+            ->setParameter('view_type', $item->viewType, Type::STRING)
             ->setParameter('config', $item->config, Type::JSON_ARRAY);
 
         $query->execute();
@@ -541,6 +543,7 @@ final class CollectionQueryHandler extends QueryHandler
             ->set('position', ':position')
             ->set('value', ':value')
             ->set('value_type', ':value_type')
+            ->set('view_type', ':view_type')
             ->set('config', ':config')
             ->where(
                 $query->expr()->eq('id', ':id')
@@ -551,6 +554,7 @@ final class CollectionQueryHandler extends QueryHandler
             ->setParameter('position', $item->position, Type::INTEGER)
             ->setParameter('value', $item->value, Type::STRING)
             ->setParameter('value_type', $item->valueType, Type::STRING)
+            ->setParameter('view_type', $item->viewType, Type::STRING)
             ->setParameter('config', $item->config, Type::JSON_ARRAY);
 
         $this->applyStatusCondition($query, $item->status);

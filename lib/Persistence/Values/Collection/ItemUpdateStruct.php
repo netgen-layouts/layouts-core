@@ -11,6 +11,15 @@ final class ItemUpdateStruct
     use HydratorTrait;
 
     /**
+     * New view type for the item.
+     *
+     * Set to an empty string to remove the stored view type.
+     *
+     * @var string|null
+     */
+    public $viewType;
+
+    /**
      * New item configuration.
      *
      * @var array|null

@@ -250,6 +250,7 @@ final class CollectionMapperTest extends TestCase
                 'position' => '2',
                 'value' => '32',
                 'value_type' => 'my_value_type',
+                'view_type' => 'overlay',
                 'status' => '1',
                 'config' => '{"config_item":{"id":42}}',
             ],
@@ -261,6 +262,7 @@ final class CollectionMapperTest extends TestCase
                 'position' => 5,
                 'value' => '42',
                 'value_type' => 'my_value_type',
+                'view_type' => null,
                 'status' => Value::STATUS_DRAFT,
                 'config' => '',
             ],
@@ -275,6 +277,7 @@ final class CollectionMapperTest extends TestCase
                 'position' => 2,
                 'value' => '32',
                 'valueType' => 'my_value_type',
+                'viewType' => 'overlay',
                 'config' => [
                     'config_item' => [
                         'id' => 42,
@@ -290,6 +293,7 @@ final class CollectionMapperTest extends TestCase
                 'position' => 5,
                 'value' => '42',
                 'valueType' => 'my_value_type',
+                'viewType' => null,
                 'config' => [],
                 'status' => Value::STATUS_DRAFT,
             ],

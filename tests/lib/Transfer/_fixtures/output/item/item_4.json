@@ -3,6 +3,7 @@
     "position": 1,
     "value": "abc",
     "value_type": "my_value_type",
+    "view_type": null,
     "configuration": {
         "key": ["sub_visit_value"]
     }

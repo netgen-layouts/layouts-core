@@ -414,6 +414,8 @@ final class LayoutDataHandler
                 $item->getValue()
             );
 
+            $itemCreateStruct->viewType = $collectionItemData['view_type'];
+
             $this->setConfigStructs(
                 $itemCreateStruct,
                 $itemDefinition,

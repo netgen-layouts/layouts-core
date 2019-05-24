@@ -228,6 +228,7 @@ abstract class CollectionMapperTest extends CoreTestCase
                 'position' => 1,
                 'value' => '12',
                 'valueType' => 'my_value_type',
+                'viewType' => 'overlay',
                 'config' => [
                     'key' => [
                         'param1' => true,
@@ -252,6 +253,7 @@ abstract class CollectionMapperTest extends CoreTestCase
         self::assertSame($this->itemDefinitionRegistry->getItemDefinition('my_value_type'), $item->getDefinition());
         self::assertSame(1, $item->getPosition());
         self::assertSame('12', $item->getValue());
+        self::assertSame('overlay', $item->getViewType());
         self::assertSame($cmsItem, $item->getCmsItem());
         self::assertTrue($item->isPublished());
 
@@ -278,6 +280,7 @@ abstract class CollectionMapperTest extends CoreTestCase
                 'position' => 1,
                 'value' => '12',
                 'valueType' => 'unknown',
+                'viewType' => null,
                 'config' => [
                     'key' => [
                         'param1' => true,
@@ -302,6 +305,7 @@ abstract class CollectionMapperTest extends CoreTestCase
         self::assertInstanceOf(NullItemDefinition::class, $item->getDefinition());
         self::assertSame(1, $item->getPosition());
         self::assertSame('12', $item->getValue());
+        self::assertNull($item->getViewType());
         self::assertSame($cmsItem, $item->getCmsItem());
         self::assertTrue($item->isPublished());
 

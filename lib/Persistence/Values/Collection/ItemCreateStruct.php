@@ -32,6 +32,13 @@ final class ItemCreateStruct
     public $valueType;
 
     /**
+     * View type which will be used to render the new item.
+     *
+     * @var string|null
+     */
+    public $viewType;
+
+    /**
      * The item configuration.
      *
      * @var array

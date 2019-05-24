@@ -54,6 +54,7 @@ final class CollectionItemNormalizerTest extends TestCase
                 'collectionId' => Uuid::uuid4(),
                 'position' => 3,
                 'value' => 12,
+                'viewType' => 'overlay',
                 'definition' => ItemDefinition::fromArray(['valueType' => 'my_value_type']),
                 'cmsItem' => CmsItem::fromArray(
                     [
@@ -92,6 +93,7 @@ final class CollectionItemNormalizerTest extends TestCase
                 'visible' => true,
                 'value' => $item->getValue(),
                 'value_type' => $item->getDefinition()->getValueType(),
+                'item_view_type' => $item->getViewType(),
                 'name' => 'Value name',
                 'cms_visible' => true,
                 'cms_url' => '/some/url',

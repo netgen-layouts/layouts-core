@@ -3,6 +3,7 @@
     "position": 2,
     "value": "abc",
     "value_type": "my_value_type",
+    "view_type": "overlay",
     "configuration": {
         "key": ["sub_visit_value"]
     }

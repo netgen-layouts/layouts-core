@@ -71,11 +71,13 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
     {
         $collectionItem = null;
         $cmsItem = $resultItem;
+        $itemViewType = null;
         $isDynamic = true;
 
         if ($resultItem instanceof ManualItem) {
             $collectionItem = $resultItem->getCollectionItem();
             $cmsItem = $collectionItem->getCmsItem();
+            $itemViewType = $collectionItem->getViewType();
             $isDynamic = false;
         }
 
@@ -95,6 +97,7 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
             'is_dynamic' => $isDynamic,
             'value' => $cmsItem->getValue(),
             'value_type' => $cmsItem->getValueType(),
+            'item_view_type' => $itemViewType,
             'name' => $cmsItem->getName(),
             'cms_visible' => $cmsItem->isVisible(),
             'cms_url' => '',

@@ -10,4 +10,13 @@ use Netgen\Layouts\API\Values\Config\ConfigAwareStructTrait;
 final class ItemUpdateStruct implements ConfigAwareStruct
 {
     use ConfigAwareStructTrait;
+
+    /**
+     * New view type for the item.
+     *
+     * Set to an empty string to remove the stored view type.
+     *
+     * @var string|null
+     */
+    public $viewType;
 }

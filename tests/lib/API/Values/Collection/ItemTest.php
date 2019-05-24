@@ -27,6 +27,7 @@ final class ItemTest extends TestCase
      * @covers \Netgen\Layouts\API\Values\Collection\Item::getId
      * @covers \Netgen\Layouts\API\Values\Collection\Item::getPosition
      * @covers \Netgen\Layouts\API\Values\Collection\Item::getValue
+     * @covers \Netgen\Layouts\API\Values\Collection\Item::getViewType
      */
     public function testSetProperties(): void
     {
@@ -43,6 +44,7 @@ final class ItemTest extends TestCase
                 'definition' => $definition,
                 'position' => 3,
                 'value' => 32,
+                'viewType' => 'overlay',
                 'cmsItem' => static function () use ($cmsItem): CmsItemInterface {
                     return $cmsItem;
                 },
@@ -54,6 +56,7 @@ final class ItemTest extends TestCase
         self::assertSame($definition, $item->getDefinition());
         self::assertSame(3, $item->getPosition());
         self::assertSame(32, $item->getValue());
+        self::assertSame('overlay', $item->getViewType());
         self::assertSame($cmsItem, $item->getCmsItem());
     }
 

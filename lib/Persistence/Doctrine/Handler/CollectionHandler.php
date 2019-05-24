@@ -528,6 +528,7 @@ final class CollectionHandler implements CollectionHandlerInterface
                 'position' => $position,
                 'value' => $itemCreateStruct->value,
                 'valueType' => $itemCreateStruct->valueType,
+                'viewType' => $itemCreateStruct->viewType,
                 'status' => $collection->status,
                 'config' => $itemCreateStruct->config,
             ]
@@ -539,6 +540,10 @@ final class CollectionHandler implements CollectionHandlerInterface
     public function updateItem(Item $item, ItemUpdateStruct $itemUpdateStruct): Item
     {
         $updatedItem = clone $item;
+
+        if (is_string($itemUpdateStruct->viewType)) {
+            $updatedItem->viewType = $itemUpdateStruct->viewType !== '' ? $itemUpdateStruct->viewType : null;
+        }
 
         if (is_array($itemUpdateStruct->config)) {
             $updatedItem->config = $itemUpdateStruct->config;

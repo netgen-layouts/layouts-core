@@ -112,6 +112,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
             [
                 'definition' => $itemDefinition,
                 'value' => '42',
+                'viewType' => null,
                 'configStructs' => [],
             ],
             $this->exportObject($struct)
@@ -127,6 +128,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
 
         self::assertSame(
             [
+                'viewType' => null,
                 'configStructs' => [],
             ],
             $this->exportObject($struct, true)
@@ -145,6 +147,33 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
 
         self::assertSame(
             [
+                'viewType' => 'overlay',
+                'configStructs' => [
+                    'key' => [
+                        'parameterValues' => [
+                            'param1' => null,
+                            'param2' => null,
+                        ],
+                    ],
+                ],
+            ],
+            $this->exportObject($struct, true)
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::newItemUpdateStruct
+     */
+    public function testNewItemUpdateStructFromItemWithNoViewType(): void
+    {
+        $item = $this->collectionService->loadItemDraft(Uuid::fromString('21e5d25d-7f2e-5020-a423-4cca08a5a7c9'));
+        $struct = $this->structBuilder->newItemUpdateStruct($item);
+
+        self::assertArrayHasKey('key', $struct->getConfigStructs());
+
+        self::assertSame(
+            [
+                'viewType' => '',
                 'configStructs' => [
                     'key' => [
                         'parameterValues' => [

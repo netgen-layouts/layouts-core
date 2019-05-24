@@ -61,6 +61,15 @@ final class Item extends Value
     public $valueType;
 
     /**
+     * View type which will be used to render this item.
+     *
+     * If null, the view type needs to be set from outside to render the item.
+     *
+     * @var string|null
+     */
+    public $viewType;
+
+    /**
      * Item configuration.
      *
      * @var array

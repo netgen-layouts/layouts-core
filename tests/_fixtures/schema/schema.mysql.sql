@@ -100,6 +100,7 @@ CREATE TABLE IF NOT EXISTS `nglayouts_collection_item` (
   `position` int(11) NOT NULL,
   `value` varchar(191),
   `value_type` varchar(191) NOT NULL,
+  `view_type` varchar(191),
   `config` text NOT NULL,
   PRIMARY KEY (`id`, `status`),
   UNIQUE KEY (`uuid`, `status`),

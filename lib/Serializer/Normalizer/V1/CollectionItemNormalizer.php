@@ -54,6 +54,7 @@ final class CollectionItemNormalizer implements NormalizerInterface, NormalizerA
             'visible' => $this->visibilityResolver->isVisible($collectionItem),
             'value' => $cmsItem->getValue(),
             'value_type' => $cmsItem->getValueType(),
+            'item_view_type' => $collectionItem->getViewType(),
             'name' => $cmsItem->getName(),
             'cms_visible' => $cmsItem->isVisible(),
             'cms_url' => '',

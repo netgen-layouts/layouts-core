@@ -123,6 +123,7 @@ CREATE TABLE `nglayouts_collection_item` (
   `position` integer NOT NULL,
   `value` text(255),
   `value_type` text(255) NOT NULL,
+  `view_type` text(255),
   `config` text NOT NULL,
   PRIMARY KEY (`id`, `status`),
   UNIQUE (`uuid`, `status`),

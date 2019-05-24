@@ -38,6 +38,7 @@ final class ItemVisitor implements VisitorInterface
             'position' => $value->getPosition(),
             'value' => $value->getCmsItem()->getRemoteId(),
             'value_type' => $value->getDefinition()->getValueType(),
+            'view_type' => $value->getViewType(),
             'configuration' => iterator_to_array($this->visitConfiguration($value, $subVisitor)),
         ];
     }

@@ -227,6 +227,7 @@ final class CollectionHandlerTest extends TestCase
                 'position' => 0,
                 'value' => '72',
                 'valueType' => 'my_value_type',
+                'viewType' => 'overlay',
                 'config' => [],
                 'status' => Value::STATUS_DRAFT,
             ],
@@ -267,6 +268,7 @@ final class CollectionHandlerTest extends TestCase
                 'position' => 0,
                 'value' => '72',
                 'valueType' => 'my_value_type',
+                'viewType' => 'overlay',
                 'config' => [],
                 'status' => Value::STATUS_DRAFT,
             ],
@@ -922,6 +924,7 @@ final class CollectionHandlerTest extends TestCase
                     'position' => 2,
                     'value' => '72',
                     'valueType' => 'my_value_type',
+                    'viewType' => null,
                     'config' => [],
                     'status' => Value::STATUS_PUBLISHED,
                 ],
@@ -933,6 +936,7 @@ final class CollectionHandlerTest extends TestCase
                     'position' => 3,
                     'value' => '73',
                     'valueType' => 'my_value_type',
+                    'viewType' => null,
                     'config' => [],
                     'status' => Value::STATUS_PUBLISHED,
                 ],
@@ -944,6 +948,7 @@ final class CollectionHandlerTest extends TestCase
                     'position' => 5,
                     'value' => '74',
                     'valueType' => 'my_value_type',
+                    'viewType' => null,
                     'config' => [],
                     'status' => Value::STATUS_PUBLISHED,
                 ],
@@ -1068,6 +1073,7 @@ final class CollectionHandlerTest extends TestCase
                     'position' => 0,
                     'value' => '72',
                     'valueType' => 'my_value_type',
+                    'viewType' => 'overlay',
                     'config' => [],
                     'status' => Value::STATUS_DRAFT,
                 ],
@@ -1079,6 +1085,7 @@ final class CollectionHandlerTest extends TestCase
                     'position' => 1,
                     'value' => '73',
                     'valueType' => 'my_value_type',
+                    'viewType' => null,
                     'config' => [],
                     'status' => Value::STATUS_DRAFT,
                 ],
@@ -1090,6 +1097,7 @@ final class CollectionHandlerTest extends TestCase
                     'position' => 2,
                     'value' => '74',
                     'valueType' => 'my_value_type',
+                    'viewType' => 'overlay',
                     'config' => [],
                     'status' => Value::STATUS_DRAFT,
                 ],
@@ -1186,6 +1194,7 @@ final class CollectionHandlerTest extends TestCase
                     'position' => 2,
                     'value' => '72',
                     'valueType' => 'my_value_type',
+                    'viewType' => null,
                     'config' => [],
                     'status' => Value::STATUS_ARCHIVED,
                 ],
@@ -1197,6 +1206,7 @@ final class CollectionHandlerTest extends TestCase
                     'position' => 3,
                     'value' => '73',
                     'valueType' => 'my_value_type',
+                    'viewType' => null,
                     'config' => [],
                     'status' => Value::STATUS_ARCHIVED,
                 ],
@@ -1208,6 +1218,7 @@ final class CollectionHandlerTest extends TestCase
                     'position' => 5,
                     'value' => '74',
                     'valueType' => 'my_value_type',
+                    'viewType' => null,
                     'config' => [],
                     'status' => Value::STATUS_ARCHIVED,
                 ],
@@ -1317,6 +1328,7 @@ final class CollectionHandlerTest extends TestCase
                     'position' => 0,
                     'value' => '72',
                     'valueType' => 'my_value_type',
+                    'viewType' => 'overlay',
                     'config' => [],
                     'status' => Value::STATUS_ARCHIVED,
                 ],
@@ -1328,6 +1340,7 @@ final class CollectionHandlerTest extends TestCase
                     'position' => 1,
                     'value' => '73',
                     'valueType' => 'my_value_type',
+                    'viewType' => null,
                     'config' => [],
                     'status' => Value::STATUS_ARCHIVED,
                 ],
@@ -1339,6 +1352,7 @@ final class CollectionHandlerTest extends TestCase
                     'position' => 2,
                     'value' => '74',
                     'valueType' => 'my_value_type',
+                    'viewType' => 'overlay',
                     'config' => [],
                     'status' => Value::STATUS_ARCHIVED,
                 ],
@@ -1562,6 +1576,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->position = 1;
         $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'my_value_type';
+        $itemCreateStruct->viewType = 'my_view_type';
         $itemCreateStruct->config = ['config' => ['value' => 42]];
 
         $item = $this->withUuids(
@@ -1583,6 +1598,7 @@ final class CollectionHandlerTest extends TestCase
                 'position' => 1,
                 'value' => '42',
                 'valueType' => 'my_value_type',
+                'viewType' => 'my_view_type',
                 'config' => ['config' => ['value' => 42]],
                 'status' => Value::STATUS_DRAFT,
             ],
@@ -1606,6 +1622,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->position = 2;
         $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'my_value_type';
+        $itemCreateStruct->viewType = 'my_view_type';
         $itemCreateStruct->config = ['config' => ['value' => 42]];
 
         $item = $this->withUuids(
@@ -1627,6 +1644,7 @@ final class CollectionHandlerTest extends TestCase
                 'position' => 2,
                 'value' => '42',
                 'valueType' => 'my_value_type',
+                'viewType' => 'my_view_type',
                 'config' => ['config' => ['value' => 42]],
                 'status' => Value::STATUS_DRAFT,
             ],
@@ -1656,6 +1674,7 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->position = 4;
         $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'my_value_type';
+        $itemCreateStruct->viewType = 'my_view_type';
         $itemCreateStruct->config = ['config' => ['value' => 42]];
 
         $item = $this->withUuids(
@@ -1677,6 +1696,7 @@ final class CollectionHandlerTest extends TestCase
                 'position' => 4,
                 'value' => '42',
                 'valueType' => 'my_value_type',
+                'viewType' => 'my_view_type',
                 'config' => ['config' => ['value' => 42]],
                 'status' => Value::STATUS_DRAFT,
             ],
@@ -1720,6 +1740,7 @@ final class CollectionHandlerTest extends TestCase
                 'position' => 3,
                 'value' => '42',
                 'valueType' => 'my_value_type',
+                'viewType' => null,
                 'config' => ['config' => ['value' => 42]],
                 'status' => Value::STATUS_DRAFT,
             ],
@@ -1803,6 +1824,7 @@ final class CollectionHandlerTest extends TestCase
     public function testUpdateItem(): void
     {
         $itemUpdateStruct = new ItemUpdateStruct();
+        $itemUpdateStruct->viewType = 'new_view_type';
         $itemUpdateStruct->config = [
             'new_config' => [
                 'val' => 24,
@@ -1823,7 +1845,39 @@ final class CollectionHandlerTest extends TestCase
                 'position' => 0,
                 'value' => '72',
                 'valueType' => 'my_value_type',
+                'viewType' => 'new_view_type',
                 'config' => ['new_config' => ['val' => 24]],
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObject($item)
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::updateItem
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateItem
+     */
+    public function testUpdateItemWithResettingViewType(): void
+    {
+        $itemUpdateStruct = new ItemUpdateStruct();
+        $itemUpdateStruct->viewType = '';
+
+        $item = $this->collectionHandler->updateItem(
+            $this->collectionHandler->loadItem(1, Value::STATUS_DRAFT),
+            $itemUpdateStruct
+        );
+
+        self::assertSame(
+            [
+                'id' => 1,
+                'uuid' => '8ae55a69-8633-51dd-9ff5-d820d040c1c1',
+                'collectionId' => 1,
+                'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'position' => 0,
+                'value' => '72',
+                'valueType' => 'my_value_type',
+                'viewType' => null,
+                'config' => [],
                 'status' => Value::STATUS_DRAFT,
             ],
             $this->exportObject($item)
@@ -1854,6 +1908,7 @@ final class CollectionHandlerTest extends TestCase
                 'position' => 2,
                 'value' => '74',
                 'valueType' => 'my_value_type',
+                'viewType' => null,
                 'config' => [],
                 'status' => Value::STATUS_DRAFT,
             ],
@@ -1891,6 +1946,7 @@ final class CollectionHandlerTest extends TestCase
                 'position' => 1,
                 'value' => '72',
                 'valueType' => 'my_value_type',
+                'viewType' => 'overlay',
                 'config' => [],
                 'status' => Value::STATUS_DRAFT,
             ],
@@ -1928,6 +1984,7 @@ final class CollectionHandlerTest extends TestCase
                 'position' => 0,
                 'value' => '72',
                 'valueType' => 'my_value_type',
+                'viewType' => 'overlay',
                 'config' => [],
                 'status' => Value::STATUS_DRAFT,
             ],
@@ -1965,6 +2022,7 @@ final class CollectionHandlerTest extends TestCase
                 'position' => 0,
                 'value' => '73',
                 'valueType' => 'my_value_type',
+                'viewType' => null,
                 'config' => [],
                 'status' => Value::STATUS_DRAFT,
             ],
@@ -1999,6 +2057,7 @@ final class CollectionHandlerTest extends TestCase
                 'position' => 1,
                 'value' => '74',
                 'valueType' => 'my_value_type',
+                'viewType' => 'overlay',
                 'config' => [],
                 'status' => Value::STATUS_DRAFT,
             ],
@@ -2036,6 +2095,7 @@ final class CollectionHandlerTest extends TestCase
                 'position' => 4,
                 'value' => '72',
                 'valueType' => 'my_value_type',
+                'viewType' => null,
                 'config' => [],
                 'status' => Value::STATUS_DRAFT,
             ],
@@ -2073,6 +2133,7 @@ final class CollectionHandlerTest extends TestCase
                 'position' => 2,
                 'value' => '73',
                 'valueType' => 'my_value_type',
+                'viewType' => null,
                 'config' => [],
                 'status' => Value::STATUS_DRAFT,
             ],

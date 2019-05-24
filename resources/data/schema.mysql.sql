@@ -126,6 +126,7 @@ CREATE TABLE `nglayouts_collection_item` (
   `position` int(11) NOT NULL,
   `value` varchar(191) DEFAULT NULL,
   `value_type` varchar(191) NOT NULL,
+  `view_type` varchar(191) DEFAULT NULL,
   `config` text NOT NULL,
   PRIMARY KEY (`id`,`status`),
   UNIQUE KEY `idx_ngl_collection_item_uuid` (`uuid`, `status`),

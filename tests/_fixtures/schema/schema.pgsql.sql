@@ -91,6 +91,7 @@ CREATE TABLE IF NOT EXISTS "nglayouts_collection_item" (
   "position" integer NOT NULL,
   "value" character varying(255),
   "value_type" character varying(255) NOT NULL,
+  "view_type" character varying(255),
   "config" text NOT NULL,
   PRIMARY KEY ("id", "status"),
   FOREIGN KEY ("collection_id", "status") REFERENCES nglayouts_collection ("id", "status")

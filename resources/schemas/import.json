@@ -351,7 +351,7 @@
             "item": {
                 "type": "object",
                 "description": "A collection item",
-                "required": ["position", "value", "value_type", "configuration"],
+                "required": ["position", "value", "value_type", "view_type", "configuration"],
                 "additionalProperties": false,
                 "properties": {
                     "id": {
@@ -378,6 +378,13 @@
                         "type": "string",
                         "description": "The value type of the collection item",
                         "pattern": "^[A-Za-z]([A-Za-z0-9_])*$"
+                    },
+                    "view_type": {
+                        "oneOf": [
+                            { "$ref": "#/definitions/simple/identifier" },
+                            { "type": "null" }
+                        ],
+                        "description": "The view type of the item"
                     },
                     "configuration": {
                         "oneOf": [

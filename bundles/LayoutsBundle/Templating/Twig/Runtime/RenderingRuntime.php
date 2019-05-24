@@ -10,6 +10,7 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Collection\Slot;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\Collection\Result\ManualItem;
 use Netgen\Layouts\Collection\Result\Result;
 use Netgen\Layouts\Error\ErrorHandlerInterface;
 use Netgen\Layouts\Exception\InvalidArgumentException;
@@ -104,6 +105,8 @@ final class RenderingRuntime
 
             if ($overrideViewType !== null) {
                 $viewType = $overrideViewType;
+            } elseif ($item instanceof ManualItem && $item->getCollectionItem()->getViewType() !== null) {
+                $viewType = $item->getCollectionItem()->getViewType();
             } elseif ($result->getSlot() instanceof Slot) {
                 $viewType = $result->getSlot()->getViewType();
             }

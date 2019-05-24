@@ -48,6 +48,11 @@ final class Item implements Value, ConfigAwareValue
     private $value;
 
     /**
+     * @var string|null
+     */
+    private $viewType;
+
+    /**
      * @var \Netgen\Layouts\Item\CmsItemInterface
      */
     private $cmsItem;
@@ -92,6 +97,16 @@ final class Item implements Value, ConfigAwareValue
     public function getValue()
     {
         return $this->value;
+    }
+
+    /**
+     * View type which will be used to render this item.
+     *
+     * If null, the view type needs to be set from outside to render the item.
+     */
+    public function getViewType(): ?string
+    {
+        return $this->viewType;
     }
 
     /**

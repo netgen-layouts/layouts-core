@@ -159,6 +159,7 @@ final class CollectionMapper
             'collectionId' => Uuid::fromString($item->collectionUuid),
             'position' => $item->position,
             'value' => $item->value,
+            'viewType' => $item->viewType,
             'configs' => iterator_to_array(
                 $this->configMapper->mapConfig(
                     $item->config,

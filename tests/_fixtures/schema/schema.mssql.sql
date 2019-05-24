@@ -119,6 +119,7 @@ CREATE TABLE nglayouts_collection_item (
   position int NOT NULL,
   value nvarchar(255),
   value_type nvarchar(255) NOT NULL,
+  view_type nvarchar(255),
   config nvarchar(max) NOT NULL,
   PRIMARY KEY (id, status),
   UNIQUE (uuid, status),

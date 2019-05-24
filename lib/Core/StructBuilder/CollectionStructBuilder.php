@@ -89,6 +89,8 @@ final class CollectionStructBuilder
             return $itemUpdateStruct;
         }
 
+        $itemUpdateStruct->viewType = $item->getViewType() ?? '';
+
         $this->configStructBuilder->buildConfigUpdateStructs($item, $itemUpdateStruct);
 
         return $itemUpdateStruct;

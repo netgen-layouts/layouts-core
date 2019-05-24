@@ -132,6 +132,16 @@ final class CollectionValidator extends Validator
             );
         }
 
+        if ($itemCreateStruct->viewType !== null) {
+            $this->validate(
+                $itemCreateStruct->viewType,
+                [
+                    new Constraints\Type(['type' => 'string']),
+                ],
+                'viewType'
+            );
+        }
+
         $this->validate(
             $itemCreateStruct,
             new ConfigAwareStructConstraint(
@@ -149,6 +159,16 @@ final class CollectionValidator extends Validator
      */
     public function validateItemUpdateStruct(Item $item, ItemUpdateStruct $itemUpdateStruct): void
     {
+        if ($itemUpdateStruct->viewType !== null) {
+            $this->validate(
+                $itemUpdateStruct->viewType,
+                [
+                    new Constraints\Type(['type' => 'string']),
+                ],
+                'viewType'
+            );
+        }
+
         $this->validate(
             $itemUpdateStruct,
             new ConfigAwareStructConstraint(

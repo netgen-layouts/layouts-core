@@ -55,6 +55,7 @@ final class CollectionResultNormalizerTest extends TestCase
             [
                 'id' => Uuid::uuid4(),
                 'collectionId' => Uuid::uuid4(),
+                'viewType' => 'overlay',
                 'cmsItem' => CmsItem::fromArray(
                     [
                         'name' => 'Value name',
@@ -92,6 +93,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'is_dynamic' => false,
                 'value' => $collectionItem->getCmsItem()->getValue(),
                 'value_type' => $collectionItem->getCmsItem()->getValueType(),
+                'item_view_type' => $collectionItem->getViewType(),
                 'name' => $collectionItem->getCmsItem()->getName(),
                 'cms_visible' => $collectionItem->getCmsItem()->isVisible(),
                 'cms_url' => '/some/url',
@@ -137,6 +139,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'is_dynamic' => true,
                 'value' => $item->getValue(),
                 'value_type' => $item->getValueType(),
+                'item_view_type' => null,
                 'name' => $item->getName(),
                 'cms_visible' => $item->isVisible(),
                 'cms_url' => '/some/url',
@@ -165,6 +168,7 @@ final class CollectionResultNormalizerTest extends TestCase
             [
                 'id' => Uuid::uuid4(),
                 'collectionId' => Uuid::uuid4(),
+                'viewType' => 'overlay',
                 'cmsItem' => $item,
             ]
         );
@@ -201,6 +205,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'is_dynamic' => true,
                 'value' => $item->getValue(),
                 'value_type' => $item->getValueType(),
+                'item_view_type' => null,
                 'name' => $item->getName(),
                 'cms_visible' => $item->isVisible(),
                 'cms_url' => '/some/url',
@@ -213,6 +218,7 @@ final class CollectionResultNormalizerTest extends TestCase
                     'is_dynamic' => false,
                     'value' => $collectionItem->getCmsItem()->getValue(),
                     'value_type' => $collectionItem->getCmsItem()->getValueType(),
+                    'item_view_type' => 'overlay',
                     'name' => $collectionItem->getCmsItem()->getName(),
                     'cms_visible' => $collectionItem->getCmsItem()->isVisible(),
                     'cms_url' => '/some/url',

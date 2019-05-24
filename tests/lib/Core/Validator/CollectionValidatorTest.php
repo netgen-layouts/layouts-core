@@ -148,6 +148,30 @@ final class CollectionValidatorTest extends TestCase
             ],
             [
                 [
+                    'viewType' => 'overlay',
+                ],
+                true,
+            ],
+            [
+                [
+                    'viewType' => '',
+                ],
+                true,
+            ],
+            [
+                [
+                    'viewType' => null,
+                ],
+                true,
+            ],
+            [
+                [
+                    'viewType' => 42,
+                ],
+                false,
+            ],
+            [
+                [
                     'configStructs' => [],
                 ],
                 true,
@@ -462,23 +486,41 @@ final class CollectionValidatorTest extends TestCase
     {
         return [
             [
-                ['definition' => new ItemDefinition(), 'value' => 42],
+                ['definition' => new ItemDefinition(), 'value' => 42, 'viewType' => 'overlay'],
                 true,
             ],
             [
-                ['definition' => new ItemDefinition(), 'value' => '42'],
+                ['definition' => new ItemDefinition(), 'value' => 42, 'viewType' => ''],
                 true,
             ],
             [
-                ['definition' => new ItemDefinition(), 'value' => null],
+                ['definition' => new ItemDefinition(), 'value' => 42, 'viewType' => null],
                 true,
             ],
             [
-                ['definition' => new ItemDefinition(), 'value' => ''],
+                ['definition' => new ItemDefinition(), 'value' => 42, 'viewType' => 42],
+                false,
+            ],
+            [
+                ['definition' => new ItemDefinition(), 'value' => '42', 'viewType' => 'overlay'],
                 true,
             ],
-            [['definition' => 42, 'value' => 42], false],
-            [['definition' => null, 'value' => 42], false],
+            [
+                ['definition' => new ItemDefinition(), 'value' => null, 'viewType' => 'overlay'],
+                true,
+            ],
+            [
+                ['definition' => new ItemDefinition(), 'value' => '', 'viewType' => 'overlay'],
+                true,
+            ],
+            [
+                ['definition' => 42, 'value' => 42, 'viewType' => 'overlay'],
+                false,
+            ],
+            [
+                ['definition' => null, 'value' => 42, 'viewType' => 'overlay'],
+                false,
+            ],
         ];
     }
 

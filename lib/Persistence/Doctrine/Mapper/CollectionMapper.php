@@ -100,6 +100,7 @@ final class CollectionMapper
                     'position' => (int) $dataItem['position'],
                     'value' => $dataItem['value'],
                     'valueType' => $dataItem['value_type'],
+                    'viewType' => $dataItem['view_type'],
                     'status' => (int) $dataItem['status'],
                     'config' => $this->buildParameters((string) $dataItem['config']),
                 ]

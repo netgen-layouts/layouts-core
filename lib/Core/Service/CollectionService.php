@@ -305,6 +305,7 @@ final class CollectionService extends Service implements APICollectionService
                             'position' => $position,
                             'value' => $itemCreateStruct->value,
                             'valueType' => $itemCreateStruct->definition->getValueType(),
+                            'viewType' => $itemCreateStruct->viewType,
                             'config' => iterator_to_array(
                                 $this->configMapper->serializeValues(
                                     $itemCreateStruct->getConfigStructs(),
@@ -338,6 +339,7 @@ final class CollectionService extends Service implements APICollectionService
                     $persistenceItem,
                     ItemUpdateStruct::fromArray(
                         [
+                            'viewType' => $itemUpdateStruct->viewType,
                             'config' => iterator_to_array(
                                 $this->configMapper->serializeValues(
                                     $itemUpdateStruct->getConfigStructs(),
