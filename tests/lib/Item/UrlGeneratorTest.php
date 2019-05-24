@@ -9,6 +9,7 @@ use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Item\NullCmsItem;
 use Netgen\Layouts\Item\UrlGenerator;
 use Netgen\Layouts\Tests\Item\Stubs\ValueUrlGenerator;
+use Netgen\Layouts\Tests\Stubs\Container;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -22,7 +23,7 @@ final class UrlGeneratorTest extends TestCase
     protected function setUp(): void
     {
         $this->urlGenerator = new UrlGenerator(
-            ['value' => new ValueUrlGenerator()]
+            new Container(['value' => new ValueUrlGenerator()])
         );
     }
 

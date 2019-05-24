@@ -5,25 +5,18 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Item;
 
 use Netgen\Layouts\Exception\Item\ItemException;
+use Psr\Container\ContainerInterface;
 
 final class UrlGenerator implements UrlGeneratorInterface
 {
     /**
-     * @var \Netgen\Layouts\Item\ValueUrlGeneratorInterface[]
+     * @var \Psr\Container\ContainerInterface
      */
     private $valueUrlGenerators;
 
-    /**
-     * @param \Netgen\Layouts\Item\ValueUrlGeneratorInterface[] $valueUrlGenerators
-     */
-    public function __construct(array $valueUrlGenerators)
+    public function __construct(ContainerInterface $valueUrlGenerators)
     {
-        $this->valueUrlGenerators = array_filter(
-            $valueUrlGenerators,
-            static function (ValueUrlGeneratorInterface $valueUrlGenerator): bool {
-                return true;
-            }
-        );
+        $this->valueUrlGenerators = $valueUrlGenerators;
     }
 
     public function generate(CmsItemInterface $item): string
@@ -33,12 +26,27 @@ final class UrlGenerator implements UrlGeneratorInterface
             return '';
         }
 
-        $valueType = $item->getValueType();
+        $valueUrlGenerator = $this->getValueUrlGenerator($item->getValueType());
 
-        if (!isset($this->valueUrlGenerators[$valueType])) {
+        return $valueUrlGenerator->generate($object) ?? '';
+    }
+
+    /**
+     * Returns the value URL generator for provided value type from the collection.
+     *
+     * @throws \Netgen\Layouts\Exception\Item\ItemException If the value URL generator does not exist or is not of correct type
+     */
+    private function getValueUrlGenerator(string $valueType): ValueUrlGeneratorInterface
+    {
+        if (!$this->valueUrlGenerators->has($valueType)) {
             throw ItemException::noValueType($valueType);
         }
 
-        return $this->valueUrlGenerators[$valueType]->generate($object) ?? '';
+        $valueUrlGenerator = $this->valueUrlGenerators->get($valueType);
+        if (!$valueUrlGenerator instanceof ValueUrlGeneratorInterface) {
+            throw ItemException::noValueType($valueType);
+        }
+
+        return $valueUrlGenerator;
     }
 }

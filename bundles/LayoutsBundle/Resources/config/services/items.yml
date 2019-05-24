@@ -11,8 +11,6 @@ services:
 
     netgen_layouts.item.url_generator:
         class: Netgen\Layouts\Item\UrlGenerator
-        arguments:
-            - []
 
     netgen_layouts.item.registry.value_type:
         class: Netgen\Layouts\Item\Registry\ValueTypeRegistry

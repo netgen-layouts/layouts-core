@@ -7,10 +7,12 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Ite
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\UrlGeneratorPass;
 use Netgen\Layouts\Exception\RuntimeException;
+use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\DependencyInjection\ServiceLocator;
 
 final class UrlGeneratorPassTest extends AbstractCompilerPassTestCase
 {
@@ -20,7 +22,6 @@ final class UrlGeneratorPassTest extends AbstractCompilerPassTestCase
     public function testProcess(): void
     {
         $urlGenerator = new Definition();
-        $urlGenerator->addArgument(null);
 
         $this->setDefinition('netgen_layouts.item.url_generator', $urlGenerator);
 
@@ -33,9 +34,14 @@ final class UrlGeneratorPassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_layouts.item.url_generator',
             0,
-            [
-                'test' => new Reference('netgen_layouts.item.value_url_generator.test'),
-            ]
+            new Definition(
+                ServiceLocator::class,
+                [
+                    [
+                        'test' => new ServiceClosureArgument(new Reference('netgen_layouts.item.value_url_generator.test')),
+                    ],
+                ]
+            )
         );
     }
 

@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item;
 
 use Netgen\Layouts\Exception\RuntimeException;
+use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\DependencyInjection\ServiceLocator;
 
 final class UrlGeneratorPass implements CompilerPassInterface
 {
@@ -37,10 +40,10 @@ final class UrlGeneratorPass implements CompilerPassInterface
                     );
                 }
 
-                $valueUrlGenerators[$tag['value_type']] = new Reference($valueUrlGenerator);
+                $valueUrlGenerators[$tag['value_type']] = new ServiceClosureArgument(new Reference($valueUrlGenerator));
             }
         }
 
-        $urlGenerator->replaceArgument(0, $valueUrlGenerators);
+        $urlGenerator->addArgument(new Definition(ServiceLocator::class, [$valueUrlGenerators]));
     }
 }
