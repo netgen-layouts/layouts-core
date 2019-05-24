@@ -25,6 +25,7 @@ use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface;
 use Netgen\Layouts\Persistence\Handler\LayoutResolverHandlerInterface;
 use Netgen\Layouts\Persistence\TransactionHandlerInterface;
+use Netgen\Layouts\Tests\Stubs\Container;
 
 trait TestCaseTrait
 {
@@ -98,14 +99,16 @@ trait TestCaseTrait
             new LayoutResolverQueryHandler(
                 $this->databaseConnection,
                 new ConnectionHelper($this->databaseConnection),
-                [
-                    'route' => new TargetHandler\Doctrine\Route(),
-                    'route_prefix' => new TargetHandler\Doctrine\RoutePrefix(),
-                    'path_info' => new TargetHandler\Doctrine\Route(),
-                    'path_info_prefix' => new TargetHandler\Doctrine\RoutePrefix(),
-                    'request_uri' => new TargetHandler\Doctrine\Route(),
-                    'request_uri_prefix' => new TargetHandler\Doctrine\RoutePrefix(),
-                ]
+                new Container(
+                    [
+                        'route' => new TargetHandler\Doctrine\Route(),
+                        'route_prefix' => new TargetHandler\Doctrine\RoutePrefix(),
+                        'path_info' => new TargetHandler\Doctrine\Route(),
+                        'path_info_prefix' => new TargetHandler\Doctrine\RoutePrefix(),
+                        'request_uri' => new TargetHandler\Doctrine\Route(),
+                        'request_uri_prefix' => new TargetHandler\Doctrine\RoutePrefix(),
+                    ]
+                )
             ),
             new LayoutResolverMapper()
         );

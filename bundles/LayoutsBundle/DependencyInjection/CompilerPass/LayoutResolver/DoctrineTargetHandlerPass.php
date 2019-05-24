@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\LayoutResolver;
 
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\DefinitionClassTrait;
+use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\DependencyInjection\ServiceLocator;
 
 final class DoctrineTargetHandlerPass implements CompilerPassInterface
 {
@@ -28,7 +31,7 @@ final class DoctrineTargetHandlerPass implements CompilerPassInterface
         foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $targetHandler => $tags) {
             foreach ($tags as $tag) {
                 if (isset($tag['target_type'])) {
-                    $targetHandlers[$tag['target_type']] = new Reference($targetHandler);
+                    $targetHandlers[$tag['target_type']] = new ServiceClosureArgument(new Reference($targetHandler));
 
                     continue 2;
                 }
@@ -36,12 +39,12 @@ final class DoctrineTargetHandlerPass implements CompilerPassInterface
 
             $handlerClass = $this->getDefinitionClass($container, $targetHandler);
             if (isset($handlerClass::$defaultTargetType)) {
-                $targetHandlers[$handlerClass::$defaultTargetType] = new Reference($targetHandler);
+                $targetHandlers[$handlerClass::$defaultTargetType] = new ServiceClosureArgument(new Reference($targetHandler));
 
                 continue;
             }
         }
 
-        $layoutResolverQueryHandler->replaceArgument(2, $targetHandlers);
+        $layoutResolverQueryHandler->addArgument(new Definition(ServiceLocator::class, [$targetHandlers]));
     }
 }

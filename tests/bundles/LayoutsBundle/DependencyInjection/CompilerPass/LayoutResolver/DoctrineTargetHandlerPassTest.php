@@ -6,10 +6,12 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Lay
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\LayoutResolver\DoctrineTargetHandlerPass;
+use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\DependencyInjection\ServiceLocator;
 
 final class DoctrineTargetHandlerPassTest extends AbstractCompilerPassTestCase
 {
@@ -19,7 +21,6 @@ final class DoctrineTargetHandlerPassTest extends AbstractCompilerPassTestCase
     public function testProcess(): void
     {
         $layoutResolverHandler = new Definition();
-        $layoutResolverHandler->addArgument([]);
         $layoutResolverHandler->addArgument([]);
         $layoutResolverHandler->addArgument([]);
 
@@ -39,9 +40,14 @@ final class DoctrineTargetHandlerPassTest extends AbstractCompilerPassTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_layouts.persistence.doctrine.layout_resolver.query_handler',
             2,
-            [
-                'test' => new Reference('netgen_layouts.layout.resolver.target_handler.doctrine.test'),
-            ]
+            new Definition(
+                ServiceLocator::class,
+                [
+                    [
+                        'test' => new ServiceClosureArgument(new Reference('netgen_layouts.layout.resolver.target_handler.doctrine.test')),
+                    ],
+                ]
+            )
         );
     }
 

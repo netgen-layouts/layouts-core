@@ -15,27 +15,18 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
 use Netgen\Layouts\Persistence\Values\Value;
 use PDO;
+use Psr\Container\ContainerInterface;
 
 final class LayoutResolverQueryHandler extends QueryHandler
 {
     /**
-     * @var \Netgen\Layouts\Persistence\Doctrine\QueryHandler\TargetHandlerInterface[]
+     * @var \Psr\Container\ContainerInterface
      */
     private $targetHandlers;
 
-    /**
-     * @param \Doctrine\DBAL\Connection $connection
-     * @param \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper $connectionHelper
-     * @param \Netgen\Layouts\Persistence\Doctrine\QueryHandler\TargetHandlerInterface[] $targetHandlers
-     */
-    public function __construct(Connection $connection, ConnectionHelper $connectionHelper, array $targetHandlers)
+    public function __construct(Connection $connection, ConnectionHelper $connectionHelper, ContainerInterface $targetHandlers)
     {
-        $this->targetHandlers = array_filter(
-            $targetHandlers,
-            static function (TargetHandlerInterface $targetHandler): bool {
-                return true;
-            }
-        );
+        $this->targetHandlers = $targetHandlers;
 
         parent::__construct($connection, $connectionHelper);
     }
@@ -132,11 +123,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $this->applyStatusCondition($query, Value::STATUS_PUBLISHED, 'r.status');
         $this->applyStatusCondition($query, Value::STATUS_PUBLISHED, 'rt.status');
 
-        if (!isset($this->targetHandlers[$targetType])) {
-            throw TargetHandlerException::noTargetHandler('Doctrine', $targetType);
-        }
-
-        $this->targetHandlers[$targetType]->handleQuery($query, $targetValue);
+        $targetHandler = $this->getTargetHandler($targetType);
+        $targetHandler->handleQuery($query, $targetValue);
 
         return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -649,5 +637,24 @@ final class LayoutResolverQueryHandler extends QueryHandler
             );
 
         return $query;
+    }
+
+    /**
+     * Returns the target handler for provided target type from the collection.
+     *
+     * @throws \Netgen\Layouts\Exception\Persistence\TargetHandlerException If the target handler does not exist or is not of correct type
+     */
+    private function getTargetHandler(string $targetType): TargetHandlerInterface
+    {
+        if (!$this->targetHandlers->has($targetType)) {
+            throw TargetHandlerException::noTargetHandler('Doctrine', $targetType);
+        }
+
+        $targetHandler = $this->targetHandlers->get($targetType);
+        if (!$targetHandler instanceof TargetHandlerInterface) {
+            throw TargetHandlerException::noTargetHandler('Doctrine', $targetType);
+        }
+
+        return $targetHandler;
     }
 }

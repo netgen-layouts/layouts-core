@@ -78,7 +78,6 @@ services:
         arguments:
             - "@database_connection"
             - "@netgen_layouts.persistence.doctrine.helper.connection"
-            - []
 
     netgen_layouts.persistence.doctrine.layout_resolver.mapper:
         class: Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutResolverMapper

@@ -11,6 +11,7 @@ use Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler;
 use Netgen\Layouts\Persistence\Doctrine\QueryHandler\TargetHandlerInterface;
 use Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface;
 use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
+use Netgen\Layouts\Tests\Stubs\Container;
 use PHPUnit\Framework\TestCase;
 
 abstract class AbstractTargetHandlerTest extends TestCase
@@ -31,7 +32,11 @@ abstract class AbstractTargetHandlerTest extends TestCase
             new LayoutResolverQueryHandler(
                 $this->databaseConnection,
                 new ConnectionHelper($this->databaseConnection),
-                [$this->getTargetIdentifier() => $this->getTargetHandler()]
+                new Container(
+                    [
+                        $this->getTargetIdentifier() => $this->getTargetHandler(),
+                    ]
+                )
             ),
             new LayoutResolverMapper()
         );
