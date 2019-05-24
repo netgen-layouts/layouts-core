@@ -7,6 +7,7 @@ namespace Netgen\Layouts\View;
 use Generator;
 use Netgen\Layouts\Exception\View\TemplateResolverException;
 use Netgen\Layouts\View\Matcher\MatcherInterface;
+use Psr\Container\ContainerInterface;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
 /**
@@ -15,29 +16,19 @@ use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 class TemplateResolver implements TemplateResolverInterface
 {
     /**
-     * @var \Netgen\Layouts\View\Matcher\MatcherInterface[]
-     */
-    private $matchers;
-
-    /**
      * @var array
      */
     private $viewConfig;
 
     /**
-     * @param \Netgen\Layouts\View\Matcher\MatcherInterface[] $matchers
-     * @param array<string, array<string, mixed>> $viewConfig
+     * @var \Psr\Container\ContainerInterface
      */
-    public function __construct(array $matchers, array $viewConfig)
-    {
-        $this->matchers = array_filter(
-            $matchers,
-            static function (MatcherInterface $matcher): bool {
-                return true;
-            }
-        );
+    private $matchers;
 
+    public function __construct(array $viewConfig, ContainerInterface $matchers)
+    {
         $this->viewConfig = $viewConfig;
+        $this->matchers = $matchers;
     }
 
     public function resolveTemplate(ViewInterface $view): void
@@ -80,13 +71,11 @@ class TemplateResolver implements TemplateResolverInterface
      */
     private function matches(ViewInterface $view, array $matchConfig): bool
     {
-        foreach ($matchConfig as $matcher => $matcherConfig) {
-            if (!isset($this->matchers[$matcher])) {
-                throw TemplateResolverException::noTemplateMatcher($matcher);
-            }
-
+        foreach ($matchConfig as $identifier => $matcherConfig) {
+            $matcher = $this->getMatcher($identifier);
             $matcherConfig = !is_array($matcherConfig) ? [$matcherConfig] : $matcherConfig;
-            if (!$this->matchers[$matcher]->match($view, $matcherConfig)) {
+
+            if (!$matcher->match($view, $matcherConfig)) {
                 return false;
             }
         }
@@ -113,5 +102,24 @@ class TemplateResolver implements TemplateResolverInterface
 
             yield $key => $value;
         }
+    }
+
+    /**
+     * Returns the matcher for provided identifier from the collection.
+     *
+     * @throws \Netgen\Layouts\Exception\View\TemplateResolverException If the matcher does not exist or is not of correct type
+     */
+    private function getMatcher(string $identifier): MatcherInterface
+    {
+        if (!$this->matchers->has($identifier)) {
+            throw TemplateResolverException::noTemplateMatcher($identifier);
+        }
+
+        $matcher = $this->matchers->get($identifier);
+        if (!$matcher instanceof MatcherInterface) {
+            throw TemplateResolverException::noTemplateMatcher($identifier);
+        }
+
+        return $matcher;
     }
 }

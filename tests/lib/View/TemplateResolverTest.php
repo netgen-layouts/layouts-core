@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\View;
 
 use Netgen\Layouts\Exception\View\TemplateResolverException;
 use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\Matcher\MatcherInterface;
 use Netgen\Layouts\View\TemplateResolver;
@@ -81,10 +82,12 @@ final class TemplateResolverTest extends TestCase
         ];
 
         $templateResolver = new TemplateResolver(
-            [
-                'matcher' => $matcherMock,
-            ],
-            $viewConfiguration
+            $viewConfiguration,
+            new Container(
+                [
+                    'matcher' => $matcherMock,
+                ]
+            )
         );
 
         $templateResolver->resolveTemplate($this->view);
@@ -120,8 +123,8 @@ final class TemplateResolverTest extends TestCase
         ];
 
         $templateResolver = new TemplateResolver(
-            [],
-            $viewConfiguration
+            $viewConfiguration,
+            new Container()
         );
 
         $templateResolver->resolveTemplate($this->view);
@@ -156,8 +159,8 @@ final class TemplateResolverTest extends TestCase
         ];
 
         $templateResolver = new TemplateResolver(
-            [],
-            $viewConfiguration
+            $viewConfiguration,
+            new Container()
         );
 
         $templateResolver->resolveTemplate($this->view);
@@ -188,8 +191,8 @@ final class TemplateResolverTest extends TestCase
         ];
 
         $templateResolver = new TemplateResolver(
-            [],
-            $viewConfiguration
+            $viewConfiguration,
+            new Container()
         );
 
         $templateResolver->resolveTemplate($this->view);
@@ -205,7 +208,7 @@ final class TemplateResolverTest extends TestCase
         $this->expectException(TemplateResolverException::class);
         $this->expectExceptionMessage('No template match could be found for "stub_view" view and context "context".');
 
-        $templateResolver = new TemplateResolver([], ['stub_view' => []]);
+        $templateResolver = new TemplateResolver(['stub_view' => []], new Container());
         $templateResolver->resolveTemplate($this->view);
     }
 
@@ -218,8 +221,8 @@ final class TemplateResolverTest extends TestCase
         $this->expectExceptionMessage('No template match could be found for "stub_view" view and context "context".');
 
         $templateResolver = new TemplateResolver(
-            [],
-            ['stub_view' => ['context' => []]]
+            ['stub_view' => ['context' => []]],
+            new Container()
         );
 
         $templateResolver->resolveTemplate($this->view);
@@ -255,11 +258,13 @@ final class TemplateResolverTest extends TestCase
         ];
 
         $templateResolver = new TemplateResolver(
-            [
-                'matcher' => $matcherMock,
-            ],
-            $viewConfiguration
-        );
+            $viewConfiguration,
+            new Container(
+                [
+                    'matcher' => $matcherMock,
+                ]
+            ),
+            );
 
         $templateResolver->resolveTemplate($this->view);
     }
@@ -287,8 +292,8 @@ final class TemplateResolverTest extends TestCase
         ];
 
         $templateResolver = new TemplateResolver(
-            [],
-            $viewConfiguration
+            $viewConfiguration,
+            new Container()
         );
 
         $templateResolver->resolveTemplate($this->view);

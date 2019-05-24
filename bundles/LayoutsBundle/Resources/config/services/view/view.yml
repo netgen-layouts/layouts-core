@@ -24,5 +24,4 @@ services:
         class: Netgen\Layouts\View\TemplateResolver
         lazy: true
         arguments:
-            - []
             - "@=service('netgen_layouts.configuration').getParameter('view')"

@@ -7,10 +7,12 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Vie
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\View\TemplateResolverPass;
 use Netgen\Layouts\Exception\RuntimeException;
+use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\DependencyInjection\ServiceLocator;
 
 final class TemplateResolverPassTest extends AbstractCompilerPassTestCase
 {
@@ -21,6 +23,7 @@ final class TemplateResolverPassTest extends AbstractCompilerPassTestCase
     {
         $templateResolver = new Definition();
         $templateResolver->addArgument([]);
+
         $this->setDefinition('netgen_layouts.view.template_resolver', $templateResolver);
 
         $matcher = new Definition();
@@ -31,10 +34,15 @@ final class TemplateResolverPassTest extends AbstractCompilerPassTestCase
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_layouts.view.template_resolver',
-            0,
-            [
-                'block_type' => new Reference('netgen_layouts.view.template_matcher.test'),
-            ]
+            1,
+            new Definition(
+                ServiceLocator::class,
+                [
+                    [
+                        'block_type' => new ServiceClosureArgument(new Reference('netgen_layouts.view.template_matcher.test')),
+                    ],
+                ]
+            )
         );
     }
 
@@ -48,6 +56,7 @@ final class TemplateResolverPassTest extends AbstractCompilerPassTestCase
 
         $templateResolver = new Definition();
         $templateResolver->addArgument([]);
+
         $this->setDefinition('netgen_layouts.view.template_resolver', $templateResolver);
 
         $matcher = new Definition();

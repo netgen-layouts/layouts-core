@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\View;
 
 use Netgen\Layouts\Exception\RuntimeException;
+use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
+use Symfony\Component\DependencyInjection\ServiceLocator;
 
 final class TemplateResolverPass implements CompilerPassInterface
 {
@@ -32,10 +35,10 @@ final class TemplateResolverPass implements CompilerPassInterface
                     );
                 }
 
-                $matchers[$tag['identifier']] = new Reference($serviceName);
+                $matchers[$tag['identifier']] = new ServiceClosureArgument(new Reference($serviceName));
             }
         }
 
-        $templateResolver->replaceArgument(0, $matchers);
+        $templateResolver->addArgument(new Definition(ServiceLocator::class, [$matchers]));
     }
 }
