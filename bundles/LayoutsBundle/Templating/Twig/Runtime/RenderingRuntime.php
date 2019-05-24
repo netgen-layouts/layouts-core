@@ -7,9 +7,12 @@ namespace Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime;
 use Generator;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Collection\Slot;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\Collection\Result\Result;
 use Netgen\Layouts\Error\ErrorHandlerInterface;
+use Netgen\Layouts\Exception\InvalidArgumentException;
 use Netgen\Layouts\Item\CmsItemInterface;
 use Netgen\Layouts\Locale\LocaleProviderInterface;
 use Netgen\Layouts\View\RendererInterface;
@@ -76,6 +79,43 @@ final class RenderingRuntime
                 $this->getViewContext($context, $viewContext),
                 ['view_type' => $viewType] + $parameters
             );
+        } catch (Throwable $t) {
+            $message = sprintf(
+                'Error rendering an item with value "%s" and value type "%s"',
+                $item->getValue(),
+                $item->getValueType()
+            );
+
+            $this->errorHandler->handleError($t, $message);
+        }
+
+        return '';
+    }
+
+    /**
+     * Renders the provided result.
+     */
+    public function renderResult(array $context, Result $result, ?string $overrideViewType = null, ?string $fallbackViewType = null, array $parameters = [], ?string $viewContext = null): string
+    {
+        $item = $result->getItem();
+
+        try {
+            $viewType = $fallbackViewType;
+
+            if ($overrideViewType !== null) {
+                $viewType = $overrideViewType;
+            } elseif ($result->getSlot() instanceof Slot) {
+                $viewType = $result->getSlot()->getViewType();
+            }
+
+            if ($viewType === null) {
+                throw new InvalidArgumentException(
+                    'fallbackViewType',
+                    'To render a result item, view type needs to be set through slot, or provided via "overrideViewType" or "fallbackViewType" parameters.'
+                );
+            }
+
+            return $this->renderItem($context, $item, $viewType, $parameters, $viewContext);
         } catch (Throwable $t) {
             $message = sprintf(
                 'Error rendering an item with value "%s" and value type "%s"',
