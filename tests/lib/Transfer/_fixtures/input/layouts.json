@@ -171,6 +171,18 @@
                                             }
                                         }
                                     ],
+                                    "slots": [
+                                        {
+                                            "id": "4ba82f53-05de-4a37-b982-1dab2de0e847",
+                                            "position": 2,
+                                            "view_type": "standard"
+                                        },
+                                        {
+                                            "id": "8c76fabe-3719-43f3-8087-9d951e76f245",
+                                            "position": 5,
+                                            "view_type": "overlay"
+                                        }
+                                    ],
                                     "query": {
                                         "id": "926b6853-f18a-497e-bb65-82d712c2969c",
                                         "is_translatable": true,
@@ -245,6 +257,7 @@
                                             }
                                         }
                                     ],
+                                    "slots": [],
                                     "query": {
                                         "id": "f21625c0-4f84-41b6-ae6f-21e259554f7e",
                                         "is_translatable": true,
@@ -352,6 +365,7 @@
                                             }
                                         }
                                     ],
+                                    "slots": [],
                                     "query": {
                                         "id": "5b30cc53-09e3-4df3-94bd-73d702de96fb",
                                         "is_translatable": false,
@@ -502,6 +516,7 @@
                                                         "en"
                                                     ],
                                                     "items": [],
+                                                    "slots": [],
                                                     "query": null
                                                 }
                                             }

@@ -106,6 +106,7 @@ abstract class ImporterTest extends CoreTestCase
                     new Visitor\CollectionVisitor(),
                     new Visitor\ConfigVisitor(),
                     new Visitor\ItemVisitor(),
+                    new Visitor\SlotVisitor(),
                     new Visitor\LayoutVisitor(),
                     new Visitor\ParameterVisitor(),
                     new Visitor\PlaceholderVisitor(),

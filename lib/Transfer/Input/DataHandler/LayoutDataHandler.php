@@ -393,6 +393,7 @@ final class LayoutDataHandler
             }
 
             $this->createItems($collection, $collectionData['items']);
+            $this->createSlots($collection, $collectionData['slots']);
         }
     }
 
@@ -423,6 +424,19 @@ final class LayoutDataHandler
             );
 
             $this->collectionService->addItem($collection, $itemCreateStruct, $collectionItemData['position']);
+        }
+    }
+
+    /**
+     * Create slots in the $collection from the given $collectionSlotsData.
+     */
+    private function createSlots(Collection $collection, array $collectionSlotsData): void
+    {
+        foreach ($collectionSlotsData as $collectionSlotData) {
+            $slotCreateStruct = $this->collectionService->newSlotCreateStruct();
+            $slotCreateStruct->viewType = $collectionSlotData['view_type'];
+
+            $this->collectionService->addSlot($collection, $slotCreateStruct, $collectionSlotData['position']);
         }
     }
 }

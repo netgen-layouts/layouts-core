@@ -300,7 +300,7 @@
             "collection": {
                 "type": "object",
                 "description": "A collection",
-                "required": ["offset", "limit", "is_translatable", "is_always_available", "main_locale", "available_locales", "items", "query"],
+                "required": ["offset", "limit", "is_translatable", "is_always_available", "main_locale", "available_locales", "items", "slots", "query"],
                 "additionalProperties": false,
                 "properties": {
                     "id": {
@@ -338,6 +338,13 @@
                         "description": "The list of items in the collection",
                         "items": {
                             "$ref": "#/definitions/complex/item"
+                        }
+                    },
+                    "slots": {
+                        "type": "array",
+                        "description": "The list of slots in the collection",
+                        "items": {
+                            "$ref": "#/definitions/complex/slot"
                         }
                     },
                     "query": {
@@ -429,6 +436,30 @@
                             { "$ref": "#/definitions/list/parameters" },
                             { "type": "array", "enum": [[]] }
                         ]
+                    }
+                }
+            },
+            "slot": {
+                "type": "object",
+                "description": "A collection slot",
+                "required": ["position", "view_type"],
+                "additionalProperties": false,
+                "properties": {
+                    "id": {
+                        "$ref": "#/definitions/simple/uuid",
+                        "description": "The UUID of the collection slot"
+                    },
+                    "position": {
+                        "type": "integer",
+                        "description": "The position of the collection slot",
+                        "minimum": 0
+                    },
+                    "view_type": {
+                        "oneOf": [
+                            { "$ref": "#/definitions/simple/identifier" },
+                            { "type": "null" }
+                        ],
+                        "description": "The view type of the slot"
                     }
                 }
             }

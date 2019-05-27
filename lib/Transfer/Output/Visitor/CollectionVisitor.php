@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Transfer\Output\Visitor;
 use Generator;
 use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Collection\ItemList;
+use Netgen\Layouts\API\Values\Collection\SlotList;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
@@ -43,6 +44,7 @@ final class CollectionVisitor implements VisitorInterface
             'main_locale' => $value->getMainLocale(),
             'available_locales' => $value->getAvailableLocales(),
             'items' => iterator_to_array($this->visitItems($value->getItems(), $subVisitor)),
+            'slots' => iterator_to_array($this->visitSlots($value->getSlots(), $subVisitor)),
             'query' => $this->visitQuery($value, $subVisitor),
         ];
     }
@@ -54,6 +56,16 @@ final class CollectionVisitor implements VisitorInterface
     {
         foreach ($items as $item) {
             yield $subVisitor->visit($item);
+        }
+    }
+
+    /**
+     * Visit the given collection $slots into hash representation.
+     */
+    private function visitSlots(SlotList $slots, VisitorInterface $subVisitor): Generator
+    {
+        foreach ($slots as $slot) {
+            yield $subVisitor->visit($slot);
         }
     }
 

@@ -76,6 +76,7 @@
                                         "hr"
                                     ],
                                     "items": [],
+                                    "slots": [],
                                     "query": {
                                         "id": "7a13a9e5-e508-4791-9c12-14d3e1aac481",
                                         "is_translatable": false,

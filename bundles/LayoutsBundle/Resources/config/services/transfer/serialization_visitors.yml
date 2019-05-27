@@ -31,6 +31,11 @@ services:
         tags:
             - { name: netgen_layouts.transfer_output_visitor }
 
+    netgen_layouts.transfer.serializer.visitor.slot:
+        class: Netgen\Layouts\Transfer\Output\Visitor\ItemVisitor
+        tags:
+            - { name: netgen_layouts.transfer_output_visitor }
+
     netgen_layouts.transfer.serializer.visitor.layout:
         class: Netgen\Layouts\Transfer\Output\Visitor\LayoutVisitor
         tags:
