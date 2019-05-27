@@ -188,7 +188,9 @@ final class CollectionHandler implements CollectionHandlerInterface
             throw new NotFoundException('slot', $slotId);
         }
 
-        return $this->collectionMapper->mapSlots($data)[0];
+        $mappedSlots = $this->collectionMapper->mapSlots($data);
+
+        return $mappedSlots[array_key_first($mappedSlots)];
     }
 
     public function loadCollectionSlots(Collection $collection): array

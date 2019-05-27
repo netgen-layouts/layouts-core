@@ -9,6 +9,7 @@ use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Collection\Item;
 use Netgen\Layouts\API\Values\Collection\ItemList;
 use Netgen\Layouts\API\Values\Collection\Query;
+use Netgen\Layouts\API\Values\Collection\Slot;
 use Netgen\Layouts\API\Values\Value;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
@@ -24,6 +25,7 @@ final class CollectionTest extends TestCase
      * @covers \Netgen\Layouts\API\Values\Collection\Collection::__construct
      * @covers \Netgen\Layouts\API\Values\Collection\Collection::getAvailableLocales
      * @covers \Netgen\Layouts\API\Values\Collection\Collection::getItems
+     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getSlots
      */
     public function testDefaultProperties(): void
     {
@@ -31,6 +33,7 @@ final class CollectionTest extends TestCase
 
         self::assertSame([], $collection->getAvailableLocales());
         self::assertCount(0, $collection->getItems());
+        self::assertCount(0, $collection->getSlots());
     }
 
     /**
@@ -45,8 +48,10 @@ final class CollectionTest extends TestCase
      * @covers \Netgen\Layouts\API\Values\Collection\Collection::getMainLocale
      * @covers \Netgen\Layouts\API\Values\Collection\Collection::getOffset
      * @covers \Netgen\Layouts\API\Values\Collection\Collection::getQuery
-     * @covers \Netgen\Layouts\API\Values\Collection\Collection::hasItem
+     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getSlot
+     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getSlots
      * @covers \Netgen\Layouts\API\Values\Collection\Collection::hasQuery
+     * @covers \Netgen\Layouts\API\Values\Collection\Collection::hasSlot
      * @covers \Netgen\Layouts\API\Values\Collection\Collection::isAlwaysAvailable
      * @covers \Netgen\Layouts\API\Values\Collection\Collection::isTranslatable
      */
@@ -55,6 +60,11 @@ final class CollectionTest extends TestCase
         $items = [
             Item::fromArray(['position' => 3]),
             Item::fromArray(['position' => 5]),
+        ];
+
+        $slots = [
+            2 => Slot::fromArray(['position' => 2]),
+            3 => Slot::fromArray(['position' => 3]),
         ];
 
         $query = new Query();
@@ -74,6 +84,7 @@ final class CollectionTest extends TestCase
                 'alwaysAvailable' => false,
                 'locale' => 'en',
                 'items' => new ArrayCollection($items),
+                'slots' => new ArrayCollection($slots),
                 'query' => $query,
             ]
         );
@@ -92,6 +103,10 @@ final class CollectionTest extends TestCase
         self::assertSame($items[0], $collection->getItems()[0]);
         self::assertSame($items[1], $collection->getItems()[1]);
 
+        self::assertCount(2, $collection->getSlots());
+        self::assertSame($slots[2], $collection->getSlots()[2]);
+        self::assertSame($slots[3], $collection->getSlots()[3]);
+
         self::assertSame($query, $collection->getQuery());
         self::assertTrue($collection->hasQuery());
 
@@ -101,6 +116,13 @@ final class CollectionTest extends TestCase
 
         self::assertSame($items[0], $collection->getItem(3));
         self::assertSame($items[1], $collection->getItem(5));
+
+        self::assertFalse($collection->hasSlot(5));
+        self::assertTrue($collection->hasSlot(2));
+        self::assertTrue($collection->hasSlot(3));
+
+        self::assertSame($slots[2], $collection->getSlot(2));
+        self::assertSame($slots[3], $collection->getSlot(3));
     }
 
     /**

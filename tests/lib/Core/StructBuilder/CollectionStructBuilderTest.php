@@ -243,4 +243,50 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
             $this->exportObject($struct)
         );
     }
+
+    /**
+     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::newSlotCreateStruct
+     */
+    public function testNewSlotCreateStruct(): void
+    {
+        $struct = $this->structBuilder->newSlotCreateStruct();
+
+        self::assertSame(
+            [
+                'viewType' => null,
+            ],
+            $this->exportObject($struct)
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::newSlotUpdateStruct
+     */
+    public function testNewSlotUpdateStruct(): void
+    {
+        $struct = $this->structBuilder->newSlotUpdateStruct();
+
+        self::assertSame(
+            [
+                'viewType' => null,
+            ],
+            $this->exportObject($struct, true)
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder::newSlotUpdateStruct
+     */
+    public function testNewSlotUpdateStructFromSlot(): void
+    {
+        $slot = $this->collectionService->loadSlotDraft(Uuid::fromString('de3a0641-c67f-48e0-96e7-7c83b6735265'));
+        $struct = $this->structBuilder->newSlotUpdateStruct($slot);
+
+        self::assertSame(
+            [
+                'viewType' => 'standard',
+            ],
+            $this->exportObject($struct, true)
+        );
+    }
 }

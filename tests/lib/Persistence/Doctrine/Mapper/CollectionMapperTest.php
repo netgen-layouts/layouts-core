@@ -9,6 +9,7 @@ use Netgen\Layouts\Persistence\Values\Block\CollectionReference;
 use Netgen\Layouts\Persistence\Values\Collection\Collection;
 use Netgen\Layouts\Persistence\Values\Collection\Item;
 use Netgen\Layouts\Persistence\Values\Collection\Query;
+use Netgen\Layouts\Persistence\Values\Collection\Slot;
 use Netgen\Layouts\Persistence\Values\Value;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use PHPUnit\Framework\TestCase;
@@ -388,5 +389,58 @@ final class CollectionMapperTest extends TestCase
 
         self::assertContainsOnlyInstancesOf(Query::class, $queries);
         self::assertSame($expectedData, $this->exportObjectList($queries));
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\CollectionMapper::mapSlots
+     */
+    public function testMapSlots(): void
+    {
+        $data = [
+            [
+                'id' => '42',
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'collection_id' => '1',
+                'collection_uuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
+                'position' => '2',
+                'view_type' => 'overlay',
+                'status' => '1',
+            ],
+            [
+                'id' => 43,
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
+                'collection_id' => 2,
+                'collection_uuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
+                'position' => 5,
+                'view_type' => 'standard',
+                'status' => Value::STATUS_DRAFT,
+            ],
+        ];
+
+        $expectedData = [
+            2 => [
+                'id' => 42,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'collectionId' => 1,
+                'collectionUuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
+                'position' => 2,
+                'viewType' => 'overlay',
+                'status' => Value::STATUS_PUBLISHED,
+            ],
+            5 => [
+                'id' => 43,
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
+                'collectionId' => 2,
+                'collectionUuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
+                'position' => 5,
+                'viewType' => 'standard',
+                'status' => Value::STATUS_DRAFT,
+            ],
+        ];
+
+        $slots = $this->mapper->mapSlots($data);
+
+        self::assertContainsOnlyInstancesOf(Slot::class, $slots);
+        self::assertSame($expectedData, $this->exportObjectList($slots));
     }
 }

@@ -9,8 +9,13 @@ use Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\Placeholder;
+use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\API\Values\Collection\Slot;
 use Netgen\Layouts\API\Values\LayoutResolver\Condition;
 use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Collection\Result\ManualItem;
+use Netgen\Layouts\Collection\Result\Result;
+use Netgen\Layouts\Exception\InvalidArgumentException;
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Locale\LocaleProviderInterface;
 use Netgen\Layouts\Tests\Stubs\ErrorHandler;
@@ -655,6 +660,301 @@ final class RenderingRuntimeTest extends TestCase
         $this->runtime->renderItem(
             [],
             $cmsItem,
+            'view_type',
+            ['param' => 'value']
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderResult
+     */
+    public function testRenderResultWithViewTypeInItem(): void
+    {
+        $item = new ManualItem(Item::fromArray(['viewType' => 'standard', 'cmsItem' => CmsItem::fromArray(['valueType' => 'value_type'])]));
+        $result = new Result(0, $item, null, Slot::fromArray(['viewType' => 'overlay']));
+
+        $this->rendererMock
+            ->expects(self::once())
+            ->method('renderValue')
+            ->with(
+                self::identicalTo($item),
+                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
+                self::identicalTo(['view_type' => 'standard', 'param' => 'value'])
+            )
+            ->willReturn('rendered result');
+
+        self::assertSame(
+            'rendered result',
+            $this->runtime->renderResult(
+                [],
+                $result,
+                null,
+                'view_type',
+                ['param' => 'value']
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderResult
+     */
+    public function testRenderResultWithViewTypeInSlot(): void
+    {
+        $item = new ManualItem(Item::fromArray(['viewType' => null, 'cmsItem' => CmsItem::fromArray(['valueType' => 'value_type'])]));
+        $result = new Result(0, $item, null, Slot::fromArray(['viewType' => 'overlay']));
+
+        $this->rendererMock
+            ->expects(self::once())
+            ->method('renderValue')
+            ->with(
+                self::identicalTo($item),
+                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
+                self::identicalTo(['view_type' => 'overlay', 'param' => 'value'])
+            )
+            ->willReturn('rendered result');
+
+        self::assertSame(
+            'rendered result',
+            $this->runtime->renderResult(
+                [],
+                $result,
+                null,
+                'view_type',
+                ['param' => 'value']
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderResult
+     */
+    public function testRenderResultWithOverrideViewType(): void
+    {
+        $item = new ManualItem(Item::fromArray(['viewType' => 'standard', 'cmsItem' => CmsItem::fromArray(['valueType' => 'value_type'])]));
+        $result = new Result(0, $item, null, Slot::fromArray(['viewType' => 'overlay']));
+
+        $this->rendererMock
+            ->expects(self::once())
+            ->method('renderValue')
+            ->with(
+                self::identicalTo($item),
+                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
+                self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
+            )
+            ->willReturn('rendered result');
+
+        self::assertSame(
+            'rendered result',
+            $this->runtime->renderResult(
+                [],
+                $result,
+                'view_type',
+                'fallback_view_type',
+                ['param' => 'value']
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderResult
+     */
+    public function testRenderResultWithFallbackViewType(): void
+    {
+        $item = new ManualItem(Item::fromArray(['viewType' => null, 'cmsItem' => CmsItem::fromArray(['valueType' => 'value_type'])]));
+        $result = new Result(0, $item);
+
+        $this->rendererMock
+            ->expects(self::once())
+            ->method('renderValue')
+            ->with(
+                self::identicalTo($item),
+                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
+                self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
+            )
+            ->willReturn('rendered result');
+
+        self::assertSame(
+            'rendered result',
+            $this->runtime->renderResult(
+                [],
+                $result,
+                null,
+                'view_type',
+                ['param' => 'value']
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderResult
+     */
+    public function testRenderResultWithoutViewType(): void
+    {
+        $item = new ManualItem(Item::fromArray(['viewType' => null, 'cmsItem' => CmsItem::fromArray(['valueType' => 'value_type'])]));
+        $result = new Result(0, $item);
+
+        $this->rendererMock
+            ->expects(self::never())
+            ->method('renderValue');
+
+        self::assertSame(
+            '',
+            $this->runtime->renderResult(
+                [],
+                $result,
+                null,
+                null,
+                ['param' => 'value']
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderResult
+     */
+    public function testRenderResultWithoutViewTypeInDebug(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('To render a result item, view type needs to be set through slot, or provided via "overrideViewType" or "fallbackViewType" parameters.');
+
+        $this->errorHandler->setThrow(true);
+
+        $item = new ManualItem(Item::fromArray(['viewType' => null, 'cmsItem' => CmsItem::fromArray(['valueType' => 'value_type'])]));
+        $result = new Result(0, $item);
+
+        $this->rendererMock
+            ->expects(self::never())
+            ->method('renderValue');
+
+        $this->runtime->renderResult(
+            [],
+            $result,
+            null,
+            null,
+            ['param' => 'value']
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderResult
+     */
+    public function testRenderResultWithViewContext(): void
+    {
+        $item = new ManualItem(Item::fromArray(['viewType' => null, 'cmsItem' => CmsItem::fromArray(['valueType' => 'value_type'])]));
+        $result = new Result(0, $item);
+
+        $this->rendererMock
+            ->expects(self::once())
+            ->method('renderValue')
+            ->with(
+                self::identicalTo($item),
+                self::identicalTo(ViewInterface::CONTEXT_API),
+                self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
+            )
+            ->willReturn('rendered result');
+
+        self::assertSame(
+            'rendered result',
+            $this->runtime->renderResult(
+                [],
+                $result,
+                null,
+                'view_type',
+                ['param' => 'value'],
+                ViewInterface::CONTEXT_API
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderResult
+     */
+    public function testRenderResultWithViewContextFromTwigContext(): void
+    {
+        $item = new ManualItem(Item::fromArray(['viewType' => null, 'cmsItem' => CmsItem::fromArray(['valueType' => 'value_type'])]));
+        $result = new Result(0, $item);
+
+        $this->rendererMock
+            ->expects(self::once())
+            ->method('renderValue')
+            ->with(
+                self::identicalTo($item),
+                self::identicalTo(ViewInterface::CONTEXT_API),
+                self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
+            )
+            ->willReturn('rendered result');
+
+        self::assertSame(
+            'rendered result',
+            $this->runtime->renderResult(
+                [
+                    'view_context' => ViewInterface::CONTEXT_API,
+                ],
+                $result,
+                null,
+                'view_type',
+                ['param' => 'value']
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderResult
+     */
+    public function testRenderResultReturnsEmptyStringOnException(): void
+    {
+        $item = new ManualItem(Item::fromArray(['viewType' => null, 'cmsItem' => CmsItem::fromArray(['valueType' => 'value_type'])]));
+        $result = new Result(0, $item);
+
+        $this->rendererMock
+            ->expects(self::once())
+            ->method('renderValue')
+            ->with(
+                self::identicalTo($item),
+                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
+                self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
+            )
+            ->willThrowException(new Exception());
+
+        self::assertSame(
+            '',
+            $this->runtime->renderResult(
+                [],
+                $result,
+                null,
+                'view_type',
+                ['param' => 'value']
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderResult
+     */
+    public function testRenderResultThrowsExceptionInDebug(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
+        $this->errorHandler->setThrow(true);
+
+        $item = new ManualItem(Item::fromArray(['viewType' => null, 'cmsItem' => CmsItem::fromArray(['valueType' => 'value_type'])]));
+        $result = new Result(0, $item);
+
+        $this->rendererMock
+            ->expects(self::once())
+            ->method('renderValue')
+            ->with(
+                self::identicalTo($item),
+                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
+                self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
+            )
+            ->willThrowException(new Exception('Test exception text'));
+
+        $this->runtime->renderResult(
+            [],
+            $result,
+            null,
             'view_type',
             ['param' => 'value']
         );

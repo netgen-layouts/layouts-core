@@ -208,6 +208,8 @@ final class Collection implements Value
 
     /**
      * Returns all collection slots.
+     *
+     * Slots are indexed by their position in the collection.
      */
     public function getSlots(): SlotList
     {

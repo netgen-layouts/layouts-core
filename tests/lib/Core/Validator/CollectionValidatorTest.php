@@ -13,6 +13,8 @@ use Netgen\Layouts\API\Values\Collection\ItemUpdateStruct;
 use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\API\Values\Collection\QueryCreateStruct;
 use Netgen\Layouts\API\Values\Collection\QueryUpdateStruct;
+use Netgen\Layouts\API\Values\Collection\SlotCreateStruct;
+use Netgen\Layouts\API\Values\Collection\SlotUpdateStruct;
 use Netgen\Layouts\API\Values\Config\ConfigStruct;
 use Netgen\Layouts\Collection\Item\ItemDefinition;
 use Netgen\Layouts\Config\ConfigDefinition;
@@ -139,62 +141,6 @@ final class CollectionValidatorTest extends TestCase
         );
     }
 
-    public function validateItemUpdateStructDataProvider(): array
-    {
-        return [
-            [
-                [],
-                true,
-            ],
-            [
-                [
-                    'viewType' => 'overlay',
-                ],
-                true,
-            ],
-            [
-                [
-                    'viewType' => '',
-                ],
-                true,
-            ],
-            [
-                [
-                    'viewType' => null,
-                ],
-                true,
-            ],
-            [
-                [
-                    'viewType' => 42,
-                ],
-                false,
-            ],
-            [
-                [
-                    'configStructs' => [],
-                ],
-                true,
-            ],
-            [
-                [
-                    'configStructs' => [
-                        'key' => new ConfigStruct(),
-                    ],
-                ],
-                true,
-            ],
-            [
-                [
-                    'configStructs' => [
-                        'unknown' => new ConfigStruct(),
-                    ],
-                ],
-                false,
-            ],
-        ];
-    }
-
     /**
      * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateQueryCreateStruct
      * @dataProvider validateQueryCreateStructProvider
@@ -234,6 +180,44 @@ final class CollectionValidatorTest extends TestCase
             Query::fromArray(['queryType' => new QueryType('query_type')]),
             $queryUpdateStruct
         );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateSlotCreateStruct
+     * @dataProvider validateSlotCreateStructProvider
+     */
+    public function testValidateSlotCreateStruct(array $params, bool $isValid): void
+    {
+        if (!$isValid) {
+            $this->expectException(ValidationException::class);
+        }
+
+        $struct = new SlotCreateStruct();
+        (new Hydrator())->hydrate($params, $struct);
+
+        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
+        $this->addToAssertionCount(1);
+
+        $this->collectionValidator->validateSlotCreateStruct($struct);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateSlotUpdateStruct
+     * @dataProvider validateSlotUpdateStructDataProvider
+     */
+    public function testValidateSlotUpdateStruct(array $params, bool $isValid): void
+    {
+        if (!$isValid) {
+            $this->expectException(ValidationException::class);
+        }
+
+        $struct = new SlotUpdateStruct();
+        (new Hydrator())->hydrate($params, $struct);
+
+        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
+        $this->addToAssertionCount(1);
+
+        $this->collectionValidator->validateSlotUpdateStruct($struct);
     }
 
     public function validateCollectionCreateStructProvider(): array
@@ -524,6 +508,62 @@ final class CollectionValidatorTest extends TestCase
         ];
     }
 
+    public function validateItemUpdateStructDataProvider(): array
+    {
+        return [
+            [
+                [],
+                true,
+            ],
+            [
+                [
+                    'viewType' => 'overlay',
+                ],
+                true,
+            ],
+            [
+                [
+                    'viewType' => '',
+                ],
+                true,
+            ],
+            [
+                [
+                    'viewType' => null,
+                ],
+                true,
+            ],
+            [
+                [
+                    'viewType' => 42,
+                ],
+                false,
+            ],
+            [
+                [
+                    'configStructs' => [],
+                ],
+                true,
+            ],
+            [
+                [
+                    'configStructs' => [
+                        'key' => new ConfigStruct(),
+                    ],
+                ],
+                true,
+            ],
+            [
+                [
+                    'configStructs' => [
+                        'unknown' => new ConfigStruct(),
+                    ],
+                ],
+                false,
+            ],
+        ];
+    }
+
     public function validateQueryCreateStructProvider(): array
     {
         return [
@@ -644,6 +684,62 @@ final class CollectionValidatorTest extends TestCase
                     'parameterValues' => [],
                 ],
                 true,
+            ],
+        ];
+    }
+
+    public function validateSlotCreateStructProvider(): array
+    {
+        return [
+            [
+                ['viewType' => 'overlay'],
+                true,
+            ],
+            [
+                ['viewType' => ''],
+                false,
+            ],
+            [
+                ['viewType' => null],
+                false,
+            ],
+            [
+                ['viewType' => 42],
+                false,
+            ],
+        ];
+    }
+
+    public function validateSlotUpdateStructDataProvider(): array
+    {
+        return [
+            [
+                [],
+                true,
+            ],
+            [
+                [
+                    'viewType' => 'overlay',
+                ],
+                true,
+            ],
+            [
+                [
+                    'viewType' => null,
+                ],
+                true,
+            ],
+            [
+                [
+                    'viewType' => '',
+                ],
+                false,
+            ],
+            [
+                [
+                    'viewType' => 42,
+                ],
+                false,
             ],
         ];
     }

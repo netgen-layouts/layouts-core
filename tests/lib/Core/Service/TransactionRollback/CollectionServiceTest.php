@@ -11,11 +11,15 @@ use Netgen\Layouts\API\Values\Collection\ItemCreateStruct;
 use Netgen\Layouts\API\Values\Collection\ItemUpdateStruct;
 use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\API\Values\Collection\QueryUpdateStruct;
+use Netgen\Layouts\API\Values\Collection\Slot;
+use Netgen\Layouts\API\Values\Collection\SlotCreateStruct;
+use Netgen\Layouts\API\Values\Collection\SlotUpdateStruct;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Collection\Item\ItemDefinition;
 use Netgen\Layouts\Persistence\Values\Collection\Collection as PersistenceCollection;
 use Netgen\Layouts\Persistence\Values\Collection\Item as PersistenceItem;
 use Netgen\Layouts\Persistence\Values\Collection\Query as PersistenceQuery;
+use Netgen\Layouts\Persistence\Values\Collection\Slot as PersistenceSlot;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use Ramsey\Uuid\Uuid;
 
@@ -226,5 +230,115 @@ final class CollectionServiceTest extends TestCase
             ),
             $struct
         );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::addSlot
+     */
+    public function testAddSlot(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
+        $this->collectionHandler
+            ->expects(self::at(0))
+            ->method('loadCollection')
+            ->willReturn(new PersistenceCollection());
+
+        $this->collectionHandler
+            ->expects(self::at(1))
+            ->method('addSlot')
+            ->willThrowException(new Exception('Test exception text'));
+
+        $this->transactionHandler
+            ->expects(self::once())
+            ->method('rollbackTransaction');
+
+        $slotCreateStruct = new SlotCreateStruct();
+        $slotCreateStruct->viewType = 'my_view_type';
+
+        $this->collectionService->addSlot(
+            Collection::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]),
+            $slotCreateStruct,
+            1
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::addSlot
+     */
+    public function testUpdateSlot(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
+        $this->collectionHandler
+            ->expects(self::at(0))
+            ->method('loadSlot')
+            ->willReturn(new PersistenceSlot());
+
+        $this->collectionHandler
+            ->expects(self::at(1))
+            ->method('updateSlot')
+            ->willThrowException(new Exception('Test exception text'));
+
+        $this->transactionHandler
+            ->expects(self::once())
+            ->method('rollbackTransaction');
+
+        $this->collectionService->updateSlot(
+            Slot::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]),
+            new SlotUpdateStruct()
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::deleteSlot
+     */
+    public function testDeleteSlot(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
+        $this->collectionHandler
+            ->expects(self::at(0))
+            ->method('loadSlot')
+            ->willReturn(new PersistenceSlot());
+
+        $this->collectionHandler
+            ->expects(self::at(1))
+            ->method('deleteSlot')
+            ->willThrowException(new Exception('Test exception text'));
+
+        $this->transactionHandler
+            ->expects(self::once())
+            ->method('rollbackTransaction');
+
+        $this->collectionService->deleteSlot(Slot::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]));
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::deleteSlot
+     */
+    public function testDeleteSlots(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
+        $this->collectionHandler
+            ->expects(self::at(0))
+            ->method('loadCollection')
+            ->willReturn(new PersistenceCollection());
+
+        $this->collectionHandler
+            ->expects(self::at(1))
+            ->method('deleteSlots')
+            ->willThrowException(new Exception('Test exception text'));
+
+        $this->transactionHandler
+            ->expects(self::once())
+            ->method('rollbackTransaction');
+
+        $this->collectionService->deleteSlots(Collection::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]));
     }
 }

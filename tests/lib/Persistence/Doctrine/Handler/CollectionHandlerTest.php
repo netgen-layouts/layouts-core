@@ -16,6 +16,9 @@ use Netgen\Layouts\Persistence\Values\Collection\ItemUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\Query;
 use Netgen\Layouts\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\QueryTranslationUpdateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\Slot;
+use Netgen\Layouts\Persistence\Values\Collection\SlotCreateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\SlotUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Value;
 use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
@@ -410,6 +413,55 @@ final class CollectionHandlerTest extends TestCase
         $this->collectionHandler->loadCollectionQuery(
             $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT)
         );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadSlot
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::getSlotSelectQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadSlotData
+     */
+    public function testLoadSlot(): void
+    {
+        $slot = $this->collectionHandler->loadSlot(1, Value::STATUS_DRAFT);
+
+        self::assertSame(
+            [
+                'id' => 1,
+                'uuid' => 'de3a0641-c67f-48e0-96e7-7c83b6735265',
+                'collectionId' => 1,
+                'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'position' => 0,
+                'viewType' => 'standard',
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObject($slot)
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadSlot
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadSlotData
+     */
+    public function testLoadSlotThrowsNotFoundException(): void
+    {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find slot with identifier "999999"');
+
+        $this->collectionHandler->loadSlot(999999, Value::STATUS_PUBLISHED);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadCollectionSlots
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadCollectionSlotsData
+     */
+    public function testLoadCollectionSlots(): void
+    {
+        $slots = $this->collectionHandler->loadCollectionSlots(
+            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT)
+        );
+
+        self::assertNotEmpty($slots);
+        self::assertContainsOnlyInstancesOf(Slot::class, $slots);
     }
 
     /**
@@ -2495,5 +2547,143 @@ final class CollectionHandlerTest extends TestCase
         );
 
         $this->addToAssertionCount(1);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::slotWithPositionExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::slotWithPositionExists
+     */
+    public function testSlotWithPositionExists(): void
+    {
+        self::assertTrue(
+            $this->collectionHandler->slotWithPositionExists(
+                $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+                0
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::slotWithPositionExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::slotWithPositionExists
+     */
+    public function testSlotWithPositionNotExists(): void
+    {
+        self::assertFalse(
+            $this->collectionHandler->slotWithPositionExists(
+                $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+                999
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::addSlot
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addSlot
+     */
+    public function testAddSlot(): void
+    {
+        $slotCreateStruct = new SlotCreateStruct();
+        $slotCreateStruct->position = 1;
+        $slotCreateStruct->viewType = 'my_view_type';
+
+        $slot = $this->withUuids(
+            function () use ($slotCreateStruct): Slot {
+                return $this->collectionHandler->addSlot(
+                    $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+                    $slotCreateStruct
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+        );
+
+        self::assertSame(
+            [
+                'id' => 7,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'collectionId' => 1,
+                'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'position' => 1,
+                'viewType' => 'my_view_type',
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObject($slot)
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::addSlot
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::addSlot
+     */
+    public function testAddSlotThrowsBadStateExceptionWithExistingPosition(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "position" has an invalid state. Slot with provided position already exists in the collection with ID 1');
+
+        $slotCreateStruct = new SlotCreateStruct();
+        $slotCreateStruct->position = 0;
+        $slotCreateStruct->viewType = 'my_view_type';
+
+        $this->collectionHandler->addSlot(
+            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+            $slotCreateStruct
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::updateSlot
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateSlot
+     */
+    public function testUpdateSlot(): void
+    {
+        $slotUpdateStruct = new SlotUpdateStruct();
+        $slotUpdateStruct->viewType = 'new_view_type';
+
+        $slot = $this->collectionHandler->updateSlot(
+            $this->collectionHandler->loadSlot(1, Value::STATUS_DRAFT),
+            $slotUpdateStruct
+        );
+
+        self::assertSame(
+            [
+                'id' => 1,
+                'uuid' => 'de3a0641-c67f-48e0-96e7-7c83b6735265',
+                'collectionId' => 1,
+                'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'position' => 0,
+                'viewType' => 'new_view_type',
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObject($slot)
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteSlot
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteSlot
+     */
+    public function testDeleteSlot(): void
+    {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find slot with identifier "1"');
+
+        $this->collectionHandler->deleteSlot(
+            $this->collectionHandler->loadSlot(1, Value::STATUS_DRAFT)
+        );
+
+        $this->collectionHandler->loadSlot(1, Value::STATUS_DRAFT);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteSlots
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteCollectionSlots
+     */
+    public function testDeleteSlots(): void
+    {
+        $collection = $this->collectionHandler->deleteSlots(
+            $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT)
+        );
+
+        self::assertCount(0, $this->collectionHandler->loadCollectionSlots($collection));
     }
 }

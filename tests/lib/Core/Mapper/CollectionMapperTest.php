@@ -14,6 +14,7 @@ use Netgen\Layouts\Item\NullCmsItem;
 use Netgen\Layouts\Persistence\Values\Collection\Collection;
 use Netgen\Layouts\Persistence\Values\Collection\Item;
 use Netgen\Layouts\Persistence\Values\Collection\Query;
+use Netgen\Layouts\Persistence\Values\Collection\Slot;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 
 abstract class CollectionMapperTest extends CoreTestCase
@@ -520,5 +521,31 @@ abstract class CollectionMapperTest extends CoreTestCase
         self::assertFalse($query->hasParameter('param2'));
 
         self::assertSame('en', $query->getLocale());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapSlot
+     */
+    public function testMapSlot(): void
+    {
+        $persistenceSlot = Slot::fromArray(
+            [
+                'id' => 1,
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
+                'status' => Value::STATUS_PUBLISHED,
+                'collectionId' => 42,
+                'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'position' => 1,
+                'viewType' => 'overlay',
+            ]
+        );
+
+        $slot = $this->mapper->mapSlot($persistenceSlot);
+
+        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $slot->getId()->toString());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $slot->getCollectionId()->toString());
+        self::assertSame(1, $slot->getPosition());
+        self::assertSame('overlay', $slot->getViewType());
+        self::assertTrue($slot->isPublished());
     }
 }

@@ -205,6 +205,48 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadSlot
+     */
+    public function testLoadSlot(): void
+    {
+        $slot = $this->collectionService->loadSlot(Uuid::fromString('c63c9523-e579-4dc9-b1d2-f9d12470a014'));
+
+        self::assertTrue($slot->isPublished());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadSlot
+     */
+    public function testLoadSlotThrowsNotFoundException(): void
+    {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find slot with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
+
+        $this->collectionService->loadSlot(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadSlotDraft
+     */
+    public function testLoadSlotDraft(): void
+    {
+        $slot = $this->collectionService->loadSlotDraft(Uuid::fromString('de3a0641-c67f-48e0-96e7-7c83b6735265'));
+
+        self::assertTrue($slot->isDraft());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::loadSlotDraft
+     */
+    public function testLoadSlotDraftThrowsNotFoundException(): void
+    {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find slot with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
+
+        $this->collectionService->loadSlot(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
+    }
+
+    /**
      * @covers \Netgen\Layouts\Core\Service\CollectionService::changeCollectionType
      */
     public function testChangeCollectionTypeFromManualToDynamic(): void
@@ -589,6 +631,113 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::addSlot
+     */
+    public function testAddSlot(): void
+    {
+        $slotCreateStruct = $this->collectionService->newSlotCreateStruct();
+        $slotCreateStruct->viewType = 'my_view_type';
+
+        $collection = $this->collectionService->loadCollectionDraft(Uuid::fromString('a79dde13-1f5c-51a6-bea9-b766236be49e'));
+
+        $createdSlot = $this->collectionService->addSlot(
+            $collection,
+            $slotCreateStruct,
+            1
+        );
+
+        self::assertTrue($createdSlot->isDraft());
+        self::assertSame(1, $createdSlot->getPosition());
+        self::assertSame('my_view_type', $createdSlot->getViewType());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::addSlot
+     */
+    public function testAddSlotThrowsBadStateExceptionWithNonDraftCollection(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "collection" has an invalid state. Slots can only be added to draft collections.');
+
+        $slotCreateStruct = $this->collectionService->newSlotCreateStruct();
+
+        $collection = $this->collectionService->loadCollection(Uuid::fromString('08937ca0-18f4-5806-84df-8c132c36cabe'));
+
+        $this->collectionService->addSlot(
+            $collection,
+            $slotCreateStruct,
+            1
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::updateSlot
+     */
+    public function testUpdateSlot(): void
+    {
+        $slotUpdateStruct = $this->collectionService->newSlotUpdateStruct();
+        $slotUpdateStruct->viewType = 'my_view_type';
+
+        $slot = $this->collectionService->loadSlotDraft(Uuid::fromString('de3a0641-c67f-48e0-96e7-7c83b6735265'));
+
+        $updatedSlot = $this->collectionService->updateSlot($slot, $slotUpdateStruct);
+
+        self::assertTrue($updatedSlot->isDraft());
+        self::assertSame('my_view_type', $updatedSlot->getViewType());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::updateSlot
+     */
+    public function testUpdateSlotThrowsBadStateExceptionWithNonDraftSlot(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "slot" has an invalid state. Only draft slots can be updated.');
+
+        $slotUpdateStruct = $this->collectionService->newSlotUpdateStruct();
+        $slot = $this->collectionService->loadSlot(Uuid::fromString('c63c9523-e579-4dc9-b1d2-f9d12470a014'));
+
+        $this->collectionService->updateSlot($slot, $slotUpdateStruct);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::deleteSlot
+     */
+    public function testDeleteSlot(): void
+    {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find slot with identifier "de3a0641-c67f-48e0-96e7-7c83b6735265"');
+
+        $slot = $this->collectionService->loadSlotDraft(Uuid::fromString('de3a0641-c67f-48e0-96e7-7c83b6735265'));
+        $this->collectionService->deleteSlot($slot);
+
+        $this->collectionService->loadSlotDraft(Uuid::fromString('de3a0641-c67f-48e0-96e7-7c83b6735265'));
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::deleteSlot
+     */
+    public function testDeleteSlotThrowsBadStateExceptionWithNonDraftSlot(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "slot" has an invalid state. Only draft slots can be deleted.');
+
+        $slot = $this->collectionService->loadSlot(Uuid::fromString('c63c9523-e579-4dc9-b1d2-f9d12470a014'));
+        $this->collectionService->deleteSlot($slot);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::deleteSlots
+     */
+    public function testDeleteSlots(): void
+    {
+        $collection = $this->collectionService->loadCollectionDraft(Uuid::fromString('a79dde13-1f5c-51a6-bea9-b766236be49e'));
+        $collection = $this->collectionService->deleteSlots($collection);
+
+        self::assertCount(0, $collection->getSlots());
+    }
+
+    /**
      * @covers \Netgen\Layouts\Core\Service\CollectionService::newCollectionCreateStruct
      */
     public function testNewCollectionCreateStruct(): void
@@ -799,6 +948,52 @@ abstract class CollectionServiceTest extends CoreTestCase
                 ],
             ],
             $this->exportObject($struct)
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::newSlotCreateStruct
+     */
+    public function testNewSlotCreateStruct(): void
+    {
+        $struct = $this->collectionService->newSlotCreateStruct();
+
+        self::assertSame(
+            [
+                'viewType' => null,
+            ],
+            $this->exportObject($struct)
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::newSlotUpdateStruct
+     */
+    public function testNewSlotUpdateStruct(): void
+    {
+        $struct = $this->collectionService->newSlotUpdateStruct();
+
+        self::assertSame(
+            [
+                'viewType' => null,
+            ],
+            $this->exportObject($struct, true)
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::newSlotUpdateStruct
+     */
+    public function testNewSlotUpdateStructFromSlot(): void
+    {
+        $slot = $this->collectionService->loadSlotDraft(Uuid::fromString('de3a0641-c67f-48e0-96e7-7c83b6735265'));
+        $struct = $this->collectionService->newSlotUpdateStruct($slot);
+
+        self::assertSame(
+            [
+                'viewType' => 'standard',
+            ],
+            $this->exportObject($struct, true)
         );
     }
 }
