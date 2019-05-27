@@ -12,7 +12,8 @@
             "item_view_type": null,
             "name": "Value with ID #140",
             "config": [],
-            "position": 0
+            "position": 0,
+            "slot_view_type": null
         },
         {
             "id": null,
@@ -26,7 +27,8 @@
             "item_view_type": null,
             "name": "Value with ID #79",
             "config": [],
-            "position": 1
+            "position": 1,
+            "slot_view_type": null
         },
         {
             "id": "206a443c-30b8-574f-9afb-08cafeb4119a",
@@ -40,7 +42,8 @@
             "item_view_type": null,
             "name": "Value with ID #72",
             "config": [],
-            "position": 2
+            "position": 2,
+            "slot_view_type": null
         },
         {
             "id": "f762d0f8-1ff2-54e6-bfe3-096b2c277d9d",
@@ -54,7 +57,8 @@
             "item_view_type": null,
             "name": "Value with ID #73",
             "config": [],
-            "position": 3
+            "position": 3,
+            "slot_view_type": null
         },
         {
             "id": null,
@@ -68,7 +72,8 @@
             "item_view_type": null,
             "name": "Value with ID #78",
             "config": [],
-            "position": 4
+            "position": 4,
+            "slot_view_type": null
         },
         {
             "id": "3562a253-72d1-54d1-8b31-ef1b55409cb5",
@@ -82,7 +87,8 @@
             "item_view_type": null,
             "name": "Value with ID #74",
             "config": [],
-            "position": 5
+            "position": 5,
+            "slot_view_type": null
         }
     ],
     "overflow_items": []

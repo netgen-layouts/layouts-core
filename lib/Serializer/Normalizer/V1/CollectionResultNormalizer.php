@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Serializer\Normalizer\V1;
 
 use Generator;
+use Netgen\Layouts\API\Values\Collection\Slot;
 use Netgen\Layouts\Collection\Item\VisibilityResolverInterface;
 use Netgen\Layouts\Collection\Result\ManualItem;
 use Netgen\Layouts\Collection\Result\Result;
@@ -47,6 +48,7 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
 
         $data = $this->normalizeResultItem($mainItem, $object->getVersion(), $format, $context);
         $data['position'] = $result->getPosition();
+        $data['slot_view_type'] = $result->getSlot() instanceof Slot ? $result->getSlot()->getViewType() : null;
 
         if ($overrideItem instanceof CmsItemInterface) {
             $data['override_item'] = $this->normalizeResultItem($overrideItem, $object->getVersion(), $format, $context);

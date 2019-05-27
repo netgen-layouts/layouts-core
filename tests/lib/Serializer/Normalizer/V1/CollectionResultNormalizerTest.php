@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Serializer\Normalizer\V1;
 
 use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\API\Values\Collection\Slot;
 use Netgen\Layouts\Collection\Item\VisibilityResolver;
 use Netgen\Layouts\Collection\Result\ManualItem;
 use Netgen\Layouts\Collection\Result\Result;
@@ -78,6 +79,68 @@ final class CollectionResultNormalizerTest extends TestCase
             ->method('normalize')
             ->willReturn($serializedConfig);
 
+        $result = new Result(3, new ManualItem($collectionItem), null, Slot::fromArray(['viewType' => 'standard']));
+        $this->urlGeneratorMock
+            ->expects(self::any())
+            ->method('generate')
+            ->with(self::identicalTo($collectionItem->getCmsItem()))
+            ->willReturn('/some/url');
+
+        self::assertSame(
+            [
+                'id' => $collectionItem->getId()->toString(),
+                'collection_id' => $collectionItem->getCollectionId()->toString(),
+                'visible' => true,
+                'is_dynamic' => false,
+                'value' => $collectionItem->getCmsItem()->getValue(),
+                'value_type' => $collectionItem->getCmsItem()->getValueType(),
+                'item_view_type' => $collectionItem->getViewType(),
+                'name' => $collectionItem->getCmsItem()->getName(),
+                'cms_visible' => $collectionItem->getCmsItem()->isVisible(),
+                'cms_url' => '/some/url',
+                'config' => $serializedConfig,
+                'position' => $result->getPosition(),
+                'slot_view_type' => 'standard',
+            ],
+            $this->normalizer->normalize(new VersionedValue($result, 1))
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\CollectionResultNormalizer::__construct
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\CollectionResultNormalizer::buildVersionedValues
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\CollectionResultNormalizer::normalize
+     * @covers \Netgen\Layouts\Serializer\Normalizer\V1\CollectionResultNormalizer::normalizeResultItem
+     */
+    public function testNormalizeWithoutSlot(): void
+    {
+        $collectionItem = Item::fromArray(
+            [
+                'id' => Uuid::uuid4(),
+                'collectionId' => Uuid::uuid4(),
+                'viewType' => 'overlay',
+                'cmsItem' => CmsItem::fromArray(
+                    [
+                        'name' => 'Value name',
+                        'valueType' => 'value_type',
+                        'isVisible' => true,
+                    ]
+                ),
+            ]
+        );
+
+        $serializedConfig = [
+            'key' => [
+                'param1' => 'value1',
+                'param2' => 'value2',
+            ],
+        ];
+
+        $this->normalizerMock
+            ->expects(self::at(0))
+            ->method('normalize')
+            ->willReturn($serializedConfig);
+
         $result = new Result(3, new ManualItem($collectionItem));
         $this->urlGeneratorMock
             ->expects(self::any())
@@ -99,6 +162,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'cms_url' => '/some/url',
                 'config' => $serializedConfig,
                 'position' => $result->getPosition(),
+                'slot_view_type' => null,
             ],
             $this->normalizer->normalize(new VersionedValue($result, 1))
         );
@@ -145,6 +209,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'cms_url' => '/some/url',
                 'config' => [],
                 'position' => $result->getPosition(),
+                'slot_view_type' => null,
             ],
             $this->normalizer->normalize(new VersionedValue($result, 1))
         );
@@ -211,6 +276,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'cms_url' => '/some/url',
                 'config' => [],
                 'position' => $result->getPosition(),
+                'slot_view_type' => null,
                 'override_item' => [
                     'id' => $collectionItem->getId()->toString(),
                     'collection_id' => $collectionItem->getCollectionId()->toString(),
