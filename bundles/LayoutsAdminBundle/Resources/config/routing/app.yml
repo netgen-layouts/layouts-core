@@ -67,3 +67,10 @@ nglayouts_app_collection_query_form_edit:
     defaults:
         _controller: 'netgen_layouts.controller.app.collection.edit_query_form'
         _nglayouts_status: draft
+
+nglayouts_app_collection_item_view_type_form_edit:
+    path: /app/collections/item/{itemId}/form/edit/view_type
+    methods: [GET, POST]
+    defaults:
+        _controller: 'netgen_layouts.controller.app.collection.edit_item_view_type_form'
+        _nglayouts_status: draft

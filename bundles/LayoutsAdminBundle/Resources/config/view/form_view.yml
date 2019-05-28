@@ -29,6 +29,10 @@ view:
                 template: "@NetgenLayoutsAdmin/app/form/query/edit/full.html.twig"
                 match:
                     form\type: Netgen\Layouts\Collection\Form\QueryEditType
+            item\view_type_edit:
+                template: "@NetgenLayoutsAdmin/app/form/item/edit/view_type.html.twig"
+                match:
+                    form\type: Netgen\Layouts\Collection\Form\ItemViewTypeEditType
         admin:
             layout\copy:
                 template: "@NetgenLayoutsAdmin/admin/layouts/form/copy_layout.html.twig"

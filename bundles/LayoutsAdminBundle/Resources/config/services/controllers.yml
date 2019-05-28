@@ -245,3 +245,11 @@ services:
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.collection"
+
+    netgen_layouts.controller.app.collection.edit_item_view_type_form:
+        class: Netgen\Bundle\LayoutsAdminBundle\Controller\App\Collection\EditItemViewTypeForm
+        public: true
+        parent: netgen_layouts.controller.base
+        arguments:
+            - "@netgen_layouts.api.service.block"
+            - "@netgen_layouts.api.service.collection"

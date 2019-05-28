@@ -67,9 +67,9 @@ final class EditForm extends AbstractController
         );
 
         if ($form->isValid()) {
-            $block = $this->blockService->updateBlock($block, $form->getData());
+            $updatedBlock = $this->blockService->updateBlock($block, $form->getData());
 
-            return new View($block, Version::API_V1);
+            return new View($updatedBlock, Version::API_V1);
         }
 
         return $this->buildView(

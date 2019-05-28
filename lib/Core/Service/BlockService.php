@@ -33,6 +33,7 @@ use Netgen\Layouts\Persistence\Values\Block\BlockCreateStruct;
 use Netgen\Layouts\Persistence\Values\Block\BlockTranslationUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Block\BlockUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\CollectionCreateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\ItemUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Ramsey\Uuid\UuidInterface;
@@ -274,14 +275,14 @@ final class BlockService extends Service implements BlockServiceInterface
         $blockDefinition = $block->getDefinition();
 
         $updatedBlock = $this->transaction(
-            function () use ($blockDefinition, $persistenceBlock, $blockUpdateStruct): PersistenceBlock {
+            function () use ($block, $blockDefinition, $persistenceBlock, $blockUpdateStruct): PersistenceBlock {
                 $persistenceBlock = $this->updateBlockTranslations(
                     $blockDefinition,
                     $persistenceBlock,
                     $blockUpdateStruct
                 );
 
-                return $this->blockHandler->updateBlock(
+                $updatedBlock = $this->blockHandler->updateBlock(
                     $persistenceBlock,
                     BlockUpdateStruct::fromArray(
                         [
@@ -299,6 +300,12 @@ final class BlockService extends Service implements BlockServiceInterface
                         ]
                     )
                 );
+
+                if ($persistenceBlock->viewType !== $updatedBlock->viewType) {
+                    $this->resetItemViewTypes($block, $updatedBlock);
+                }
+
+                return $updatedBlock;
             }
         );
 
@@ -600,6 +607,25 @@ final class BlockService extends Service implements BlockServiceInterface
                 yield $this->mapper->mapBlock($block, $locales, $useMainLocale);
             } catch (NotFoundException $e) {
                 // Block does not have the translation, skip it
+            }
+        }
+    }
+
+    /**
+     * Resets the item view type overrides to the first allowed for all items which have an item view type not allowed
+     * by the view type of the provided block.
+     */
+    private function resetItemViewTypes(Block $block, PersistenceBlock $updatedBlock): void
+    {
+        $blockViewType = $block->getDefinition()->getViewType($updatedBlock->viewType);
+        $allowedItemViewTypes = $blockViewType->getItemViewTypeIdentifiers();
+        $itemUpdateStruct = ItemUpdateStruct::fromArray(['viewType' => $allowedItemViewTypes[0]]);
+
+        foreach ($this->collectionHandler->loadCollections($updatedBlock) as $collection) {
+            foreach ($this->collectionHandler->loadCollectionItems($collection) as $item) {
+                if ($item->viewType !== null && !in_array($item->viewType, $allowedItemViewTypes, true)) {
+                    $this->collectionHandler->updateItem($item, $itemUpdateStruct);
+                }
             }
         }
     }

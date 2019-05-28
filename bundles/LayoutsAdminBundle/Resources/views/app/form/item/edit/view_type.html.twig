@@ -1,0 +1,18 @@
+{% extends '@NetgenLayoutsAdmin/app/form/modal.html.twig' %}
+
+{% form_theme form '@NetgenLayoutsAdmin/form/theme/nglayouts.html.twig' %}
+
+{% trans_default_domain 'nglayouts_forms' %}
+
+{% block header %}
+    {{ 'collection_item.edit_view_type.header'|trans }}: {{ form.vars.item.cmsItem.name }}
+{% endblock %}
+
+{% block children %}
+    {{ form_row(form.children.view_type) }}
+{% endblock %}
+
+{% block buttons %}
+    <button type="button" class="btn btn-link action_cancel">{{ 'collection_item.edit_view_type.button.cancel'|trans }}</button>
+    <button type="submit" class="btn btn-primary action_apply">{{ 'collection_item.edit_view_type.button.submit'|trans }}</button>
+{% endblock %}
