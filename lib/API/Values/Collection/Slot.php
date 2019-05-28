@@ -30,7 +30,7 @@ final class Slot implements Value
     private $position;
 
     /**
-     * @var string
+     * @var string|null
      */
     private $viewType;
 
@@ -60,11 +60,18 @@ final class Slot implements Value
 
     /**
      * Returns the view type which will be used to render the item located at this slot.
-     *
-     * @return string
      */
-    public function getViewType(): string
+    public function getViewType(): ?string
     {
         return $this->viewType;
+    }
+
+    /**
+     * Returns if the slot is considered empty. Empty slots can be safely deleted as they do not
+     * contain any relevant data.
+     */
+    public function isEmpty(): bool
+    {
+        return $this->viewType === null;
     }
 }

@@ -155,7 +155,7 @@ CREATE TABLE nglayouts_collection_slot (
   uuid nchar(36) NOT NULL,
   collection_id int NOT NULL,
   position int NOT NULL,
-  view_type nvarchar(255) NOT NULL,
+  view_type nvarchar(255),
   PRIMARY KEY (id, status),
   UNIQUE (uuid, status),
   FOREIGN KEY (collection_id, status)

@@ -663,7 +663,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         $updatedSlot = clone $slot;
 
         if (is_string($slotUpdateStruct->viewType)) {
-            $updatedSlot->viewType = $slotUpdateStruct->viewType;
+            $updatedSlot->viewType = $slotUpdateStruct->viewType !== '' ? $slotUpdateStruct->viewType : null;
         }
 
         $this->queryHandler->updateSlot($updatedSlot);

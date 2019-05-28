@@ -2659,6 +2659,34 @@ final class CollectionHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::updateSlot
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::updateSlot
+     */
+    public function testUpdateSlotWithResettingViewType(): void
+    {
+        $slotUpdateStruct = new SlotUpdateStruct();
+        $slotUpdateStruct->viewType = '';
+
+        $slot = $this->collectionHandler->updateSlot(
+            $this->collectionHandler->loadSlot(1, Value::STATUS_DRAFT),
+            $slotUpdateStruct
+        );
+
+        self::assertSame(
+            [
+                'id' => 1,
+                'uuid' => 'de3a0641-c67f-48e0-96e7-7c83b6735265',
+                'collectionId' => 1,
+                'collectionUuid' => 'a79dde13-1f5c-51a6-bea9-b766236be49e',
+                'position' => 0,
+                'viewType' => null,
+                'status' => Value::STATUS_DRAFT,
+            ],
+            $this->exportObject($slot)
+        );
+    }
+
+    /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::deleteSlot
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::deleteSlot
      */

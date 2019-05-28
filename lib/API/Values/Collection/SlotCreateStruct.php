@@ -9,9 +9,7 @@ final class SlotCreateStruct
     /**
      * View type which will be used to render the item located at the new slot.
      *
-     * Required.
-     *
-     * @var string
+     * @var string|null
      */
     public $viewType;
 }

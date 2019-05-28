@@ -122,7 +122,7 @@ CREATE TABLE IF NOT EXISTS "nglayouts_collection_slot" (
   "uuid" character(36) NOT NULL,
   "collection_id" integer NOT NULL,
   "position" integer NOT NULL,
-  "view_type" character varying(255) NOT NULL,
+  "view_type" character varying(255),
   PRIMARY KEY ("id", "status"),
   FOREIGN KEY ("collection_id", "status") REFERENCES nglayouts_collection ("id", "status")
 );

@@ -226,14 +226,15 @@ final class CollectionValidator extends Validator
      */
     public function validateSlotCreateStruct(SlotCreateStruct $slotCreateStruct): void
     {
-        $this->validate(
-            $slotCreateStruct->viewType,
-            [
-                new Constraints\NotBlank(),
-                new Constraints\Type(['type' => 'string']),
-            ],
-            'viewType'
-        );
+        if ($slotCreateStruct->viewType !== null) {
+            $this->validate(
+                $slotCreateStruct->viewType,
+                [
+                    new Constraints\Type(['type' => 'string']),
+                ],
+                'viewType'
+            );
+        }
     }
 
     /**
@@ -247,7 +248,6 @@ final class CollectionValidator extends Validator
             $this->validate(
                 $slotUpdateStruct->viewType,
                 [
-                    new Constraints\NotBlank(),
                     new Constraints\Type(['type' => 'string']),
                 ],
                 'viewType'

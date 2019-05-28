@@ -14,6 +14,7 @@ final class SlotTest extends TestCase
     public function testInstance(): void
     {
         self::assertInstanceOf(Value::class, new Slot());
+        self::assertTrue((new Slot())->isEmpty());
     }
 
     /**
@@ -21,6 +22,7 @@ final class SlotTest extends TestCase
      * @covers \Netgen\Layouts\API\Values\Collection\Slot::getId
      * @covers \Netgen\Layouts\API\Values\Collection\Slot::getPosition
      * @covers \Netgen\Layouts\API\Values\Collection\Slot::getViewType
+     * @covers \Netgen\Layouts\API\Values\Collection\Slot::isEmpty
      */
     public function testSetProperties(): void
     {
@@ -40,5 +42,6 @@ final class SlotTest extends TestCase
         self::assertSame($collectionUuid->toString(), $slot->getCollectionId()->toString());
         self::assertSame(3, $slot->getPosition());
         self::assertSame('overlay', $slot->getViewType());
+        self::assertFalse($slot->isEmpty());
     }
 }

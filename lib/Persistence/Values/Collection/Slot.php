@@ -49,7 +49,7 @@ final class Slot extends Value
     /**
      * View type which will be used to render the item located at this slot.
      *
-     * @var string
+     * @var string|null
      */
     public $viewType;
 }

@@ -159,7 +159,7 @@ CREATE TABLE `nglayouts_collection_slot` (
   `uuid` text(36) NOT NULL,
   `collection_id` integer NOT NULL,
   `position` integer NOT NULL,
-  `view_type` text(255) NOT NULL,
+  `view_type` text(255),
   PRIMARY KEY (`id`, `status`),
   UNIQUE (`uuid`, `status`),
   FOREIGN KEY (`collection_id`, `status`)

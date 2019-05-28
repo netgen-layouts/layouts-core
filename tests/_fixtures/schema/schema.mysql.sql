@@ -136,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `nglayouts_collection_slot` (
   `uuid` char(36) NOT NULL,
   `collection_id` int(11) NOT NULL,
   `position` int(11) NOT NULL,
-  `view_type` varchar(191) NOT NULL,
+  `view_type` varchar(191),
   PRIMARY KEY (`id`, `status`),
   UNIQUE KEY (`uuid`, `status`),
   FOREIGN KEY (`collection_id`, `status`)

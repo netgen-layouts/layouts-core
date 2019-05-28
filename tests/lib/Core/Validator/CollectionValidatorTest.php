@@ -697,11 +697,11 @@ final class CollectionValidatorTest extends TestCase
             ],
             [
                 ['viewType' => ''],
-                false,
+                true,
             ],
             [
                 ['viewType' => null],
-                false,
+                true,
             ],
             [
                 ['viewType' => 42],
@@ -733,7 +733,7 @@ final class CollectionValidatorTest extends TestCase
                 [
                     'viewType' => '',
                 ],
-                false,
+                true,
             ],
             [
                 [

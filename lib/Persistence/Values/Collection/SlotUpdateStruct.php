@@ -13,6 +13,8 @@ final class SlotUpdateStruct
     /**
      * New view type.
      *
+     * Set to an empty string to remove the stored view type.
+     *
      * @var string|null
      */
     public $viewType;

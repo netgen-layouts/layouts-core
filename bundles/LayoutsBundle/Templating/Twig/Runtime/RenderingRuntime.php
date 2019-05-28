@@ -107,7 +107,7 @@ final class RenderingRuntime
                 $viewType = $overrideViewType;
             } elseif ($item instanceof ManualItem && $item->getCollectionItem()->getViewType() !== null) {
                 $viewType = $item->getCollectionItem()->getViewType();
-            } elseif ($result->getSlot() instanceof Slot) {
+            } elseif ($result->getSlot() instanceof Slot && $result->getSlot()->getViewType() !== null) {
                 $viewType = $result->getSlot()->getViewType();
             }
 
