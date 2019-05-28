@@ -13,6 +13,7 @@
             "name": "Value with ID #140",
             "config": [],
             "position": 0,
+            "slot_id": null,
             "slot_view_type": null
         },
         {
@@ -28,6 +29,7 @@
             "name": "Value with ID #79",
             "config": [],
             "position": 1,
+            "slot_id": null,
             "slot_view_type": null
         },
         {
@@ -43,6 +45,7 @@
             "name": "Value with ID #72",
             "config": [],
             "position": 2,
+            "slot_id": null,
             "slot_view_type": null
         },
         {
@@ -58,6 +61,7 @@
             "name": "Value with ID #73",
             "config": [],
             "position": 3,
+            "slot_id": null,
             "slot_view_type": null
         },
         {
@@ -73,6 +77,7 @@
             "name": "Value with ID #78",
             "config": [],
             "position": 4,
+            "slot_id": null,
             "slot_view_type": null
         },
         {
@@ -88,6 +93,7 @@
             "name": "Value with ID #74",
             "config": [],
             "position": 5,
+            "slot_id": null,
             "slot_view_type": null
         }
     ],

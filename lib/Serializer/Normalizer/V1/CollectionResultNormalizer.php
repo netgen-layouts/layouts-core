@@ -47,8 +47,15 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
         $overrideItem = $result->getSubItem() instanceof CmsItemInterface ? $result->getItem() : null;
 
         $data = $this->normalizeResultItem($mainItem, $object->getVersion(), $format, $context);
+
         $data['position'] = $result->getPosition();
-        $data['slot_view_type'] = $result->getSlot() instanceof Slot ? $result->getSlot()->getViewType() : null;
+        $data['slot_id'] = null;
+        $data['slot_view_type'] = null;
+
+        if ($result->getSlot() instanceof Slot) {
+            $data['slot_id'] = $result->getSlot()->getId()->toString();
+            $data['slot_view_type'] = $result->getSlot()->getViewType();
+        }
 
         if ($overrideItem instanceof CmsItemInterface) {
             $data['override_item'] = $this->normalizeResultItem($overrideItem, $object->getVersion(), $format, $context);

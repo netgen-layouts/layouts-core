@@ -34,6 +34,13 @@ services:
         tags:
             - { name: request.param_converter, priority: 0 }
 
+    netgen_layouts.param_converter.collection.slot:
+        class: Netgen\Bundle\LayoutsBundle\ParamConverter\Collection\SlotParamConverter
+        arguments:
+            - "@netgen_layouts.api.service.collection"
+        tags:
+            - { name: request.param_converter, priority: 0 }
+
     netgen_layouts.param_converter.collection.query:
         class: Netgen\Bundle\LayoutsBundle\ParamConverter\Collection\QueryParamConverter
         arguments:

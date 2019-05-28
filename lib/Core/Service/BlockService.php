@@ -35,6 +35,7 @@ use Netgen\Layouts\Persistence\Values\Block\BlockUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\CollectionCreateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\ItemUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\QueryCreateStruct;
+use Netgen\Layouts\Persistence\Values\Collection\SlotUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Ramsey\Uuid\UuidInterface;
 
@@ -303,6 +304,7 @@ final class BlockService extends Service implements BlockServiceInterface
 
                 if ($persistenceBlock->viewType !== $updatedBlock->viewType) {
                     $this->resetItemViewTypes($block, $updatedBlock);
+                    $this->resetSlotViewTypes($block, $updatedBlock);
                 }
 
                 return $updatedBlock;
@@ -625,6 +627,25 @@ final class BlockService extends Service implements BlockServiceInterface
             foreach ($this->collectionHandler->loadCollectionItems($collection) as $item) {
                 if ($item->viewType !== null && !in_array($item->viewType, $allowedItemViewTypes, true)) {
                     $this->collectionHandler->updateItem($item, $itemUpdateStruct);
+                }
+            }
+        }
+    }
+
+    /**
+     * Resets the slot view type overrides to the first allowed for all slots which have an slot view type not allowed
+     * by the view type of the provided block.
+     */
+    private function resetSlotViewTypes(Block $block, PersistenceBlock $updatedBlock): void
+    {
+        $blockViewType = $block->getDefinition()->getViewType($updatedBlock->viewType);
+        $allowedItemViewTypes = $blockViewType->getItemViewTypeIdentifiers();
+        $slotUpdateStruct = SlotUpdateStruct::fromArray(['viewType' => $allowedItemViewTypes[0]]);
+
+        foreach ($this->collectionHandler->loadCollections($updatedBlock) as $collection) {
+            foreach ($this->collectionHandler->loadCollectionSlots($collection) as $slot) {
+                if (!in_array($slot->viewType, $allowedItemViewTypes, true)) {
+                    $this->collectionHandler->updateSlot($slot, $slotUpdateStruct);
                 }
             }
         }

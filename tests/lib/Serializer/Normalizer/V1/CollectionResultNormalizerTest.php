@@ -79,7 +79,8 @@ final class CollectionResultNormalizerTest extends TestCase
             ->method('normalize')
             ->willReturn($serializedConfig);
 
-        $result = new Result(3, new ManualItem($collectionItem), null, Slot::fromArray(['viewType' => 'standard']));
+        $slotUuid = Uuid::uuid4();
+        $result = new Result(3, new ManualItem($collectionItem), null, Slot::fromArray(['id' => $slotUuid, 'viewType' => 'standard']));
         $this->urlGeneratorMock
             ->expects(self::any())
             ->method('generate')
@@ -100,6 +101,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'cms_url' => '/some/url',
                 'config' => $serializedConfig,
                 'position' => $result->getPosition(),
+                'slot_id' => $slotUuid->toString(),
                 'slot_view_type' => 'standard',
             ],
             $this->normalizer->normalize(new VersionedValue($result, 1))
@@ -162,6 +164,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'cms_url' => '/some/url',
                 'config' => $serializedConfig,
                 'position' => $result->getPosition(),
+                'slot_id' => null,
                 'slot_view_type' => null,
             ],
             $this->normalizer->normalize(new VersionedValue($result, 1))
@@ -209,6 +212,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'cms_url' => '/some/url',
                 'config' => [],
                 'position' => $result->getPosition(),
+                'slot_id' => null,
                 'slot_view_type' => null,
             ],
             $this->normalizer->normalize(new VersionedValue($result, 1))
@@ -276,6 +280,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'cms_url' => '/some/url',
                 'config' => [],
                 'position' => $result->getPosition(),
+                'slot_id' => null,
                 'slot_view_type' => null,
                 'override_item' => [
                     'id' => $collectionItem->getId()->toString(),
