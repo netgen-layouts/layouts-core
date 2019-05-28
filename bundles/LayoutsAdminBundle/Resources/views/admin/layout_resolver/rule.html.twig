@@ -19,6 +19,7 @@
     {% if not rule.enabled %}disabled{% endif %}"
     data-id="{{ rule.id.toString }}"
     data-target-type="{{ target_type_identifier }}"
+    data-layout-id="{% if rule.layout is not empty %}{{ rule.layout.id.toString }}{% endif %}"
     >
     <div class="nl-rule-head">
         <div class="nl-rule-cell rule-layout">
@@ -108,6 +109,16 @@
                 {% if can_delete %}
                     <li><a href="#" class="js-rule-delete">{{ 'layout_resolver.rule.delete_rule'|trans }}</a></li>
                 {% endif %}
+
+                {% if rule.layout is empty or not rule.layout.published or is_granted('nglayouts:layout:clear_cache', rule.layout) %}
+                    <li>
+                        <button class="js-layout-clear-cache" {% if rule.layout is empty or not rule.layout.published or not http_cache_enabled %}disabled="disabled"{% endif %}>
+                            {{ 'layouts.layout.clear_cache'|trans }}
+                        </button>
+                    </li>
+                {% endif %}
+
+                {{ nglayouts_template_plugin('admin.rule.controls') }}
             </ul>
         </div>
 

@@ -2,7 +2,12 @@ import { Browser, InputBrowse } from '@netgen/content-browser-ui';
 import NlModal from './modal';
 import MultiEntry from '../plugins/multientry';
 import DateTimePicker from '../plugins/datetimepicker';
-import { parser } from '../helpers';
+import {
+    parser,
+    indeterminateCheckboxes,
+    fetchModal,
+    submitModal,
+} from '../helpers';
 
 const addedFormInit = (form) => {
     const cb = form.getElementsByClassName('js-input-browse')[0];
@@ -47,7 +52,6 @@ export default class NlRule {
         this.el.dataset.id = this.id;
         this.setupEvents();
         this.onRender();
-        console.log(this); // eslint-disable-line no-console
     }
 
     renderEl(html) {
@@ -351,6 +355,40 @@ export default class NlRule {
         browser.open();
     }
 
+    clearLayoutCache(e) {
+        e.preventDefault();
+        const url = `${this.rules.apiUrl}/layouts/${this.attributes.layoutId}/cache`;
+        const modal = new NlModal({
+            preload: true,
+            autoClose: false,
+        });
+        document.body.click();
+        const formAction = (ev) => {
+            ev.preventDefault();
+            modal.loadingStart();
+            submitModal(url, modal, 'POST', this.rules.csrf, null);
+        };
+        fetchModal(url, modal, formAction);
+    }
+
+    clearBlockCaches(e) {
+        e.preventDefault();
+        const modal = new NlModal({
+            preload: true,
+            autoClose: false,
+            className: 'nl-modal-cache',
+        });
+        const url = `${this.rules.apiUrl}/layouts/${this.attributes.layoutId}/cache/blocks`;
+        document.body.click();
+        const formAction = (ev) => {
+            ev.preventDefault();
+            modal.loadingStart();
+            const formEl = modal.el.getElementsByTagName('FORM')[0];
+            submitModal(url, modal, 'POST', this.rules.csrf, new URLSearchParams(new FormData(formEl)), null, () => indeterminateCheckboxes(modal.el));
+        };
+        fetchModal(url, modal, formAction, () => indeterminateCheckboxes(modal.el));
+    }
+
     setupEvents() {
         this.el.addEventListener('click', (e) => {
             if (e.target.closest('.js-rule-edit')) {
@@ -367,6 +405,10 @@ export default class NlRule {
                 this.settingAdd(e);
             } else if (e.target.closest('.js-link-layout')) {
                 this.linkLayout(e);
+            } else if (e.target.closest('.js-layout-clear-cache')) {
+                this.clearLayoutCache(e);
+            } else if (e.target.closest('.js-layout-clear-block-caches')) {
+                this.clearBlockCaches(e);
             } else if (e.target.closest('.nl-rule-head .nl-rule-cell')) {
                 this.el.classList.toggle('show-body');
             }
