@@ -1,8 +1,8 @@
 import 'whatwg-fetch';
-import './helpers/closest_polyfill';
+import './plugins/closest_polyfill';
 import NlLayouts from './components/layouts';
 import NlRules from './components/rules';
-import dropdownInit from './helpers/dropdown';
+import dropdownInit from './plugins/dropdown';
 
 const ngLayoutsInit = () => {
     const layoutsEl = document.getElementById('layouts');

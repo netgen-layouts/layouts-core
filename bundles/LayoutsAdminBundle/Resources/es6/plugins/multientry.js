@@ -1,4 +1,4 @@
-import parser from './parser';
+import { parser } from '../helpers';
 
 /* multientry plugin */
 export default class MultiEntry {

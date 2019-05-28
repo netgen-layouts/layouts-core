@@ -12,7 +12,8 @@ export default class NlRules {
         [this.sortBtn] = this.el.getElementsByClassName('js-sort-start');
         [this.appContainer] = document.getElementsByClassName('ng-layouts-app');
         this.csrf = document.querySelector('meta[name=nglayouts-admin-csrf-token]').getAttribute('content');
-        this.baseUrl = `${window.location.origin}${document.querySelector('meta[name=nglayouts-admin-base-path]').getAttribute('content')}/mappings/`;
+        this.apiUrl = `${window.location.origin}${document.querySelector('meta[name=nglayouts-admin-base-path]').getAttribute('content')}`;
+        this.baseUrl = `${this.apiUrl}/mappings/`;
         this.filter = JSON.parse(localStorage.getItem('ngMappingFilters')) || [];
 
         this.initialize();
@@ -82,7 +83,7 @@ export default class NlRules {
                 behavior: 'smooth',
             });
         }).catch((error) => {
-            console.log(error);
+            console.log(error); // eslint-disable-line no-console
         });
     }
 
@@ -115,7 +116,7 @@ export default class NlRules {
             window.location.reload(); /* reload to set new priority numbers */
         }).catch((error) => {
             this.appContainer.classList.remove('ajax-loading');
-            console.log(error);
+            console.log(error); // eslint-disable-line no-console
         });
     }
 

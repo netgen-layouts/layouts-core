@@ -1,13 +1,13 @@
 import { Browser, InputBrowse } from '@netgen/content-browser-ui';
 import NlModal from './modal';
-import MultiEntry from '../helpers/multientry';
-import DateTimePicker from '../helpers/datetimepicker';
-import parser from '../helpers/parser';
+import MultiEntry from '../plugins/multientry';
+import DateTimePicker from '../plugins/datetimepicker';
+import { parser } from '../helpers';
 
 const addedFormInit = (form) => {
     const cb = form.getElementsByClassName('js-input-browse')[0];
     if (cb) {
-        form.style.visibility = 'hidden';
+        form.style.visibility = 'hidden'; // eslint-disable-line no-param-reassign
         const browser = new InputBrowse(cb);
         browser.open();
         cb.addEventListener('browser:change', () => {
@@ -21,10 +21,10 @@ const addedFormInit = (form) => {
         el.getElementsByClassName('multientry-item').length === 0 && el.classList.add('show-message');
     };
     [...form.getElementsByClassName('multientry')].forEach((el) => {
-        const multientry = new MultiEntry(el);
         showMsg(el);
         el.addEventListener('multientry:remove', () => showMsg(el));
         el.addEventListener('multientry:add', () => el.classList.remove('show-message'));
+        return new MultiEntry(el);
     });
     [...form.querySelectorAll('select[multiple]')].forEach((el) => {
         let l = el.childElementCount;
@@ -47,6 +47,7 @@ export default class NlRule {
         this.el.dataset.id = this.id;
         this.setupEvents();
         this.onRender();
+        console.log(this); // eslint-disable-line no-console
     }
 
     renderEl(html) {
@@ -79,7 +80,7 @@ export default class NlRule {
             this.draftCreated = true;
             callback();
         }).catch((error) => {
-            console.log(error);
+            console.log(error); // eslint-disable-line no-console
         });
     }
 
@@ -105,7 +106,7 @@ export default class NlRule {
         }).then((data) => {
             this.renderEl(data);
         }).catch((error) => {
-            console.log(error);
+            console.log(error); // eslint-disable-line no-console
         });
     }
 
@@ -137,7 +138,7 @@ export default class NlRule {
             this.renderEl(data);
             getDraft || this.afterDraftRemove();
         }).catch((error) => {
-            console.log(error);
+            console.log(error); // eslint-disable-line no-console
         });
     }
 
@@ -158,7 +159,7 @@ export default class NlRule {
             }).then((data) => {
                 this.renderEl(data);
             }).catch((error) => {
-                console.log(error);
+                console.log(error); // eslint-disable-line no-console
             });
         });
     }
@@ -199,7 +200,7 @@ export default class NlRule {
                 }
                 return true;
             }).catch((error) => {
-                console.log(error);
+                console.log(error); // eslint-disable-line no-console
             });
         };
         fetch(url, {
@@ -211,7 +212,7 @@ export default class NlRule {
             modal.insertModalHtml(data);
             modal.el.addEventListener('apply', formAction);
         }).catch((error) => {
-            console.log(error);
+            console.log(error); // eslint-disable-line no-console
         });
     }
 
@@ -232,7 +233,7 @@ export default class NlRule {
             }).then((data) => {
                 this.renderEl(data);
             }).catch((error) => {
-                console.log(error);
+                console.log(error); // eslint-disable-line no-console
             });
         });
     }
@@ -264,7 +265,7 @@ export default class NlRule {
                     conditionEl.style.display = 'block';
                 });
             }).catch((error) => {
-                console.log(error);
+                console.log(error); // eslint-disable-line no-console
             });
         });
     }
@@ -310,7 +311,7 @@ export default class NlRule {
                         }
                     });
                 }).catch((error) => {
-                    console.log(error);
+                    console.log(error); // eslint-disable-line no-console
                 });
             });
         });
@@ -342,7 +343,7 @@ export default class NlRule {
                     }).then((data) => {
                         this.renderEl(data);
                     }).catch((error) => {
-                        console.log(error);
+                        console.log(error); // eslint-disable-line no-console
                     });
                 });
             },
