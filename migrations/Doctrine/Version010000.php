@@ -75,7 +75,7 @@ final class Version010000 extends AbstractMigration
 
         $this->addSql(
             <<<'EOT'
-CREATE TABLE `ngbm_collection_slot` (
+CREATE TABLE `nglayouts_collection_slot` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `uuid` char(36) NOT NULL,
