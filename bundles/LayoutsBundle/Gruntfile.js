@@ -130,11 +130,17 @@ module.exports = function (grunt) {
 
     grunt.registerTask('server', function () {
         grunt.task.run([
+            'fast_build',
+            'watch',
+        ]);
+    });
+
+    grunt.registerTask('fast_build', function () {
+        grunt.task.run([
             'lockfile',
             'sass:dist',
             'postcss:dist',
             'browserify:dist',
-            'watch',
         ]);
     });
 
