@@ -263,8 +263,8 @@ final class TemplateResolverTest extends TestCase
                 [
                     'matcher' => $matcherMock,
                 ]
-            ),
-            );
+            )
+        );
 
         $templateResolver->resolveTemplate($this->view);
     }
