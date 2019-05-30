@@ -32,7 +32,7 @@ services:
             - { name: netgen_layouts.transfer_output_visitor }
 
     netgen_layouts.transfer.serializer.visitor.slot:
-        class: Netgen\Layouts\Transfer\Output\Visitor\ItemVisitor
+        class: Netgen\Layouts\Transfer\Output\Visitor\SlotVisitor
         tags:
             - { name: netgen_layouts.transfer_output_visitor }
 
