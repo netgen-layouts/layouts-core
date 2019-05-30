@@ -18,21 +18,18 @@ parameters:
             message: '#Call to function is_callable\(\) with .+ will always evaluate to true.#'
             path: lib/Utils/BackwardsCompatibility/TreeBuilder.php
         -
-            message: '#Parameter \#(1|2) \$\w+ of method Symfony\\Component\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) expects .+, .+ given.#'
-            path: lib/Utils/BackwardsCompatibility/EventDispatcherProxy.php
-        -
-            message: '#Class Symfony\\Component\\Intl\\Locales not found.#'
-            path: lib/Utils/BackwardsCompatibility/Locales.php
-        -
-            message: '#Call to static method \w+\(\) on an unknown class Symfony\\Component\\Intl\\Locales.#'
-            path: lib/Utils/BackwardsCompatibility/Locales.php
-        -
             message: '#Call to an undefined method Symfony\\Component\\Intl\\ResourceBundle\\LocaleBundleInterface::getAliases\(\)#'
             path: lib/Utils/BackwardsCompatibility/Locales.php
 
         # Netgen Layouts specifics
 
         - '#Property Netgen\\Layouts\\Persistence\\Values\\.+::\$\w+ \(int\) does not accept null.#'
+        -
+            message: '/Parameter #1 \$event of method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) expects object, string given/'
+            path: lib/Utils/BackwardsCompatibility/EventDispatcherProxy.php
+        -
+            message: '#Method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) invoked with 2 parameters, 1 required#'
+            path: lib/Utils/BackwardsCompatibility/EventDispatcherProxy.php
         -
             message: '#Else branch is unreachable because ternary operator condition is always true.#'
             path: lib/Core/Validator/LayoutValidator.php
