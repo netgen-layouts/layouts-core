@@ -49,10 +49,9 @@ matrix:
       cache: ~
       language: node_js
       node_js: node
-      before_script: npm install -g grunt-cli
       script:
-        - grunt build --gruntfile=bundles/LayoutsBundle/Gruntfile.js
-        - grunt build --gruntfile=bundles/LayoutsAdminBundle/Gruntfile.js
+        - npm run prod
+        - npm run admin:prod
   allow_failures:
     -
       env: RUN_BEHAT="yes"
