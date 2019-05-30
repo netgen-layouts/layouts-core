@@ -59,7 +59,7 @@ class AjaxPaging {
   renderNavigation() {
     this.nav.forEach((pager) => {
       pager.removeAttribute('data-template');
-      pager.innerHTML = templateEngine(this.pagerData.template, { pages: this.totalPages, page: this.page, url: this.generateUrl.bind(this) });
+      pager.innerHTML = templateEngine(this.pagerData.template, { pages: this.totalPages, page: this.page, url: this.generateUrl.bind(this) }); // eslint-disable-line no-param-reassign
     });
   }
 
@@ -96,7 +96,7 @@ class AjaxPaging {
       this.renderNewPage(html);
     }).catch((err) => {
       this.loadingStop();
-      console.log('Fetch Error :-S', err);
+      console.log('Fetch Error :-S', err); // eslint-disable-line no-console
     });
   }
 

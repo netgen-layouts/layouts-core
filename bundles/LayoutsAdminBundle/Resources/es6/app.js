@@ -3,12 +3,13 @@ import './plugins/closest_polyfill';
 import NlLayouts from './components/layouts';
 import NlRules from './components/rules';
 import dropdownInit from './plugins/dropdown';
+import '../sass/style.scss';
 
 const ngLayoutsInit = () => {
     const layoutsEl = document.getElementById('layouts');
     const rulesEl = document.getElementById('rules');
-    const nlLayouts = layoutsEl ? new NlLayouts(layoutsEl) : null;
-    const nlRules = rulesEl ? new NlRules(rulesEl) : null;
+    const nlLayouts = layoutsEl ? new NlLayouts(layoutsEl) : null; // eslint-disable-line no-unused-vars
+    const nlRules = rulesEl ? new NlRules(rulesEl) : null; // eslint-disable-line no-unused-vars
 
     dropdownInit();
 

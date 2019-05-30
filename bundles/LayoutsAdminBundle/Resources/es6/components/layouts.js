@@ -137,7 +137,7 @@ export default class NlLayouts {
             layoutsAppEl.classList.remove('ajax-loading');
         }).catch((error) => {
             layoutsAppEl.classList.remove('ajax-loading');
-            console.log(error);
+            console.log(error); // eslint-disable-line no-console
         });
     }
 
