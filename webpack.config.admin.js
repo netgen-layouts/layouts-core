@@ -60,6 +60,9 @@ module.exports = (env, argv) => {
       filename: 'js/app.js',
     },
     devtool: isEnvDevelopment ? 'cheap-module-source-map' : '',
+    resolve: {
+      symlinks: false,
+    },
     module: {
       rules: [
         // First, run the linter.
