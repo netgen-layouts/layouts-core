@@ -49,7 +49,6 @@ matrix:
       cache: ~
       language: node_js
       node_js: node
-      before_script: npm install -D webpack-cli
       script:
         - npm run prod
         - npm run admin:prod
