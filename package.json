@@ -3,8 +3,8 @@
     "description": "Netgen Layouts core",
     "version": "1.0.0",
     "repository": {
-      "type": "git",
-      "url": "https://github.com/netgen-layouts/layouts-core.git"
+        "type": "git",
+        "url": "https://github.com/netgen-layouts/layouts-core.git"
     },
     "private": true,
     "devDependencies": {
