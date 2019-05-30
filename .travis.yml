@@ -49,6 +49,7 @@ matrix:
       cache: ~
       language: node_js
       node_js: node
+      before_script: ~
       script:
         - npm run prod
         - npm run admin:prod
