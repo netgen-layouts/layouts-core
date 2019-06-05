@@ -4,15 +4,20 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\HttpCache;
 
+use FOS\HttpCacheBundle\Http\SymfonyResponseTagger;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\HttpCache\Tagger;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
-use Symfony\Component\HttpFoundation\Response;
 
 final class TaggerTest extends TestCase
 {
+    /**
+     * @var \FOS\HttpCacheBundle\Http\SymfonyResponseTagger
+     */
+    private $responseTagger;
+
     /**
      * @var \Netgen\Layouts\HttpCache\Tagger
      */
@@ -20,7 +25,8 @@ final class TaggerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->tagger = new Tagger();
+        $this->responseTagger = new SymfonyResponseTagger();
+        $this->tagger = new Tagger($this->responseTagger);
     }
 
     /**
@@ -29,18 +35,12 @@ final class TaggerTest extends TestCase
     public function testTagLayout(): void
     {
         $uuid = Uuid::uuid4();
-
-        $response = new Response();
-        $response->setVary('Cookie');
         $layout = Layout::fromArray(['id' => $uuid]);
 
-        $this->tagger->tagLayout($response, $layout);
+        $this->tagger->tagLayout($layout);
 
-        self::assertTrue($response->headers->has('X-Layout-Id'));
-        self::assertSame($uuid->toString(), $response->headers->get('X-Layout-Id'));
-
-        self::assertTrue($response->hasVary());
-        self::assertSame(['Cookie', 'X-Layout-Id'], $response->getVary());
+        self::assertTrue($this->responseTagger->hasTags());
+        self::assertSame('ngl-all,ngl-layout-' . $uuid->toString(), $this->responseTagger->getTagsHeaderValue());
     }
 
     /**
@@ -51,15 +51,14 @@ final class TaggerTest extends TestCase
         $layoutUuid = Uuid::uuid4();
         $blockUuid = Uuid::uuid4();
 
-        $response = new Response();
         $block = Block::fromArray(['id' => $blockUuid, 'layoutId' => $layoutUuid]);
 
-        $this->tagger->tagBlock($response, $block);
+        $this->tagger->tagBlock($block);
 
-        self::assertTrue($response->headers->has('X-Block-Id'));
-        self::assertSame($blockUuid->toString(), $response->headers->get('X-Block-Id'));
-
-        self::assertTrue($response->headers->has('X-Origin-Layout-Id'));
-        self::assertSame($layoutUuid->toString(), $response->headers->get('X-Origin-Layout-Id'));
+        self::assertTrue($this->responseTagger->hasTags());
+        self::assertSame(
+            'ngl-all,ngl-block-' . $blockUuid->toString() . ',ngl-origin-layout-' . $layoutUuid->toString(),
+            $this->responseTagger->getTagsHeaderValue()
+        );
     }
 }

@@ -6,19 +6,43 @@ namespace Netgen\Layouts\HttpCache;
 
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Layout\Layout;
-use Symfony\Component\HttpFoundation\Response;
 
 final class Tagger implements TaggerInterface
 {
-    public function tagLayout(Response $response, Layout $layout): void
+    /**
+     * @var \FOS\HttpCache\ResponseTagger|null
+     */
+    private $responseTagger;
+
+    /**
+     * Typehint is not specified to support FOS HTTP Cache Bundle 1.x, which uses a different class.
+     *
+     * @deprecated Add the typehint when support for FOS HTTP Cache Bundle 1.x ends.
+     *
+     * @param \FOS\HttpCache\ResponseTagger|null $responseTagger
+     */
+    public function __construct(/* ResponseTagger */ $responseTagger = null)
     {
-        $response->headers->set('X-Layout-Id', $layout->getId()->toString());
-        $response->setVary('X-Layout-Id', false);
+        $this->responseTagger = $responseTagger;
     }
 
-    public function tagBlock(Response $response, Block $block): void
+    public function tagLayout(Layout $layout): void
     {
-        $response->headers->set('X-Block-Id', $block->getId()->toString());
-        $response->headers->set('X-Origin-Layout-Id', $block->getLayoutId()->toString());
+        if ($this->responseTagger !== null) {
+            $this->responseTagger->addTags(['ngl-all', 'ngl-layout-' . $layout->getId()->toString()]);
+        }
+    }
+
+    public function tagBlock(Block $block): void
+    {
+        if ($this->responseTagger !== null) {
+            $this->responseTagger->addTags(
+                [
+                    'ngl-all',
+                    'ngl-block-' . $block->getId()->toString(),
+                    'ngl-origin-layout-' . $block->getLayoutId()->toString(),
+                ]
+            );
+        }
     }
 }

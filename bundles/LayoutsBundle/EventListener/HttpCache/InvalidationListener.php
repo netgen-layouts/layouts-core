@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\EventListener\HttpCache;
 
-use Netgen\Layouts\HttpCache\ClientInterface;
+use Netgen\Layouts\HttpCache\InvalidatorInterface;
 use Symfony\Component\Console\ConsoleEvents;
 use Symfony\Component\Console\Event\ConsoleEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -15,13 +15,13 @@ use Symfony\Component\HttpKernel\KernelEvents;
 final class InvalidationListener implements EventSubscriberInterface
 {
     /**
-     * @var \Netgen\Layouts\HttpCache\ClientInterface
+     * @var \Netgen\Layouts\HttpCache\InvalidatorInterface
      */
-    private $httpCacheClient;
+    private $invalidator;
 
-    public function __construct(ClientInterface $httpCacheClient)
+    public function __construct(InvalidatorInterface $invalidator)
     {
-        $this->httpCacheClient = $httpCacheClient;
+        $this->invalidator = $invalidator;
     }
 
     public static function getSubscribedEvents(): array
@@ -39,7 +39,7 @@ final class InvalidationListener implements EventSubscriberInterface
      */
     public function onKernelTerminate(PostResponseEvent $event): void
     {
-        $this->httpCacheClient->commit();
+        $this->invalidator->commit();
     }
 
     /**
@@ -47,7 +47,7 @@ final class InvalidationListener implements EventSubscriberInterface
      */
     public function onKernelException(GetResponseForExceptionEvent $event): void
     {
-        $this->httpCacheClient->commit();
+        $this->invalidator->commit();
     }
 
     /**
@@ -55,6 +55,6 @@ final class InvalidationListener implements EventSubscriberInterface
      */
     public function onConsoleTerminate(ConsoleEvent $event): void
     {
-        $this->httpCacheClient->commit();
+        $this->invalidator->commit();
     }
 }

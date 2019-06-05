@@ -43,7 +43,7 @@ final class LayoutResponseListenerTest extends TestCase
     {
         self::assertSame(
             [
-                KernelEvents::RESPONSE => 'onKernelResponse',
+                KernelEvents::RESPONSE => ['onKernelResponse', 10],
                 KernelEvents::EXCEPTION => 'onKernelException',
             ],
             $this->listener::getSubscribedEvents()
@@ -63,18 +63,17 @@ final class LayoutResponseListenerTest extends TestCase
 
         $request->attributes->set('nglLayoutView', new LayoutView($layout));
 
-        $response = new Response();
         $event = new FilterResponseEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            $response
+            new Response()
         );
 
         $this->taggerMock
             ->expects(self::once())
             ->method('tagLayout')
-            ->with(self::identicalTo($response), self::identicalTo($layout));
+            ->with(self::identicalTo($layout));
 
         $this->listener->onKernelResponse($event);
     }
@@ -139,18 +138,17 @@ final class LayoutResponseListenerTest extends TestCase
         $layout = new Layout();
         $request->attributes->set('nglExceptionLayoutView', new LayoutView($layout));
 
-        $response = new Response();
         $event = new FilterResponseEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            $response
+            new Response()
         );
 
         $this->taggerMock
             ->expects(self::once())
             ->method('tagLayout')
-            ->with(self::identicalTo($response), self::identicalTo($layout));
+            ->with(self::identicalTo($layout));
 
         $this->listener->onKernelException(
             new GetResponseForExceptionEvent(

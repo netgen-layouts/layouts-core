@@ -155,7 +155,7 @@ services:
         public: true
         parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_layouts.http_cache.client"
+            - "@netgen_layouts.http_cache.invalidator"
 
     ## Shared layouts controllers
 
@@ -172,7 +172,7 @@ services:
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
-            - "@netgen_layouts.http_cache.client"
+            - "@netgen_layouts.http_cache.invalidator"
 
     # App controllers
 

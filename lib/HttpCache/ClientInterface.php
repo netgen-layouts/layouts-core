@@ -7,35 +7,9 @@ namespace Netgen\Layouts\HttpCache;
 interface ClientInterface
 {
     /**
-     * Invalidates all provided layouts.
-     *
-     * @param string[] $layoutIds
+     * Purges all caches that have one of the provided tags.
      */
-    public function invalidateLayouts(array $layoutIds): void;
-
-    /**
-     * Invalidates all layouts.
-     */
-    public function invalidateAllLayouts(): void;
-
-    /**
-     * Invalidates all provided blocks.
-     *
-     * @param string[] $blockIds
-     */
-    public function invalidateBlocks(array $blockIds): void;
-
-    /**
-     * Invalidates all blocks from provided layouts.
-     *
-     * @param string[] $layoutIds
-     */
-    public function invalidateLayoutBlocks(array $layoutIds): void;
-
-    /**
-     * Invalidates all blocks.
-     */
-    public function invalidateAllBlocks(): void;
+    public function purge(array $tags): void;
 
     /**
      * Commits the cache clear operations to the backend.

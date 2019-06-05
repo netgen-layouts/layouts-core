@@ -2,6 +2,17 @@ services:
     netgen_layouts.http_cache.fos.cache_manager:
         synthetic: true
 
+    netgen_layouts.http_cache.invalidator:
+        class: Netgen\Layouts\HttpCache\Invalidator
+        arguments:
+            - "@netgen_layouts.http_cache.client"
+            - "@netgen_layouts.http_cache.layout.id_provider"
+
+    netgen_layouts.http_cache.varnish.host_header_provider.fos:
+        class: Netgen\Layouts\HttpCache\Varnish\FOSHostHeaderProvider
+        arguments:
+            - []
+
     netgen_layouts.http_cache.client:
         alias: netgen_layouts.http_cache.client.varnish
 
@@ -9,13 +20,15 @@ services:
         class: Netgen\Layouts\HttpCache\VarnishClient
         arguments:
             - "@netgen_layouts.http_cache.fos.cache_manager"
-            - "@netgen_layouts.http_cache.layout.id_provider"
+            - "@netgen_layouts.http_cache.varnish.host_header_provider.fos"
 
     netgen_layouts.http_cache.client.null:
         class: Netgen\Layouts\HttpCache\NullClient
 
     netgen_layouts.http_cache.tagger:
         class: Netgen\Layouts\HttpCache\Tagger
+        arguments:
+            - "@?fos_http_cache.http.symfony_response_tagger"
 
     netgen_layouts.http_cache.layout.id_provider:
         class: Netgen\Layouts\HttpCache\Layout\IdProvider

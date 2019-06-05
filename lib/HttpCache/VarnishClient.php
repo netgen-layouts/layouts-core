@@ -6,7 +6,7 @@ namespace Netgen\Layouts\HttpCache;
 
 use FOS\HttpCache\CacheInvalidator;
 use FOS\HttpCache\Exception\ExceptionCollection;
-use Netgen\Layouts\HttpCache\Layout\IdProviderInterface;
+use Netgen\Layouts\HttpCache\Varnish\HostHeaderProviderInterface;
 
 final class VarnishClient implements ClientInterface
 {
@@ -16,76 +16,31 @@ final class VarnishClient implements ClientInterface
     private $fosInvalidator;
 
     /**
-     * @var \Netgen\Layouts\HttpCache\Layout\IdProviderInterface
+     * @var \Netgen\Layouts\HttpCache\Varnish\HostHeaderProviderInterface
      */
-    private $layoutIdProvider;
+    private $hostHeaderProvider;
 
-    public function __construct(CacheInvalidator $fosInvalidator, IdProviderInterface $layoutIdProvider)
-    {
+    public function __construct(
+        CacheInvalidator $fosInvalidator,
+        HostHeaderProviderInterface $hostHeaderProvider
+    ) {
         $this->fosInvalidator = $fosInvalidator;
-        $this->layoutIdProvider = $layoutIdProvider;
+        $this->hostHeaderProvider = $hostHeaderProvider;
     }
 
-    public function invalidateLayouts(array $layoutIds): void
+    public function purge(array $tags): void
     {
-        if (count($layoutIds) === 0) {
-            return;
+        $hostHeader = $this->hostHeaderProvider->provideHostHeader();
+
+        foreach ($tags as $tag) {
+            $this->fosInvalidator->invalidatePath(
+                '/',
+                [
+                    'key' => $tag,
+                    'Host' => $hostHeader,
+                ]
+            );
         }
-
-        $allLayoutIds = [];
-        foreach ($layoutIds as $layoutId) {
-            $allLayoutIds[] = $this->layoutIdProvider->provideIds($layoutId);
-        }
-
-        $this->fosInvalidator->invalidate(
-            [
-                'X-Layout-Id' => '^(' . implode('|', array_merge(...$allLayoutIds)) . ')$',
-            ]
-        );
-    }
-
-    public function invalidateAllLayouts(): void
-    {
-        $this->fosInvalidator->invalidate(
-            [
-                'X-Layout-Id' => '.*',
-            ]
-        );
-    }
-
-    public function invalidateBlocks(array $blockIds): void
-    {
-        if (count($blockIds) === 0) {
-            return;
-        }
-
-        $this->fosInvalidator->invalidate(
-            [
-                'X-Block-Id' => '^(' . implode('|', $blockIds) . ')$',
-            ]
-        );
-    }
-
-    public function invalidateLayoutBlocks(array $layoutIds): void
-    {
-        if (count($layoutIds) === 0) {
-            return;
-        }
-
-        $this->fosInvalidator->invalidate(
-            [
-                'X-Origin-Layout-Id' => '^(' . implode('|', $layoutIds) . ')$',
-            ]
-        );
-    }
-
-    public function invalidateAllBlocks(): void
-    {
-        $this->fosInvalidator->invalidate(
-            [
-                'X-Block-Id' => '.*',
-            ]
-        );
     }
 
     public function commit(): bool

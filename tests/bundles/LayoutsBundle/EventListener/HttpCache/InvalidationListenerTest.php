@@ -6,7 +6,7 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener\HttpCache;
 
 use Exception;
 use Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\InvalidationListener;
-use Netgen\Layouts\HttpCache\ClientInterface;
+use Netgen\Layouts\HttpCache\InvalidatorInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\ConsoleEvents;
@@ -25,7 +25,7 @@ final class InvalidationListenerTest extends TestCase
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
-    private $httpCacheClientMock;
+    private $invalidatorMock;
 
     /**
      * @var \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\InvalidationListener
@@ -34,9 +34,9 @@ final class InvalidationListenerTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->httpCacheClientMock = $this->createMock(ClientInterface::class);
+        $this->invalidatorMock = $this->createMock(InvalidatorInterface::class);
 
-        $this->listener = new InvalidationListener($this->httpCacheClientMock);
+        $this->listener = new InvalidationListener($this->invalidatorMock);
     }
 
     /**
@@ -70,7 +70,7 @@ final class InvalidationListenerTest extends TestCase
             new Response()
         );
 
-        $this->httpCacheClientMock
+        $this->invalidatorMock
             ->expects(self::once())
             ->method('commit');
 
@@ -92,7 +92,7 @@ final class InvalidationListenerTest extends TestCase
             new Exception()
         );
 
-        $this->httpCacheClientMock
+        $this->invalidatorMock
             ->expects(self::once())
             ->method('commit');
 
@@ -114,7 +114,7 @@ final class InvalidationListenerTest extends TestCase
             $outputMock
         );
 
-        $this->httpCacheClientMock
+        $this->invalidatorMock
             ->expects(self::once())
             ->method('commit');
 

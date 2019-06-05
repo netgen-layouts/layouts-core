@@ -8,7 +8,7 @@ use Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type\ClearLayoutsCacheType;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
-use Netgen\Layouts\HttpCache\ClientInterface;
+use Netgen\Layouts\HttpCache\InvalidatorInterface;
 use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,14 +21,14 @@ final class ClearRelatedLayoutsCache extends AbstractController
     private $layoutService;
 
     /**
-     * @var \Netgen\Layouts\HttpCache\ClientInterface
+     * @var \Netgen\Layouts\HttpCache\InvalidatorInterface
      */
-    private $httpCacheClient;
+    private $invalidator;
 
-    public function __construct(LayoutService $layoutService, ClientInterface $httpCacheClient)
+    public function __construct(LayoutService $layoutService, InvalidatorInterface $invalidator)
     {
         $this->layoutService = $layoutService;
-        $this->httpCacheClient = $httpCacheClient;
+        $this->invalidator = $invalidator;
     }
 
     /**
@@ -63,8 +63,8 @@ final class ClearRelatedLayoutsCache extends AbstractController
             /** @var \Netgen\Layouts\API\Values\Layout\LayoutList $selectedLayouts */
             $selectedLayouts = $form->get('layouts')->getData();
 
-            $this->httpCacheClient->invalidateLayouts(array_map('strval', $selectedLayouts->getLayoutIds()));
-            $cacheCleared = $this->httpCacheClient->commit();
+            $this->invalidator->invalidateLayouts(array_map('strval', $selectedLayouts->getLayoutIds()));
+            $cacheCleared = $this->invalidator->commit();
 
             if ($cacheCleared) {
                 return new Response(null, Response::HTTP_NO_CONTENT);

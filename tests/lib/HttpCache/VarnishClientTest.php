@@ -6,10 +6,9 @@ namespace Netgen\Layouts\Tests\HttpCache;
 
 use FOS\HttpCache\CacheInvalidator;
 use FOS\HttpCache\Exception\ExceptionCollection;
-use Netgen\Layouts\HttpCache\Layout\IdProviderInterface;
+use Netgen\Layouts\HttpCache\Varnish\HostHeaderProviderInterface;
 use Netgen\Layouts\HttpCache\VarnishClient;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
 
 final class VarnishClientTest extends TestCase
 {
@@ -21,7 +20,7 @@ final class VarnishClientTest extends TestCase
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
-    private $idProviderMock;
+    private $hostHeaderProviderMock;
 
     /**
      * @var \Netgen\Layouts\HttpCache\VarnishClient
@@ -31,181 +30,52 @@ final class VarnishClientTest extends TestCase
     protected function setUp(): void
     {
         $this->fosInvalidatorMock = $this->createMock(CacheInvalidator::class);
-        $this->idProviderMock = $this->createMock(IdProviderInterface::class);
+        $this->hostHeaderProviderMock = $this->createMock(HostHeaderProviderInterface::class);
 
         $this->client = new VarnishClient(
             $this->fosInvalidatorMock,
-            $this->idProviderMock
+            $this->hostHeaderProviderMock
         );
     }
 
     /**
      * @covers \Netgen\Layouts\HttpCache\VarnishClient::__construct
-     * @covers \Netgen\Layouts\HttpCache\VarnishClient::invalidateLayouts
+     * @covers \Netgen\Layouts\HttpCache\VarnishClient::purge
      */
-    public function testInvalidateLayouts(): void
+    public function testPurge(): void
     {
-        $uuid1 = Uuid::uuid4();
-        $uuid2 = Uuid::uuid4();
-        $uuid3 = Uuid::uuid4();
-        $uuid4 = Uuid::uuid4();
+        $this->hostHeaderProviderMock
+            ->expects(self::once())
+            ->method('provideHostHeader')
+            ->willReturn('http://localhost:4242');
 
-        $this->idProviderMock
+        $this->fosInvalidatorMock
             ->expects(self::at(0))
-            ->method('provideIds')
-            ->with(self::identicalTo($uuid1->toString()))
-            ->willReturn([$uuid1->toString(), $uuid3->toString(), $uuid4->toString()]);
+            ->method('invalidatePath')
+            ->with(
+                self::identicalTo('/'),
+                self::identicalTo(
+                    [
+                        'key' => 'tag-1',
+                        'Host' => 'http://localhost:4242',
+                    ]
+                )
+            );
 
-        $this->idProviderMock
+        $this->fosInvalidatorMock
             ->expects(self::at(1))
-            ->method('provideIds')
-            ->with(self::identicalTo($uuid2->toString()))
-            ->willReturn([$uuid2->toString()]);
-
-        $this->fosInvalidatorMock
-            ->expects(self::once())
-            ->method('invalidate')
+            ->method('invalidatePath')
             ->with(
+                self::identicalTo('/'),
                 self::identicalTo(
                     [
-                        'X-Layout-Id' => sprintf(
-                            '^(%s|%s|%s|%s)$',
-                            $uuid1->toString(),
-                            $uuid3->toString(),
-                            $uuid4->toString(),
-                            $uuid2->toString()
-                        ),
+                        'key' => 'tag-2',
+                        'Host' => 'http://localhost:4242',
                     ]
                 )
             );
 
-        $this->client->invalidateLayouts([$uuid1->toString(), $uuid2->toString()]);
-    }
-
-    /**
-     * @covers \Netgen\Layouts\HttpCache\VarnishClient::invalidateLayouts
-     */
-    public function testInvalidateLayoutsWithEmptyLayoutIds(): void
-    {
-        $this->idProviderMock
-            ->expects(self::never())
-            ->method('provideIds');
-
-        $this->fosInvalidatorMock
-            ->expects(self::never())
-            ->method('invalidate');
-
-        $this->client->invalidateLayouts([]);
-    }
-
-    /**
-     * @covers \Netgen\Layouts\HttpCache\VarnishClient::invalidateAllLayouts
-     */
-    public function testInvalidateAllLayouts(): void
-    {
-        $this->idProviderMock
-            ->expects(self::never())
-            ->method('provideIds');
-
-        $this->fosInvalidatorMock
-            ->expects(self::once())
-            ->method('invalidate')
-            ->with(
-                self::identicalTo(
-                    [
-                        'X-Layout-Id' => '.*',
-                    ]
-                )
-            );
-
-        $this->client->invalidateAllLayouts();
-    }
-
-    /**
-     * @covers \Netgen\Layouts\HttpCache\VarnishClient::invalidateBlocks
-     */
-    public function testInvalidateBlocks(): void
-    {
-        $uuid1 = Uuid::uuid4();
-        $uuid2 = Uuid::uuid4();
-
-        $this->fosInvalidatorMock
-            ->expects(self::once())
-            ->method('invalidate')
-            ->with(
-                self::identicalTo(
-                    [
-                        'X-Block-Id' => sprintf('^(%s|%s)$', $uuid1->toString(), $uuid2->toString()),
-                    ]
-                )
-            );
-
-        $this->client->invalidateBlocks([$uuid1->toString(), $uuid2->toString()]);
-    }
-
-    /**
-     * @covers \Netgen\Layouts\HttpCache\VarnishClient::invalidateBlocks
-     */
-    public function testInvalidateBlocksWithEmptyBlockIds(): void
-    {
-        $this->fosInvalidatorMock
-            ->expects(self::never())
-            ->method('invalidate');
-
-        $this->client->invalidateBlocks([]);
-    }
-
-    /**
-     * @covers \Netgen\Layouts\HttpCache\VarnishClient::invalidateLayoutBlocks
-     */
-    public function testInvalidateLayoutBlocks(): void
-    {
-        $uuid1 = Uuid::uuid4();
-        $uuid2 = Uuid::uuid4();
-
-        $this->fosInvalidatorMock
-            ->expects(self::once())
-            ->method('invalidate')
-            ->with(
-                self::identicalTo(
-                    [
-                        'X-Origin-Layout-Id' => sprintf('^(%s|%s)$', $uuid1->toString(), $uuid2->toString()),
-                    ]
-                )
-            );
-
-        $this->client->invalidateLayoutBlocks([$uuid1->toString(), $uuid2->toString()]);
-    }
-
-    /**
-     * @covers \Netgen\Layouts\HttpCache\VarnishClient::invalidateLayoutBlocks
-     */
-    public function testInvalidateLayoutBlocksWithEmptyLayoutIds(): void
-    {
-        $this->fosInvalidatorMock
-            ->expects(self::never())
-            ->method('invalidate');
-
-        $this->client->invalidateLayoutBlocks([]);
-    }
-
-    /**
-     * @covers \Netgen\Layouts\HttpCache\VarnishClient::invalidateAllBlocks
-     */
-    public function testInvalidateAllBlocks(): void
-    {
-        $this->fosInvalidatorMock
-            ->expects(self::once())
-            ->method('invalidate')
-            ->with(
-                self::identicalTo(
-                    [
-                        'X-Block-Id' => '.*',
-                    ]
-                )
-            );
-
-        $this->client->invalidateAllBlocks();
+        $this->client->purge(['tag-1', 'tag-2']);
     }
 
     /**

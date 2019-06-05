@@ -31,7 +31,7 @@ final class LayoutResponseListener implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            KernelEvents::RESPONSE => 'onKernelResponse',
+            KernelEvents::RESPONSE => ['onKernelResponse', 10],
             KernelEvents::EXCEPTION => 'onKernelException',
         ];
     }
@@ -55,7 +55,7 @@ final class LayoutResponseListener implements EventSubscriberInterface
             return;
         }
 
-        $this->tagger->tagLayout($event->getResponse(), $layoutView->getLayout());
+        $this->tagger->tagLayout($layoutView->getLayout());
     }
 
     /**

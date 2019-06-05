@@ -24,7 +24,7 @@ final class BlockResponseListener implements EventSubscriberInterface
 
     public static function getSubscribedEvents(): array
     {
-        return [KernelEvents::RESPONSE => ['onKernelResponse', -255]];
+        return [KernelEvents::RESPONSE => ['onKernelResponse', 10]];
     }
 
     /**
@@ -41,6 +41,6 @@ final class BlockResponseListener implements EventSubscriberInterface
             return;
         }
 
-        $this->tagger->tagBlock($event->getResponse(), $blockView->getBlock());
+        $this->tagger->tagBlock($blockView->getBlock());
     }
 }

@@ -29,8 +29,10 @@ final class NetgenLayoutsBundle extends Bundle
         $container->addCompilerPass(new CompilerPass\Layout\LayoutTypePass());
         $container->addCompilerPass(new CompilerPass\Block\BlockTypePass());
         $container->addCompilerPass(new CompilerPass\Block\BlockTypeGroupPass());
+        $container->addCompilerPass(new CompilerPass\HttpCache\LegacyTagHandlerPass());
         $container->addCompilerPass(new CompilerPass\HttpCache\CacheManagerPass());
         $container->addCompilerPass(new CompilerPass\HttpCache\ConfigureHttpCachePass());
+        $container->addCompilerPass(new CompilerPass\HttpCache\FOSHostHeaderProviderPass());
         $container->addCompilerPass(new CompilerPass\Design\ThemePass());
         $container->addCompilerPass(new CompilerPass\CleanupConfigPass(), PassConfig::TYPE_REMOVE);
     }

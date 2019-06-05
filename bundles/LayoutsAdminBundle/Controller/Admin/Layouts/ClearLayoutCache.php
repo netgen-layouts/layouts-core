@@ -6,20 +6,20 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\Layouts;
 
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Values\Layout\Layout;
-use Netgen\Layouts\HttpCache\ClientInterface;
+use Netgen\Layouts\HttpCache\InvalidatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 final class ClearLayoutCache extends AbstractController
 {
     /**
-     * @var \Netgen\Layouts\HttpCache\ClientInterface
+     * @var \Netgen\Layouts\HttpCache\InvalidatorInterface
      */
-    private $httpCacheClient;
+    private $invalidator;
 
-    public function __construct(ClientInterface $httpCacheClient)
+    public function __construct(InvalidatorInterface $invalidator)
     {
-        $this->httpCacheClient = $httpCacheClient;
+        $this->invalidator = $invalidator;
     }
 
     /**
@@ -40,9 +40,9 @@ final class ClearLayoutCache extends AbstractController
             );
         }
 
-        $this->httpCacheClient->invalidateLayouts([$layout->getId()->toString()]);
+        $this->invalidator->invalidateLayouts([$layout->getId()->toString()]);
 
-        $cacheCleared = $this->httpCacheClient->commit();
+        $cacheCleared = $this->invalidator->commit();
 
         if ($cacheCleared) {
             return new Response(null, Response::HTTP_NO_CONTENT);

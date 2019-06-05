@@ -93,7 +93,7 @@ services:
     netgen_layouts.event_listener.http_cache.invalidation:
         class: Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\InvalidationListener
         arguments:
-            - "@netgen_layouts.http_cache.client"
+            - "@netgen_layouts.http_cache.invalidator"
         tags:
             - { name: kernel.event_subscriber }
 

@@ -6,7 +6,6 @@ namespace Netgen\Layouts\Tests\HttpCache;
 
 use Netgen\Layouts\HttpCache\NullClient;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
 
 final class NullClientTest extends TestCase
 {
@@ -21,55 +20,11 @@ final class NullClientTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\HttpCache\NullClient::invalidateLayouts
+     * @covers \Netgen\Layouts\HttpCache\NullClient::purge
      */
-    public function testInvalidateLayouts(): void
+    public function testPurge(): void
     {
-        $this->client->invalidateLayouts([Uuid::uuid4()->toString(), Uuid::uuid4()->toString()]);
-
-        // We fake the assertion count to disable risky warning
-        $this->addToAssertionCount(1);
-    }
-
-    /**
-     * @covers \Netgen\Layouts\HttpCache\NullClient::invalidateAllLayouts
-     */
-    public function testInvalidateAllLayouts(): void
-    {
-        $this->client->invalidateAllLayouts();
-
-        // We fake the assertion count to disable risky warning
-        $this->addToAssertionCount(1);
-    }
-
-    /**
-     * @covers \Netgen\Layouts\HttpCache\NullClient::invalidateBlocks
-     */
-    public function testInvalidateBlocks(): void
-    {
-        $this->client->invalidateBlocks([Uuid::uuid4()->toString(), Uuid::uuid4()->toString()]);
-
-        // We fake the assertion count to disable risky warning
-        $this->addToAssertionCount(1);
-    }
-
-    /**
-     * @covers \Netgen\Layouts\HttpCache\NullClient::invalidateLayoutBlocks
-     */
-    public function testInvalidateLayoutBlocks(): void
-    {
-        $this->client->invalidateLayoutBlocks([Uuid::uuid4()->toString(), Uuid::uuid4()->toString()]);
-
-        // We fake the assertion count to disable risky warning
-        $this->addToAssertionCount(1);
-    }
-
-    /**
-     * @covers \Netgen\Layouts\HttpCache\NullClient::invalidateAllBlocks
-     */
-    public function testInvalidateAllBlocks(): void
-    {
-        $this->client->invalidateAllBlocks();
+        $this->client->purge(['ngl-block-1', 'ngl-block-2']);
 
         // We fake the assertion count to disable risky warning
         $this->addToAssertionCount(1);
