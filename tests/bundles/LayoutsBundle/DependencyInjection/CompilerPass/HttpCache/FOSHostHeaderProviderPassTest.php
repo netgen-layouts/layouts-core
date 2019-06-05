@@ -35,6 +35,10 @@ final class FOSHostHeaderProviderPassTest extends AbstractCompilerPassTestCase
      */
     public function testProcessWithHttpDispatcher(): void
     {
+        if (!class_exists(HttpDispatcher::class)) {
+            self::markTestSkipped('Test requires friendsofsymfony/http-cache-bundle 2.x to run');
+        }
+
         $this->setDefinition('netgen_layouts.http_cache.varnish.host_header_provider.fos', new Definition(null, [null]));
         $this->setDefinition(HttpDispatcher::class, new Definition(null, [['http://localhost:4242', 'http://localhost:2424']]));
 

@@ -25,6 +25,10 @@ final class TaggerTest extends TestCase
 
     protected function setUp(): void
     {
+        if (!class_exists(SymfonyResponseTagger::class)) {
+            self::markTestSkipped('Test requires friendsofsymfony/http-cache-bundle 2.x to run');
+        }
+
         $this->responseTagger = new SymfonyResponseTagger();
         $this->tagger = new Tagger($this->responseTagger);
     }
