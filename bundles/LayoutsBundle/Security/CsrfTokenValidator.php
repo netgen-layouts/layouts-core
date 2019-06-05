@@ -6,6 +6,7 @@ namespace Netgen\Bundle\LayoutsBundle\Security;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
@@ -33,7 +34,7 @@ final class CsrfTokenValidator implements CsrfTokenValidatorInterface
             return true;
         }
 
-        if ($request->isMethodSafe(false)) {
+        if (Kernel::VERSION_ID >= 40400 ? $request->isMethodSafe() : $request->isMethodSafe(false)) {
             return true;
         }
 
