@@ -55,11 +55,7 @@ final class EditType extends AbstractType
                     new Constraints\Type(['type' => 'string']),
                 ],
                 'property_path' => 'description',
-                // null and empty string have different meanings for description
-                // so we set the default value to a single space (instead of
-                // an empty string) because of
-                // https://github.com/symfony/symfony/issues/5906
-                'empty_data' => ' ',
+                'empty_data' => '',
             ]
         );
     }
