@@ -31,7 +31,7 @@ nglayouts_api_v1_collections_delete_item:
     methods: [DELETE]
     defaults:
         _controller: 'netgen_layouts.controller.api.v1.collection.delete_item'
-        _nglayouts_status: draft:deleteItem
+        _nglayouts_status: draft
 
 nglayouts_api_v1_collections_delete_items:
     path: /collections/{collectionId}/items
