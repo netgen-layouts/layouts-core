@@ -306,3 +306,19 @@ services:
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.collection"
+
+    netgen_layouts.controller.api.v1.collection.create_slot:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Collection\CreateSlot
+        public: true
+        parent: netgen_layouts.controller.base
+        arguments:
+            - "@netgen_layouts.api.service.collection"
+        calls:
+            - [setValidator, ["@validator"]]
+
+    netgen_layouts.controller.api.v1.collection.delete_slot:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Collection\DeleteSlot
+        public: true
+        parent: netgen_layouts.controller.base
+        arguments:
+            - "@netgen_layouts.api.service.collection"

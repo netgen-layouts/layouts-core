@@ -39,3 +39,17 @@ nglayouts_api_v1_collections_delete_items:
     defaults:
         _controller: 'netgen_layouts.controller.api.v1.collection.delete_items'
         _nglayouts_status: draft
+
+nglayouts_api_v1_collections_create_slot:
+    path: /collections/{collectionId}/slots
+    methods: [POST]
+    defaults:
+        _controller: 'netgen_layouts.controller.api.v1.collection.create_slot'
+        _nglayouts_status: draft
+
+nglayouts_api_v1_collections_delete_slot:
+    path: /collections/slots/{slotId}
+    methods: [DELETE]
+    defaults:
+        _controller: 'netgen_layouts.controller.api.v1.collection.delete_slot'
+        _nglayouts_status: draft
