@@ -46,7 +46,7 @@
                     <p>{{ ('layout_resolver.target.' ~ target_type_identifier)|trans({}, 'nglayouts') }}:</p>
                     <ul>
                         {% for target in rule.targets %}
-                            <li {% if rule_count == 1 and (target_type_identifier == 'ezlocation' or target_type_identifier == 'ezcontent') %}class="unique"{% endif %}>
+                            <li {% if rule_count == 1 and (target_type_identifier == 'ez_location' or target_type_identifier == 'ez_content') %}class="unique"{% endif %}>
                                 {{ nglayouts_render_rule_target(target, {}, 'value') }}
                             </li>
                         {% endfor %}

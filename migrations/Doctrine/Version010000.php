@@ -91,11 +91,21 @@ CREATE TABLE `nglayouts_collection_slot` (
 )
 EOT
 );
+
+        $this->addSql('UPDATE nglayouts_rule_target SET type = "ez_content" WHERE type = "ezcontent"');
+        $this->addSql('UPDATE nglayouts_rule_target SET type = "ez_location" WHERE type = "ezlocation"');
+        $this->addSql('UPDATE nglayouts_rule_target SET type = "ez_subtree" WHERE type = "ezsubtree"');
+        $this->addSql('UPDATE nglayouts_rule_target SET type = "ez_children" WHERE type = "ezchildren"');
     }
 
     public function down(Schema $schema): void
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
+
+        $this->addSql('UPDATE nglayouts_rule_target SET type = "ezcontent" WHERE type = "ez_content"');
+        $this->addSql('UPDATE nglayouts_rule_target SET type = "ezlocation" WHERE type = "ez_location"');
+        $this->addSql('UPDATE nglayouts_rule_target SET type = "ezsubtree" WHERE type = "ez_subtree"');
+        $this->addSql('UPDATE nglayouts_rule_target SET type = "ezchildren" WHERE type = "ez_children"');
 
         $this->addSql('DROP TABLE nglayouts_collection_slot');
 
