@@ -10,6 +10,7 @@ export default class NlModal {
             cancelText: 'Cancel',
             applyText: 'OK',
         }, opt);
+        [this.appEl] = document.getElementsByClassName('ng-layouts-app');
         this.el = document.createElement('div');
         this.el.className = 'nl-modal-mask';
         if (this.options.className) this.el.classList.add(this.options.className);
@@ -33,7 +34,7 @@ export default class NlModal {
         this.options.preload ? this.loadingStart() : this.container.innerHTML = this.getHtml();
         this.el.appendChild(this.loader);
         this.el.appendChild(this.container);
-        document.body.appendChild(this.el);
+        this.appEl.appendChild(this.el);
         window.addEventListener('keydown', this.onKeyDown);
     }
 
