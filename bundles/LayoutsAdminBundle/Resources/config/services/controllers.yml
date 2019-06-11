@@ -385,7 +385,7 @@ services:
         arguments:
             - "@netgen_layouts.api.service.layout"
             - "@netgen_layouts.http_cache.invalidator"
-            - "@netgen_layouts.configuration"
+            - "%netgen_layouts.app.automatic_cache_clear%"
 
     netgen_layouts.controller.api.layout.restore_from_archive:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout\RestoreFromArchive

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout;
 
-use Netgen\Bundle\LayoutsBundle\Configuration\ConfigurationInterface;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
@@ -25,18 +24,18 @@ final class PublishDraft extends AbstractController
     private $invalidator;
 
     /**
-     * @var \Netgen\Bundle\LayoutsBundle\Configuration\ConfigurationInterface
+     * @var bool
      */
-    private $configuration;
+    private $automaticCacheClear;
 
     public function __construct(
         LayoutService $layoutService,
         InvalidatorInterface $invalidator,
-        ConfigurationInterface $configuration
+        bool $automaticCacheClear
     ) {
         $this->layoutService = $layoutService;
         $this->invalidator = $invalidator;
-        $this->configuration = $configuration;
+        $this->automaticCacheClear = $automaticCacheClear;
     }
 
     /**
@@ -51,10 +50,7 @@ final class PublishDraft extends AbstractController
 
         $this->layoutService->publishLayout($layout);
 
-        if (
-            (bool) $this->configuration->getParameter('app.automatic_cache_clear') ||
-            $request->query->getBoolean('clearCache')
-        ) {
+        if ($this->automaticCacheClear || $request->query->getBoolean('clearCache')) {
             $this->invalidator->invalidateLayouts([$layout->getId()->toString()]);
             $this->invalidator->invalidateLayoutBlocks([$layout->getId()->toString()]);
         }
