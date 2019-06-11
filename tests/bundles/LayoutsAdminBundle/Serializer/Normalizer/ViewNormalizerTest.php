@@ -58,7 +58,7 @@ final class ViewNormalizerTest extends TestCase
             ->method('renderValue')
             ->with(
                 self::identicalTo($value),
-                self::identicalTo(ViewInterface::CONTEXT_API)
+                self::identicalTo(ViewInterface::CONTEXT_APP)
             )
             ->willReturn('rendered view');
 
@@ -112,7 +112,7 @@ final class ViewNormalizerTest extends TestCase
             ->method('renderValue')
             ->with(
                 self::identicalTo($value),
-                self::identicalTo(ViewInterface::CONTEXT_API)
+                self::identicalTo(ViewInterface::CONTEXT_APP)
             )
             ->willReturn('rendered view');
 

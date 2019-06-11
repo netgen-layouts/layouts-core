@@ -24,9 +24,9 @@ interface ViewInterface
     public const CONTEXT_ADMIN = 'admin';
 
     /**
-     * Context used to render the values in the REST API.
+     * Context used to render the values in the layout editing app.
      */
-    public const CONTEXT_API = 'api';
+    public const CONTEXT_APP = 'app';
 
     /**
      * Returns the view identifier.

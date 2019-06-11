@@ -156,7 +156,7 @@ final class RenderingRuntimeTest extends TestCase
             ->method('renderValue')
             ->with(
                 self::identicalTo($block),
-                self::identicalTo(ViewInterface::CONTEXT_API),
+                self::identicalTo(ViewInterface::CONTEXT_APP),
                 self::identicalTo(
                     [
                         'twig_template' => $twigTemplate,
@@ -174,7 +174,7 @@ final class RenderingRuntimeTest extends TestCase
                 ],
                 $block,
                 ['param' => 'value'],
-                ViewInterface::CONTEXT_API
+                ViewInterface::CONTEXT_APP
             )
         );
     }
@@ -193,7 +193,7 @@ final class RenderingRuntimeTest extends TestCase
             ->method('renderValue')
             ->with(
                 self::identicalTo($block),
-                self::identicalTo(ViewInterface::CONTEXT_API),
+                self::identicalTo(ViewInterface::CONTEXT_APP),
                 self::identicalTo(
                     [
                         'twig_template' => $twigTemplate,
@@ -207,7 +207,7 @@ final class RenderingRuntimeTest extends TestCase
             'rendered block',
             $this->runtime->renderBlock(
                 [
-                    'view_context' => ViewInterface::CONTEXT_API,
+                    'view_context' => ViewInterface::CONTEXT_APP,
                     'twig_template' => $twigTemplate,
                 ],
                 $block,
@@ -387,7 +387,7 @@ final class RenderingRuntimeTest extends TestCase
             ->method('renderValue')
             ->with(
                 self::identicalTo($placeholder),
-                self::identicalTo(ViewInterface::CONTEXT_API),
+                self::identicalTo(ViewInterface::CONTEXT_APP),
                 self::identicalTo(
                     [
                         'block' => $block,
@@ -410,7 +410,7 @@ final class RenderingRuntimeTest extends TestCase
                     'block' => $block,
                     'param' => 'value',
                 ],
-                ViewInterface::CONTEXT_API
+                ViewInterface::CONTEXT_APP
             )
         );
     }
@@ -438,7 +438,7 @@ final class RenderingRuntimeTest extends TestCase
             ->method('renderValue')
             ->with(
                 self::identicalTo($placeholder),
-                self::identicalTo(ViewInterface::CONTEXT_API),
+                self::identicalTo(ViewInterface::CONTEXT_APP),
                 self::identicalTo(
                     [
                         'block' => $block,
@@ -453,7 +453,7 @@ final class RenderingRuntimeTest extends TestCase
             'rendered placeholder',
             $this->runtime->renderPlaceholder(
                 [
-                    'view_context' => ViewInterface::CONTEXT_API,
+                    'view_context' => ViewInterface::CONTEXT_APP,
                     'twig_template' => $twigTemplate,
                 ],
                 $block,
@@ -560,7 +560,7 @@ final class RenderingRuntimeTest extends TestCase
             ->method('renderValue')
             ->with(
                 self::identicalTo($cmsItem),
-                self::identicalTo(ViewInterface::CONTEXT_API),
+                self::identicalTo(ViewInterface::CONTEXT_APP),
                 self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
             )
             ->willReturn('rendered item');
@@ -572,7 +572,7 @@ final class RenderingRuntimeTest extends TestCase
                 $cmsItem,
                 'view_type',
                 ['param' => 'value'],
-                ViewInterface::CONTEXT_API
+                ViewInterface::CONTEXT_APP
             )
         );
     }
@@ -589,7 +589,7 @@ final class RenderingRuntimeTest extends TestCase
             ->method('renderValue')
             ->with(
                 self::identicalTo($cmsItem),
-                self::identicalTo(ViewInterface::CONTEXT_API),
+                self::identicalTo(ViewInterface::CONTEXT_APP),
                 self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
             )
             ->willReturn('rendered item');
@@ -598,7 +598,7 @@ final class RenderingRuntimeTest extends TestCase
             'rendered item',
             $this->runtime->renderItem(
                 [
-                    'view_context' => ViewInterface::CONTEXT_API,
+                    'view_context' => ViewInterface::CONTEXT_APP,
                 ],
                 $cmsItem,
                 'view_type',
@@ -848,7 +848,7 @@ final class RenderingRuntimeTest extends TestCase
             ->method('renderValue')
             ->with(
                 self::identicalTo($item),
-                self::identicalTo(ViewInterface::CONTEXT_API),
+                self::identicalTo(ViewInterface::CONTEXT_APP),
                 self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
             )
             ->willReturn('rendered result');
@@ -861,7 +861,7 @@ final class RenderingRuntimeTest extends TestCase
                 null,
                 'view_type',
                 ['param' => 'value'],
-                ViewInterface::CONTEXT_API
+                ViewInterface::CONTEXT_APP
             )
         );
     }
@@ -879,7 +879,7 @@ final class RenderingRuntimeTest extends TestCase
             ->method('renderValue')
             ->with(
                 self::identicalTo($item),
-                self::identicalTo(ViewInterface::CONTEXT_API),
+                self::identicalTo(ViewInterface::CONTEXT_APP),
                 self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
             )
             ->willReturn('rendered result');
@@ -888,7 +888,7 @@ final class RenderingRuntimeTest extends TestCase
             'rendered result',
             $this->runtime->renderResult(
                 [
-                    'view_context' => ViewInterface::CONTEXT_API,
+                    'view_context' => ViewInterface::CONTEXT_APP,
                 ],
                 $result,
                 null,
@@ -1001,7 +1001,7 @@ final class RenderingRuntimeTest extends TestCase
             ->method('renderValue')
             ->with(
                 self::identicalTo($condition),
-                self::identicalTo(ViewInterface::CONTEXT_API),
+                self::identicalTo(ViewInterface::CONTEXT_APP),
                 self::identicalTo(['param' => 'value'])
             )
             ->willReturn('rendered value');
@@ -1012,7 +1012,7 @@ final class RenderingRuntimeTest extends TestCase
                 [],
                 $condition,
                 ['param' => 'value'],
-                ViewInterface::CONTEXT_API
+                ViewInterface::CONTEXT_APP
             )
         );
     }
@@ -1030,7 +1030,7 @@ final class RenderingRuntimeTest extends TestCase
             ->method('renderValue')
             ->with(
                 self::identicalTo($condition),
-                self::identicalTo(ViewInterface::CONTEXT_API),
+                self::identicalTo(ViewInterface::CONTEXT_APP),
                 self::identicalTo(['param' => 'value'])
             )
             ->willReturn('rendered value');
@@ -1039,7 +1039,7 @@ final class RenderingRuntimeTest extends TestCase
             'rendered value',
             $this->runtime->renderValue(
                 [
-                    'view_context' => ViewInterface::CONTEXT_API,
+                    'view_context' => ViewInterface::CONTEXT_APP,
                 ],
                 $condition,
                 ['param' => 'value']

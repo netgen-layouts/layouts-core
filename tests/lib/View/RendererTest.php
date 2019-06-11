@@ -51,7 +51,7 @@ final class RendererTest extends TestCase
     {
         $value = new Value();
         $view = new View($value);
-        $view->setContext(ViewInterface::CONTEXT_API);
+        $view->setContext(ViewInterface::CONTEXT_APP);
         $view->setTemplate('some_template.html.twig');
         $view->addParameter('some_param', 'some_value');
 
@@ -60,7 +60,7 @@ final class RendererTest extends TestCase
             ->method('buildView')
             ->with(
                 self::identicalTo($value),
-                self::identicalTo(ViewInterface::CONTEXT_API),
+                self::identicalTo(ViewInterface::CONTEXT_APP),
                 self::identicalTo(['some_param' => 'some_value'])
             )
             ->willReturn($view);
@@ -73,7 +73,7 @@ final class RendererTest extends TestCase
 
         $renderedTemplate = $this->renderer->renderValue(
             $value,
-            ViewInterface::CONTEXT_API,
+            ViewInterface::CONTEXT_APP,
             ['some_param' => 'some_value']
         );
 

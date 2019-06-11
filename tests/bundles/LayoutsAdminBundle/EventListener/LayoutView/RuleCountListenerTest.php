@@ -113,7 +113,7 @@ final class RuleCountListenerTest extends TestCase
     public function testOnBuildViewWithWrongContext(): void
     {
         $view = new LayoutView(new Layout());
-        $view->setContext(ViewInterface::CONTEXT_API);
+        $view->setContext(ViewInterface::CONTEXT_APP);
         $event = new CollectViewParametersEvent($view);
 
         $this->listener->onBuildView($event);

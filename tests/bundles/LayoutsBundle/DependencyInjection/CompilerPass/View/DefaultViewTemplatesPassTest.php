@@ -22,9 +22,9 @@ final class DefaultViewTemplatesPassTest extends AbstractCompilerPassTestCase
             'netgen_layouts.view',
             [
                 'test_view' => [
-                    'api' => [
+                    'app' => [
                         'override_match' => [
-                            'template' => 'override_api.html.twig',
+                            'template' => 'override_app.html.twig',
                         ],
                     ],
                 ],
@@ -36,11 +36,11 @@ final class DefaultViewTemplatesPassTest extends AbstractCompilerPassTestCase
             [
                 'test_view' => [
                     'default' => 'default.html.twig',
-                    'api' => 'api.html.twig',
+                    'app' => 'app.html.twig',
                 ],
                 'other_view' => [
                     'default' => 'default2.html.twig',
-                    'api' => 'api2.html.twig',
+                    'app' => 'app2.html.twig',
                 ],
             ]
         );
@@ -58,12 +58,12 @@ final class DefaultViewTemplatesPassTest extends AbstractCompilerPassTestCase
                             'parameters' => [],
                         ],
                     ],
-                    'api' => [
+                    'app' => [
                         'override_match' => [
-                            'template' => 'override_api.html.twig',
+                            'template' => 'override_app.html.twig',
                         ],
-                        '___test_view_api_default___' => [
-                            'template' => 'api.html.twig',
+                        '___test_view_app_default___' => [
+                            'template' => 'app.html.twig',
                             'match' => [],
                             'parameters' => [],
                         ],
@@ -77,9 +77,9 @@ final class DefaultViewTemplatesPassTest extends AbstractCompilerPassTestCase
                             'parameters' => [],
                         ],
                     ],
-                    'api' => [
-                        '___other_view_api_default___' => [
-                            'template' => 'api2.html.twig',
+                    'app' => [
+                        '___other_view_app_default___' => [
+                            'template' => 'app2.html.twig',
                             'match' => [],
                             'parameters' => [],
                         ],

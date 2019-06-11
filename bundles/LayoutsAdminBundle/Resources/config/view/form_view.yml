@@ -1,6 +1,6 @@
 view:
     form_view:
-        api:
+        app:
             layout\create:
                 template: "@NetgenLayoutsAdmin/app/form/layout/create.html.twig"
                 match:

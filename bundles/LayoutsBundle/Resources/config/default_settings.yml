@@ -1,8 +1,7 @@
 parameters:
     netgen_layouts.route_prefix: /nglayouts
-    netgen_layouts.block_view.collection_results_contexts: ['default', 'api']
+    netgen_layouts.block_view.collection_results_contexts: ['default', 'app']
     netgen_layouts.block_view.collection_pager_contexts: ['ajax']
-    netgen_layouts.api.csrf_token_id: nglayouts_api
     netgen_layouts.collection.max_limit: 200
     netgen_layouts.collection.contextual_limit: 12
     netgen_layouts.collection.pager.template: '@@NetgenLayouts/collection/default_pager.html.twig'

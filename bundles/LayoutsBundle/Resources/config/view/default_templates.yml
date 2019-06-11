@@ -1,10 +1,10 @@
 default_view_templates:
     block_view:
         default: '@NetgenLayouts/block/invalid_block.html.twig'
-        api: '@NetgenLayouts/api/block/block.html.twig'
+        app: '@NetgenLayouts/app/block/block.html.twig'
     item_view:
         default: '@NetgenLayouts/item/invalid_item.html.twig'
-        api: '@NetgenLayouts/api/item/invalid_item.html.twig'
+        app: '@NetgenLayouts/app/item/invalid_item.html.twig'
     parameter_view:
         default: '@NetgenLayouts/parameter/parameter.html.twig'
     placeholder_view:

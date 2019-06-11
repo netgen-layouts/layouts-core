@@ -64,7 +64,7 @@ final class EditSlotViewTypeForm extends AbstractController
         $form->handleRequest($request);
 
         if (!$form->isSubmitted()) {
-            return $this->buildView($form, ViewInterface::CONTEXT_API);
+            return $this->buildView($form, ViewInterface::CONTEXT_APP);
         }
 
         if ($form->isValid()) {
@@ -79,7 +79,7 @@ final class EditSlotViewTypeForm extends AbstractController
 
         return $this->buildView(
             $form,
-            ViewInterface::CONTEXT_API,
+            ViewInterface::CONTEXT_APP,
             [],
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );

@@ -52,7 +52,7 @@ final class EditCollectionForm extends AbstractController
         if (!$form->isSubmitted()) {
             $this->denyAccessUnlessGranted('nglayouts:api:read');
 
-            return $this->buildView($form, ViewInterface::CONTEXT_API);
+            return $this->buildView($form, ViewInterface::CONTEXT_APP);
         }
 
         $this->denyAccessUnlessGranted('nglayouts:collection:edit');
@@ -65,7 +65,7 @@ final class EditCollectionForm extends AbstractController
 
         return $this->buildView(
             $form,
-            ViewInterface::CONTEXT_API,
+            ViewInterface::CONTEXT_APP,
             [],
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
         );

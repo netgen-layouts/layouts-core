@@ -45,7 +45,7 @@ final class GetCollectionResultsListenerTest extends TestCase
                 $this->resultBuilderMock,
                 200
             ),
-            [ViewInterface::CONTEXT_DEFAULT, ViewInterface::CONTEXT_API]
+            [ViewInterface::CONTEXT_DEFAULT, ViewInterface::CONTEXT_APP]
         );
     }
 
@@ -315,7 +315,7 @@ final class GetCollectionResultsListenerTest extends TestCase
             )
         );
 
-        $view->setContext(ViewInterface::CONTEXT_API);
+        $view->setContext(ViewInterface::CONTEXT_APP);
         $event = new CollectViewParametersEvent($view);
 
         $this->resultBuilderMock

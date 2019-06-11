@@ -10,8 +10,8 @@ view:
                 template: "@NetgenLayouts/block/invalid_block.html.twig"
                 match:
                     block\definition: "null"
-        api:
+        app:
             invalid:
-                template: "@NetgenLayouts/api/block/invalid_block.html.twig"
+                template: "@NetgenLayouts/app/block/invalid_block.html.twig"
                 match:
                     block\definition: "null"

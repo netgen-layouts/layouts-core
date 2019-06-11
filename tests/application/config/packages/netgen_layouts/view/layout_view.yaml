@@ -10,7 +10,7 @@ netgen_layouts:
                     template: "layout/4_zones_b.html.twig"
                     match:
                         layout\type: 4_zones_b
-            api:
+            app:
                 4_zones_a:
                     template: "api/layout/4_zones_a.html.twig"
                     match:

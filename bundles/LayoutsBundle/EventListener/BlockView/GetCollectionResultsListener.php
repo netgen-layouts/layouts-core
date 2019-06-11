@@ -52,7 +52,7 @@ final class GetCollectionResultsListener implements EventSubscriberInterface
         }
 
         $flags = 0;
-        if ($view->getContext() === ViewInterface::CONTEXT_API) {
+        if ($view->getContext() === ViewInterface::CONTEXT_APP) {
             $flags = ResultSet::INCLUDE_UNKNOWN_ITEMS;
         }
 
