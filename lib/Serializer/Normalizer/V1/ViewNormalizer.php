@@ -44,8 +44,7 @@ final class ViewNormalizer implements NormalizerInterface, NormalizerAwareInterf
         if (!isset($context['disable_html']) || $context['disable_html'] !== true) {
             $normalizedData['html'] = $this->viewRenderer->renderValue(
                 $object->getValue(),
-                ViewInterface::CONTEXT_API,
-                ['api_version' => $object->getVersion()]
+                ViewInterface::CONTEXT_API
             );
         }
 

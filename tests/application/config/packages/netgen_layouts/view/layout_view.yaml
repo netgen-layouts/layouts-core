@@ -15,9 +15,7 @@ netgen_layouts:
                     template: "api/layout/4_zones_a.html.twig"
                     match:
                         layout\type: 4_zones_a
-                        api_version: 1
                 4_zones_b:
                     template: "api/layout/4_zones_b.html.twig"
                     match:
                         layout\type: 4_zones_b
-                        api_version: 1

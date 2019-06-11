@@ -1,9 +1,4 @@
 services:
-    netgen_layouts.view.matcher.api_version:
-        class: Netgen\Layouts\View\Matcher\APIVersion
-        tags:
-            - { name: netgen_layouts.view_matcher, identifier: api_version }
-
     netgen_layouts.view.matcher.form.type:
         class: Netgen\Layouts\View\Matcher\Form\Type
         tags:
