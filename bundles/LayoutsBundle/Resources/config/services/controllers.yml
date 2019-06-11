@@ -23,6 +23,7 @@ services:
         public: true
         parent: netgen_layouts.controller.base
         arguments:
+            - "@netgen_layouts.configuration"
             - "@security.csrf.token_manager"
             - "%netgen_layouts.api.csrf_token_id%"
 
@@ -135,6 +136,8 @@ services:
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
+            - "@netgen_layouts.http_cache.invalidator"
+            - "@netgen_layouts.configuration"
 
     netgen_layouts.controller.api.v1.layout.restore_from_archive:
         class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\RestoreFromArchive

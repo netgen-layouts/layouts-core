@@ -4,12 +4,18 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Controller\API\V1\Config;
 
+use Netgen\Bundle\LayoutsBundle\Configuration\ConfigurationInterface;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\Serializer\Values\Value;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 final class LoadConfig extends AbstractController
 {
+    /**
+     * @var \Netgen\Bundle\LayoutsBundle\Configuration\ConfigurationInterface
+     */
+    private $configuration;
+
     /**
      * @var \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface
      */
@@ -20,8 +26,12 @@ final class LoadConfig extends AbstractController
      */
     private $csrfTokenId;
 
-    public function __construct(CsrfTokenManagerInterface $csrfTokenManager, string $csrfTokenId)
-    {
+    public function __construct(
+        ConfigurationInterface $configuration,
+        CsrfTokenManagerInterface $csrfTokenManager,
+        string $csrfTokenId
+    ) {
+        $this->configuration = $configuration;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->csrfTokenId = $csrfTokenId;
     }
@@ -33,6 +43,11 @@ final class LoadConfig extends AbstractController
     {
         $this->denyAccessUnlessGranted('nglayouts:api:read');
 
-        return new Value(['csrf_token' => $this->csrfTokenManager->getToken($this->csrfTokenId)->getValue()]);
+        return new Value(
+            [
+                'automatic_cache_clear' => $this->configuration->getParameter('app.automatic_cache_clear'),
+                'csrf_token' => $this->csrfTokenManager->getToken($this->csrfTokenId)->getValue(),
+            ]
+        );
     }
 }
