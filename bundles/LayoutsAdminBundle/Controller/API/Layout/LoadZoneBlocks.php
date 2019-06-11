@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout;
 
+use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\ArrayValue;
+use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\View;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\Exception\NotFoundException;
-use Netgen\Layouts\Serializer\Values\ArrayValue;
-use Netgen\Layouts\Serializer\Values\View;
 
 final class LoadZoneBlocks extends AbstractController
 {

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection;
 
+use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Values\Collection\Item;
-use Netgen\Layouts\Serializer\Values\Value;
 
 final class LoadItem extends AbstractController
 {

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\EventListener;
 
-use Netgen\Layouts\Serializer\Values\AbstractValue;
+use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\AbstractValue;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;

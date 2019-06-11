@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout;
 
+use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\View;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
-use Netgen\Layouts\Serializer\Values\View;
 use Netgen\Layouts\Validator\ValidatorTrait;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;

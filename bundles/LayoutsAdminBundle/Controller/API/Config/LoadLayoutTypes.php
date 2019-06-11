@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Controller\API\Config;
 
+use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\ArrayValue;
+use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\View;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
-use Netgen\Layouts\Serializer\Values\ArrayValue;
-use Netgen\Layouts\Serializer\Values\View;
 
 final class LoadLayoutTypes extends AbstractController
 {

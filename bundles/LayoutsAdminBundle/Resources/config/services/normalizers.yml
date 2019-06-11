@@ -1,0 +1,90 @@
+services:
+    netgen_layouts.normalizer.array_value:
+        class: Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ArrayValueNormalizer
+        tags:
+            - { name: serializer.normalizer }
+
+    netgen_layouts.normalizer.exception:
+        class: Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ExceptionNormalizer
+        arguments:
+            - "%kernel.debug%"
+        tags:
+            - { name: serializer.normalizer }
+
+    netgen_layouts.normalizer.view:
+        class: Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ViewNormalizer
+        arguments:
+            - "@netgen_layouts.view.renderer"
+        tags:
+            - { name: serializer.normalizer }
+
+    netgen_layouts.normalizer.parameter:
+        class: Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ParameterNormalizer
+        tags:
+            - { name: serializer.normalizer }
+
+    netgen_layouts.normalizer.block:
+        class: Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\BlockNormalizer
+        arguments:
+            - "@netgen_layouts.api.service.block"
+        tags:
+            - { name: serializer.normalizer }
+
+    netgen_layouts.normalizer.placeholder:
+        class: Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\PlaceholderNormalizer
+        tags:
+            - { name: serializer.normalizer }
+
+    netgen_layouts.normalizer.layout:
+        class: Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\LayoutNormalizer
+        arguments:
+            - "@netgen_layouts.api.service.layout"
+            - "@netgen_layouts.api.service.block"
+        tags:
+            - { name: serializer.normalizer }
+
+    netgen_layouts.normalizer.collection:
+        class: Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionNormalizer
+        tags:
+            - { name: serializer.normalizer }
+
+    netgen_layouts.normalizer.collection_item:
+        class: Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionItemNormalizer
+        arguments:
+            - "@netgen_layouts.item.url_generator"
+            - "@netgen_layouts.collection.item_visibility_resolver"
+        tags:
+            - { name: serializer.normalizer }
+
+    netgen_layouts.normalizer.collection_query:
+        class: Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionQueryNormalizer
+        tags:
+            - { name: serializer.normalizer }
+
+    netgen_layouts.normalizer.collection_result_set:
+        class: Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionResultSetNormalizer
+        tags:
+            - { name: serializer.normalizer }
+
+    netgen_layouts.normalizer.collection_result:
+        class: Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionResultNormalizer
+        arguments:
+            - "@netgen_layouts.item.url_generator"
+            - "@netgen_layouts.collection.item_visibility_resolver"
+        tags:
+            - { name: serializer.normalizer }
+
+    netgen_layouts.normalizer.block_type:
+        class: Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\BlockTypeNormalizer
+        tags:
+            - { name: serializer.normalizer }
+
+    netgen_layouts.normalizer.block_type_group:
+        class: Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\BlockTypeGroupNormalizer
+        tags:
+            - { name: serializer.normalizer }
+
+    netgen_layouts.normalizer.layout_type:
+        class: Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\LayoutTypeNormalizer
+        tags:
+            - { name: serializer.normalizer }

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Controller\App\Block;
 
+use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\View;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Block\Block;
-use Netgen\Layouts\Serializer\Values\View;
 use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -27,7 +27,7 @@ final class EditForm extends AbstractController
     /**
      * Displays and processes block draft edit form.
      *
-     * @return \Netgen\Layouts\View\ViewInterface|\Netgen\Layouts\Serializer\Values\View|\Symfony\Component\HttpFoundation\Response
+     * @return \Netgen\Layouts\View\ViewInterface|\Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\View|\Symfony\Component\HttpFoundation\Response
      */
     public function __invoke(Block $block, string $locale, string $formName, Request $request)
     {

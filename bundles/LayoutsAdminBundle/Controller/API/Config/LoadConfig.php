@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Controller\API\Config;
 
+use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\ArrayValue;
 use Netgen\Bundle\LayoutsBundle\Configuration\ConfigurationInterface;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
-use Netgen\Layouts\Serializer\Values\ArrayValue;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 final class LoadConfig extends AbstractController

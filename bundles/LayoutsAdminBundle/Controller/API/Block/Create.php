@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block;
 
 use Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Utils\CreateStructBuilder;
+use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\View;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Block\Registry\BlockTypeRegistry;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\Block\BlockTypeException;
-use Netgen\Layouts\Serializer\Values\View;
 use Netgen\Layouts\Validator\ValidatorTrait;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;

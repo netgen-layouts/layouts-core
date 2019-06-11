@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout;
 
+use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\View;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\Layout\LayoutTypeException;
 use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
-use Netgen\Layouts\Serializer\Values\View;
 use Netgen\Layouts\Validator\Constraint\Locale as LocaleConstraint;
 use Netgen\Layouts\Validator\ValidatorTrait;
 use Symfony\Component\HttpFoundation\ParameterBag;

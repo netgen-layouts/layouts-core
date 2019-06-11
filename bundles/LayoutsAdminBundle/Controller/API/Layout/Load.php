@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout;
 
+use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\View;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Values\Layout\Layout;
-use Netgen\Layouts\Serializer\Values\View;
 
 final class Load extends AbstractController
 {

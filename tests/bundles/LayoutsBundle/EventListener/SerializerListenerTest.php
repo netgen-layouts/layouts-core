@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener;
 
+use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Bundle\LayoutsBundle\EventListener\SerializerListener;
 use Netgen\Bundle\LayoutsBundle\EventListener\SetIsApiRequestListener;
-use Netgen\Layouts\Serializer\Values\Value;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;

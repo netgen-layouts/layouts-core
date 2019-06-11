@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Controller\API\BlockCollection;
 
+use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory;
 use Netgen\Layouts\Collection\Result\ResultSet;
-use Netgen\Layouts\Serializer\Values\Value;
 
 final class LoadCollectionResult extends AbstractController
 {

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block;
 
+use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\View;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Exception\NotFoundException;
-use Netgen\Layouts\Serializer\Values\View;
 use Netgen\Layouts\Validator\ValidatorTrait;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\ParameterBag;

@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Controller\API\Layout;
 
+use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\View;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
-use Netgen\Layouts\Serializer\Values\View;
 use Symfony\Component\HttpFoundation\Response;
 
 final class CreateDraft extends AbstractController
