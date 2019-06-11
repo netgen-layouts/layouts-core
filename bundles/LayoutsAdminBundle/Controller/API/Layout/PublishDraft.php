@@ -56,6 +56,7 @@ final class PublishDraft extends AbstractController
             $request->query->getBoolean('clearCache')
         ) {
             $this->invalidator->invalidateLayouts([$layout->getId()->toString()]);
+            $this->invalidator->invalidateLayoutBlocks([$layout->getId()->toString()]);
         }
 
         return new Response(null, Response::HTTP_NO_CONTENT);
