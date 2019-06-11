@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener;
+namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 
+use Netgen\Bundle\LayoutsAdminBundle\EventListener\SerializerListener;
+use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
-use Netgen\Bundle\LayoutsBundle\EventListener\SerializerListener;
-use Netgen\Bundle\LayoutsBundle\EventListener\SetIsApiRequestListener;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -24,7 +24,7 @@ final class SerializerListenerTest extends TestCase
     private $serializerMock;
 
     /**
-     * @var \Netgen\Bundle\LayoutsBundle\EventListener\SerializerListener
+     * @var \Netgen\Bundle\LayoutsAdminBundle\EventListener\SerializerListener
      */
     private $listener;
 
@@ -36,7 +36,7 @@ final class SerializerListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\SerializerListener::getSubscribedEvents
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\SerializerListener::getSubscribedEvents
      */
     public function testGetSubscribedEvents(): void
     {
@@ -47,8 +47,8 @@ final class SerializerListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\SerializerListener::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\SerializerListener::onView
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\SerializerListener::__construct
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\SerializerListener::onView
      */
     public function testOnView(): void
     {
@@ -89,7 +89,7 @@ final class SerializerListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\SerializerListener::onView
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\SerializerListener::onView
      */
     public function testOnViewWithNoHtmlRendering(): void
     {
@@ -131,7 +131,7 @@ final class SerializerListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\SerializerListener::onView
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\SerializerListener::onView
      */
     public function testOnViewInSubRequest(): void
     {
@@ -151,7 +151,7 @@ final class SerializerListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\SerializerListener::onView
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\SerializerListener::onView
      */
     public function testOnViewWithoutSupportedValue(): void
     {

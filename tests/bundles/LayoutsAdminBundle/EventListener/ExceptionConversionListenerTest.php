@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener;
+namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 
 use Exception;
 use InvalidArgumentException as BaseInvalidArgumentException;
-use Netgen\Bundle\LayoutsBundle\EventListener\ExceptionConversionListener;
-use Netgen\Bundle\LayoutsBundle\EventListener\SetIsApiRequestListener;
-use Netgen\Bundle\LayoutsBundle\Tests\EventListener\Stubs\ExceptionStub;
+use Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionConversionListener;
+use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener;
+use Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener\Stubs\ExceptionStub;
 use Netgen\Layouts\Exception\API\ConfigException;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\InvalidArgumentException;
@@ -32,7 +32,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 final class ExceptionConversionListenerTest extends TestCase
 {
     /**
-     * @var \Netgen\Bundle\LayoutsBundle\EventListener\ExceptionConversionListener
+     * @var \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionConversionListener
      */
     private $listener;
 
@@ -42,7 +42,7 @@ final class ExceptionConversionListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ExceptionConversionListener::getSubscribedEvents
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionConversionListener::getSubscribedEvents
      */
     public function testGetSubscribedEvents(): void
     {
@@ -53,7 +53,7 @@ final class ExceptionConversionListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ExceptionConversionListener::onException
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionConversionListener::onException
      * @dataProvider onExceptionDataProvider
      */
     public function testOnException(Exception $exception, string $convertedClass, int $statusCode, bool $converted): void
@@ -89,7 +89,7 @@ final class ExceptionConversionListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ExceptionConversionListener::onException
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionConversionListener::onException
      */
     public function testOnExceptionNotConvertsOtherExceptions(): void
     {
@@ -114,7 +114,7 @@ final class ExceptionConversionListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ExceptionConversionListener::onException
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionConversionListener::onException
      */
     public function testOnExceptionInSubRequest(): void
     {
@@ -136,7 +136,7 @@ final class ExceptionConversionListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ExceptionConversionListener::onException
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionConversionListener::onException
      */
     public function testOnExceptionWithNonAPIRequest(): void
     {

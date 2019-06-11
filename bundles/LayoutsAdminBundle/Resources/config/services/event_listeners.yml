@@ -1,4 +1,45 @@
 services:
+    netgen_layouts.event_listener.exception_conversion:
+        class: Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionConversionListener
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_layouts.event_listener.exception_serializer:
+        class: Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionSerializerListener
+        arguments:
+            - "@serializer"
+            - "@?logger"
+        tags:
+            - { name: kernel.event_subscriber }
+            - { name: monolog.logger, channel: nglayouts }
+
+    netgen_layouts.event_listener.serializer:
+        class: Netgen\Bundle\LayoutsAdminBundle\EventListener\SerializerListener
+        arguments:
+            - "@serializer"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_layouts.event_listener.request_body_listener:
+        class: Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener
+        arguments:
+            - "@serializer"
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_layouts.event_listener.set_is_api_request:
+        class: Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener
+        tags:
+            - { name: kernel.event_subscriber }
+
+    netgen_layouts.event_listener.api_csrf_validation_listener:
+        class: Netgen\Bundle\LayoutsAdminBundle\EventListener\ApiCsrfValidationListener
+        arguments:
+            - "@netgen_layouts.security.csrf_validator"
+            - "%netgen_layouts.api.csrf_token_id%"
+        tags:
+            - { name: kernel.event_subscriber }
+
     netgen_layouts.event_listener.layout_view.rule_count:
         class: Netgen\Bundle\LayoutsAdminBundle\EventListener\LayoutView\RuleCountListener
         arguments:

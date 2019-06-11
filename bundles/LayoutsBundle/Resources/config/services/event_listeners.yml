@@ -4,34 +4,6 @@ parameters:
         - EdiModric\Twig\VersionExtension
 
 services:
-    netgen_layouts.event_listener.exception_conversion:
-        class: Netgen\Bundle\LayoutsBundle\EventListener\ExceptionConversionListener
-        tags:
-            - { name: kernel.event_subscriber }
-
-    netgen_layouts.event_listener.exception_serializer:
-        class: Netgen\Bundle\LayoutsBundle\EventListener\ExceptionSerializerListener
-        arguments:
-            - "@serializer"
-            - "@?logger"
-        tags:
-            - { name: kernel.event_subscriber }
-            - { name: monolog.logger, channel: nglayouts }
-
-    netgen_layouts.event_listener.serializer:
-        class: Netgen\Bundle\LayoutsBundle\EventListener\SerializerListener
-        arguments:
-            - "@serializer"
-        tags:
-            - { name: kernel.event_subscriber }
-
-    netgen_layouts.event_listener.request_body_listener:
-        class: Netgen\Bundle\LayoutsBundle\EventListener\RequestBodyListener
-        arguments:
-            - "@serializer"
-        tags:
-            - { name: kernel.event_subscriber }
-
     netgen_layouts.event_listener.view:
         class: Netgen\Bundle\LayoutsBundle\EventListener\ViewListener
         tags:
@@ -45,11 +17,6 @@ services:
         tags:
             - { name: kernel.event_subscriber }
 
-    netgen_layouts.event_listener.set_is_api_request:
-        class: Netgen\Bundle\LayoutsBundle\EventListener\SetIsApiRequestListener
-        tags:
-            - { name: kernel.event_subscriber }
-
     netgen_layouts.event_listener.twig_extensions:
         class: Netgen\Bundle\LayoutsBundle\EventListener\TwigExtensionsListener
         arguments:
@@ -57,14 +24,6 @@ services:
             - "%netgen_layouts.event_listener.twig_extensions.extensions%"
         # Set as lazy to prevent crashing of eZ Platform siteaccess aware config
         lazy: true
-        tags:
-            - { name: kernel.event_subscriber }
-
-    netgen_layouts.event_listener.api_csrf_validation_listener:
-        class: Netgen\Bundle\LayoutsBundle\EventListener\ApiCsrfValidationListener
-        arguments:
-            - "@netgen_layouts.security.csrf_validator"
-            - "%netgen_layouts.api.csrf_token_id%"
         tags:
             - { name: kernel.event_subscriber }
 

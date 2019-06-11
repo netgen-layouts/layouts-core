@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Bundle\LayoutsBundle\EventListener;
+namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 
 use InvalidArgumentException as BaseInvalidArgumentException;
 use Netgen\Layouts\Exception\BadStateException;

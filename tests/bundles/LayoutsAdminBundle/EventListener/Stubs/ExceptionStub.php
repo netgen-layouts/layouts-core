@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener\Stubs;
+namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener\Stubs;
 
 use Exception as BaseException;
 use Netgen\Layouts\Exception\Exception;

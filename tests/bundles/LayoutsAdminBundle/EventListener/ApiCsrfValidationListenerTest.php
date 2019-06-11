@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener;
+namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 
-use Netgen\Bundle\LayoutsBundle\EventListener\ApiCsrfValidationListener;
-use Netgen\Bundle\LayoutsBundle\EventListener\SetIsApiRequestListener;
+use Netgen\Bundle\LayoutsAdminBundle\EventListener\ApiCsrfValidationListener;
+use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener;
 use Netgen\Bundle\LayoutsBundle\Security\CsrfTokenValidatorInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,7 +27,7 @@ final class ApiCsrfValidationListenerTest extends TestCase
     private $csrfTokenId;
 
     /**
-     * @var \Netgen\Bundle\LayoutsBundle\EventListener\ApiCsrfValidationListener
+     * @var \Netgen\Bundle\LayoutsAdminBundle\EventListener\ApiCsrfValidationListener
      */
     private $listener;
 
@@ -46,7 +46,7 @@ final class ApiCsrfValidationListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ApiCsrfValidationListener::getSubscribedEvents
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ApiCsrfValidationListener::getSubscribedEvents
      */
     public function testGetSubscribedEvents(): void
     {
@@ -57,8 +57,8 @@ final class ApiCsrfValidationListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ApiCsrfValidationListener::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ApiCsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ApiCsrfValidationListener::__construct
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ApiCsrfValidationListener::onKernelRequest
      */
     public function testOnKernelRequest(): void
     {
@@ -78,7 +78,7 @@ final class ApiCsrfValidationListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ApiCsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ApiCsrfValidationListener::onKernelRequest
      */
     public function testOnKernelRequestThrowsAccessDeniedExceptionOnInvalidToken(): void
     {
@@ -101,7 +101,7 @@ final class ApiCsrfValidationListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ApiCsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ApiCsrfValidationListener::onKernelRequest
      */
     public function testOnKernelRequestInSubRequest(): void
     {
@@ -119,7 +119,7 @@ final class ApiCsrfValidationListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ApiCsrfValidationListener::onKernelRequest
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ApiCsrfValidationListener::onKernelRequest
      */
     public function testOnKernelRequestInNonApiRequest(): void
     {

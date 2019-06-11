@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Bundle\LayoutsBundle\EventListener;
+namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;

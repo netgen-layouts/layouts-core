@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener;
+namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 
-use Netgen\Bundle\LayoutsBundle\EventListener\SetIsApiRequestListener;
+use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -14,7 +14,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 final class SetIsApiRequestListenerTest extends TestCase
 {
     /**
-     * @var \Netgen\Bundle\LayoutsBundle\EventListener\SetIsApiRequestListener
+     * @var \Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener
      */
     private $listener;
 
@@ -24,7 +24,7 @@ final class SetIsApiRequestListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\SetIsApiRequestListener::getSubscribedEvents
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener::getSubscribedEvents
      */
     public function testGetSubscribedEvents(): void
     {
@@ -35,7 +35,7 @@ final class SetIsApiRequestListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\SetIsApiRequestListener::onKernelRequest
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener::onKernelRequest
      */
     public function testOnKernelRequest(): void
     {
@@ -50,7 +50,7 @@ final class SetIsApiRequestListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\SetIsApiRequestListener::onKernelRequest
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener::onKernelRequest
      */
     public function testOnKernelRequestWithInvalidRoute(): void
     {
@@ -65,7 +65,7 @@ final class SetIsApiRequestListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\SetIsApiRequestListener::onKernelRequest
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener::onKernelRequest
      */
     public function testOnKernelRequestInSubRequest(): void
     {

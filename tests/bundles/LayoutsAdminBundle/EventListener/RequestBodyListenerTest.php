@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener;
+namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 
-use Netgen\Bundle\LayoutsBundle\EventListener\RequestBodyListener;
-use Netgen\Bundle\LayoutsBundle\EventListener\SetIsApiRequestListener;
+use Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener;
+use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,7 +24,7 @@ final class RequestBodyListenerTest extends TestCase
     private $decoderMock;
 
     /**
-     * @var \Netgen\Bundle\LayoutsBundle\EventListener\RequestBodyListener
+     * @var \Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener
      */
     private $listener;
 
@@ -36,7 +36,7 @@ final class RequestBodyListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\RequestBodyListener::getSubscribedEvents
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener::getSubscribedEvents
      */
     public function testGetSubscribedEvents(): void
     {
@@ -47,8 +47,8 @@ final class RequestBodyListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\RequestBodyListener::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\RequestBodyListener::onKernelRequest
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener::__construct
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener::onKernelRequest
      */
     public function testOnKernelRequest(): void
     {
@@ -77,7 +77,7 @@ final class RequestBodyListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\RequestBodyListener::onKernelRequest
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener::onKernelRequest
      */
     public function testOnKernelRequestWithNonApiRoute(): void
     {
@@ -94,7 +94,7 @@ final class RequestBodyListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\RequestBodyListener::onKernelRequest
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener::onKernelRequest
      */
     public function testOnKernelRequestInSubRequest(): void
     {
@@ -112,8 +112,8 @@ final class RequestBodyListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\RequestBodyListener::isDecodeable
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\RequestBodyListener::onKernelRequest
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener::isDecodeable
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener::onKernelRequest
      */
     public function testOnKernelRequestWithInvalidMethod(): void
     {
@@ -130,8 +130,8 @@ final class RequestBodyListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\RequestBodyListener::isDecodeable
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\RequestBodyListener::onKernelRequest
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener::isDecodeable
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener::onKernelRequest
      */
     public function testOnKernelRequestWithInvalidContentType(): void
     {
@@ -149,7 +149,7 @@ final class RequestBodyListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\RequestBodyListener::onKernelRequest
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener::onKernelRequest
      */
     public function testOnKernelRequestWithInvalidJson(): void
     {
@@ -172,7 +172,7 @@ final class RequestBodyListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\RequestBodyListener::onKernelRequest
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener::onKernelRequest
      */
     public function testOnKernelRequestWithNonArrayJson(): void
     {

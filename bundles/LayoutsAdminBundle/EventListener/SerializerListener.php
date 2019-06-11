@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Bundle\LayoutsBundle\EventListener;
+namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\AbstractValue;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;

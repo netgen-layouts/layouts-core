@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener;
+namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 
 use Exception;
-use Netgen\Bundle\LayoutsBundle\EventListener\ExceptionSerializerListener;
-use Netgen\Bundle\LayoutsBundle\EventListener\SetIsApiRequestListener;
+use Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionSerializerListener;
+use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -30,7 +30,7 @@ final class ExceptionSerializerListenerTest extends TestCase
     private $loggerMock;
 
     /**
-     * @var \Netgen\Bundle\LayoutsBundle\EventListener\ExceptionSerializerListener
+     * @var \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionSerializerListener
      */
     private $listener;
 
@@ -46,7 +46,7 @@ final class ExceptionSerializerListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ExceptionSerializerListener::getSubscribedEvents
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionSerializerListener::getSubscribedEvents
      */
     public function testGetSubscribedEvents(): void
     {
@@ -57,8 +57,8 @@ final class ExceptionSerializerListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ExceptionSerializerListener::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ExceptionSerializerListener::onException
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionSerializerListener::__construct
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionSerializerListener::onException
      */
     public function testOnException(): void
     {
@@ -102,8 +102,8 @@ final class ExceptionSerializerListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ExceptionSerializerListener::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ExceptionSerializerListener::onException
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionSerializerListener::__construct
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionSerializerListener::onException
      * @dataProvider onExceptionWithHttpExceptionProvider
      */
     public function testOnExceptionWithHttpException(int $statusCode, bool $loggerCalled): void
@@ -159,7 +159,7 @@ final class ExceptionSerializerListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ExceptionSerializerListener::onException
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionSerializerListener::onException
      */
     public function testOnExceptionWithNoApiRequest(): void
     {
@@ -179,7 +179,7 @@ final class ExceptionSerializerListenerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\ExceptionSerializerListener::onException
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionSerializerListener::onException
      */
     public function testOnExceptionInSubRequest(): void
     {
