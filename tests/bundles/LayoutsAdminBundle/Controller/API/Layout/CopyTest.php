@@ -25,7 +25,7 @@ final class CopyTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/copy?html=false',
+            '/nglayouts/api/app/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/copy?html=false',
             [],
             [],
             [],
@@ -34,7 +34,7 @@ final class CopyTest extends JsonApiTestCase
 
         $this->assertResponse(
             $this->client->getResponse(),
-            'v1/layouts/copy_layout',
+            'layouts/copy_layout',
             Response::HTTP_CREATED
         );
     }
@@ -53,7 +53,7 @@ final class CopyTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/layouts/7900306c-0351-5f0a-9b33-5d4f5a1f3943/copy?published=true&html=false',
+            '/nglayouts/api/app/layouts/7900306c-0351-5f0a-9b33-5d4f5a1f3943/copy?published=true&html=false',
             [],
             [],
             [],
@@ -62,7 +62,7 @@ final class CopyTest extends JsonApiTestCase
 
         $this->assertResponse(
             $this->client->getResponse(),
-            'v1/layouts/copy_published_layout',
+            'layouts/copy_published_layout',
             Response::HTTP_CREATED
         );
     }
@@ -80,7 +80,7 @@ final class CopyTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/copy?html=false',
+            '/nglayouts/api/app/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/copy?html=false',
             [],
             [],
             [],
@@ -89,7 +89,7 @@ final class CopyTest extends JsonApiTestCase
 
         $this->assertResponse(
             $this->client->getResponse(),
-            'v1/layouts/copy_layout_without_description',
+            'layouts/copy_layout_without_description',
             Response::HTTP_CREATED
         );
     }
@@ -108,7 +108,7 @@ final class CopyTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/copy?html=false',
+            '/nglayouts/api/app/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/copy?html=false',
             [],
             [],
             [],
@@ -117,7 +117,7 @@ final class CopyTest extends JsonApiTestCase
 
         $this->assertResponse(
             $this->client->getResponse(),
-            'v1/layouts/copy_layout_empty_description',
+            'layouts/copy_layout_empty_description',
             Response::HTTP_CREATED
         );
     }
@@ -135,7 +135,7 @@ final class CopyTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff/copy',
+            '/nglayouts/api/app/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff/copy',
             [],
             [],
             [],
@@ -162,7 +162,7 @@ final class CopyTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/copy',
+            '/nglayouts/api/app/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/copy',
             [],
             [],
             [],
@@ -183,7 +183,7 @@ final class CopyTest extends JsonApiTestCase
     {
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/copy',
+            '/nglayouts/api/app/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/copy',
             [],
             [],
             [],
@@ -210,7 +210,7 @@ final class CopyTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/copy',
+            '/nglayouts/api/app/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/copy',
             [],
             [],
             [],
@@ -238,7 +238,7 @@ final class CopyTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/copy',
+            '/nglayouts/api/app/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/copy',
             [],
             [],
             [],

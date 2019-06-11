@@ -18,7 +18,7 @@ final class PublishDraftTest extends JsonApiTestCase
     {
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/publish',
+            '/nglayouts/api/app/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/publish',
             [],
             [],
             [],
@@ -35,7 +35,7 @@ final class PublishDraftTest extends JsonApiTestCase
     {
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff/publish',
+            '/nglayouts/api/app/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff/publish',
             [],
             [],
             [],

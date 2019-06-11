@@ -36,7 +36,7 @@ final class AddItemsTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/default/items',
+            '/nglayouts/api/app/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/default/items',
             [],
             [],
             [],
@@ -70,7 +70,7 @@ final class AddItemsTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/ffffffff-ffff-ffff-ffff-ffffffffffff/collections/default/items',
+            '/nglayouts/api/app/en/blocks/ffffffff-ffff-ffff-ffff-ffffffffffff/collections/default/items',
             [],
             [],
             [],
@@ -108,7 +108,7 @@ final class AddItemsTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/unknown/items',
+            '/nglayouts/api/app/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/unknown/items',
             [],
             [],
             [],
@@ -136,7 +136,7 @@ final class AddItemsTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/default/items',
+            '/nglayouts/api/app/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/default/items',
             [],
             [],
             [],
@@ -164,7 +164,7 @@ final class AddItemsTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/default/items',
+            '/nglayouts/api/app/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/default/items',
             [],
             [],
             [],
@@ -188,7 +188,7 @@ final class AddItemsTest extends JsonApiTestCase
     {
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/default/items',
+            '/nglayouts/api/app/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/default/items',
             [],
             [],
             [],
@@ -222,7 +222,7 @@ final class AddItemsTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/default/items',
+            '/nglayouts/api/app/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/default/items',
             [],
             [],
             [],
@@ -255,7 +255,7 @@ final class AddItemsTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/default/items',
+            '/nglayouts/api/app/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/default/items',
             [],
             [],
             [],
@@ -289,7 +289,7 @@ final class AddItemsTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/default/items',
+            '/nglayouts/api/app/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/default/items',
             [],
             [],
             [],
@@ -322,7 +322,7 @@ final class AddItemsTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/default/items',
+            '/nglayouts/api/app/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/default/items',
             [],
             [],
             [],
@@ -356,7 +356,7 @@ final class AddItemsTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/default/items',
+            '/nglayouts/api/app/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/default/items',
             [],
             [],
             [],
@@ -389,7 +389,7 @@ final class AddItemsTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/featured/items',
+            '/nglayouts/api/app/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/featured/items',
             [],
             [],
             [],
@@ -423,7 +423,7 @@ final class AddItemsTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/default/items',
+            '/nglayouts/api/app/en/blocks/28df256a-2467-5527-b398-9269ccc652de/collections/default/items',
             [],
             [],
             [],

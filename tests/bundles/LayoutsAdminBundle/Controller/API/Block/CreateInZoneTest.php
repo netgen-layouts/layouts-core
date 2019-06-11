@@ -28,7 +28,7 @@ final class CreateInZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks?html=false',
+            '/nglayouts/api/app/en/blocks?html=false',
             [],
             [],
             [],
@@ -37,7 +37,7 @@ final class CreateInZoneTest extends JsonApiTestCase
 
         $this->assertResponse(
             $this->client->getResponse(),
-            'v1/blocks/create_block_in_zone',
+            'blocks/create_block_in_zone',
             Response::HTTP_CREATED
         );
     }
@@ -58,7 +58,7 @@ final class CreateInZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks?html=false',
+            '/nglayouts/api/app/en/blocks?html=false',
             [],
             [],
             [],
@@ -67,7 +67,7 @@ final class CreateInZoneTest extends JsonApiTestCase
 
         $this->assertResponse(
             $this->client->getResponse(),
-            'v1/blocks/create_block_in_zone_at_end',
+            'blocks/create_block_in_zone_at_end',
             Response::HTTP_CREATED
         );
     }
@@ -88,7 +88,7 @@ final class CreateInZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks',
+            '/nglayouts/api/app/en/blocks',
             [],
             [],
             [],
@@ -117,7 +117,7 @@ final class CreateInZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks',
+            '/nglayouts/api/app/en/blocks',
             [],
             [],
             [],
@@ -147,7 +147,7 @@ final class CreateInZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks',
+            '/nglayouts/api/app/en/blocks',
             [],
             [],
             [],
@@ -178,7 +178,7 @@ final class CreateInZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks',
+            '/nglayouts/api/app/en/blocks',
             [],
             [],
             [],
@@ -208,7 +208,7 @@ final class CreateInZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks',
+            '/nglayouts/api/app/en/blocks',
             [],
             [],
             [],
@@ -238,7 +238,7 @@ final class CreateInZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks',
+            '/nglayouts/api/app/en/blocks',
             [],
             [],
             [],
@@ -268,7 +268,7 @@ final class CreateInZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks',
+            '/nglayouts/api/app/en/blocks',
             [],
             [],
             [],

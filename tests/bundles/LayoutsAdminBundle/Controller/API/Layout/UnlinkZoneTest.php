@@ -18,7 +18,7 @@ final class UnlinkZoneTest extends JsonApiTestCase
     {
         $this->client->request(
             Request::METHOD_DELETE,
-            '/nglayouts/api/v1/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/zones/right/link',
+            '/nglayouts/api/app/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/zones/right/link',
             [],
             [],
             [],
@@ -35,7 +35,7 @@ final class UnlinkZoneTest extends JsonApiTestCase
     {
         $this->client->request(
             Request::METHOD_DELETE,
-            '/nglayouts/api/v1/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/zones/unknown/link',
+            '/nglayouts/api/app/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/zones/unknown/link',
             [],
             [],
             [],
@@ -56,7 +56,7 @@ final class UnlinkZoneTest extends JsonApiTestCase
     {
         $this->client->request(
             Request::METHOD_DELETE,
-            '/nglayouts/api/v1/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff/zones/right/link',
+            '/nglayouts/api/app/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff/zones/right/link',
             [],
             [],
             [],

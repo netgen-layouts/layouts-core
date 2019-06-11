@@ -18,7 +18,7 @@ final class DiscardDraftTest extends JsonApiTestCase
     {
         $this->client->request(
             Request::METHOD_DELETE,
-            '/nglayouts/api/v1/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/draft',
+            '/nglayouts/api/app/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/draft',
             [],
             [],
             [],
@@ -35,7 +35,7 @@ final class DiscardDraftTest extends JsonApiTestCase
     {
         $this->client->request(
             Request::METHOD_DELETE,
-            '/nglayouts/api/v1/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff/draft',
+            '/nglayouts/api/app/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff/draft',
             [],
             [],
             [],

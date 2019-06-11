@@ -28,7 +28,7 @@ final class CreateTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/e666109d-f1db-5fd5-97fa-346f50e9ae59?html=false',
+            '/nglayouts/api/app/en/blocks/e666109d-f1db-5fd5-97fa-346f50e9ae59?html=false',
             [],
             [],
             [],
@@ -37,7 +37,7 @@ final class CreateTest extends JsonApiTestCase
 
         $this->assertResponse(
             $this->client->getResponse(),
-            'v1/blocks/create_block',
+            'blocks/create_block',
             Response::HTTP_CREATED
         );
     }
@@ -58,7 +58,7 @@ final class CreateTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/e666109d-f1db-5fd5-97fa-346f50e9ae59?html=false',
+            '/nglayouts/api/app/en/blocks/e666109d-f1db-5fd5-97fa-346f50e9ae59?html=false',
             [],
             [],
             [],
@@ -67,7 +67,7 @@ final class CreateTest extends JsonApiTestCase
 
         $this->assertResponse(
             $this->client->getResponse(),
-            'v1/blocks/create_block_with_view_type',
+            'blocks/create_block_with_view_type',
             Response::HTTP_CREATED
         );
     }
@@ -88,7 +88,7 @@ final class CreateTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/e666109d-f1db-5fd5-97fa-346f50e9ae59?html=false',
+            '/nglayouts/api/app/en/blocks/e666109d-f1db-5fd5-97fa-346f50e9ae59?html=false',
             [],
             [],
             [],
@@ -97,7 +97,7 @@ final class CreateTest extends JsonApiTestCase
 
         $this->assertResponse(
             $this->client->getResponse(),
-            'v1/blocks/create_block_with_item_view_type',
+            'blocks/create_block_with_item_view_type',
             Response::HTTP_CREATED
         );
     }
@@ -117,7 +117,7 @@ final class CreateTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/e666109d-f1db-5fd5-97fa-346f50e9ae59?html=false',
+            '/nglayouts/api/app/en/blocks/e666109d-f1db-5fd5-97fa-346f50e9ae59?html=false',
             [],
             [],
             [],
@@ -126,7 +126,7 @@ final class CreateTest extends JsonApiTestCase
 
         $this->assertResponse(
             $this->client->getResponse(),
-            'v1/blocks/create_block_at_end',
+            'blocks/create_block_at_end',
             Response::HTTP_CREATED
         );
     }
@@ -146,7 +146,7 @@ final class CreateTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de',
+            '/nglayouts/api/app/en/blocks/28df256a-2467-5527-b398-9269ccc652de',
             [],
             [],
             [],
@@ -175,7 +175,7 @@ final class CreateTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/e666109d-f1db-5fd5-97fa-346f50e9ae59',
+            '/nglayouts/api/app/en/blocks/e666109d-f1db-5fd5-97fa-346f50e9ae59',
             [],
             [],
             [],
@@ -204,7 +204,7 @@ final class CreateTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/e666109d-f1db-5fd5-97fa-346f50e9ae59',
+            '/nglayouts/api/app/en/blocks/e666109d-f1db-5fd5-97fa-346f50e9ae59',
             [],
             [],
             [],
@@ -233,7 +233,7 @@ final class CreateTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/e666109d-f1db-5fd5-97fa-346f50e9ae59',
+            '/nglayouts/api/app/en/blocks/e666109d-f1db-5fd5-97fa-346f50e9ae59',
             [],
             [],
             [],
@@ -262,7 +262,7 @@ final class CreateTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/e666109d-f1db-5fd5-97fa-346f50e9ae59',
+            '/nglayouts/api/app/en/blocks/e666109d-f1db-5fd5-97fa-346f50e9ae59',
             [],
             [],
             [],

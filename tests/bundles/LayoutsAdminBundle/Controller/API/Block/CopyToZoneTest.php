@@ -25,7 +25,7 @@ final class CopyToZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de/copy/zone?html=false',
+            '/nglayouts/api/app/en/blocks/28df256a-2467-5527-b398-9269ccc652de/copy/zone?html=false',
             [],
             [],
             [],
@@ -34,7 +34,7 @@ final class CopyToZoneTest extends JsonApiTestCase
 
         $this->assertResponse(
             $this->client->getResponse(),
-            'v1/blocks/copy_block_to_zone',
+            'blocks/copy_block_to_zone',
             Response::HTTP_CREATED
         );
     }
@@ -46,7 +46,7 @@ final class CopyToZoneTest extends JsonApiTestCase
     {
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/ffffffff-ffff-ffff-ffff-ffffffffffff/copy/zone',
+            '/nglayouts/api/app/en/blocks/ffffffff-ffff-ffff-ffff-ffffffffffff/copy/zone',
             [],
             [],
             [],
@@ -75,7 +75,7 @@ final class CopyToZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de/copy/zone',
+            '/nglayouts/api/app/en/blocks/28df256a-2467-5527-b398-9269ccc652de/copy/zone',
             [],
             [],
             [],
@@ -103,7 +103,7 @@ final class CopyToZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de/copy/zone',
+            '/nglayouts/api/app/en/blocks/28df256a-2467-5527-b398-9269ccc652de/copy/zone',
             [],
             [],
             [],
@@ -131,7 +131,7 @@ final class CopyToZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de/copy/zone',
+            '/nglayouts/api/app/en/blocks/28df256a-2467-5527-b398-9269ccc652de/copy/zone',
             [],
             [],
             [],
@@ -159,7 +159,7 @@ final class CopyToZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de/copy/zone',
+            '/nglayouts/api/app/en/blocks/28df256a-2467-5527-b398-9269ccc652de/copy/zone',
             [],
             [],
             [],
@@ -186,7 +186,7 @@ final class CopyToZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de/copy/zone',
+            '/nglayouts/api/app/en/blocks/28df256a-2467-5527-b398-9269ccc652de/copy/zone',
             [],
             [],
             [],

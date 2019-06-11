@@ -18,7 +18,7 @@ final class CreateDraftTest extends JsonApiTestCase
     {
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/draft?html=false',
+            '/nglayouts/api/app/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/draft?html=false',
             [],
             [],
             [],
@@ -27,7 +27,7 @@ final class CreateDraftTest extends JsonApiTestCase
 
         $this->assertResponse(
             $this->client->getResponse(),
-            'v1/layouts/create_layout_draft',
+            'layouts/create_layout_draft',
             Response::HTTP_CREATED
         );
     }
@@ -39,7 +39,7 @@ final class CreateDraftTest extends JsonApiTestCase
     {
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff/draft',
+            '/nglayouts/api/app/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff/draft',
             [],
             [],
             [],

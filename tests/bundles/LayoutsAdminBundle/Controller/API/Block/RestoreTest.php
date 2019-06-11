@@ -18,7 +18,7 @@ final class RestoreTest extends JsonApiTestCase
     {
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de/restore?html=false',
+            '/nglayouts/api/app/en/blocks/28df256a-2467-5527-b398-9269ccc652de/restore?html=false',
             [],
             [],
             [],
@@ -27,7 +27,7 @@ final class RestoreTest extends JsonApiTestCase
 
         $this->assertResponse(
             $this->client->getResponse(),
-            'v1/blocks/restore_block',
+            'blocks/restore_block',
             Response::HTTP_OK
         );
     }
@@ -39,7 +39,7 @@ final class RestoreTest extends JsonApiTestCase
     {
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/v1/en/blocks/ffffffff-ffff-ffff-ffff-ffffffffffff/restore',
+            '/nglayouts/api/app/en/blocks/ffffffff-ffff-ffff-ffff-ffffffffffff/restore',
             [],
             [],
             [],

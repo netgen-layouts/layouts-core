@@ -15,11 +15,11 @@ final class LoadTest extends JsonApiTestCase
      */
     public function testLoad(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de?html=false');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/app/en/blocks/28df256a-2467-5527-b398-9269ccc652de?html=false');
 
         $this->assertResponse(
             $this->client->getResponse(),
-            'v1/blocks/view_block',
+            'blocks/view_block',
             Response::HTTP_OK
         );
     }
@@ -29,11 +29,11 @@ final class LoadTest extends JsonApiTestCase
      */
     public function testLoadInPublishedState(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/blocks/28df256a-2467-5527-b398-9269ccc652de?published=true&html=false');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/app/en/blocks/28df256a-2467-5527-b398-9269ccc652de?published=true&html=false');
 
         $this->assertResponse(
             $this->client->getResponse(),
-            'v1/blocks/view_published_block',
+            'blocks/view_published_block',
             Response::HTTP_OK
         );
     }
@@ -43,7 +43,7 @@ final class LoadTest extends JsonApiTestCase
      */
     public function testLoadWithNonExistentBlock(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/v1/en/blocks/ffffffff-ffff-ffff-ffff-ffffffffffff');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/api/app/en/blocks/ffffffff-ffff-ffff-ffff-ffffffffffff');
 
         $this->assertException(
             $this->client->getResponse(),

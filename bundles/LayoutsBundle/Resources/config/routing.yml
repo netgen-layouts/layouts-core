@@ -6,7 +6,7 @@ _nglayouts_app:
 
 _nglayouts_api:
     resource: "@NetgenLayoutsAdminBundle/Resources/config/routing/api.yml"
-    prefix: /api/v1
+    prefix: /api/app
 
 nglayouts_ajax_block:
     path: /ajax/block/{blockId}/{locale}/{collectionIdentifier}
