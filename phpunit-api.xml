@@ -18,14 +18,14 @@
     </php>
 
     <testsuites>
-        <testsuite name="Netgen\Bundle\LayoutsBundle\Controller\API">
-            <directory>tests/bundles/LayoutsBundle/Controller/API</directory>
+        <testsuite name="Netgen\Bundle\LayoutsAdminBundle\Controller\API">
+            <directory>tests/bundles/LayoutsAdminBundle/Controller/API</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist>
-            <directory suffix=".php">bundles/LayoutsBundle/Controller/API</directory>
+            <directory suffix=".php">bundles/LayoutsAdminBundle/Controller/API</directory>
         </whitelist>
     </filter>
 </phpunit>

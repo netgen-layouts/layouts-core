@@ -1,0 +1,16 @@
+_nglayouts_api_config:
+    resource: "api/config.yml"
+
+_nglayouts_api_blocks:
+    resource: "api/blocks.yml"
+    prefix: /{locale}
+
+_nglayouts_api_block_collections:
+    resource: "api/block_collections.yml"
+    prefix: /{locale}
+
+_nglayouts_api_collections:
+    resource: "api/collections.yml"
+
+_nglayouts_api_layouts:
+    resource: "api/layouts.yml"

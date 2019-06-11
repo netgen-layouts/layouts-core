@@ -1,12 +1,12 @@
-_nglayouts_api_v1:
-    resource: "routing/api_v1.yml"
-    prefix: /api/v1
-
 _nglayouts_admin:
     resource: "@NetgenLayoutsAdminBundle/Resources/config/routing/admin.yml"
 
 _nglayouts_app:
     resource: "@NetgenLayoutsAdminBundle/Resources/config/routing/app.yml"
+
+_nglayouts_api:
+    resource: "@NetgenLayoutsAdminBundle/Resources/config/routing/api.yml"
+    prefix: /api/v1
 
 nglayouts_ajax_block:
     path: /ajax/block/{blockId}/{locale}/{collectionIdentifier}

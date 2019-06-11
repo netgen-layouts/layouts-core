@@ -15,10 +15,10 @@
         </testsuite>
         <testsuite name="Netgen\Bundle\LayoutsBundle">
             <directory>tests/bundles/LayoutsBundle</directory>
-            <exclude>tests/bundles/LayoutsBundle/Controller</exclude>
         </testsuite>
         <testsuite name="Netgen\Bundle\LayoutsAdminBundle">
             <directory>tests/bundles/LayoutsAdminBundle</directory>
+            <exclude>tests/bundles/LayoutsAdminBundle/Controller</exclude>
         </testsuite>
     </testsuites>
 
