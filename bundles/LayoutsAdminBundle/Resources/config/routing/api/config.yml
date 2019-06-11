@@ -1,16 +1,16 @@
-nglayouts_api_v1_config_config:
+nglayouts_api_config_config:
     path: /config
     methods: [GET]
     defaults:
         _controller: 'netgen_layouts.controller.api.config.load_config'
 
-nglayouts_api_v1_config_block_types:
+nglayouts_api_config_block_types:
     path: /config/block_types
     methods: [GET]
     defaults:
         _controller: 'netgen_layouts.controller.api.config.load_block_types'
 
-nglayouts_api_v1_config_layout_types:
+nglayouts_api_config_layout_types:
     path: /config/layout_types
     methods: [GET]
     defaults:

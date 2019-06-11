@@ -1,53 +1,53 @@
-nglayouts_api_v1_collections_load:
+nglayouts_api_collections_load:
     path: /collections/{collectionId}
     methods: [GET]
     defaults:
         _controller: 'netgen_layouts.controller.api.collection.load_collection'
         _nglayouts_status: draft
 
-nglayouts_api_v1_collections_items:
+nglayouts_api_collections_items:
     path: /collections/{collectionId}/items
     methods: [GET]
     defaults:
         _controller: 'netgen_layouts.controller.api.collection.load_items'
         _nglayouts_status: draft
 
-nglayouts_api_v1_collections_load_item:
+nglayouts_api_collections_load_item:
     path: /collections/items/{itemId}
     methods: [GET]
     defaults:
         _controller: 'netgen_layouts.controller.api.collection.load_item'
         _nglayouts_status: draft
 
-nglayouts_api_v1_collections_move_item:
+nglayouts_api_collections_move_item:
     path: /collections/items/{itemId}/move
     methods: [POST]
     defaults:
         _controller: 'netgen_layouts.controller.api.collection.move_item'
         _nglayouts_status: draft
 
-nglayouts_api_v1_collections_delete_item:
+nglayouts_api_collections_delete_item:
     path: /collections/items/{itemId}
     methods: [DELETE]
     defaults:
         _controller: 'netgen_layouts.controller.api.collection.delete_item'
         _nglayouts_status: draft
 
-nglayouts_api_v1_collections_delete_items:
+nglayouts_api_collections_delete_items:
     path: /collections/{collectionId}/items
     methods: [DELETE]
     defaults:
         _controller: 'netgen_layouts.controller.api.collection.delete_items'
         _nglayouts_status: draft
 
-nglayouts_api_v1_collections_create_slot:
+nglayouts_api_collections_create_slot:
     path: /collections/{collectionId}/slots
     methods: [POST]
     defaults:
         _controller: 'netgen_layouts.controller.api.collection.create_slot'
         _nglayouts_status: draft
 
-nglayouts_api_v1_collections_delete_slot:
+nglayouts_api_collections_delete_slot:
     path: /collections/slots/{slotId}
     methods: [DELETE]
     defaults:
