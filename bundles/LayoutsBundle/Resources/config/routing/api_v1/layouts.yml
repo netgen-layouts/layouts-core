@@ -2,90 +2,90 @@ nglayouts_api_v1_layouts_shared:
     path: /layouts/shared
     methods: [GET]
     defaults:
-        _controller: 'netgen_layouts.controller.api.v1.layout.load_shared_layouts'
+        _controller: 'netgen_layouts.controller.api.layout.load_shared_layouts'
 
 nglayouts_api_v1_layouts_load:
     path: /layouts/{layoutId}
     methods: [GET]
     defaults:
-        _controller: 'netgen_layouts.controller.api.v1.layout.load'
+        _controller: 'netgen_layouts.controller.api.layout.load'
 
 nglayouts_api_v1_layouts_blocks:
     path: /{locale}/layouts/{layoutId}/blocks
     methods: [GET]
     defaults:
-        _controller: 'netgen_layouts.controller.api.v1.layout.load_layout_blocks'
+        _controller: 'netgen_layouts.controller.api.layout.load_layout_blocks'
 
 nglayouts_api_v1_layouts_zone_blocks:
     path: /{locale}/layouts/{layoutId}/zones/{zoneIdentifier}/blocks
     methods: [GET]
     defaults:
-        _controller: 'netgen_layouts.controller.api.v1.layout.load_zone_blocks'
+        _controller: 'netgen_layouts.controller.api.layout.load_zone_blocks'
 
 nglayouts_api_v1_layouts_zone_link:
     path: /layouts/{layoutId}/zones/{zoneIdentifier}/link
     methods: [POST]
     defaults:
-        _controller: 'netgen_layouts.controller.api.v1.layout.link_zone'
+        _controller: 'netgen_layouts.controller.api.layout.link_zone'
         _nglayouts_status: draft
 
 nglayouts_api_v1_layouts_zone_unlink:
     path: /layouts/{layoutId}/zones/{zoneIdentifier}/link
     methods: [DELETE]
     defaults:
-        _controller: 'netgen_layouts.controller.api.v1.layout.unlink_zone'
+        _controller: 'netgen_layouts.controller.api.layout.unlink_zone'
         _nglayouts_status: draft
 
 nglayouts_api_v1_layouts_create:
     path: /layouts
     methods: [POST]
     defaults:
-        _controller: 'netgen_layouts.controller.api.v1.layout.create'
+        _controller: 'netgen_layouts.controller.api.layout.create'
 
 nglayouts_api_v1_layouts_copy:
     path: /layouts/{layoutId}/copy
     methods: [POST]
     defaults:
-        _controller: 'netgen_layouts.controller.api.v1.layout.copy'
+        _controller: 'netgen_layouts.controller.api.layout.copy'
 
 nglayouts_api_v1_layouts_change_type:
     path: /layouts/{layoutId}/change_type
     methods: [POST]
     defaults:
-        _controller: 'netgen_layouts.controller.api.v1.layout.change_type'
+        _controller: 'netgen_layouts.controller.api.layout.change_type'
         _nglayouts_status: draft
 
 nglayouts_api_v1_layouts_create_draft:
     path: /layouts/{layoutId}/draft
     methods: [POST]
     defaults:
-        _controller: 'netgen_layouts.controller.api.v1.layout.create_draft'
+        _controller: 'netgen_layouts.controller.api.layout.create_draft'
         _nglayouts_status: published
 
 nglayouts_api_v1_layouts_discard_draft:
     path: /layouts/{layoutId}/draft
     methods: [DELETE]
     defaults:
-        _controller: 'netgen_layouts.controller.api.v1.layout.discard_draft'
+        _controller: 'netgen_layouts.controller.api.layout.discard_draft'
         _nglayouts_status: draft
 
 nglayouts_api_v1_layouts_publish:
     path: /layouts/{layoutId}/publish
     methods: [POST]
     defaults:
-        _controller: 'netgen_layouts.controller.api.v1.layout.publish_draft'
+        _controller: 'netgen_layouts.controller.api.layout.publish_draft'
         _nglayouts_status: draft
 
 nglayouts_api_v1_layouts_restore:
     path: /layouts/{layoutId}/restore
     methods: [POST]
     defaults:
-        _controller: 'netgen_layouts.controller.api.v1.layout.restore_from_archive'
+        _controller: 'netgen_layouts.controller.api.layout.restore_from_archive'
         _nglayouts_status: archived
 
 nglayouts_api_v1_layouts_delete:
     path: /layouts/{layoutId}
     methods: [DELETE]
     defaults:
-        _controller: 'netgen_layouts.controller.api.v1.layout.delete'
+        _controller: 'netgen_layouts.controller.api.layout.delete'
         _nglayouts_status: published

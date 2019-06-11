@@ -8,7 +8,6 @@ use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Serializer\Values\View;
-use Netgen\Layouts\Serializer\Version;
 use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -69,7 +68,7 @@ final class EditForm extends AbstractController
         if ($form->isValid()) {
             $updatedBlock = $this->blockService->updateBlock($block, $form->getData());
 
-            return new View($updatedBlock, Version::API_V1);
+            return new View($updatedBlock);
         }
 
         return $this->buildView(

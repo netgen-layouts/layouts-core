@@ -18,8 +18,8 @@ services:
 
     ## Config controllers
 
-    netgen_layouts.controller.api.v1.config.load_config:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Config\LoadConfig
+    netgen_layouts.controller.api.config.load_config:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Config\LoadConfig
         public: true
         parent: netgen_layouts.controller.base
         arguments:
@@ -27,16 +27,16 @@ services:
             - "@security.csrf.token_manager"
             - "%netgen_layouts.api.csrf_token_id%"
 
-    netgen_layouts.controller.api.v1.config.load_block_types:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Config\LoadBlockTypes
+    netgen_layouts.controller.api.config.load_block_types:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Config\LoadBlockTypes
         public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.block.registry.block_type"
             - "@netgen_layouts.block.registry.block_type_group"
 
-    netgen_layouts.controller.api.v1.config.load_layout_types:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Config\LoadLayoutTypes
+    netgen_layouts.controller.api.config.load_layout_types:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Config\LoadLayoutTypes
         public: true
         parent: netgen_layouts.controller.base
         arguments:
@@ -44,35 +44,35 @@ services:
 
     ## Layout controllers
 
-    netgen_layouts.controller.api.v1.layout.load_shared_layouts:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\LoadSharedLayouts
+    netgen_layouts.controller.api.layout.load_shared_layouts:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Layout\LoadSharedLayouts
         public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
 
-    netgen_layouts.controller.api.v1.layout.load:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Load
+    netgen_layouts.controller.api.layout.load:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Layout\Load
         public: true
         parent: netgen_layouts.controller.base
 
-    netgen_layouts.controller.api.v1.layout.load_layout_blocks:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\LoadLayoutBlocks
+    netgen_layouts.controller.api.layout.load_layout_blocks:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Layout\LoadLayoutBlocks
         public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.block"
 
-    netgen_layouts.controller.api.v1.layout.load_zone_blocks:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\LoadZoneBlocks
+    netgen_layouts.controller.api.layout.load_zone_blocks:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Layout\LoadZoneBlocks
         public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
             - "@netgen_layouts.api.service.block"
 
-    netgen_layouts.controller.api.v1.layout.link_zone:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\LinkZone
+    netgen_layouts.controller.api.layout.link_zone:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Layout\LinkZone
         public: true
         parent: netgen_layouts.controller.base
         arguments:
@@ -80,15 +80,15 @@ services:
         calls:
             - [setValidator, ["@validator"]]
 
-    netgen_layouts.controller.api.v1.layout.unlink_zone:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\UnlinkZone
+    netgen_layouts.controller.api.layout.unlink_zone:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Layout\UnlinkZone
         public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
 
-    netgen_layouts.controller.api.v1.layout.create:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Create
+    netgen_layouts.controller.api.layout.create:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Layout\Create
         public: true
         parent: netgen_layouts.controller.base
         arguments:
@@ -97,8 +97,8 @@ services:
         calls:
             - [setValidator, ["@validator"]]
 
-    netgen_layouts.controller.api.v1.layout.copy:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Copy
+    netgen_layouts.controller.api.layout.copy:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Layout\Copy
         public: true
         parent: netgen_layouts.controller.base
         arguments:
@@ -106,8 +106,8 @@ services:
         calls:
             - [setValidator, ["@validator"]]
 
-    netgen_layouts.controller.api.v1.layout.change_type:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\ChangeType
+    netgen_layouts.controller.api.layout.change_type:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Layout\ChangeType
         public: true
         parent: netgen_layouts.controller.base
         arguments:
@@ -116,22 +116,22 @@ services:
         calls:
             - [setValidator, ["@validator"]]
 
-    netgen_layouts.controller.api.v1.layout.create_draft:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\CreateDraft
+    netgen_layouts.controller.api.layout.create_draft:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Layout\CreateDraft
         public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
 
-    netgen_layouts.controller.api.v1.layout.discard_draft:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\DiscardDraft
+    netgen_layouts.controller.api.layout.discard_draft:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Layout\DiscardDraft
         public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
 
-    netgen_layouts.controller.api.v1.layout.publish_draft:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\PublishDraft
+    netgen_layouts.controller.api.layout.publish_draft:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Layout\PublishDraft
         public: true
         parent: netgen_layouts.controller.base
         arguments:
@@ -139,15 +139,15 @@ services:
             - "@netgen_layouts.http_cache.invalidator"
             - "@netgen_layouts.configuration"
 
-    netgen_layouts.controller.api.v1.layout.restore_from_archive:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\RestoreFromArchive
+    netgen_layouts.controller.api.layout.restore_from_archive:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Layout\RestoreFromArchive
         public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
 
-    netgen_layouts.controller.api.v1.layout.delete:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Layout\Delete
+    netgen_layouts.controller.api.layout.delete:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Layout\Delete
         public: true
         parent: netgen_layouts.controller.base
         arguments:
@@ -155,41 +155,41 @@ services:
 
     ## Block controllers
 
-    netgen_layouts.controller.api.v1.block.create_struct_builder:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Utils\CreateStructBuilder
+    netgen_layouts.controller.api.block.create_struct_builder:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Block\Utils\CreateStructBuilder
         arguments:
             - "@netgen_layouts.api.service.block"
 
-    netgen_layouts.controller.api.v1.block.load:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Load
+    netgen_layouts.controller.api.block.load:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Block\Load
         public: true
         parent: netgen_layouts.controller.base
 
-    netgen_layouts.controller.api.v1.block.create:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Create
+    netgen_layouts.controller.api.block.create:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Block\Create
         public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.block"
-            - "@netgen_layouts.controller.api.v1.block.create_struct_builder"
+            - "@netgen_layouts.controller.api.block.create_struct_builder"
             - "@netgen_layouts.block.registry.block_type"
         calls:
             - [setValidator, ["@validator"]]
 
-    netgen_layouts.controller.api.v1.block.create_in_zone:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\CreateInZone
+    netgen_layouts.controller.api.block.create_in_zone:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Block\CreateInZone
         public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.block"
             - "@netgen_layouts.api.service.layout"
-            - "@netgen_layouts.controller.api.v1.block.create_struct_builder"
+            - "@netgen_layouts.controller.api.block.create_struct_builder"
             - "@netgen_layouts.block.registry.block_type"
         calls:
             - [setValidator, ["@validator"]]
 
-    netgen_layouts.controller.api.v1.block.copy:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Copy
+    netgen_layouts.controller.api.block.copy:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Block\Copy
         public: true
         parent: netgen_layouts.controller.base
         arguments:
@@ -197,8 +197,8 @@ services:
         calls:
             - [setValidator, ["@validator"]]
 
-    netgen_layouts.controller.api.v1.block.copy_to_zone:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\CopyToZone
+    netgen_layouts.controller.api.block.copy_to_zone:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Block\CopyToZone
         public: true
         parent: netgen_layouts.controller.base
         arguments:
@@ -207,8 +207,8 @@ services:
         calls:
             - [setValidator, ["@validator"]]
 
-    netgen_layouts.controller.api.v1.block.move:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Move
+    netgen_layouts.controller.api.block.move:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Block\Move
         public: true
         parent: netgen_layouts.controller.base
         arguments:
@@ -216,8 +216,8 @@ services:
         calls:
             - [setValidator, ["@validator"]]
 
-    netgen_layouts.controller.api.v1.block.move_to_zone:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\MoveToZone
+    netgen_layouts.controller.api.block.move_to_zone:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Block\MoveToZone
         public: true
         parent: netgen_layouts.controller.base
         arguments:
@@ -226,15 +226,15 @@ services:
         calls:
             - [setValidator, ["@validator"]]
 
-    netgen_layouts.controller.api.v1.block.restore:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Restore
+    netgen_layouts.controller.api.block.restore:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Block\Restore
         public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.block"
 
-    netgen_layouts.controller.api.v1.block.delete:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Block\Delete
+    netgen_layouts.controller.api.block.delete:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Block\Delete
         public: true
         parent: netgen_layouts.controller.base
         arguments:
@@ -242,8 +242,8 @@ services:
 
     ## Block collection controllers
 
-    netgen_layouts.controller.api.v1.block_collection.add_items:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\AddItems
+    netgen_layouts.controller.api.block_collection.add_items:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\BlockCollection\AddItems
         public: true
         parent: netgen_layouts.controller.base
         arguments:
@@ -252,8 +252,8 @@ services:
         calls:
             - [setValidator, ["@validator"]]
 
-    netgen_layouts.controller.api.v1.block_collection.change_collection_type:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\ChangeCollectionType
+    netgen_layouts.controller.api.block_collection.change_collection_type:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\BlockCollection\ChangeCollectionType
         public: true
         parent: netgen_layouts.controller.base
         arguments:
@@ -263,8 +263,8 @@ services:
             - [setValidator, ["@validator"]]
 
 
-    netgen_layouts.controller.api.v1.block_collection.load_collection_result:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\BlockCollection\LoadCollectionResult
+    netgen_layouts.controller.api.block_collection.load_collection_result:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\BlockCollection\LoadCollectionResult
         public: true
         parent: netgen_layouts.controller.base
         arguments:
@@ -272,46 +272,23 @@ services:
 
     ## Collection controllers
 
-    netgen_layouts.controller.api.v1.collection.load_collection:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Collection\LoadCollection
+    netgen_layouts.controller.api.collection.load_collection:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Collection\LoadCollection
         public: true
         parent: netgen_layouts.controller.base
 
-    netgen_layouts.controller.api.v1.collection.load_items:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Collection\LoadItems
+    netgen_layouts.controller.api.collection.load_items:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Collection\LoadItems
         public: true
         parent: netgen_layouts.controller.base
 
-    netgen_layouts.controller.api.v1.collection.load_item:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Collection\LoadItem
+    netgen_layouts.controller.api.collection.load_item:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Collection\LoadItem
         public: true
         parent: netgen_layouts.controller.base
 
-    netgen_layouts.controller.api.v1.collection.move_item:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Collection\MoveItem
-        public: true
-        parent: netgen_layouts.controller.base
-        arguments:
-            - "@netgen_layouts.api.service.collection"
-        calls:
-            - [setValidator, ["@validator"]]
-
-    netgen_layouts.controller.api.v1.collection.delete_item:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Collection\DeleteItem
-        public: true
-        parent: netgen_layouts.controller.base
-        arguments:
-            - "@netgen_layouts.api.service.collection"
-
-    netgen_layouts.controller.api.v1.collection.delete_items:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Collection\DeleteItems
-        public: true
-        parent: netgen_layouts.controller.base
-        arguments:
-            - "@netgen_layouts.api.service.collection"
-
-    netgen_layouts.controller.api.v1.collection.create_slot:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Collection\CreateSlot
+    netgen_layouts.controller.api.collection.move_item:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Collection\MoveItem
         public: true
         parent: netgen_layouts.controller.base
         arguments:
@@ -319,8 +296,31 @@ services:
         calls:
             - [setValidator, ["@validator"]]
 
-    netgen_layouts.controller.api.v1.collection.delete_slot:
-        class: Netgen\Bundle\LayoutsBundle\Controller\API\V1\Collection\DeleteSlot
+    netgen_layouts.controller.api.collection.delete_item:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Collection\DeleteItem
+        public: true
+        parent: netgen_layouts.controller.base
+        arguments:
+            - "@netgen_layouts.api.service.collection"
+
+    netgen_layouts.controller.api.collection.delete_items:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Collection\DeleteItems
+        public: true
+        parent: netgen_layouts.controller.base
+        arguments:
+            - "@netgen_layouts.api.service.collection"
+
+    netgen_layouts.controller.api.collection.create_slot:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Collection\CreateSlot
+        public: true
+        parent: netgen_layouts.controller.base
+        arguments:
+            - "@netgen_layouts.api.service.collection"
+        calls:
+            - [setValidator, ["@validator"]]
+
+    netgen_layouts.controller.api.collection.delete_slot:
+        class: Netgen\Bundle\LayoutsBundle\Controller\API\Collection\DeleteSlot
         public: true
         parent: netgen_layouts.controller.base
         arguments:

@@ -6,8 +6,8 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener;
 
 use Netgen\Bundle\LayoutsBundle\EventListener\SerializerListener;
 use Netgen\Bundle\LayoutsBundle\EventListener\SetIsApiRequestListener;
-use Netgen\Layouts\Serializer\Values\VersionedValue;
-use Netgen\Layouts\Tests\API\Stubs\Value;
+use Netgen\Layouts\Serializer\Values\Value;
+use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -52,7 +52,7 @@ final class SerializerListenerTest extends TestCase
      */
     public function testOnView(): void
     {
-        $value = new VersionedValue(new Value(), 42);
+        $value = new Value(new APIValue());
 
         $this->serializerMock
             ->expects(self::once())
@@ -93,7 +93,7 @@ final class SerializerListenerTest extends TestCase
      */
     public function testOnViewWithNoHtmlRendering(): void
     {
-        $value = new VersionedValue(new Value(), 42);
+        $value = new Value(new APIValue());
 
         $this->serializerMock
             ->expects(self::once())
@@ -142,7 +142,7 @@ final class SerializerListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::SUB_REQUEST,
-            new VersionedValue(new Value(), 42)
+            new Value(new APIValue())
         );
 
         $this->listener->onView($event);

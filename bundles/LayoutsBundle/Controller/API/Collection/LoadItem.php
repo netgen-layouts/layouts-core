@@ -1,0 +1,22 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Netgen\Bundle\LayoutsBundle\Controller\API\Collection;
+
+use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
+use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\Serializer\Values\Value;
+
+final class LoadItem extends AbstractController
+{
+    /**
+     * Loads the item.
+     */
+    public function __invoke(Item $item): Value
+    {
+        $this->denyAccessUnlessGranted('nglayouts:api:read');
+
+        return new Value($item);
+    }
+}

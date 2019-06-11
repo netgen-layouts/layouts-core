@@ -1,0 +1,50 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Netgen\Layouts\Serializer\Normalizer;
+
+use Generator;
+use Netgen\Layouts\API\Values\Block\Placeholder;
+use Netgen\Layouts\Serializer\Values\Value;
+use Netgen\Layouts\Serializer\Values\View;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+
+final class PlaceholderNormalizer implements NormalizerInterface, NormalizerAwareInterface
+{
+    use NormalizerAwareTrait;
+
+    public function normalize($object, $format = null, array $context = [])
+    {
+        /** @var \Netgen\Layouts\API\Values\Block\Placeholder $placeholder */
+        $placeholder = $object->getValue();
+
+        $blocks = $this->buildViewValues($placeholder);
+
+        return [
+            'identifier' => $placeholder->getIdentifier(),
+            'blocks' => $this->normalizer->normalize($blocks, $format, $context),
+        ];
+    }
+
+    public function supportsNormalization($data, $format = null): bool
+    {
+        if (!$data instanceof Value) {
+            return false;
+        }
+
+        return $data->getValue() instanceof Placeholder;
+    }
+
+    /**
+     * Builds the list of View objects for provided list of values.
+     */
+    private function buildViewValues(iterable $values): Generator
+    {
+        foreach ($values as $key => $value) {
+            yield $key => new View($value);
+        }
+    }
+}

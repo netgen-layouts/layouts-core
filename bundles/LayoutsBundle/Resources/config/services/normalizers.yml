@@ -1,6 +1,6 @@
 services:
-    netgen_layouts.normalizer.value:
-        class: Netgen\Layouts\Serializer\Normalizer\ValueNormalizer
+    netgen_layouts.normalizer.array_value:
+        class: Netgen\Layouts\Serializer\Normalizer\ArrayValueNormalizer
         tags:
             - { name: serializer.normalizer }
 
@@ -12,79 +12,79 @@ services:
             - { name: serializer.normalizer }
 
     netgen_layouts.normalizer.view:
-        class: Netgen\Layouts\Serializer\Normalizer\V1\ViewNormalizer
+        class: Netgen\Layouts\Serializer\Normalizer\ViewNormalizer
         arguments:
             - "@netgen_layouts.view.renderer"
         tags:
             - { name: serializer.normalizer }
 
-    netgen_layouts.normalizer.v1.parameter:
-        class: Netgen\Layouts\Serializer\Normalizer\V1\ParameterNormalizer
+    netgen_layouts.normalizer.parameter:
+        class: Netgen\Layouts\Serializer\Normalizer\ParameterNormalizer
         tags:
             - { name: serializer.normalizer }
 
-    netgen_layouts.normalizer.v1.block:
-        class: Netgen\Layouts\Serializer\Normalizer\V1\BlockNormalizer
+    netgen_layouts.normalizer.block:
+        class: Netgen\Layouts\Serializer\Normalizer\BlockNormalizer
         arguments:
             - "@netgen_layouts.api.service.block"
         tags:
             - { name: serializer.normalizer }
 
-    netgen_layouts.normalizer.v1.placeholder:
-        class: Netgen\Layouts\Serializer\Normalizer\V1\PlaceholderNormalizer
+    netgen_layouts.normalizer.placeholder:
+        class: Netgen\Layouts\Serializer\Normalizer\PlaceholderNormalizer
         tags:
             - { name: serializer.normalizer }
 
-    netgen_layouts.normalizer.v1.layout:
-        class: Netgen\Layouts\Serializer\Normalizer\V1\LayoutNormalizer
+    netgen_layouts.normalizer.layout:
+        class: Netgen\Layouts\Serializer\Normalizer\LayoutNormalizer
         arguments:
             - "@netgen_layouts.api.service.layout"
             - "@netgen_layouts.api.service.block"
         tags:
             - { name: serializer.normalizer }
 
-    netgen_layouts.normalizer.v1.collection:
-        class: Netgen\Layouts\Serializer\Normalizer\V1\CollectionNormalizer
+    netgen_layouts.normalizer.collection:
+        class: Netgen\Layouts\Serializer\Normalizer\CollectionNormalizer
         tags:
             - { name: serializer.normalizer }
 
-    netgen_layouts.normalizer.v1.collection_item:
-        class: Netgen\Layouts\Serializer\Normalizer\V1\CollectionItemNormalizer
+    netgen_layouts.normalizer.collection_item:
+        class: Netgen\Layouts\Serializer\Normalizer\CollectionItemNormalizer
         arguments:
             - "@netgen_layouts.item.url_generator"
             - "@netgen_layouts.collection.item_visibility_resolver"
         tags:
             - { name: serializer.normalizer }
 
-    netgen_layouts.normalizer.v1.collection_query:
-        class: Netgen\Layouts\Serializer\Normalizer\V1\CollectionQueryNormalizer
+    netgen_layouts.normalizer.collection_query:
+        class: Netgen\Layouts\Serializer\Normalizer\CollectionQueryNormalizer
         tags:
             - { name: serializer.normalizer }
 
-    netgen_layouts.normalizer.v1.collection_result_set:
-        class: Netgen\Layouts\Serializer\Normalizer\V1\CollectionResultSetNormalizer
+    netgen_layouts.normalizer.collection_result_set:
+        class: Netgen\Layouts\Serializer\Normalizer\CollectionResultSetNormalizer
         tags:
             - { name: serializer.normalizer }
 
-    netgen_layouts.normalizer.v1.collection_result:
-        class: Netgen\Layouts\Serializer\Normalizer\V1\CollectionResultNormalizer
+    netgen_layouts.normalizer.collection_result:
+        class: Netgen\Layouts\Serializer\Normalizer\CollectionResultNormalizer
         arguments:
             - "@netgen_layouts.item.url_generator"
             - "@netgen_layouts.collection.item_visibility_resolver"
         tags:
             - { name: serializer.normalizer }
 
-    netgen_layouts.normalizer.v1.block_type:
-        class: Netgen\Layouts\Serializer\Normalizer\V1\BlockTypeNormalizer
+    netgen_layouts.normalizer.block_type:
+        class: Netgen\Layouts\Serializer\Normalizer\BlockTypeNormalizer
         tags:
             - { name: serializer.normalizer }
 
-    netgen_layouts.normalizer.v1.block_type_group:
-        class: Netgen\Layouts\Serializer\Normalizer\V1\BlockTypeGroupNormalizer
+    netgen_layouts.normalizer.block_type_group:
+        class: Netgen\Layouts\Serializer\Normalizer\BlockTypeGroupNormalizer
         tags:
             - { name: serializer.normalizer }
 
-    netgen_layouts.normalizer.v1.layout_type:
-        class: Netgen\Layouts\Serializer\Normalizer\V1\LayoutTypeNormalizer
+    netgen_layouts.normalizer.layout_type:
+        class: Netgen\Layouts\Serializer\Normalizer\LayoutTypeNormalizer
         tags:
             - { name: serializer.normalizer }
