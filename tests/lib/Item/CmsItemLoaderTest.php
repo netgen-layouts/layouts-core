@@ -83,7 +83,7 @@ final class CmsItemLoaderTest extends TestCase
     public function testLoadItemThrowsItemException(): void
     {
         $this->expectException(ItemException::class);
-        $this->expectExceptionMessage('Value type "value" does not exist.');
+        $this->expectExceptionMessage('Value loader for "value" value type does not exist.');
 
         $this->cmsItemLoader = new CmsItemLoader($this->cmsItemBuilderMock, new Container());
 
@@ -141,7 +141,7 @@ final class CmsItemLoaderTest extends TestCase
     public function testLoadByRemoteIdItemThrowsItemException(): void
     {
         $this->expectException(ItemException::class);
-        $this->expectExceptionMessage('Value type "value" does not exist.');
+        $this->expectExceptionMessage('Value loader for "value" value type does not exist.');
 
         $this->cmsItemLoader = new CmsItemLoader($this->cmsItemBuilderMock, new Container());
 

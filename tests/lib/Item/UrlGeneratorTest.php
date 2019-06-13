@@ -65,7 +65,7 @@ final class UrlGeneratorTest extends TestCase
     public function testGenerateWithNoUrlGenerator(): void
     {
         $this->expectException(ItemException::class);
-        $this->expectExceptionMessage('Value type "unknown" does not exist.');
+        $this->expectExceptionMessage('Value URL generator for "unknown" value type does not exist.');
 
         $this->urlGenerator->generate(
             CmsItem::fromArray(

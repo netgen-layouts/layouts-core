@@ -39,12 +39,12 @@ final class UrlGenerator implements UrlGeneratorInterface
     private function getValueUrlGenerator(string $valueType): ValueUrlGeneratorInterface
     {
         if (!$this->valueUrlGenerators->has($valueType)) {
-            throw ItemException::noValueType($valueType);
+            throw ItemException::noValueUrlGenerator($valueType);
         }
 
         $valueUrlGenerator = $this->valueUrlGenerators->get($valueType);
         if (!$valueUrlGenerator instanceof ValueUrlGeneratorInterface) {
-            throw ItemException::noValueType($valueType);
+            throw ItemException::noValueUrlGenerator($valueType);
         }
 
         return $valueUrlGenerator;

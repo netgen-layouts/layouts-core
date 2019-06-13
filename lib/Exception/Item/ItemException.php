@@ -19,6 +19,26 @@ final class ItemException extends InvalidArgumentException implements Exception
         );
     }
 
+    public static function noValueLoader(string $valueType): self
+    {
+        return new self(
+            sprintf(
+                'Value loader for "%s" value type does not exist.',
+                $valueType
+            )
+        );
+    }
+
+    public static function noValueUrlGenerator(string $valueType): self
+    {
+        return new self(
+            sprintf(
+                'Value URL generator for "%s" value type does not exist.',
+                $valueType
+            )
+        );
+    }
+
     /**
      * @param int|string $value
      *

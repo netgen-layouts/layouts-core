@@ -57,12 +57,12 @@ final class CmsItemLoader implements CmsItemLoaderInterface
     private function getValueLoader(string $valueType): ValueLoaderInterface
     {
         if (!$this->valueLoaders->has($valueType)) {
-            throw ItemException::noValueType($valueType);
+            throw ItemException::noValueLoader($valueType);
         }
 
         $valueLoader = $this->valueLoaders->get($valueType);
         if (!$valueLoader instanceof ValueLoaderInterface) {
-            throw ItemException::noValueType($valueType);
+            throw ItemException::noValueLoader($valueType);
         }
 
         return $valueLoader;

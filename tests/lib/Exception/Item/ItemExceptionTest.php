@@ -12,12 +12,38 @@ final class ItemExceptionTest extends TestCase
     /**
      * @covers \Netgen\Layouts\Exception\Item\ItemException::noValueType
      */
-    public function testNoValueLoader(): void
+    public function testNoValueType(): void
     {
         $exception = ItemException::noValueType('type');
 
         self::assertSame(
             'Value type "type" does not exist.',
+            $exception->getMessage()
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Exception\Item\ItemException::noValueLoader
+     */
+    public function testNoValueLoader(): void
+    {
+        $exception = ItemException::noValueLoader('type');
+
+        self::assertSame(
+            'Value loader for "type" value type does not exist.',
+            $exception->getMessage()
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Exception\Item\ItemException::noValueUrlGenerator
+     */
+    public function testNoValueUrlGenerator(): void
+    {
+        $exception = ItemException::noValueUrlGenerator('type');
+
+        self::assertSame(
+            'Value URL generator for "type" value type does not exist.',
             $exception->getMessage()
         );
     }
