@@ -31,7 +31,11 @@ final class CreateSlotTest extends JsonApiTestCase
             $data
         );
 
-        $this->assertEmptyResponse($this->client->getResponse());
+        $this->assertResponse(
+            $this->client->getResponse(),
+            'collections/create_slot',
+            Response::HTTP_CREATED
+        );
     }
 
     /**

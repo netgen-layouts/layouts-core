@@ -56,6 +56,11 @@ services:
         tags:
             - { name: serializer.normalizer }
 
+    netgen_layouts.normalizer.collection_slot:
+        class: Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionSlotNormalizer
+        tags:
+            - { name: serializer.normalizer }
+
     netgen_layouts.normalizer.collection_query:
         class: Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionQueryNormalizer
         tags:

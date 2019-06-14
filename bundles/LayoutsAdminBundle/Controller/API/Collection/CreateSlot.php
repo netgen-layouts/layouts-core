@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Controller\API\Collection;
 
+use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\CollectionService;
 use Netgen\Layouts\API\Values\Collection\Collection;
@@ -30,20 +31,20 @@ final class CreateSlot extends AbstractController
     /**
      * Creates a slot in the provided collection.
      */
-    public function __invoke(Collection $collection, Request $request): Response
+    public function __invoke(Collection $collection, Request $request): Value
     {
         $this->denyAccessUnlessGranted('nglayouts:collection:items');
 
         $requestData = $request->attributes->get('data');
         $this->validateRequestData($requestData);
 
-        $this->collectionService->addSlot(
+        $createdSlot = $this->collectionService->addSlot(
             $collection,
             $this->collectionService->newSlotCreateStruct(),
             $requestData->get('position')
         );
 
-        return new Response(null, Response::HTTP_NO_CONTENT);
+        return new Value($createdSlot, Response::HTTP_CREATED);
     }
 
     /**
