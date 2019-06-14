@@ -31,7 +31,6 @@ final class CollectionSlotNormalizerTest extends TestCase
         $slot = Slot::fromArray(
             [
                 'id' => Uuid::uuid4(),
-                'status' => Slot::STATUS_PUBLISHED,
                 'collectionId' => Uuid::uuid4(),
                 'position' => 3,
                 'viewType' => 'overlay',
@@ -44,7 +43,6 @@ final class CollectionSlotNormalizerTest extends TestCase
                 'collection_id' => $slot->getCollectionId()->toString(),
                 'position' => $slot->getPosition(),
                 'view_type' => $slot->getViewType(),
-                'published' => true,
                 'empty' => false,
             ],
             $this->normalizer->normalize(new Value($slot))

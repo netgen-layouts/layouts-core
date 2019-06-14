@@ -20,7 +20,6 @@ final class CollectionSlotNormalizer implements NormalizerInterface
             'collection_id' => $slot->getCollectionId()->toString(),
             'position' => $slot->getPosition(),
             'view_type' => $slot->getViewType(),
-            'published' => $slot->isPublished(),
             'empty' => $slot->isEmpty(),
         ];
     }
