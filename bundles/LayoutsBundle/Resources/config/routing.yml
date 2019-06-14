@@ -4,7 +4,7 @@ _nglayouts_admin:
 _nglayouts_app:
     resource: "@NetgenLayoutsAdminBundle/Resources/config/routing/app.yml"
 
-_nglayouts_api:
+_nglayouts_app_api:
     resource: "@NetgenLayoutsAdminBundle/Resources/config/routing/api.yml"
     prefix: /app/api
 

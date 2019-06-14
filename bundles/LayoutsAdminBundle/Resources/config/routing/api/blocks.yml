@@ -1,57 +1,57 @@
-nglayouts_api_blocks_load:
+nglayouts_app_api_blocks_load:
     path: /blocks/{blockId}
     methods: [GET]
     defaults:
         _controller: 'netgen_layouts.controller.api.block.load'
 
-nglayouts_api_blocks_create:
+nglayouts_app_api_blocks_create:
     path: /blocks/{blockId}
     methods: [POST]
     defaults:
         _controller: 'netgen_layouts.controller.api.block.create'
 
-nglayouts_api_blocks_create_in_zone:
+nglayouts_app_api_blocks_create_in_zone:
     path: /blocks
     methods: [POST]
     defaults:
         _controller: 'netgen_layouts.controller.api.block.create_in_zone'
 
-nglayouts_api_blocks_copy:
+nglayouts_app_api_blocks_copy:
     path: /blocks/{blockId}/copy
     methods: [POST]
     defaults:
         _controller: 'netgen_layouts.controller.api.block.copy'
         _nglayouts_status: draft
 
-nglayouts_api_blocks_copy_to_zone:
+nglayouts_app_api_blocks_copy_to_zone:
     path: /blocks/{blockId}/copy/zone
     methods: [POST]
     defaults:
         _controller: 'netgen_layouts.controller.api.block.copy_to_zone'
         _nglayouts_status: draft
 
-nglayouts_api_blocks_move:
+nglayouts_app_api_blocks_move:
     path: /blocks/{blockId}/move
     methods: [POST]
     defaults:
         _controller: 'netgen_layouts.controller.api.block.move'
         _nglayouts_status: draft
 
-nglayouts_api_blocks_move_to_zone:
+nglayouts_app_api_blocks_move_to_zone:
     path: /blocks/{blockId}/move/zone
     methods: [POST]
     defaults:
         _controller: 'netgen_layouts.controller.api.block.move_to_zone'
         _nglayouts_status: draft
 
-nglayouts_api_blocks_restore:
+nglayouts_app_api_blocks_restore:
     path: /blocks/{blockId}/restore
     methods: [POST]
     defaults:
         _controller: 'netgen_layouts.controller.api.block.restore'
         _nglayouts_status: draft
 
-nglayouts_api_blocks_delete:
+nglayouts_app_api_blocks_delete:
     path: /blocks/{blockId}
     methods: [DELETE]
     defaults:
