@@ -24,7 +24,7 @@ final class MoveItemTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/app/collections/items/8ae55a69-8633-51dd-9ff5-d820d040c1c1/move',
+            '/nglayouts/app/api/collections/items/8ae55a69-8633-51dd-9ff5-d820d040c1c1/move',
             [],
             [],
             [],
@@ -41,7 +41,7 @@ final class MoveItemTest extends JsonApiTestCase
     {
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/app/collections/items/ffffffff-ffff-ffff-ffff-ffffffffffff/move',
+            '/nglayouts/app/api/collections/items/ffffffff-ffff-ffff-ffff-ffffffffffff/move',
             [],
             [],
             [],
@@ -68,7 +68,7 @@ final class MoveItemTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/app/collections/items/8ae55a69-8633-51dd-9ff5-d820d040c1c1/move',
+            '/nglayouts/app/api/collections/items/8ae55a69-8633-51dd-9ff5-d820d040c1c1/move',
             [],
             [],
             [],
@@ -89,7 +89,7 @@ final class MoveItemTest extends JsonApiTestCase
     {
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/app/collections/items/8ae55a69-8633-51dd-9ff5-d820d040c1c1/move',
+            '/nglayouts/app/api/collections/items/8ae55a69-8633-51dd-9ff5-d820d040c1c1/move',
             [],
             [],
             [],
@@ -116,7 +116,7 @@ final class MoveItemTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/app/collections/items/8ae55a69-8633-51dd-9ff5-d820d040c1c1/move',
+            '/nglayouts/app/api/collections/items/8ae55a69-8633-51dd-9ff5-d820d040c1c1/move',
             [],
             [],
             [],
@@ -143,7 +143,7 @@ final class MoveItemTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/app/collections/items/8ae55a69-8633-51dd-9ff5-d820d040c1c1/move',
+            '/nglayouts/app/api/collections/items/8ae55a69-8633-51dd-9ff5-d820d040c1c1/move',
             [],
             [],
             [],

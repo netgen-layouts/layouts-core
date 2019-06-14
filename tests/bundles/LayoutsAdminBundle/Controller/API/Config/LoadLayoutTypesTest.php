@@ -16,7 +16,7 @@ final class LoadLayoutTypesTest extends JsonApiTestCase
      */
     public function testLoadLayoutTypes(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/app/config/layout_types');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/config/layout_types');
 
         $response = $this->client->getResponse();
 

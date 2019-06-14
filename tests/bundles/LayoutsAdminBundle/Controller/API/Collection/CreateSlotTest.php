@@ -24,7 +24,7 @@ final class CreateSlotTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/app/collections/a79dde13-1f5c-51a6-bea9-b766236be49e/slots',
+            '/nglayouts/app/api/collections/a79dde13-1f5c-51a6-bea9-b766236be49e/slots',
             [],
             [],
             [],
@@ -45,7 +45,7 @@ final class CreateSlotTest extends JsonApiTestCase
     {
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/app/collections/ffffffff-ffff-ffff-ffff-ffffffffffff/slots',
+            '/nglayouts/app/api/collections/ffffffff-ffff-ffff-ffff-ffffffffffff/slots',
             [],
             [],
             [],
@@ -72,7 +72,7 @@ final class CreateSlotTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/app/collections/a79dde13-1f5c-51a6-bea9-b766236be49e/slots',
+            '/nglayouts/app/api/collections/a79dde13-1f5c-51a6-bea9-b766236be49e/slots',
             [],
             [],
             [],
@@ -93,7 +93,7 @@ final class CreateSlotTest extends JsonApiTestCase
     {
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/app/collections/a79dde13-1f5c-51a6-bea9-b766236be49e/slots',
+            '/nglayouts/app/api/collections/a79dde13-1f5c-51a6-bea9-b766236be49e/slots',
             [],
             [],
             [],
@@ -120,7 +120,7 @@ final class CreateSlotTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/app/collections/a79dde13-1f5c-51a6-bea9-b766236be49e/slots',
+            '/nglayouts/app/api/collections/a79dde13-1f5c-51a6-bea9-b766236be49e/slots',
             [],
             [],
             [],

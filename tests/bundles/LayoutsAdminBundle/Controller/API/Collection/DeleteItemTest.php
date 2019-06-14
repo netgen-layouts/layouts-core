@@ -18,7 +18,7 @@ final class DeleteItemTest extends JsonApiTestCase
     {
         $this->client->request(
             Request::METHOD_DELETE,
-            '/nglayouts/api/app/collections/items/89c214a3-204f-5352-85d7-8852b26ab6b0',
+            '/nglayouts/app/api/collections/items/89c214a3-204f-5352-85d7-8852b26ab6b0',
             [],
             [],
             [],
@@ -35,7 +35,7 @@ final class DeleteItemTest extends JsonApiTestCase
     {
         $this->client->request(
             Request::METHOD_DELETE,
-            '/nglayouts/api/app/collections/items/ffffffff-ffff-ffff-ffff-ffffffffffff',
+            '/nglayouts/app/api/collections/items/ffffffff-ffff-ffff-ffff-ffffffffffff',
             [],
             [],
             [],

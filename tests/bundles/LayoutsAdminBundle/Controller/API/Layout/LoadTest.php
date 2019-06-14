@@ -15,7 +15,7 @@ final class LoadTest extends JsonApiTestCase
      */
     public function testLoad(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/app/layouts/81168ed3-86f9-55ea-b153-101f96f2c136?html=false');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/layouts/81168ed3-86f9-55ea-b153-101f96f2c136?html=false');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -29,7 +29,7 @@ final class LoadTest extends JsonApiTestCase
      */
     public function testLoadInPublishedState(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/app/layouts/81168ed3-86f9-55ea-b153-101f96f2c136?published=true&html=false');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/layouts/81168ed3-86f9-55ea-b153-101f96f2c136?published=true&html=false');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -43,7 +43,7 @@ final class LoadTest extends JsonApiTestCase
      */
     public function testLoadWithNonExistentLayout(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/app/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff');
 
         $this->assertException(
             $this->client->getResponse(),

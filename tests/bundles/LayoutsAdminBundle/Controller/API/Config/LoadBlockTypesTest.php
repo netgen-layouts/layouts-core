@@ -16,7 +16,7 @@ final class LoadBlockTypesTest extends JsonApiTestCase
      */
     public function testLoadBlockTypes(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/app/config/block_types');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/config/block_types');
 
         $response = $this->client->getResponse();
 

@@ -18,7 +18,7 @@ final class DeleteSlotTest extends JsonApiTestCase
     {
         $this->client->request(
             Request::METHOD_DELETE,
-            '/nglayouts/api/app/collections/slots/de3a0641-c67f-48e0-96e7-7c83b6735265',
+            '/nglayouts/app/api/collections/slots/de3a0641-c67f-48e0-96e7-7c83b6735265',
             [],
             [],
             [],
@@ -35,7 +35,7 @@ final class DeleteSlotTest extends JsonApiTestCase
     {
         $this->client->request(
             Request::METHOD_DELETE,
-            '/nglayouts/api/app/collections/slots/ffffffff-ffff-ffff-ffff-ffffffffffff',
+            '/nglayouts/app/api/collections/slots/ffffffff-ffff-ffff-ffff-ffffffffffff',
             [],
             [],
             [],

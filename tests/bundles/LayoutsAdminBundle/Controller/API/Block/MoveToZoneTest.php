@@ -26,7 +26,7 @@ final class MoveToZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/app/en/blocks/28df256a-2467-5527-b398-9269ccc652de/move/zone',
+            '/nglayouts/app/api/en/blocks/28df256a-2467-5527-b398-9269ccc652de/move/zone',
             [],
             [],
             [],
@@ -43,7 +43,7 @@ final class MoveToZoneTest extends JsonApiTestCase
     {
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/app/en/blocks/ffffffff-ffff-ffff-ffff-ffffffffffff/move/zone',
+            '/nglayouts/app/api/en/blocks/ffffffff-ffff-ffff-ffff-ffffffffffff/move/zone',
             [],
             [],
             [],
@@ -73,7 +73,7 @@ final class MoveToZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/app/en/blocks/28df256a-2467-5527-b398-9269ccc652de/move/zone',
+            '/nglayouts/app/api/en/blocks/28df256a-2467-5527-b398-9269ccc652de/move/zone',
             [],
             [],
             [],
@@ -102,7 +102,7 @@ final class MoveToZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/app/en/blocks/28df256a-2467-5527-b398-9269ccc652de/move/zone',
+            '/nglayouts/app/api/en/blocks/28df256a-2467-5527-b398-9269ccc652de/move/zone',
             [],
             [],
             [],
@@ -131,7 +131,7 @@ final class MoveToZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/app/en/blocks/28df256a-2467-5527-b398-9269ccc652de/move/zone',
+            '/nglayouts/app/api/en/blocks/28df256a-2467-5527-b398-9269ccc652de/move/zone',
             [],
             [],
             [],
@@ -160,7 +160,7 @@ final class MoveToZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/app/en/blocks/28df256a-2467-5527-b398-9269ccc652de/move/zone',
+            '/nglayouts/app/api/en/blocks/28df256a-2467-5527-b398-9269ccc652de/move/zone',
             [],
             [],
             [],
@@ -189,7 +189,7 @@ final class MoveToZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/app/en/blocks/28df256a-2467-5527-b398-9269ccc652de/move/zone',
+            '/nglayouts/app/api/en/blocks/28df256a-2467-5527-b398-9269ccc652de/move/zone',
             [],
             [],
             [],
@@ -217,7 +217,7 @@ final class MoveToZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/app/en/blocks/28df256a-2467-5527-b398-9269ccc652de/move/zone',
+            '/nglayouts/app/api/en/blocks/28df256a-2467-5527-b398-9269ccc652de/move/zone',
             [],
             [],
             [],

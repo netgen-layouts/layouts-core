@@ -25,7 +25,7 @@ final class LinkZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/app/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/zones/right/link',
+            '/nglayouts/app/api/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/zones/right/link',
             [],
             [],
             [],
@@ -42,7 +42,7 @@ final class LinkZoneTest extends JsonApiTestCase
     {
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/app/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/zones/unknown/link',
+            '/nglayouts/app/api/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/zones/unknown/link',
             [],
             [],
             [],
@@ -63,7 +63,7 @@ final class LinkZoneTest extends JsonApiTestCase
     {
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/app/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff/zones/right/link',
+            '/nglayouts/app/api/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff/zones/right/link',
             [],
             [],
             [],
@@ -90,7 +90,7 @@ final class LinkZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/app/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/zones/right/link',
+            '/nglayouts/app/api/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/zones/right/link',
             [],
             [],
             [],
@@ -118,7 +118,7 @@ final class LinkZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/app/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/zones/right/link',
+            '/nglayouts/app/api/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/zones/right/link',
             [],
             [],
             [],
@@ -146,7 +146,7 @@ final class LinkZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/app/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/zones/right/link',
+            '/nglayouts/app/api/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/zones/right/link',
             [],
             [],
             [],
@@ -175,7 +175,7 @@ final class LinkZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/app/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/zones/right/link',
+            '/nglayouts/app/api/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/zones/right/link',
             [],
             [],
             [],
@@ -203,7 +203,7 @@ final class LinkZoneTest extends JsonApiTestCase
 
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/app/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/zones/right/link',
+            '/nglayouts/app/api/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/zones/right/link',
             [],
             [],
             [],

@@ -15,7 +15,7 @@ final class LoadCollectionTest extends JsonApiTestCase
      */
     public function testLoadCollection(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/app/collections/da050624-8ae0-5fb9-ae85-092bf8242b89');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/collections/da050624-8ae0-5fb9-ae85-092bf8242b89');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -29,7 +29,7 @@ final class LoadCollectionTest extends JsonApiTestCase
      */
     public function testLoadCollectionWithNonExistentCollection(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/app/collections/ffffffff-ffff-ffff-ffff-ffffffffffff');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/collections/ffffffff-ffff-ffff-ffff-ffffffffffff');
 
         $this->assertException(
             $this->client->getResponse(),

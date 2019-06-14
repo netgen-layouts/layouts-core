@@ -16,7 +16,7 @@ final class LoadLayoutBlocksTest extends JsonApiTestCase
      */
     public function testLoadLayoutBlocks(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/app/en/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/blocks?html=false');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/en/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/blocks?html=false');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -30,7 +30,7 @@ final class LoadLayoutBlocksTest extends JsonApiTestCase
      */
     public function testLoadLayoutBlocksInPublishedState(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/app/en/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/blocks?published=true&html=false');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/en/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/blocks?published=true&html=false');
 
         $this->assertResponse(
             $this->client->getResponse(),
@@ -44,7 +44,7 @@ final class LoadLayoutBlocksTest extends JsonApiTestCase
      */
     public function testLoadLayoutBlocksWithNonExistentLayout(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/app/en/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff/blocks');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/en/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff/blocks');
 
         $this->assertException(
             $this->client->getResponse(),
@@ -58,7 +58,7 @@ final class LoadLayoutBlocksTest extends JsonApiTestCase
      */
     public function testLoadLayoutBlocksWithNonExistentLayoutLocale(): void
     {
-        $this->client->request(Request::METHOD_GET, '/nglayouts/api/app/unknown/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/blocks');
+        $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/unknown/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/blocks');
 
         $this->assertException(
             $this->client->getResponse(),

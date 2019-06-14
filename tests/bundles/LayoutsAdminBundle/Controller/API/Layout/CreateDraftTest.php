@@ -18,7 +18,7 @@ final class CreateDraftTest extends JsonApiTestCase
     {
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/app/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/draft?html=false',
+            '/nglayouts/app/api/layouts/81168ed3-86f9-55ea-b153-101f96f2c136/draft?html=false',
             [],
             [],
             [],
@@ -39,7 +39,7 @@ final class CreateDraftTest extends JsonApiTestCase
     {
         $this->client->request(
             Request::METHOD_POST,
-            '/nglayouts/api/app/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff/draft',
+            '/nglayouts/app/api/layouts/ffffffff-ffff-ffff-ffff-ffffffffffff/draft',
             [],
             [],
             [],
