@@ -7,7 +7,6 @@ parameters:
     excludes_analyse:
         - tests/application/public/bundles/
         - tests/application/config/bootstrap.php
-        - tests/bootstrap.php
 
     ignoreErrors:
         # Doctrine DBAL
