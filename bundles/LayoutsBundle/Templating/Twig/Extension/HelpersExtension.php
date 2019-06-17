@@ -11,6 +11,9 @@ use Twig\TwigFunction;
 
 final class HelpersExtension extends AbstractExtension
 {
+    /**
+     * @return \Twig\TwigFunction[]
+     */
     public function getFunctions(): array
     {
         return [
@@ -21,6 +24,9 @@ final class HelpersExtension extends AbstractExtension
         ];
     }
 
+    /**
+     * @return \Twig\TwigFilter[]
+     */
     public function getFilters(): array
     {
         return [

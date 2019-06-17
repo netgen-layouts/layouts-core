@@ -89,6 +89,7 @@ final class LayoutsDataCollector extends DataCollector
     public function collectLayout(LayoutViewInterface $layoutView): void
     {
         $layout = $layoutView->getLayout();
+        $template = $layoutView->getTemplate();
 
         $this->data['layout'] = [
             'id' => $layout->getId()->toString(),
@@ -99,8 +100,8 @@ final class LayoutsDataCollector extends DataCollector
             'template_path' => null,
         ];
 
-        if ($layoutView->getTemplate() !== null) {
-            $templateSource = $this->getTemplateSource($layoutView->getTemplate());
+        if ($template !== null) {
+            $templateSource = $this->getTemplateSource($template);
 
             $this->data['layout']['template'] = $templateSource->getName();
             $this->data['layout']['template_path'] = $templateSource->getPath();
@@ -138,6 +139,7 @@ final class LayoutsDataCollector extends DataCollector
     {
         $block = $blockView->getBlock();
         $blockDefinition = $block->getDefinition();
+        $template = $blockView->getTemplate();
 
         $layoutId = $block->getLayoutId()->toString();
         $this->layoutCache[$layoutId] = $this->layoutCache[$layoutId] ?? $this->layoutService->loadLayout($block->getLayoutId());
@@ -156,8 +158,8 @@ final class LayoutsDataCollector extends DataCollector
             'template_path' => null,
         ];
 
-        if ($blockView->getTemplate() !== null) {
-            $templateSource = $this->getTemplateSource($blockView->getTemplate());
+        if ($template !== null) {
+            $templateSource = $this->getTemplateSource($template);
 
             $blockData['template'] = $templateSource->getName();
             $blockData['template_path'] = $templateSource->getPath();

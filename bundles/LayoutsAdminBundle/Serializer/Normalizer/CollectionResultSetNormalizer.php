@@ -48,18 +48,21 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Normal
     {
         $includedPositions = [];
         foreach ($resultSet->getResults() as $result) {
-            if ($result->getItem() instanceof ManualItem) {
-                $includedPositions[] = $result->getItem()->getCollectionItem()->getPosition();
+            $item = $result->getItem();
+            $subItem = $result->getSubItem();
+
+            if ($item instanceof ManualItem) {
+                $includedPositions[] = $item->getCollectionItem()->getPosition();
             }
 
-            if ($result->getSubItem() instanceof ManualItem) {
-                $includedPositions[] = $result->getSubItem()->getCollectionItem()->getPosition();
+            if ($subItem instanceof ManualItem) {
+                $includedPositions[] = $subItem->getCollectionItem()->getPosition();
             }
         }
 
-        foreach ($resultSet->getCollection()->getItems() as $item) {
-            if (!in_array($item->getPosition(), $includedPositions, true)) {
-                yield $item;
+        foreach ($resultSet->getCollection()->getItems() as $collectionItem) {
+            if (!in_array($collectionItem->getPosition(), $includedPositions, true)) {
+                yield $collectionItem;
             }
         }
     }

@@ -99,6 +99,7 @@ final class RenderingRuntime
     public function renderResult(array $context, Result $result, ?string $overrideViewType = null, ?string $fallbackViewType = null, array $parameters = [], ?string $viewContext = null): string
     {
         $item = $result->getItem();
+        $slot = $result->getSlot();
 
         try {
             $viewType = $fallbackViewType;
@@ -107,8 +108,8 @@ final class RenderingRuntime
                 $viewType = $overrideViewType;
             } elseif ($item instanceof ManualItem && $item->getCollectionItem()->getViewType() !== null) {
                 $viewType = $item->getCollectionItem()->getViewType();
-            } elseif ($result->getSlot() instanceof Slot && $result->getSlot()->getViewType() !== null) {
-                $viewType = $result->getSlot()->getViewType();
+            } elseif ($slot instanceof Slot && $slot->getViewType() !== null) {
+                $viewType = $slot->getViewType();
             }
 
             if ($viewType === null) {

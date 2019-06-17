@@ -190,7 +190,7 @@ final class CollectionHandler implements CollectionHandlerInterface
 
         $mappedSlots = $this->collectionMapper->mapSlots($data);
 
-        return $mappedSlots[array_key_first($mappedSlots)];
+        return array_values($mappedSlots)[0];
     }
 
     public function loadCollectionSlots(Collection $collection): array

@@ -49,7 +49,7 @@ final class UpdateRule extends AbstractController
 
         // null means we don't update the layout
         // empty (0, 0.0, '0', '', false) means we remove the layout from the rule
-        if (!in_array($layoutId, [0, 0.0, '0', '', false, null], true)) {
+        if (is_string($layoutId) && !in_array($layoutId, ['0', ''], true)) {
             try {
                 $this->layoutService->loadLayout(Uuid::fromString($layoutId));
             } catch (NotFoundException $e) {
@@ -68,7 +68,7 @@ final class UpdateRule extends AbstractController
         $ruleUpdateStruct->comment = $comment;
 
         if ($layoutId !== null) {
-            $ruleUpdateStruct->layoutId = !in_array($layoutId, [0, 0.0, '0', '', false], true) ?
+            $ruleUpdateStruct->layoutId = is_string($layoutId) && !in_array($layoutId, ['0', ''], true) ?
                 Uuid::fromString($layoutId) :
                 false;
         }

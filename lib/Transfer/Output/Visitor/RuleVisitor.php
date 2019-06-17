@@ -25,13 +25,18 @@ final class RuleVisitor implements VisitorInterface
         return $value instanceof Rule;
     }
 
+    /**
+     * @param \Netgen\Layouts\API\Values\LayoutResolver\Rule $value
+     * @param \Netgen\Layouts\Transfer\Output\VisitorInterface|null $subVisitor
+     *
+     * @return mixed
+     */
     public function visit($value, ?VisitorInterface $subVisitor = null)
     {
         if ($subVisitor === null) {
             throw new RuntimeException('Implementation requires sub-visitor');
         }
 
-        /** @var \Netgen\Layouts\API\Values\LayoutResolver\Rule $value */
         $layout = $value->getLayout();
 
         return [

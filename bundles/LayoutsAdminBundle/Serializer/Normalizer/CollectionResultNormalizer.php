@@ -51,9 +51,10 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
         $data['slot_id'] = null;
         $data['slot_view_type'] = null;
 
-        if ($result->getSlot() instanceof Slot) {
-            $data['slot_id'] = $result->getSlot()->getId()->toString();
-            $data['slot_view_type'] = $result->getSlot()->getViewType();
+        $slot = $result->getSlot();
+        if ($slot instanceof Slot) {
+            $data['slot_id'] = $slot->getId()->toString();
+            $data['slot_view_type'] = $slot->getViewType();
         }
 
         if ($overrideItem instanceof CmsItemInterface) {

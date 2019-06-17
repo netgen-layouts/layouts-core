@@ -10,6 +10,9 @@ use Twig\TwigFunction;
 
 final class ItemExtension extends AbstractExtension
 {
+    /**
+     * @return \Twig\TwigFunction[]
+     */
     public function getFunctions(): array
     {
         return [

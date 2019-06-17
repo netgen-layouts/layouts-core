@@ -19,9 +19,14 @@ final class ParameterVisitor implements VisitorInterface
         return $value instanceof Parameter;
     }
 
+    /**
+     * @param \Netgen\Layouts\Parameters\Parameter $value
+     * @param \Netgen\Layouts\Transfer\Output\VisitorInterface|null $subVisitor
+     *
+     * @return mixed
+     */
     public function visit($value, ?VisitorInterface $subVisitor = null)
     {
-        /** @var \Netgen\Layouts\Parameters\Parameter $value */
         $valueDefinition = $value->getParameterDefinition();
 
         return $valueDefinition->getType()->export($valueDefinition, $value->getValue());
