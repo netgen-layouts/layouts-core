@@ -10,13 +10,13 @@
         "hr"
     ],
     "items": [
-        ["sub_visit_value"],
-        ["sub_visit_value"],
-        ["sub_visit_value"]
+        ["visited_value"],
+        ["visited_value"],
+        ["visited_value"]
     ],
     "slots": [
-        ["sub_visit_value"],
-        ["sub_visit_value"]
+        ["visited_value"],
+        ["visited_value"]
     ],
-    "query": ["sub_visit_value"]
+    "query": ["visited_value"]
 }

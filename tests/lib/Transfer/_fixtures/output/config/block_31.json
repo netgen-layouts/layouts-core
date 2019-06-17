@@ -1,4 +1,4 @@
 {
-    "param1": ["sub_visit_value"],
-    "param2": ["sub_visit_value"]
+    "param1": ["visited_value"],
+    "param2": ["visited_value"]
 }

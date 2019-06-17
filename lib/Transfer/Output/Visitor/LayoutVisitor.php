@@ -6,7 +6,6 @@ namespace Netgen\Layouts\Transfer\Output\Visitor;
 
 use Generator;
 use Netgen\Layouts\API\Values\Layout\Layout;
-use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Transfer\Output\StatusStringTrait;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
@@ -26,16 +25,12 @@ final class LayoutVisitor implements VisitorInterface
 
     /**
      * @param \Netgen\Layouts\API\Values\Layout\Layout $value
-     * @param \Netgen\Layouts\Transfer\Output\VisitorInterface|null $subVisitor
+     * @param \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor $aggregateVisitor
      *
      * @return mixed
      */
-    public function visit($value, ?VisitorInterface $subVisitor = null)
+    public function visit($value, AggregateVisitor $aggregateVisitor)
     {
-        if ($subVisitor === null) {
-            throw new RuntimeException('Implementation requires sub-visitor');
-        }
-
         return [
             '__type' => 'layout',
             'id' => $value->getId()->toString(),
@@ -48,17 +43,17 @@ final class LayoutVisitor implements VisitorInterface
             'creation_date' => $value->getCreated()->getTimestamp(),
             'modification_date' => $value->getModified()->getTimestamp(),
             'is_shared' => $value->isShared(),
-            'zones' => iterator_to_array($this->visitZones($value, $subVisitor)),
+            'zones' => iterator_to_array($this->visitZones($value, $aggregateVisitor)),
         ];
     }
 
     /**
      * Visit the given $layout zones into hash representation.
      */
-    private function visitZones(Layout $layout, VisitorInterface $subVisitor): Generator
+    private function visitZones(Layout $layout, AggregateVisitor $aggregateVisitor): Generator
     {
         foreach ($layout->getZones() as $zone) {
-            yield $zone->getIdentifier() => $subVisitor->visit($zone, $subVisitor);
+            yield $zone->getIdentifier() => $aggregateVisitor->visit($zone);
         }
     }
 }

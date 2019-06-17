@@ -7,21 +7,12 @@ namespace Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration;
 use Netgen\Layouts\API\Values\Block\Placeholder;
 use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Layout\Layout;
-use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Transfer\Output\Visitor\PlaceholderVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 use Ramsey\Uuid\Uuid;
 
 abstract class PlaceholderVisitorTest extends VisitorTest
 {
-    public function testVisitThrowsRuntimeExceptionWithoutSubVisitor(): void
-    {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Implementation requires sub-visitor');
-
-        $this->getVisitor()->visit(new Placeholder());
-    }
-
     public function getVisitor(): VisitorInterface
     {
         return new PlaceholderVisitor();

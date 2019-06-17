@@ -7,37 +7,36 @@ namespace Netgen\Layouts\Transfer\Output\Visitor;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
-/**
- * Aggregate implementation of the Visitor.
- */
-final class AggregateVisitor implements VisitorInterface
+final class AggregateVisitor
 {
     /**
-     * Internal collection of visitors.
-     *
      * @var \Netgen\Layouts\Transfer\Output\VisitorInterface[]
      */
-    private $visitors = [];
+    private $subVisitors = [];
 
-    public function __construct(iterable $visitors)
+    public function __construct(iterable $subVisitors)
     {
-        foreach ($visitors as $key => $visitor) {
-            if ($visitor instanceof VisitorInterface) {
-                $this->visitors[$key] = $visitor;
+        foreach ($subVisitors as $key => $subVisitor) {
+            if ($subVisitor instanceof VisitorInterface) {
+                $this->subVisitors[$key] = $subVisitor;
             }
         }
     }
 
-    public function accept($value): bool
+    /**
+     * Visit the given $value into hash representation.
+     *
+     * @param mixed $value
+     *
+     * @throws \Netgen\Layouts\Exception\RuntimeException if no sub-visitor is available for provided value
+     *
+     * @return mixed
+     */
+    public function visit($value)
     {
-        return true;
-    }
-
-    public function visit($value, ?VisitorInterface $subVisitor = null)
-    {
-        foreach ($this->visitors as $visitor) {
-            if ($visitor->accept($value)) {
-                return $visitor->visit($value, $this);
+        foreach ($this->subVisitors as $subVisitor) {
+            if ($subVisitor->accept($value)) {
+                return $subVisitor->visit($value, $this);
             }
         }
 

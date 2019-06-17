@@ -9,9 +9,10 @@ use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Tests\Transfer\Output\Visitor\Stubs\VisitorStub;
 use Netgen\Layouts\Transfer\Descriptor;
 use Netgen\Layouts\Transfer\Output\Serializer;
-use Netgen\Layouts\Transfer\Output\VisitorInterface;
+use Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
@@ -28,11 +29,6 @@ final class SerializerTest extends TestCase
     private $layoutResolverServiceMock;
 
     /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $visitorMock;
-
-    /**
      * @var \Netgen\Layouts\Transfer\Output\Serializer
      */
     private $serializer;
@@ -41,12 +37,11 @@ final class SerializerTest extends TestCase
     {
         $this->layoutServiceMock = $this->createMock(LayoutService::class);
         $this->layoutResolverServiceMock = $this->createMock(LayoutResolverService::class);
-        $this->visitorMock = $this->createMock(VisitorInterface::class);
 
         $this->serializer = new Serializer(
             $this->layoutServiceMock,
             $this->layoutResolverServiceMock,
-            $this->visitorMock
+            new AggregateVisitor([new VisitorStub()])
         );
     }
 
@@ -76,24 +71,12 @@ final class SerializerTest extends TestCase
             ->with(self::equalTo($uuid2))
             ->willReturn($layout2);
 
-        $this->visitorMock
-            ->expects(self::at(0))
-            ->method('visit')
-            ->with(self::identicalTo($layout1))
-            ->willReturn('serialized_layout_1');
-
-        $this->visitorMock
-            ->expects(self::at(1))
-            ->method('visit')
-            ->with(self::identicalTo($layout2))
-            ->willReturn('serialized_layout_2');
-
         self::assertSame(
             [
                 '__version' => Descriptor::FORMAT_VERSION,
                 'entities' => [
-                    'serialized_layout_1',
-                    'serialized_layout_2',
+                    ['visited_value'],
+                    ['visited_value'],
                 ],
             ],
             $this->serializer->serializeLayouts([$uuid1->toString(), $uuid2->toString()])
@@ -124,17 +107,11 @@ final class SerializerTest extends TestCase
             ->with(self::equalTo($uuid2))
             ->willReturn($layout);
 
-        $this->visitorMock
-            ->expects(self::at(0))
-            ->method('visit')
-            ->with(self::identicalTo($layout))
-            ->willReturn('serialized_layout_2');
-
         self::assertSame(
             [
                 '__version' => Descriptor::FORMAT_VERSION,
                 'entities' => [
-                    'serialized_layout_2',
+                    ['visited_value'],
                 ],
             ],
             $this->serializer->serializeLayouts([$uuid1->toString(), $uuid2->toString()])
@@ -166,24 +143,12 @@ final class SerializerTest extends TestCase
             ->with(self::equalTo($uuid2))
             ->willReturn($rule2);
 
-        $this->visitorMock
-            ->expects(self::at(0))
-            ->method('visit')
-            ->with(self::identicalTo($rule1))
-            ->willReturn('serialized_rule_1');
-
-        $this->visitorMock
-            ->expects(self::at(1))
-            ->method('visit')
-            ->with(self::identicalTo($rule2))
-            ->willReturn('serialized_rule_2');
-
         self::assertSame(
             [
                 '__version' => Descriptor::FORMAT_VERSION,
                 'entities' => [
-                    'serialized_rule_1',
-                    'serialized_rule_2',
+                    ['visited_value'],
+                    ['visited_value'],
                 ],
             ],
             $this->serializer->serializeRules([$uuid1->toString(), $uuid2->toString()])
@@ -214,17 +179,11 @@ final class SerializerTest extends TestCase
             ->with(self::equalTo($uuid2))
             ->willReturn($rule);
 
-        $this->visitorMock
-            ->expects(self::at(0))
-            ->method('visit')
-            ->with(self::identicalTo($rule))
-            ->willReturn('serialized_rule_2');
-
         self::assertSame(
             [
                 '__version' => Descriptor::FORMAT_VERSION,
                 'entities' => [
-                    'serialized_rule_2',
+                    ['visited_value'],
                 ],
             ],
             $this->serializer->serializeRules([$uuid1->toString(), $uuid2->toString()])

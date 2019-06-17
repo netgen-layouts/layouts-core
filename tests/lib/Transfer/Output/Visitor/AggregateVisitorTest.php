@@ -25,25 +25,11 @@ final class AggregateVisitorTest extends TestCase
     }
 
     /**
-     * @param mixed $value
-     * @param bool $accepted
-     *
-     * @covers \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor::__construct
-     * @covers \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor::accept
-     *
-     * @dataProvider acceptProvider
-     */
-    public function testAccept($value, bool $accepted): void
-    {
-        self::assertSame($accepted, $this->visitor->accept($value));
-    }
-
-    /**
      * @covers \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor::visit
      */
     public function testVisit(): void
     {
-        self::assertSame('visited_value', $this->visitor->visit(42));
+        self::assertSame(['visited_value'], $this->visitor->visit(42));
     }
 
     /**

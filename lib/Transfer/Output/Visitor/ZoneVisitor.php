@@ -7,7 +7,6 @@ namespace Netgen\Layouts\Transfer\Output\Visitor;
 use Generator;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Layout\Zone;
-use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 /**
@@ -34,20 +33,16 @@ final class ZoneVisitor implements VisitorInterface
 
     /**
      * @param \Netgen\Layouts\API\Values\Layout\Zone $value
-     * @param \Netgen\Layouts\Transfer\Output\VisitorInterface|null $subVisitor
+     * @param \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor $aggregateVisitor
      *
      * @return mixed
      */
-    public function visit($value, ?VisitorInterface $subVisitor = null)
+    public function visit($value, AggregateVisitor $aggregateVisitor)
     {
-        if ($subVisitor === null) {
-            throw new RuntimeException('Implementation requires sub-visitor');
-        }
-
         return [
             'identifier' => $value->getIdentifier(),
             'linked_zone' => $this->visitLinkedZone($value),
-            'blocks' => iterator_to_array($this->visitBlocks($value, $subVisitor)),
+            'blocks' => iterator_to_array($this->visitBlocks($value, $aggregateVisitor)),
         ];
     }
 
@@ -73,10 +68,10 @@ final class ZoneVisitor implements VisitorInterface
      *
      * Note: here we rely on API returning blocks already sorted by their position in the zone.
      */
-    private function visitBlocks(Zone $zone, VisitorInterface $subVisitor): Generator
+    private function visitBlocks(Zone $zone, AggregateVisitor $aggregateVisitor): Generator
     {
         foreach ($this->blockService->loadZoneBlocks($zone) as $block) {
-            yield $subVisitor->visit($block, $subVisitor);
+            yield $aggregateVisitor->visit($block);
         }
     }
 }

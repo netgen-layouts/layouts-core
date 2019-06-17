@@ -6,7 +6,6 @@ namespace Netgen\Layouts\Transfer\Output\Visitor;
 
 use Generator;
 use Netgen\Layouts\API\Values\Block\Placeholder;
-use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 /**
@@ -23,29 +22,25 @@ final class PlaceholderVisitor implements VisitorInterface
 
     /**
      * @param \Netgen\Layouts\API\Values\Block\Placeholder $value
-     * @param \Netgen\Layouts\Transfer\Output\VisitorInterface|null $subVisitor
+     * @param \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor $aggregateVisitor
      *
      * @return mixed
      */
-    public function visit($value, ?VisitorInterface $subVisitor = null)
+    public function visit($value, AggregateVisitor $aggregateVisitor)
     {
-        if ($subVisitor === null) {
-            throw new RuntimeException('Implementation requires sub-visitor');
-        }
-
         return [
             'identifier' => $value->getIdentifier(),
-            'blocks' => iterator_to_array($this->visitBlocks($value, $subVisitor)),
+            'blocks' => iterator_to_array($this->visitBlocks($value, $aggregateVisitor)),
         ];
     }
 
     /**
      * Visit the given $placeholder blocks into hash representation.
      */
-    private function visitBlocks(Placeholder $placeholder, VisitorInterface $subVisitor): Generator
+    private function visitBlocks(Placeholder $placeholder, AggregateVisitor $aggregateVisitor): Generator
     {
         foreach ($placeholder as $block) {
-            yield $subVisitor->visit($block);
+            yield $aggregateVisitor->visit($block);
         }
     }
 }

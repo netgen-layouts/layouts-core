@@ -21,11 +21,11 @@ final class SlotVisitor implements VisitorInterface
 
     /**
      * @param \Netgen\Layouts\API\Values\Collection\Slot $value
-     * @param \Netgen\Layouts\Transfer\Output\VisitorInterface|null $subVisitor
+     * @param \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor $aggregateVisitor
      *
      * @return mixed
      */
-    public function visit($value, ?VisitorInterface $subVisitor = null)
+    public function visit($value, AggregateVisitor $aggregateVisitor)
     {
         return [
             'id' => $value->getId()->toString(),

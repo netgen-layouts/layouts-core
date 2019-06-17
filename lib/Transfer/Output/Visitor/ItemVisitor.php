@@ -6,7 +6,6 @@ namespace Netgen\Layouts\Transfer\Output\Visitor;
 
 use Generator;
 use Netgen\Layouts\API\Values\Collection\Item;
-use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 /**
@@ -23,33 +22,29 @@ final class ItemVisitor implements VisitorInterface
 
     /**
      * @param \Netgen\Layouts\API\Values\Collection\Item $value
-     * @param \Netgen\Layouts\Transfer\Output\VisitorInterface|null $subVisitor
+     * @param \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor $aggregateVisitor
      *
      * @return mixed
      */
-    public function visit($value, ?VisitorInterface $subVisitor = null)
+    public function visit($value, AggregateVisitor $aggregateVisitor)
     {
-        if ($subVisitor === null) {
-            throw new RuntimeException('Implementation requires sub-visitor');
-        }
-
         return [
             'id' => $value->getId()->toString(),
             'position' => $value->getPosition(),
             'value' => $value->getCmsItem()->getRemoteId(),
             'value_type' => $value->getDefinition()->getValueType(),
             'view_type' => $value->getViewType(),
-            'configuration' => iterator_to_array($this->visitConfiguration($value, $subVisitor)),
+            'configuration' => iterator_to_array($this->visitConfiguration($value, $aggregateVisitor)),
         ];
     }
 
     /**
      * Visit the given $item configuration into hash representation.
      */
-    private function visitConfiguration(Item $item, VisitorInterface $subVisitor): Generator
+    private function visitConfiguration(Item $item, AggregateVisitor $aggregateVisitor): Generator
     {
         foreach ($item->getConfigs() as $config) {
-            yield $config->getConfigKey() => $subVisitor->visit($config);
+            yield $config->getConfigKey() => $aggregateVisitor->visit($config);
         }
     }
 }

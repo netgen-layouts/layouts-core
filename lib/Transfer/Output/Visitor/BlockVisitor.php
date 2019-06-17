@@ -7,7 +7,6 @@ namespace Netgen\Layouts\Transfer\Output\Visitor;
 use Generator;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Block\Block;
-use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 /**
@@ -34,16 +33,12 @@ final class BlockVisitor implements VisitorInterface
 
     /**
      * @param \Netgen\Layouts\API\Values\Block\Block $value
-     * @param \Netgen\Layouts\Transfer\Output\VisitorInterface|null $subVisitor
+     * @param \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor $aggregateVisitor
      *
      * @return mixed
      */
-    public function visit($value, ?VisitorInterface $subVisitor = null)
+    public function visit($value, AggregateVisitor $aggregateVisitor)
     {
-        if ($subVisitor === null) {
-            throw new RuntimeException('Implementation requires sub-visitor');
-        }
-
         return [
             'id' => $value->getId()->toString(),
             'definition_identifier' => $value->getDefinition()->getIdentifier(),
@@ -54,31 +49,31 @@ final class BlockVisitor implements VisitorInterface
             'view_type' => $value->getViewType(),
             'item_view_type' => $value->getItemViewType(),
             'name' => $value->getName(),
-            'placeholders' => iterator_to_array($this->visitPlaceholders($value, $subVisitor)),
-            'parameters' => $this->visitParameters($value, $subVisitor),
-            'configuration' => iterator_to_array($this->visitConfiguration($value, $subVisitor)),
-            'collections' => iterator_to_array($this->visitCollections($value, $subVisitor)),
+            'placeholders' => iterator_to_array($this->visitPlaceholders($value, $aggregateVisitor)),
+            'parameters' => $this->visitParameters($value, $aggregateVisitor),
+            'configuration' => iterator_to_array($this->visitConfiguration($value, $aggregateVisitor)),
+            'collections' => iterator_to_array($this->visitCollections($value, $aggregateVisitor)),
         ];
     }
 
     /**
      * Visit the given $block placeholders into hash representation.
      */
-    private function visitPlaceholders(Block $block, VisitorInterface $subVisitor): Generator
+    private function visitPlaceholders(Block $block, AggregateVisitor $aggregateVisitor): Generator
     {
         foreach ($block->getPlaceholders() as $placeholder) {
-            yield $placeholder->getIdentifier() => $subVisitor->visit($placeholder);
+            yield $placeholder->getIdentifier() => $aggregateVisitor->visit($placeholder);
         }
     }
 
     /**
      * Visit the given $block parameters into hash representation.
      */
-    private function visitParameters(Block $block, VisitorInterface $subVisitor): array
+    private function visitParameters(Block $block, AggregateVisitor $aggregateVisitor): array
     {
         $parametersByLanguage = [
             $block->getLocale() => iterator_to_array(
-                $this->visitTranslationParameters($block, $subVisitor)
+                $this->visitTranslationParameters($block, $aggregateVisitor)
             ),
         ];
 
@@ -96,7 +91,7 @@ final class BlockVisitor implements VisitorInterface
             $parametersByLanguage[$availableLocale] = iterator_to_array(
                 $this->visitTranslationParameters(
                     $translatedBlock,
-                    $subVisitor
+                    $aggregateVisitor
                 )
             );
         }
@@ -109,30 +104,30 @@ final class BlockVisitor implements VisitorInterface
     /**
      * Return parameters for the given $block.
      */
-    private function visitTranslationParameters(Block $block, VisitorInterface $subVisitor): Generator
+    private function visitTranslationParameters(Block $block, AggregateVisitor $aggregateVisitor): Generator
     {
         foreach ($block->getParameters() as $parameter) {
-            yield $parameter->getName() => $subVisitor->visit($parameter);
+            yield $parameter->getName() => $aggregateVisitor->visit($parameter);
         }
     }
 
     /**
      * Visit the given $block configuration into hash representation.
      */
-    private function visitConfiguration(Block $block, VisitorInterface $subVisitor): Generator
+    private function visitConfiguration(Block $block, AggregateVisitor $aggregateVisitor): Generator
     {
         foreach ($block->getConfigs() as $config) {
-            yield $config->getConfigKey() => $subVisitor->visit($config);
+            yield $config->getConfigKey() => $aggregateVisitor->visit($config);
         }
     }
 
     /**
      * Visit the given $block collections into hash representation.
      */
-    private function visitCollections(Block $block, VisitorInterface $subVisitor): Generator
+    private function visitCollections(Block $block, AggregateVisitor $aggregateVisitor): Generator
     {
         foreach ($block->getCollections() as $identifier => $collection) {
-            yield $identifier => $subVisitor->visit($collection);
+            yield $identifier => $aggregateVisitor->visit($collection);
         }
     }
 }

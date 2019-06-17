@@ -8,7 +8,6 @@ use Generator;
 use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Collection\ItemList;
 use Netgen\Layouts\API\Values\Collection\SlotList;
-use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 /**
@@ -25,16 +24,12 @@ final class CollectionVisitor implements VisitorInterface
 
     /**
      * @param \Netgen\Layouts\API\Values\Collection\Collection $value
-     * @param \Netgen\Layouts\Transfer\Output\VisitorInterface|null $subVisitor
+     * @param \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor $aggregateVisitor
      *
      * @return mixed
      */
-    public function visit($value, ?VisitorInterface $subVisitor = null)
+    public function visit($value, AggregateVisitor $aggregateVisitor)
     {
-        if ($subVisitor === null) {
-            throw new RuntimeException('Implementation requires sub-visitor');
-        }
-
         return [
             'id' => $value->getId()->toString(),
             'offset' => $value->getOffset(),
@@ -43,41 +38,41 @@ final class CollectionVisitor implements VisitorInterface
             'is_always_available' => $value->isAlwaysAvailable(),
             'main_locale' => $value->getMainLocale(),
             'available_locales' => $value->getAvailableLocales(),
-            'items' => iterator_to_array($this->visitItems($value->getItems(), $subVisitor)),
-            'slots' => iterator_to_array($this->visitSlots($value->getSlots(), $subVisitor)),
-            'query' => $this->visitQuery($value, $subVisitor),
+            'items' => iterator_to_array($this->visitItems($value->getItems(), $aggregateVisitor)),
+            'slots' => iterator_to_array($this->visitSlots($value->getSlots(), $aggregateVisitor)),
+            'query' => $this->visitQuery($value, $aggregateVisitor),
         ];
     }
 
     /**
      * Visit the given collection $items into hash representation.
      */
-    private function visitItems(ItemList $items, VisitorInterface $subVisitor): Generator
+    private function visitItems(ItemList $items, AggregateVisitor $aggregateVisitor): Generator
     {
         foreach ($items as $item) {
-            yield $subVisitor->visit($item);
+            yield $aggregateVisitor->visit($item);
         }
     }
 
     /**
      * Visit the given collection $slots into hash representation.
      */
-    private function visitSlots(SlotList $slots, VisitorInterface $subVisitor): Generator
+    private function visitSlots(SlotList $slots, AggregateVisitor $aggregateVisitor): Generator
     {
         foreach ($slots as $slot) {
-            yield $subVisitor->visit($slot);
+            yield $aggregateVisitor->visit($slot);
         }
     }
 
     /**
      * Visit the given $collection query into hash representation.
      */
-    private function visitQuery(Collection $collection, VisitorInterface $subVisitor): ?array
+    private function visitQuery(Collection $collection, AggregateVisitor $aggregateVisitor): ?array
     {
         if (!$collection->hasQuery()) {
             return null;
         }
 
-        return $subVisitor->visit($collection->getQuery());
+        return $aggregateVisitor->visit($collection->getQuery());
     }
 }

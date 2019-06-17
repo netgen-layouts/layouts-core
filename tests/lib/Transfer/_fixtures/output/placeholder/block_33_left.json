@@ -1,6 +1,6 @@
 {
     "identifier": "left",
     "blocks": [
-        ["sub_visit_value"]
+        ["visited_value"]
     ]
 }

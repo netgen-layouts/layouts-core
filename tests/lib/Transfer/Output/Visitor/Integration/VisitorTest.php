@@ -10,15 +10,12 @@ use Diff;
 use Diff_Renderer_Text_Unified;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
+use Netgen\Layouts\Tests\Transfer\Output\Visitor\Stubs\VisitorStub;
+use Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 abstract class VisitorTest extends CoreTestCase
 {
-    /**
-     * @var \Netgen\Layouts\Transfer\Output\VisitorInterface&\PHPUnit\Framework\MockObject\MockObject
-     */
-    protected $subVisitorMock;
-
     /**
      * @var \Coduo\PHPMatcher\Factory\SimpleFactory
      */
@@ -27,13 +24,6 @@ abstract class VisitorTest extends CoreTestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        $this->subVisitorMock = $this->createMock(VisitorInterface::class);
-
-        $this->subVisitorMock
-            ->expects(self::any())
-            ->method('visit')
-            ->willReturn(['sub_visit_value']);
 
         $this->matcherFactory = new SimpleFactory();
     }
@@ -72,7 +62,7 @@ abstract class VisitorTest extends CoreTestCase
         }
 
         $expectedData = trim((string) file_get_contents($fixturePath));
-        $visitedData = $this->getVisitor()->visit($value, $this->subVisitorMock);
+        $visitedData = $this->getVisitor()->visit($value, new AggregateVisitor([new VisitorStub()]));
 
         $matcher = $this->matcherFactory->createMatcher();
         $matchResult = $matcher->match($visitedData, json_decode($expectedData, true));

@@ -7,21 +7,12 @@ namespace Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Layout\Layout;
-use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Transfer\Output\Visitor\BlockVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 use Ramsey\Uuid\Uuid;
 
 abstract class BlockVisitorTest extends VisitorTest
 {
-    public function testVisitThrowsRuntimeExceptionWithoutSubVisitor(): void
-    {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Implementation requires sub-visitor');
-
-        $this->getVisitor()->visit(new Block());
-    }
-
     public function getVisitor(): VisitorInterface
     {
         return new BlockVisitor($this->blockService);

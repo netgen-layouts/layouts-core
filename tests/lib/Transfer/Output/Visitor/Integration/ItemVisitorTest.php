@@ -7,7 +7,6 @@ namespace Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Collection\Item;
 use Netgen\Layouts\API\Values\Layout\Layout;
-use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Transfer\Output\Visitor\ItemVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
@@ -23,14 +22,6 @@ abstract class ItemVisitorTest extends VisitorTest
             ->expects(self::any())
             ->method('load')
             ->willReturn(CmsItem::fromArray(['remoteId' => 'abc']));
-    }
-
-    public function testVisitThrowsRuntimeExceptionWithoutSubVisitor(): void
-    {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Implementation requires sub-visitor');
-
-        $this->getVisitor()->visit(new Item());
     }
 
     public function getVisitor(): VisitorInterface

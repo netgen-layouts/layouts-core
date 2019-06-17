@@ -7,7 +7,6 @@ namespace Netgen\Layouts\Transfer\Output\Visitor;
 use Generator;
 use Netgen\Layouts\API\Service\CollectionService;
 use Netgen\Layouts\API\Values\Collection\Query;
-use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 /**
@@ -34,23 +33,19 @@ final class QueryVisitor implements VisitorInterface
 
     /**
      * @param \Netgen\Layouts\API\Values\Collection\Query $value
-     * @param \Netgen\Layouts\Transfer\Output\VisitorInterface|null $subVisitor
+     * @param \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor $aggregateVisitor
      *
      * @return mixed
      */
-    public function visit($value, ?VisitorInterface $subVisitor = null)
+    public function visit($value, AggregateVisitor $aggregateVisitor)
     {
-        if ($subVisitor === null) {
-            throw new RuntimeException('Implementation requires sub-visitor');
-        }
-
         return [
             'id' => $value->getId()->toString(),
             'is_translatable' => $value->isTranslatable(),
             'is_always_available' => $value->isAlwaysAvailable(),
             'main_locale' => $value->getMainLocale(),
             'available_locales' => $value->getAvailableLocales(),
-            'parameters' => $this->visitParameters($value, $subVisitor),
+            'parameters' => $this->visitParameters($value, $aggregateVisitor),
             'query_type' => $value->getQueryType()->getType(),
         ];
     }
@@ -58,11 +53,11 @@ final class QueryVisitor implements VisitorInterface
     /**
      * Visit the given $query parameters into hash representation.
      */
-    private function visitParameters(Query $query, VisitorInterface $subVisitor): array
+    private function visitParameters(Query $query, AggregateVisitor $aggregateVisitor): array
     {
         $parametersByLanguage = [
             $query->getLocale() => iterator_to_array(
-                $this->visitTranslationParameters($query, $subVisitor)
+                $this->visitTranslationParameters($query, $aggregateVisitor)
             ),
         ];
 
@@ -80,7 +75,7 @@ final class QueryVisitor implements VisitorInterface
             $parametersByLanguage[$availableLocale] = iterator_to_array(
                 $this->visitTranslationParameters(
                     $translatedQuery,
-                    $subVisitor
+                    $aggregateVisitor
                 )
             );
         }
@@ -93,10 +88,10 @@ final class QueryVisitor implements VisitorInterface
     /**
      * Return parameters for the given $query.
      */
-    private function visitTranslationParameters(Query $query, VisitorInterface $subVisitor): Generator
+    private function visitTranslationParameters(Query $query, AggregateVisitor $aggregateVisitor): Generator
     {
         foreach ($query->getParameters() as $parameter) {
-            yield $parameter->getName() => $subVisitor->visit($parameter);
+            yield $parameter->getName() => $aggregateVisitor->visit($parameter);
         }
     }
 }

@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Tests\Transfer\Output;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Tests\Transfer\Output\Visitor\Stubs\ValueVisitor;
+use Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor;
 use PHPUnit\Framework\TestCase;
 
 final class StatusStringTraitTest extends TestCase
@@ -27,7 +28,7 @@ final class StatusStringTraitTest extends TestCase
      */
     public function testVisit(int $status, array $visitedValue): void
     {
-        self::assertSame($visitedValue, $this->visitor->visit(Value::fromArray(['status' => $status])));
+        self::assertSame($visitedValue, $this->visitor->visit(Value::fromArray(['status' => $status]), new AggregateVisitor([])));
     }
 
     /**
@@ -38,7 +39,7 @@ final class StatusStringTraitTest extends TestCase
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Unknown status \'9999\'');
 
-        $this->visitor->visit(Value::fromArray(['status' => 9999]));
+        $this->visitor->visit(Value::fromArray(['status' => 9999]), new AggregateVisitor([]));
     }
 
     public function visitProvider(): array
