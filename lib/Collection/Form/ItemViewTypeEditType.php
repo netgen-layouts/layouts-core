@@ -29,11 +29,6 @@ final class ItemViewTypeEditType extends AbstractType
         $resolver->setAllowedTypes('data', ItemUpdateStruct::class);
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options): void
-    {
-        $view->vars['item'] = $options['item'];
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
@@ -53,5 +48,11 @@ final class ItemViewTypeEditType extends AbstractType
                 })(),
             ]
         );
+    }
+
+    public function buildView(FormView $view, FormInterface $form, array $options): void
+    {
+        $view->vars['item'] = $options['item'];
+        $view->vars['block'] = $options['block'];
     }
 }

@@ -29,11 +29,6 @@ final class SlotViewTypeEditType extends AbstractType
         $resolver->setAllowedTypes('data', SlotUpdateStruct::class);
     }
 
-    public function buildView(FormView $view, FormInterface $form, array $options): void
-    {
-        $view->vars['slot'] = $options['slot'];
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
@@ -53,5 +48,11 @@ final class SlotViewTypeEditType extends AbstractType
                 })(),
             ]
         );
+    }
+
+    public function buildView(FormView $view, FormInterface $form, array $options): void
+    {
+        $view->vars['slot'] = $options['slot'];
+        $view->vars['block'] = $options['block'];
     }
 }

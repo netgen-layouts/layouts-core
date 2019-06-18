@@ -17,12 +17,14 @@ query.advanced_options: 'Advanced options'
 collection_item.view_type: 'View type'
 
 collection_item.edit_view_type.header: 'Edit item view type'
+collection_item.edit_view_type.current_view_type: 'Current item view type in block'
 collection_item.edit_view_type.button.cancel: 'Cancel'
 collection_item.edit_view_type.button.submit: 'Save'
 
 collection_slot.view_type: 'View type'
 
 collection_slot.edit_view_type.header: 'Edit slot view type at position'
+collection_slot.edit_view_type.current_view_type: 'Current item view type in block'
 collection_slot.edit_view_type.button.cancel: 'Cancel'
 collection_slot.edit_view_type.button.submit: 'Save'
 

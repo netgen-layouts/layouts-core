@@ -5,10 +5,15 @@
 {% trans_default_domain 'nglayouts_forms' %}
 
 {% block header %}
-    {{ 'collection_slot.edit_view_type.header'|trans }} {{ form.vars.slot.position }}
+    {{ 'collection_slot.edit_view_type.header'|trans }} {{ form.vars.slot.position + 1 }}
 {% endblock %}
 
 {% block children %}
+    {% set block = form.vars.block %}
+    {% set current_view_type = block.definition.viewType(block.viewType) %}
+
+    <p>{{ 'collection_slot.edit_view_type.current_view_type'|trans }}: {{ current_view_type.itemViewType(block.itemViewType).name }}</p>
+
     {{ form_row(form.children.view_type) }}
 {% endblock %}
 
