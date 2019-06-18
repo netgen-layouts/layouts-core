@@ -8,8 +8,8 @@
     ],
     "parameters": {
         "en": {
-            "param": ["visited_value"],
-            "param2": ["visited_value"]
+            "param": null,
+            "param2": null
         }
     },
     "query_type": "my_query_type"

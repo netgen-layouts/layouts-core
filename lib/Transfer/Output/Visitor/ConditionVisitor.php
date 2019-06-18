@@ -23,9 +23,9 @@ final class ConditionVisitor implements VisitorInterface
      * @param \Netgen\Layouts\API\Values\LayoutResolver\Condition $value
      * @param \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor $aggregateVisitor
      *
-     * @return mixed
+     * @return array
      */
-    public function visit($value, AggregateVisitor $aggregateVisitor)
+    public function visit($value, AggregateVisitor $aggregateVisitor): array
     {
         return [
             'id' => $value->getId()->toString(),

@@ -26,12 +26,12 @@ interface VisitorInterface
     public function accept($value): bool;
 
     /**
-     * Visit the given $value into hash representation.
+     * Visit the given $value into hash array representation.
      *
      * @param mixed $value
      * @param \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor $aggregateVisitor
      *
-     * @return mixed
+     * @return array
      */
-    public function visit($value, AggregateVisitor $aggregateVisitor);
+    public function visit($value, AggregateVisitor $aggregateVisitor): array;
 }

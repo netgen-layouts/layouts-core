@@ -41,11 +41,6 @@ services:
         tags:
             - { name: netgen_layouts.transfer_output_visitor }
 
-    netgen_layouts.transfer.serializer.visitor.parameter:
-        class: Netgen\Layouts\Transfer\Output\Visitor\ParameterVisitor
-        tags:
-            - { name: netgen_layouts.transfer_output_visitor }
-
     netgen_layouts.transfer.serializer.visitor.placeholder:
         class: Netgen\Layouts\Transfer\Output\Visitor\PlaceholderVisitor
         tags:

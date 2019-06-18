@@ -28,9 +28,9 @@ final class RuleVisitor implements VisitorInterface
      * @param \Netgen\Layouts\API\Values\LayoutResolver\Rule $value
      * @param \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor $aggregateVisitor
      *
-     * @return mixed
+     * @return array
      */
-    public function visit($value, AggregateVisitor $aggregateVisitor)
+    public function visit($value, AggregateVisitor $aggregateVisitor): array
     {
         $layout = $value->getLayout();
 

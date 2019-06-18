@@ -14,7 +14,7 @@ final class VisitorStub implements VisitorInterface
         return true;
     }
 
-    public function visit($value, AggregateVisitor $aggregateVisitor)
+    public function visit($value, AggregateVisitor $aggregateVisitor): array
     {
         return ['visited_value'];
     }

@@ -35,9 +35,9 @@ final class QueryVisitor implements VisitorInterface
      * @param \Netgen\Layouts\API\Values\Collection\Query $value
      * @param \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor $aggregateVisitor
      *
-     * @return mixed
+     * @return array
      */
-    public function visit($value, AggregateVisitor $aggregateVisitor)
+    public function visit($value, AggregateVisitor $aggregateVisitor): array
     {
         return [
             'id' => $value->getId()->toString(),
@@ -45,7 +45,7 @@ final class QueryVisitor implements VisitorInterface
             'is_always_available' => $value->isAlwaysAvailable(),
             'main_locale' => $value->getMainLocale(),
             'available_locales' => $value->getAvailableLocales(),
-            'parameters' => $this->visitParameters($value, $aggregateVisitor),
+            'parameters' => $this->visitParameters($value),
             'query_type' => $value->getQueryType()->getType(),
         ];
     }
@@ -53,11 +53,11 @@ final class QueryVisitor implements VisitorInterface
     /**
      * Visit the given $query parameters into hash representation.
      */
-    private function visitParameters(Query $query, AggregateVisitor $aggregateVisitor): array
+    private function visitParameters(Query $query): array
     {
         $parametersByLanguage = [
             $query->getLocale() => iterator_to_array(
-                $this->visitTranslationParameters($query, $aggregateVisitor)
+                $this->visitTranslationParameters($query)
             ),
         ];
 
@@ -73,10 +73,7 @@ final class QueryVisitor implements VisitorInterface
             );
 
             $parametersByLanguage[$availableLocale] = iterator_to_array(
-                $this->visitTranslationParameters(
-                    $translatedQuery,
-                    $aggregateVisitor
-                )
+                $this->visitTranslationParameters($translatedQuery)
             );
         }
 
@@ -88,10 +85,13 @@ final class QueryVisitor implements VisitorInterface
     /**
      * Return parameters for the given $query.
      */
-    private function visitTranslationParameters(Query $query, AggregateVisitor $aggregateVisitor): Generator
+    private function visitTranslationParameters(Query $query): Generator
     {
         foreach ($query->getParameters() as $parameter) {
-            yield $parameter->getName() => $aggregateVisitor->visit($parameter);
+            $definition = $parameter->getParameterDefinition();
+            $exportedValue = $definition->getType()->export($definition, $parameter->getValue());
+
+            yield $parameter->getName() => $exportedValue;
         }
     }
 }

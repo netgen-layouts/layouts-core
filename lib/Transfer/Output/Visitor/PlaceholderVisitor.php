@@ -24,9 +24,9 @@ final class PlaceholderVisitor implements VisitorInterface
      * @param \Netgen\Layouts\API\Values\Block\Placeholder $value
      * @param \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor $aggregateVisitor
      *
-     * @return mixed
+     * @return array
      */
-    public function visit($value, AggregateVisitor $aggregateVisitor)
+    public function visit($value, AggregateVisitor $aggregateVisitor): array
     {
         return [
             'identifier' => $value->getIdentifier(),

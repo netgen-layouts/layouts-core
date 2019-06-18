@@ -35,9 +35,9 @@ final class BlockVisitor implements VisitorInterface
      * @param \Netgen\Layouts\API\Values\Block\Block $value
      * @param \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor $aggregateVisitor
      *
-     * @return mixed
+     * @return array
      */
-    public function visit($value, AggregateVisitor $aggregateVisitor)
+    public function visit($value, AggregateVisitor $aggregateVisitor): array
     {
         return [
             'id' => $value->getId()->toString(),
@@ -50,7 +50,7 @@ final class BlockVisitor implements VisitorInterface
             'item_view_type' => $value->getItemViewType(),
             'name' => $value->getName(),
             'placeholders' => iterator_to_array($this->visitPlaceholders($value, $aggregateVisitor)),
-            'parameters' => $this->visitParameters($value, $aggregateVisitor),
+            'parameters' => $this->visitParameters($value),
             'configuration' => iterator_to_array($this->visitConfiguration($value, $aggregateVisitor)),
             'collections' => iterator_to_array($this->visitCollections($value, $aggregateVisitor)),
         ];
@@ -69,11 +69,11 @@ final class BlockVisitor implements VisitorInterface
     /**
      * Visit the given $block parameters into hash representation.
      */
-    private function visitParameters(Block $block, AggregateVisitor $aggregateVisitor): array
+    private function visitParameters(Block $block): array
     {
         $parametersByLanguage = [
             $block->getLocale() => iterator_to_array(
-                $this->visitTranslationParameters($block, $aggregateVisitor)
+                $this->visitTranslationParameters($block)
             ),
         ];
 
@@ -89,10 +89,7 @@ final class BlockVisitor implements VisitorInterface
             );
 
             $parametersByLanguage[$availableLocale] = iterator_to_array(
-                $this->visitTranslationParameters(
-                    $translatedBlock,
-                    $aggregateVisitor
-                )
+                $this->visitTranslationParameters($translatedBlock)
             );
         }
 
@@ -104,10 +101,13 @@ final class BlockVisitor implements VisitorInterface
     /**
      * Return parameters for the given $block.
      */
-    private function visitTranslationParameters(Block $block, AggregateVisitor $aggregateVisitor): Generator
+    private function visitTranslationParameters(Block $block): Generator
     {
         foreach ($block->getParameters() as $parameter) {
-            yield $parameter->getName() => $aggregateVisitor->visit($parameter);
+            $definition = $parameter->getParameterDefinition();
+            $exportedValue = $definition->getType()->export($definition, $parameter->getValue());
+
+            yield $parameter->getName() => $exportedValue;
         }
     }
 

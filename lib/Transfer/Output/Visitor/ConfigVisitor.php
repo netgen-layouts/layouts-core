@@ -24,13 +24,15 @@ final class ConfigVisitor implements VisitorInterface
      * @param \Netgen\Layouts\API\Values\Config\Config $value
      * @param \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor $aggregateVisitor
      *
-     * @return mixed
+     * @return array
      */
-    public function visit($value, AggregateVisitor $aggregateVisitor)
+    public function visit($value, AggregateVisitor $aggregateVisitor): array
     {
         return array_map(
-            static function (Parameter $parameter) use ($aggregateVisitor) {
-                return $aggregateVisitor->visit($parameter);
+            static function (Parameter $parameter) {
+                $definition = $parameter->getParameterDefinition();
+
+                return $definition->getType()->export($definition, $parameter->getValue());
             },
             $value->getParameters()
         );

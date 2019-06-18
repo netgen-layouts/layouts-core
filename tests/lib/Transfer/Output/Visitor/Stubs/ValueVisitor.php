@@ -17,7 +17,7 @@ final class ValueVisitor implements VisitorInterface
         return true;
     }
 
-    public function visit($value, AggregateVisitor $aggregateVisitor)
+    public function visit($value, AggregateVisitor $aggregateVisitor): array
     {
         return [
             'status' => $this->getStatusString($value),

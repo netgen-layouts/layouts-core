@@ -30,9 +30,9 @@ final class AggregateVisitor
      *
      * @throws \Netgen\Layouts\Exception\RuntimeException if no sub-visitor is available for provided value
      *
-     * @return mixed
+     * @return array
      */
-    public function visit($value)
+    public function visit($value): array
     {
         foreach ($this->subVisitors as $subVisitor) {
             if ($subVisitor->accept($value)) {

@@ -27,9 +27,9 @@ final class LayoutVisitor implements VisitorInterface
      * @param \Netgen\Layouts\API\Values\Layout\Layout $value
      * @param \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor $aggregateVisitor
      *
-     * @return mixed
+     * @return array
      */
-    public function visit($value, AggregateVisitor $aggregateVisitor)
+    public function visit($value, AggregateVisitor $aggregateVisitor): array
     {
         return [
             '__type' => 'layout',

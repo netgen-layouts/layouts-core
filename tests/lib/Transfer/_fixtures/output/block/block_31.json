@@ -14,12 +14,12 @@
     "placeholders": [],
     "parameters": {
         "en": {
-            "css_class": ["visited_value"],
-            "css_id": ["visited_value"]
+            "css_class": "some-class",
+            "css_id": null
         },
         "hr": {
-            "css_class": ["visited_value"],
-            "css_id": ["visited_value"]
+            "css_class": "some-class",
+            "css_id": null
         }
     },
     "configuration": {
