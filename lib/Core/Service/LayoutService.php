@@ -458,26 +458,31 @@ final class LayoutService extends Service implements LayoutServiceInterface
                     $zoneMappings
                 );
 
-                if ($preserveSharedZones) {
-                    foreach ($zoneMappings as $newZone => $oldZones) {
-                        if (
-                            count($oldZones) === 1 &&
-                            $layoutZones[$oldZones[0]]->linkedLayoutId !== null &&
-                            $layoutZones[$oldZones[0]]->linkedZoneIdentifier !== null
-                        ) {
-                            $this->layoutHandler->updateZone(
-                                $this->layoutHandler->loadZone($updatedLayout->id, Value::STATUS_DRAFT, (string) $newZone),
-                                ZoneUpdateStruct::fromArray(
-                                    [
-                                        'linkedZone' => $this->layoutHandler->loadZone(
-                                            $layoutZones[$oldZones[0]]->linkedLayoutId,
-                                            Value::STATUS_PUBLISHED,
-                                            $layoutZones[$oldZones[0]]->linkedZoneIdentifier
-                                        ),
-                                    ]
-                                )
-                            );
-                        }
+                if (!$preserveSharedZones) {
+                    return $updatedLayout;
+                }
+
+                foreach ($zoneMappings as $newZone => $oldZones) {
+                    if (count($oldZones) !== 1) {
+                        // Shared zones should always have 1:1 mapping with the new zone.
+                        continue;
+                    }
+
+                    $oldZone = $layoutZones[$oldZones[0]];
+
+                    if ($oldZone->linkedLayoutId !== null && $oldZone->linkedZoneIdentifier !== null) {
+                        $this->layoutHandler->updateZone(
+                            $this->layoutHandler->loadZone($updatedLayout->id, Value::STATUS_DRAFT, (string) $newZone),
+                            ZoneUpdateStruct::fromArray(
+                                [
+                                    'linkedZone' => $this->layoutHandler->loadZone(
+                                        $oldZone->linkedLayoutId,
+                                        Value::STATUS_PUBLISHED,
+                                        $oldZone->linkedZoneIdentifier
+                                    ),
+                                ]
+                            )
+                        );
                     }
                 }
 

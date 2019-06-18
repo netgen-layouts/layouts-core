@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 
+use Exception;
 use InvalidArgumentException as BaseInvalidArgumentException;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\InvalidArgumentException;
@@ -74,7 +75,9 @@ final class ExceptionConversionListener implements EventSubscriberInterface
                 $exception->getCode()
             );
 
-            $event->setException($convertedException);
+            if ($convertedException instanceof Exception) {
+                $event->setException($convertedException);
+            }
         }
     }
 }

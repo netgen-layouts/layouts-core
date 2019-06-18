@@ -41,9 +41,10 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
     {
         /** @var \Netgen\Layouts\Collection\Result\Result $result */
         $result = $object->getValue();
+        $subItem = $result->getSubItem();
 
-        $mainItem = $result->getSubItem() instanceof CmsItemInterface ? $result->getSubItem() : $result->getItem();
-        $overrideItem = $result->getSubItem() instanceof CmsItemInterface ? $result->getItem() : null;
+        $mainItem = $subItem instanceof CmsItemInterface ? $subItem : $result->getItem();
+        $overrideItem = $subItem instanceof CmsItemInterface ? $result->getItem() : null;
 
         $data = $this->normalizeResultItem($mainItem, $format, $context);
 

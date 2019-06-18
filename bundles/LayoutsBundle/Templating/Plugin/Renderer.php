@@ -10,7 +10,7 @@ use Twig\Environment;
 final class Renderer implements RendererInterface
 {
     /**
-     * @var \Twig\Environment;
+     * @var \Twig\Environment
      */
     private $twig;
 
