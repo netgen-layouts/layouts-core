@@ -24,15 +24,11 @@ final class AggregateVisitor
     }
 
     /**
-     * Visit the given $value into hash representation.
-     *
-     * @param mixed $value
+     * Visit the given $value into hash array representation.
      *
      * @throws \Netgen\Layouts\Exception\RuntimeException if no sub-visitor is available for provided value
-     *
-     * @return array
      */
-    public function visit($value): array
+    public function visit(object $value): array
     {
         foreach ($this->subVisitors as $subVisitor) {
             if ($subVisitor->accept($value)) {
@@ -40,10 +36,8 @@ final class AggregateVisitor
             }
         }
 
-        $valueType = is_object($value) ? get_class($value) : gettype($value);
-
         throw new RuntimeException(
-            sprintf("No visitor available for value of type '%s'", $valueType)
+            sprintf("No visitor available for value of type '%s'", get_class($value))
         );
     }
 }

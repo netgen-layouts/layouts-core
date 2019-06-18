@@ -9,12 +9,12 @@ use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 final class VisitorStub implements VisitorInterface
 {
-    public function accept($value): bool
+    public function accept(object $value): bool
     {
         return true;
     }
 
-    public function visit($value, AggregateVisitor $aggregateVisitor): array
+    public function visit(object $value, AggregateVisitor $aggregateVisitor): array
     {
         return ['visited_value'];
     }

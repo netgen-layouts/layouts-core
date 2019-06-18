@@ -26,7 +26,7 @@ final class ZoneVisitor implements VisitorInterface
         $this->blockService = $blockService;
     }
 
-    public function accept($value): bool
+    public function accept(object $value): bool
     {
         return $value instanceof Zone;
     }
@@ -37,7 +37,7 @@ final class ZoneVisitor implements VisitorInterface
      *
      * @return array
      */
-    public function visit($value, AggregateVisitor $aggregateVisitor): array
+    public function visit(object $value, AggregateVisitor $aggregateVisitor): array
     {
         return [
             'identifier' => $value->getIdentifier(),

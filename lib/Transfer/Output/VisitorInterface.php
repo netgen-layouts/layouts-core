@@ -18,20 +18,11 @@ interface VisitorInterface
 {
     /**
      * Check if the visitor accepts the given $value.
-     *
-     * @param mixed $value
-     *
-     * @return bool
      */
-    public function accept($value): bool;
+    public function accept(object $value): bool;
 
     /**
      * Visit the given $value into hash array representation.
-     *
-     * @param mixed $value
-     * @param \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor $aggregateVisitor
-     *
-     * @return array
      */
-    public function visit($value, AggregateVisitor $aggregateVisitor): array;
+    public function visit(object $value, AggregateVisitor $aggregateVisitor): array;
 }

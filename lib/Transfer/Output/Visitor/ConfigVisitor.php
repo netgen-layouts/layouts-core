@@ -15,7 +15,7 @@ use Netgen\Layouts\Transfer\Output\VisitorInterface;
  */
 final class ConfigVisitor implements VisitorInterface
 {
-    public function accept($value): bool
+    public function accept(object $value): bool
     {
         return $value instanceof Config;
     }
@@ -26,7 +26,7 @@ final class ConfigVisitor implements VisitorInterface
      *
      * @return array
      */
-    public function visit($value, AggregateVisitor $aggregateVisitor): array
+    public function visit(object $value, AggregateVisitor $aggregateVisitor): array
     {
         return array_map(
             static function (Parameter $parameter) {

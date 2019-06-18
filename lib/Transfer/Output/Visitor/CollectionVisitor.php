@@ -17,7 +17,7 @@ use Netgen\Layouts\Transfer\Output\VisitorInterface;
  */
 final class CollectionVisitor implements VisitorInterface
 {
-    public function accept($value): bool
+    public function accept(object $value): bool
     {
         return $value instanceof Collection;
     }
@@ -28,7 +28,7 @@ final class CollectionVisitor implements VisitorInterface
      *
      * @return array
      */
-    public function visit($value, AggregateVisitor $aggregateVisitor): array
+    public function visit(object $value, AggregateVisitor $aggregateVisitor): array
     {
         return [
             'id' => $value->getId()->toString(),
@@ -69,10 +69,11 @@ final class CollectionVisitor implements VisitorInterface
      */
     private function visitQuery(Collection $collection, AggregateVisitor $aggregateVisitor): ?array
     {
-        if (!$collection->hasQuery()) {
+        $query = $collection->getQuery();
+        if ($query === null) {
             return null;
         }
 
-        return $aggregateVisitor->visit($collection->getQuery());
+        return $aggregateVisitor->visit($query);
     }
 }

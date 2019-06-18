@@ -14,4 +14,4 @@ parameters:
             message: '#Cannot call method fetchAll\(\) on Doctrine\\DBAL\\Driver\\Statement\|int#'
             path: tests/lib/Persistence/Doctrine/Helper/PositionHelperTest.php
 
-        - '#should be contravariant with parameter \$object#'
+        - '#should be contravariant with parameter \$(value|object)#'

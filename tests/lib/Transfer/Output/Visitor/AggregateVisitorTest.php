@@ -11,6 +11,7 @@ use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Tests\Transfer\Output\Visitor\Stubs\VisitorStub;
 use Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 final class AggregateVisitorTest extends TestCase
 {
@@ -29,13 +30,13 @@ final class AggregateVisitorTest extends TestCase
      */
     public function testVisit(): void
     {
-        self::assertSame(['visited_value'], $this->visitor->visit(42));
+        self::assertSame(['visited_value'], $this->visitor->visit(new stdClass()));
     }
 
     /**
      * @covers \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor::visit
      */
-    public function testVisitWithNoAcceptedVisitorAndObjectValueThrowsRuntimeException(): void
+    public function testVisitWithNoAcceptedVisitorThrowsRuntimeException(): void
     {
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('No visitor available for value of type \'Netgen\\Layouts\\API\\Values\\Block\\Block\'');
@@ -43,19 +44,6 @@ final class AggregateVisitorTest extends TestCase
         $this->visitor = new AggregateVisitor([]);
 
         $this->visitor->visit(new Block());
-    }
-
-    /**
-     * @covers \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor::visit
-     */
-    public function testVisitWithNoAcceptedVisitorAndScalarValueThrowsRuntimeException(): void
-    {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('No visitor available for value of type \'integer\'');
-
-        $this->visitor = new AggregateVisitor([]);
-
-        $this->visitor->visit(42);
     }
 
     public function acceptProvider(): array
