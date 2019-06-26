@@ -1,0 +1,109 @@
+<?xml version="1.0"?>
+<psalm
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+>
+    <projectFiles>
+        <directory name="bundles" />
+        <directory name="lib" />
+        <directory name="migrations" />
+        <ignoreFiles>
+            <directory name="vendor" />
+        </ignoreFiles>
+    </projectFiles>
+
+    <issueHandlers>
+        <!-- Symfony BC layer -->
+
+        <InvalidArgument>
+            <errorLevel type="suppress">
+                <referencedFunction name="Symfony\Component\EventDispatcher\EventDispatcherInterface::dispatch" />
+            </errorLevel>
+        </InvalidArgument>
+
+        <UndefinedInterfaceMethod>
+            <errorLevel type="suppress">
+                <referencedMethod name="Symfony\Component\Intl\ResourceBundle\LocaleBundleInterface::getAliases" />
+            </errorLevel>
+        </UndefinedInterfaceMethod>
+
+        <!-- Doctrine DBAL -->
+
+        <TooManyArguments>
+            <errorLevel type="suppress">
+                <referencedFunction name="Doctrine\DBAL\Query\Expression\ExpressionBuilder::andX" />
+                <referencedFunction name="Doctrine\DBAL\Query\Expression\ExpressionBuilder::orX" />
+                <referencedFunction name="Doctrine\DBAL\Query\QueryBuilder::select" />
+                <referencedFunction name="Doctrine\DBAL\Query\QueryBuilder::where" />
+                <referencedFunction name="Doctrine\DBAL\Platforms\AbstractPlatform::getConcatExpression" />
+                <referencedFunction name="Symfony\Component\EventDispatcher\EventDispatcherInterface::dispatch" />
+                <referencedFunction name="Symfony\Component\HttpFoundation\Request::isMethodSafe" />
+            </errorLevel>
+        </TooManyArguments>
+
+        <ImplicitToStringCast>
+            <errorLevel type="suppress">
+                <directory name="bundles/LayoutsBundle/Command/Migration" />
+                <directory name="lib/Persistence/Doctrine/QueryHandler" />
+            </errorLevel>
+        </ImplicitToStringCast>
+
+        <PossiblyInvalidMethodCall>
+            <errorLevel type="suppress">
+                <directory name="bundles/LayoutsBundle/Command/Migration" />
+                <directory name="lib/Persistence/Doctrine/QueryHandler" />
+                <directory name="lib/Persistence/Doctrine/Helper" />
+                <directory name="migrations/Doctrine" />
+            </errorLevel>
+        </PossiblyInvalidMethodCall>
+
+        <!-- Symfony -->
+
+        <PossiblyUndefinedMethod>
+            <errorLevel type="suppress">
+                <referencedMethod name="Symfony\Component\Config\Definition\Builder\NodeDefinition::addDefaultsIfNotSet" />
+                <referencedMethod name="Symfony\Component\Config\Definition\Builder\NodeDefinition::requiresAtLeastOneElement" />
+                <referencedMethod name="Symfony\Component\Config\Definition\Builder\NodeDefinition::children" />
+            </errorLevel>
+        </PossiblyUndefinedMethod>
+
+        <PossiblyInvalidArgument>
+            <errorLevel type="suppress">
+                <file name="lib/Form/DataMapper/DateTimeDataMapper.php" />
+                <file name="lib/Collection/Form/CollectionDataMapper.php" />
+                <file name="lib/Parameters/Form/Type/DataMapper/ItemLinkDataMapper.php" />
+                <file name="lib/Parameters/Form/Type/DataMapper/LinkDataMapper.php" />
+            </errorLevel>
+        </PossiblyInvalidArgument>
+
+        <!-- Netgen Layouts specifics -->
+
+        <PossiblyNullPropertyAssignmentValue>
+            <errorLevel type="suppress">
+                <directory name="lib/Persistence/Doctrine/Handler" />
+            </errorLevel>
+        </PossiblyNullPropertyAssignmentValue>
+
+        <MoreSpecificImplementedParamType>
+            <errorLevel type="suppress">
+                <directory name="lib/Transfer/Output/Visitor" />
+            </errorLevel>
+        </MoreSpecificImplementedParamType>
+
+        <!-- level 3 issues - slightly lazy code writing, but provably low false-negatives -->
+
+        <DeprecatedMethod errorLevel="info" />
+        <DeprecatedClass errorLevel="info" />
+        <DeprecatedTrait errorLevel="info" />
+        <InternalMethod errorLevel="info" />
+        <MissingClosureReturnType errorLevel="info" />
+        <MissingPropertyType errorLevel="info" />
+        <PropertyNotSetInConstructor errorLevel="info" />
+        <MissingConstructor errorLevel="info" />
+        <MissingClosureParamType errorLevel="info" />
+        <RedundantCondition errorLevel="info" />
+        <DocblockTypeContradiction errorLevel="info" />
+        <RedundantConditionGivenDocblockType errorLevel="info" />
+    </issueHandlers>
+</psalm>
