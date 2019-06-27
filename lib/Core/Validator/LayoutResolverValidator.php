@@ -15,11 +15,14 @@ use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry;
+use Netgen\Layouts\Validator\ValidatorTrait;
 use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints;
 
-final class LayoutResolverValidator extends Validator
+final class LayoutResolverValidator
 {
+    use ValidatorTrait;
+
     /**
      * @var \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry
      */

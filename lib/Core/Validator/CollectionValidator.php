@@ -19,10 +19,13 @@ use Netgen\Layouts\Collection\Item\ItemDefinitionInterface;
 use Netgen\Layouts\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
 use Netgen\Layouts\Validator\Constraint\Structs\ParameterStruct;
 use Netgen\Layouts\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
+use Netgen\Layouts\Validator\ValidatorTrait;
 use Symfony\Component\Validator\Constraints;
 
-final class CollectionValidator extends Validator
+final class CollectionValidator
 {
+    use ValidatorTrait;
+
     /**
      * Validates the provided collection create struct.
      *

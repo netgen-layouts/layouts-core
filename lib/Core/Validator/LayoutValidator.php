@@ -11,10 +11,13 @@ use Netgen\Layouts\API\Values\Layout\LayoutUpdateStruct;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\Exception\Validation\ValidationException;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
+use Netgen\Layouts\Validator\ValidatorTrait;
 use Symfony\Component\Validator\Constraints;
 
-final class LayoutValidator extends Validator
+final class LayoutValidator
 {
+    use ValidatorTrait;
+
     /**
      * Validates the provided layout create struct.
      *

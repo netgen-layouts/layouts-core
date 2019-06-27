@@ -10,9 +10,12 @@ use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
 use Netgen\Layouts\Validator\Constraint\Structs\BlockCreateStruct as BlockCreateStructConstraint;
 use Netgen\Layouts\Validator\Constraint\Structs\BlockUpdateStruct as BlockUpdateStructConstraint;
 use Netgen\Layouts\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
+use Netgen\Layouts\Validator\ValidatorTrait;
 
-final class BlockValidator extends Validator
+final class BlockValidator
 {
+    use ValidatorTrait;
+
     /**
      * @var \Netgen\Layouts\Core\Validator\CollectionValidator
      */
