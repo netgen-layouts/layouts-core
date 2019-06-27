@@ -1,16 +1,14 @@
 .idea/
-.tmp/
+**/Resources/public/dev/
 coverage/
 coverage_api/
 node_modules/
 vendor/
-**/Resources/public/dev/
 .php_cs.cache
 .phpunit.result.cache
 .web-server-pid
 composer.lock
 composer.phar
-grunt.lock
 package-lock.json
 phpunit.phar
 studio.json
