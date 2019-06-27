@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Transfer\Output\Visitor;
 
 use Generator;
 use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\StatusStringTrait;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
@@ -25,11 +26,11 @@ final class LayoutVisitor implements VisitorInterface
 
     /**
      * @param \Netgen\Layouts\API\Values\Layout\Layout $value
-     * @param \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor $aggregateVisitor
+     * @param \Netgen\Layouts\Transfer\Output\OutputVisitor $outputVisitor
      *
      * @return array
      */
-    public function visit(object $value, AggregateVisitor $aggregateVisitor): array
+    public function visit(object $value, OutputVisitor $outputVisitor): array
     {
         return [
             '__type' => 'layout',
@@ -43,17 +44,17 @@ final class LayoutVisitor implements VisitorInterface
             'creation_date' => $value->getCreated()->getTimestamp(),
             'modification_date' => $value->getModified()->getTimestamp(),
             'is_shared' => $value->isShared(),
-            'zones' => iterator_to_array($this->visitZones($value, $aggregateVisitor)),
+            'zones' => iterator_to_array($this->visitZones($value, $outputVisitor)),
         ];
     }
 
     /**
      * Visit the given $layout zones into hash representation.
      */
-    private function visitZones(Layout $layout, AggregateVisitor $aggregateVisitor): Generator
+    private function visitZones(Layout $layout, OutputVisitor $outputVisitor): Generator
     {
         foreach ($layout->getZones() as $zone) {
-            yield $zone->getIdentifier() => $aggregateVisitor->visit($zone);
+            yield $zone->getIdentifier() => $outputVisitor->visit($zone);
         }
     }
 }

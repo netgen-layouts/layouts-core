@@ -2,31 +2,31 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Layouts\Tests\Transfer\Output\Visitor;
+namespace Netgen\Layouts\Tests\Transfer\Output;
 
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Tests\Transfer\Output\Visitor\Stubs\VisitorStub;
-use Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor;
+use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-final class AggregateVisitorTest extends TestCase
+final class OutputVisitorTest extends TestCase
 {
     /**
-     * @var \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor
+     * @var \Netgen\Layouts\Transfer\Output\OutputVisitor
      */
     private $visitor;
 
     protected function setUp(): void
     {
-        $this->visitor = new AggregateVisitor([new VisitorStub()]);
+        $this->visitor = new OutputVisitor([new VisitorStub()]);
     }
 
     /**
-     * @covers \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor::visit
+     * @covers \Netgen\Layouts\Transfer\Output\OutputVisitor::visit
      */
     public function testVisit(): void
     {
@@ -34,14 +34,14 @@ final class AggregateVisitorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor::visit
+     * @covers \Netgen\Layouts\Transfer\Output\OutputVisitor::visit
      */
     public function testVisitWithNoAcceptedVisitorThrowsRuntimeException(): void
     {
         $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('No visitor available for value of type \'Netgen\\Layouts\\API\\Values\\Block\\Block\'');
 
-        $this->visitor = new AggregateVisitor([]);
+        $this->visitor = new OutputVisitor([]);
 
         $this->visitor->visit(new Block());
     }

@@ -9,7 +9,6 @@ use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Transfer\Descriptor;
-use Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -32,14 +31,14 @@ final class Serializer implements SerializerInterface
     private $layoutResolverService;
 
     /**
-     * @var \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor
+     * @var \Netgen\Layouts\Transfer\Output\OutputVisitor
      */
     private $visitor;
 
     public function __construct(
         LayoutService $layoutService,
         LayoutResolverService $layoutResolverService,
-        AggregateVisitor $visitor
+        OutputVisitor $visitor
     ) {
         $this->layoutService = $layoutService;
         $this->layoutResolverService = $layoutResolverService;

@@ -1,6 +1,6 @@
 services:
-    netgen_layouts.transfer.serializer.visitor.aggregate:
-        class: Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor
+    netgen_layouts.transfer.serializer.visitor:
+        class: Netgen\Layouts\Transfer\Output\OutputVisitor
         arguments:
             - !tagged netgen_layouts.transfer_output_visitor
 

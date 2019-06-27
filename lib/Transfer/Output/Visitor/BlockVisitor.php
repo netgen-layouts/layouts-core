@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Transfer\Output\Visitor;
 use Generator;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 /**
@@ -33,11 +34,11 @@ final class BlockVisitor implements VisitorInterface
 
     /**
      * @param \Netgen\Layouts\API\Values\Block\Block $value
-     * @param \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor $aggregateVisitor
+     * @param \Netgen\Layouts\Transfer\Output\OutputVisitor $outputVisitor
      *
      * @return array
      */
-    public function visit(object $value, AggregateVisitor $aggregateVisitor): array
+    public function visit(object $value, OutputVisitor $outputVisitor): array
     {
         return [
             'id' => $value->getId()->toString(),
@@ -49,20 +50,20 @@ final class BlockVisitor implements VisitorInterface
             'view_type' => $value->getViewType(),
             'item_view_type' => $value->getItemViewType(),
             'name' => $value->getName(),
-            'placeholders' => iterator_to_array($this->visitPlaceholders($value, $aggregateVisitor)),
+            'placeholders' => iterator_to_array($this->visitPlaceholders($value, $outputVisitor)),
             'parameters' => $this->visitParameters($value),
-            'configuration' => iterator_to_array($this->visitConfiguration($value, $aggregateVisitor)),
-            'collections' => iterator_to_array($this->visitCollections($value, $aggregateVisitor)),
+            'configuration' => iterator_to_array($this->visitConfiguration($value, $outputVisitor)),
+            'collections' => iterator_to_array($this->visitCollections($value, $outputVisitor)),
         ];
     }
 
     /**
      * Visit the given $block placeholders into hash representation.
      */
-    private function visitPlaceholders(Block $block, AggregateVisitor $aggregateVisitor): Generator
+    private function visitPlaceholders(Block $block, OutputVisitor $outputVisitor): Generator
     {
         foreach ($block->getPlaceholders() as $placeholder) {
-            yield $placeholder->getIdentifier() => $aggregateVisitor->visit($placeholder);
+            yield $placeholder->getIdentifier() => $outputVisitor->visit($placeholder);
         }
     }
 
@@ -114,20 +115,20 @@ final class BlockVisitor implements VisitorInterface
     /**
      * Visit the given $block configuration into hash representation.
      */
-    private function visitConfiguration(Block $block, AggregateVisitor $aggregateVisitor): Generator
+    private function visitConfiguration(Block $block, OutputVisitor $outputVisitor): Generator
     {
         foreach ($block->getConfigs() as $config) {
-            yield $config->getConfigKey() => $aggregateVisitor->visit($config);
+            yield $config->getConfigKey() => $outputVisitor->visit($config);
         }
     }
 
     /**
      * Visit the given $block collections into hash representation.
      */
-    private function visitCollections(Block $block, AggregateVisitor $aggregateVisitor): Generator
+    private function visitCollections(Block $block, OutputVisitor $outputVisitor): Generator
     {
         foreach ($block->getCollections() as $identifier => $collection) {
-            yield $identifier => $aggregateVisitor->visit($collection);
+            yield $identifier => $outputVisitor->visit($collection);
         }
     }
 }

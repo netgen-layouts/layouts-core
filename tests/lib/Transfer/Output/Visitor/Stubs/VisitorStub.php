@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Transfer\Output\Visitor\Stubs;
 
-use Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor;
+use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 final class VisitorStub implements VisitorInterface
@@ -14,7 +14,7 @@ final class VisitorStub implements VisitorInterface
         return true;
     }
 
-    public function visit(object $value, AggregateVisitor $aggregateVisitor): array
+    public function visit(object $value, OutputVisitor $outputVisitor): array
     {
         return ['visited_value'];
     }

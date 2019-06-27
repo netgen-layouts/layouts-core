@@ -11,8 +11,8 @@ use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Tests\Transfer\Output\Visitor\Stubs\VisitorStub;
 use Netgen\Layouts\Transfer\Descriptor;
+use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\Serializer;
-use Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
@@ -41,7 +41,7 @@ final class SerializerTest extends TestCase
         $this->serializer = new Serializer(
             $this->layoutServiceMock,
             $this->layoutResolverServiceMock,
-            new AggregateVisitor([new VisitorStub()])
+            new OutputVisitor([new VisitorStub()])
         );
     }
 

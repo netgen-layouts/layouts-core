@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Transfer\Output\Visitor\Stubs;
 
 use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\StatusStringTrait;
-use Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 final class ValueVisitor implements VisitorInterface
@@ -20,11 +20,11 @@ final class ValueVisitor implements VisitorInterface
 
     /**
      * @param \Netgen\Layouts\API\Values\Value $value
-     * @param \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor $aggregateVisitor
+     * @param \Netgen\Layouts\Transfer\Output\OutputVisitor $outputVisitor
      *
      * @return array
      */
-    public function visit(object $value, AggregateVisitor $aggregateVisitor): array
+    public function visit(object $value, OutputVisitor $outputVisitor): array
     {
         return [
             'status' => $this->getStatusString($value),

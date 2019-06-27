@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Transfer\Output\Visitor;
 use Generator;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 /**
@@ -33,16 +34,16 @@ final class ZoneVisitor implements VisitorInterface
 
     /**
      * @param \Netgen\Layouts\API\Values\Layout\Zone $value
-     * @param \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor $aggregateVisitor
+     * @param \Netgen\Layouts\Transfer\Output\OutputVisitor $outputVisitor
      *
      * @return array
      */
-    public function visit(object $value, AggregateVisitor $aggregateVisitor): array
+    public function visit(object $value, OutputVisitor $outputVisitor): array
     {
         return [
             'identifier' => $value->getIdentifier(),
             'linked_zone' => $this->visitLinkedZone($value),
-            'blocks' => iterator_to_array($this->visitBlocks($value, $aggregateVisitor)),
+            'blocks' => iterator_to_array($this->visitBlocks($value, $outputVisitor)),
         ];
     }
 
@@ -68,10 +69,10 @@ final class ZoneVisitor implements VisitorInterface
      *
      * Note: here we rely on API returning blocks already sorted by their position in the zone.
      */
-    private function visitBlocks(Zone $zone, AggregateVisitor $aggregateVisitor): Generator
+    private function visitBlocks(Zone $zone, OutputVisitor $outputVisitor): Generator
     {
         foreach ($this->blockService->loadZoneBlocks($zone) as $block) {
-            yield $aggregateVisitor->visit($block);
+            yield $outputVisitor->visit($block);
         }
     }
 }

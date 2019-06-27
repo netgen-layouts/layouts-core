@@ -11,7 +11,7 @@ use Diff_Renderer_Text_Unified;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\Transfer\Output\Visitor\Stubs\VisitorStub;
-use Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor;
+use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 abstract class VisitorTest extends CoreTestCase
@@ -62,7 +62,7 @@ abstract class VisitorTest extends CoreTestCase
         }
 
         $expectedData = trim((string) file_get_contents($fixturePath));
-        $visitedData = $this->getVisitor()->visit($value, new AggregateVisitor([new VisitorStub()]));
+        $visitedData = $this->getVisitor()->visit($value, new OutputVisitor([new VisitorStub()]));
 
         $matcher = $this->matcherFactory->createMatcher();
         $matchResult = $matcher->match($visitedData, json_decode($expectedData, true));

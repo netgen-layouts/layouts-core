@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Transfer\Output\Visitor;
 
 use Generator;
 use Netgen\Layouts\API\Values\Collection\Item;
+use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 /**
@@ -22,11 +23,11 @@ final class ItemVisitor implements VisitorInterface
 
     /**
      * @param \Netgen\Layouts\API\Values\Collection\Item $value
-     * @param \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor $aggregateVisitor
+     * @param \Netgen\Layouts\Transfer\Output\OutputVisitor $outputVisitor
      *
      * @return array
      */
-    public function visit(object $value, AggregateVisitor $aggregateVisitor): array
+    public function visit(object $value, OutputVisitor $outputVisitor): array
     {
         return [
             'id' => $value->getId()->toString(),
@@ -34,17 +35,17 @@ final class ItemVisitor implements VisitorInterface
             'value' => $value->getCmsItem()->getRemoteId(),
             'value_type' => $value->getDefinition()->getValueType(),
             'view_type' => $value->getViewType(),
-            'configuration' => iterator_to_array($this->visitConfiguration($value, $aggregateVisitor)),
+            'configuration' => iterator_to_array($this->visitConfiguration($value, $outputVisitor)),
         ];
     }
 
     /**
      * Visit the given $item configuration into hash representation.
      */
-    private function visitConfiguration(Item $item, AggregateVisitor $aggregateVisitor): Generator
+    private function visitConfiguration(Item $item, OutputVisitor $outputVisitor): Generator
     {
         foreach ($item->getConfigs() as $config) {
-            yield $config->getConfigKey() => $aggregateVisitor->visit($config);
+            yield $config->getConfigKey() => $outputVisitor->visit($config);
         }
     }
 }

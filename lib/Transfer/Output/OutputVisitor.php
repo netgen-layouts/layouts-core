@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Layouts\Transfer\Output\Visitor;
+namespace Netgen\Layouts\Transfer\Output;
 
 use Netgen\Layouts\Exception\RuntimeException;
-use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
-final class AggregateVisitor
+final class OutputVisitor
 {
     /**
      * @var \Netgen\Layouts\Transfer\Output\VisitorInterface[]

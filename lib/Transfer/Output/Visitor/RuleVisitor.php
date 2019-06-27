@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Transfer\Output\Visitor;
 use Generator;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\StatusStringTrait;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
@@ -26,11 +27,11 @@ final class RuleVisitor implements VisitorInterface
 
     /**
      * @param \Netgen\Layouts\API\Values\LayoutResolver\Rule $value
-     * @param \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor $aggregateVisitor
+     * @param \Netgen\Layouts\Transfer\Output\OutputVisitor $outputVisitor
      *
      * @return array
      */
-    public function visit(object $value, AggregateVisitor $aggregateVisitor): array
+    public function visit(object $value, OutputVisitor $outputVisitor): array
     {
         $layout = $value->getLayout();
 
@@ -41,28 +42,28 @@ final class RuleVisitor implements VisitorInterface
             'is_enabled' => $value->isEnabled(),
             'priority' => $value->getPriority(),
             'comment' => $value->getComment(),
-            'targets' => iterator_to_array($this->visitTargets($value, $aggregateVisitor)),
-            'conditions' => iterator_to_array($this->visitConditions($value, $aggregateVisitor)),
+            'targets' => iterator_to_array($this->visitTargets($value, $outputVisitor)),
+            'conditions' => iterator_to_array($this->visitConditions($value, $outputVisitor)),
         ];
     }
 
     /**
      * Visit the given $rule targets into hash representation.
      */
-    private function visitTargets(Rule $rule, AggregateVisitor $aggregateVisitor): Generator
+    private function visitTargets(Rule $rule, OutputVisitor $outputVisitor): Generator
     {
         foreach ($rule->getTargets() as $target) {
-            yield $target->getId()->toString() => $aggregateVisitor->visit($target);
+            yield $target->getId()->toString() => $outputVisitor->visit($target);
         }
     }
 
     /**
      * Visit the given $rule conditions into hash representation.
      */
-    private function visitConditions(Rule $rule, AggregateVisitor $aggregateVisitor): Generator
+    private function visitConditions(Rule $rule, OutputVisitor $outputVisitor): Generator
     {
         foreach ($rule->getConditions() as $condition) {
-            yield $condition->getId()->toString() => $aggregateVisitor->visit($condition);
+            yield $condition->getId()->toString() => $outputVisitor->visit($condition);
         }
     }
 }

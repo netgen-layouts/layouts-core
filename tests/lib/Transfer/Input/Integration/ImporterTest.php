@@ -31,6 +31,7 @@ use Netgen\Layouts\Transfer\Input\Importer;
 use Netgen\Layouts\Transfer\Input\JsonValidator;
 use Netgen\Layouts\Transfer\Input\Result\ErrorResult;
 use Netgen\Layouts\Transfer\Input\Result\SuccessResult;
+use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\Serializer;
 use Netgen\Layouts\Transfer\Output\Visitor;
 
@@ -100,7 +101,7 @@ abstract class ImporterTest extends CoreTestCase
         $this->serializer = new Serializer(
             $this->layoutService,
             $this->layoutResolverService,
-            new Visitor\AggregateVisitor(
+            new OutputVisitor(
                 [
                     new Visitor\BlockVisitor($this->blockService),
                     new Visitor\CollectionVisitor(),

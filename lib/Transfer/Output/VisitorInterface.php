@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Transfer\Output;
 
-use Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor;
-
 /**
  * Visits values into hash representation.
  *
@@ -24,5 +22,5 @@ interface VisitorInterface
     /**
      * Visit the given $value into hash array representation.
      */
-    public function visit(object $value, AggregateVisitor $aggregateVisitor): array;
+    public function visit(object $value, OutputVisitor $outputVisitor): array;
 }

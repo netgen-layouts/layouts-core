@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Transfer\Output\Visitor;
 
 use Generator;
 use Netgen\Layouts\API\Values\Block\Placeholder;
+use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 /**
@@ -22,25 +23,25 @@ final class PlaceholderVisitor implements VisitorInterface
 
     /**
      * @param \Netgen\Layouts\API\Values\Block\Placeholder $value
-     * @param \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor $aggregateVisitor
+     * @param \Netgen\Layouts\Transfer\Output\OutputVisitor $outputVisitor
      *
      * @return array
      */
-    public function visit(object $value, AggregateVisitor $aggregateVisitor): array
+    public function visit(object $value, OutputVisitor $outputVisitor): array
     {
         return [
             'identifier' => $value->getIdentifier(),
-            'blocks' => iterator_to_array($this->visitBlocks($value, $aggregateVisitor)),
+            'blocks' => iterator_to_array($this->visitBlocks($value, $outputVisitor)),
         ];
     }
 
     /**
      * Visit the given $placeholder blocks into hash representation.
      */
-    private function visitBlocks(Placeholder $placeholder, AggregateVisitor $aggregateVisitor): Generator
+    private function visitBlocks(Placeholder $placeholder, OutputVisitor $outputVisitor): Generator
     {
         foreach ($placeholder as $block) {
-            yield $aggregateVisitor->visit($block);
+            yield $outputVisitor->visit($block);
         }
     }
 }

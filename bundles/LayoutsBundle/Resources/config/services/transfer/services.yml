@@ -4,7 +4,7 @@ services:
         arguments:
             - "@netgen_layouts.api.service.layout"
             - "@netgen_layouts.api.service.layout_resolver"
-            - "@netgen_layouts.transfer.serializer.visitor.aggregate"
+            - "@netgen_layouts.transfer.serializer.visitor"
 
     netgen_layouts.transfer.input.data_handler.layout:
         class: Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler

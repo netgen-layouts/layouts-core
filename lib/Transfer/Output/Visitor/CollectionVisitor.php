@@ -8,6 +8,7 @@ use Generator;
 use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Collection\ItemList;
 use Netgen\Layouts\API\Values\Collection\SlotList;
+use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 /**
@@ -24,11 +25,11 @@ final class CollectionVisitor implements VisitorInterface
 
     /**
      * @param \Netgen\Layouts\API\Values\Collection\Collection $value
-     * @param \Netgen\Layouts\Transfer\Output\Visitor\AggregateVisitor $aggregateVisitor
+     * @param \Netgen\Layouts\Transfer\Output\OutputVisitor $outputVisitor
      *
      * @return array
      */
-    public function visit(object $value, AggregateVisitor $aggregateVisitor): array
+    public function visit(object $value, OutputVisitor $outputVisitor): array
     {
         return [
             'id' => $value->getId()->toString(),
@@ -38,42 +39,42 @@ final class CollectionVisitor implements VisitorInterface
             'is_always_available' => $value->isAlwaysAvailable(),
             'main_locale' => $value->getMainLocale(),
             'available_locales' => $value->getAvailableLocales(),
-            'items' => iterator_to_array($this->visitItems($value->getItems(), $aggregateVisitor)),
-            'slots' => iterator_to_array($this->visitSlots($value->getSlots(), $aggregateVisitor)),
-            'query' => $this->visitQuery($value, $aggregateVisitor),
+            'items' => iterator_to_array($this->visitItems($value->getItems(), $outputVisitor)),
+            'slots' => iterator_to_array($this->visitSlots($value->getSlots(), $outputVisitor)),
+            'query' => $this->visitQuery($value, $outputVisitor),
         ];
     }
 
     /**
      * Visit the given collection $items into hash representation.
      */
-    private function visitItems(ItemList $items, AggregateVisitor $aggregateVisitor): Generator
+    private function visitItems(ItemList $items, OutputVisitor $outputVisitor): Generator
     {
         foreach ($items as $item) {
-            yield $aggregateVisitor->visit($item);
+            yield $outputVisitor->visit($item);
         }
     }
 
     /**
      * Visit the given collection $slots into hash representation.
      */
-    private function visitSlots(SlotList $slots, AggregateVisitor $aggregateVisitor): Generator
+    private function visitSlots(SlotList $slots, OutputVisitor $outputVisitor): Generator
     {
         foreach ($slots as $slot) {
-            yield $aggregateVisitor->visit($slot);
+            yield $outputVisitor->visit($slot);
         }
     }
 
     /**
      * Visit the given $collection query into hash representation.
      */
-    private function visitQuery(Collection $collection, AggregateVisitor $aggregateVisitor): ?array
+    private function visitQuery(Collection $collection, OutputVisitor $outputVisitor): ?array
     {
         $query = $collection->getQuery();
         if ($query === null) {
             return null;
         }
 
-        return $aggregateVisitor->visit($query);
+        return $outputVisitor->visit($query);
     }
 }
