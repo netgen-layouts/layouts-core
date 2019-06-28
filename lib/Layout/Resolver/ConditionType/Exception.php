@@ -45,11 +45,11 @@ final class Exception implements ConditionTypeInterface
         }
 
         $exception = $request->attributes->get('exception');
-        if (class_exists(ErrorCatcherFlattenException::class) && !$exception instanceof ErrorCatcherFlattenException) {
-            return false;
-        }
-
-        if (!$exception instanceof DebugFlattenException) {
+        if (class_exists(ErrorCatcherFlattenException::class)) {
+            if (!$exception instanceof ErrorCatcherFlattenException) {
+                return false;
+            }
+        } elseif (!$exception instanceof DebugFlattenException) {
             return false;
         }
 
