@@ -26,6 +26,8 @@ parameters:
             message: '#Method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) invoked with 2 parameters, 1 required#'
             path: lib/Utils/BackwardsCompatibility/EventDispatcherProxy.php
 
+        - '#Symfony\\Component\\ErrorCatcher\\Exception\\FlattenException#'
+
         # Netgen Layouts specifics
 
         - '#Property Netgen\\Layouts\\Persistence\\Values\\.+::\$\w+ \(int\) does not accept null.#'

@@ -14,4 +14,10 @@ parameters:
             message: '#Cannot call method fetchAll\(\) on Doctrine\\DBAL\\Driver\\Statement\|int#'
             path: tests/lib/Persistence/Doctrine/Helper/PositionHelperTest.php
 
+        # Compatibility with Symfony 3.4
+
+        - '#Symfony\\Component\\ErrorCatcher\\Exception\\FlattenException#'
+
+        # Netgen Layouts specifics
+
         - '#should be contravariant with parameter \$(value|object)#'

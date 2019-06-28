@@ -28,6 +28,12 @@
             </errorLevel>
         </UndefinedInterfaceMethod>
 
+        <UndefinedClass>
+            <errorLevel type="suppress">
+                <referencedClass name="Symfony\Component\ErrorCatcher\Exception\FlattenException" />
+            </errorLevel>
+        </UndefinedClass>
+
         <!-- Doctrine Collections -->
 
         <InvalidPropertyAssignmentValue>

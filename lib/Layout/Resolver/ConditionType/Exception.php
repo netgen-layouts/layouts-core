@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Layout\Resolver\ConditionType;
 
 use Netgen\Layouts\Layout\Resolver\ConditionTypeInterface;
-use Symfony\Component\Debug\Exception\FlattenException;
+use Symfony\Component\Debug\Exception\FlattenException as DebugFlattenException;
+use Symfony\Component\ErrorCatcher\Exception\FlattenException as ErrorCatcherFlattenException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;
 
@@ -44,7 +45,11 @@ final class Exception implements ConditionTypeInterface
         }
 
         $exception = $request->attributes->get('exception');
-        if (!$exception instanceof FlattenException) {
+        if (class_exists(ErrorCatcherFlattenException::class) && !$exception instanceof ErrorCatcherFlattenException) {
+            return false;
+        }
+
+        if (!$exception instanceof DebugFlattenException) {
             return false;
         }
 
