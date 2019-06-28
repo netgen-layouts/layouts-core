@@ -28,6 +28,14 @@
             </errorLevel>
         </UndefinedInterfaceMethod>
 
+        <!-- Doctrine Collections -->
+
+        <InvalidPropertyAssignmentValue>
+            <errorLevel type="suppress">
+                <file name="lib/API/Values/LazyCollection.php" />
+            </errorLevel>
+        </InvalidPropertyAssignmentValue>
+
         <!-- Doctrine DBAL -->
 
         <TooManyArguments>
