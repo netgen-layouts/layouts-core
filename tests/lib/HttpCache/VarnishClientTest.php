@@ -47,7 +47,7 @@ final class VarnishClientTest extends TestCase
         $this->fosInvalidatorMock
             ->expects(self::at(0))
             ->method('invalidateTags')
-            ->with(self::identicalTo(['tag-1', 'tag-2']), );
+            ->with(self::identicalTo(['tag-1', 'tag-2']));
 
         $this->client->purge(['tag-1', 'tag-2']);
     }
