@@ -44,36 +44,10 @@ final class VarnishClientTest extends TestCase
      */
     public function testPurge(): void
     {
-        $this->hostHeaderProviderMock
-            ->expects(self::once())
-            ->method('provideHostHeader')
-            ->willReturn('http://localhost:4242');
-
         $this->fosInvalidatorMock
             ->expects(self::at(0))
-            ->method('invalidatePath')
-            ->with(
-                self::identicalTo('/'),
-                self::identicalTo(
-                    [
-                        'key' => 'tag-1',
-                        'Host' => 'http://localhost:4242',
-                    ]
-                )
-            );
-
-        $this->fosInvalidatorMock
-            ->expects(self::at(1))
-            ->method('invalidatePath')
-            ->with(
-                self::identicalTo('/'),
-                self::identicalTo(
-                    [
-                        'key' => 'tag-2',
-                        'Host' => 'http://localhost:4242',
-                    ]
-                )
-            );
+            ->method('invalidateTags')
+            ->with(self::identicalTo(['tag-1', 'tag-2']), );
 
         $this->client->purge(['tag-1', 'tag-2']);
     }
