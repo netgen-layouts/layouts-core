@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 
-use Netgen\Bundle\LayoutsBundle\Security\CsrfTokenValidatorInterface;
+use Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidatorInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 final class ApiCsrfValidationListener implements EventSubscriberInterface
 {
     /**
-     * @var \Netgen\Bundle\LayoutsBundle\Security\CsrfTokenValidatorInterface
+     * @var \Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidatorInterface
      */
     private $csrfTokenValidator;
 

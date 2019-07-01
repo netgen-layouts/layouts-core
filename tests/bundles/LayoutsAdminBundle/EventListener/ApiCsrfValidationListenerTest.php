@@ -6,7 +6,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\ApiCsrfValidationListener;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener;
-use Netgen\Bundle\LayoutsBundle\Security\CsrfTokenValidatorInterface;
+use Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidatorInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -17,7 +17,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 final class ApiCsrfValidationListenerTest extends TestCase
 {
     /**
-     * @var \Netgen\Bundle\LayoutsBundle\Security\CsrfTokenValidatorInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidatorInterface&\PHPUnit\Framework\MockObject\MockObject
      */
     private $csrfTokenValidatorMock;
 
