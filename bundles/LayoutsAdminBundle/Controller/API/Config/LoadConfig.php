@@ -21,19 +21,12 @@ final class LoadConfig extends AbstractController
      */
     private $csrfTokenManager;
 
-    /**
-     * @var string
-     */
-    private $csrfTokenId;
-
     public function __construct(
         ConfigurationInterface $configuration,
-        CsrfTokenManagerInterface $csrfTokenManager,
-        string $csrfTokenId
+        CsrfTokenManagerInterface $csrfTokenManager
     ) {
         $this->configuration = $configuration;
         $this->csrfTokenManager = $csrfTokenManager;
-        $this->csrfTokenId = $csrfTokenId;
     }
 
     /**
@@ -46,7 +39,9 @@ final class LoadConfig extends AbstractController
         return new ArrayValue(
             [
                 'automatic_cache_clear' => $this->configuration->getParameter('app.automatic_cache_clear'),
-                'csrf_token' => $this->csrfTokenManager->getToken($this->csrfTokenId)->getValue(),
+                'csrf_token' => $this->csrfTokenManager->getToken(
+                    $this->configuration->getParameter('app.csrf_token_id')
+                )->getValue(),
             ]
         );
     }

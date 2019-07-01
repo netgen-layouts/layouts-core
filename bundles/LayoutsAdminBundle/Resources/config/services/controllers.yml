@@ -273,7 +273,6 @@ services:
         arguments:
             - "@netgen_layouts.configuration"
             - "@security.csrf.token_manager"
-            - "%netgen_layouts.app.csrf_token_id%"
 
     netgen_layouts.controller.api.config.load_block_types:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\API\Config\LoadBlockTypes
