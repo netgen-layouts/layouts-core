@@ -5,12 +5,3 @@ view:
                 template: "@NetgenLayouts/item/invalid_item.html.twig"
                 match:
                     item\value_type: "null"
-        app:
-            unknown:
-                template: "@NetgenLayouts/app/item/unknown_item.html.twig"
-                match:
-                    item\value_type: unknown
-            invalid:
-                template: "@NetgenLayouts/app/item/invalid_item.html.twig"
-                match:
-                    item\value_type: "null"

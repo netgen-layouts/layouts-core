@@ -14,3 +14,8 @@ view:
                 template: "@NetgenLayoutsAdmin/admin/shared_layouts/layout.html.twig"
                 match:
                     layout\shared: true
+        app:
+            invalid:
+                template: "@NetgenLayoutsAdmin/app/layout/invalid_layout.html.twig"
+                match:
+                    layout\type: "null"

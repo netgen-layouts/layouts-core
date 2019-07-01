@@ -1,0 +1,7 @@
+view:
+    block_view:
+        app:
+            invalid:
+                template: "@NetgenLayoutsAdmin/app/block/invalid_block.html.twig"
+                match:
+                    block\definition: "null"

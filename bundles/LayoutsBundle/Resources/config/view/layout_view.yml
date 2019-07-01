@@ -5,8 +5,3 @@ view:
                 template: "@NetgenLayouts/layout/invalid_layout.html.twig"
                 match:
                     layout\type: "null"
-        app:
-            invalid:
-                template: "@NetgenLayouts/app/layout/invalid_layout.html.twig"
-                match:
-                    layout\type: "null"

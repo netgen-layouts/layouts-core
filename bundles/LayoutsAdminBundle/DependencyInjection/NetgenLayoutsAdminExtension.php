@@ -40,6 +40,8 @@ final class NetgenLayoutsAdminExtension extends Extension implements PrependExte
             'framework/assets.yml' => 'framework',
             'framework/twig.yml' => 'twig',
             'view/form_view.yml' => 'netgen_layouts',
+            'view/item_view.yml' => 'netgen_layouts',
+            'view/block_view.yml' => 'netgen_layouts',
             'view/layout_view.yml' => 'netgen_layouts',
             'view/rule_target_view.yml' => 'netgen_layouts',
             'view/rule_condition_view.yml' => 'netgen_layouts',

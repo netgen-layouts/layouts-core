@@ -4,7 +4,6 @@ default_view_templates:
         app: '@NetgenLayouts/app/block/block.html.twig'
     item_view:
         default: '@NetgenLayouts/item/invalid_item.html.twig'
-        app: '@NetgenLayouts/app/item/invalid_item.html.twig'
     parameter_view:
         default: '@NetgenLayouts/parameter/parameter.html.twig'
     placeholder_view:

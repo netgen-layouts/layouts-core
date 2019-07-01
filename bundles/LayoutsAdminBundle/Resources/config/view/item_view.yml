@@ -1,0 +1,11 @@
+view:
+    item_view:
+        app:
+            unknown:
+                template: "@NetgenLayoutsAdmin/app/item/unknown_item.html.twig"
+                match:
+                    item\value_type: unknown
+            invalid:
+                template: "@NetgenLayoutsAdmin/app/item/invalid_item.html.twig"
+                match:
+                    item\value_type: "null"
