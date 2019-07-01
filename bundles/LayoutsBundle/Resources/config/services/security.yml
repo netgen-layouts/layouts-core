@@ -1,9 +1,4 @@
 services:
-    netgen_layouts.security.csrf_validator:
-        class: Netgen\Bundle\LayoutsBundle\Security\CsrfTokenValidator
-        arguments:
-            - "@security.csrf.token_manager"
-
     netgen_layouts.security.voter.policy_to_role_map:
         class: Netgen\Layouts\Security\Authorization\Voter\PolicyToRoleMapVoter
         arguments:

@@ -1,0 +1,5 @@
+services:
+    netgen_layouts.security.csrf_validator:
+        class: Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidator
+        arguments:
+            - "@security.csrf.token_manager"

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Bundle\LayoutsBundle\Tests\Security;
+namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Security;
 
-use Netgen\Bundle\LayoutsBundle\Security\CsrfTokenValidator;
+use Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -24,7 +24,7 @@ final class CsrfTokenValidatorTest extends TestCase
     private $sessionMock;
 
     /**
-     * @var \Netgen\Bundle\LayoutsBundle\Security\CsrfTokenValidator
+     * @var \Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidator
      */
     private $validator;
 
@@ -42,8 +42,8 @@ final class CsrfTokenValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Security\CsrfTokenValidator::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\Security\CsrfTokenValidator::validateCsrfToken
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidator::__construct
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidator::validateCsrfToken
      */
     public function testValidateCsrfToken(): void
     {
@@ -67,7 +67,7 @@ final class CsrfTokenValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Security\CsrfTokenValidator::validateCsrfToken
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidator::validateCsrfToken
      */
     public function testValidateCsrfTokenOnInvalidToken(): void
     {
@@ -91,7 +91,7 @@ final class CsrfTokenValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Security\CsrfTokenValidator::validateCsrfToken
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidator::validateCsrfToken
      */
     public function testValidateCsrfTokenOnMissingTokenHeader(): void
     {
@@ -112,7 +112,7 @@ final class CsrfTokenValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Security\CsrfTokenValidator::validateCsrfToken
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidator::validateCsrfToken
      */
     public function testValidateCsrfTokenWithNotStartedSession(): void
     {
@@ -132,7 +132,7 @@ final class CsrfTokenValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Security\CsrfTokenValidator::validateCsrfToken
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidator::validateCsrfToken
      */
     public function testValidateCsrfTokenWithNoSession(): void
     {
@@ -150,7 +150,7 @@ final class CsrfTokenValidatorTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\Security\CsrfTokenValidator::validateCsrfToken
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidator::validateCsrfToken
      */
     public function testValidateCsrfTokenWithSafeMethod(): void
     {
