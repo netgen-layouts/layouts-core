@@ -81,7 +81,7 @@ $ chrome behat-headless
 
 All code is statically analysed with PHPStan. Make sure that PHPStan is green
 for the entire codebase after your changes. Run the following two commands to
-run PHPStan for the library/bundle code and for tests code, respectivelly:
+run PHPStan for the library/bundle code and for tests code, respectively:
 
 ```
 $ composer phpstan
