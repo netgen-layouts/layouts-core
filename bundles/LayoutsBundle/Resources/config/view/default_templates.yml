@@ -1,7 +1,6 @@
 default_view_templates:
     block_view:
         default: '@NetgenLayouts/block/invalid_block.html.twig'
-        app: '@NetgenLayouts/app/block/block.html.twig'
     item_view:
         default: '@NetgenLayouts/item/invalid_item.html.twig'
     parameter_view:
