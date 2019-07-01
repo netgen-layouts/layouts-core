@@ -20,14 +20,6 @@ final class RenderingExtension extends AbstractExtension
     {
         return [
             new TwigFunction(
-                'nglayouts_render_item',
-                [RenderingRuntime::class, 'renderItem'],
-                [
-                    'needs_context' => true,
-                    'is_safe' => ['html'],
-                ]
-            ),
-            new TwigFunction(
                 'nglayouts_render_result',
                 [RenderingRuntime::class, 'renderResult'],
                 [
