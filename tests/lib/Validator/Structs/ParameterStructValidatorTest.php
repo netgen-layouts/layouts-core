@@ -13,6 +13,7 @@ use Netgen\Layouts\Tests\Parameters\Stubs\ParameterDefinitionCollection;
 use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
 use Netgen\Layouts\Validator\Constraint\Structs\ParameterStruct;
 use Netgen\Layouts\Validator\Structs\ParameterStructValidator;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -116,7 +117,9 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
                                 'constraints' => [
                                     new Length(['max' => 6]),
                                     static function (): Constraint {
-                                        return new Length(['min' => 3]);
+                                        return Kernel::VERSION_ID >= 40400 ?
+                                            new Length(['min' => 3, 'allowEmptyString' => false]) :
+                                            new Length(['min' => 3]);
                                     },
                                 ],
                             ]
