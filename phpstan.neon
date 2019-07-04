@@ -14,7 +14,7 @@ parameters:
 
         # Compatibility with Symfony 3.4
         -
-            message: '#Call to function is_callable\(\) with .+ will always evaluate to true.#'
+            message: '#Call to function is_callable\(\) with .+ will always evaluate to false.#'
             path: lib/Utils/BackwardsCompatibility/TreeBuilder.php
         -
             message: '#Call to an undefined method Symfony\\Component\\Intl\\ResourceBundle\\LocaleBundleInterface::getAliases\(\)#'
