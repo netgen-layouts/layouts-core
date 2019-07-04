@@ -9,13 +9,17 @@ use Netgen\Layouts\API\Values\Block\Block;
 /**
  * Twig block definition is a special kind of block used to render
  * template blocks specified in the currently rendered context. This
- * model specifies, for every block definition, the name of the Twig block
- * to render.
+ * model specifies, for every block definition, the name of the Twig blocks
+ * to render. First block that is found is rendered.
  */
 interface TwigBlockDefinitionInterface extends BlockDefinitionInterface
 {
     /**
-     * Returns the name of the Twig block to render.
+     * Returns the names of the Twig blocks to render.
+     *
+     * First block that is found is rendered.
+     *
+     * @return string[]
      */
-    public function getTwigBlockName(Block $block): string;
+    public function getTwigBlockNames(Block $block): array;
 }

@@ -44,6 +44,14 @@ final class ContextualizedTwigTemplate
     }
 
     /**
+     * Renders if the template has a block with provided name.
+     */
+    public function hasBlock(string $blockName): bool
+    {
+        return $this->template->hasBlock($blockName, $this->context, $this->blocks);
+    }
+
+    /**
      * Renders the provided block. If block does not exist, an empty string will be returned.
      *
      * @throws \Throwable

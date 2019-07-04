@@ -34,10 +34,10 @@ final class TwigBlockDefinitionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Block\TwigBlockDefinition::getTwigBlockName
+     * @covers \Netgen\Layouts\Block\TwigBlockDefinition::getTwigBlockNames
      */
-    public function testGetTwigBlockName(): void
+    public function testGetTwigBlockNames(): void
     {
-        self::assertSame('twig_block', $this->blockDefinition->getTwigBlockName(new Block()));
+        self::assertSame(['twig_block'], $this->blockDefinition->getTwigBlockNames(new Block()));
     }
 }

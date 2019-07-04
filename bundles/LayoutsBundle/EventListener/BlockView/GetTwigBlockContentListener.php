@@ -61,8 +61,12 @@ final class GetTwigBlockContentListener implements EventSubscriberInterface
             return '';
         }
 
-        return $parameters['twig_template']->renderBlock(
-            $blockDefinition->getTwigBlockName($block)
-        );
+        foreach ($blockDefinition->getTwigBlockNames($block) as $blockName) {
+            if ($parameters['twig_template']->hasBlock($blockName)) {
+                return $parameters['twig_template']->renderBlock($blockName);
+            }
+        }
+
+        return '';
     }
 }

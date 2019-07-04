@@ -28,6 +28,42 @@ final class ContextualizedTwigTemplateTest extends TestCase
     /**
      * @covers \Netgen\Layouts\View\Twig\ContextualizedTwigTemplate::renderBlock
      */
+    public function testHasBlock(): void
+    {
+        $templateMock = $this->createMock(Template::class);
+
+        $templateMock
+            ->expects(self::any())
+            ->method('hasBlock')
+            ->with(self::identicalTo('block_name'))
+            ->willReturn(true);
+
+        $template = new ContextualizedTwigTemplate($templateMock);
+
+        self::assertTrue($template->hasBlock('block_name'));
+    }
+
+    /**
+     * @covers \Netgen\Layouts\View\Twig\ContextualizedTwigTemplate::renderBlock
+     */
+    public function testHasBlockReturnsFalse(): void
+    {
+        $templateMock = $this->createMock(Template::class);
+
+        $templateMock
+            ->expects(self::any())
+            ->method('hasBlock')
+            ->with(self::identicalTo('block_name'))
+            ->willReturn(false);
+
+        $template = new ContextualizedTwigTemplate($templateMock);
+
+        self::assertFalse($template->hasBlock('block_name'));
+    }
+
+    /**
+     * @covers \Netgen\Layouts\View\Twig\ContextualizedTwigTemplate::renderBlock
+     */
     public function testRenderBlock(): void
     {
         $templateMock = $this->createMock(Template::class);

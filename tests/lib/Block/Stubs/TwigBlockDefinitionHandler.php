@@ -10,9 +10,19 @@ use Netgen\Layouts\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 
 final class TwigBlockDefinitionHandler extends BaseBlockDefinitionHandler implements TwigBlockDefinitionHandlerInterface
 {
-    public function getTwigBlockName(Block $block): string
+    /**
+     * @var string[]
+     */
+    private $twigBlocks;
+
+    public function __construct(array $twigBlocks = ['twig_block'])
     {
-        return 'twig_block';
+        $this->twigBlocks = $twigBlocks;
+    }
+
+    public function getTwigBlockNames(Block $block): array
+    {
+        return $this->twigBlocks;
     }
 
     public function isContextual(Block $block): bool

@@ -64,13 +64,15 @@ final class GetTwigBlockContentListenerTest extends TestCase
         $twigTemplateMock = $this->createMock(Template::class);
 
         $twigTemplateMock
-            ->expects(self::once())
+            ->expects(self::any())
             ->method('hasBlock')
+            ->with(self::identicalTo('twig_block'))
             ->willReturn(true);
 
         $twigTemplateMock
             ->expects(self::once())
             ->method('displayBlock')
+            ->with(self::identicalTo('twig_block'))
             ->willReturnCallback(
                 static function (): void {
                     echo 'rendered twig block';
@@ -84,6 +86,110 @@ final class GetTwigBlockContentListenerTest extends TestCase
 
         self::assertArrayHasKey('twig_content', $event->getParameters());
         self::assertSame('rendered twig block', $event->getParameters()['twig_content']);
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetTwigBlockContentListener::getTwigBlockContent
+     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetTwigBlockContentListener::onRenderView
+     */
+    public function testOnRenderViewWithBlockOnSecondPlace(): void
+    {
+        $block = Block::fromArray(
+            [
+                'id' => 42,
+                'definition' => TwigBlockDefinition::fromArray(
+                    [
+                        'handler' => new TwigBlockDefinitionHandler(['block1', 'block2']),
+                    ]
+                ),
+            ]
+        );
+
+        $blockView = new BlockView($block);
+
+        $twigTemplateMock = $this->createMock(Template::class);
+
+        $twigTemplateMock
+            ->expects(self::at(0))
+            ->method('hasBlock')
+            ->with(self::identicalTo('block1'))
+            ->willReturn(false);
+
+        $twigTemplateMock
+            ->expects(self::at(1))
+            ->method('hasBlock')
+            ->with(self::identicalTo('block2'))
+            ->willReturn(true);
+
+        $twigTemplateMock
+            ->expects(self::at(2))
+            ->method('hasBlock')
+            ->with(self::identicalTo('block2'))
+            ->willReturn(true);
+
+        $twigTemplateMock
+            ->expects(self::once())
+            ->method('displayBlock')
+            ->with(self::identicalTo('block2'))
+            ->willReturnCallback(
+                static function (): void {
+                    echo 'rendered twig block';
+                }
+            );
+
+        $blockView->addParameter('twig_template', new ContextualizedTwigTemplate($twigTemplateMock));
+
+        $event = new CollectViewParametersEvent($blockView);
+        $this->listener->onRenderView($event);
+
+        self::assertArrayHasKey('twig_content', $event->getParameters());
+        self::assertSame('rendered twig block', $event->getParameters()['twig_content']);
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetTwigBlockContentListener::getTwigBlockContent
+     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetTwigBlockContentListener::onRenderView
+     */
+    public function testOnRenderViewWithNoBlocks(): void
+    {
+        $block = Block::fromArray(
+            [
+                'id' => 42,
+                'definition' => TwigBlockDefinition::fromArray(
+                    [
+                        'handler' => new TwigBlockDefinitionHandler(['block1', 'block2']),
+                    ]
+                ),
+            ]
+        );
+
+        $blockView = new BlockView($block);
+
+        $twigTemplateMock = $this->createMock(Template::class);
+
+        $twigTemplateMock
+            ->expects(self::at(0))
+            ->method('hasBlock')
+            ->with(self::identicalTo('block1'))
+            ->willReturn(false);
+
+        $twigTemplateMock
+            ->expects(self::at(1))
+            ->method('hasBlock')
+            ->with(self::identicalTo('block2'))
+            ->willReturn(false);
+
+        $twigTemplateMock
+            ->expects(self::never())
+            ->method('displayBlock');
+
+        $blockView->addParameter('twig_template', new ContextualizedTwigTemplate($twigTemplateMock));
+
+        $event = new CollectViewParametersEvent($blockView);
+        $this->listener->onRenderView($event);
+
+        self::assertArrayHasKey('twig_content', $event->getParameters());
+        self::assertSame('', $event->getParameters()['twig_content']);
     }
 
     /**

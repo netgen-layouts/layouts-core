@@ -15,7 +15,11 @@ use Netgen\Layouts\API\Values\Block\Block;
 interface TwigBlockDefinitionHandlerInterface extends BlockDefinitionHandlerInterface
 {
     /**
-     * Returns the name of the Twig block to render.
+     * Returns the names of the Twig blocks to render.
+     *
+     * First block that is found is rendered.
+     *
+     * @return string[]
      */
-    public function getTwigBlockName(Block $block): string;
+    public function getTwigBlockNames(Block $block): array;
 }
