@@ -1,6 +1,11 @@
+parameters:
+    netgen_layouts.locale.available_locales: ['%kernel.default_locale%']
+
 services:
     netgen_layouts.locale.provider:
         alias: netgen_layouts.locale.provider.default
 
     netgen_layouts.locale.provider.default:
         class: Netgen\Layouts\Locale\LocaleProvider
+        arguments:
+            - '%netgen_layouts.locale.available_locales%'
