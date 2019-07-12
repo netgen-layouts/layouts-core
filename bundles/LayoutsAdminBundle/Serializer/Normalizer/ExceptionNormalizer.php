@@ -6,7 +6,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer;
 
 use Exception;
 use Symfony\Component\Debug\Exception\FlattenException as DebugFlattenException;
-use Symfony\Component\ErrorCatcher\Exception\FlattenException as ErrorCatcherFlattenException;
+use Symfony\Component\ErrorRenderer\Exception\FlattenException as ErrorRendererFlattenException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -40,8 +40,8 @@ final class ExceptionNormalizer implements NormalizerInterface
 
         if ($this->outputDebugInfo) {
             $debugException = $object->getPrevious() ?? $object;
-            if (class_exists(ErrorCatcherFlattenException::class)) {
-                $debugException = ErrorCatcherFlattenException::createFromThrowable($debugException);
+            if (class_exists(ErrorRendererFlattenException::class)) {
+                $debugException = ErrorRendererFlattenException::createFromThrowable($debugException);
             } elseif ($debugException instanceof Exception) {
                 $debugException = DebugFlattenException::create($debugException);
             }

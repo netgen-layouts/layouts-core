@@ -16,7 +16,7 @@ parameters:
 
         # Compatibility with Symfony 3.4
 
-        - '#Symfony\\Component\\ErrorCatcher\\Exception\\FlattenException#'
+        - '#Symfony\\Component\\ErrorRenderer\\Exception\\FlattenException#'
 
         # Netgen Layouts specifics
 
