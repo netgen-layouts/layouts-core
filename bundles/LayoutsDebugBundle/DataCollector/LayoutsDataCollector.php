@@ -41,17 +41,18 @@ final class LayoutsDataCollector extends DataCollector
      */
     private $layoutCache = [];
 
-    public function __construct(LayoutService $layoutService, GlobalVariable $globalVariable, Environment $twig)
+    public function __construct(LayoutService $layoutService, GlobalVariable $globalVariable, Environment $twig, string $edition)
     {
         $this->layoutService = $layoutService;
         $this->globalVariable = $globalVariable;
         $this->twig = $twig;
 
-        $this->data['version'] = PrettyVersions::getVersion('netgen/layouts-core')->getPrettyVersion();
+        $coreVersion = PrettyVersions::getVersion('netgen/layouts-core')->getPrettyVersion();
+        $this->data['version'] = sprintf('%s %s', $coreVersion, $edition);
         $this->data['docs_version'] = 'latest';
 
         try {
-            $version = Version::fromString($this->data['version']);
+            $version = Version::fromString($coreVersion);
             $this->data['docs_version'] = sprintf('%d.%d', $version->getMajor(), $version->getMinor());
         } catch (InvalidVersionStringException $e) {
             // Do nothing

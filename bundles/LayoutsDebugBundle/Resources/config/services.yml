@@ -8,6 +8,7 @@ services:
             - "@netgen_layouts.api.service.layout"
             - "@netgen_layouts.templating.global_variable"
             - "@twig"
+            - "%netgen_layouts.edition%"
         tags:
             - { name: data_collector, template: '@NetgenLayoutsDebug/data_collector/nglayouts.html.twig', id: nglayouts }
 
