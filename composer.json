@@ -67,7 +67,6 @@
         "phpunit/phpunit": "^8.1",
         "symfony/phpunit-bridge": "^4.3",
         "symfony/var-dumper": "^3.4.24 || ^4.3",
-        "symfony/web-server-bundle": "^3.4.24 || ^4.3",
         "phpstan/phpstan": "^0.11",
         "phpstan/phpstan-strict-rules": "^0.11",
         "phpstan/phpstan-phpunit": "^0.11",
