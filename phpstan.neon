@@ -26,7 +26,7 @@ parameters:
             message: '#Method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) invoked with 2 parameters, 1 required#'
             path: lib/Utils/BackwardsCompatibility/EventDispatcherProxy.php
 
-        - '#Symfony\\Component\\ErrorCatcher\\Exception\\FlattenException#'
+        - '#Symfony\\Component\\ErrorRenderer\\Exception\\FlattenException#'
 
         # Netgen Layouts specifics
 
