@@ -72,6 +72,7 @@ final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
             ]
         );
 
+        $this->setDefinition('netgen_layouts.block.block_type.test1', new Definition());
         $this->setDefinition('netgen_layouts.block.registry.block_type_group', new Definition(null, [[]]));
 
         $this->compile();
@@ -125,6 +126,9 @@ final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
             ]
         );
 
+        $this->setDefinition('netgen_layouts.block.block_type.test1', new Definition());
+        $this->setDefinition('netgen_layouts.block.block_type.test2', new Definition());
+        $this->setDefinition('netgen_layouts.block.block_type.test3', new Definition());
         $this->setDefinition('netgen_layouts.block.registry.block_type_group', new Definition(null, [[]]));
 
         $this->compile();
