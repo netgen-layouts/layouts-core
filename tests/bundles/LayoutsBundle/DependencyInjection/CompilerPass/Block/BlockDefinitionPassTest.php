@@ -29,6 +29,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
     public function testProcess(string $handlerClass, string $definitionClass): void
     {
         $this->setParameter('test.class', BlockDefinitionHandler::class);
+        $this->setDefinition('netgen_layouts.block.block_definition_factory', new Definition());
 
         $this->setParameter(
             'netgen_layouts.block_definitions',
@@ -85,6 +86,7 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
     public function testProcessWithCustomHandler(string $handlerClass, string $definitionClass): void
     {
         $this->setParameter('test.class', BlockDefinitionHandler::class);
+        $this->setDefinition('netgen_layouts.block.block_definition_factory', new Definition());
 
         $this->setParameter(
             'netgen_layouts.block_definitions',

@@ -30,6 +30,7 @@ final class ItemDefinitionPassTest extends AbstractCompilerPassTestCase
             ]
         );
 
+        $this->setDefinition('netgen_layouts.collection.item_definition_factory', new Definition());
         $this->setDefinition('netgen_layouts.collection.registry.item_definition', new Definition(null, [[]]));
 
         $configHandler = new Definition();

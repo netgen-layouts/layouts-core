@@ -23,6 +23,7 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
         $queryTypes = ['query_type' => ['config']];
         $this->setParameter('netgen_layouts.query_types', $queryTypes);
 
+        $this->setDefinition('netgen_layouts.collection.query_type_factory', new Definition());
         $this->setDefinition('netgen_layouts.collection.registry.query_type', new Definition(null, [[]]));
 
         $queryTypeHandler = new Definition(stdClass::class);
@@ -52,6 +53,7 @@ final class QueryTypePassTest extends AbstractCompilerPassTestCase
         $queryTypes = ['query_type' => ['handler' => 'custom']];
         $this->setParameter('netgen_layouts.query_types', $queryTypes);
 
+        $this->setDefinition('netgen_layouts.collection.query_type_factory', new Definition());
         $this->setDefinition('netgen_layouts.collection.registry.query_type', new Definition(null, [[]]));
 
         $queryTypeHandler = new Definition(stdClass::class);

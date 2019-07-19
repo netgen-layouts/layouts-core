@@ -44,6 +44,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
             ]
         );
 
+        $this->setDefinition('netgen_layouts.block.block_definition.test', new Definition());
         $this->setDefinition('netgen_layouts.block.registry.block_type', new Definition(null, [[]]));
 
         $this->compile();
@@ -93,6 +94,8 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
             ]
         );
 
+        $this->setDefinition('netgen_layouts.block.block_definition.test', new Definition());
+        $this->setDefinition('netgen_layouts.block.block_definition.other', new Definition());
         $this->setDefinition('netgen_layouts.block.registry.block_type', new Definition(null, [[]]));
 
         $this->compile();
@@ -148,6 +151,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
             ]
         );
 
+        $this->setDefinition('netgen_layouts.block.block_definition.test', new Definition());
         $this->setDefinition('netgen_layouts.block.registry.block_type', new Definition(null, [[]]));
 
         $this->compile();
@@ -198,6 +202,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
             ]
         );
 
+        $this->setDefinition('netgen_layouts.block.block_definition.test', new Definition());
         $this->setDefinition('netgen_layouts.block.registry.block_type', new Definition(null, [[]]));
 
         $this->compile();
@@ -256,6 +261,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
             ]
         );
 
+        $this->setDefinition('netgen_layouts.block.block_definition.title', new Definition());
         $this->setDefinition('netgen_layouts.block.registry.block_type', new Definition(null, [[]]));
 
         $this->compile();
@@ -315,6 +321,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
             ]
         );
 
+        $this->setDefinition('netgen_layouts.block.block_definition.title', new Definition());
         $this->setDefinition('netgen_layouts.block.registry.block_type', new Definition(null, [[]]));
 
         $this->compile();
@@ -374,6 +381,7 @@ final class BlockTypePassTest extends AbstractCompilerPassTestCase
             ]
         );
 
+        $this->setDefinition('netgen_layouts.block.block_definition.title', new Definition());
         $this->setDefinition('netgen_layouts.block.registry.block_type', new Definition(null, [[]]));
 
         $this->compile();
