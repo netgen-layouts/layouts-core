@@ -5,6 +5,7 @@ language: php
 php:
   - 7.2
   - 7.3
+  - 7.4snapshot
 
 services:
   - mysql
@@ -53,6 +54,7 @@ matrix:
         - npm run admin:prod
   allow_failures:
     - env: RUN_COVERAGE="yes"
+    - php: 7.4snapshot
   fast_finish: true
 
 branches:
