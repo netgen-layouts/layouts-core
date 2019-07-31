@@ -1,12 +1,12 @@
 {
     "name": "netgen/layouts-core",
-    "description": "Netgen Layouts is an easy and flexible way of managing all page layouts on your website. This is the core of Netgen Layouts, its heart and soul.",
+    "description": "Netgen Layouts enables you to build and manage complex web pages in a simpler way and with less coding. This is the core of Netgen Layouts, its heart and soul.",
     "license": "MIT",
     "type": "symfony-bundle",
     "authors": [
         {
             "name": "Netgen",
-            "homepage": "https://www.netgenlabs.com"
+            "homepage": "https://netgen.io"
         }
     ],
     "require": {
