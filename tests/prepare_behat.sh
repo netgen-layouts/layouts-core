@@ -8,8 +8,7 @@ if [ ! -f vendor/bin/symfony ]; then
 fi
 
 if [ ! -f vendor/bin/chromedriver ]; then
-    # MAJOR_CHROME_VERSION=$(google-chrome --product-version | grep -o '^[0-9]\+')
-    MAJOR_CHROME_VERSION=74
+    MAJOR_CHROME_VERSION=$(google-chrome --product-version | grep -o '^[0-9]\+')
     LATEST_CHROMEDRIVER=$(wget -qO- https://chromedriver.storage.googleapis.com/LATEST_RELEASE_$MAJOR_CHROME_VERSION)
     curl http://chromedriver.storage.googleapis.com/$LATEST_CHROMEDRIVER/chromedriver_linux64.zip > chromedriver.zip
     unzip chromedriver.zip && rm chromedriver.zip
