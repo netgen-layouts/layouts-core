@@ -125,7 +125,7 @@ final class LinkType extends AbstractType
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
         $linkType = $form->get('link_type')->getData();
-        if (!$form->has($linkType)) {
+        if (!is_string($linkType) || !$form->has($linkType)) {
             return;
         }
 
