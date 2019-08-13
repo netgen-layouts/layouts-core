@@ -45,24 +45,30 @@ final class ThemePass implements CompilerPassInterface
     private function getThemeDirs(ContainerBuilder $container, array $themeList): array
     {
         $paths = array_map(
-            static function (array $bundleMetadata): string {
-                return $bundleMetadata['path'] . '/Resources/views/nglayouts/themes';
+            static function (array $bundleMetadata): array {
+                return [
+                    $bundleMetadata['path'] . '/Resources/views/nglayouts/themes',
+                    $bundleMetadata['path'] . '/templates/nglayouts/themes',
+                ];
             },
             // Reversing the list of bundles so bundles added at end have higher priority
             // when searching for a template
             array_reverse($container->getParameter('kernel.bundles_metadata'))
         );
 
-        $paths = array_values(array_filter($paths, 'is_dir'));
+        $paths = array_merge(...array_values($paths));
+        $paths = array_filter($paths, 'is_dir');
 
         $defaultTwigDir = $container->getParameterBag()->resolveValue($container->getParameter('twig.default_path')) . '/nglayouts/themes';
         if (is_dir($defaultTwigDir)) {
             array_unshift($paths, $defaultTwigDir);
         }
 
-        $appDir = $this->getAppDir($container) . '/Resources/views/nglayouts/themes';
-        if (is_dir($appDir)) {
-            array_unshift($paths, $appDir);
+        if ($container->hasParameter('kernel.name')) {
+            $appDir = $this->getAppDir($container) . '/Resources/views/nglayouts/themes';
+            if (is_dir($appDir)) {
+                array_unshift($paths, $appDir);
+            }
         }
 
         $themeDirs = [];
