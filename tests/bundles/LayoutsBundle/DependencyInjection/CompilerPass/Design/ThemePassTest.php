@@ -20,9 +20,12 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
         @mkdir('/tmp/nglayouts/app/Resources/views/nglayouts/themes/standard', 0777, true);
         @mkdir('/tmp/nglayouts/bundles/first/Resources/views/nglayouts/themes/theme1', 0777, true);
         @mkdir('/tmp/nglayouts/bundles/first/Resources/views/nglayouts/themes/theme3', 0777, true);
+        @mkdir('/tmp/nglayouts/bundles/first/templates/nglayouts/themes/theme1', 0777, true);
+        @mkdir('/tmp/nglayouts/bundles/first/templates/nglayouts/themes/theme2', 0777, true);
         @mkdir('/tmp/nglayouts/bundles/second/Resources/views/nglayouts/themes/theme1', 0777, true);
         @mkdir('/tmp/nglayouts/bundles/second/Resources/views/nglayouts/themes/theme2', 0777, true);
         @mkdir('/tmp/nglayouts/bundles/second/Resources/views/nglayouts/themes/standard', 0777, true);
+        @mkdir('/tmp/nglayouts/bundles/second/templates/nglayouts/themes/standard', 0777, true);
 
         parent::setUp();
     }
@@ -64,10 +67,12 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
             'theme1' => [
                 '/tmp/nglayouts/bundles/second/Resources/views/nglayouts/themes/theme1',
                 '/tmp/nglayouts/bundles/first/Resources/views/nglayouts/themes/theme1',
+                '/tmp/nglayouts/bundles/first/templates/nglayouts/themes/theme1',
             ],
             'theme2' => [
                 '/tmp/nglayouts/templates/nglayouts/themes/theme2',
                 '/tmp/nglayouts/bundles/second/Resources/views/nglayouts/themes/theme2',
+                '/tmp/nglayouts/bundles/first/templates/nglayouts/themes/theme2',
             ],
             'theme3' => [
                 '/tmp/nglayouts/app/Resources/views/nglayouts/themes/theme3',
@@ -77,6 +82,7 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
             'standard' => [
                 '/tmp/nglayouts/app/Resources/views/nglayouts/themes/standard',
                 '/tmp/nglayouts/bundles/second/Resources/views/nglayouts/themes/standard',
+                '/tmp/nglayouts/bundles/second/templates/nglayouts/themes/standard',
             ],
         ];
 
