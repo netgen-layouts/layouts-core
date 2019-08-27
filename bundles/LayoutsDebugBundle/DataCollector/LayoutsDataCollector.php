@@ -174,7 +174,7 @@ final class LayoutsDataCollector extends DataCollector
      */
     public function getData(): array
     {
-        return $this->data;
+        return is_array($this->data) ? $this->data : [];
     }
 
     public function getName(): string
