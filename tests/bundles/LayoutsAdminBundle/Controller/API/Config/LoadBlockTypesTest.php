@@ -22,7 +22,7 @@ final class LoadBlockTypesTest extends JsonApiTestCase
 
         $this->assertResponseCode($response, Response::HTTP_OK);
 
-        $responseContent = json_decode($response->getContent(), true);
+        $responseContent = json_decode((string) $response->getContent(), true);
 
         self::assertIsArray($responseContent);
         self::assertArrayHasKey('block_types', $responseContent);

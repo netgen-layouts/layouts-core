@@ -93,7 +93,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
      */
     protected function assertExceptionResponse(Response $response, int $statusCode = Response::HTTP_BAD_REQUEST, ?string $message = null): void
     {
-        $responseContent = json_decode($response->getContent(), true);
+        $responseContent = json_decode((string) $response->getContent(), true);
         self::assertIsArray($responseContent);
 
         self::assertArrayHasKey('status_code', $responseContent);
