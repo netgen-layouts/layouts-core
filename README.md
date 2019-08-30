@@ -37,9 +37,10 @@ You can also use PostgreSQL:
 $ DATABASE=pgsql://user:pass@localhost/nglayouts composer test
 ```
 
-### API tests
+### Layout editing app REST API tests
 
-Run the API tests by calling `composer test-api` from the repo root:
+Run the REST API tests for layout editing app by calling `composer test-api`
+from the repo root:
 
 ```
 $ composer test-api
@@ -58,10 +59,9 @@ $ DATABASE=mysql://root@localhost/nglayouts composer test-api
 
 Some parts of the administration interface are covered with Behat tests. These
 tests use Chrome WebDriver to run. Before running tests, you need to install
-the Chrome WebDriver and run it, together with the Symfony web server used for
-testing. There is a convenient shell script `tests/prepare_behat.sh`, which
-will download the latest Chrome WebDriver to `vendor/bin/chromedriver`, run it
-and start the test web server.
+the Chrome WebDriver and run it, together with the Symfony CLI used for testing.
+There is a convenient shell script `tests/prepare_behat.sh`, which will download
+the latest Chrome WebDriver and Symfony CLI and start the test web server.
 
 To run the tests, just execute the following:
 
@@ -79,9 +79,9 @@ $ chrome behat-headless
 
 ### PHPStan static analysis
 
-All code is statically analysed with PHPStan. Make sure that PHPStan is green
-for the entire codebase after your changes. Run the following two commands to
-run PHPStan for the library/bundle code and for tests code, respectively:
+All code is statically analysed with PHPStan and Psalm. Make sure that both tools
+give the OK for the entire codebase after your changes. Run the following commands to
+run PHPStan and Psalm for the library/bundle code and for tests code, respectively:
 
 ```
 $ composer phpstan
@@ -89,6 +89,10 @@ $ composer phpstan
 
 ```
 $ composer phpstan-tests
+```
+
+```
+$ composer psalm
 ```
 
 ### Coding standards
