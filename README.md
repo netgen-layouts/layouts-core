@@ -77,7 +77,7 @@ To run the tests without the Chrome UI and save some seconds, you can use:
 $ chrome behat-headless
 ```
 
-### PHPStan static analysis
+### Static analysis
 
 All code is statically analysed with PHPStan and Psalm. Make sure that both tools
 give the OK for the entire codebase after your changes. Run the following commands to
