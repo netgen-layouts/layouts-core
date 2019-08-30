@@ -16,7 +16,7 @@ final class PageLayoutNode implements ConfigurationNodeInterface
         $node = $treeBuilder->getRootNode();
 
         $node
-            ->defaultValue('@NetgenLayouts/empty_pagelayout.html.twig')
+            ->defaultValue('')
             ->cannotBeEmpty();
 
         return $node;

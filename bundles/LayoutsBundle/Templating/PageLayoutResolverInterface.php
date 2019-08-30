@@ -12,6 +12,8 @@ interface PageLayoutResolverInterface
 {
     /**
      * Resolves the main page layout used to render the page.
+     *
+     * @throws \Netgen\Layouts\Exception\RuntimeException if the resolved page layout is empty
      */
     public function resolvePageLayout(): string;
 }
