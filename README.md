@@ -1,7 +1,7 @@
 # Netgen Layouts
 
 This repository is the core/kernel of Netgen Layouts. It is not to be installed
-as a standalone package. Instead, read the [installation instructions](https://docs.netgen.io/projects/layouts/en/latest/reference/install_instructions.html)
+as a standalone package. Instead, read the [installation instructions](https://docs.netgen.io/projects/layouts/en/latest/getting_started/install_existing_project.html)
 on how to install the complete Netgen Layouts to your Symfony based app.
 
 ## For developers
