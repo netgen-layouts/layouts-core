@@ -25,17 +25,8 @@ final class HtmlPurifierTest extends TestCase
      */
     public function testPurify(): void
     {
-        $unsafeHtml = <<<'HTML'
-<h1>Title</h1>
-<script src="https://cool-hacker.com/cool-hacking-script.js"></script>
-<a onclick="alert('Haw-haw!');" href="http://www.google.com">Google</a>
-HTML;
-
-        $safeHtml = <<<'HTML'
-<h1>Title</h1>
-
-<a href="http://www.google.com">Google</a>
-HTML;
+        $unsafeHtml = "<h1>Title</h1><script src=\"https://cool-hacker.com/cool-hacking-script.js\"></script><a onclick=\"alert('Haw-haw!');\" href=\"http://www.google.com\">Google</a>";
+        $safeHtml = '<h1>Title</h1><a href="http://www.google.com">Google</a>';
 
         self::assertSame($safeHtml, $this->htmlPurifier->purify($unsafeHtml));
     }
