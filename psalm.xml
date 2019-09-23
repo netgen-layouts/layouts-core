@@ -72,6 +72,12 @@
             </errorLevel>
         </PossiblyInvalidMethodCall>
 
+        <InvalidScalarArgument>
+            <errorLevel type="suppress">
+                <referencedFunction name="Doctrine\DBAL\Query\QueryBuilder::setValue" />
+            </errorLevel>
+        </InvalidScalarArgument>
+
         <!-- Symfony -->
 
         <PossiblyUndefinedMethod>
