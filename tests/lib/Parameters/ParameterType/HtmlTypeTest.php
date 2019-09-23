@@ -41,6 +41,7 @@ HTML;
 
         $safeHtml = <<<'HTML'
 <h1>Title</h1>
+
 <a href="http://www.google.com">Google</a>
 HTML;
 
