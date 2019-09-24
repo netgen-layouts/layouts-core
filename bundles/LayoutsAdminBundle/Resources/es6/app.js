@@ -3,6 +3,7 @@ import './plugins/closest_polyfill';
 import NlLayouts from './components/layouts';
 import NlRules from './components/rules';
 import dropdownInit from './plugins/dropdown';
+import '@netgen/content-browser-ui/bundle/Resources/public/css/main.css';
 import '../sass/style.scss';
 
 const ngLayoutsInit = () => {

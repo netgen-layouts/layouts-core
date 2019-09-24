@@ -1,7 +1,6 @@
 @import "../../../../node_modules/normalize-scss/sass/normalize";
 @include normalize();
 
-@import "../../../../node_modules/@netgen/content-browser-ui/bundle/Resources/public/css/main";
 @import "datetime_picker";
 @import "fonts";
 @import "variables";
