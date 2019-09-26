@@ -45,7 +45,7 @@ final class FlagGenerator
 
         $flag = '';
 
-        foreach (str_split(mb_strtolower($countryCode)) as $character) {
+        foreach (mb_str_split(mb_strtolower($countryCode)) as $character) {
             if (!array_key_exists($character, self::CHARACTER_MAP)) {
                 throw new RuntimeException(sprintf('Invalid country code: %s.', $countryCode));
             }
