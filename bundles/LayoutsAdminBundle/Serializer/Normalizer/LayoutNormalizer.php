@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer;
 
-use DateTime;
+use DateTimeInterface;
 use Generator;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Layouts\API\Service\BlockService;
@@ -54,8 +54,8 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
             'type' => $layoutType->getIdentifier(),
             'published' => $layout->isPublished(),
             'has_published_state' => $this->layoutService->hasStatus($layout->getId(), Layout::STATUS_PUBLISHED),
-            'created_at' => $layout->getCreated()->format(DateTime::ISO8601),
-            'updated_at' => $layout->getModified()->format(DateTime::ISO8601),
+            'created_at' => $layout->getCreated()->format(DateTimeInterface::ISO8601),
+            'updated_at' => $layout->getModified()->format(DateTimeInterface::ISO8601),
             'has_archived_state' => false,
             'archive_created_at' => null,
             'archive_updated_at' => null,
@@ -71,8 +71,8 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
             $archivedLayout = $this->layoutService->loadLayoutArchive($layout->getId());
 
             $data['has_archived_state'] = true;
-            $data['archive_created_at'] = $archivedLayout->getCreated()->format(DateTime::ISO8601);
-            $data['archive_updated_at'] = $archivedLayout->getModified()->format(DateTime::ISO8601);
+            $data['archive_created_at'] = $archivedLayout->getCreated()->format(DateTimeInterface::ISO8601);
+            $data['archive_updated_at'] = $archivedLayout->getModified()->format(DateTimeInterface::ISO8601);
         } catch (NotFoundException $e) {
             // Do nothing
         }

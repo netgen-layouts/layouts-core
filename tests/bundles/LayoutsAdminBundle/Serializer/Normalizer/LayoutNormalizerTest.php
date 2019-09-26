@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Serializer\Normalizer;
 
-use DateTime;
 use DateTimeImmutable;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\LayoutNormalizer;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
@@ -169,8 +169,8 @@ final class LayoutNormalizerTest extends TestCase
                 'type' => $this->layoutType->getIdentifier(),
                 'published' => false,
                 'has_published_state' => true,
-                'created_at' => $layout->getCreated()->format(DateTime::ISO8601),
-                'updated_at' => $layout->getModified()->format(DateTime::ISO8601),
+                'created_at' => $layout->getCreated()->format(DateTimeInterface::ISO8601),
+                'updated_at' => $layout->getModified()->format(DateTimeInterface::ISO8601),
                 'has_archived_state' => false,
                 'archive_created_at' => null,
                 'archive_updated_at' => null,
@@ -274,8 +274,8 @@ final class LayoutNormalizerTest extends TestCase
 
         self::assertIsArray($data);
         self::assertTrue($data['has_archived_state']);
-        self::assertSame($archivedLayout->getCreated()->format(DateTime::ISO8601), $data['archive_created_at']);
-        self::assertSame($archivedLayout->getModified()->format(DateTime::ISO8601), $data['archive_updated_at']);
+        self::assertSame($archivedLayout->getCreated()->format(DateTimeInterface::ISO8601), $data['archive_created_at']);
+        self::assertSame($archivedLayout->getModified()->format(DateTimeInterface::ISO8601), $data['archive_updated_at']);
     }
 
     /**

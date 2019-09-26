@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Core\Service;
 
-use DateTime;
 use DateTimeImmutable;
+use DateTimeInterface;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\LayoutCopyStruct;
 use Netgen\Layouts\API\Values\Layout\Zone;
@@ -433,8 +433,8 @@ abstract class LayoutServiceTest extends CoreTestCase
         self::assertGreaterThan(new DateTimeImmutable('@0'), $createdLayout->getCreated());
 
         self::assertSame(
-            $createdLayout->getCreated()->format(DateTime::ATOM),
-            $createdLayout->getModified()->format(DateTime::ATOM)
+            $createdLayout->getCreated()->format(DateTimeInterface::ATOM),
+            $createdLayout->getModified()->format(DateTimeInterface::ATOM)
         );
     }
 
@@ -464,8 +464,8 @@ abstract class LayoutServiceTest extends CoreTestCase
         $updatedLayout = $this->layoutService->addTranslation($layout, 'de', 'en');
 
         self::assertSame(
-            $layout->getCreated()->format(DateTime::ATOM),
-            $updatedLayout->getCreated()->format(DateTime::ATOM)
+            $layout->getCreated()->format(DateTimeInterface::ATOM),
+            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM)
         );
 
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
@@ -520,8 +520,8 @@ abstract class LayoutServiceTest extends CoreTestCase
         $updatedLayout = $this->layoutService->setMainTranslation($layout, 'hr');
 
         self::assertSame(
-            $layout->getCreated()->format(DateTime::ATOM),
-            $updatedLayout->getCreated()->format(DateTime::ATOM)
+            $layout->getCreated()->format(DateTimeInterface::ATOM),
+            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM)
         );
 
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
@@ -572,8 +572,8 @@ abstract class LayoutServiceTest extends CoreTestCase
         self::assertNotContains('hr', $updatedLayout->getAvailableLocales());
 
         self::assertSame(
-            $layout->getCreated()->format(DateTime::ATOM),
-            $updatedLayout->getCreated()->format(DateTime::ATOM)
+            $layout->getCreated()->format(DateTimeInterface::ATOM),
+            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM)
         );
 
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
@@ -641,8 +641,8 @@ abstract class LayoutServiceTest extends CoreTestCase
         self::assertSame('New description', $updatedLayout->getDescription());
 
         self::assertSame(
-            $layout->getCreated()->format(DateTime::ATOM),
-            $updatedLayout->getCreated()->format(DateTime::ATOM)
+            $layout->getCreated()->format(DateTimeInterface::ATOM),
+            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM)
         );
 
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
@@ -700,8 +700,8 @@ abstract class LayoutServiceTest extends CoreTestCase
         self::assertGreaterThan($layout->getCreated(), $copiedLayout->getCreated());
 
         self::assertSame(
-            $copiedLayout->getCreated()->format(DateTime::ATOM),
-            $copiedLayout->getModified()->format(DateTime::ATOM)
+            $copiedLayout->getCreated()->format(DateTimeInterface::ATOM),
+            $copiedLayout->getModified()->format(DateTimeInterface::ATOM)
         );
 
         self::assertNotSame($layout->getId()->toString(), $copiedLayout->getId()->toString());
@@ -743,8 +743,8 @@ abstract class LayoutServiceTest extends CoreTestCase
         self::assertSame('4_zones_b', $updatedLayout->getLayoutType()->getIdentifier());
 
         self::assertSame(
-            $layout->getCreated()->format(DateTime::ATOM),
-            $updatedLayout->getCreated()->format(DateTime::ATOM)
+            $layout->getCreated()->format(DateTimeInterface::ATOM),
+            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM)
         );
 
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
@@ -794,8 +794,8 @@ abstract class LayoutServiceTest extends CoreTestCase
         self::assertSame('4_zones_a', $updatedLayout->getLayoutType()->getIdentifier());
 
         self::assertSame(
-            $layout->getCreated()->format(DateTime::ATOM),
-            $updatedLayout->getCreated()->format(DateTime::ATOM)
+            $layout->getCreated()->format(DateTimeInterface::ATOM),
+            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM)
         );
 
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
@@ -845,8 +845,8 @@ abstract class LayoutServiceTest extends CoreTestCase
         self::assertSame('4_zones_a', $updatedLayout->getLayoutType()->getIdentifier());
 
         self::assertSame(
-            $layout->getCreated()->format(DateTime::ATOM),
-            $updatedLayout->getCreated()->format(DateTime::ATOM)
+            $layout->getCreated()->format(DateTimeInterface::ATOM),
+            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM)
         );
 
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
@@ -901,8 +901,8 @@ abstract class LayoutServiceTest extends CoreTestCase
         self::assertSame('4_zones_b', $updatedLayout->getLayoutType()->getIdentifier());
 
         self::assertSame(
-            $layout->getCreated()->format(DateTime::ATOM),
-            $updatedLayout->getCreated()->format(DateTime::ATOM)
+            $layout->getCreated()->format(DateTimeInterface::ATOM),
+            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM)
         );
 
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
@@ -958,8 +958,8 @@ abstract class LayoutServiceTest extends CoreTestCase
         self::assertSame('4_zones_a', $updatedLayout->getLayoutType()->getIdentifier());
 
         self::assertSame(
-            $layout->getCreated()->format(DateTime::ATOM),
-            $updatedLayout->getCreated()->format(DateTime::ATOM)
+            $layout->getCreated()->format(DateTimeInterface::ATOM),
+            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM)
         );
 
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
@@ -1007,8 +1007,8 @@ abstract class LayoutServiceTest extends CoreTestCase
         self::assertSame('4_zones_b', $updatedLayout->getLayoutType()->getIdentifier());
 
         self::assertSame(
-            $layout->getCreated()->format(DateTime::ATOM),
-            $updatedLayout->getCreated()->format(DateTime::ATOM)
+            $layout->getCreated()->format(DateTimeInterface::ATOM),
+            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM)
         );
 
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
@@ -1064,8 +1064,8 @@ abstract class LayoutServiceTest extends CoreTestCase
         self::assertTrue($draftLayout->isDraft());
 
         self::assertSame(
-            $layout->getCreated()->format(DateTime::ATOM),
-            $draftLayout->getCreated()->format(DateTime::ATOM)
+            $layout->getCreated()->format(DateTimeInterface::ATOM),
+            $draftLayout->getCreated()->format(DateTimeInterface::ATOM)
         );
 
         self::assertGreaterThan($layout->getModified(), $draftLayout->getModified());
@@ -1082,8 +1082,8 @@ abstract class LayoutServiceTest extends CoreTestCase
         self::assertTrue($draftLayout->isDraft());
 
         self::assertSame(
-            $layout->getCreated()->format(DateTime::ATOM),
-            $draftLayout->getCreated()->format(DateTime::ATOM)
+            $layout->getCreated()->format(DateTimeInterface::ATOM),
+            $draftLayout->getCreated()->format(DateTimeInterface::ATOM)
         );
 
         self::assertGreaterThan($layout->getModified(), $draftLayout->getModified());
@@ -1151,8 +1151,8 @@ abstract class LayoutServiceTest extends CoreTestCase
         self::assertTrue($publishedLayout->isPublished());
 
         self::assertSame(
-            $layout->getCreated()->format(DateTime::ATOM),
-            $publishedLayout->getCreated()->format(DateTime::ATOM)
+            $layout->getCreated()->format(DateTimeInterface::ATOM),
+            $publishedLayout->getCreated()->format(DateTimeInterface::ATOM)
         );
 
         self::assertGreaterThan($layout->getModified(), $publishedLayout->getModified());
@@ -1160,8 +1160,8 @@ abstract class LayoutServiceTest extends CoreTestCase
         $archivedLayout = $this->layoutService->loadLayoutArchive(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'));
 
         self::assertSame(
-            $currentlyPublishedLayout->getModified()->format(DateTime::ATOM),
-            $archivedLayout->getModified()->format(DateTime::ATOM)
+            $currentlyPublishedLayout->getModified()->format(DateTimeInterface::ATOM),
+            $archivedLayout->getModified()->format(DateTimeInterface::ATOM)
         );
 
         try {
@@ -1199,8 +1199,8 @@ abstract class LayoutServiceTest extends CoreTestCase
         self::assertSame($publishedLayout->getName(), $restoredLayout->getName());
 
         self::assertSame(
-            $originalLayout->getCreated()->format(DateTime::ATOM),
-            $restoredLayout->getCreated()->format(DateTime::ATOM)
+            $originalLayout->getCreated()->format(DateTimeInterface::ATOM),
+            $restoredLayout->getCreated()->format(DateTimeInterface::ATOM)
         );
 
         self::assertGreaterThan($originalLayout->getModified(), $restoredLayout->getModified());
