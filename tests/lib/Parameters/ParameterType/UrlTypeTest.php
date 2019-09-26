@@ -116,7 +116,7 @@ final class UrlTypeTest extends TestCase
     {
         return [
             [null, true],
-            ['https://www.google.com', false],
+            ['https://netgen.io', false],
             ['', true],
         ];
     }

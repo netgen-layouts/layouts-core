@@ -90,7 +90,7 @@ final class EmailTypeTest extends TestCase
         return [
             [null, true],
             ['info', false],
-            ['info@example.com', true],
+            ['info@netgen.io', true],
         ];
     }
 
@@ -110,7 +110,7 @@ final class EmailTypeTest extends TestCase
     {
         return [
             [null, true],
-            ['info@example.com', false],
+            ['info@netgen.io', false],
             ['', true],
         ];
     }

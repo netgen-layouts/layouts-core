@@ -151,29 +151,29 @@ final class LinkTypeTest extends TestCase
         return [
             [null, true, [], true],
             [null, false, [], true],
-            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'http://a.com', 'linkSuffix' => 'suffix']), true, [], true],
-            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'http://a.com', 'newWindow' => true]), true, [], true],
-            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'http://a.com', 'newWindow' => false]), true, [], true],
+            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'https://netgen.io', 'linkSuffix' => 'suffix']), true, [], true],
+            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'https://netgen.io', 'newWindow' => true]), true, [], true],
+            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'https://netgen.io', 'newWindow' => false]), true, [], true],
             [LinkValue::fromArray(['linkType' => null, 'link' => null]), true, [], true],
-            [LinkValue::fromArray(['linkType' => null, 'link' => 'http://a.com']), true, [], false],
+            [LinkValue::fromArray(['linkType' => null, 'link' => 'https://netgen.io']), true, [], false],
             [LinkValue::fromArray(['linkType' => null, 'link' => null]), false, [], true],
-            [LinkValue::fromArray(['linkType' => null, 'link' => 'http://a.com']), false, [], false],
+            [LinkValue::fromArray(['linkType' => null, 'link' => 'https://netgen.io']), false, [], false],
             [LinkValue::fromArray(['linkType' => 'url', 'link' => null]), true, [], true],
-            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'http://a.com']), true, [], true],
+            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'https://netgen.io']), true, [], true],
             [LinkValue::fromArray(['linkType' => 'url', 'link' => null]), false, [], true],
-            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'http://a.com']), false, [], true],
+            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'https://netgen.io']), false, [], true],
             [LinkValue::fromArray(['linkType' => 'url', 'link' => 'invalid']), true, [], false],
             [LinkValue::fromArray(['linkType' => 'url', 'link' => 'invalid']), false, [], false],
             [LinkValue::fromArray(['linkType' => 'email', 'link' => null]), true, [], true],
-            [LinkValue::fromArray(['linkType' => 'email', 'link' => 'a@a.com']), true, [], true],
+            [LinkValue::fromArray(['linkType' => 'email', 'link' => 'info@netgen.io']), true, [], true],
             [LinkValue::fromArray(['linkType' => 'email', 'link' => null]), false, [], true],
-            [LinkValue::fromArray(['linkType' => 'email', 'link' => 'a@a.com']), false, [], true],
+            [LinkValue::fromArray(['linkType' => 'email', 'link' => 'info@netgen.io']), false, [], true],
             [LinkValue::fromArray(['linkType' => 'email', 'link' => 'invalid']), true, [], false],
             [LinkValue::fromArray(['linkType' => 'email', 'link' => 'invalid']), false, [], false],
             [LinkValue::fromArray(['linkType' => 'phone', 'link' => null]), true, [], true],
-            [LinkValue::fromArray(['linkType' => 'phone', 'link' => 'a@a.com']), true, [], true],
+            [LinkValue::fromArray(['linkType' => 'phone', 'link' => 'info@netgen.io']), true, [], true],
             [LinkValue::fromArray(['linkType' => 'phone', 'link' => null]), false, [], true],
-            [LinkValue::fromArray(['linkType' => 'phone', 'link' => 'a@a.com']), false, [], true],
+            [LinkValue::fromArray(['linkType' => 'phone', 'link' => 'info@netgen.io']), false, [], true],
             [LinkValue::fromArray(['linkType' => 'internal', 'link' => null]), true, [], true],
             [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value://42']), true, [], false],
             [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'default://42']), true, [], true],
@@ -220,14 +220,14 @@ final class LinkTypeTest extends TestCase
                 LinkValue::fromArray(
                     [
                         'linkType' => 'url',
-                        'link' => 'http://www.google.com',
+                        'link' => 'https://netgen.io',
                         'linkSuffix' => '?suffix',
                         'newWindow' => true,
                     ]
                 ),
                 [
                     'link_type' => 'url',
-                    'link' => 'http://www.google.com',
+                    'link' => 'https://netgen.io',
                     'link_suffix' => '?suffix',
                     'new_window' => true,
                 ],
@@ -274,13 +274,13 @@ final class LinkTypeTest extends TestCase
             [
                 [
                     'link_type' => 'url',
-                    'link' => 'http://www.google.com',
+                    'link' => 'https://netgen.io',
                     'link_suffix' => '?suffix',
                     'new_window' => true,
                 ],
                 [
                     'linkType' => 'url',
-                    'link' => 'http://www.google.com',
+                    'link' => 'https://netgen.io',
                     'linkSuffix' => '?suffix',
                     'newWindow' => true,
                 ],
@@ -288,11 +288,11 @@ final class LinkTypeTest extends TestCase
             [
                 [
                     'link_type' => 'url',
-                    'link' => 'http://www.google.com',
+                    'link' => 'https://netgen.io',
                 ],
                 [
                     'linkType' => 'url',
-                    'link' => 'http://www.google.com',
+                    'link' => 'https://netgen.io',
                     'linkSuffix' => null,
                     'newWindow' => false,
                 ],
@@ -371,14 +371,14 @@ final class LinkTypeTest extends TestCase
                 LinkValue::fromArray(
                     [
                         'linkType' => 'url',
-                        'link' => 'http://www.google.com',
+                        'link' => 'https://netgen.io',
                         'linkSuffix' => '?suffix',
                         'newWindow' => true,
                     ]
                 ),
                 [
                     'link_type' => 'url',
-                    'link' => 'http://www.google.com',
+                    'link' => 'https://netgen.io',
                     'link_suffix' => '?suffix',
                     'new_window' => true,
                 ],
@@ -507,13 +507,13 @@ final class LinkTypeTest extends TestCase
             [
                 [
                     'link_type' => 'url',
-                    'link' => 'http://www.google.com',
+                    'link' => 'https://netgen.io',
                     'link_suffix' => '?suffix',
                     'new_window' => true,
                 ],
                 [
                     'linkType' => 'url',
-                    'link' => 'http://www.google.com',
+                    'link' => 'https://netgen.io',
                     'linkSuffix' => '?suffix',
                     'newWindow' => true,
                 ],
@@ -521,11 +521,11 @@ final class LinkTypeTest extends TestCase
             [
                 [
                     'link_type' => 'url',
-                    'link' => 'http://www.google.com',
+                    'link' => 'https://netgen.io',
                 ],
                 [
                     'linkType' => 'url',
-                    'link' => 'http://www.google.com',
+                    'link' => 'https://netgen.io',
                     'linkSuffix' => null,
                     'newWindow' => false,
                 ],
@@ -590,10 +590,10 @@ final class LinkTypeTest extends TestCase
             [null, true],
             [new LinkValue(), true],
             [LinkValue::fromArray(['linkType' => 'url']), true],
-            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'http://www.google.com']), false],
+            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'https://netgen.io']), false],
             [LinkValue::fromArray(['linkType' => 'url', 'linkSuffix' => '?suffix']), false],
             [LinkValue::fromArray(['linkType' => 'email']), true],
-            [LinkValue::fromArray(['linkType' => 'email', 'link' => 'test@example.com']), false],
+            [LinkValue::fromArray(['linkType' => 'email', 'link' => 'info@netgen.io']), false],
             [LinkValue::fromArray(['linkType' => 'email', 'linkSuffix' => '?suffix']), true],
             [LinkValue::fromArray(['linkType' => 'tel']), true],
             [LinkValue::fromArray(['linkType' => 'tel', 'link' => '123456']), false],

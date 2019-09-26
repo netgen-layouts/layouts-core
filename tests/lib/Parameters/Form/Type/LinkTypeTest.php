@@ -52,7 +52,7 @@ final class LinkTypeTest extends FormTestCase
             'link_type' => 'url',
             'link_suffix' => '?suffix',
             'new_window' => true,
-            'url' => 'http://www.google.com',
+            'url' => 'https://netgen.io',
         ];
 
         $parameterDefinition = ParameterDefinition::fromArray(
@@ -76,7 +76,7 @@ final class LinkTypeTest extends FormTestCase
         self::assertSame(
             [
                 'linkType' => 'url',
-                'link' => 'http://www.google.com',
+                'link' => 'https://netgen.io',
                 'linkSuffix' => '?suffix',
                 'newWindow' => true,
             ],
@@ -102,7 +102,7 @@ final class LinkTypeTest extends FormTestCase
             'link_type' => 'unknown',
             'link_suffix' => '?suffix',
             'new_window' => true,
-            'url' => 'http://www.google.com',
+            'url' => 'https://netgen.io',
         ];
 
         $parameterDefinition = ParameterDefinition::fromArray(
@@ -163,7 +163,7 @@ final class LinkTypeTest extends FormTestCase
                 'link_type' => 'url',
                 'link_suffix' => '?suffix',
                 'new_window' => true,
-                'url' => 'http://www.google.com',
+                'url' => 'https://netgen.io',
             ]
         );
 
@@ -196,7 +196,7 @@ final class LinkTypeTest extends FormTestCase
                 'link_type' => 'unknown',
                 'link_suffix' => '?suffix',
                 'new_window' => true,
-                'url' => 'http://www.google.com',
+                'url' => 'https://netgen.io',
             ]
         );
 

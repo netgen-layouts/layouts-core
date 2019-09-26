@@ -20,14 +20,14 @@ final class LinkValueTest extends TestCase
         $linkValue = LinkValue::fromArray(
             [
                 'linkType' => LinkValue::LINK_TYPE_EMAIL,
-                'link' => 'mail@example.com',
+                'link' => 'info@netgen.io',
                 'linkSuffix' => '?suffix',
                 'newWindow' => true,
             ]
         );
 
         self::assertSame(LinkValue::LINK_TYPE_EMAIL, $linkValue->getLinkType());
-        self::assertSame('mail@example.com', $linkValue->getLink());
+        self::assertSame('info@netgen.io', $linkValue->getLink());
         self::assertSame('?suffix', $linkValue->getLinkSuffix());
         self::assertTrue($linkValue->getNewWindow());
     }

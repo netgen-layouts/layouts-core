@@ -47,7 +47,7 @@ final class LinkDataMapperTest extends DataMapperTest
         $linkValue = LinkValue::fromArray(
             [
                 'linkType' => 'url',
-                'link' => 'http://www.google.com',
+                'link' => 'https://netgen.io',
                 'linkSuffix' => '?suffix',
                 'newWindow' => true,
             ]
@@ -67,7 +67,7 @@ final class LinkDataMapperTest extends DataMapperTest
         self::assertSame('url', $forms['link_type']->getData());
         self::assertSame('?suffix', $forms['link_suffix']->getData());
         self::assertSame('1', $forms['new_window']->getData());
-        self::assertSame('http://www.google.com', $forms['url']->getData());
+        self::assertSame('https://netgen.io', $forms['url']->getData());
     }
 
     /**
@@ -102,7 +102,7 @@ final class LinkDataMapperTest extends DataMapperTest
                 'link_type' => $this->getForm('link_type', 'url'),
                 'link_suffix' => $this->getForm('link_suffix', '?suffix'),
                 'new_window' => $this->getForm('new_window', '1'),
-                'url' => $this->getForm('url', 'http://www.google.com'),
+                'url' => $this->getForm('url', 'https://netgen.io'),
             ]
         );
 
@@ -113,7 +113,7 @@ final class LinkDataMapperTest extends DataMapperTest
         self::assertSame(
             [
                 'linkType' => 'url',
-                'link' => 'http://www.google.com',
+                'link' => 'https://netgen.io',
                 'linkSuffix' => '?suffix',
                 'newWindow' => true,
             ],
