@@ -35,7 +35,7 @@
         "webpack-cli": "^3.3.2"
     },
     "dependencies": {
-        "@netgen/content-browser-ui": "https://github.com/netgen-layouts/content-browser-ui#master",
+        "@netgen/content-browser-ui": "link:vendor/netgen/content-browser-ui",
         "file-saver": "^2.0.2",
         "flatpickr": "^4.5.7",
         "normalize-scss": "^7.0.1",
