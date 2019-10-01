@@ -47,7 +47,8 @@ matrix:
       cache: ~
       language: node_js
       node_js: node
-      install: ~
+      # We disable install phase as we need to run yarn install only after "before_script" is completed
+      install: true
       script:
         - yarn install
         - yarn run prod
