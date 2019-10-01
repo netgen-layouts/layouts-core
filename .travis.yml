@@ -43,14 +43,15 @@ matrix:
     - php: 7.3
       env: RUN_COVERAGE="yes"
     - env: ~
-      php: ~
+      php: 7.3
       cache: ~
       language: node_js
       node_js: node
-      before_script: ~
+      install: ~
       script:
-        - npm run prod
-        - npm run admin:prod
+        - yarn install
+        - yarn run prod
+        - yarn run admin:prod
   allow_failures:
     - env: RUN_COVERAGE="yes"
   fast_finish: true
