@@ -20,7 +20,7 @@ Run the unit tests by calling `composer test` from the repo root:
 $ composer test
 ```
 
-This will use an in memory SQLite database.
+This will use an in-memory SQLite database.
 
 You can also run unit tests on a real database. Create an empty MySQL database
 and run the tests with:
