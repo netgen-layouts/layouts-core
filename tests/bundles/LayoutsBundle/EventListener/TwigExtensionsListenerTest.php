@@ -13,7 +13,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Twig\Environment;
-use Twig\Extensions\IntlExtension;
+use Twig\Extension\CoreExtension;
 
 final class TwigExtensionsListenerTest extends TestCase
 {
@@ -34,7 +34,7 @@ final class TwigExtensionsListenerTest extends TestCase
         $this->listener = new TwigExtensionsListener(
             $this->twigMock,
             [
-                IntlExtension::class,
+                CoreExtension::class,
                 VersionExtension::class,
                 stdClass::class,
                 'NonExistent',
@@ -65,7 +65,7 @@ final class TwigExtensionsListenerTest extends TestCase
         $this->twigMock
             ->expects(self::at(0))
             ->method('hasExtension')
-            ->with(self::identicalTo(IntlExtension::class))
+            ->with(self::identicalTo(CoreExtension::class))
             ->willReturn(true);
 
         $this->twigMock

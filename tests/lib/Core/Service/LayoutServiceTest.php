@@ -37,7 +37,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     public function testLoadLayoutThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessageRegExp('/^Could not find layout with identifier "[\w-]+"$/');
+        $this->expectExceptionMessageMatches('/^Could not find layout with identifier "[\w-]+"$/');
 
         $this->layoutService->loadLayout(Uuid::uuid4());
     }
@@ -59,7 +59,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     public function testLoadLayoutDraftThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessageRegExp('/^Could not find layout with identifier "[\w-]+"$/');
+        $this->expectExceptionMessageMatches('/^Could not find layout with identifier "[\w-]+"$/');
 
         $this->layoutService->loadLayoutDraft(Uuid::uuid4());
     }
@@ -81,7 +81,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     public function testLoadLayoutArchiveThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessageRegExp('/^Could not find layout with identifier "[\w-]+"$/');
+        $this->expectExceptionMessageMatches('/^Could not find layout with identifier "[\w-]+"$/');
 
         $this->layoutService->loadLayoutArchive(Uuid::uuid4());
     }
