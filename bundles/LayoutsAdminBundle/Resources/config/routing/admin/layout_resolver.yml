@@ -1,108 +1,105 @@
 nglayouts_admin_layout_resolver_index:
     path: /list
+    controller: netgen_layouts.controller.admin.layout_resolver.index
     methods: [GET]
-    defaults:
-        _controller: 'netgen_layouts.controller.admin.layout_resolver.index'
 
 nglayouts_admin_layout_resolver_rule_create:
     path: /rules
+    controller: netgen_layouts.controller.admin.layout_resolver.create_rule
     methods: [POST]
-    defaults:
-        _controller: 'netgen_layouts.controller.admin.layout_resolver.create_rule'
 
 nglayouts_admin_layout_resolver_rule_update_prorities:
     path: /rules/priorities
+    controller: netgen_layouts.controller.admin.layout_resolver.update_rule_priorities
     methods: [POST]
-    defaults:
-        _controller: 'netgen_layouts.controller.admin.layout_resolver.update_rule_priorities'
 
 nglayouts_admin_layout_resolver_rule_update:
     path: /rules/{ruleId}
+    controller: netgen_layouts.controller.admin.layout_resolver.update_rule
     methods: [POST]
     defaults:
-        _controller: 'netgen_layouts.controller.admin.layout_resolver.update_rule'
         _nglayouts_status: draft
 
 nglayouts_admin_layout_resolver_rule_enable:
     path: /rules/{ruleId}/enable
+    controller: netgen_layouts.controller.admin.layout_resolver.enable_rule
     methods: [POST]
     defaults:
-        _controller: 'netgen_layouts.controller.admin.layout_resolver.enable_rule'
         _nglayouts_status: published
 
 nglayouts_admin_layout_resolver_rule_disable:
     path: /rules/{ruleId}/disable
+    controller: netgen_layouts.controller.admin.layout_resolver.disable_rule
     methods: [POST]
     defaults:
-        _controller: 'netgen_layouts.controller.admin.layout_resolver.disable_rule'
         _nglayouts_status: published
 
 nglayouts_admin_layout_resolver_rule_create_draft:
     path: /rules/{ruleId}/draft
+    controller: netgen_layouts.controller.admin.layout_resolver.create_rule_draft
     methods: [POST]
     defaults:
-        _controller: 'netgen_layouts.controller.admin.layout_resolver.create_rule_draft'
         _nglayouts_status: published
 
 nglayouts_admin_layout_resolver_rule_discard:
     path: /rules/{ruleId}/discard
+    controller: netgen_layouts.controller.admin.layout_resolver.discard_rule_draft
     methods: [POST]
     defaults:
-        _controller: 'netgen_layouts.controller.admin.layout_resolver.discard_rule_draft'
         _nglayouts_status: draft
 
 nglayouts_admin_layout_resolver_rule_publish:
     path: /rules/{ruleId}/publish
+    controller: netgen_layouts.controller.admin.layout_resolver.publish_rule_draft
     methods: [POST]
     defaults:
-        _controller: 'netgen_layouts.controller.admin.layout_resolver.publish_rule_draft'
         _nglayouts_status: draft
 
 nglayouts_admin_layout_resolver_rule_delete:
     path: /rules/{ruleId}/delete
+    controller: netgen_layouts.controller.admin.layout_resolver.delete_rule
     methods: [GET, DELETE]
     defaults:
-        _controller: 'netgen_layouts.controller.admin.layout_resolver.delete_rule'
         _nglayouts_status: published
 
 nglayouts_admin_layout_resolver_target_form_create:
     path: /rules/{ruleId}/target/new/{type}
+    controller: netgen_layouts.controller.admin.layout_resolver.create_target_form
     methods: [GET, POST]
     defaults:
-        _controller: 'netgen_layouts.controller.admin.layout_resolver.create_target_form'
         _nglayouts_status: draft
 
 nglayouts_admin_layout_resolver_target_form_edit:
     path: /targets/{targetId}/edit
+    controller: netgen_layouts.controller.admin.layout_resolver.edit_target_form
     methods: [GET, POST]
     defaults:
-        _controller: 'netgen_layouts.controller.admin.layout_resolver.edit_target_form'
         _nglayouts_status: draft
 
 nglayouts_admin_layout_resolver_target_delete:
     path: /targets/{targetId}
+    controller: netgen_layouts.controller.admin.layout_resolver.delete_target
     methods: [DELETE]
     defaults:
-        _controller: 'netgen_layouts.controller.admin.layout_resolver.delete_target'
         _nglayouts_status: draft
 
 nglayouts_admin_layout_resolver_condition_form_create:
     path: /rules/{ruleId}/condition/new/{type}
+    controller: netgen_layouts.controller.admin.layout_resolver.create_condition_form
     methods: [GET, POST]
     defaults:
-        _controller: 'netgen_layouts.controller.admin.layout_resolver.create_condition_form'
         _nglayouts_status: draft
 
 nglayouts_admin_layout_resolver_condition_form_edit:
     path: /conditions/{conditionId}/edit
+    controller: netgen_layouts.controller.admin.layout_resolver.edit_condition_form
     methods: [GET, POST]
     defaults:
-        _controller: 'netgen_layouts.controller.admin.layout_resolver.edit_condition_form'
         _nglayouts_status: draft
 
 nglayouts_admin_layout_resolver_condition_delete:
     path: /conditions/{conditionId}
+    controller: netgen_layouts.controller.admin.layout_resolver.delete_condition
     methods: [DELETE]
     defaults:
-        _controller: 'netgen_layouts.controller.admin.layout_resolver.delete_condition'
         _nglayouts_status: draft

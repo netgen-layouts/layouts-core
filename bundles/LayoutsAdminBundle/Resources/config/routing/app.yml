@@ -1,83 +1,80 @@
 nglayouts_app:
     path: /app
+    controller: netgen_layouts.controller.app.index
     methods: [GET]
-    defaults:
-        _controller: 'netgen_layouts.controller.app.index'
 
 nglayouts_app_slash:
     path: /app/
+    controller: 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction'
     methods: [GET]
     defaults:
-        _controller: 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction'
         route: nglayouts_app
         permanent: true
 
 nglayouts_app_layout_form_create:
     path: /app/layouts/form/create
+    controller: netgen_layouts.controller.app.layout.create_form
     methods: [GET, POST]
-    defaults:
-        _controller: 'netgen_layouts.controller.app.layout.create_form'
 
 nglayouts_app_layout_form_edit:
     path: /app/layouts/{layoutId}/form/edit
+    controller: netgen_layouts.controller.app.layout.edit_form
     methods: [GET, POST]
-    defaults:
-        _controller: 'netgen_layouts.controller.app.layout.edit_form'
 
 nglayouts_app_block_edit:
     path: /app/{locale}/blocks/{blockId}/edit
+    controller: netgen_layouts.controller.app.block.edit
     methods: [GET]
     defaults:
-        _controller: 'netgen_layouts.controller.app.block.edit'
         _nglayouts_status: draft
 
 nglayouts_app_block_form_edit:
     path: /app/{locale}/blocks/{blockId}/form/edit/{formName}
+    controller: netgen_layouts.controller.app.block.edit_form
     methods: [GET, POST]
     defaults:
-        _controller: 'netgen_layouts.controller.app.block.edit_form'
         _nglayouts_status: draft
 
 nglayouts_app_block_form_edit_config:
     path: /app/{locale}/blocks/{blockId}/config/edit/{configKey}
+    controller: netgen_layouts.controller.app.block.edit_config_form
     methods: [GET, POST]
     defaults:
-        _controller: 'netgen_layouts.controller.app.block.edit_config_form'
         _nglayouts_status: draft
         configKey: null
 
 nglayouts_app_collection_collection_form_edit:
     path: /app/collections/{collectionId}/form/edit/full
+    controller: netgen_layouts.controller.app.collection.edit_collection_form
     methods: [GET, POST]
     defaults:
-        _controller: 'netgen_layouts.controller.app.collection.edit_collection_form'
         _nglayouts_status: draft
 
 nglayouts_app_collection_form_edit_item_config:
     path: /app/collections/item/{itemId}/config/edit/{configKey}
+    controller: netgen_layouts.controller.app.collection.edit_item_config_form
     methods: [GET, POST]
     defaults:
-        _controller: 'netgen_layouts.controller.app.collection.edit_item_config_form'
         _nglayouts_status: draft
         configKey: null
 
 nglayouts_app_collection_query_form_edit:
     path: /app/{locale}/collections/query/{queryId}/form/edit
+    controller: netgen_layouts.controller.app.collection.edit_query_form
     methods: [GET, POST]
     defaults:
-        _controller: 'netgen_layouts.controller.app.collection.edit_query_form'
         _nglayouts_status: draft
 
 nglayouts_app_collection_item_view_type_form_edit:
     path: /app/collections/item/{itemId}/form/edit/view_type
+    controller: netgen_layouts.controller.app.collection.edit_item_view_type_form
     methods: [GET, POST]
     defaults:
-        _controller: 'netgen_layouts.controller.app.collection.edit_item_view_type_form'
         _nglayouts_status: draft
 
 nglayouts_app_collection_slot_view_type_form_edit:
     path: /app/collections/slot/{slotId}/form/edit/view_type
+    controller: netgen_layouts.controller.app.collection.edit_slot_view_type_form
     methods: [GET, POST]
     defaults:
-        _controller: 'netgen_layouts.controller.app.collection.edit_slot_view_type_form'
         _nglayouts_status: draft
