@@ -1,55 +1,55 @@
 nglayouts_app_api_collections_load:
     path: /collections/{collectionId}
+    controller: netgen_layouts.controller.api.collection.load_collection
     methods: [GET]
     defaults:
-        _controller: 'netgen_layouts.controller.api.collection.load_collection'
         _nglayouts_status: draft
 
 nglayouts_app_api_collections_items:
     path: /collections/{collectionId}/items
+    controller: netgen_layouts.controller.api.collection.load_items
     methods: [GET]
     defaults:
-        _controller: 'netgen_layouts.controller.api.collection.load_items'
         _nglayouts_status: draft
 
 nglayouts_app_api_collections_load_item:
     path: /collections/items/{itemId}
+    controller: netgen_layouts.controller.api.collection.load_item
     methods: [GET]
     defaults:
-        _controller: 'netgen_layouts.controller.api.collection.load_item'
         _nglayouts_status: draft
 
 nglayouts_app_api_collections_move_item:
     path: /collections/items/{itemId}/move
+    controller: netgen_layouts.controller.api.collection.move_item
     methods: [POST]
     defaults:
-        _controller: 'netgen_layouts.controller.api.collection.move_item'
         _nglayouts_status: draft
 
 nglayouts_app_api_collections_delete_item:
     path: /collections/items/{itemId}
+    controller: netgen_layouts.controller.api.collection.delete_item
     methods: [DELETE]
     defaults:
-        _controller: 'netgen_layouts.controller.api.collection.delete_item'
         _nglayouts_status: draft
 
 nglayouts_app_api_collections_delete_items:
     path: /collections/{collectionId}/items
+    controller: netgen_layouts.controller.api.collection.delete_items
     methods: [DELETE]
     defaults:
-        _controller: 'netgen_layouts.controller.api.collection.delete_items'
         _nglayouts_status: draft
 
 nglayouts_app_api_collections_create_slot:
     path: /collections/{collectionId}/slots
+    controller: netgen_layouts.controller.api.collection.create_slot
     methods: [POST]
     defaults:
-        _controller: 'netgen_layouts.controller.api.collection.create_slot'
         _nglayouts_status: draft
 
 nglayouts_app_api_collections_delete_slot:
     path: /collections/slots/{slotId}
+    controller: netgen_layouts.controller.api.collection.delete_slot
     methods: [DELETE]
     defaults:
-        _controller: 'netgen_layouts.controller.api.collection.delete_slot'
         _nglayouts_status: draft

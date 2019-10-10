@@ -5,64 +5,64 @@
 
 nglayouts_admin:
     path: /admin
+    controller: 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction'
     methods: [GET]
     defaults:
-        _controller: 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction'
         route: nglayouts_admin_layout_resolver_index
         permanent: true
 
 nglayouts_admin_slash:
     path: /admin/
+    controller: 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction'
     methods: [GET]
     defaults:
-        _controller: 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction'
         route: nglayouts_admin_layout_resolver_index
         permanent: true
 
 nglayouts_admin_layout_resolver_root:
     path: /admin/mappings
+    controller: 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction'
     methods: [GET]
     defaults:
-        _controller: 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction'
         route: nglayouts_admin_layout_resolver_index
         permanent: true
 
 nglayouts_admin_layout_resolver_root_slash:
     path: /admin/mappings/
+    controller: 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction'
     methods: [GET]
     defaults:
-        _controller: 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction'
         route: nglayouts_admin_layout_resolver_index
         permanent: true
 
 nglayouts_admin_layouts_root:
     path: /admin/layouts
+    controller: 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction'
     methods: [GET]
     defaults:
-        _controller: 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction'
         route: nglayouts_admin_layouts_index
         permanent: true
 
 nglayouts_admin_layouts_root_slash:
     path: /admin/layouts/
+    controller: 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction'
     methods: [GET]
     defaults:
-        _controller: 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction'
         route: nglayouts_admin_layouts_index
         permanent: true
 
 nglayouts_admin_shared_layouts_root:
     path: /admin/shared_layouts
+    controller: 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction'
     methods: [GET]
     defaults:
-        _controller: 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction'
         route: nglayouts_admin_shared_layouts_index
         permanent: true
 
 nglayouts_admin_shared_layouts_root_slash:
     path: /admin/shared_layouts/
+    controller: 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction'
     methods: [GET]
     defaults:
-        _controller: 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction'
         route: nglayouts_admin_shared_layouts_index
         permanent: true

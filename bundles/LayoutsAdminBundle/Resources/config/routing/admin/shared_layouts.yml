@@ -1,30 +1,26 @@
 nglayouts_admin_shared_layouts_index:
     path: /list
+    controller: netgen_layouts.controller.admin.shared_layouts.index
     methods: [GET]
-    defaults:
-        _controller: 'netgen_layouts.controller.admin.shared_layouts.index'
 
 nglayouts_admin_shared_layouts_layout_copy:
     path: /{layoutId}/copy
+    controller: netgen_layouts.controller.admin.layouts.copy_layout_form
     methods: [GET, POST]
-    defaults:
-        _controller: 'netgen_layouts.controller.admin.layouts.copy_layout_form'
 
 nglayouts_admin_shared_layouts_export:
     path: /export
+    controller: netgen_layouts.controller.admin.layouts.export_layouts
     methods: [POST]
-    defaults:
-        _controller: 'netgen_layouts.controller.admin.layouts.export_layouts'
 
 nglayouts_admin_shared_layouts_layout_delete:
     path: /{layoutId}/delete
+    controller: netgen_layouts.controller.admin.layouts.delete_layout
     methods: [GET, DELETE]
-    defaults:
-        _controller: 'netgen_layouts.controller.admin.layouts.delete_layout'
 
 nglayouts_admin_shared_layouts_cache_related_layouts:
     path: /{layoutId}/cache/related_layouts
+    controller: netgen_layouts.controller.admin.shared_layouts.clear_related_layouts_cache
     methods: [GET, POST]
     defaults:
-        _controller: 'netgen_layouts.controller.admin.shared_layouts.clear_related_layouts_cache'
         _nglayouts_status: published

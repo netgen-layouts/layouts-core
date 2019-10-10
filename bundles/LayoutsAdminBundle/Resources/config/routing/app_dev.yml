@@ -1,13 +1,12 @@
 nglayouts_dev_app:
     path: /dev/app
+    controller: netgen_layouts.controller.app.index
     methods: [GET]
-    defaults:
-        _controller: 'netgen_layouts.controller.app.index'
 
 nglayouts_dev_app_slash:
     path: /dev/app/
+    controller: 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction'
     methods: [GET]
     defaults:
-        _controller: 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction'
         route: nglayouts_dev_app
         permanent: true

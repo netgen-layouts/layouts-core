@@ -1,59 +1,56 @@
 nglayouts_app_api_blocks_load:
     path: /blocks/{blockId}
+    controller: netgen_layouts.controller.api.block.load
     methods: [GET]
-    defaults:
-        _controller: 'netgen_layouts.controller.api.block.load'
 
 nglayouts_app_api_blocks_create:
     path: /blocks/{blockId}
+    controller: netgen_layouts.controller.api.block.create
     methods: [POST]
-    defaults:
-        _controller: 'netgen_layouts.controller.api.block.create'
 
 nglayouts_app_api_blocks_create_in_zone:
     path: /blocks
+    controller: netgen_layouts.controller.api.block.create_in_zone
     methods: [POST]
-    defaults:
-        _controller: 'netgen_layouts.controller.api.block.create_in_zone'
 
 nglayouts_app_api_blocks_copy:
     path: /blocks/{blockId}/copy
+    controller: netgen_layouts.controller.api.block.copy
     methods: [POST]
     defaults:
-        _controller: 'netgen_layouts.controller.api.block.copy'
         _nglayouts_status: draft
 
 nglayouts_app_api_blocks_copy_to_zone:
     path: /blocks/{blockId}/copy/zone
+    controller: netgen_layouts.controller.api.block.copy_to_zone
     methods: [POST]
     defaults:
-        _controller: 'netgen_layouts.controller.api.block.copy_to_zone'
         _nglayouts_status: draft
 
 nglayouts_app_api_blocks_move:
     path: /blocks/{blockId}/move
+    controller: netgen_layouts.controller.api.block.move
     methods: [POST]
     defaults:
-        _controller: 'netgen_layouts.controller.api.block.move'
         _nglayouts_status: draft
 
 nglayouts_app_api_blocks_move_to_zone:
     path: /blocks/{blockId}/move/zone
+    controller: netgen_layouts.controller.api.block.move_to_zone
     methods: [POST]
     defaults:
-        _controller: 'netgen_layouts.controller.api.block.move_to_zone'
         _nglayouts_status: draft
 
 nglayouts_app_api_blocks_restore:
     path: /blocks/{blockId}/restore
+    controller: netgen_layouts.controller.api.block.restore
     methods: [POST]
     defaults:
-        _controller: 'netgen_layouts.controller.api.block.restore'
         _nglayouts_status: draft
 
 nglayouts_app_api_blocks_delete:
     path: /blocks/{blockId}
+    controller: netgen_layouts.controller.api.block.delete
     methods: [DELETE]
     defaults:
-        _controller: 'netgen_layouts.controller.api.block.delete'
         _nglayouts_status: draft
