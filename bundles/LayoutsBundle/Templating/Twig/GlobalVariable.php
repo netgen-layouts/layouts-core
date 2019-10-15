@@ -119,6 +119,10 @@ final class GlobalVariable
             return null;
         }
 
+        if ($masterRequest->attributes->has('nglOverrideLayoutView')) {
+            return $masterRequest->attributes->get('nglOverrideLayoutView');
+        }
+
         if ($masterRequest->attributes->has('nglExceptionLayoutView')) {
             if ($currentRequest !== $masterRequest || !$masterRequest->attributes->has('nglLayoutView')) {
                 return $masterRequest->attributes->get('nglExceptionLayoutView');
@@ -151,7 +155,9 @@ final class GlobalVariable
             return null;
         }
 
-        return $layoutView->getParameter('rule');
+        return $layoutView->hasParameter('rule') ?
+            $layoutView->getParameter('rule') :
+            null;
     }
 
     /**
@@ -200,17 +206,25 @@ final class GlobalVariable
      * Only resolves and returns the layout view once per request for regular page,
      * and once if an exception happens. Subsequent calls will simply return null.
      *
+     * Also allows completely overriding the layout view by using a special request
+     * attribute. This is useful when outside sources need to control the displayed
+     * layout, like preview mechanism and so on.
+     *
      * See class docs for more details.
      *
      * @return \Netgen\Layouts\View\ViewInterface|false|null
      */
-    private function buildLayoutView(string $context = ViewInterface::CONTEXT_DEFAULT)
+    public function buildLayoutView(string $context = ViewInterface::CONTEXT_DEFAULT)
     {
         $currentRequest = $this->requestStack->getCurrentRequest();
         $masterRequest = $this->requestStack->getMasterRequest();
 
         if (!$currentRequest instanceof Request || !$masterRequest instanceof Request) {
             return null;
+        }
+
+        if ($masterRequest->attributes->has('nglOverrideLayoutView')) {
+            return $currentRequest->attributes->get('nglOverrideLayoutView');
         }
 
         if ($masterRequest->attributes->has('nglExceptionLayoutView')) {
