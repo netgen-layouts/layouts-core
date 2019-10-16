@@ -79,6 +79,36 @@ final class LayoutResponseListenerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\LayoutResponseListener::__construct
+     * @covers \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\LayoutResponseListener::onKernelResponse
+     */
+    public function testOnKernelResponseWithOverridenLayout(): void
+    {
+        $kernelMock = $this->createMock(HttpKernelInterface::class);
+        $request = Request::create('/');
+
+        $layout = new Layout();
+        $layout2 = new Layout();
+
+        $request->attributes->set('nglLayoutView', new LayoutView($layout));
+        $request->attributes->set('nglOverrideLayoutView', new LayoutView($layout2));
+
+        $event = new FilterResponseEvent(
+            $kernelMock,
+            $request,
+            HttpKernelInterface::MASTER_REQUEST,
+            new Response()
+        );
+
+        $this->taggerMock
+            ->expects(self::once())
+            ->method('tagLayout')
+            ->with(self::identicalTo($layout2));
+
+        $this->listener->onKernelResponse($event);
+    }
+
+    /**
      * @covers \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\LayoutResponseListener::onKernelResponse
      */
     public function testOnKernelResponseWithSubRequest(): void
