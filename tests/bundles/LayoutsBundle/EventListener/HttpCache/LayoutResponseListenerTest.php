@@ -82,7 +82,7 @@ final class LayoutResponseListenerTest extends TestCase
      * @covers \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\LayoutResponseListener::__construct
      * @covers \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\LayoutResponseListener::onKernelResponse
      */
-    public function testOnKernelResponseWithOverridenLayout(): void
+    public function testOnKernelResponseWithOverriddenLayout(): void
     {
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
