@@ -1,5 +1,5 @@
 imports:
-    - Resources/config/suites.yml
+    - Resources/config/suites.yaml
 
 default:
     extensions:

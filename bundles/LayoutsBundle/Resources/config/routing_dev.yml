@@ -1,4 +1,0 @@
-_nglayouts_dev_app:
-    resource: "@NetgenLayoutsAdminBundle/Resources/config/routing/app_dev.yml"
-    defaults:
-        _nglayouts_environment: dev

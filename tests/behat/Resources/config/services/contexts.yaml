@@ -1,0 +1,5 @@
+imports:
+    - contexts/admin.yaml
+    - contexts/hook.yaml
+    - contexts/setup.yaml
+    - contexts/transform.yaml

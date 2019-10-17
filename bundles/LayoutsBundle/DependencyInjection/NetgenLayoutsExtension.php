@@ -122,18 +122,18 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
         );
 
         $prependConfigs = [
-            'framework/assets.yml' => 'framework',
-            'framework/framework.yml' => 'framework',
-            'framework/twig.yml' => 'twig',
-            'framework/security.yml' => 'security',
-            'design.yml' => 'netgen_layouts',
-            'block_type_groups.yml' => 'netgen_layouts',
-            'view/block_view.yml' => 'netgen_layouts',
-            'view/layout_view.yml' => 'netgen_layouts',
-            'view/item_view.yml' => 'netgen_layouts',
-            'view/parameter_view.yml' => 'netgen_layouts',
-            'view/default_templates.yml' => 'netgen_layouts',
-            'browser/item_types.yml' => 'netgen_content_browser',
+            'framework/assets.yaml' => 'framework',
+            'framework/framework.yaml' => 'framework',
+            'framework/twig.yaml' => 'twig',
+            'framework/security.yaml' => 'security',
+            'design.yaml' => 'netgen_layouts',
+            'block_type_groups.yaml' => 'netgen_layouts',
+            'view/block_view.yaml' => 'netgen_layouts',
+            'view/layout_view.yaml' => 'netgen_layouts',
+            'view/item_view.yaml' => 'netgen_layouts',
+            'view/parameter_view.yaml' => 'netgen_layouts',
+            'view/default_templates.yaml' => 'netgen_layouts',
+            'browser/item_types.yaml' => 'netgen_content_browser',
         ];
 
         foreach ($this->plugins as $plugin) {
@@ -178,9 +178,9 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
             )
         );
 
-        $loader->load('default_settings.yml');
-        $loader->load('browser/services.yml');
-        $loader->load('services/**/*.yml', 'glob');
+        $loader->load('default_settings.yaml');
+        $loader->load('browser/services.yaml');
+        $loader->load('services/**/*.yaml', 'glob');
     }
 
     /**

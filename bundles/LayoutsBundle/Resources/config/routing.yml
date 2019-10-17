@@ -1,19 +1,4 @@
-_nglayouts_admin:
-    resource: "@NetgenLayoutsAdminBundle/Resources/config/routing/admin.yml"
+# Deprecated, use routing.yaml file instead
 
-_nglayouts_app:
-    resource: "@NetgenLayoutsAdminBundle/Resources/config/routing/app.yml"
-
-_nglayouts_app_api:
-    resource: "@NetgenLayoutsAdminBundle/Resources/config/routing/api.yml"
-    prefix: /app/api
-
-nglayouts_ajax_block:
-    path: /ajax/block/{blockId}/{locale}/{collectionIdentifier}
-    controller: netgen_layouts.controller.block.view_ajax_block
-    methods: [GET]
-    defaults:
-        _nglayouts_status: published
-
-nglayouts_root:
-    path: /
+netgen_layouts_yaml:
+    resource: "routing.yaml"

@@ -30,22 +30,22 @@ final class NetgenLayoutsAdminExtension extends Extension implements PrependExte
             )
         );
 
-        $loader->load('default_settings.yml');
-        $loader->load('services/**/*.yml', 'glob');
+        $loader->load('default_settings.yaml');
+        $loader->load('services/**/*.yaml', 'glob');
     }
 
     public function prepend(ContainerBuilder $container): void
     {
         $prependConfigs = [
-            'framework/assets.yml' => 'framework',
-            'framework/twig.yml' => 'twig',
-            'view/form_view.yml' => 'netgen_layouts',
-            'view/item_view.yml' => 'netgen_layouts',
-            'view/block_view.yml' => 'netgen_layouts',
-            'view/layout_view.yml' => 'netgen_layouts',
-            'view/rule_target_view.yml' => 'netgen_layouts',
-            'view/rule_condition_view.yml' => 'netgen_layouts',
-            'view/default_templates.yml' => 'netgen_layouts',
+            'framework/assets.yaml' => 'framework',
+            'framework/twig.yaml' => 'twig',
+            'view/form_view.yaml' => 'netgen_layouts',
+            'view/item_view.yaml' => 'netgen_layouts',
+            'view/block_view.yaml' => 'netgen_layouts',
+            'view/layout_view.yaml' => 'netgen_layouts',
+            'view/rule_target_view.yaml' => 'netgen_layouts',
+            'view/rule_condition_view.yaml' => 'netgen_layouts',
+            'view/default_templates.yaml' => 'netgen_layouts',
         ];
 
         foreach ($prependConfigs as $configFile => $prependConfig) {

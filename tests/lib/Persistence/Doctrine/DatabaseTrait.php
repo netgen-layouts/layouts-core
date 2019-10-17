@@ -145,7 +145,7 @@ trait DatabaseTrait
     private function executeMigrations(): void
     {
         $configuration = new YamlConfiguration($this->databaseConnection);
-        $configuration->load(__DIR__ . '/../../../../migrations/doctrine.yml');
+        $configuration->load(__DIR__ . '/../../../../migrations/doctrine.yaml');
 
         $dependencyFactory = new DependencyFactory($configuration);
 

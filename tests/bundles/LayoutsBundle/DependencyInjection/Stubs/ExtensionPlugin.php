@@ -21,7 +21,7 @@ final class ExtensionPlugin extends BaseExtensionPlugin
     public function appendConfigurationFiles(): array
     {
         return [
-            __DIR__ . '/block_types.yml',
+            __DIR__ . '/block_types.yaml',
         ];
     }
 }

@@ -1,6 +1,6 @@
 imports:
-    - pages/admin.yml
-    - pages/app.yml
+    - pages/admin.yaml
+    - pages/app.yaml
 
 services:
     netgen_layouts.behat.symfony_page:
