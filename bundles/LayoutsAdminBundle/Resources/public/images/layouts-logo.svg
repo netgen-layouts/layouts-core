@@ -1,1 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg width="100%" height="100%" viewBox="0 0 26 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;"><g><path d="M26,22.516l-26,0l4.334,7.506l17.333,0l4.333,-7.506Z" style="fill:#5bc5dd;fill-rule:nonzero;"/><path d="M0,22.516l13,-22.516l4.333,7.506l-12.999,22.516l-4.334,-7.506Z" style="fill:#009ac7;fill-rule:nonzero;"/></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 128 128">
+  <defs>
+    <path id="layouts-mark-circle_color-a" d="M0.000175686271,63.640595 C0.000175686271,98.787512 28.4929752,127.279433 63.6398922,127.279433 C98.7866336,127.279433 127.279433,98.787512 127.279433,63.640595 C127.279433,28.4929752 98.7866336,0.000175686271 63.6398922,0.000175686271 C28.4929752,0.000175686271 0.000175686271,28.4929752 0.000175686271,63.640595 Z"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <path fill="#A477FC" d="M127.279433,63.6398922 C127.279433,98.7868093 98.7866336,127.279609 63.6397166,127.279609 C28.4927995,127.279609 4.97379915e-14,98.7868093 4.97379915e-14,63.6398922 C4.97379915e-14,28.4929752 28.4927995,0.000175686272 63.6397166,0.000175686272 C98.7866336,0.000175686272 127.279433,28.4929752 127.279433,63.6398922"/>
+    <mask id="layouts-mark-circle_color-b" fill="#fff">
+      <use xlink:href="#layouts-mark-circle_color-a"/>
+    </mask>
+    <polygon fill="#FFF" points="54.856 88.212 43.032 92.565 43.032 0 54.856 0" mask="url(#layouts-mark-circle_color-b)"/>
+    <polygon fill="#FFF" points="66.682 83.801 78.506 83.801 78.506 0 66.682 0" mask="url(#layouts-mark-circle_color-b)"/>
+    <polygon fill="#000" points="78.506 63.459 43.032 92.565 128.982 92.565 128.982 63.459" mask="url(#layouts-mark-circle_color-b)"/>
+  </g>
+</svg>
