@@ -48,7 +48,9 @@ final class CollectionMapper
         return array_values(
             array_map(
                 static function (array $collectionData): Collection {
-                    sort($collectionData['availableLocales']);
+                    if (isset($collectionData['availableLocales'])) {
+                        sort($collectionData['availableLocales']);
+                    }
 
                     return Collection::fromArray($collectionData);
                 },
@@ -139,8 +141,13 @@ final class CollectionMapper
         $queries = array_values(
             array_map(
                 static function (array $queryData): Query {
-                    ksort($queryData['parameters']);
-                    sort($queryData['availableLocales']);
+                    if (isset($queryData['parameters'])) {
+                        ksort($queryData['parameters']);
+                    }
+
+                    if (isset($queryData['availableLocales'])) {
+                        sort($queryData['availableLocales']);
+                    }
 
                     return Query::fromArray($queryData);
                 },
