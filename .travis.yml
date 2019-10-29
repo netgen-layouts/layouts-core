@@ -56,7 +56,6 @@ matrix:
         - yarn run admin:prod
   allow_failures:
     - env: RUN_COVERAGE="yes"
-    - php: 7.4snapshot
   fast_finish: true
 
 branches:
