@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Persistence\Doctrine\Helper;
 
-use Doctrine\DBAL\Types\Type;
+use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\Layouts\Persistence\Values\Value;
@@ -174,8 +174,8 @@ final class PositionHelperTest extends TestCase
                     $query->expr()->eq('status', ':status')
                 )
             )
-            ->setParameter('id', 2, Type::INTEGER)
-            ->setParameter('status', Value::STATUS_DRAFT, Type::INTEGER);
+            ->setParameter('id', 2, Types::INTEGER)
+            ->setParameter('status', Value::STATUS_DRAFT, Types::INTEGER);
 
         $query->execute();
 
@@ -225,8 +225,8 @@ final class PositionHelperTest extends TestCase
                     $query->expr()->eq('status', ':status')
                 )
             )
-            ->setParameter('collection_id', 1, Type::INTEGER)
-            ->setParameter('status', Value::STATUS_DRAFT, Type::INTEGER)
+            ->setParameter('collection_id', 1, Types::INTEGER)
+            ->setParameter('status', Value::STATUS_DRAFT, Types::INTEGER)
             ->orderBy('position', 'ASC');
 
         $result = $query->execute()->fetchAll(PDO::FETCH_ASSOC);

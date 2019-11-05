@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Layout\Resolver\TargetHandler\Doctrine;
 
 use Doctrine\DBAL\Query\QueryBuilder;
-use Doctrine\DBAL\Types\Type;
+use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Persistence\Doctrine\QueryHandler\TargetHandlerInterface;
 
 final class RoutePrefix implements TargetHandlerInterface
@@ -31,6 +31,6 @@ final class RoutePrefix implements TargetHandlerInterface
                 )
             )
         )
-        ->setParameter(':target_value', $value, Type::STRING);
+        ->setParameter(':target_value', $value, Types::STRING);
     }
 }

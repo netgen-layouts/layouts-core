@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Command\Migration;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Types\Type;
+use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\API\Values\Value;
 use PDO;
 use Ramsey\Uuid\Uuid;
@@ -146,9 +146,9 @@ final class MigrateUuidCommand extends Command
                         $queryBuilder->expr()->eq('status', ':status')
                     )
                 )
-                ->setParameter('id', $layoutData['id'], Type::INTEGER)
-                ->setParameter('status', $layoutData['status'], Type::INTEGER)
-                ->setParameter('uuid', $uuid->toString(), Type::STRING);
+                ->setParameter('id', $layoutData['id'], Types::INTEGER)
+                ->setParameter('status', $layoutData['status'], Types::INTEGER)
+                ->setParameter('uuid', $uuid->toString(), Types::STRING);
 
             $queryBuilder->execute();
 
@@ -182,9 +182,9 @@ final class MigrateUuidCommand extends Command
                         $queryBuilder->expr()->eq('status', ':status')
                     )
                 )
-                ->setParameter('id', $dataItem['id'], Type::INTEGER)
-                ->setParameter('status', $dataItem['status'], Type::INTEGER)
-                ->setParameter('uuid', $uuid->toString(), Type::STRING);
+                ->setParameter('id', $dataItem['id'], Types::INTEGER)
+                ->setParameter('status', $dataItem['status'], Types::INTEGER)
+                ->setParameter('uuid', $uuid->toString(), Types::STRING);
 
             $queryBuilder->execute();
 

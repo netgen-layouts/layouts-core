@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Command\Migration;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Types\Type;
+use Doctrine\DBAL\Types\Types;
 use Generator;
 use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
 use Netgen\Layouts\Collection\Registry\QueryTypeRegistry;
@@ -290,10 +290,10 @@ final class MigrateQueryOffsetLimitCommand extends Command
                     $queryBuilder->expr()->eq('status', ':status')
                 )
             )
-            ->setParameter('id', $id, Type::INTEGER)
-            ->setParameter('status', $status, Type::INTEGER)
-            ->setParameter('start', $offset, Type::INTEGER)
-            ->setParameter('length', $limit, Type::INTEGER);
+            ->setParameter('id', $id, Types::INTEGER)
+            ->setParameter('status', $status, Types::INTEGER)
+            ->setParameter('start', $offset, Types::INTEGER)
+            ->setParameter('length', $limit, Types::INTEGER);
 
         $queryBuilder->execute();
     }

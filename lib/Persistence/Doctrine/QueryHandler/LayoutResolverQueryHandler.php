@@ -6,7 +6,7 @@ namespace Netgen\Layouts\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Doctrine\DBAL\Types\Type;
+use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Exception\Persistence\TargetHandlerException;
 use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
@@ -60,7 +60,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             $query->andWhere(
                 $query->expr()->eq('layout_id', ':layout_id')
             )
-            ->setParameter('layout_id', $layout->id, Type::INTEGER);
+            ->setParameter('layout_id', $layout->id, Types::INTEGER);
         }
 
         $query->addOrderBy('rd.priority', 'DESC');
@@ -84,7 +84,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             $query->andWhere(
                 $query->expr()->eq('layout_id', ':layout_id')
             )
-            ->setParameter('layout_id', $layout->id, Type::INTEGER);
+            ->setParameter('layout_id', $layout->id, Types::INTEGER);
         }
 
         $this->applyStatusCondition($query, $ruleStatus);
@@ -116,8 +116,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 $query->expr()->eq('rd.enabled', ':enabled'),
                 $query->expr()->eq('rt.type', ':target_type')
             )
-            ->setParameter('target_type', $targetType, Type::STRING)
-            ->setParameter('enabled', true, Type::BOOLEAN)
+            ->setParameter('target_type', $targetType, Types::STRING)
+            ->setParameter('enabled', true, Types::BOOLEAN)
             ->addOrderBy('rd.priority', 'DESC');
 
         $this->applyStatusCondition($query, Value::STATUS_PUBLISHED, 'r.status');
@@ -156,7 +156,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query->where(
             $query->expr()->eq('t.rule_id', ':rule_id')
         )
-        ->setParameter('rule_id', $rule->id, Type::INTEGER)
+        ->setParameter('rule_id', $rule->id, Types::INTEGER)
         ->orderBy('t.id', 'ASC');
 
         $this->applyStatusCondition($query, $rule->status, 't.status');
@@ -175,7 +175,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('rule_id', ':rule_id')
             )
-            ->setParameter('rule_id', $rule->id, Type::INTEGER);
+            ->setParameter('rule_id', $rule->id, Types::INTEGER);
 
         $this->applyStatusCondition($query, $rule->status);
 
@@ -211,7 +211,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query->where(
             $query->expr()->eq('c.rule_id', ':rule_id')
         )
-        ->setParameter('rule_id', $rule->id, Type::INTEGER)
+        ->setParameter('rule_id', $rule->id, Types::INTEGER)
         ->orderBy('c.id', 'ASC');
 
         $this->applyStatusCondition($query, $rule->status, 'c.status');
@@ -278,10 +278,10 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 ]
             )
             ->setValue('id', $rule->id ?? $this->connectionHelper->getAutoIncrementValue('nglayouts_rule'))
-            ->setParameter('uuid', $rule->uuid, Type::STRING)
-            ->setParameter('status', $rule->status, Type::INTEGER)
-            ->setParameter('layout_id', $rule->layoutId, Type::INTEGER)
-            ->setParameter('comment', $rule->comment, Type::STRING);
+            ->setParameter('uuid', $rule->uuid, Types::STRING)
+            ->setParameter('status', $rule->status, Types::INTEGER)
+            ->setParameter('layout_id', $rule->layoutId, Types::INTEGER)
+            ->setParameter('comment', $rule->comment, Types::STRING);
 
         $query->execute();
 
@@ -297,9 +297,9 @@ final class LayoutResolverQueryHandler extends QueryHandler
                         'priority' => ':priority',
                     ]
                 )
-                ->setParameter('rule_id', $rule->id, Type::INTEGER)
-                ->setParameter('enabled', $rule->enabled, Type::BOOLEAN)
-                ->setParameter('priority', $rule->priority, Type::INTEGER);
+                ->setParameter('rule_id', $rule->id, Types::INTEGER)
+                ->setParameter('enabled', $rule->enabled, Types::BOOLEAN)
+                ->setParameter('priority', $rule->priority, Types::INTEGER);
 
             $query->execute();
         }
@@ -321,10 +321,10 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $rule->id, Type::INTEGER)
-            ->setParameter('uuid', $rule->uuid, Type::STRING)
-            ->setParameter('layout_id', $rule->layoutId, Type::INTEGER)
-            ->setParameter('comment', $rule->comment, Type::STRING);
+            ->setParameter('id', $rule->id, Types::INTEGER)
+            ->setParameter('uuid', $rule->uuid, Types::STRING)
+            ->setParameter('layout_id', $rule->layoutId, Types::INTEGER)
+            ->setParameter('comment', $rule->comment, Types::STRING);
 
         $this->applyStatusCondition($query, $rule->status);
 
@@ -344,9 +344,9 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('rule_id', ':rule_id')
             )
-            ->setParameter('rule_id', $rule->id, Type::INTEGER)
-            ->setParameter('enabled', $rule->enabled, Type::BOOLEAN)
-            ->setParameter('priority', $rule->priority, Type::INTEGER);
+            ->setParameter('rule_id', $rule->id, Types::INTEGER)
+            ->setParameter('enabled', $rule->enabled, Types::BOOLEAN)
+            ->setParameter('priority', $rule->priority, Types::INTEGER);
 
         $query->execute();
     }
@@ -362,7 +362,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('rule_id', ':rule_id')
             )
-            ->setParameter('rule_id', $ruleId, Type::INTEGER);
+            ->setParameter('rule_id', $ruleId, Types::INTEGER);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status);
@@ -382,7 +382,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('rule_id', ':rule_id')
             )
-            ->setParameter('rule_id', $ruleId, Type::INTEGER);
+            ->setParameter('rule_id', $ruleId, Types::INTEGER);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status);
@@ -401,7 +401,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $ruleId, Type::INTEGER);
+            ->setParameter('id', $ruleId, Types::INTEGER);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status);
@@ -415,7 +415,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 ->where(
                     $query->expr()->eq('rule_id', ':rule_id')
                 )
-                ->setParameter('rule_id', $ruleId, Type::INTEGER);
+                ->setParameter('rule_id', $ruleId, Types::INTEGER);
 
             $query->execute();
         }
@@ -439,11 +439,11 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 ]
             )
             ->setValue('id', $target->id ?? $this->connectionHelper->getAutoIncrementValue('nglayouts_rule_target'))
-            ->setParameter('uuid', $target->uuid, Type::STRING)
-            ->setParameter('status', $target->status, Type::INTEGER)
-            ->setParameter('rule_id', $target->ruleId, Type::INTEGER)
-            ->setParameter('type', $target->type, Type::STRING)
-            ->setParameter('value', $target->value, is_array($target->value) ? Type::JSON_ARRAY : Type::STRING);
+            ->setParameter('uuid', $target->uuid, Types::STRING)
+            ->setParameter('status', $target->status, Types::INTEGER)
+            ->setParameter('rule_id', $target->ruleId, Types::INTEGER)
+            ->setParameter('type', $target->type, Types::STRING)
+            ->setParameter('value', $target->value, is_array($target->value) ? Types::JSON : Types::STRING);
 
         $query->execute();
 
@@ -467,11 +467,11 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $target->id, Type::INTEGER)
-            ->setParameter('uuid', $target->uuid, Type::STRING)
-            ->setParameter('rule_id', $target->ruleId, Type::INTEGER)
-            ->setParameter('type', $target->type, Type::STRING)
-            ->setParameter('value', $target->value, is_array($target->value) ? Type::JSON_ARRAY : Type::STRING);
+            ->setParameter('id', $target->id, Types::INTEGER)
+            ->setParameter('uuid', $target->uuid, Types::STRING)
+            ->setParameter('rule_id', $target->ruleId, Types::INTEGER)
+            ->setParameter('type', $target->type, Types::STRING)
+            ->setParameter('value', $target->value, is_array($target->value) ? Types::JSON : Types::STRING);
 
         $this->applyStatusCondition($query, $target->status);
 
@@ -489,7 +489,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $targetId, Type::INTEGER);
+            ->setParameter('id', $targetId, Types::INTEGER);
 
         $this->applyStatusCondition($query, $status);
 
@@ -514,11 +514,11 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 ]
             )
             ->setValue('id', $condition->id ?? $this->connectionHelper->getAutoIncrementValue('nglayouts_rule_condition'))
-            ->setParameter('uuid', $condition->uuid, Type::STRING)
-            ->setParameter('status', $condition->status, Type::INTEGER)
-            ->setParameter('rule_id', $condition->ruleId, Type::INTEGER)
-            ->setParameter('type', $condition->type, Type::STRING)
-            ->setParameter('value', json_encode($condition->value), Type::STRING);
+            ->setParameter('uuid', $condition->uuid, Types::STRING)
+            ->setParameter('status', $condition->status, Types::INTEGER)
+            ->setParameter('rule_id', $condition->ruleId, Types::INTEGER)
+            ->setParameter('type', $condition->type, Types::STRING)
+            ->setParameter('value', json_encode($condition->value), Types::STRING);
 
         $query->execute();
 
@@ -542,11 +542,11 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $condition->id, Type::INTEGER)
-            ->setParameter('uuid', $condition->uuid, Type::STRING)
-            ->setParameter('rule_id', $condition->ruleId, Type::INTEGER)
-            ->setParameter('type', $condition->type, Type::STRING)
-            ->setParameter('value', json_encode($condition->value), Type::STRING);
+            ->setParameter('id', $condition->id, Types::INTEGER)
+            ->setParameter('uuid', $condition->uuid, Types::STRING)
+            ->setParameter('rule_id', $condition->ruleId, Types::INTEGER)
+            ->setParameter('type', $condition->type, Types::STRING)
+            ->setParameter('value', json_encode($condition->value), Types::STRING);
 
         $this->applyStatusCondition($query, $condition->status);
 
@@ -564,7 +564,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $conditionId, Type::INTEGER);
+            ->setParameter('id', $conditionId, Types::INTEGER);
 
         $this->applyStatusCondition($query, $status);
 

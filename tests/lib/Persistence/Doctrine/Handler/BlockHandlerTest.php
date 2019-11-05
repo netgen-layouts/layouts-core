@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Persistence\Doctrine\Handler;
 
-use Doctrine\DBAL\Types\Type;
+use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Persistence\Values\Block\Block;
@@ -2225,8 +2225,8 @@ final class BlockHandlerTest extends TestCase
                     $query->expr()->eq('status', ':status')
                 )
             )
-            ->setParameter('layout_id', $layout->id, Type::INTEGER)
-            ->setParameter('status', $layout->status, Type::INTEGER);
+            ->setParameter('layout_id', $layout->id, Types::INTEGER)
+            ->setParameter('status', $layout->status, Types::INTEGER);
 
         $query->execute();
 

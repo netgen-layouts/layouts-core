@@ -6,7 +6,7 @@ namespace Netgen\Layouts\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Doctrine\DBAL\Types\Type;
+use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Persistence\Values\Block\Block;
 use Netgen\Layouts\Persistence\Values\Block\CollectionReference;
 use Netgen\Layouts\Persistence\Values\Collection\Collection;
@@ -59,14 +59,14 @@ final class CollectionQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('block_id', ':block_id')
             )
-            ->setParameter('block_id', $block->id, Type::INTEGER)
+            ->setParameter('block_id', $block->id, Types::INTEGER)
             ->orderBy('identifier', 'ASC');
 
         $this->applyStatusCondition($query, $block->status, 'block_status');
 
         if ($identifier !== null) {
             $query->andWhere($query->expr()->eq('identifier', ':identifier'))
-                ->setParameter('identifier', $identifier, Type::STRING);
+                ->setParameter('identifier', $identifier, Types::STRING);
         }
 
         return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
@@ -102,8 +102,8 @@ final class CollectionQueryHandler extends QueryHandler
                 $query->expr()->eq('i.position', ':position')
             )
         )
-        ->setParameter('collection_id', $collection->id, Type::INTEGER)
-        ->setParameter('position', $position, Type::INTEGER);
+        ->setParameter('collection_id', $collection->id, Types::INTEGER)
+        ->setParameter('position', $position, Types::INTEGER);
 
         $this->applyStatusCondition($query, $collection->status, 'i.status');
 
@@ -119,7 +119,7 @@ final class CollectionQueryHandler extends QueryHandler
         $query->where(
             $query->expr()->eq('i.collection_id', ':collection_id')
         )
-        ->setParameter('collection_id', $collection->id, Type::INTEGER);
+        ->setParameter('collection_id', $collection->id, Types::INTEGER);
 
         $this->applyStatusCondition($query, $collection->status, 'i.status');
 
@@ -157,7 +157,7 @@ final class CollectionQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('collection_id', ':collection_id')
             )
-            ->setParameter('collection_id', $collectionId, Type::INTEGER);
+            ->setParameter('collection_id', $collectionId, Types::INTEGER);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status);
@@ -177,7 +177,7 @@ final class CollectionQueryHandler extends QueryHandler
         $query->where(
             $query->expr()->eq('q.collection_id', ':collection_id')
         )
-        ->setParameter('collection_id', $collection->id, Type::INTEGER);
+        ->setParameter('collection_id', $collection->id, Types::INTEGER);
 
         $this->applyStatusCondition($query, $collection->status, 'q.status');
 
@@ -211,7 +211,7 @@ final class CollectionQueryHandler extends QueryHandler
         $query->where(
             $query->expr()->eq('s.collection_id', ':collection_id')
         )
-        ->setParameter('collection_id', $collection->id, Type::INTEGER);
+        ->setParameter('collection_id', $collection->id, Types::INTEGER);
 
         $this->applyStatusCondition($query, $collection->status, 's.status');
 
@@ -262,13 +262,13 @@ final class CollectionQueryHandler extends QueryHandler
                 ]
             )
             ->setValue('id', $collection->id ?? $this->connectionHelper->getAutoIncrementValue('nglayouts_collection'))
-            ->setParameter('uuid', $collection->uuid, Type::STRING)
-            ->setParameter('status', $collection->status, Type::INTEGER)
-            ->setParameter('start', $collection->offset, Type::INTEGER)
-            ->setParameter('length', $collection->limit, Type::INTEGER)
-            ->setParameter('translatable', $collection->isTranslatable, Type::BOOLEAN)
-            ->setParameter('main_locale', $collection->mainLocale, Type::STRING)
-            ->setParameter('always_available', $collection->alwaysAvailable, Type::BOOLEAN);
+            ->setParameter('uuid', $collection->uuid, Types::STRING)
+            ->setParameter('status', $collection->status, Types::INTEGER)
+            ->setParameter('start', $collection->offset, Types::INTEGER)
+            ->setParameter('length', $collection->limit, Types::INTEGER)
+            ->setParameter('translatable', $collection->isTranslatable, Types::BOOLEAN)
+            ->setParameter('main_locale', $collection->mainLocale, Types::STRING)
+            ->setParameter('always_available', $collection->alwaysAvailable, Types::BOOLEAN);
 
         $query->execute();
 
@@ -291,9 +291,9 @@ final class CollectionQueryHandler extends QueryHandler
                     'locale' => ':locale',
                 ]
             )
-            ->setParameter('collection_id', $collection->id, Type::INTEGER)
-            ->setParameter('status', $collection->status, Type::INTEGER)
-            ->setParameter('locale', $locale, Type::STRING);
+            ->setParameter('collection_id', $collection->id, Types::INTEGER)
+            ->setParameter('status', $collection->status, Types::INTEGER)
+            ->setParameter('locale', $locale, Types::STRING);
 
         $query->execute();
     }
@@ -315,11 +315,11 @@ final class CollectionQueryHandler extends QueryHandler
                     'identifier' => ':identifier',
                 ]
             )
-            ->setParameter('block_id', $collectionReference->blockId, Type::INTEGER)
-            ->setParameter('block_status', $collectionReference->blockStatus, Type::INTEGER)
-            ->setParameter('collection_id', $collectionReference->collectionId, Type::INTEGER)
-            ->setParameter('collection_status', $collectionReference->collectionStatus, Type::INTEGER)
-            ->setParameter('identifier', $collectionReference->identifier, Type::STRING);
+            ->setParameter('block_id', $collectionReference->blockId, Types::INTEGER)
+            ->setParameter('block_status', $collectionReference->blockStatus, Types::INTEGER)
+            ->setParameter('collection_id', $collectionReference->collectionId, Types::INTEGER)
+            ->setParameter('collection_status', $collectionReference->collectionStatus, Types::INTEGER)
+            ->setParameter('identifier', $collectionReference->identifier, Types::STRING);
 
         $query->execute();
     }
@@ -341,13 +341,13 @@ final class CollectionQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $collection->id, Type::INTEGER)
-            ->setParameter('uuid', $collection->uuid, Type::STRING)
-            ->setParameter('start', $collection->offset, Type::INTEGER)
-            ->setParameter('length', $collection->limit, Type::INTEGER)
-            ->setParameter('translatable', $collection->isTranslatable, Type::BOOLEAN)
-            ->setParameter('main_locale', $collection->mainLocale, Type::STRING)
-            ->setParameter('always_available', $collection->alwaysAvailable, Type::BOOLEAN);
+            ->setParameter('id', $collection->id, Types::INTEGER)
+            ->setParameter('uuid', $collection->uuid, Types::STRING)
+            ->setParameter('start', $collection->offset, Types::INTEGER)
+            ->setParameter('length', $collection->limit, Types::INTEGER)
+            ->setParameter('translatable', $collection->isTranslatable, Types::BOOLEAN)
+            ->setParameter('main_locale', $collection->mainLocale, Types::STRING)
+            ->setParameter('always_available', $collection->alwaysAvailable, Types::BOOLEAN);
 
         $this->applyStatusCondition($query, $collection->status);
 
@@ -367,7 +367,7 @@ final class CollectionQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('collection_id', ':collection_id')
             )
-            ->setParameter('collection_id', $collectionId, Type::INTEGER);
+            ->setParameter('collection_id', $collectionId, Types::INTEGER);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status, 'collection_status');
@@ -382,7 +382,7 @@ final class CollectionQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $collectionId, Type::INTEGER);
+            ->setParameter('id', $collectionId, Types::INTEGER);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status);
@@ -402,7 +402,7 @@ final class CollectionQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('collection_id', ':collection_id')
             )
-            ->setParameter('collection_id', $collectionId, Type::INTEGER);
+            ->setParameter('collection_id', $collectionId, Types::INTEGER);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status);
@@ -411,7 +411,7 @@ final class CollectionQueryHandler extends QueryHandler
         if ($locale !== null) {
             $query
                 ->andWhere($query->expr()->eq('locale', ':locale'))
-                ->setParameter(':locale', $locale, Type::STRING);
+                ->setParameter(':locale', $locale, Types::STRING);
         }
 
         $query->execute();
@@ -458,14 +458,14 @@ final class CollectionQueryHandler extends QueryHandler
                 ]
             )
             ->setValue('id', $item->id ?? $this->connectionHelper->getAutoIncrementValue('nglayouts_collection_item'))
-            ->setParameter('uuid', $item->uuid, Type::STRING)
-            ->setParameter('status', $item->status, Type::INTEGER)
-            ->setParameter('collection_id', $item->collectionId, Type::INTEGER)
-            ->setParameter('position', $item->position, Type::INTEGER)
-            ->setParameter('value', $item->value, Type::STRING)
-            ->setParameter('value_type', $item->valueType, Type::STRING)
-            ->setParameter('view_type', $item->viewType, Type::STRING)
-            ->setParameter('config', $item->config, Type::JSON_ARRAY);
+            ->setParameter('uuid', $item->uuid, Types::STRING)
+            ->setParameter('status', $item->status, Types::INTEGER)
+            ->setParameter('collection_id', $item->collectionId, Types::INTEGER)
+            ->setParameter('position', $item->position, Types::INTEGER)
+            ->setParameter('value', $item->value, Types::STRING)
+            ->setParameter('value_type', $item->valueType, Types::STRING)
+            ->setParameter('view_type', $item->viewType, Types::STRING)
+            ->setParameter('config', $item->config, Types::JSON);
 
         $query->execute();
 
@@ -488,8 +488,8 @@ final class CollectionQueryHandler extends QueryHandler
                     $query->expr()->eq('position', ':position')
                 )
             )
-            ->setParameter('collection_id', $collection->id, Type::INTEGER)
-            ->setParameter('position', $position, Type::INTEGER);
+            ->setParameter('collection_id', $collection->id, Types::INTEGER)
+            ->setParameter('position', $position, Types::INTEGER);
 
         $this->applyStatusCondition($query, $collection->status);
 
@@ -516,11 +516,11 @@ final class CollectionQueryHandler extends QueryHandler
                 ]
             )
             ->setValue('id', $slot->id ?? $this->connectionHelper->getAutoIncrementValue('nglayouts_collection_slot'))
-            ->setParameter('uuid', $slot->uuid, Type::STRING)
-            ->setParameter('status', $slot->status, Type::INTEGER)
-            ->setParameter('collection_id', $slot->collectionId, Type::INTEGER)
-            ->setParameter('position', $slot->position, Type::INTEGER)
-            ->setParameter('view_type', $slot->viewType, Type::STRING);
+            ->setParameter('uuid', $slot->uuid, Types::STRING)
+            ->setParameter('status', $slot->status, Types::INTEGER)
+            ->setParameter('collection_id', $slot->collectionId, Types::INTEGER)
+            ->setParameter('position', $slot->position, Types::INTEGER)
+            ->setParameter('view_type', $slot->viewType, Types::STRING);
 
         $query->execute();
 
@@ -548,14 +548,14 @@ final class CollectionQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $item->id, Type::INTEGER)
-            ->setParameter('uuid', $item->uuid, Type::STRING)
-            ->setParameter('collection_id', $item->collectionId, Type::INTEGER)
-            ->setParameter('position', $item->position, Type::INTEGER)
-            ->setParameter('value', $item->value, Type::STRING)
-            ->setParameter('value_type', $item->valueType, Type::STRING)
-            ->setParameter('view_type', $item->viewType, Type::STRING)
-            ->setParameter('config', $item->config, Type::JSON_ARRAY);
+            ->setParameter('id', $item->id, Types::INTEGER)
+            ->setParameter('uuid', $item->uuid, Types::STRING)
+            ->setParameter('collection_id', $item->collectionId, Types::INTEGER)
+            ->setParameter('position', $item->position, Types::INTEGER)
+            ->setParameter('value', $item->value, Types::STRING)
+            ->setParameter('value_type', $item->valueType, Types::STRING)
+            ->setParameter('view_type', $item->viewType, Types::STRING)
+            ->setParameter('config', $item->config, Types::JSON);
 
         $this->applyStatusCondition($query, $item->status);
 
@@ -578,11 +578,11 @@ final class CollectionQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $slot->id, Type::INTEGER)
-            ->setParameter('uuid', $slot->uuid, Type::STRING)
-            ->setParameter('collection_id', $slot->collectionId, Type::INTEGER)
-            ->setParameter('position', $slot->position, Type::INTEGER)
-            ->setParameter('view_type', $slot->viewType, Type::STRING);
+            ->setParameter('id', $slot->id, Types::INTEGER)
+            ->setParameter('uuid', $slot->uuid, Types::STRING)
+            ->setParameter('collection_id', $slot->collectionId, Types::INTEGER)
+            ->setParameter('position', $slot->position, Types::INTEGER)
+            ->setParameter('view_type', $slot->viewType, Types::STRING);
 
         $this->applyStatusCondition($query, $slot->status);
 
@@ -600,7 +600,7 @@ final class CollectionQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $itemId, Type::INTEGER);
+            ->setParameter('id', $itemId, Types::INTEGER);
 
         $this->applyStatusCondition($query, $status);
 
@@ -618,7 +618,7 @@ final class CollectionQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('collection_id', ':collection_id')
             )
-            ->setParameter('collection_id', $collectionId, Type::INTEGER);
+            ->setParameter('collection_id', $collectionId, Types::INTEGER);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status);
@@ -638,7 +638,7 @@ final class CollectionQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $slotId, Type::INTEGER);
+            ->setParameter('id', $slotId, Types::INTEGER);
 
         $this->applyStatusCondition($query, $status);
 
@@ -656,7 +656,7 @@ final class CollectionQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('collection_id', ':collection_id')
             )
-            ->setParameter('collection_id', $collectionId, Type::INTEGER);
+            ->setParameter('collection_id', $collectionId, Types::INTEGER);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status);
@@ -682,10 +682,10 @@ final class CollectionQueryHandler extends QueryHandler
                 ]
             )
             ->setValue('id', $query->id ?? $this->connectionHelper->getAutoIncrementValue('nglayouts_collection_query'))
-            ->setParameter('uuid', $query->uuid, Type::STRING)
-            ->setParameter('status', $query->status, Type::INTEGER)
-            ->setParameter('collection_id', $query->collectionId, Type::INTEGER)
-            ->setParameter('type', $query->type, Type::STRING);
+            ->setParameter('uuid', $query->uuid, Types::STRING)
+            ->setParameter('status', $query->status, Types::INTEGER)
+            ->setParameter('collection_id', $query->collectionId, Types::INTEGER)
+            ->setParameter('type', $query->type, Types::STRING);
 
         $dbQuery->execute();
 
@@ -709,10 +709,10 @@ final class CollectionQueryHandler extends QueryHandler
                     'parameters' => ':parameters',
                 ]
             )
-            ->setParameter('query_id', $query->id, Type::INTEGER)
-            ->setParameter('status', $query->status, Type::INTEGER)
-            ->setParameter('locale', $locale, Type::STRING)
-            ->setParameter('parameters', $query->parameters[$locale], Type::JSON_ARRAY);
+            ->setParameter('query_id', $query->id, Types::INTEGER)
+            ->setParameter('status', $query->status, Types::INTEGER)
+            ->setParameter('locale', $locale, Types::STRING)
+            ->setParameter('parameters', $query->parameters[$locale], Types::JSON);
 
         $dbQuery->execute();
     }
@@ -733,9 +733,9 @@ final class CollectionQueryHandler extends QueryHandler
                     $dbQuery->expr()->eq('locale', ':locale')
                 )
             )
-            ->setParameter('query_id', $query->id, Type::INTEGER)
-            ->setParameter('locale', $locale, Type::STRING)
-            ->setParameter('parameters', $query->parameters[$locale], Type::JSON_ARRAY);
+            ->setParameter('query_id', $query->id, Types::INTEGER)
+            ->setParameter('locale', $locale, Types::STRING)
+            ->setParameter('parameters', $query->parameters[$locale], Types::JSON);
 
         $this->applyStatusCondition($dbQuery, $query->status);
 
@@ -782,7 +782,7 @@ final class CollectionQueryHandler extends QueryHandler
         if ($locale !== null) {
             $query
                 ->andWhere($query->expr()->eq('locale', ':locale'))
-                ->setParameter(':locale', $locale, Type::STRING);
+                ->setParameter(':locale', $locale, Types::STRING);
         }
 
         $query->execute();

@@ -46,7 +46,7 @@
         "twig/twig": "^2.9",
         "twig/extensions": "^1.5.4",
         "sensio/framework-extra-bundle": "^5.3",
-        "doctrine/dbal": "^2.9.2",
+        "doctrine/dbal": "^2.10",
         "doctrine/doctrine-bundle": "^1.10",
         "doctrine/doctrine-migrations-bundle": "^2.0",
         "doctrine/collections": "^1.6",

@@ -6,7 +6,7 @@ namespace Netgen\Layouts\Tests\Persistence\Doctrine;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
-use Doctrine\DBAL\Types\Type;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\Migrations\Configuration\YamlConfiguration;
 use Doctrine\Migrations\DependencyFactory;
 use Netgen\Layouts\Exception\RuntimeException;
@@ -48,7 +48,7 @@ trait DatabaseTrait
                         ->values(array_fill_keys(array_keys($tableRow), '?'))
                         ->setParameters(
                             array_values($tableRow),
-                            array_fill_keys(array_keys($tableRow), Type::STRING)
+                            array_fill_keys(array_keys($tableRow), Types::STRING)
                         )
                         ->execute();
                 }

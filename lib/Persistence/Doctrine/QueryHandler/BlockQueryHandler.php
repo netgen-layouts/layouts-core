@@ -6,7 +6,7 @@ namespace Netgen\Layouts\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Doctrine\DBAL\Types\Type;
+use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Persistence\Values\Block\Block;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
 use PDO;
@@ -59,7 +59,7 @@ final class BlockQueryHandler extends QueryHandler
         $query->where(
             $query->expr()->eq('b.layout_id', ':layout_id')
         )
-        ->setParameter('layout_id', $layout->id, Type::INTEGER);
+        ->setParameter('layout_id', $layout->id, Types::INTEGER);
 
         $this->applyStatusCondition($query, $layout->status, 'b.status');
 
@@ -94,7 +94,7 @@ final class BlockQueryHandler extends QueryHandler
         $query->where(
             $query->expr()->eq('b.parent_id', ':parent_id')
         )
-        ->setParameter('parent_id', $block->id, Type::INTEGER)
+        ->setParameter('parent_id', $block->id, Types::INTEGER)
         ->addOrderBy('b.placeholder', 'ASC')
         ->addOrderBy('b.position', 'ASC');
 
@@ -102,7 +102,7 @@ final class BlockQueryHandler extends QueryHandler
             $query->andWhere(
                 $query->expr()->eq('b.placeholder', ':placeholder')
             )
-            ->setParameter('placeholder', $placeholder, Type::STRING);
+            ->setParameter('placeholder', $placeholder, Types::STRING);
         }
 
         $this->applyStatusCondition($query, $block->status, 'b.status');
@@ -178,23 +178,23 @@ final class BlockQueryHandler extends QueryHandler
                 ]
             )
             ->setValue('id', $block->id ?? $this->connectionHelper->getAutoIncrementValue('nglayouts_block'))
-            ->setParameter('status', $block->status, Type::INTEGER)
-            ->setParameter('uuid', $block->uuid, Type::STRING)
-            ->setParameter('layout_id', $block->layoutId, Type::INTEGER)
-            ->setParameter('depth', $block->depth, Type::STRING)
+            ->setParameter('status', $block->status, Types::INTEGER)
+            ->setParameter('uuid', $block->uuid, Types::STRING)
+            ->setParameter('layout_id', $block->layoutId, Types::INTEGER)
+            ->setParameter('depth', $block->depth, Types::STRING)
             // Materialized path is updated after block is created
-            ->setParameter('path', $block->path, Type::STRING)
-            ->setParameter('parent_id', $block->parentId, Type::INTEGER)
-            ->setParameter('placeholder', $block->placeholder, Type::STRING)
-            ->setParameter('position', $block->position, Type::INTEGER)
-            ->setParameter('definition_identifier', $block->definitionIdentifier, Type::STRING)
-            ->setParameter('view_type', $block->viewType, Type::STRING)
-            ->setParameter('item_view_type', $block->itemViewType, Type::STRING)
-            ->setParameter('name', $block->name, Type::STRING)
-            ->setParameter('translatable', $block->isTranslatable, Type::BOOLEAN)
-            ->setParameter('always_available', $block->alwaysAvailable, Type::BOOLEAN)
-            ->setParameter('main_locale', $block->mainLocale, Type::STRING)
-            ->setParameter('config', $block->config, Type::JSON_ARRAY);
+            ->setParameter('path', $block->path, Types::STRING)
+            ->setParameter('parent_id', $block->parentId, Types::INTEGER)
+            ->setParameter('placeholder', $block->placeholder, Types::STRING)
+            ->setParameter('position', $block->position, Types::INTEGER)
+            ->setParameter('definition_identifier', $block->definitionIdentifier, Types::STRING)
+            ->setParameter('view_type', $block->viewType, Types::STRING)
+            ->setParameter('item_view_type', $block->itemViewType, Types::STRING)
+            ->setParameter('name', $block->name, Types::STRING)
+            ->setParameter('translatable', $block->isTranslatable, Types::BOOLEAN)
+            ->setParameter('always_available', $block->alwaysAvailable, Types::BOOLEAN)
+            ->setParameter('main_locale', $block->mainLocale, Types::STRING)
+            ->setParameter('config', $block->config, Types::JSON);
 
         $query->execute();
 
@@ -215,8 +215,8 @@ final class BlockQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $block->id, Type::INTEGER)
-            ->setParameter('path', $block->path, Type::STRING);
+            ->setParameter('id', $block->id, Types::INTEGER)
+            ->setParameter('path', $block->path, Types::STRING);
 
         $this->applyStatusCondition($query, $block->status);
 
@@ -240,10 +240,10 @@ final class BlockQueryHandler extends QueryHandler
                     'parameters' => ':parameters',
                 ]
             )
-            ->setParameter('block_id', $block->id, Type::INTEGER)
-            ->setParameter('status', $block->status, Type::INTEGER)
-            ->setParameter('locale', $locale, Type::STRING)
-            ->setParameter('parameters', $block->parameters[$locale], Type::JSON_ARRAY);
+            ->setParameter('block_id', $block->id, Types::INTEGER)
+            ->setParameter('status', $block->status, Types::INTEGER)
+            ->setParameter('locale', $locale, Types::STRING)
+            ->setParameter('parameters', $block->parameters[$locale], Types::JSON);
 
         $query->execute();
     }
@@ -274,22 +274,22 @@ final class BlockQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $block->id, Type::INTEGER)
-            ->setParameter('uuid', $block->uuid, Type::STRING)
-            ->setParameter('layout_id', $block->layoutId, Type::INTEGER)
-            ->setParameter('depth', $block->depth, Type::STRING)
-            ->setParameter('path', $block->path, Type::STRING)
-            ->setParameter('parent_id', $block->parentId, Type::INTEGER)
-            ->setParameter('placeholder', $block->placeholder, Type::STRING)
-            ->setParameter('position', $block->position, Type::INTEGER)
-            ->setParameter('definition_identifier', $block->definitionIdentifier, Type::STRING)
-            ->setParameter('view_type', $block->viewType, Type::STRING)
-            ->setParameter('item_view_type', $block->itemViewType, Type::STRING)
-            ->setParameter('name', $block->name, Type::STRING)
-            ->setParameter('translatable', $block->isTranslatable, Type::BOOLEAN)
-            ->setParameter('main_locale', $block->mainLocale, Type::STRING)
-            ->setParameter('always_available', $block->alwaysAvailable, Type::BOOLEAN)
-            ->setParameter('config', $block->config, Type::JSON_ARRAY);
+            ->setParameter('id', $block->id, Types::INTEGER)
+            ->setParameter('uuid', $block->uuid, Types::STRING)
+            ->setParameter('layout_id', $block->layoutId, Types::INTEGER)
+            ->setParameter('depth', $block->depth, Types::STRING)
+            ->setParameter('path', $block->path, Types::STRING)
+            ->setParameter('parent_id', $block->parentId, Types::INTEGER)
+            ->setParameter('placeholder', $block->placeholder, Types::STRING)
+            ->setParameter('position', $block->position, Types::INTEGER)
+            ->setParameter('definition_identifier', $block->definitionIdentifier, Types::STRING)
+            ->setParameter('view_type', $block->viewType, Types::STRING)
+            ->setParameter('item_view_type', $block->itemViewType, Types::STRING)
+            ->setParameter('name', $block->name, Types::STRING)
+            ->setParameter('translatable', $block->isTranslatable, Types::BOOLEAN)
+            ->setParameter('main_locale', $block->mainLocale, Types::STRING)
+            ->setParameter('always_available', $block->alwaysAvailable, Types::BOOLEAN)
+            ->setParameter('config', $block->config, Types::JSON);
 
         $this->applyStatusCondition($query, $block->status);
 
@@ -311,9 +311,9 @@ final class BlockQueryHandler extends QueryHandler
                     $query->expr()->eq('locale', ':locale')
                 )
             )
-            ->setParameter('block_id', $block->id, Type::INTEGER)
-            ->setParameter('locale', $locale, Type::STRING)
-            ->setParameter('parameters', $block->parameters[$locale], Type::JSON_ARRAY);
+            ->setParameter('block_id', $block->id, Types::INTEGER)
+            ->setParameter('locale', $locale, Types::STRING)
+            ->setParameter('parameters', $block->parameters[$locale], Types::JSON);
 
         $this->applyStatusCondition($query, $block->status);
 
@@ -336,10 +336,10 @@ final class BlockQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $block->id, Type::INTEGER)
-            ->setParameter('position', $position, Type::INTEGER)
-            ->setParameter('parent_id', $targetBlock->id, Type::INTEGER)
-            ->setParameter('placeholder', $placeholder, Type::STRING);
+            ->setParameter('id', $block->id, Types::INTEGER)
+            ->setParameter('position', $position, Types::INTEGER)
+            ->setParameter('parent_id', $targetBlock->id, Types::INTEGER)
+            ->setParameter('placeholder', $placeholder, Types::STRING);
 
         $this->applyStatusCondition($query, $block->status);
 
@@ -357,11 +357,11 @@ final class BlockQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->like('path', ':path')
             )
-            ->setParameter('layout_id', $targetBlock->layoutId, Type::INTEGER)
-            ->setParameter('depth_difference', $depthDifference, Type::INTEGER)
-            ->setParameter('old_path', $block->path, Type::STRING)
-            ->setParameter('new_path', $targetBlock->path . $block->id . '/', Type::STRING)
-            ->setParameter('path', $block->path . '%', Type::STRING);
+            ->setParameter('layout_id', $targetBlock->layoutId, Types::INTEGER)
+            ->setParameter('depth_difference', $depthDifference, Types::INTEGER)
+            ->setParameter('old_path', $block->path, Types::STRING)
+            ->setParameter('new_path', $targetBlock->path . $block->id . '/', Types::STRING)
+            ->setParameter('path', $block->path . '%', Types::STRING);
 
         $this->applyStatusCondition($query, $block->status);
 
@@ -408,7 +408,7 @@ final class BlockQueryHandler extends QueryHandler
         if ($locale !== null) {
             $query
                 ->andWhere($query->expr()->eq('locale', ':locale'))
-                ->setParameter(':locale', $locale, Type::STRING);
+                ->setParameter(':locale', $locale, Types::STRING);
         }
 
         $query->execute();
@@ -425,7 +425,7 @@ final class BlockQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->like('path', ':path')
             )
-            ->setParameter('path', '%/' . $blockId . '/%', Type::STRING);
+            ->setParameter('path', '%/' . $blockId . '/%', Types::STRING);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status);
@@ -447,7 +447,7 @@ final class BlockQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('layout_id', ':layout_id')
             )
-            ->setParameter('layout_id', $layoutId, Type::INTEGER);
+            ->setParameter('layout_id', $layoutId, Types::INTEGER);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status);
@@ -472,7 +472,7 @@ final class BlockQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('b.id', ':id')
             )
-            ->setParameter('id', $blockId, Type::INTEGER);
+            ->setParameter('id', $blockId, Types::INTEGER);
 
         $this->applyOffsetAndLimit($query, 0, 1);
 

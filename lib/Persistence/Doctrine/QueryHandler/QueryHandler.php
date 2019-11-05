@@ -6,7 +6,7 @@ namespace Netgen\Layouts\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Doctrine\DBAL\Types\Type;
+use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper;
 
 abstract class QueryHandler
@@ -48,7 +48,7 @@ abstract class QueryHandler
         )->setParameter(
             $isUuid ? $uuidParamName : $idParamName,
             $id,
-            $isUuid ? Type::STRING : Type::INTEGER
+            $isUuid ? Types::STRING : Types::INTEGER
         );
     }
 
@@ -58,7 +58,7 @@ abstract class QueryHandler
     public function applyStatusCondition(QueryBuilder $query, ?int $status, string $statusColumn = 'status', string $paramName = 'status'): void
     {
         $query->andWhere($query->expr()->eq($statusColumn, ':' . $paramName))
-            ->setParameter($paramName, $status, Type::INTEGER);
+            ->setParameter($paramName, $status, Types::INTEGER);
     }
 
     /**

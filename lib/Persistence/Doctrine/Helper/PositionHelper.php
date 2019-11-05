@@ -6,7 +6,7 @@ namespace Netgen\Layouts\Persistence\Doctrine\Helper;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Doctrine\DBAL\Types\Type;
+use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Exception\BadStateException;
 use PDO;
 
@@ -136,12 +136,12 @@ final class PositionHelper
 
         if ($startPosition !== null) {
             $query->andWhere($query->expr()->gte($columnName, ':start_position'));
-            $query->setParameter('start_position', $startPosition, Type::INTEGER);
+            $query->setParameter('start_position', $startPosition, Types::INTEGER);
         }
 
         if ($endPosition !== null) {
             $query->andWhere($query->expr()->lte($columnName, ':end_position'));
-            $query->setParameter('end_position', $endPosition, Type::INTEGER);
+            $query->setParameter('end_position', $endPosition, Types::INTEGER);
         }
 
         $this->applyConditions($query, $conditions['conditions']);
@@ -164,12 +164,12 @@ final class PositionHelper
 
         if ($startPosition !== null) {
             $query->andWhere($query->expr()->gte($columnName, ':start_position'));
-            $query->setParameter('start_position', $startPosition, Type::INTEGER);
+            $query->setParameter('start_position', $startPosition, Types::INTEGER);
         }
 
         if ($endPosition !== null) {
             $query->andWhere($query->expr()->lte($columnName, ':end_position'));
-            $query->setParameter('end_position', $endPosition, Type::INTEGER);
+            $query->setParameter('end_position', $endPosition, Types::INTEGER);
         }
 
         $this->applyConditions($query, $conditions['conditions']);
@@ -187,7 +187,7 @@ final class PositionHelper
                 $query->expr()->eq($identifier, ':' . $identifier)
             );
 
-            $query->setParameter($identifier, $value, is_int($value) ? Type::INTEGER : Type::STRING);
+            $query->setParameter($identifier, $value, is_int($value) ? Types::INTEGER : Types::STRING);
         }
     }
 }

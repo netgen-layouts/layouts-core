@@ -6,7 +6,7 @@ namespace Netgen\Layouts\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
-use Doctrine\DBAL\Types\Type;
+use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
 use Netgen\Layouts\Persistence\Values\Layout\Zone;
 use Netgen\Layouts\Persistence\Values\Value;
@@ -72,10 +72,10 @@ final class LayoutQueryHandler extends QueryHandler
         $query->andWhere($statusExpr);
 
         if ($shared !== null) {
-            $query->setParameter('shared', $shared, Type::BOOLEAN);
+            $query->setParameter('shared', $shared, Types::BOOLEAN);
         }
 
-        $query->setParameter('status', Value::STATUS_PUBLISHED, Type::INTEGER);
+        $query->setParameter('status', Value::STATUS_PUBLISHED, Types::INTEGER);
 
         $this->applyOffsetAndLimit($query, $offset, $limit);
         $query->orderBy('l.name', 'ASC');
@@ -125,10 +125,10 @@ final class LayoutQueryHandler extends QueryHandler
         $query->andWhere($statusExpr);
 
         if ($shared !== null) {
-            $query->setParameter('shared', $shared, Type::BOOLEAN);
+            $query->setParameter('shared', $shared, Types::BOOLEAN);
         }
 
-        $query->setParameter('status', Value::STATUS_PUBLISHED, Type::INTEGER);
+        $query->setParameter('status', Value::STATUS_PUBLISHED, Types::INTEGER);
 
         $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
@@ -170,7 +170,7 @@ final class LayoutQueryHandler extends QueryHandler
         $query->andWhere($statusExpr);
 
         $query->setParameter('layout_ids', $layoutIds, Connection::PARAM_INT_ARRAY);
-        $query->setParameter('status', Value::STATUS_PUBLISHED, Type::INTEGER);
+        $query->setParameter('status', Value::STATUS_PUBLISHED, Types::INTEGER);
 
         $query->orderBy('l.name', 'ASC');
 
@@ -200,9 +200,9 @@ final class LayoutQueryHandler extends QueryHandler
                 $query->expr()->eq('l.status', ':status')
             )
         )
-        ->setParameter('shared', false, Type::BOOLEAN)
-        ->setParameter('status', Value::STATUS_PUBLISHED, Type::INTEGER)
-        ->setParameter('linked_layout_id', $sharedLayout->id, Type::INTEGER);
+        ->setParameter('shared', false, Types::BOOLEAN)
+        ->setParameter('status', Value::STATUS_PUBLISHED, Types::INTEGER)
+        ->setParameter('linked_layout_id', $sharedLayout->id, Types::INTEGER);
 
         $query->orderBy('l.name', 'ASC');
 
@@ -233,9 +233,9 @@ final class LayoutQueryHandler extends QueryHandler
                     $query->expr()->eq('nglayouts_layout.status', ':status')
                 )
             )
-            ->setParameter('shared', false, Type::BOOLEAN)
-            ->setParameter('status', Value::STATUS_PUBLISHED, Type::INTEGER)
-            ->setParameter('linked_layout_id', $sharedLayout->id, Type::INTEGER);
+            ->setParameter('shared', false, Types::BOOLEAN)
+            ->setParameter('status', Value::STATUS_PUBLISHED, Types::INTEGER)
+            ->setParameter('linked_layout_id', $sharedLayout->id, Types::INTEGER);
 
         $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
 
@@ -257,7 +257,7 @@ final class LayoutQueryHandler extends QueryHandler
         $query->where(
             $query->expr()->eq('z.identifier', ':identifier')
         )
-        ->setParameter('identifier', $identifier, Type::STRING);
+        ->setParameter('identifier', $identifier, Types::STRING);
 
         $this->applyIdCondition($query, $layoutId, 'l.id', 'l.uuid');
         $this->applyStatusCondition($query, $status, 'l.status');
@@ -274,7 +274,7 @@ final class LayoutQueryHandler extends QueryHandler
         $query->where(
             $query->expr()->eq('z.layout_id', ':layout_id')
         )
-        ->setParameter('layout_id', $layout->id, Type::INTEGER)
+        ->setParameter('layout_id', $layout->id, Types::INTEGER)
         ->orderBy('z.identifier', 'ASC');
 
         $this->applyStatusCondition($query, $layout->status, 'z.status');
@@ -322,7 +322,7 @@ final class LayoutQueryHandler extends QueryHandler
                     $query->expr()->eq('name', ':name')
                 )
             )
-            ->setParameter('name', trim($name), Type::STRING);
+            ->setParameter('name', trim($name), Types::STRING);
 
         if ($excludedLayoutId !== null) {
             $isUuid = is_string($excludedLayoutId);
@@ -334,7 +334,7 @@ final class LayoutQueryHandler extends QueryHandler
             )->setParameter(
                 $isUuid ? 'uuid' : 'id',
                 $excludedLayoutId,
-                $isUuid ? Type::STRING : Type::INTEGER
+                $isUuid ? Types::STRING : Types::INTEGER
             );
         }
 
@@ -365,15 +365,15 @@ final class LayoutQueryHandler extends QueryHandler
                 ]
             )
             ->setValue('id', $layout->id ?? $this->connectionHelper->getAutoIncrementValue('nglayouts_layout'))
-            ->setParameter('status', $layout->status, Type::INTEGER)
-            ->setParameter('uuid', $layout->uuid, Type::STRING)
-            ->setParameter('type', $layout->type, Type::STRING)
-            ->setParameter('name', $layout->name, Type::STRING)
-            ->setParameter('description', $layout->description, Type::STRING)
-            ->setParameter('created', $layout->created, Type::INTEGER)
-            ->setParameter('modified', $layout->modified, Type::INTEGER)
-            ->setParameter('shared', $layout->shared, Type::BOOLEAN)
-            ->setParameter('main_locale', $layout->mainLocale, Type::STRING);
+            ->setParameter('status', $layout->status, Types::INTEGER)
+            ->setParameter('uuid', $layout->uuid, Types::STRING)
+            ->setParameter('type', $layout->type, Types::STRING)
+            ->setParameter('name', $layout->name, Types::STRING)
+            ->setParameter('description', $layout->description, Types::STRING)
+            ->setParameter('created', $layout->created, Types::INTEGER)
+            ->setParameter('modified', $layout->modified, Types::INTEGER)
+            ->setParameter('shared', $layout->shared, Types::BOOLEAN)
+            ->setParameter('main_locale', $layout->mainLocale, Types::STRING);
 
         $query->execute();
 
@@ -396,9 +396,9 @@ final class LayoutQueryHandler extends QueryHandler
                     'locale' => ':locale',
                 ]
             )
-            ->setParameter('layout_id', $layout->id, Type::INTEGER)
-            ->setParameter('status', $layout->status, Type::INTEGER)
-            ->setParameter('locale', $locale, Type::STRING);
+            ->setParameter('layout_id', $layout->id, Types::INTEGER)
+            ->setParameter('status', $layout->status, Types::INTEGER)
+            ->setParameter('locale', $locale, Types::STRING);
 
         $query->execute();
     }
@@ -420,12 +420,12 @@ final class LayoutQueryHandler extends QueryHandler
                     'linked_zone_identifier' => ':linked_zone_identifier',
                 ]
             )
-            ->setParameter('identifier', $zone->identifier, Type::STRING)
-            ->setParameter('layout_id', $zone->layoutId, Type::INTEGER)
-            ->setParameter('status', $zone->status, Type::INTEGER)
-            ->setParameter('root_block_id', $zone->rootBlockId, Type::INTEGER)
-            ->setParameter('linked_layout_id', $zone->linkedLayoutId, Type::INTEGER)
-            ->setParameter('linked_zone_identifier', $zone->linkedZoneIdentifier, Type::STRING);
+            ->setParameter('identifier', $zone->identifier, Types::STRING)
+            ->setParameter('layout_id', $zone->layoutId, Types::INTEGER)
+            ->setParameter('status', $zone->status, Types::INTEGER)
+            ->setParameter('root_block_id', $zone->rootBlockId, Types::INTEGER)
+            ->setParameter('linked_layout_id', $zone->linkedLayoutId, Types::INTEGER)
+            ->setParameter('linked_zone_identifier', $zone->linkedZoneIdentifier, Types::STRING);
 
         $query->execute();
     }
@@ -449,15 +449,15 @@ final class LayoutQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $layout->id, Type::INTEGER)
-            ->setParameter('uuid', $layout->uuid, Type::STRING)
-            ->setParameter('type', $layout->type, Type::STRING)
-            ->setParameter('name', $layout->name, Type::STRING)
-            ->setParameter('description', $layout->description, Type::STRING)
-            ->setParameter('created', $layout->created, Type::INTEGER)
-            ->setParameter('modified', $layout->modified, Type::INTEGER)
-            ->setParameter('shared', $layout->shared, Type::BOOLEAN)
-            ->setParameter('main_locale', $layout->mainLocale, Type::STRING);
+            ->setParameter('id', $layout->id, Types::INTEGER)
+            ->setParameter('uuid', $layout->uuid, Types::STRING)
+            ->setParameter('type', $layout->type, Types::STRING)
+            ->setParameter('name', $layout->name, Types::STRING)
+            ->setParameter('description', $layout->description, Types::STRING)
+            ->setParameter('created', $layout->created, Types::INTEGER)
+            ->setParameter('modified', $layout->modified, Types::INTEGER)
+            ->setParameter('shared', $layout->shared, Types::BOOLEAN)
+            ->setParameter('main_locale', $layout->mainLocale, Types::STRING);
 
         $this->applyStatusCondition($query, $layout->status);
 
@@ -481,11 +481,11 @@ final class LayoutQueryHandler extends QueryHandler
                     $query->expr()->eq('identifier', ':identifier')
                 )
             )
-            ->setParameter('layout_id', $zone->layoutId, Type::INTEGER)
-            ->setParameter('identifier', $zone->identifier, Type::STRING)
-            ->setParameter('root_block_id', $zone->rootBlockId, Type::INTEGER)
-            ->setParameter('linked_layout_id', $zone->linkedLayoutId, Type::INTEGER)
-            ->setParameter('linked_zone_identifier', $zone->linkedZoneIdentifier, Type::STRING);
+            ->setParameter('layout_id', $zone->layoutId, Types::INTEGER)
+            ->setParameter('identifier', $zone->identifier, Types::STRING)
+            ->setParameter('root_block_id', $zone->rootBlockId, Types::INTEGER)
+            ->setParameter('linked_layout_id', $zone->linkedLayoutId, Types::INTEGER)
+            ->setParameter('linked_zone_identifier', $zone->linkedZoneIdentifier, Types::STRING);
 
         $this->applyStatusCondition($query, $zone->status);
 
@@ -502,7 +502,7 @@ final class LayoutQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('layout_id', ':layout_id')
             )
-            ->setParameter('layout_id', $layoutId, Type::INTEGER);
+            ->setParameter('layout_id', $layoutId, Types::INTEGER);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status);
@@ -521,7 +521,7 @@ final class LayoutQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('id', ':id')
             )
-            ->setParameter('id', $layoutId, Type::INTEGER);
+            ->setParameter('id', $layoutId, Types::INTEGER);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status);
@@ -543,8 +543,8 @@ final class LayoutQueryHandler extends QueryHandler
                     $query->expr()->eq('identifier', ':identifier')
                 )
             )
-            ->setParameter('layout_id', $layoutId, Type::INTEGER)
-            ->setParameter('identifier', $zoneIdentifier, Type::STRING);
+            ->setParameter('layout_id', $layoutId, Types::INTEGER)
+            ->setParameter('identifier', $zoneIdentifier, Types::STRING);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status);
@@ -564,7 +564,7 @@ final class LayoutQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('layout_id', ':layout_id')
             )
-            ->setParameter('layout_id', $layoutId, Type::INTEGER);
+            ->setParameter('layout_id', $layoutId, Types::INTEGER);
 
         if ($status !== null) {
             $this->applyStatusCondition($query, $status);
@@ -573,7 +573,7 @@ final class LayoutQueryHandler extends QueryHandler
         if ($locale !== null) {
             $query
                 ->andWhere($query->expr()->eq('locale', ':locale'))
-                ->setParameter(':locale', $locale, Type::STRING);
+                ->setParameter(':locale', $locale, Types::STRING);
         }
 
         $query->execute();
