@@ -24,7 +24,7 @@ INNER JOIN ngbm_block_collection AS bc
     AND c.status = bc.collection_status
 SET c.start = bc.start, c.length = bc.length
 EOT
-);
+        );
 
         $this->addSql('ALTER TABLE ngbm_block_collection DROP COLUMN start');
         $this->addSql('ALTER TABLE ngbm_block_collection DROP COLUMN length');
@@ -47,7 +47,7 @@ INNER JOIN ngbm_collection AS c
     AND bc.collection_status = c.status
 SET bc.start = c.start, bc.length = c.length
 EOT
-);
+        );
 
         $this->addSql('ALTER TABLE ngbm_collection DROP COLUMN start');
         $this->addSql('ALTER TABLE ngbm_collection DROP COLUMN length');

@@ -90,7 +90,7 @@ CREATE TABLE `nglayouts_collection_slot` (
     REFERENCES `nglayouts_collection` (`id`, `status`)
 )
 EOT
-);
+        );
 
         $this->addSql('UPDATE nglayouts_rule_target SET type = "ez_content" WHERE type = "ezcontent"');
         $this->addSql('UPDATE nglayouts_rule_target SET type = "ez_location" WHERE type = "ezlocation"');

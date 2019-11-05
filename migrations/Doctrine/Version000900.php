@@ -43,7 +43,7 @@ CREATE TABLE `ngbm_layout_translation` (
     REFERENCES ngbm_layout (`id`, `status`)
 )
 EOT
-);
+        );
 
         $this->addSql('UPDATE ngbm_layout SET main_locale = :main_locale', ['main_locale' => $defaultLocale], ['main_locale' => Type::STRING]);
         $this->addSql('INSERT INTO ngbm_layout_translation SELECT id, status, main_locale FROM ngbm_layout');
@@ -66,7 +66,7 @@ CREATE TABLE `ngbm_block_translation` (
     REFERENCES ngbm_block (`id`, `status`)
 )
 EOT
-);
+        );
 
         $this->addSql('UPDATE ngbm_block SET translatable = 0, always_available = 1');
         $this->addSql('UPDATE ngbm_block SET main_locale = :main_locale', ['main_locale' => $defaultLocale], ['main_locale' => Type::STRING]);
@@ -91,7 +91,7 @@ CREATE TABLE `ngbm_collection_translation` (
     REFERENCES ngbm_collection (`id`, `status`)
 )
 EOT
-);
+        );
 
         $this->addSql('UPDATE ngbm_collection SET translatable = 0, always_available = 1');
         $this->addSql('UPDATE ngbm_collection SET main_locale = :main_locale', ['main_locale' => $defaultLocale], ['main_locale' => Type::STRING]);
@@ -111,7 +111,7 @@ CREATE TABLE `ngbm_collection_query_translation` (
     REFERENCES ngbm_collection_query (`id`, `status`)
 )
 EOT
-);
+        );
 
         $this->addSql('INSERT INTO ngbm_collection_query_translation SELECT id, status, "", parameters FROM ngbm_collection_query');
         $this->addSql('UPDATE ngbm_collection_query_translation SET locale = :locale', ['locale' => $defaultLocale], ['locale' => Type::STRING]);
