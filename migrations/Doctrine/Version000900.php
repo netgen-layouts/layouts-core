@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Migrations\Doctrine;
 
+use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\Migrations\AbstractMigration;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Utils\BackwardsCompatibility\Locales;
-use PDO;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -167,7 +167,7 @@ EOT
         $queryBuilder->select('COUNT(id) as count')
             ->from('ngbm_layout');
 
-        $result = $queryBuilder->execute()->fetchAll(PDO::FETCH_ASSOC);
+        $result = $queryBuilder->execute()->fetchAll(FetchMode::ASSOCIATIVE);
 
         return (int) $result[0]['count'] > 0;
     }

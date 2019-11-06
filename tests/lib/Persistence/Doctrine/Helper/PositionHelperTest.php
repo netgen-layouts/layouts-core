@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Persistence\Doctrine\Helper;
 
+use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\Layouts\Persistence\Values\Value;
 use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
-use PDO;
 use PHPUnit\Framework\TestCase;
 
 final class PositionHelperTest extends TestCase
@@ -229,7 +229,7 @@ final class PositionHelperTest extends TestCase
             ->setParameter('status', Value::STATUS_DRAFT, Types::INTEGER)
             ->orderBy('position', 'ASC');
 
-        $result = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        $result = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
 
         return array_map('intval', array_column($result, 'position'));
     }

@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Persistence\Doctrine\Helper;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Exception\BadStateException;
-use PDO;
 
 final class PositionHelper
 {
@@ -116,7 +116,7 @@ final class PositionHelper
 
         $this->applyConditions($query, $conditions['conditions']);
 
-        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        $data = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
 
         return (int) ($data[0][$columnName] ?? -1) + 1;
     }

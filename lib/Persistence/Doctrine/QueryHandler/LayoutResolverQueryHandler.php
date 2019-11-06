@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Exception\Persistence\TargetHandlerException;
@@ -14,7 +15,6 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
 use Netgen\Layouts\Persistence\Values\Value;
-use PDO;
 use Psr\Container\ContainerInterface;
 
 final class LayoutResolverQueryHandler extends QueryHandler
@@ -46,7 +46,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $ruleId, 'r.id', 'r.uuid');
         $this->applyStatusCondition($query, $status, 'r.status');
 
-        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
     /**
@@ -68,7 +68,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $this->applyStatusCondition($query, $status, 'r.status');
         $this->applyOffsetAndLimit($query, $offset, $limit);
 
-        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
     /**
@@ -89,7 +89,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $ruleStatus);
 
-        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        $data = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
 
         return (int) ($data[0]['count'] ?? 0);
     }
@@ -126,7 +126,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $targetHandler = $this->getTargetHandler($targetType);
         $targetHandler->handleQuery($query, $targetValue);
 
-        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
     /**
@@ -144,7 +144,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $targetId, 't.id', 't.uuid');
         $this->applyStatusCondition($query, $status, 't.status');
 
-        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
     /**
@@ -161,7 +161,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $rule->status, 't.status');
 
-        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
     /**
@@ -179,7 +179,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $rule->status);
 
-        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        $data = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
 
         return (int) ($data[0]['count'] ?? 0);
     }
@@ -199,7 +199,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $conditionId, 'c.id', 'c.uuid');
         $this->applyStatusCondition($query, $status, 'c.status');
 
-        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
     /**
@@ -216,7 +216,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $rule->status, 'c.status');
 
-        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
     /**
@@ -239,7 +239,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status);
         }
 
-        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        $data = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
 
         return (int) ($data[0]['count'] ?? 0) > 0;
     }
@@ -256,7 +256,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query->addOrderBy('priority', 'ASC');
         $this->applyOffsetAndLimit($query, 0, 1);
 
-        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        $data = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
 
         return isset($data[0]['priority']) ? (int) $data[0]['priority'] : null;
     }

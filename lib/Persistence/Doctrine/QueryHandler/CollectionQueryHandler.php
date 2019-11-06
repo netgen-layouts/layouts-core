@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Persistence\Values\Block\Block;
@@ -13,7 +14,6 @@ use Netgen\Layouts\Persistence\Values\Collection\Collection;
 use Netgen\Layouts\Persistence\Values\Collection\Item;
 use Netgen\Layouts\Persistence\Values\Collection\Query;
 use Netgen\Layouts\Persistence\Values\Collection\Slot;
-use PDO;
 
 final class CollectionQueryHandler extends QueryHandler
 {
@@ -32,7 +32,7 @@ final class CollectionQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $collectionId, 'c.id', 'c.uuid');
         $this->applyStatusCondition($query, $status, 'c.status');
 
-        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
     /**
@@ -45,7 +45,7 @@ final class CollectionQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $block->id, 'bc.block_id');
         $this->applyStatusCondition($query, $block->status, 'bc.block_status');
 
-        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
     /**
@@ -69,7 +69,7 @@ final class CollectionQueryHandler extends QueryHandler
                 ->setParameter('identifier', $identifier, Types::STRING);
         }
 
-        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
     /**
@@ -87,7 +87,7 @@ final class CollectionQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $itemId, 'i.id', 'i.uuid');
         $this->applyStatusCondition($query, $status, 'i.status');
 
-        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
     /**
@@ -107,7 +107,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $collection->status, 'i.status');
 
-        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
     /**
@@ -125,7 +125,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $query->addOrderBy('i.position', 'ASC');
 
-        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
     /**
@@ -143,7 +143,7 @@ final class CollectionQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $queryId, 'q.id', 'q.uuid');
         $this->applyStatusCondition($query, $status, 'q.status');
 
-        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
     /**
@@ -163,7 +163,7 @@ final class CollectionQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status);
         }
 
-        $result = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        $result = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
 
         return array_map('intval', array_column($result, 'id'));
     }
@@ -181,7 +181,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $collection->status, 'q.status');
 
-        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
     /**
@@ -199,7 +199,7 @@ final class CollectionQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $slotId, 's.id', 's.uuid');
         $this->applyStatusCondition($query, $status, 's.status');
 
-        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
     /**
@@ -217,7 +217,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $query->addOrderBy('s.position', 'ASC');
 
-        return $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
     /**
@@ -237,7 +237,7 @@ final class CollectionQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $collectionId);
         $this->applyStatusCondition($query, $status);
 
-        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        $data = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
 
         return (int) ($data[0]['count'] ?? 0) > 0;
     }
@@ -493,7 +493,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $collection->status);
 
-        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        $data = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
 
         return (int) ($data[0]['count'] ?? 0) > 0;
     }
@@ -805,7 +805,7 @@ final class CollectionQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status, 'bc.block_status', 'block_status');
         }
 
-        $result = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        $result = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
 
         return array_map('intval', array_column($result, 'collection_id'));
     }

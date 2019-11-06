@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Command\Migration;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\Types\Types;
 use Generator;
 use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
 use Netgen\Layouts\Collection\Registry\QueryTypeRegistry;
 use Netgen\Layouts\Parameters\CompoundParameterDefinition;
-use PDO;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -271,7 +271,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
                 )
             );
 
-        return $queryBuilder->execute()->fetchAll(PDO::FETCH_ASSOC);
+        return $queryBuilder->execute()->fetchAll(FetchMode::ASSOCIATIVE);
     }
 
     /**

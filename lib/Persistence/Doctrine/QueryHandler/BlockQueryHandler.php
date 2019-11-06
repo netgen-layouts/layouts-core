@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Persistence\Values\Block\Block;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
-use PDO;
 
 final class BlockQueryHandler extends QueryHandler
 {
@@ -28,7 +28,7 @@ final class BlockQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $blockId, 'b.id', 'b.uuid');
         $this->applyStatusCondition($query, $status, 'b.status');
 
-        $blocksData = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        $blocksData = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
 
         // Inject the parent UUID into the result
         // This is to avoid inner joining the block table with itself
@@ -63,7 +63,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $layout->status, 'b.status');
 
-        $blocksData = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        $blocksData = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
 
         // Map block IDs to UUIDs to inject parent UUID into the result
         // This is to avoid inner joining the block table with itself
@@ -107,7 +107,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $block->status, 'b.status');
 
-        $blocksData = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        $blocksData = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
 
         // Map block IDs to UUIDs to inject parent UUID into the result
         // This is to avoid inner joining the block table with itself
@@ -144,7 +144,7 @@ final class BlockQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $blockId);
         $this->applyStatusCondition($query, $status);
 
-        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        $data = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
 
         return (int) ($data[0]['count'] ?? 0) > 0;
     }
@@ -431,7 +431,7 @@ final class BlockQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status);
         }
 
-        $result = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        $result = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
 
         return array_map('intval', array_column($result, 'id'));
     }
@@ -453,7 +453,7 @@ final class BlockQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status);
         }
 
-        $result = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        $result = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
 
         return array_map('intval', array_column($result, 'id'));
     }
@@ -476,7 +476,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $this->applyOffsetAndLimit($query, 0, 1);
 
-        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        $data = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
 
         if (count($data) === 0) {
             return null;

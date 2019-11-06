@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper;
 
 use Doctrine\DBAL\Connection;
-use PDO;
+use Doctrine\DBAL\FetchMode;
 
 final class Sqlite
 {
@@ -34,7 +34,7 @@ final class Sqlite
         $query->select($this->connection->getDatabasePlatform()->getMaxExpression($column) . ' AS id')
             ->from($table);
 
-        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        $data = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
 
         return (int) ($data[0]['id'] ?? 0) + 1;
     }
@@ -50,7 +50,7 @@ final class Sqlite
         $query->select($this->connection->getDatabasePlatform()->getMaxExpression($column) . ' AS id')
             ->from($table);
 
-        $data = $query->execute()->fetchAll(PDO::FETCH_ASSOC);
+        $data = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
 
         return (int) ($data[0]['id'] ?? 0);
     }
