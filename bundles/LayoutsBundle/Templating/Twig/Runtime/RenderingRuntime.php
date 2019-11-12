@@ -14,6 +14,7 @@ use Netgen\Layouts\Collection\Result\ManualItem;
 use Netgen\Layouts\Collection\Result\Result;
 use Netgen\Layouts\Error\ErrorHandlerInterface;
 use Netgen\Layouts\Exception\InvalidArgumentException;
+use Netgen\Layouts\Item\CmsItemInterface;
 use Netgen\Layouts\Locale\LocaleProviderInterface;
 use Netgen\Layouts\View\RendererInterface;
 use Netgen\Layouts\View\Twig\ContextualizedTwigTemplate;
@@ -69,6 +70,30 @@ final class RenderingRuntime
     }
 
     /**
+     * Renders the provided item.
+     */
+    public function renderItem(array $context, CmsItemInterface $item, string $viewType, array $parameters = [], ?string $viewContext = null): string
+    {
+        try {
+            return $this->renderer->renderValue(
+                $item,
+                $this->getViewContext($context, $viewContext),
+                ['view_type' => $viewType] + $parameters
+            );
+        } catch (Throwable $t) {
+            $message = sprintf(
+                'Error rendering an item with value "%s" and value type "%s"',
+                $item->getValue(),
+                $item->getValueType()
+            );
+
+            $this->errorHandler->handleError($t, $message);
+        }
+
+        return '';
+    }
+
+    /**
      * Renders the provided result.
      */
     public function renderResult(array $context, Result $result, ?string $overrideViewType = null, ?string $fallbackViewType = null, array $parameters = [], ?string $viewContext = null): string
@@ -94,11 +119,7 @@ final class RenderingRuntime
                 );
             }
 
-            return $this->renderer->renderValue(
-                $item,
-                $this->getViewContext($context, $viewContext),
-                ['view_type' => $viewType] + $parameters
-            );
+            return $this->renderItem($context, $item, $viewType, $parameters, $viewContext);
         } catch (Throwable $t) {
             $message = sprintf(
                 'Error rendering an item with value "%s" and value type "%s"',

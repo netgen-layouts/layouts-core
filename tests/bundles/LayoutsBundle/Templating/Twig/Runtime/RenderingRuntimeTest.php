@@ -521,6 +521,151 @@ final class RenderingRuntimeTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderItem
+     */
+    public function testRenderItem(): void
+    {
+        $cmsItem = new CmsItem();
+
+        $this->rendererMock
+            ->expects(self::once())
+            ->method('renderValue')
+            ->with(
+                self::identicalTo($cmsItem),
+                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
+                self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
+            )
+            ->willReturn('rendered item');
+
+        self::assertSame(
+            'rendered item',
+            $this->runtime->renderItem(
+                [],
+                $cmsItem,
+                'view_type',
+                ['param' => 'value']
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderItem
+     */
+    public function testRenderItemWithViewContext(): void
+    {
+        $cmsItem = new CmsItem();
+
+        $this->rendererMock
+            ->expects(self::once())
+            ->method('renderValue')
+            ->with(
+                self::identicalTo($cmsItem),
+                self::identicalTo(ViewInterface::CONTEXT_APP),
+                self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
+            )
+            ->willReturn('rendered item');
+
+        self::assertSame(
+            'rendered item',
+            $this->runtime->renderItem(
+                [],
+                $cmsItem,
+                'view_type',
+                ['param' => 'value'],
+                ViewInterface::CONTEXT_APP
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderItem
+     */
+    public function testRenderItemWithViewContextFromTwigContext(): void
+    {
+        $cmsItem = new CmsItem();
+
+        $this->rendererMock
+            ->expects(self::once())
+            ->method('renderValue')
+            ->with(
+                self::identicalTo($cmsItem),
+                self::identicalTo(ViewInterface::CONTEXT_APP),
+                self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
+            )
+            ->willReturn('rendered item');
+
+        self::assertSame(
+            'rendered item',
+            $this->runtime->renderItem(
+                [
+                    'view_context' => ViewInterface::CONTEXT_APP,
+                ],
+                $cmsItem,
+                'view_type',
+                ['param' => 'value']
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderItem
+     */
+    public function testRenderItemReturnsEmptyStringOnException(): void
+    {
+        $cmsItem = CmsItem::fromArray(['valueType' => 'value_type']);
+
+        $this->rendererMock
+            ->expects(self::once())
+            ->method('renderValue')
+            ->with(
+                self::identicalTo($cmsItem),
+                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
+                self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
+            )
+            ->willThrowException(new Exception());
+
+        self::assertSame(
+            '',
+            $this->runtime->renderItem(
+                [],
+                $cmsItem,
+                'view_type',
+                ['param' => 'value']
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderItem
+     */
+    public function testRenderItemThrowsExceptionInDebug(): void
+    {
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Test exception text');
+
+        $this->errorHandler->setThrow(true);
+
+        $cmsItem = CmsItem::fromArray(['valueType' => 'value_type']);
+
+        $this->rendererMock
+            ->expects(self::once())
+            ->method('renderValue')
+            ->with(
+                self::identicalTo($cmsItem),
+                self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
+                self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
+            )
+            ->willThrowException(new Exception('Test exception text'));
+
+        $this->runtime->renderItem(
+            [],
+            $cmsItem,
+            'view_type',
+            ['param' => 'value']
+        );
+    }
+
+    /**
      * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::renderResult
      */
     public function testRenderResultWithViewTypeInItem(): void
