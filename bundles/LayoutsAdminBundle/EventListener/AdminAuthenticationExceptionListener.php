@@ -33,12 +33,17 @@ final class AdminAuthenticationExceptionListener implements EventSubscriberInter
             return;
         }
 
-        $exception = $event->getException();
+        // @deprecated Remove call to getException when support for Symfony 3.4 ends
+        $exception = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
+
         if (!$exception instanceof AuthenticationException && !$exception instanceof AccessDeniedException) {
             return;
         }
 
-        $event->setException(new AccessDeniedHttpException());
+        // @deprecated Remove call to setException when support for Symfony 3.4 ends
+        method_exists($event, 'setThrowable') ?
+            $event->setThrowable(new AccessDeniedHttpException()) :
+            $event->setException(new AccessDeniedHttpException());
 
         $event->stopPropagation();
     }

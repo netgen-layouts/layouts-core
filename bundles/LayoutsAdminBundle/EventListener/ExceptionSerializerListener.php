@@ -52,7 +52,8 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
             return;
         }
 
-        $exception = $event->getException();
+        // @deprecated Remove call to getException when support for Symfony 3.4 ends
+        $exception = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
 
         if (!$exception instanceof HttpExceptionInterface || $exception->getStatusCode() >= 500) {
             $this->logger->critical(

@@ -71,21 +71,24 @@ final class ExceptionConversionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
+        // @deprecated Remove call to getException when support for Symfony 3.4 ends
+        $eventException = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
+
         self::assertInstanceOf(
             $convertedClass,
-            $event->getException()
+            $eventException
         );
 
-        self::assertSame($exception->getMessage(), $event->getException()->getMessage());
-        self::assertSame($exception->getCode(), $event->getException()->getCode());
+        self::assertSame($exception->getMessage(), $eventException->getMessage());
+        self::assertSame($exception->getCode(), $eventException->getCode());
 
-        if ($event->getException() instanceof HttpExceptionInterface) {
-            self::assertSame($statusCode, $event->getException()->getStatusCode());
+        if ($eventException instanceof HttpExceptionInterface) {
+            self::assertSame($statusCode, $eventException->getStatusCode());
         }
 
         $converted ?
-            self::assertSame($exception, $event->getException()->getPrevious()) :
-            self::assertSame($exception, $event->getException());
+            self::assertSame($exception, $eventException->getPrevious()) :
+            self::assertSame($exception, $eventException);
     }
 
     /**
@@ -107,9 +110,12 @@ final class ExceptionConversionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
+        // @deprecated Remove call to getException when support for Symfony 3.4 ends
+        $eventException = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
+
         self::assertInstanceOf(
             RuntimeException::class,
-            $event->getException()
+            $eventException
         );
     }
 
@@ -132,7 +138,10 @@ final class ExceptionConversionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        self::assertSame($exception, $event->getException());
+        // @deprecated Remove call to getException when support for Symfony 3.4 ends
+        $eventException = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
+
+        self::assertSame($exception, $eventException);
     }
 
     /**
@@ -153,7 +162,10 @@ final class ExceptionConversionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        self::assertSame($exception, $event->getException());
+        // @deprecated Remove call to getException when support for Symfony 3.4 ends
+        $eventException = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
+
+        self::assertSame($exception, $eventException);
     }
 
     public function onExceptionDataProvider(): array
