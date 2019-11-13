@@ -71,7 +71,7 @@ final class ExceptionConversionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        // @deprecated Remove call to getException when support for Symfony 3.4 ends
+        /** @deprecated Remove call to getException when support for Symfony 3.4 ends */
         $eventException = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
 
         self::assertInstanceOf(
@@ -110,7 +110,7 @@ final class ExceptionConversionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        // @deprecated Remove call to getException when support for Symfony 3.4 ends
+        /** @deprecated Remove call to getException when support for Symfony 3.4 ends */
         $eventException = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
 
         self::assertInstanceOf(
@@ -138,7 +138,7 @@ final class ExceptionConversionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        // @deprecated Remove call to getException when support for Symfony 3.4 ends
+        /** @deprecated Remove call to getException when support for Symfony 3.4 ends */
         $eventException = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
 
         self::assertSame($exception, $eventException);
@@ -162,7 +162,7 @@ final class ExceptionConversionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        // @deprecated Remove call to getException when support for Symfony 3.4 ends
+        /** @deprecated Remove call to getException when support for Symfony 3.4 ends */
         $eventException = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
 
         self::assertSame($exception, $eventException);
