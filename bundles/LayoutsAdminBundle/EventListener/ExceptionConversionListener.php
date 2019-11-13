@@ -55,7 +55,7 @@ final class ExceptionConversionListener implements EventSubscriberInterface
             return;
         }
 
-        // @deprecated Remove call to getException when support for Symfony 3.4 ends
+        /** @deprecated Remove call to getException when support for Symfony 3.4 ends */
         $exception = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
 
         if ($exception instanceof HttpExceptionInterface) {
