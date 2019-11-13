@@ -85,6 +85,9 @@
                 <referencedMethod name="Symfony\Component\Config\Definition\Builder\NodeDefinition::addDefaultsIfNotSet" />
                 <referencedMethod name="Symfony\Component\Config\Definition\Builder\NodeDefinition::requiresAtLeastOneElement" />
                 <referencedMethod name="Symfony\Component\Config\Definition\Builder\NodeDefinition::children" />
+                <referencedMethod name="Symfony\Component\HttpKernel\Exception\HttpExceptionInterface::getMessage" />
+                <referencedMethod name="Symfony\Component\HttpKernel\Exception\HttpExceptionInterface::getFile" />
+                <referencedMethod name="Symfony\Component\HttpKernel\Exception\HttpExceptionInterface::getLine" />
             </errorLevel>
         </PossiblyUndefinedMethod>
 
