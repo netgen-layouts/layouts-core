@@ -57,7 +57,10 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        self::assertInstanceOf(AccessDeniedHttpException::class, $event->getException());
+        // @deprecated Remove call to getException when support for Symfony 3.4 ends
+        $eventException = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
+
+        self::assertInstanceOf(AccessDeniedHttpException::class, $eventException);
         self::assertTrue($event->isPropagationStopped());
     }
 
@@ -80,7 +83,10 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        self::assertNotInstanceOf(AccessDeniedHttpException::class, $event->getException());
+        // @deprecated Remove call to getException when support for Symfony 3.4 ends
+        $eventException = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
+
+        self::assertNotInstanceOf(AccessDeniedHttpException::class, $eventException);
         self::assertFalse($event->isPropagationStopped());
     }
 
@@ -102,7 +108,10 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        self::assertNotInstanceOf(AccessDeniedHttpException::class, $event->getException());
+        // @deprecated Remove call to getException when support for Symfony 3.4 ends
+        $eventException = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
+
+        self::assertNotInstanceOf(AccessDeniedHttpException::class, $eventException);
         self::assertFalse($event->isPropagationStopped());
     }
 
@@ -124,7 +133,10 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        self::assertNotInstanceOf(AccessDeniedHttpException::class, $event->getException());
+        // @deprecated Remove call to getException when support for Symfony 3.4 ends
+        $eventException = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
+
+        self::assertNotInstanceOf(AccessDeniedHttpException::class, $eventException);
         self::assertFalse($event->isPropagationStopped());
     }
 }
