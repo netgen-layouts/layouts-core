@@ -4,13 +4,13 @@
     {% set link = null %}
     {% set content = content|default('') %}
 
-    {% if value.linkType == constant('LINK_TYPE_URL', value) %}
+    {% if value.linkType is constant('LINK_TYPE_URL', value) %}
         {% set link = value.link ~ value.linkSuffix %}
-    {% elseif value.linkType == constant('LINK_TYPE_EMAIL', value) %}
+    {% elseif value.linkType is constant('LINK_TYPE_EMAIL', value) %}
         {% set link = 'mailto:' ~ value.link ~ value.linkSuffix %}
-    {% elseif value.linkType == constant('LINK_TYPE_PHONE', value) %}
+    {% elseif value.linkType is constant('LINK_TYPE_PHONE', value) %}
         {% set link = 'tel:' ~ value.link ~ value.linkSuffix %}
-    {% elseif value.linkType == constant('LINK_TYPE_INTERNAL', value) %}
+    {% elseif value.linkType is constant('LINK_TYPE_INTERNAL', value) %}
         {% set link = nglayouts_item_path(value.link) ~ value.linkSuffix %}
     {% endif %}
 
