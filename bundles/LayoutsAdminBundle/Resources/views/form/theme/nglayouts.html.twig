@@ -37,8 +37,6 @@
         </div>
     {% endmacro %}
 
-    {% import _self as self %}
-
     {% set key_form = form[key_name] %}
     {% set values_form = form[values_name] %}
 
@@ -47,7 +45,7 @@
     <div class="multientry"
          data-insert_first="{{ required or key_form.vars.value is empty ? 'true' : 'false' }}"
          data-last_item_can_be_removed="{{ required ? 'false' : 'true' }}"
-         data-prototype="{{ self.prototype(values_form.vars.prototype)|e }}"
+         data-prototype="{{ _self.prototype(values_form.vars.prototype)|e }}"
     >
         {{- form_label(values_form) -}}
         {{- form_errors(values_form) -}}
@@ -57,7 +55,7 @@
         <div class="multientry-items">
             {% for value_form in values_form %}
                 {{- form_errors(value_form) -}}
-                {{ self.prototype(value_form) }}
+                {{ _self.prototype(value_form) }}
             {% endfor %}
         </div>
 
