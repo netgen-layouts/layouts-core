@@ -5,7 +5,7 @@ services:
     netgen_layouts.debug.data_collector:
         class: Netgen\Bundle\LayoutsDebugBundle\DataCollector\LayoutsDataCollector
         arguments:
-            - "@netgen_layouts.api.service.layout"
+            - "@netgen_layouts.persistence.layout.handler"
             - "@netgen_layouts.templating.global_variable"
             - "@twig"
             - "%netgen_layouts.edition%"

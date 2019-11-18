@@ -7,8 +7,8 @@ namespace Netgen\Bundle\LayoutsDebugBundle\DataCollector;
 use Exception;
 use Jean85\PrettyVersions;
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\GlobalVariable;
-use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler;
 use Netgen\Layouts\View\View\BlockViewInterface;
 use Netgen\Layouts\View\View\LayoutViewInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,9 +22,9 @@ use Version\Version;
 final class LayoutsDataCollector extends DataCollector
 {
     /**
-     * @var \Netgen\Layouts\API\Service\LayoutService
+     * @var \Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface
      */
-    private $layoutService;
+    private $layoutHandler;
 
     /**
      * @var \Netgen\Bundle\LayoutsBundle\Templating\Twig\GlobalVariable
@@ -37,13 +37,13 @@ final class LayoutsDataCollector extends DataCollector
     private $twig;
 
     /**
-     * @var \Netgen\Layouts\API\Values\Layout\Layout[]
+     * @var \Netgen\Layouts\Persistence\Values\Layout\Layout[]
      */
     private $layoutCache = [];
 
-    public function __construct(LayoutService $layoutService, GlobalVariable $globalVariable, Environment $twig, string $edition)
+    public function __construct(LayoutHandler $layoutHandler, GlobalVariable $globalVariable, Environment $twig, string $edition)
     {
-        $this->layoutService = $layoutService;
+        $this->layoutHandler = $layoutHandler;
         $this->globalVariable = $globalVariable;
         $this->twig = $twig;
 
@@ -143,13 +143,16 @@ final class LayoutsDataCollector extends DataCollector
         $template = $blockView->getTemplate();
 
         $layoutId = $block->getLayoutId()->toString();
-        $this->layoutCache[$layoutId] = $this->layoutCache[$layoutId] ?? $this->layoutService->loadLayout($block->getLayoutId());
+        $this->layoutCache[$layoutId] = $this->layoutCache[$layoutId] ?? $this->layoutHandler->loadLayout(
+            $block->getLayoutId(),
+            $block->getStatus()
+        );
 
         $blockData = [
             'id' => $block->getId()->toString(),
             'name' => $block->getName(),
             'layout_id' => $layoutId,
-            'layout_name' => $this->layoutCache[$layoutId]->getName(),
+            'layout_name' => $this->layoutCache[$layoutId]->name,
             'definition' => $blockDefinition->getName(),
             'view_type' => $blockDefinition->hasViewType($block->getViewType()) ?
                 $blockDefinition->getViewType($block->getViewType())->getName() :
