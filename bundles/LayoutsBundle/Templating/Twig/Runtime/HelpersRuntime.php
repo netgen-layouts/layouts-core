@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime;
 
 use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\Exception\Item\ItemException;
+use Netgen\Layouts\Item\CmsItemInterface;
+use Netgen\Layouts\Item\Registry\ValueTypeRegistry;
 use Netgen\Layouts\Utils\BackwardsCompatibility\Locales;
 use Netgen\Layouts\Utils\FlagGenerator;
 use Ramsey\Uuid\Uuid;
@@ -17,9 +20,15 @@ final class HelpersRuntime
      */
     private $layoutService;
 
-    public function __construct(LayoutService $layoutService)
+    /**
+     * @var \Netgen\Layouts\Item\Registry\ValueTypeRegistry
+     */
+    private $valueTypeRegistry;
+
+    public function __construct(LayoutService $layoutService, ValueTypeRegistry $valueTypeRegistry)
     {
         $this->layoutService = $layoutService;
+        $this->valueTypeRegistry = $valueTypeRegistry;
     }
 
     /**
@@ -42,6 +51,18 @@ final class HelpersRuntime
 
             return $layout->getName();
         } catch (Throwable $t) {
+            return '';
+        }
+    }
+
+    /**
+     * Returns the the name of the value type that the specified item wraps.
+     */
+    public function getValueTypeName(CmsItemInterface $cmsItem): string
+    {
+        try {
+            return $this->valueTypeRegistry->getValueType($cmsItem->getValueType())->getName();
+        } catch (ItemException $t) {
             return '';
         }
     }

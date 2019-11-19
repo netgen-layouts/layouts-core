@@ -21,6 +21,10 @@ final class HelpersExtension extends AbstractExtension
                 'nglayouts_layout_name',
                 [HelpersRuntime::class, 'getLayoutName']
             ),
+            new TwigFunction(
+                'nglayouts_value_type_name',
+                [HelpersRuntime::class, 'getValueTypeName']
+            ),
         ];
     }
 

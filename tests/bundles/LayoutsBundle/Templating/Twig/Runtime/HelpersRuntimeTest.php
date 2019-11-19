@@ -8,6 +8,9 @@ use Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\HelpersRuntime;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Item\CmsItem;
+use Netgen\Layouts\Item\Registry\ValueTypeRegistry;
+use Netgen\Layouts\Item\ValueType\ValueType;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
@@ -27,7 +30,14 @@ final class HelpersRuntimeTest extends TestCase
     {
         $this->layoutServiceMock = $this->createMock(LayoutService::class);
 
-        $this->runtime = new HelpersRuntime($this->layoutServiceMock);
+        $this->runtime = new HelpersRuntime(
+            $this->layoutServiceMock,
+            new ValueTypeRegistry(
+                [
+                    'value' => ValueType::fromArray(['identifier' => 'value', 'name' => 'Value']),
+                ]
+            )
+        );
     }
 
     /**
@@ -71,5 +81,25 @@ final class HelpersRuntimeTest extends TestCase
             ->willThrowException(new NotFoundException('layout', $uuid->toString()));
 
         self::assertSame('', $this->runtime->getLayoutName($uuid->toString()));
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\HelpersRuntime::getValueTypeName
+     */
+    public function testGetValueTypeName(): void
+    {
+        $cmsItem = CmsItem::fromArray(['valueType' => 'value']);
+
+        self::assertSame('Value', $this->runtime->getValueTypeName($cmsItem));
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\HelpersRuntime::getValueTypeName
+     */
+    public function testGetValueTypeNameWithNonExistingLayout(): void
+    {
+        $cmsItem = CmsItem::fromArray(['valueType' => 'non_existing']);
+
+        self::assertSame('', $this->runtime->getValueTypeName($cmsItem));
     }
 }
