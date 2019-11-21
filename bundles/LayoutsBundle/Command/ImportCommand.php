@@ -49,7 +49,7 @@ final class ImportCommand extends Command
             ->setHelp('The command <info>%command.name%</info> imports Netgen Layouts entities.');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): ?int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->io = new SymfonyStyle($input, $output);
 

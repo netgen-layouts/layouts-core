@@ -79,7 +79,7 @@ final class MigrateUuidCommand extends Command
         $this->io = new SymfonyStyle($this->input, $this->output);
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): ?int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->io->title('Netgen Layouts UUID migration script');
 

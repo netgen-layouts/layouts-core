@@ -28,6 +28,10 @@ parameters:
 
         - '#Symfony\\Component\\ErrorRenderer\\Exception\\FlattenException#'
 
+        # Compatibility with Symfony 4.4
+
+        - '#Call to function method_exists\(\) with Symfony\\Component\\HttpKernel\\Event\\GetResponseForExceptionEvent#'
+
         # Netgen Layouts specifics
 
         - '#Property Netgen\\Layouts\\Persistence\\Values\\.+::\$\w+ \(int\) does not accept null.#'
