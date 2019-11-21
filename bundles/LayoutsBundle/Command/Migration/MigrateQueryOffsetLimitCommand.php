@@ -90,7 +90,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
         $this->io = new SymfonyStyle($this->input, $this->output);
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): ?int
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->io->title('Netgen Layouts 0.10 migration script');
 

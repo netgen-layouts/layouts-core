@@ -31,6 +31,10 @@ parameters:
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\Console\\\\Application and 'renderThrowable'#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\Console\\\\Application and 'renderException'#"
 
+        # Compatibility with Symfony 4.4
+
+        - '#Call to function method_exists\(\) with Symfony\\Component\\HttpKernel\\Event\\GetResponseForExceptionEvent#'
+
         # Netgen Layouts specifics
 
         - '#Property Netgen\\Layouts\\Persistence\\Values\\.+::\$\w+ \(int\) does not accept null.#'
