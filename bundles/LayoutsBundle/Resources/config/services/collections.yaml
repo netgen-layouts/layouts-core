@@ -33,8 +33,6 @@ services:
         arguments:
             - "@twig"
             - "%netgen_layouts.collection.pager.template%"
-        tags:
-            - { name: pagerfanta.view, alias: nglayouts_collection }
 
     netgen_layouts.collection.query_type_factory:
         class: Netgen\Layouts\Collection\QueryType\QueryTypeFactory
