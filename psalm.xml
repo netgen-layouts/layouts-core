@@ -30,7 +30,7 @@
 
         <UndefinedClass>
             <errorLevel type="suppress">
-                <referencedClass name="Symfony\Component\ErrorRenderer\Exception\FlattenException" />
+                <referencedClass name="Symfony\Component\ErrorHandler\Exception\FlattenException" />
             </errorLevel>
         </UndefinedClass>
 

@@ -14,10 +14,6 @@ parameters:
             message: '#Cannot call method fetchAll\(\) on Doctrine\\DBAL\\Driver\\Statement\|int#'
             path: tests/lib/Persistence/Doctrine/Helper/PositionHelperTest.php
 
-        # Compatibility with Symfony 3.4
-
-        - '#Symfony\\Component\\ErrorRenderer\\Exception\\FlattenException#'
-
         # Compatibility with Symfony 4.4
 
         - '#Call to function method_exists\(\) with Symfony\\Component\\HttpKernel\\Event\\GetResponseForExceptionEvent#'
