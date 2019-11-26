@@ -110,7 +110,12 @@ final class ImportCommand extends Command
         $previousVerbosity = $this->io->getVerbosity();
         $this->io->setVerbosity(OutputInterface::VERBOSITY_VERBOSE);
 
-        (new Application())->renderException($t instanceof Exception ? $t : new FatalThrowableError($t), $this->io);
+        $app = new Application();
+        if (method_exists($app, 'renderThrowable')) {
+            $app->renderThrowable($t, $this->io);
+        } elseif (method_exists($app, 'renderException')) {
+            $app->renderException($t instanceof Exception ? $t : new FatalThrowableError($t), $this->io);
+        }
 
         $this->io->setVerbosity($previousVerbosity);
     }
