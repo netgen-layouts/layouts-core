@@ -16,7 +16,7 @@ parameters:
 
         # Compatibility with Symfony 3.4
 
-        - '#Symfony\\Component\\ErrorRenderer\\Exception\\FlattenException#'
+        - '#Symfony\\Component\\ErrorHandler\\Exception\\FlattenException#'
 
         # Compatibility with Symfony 4.4
 
