@@ -15,11 +15,12 @@ use Netgen\Layouts\Exception\InvalidArgumentException;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Exception\Validation\ValidationException;
 use Netgen\Layouts\Exception\View\ViewException;
+use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
+use Netgen\Layouts\Utils\BackwardsCompatibility\ExceptionEventThrowableTrait;
 use PHPUnit\Framework\TestCase;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
@@ -31,6 +32,9 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 final class ExceptionConversionListenerTest extends TestCase
 {
+    use CreateEventTrait;
+    use ExceptionEventThrowableTrait;
+
     /**
      * @var \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionConversionListener
      */
@@ -62,7 +66,7 @@ final class ExceptionConversionListenerTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
-        $event = new GetResponseForExceptionEvent(
+        $event = $this->createExceptionEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
@@ -71,14 +75,9 @@ final class ExceptionConversionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        /** @deprecated Remove call to getException when support for Symfony 3.4 ends */
-        $eventException = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
+        $eventException = $this->getThrowable($event);
 
-        self::assertInstanceOf(
-            $convertedClass,
-            $eventException
-        );
-
+        self::assertInstanceOf($convertedClass, $eventException);
         self::assertSame($exception->getMessage(), $eventException->getMessage());
         self::assertSame($exception->getCode(), $eventException->getCode());
 
@@ -101,7 +100,7 @@ final class ExceptionConversionListenerTest extends TestCase
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $exception = new RuntimeException('Some error');
 
-        $event = new GetResponseForExceptionEvent(
+        $event = $this->createExceptionEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
@@ -110,13 +109,9 @@ final class ExceptionConversionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        /** @deprecated Remove call to getException when support for Symfony 3.4 ends */
-        $eventException = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
+        $eventException = $this->getThrowable($event);
 
-        self::assertInstanceOf(
-            RuntimeException::class,
-            $eventException
-        );
+        self::assertInstanceOf(RuntimeException::class, $eventException);
     }
 
     /**
@@ -129,7 +124,7 @@ final class ExceptionConversionListenerTest extends TestCase
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
         $exception = new NotFoundException('param', 'Some error');
 
-        $event = new GetResponseForExceptionEvent(
+        $event = $this->createExceptionEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::SUB_REQUEST,
@@ -138,8 +133,7 @@ final class ExceptionConversionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        /** @deprecated Remove call to getException when support for Symfony 3.4 ends */
-        $eventException = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
+        $eventException = $this->getThrowable($event);
 
         self::assertSame($exception, $eventException);
     }
@@ -153,7 +147,7 @@ final class ExceptionConversionListenerTest extends TestCase
         $request = Request::create('/');
         $exception = new NotFoundException('param', 'Some error');
 
-        $event = new GetResponseForExceptionEvent(
+        $event = $this->createExceptionEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
@@ -162,8 +156,7 @@ final class ExceptionConversionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        /** @deprecated Remove call to getException when support for Symfony 3.4 ends */
-        $eventException = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
+        $eventException = $this->getThrowable($event);
 
         self::assertSame($exception, $eventException);
     }

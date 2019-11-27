@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Twig\Environment;
 use Twig\Extension\ExtensionInterface;
@@ -38,8 +37,10 @@ class TwigExtensionsListener implements EventSubscriberInterface
 
     /**
      * Adds the Twig extensions to the environment if they don't already exist.
+     *
+     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
      */
-    public function onKernelRequest(GetResponseEvent $event): void
+    public function onKernelRequest($event): void
     {
         foreach ($this->extensions as $extension) {
             if (!class_exists($extension) || !is_a($extension, ExtensionInterface::class, true)) {

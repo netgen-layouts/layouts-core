@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 
+use Netgen\Layouts\Utils\BackwardsCompatibility\ExceptionEventThrowableTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -13,6 +13,8 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 final class AdminAuthenticationExceptionListener implements EventSubscriberInterface
 {
+    use ExceptionEventThrowableTrait;
+
     public static function getSubscribedEvents(): array
     {
         // Priority needs to be higher than built in exception listener
@@ -21,8 +23,10 @@ final class AdminAuthenticationExceptionListener implements EventSubscriberInter
 
     /**
      * Converts Symfony authentication exceptions to HTTP Access Denied exception.
+     *
+     * @param \Symfony\Component\HttpKernel\Event\ExceptionEvent $event
      */
-    public function onException(GetResponseForExceptionEvent $event): void
+    public function onException($event): void
     {
         $attributes = $event->getRequest()->attributes;
         if ($attributes->get(SetIsAdminRequestListener::ADMIN_FLAG_NAME) !== true) {
@@ -33,18 +37,12 @@ final class AdminAuthenticationExceptionListener implements EventSubscriberInter
             return;
         }
 
-        /** @deprecated Remove call to getException when support for Symfony 3.4 ends */
-        $exception = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
-
+        $exception = $this->getThrowable($event);
         if (!$exception instanceof AuthenticationException && !$exception instanceof AccessDeniedException) {
             return;
         }
 
-        // @deprecated Remove call to setException when support for Symfony 3.4 ends
-        method_exists($event, 'setThrowable') ?
-            $event->setThrowable(new AccessDeniedHttpException()) :
-            $event->setException(new AccessDeniedHttpException());
-
+        $this->setThrowable($event, new AccessDeniedHttpException());
         $event->stopPropagation();
     }
 }

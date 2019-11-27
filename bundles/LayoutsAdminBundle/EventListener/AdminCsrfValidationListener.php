@@ -6,7 +6,6 @@ namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 
 use Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidatorInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 
@@ -36,9 +35,11 @@ final class AdminCsrfValidationListener implements EventSubscriberInterface
     /**
      * Validates if the current request has a valid token.
      *
+     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
+     *
      * @throws \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException if no valid token exists
      */
-    public function onKernelRequest(GetResponseEvent $event): void
+    public function onKernelRequest($event): void
     {
         if (!$event->isMasterRequest()) {
             return;

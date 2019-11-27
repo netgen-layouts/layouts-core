@@ -7,7 +7,6 @@ namespace Netgen\Bundle\LayoutsBundle\EventListener\HttpCache;
 use Netgen\Layouts\HttpCache\TaggerInterface;
 use Netgen\Layouts\View\View\BlockViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 final class BlockResponseListener implements EventSubscriberInterface
@@ -29,8 +28,10 @@ final class BlockResponseListener implements EventSubscriberInterface
 
     /**
      * Tags the response with the data for block provided by the event.
+     *
+     * @param \Symfony\Component\HttpKernel\Event\ResponseEvent $event
      */
-    public function onKernelResponse(FilterResponseEvent $event): void
+    public function onKernelResponse($event): void
     {
         if (!$event->isMasterRequest()) {
             return;

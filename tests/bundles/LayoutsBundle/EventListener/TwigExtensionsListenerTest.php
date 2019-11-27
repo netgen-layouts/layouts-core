@@ -6,10 +6,10 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener;
 
 use EdiModric\Twig\VersionExtension;
 use Netgen\Bundle\LayoutsBundle\EventListener\TwigExtensionsListener;
+use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Twig\Environment;
@@ -17,6 +17,8 @@ use Twig\Extension\CoreExtension;
 
 final class TwigExtensionsListenerTest extends TestCase
 {
+    use CreateEventTrait;
+
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
@@ -79,7 +81,7 @@ final class TwigExtensionsListenerTest extends TestCase
             ->method('addExtension')
             ->with(self::isInstanceOf(VersionExtension::class));
 
-        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
+        $event = $this->createRequestEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
     }
 }

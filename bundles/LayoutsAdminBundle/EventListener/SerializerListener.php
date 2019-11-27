@@ -7,7 +7,6 @@ namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\AbstractValue;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -30,8 +29,10 @@ final class SerializerListener implements EventSubscriberInterface
 
     /**
      * Serializes the value provided by the event.
+     *
+     * @param \Symfony\Component\HttpKernel\Event\ViewEvent $event
      */
-    public function onView(GetResponseForControllerResultEvent $event): void
+    public function onView($event): void
     {
         if (!$event->isMasterRequest()) {
             return;

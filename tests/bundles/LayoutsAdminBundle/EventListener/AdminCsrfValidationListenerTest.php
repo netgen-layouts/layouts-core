@@ -7,15 +7,17 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\AdminCsrfValidationListener;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsAdminRequestListener;
 use Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidatorInterface;
+use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 final class AdminCsrfValidationListenerTest extends TestCase
 {
+    use CreateEventTrait;
+
     /**
      * @var \Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidatorInterface&\PHPUnit\Framework\MockObject\MockObject
      */
@@ -73,7 +75,7 @@ final class AdminCsrfValidationListenerTest extends TestCase
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
 
-        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
+        $event = $this->createRequestEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
     }
 
@@ -96,7 +98,7 @@ final class AdminCsrfValidationListenerTest extends TestCase
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
 
-        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
+        $event = $this->createRequestEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
     }
 
@@ -114,7 +116,7 @@ final class AdminCsrfValidationListenerTest extends TestCase
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
 
-        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
+        $event = $this->createRequestEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
         $this->listener->onKernelRequest($event);
     }
 
@@ -131,7 +133,7 @@ final class AdminCsrfValidationListenerTest extends TestCase
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
 
-        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
+        $event = $this->createRequestEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
     }
 }

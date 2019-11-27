@@ -8,7 +8,6 @@ use Netgen\Layouts\Context\Context;
 use Netgen\Layouts\Context\ContextBuilderInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\UriSigner;
 
@@ -49,8 +48,10 @@ final class ContextListener implements EventSubscriberInterface
      *
      * If the context is available in query parameters and the URI signature is valid,
      * it will be used, otherwise, provided builder will be used.
+     *
+     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
      */
-    public function onKernelRequest(GetResponseEvent $event): void
+    public function onKernelRequest($event): void
     {
         if (!$event->isMasterRequest()) {
             return;

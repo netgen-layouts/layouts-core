@@ -4,17 +4,19 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 
+use Netgen\Layouts\Utils\BackwardsCompatibility\ExceptionEventThrowableTrait;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
 
 final class ExceptionSerializerListener implements EventSubscriberInterface
 {
+    use ExceptionEventThrowableTrait;
+
     /**
      * @var \Symfony\Component\Serializer\SerializerInterface
      */
@@ -40,8 +42,10 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
     /**
      * Serializes the exception if SetIsApiRequestListener::API_FLAG_NAME
      * is set to true.
+     *
+     * @param \Symfony\Component\HttpKernel\Event\ExceptionEvent $event
      */
-    public function onException(GetResponseForExceptionEvent $event): void
+    public function onException($event): void
     {
         if (!$event->isMasterRequest()) {
             return;
@@ -52,9 +56,7 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
             return;
         }
 
-        /** @deprecated Remove call to getException when support for Symfony 3.4 ends */
-        $exception = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
-
+        $exception = $this->getThrowable($event);
         if (!$exception instanceof HttpExceptionInterface || $exception->getStatusCode() >= 500) {
             $this->logger->critical(
                 sprintf(

@@ -7,16 +7,18 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener\HttpCache;
 use Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\BlockResponseListener;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\HttpCache\TaggerInterface;
+use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
 use Netgen\Layouts\View\View\BlockView;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 final class BlockResponseListenerTest extends TestCase
 {
+    use CreateEventTrait;
+
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
@@ -57,7 +59,7 @@ final class BlockResponseListenerTest extends TestCase
         $block = new Block();
         $request->attributes->set('nglView', new BlockView($block));
 
-        $event = new FilterResponseEvent(
+        $event = $this->createResponseEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
@@ -82,7 +84,7 @@ final class BlockResponseListenerTest extends TestCase
 
         $request->attributes->set('nglView', new BlockView(new Block()));
 
-        $event = new FilterResponseEvent(
+        $event = $this->createResponseEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::SUB_REQUEST,
@@ -106,7 +108,7 @@ final class BlockResponseListenerTest extends TestCase
 
         $request->attributes->set('nglView', 42);
 
-        $event = new FilterResponseEvent(
+        $event = $this->createResponseEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,

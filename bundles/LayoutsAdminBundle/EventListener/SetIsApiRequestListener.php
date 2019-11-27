@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 final class SetIsApiRequestListener implements EventSubscriberInterface
@@ -21,8 +20,10 @@ final class SetIsApiRequestListener implements EventSubscriberInterface
 
     /**
      * Sets the self::API_FLAG_NAME flag if this is a REST API request.
+     *
+     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
      */
-    public function onKernelRequest(GetResponseEvent $event): void
+    public function onKernelRequest($event): void
     {
         if (!$event->isMasterRequest()) {
             return;

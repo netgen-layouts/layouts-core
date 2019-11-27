@@ -61,7 +61,10 @@ final class LayoutsDataCollector extends DataCollector
         $this->reset();
     }
 
-    public function collect(Request $request, Response $response, ?Exception $exception = null): void
+    /**
+     * @param \Throwable|null $exception
+     */
+    public function collect(Request $request, Response $response, $exception = null): void
     {
         $rule = $this->globalVariable->getRule();
         $layoutView = $this->globalVariable->getLayoutView();

@@ -9,7 +9,6 @@ use Netgen\Layouts\View\ViewInterface;
 use Netgen\Layouts\View\ViewRendererInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Throwable;
 
@@ -38,8 +37,10 @@ final class ViewRendererListener implements EventSubscriberInterface
 
     /**
      * Renders the view provided by the event.
+     *
+     * @param \Symfony\Component\HttpKernel\Event\ViewEvent $event
      */
-    public function onView(GetResponseForControllerResultEvent $event): void
+    public function onView($event): void
     {
         $view = $event->getControllerResult();
         if (!$view instanceof ViewInterface) {

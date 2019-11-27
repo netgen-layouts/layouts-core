@@ -7,9 +7,10 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 use Exception;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\AdminAuthenticationExceptionListener;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsAdminRequestListener;
+use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
+use Netgen\Layouts\Utils\BackwardsCompatibility\ExceptionEventThrowableTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -17,6 +18,9 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 final class AdminAuthenticationExceptionListenerTest extends TestCase
 {
+    use CreateEventTrait;
+    use ExceptionEventThrowableTrait;
+
     /**
      * @var \Netgen\Bundle\LayoutsAdminBundle\EventListener\AdminAuthenticationExceptionListener
      */
@@ -48,7 +52,7 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
         $request->headers->set('X-Requested-With', 'XMLHttpRequest');
         $request->attributes->set(SetIsAdminRequestListener::ADMIN_FLAG_NAME, true);
 
-        $event = new GetResponseForExceptionEvent(
+        $event = $this->createExceptionEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
@@ -57,8 +61,7 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        /** @deprecated Remove call to getException when support for Symfony 3.4 ends */
-        $eventException = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
+        $eventException = $this->getThrowable($event);
 
         self::assertInstanceOf(AccessDeniedHttpException::class, $eventException);
         self::assertTrue($event->isPropagationStopped());
@@ -74,7 +77,7 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
         $request->headers->set('X-Requested-With', 'XMLHttpRequest');
         $request->attributes->set(SetIsAdminRequestListener::ADMIN_FLAG_NAME, true);
 
-        $event = new GetResponseForExceptionEvent(
+        $event = $this->createExceptionEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
@@ -83,8 +86,7 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        /** @deprecated Remove call to getException when support for Symfony 3.4 ends */
-        $eventException = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
+        $eventException = $this->getThrowable($event);
 
         self::assertNotInstanceOf(AccessDeniedHttpException::class, $eventException);
         self::assertFalse($event->isPropagationStopped());
@@ -99,7 +101,7 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
         $request = Request::create('/');
         $request->headers->set('X-Requested-With', 'XMLHttpRequest');
 
-        $event = new GetResponseForExceptionEvent(
+        $event = $this->createExceptionEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
@@ -108,8 +110,7 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        /** @deprecated Remove call to getException when support for Symfony 3.4 ends */
-        $eventException = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
+        $eventException = $this->getThrowable($event);
 
         self::assertNotInstanceOf(AccessDeniedHttpException::class, $eventException);
         self::assertFalse($event->isPropagationStopped());
@@ -124,7 +125,7 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set(SetIsAdminRequestListener::ADMIN_FLAG_NAME, true);
 
-        $event = new GetResponseForExceptionEvent(
+        $event = $this->createExceptionEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
@@ -133,8 +134,7 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
 
         $this->listener->onException($event);
 
-        /** @deprecated Remove call to getException when support for Symfony 3.4 ends */
-        $eventException = method_exists($event, 'getThrowable') ? $event->getThrowable() : $event->getException();
+        $eventException = $this->getThrowable($event);
 
         self::assertNotInstanceOf(AccessDeniedHttpException::class, $eventException);
         self::assertFalse($event->isPropagationStopped());

@@ -8,17 +8,19 @@ use Exception;
 use Netgen\Bundle\LayoutsBundle\EventListener\ViewRendererListener;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Tests\Stubs\ErrorHandler;
+use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
 use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\ViewRendererInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 final class ViewRendererListenerTest extends TestCase
 {
+    use CreateEventTrait;
+
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
@@ -71,7 +73,7 @@ final class ViewRendererListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $event = new GetResponseForControllerResultEvent(
+        $event = $this->createViewEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
@@ -109,7 +111,7 @@ final class ViewRendererListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $event = new GetResponseForControllerResultEvent(
+        $event = $this->createViewEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
@@ -140,7 +142,7 @@ final class ViewRendererListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $event = new GetResponseForControllerResultEvent(
+        $event = $this->createViewEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
@@ -160,7 +162,7 @@ final class ViewRendererListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $event = new GetResponseForControllerResultEvent(
+        $event = $this->createViewEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,

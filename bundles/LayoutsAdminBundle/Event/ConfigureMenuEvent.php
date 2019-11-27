@@ -6,7 +6,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Event;
 
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
-use Symfony\Component\EventDispatcher\Event;
+use Netgen\Layouts\Utils\BackwardsCompatibility\Event;
 
 final class ConfigureMenuEvent extends Event
 {

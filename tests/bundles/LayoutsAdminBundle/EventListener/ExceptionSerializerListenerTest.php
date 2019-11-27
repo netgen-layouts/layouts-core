@@ -7,11 +7,11 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 use Exception;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionSerializerListener;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener;
+use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -19,6 +19,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 final class ExceptionSerializerListenerTest extends TestCase
 {
+    use CreateEventTrait;
+
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
@@ -81,7 +83,7 @@ final class ExceptionSerializerListenerTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
-        $event = new GetResponseForExceptionEvent(
+        $event = $this->createExceptionEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
@@ -127,7 +129,7 @@ final class ExceptionSerializerListenerTest extends TestCase
         $request = Request::create('/');
         $request->attributes->set(SetIsApiRequestListener::API_FLAG_NAME, true);
 
-        $event = new GetResponseForExceptionEvent(
+        $event = $this->createExceptionEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
@@ -166,7 +168,7 @@ final class ExceptionSerializerListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $event = new GetResponseForExceptionEvent(
+        $event = $this->createExceptionEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
@@ -186,7 +188,7 @@ final class ExceptionSerializerListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $event = new GetResponseForExceptionEvent(
+        $event = $this->createExceptionEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::SUB_REQUEST,

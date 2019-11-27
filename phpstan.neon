@@ -16,22 +16,25 @@ parameters:
         -
             message: '#Call to function is_callable\(\) with .+ will always evaluate to false.#'
             path: lib/Utils/BackwardsCompatibility/TreeBuilder.php
+
         -
-            message: '#Call to an undefined method Symfony\\Component\\Intl\\ResourceBundle\\LocaleBundleInterface::getAliases\(\)#'
-            path: lib/Utils/BackwardsCompatibility/Locales.php
+            message: '#Call to an undefined method Netgen\\Layouts\\Utils\\BackwardsCompatibility\\TreeBuilder::root\(\).#'
+            path: lib/Utils/BackwardsCompatibility/TreeBuilder.php
+
         -
             message: '/Parameter #1 \$event of method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) expects object, string given/'
             path: lib/Utils/BackwardsCompatibility/EventDispatcherProxy.php
+
         -
-            message: '#Method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) invoked with 2 parameters, 1 required#'
+            message: '/Parameter #2 \$eventName of method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) expects string\|null, object given/'
             path: lib/Utils/BackwardsCompatibility/EventDispatcherProxy.php
 
+        - '#Symfony\\Component\\EventDispatcher\\Event#'
+        - '#Symfony\\Component\\Debug\\Exception\\FlattenException#'
+        - '#Symfony\\Component\\Debug\\Exception\\FatalThrowableError#'
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\Console\\\\Application and 'renderThrowable'#"
-        - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\Console\\\\Application and 'renderException'#"
-
-        # Compatibility with Symfony 4.4
-
-        - '#Call to function method_exists\(\) with Symfony\\Component\\HttpKernel\\Event\\GetResponseForExceptionEvent#'
+        - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Exception' will always evaluate to false.#"
+        - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Throwable' will always evaluate to true.#"
 
         # Netgen Layouts specifics
 

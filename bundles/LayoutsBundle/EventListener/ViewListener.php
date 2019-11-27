@@ -6,7 +6,6 @@ namespace Netgen\Bundle\LayoutsBundle\EventListener;
 
 use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 final class ViewListener implements EventSubscriberInterface
@@ -18,8 +17,10 @@ final class ViewListener implements EventSubscriberInterface
 
     /**
      * Sets the Netgen Layouts view provided by the controller to the request.
+     *
+     * @param \Symfony\Component\HttpKernel\Event\ViewEvent $event
      */
-    public function onView(GetResponseForControllerResultEvent $event): void
+    public function onView($event): void
     {
         if (!$event->isMasterRequest()) {
             return;

@@ -5,14 +5,16 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener;
 
 use Netgen\Bundle\LayoutsBundle\EventListener\AjaxBlockRequestListener;
+use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 final class AjaxBlockRequestListenerTest extends TestCase
 {
+    use CreateEventTrait;
+
     /**
      * @var \Netgen\Bundle\LayoutsBundle\EventListener\AjaxBlockRequestListener
      */
@@ -45,7 +47,7 @@ final class AjaxBlockRequestListenerTest extends TestCase
 
         $request->attributes->set('_route', 'nglayouts_ajax_block');
 
-        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
+        $event = $this->createRequestEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
         self::assertTrue($event->getRequest()->attributes->has('nglContextUri'));
@@ -75,7 +77,7 @@ final class AjaxBlockRequestListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
+        $event = $this->createRequestEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
         $this->listener->onKernelRequest($event);
 
         self::assertFalse($event->getRequest()->attributes->has('nglContextUri'));
@@ -91,7 +93,7 @@ final class AjaxBlockRequestListenerTest extends TestCase
 
         $request->attributes->set('_route', 'some_route');
 
-        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
+        $event = $this->createRequestEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
         self::assertFalse($event->getRequest()->attributes->has('nglContextUri'));
@@ -108,7 +110,7 @@ final class AjaxBlockRequestListenerTest extends TestCase
         $request->attributes->set('_route', 'nglayouts_ajax_block');
         $request->attributes->set('nglContextUri', '/some/uri');
 
-        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
+        $event = $this->createRequestEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
         self::assertSame('/some/uri', $event->getRequest()->attributes->get('nglContextUri'));

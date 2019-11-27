@@ -7,6 +7,7 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener\HttpCache;
 use Exception;
 use Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\InvalidationListener;
 use Netgen\Layouts\HttpCache\InvalidatorInterface;
+use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\ConsoleEvents;
@@ -15,13 +16,13 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
-use Symfony\Component\HttpKernel\Event\PostResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 final class InvalidationListenerTest extends TestCase
 {
+    use CreateEventTrait;
+
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
@@ -64,7 +65,7 @@ final class InvalidationListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $event = new PostResponseEvent(
+        $event = $this->createTerminateEvent(
             $kernelMock,
             $request,
             new Response()
@@ -85,7 +86,7 @@ final class InvalidationListenerTest extends TestCase
         $kernelMock = $this->createMock(HttpKernelInterface::class);
         $request = Request::create('/');
 
-        $event = new GetResponseForExceptionEvent(
+        $event = $this->createExceptionEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
@@ -96,7 +97,7 @@ final class InvalidationListenerTest extends TestCase
             ->expects(self::once())
             ->method('commit');
 
-        $this->listener->onKernelException($event);
+        $this->listener->OnKernelException($event);
     }
 
     /**

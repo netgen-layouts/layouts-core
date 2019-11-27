@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 final class AjaxBlockRequestListener implements EventSubscriberInterface
@@ -24,8 +23,10 @@ final class AjaxBlockRequestListener implements EventSubscriberInterface
      * If we were to hash the page parameter too, JavaScript code would not
      * be able to generate the link to a single page simply by changing the
      * page number.
+     *
+     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
      */
-    public function onKernelRequest(GetResponseEvent $event): void
+    public function onKernelRequest($event): void
     {
         if (!$event->isMasterRequest()) {
             return;

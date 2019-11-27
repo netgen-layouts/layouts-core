@@ -9,7 +9,6 @@ use Netgen\Bundle\LayoutsAdminBundle\Event\LayoutsAdminEvents;
 use Netgen\Layouts\Utils\BackwardsCompatibility\EventDispatcherProxy;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 final class SetIsAdminRequestListener implements EventSubscriberInterface
@@ -35,8 +34,10 @@ final class SetIsAdminRequestListener implements EventSubscriberInterface
 
     /**
      * Sets the self::ADMIN_FLAG_NAME flag if this is a request in admin interface.
+     *
+     * @param \Symfony\Component\HttpKernel\Event\RequestEvent $event
      */
-    public function onKernelRequest(GetResponseEvent $event): void
+    public function onKernelRequest($event): void
     {
         if (!$event->isMasterRequest()) {
             return;

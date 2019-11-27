@@ -8,17 +8,18 @@ use Exception;
 use Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\LayoutResponseListener;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\HttpCache\TaggerInterface;
+use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
 use Netgen\Layouts\View\View\LayoutView;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
-use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 final class LayoutResponseListenerTest extends TestCase
 {
+    use CreateEventTrait;
+
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
      */
@@ -63,7 +64,7 @@ final class LayoutResponseListenerTest extends TestCase
 
         $request->attributes->set('nglLayoutView', new LayoutView($layout));
 
-        $event = new FilterResponseEvent(
+        $event = $this->createResponseEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
@@ -93,7 +94,7 @@ final class LayoutResponseListenerTest extends TestCase
         $request->attributes->set('nglLayoutView', new LayoutView($layout));
         $request->attributes->set('nglOverrideLayoutView', new LayoutView($layout2));
 
-        $event = new FilterResponseEvent(
+        $event = $this->createResponseEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
@@ -118,7 +119,7 @@ final class LayoutResponseListenerTest extends TestCase
 
         $request->attributes->set('nglLayoutView', new LayoutView(new Layout()));
 
-        $event = new FilterResponseEvent(
+        $event = $this->createResponseEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::SUB_REQUEST,
@@ -142,7 +143,7 @@ final class LayoutResponseListenerTest extends TestCase
 
         $request->attributes->set('nglLayoutView', 42);
 
-        $event = new FilterResponseEvent(
+        $event = $this->createResponseEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
@@ -168,7 +169,7 @@ final class LayoutResponseListenerTest extends TestCase
         $layout = new Layout();
         $request->attributes->set('nglExceptionLayoutView', new LayoutView($layout));
 
-        $event = new FilterResponseEvent(
+        $event = $this->createResponseEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
@@ -181,7 +182,7 @@ final class LayoutResponseListenerTest extends TestCase
             ->with(self::identicalTo($layout));
 
         $this->listener->onKernelException(
-            new GetResponseForExceptionEvent(
+            $this->createExceptionEvent(
                 $kernelMock,
                 $request,
                 HttpKernelInterface::MASTER_REQUEST,
@@ -203,7 +204,7 @@ final class LayoutResponseListenerTest extends TestCase
 
         $request->attributes->set('nglExceptionLayoutView', new LayoutView(new Layout()));
 
-        $event = new FilterResponseEvent(
+        $event = $this->createResponseEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::SUB_REQUEST,
@@ -215,7 +216,7 @@ final class LayoutResponseListenerTest extends TestCase
             ->method('tagLayout');
 
         $this->listener->onKernelException(
-            new GetResponseForExceptionEvent(
+            $this->createExceptionEvent(
                 $kernelMock,
                 $request,
                 HttpKernelInterface::SUB_REQUEST,
@@ -237,7 +238,7 @@ final class LayoutResponseListenerTest extends TestCase
 
         $request->attributes->set('nglExceptionLayoutView', 42);
 
-        $event = new FilterResponseEvent(
+        $event = $this->createResponseEvent(
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
@@ -249,7 +250,7 @@ final class LayoutResponseListenerTest extends TestCase
             ->method('tagLayout');
 
         $this->listener->onKernelException(
-            new GetResponseForExceptionEvent(
+            $this->createExceptionEvent(
                 $kernelMock,
                 $request,
                 HttpKernelInterface::MASTER_REQUEST,

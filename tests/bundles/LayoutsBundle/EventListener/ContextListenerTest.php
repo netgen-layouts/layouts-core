@@ -7,15 +7,17 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener;
 use Netgen\Bundle\LayoutsBundle\EventListener\ContextListener;
 use Netgen\Layouts\Context\Context;
 use Netgen\Layouts\Context\ContextBuilderInterface;
+use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\UriSigner;
 
 final class ContextListenerTest extends TestCase
 {
+    use CreateEventTrait;
+
     /**
      * @var \Netgen\Layouts\Context\Context
      */
@@ -79,7 +81,7 @@ final class ContextListenerTest extends TestCase
             ->expects(self::never())
             ->method('check');
 
-        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
+        $event = $this->createRequestEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
     }
 
@@ -105,7 +107,7 @@ final class ContextListenerTest extends TestCase
             ->with(self::identicalTo($request->getRequestUri()))
             ->willReturn(true);
 
-        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
+        $event = $this->createRequestEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
         self::assertSame(['var' => 'value'], $this->context->all());
@@ -129,7 +131,7 @@ final class ContextListenerTest extends TestCase
             ->expects(self::never())
             ->method('check');
 
-        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
+        $event = $this->createRequestEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
         self::assertSame(['var' => 'value'], $this->context->all());
@@ -158,7 +160,7 @@ final class ContextListenerTest extends TestCase
             ->with(self::identicalTo($request->attributes->get('nglContextUri')))
             ->willReturn(true);
 
-        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
+        $event = $this->createRequestEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
         self::assertSame(['var' => 'value'], $this->context->all());
@@ -186,7 +188,7 @@ final class ContextListenerTest extends TestCase
             ->with(self::identicalTo($request->getRequestUri()))
             ->willReturn(false);
 
-        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
+        $event = $this->createRequestEvent($kernelMock, $request, HttpKernelInterface::MASTER_REQUEST);
         $this->listener->onKernelRequest($event);
 
         self::assertSame([], $this->context->all());
@@ -206,7 +208,7 @@ final class ContextListenerTest extends TestCase
             ->expects(self::never())
             ->method('buildContext');
 
-        $event = new GetResponseEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
+        $event = $this->createRequestEvent($kernelMock, $request, HttpKernelInterface::SUB_REQUEST);
         $this->listener->onKernelRequest($event);
 
         self::assertSame([], $this->context->all());
