@@ -41,6 +41,10 @@ final class ThemePass implements CompilerPassInterface
 
     /**
      * Returns an array with all found paths for provided theme list.
+     *
+     * @param string[] $themeList
+     *
+     * @return array<string, string[]>
      */
     private function getThemeDirs(ContainerBuilder $container, array $themeList): array
     {

@@ -15,7 +15,7 @@ final class SuccessResult implements ResultInterface
     private $entityType;
 
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     private $data;
 
@@ -29,6 +29,9 @@ final class SuccessResult implements ResultInterface
      */
     private $entity;
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public function __construct(string $entityType, array $data, UuidInterface $entityId, Value $entity)
     {
         $this->entityType = $entityType;

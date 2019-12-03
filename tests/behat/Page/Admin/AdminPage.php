@@ -59,6 +59,9 @@ abstract class AdminPage extends SymfonyPage
         return $this->hasElement('modal_error', ['%error-message%' => $errorMessage]);
     }
 
+    /**
+     * @return array<string, string>
+     */
     protected function getDefinedElements(): array
     {
         return [

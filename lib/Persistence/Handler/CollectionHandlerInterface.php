@@ -37,6 +37,8 @@ interface CollectionHandlerInterface
 
     /**
      * Loads all collections belonging to the provided block.
+     *
+     * @return array<string, \Netgen\Layouts\Persistence\Values\Collection\Collection>
      */
     public function loadCollections(Block $block): array;
 
@@ -185,6 +187,8 @@ interface CollectionHandlerInterface
 
     /**
      * Deletes block collections with specified block IDs.
+     *
+     * @param int[] $blockIds
      */
     public function deleteBlockCollections(array $blockIds, ?int $status = null): void;
 

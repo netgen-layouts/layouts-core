@@ -27,10 +27,13 @@ final class GetCollectionPagerListener implements EventSubscriberInterface
     private $requestStack;
 
     /**
-     * @var array
+     * @var string[]
      */
     private $enabledContexts;
 
+    /**
+     * @param string[] $enabledContexts
+     */
     public function __construct(
         PagerFactory $pagerFactory,
         RequestStack $requestStack,

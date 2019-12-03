@@ -22,10 +22,13 @@ final class GetCollectionResultsListener implements EventSubscriberInterface
     private $pagerFactory;
 
     /**
-     * @var array
+     * @var string[]
      */
     private $enabledContexts;
 
+    /**
+     * @param string[] $enabledContexts
+     */
     public function __construct(PagerFactory $pagerFactory, array $enabledContexts)
     {
         $this->pagerFactory = $pagerFactory;

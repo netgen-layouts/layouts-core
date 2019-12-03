@@ -35,7 +35,7 @@ use Symfony\Component\Yaml\Yaml;
 final class NetgenLayoutsExtension extends Extension implements PrependExtensionInterface
 {
     /**
-     * @var \Netgen\Bundle\LayoutsBundle\DependencyInjection\ExtensionPluginInterface[]
+     * @var array<class-string<\Netgen\Bundle\LayoutsBundle\DependencyInjection\ExtensionPluginInterface>, \Netgen\Bundle\LayoutsBundle\DependencyInjection\ExtensionPluginInterface>
      */
     private $plugins = [];
 
@@ -49,6 +49,8 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
 
     /**
      * Returns if the plugin exists. Name of the plugin is its fully qualified class name.
+     *
+     * @param class-string<\Netgen\Bundle\LayoutsBundle\DependencyInjection\ExtensionPluginInterface> $pluginName
      */
     public function hasPlugin(string $pluginName): bool
     {
@@ -57,6 +59,9 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
 
     /**
      * Returns the plugin by name. Name of the plugin is its fully qualified class name.
+     *
+     *
+     * @param class-string<\Netgen\Bundle\LayoutsBundle\DependencyInjection\ExtensionPluginInterface> $pluginName
      *
      * @throws \Netgen\Layouts\Exception\RuntimeException If the specified plugin does not exist
      */
@@ -77,13 +82,16 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
     /**
      * Returns the all available plugins.
      *
-     * @return \Netgen\Bundle\LayoutsBundle\DependencyInjection\ExtensionPluginInterface[]
+     * @return array<class-string<\Netgen\Bundle\LayoutsBundle\DependencyInjection\ExtensionPluginInterface>, \Netgen\Bundle\LayoutsBundle\DependencyInjection\ExtensionPluginInterface>
      */
     public function getPlugins(): array
     {
         return $this->plugins;
     }
 
+    /**
+     * @param mixed[] $configs
+     */
     public function load(array $configs, ContainerBuilder $container): void
     {
         $extensionAlias = $this->getAlias();
@@ -99,7 +107,9 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
             $config = $plugin->postProcessConfiguration($config);
         }
 
-        $this->validateCurrentDesign($config['design'], array_keys($config['design_list']));
+        /** @var string[] $designList */
+        $designList = array_keys($config['design_list']);
+        $this->validateCurrentDesign($config['design'], $designList);
 
         $this->loadConfigFiles($container);
 
@@ -155,6 +165,8 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
     }
 
     /**
+     * @param mixed[] $config
+     *
      * @return \Symfony\Component\Config\Definition\ConfigurationInterface
      */
     public function getConfiguration(array $config, ContainerBuilder $container)
@@ -185,6 +197,8 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
 
     /**
      * Validates that the design specified in configuration exists in the system.
+     *
+     * @param string[] $designList
      *
      * @throws \Symfony\Component\Config\Definition\Exception\InvalidConfigurationException If design does not exist
      */

@@ -34,8 +34,7 @@ final class ExportLayouts extends AbstractController
         );
 
         $json = json_encode($serializedLayouts, JSON_PRETTY_PRINT);
-
-        $response = new Response($json);
+        $response = new Response(is_string($json) ? $json : '');
 
         $fileName = sprintf('layouts_export_%s.json', date('Y-m-d_H-i-s'));
         $disposition = $response->headers->makeDisposition(

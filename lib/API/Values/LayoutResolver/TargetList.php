@@ -5,9 +5,16 @@ declare(strict_types=1);
 namespace Netgen\Layouts\API\Values\LayoutResolver;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Ramsey\Uuid\UuidInterface;
 
+/**
+ * @extends \Doctrine\Common\Collections\ArrayCollection<int, \Netgen\Layouts\API\Values\LayoutResolver\Target>
+ */
 final class TargetList extends ArrayCollection
 {
+    /**
+     * @param \Netgen\Layouts\API\Values\LayoutResolver\Target[] $targets
+     */
     public function __construct(array $targets = [])
     {
         parent::__construct(
@@ -34,7 +41,7 @@ final class TargetList extends ArrayCollection
     public function getTargetIds(): array
     {
         return array_map(
-            static function (Target $target) {
+            static function (Target $target): UuidInterface {
                 return $target->getId();
             },
             $this->getTargets()

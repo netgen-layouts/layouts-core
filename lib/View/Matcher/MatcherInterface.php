@@ -10,6 +10,8 @@ interface MatcherInterface
 {
     /**
      * Returns if the view matches the config.
+     *
+     * @param mixed[] $config
      */
     public function match(ViewInterface $view, array $config): bool;
 }

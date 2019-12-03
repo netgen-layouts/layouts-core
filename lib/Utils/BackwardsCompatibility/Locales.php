@@ -9,6 +9,9 @@ use Symfony\Component\Intl\Locales as SymfonyLocales;
 
 final class Locales
 {
+    /**
+     * @return string[]
+     */
     public static function getLocales(): array
     {
         if (class_exists(SymfonyLocales::class)) {
@@ -18,6 +21,9 @@ final class Locales
         return Intl::getLocaleBundle()->getLocales();
     }
 
+    /**
+     * @return string[]
+     */
     public static function getAliases(): array
     {
         if (class_exists(SymfonyLocales::class)) {
@@ -47,6 +53,9 @@ final class Locales
         return Intl::getLocaleBundle()->getLocaleName($locale, $displayLocale) ?? $locale;
     }
 
+    /**
+     * @return string[]
+     */
     public static function getNames(?string $displayLocale = null): array
     {
         if (class_exists(SymfonyLocales::class)) {

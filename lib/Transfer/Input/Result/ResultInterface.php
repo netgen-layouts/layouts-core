@@ -15,6 +15,8 @@ interface ResultInterface
 
     /**
      * Returns the data which was being imported.
+     *
+     * @return array<string, mixed>
      */
     public function getData(): array;
 

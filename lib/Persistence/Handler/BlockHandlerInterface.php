@@ -150,6 +150,8 @@ interface BlockHandlerInterface
      * This is an internal method that only deletes the blocks with provided IDs.
      *
      * If you want to delete a block and all of its sub-blocks, use self::deleteBlock method.
+     *
+     * @param int[] $blockIds
      */
     public function deleteBlocks(array $blockIds, ?int $status = null): void;
 }

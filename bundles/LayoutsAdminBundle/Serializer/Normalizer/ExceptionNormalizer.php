@@ -23,7 +23,7 @@ final class ExceptionNormalizer implements NormalizerInterface
         $this->outputDebugInfo = $outputDebugInfo;
     }
 
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         $data = [
             'code' => $object->getCode(),

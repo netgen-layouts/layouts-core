@@ -13,15 +13,19 @@ use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Item\ValueType\ValueType;
 use Traversable;
 
+/**
+ * @implements \IteratorAggregate<string, \Netgen\Layouts\Item\ValueType\ValueType>
+ * @implements \ArrayAccess<string, \Netgen\Layouts\Item\ValueType\ValueType>
+ */
 final class ValueTypeRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * @var \Netgen\Layouts\Item\ValueType\ValueType[]
+     * @var array<string, \Netgen\Layouts\Item\ValueType\ValueType>
      */
     private $valueTypes;
 
     /**
-     * @param \Netgen\Layouts\Item\ValueType\ValueType[] $valueTypes
+     * @param array<string, \Netgen\Layouts\Item\ValueType\ValueType> $valueTypes
      */
     public function __construct(array $valueTypes)
     {
@@ -60,7 +64,7 @@ final class ValueTypeRegistry implements IteratorAggregate, Countable, ArrayAcce
      *
      * @param bool $onlyEnabled
      *
-     * @return \Netgen\Layouts\Item\ValueType\ValueType[]
+     * @return array<string, \Netgen\Layouts\Item\ValueType\ValueType>
      */
     public function getValueTypes(bool $onlyEnabled = false): array
     {
@@ -98,10 +102,8 @@ final class ValueTypeRegistry implements IteratorAggregate, Countable, ArrayAcce
 
     /**
      * @param mixed $offset
-     *
-     * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): ValueType
     {
         return $this->getValueType($offset);
     }

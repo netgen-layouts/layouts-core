@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 final class Exception extends Mapper
 {
     /**
-     * @var array
+     * @var array<string, int>
      */
     private $statusCodes = [];
 
@@ -31,13 +31,15 @@ final class Exception extends Mapper
 
     /**
      * Builds the formatted list of all available error codes (those which are in 4xx and 5xx range).
+     *
+     * @return array<string, int>
      */
     private function buildErrorCodes(): array
     {
         if (count($this->statusCodes) === 0) {
             foreach (Response::$statusTexts as $statusCode => $statusText) {
                 if ($statusCode >= 400 && $statusCode < 600) {
-                    $this->statusCodes[sprintf('%d (%s)', $statusCode, $statusText)] = $statusCode;
+                    $this->statusCodes[sprintf('%d (%s)', $statusCode, $statusText)] = (int) $statusCode;
                 }
             }
         }

@@ -5,9 +5,16 @@ declare(strict_types=1);
 namespace Netgen\Layouts\API\Values\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Ramsey\Uuid\UuidInterface;
 
+/**
+ * @extends \Doctrine\Common\Collections\ArrayCollection<int, \Netgen\Layouts\API\Values\Collection\Item>
+ */
 final class ItemList extends ArrayCollection
 {
+    /**
+     * @param \Netgen\Layouts\API\Values\Collection\Item[] $items
+     */
     public function __construct(array $items = [])
     {
         parent::__construct(
@@ -34,7 +41,7 @@ final class ItemList extends ArrayCollection
     public function getItemIds(): array
     {
         return array_map(
-            static function (Item $item) {
+            static function (Item $item): UuidInterface {
                 return $item->getId();
             },
             $this->getItems()

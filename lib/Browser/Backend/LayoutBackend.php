@@ -108,6 +108,8 @@ final class LayoutBackend implements BackendInterface
 
     /**
      * Builds the items from provided layouts.
+     *
+     * @return \Generator<\Netgen\Layouts\Browser\Item\Layout\Item>
      */
     private function buildItems(LayoutList $layouts): Generator
     {

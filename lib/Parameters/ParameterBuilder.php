@@ -33,7 +33,7 @@ class ParameterBuilder implements ParameterBuilderInterface
     private $type;
 
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     private $options;
 
@@ -53,7 +53,7 @@ class ParameterBuilder implements ParameterBuilderInterface
     private $label;
 
     /**
-     * @var array
+     * @var string[]
      */
     private $groups = [];
 
@@ -63,7 +63,7 @@ class ParameterBuilder implements ParameterBuilderInterface
     private $constraints = [];
 
     /**
-     * @var array
+     * @var \Netgen\Layouts\Parameters\ParameterBuilderInterface[]
      */
     private $unresolvedChildren = [];
 
@@ -77,6 +77,9 @@ class ParameterBuilder implements ParameterBuilderInterface
      */
     private $locked = false;
 
+    /**
+     * @param array<string, mixed> $options
+     */
     public function __construct(
         ParameterBuilderFactoryInterface $builderFactory,
         ?string $name = null,
@@ -364,6 +367,10 @@ class ParameterBuilder implements ParameterBuilderInterface
 
     /**
      * Resolves the parameter options.
+     *
+     * @param array<string, mixed> $options
+     *
+     * @return array<string, mixed>
      */
     private function resolveOptions(array $options): array
     {
@@ -443,6 +450,8 @@ class ParameterBuilder implements ParameterBuilderInterface
 
     /**
      * Validates the list of constraints to be either a Symfony constraint or a closure.
+     *
+     * @param mixed[] $constraints
      */
     private function validateConstraints(array $constraints): bool
     {

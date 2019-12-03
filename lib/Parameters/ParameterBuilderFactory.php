@@ -35,6 +35,10 @@ class ParameterBuilderFactory implements ParameterBuilderFactoryInterface
 
     /**
      * Resolves the provided parameter builder configuration.
+     *
+     * @param array<string, mixed> $config
+     *
+     * @return array<string, mixed> $config
      */
     protected function resolveOptions(array $config): array
     {

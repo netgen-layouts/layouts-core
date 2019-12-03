@@ -27,7 +27,7 @@ final class ViewType
     private $itemViewTypes = [];
 
     /**
-     * @var array|null
+     * @var string[]|null
      */
     private $validParameters;
 
@@ -71,6 +71,8 @@ final class ViewType
      * Returns the valid parameters.
      *
      * If null is returned, all parameters are valid.
+     *
+     * @return string[]|null
      */
     public function getValidParameters(): ?array
     {

@@ -38,7 +38,7 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
         $this->blockService = $blockService;
     }
 
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\API\Values\Layout\Layout $layout */
         $layout = $object->getValue();
@@ -91,13 +91,15 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
 
     /**
      * Returns the array with layout zones.
+     *
+     * @return \Generator<array<string, mixed>>
      */
     private function getZones(Layout $layout, LayoutTypeInterface $layoutType): Generator
     {
         foreach ($layout as $zoneIdentifier => $zone) {
             $linkedZone = $zone->getLinkedZone();
 
-            yield [
+            $data = [
                 'identifier' => $zoneIdentifier,
                 'name' => $this->getZoneName($zone, $layoutType),
                 'block_ids' => array_map('strval', $this->blockService->loadZoneBlocks($zone)->getBlockIds()),
@@ -105,9 +107,16 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
                     $zone,
                     $layoutType
                 ),
-                'linked_layout_id' => $linkedZone ? $linkedZone->getLayoutId()->toString() : null,
-                'linked_zone_identifier' => $linkedZone ? $linkedZone->getIdentifier() : null,
+                'linked_layout_id' => null,
+                'linked_zone_identifier' => null,
             ];
+
+            if ($linkedZone instanceof  Zone) {
+                $data['linked_layout_id'] = $linkedZone->getLayoutId()->toString();
+                $data['linked_zone_identifier'] = $linkedZone->getIdentifier();
+            }
+
+            yield $data;
         }
     }
 

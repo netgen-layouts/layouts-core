@@ -15,7 +15,7 @@ final class ErrorResult implements ResultInterface
     private $entityType;
 
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     private $data;
 
@@ -29,6 +29,9 @@ final class ErrorResult implements ResultInterface
      */
     private $error;
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public function __construct(string $entityType, array $data, UuidInterface $entityId, Throwable $error)
     {
         $this->entityType = $entityType;

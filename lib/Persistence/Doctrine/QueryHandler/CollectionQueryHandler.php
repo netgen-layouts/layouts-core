@@ -23,7 +23,7 @@ final class CollectionQueryHandler extends QueryHandler
      * @param int|string $collectionId
      * @param int $status
      *
-     * @return array
+     * @return mixed[]
      */
     public function loadCollectionData($collectionId, int $status): array
     {
@@ -37,6 +37,8 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Loads all collection data for block with specified ID.
+     *
+     * @return mixed[]
      */
     public function loadBlockCollectionsData(Block $block): array
     {
@@ -50,6 +52,8 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Loads all collection reference data.
+     *
+     * @return mixed[]
      */
     public function loadCollectionReferencesData(Block $block, ?string $identifier = null): array
     {
@@ -78,7 +82,7 @@ final class CollectionQueryHandler extends QueryHandler
      * @param int|string $itemId
      * @param int $status
      *
-     * @return array
+     * @return mixed[]
      */
     public function loadItemData($itemId, int $status): array
     {
@@ -92,6 +96,8 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Loads an item with specified position in specified collection.
+     *
+     * @return mixed[]
      */
     public function loadItemWithPositionData(Collection $collection, int $position): array
     {
@@ -112,6 +118,8 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Loads all data for items that belong to collection with specified ID.
+     *
+     * @return mixed[]
      */
     public function loadCollectionItemsData(Collection $collection): array
     {
@@ -134,7 +142,7 @@ final class CollectionQueryHandler extends QueryHandler
      * @param int|string $queryId
      * @param int $status
      *
-     * @return array
+     * @return mixed[]
      */
     public function loadQueryData($queryId, int $status): array
     {
@@ -148,6 +156,8 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Loads all collection query IDs.
+     *
+     * @return int[]
      */
     public function loadCollectionQueryIds(int $collectionId, ?int $status = null): array
     {
@@ -170,6 +180,8 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Loads all data for queries that belong to collection with specified ID.
+     *
+     * @return mixed[]
      */
     public function loadCollectionQueryData(Collection $collection): array
     {
@@ -190,7 +202,7 @@ final class CollectionQueryHandler extends QueryHandler
      * @param int|string $slotId
      * @param int $status
      *
-     * @return array
+     * @return mixed[]
      */
     public function loadSlotData($slotId, int $status): array
     {
@@ -204,6 +216,8 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Loads data for slots that belong to collection with specified ID.
+     *
+     * @return mixed[]
      */
     public function loadCollectionSlotsData(Collection $collection): array
     {
@@ -419,6 +433,8 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Deletes the collection reference.
+     *
+     * @param int[] $blockIds
      */
     public function deleteCollectionReferences(array $blockIds, ?int $status = null): void
     {
@@ -744,6 +760,8 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Deletes the queries with provided IDs.
+     *
+     * @param int[] $queryIds
      */
     public function deleteQuery(array $queryIds, ?int $status = null): void
     {
@@ -764,6 +782,8 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Deletes the query translations with provided query IDs.
+     *
+     * @param int[] $queryIds
      */
     public function deleteQueryTranslations(array $queryIds, ?int $status = null, ?string $locale = null): void
     {
@@ -790,6 +810,10 @@ final class CollectionQueryHandler extends QueryHandler
 
     /**
      * Loads all block collection IDs.
+     *
+     * @param int[] $blockIds
+     *
+     * @return int[]
      */
     public function loadBlockCollectionIds(array $blockIds, ?int $status = null): array
     {

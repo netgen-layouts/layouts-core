@@ -13,13 +13,20 @@ use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Layout\Resolver\TargetTypeInterface;
 use Traversable;
 
+/**
+ * @implements \IteratorAggregate<string, \Netgen\Layouts\Layout\Resolver\TargetTypeInterface>
+ * @implements \ArrayAccess<string, \Netgen\Layouts\Layout\Resolver\TargetTypeInterface>
+ */
 final class TargetTypeRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * @var \Netgen\Layouts\Layout\Resolver\TargetTypeInterface[]
+     * @var array<string, \Netgen\Layouts\Layout\Resolver\TargetTypeInterface>
      */
     private $targetTypes = [];
 
+    /**
+     * @param iterable<string, \Netgen\Layouts\Layout\Resolver\TargetTypeInterface> $targetTypes
+     */
     public function __construct(iterable $targetTypes)
     {
         foreach ($targetTypes as $targetType) {
@@ -54,7 +61,7 @@ final class TargetTypeRegistry implements IteratorAggregate, Countable, ArrayAcc
     /**
      * Returns all target types.
      *
-     * @return \Netgen\Layouts\Layout\Resolver\TargetTypeInterface[]
+     * @return array<string, \Netgen\Layouts\Layout\Resolver\TargetTypeInterface>
      */
     public function getTargetTypes(): array
     {
@@ -83,10 +90,8 @@ final class TargetTypeRegistry implements IteratorAggregate, Countable, ArrayAcc
 
     /**
      * @param mixed $offset
-     *
-     * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): TargetTypeInterface
     {
         return $this->getTargetType($offset);
     }

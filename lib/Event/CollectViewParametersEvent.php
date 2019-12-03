@@ -24,7 +24,7 @@ final class CollectViewParametersEvent extends Event
     /**
      * Parameters to be injected into the view.
      *
-     * @var array
+     * @var array<string, mixed>
      */
     private $parameters = [];
 
@@ -35,6 +35,8 @@ final class CollectViewParametersEvent extends Event
 
     /**
      * Returns the parameters that will be injected into the View.
+     *
+     * @return array<string, mixed>
      */
     public function getParameters(): array
     {

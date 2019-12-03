@@ -17,15 +17,19 @@ final class PagedCollectionsPlugin extends Plugin
      *
      * Keys should be pager identifiers, and values should be human readable names.
      *
-     * @var array
+     * @var string[]
      */
     private $pagerTypes;
 
     /**
-     * @var array
+     * @var string[]
      */
     private $defaultGroups;
 
+    /**
+     * @param string[] $pagerTypes
+     * @param string[] $defaultGroups
+     */
     public function __construct(array $pagerTypes, array $defaultGroups)
     {
         $this->pagerTypes = $pagerTypes;

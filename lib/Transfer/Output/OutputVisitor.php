@@ -13,11 +13,14 @@ final class OutputVisitor
      */
     private $subVisitors = [];
 
+    /**
+     * @param iterable<\Netgen\Layouts\Transfer\Output\VisitorInterface> $subVisitors
+     */
     public function __construct(iterable $subVisitors)
     {
-        foreach ($subVisitors as $key => $subVisitor) {
+        foreach ($subVisitors as $subVisitor) {
             if ($subVisitor instanceof VisitorInterface) {
-                $this->subVisitors[$key] = $subVisitor;
+                $this->subVisitors[] = $subVisitor;
             }
         }
     }
@@ -26,6 +29,8 @@ final class OutputVisitor
      * Visit the given $value into hash array representation.
      *
      * @throws \Netgen\Layouts\Exception\RuntimeException if no sub-visitor is available for provided value
+     *
+     * @return array<string, mixed>
      */
     public function visit(object $value): array
     {

@@ -12,10 +12,13 @@ final class SimplePlugin implements PluginInterface
     private $templateName;
 
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     private $parameters;
 
+    /**
+     * @param array<string, mixed> $parameters
+     */
     public function __construct(string $templateName, array $parameters = [])
     {
         $this->templateName = $templateName;

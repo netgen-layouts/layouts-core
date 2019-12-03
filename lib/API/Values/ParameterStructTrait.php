@@ -11,7 +11,7 @@ use Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface;
 trait ParameterStructTrait
 {
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     private $parameterValues = [];
 
@@ -19,6 +19,8 @@ trait ParameterStructTrait
      * Sets the provided parameter values to the struct.
      *
      * The values need to be in the domain format of the value for the parameter.
+     *
+     * @param array<string, mixed> $parameterValues
      */
     public function setParameterValues(array $parameterValues): void
     {
@@ -40,6 +42,8 @@ trait ParameterStructTrait
 
     /**
      * Returns all parameter values from the struct.
+     *
+     * @return array<string, mixed>
      */
     public function getParameterValues(): array
     {
@@ -121,6 +125,8 @@ trait ParameterStructTrait
      * If $doImport is set to true, the values will be considered as coming from an import,
      * meaning it will be processed using ParameterTypeInterface::import method instead of
      * ParameterTypeInterface::fromHash method.
+     *
+     * @param array<string, mixed> $values
      */
     private function fillFromHash(
         ParameterDefinitionCollectionInterface $definitionCollection,

@@ -8,6 +8,8 @@ interface ParameterBuilderFactoryInterface
 {
     /**
      * Returns the new instance of parameter builder.
+     *
+     * @param array<string, mixed> $config
      */
     public function createParameterBuilder(array $config = []): ParameterBuilderInterface;
 }

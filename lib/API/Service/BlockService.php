@@ -25,6 +25,8 @@ interface BlockService extends Service
      * set to true, block in main locale will be returned if none of the
      * locales in $locales array are found.
      *
+     * @param string[]|null $locales
+     *
      * @throws \Netgen\Layouts\Exception\NotFoundException If block with specified UUID does not exist
      */
     public function loadBlock(UuidInterface $blockId, ?array $locales = null, bool $useMainLocale = true): Block;
@@ -39,6 +41,8 @@ interface BlockService extends Service
      * set to true, block in main locale will be returned if none of the
      * locales in $locales array are found.
      *
+     * @param string[]|null $locales
+     *
      * @throws \Netgen\Layouts\Exception\NotFoundException If block with specified UUID does not exist
      */
     public function loadBlockDraft(UuidInterface $blockId, ?array $locales = null, bool $useMainLocale = true): Block;
@@ -52,6 +56,8 @@ interface BlockService extends Service
      * be returned. If the block is always available and $useMainLocale is
      * set to true, block in main locale will be returned if none of the
      * locales in $locales array are found.
+     *
+     * @param string[]|null $locales
      */
     public function loadZoneBlocks(Zone $zone, ?array $locales = null, bool $useMainLocale = true): BlockList;
 
@@ -64,6 +70,8 @@ interface BlockService extends Service
      * be returned. If the block is always available and $useMainLocale is
      * set to true, block in main locale will be returned if none of the
      * locales in $locales array are found.
+     *
+     * @param string[]|null $locales
      */
     public function loadLayoutBlocks(Layout $layout, ?array $locales = null, bool $useMainLocale = true): BlockList;
 

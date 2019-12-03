@@ -168,6 +168,8 @@ final class MigrateQueryOffsetLimitCommand extends Command
      *
      * Each of those can be `null` to indicate that the query type does not have an offset
      * or a limit parameter.
+     *
+     * @return \Generator<string, string>
      */
     private function askForOffsetAndLimitParameter(QueryTypeInterface $queryType): Generator
     {
@@ -193,6 +195,8 @@ final class MigrateQueryOffsetLimitCommand extends Command
      * Returns the list of all parameter names from the query type.
      *
      * Considers if the parameter is a compound and includes it's sub-parameters too.
+     *
+     * @return \Generator<string>
      */
     private function getQueryTypeParameters(QueryTypeInterface $queryType): Generator
     {
@@ -209,6 +213,9 @@ final class MigrateQueryOffsetLimitCommand extends Command
         }
     }
 
+    /**
+     * @param array<string, mixed> $queryTypeParameters
+     */
     private function migrateOffsetAndLimit(array $queryTypeParameters): void
     {
         $queryData = $this->getQueryData();
@@ -244,6 +251,8 @@ final class MigrateQueryOffsetLimitCommand extends Command
 
     /**
      * Returns all query data required to migrate offset and limit to the collections.
+     *
+     * @return mixed[]
      */
     private function getQueryData(): array
     {

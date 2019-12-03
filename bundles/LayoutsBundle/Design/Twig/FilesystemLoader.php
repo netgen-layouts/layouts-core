@@ -21,7 +21,7 @@ final class FilesystemLoader implements LoaderInterface
     private $configuration;
 
     /**
-     * @var array
+     * @var array<string, string>
      */
     private $templateMap;
 

@@ -22,7 +22,7 @@ final class ItemUpdateStruct
     /**
      * New item configuration.
      *
-     * @var array|null
+     * @var array<string, array<string, mixed>>|null
      */
     public $config;
 }

@@ -25,7 +25,7 @@ final class ConfigVisitor implements VisitorInterface
      * @param \Netgen\Layouts\API\Values\Config\Config $value
      * @param \Netgen\Layouts\Transfer\Output\OutputVisitor $outputVisitor
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {

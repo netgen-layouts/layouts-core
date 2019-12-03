@@ -30,6 +30,8 @@ interface QueryTypeInterface extends ParameterDefinitionCollectionInterface
 
     /**
      * Returns the values from the query.
+     *
+     * @return iterable<object>
      */
     public function getValues(Query $query, int $offset = 0, ?int $limit = null): iterable;
 

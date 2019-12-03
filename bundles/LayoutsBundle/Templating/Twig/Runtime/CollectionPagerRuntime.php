@@ -29,6 +29,8 @@ final class CollectionPagerRuntime
 
     /**
      * Renders the provided Pagerfanta view.
+     *
+     * @param array<string, mixed> $options
      */
     public function renderCollectionPager(Pagerfanta $pagerfanta, Block $block, string $collectionIdentifier, array $options = []): string
     {

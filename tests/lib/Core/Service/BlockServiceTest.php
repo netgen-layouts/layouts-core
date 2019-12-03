@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Core\Service;
 
 use Netgen\Layouts\API\Values\Block\Block;
+use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Collection\CollectionCreateStruct;
 use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\API\Values\Collection\QueryCreateStruct;
@@ -156,10 +157,15 @@ abstract class BlockServiceTest extends CoreTestCase
         $targetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
         $leftPlaceholder = $targetBlock->getPlaceholder('left');
 
-        self::assertTrue($block->isDraft());
-        self::assertSame($block->getId()->toString(), $leftPlaceholder->getBlocks()[0]->getId()->toString());
+        $firstBlock = $leftPlaceholder->getBlocks()[0];
+        $secondBlock = $leftPlaceholder->getBlocks()[1];
 
-        self::assertSame('129f51de-a535-5094-8517-45d672e06302', $leftPlaceholder->getBlocks()[1]->getId()->toString());
+        self::assertInstanceOf(Block::class, $firstBlock);
+        self::assertInstanceOf(Block::class, $secondBlock);
+
+        self::assertTrue($block->isDraft());
+        self::assertSame($block->getId()->toString(), $firstBlock->getId()->toString());
+        self::assertSame('129f51de-a535-5094-8517-45d672e06302', $secondBlock->getId()->toString());
 
         self::assertFalse($block->isTranslatable());
         self::assertTrue($block->isAlwaysAvailable());
@@ -413,8 +419,11 @@ abstract class BlockServiceTest extends CoreTestCase
         $targetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
         $leftPlaceholder = $targetBlock->getPlaceholder('left');
 
+        $secondBlock = $leftPlaceholder->getBlocks()[1];
+        self::assertInstanceOf(Block::class, $secondBlock);
+
         self::assertTrue($block->isDraft());
-        self::assertSame($block->getId()->toString(), $leftPlaceholder->getBlocks()[1]->getId()->toString());
+        self::assertSame($block->getId()->toString(), $secondBlock->getId()->toString());
     }
 
     /**
@@ -481,6 +490,9 @@ abstract class BlockServiceTest extends CoreTestCase
         $zone = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right');
         $blocks = $this->blockService->loadZoneBlocks($zone);
 
+        self::assertInstanceOf(Block::class, $blocks[0]);
+        self::assertInstanceOf(Block::class, $blocks[1]);
+
         self::assertTrue($block->isDraft());
         self::assertSame($block->getId()->toString(), $blocks[0]->getId()->toString());
 
@@ -534,9 +546,11 @@ abstract class BlockServiceTest extends CoreTestCase
         $zone = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right');
         $blocks = $this->blockService->loadZoneBlocks($zone);
 
+        self::assertInstanceOf(Block::class, $blocks[0]);
+        self::assertInstanceOf(Block::class, $blocks[1]);
+
         self::assertTrue($block->isDraft());
         self::assertSame($block->getId()->toString(), $blocks[0]->getId()->toString());
-
         self::assertSame('28df256a-2467-5527-b398-9269ccc652de', $blocks[1]->getId()->toString());
 
         $collections = $block->getCollections();
@@ -622,6 +636,8 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $zone = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right');
         $blocks = $this->blockService->loadZoneBlocks($zone);
+
+        self::assertInstanceOf(Block::class, $blocks[2]);
 
         self::assertTrue($block->isDraft());
         self::assertSame($block->getId()->toString(), $blocks[2]->getId()->toString());
@@ -1347,7 +1363,10 @@ abstract class BlockServiceTest extends CoreTestCase
         $targetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
         $leftPlaceholder = $targetBlock->getPlaceholder('left');
 
-        self::assertSame($movedBlock->getId()->toString(), $leftPlaceholder->getBlocks()[0]->getId()->toString());
+        $firstBlock = $leftPlaceholder->getBlocks()[0];
+        self::assertInstanceOf(Block::class, $firstBlock);
+
+        self::assertSame($movedBlock->getId()->toString(), $firstBlock->getId()->toString());
     }
 
     /**
@@ -1370,8 +1389,11 @@ abstract class BlockServiceTest extends CoreTestCase
         $leftPlaceholder = $targetBlock->getPlaceholder('left');
         $rightPlaceholder = $targetBlock->getPlaceholder('right');
 
+        $firstBlock = $rightPlaceholder->getBlocks()[0];
+        self::assertInstanceOf(Block::class, $firstBlock);
+
         self::assertEmpty($leftPlaceholder->getBlocks());
-        self::assertSame($movedBlock->getId()->toString(), $rightPlaceholder->getBlocks()[0]->getId()->toString());
+        self::assertSame($movedBlock->getId()->toString(), $firstBlock->getId()->toString());
     }
 
     /**
@@ -1395,8 +1417,11 @@ abstract class BlockServiceTest extends CoreTestCase
         $originalPlaceholder = $originalBlock->getPlaceholder('left');
         $targetPlaceholder = $targetBlock->getPlaceholder('main');
 
+        $firstBlock = $targetPlaceholder->getBlocks()[0];
+        self::assertInstanceOf(Block::class, $firstBlock);
+
         self::assertEmpty($originalPlaceholder->getBlocks());
-        self::assertSame($movedBlock->getId()->toString(), $targetPlaceholder->getBlocks()[0]->getId()->toString());
+        self::assertSame($movedBlock->getId()->toString(), $firstBlock->getId()->toString());
     }
 
     /**
@@ -1529,6 +1554,8 @@ abstract class BlockServiceTest extends CoreTestCase
         $zone = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('left');
         $blocks = $this->blockService->loadZoneBlocks($zone);
 
+        self::assertInstanceOf(Block::class, $blocks[0]);
+
         self::assertSame($movedBlock->getId()->toString(), $blocks[0]->getId()->toString());
     }
 
@@ -1549,6 +1576,8 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $zone = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right');
         $blocks = $this->blockService->loadZoneBlocks($zone);
+
+        self::assertInstanceOf(Block::class, $blocks[0]);
 
         self::assertSame($movedBlock->getId()->toString(), $blocks[0]->getId()->toString());
     }
@@ -1655,6 +1684,9 @@ abstract class BlockServiceTest extends CoreTestCase
         self::assertCount(2, $collections);
         self::assertArrayHasKey('default', $collections);
         self::assertArrayHasKey('featured', $collections);
+
+        self::assertInstanceOf(Collection::class, $collections['default']);
+        self::assertInstanceOf(Collection::class, $collections['featured']);
 
         self::assertSame('45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a', $collections['default']->getId()->toString());
         self::assertSame('da050624-8ae0-5fb9-ae85-092bf8242b89', $collections['featured']->getId()->toString());

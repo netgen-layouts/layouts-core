@@ -92,11 +92,8 @@ final class CollectionService extends Service implements APICollectionService
         $this->collectionHandler = $collectionHandler;
     }
 
-    public function loadCollection(
-        UuidInterface $collectionId,
-        ?array $locales = null,
-        bool $useMainLocale = true
-    ): Collection {
+    public function loadCollection(UuidInterface $collectionId, ?array $locales = null, bool $useMainLocale = true): Collection
+    {
         return $this->mapper->mapCollection(
             $this->collectionHandler->loadCollection(
                 $collectionId,
@@ -107,11 +104,8 @@ final class CollectionService extends Service implements APICollectionService
         );
     }
 
-    public function loadCollectionDraft(
-        UuidInterface $collectionId,
-        ?array $locales = null,
-        bool $useMainLocale = true
-    ): Collection {
+    public function loadCollectionDraft(UuidInterface $collectionId, ?array $locales = null, bool $useMainLocale = true): Collection
+    {
         return $this->mapper->mapCollection(
             $this->collectionHandler->loadCollection(
                 $collectionId,
@@ -122,10 +116,8 @@ final class CollectionService extends Service implements APICollectionService
         );
     }
 
-    public function updateCollection(
-        Collection $collection,
-        APICollectionUpdateStruct $collectionUpdateStruct
-    ): Collection {
+    public function updateCollection(Collection $collection, APICollectionUpdateStruct $collectionUpdateStruct): Collection
+    {
         if (!$collection->isDraft()) {
             throw new BadStateException('collection', 'Only draft collections can be updated.');
         }
@@ -215,11 +207,8 @@ final class CollectionService extends Service implements APICollectionService
         );
     }
 
-    public function changeCollectionType(
-        Collection $collection,
-        int $newType,
-        ?APIQueryCreateStruct $queryCreateStruct = null
-    ): Collection {
+    public function changeCollectionType(Collection $collection, int $newType, ?APIQueryCreateStruct $queryCreateStruct = null): Collection
+    {
         if (!$collection->isDraft()) {
             throw new BadStateException('collection', 'Type can be changed only for draft collections.');
         }

@@ -80,6 +80,8 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
      *
      * When manual items are invisible or invalid, they are pushed to the subitem role,
      * and the item which is displayed is the next query value.
+     *
+     * @param \Iterator<\Netgen\Layouts\Item\CmsItemInterface> $queryIterator
      */
     private function buildManualResult(Collection $collection, CollectionItem $collectionItem, Iterator $queryIterator): ?Result
     {
@@ -108,7 +110,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
     /**
      * Returns the current value from the query and advances the iterator.
      *
-     * @param \Iterator $queryIterator
+     * @param \Iterator<\Netgen\Layouts\Item\CmsItemInterface> $queryIterator
      *
      * @return mixed
      */
@@ -126,6 +128,8 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
 
     /**
      * Returns the iterator that can be used to iterate over provided collection query.
+     *
+     * @return \Iterator<\Netgen\Layouts\Item\CmsItemInterface>
      */
     private function runQuery(Collection $collection, int $offset, int $limit): Iterator
     {

@@ -52,7 +52,7 @@ final class ClearLayoutCache extends AbstractController
             '@NetgenLayoutsAdmin/admin/layouts/form/clear_layout_cache.html.twig',
             [
                 'submitted' => true,
-                'error' => !$cacheCleared,
+                'error' => true,
                 'layout' => $layout,
             ],
             new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)

@@ -6,8 +6,14 @@ namespace Netgen\Layouts\API\Values\Block;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
+/**
+ * @extends \Doctrine\Common\Collections\ArrayCollection<string, \Netgen\Layouts\API\Values\Block\Placeholder>
+ */
 final class PlaceholderList extends ArrayCollection
 {
+    /**
+     * @param array<string, \Netgen\Layouts\API\Values\Block\Placeholder> $placeholders
+     */
     public function __construct(array $placeholders = [])
     {
         parent::__construct(
@@ -21,7 +27,7 @@ final class PlaceholderList extends ArrayCollection
     }
 
     /**
-     * @return \Netgen\Layouts\API\Values\Block\Placeholder[]
+     * @return array<string, \Netgen\Layouts\API\Values\Block\Placeholder>
      */
     public function getPlaceholders(): array
     {

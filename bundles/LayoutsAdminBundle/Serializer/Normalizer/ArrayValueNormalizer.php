@@ -13,9 +13,9 @@ final class ArrayValueNormalizer implements NormalizerInterface, NormalizerAware
 {
     use NormalizerAwareTrait;
 
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
-        return $this->normalizer->normalize($object->getValue(), $format, $context);
+        return (array) $this->normalizer->normalize($object->getValue(), $format, $context);
     }
 
     public function supportsNormalization($data, $format = null): bool

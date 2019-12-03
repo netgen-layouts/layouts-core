@@ -15,7 +15,7 @@ final class CollectionQueryNormalizer implements NormalizerInterface, Normalizer
 {
     use NormalizerAwareTrait;
 
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\API\Values\Collection\Query $query */
         $query = $object->getValue();
@@ -44,6 +44,10 @@ final class CollectionQueryNormalizer implements NormalizerInterface, Normalizer
 
     /**
      * Builds the list of Value objects for provided list of values.
+     *
+     * @param iterable<object> $values
+     *
+     * @return \Generator<array-key, \Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value>
      */
     private function buildValues(iterable $values): Generator
     {

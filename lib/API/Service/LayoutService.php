@@ -194,6 +194,8 @@ interface LayoutService extends Service
      * of the zones from the new layout type is mapped to a shared zone from the old layout,
      * the mapping needs to be 1:1, instead of 1:n.
      *
+     * @param array<string, string[]> $zoneMappings
+     *
      * @throws \Netgen\Layouts\Exception\BadStateException If layout is not a draft
      */
     public function changeLayoutType(Layout $layout, LayoutTypeInterface $targetLayoutType, array $zoneMappings, bool $preserveSharedZones = true): Layout;

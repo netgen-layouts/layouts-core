@@ -11,6 +11,8 @@ final class BlockMapper
     /**
      * Maps data from database to block values.
      *
+     * @param mixed[] $data
+     *
      * @return \Netgen\Layouts\Persistence\Values\Block\Block[]
      */
     public function mapBlocks(array $data, ?string $layoutUuid = null): array
@@ -69,6 +71,8 @@ final class BlockMapper
 
     /**
      * Builds the array of parameters from provided JSON string.
+     *
+     * @return array<string, mixed>
      */
     private function buildParameters(string $parameters): array
     {

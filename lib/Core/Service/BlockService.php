@@ -601,6 +601,11 @@ final class BlockService extends Service implements BlockServiceInterface
 
     /**
      * Returns all blocks from provided input, with all untranslated blocks filtered out.
+     *
+     * @param iterable<\Netgen\Layouts\Persistence\Values\Block\Block> $blocks
+     * @param string[]|null $locales
+     *
+     * @return \Generator<\Netgen\Layouts\API\Values\Block\Block>
      */
     private function filterUntranslatedBlocks(iterable $blocks, ?array $locales, bool $useMainLocale): Generator
     {

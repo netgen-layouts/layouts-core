@@ -16,12 +16,12 @@ final class Collection
     private $identifier;
 
     /**
-     * @var array|null
+     * @var string[]|null
      */
     private $validItemTypes;
 
     /**
-     * @var array|null
+     * @var string[]|null
      */
     private $validQueryTypes;
 
@@ -37,6 +37,8 @@ final class Collection
      * Returns the valid query types.
      *
      * If null, all query types are valid.
+     *
+     * @return string[]|null
      */
     public function getValidQueryTypes(): ?array
     {
@@ -59,6 +61,8 @@ final class Collection
      * Returns the valid item types.
      *
      * If null, all item types are valid.
+     *
+     * @return string[]|null
      */
     public function getValidItemTypes(): ?array
     {

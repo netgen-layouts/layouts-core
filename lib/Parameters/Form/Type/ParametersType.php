@@ -94,6 +94,8 @@ final class ParametersType extends AbstractType
 
     /**
      * Returns if the parameter will be included in the form based on provided groups.
+     *
+     * @param string[] $groups
      */
     private function includeParameter(ParameterDefinition $parameterDefinition, array $groups): bool
     {

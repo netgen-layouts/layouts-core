@@ -21,6 +21,8 @@ interface VisitorInterface
 
     /**
      * Visit the given $value into hash array representation.
+     *
+     * @return array<string, mixed>
      */
     public function visit(object $value, OutputVisitor $outputVisitor): array;
 }

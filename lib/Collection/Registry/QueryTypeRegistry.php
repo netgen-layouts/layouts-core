@@ -13,15 +13,19 @@ use Netgen\Layouts\Exception\Collection\QueryTypeException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Traversable;
 
+/**
+ * @implements \IteratorAggregate<string, \Netgen\Layouts\Collection\QueryType\QueryTypeInterface>
+ * @implements \ArrayAccess<string, \Netgen\Layouts\Collection\QueryType\QueryTypeInterface>
+ */
 final class QueryTypeRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * @var \Netgen\Layouts\Collection\QueryType\QueryTypeInterface[]
+     * @var array<string, \Netgen\Layouts\Collection\QueryType\QueryTypeInterface>
      */
     private $queryTypes;
 
     /**
-     * @param \Netgen\Layouts\Collection\QueryType\QueryTypeInterface[] $queryTypes
+     * @param array<string, \Netgen\Layouts\Collection\QueryType\QueryTypeInterface> $queryTypes
      */
     public function __construct(array $queryTypes)
     {
@@ -60,7 +64,7 @@ final class QueryTypeRegistry implements IteratorAggregate, Countable, ArrayAcce
      *
      * @param bool $onlyEnabled
      *
-     * @return \Netgen\Layouts\Collection\QueryType\QueryTypeInterface[]
+     * @return array<string, \Netgen\Layouts\Collection\QueryType\QueryTypeInterface>
      */
     public function getQueryTypes(bool $onlyEnabled = false): array
     {
@@ -98,10 +102,8 @@ final class QueryTypeRegistry implements IteratorAggregate, Countable, ArrayAcce
 
     /**
      * @param mixed $offset
-     *
-     * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): QueryTypeInterface
     {
         return $this->getQueryType($offset);
     }

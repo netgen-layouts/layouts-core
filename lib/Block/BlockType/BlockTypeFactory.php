@@ -10,6 +10,8 @@ final class BlockTypeFactory
 {
     /**
      * Builds the block type.
+     *
+     * @param array<string, mixed> $config
      */
     public static function buildBlockType(string $identifier, array $config, BlockDefinitionInterface $blockDefinition): BlockType
     {

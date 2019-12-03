@@ -38,6 +38,11 @@ final class BlockTypePass implements CompilerPassInterface
 
     /**
      * Generates the block type configuration from provided block definitions.
+     *
+     * @param array<string, array> $blockTypes
+     * @param array<string, array> $blockDefinitions
+     *
+     * @return array<string, array>
      */
     private function generateBlockTypeConfig(array $blockTypes, array $blockDefinitions): array
     {
@@ -45,7 +50,6 @@ final class BlockTypePass implements CompilerPassInterface
             if (
                 isset($blockTypes[$identifier]['definition_identifier']) &&
                 $blockTypes[$identifier]['definition_identifier'] !== '' &&
-                $blockTypes[$identifier]['definition_identifier'] !== null &&
                 $blockTypes[$identifier]['definition_identifier'] !== $identifier
             ) {
                 // We skip the block types which have been completely redefined
@@ -95,6 +99,10 @@ final class BlockTypePass implements CompilerPassInterface
 
     /**
      * Builds the block type objects from provided configuration.
+     *
+     * @param array<string, array> $blockTypes
+     *
+     * @return \Generator<string, \Symfony\Component\DependencyInjection\Reference>
      */
     private function buildBlockTypes(ContainerBuilder $container, array $blockTypes): Generator
     {
@@ -124,6 +132,9 @@ final class BlockTypePass implements CompilerPassInterface
 
     /**
      * Validates block type config.
+     *
+     * @param array<string, array> $blockTypes
+     * @param array<string, array> $blockDefinitions
      *
      * @throws \Netgen\Layouts\Exception\RuntimeException If validation failed
      */

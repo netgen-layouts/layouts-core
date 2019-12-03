@@ -10,6 +10,10 @@ interface ExtensionPluginInterface
 {
     /**
      * Pre-processes the configuration before it is resolved.
+     *
+     * @param mixed[] $configs
+     *
+     * @return mixed[]
      */
     public function preProcessConfiguration(array $configs): array;
 
@@ -20,11 +24,17 @@ interface ExtensionPluginInterface
 
     /**
      * Post-processes the resolved configuration.
+     *
+     * @param mixed[] $config
+     *
+     * @return mixed[]
      */
     public function postProcessConfiguration(array $config): array;
 
     /**
      * Returns the array of files to be appended to main bundle configuration.
+     *
+     * @return string[]
      */
     public function appendConfigurationFiles(): array;
 }

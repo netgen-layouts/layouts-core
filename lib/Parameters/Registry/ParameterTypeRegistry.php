@@ -13,18 +13,25 @@ use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Parameters\ParameterTypeInterface;
 use Traversable;
 
+/**
+ * @implements \IteratorAggregate<string, \Netgen\Layouts\Parameters\ParameterTypeInterface>
+ * @implements \ArrayAccess<string, \Netgen\Layouts\Parameters\ParameterTypeInterface>
+ */
 final class ParameterTypeRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * @var \Netgen\Layouts\Parameters\ParameterTypeInterface[]
+     * @var array<string, \Netgen\Layouts\Parameters\ParameterTypeInterface>
      */
     private $parameterTypes = [];
 
     /**
-     * @var \Netgen\Layouts\Parameters\ParameterTypeInterface[]
+     * @var array<class-string, \Netgen\Layouts\Parameters\ParameterTypeInterface>
      */
     private $parameterTypesByClass = [];
 
+    /**
+     * @param iterable<\Netgen\Layouts\Parameters\ParameterTypeInterface> $parameterTypes
+     */
     public function __construct(iterable $parameterTypes)
     {
         foreach ($parameterTypes as $parameterType) {
@@ -74,7 +81,7 @@ final class ParameterTypeRegistry implements IteratorAggregate, Countable, Array
     /**
      * Returns all parameter types.
      *
-     * @return \Netgen\Layouts\Parameters\ParameterTypeInterface[]
+     * @return array<string, \Netgen\Layouts\Parameters\ParameterTypeInterface>
      */
     public function getParameterTypes(): array
     {
@@ -103,10 +110,8 @@ final class ParameterTypeRegistry implements IteratorAggregate, Countable, Array
 
     /**
      * @param mixed $offset
-     *
-     * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): ParameterTypeInterface
     {
         return $this->getParameterType($offset);
     }

@@ -82,6 +82,11 @@ final class LayoutResolver implements LayoutResolverInterface
         return true;
     }
 
+    /**
+     * @param string[] $enabledConditions
+     *
+     * @return \Netgen\Layouts\API\Values\LayoutResolver\Rule[]
+     */
     private function innerResolveRules(?Request $request = null, array $enabledConditions = []): array
     {
         if (!$request instanceof Request) {

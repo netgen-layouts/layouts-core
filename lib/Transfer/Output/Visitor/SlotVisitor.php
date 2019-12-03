@@ -24,7 +24,7 @@ final class SlotVisitor implements VisitorInterface
      * @param \Netgen\Layouts\API\Values\Collection\Slot $value
      * @param \Netgen\Layouts\Transfer\Output\OutputVisitor $outputVisitor
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {

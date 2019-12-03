@@ -17,6 +17,9 @@ use Traversable;
  *
  * Each container block can have multiple placeholders, allowing to render
  * each block set separately.
+ *
+ * @implements \IteratorAggregate<int, \Netgen\Layouts\API\Values\Block\Block>
+ * @implements \ArrayAccess<int, \Netgen\Layouts\API\Values\Block\Block>
  */
 final class Placeholder implements ArrayAccess, IteratorAggregate, Countable
 {
@@ -28,7 +31,7 @@ final class Placeholder implements ArrayAccess, IteratorAggregate, Countable
     private $identifier;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var \Doctrine\Common\Collections\Collection<int, \Netgen\Layouts\API\Values\Block\Block>
      */
     private $blocks;
 
@@ -75,10 +78,8 @@ final class Placeholder implements ArrayAccess, IteratorAggregate, Countable
 
     /**
      * @param mixed $offset
-     *
-     * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): ?Block
     {
         return $this->blocks->offsetGet($offset);
     }

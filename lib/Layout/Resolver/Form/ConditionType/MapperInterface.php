@@ -19,6 +19,8 @@ interface MapperInterface
 
     /**
      * Returns the form options.
+     *
+     * @return array<string, mixed>
      */
     public function getFormOptions(): array;
 

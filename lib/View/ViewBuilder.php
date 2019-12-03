@@ -28,14 +28,17 @@ final class ViewBuilder implements ViewBuilderInterface
      */
     private $viewProviders = [];
 
+    /**
+     * @param iterable<\Netgen\Layouts\View\Provider\ViewProviderInterface> $viewProviders
+     */
     public function __construct(TemplateResolverInterface $templateResolver, EventDispatcherInterface $eventDispatcher, iterable $viewProviders)
     {
         $this->templateResolver = $templateResolver;
         $this->eventDispatcher = new EventDispatcherProxy($eventDispatcher);
 
-        foreach ($viewProviders as $key => $viewProvider) {
+        foreach ($viewProviders as $viewProvider) {
             if ($viewProvider instanceof ViewProviderInterface) {
-                $this->viewProviders[$key] = $viewProvider;
+                $this->viewProviders[] = $viewProvider;
             }
         }
     }

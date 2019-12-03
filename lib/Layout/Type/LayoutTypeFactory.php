@@ -8,6 +8,8 @@ final class LayoutTypeFactory
 {
     /**
      * Builds the layout type.
+     *
+     * @param array<string, mixed> $config
      */
     public static function buildLayoutType(string $identifier, array $config): LayoutTypeInterface
     {

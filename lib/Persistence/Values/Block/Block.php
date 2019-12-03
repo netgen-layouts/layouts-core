@@ -91,14 +91,14 @@ final class Block extends Value
     /**
      * Block parameters. Keys are locales, values are parameters in the specific locale.
      *
-     * @var array[]
+     * @var array<string, array<string, mixed>>
      */
     public $parameters;
 
     /**
      * Block configuration.
      *
-     * @var array
+     * @var array<string, array<string, mixed>>
      */
     public $config;
 

@@ -28,6 +28,8 @@ final class PluginRenderingRuntime
 
     /**
      * Renders all the template plugins with provided name.
+     *
+     * @param array<string, mixed> $context
      */
     public function renderPlugins(array $context, string $pluginName): string
     {

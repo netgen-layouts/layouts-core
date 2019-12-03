@@ -7,6 +7,9 @@ namespace Netgen\Layouts\API\Values;
 use Doctrine\Common\Collections\AbstractLazyCollection;
 use Doctrine\Common\Collections\ArrayCollection;
 
+/**
+ * @extends \Doctrine\Common\Collections\AbstractLazyCollection<array-key, object>
+ */
 final class LazyCollection extends AbstractLazyCollection
 {
     /**

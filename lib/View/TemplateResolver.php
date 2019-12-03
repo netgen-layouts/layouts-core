@@ -16,7 +16,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 class TemplateResolver implements TemplateResolverInterface
 {
     /**
-     * @var array
+     * @var mixed[]
      */
     private $viewConfig;
 
@@ -25,6 +25,9 @@ class TemplateResolver implements TemplateResolverInterface
      */
     private $matchers;
 
+    /**
+     * @param mixed[] $viewConfig
+     */
     public function __construct(array $viewConfig, ContainerInterface $matchers)
     {
         $this->viewConfig = $viewConfig;
@@ -68,6 +71,8 @@ class TemplateResolver implements TemplateResolverInterface
 
     /**
      * Matches the view to provided config with configured matchers.
+     *
+     * @param mixed[] $matchConfig
      */
     private function matches(ViewInterface $view, array $matchConfig): bool
     {
@@ -86,6 +91,10 @@ class TemplateResolver implements TemplateResolverInterface
     /**
      * Iterates over all provided parameters and evaluates the values with expression
      * engine if the parameter value specifies so.
+     *
+     * @param array<string, mixed> $parameters
+     *
+     * @return \Generator<string, mixed>
      */
     private function evaluateParameters(ViewInterface $view, array $parameters): Generator
     {

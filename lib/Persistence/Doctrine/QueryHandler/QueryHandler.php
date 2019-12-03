@@ -7,7 +7,7 @@ namespace Netgen\Layouts\Persistence\Doctrine\QueryHandler;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
-use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper;
+use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelperInterface;
 
 abstract class QueryHandler
 {
@@ -17,11 +17,11 @@ abstract class QueryHandler
     protected $connection;
 
     /**
-     * @var \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper
+     * @var \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelperInterface
      */
     protected $connectionHelper;
 
-    public function __construct(Connection $connection, ConnectionHelper $connectionHelper)
+    public function __construct(Connection $connection, ConnectionHelperInterface $connectionHelper)
     {
         $this->connection = $connection;
         $this->connectionHelper = $connectionHelper;

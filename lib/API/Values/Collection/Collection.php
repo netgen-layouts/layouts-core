@@ -48,7 +48,7 @@ final class Collection implements Value
     private $limit;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var \Doctrine\Common\Collections\Collection<int, \Netgen\Layouts\API\Values\Collection\Item>
      */
     private $items;
 
@@ -58,7 +58,7 @@ final class Collection implements Value
     private $query;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var \Doctrine\Common\Collections\Collection<int, \Netgen\Layouts\API\Values\Collection\Slot>
      */
     private $slots;
 

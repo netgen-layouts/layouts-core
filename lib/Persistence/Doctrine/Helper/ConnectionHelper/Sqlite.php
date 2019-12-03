@@ -6,8 +6,9 @@ namespace Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\FetchMode;
+use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelperInterface;
 
-final class Sqlite
+final class Sqlite implements ConnectionHelperInterface
 {
     /**
      * @var \Doctrine\DBAL\Connection
@@ -19,15 +20,6 @@ final class Sqlite
         $this->connection = $connection;
     }
 
-    /**
-     * Returns the auto increment value.
-     *
-     * Returns the value used for autoincrement tables. Usually this will just
-     * be null. In case for sequence based RDBMS, this method can return a
-     * proper value for the given column.
-     *
-     * @return mixed
-     */
     public function getAutoIncrementValue(string $table, string $column = 'id')
     {
         $query = $this->connection->createQueryBuilder();
@@ -39,11 +31,6 @@ final class Sqlite
         return (int) ($data[0]['id'] ?? 0) + 1;
     }
 
-    /**
-     * Returns the last inserted ID.
-     *
-     * @return mixed
-     */
     public function lastInsertId(string $table, string $column = 'id')
     {
         $query = $this->connection->createQueryBuilder();

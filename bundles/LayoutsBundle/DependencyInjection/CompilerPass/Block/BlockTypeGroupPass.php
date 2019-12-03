@@ -36,6 +36,11 @@ final class BlockTypeGroupPass implements CompilerPassInterface
 
     /**
      * Generates the block type group configuration from provided block types.
+     *
+     * @param array<string, array> $blockTypeGroups
+     * @param array<string, array> $blockTypes
+     *
+     * @return array<string, array>
      */
     private function generateBlockTypeGroupConfig(array $blockTypeGroups, array $blockTypes): array
     {
@@ -65,6 +70,11 @@ final class BlockTypeGroupPass implements CompilerPassInterface
 
     /**
      * Builds the block type group objects from provided configuration.
+     *
+     * @param array<string, array> $blockTypeGroups
+     * @param array<string, array> $blockTypes
+     *
+     * @return \Generator<string, \Symfony\Component\DependencyInjection\Reference>
      */
     private function buildBlockTypeGroups(ContainerBuilder $container, array $blockTypeGroups, array $blockTypes): Generator
     {

@@ -78,6 +78,8 @@ final class BlockMapper
      * block in main locale will be returned if none of the locales in $locales
      * array are found.
      *
+     * @param string[]|null $locales
+     *
      * @throws \Netgen\Layouts\Exception\NotFoundException If the block does not have any requested translations
      */
     public function mapBlock(PersistenceBlock $block, ?array $locales = null, bool $useMainLocale = true): Block
@@ -157,6 +159,10 @@ final class BlockMapper
 
     /**
      * Maps the placeholder from persistence parameters.
+     *
+     * @param string[]|null $locales
+     *
+     * @return \Generator<string, \Netgen\Layouts\API\Values\Block\Placeholder>
      */
     private function mapPlaceholders(PersistenceBlock $block, BlockDefinitionInterface $blockDefinition, ?array $locales = null): Generator
     {

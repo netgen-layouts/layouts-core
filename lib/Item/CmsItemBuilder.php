@@ -13,11 +13,14 @@ final class CmsItemBuilder implements CmsItemBuilderInterface
      */
     private $valueConverters = [];
 
+    /**
+     * @param iterable<\Netgen\Layouts\Item\ValueConverterInterface> $valueConverters
+     */
     public function __construct(iterable $valueConverters)
     {
-        foreach ($valueConverters as $key => $valueConverter) {
+        foreach ($valueConverters as $valueConverter) {
             if ($valueConverter instanceof ValueConverterInterface) {
-                $this->valueConverters[$key] = $valueConverter;
+                $this->valueConverters[] = $valueConverter;
             }
         }
     }

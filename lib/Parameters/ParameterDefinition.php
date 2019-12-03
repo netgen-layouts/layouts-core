@@ -27,7 +27,7 @@ class ParameterDefinition
     protected $type;
 
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     protected $options = [];
 
@@ -47,12 +47,12 @@ class ParameterDefinition
     protected $label;
 
     /**
-     * @var array
+     * @var string[]
      */
     protected $groups = [];
 
     /**
-     * @var array
+     * @var array<\Symfony\Component\Validator\Constraint|\Closure>
      */
     protected $constraints = [];
 
@@ -74,6 +74,8 @@ class ParameterDefinition
 
     /**
      * Returns the parameter options.
+     *
+     * @return array<string, mixed>
      */
     public function getOptions(): array
     {
@@ -134,6 +136,8 @@ class ParameterDefinition
 
     /**
      * Returns the list of all parameter groups.
+     *
+     * @return string[]
      */
     public function getGroups(): array
     {
@@ -145,6 +149,8 @@ class ParameterDefinition
      *
      * These can either be instances of Symfony constraints (\Symfony\Component\Validator\Constraint)
      * or closures that return a Symfony constraint each.
+     *
+     * @return array<\Symfony\Component\Validator\Constraint|\Closure>
      */
     public function getConstraints(): array
     {

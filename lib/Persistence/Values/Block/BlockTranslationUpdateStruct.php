@@ -13,7 +13,7 @@ final class BlockTranslationUpdateStruct
     /**
      * New block parameters.
      *
-     * @var array|null
+     * @var array<string, mixed>|null
      */
     public $parameters;
 }

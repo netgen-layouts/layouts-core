@@ -13,11 +13,14 @@ final class HandlerPluginRegistry
      */
     private $handlerPlugins = [];
 
+    /**
+     * @param iterable<\Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface> $handlerPlugins
+     */
     public function __construct(iterable $handlerPlugins)
     {
-        foreach ($handlerPlugins as $key => $handlerPlugin) {
+        foreach ($handlerPlugins as $handlerPlugin) {
             if ($handlerPlugin instanceof PluginInterface) {
-                $this->handlerPlugins[$key] = $handlerPlugin;
+                $this->handlerPlugins[] = $handlerPlugin;
             }
         }
     }

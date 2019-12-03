@@ -18,7 +18,7 @@ interface SerializerInterface
      *
      * @param string[] $layoutIds
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function serializeLayouts(array $layoutIds): array;
 
@@ -27,7 +27,7 @@ interface SerializerInterface
      *
      * @param string[] $ruleIds
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function serializeRules(array $ruleIds): array;
 }

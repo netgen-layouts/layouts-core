@@ -74,6 +74,8 @@ abstract class ParamConverter implements ParamConverterInterface
 
     /**
      * Returns source attribute name.
+     *
+     * @return string[]
      */
     abstract public function getSourceAttributeNames(): array;
 
@@ -89,6 +91,8 @@ abstract class ParamConverter implements ParamConverterInterface
 
     /**
      * Returns the value.
+     *
+     * @param array<string, mixed> $values
      */
     abstract public function loadValue(array $values): Value;
 }

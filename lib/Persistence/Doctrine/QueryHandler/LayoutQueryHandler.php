@@ -20,7 +20,7 @@ final class LayoutQueryHandler extends QueryHandler
      * @param int|string $layoutId
      * @param int $status
      *
-     * @return array
+     * @return mixed[]
      */
     public function loadLayoutData($layoutId, int $status): array
     {
@@ -35,6 +35,8 @@ final class LayoutQueryHandler extends QueryHandler
     /**
      * Loads all layout IDs for provided parameters. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
+     *
+     * @return int[]
      */
     public function loadLayoutIds(bool $includeDrafts, ?bool $shared = null, int $offset = 0, ?int $limit = null): array
     {
@@ -138,6 +140,10 @@ final class LayoutQueryHandler extends QueryHandler
     /**
      * Loads all data for layouts with provided IDs. If $includeDrafts is set to true, drafts which have no
      * published status will also be included.
+     *
+     * @param int[] $layoutIds
+     *
+     * @return mixed[]
      */
     public function loadLayoutsData(array $layoutIds, bool $includeDrafts): array
     {
@@ -179,6 +185,8 @@ final class LayoutQueryHandler extends QueryHandler
 
     /**
      * Loads all data for layouts related to provided shared layout.
+     *
+     * @return mixed[]
      */
     public function loadRelatedLayoutsData(Layout $sharedLayout): array
     {
@@ -249,7 +257,7 @@ final class LayoutQueryHandler extends QueryHandler
      * @param int $status
      * @param string $identifier
      *
-     * @return array
+     * @return mixed[]
      */
     public function loadZoneData($layoutId, int $status, string $identifier): array
     {
@@ -267,6 +275,8 @@ final class LayoutQueryHandler extends QueryHandler
 
     /**
      * Loads all data for zones that belong to provided layout.
+     *
+     * @return mixed[]
      */
     public function loadLayoutZonesData(Layout $layout): array
     {

@@ -9,7 +9,7 @@ use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Exception\Persistence\TargetHandlerException;
-use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper;
+use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelperInterface;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
@@ -24,8 +24,11 @@ final class LayoutResolverQueryHandler extends QueryHandler
      */
     private $targetHandlers;
 
-    public function __construct(Connection $connection, ConnectionHelper $connectionHelper, ContainerInterface $targetHandlers)
-    {
+    public function __construct(
+        Connection $connection,
+        ConnectionHelperInterface $connectionHelper,
+        ContainerInterface $targetHandlers
+    ) {
         $this->targetHandlers = $targetHandlers;
 
         parent::__construct($connection, $connectionHelper);
@@ -37,7 +40,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      * @param int|string $ruleId
      * @param int $status
      *
-     * @return array
+     * @return mixed[]
      */
     public function loadRuleData($ruleId, int $status): array
     {
@@ -51,6 +54,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Returns all data for all rules.
+     *
+     * @return mixed[]
      */
     public function loadRulesData(int $status, ?Layout $layout = null, int $offset = 0, ?int $limit = null): array
     {
@@ -100,7 +105,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      * @param string $targetType
      * @param mixed $targetValue
      *
-     * @return array
+     * @return mixed[]
      */
     public function matchRules(string $targetType, $targetValue): array
     {
@@ -135,7 +140,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      * @param int|string $targetId
      * @param int $status
      *
-     * @return array
+     * @return mixed[]
      */
     public function loadTargetData($targetId, int $status): array
     {
@@ -149,6 +154,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Returns all data for all rule targets.
+     *
+     * @return mixed[]
      */
     public function loadRuleTargetsData(Rule $rule): array
     {
@@ -190,7 +197,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      * @param int|string $conditionId
      * @param int $status
      *
-     * @return array
+     * @return mixed[]
      */
     public function loadConditionData($conditionId, int $status): array
     {
@@ -204,6 +211,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Returns all data for for all rule conditions.
+     *
+     * @return mixed[]
      */
     public function loadRuleConditionsData(Rule $rule): array
     {

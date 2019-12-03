@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\Core\Service;
 
 use DateTimeImmutable;
 use DateTimeInterface;
+use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\LayoutCopyStruct;
 use Netgen\Layouts\API\Values\Layout\Zone;
@@ -770,6 +771,10 @@ abstract class LayoutServiceTest extends CoreTestCase
         self::assertCount(0, $rightZoneBlocks);
         self::assertCount(0, $bottomZoneBlocks);
 
+        self::assertInstanceOf(Block::class, $topZoneBlocks[0]);
+        self::assertInstanceOf(Block::class, $topZoneBlocks[1]);
+        self::assertInstanceOf(Block::class, $topZoneBlocks[2]);
+
         self::assertSame('b07d3a85-bcdb-5af2-9b6f-deba36c700e7', $topZoneBlocks[0]->getId()->toString());
         self::assertSame('28df256a-2467-5527-b398-9269ccc652de', $topZoneBlocks[1]->getId()->toString());
         self::assertSame('c2a30ea3-95ef-55b0-a584-fbcfd93cec9e', $topZoneBlocks[2]->getId()->toString());
@@ -820,6 +825,10 @@ abstract class LayoutServiceTest extends CoreTestCase
         self::assertCount(0, $leftZoneBlocks);
         self::assertCount(0, $rightZoneBlocks);
         self::assertCount(0, $bottomZoneBlocks);
+
+        self::assertInstanceOf(Block::class, $topZoneBlocks[0]);
+        self::assertInstanceOf(Block::class, $topZoneBlocks[1]);
+        self::assertInstanceOf(Block::class, $topZoneBlocks[2]);
 
         self::assertSame('b07d3a85-bcdb-5af2-9b6f-deba36c700e7', $topZoneBlocks[0]->getId()->toString());
         self::assertSame('28df256a-2467-5527-b398-9269ccc652de', $topZoneBlocks[1]->getId()->toString());

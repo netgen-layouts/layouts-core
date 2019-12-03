@@ -2,11 +2,17 @@ includes:
     - vendor/phpstan/phpstan-strict-rules/rules.neon
 
 parameters:
+    dynamicConstantNames:
+        - Symfony\Component\HttpKernel\Kernel::VERSION_ID
+
     ignoreErrors:
         # Symfony Config component
         - '#Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::requiresAtLeastOneElement\(\)#'
         - '#Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::addDefaultsIfNotSet\(\)#'
         - '#Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::children\(\)#'
+
+        # Symfony Form component
+        - '/Parameter \#1 \$it of function iterator_to_array expects Traversable, iterable\<Symfony\\Component\\Form\\FormInterface\> given./'
 
         # Doctrine DBAL
         - '#Cannot call method fetchAll\(\) on Doctrine\\DBAL\\Driver\\Statement\|int#'
@@ -14,8 +20,8 @@ parameters:
 
         # Compatibility with Symfony 3.4
         -
-            message: '#Call to function is_callable\(\) with .+ will always evaluate to false.#'
-            path: lib/Utils/BackwardsCompatibility/TreeBuilder.php
+            message: '#Method Symfony\\Component\\HttpFoundation\\Request::isMethodSafe\(\) invoked with 1 parameter, 0 required.#'
+            path: bundles/LayoutsAdminBundle/Security/CsrfTokenValidator.php
 
         -
             message: '#Call to an undefined method Netgen\\Layouts\\Utils\\BackwardsCompatibility\\TreeBuilder::root\(\).#'
@@ -29,12 +35,32 @@ parameters:
             message: '/Parameter #2 \$eventName of method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) expects string\|null, object given/'
             path: lib/Utils/BackwardsCompatibility/EventDispatcherProxy.php
 
-        - '#Symfony\\Component\\EventDispatcher\\Event#'
+        -
+            message: '#Call to an undefined static method Symfony\\Component\\Intl\\Intl::getLocaleBundle\(\).#'
+            path: lib/Utils/BackwardsCompatibility/Locales.php
+
         - '#Symfony\\Component\\Debug\\Exception\\FlattenException#'
         - '#Symfony\\Component\\Debug\\Exception\\FatalThrowableError#'
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\Console\\\\Application and 'renderThrowable'#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Exception' will always evaluate to false.#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Throwable' will always evaluate to true.#"
+
+        # Disable errors about missing value types in various Symfony based classes
+
+        - '#Method (.+Type|.+Extension)::buildForm\(\) has parameter \$options with no value type specified in iterable type array.#'
+        - '#Method (.+Type|.+Extension)::(buildView|finishView)\(\) has parameter \$options with no value type specified in iterable type array.#'
+        - '#Method .+View::render\(\) has parameter \$options with no value type specified in iterable type array.#'
+        - '#Method .+Normalizer::normalize\(\) has parameter \$context with no value type specified in iterable type array.#'
+        - '#Method .+Normalizer::normalize\(\) return type has no value type specified in iterable type (array|ArrayObject).#'
+        - '#Method .+Normalizer::normalize\(\) return type with generic class ArrayObject does not specify its types#'
+        - '#no value type specified in iterable type Symfony\\Component\\HttpFoundation\\ParameterBag#'
+        - '#no value type specified in iterable type Knp\\Menu\\ItemInterface#'
+        - '#no value type specified in iterable type Symfony\\Component\\Form\\FormInterface#'
+        - '#no value type specified in iterable type Symfony\\Component\\Form\\FormBuilderInterface#'
+        - '#no value type specified in iterable type Pagerfanta\\Pagerfanta#'
+        - '#no value type specified in iterable type Twig\\Node\\Node#'
+        - '#no value type specified in iterable type Twig\\Node\\Expression\\AbstractExpression#'
+        - '#Method .+Listener::getSubscribedEvents\(\) return type has no value type specified in iterable type array.#'
 
         # Netgen Layouts specifics
 
@@ -44,13 +70,16 @@ parameters:
             path: lib/Core/Validator/LayoutValidator.php
 
         - '#Call to function is_string\(\) with string will always evaluate to true.#'
-        - '#Call to function is_array\(\) with array will always evaluate to true.#'
-        - '#Instanceof between Netgen\\Layouts\\API\\Values\\ParameterStruct and Netgen\\Layouts\\API\\Values\\ParameterStruct will always evaluate to true.#'
-        - '#Instanceof between Netgen\\Layouts\\Block\\BlockDefinitionInterface and Netgen\\Layouts\\Block\\BlockDefinitionInterface will always evaluate to true.#'
+        - '#Call to function is_array\(\) with array\<.+\> will always evaluate to true.#'
+        - '#Instanceof between .+ and .+ will always evaluate to true.#'
 
         -
             message: '#Variable property access on object.#'
             path: lib/Utils/Hydrator.php
+
+        -
+            message: '#Unsafe usage of new static().#'
+            path: lib/Utils/HydratorTrait.php
 
         -
             message: '#should be contravariant with parameter \$value#'

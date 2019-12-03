@@ -13,15 +13,19 @@ use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 use Traversable;
 
+/**
+ * @implements \IteratorAggregate<string, \Netgen\Layouts\Layout\Type\LayoutTypeInterface>
+ * @implements \ArrayAccess<string, \Netgen\Layouts\Layout\Type\LayoutTypeInterface>
+ */
 final class LayoutTypeRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * @var \Netgen\Layouts\Layout\Type\LayoutTypeInterface[]
+     * @var array<string, \Netgen\Layouts\Layout\Type\LayoutTypeInterface>
      */
     private $layoutTypes;
 
     /**
-     * @param \Netgen\Layouts\Layout\Type\LayoutTypeInterface[] $layoutTypes
+     * @param array<string, \Netgen\Layouts\Layout\Type\LayoutTypeInterface> $layoutTypes
      */
     public function __construct(array $layoutTypes)
     {
@@ -60,7 +64,7 @@ final class LayoutTypeRegistry implements IteratorAggregate, Countable, ArrayAcc
      *
      * @param bool $onlyEnabled
      *
-     * @return \Netgen\Layouts\Layout\Type\LayoutTypeInterface[]
+     * @return array<string, \Netgen\Layouts\Layout\Type\LayoutTypeInterface>
      */
     public function getLayoutTypes(bool $onlyEnabled = false): array
     {
@@ -98,10 +102,8 @@ final class LayoutTypeRegistry implements IteratorAggregate, Countable, ArrayAcc
 
     /**
      * @param mixed $offset
-     *
-     * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): LayoutTypeInterface
     {
         return $this->getLayoutType($offset);
     }

@@ -119,6 +119,8 @@ final class BlockCreateStruct implements ParameterStruct, ConfigAwareStruct
      * If $doImport is set to true, the values will be considered as coming from an import,
      * meaning it will be processed using ParameterTypeInterface::import method instead of
      * ParameterTypeInterface::fromHash method.
+     *
+     * @param array<string, mixed> $values
      */
     public function fillParametersFromHash(array $values, bool $doImport = false): void
     {

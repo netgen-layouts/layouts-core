@@ -6,8 +6,14 @@ namespace Netgen\Layouts\API\Values\Layout;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
+/**
+ * @extends \Doctrine\Common\Collections\ArrayCollection<string, \Netgen\Layouts\API\Values\Layout\Zone>
+ */
 final class ZoneList extends ArrayCollection
 {
+    /**
+     * @param array<string, \Netgen\Layouts\API\Values\Layout\Zone> $zones
+     */
     public function __construct(array $zones = [])
     {
         parent::__construct(
@@ -21,7 +27,7 @@ final class ZoneList extends ArrayCollection
     }
 
     /**
-     * @return \Netgen\Layouts\API\Values\Layout\Zone[]
+     * @return array<string, \Netgen\Layouts\API\Values\Layout\Zone>
      */
     public function getZones(): array
     {

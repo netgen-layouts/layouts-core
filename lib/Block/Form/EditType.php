@@ -21,22 +21,22 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 abstract class EditType extends AbstractType
 {
     /**
-     * @var array
+     * @var string[]
      */
     private $viewTypes = [];
 
     /**
-     * @var array
+     * @var mixed[]
      */
     private $itemViewTypes = [];
 
     /**
-     * @var array
+     * @var array<string, string[]>
      */
     private $viewTypesByItemViewType = [];
 
     /**
-     * @var array
+     * @var array<string, string[]>
      */
     private $viewTypesByParameters = [];
 
@@ -70,6 +70,8 @@ abstract class EditType extends AbstractType
 
     /**
      * Adds view type and item view type forms to the provided form builder.
+     *
+     * @param array<string, mixed> $options
      */
     protected function addViewTypeForm(FormBuilderInterface $builder, array $options): void
     {
@@ -106,6 +108,8 @@ abstract class EditType extends AbstractType
 
     /**
      * Adds a name form to the provided form builders.
+     *
+     * @param array<string, mixed> $options
      */
     protected function addBlockNameForm(FormBuilderInterface $builder, array $options): void
     {
@@ -122,6 +126,9 @@ abstract class EditType extends AbstractType
 
     /**
      * Adds the parameters form to the provided builder.
+     *
+     * @param array<string, mixed> $options
+     * @param string[] $groups
      */
     protected function addParametersForm(FormBuilderInterface $builder, array $options, array $groups = []): void
     {

@@ -47,6 +47,8 @@ final class GetTwigBlockContentListener implements EventSubscriberInterface
 
     /**
      * Returns the Twig block content from the provided block.
+     *
+     * @param array<string, mixed> $parameters
      */
     private function getTwigBlockContent(
         TwigBlockDefinitionInterface $blockDefinition,

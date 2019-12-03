@@ -477,6 +477,8 @@ final class BlockHandler implements BlockHandlerInterface
 
     /**
      * Builds the condition array that will be used with position helper.
+     *
+     * @return array<string, mixed>
      */
     private function getPositionHelperConditions(int $parentId, int $status, string $placeholder): array
     {

@@ -170,6 +170,8 @@ interface LayoutHandlerInterface
 
     /**
      * Changes the provided layout type.
+     *
+     * @param array<string, string[]> $zoneMappings
      */
     public function changeLayoutType(Layout $layout, string $targetLayoutType, array $zoneMappings): Layout;
 

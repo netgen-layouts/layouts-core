@@ -8,6 +8,8 @@ final class ValueTypeFactory
 {
     /**
      * Builds the value type.
+     *
+     * @param array<string, mixed> $config
      */
     public static function buildValueType(string $identifier, array $config): ValueType
     {

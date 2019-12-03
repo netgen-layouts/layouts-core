@@ -11,11 +11,14 @@ final class ContextBuilder implements ContextBuilderInterface
      */
     private $contextProviders = [];
 
+    /**
+     * @param iterable<\Netgen\Layouts\Context\ContextProviderInterface> $contextProviders
+     */
     public function __construct(iterable $contextProviders)
     {
-        foreach ($contextProviders as $key => $contextProvider) {
+        foreach ($contextProviders as $contextProvider) {
             if ($contextProvider instanceof ContextProviderInterface) {
-                $this->contextProviders[$key] = $contextProvider;
+                $this->contextProviders[] = $contextProvider;
             }
         }
     }

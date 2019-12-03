@@ -13,15 +13,19 @@ use Netgen\Layouts\Exception\Block\BlockDefinitionException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Traversable;
 
+/**
+ * @implements \IteratorAggregate<string, \Netgen\Layouts\Block\BlockDefinitionInterface>
+ * @implements \ArrayAccess<string, \Netgen\Layouts\Block\BlockDefinitionInterface>
+ */
 final class BlockDefinitionRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * @var \Netgen\Layouts\Block\BlockDefinitionInterface[]
+     * @var array<string, \Netgen\Layouts\Block\BlockDefinitionInterface>
      */
     private $blockDefinitions;
 
     /**
-     * @param \Netgen\Layouts\Block\BlockDefinitionInterface[] $blockDefinitions
+     * @param array<string, \Netgen\Layouts\Block\BlockDefinitionInterface> $blockDefinitions
      */
     public function __construct(array $blockDefinitions)
     {
@@ -58,7 +62,7 @@ final class BlockDefinitionRegistry implements IteratorAggregate, Countable, Arr
     /**
      * Returns all block definitions.
      *
-     * @return \Netgen\Layouts\Block\BlockDefinitionInterface[]
+     * @return array<string, \Netgen\Layouts\Block\BlockDefinitionInterface>
      */
     public function getBlockDefinitions(): array
     {
@@ -87,10 +91,8 @@ final class BlockDefinitionRegistry implements IteratorAggregate, Countable, Arr
 
     /**
      * @param mixed $offset
-     *
-     * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): BlockDefinitionInterface
     {
         return $this->getBlockDefinition($offset);
     }

@@ -13,15 +13,19 @@ use Netgen\Layouts\Exception\Block\BlockTypeException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Traversable;
 
+/**
+ * @implements \IteratorAggregate<string, \Netgen\Layouts\Block\BlockType\BlockType>
+ * @implements \ArrayAccess<string, \Netgen\Layouts\Block\BlockType\BlockType>
+ */
 final class BlockTypeRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * @var \Netgen\Layouts\Block\BlockType\BlockType[]
+     * @var array<string, \Netgen\Layouts\Block\BlockType\BlockType>
      */
     private $blockTypes;
 
     /**
-     * @param \Netgen\Layouts\Block\BlockType\BlockType[] $blockTypes
+     * @param array<string, \Netgen\Layouts\Block\BlockType\BlockType> $blockTypes
      */
     public function __construct(array $blockTypes)
     {
@@ -60,7 +64,7 @@ final class BlockTypeRegistry implements IteratorAggregate, Countable, ArrayAcce
      *
      * @param bool $onlyEnabled
      *
-     * @return \Netgen\Layouts\Block\BlockType\BlockType[]
+     * @return array<string, \Netgen\Layouts\Block\BlockType\BlockType>
      */
     public function getBlockTypes(bool $onlyEnabled = false): array
     {
@@ -98,10 +102,8 @@ final class BlockTypeRegistry implements IteratorAggregate, Countable, ArrayAcce
 
     /**
      * @param mixed $offset
-     *
-     * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): BlockType
     {
         return $this->getBlockType($offset);
     }

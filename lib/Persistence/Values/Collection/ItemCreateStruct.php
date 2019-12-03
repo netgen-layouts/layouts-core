@@ -41,7 +41,7 @@ final class ItemCreateStruct
     /**
      * The item configuration.
      *
-     * @var array
+     * @var array<string, array<string, mixed>>
      */
     public $config;
 }

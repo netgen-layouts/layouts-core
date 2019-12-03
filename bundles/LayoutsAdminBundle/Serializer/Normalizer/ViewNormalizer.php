@@ -26,10 +26,9 @@ final class ViewNormalizer implements NormalizerInterface, NormalizerAwareInterf
         $this->viewRenderer = $viewRenderer;
     }
 
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
-        /** @var \Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\View $object */
-        /** @var array $normalizedData */
+        /** @var array<string, mixed> $normalizedData */
         $normalizedData = $this->normalizer->normalize(
             new Value(
                 $object->getValue(),

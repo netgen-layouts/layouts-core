@@ -68,6 +68,10 @@ final class PolicyToRoleMapVoter extends Voter
         return is_string($attribute) && mb_strpos($attribute, 'nglayouts:') === 0;
     }
 
+    /**
+     * @param string $attribute
+     * @param mixed $subject
+     */
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool
     {
         if (!isset(self::POLICY_TO_ROLE_MAP[$attribute])) {

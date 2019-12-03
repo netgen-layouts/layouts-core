@@ -11,7 +11,7 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class BlockTypeGroupNormalizer implements NormalizerInterface
 {
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\Block\BlockType\BlockTypeGroup $blockTypeGroup */
         $blockTypeGroup = $object->getValue();

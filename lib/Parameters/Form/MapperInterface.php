@@ -19,6 +19,8 @@ interface MapperInterface
 
     /**
      * Maps parameter options to Symfony form options.
+     *
+     * @return mixed[]
      */
     public function mapOptions(ParameterDefinition $parameterDefinition): array;
 

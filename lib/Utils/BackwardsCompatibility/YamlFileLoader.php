@@ -15,6 +15,11 @@ use Symfony\Component\Yaml\Tag\TaggedValue;
  */
 final class YamlFileLoader extends BaseYamlFileLoader
 {
+    /**
+     * @param string $file
+     *
+     * @return mixed[]
+     */
     protected function loadFile($file): array
     {
         $content = parent::loadFile($file);

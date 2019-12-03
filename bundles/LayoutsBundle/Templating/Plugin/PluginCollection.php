@@ -16,6 +16,9 @@ final class PluginCollection
      */
     private $plugins;
 
+    /**
+     * @param \Netgen\Bundle\LayoutsBundle\Templating\Plugin\PluginInterface[] $plugins
+     */
     public function __construct(string $pluginName, array $plugins)
     {
         $this->pluginName = $pluginName;

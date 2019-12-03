@@ -96,6 +96,8 @@ interface ViewInterface
 
     /**
      * Returns the view parameters.
+     *
+     * @return array<string, mixed>
      */
     public function getParameters(): array;
 
@@ -109,6 +111,8 @@ interface ViewInterface
 
     /**
      * Adds parameters to the view.
+     *
+     * @param array<string, mixed> $parameters
      */
     public function addParameters(array $parameters): void;
 }

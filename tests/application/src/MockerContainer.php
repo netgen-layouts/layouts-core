@@ -4,24 +4,30 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\App;
 
+use Netgen\Layouts\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Container;
 
 class MockerContainer extends Container
 {
     /**
-     * @var array
+     * @var array<string, object>
      */
     private $originalServices = [];
 
     /**
-     * @var array
+     * @var array<string, object>
      */
     private $mockedServices = [];
 
     public function mock(string $id, object $mock): object
     {
         if (!array_key_exists($id, $this->mockedServices)) {
-            $this->originalServices[$id] = $this->get($id);
+            $service = $this->get($id);
+            if ($service === null) {
+                throw new RuntimeException(sprintf('"%s" service does not exist.', $service));
+            }
+
+            $this->originalServices[$id] = $service;
             $this->mockedServices[$id] = $this->services[$id] = $mock;
         }
 
@@ -34,6 +40,9 @@ class MockerContainer extends Container
         unset($this->originalServices[$id], $this->mockedServices[$id]);
     }
 
+    /**
+     * @return array<string, object>
+     */
     public function getMockedServices(): array
     {
         return $this->mockedServices;

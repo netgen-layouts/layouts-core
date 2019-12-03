@@ -36,7 +36,7 @@ final class QueryVisitor implements VisitorInterface
      * @param \Netgen\Layouts\API\Values\Collection\Query $value
      * @param \Netgen\Layouts\Transfer\Output\OutputVisitor $outputVisitor
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
@@ -53,6 +53,8 @@ final class QueryVisitor implements VisitorInterface
 
     /**
      * Visit the given $query parameters into hash representation.
+     *
+     * @return array<string, mixed>
      */
     private function visitParameters(Query $query): array
     {
@@ -85,6 +87,8 @@ final class QueryVisitor implements VisitorInterface
 
     /**
      * Return parameters for the given $query.
+     *
+     * @return \Generator<string, mixed>
      */
     private function visitTranslationParameters(Query $query): Generator
     {

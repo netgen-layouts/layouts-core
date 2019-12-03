@@ -71,6 +71,8 @@ final class ParameterStructValidator extends ConstraintValidator
     /**
      * Builds the "fields" array of the Collection constraint from provided parameters
      * and parameter values.
+     *
+     * @return \Generator<string, \Symfony\Component\Validator\Constraint[]|\Symfony\Component\Validator\Constraint>
      */
     private function buildConstraintFields(
         ParameterStruct $parameterStruct,
@@ -102,6 +104,8 @@ final class ParameterStructValidator extends ConstraintValidator
      *
      * If $validateEmptyValue is false, values equal to null will not be validated
      * and will simply return an empty array of constraints.
+     *
+     * @return \Symfony\Component\Validator\Constraint[]
      */
     private function getParameterConstraints(
         ParameterDefinition $parameterDefinition,
@@ -126,6 +130,9 @@ final class ParameterStructValidator extends ConstraintValidator
      * Returns all constraints applied on a parameter coming from the parameter definition.
      *
      * @param mixed $parameterValue
+     * @param array<string, mixed> $allParameterValues
+     *
+     * @return \Generator<\Symfony\Component\Validator\Constraint>
      */
     private function getRuntimeParameterConstraints(
         ParameterDefinition $parameterDefinition,
@@ -143,6 +150,9 @@ final class ParameterStructValidator extends ConstraintValidator
         }
     }
 
+    /**
+     * @return \Generator<string, mixed>
+     */
     private function getAllValues(
         ParameterDefinitionCollectionInterface $definitions,
         ParameterStruct $parameterStruct

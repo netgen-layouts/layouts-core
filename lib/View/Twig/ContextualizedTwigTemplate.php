@@ -19,15 +19,19 @@ final class ContextualizedTwigTemplate
     private $template;
 
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     private $context;
 
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     private $blocks;
 
+    /**
+     * @param array<string, mixed> $context
+     * @param array<string, mixed> $blocks
+     */
     public function __construct(Template $template, array $context = [], array $blocks = [])
     {
         $this->template = $template;
@@ -37,6 +41,8 @@ final class ContextualizedTwigTemplate
 
     /**
      * Returns the context for this template.
+     *
+     * @return array<string, mixed>
      */
     public function getContext(): array
     {

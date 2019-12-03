@@ -6,8 +6,14 @@ namespace Netgen\Layouts\API\Values\Config;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
+/**
+ * @extends \Doctrine\Common\Collections\ArrayCollection<string, \Netgen\Layouts\API\Values\Config\Config>
+ */
 final class ConfigList extends ArrayCollection
 {
+    /**
+     * @param array<string, \Netgen\Layouts\API\Values\Config\Config> $configs
+     */
     public function __construct(array $configs = [])
     {
         parent::__construct(
@@ -21,7 +27,7 @@ final class ConfigList extends ArrayCollection
     }
 
     /**
-     * @return \Netgen\Layouts\API\Values\Config\Config[]
+     * @return array<string, \Netgen\Layouts\API\Values\Config\Config>
      */
     public function getConfigs(): array
     {

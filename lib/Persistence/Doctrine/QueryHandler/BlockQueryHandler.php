@@ -19,7 +19,7 @@ final class BlockQueryHandler extends QueryHandler
      * @param int|string $blockId
      * @param int $status
      *
-     * @return array
+     * @return mixed[]
      */
     public function loadBlockData($blockId, int $status): array
     {
@@ -52,6 +52,8 @@ final class BlockQueryHandler extends QueryHandler
 
     /**
      * Loads all layout block data.
+     *
+     * @return mixed[]
      */
     public function loadLayoutBlocksData(Layout $layout): array
     {
@@ -87,6 +89,8 @@ final class BlockQueryHandler extends QueryHandler
      * Loads child block data from specified block, optionally filtered by placeholder.
      *
      * This method return only the first level of blocks under the specified block.
+     *
+     * @return mixed[]
      */
     public function loadChildBlocksData(Block $block, ?string $placeholder = null): array
     {
@@ -370,6 +374,8 @@ final class BlockQueryHandler extends QueryHandler
 
     /**
      * Deletes all blocks with provided IDs.
+     *
+     * @param int[] $blockIds
      */
     public function deleteBlocks(array $blockIds, ?int $status = null): void
     {
@@ -390,6 +396,8 @@ final class BlockQueryHandler extends QueryHandler
 
     /**
      * Deletes block translations.
+     *
+     * @param int[] $blockIds
      */
     public function deleteBlockTranslations(array $blockIds, ?int $status = null, ?string $locale = null): void
     {
@@ -416,6 +424,8 @@ final class BlockQueryHandler extends QueryHandler
 
     /**
      * Loads all sub block IDs.
+     *
+     * @return int[]
      */
     public function loadSubBlockIds(int $blockId, ?int $status = null): array
     {
@@ -438,6 +448,8 @@ final class BlockQueryHandler extends QueryHandler
 
     /**
      * Loads all layout block IDs.
+     *
+     * @return int[]
      */
     public function loadLayoutBlockIds(int $layoutId, ?int $status = null): array
     {

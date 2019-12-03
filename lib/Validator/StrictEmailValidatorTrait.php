@@ -12,6 +12,9 @@ use Symfony\Component\Validator\Constraints\Email;
  */
 trait StrictEmailValidatorTrait
 {
+    /**
+     * @return array<string, mixed>
+     */
     private function getStrictEmailValidatorOption(): array
     {
         if (Kernel::VERSION_ID < 40100) {

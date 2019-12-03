@@ -15,10 +15,13 @@ final class Renderer implements RendererInterface
     private $twig;
 
     /**
-     * @var \Netgen\Bundle\LayoutsBundle\Templating\Plugin\PluginCollection[]
+     * @var array<string, \Netgen\Bundle\LayoutsBundle\Templating\Plugin\PluginCollection>
      */
     private $pluginCollections = [];
 
+    /**
+     * @param array<string, \Netgen\Bundle\LayoutsBundle\Templating\Plugin\PluginInterface[]> $pluginsByPluginName
+     */
     public function __construct(
         Environment $twig,
         array $pluginsByPluginName

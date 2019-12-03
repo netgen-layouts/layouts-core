@@ -10,6 +10,8 @@ interface ParameterStruct
      * Sets the provided parameter values to the struct.
      *
      * The values need to be in the domain format of the value for the parameter.
+     *
+     * @param array<string, mixed> $parameterValues
      */
     public function setParameterValues(array $parameterValues): void;
 
@@ -25,6 +27,8 @@ interface ParameterStruct
 
     /**
      * Returns all parameter values from the struct.
+     *
+     * @return array<string, mixed>
      */
     public function getParameterValues(): array;
 

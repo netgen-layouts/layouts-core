@@ -5,9 +5,16 @@ declare(strict_types=1);
 namespace Netgen\Layouts\API\Values\LayoutResolver;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Ramsey\Uuid\UuidInterface;
 
+/**
+ * @extends \Doctrine\Common\Collections\ArrayCollection<int, \Netgen\Layouts\API\Values\LayoutResolver\Condition>
+ */
 final class ConditionList extends ArrayCollection
 {
+    /**
+     * @param \Netgen\Layouts\API\Values\LayoutResolver\Condition[] $conditions
+     */
     public function __construct(array $conditions = [])
     {
         parent::__construct(
@@ -34,7 +41,7 @@ final class ConditionList extends ArrayCollection
     public function getConditionIds(): array
     {
         return array_map(
-            static function (Condition $condition) {
+            static function (Condition $condition): UuidInterface {
                 return $condition->getId();
             },
             $this->getConditions()

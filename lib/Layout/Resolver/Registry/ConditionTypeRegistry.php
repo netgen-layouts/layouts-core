@@ -13,13 +13,20 @@ use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Layout\Resolver\ConditionTypeInterface;
 use Traversable;
 
+/**
+ * @implements \IteratorAggregate<string, \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface>
+ * @implements \ArrayAccess<string, \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface>
+ */
 final class ConditionTypeRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * @var \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface[]
+     * @var array<string, \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface>
      */
     private $conditionTypes = [];
 
+    /**
+     * @param iterable<string, \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface> $conditionTypes
+     */
     public function __construct(iterable $conditionTypes)
     {
         foreach ($conditionTypes as $conditionType) {
@@ -54,7 +61,7 @@ final class ConditionTypeRegistry implements IteratorAggregate, Countable, Array
     /**
      * Returns all condition types.
      *
-     * @return \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface[]
+     * @return array<string, \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface>
      */
     public function getConditionTypes(): array
     {
@@ -83,10 +90,8 @@ final class ConditionTypeRegistry implements IteratorAggregate, Countable, Array
 
     /**
      * @param mixed $offset
-     *
-     * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): ConditionTypeInterface
     {
         return $this->getConditionType($offset);
     }

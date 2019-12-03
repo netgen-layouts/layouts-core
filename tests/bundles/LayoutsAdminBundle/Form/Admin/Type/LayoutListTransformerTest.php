@@ -48,6 +48,10 @@ final class LayoutListTransformerTest extends TestCase
 
         self::assertInstanceOf(LayoutList::class, $transformedLayouts);
         self::assertCount(2, $transformedLayouts);
+
+        self::assertInstanceOf(Layout::class, $transformedLayouts[0]);
+        self::assertInstanceOf(Layout::class, $transformedLayouts[1]);
+
         self::assertSame($uuid1->toString(), $transformedLayouts[0]->getId()->toString());
         self::assertSame($uuid2->toString(), $transformedLayouts[1]->getId()->toString());
     }

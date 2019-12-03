@@ -25,7 +25,7 @@ final class ItemVisitor implements VisitorInterface
      * @param \Netgen\Layouts\API\Values\Collection\Item $value
      * @param \Netgen\Layouts\Transfer\Output\OutputVisitor $outputVisitor
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
@@ -41,6 +41,8 @@ final class ItemVisitor implements VisitorInterface
 
     /**
      * Visit the given $item configuration into hash representation.
+     *
+     * @return \Generator<string, mixed>
      */
     private function visitConfiguration(Item $item, OutputVisitor $outputVisitor): Generator
     {

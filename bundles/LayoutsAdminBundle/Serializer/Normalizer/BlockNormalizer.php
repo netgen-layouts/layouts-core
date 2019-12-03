@@ -28,7 +28,7 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
         $this->blockService = $blockService;
     }
 
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\API\Values\Block\Block $block */
         $block = $object->getValue();
@@ -79,6 +79,9 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
         return $data->getValue() instanceof Block;
     }
 
+    /**
+     * @return \Generator<array<string, mixed>>
+     */
     private function getBlockCollections(Block $block): Generator
     {
         foreach ($block->getCollections() as $identifier => $collection) {
@@ -94,6 +97,10 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
 
     /**
      * Builds the list of Value objects for provided list of values.
+     *
+     * @param iterable<object> $values
+     *
+     * @return \Generator<\Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value>
      */
     private function buildValues(iterable $values): Generator
     {

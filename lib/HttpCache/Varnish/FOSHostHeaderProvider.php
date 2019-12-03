@@ -11,6 +11,9 @@ final class FOSHostHeaderProvider implements HostHeaderProviderInterface
      */
     private $servers;
 
+    /**
+     * @param string[] $servers
+     */
     public function __construct(array $servers = [])
     {
         $this->servers = $servers;

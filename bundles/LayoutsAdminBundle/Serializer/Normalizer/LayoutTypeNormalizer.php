@@ -15,7 +15,7 @@ final class LayoutTypeNormalizer implements NormalizerInterface, NormalizerAware
 {
     use NormalizerAwareTrait;
 
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\Layout\Type\LayoutTypeInterface $layoutType */
         $layoutType = $object->getValue();
@@ -39,6 +39,8 @@ final class LayoutTypeNormalizer implements NormalizerInterface, NormalizerAware
 
     /**
      * Returns the array with layout type zones.
+     *
+     * @return \Generator<array<string, mixed>>
      */
     private function getZones(LayoutTypeInterface $layoutType): Generator
     {

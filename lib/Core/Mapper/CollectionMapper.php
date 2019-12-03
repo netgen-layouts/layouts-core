@@ -82,6 +82,8 @@ final class CollectionMapper
      * collection in main locale will be returned if none of the locales in $locales
      * array are found.
      *
+     * @param string[]|null $locales
+     *
      * @throws \Netgen\Layouts\Exception\NotFoundException If the collection does not have any requested translations
      */
     public function mapCollection(PersistenceCollection $collection, ?array $locales = null, bool $useMainLocale = true): Collection
@@ -184,6 +186,8 @@ final class CollectionMapper
      * If the query is always available and $useMainLocale is set to true,
      * query in main locale will be returned if none of the locales in $locales
      * array are found.
+     *
+     * @param string[]|null $locales
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If the query does not have any requested locales
      */

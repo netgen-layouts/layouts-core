@@ -33,7 +33,7 @@ final class ItemLink extends Constraint
     /**
      * If not empty, will limit valid value types to the specified list.
      *
-     * @var array
+     * @var string[]
      */
     public $valueTypes = [];
 

@@ -33,6 +33,8 @@ final class DateTimeUtils
      * 2) "timezone" - a valid timezone identifier
      *
      * Returns null if provided array is not of valid format.
+     *
+     * @param array<string, string> $datetime
      */
     public static function createFromArray(array $datetime): ?DateTimeInterface
     {
@@ -68,6 +70,8 @@ final class DateTimeUtils
 
     /**
      * Returns the formatted list of all timezones, separated by regions.
+     *
+     * @return array<string, array<string, string>>
      */
     public static function getTimeZoneList(): array
     {
@@ -87,6 +91,8 @@ final class DateTimeUtils
     /**
      * Returns the array with human readable region and timezone name for the provided
      * timezone identifier.
+     *
+     * @return string[]
      */
     private static function parseTimeZone(string $timeZone): array
     {

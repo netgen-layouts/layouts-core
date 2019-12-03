@@ -40,6 +40,8 @@ final class DebugErrorHandler implements ErrorHandlerInterface
 
     /**
      * Logs the error.
+     *
+     * @param array<string, mixed> $context
      */
     private function logError(Throwable $throwable, ?string $message = null, array $context = []): void
     {

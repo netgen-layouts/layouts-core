@@ -12,10 +12,14 @@ use Netgen\Layouts\Exception\Context\ContextException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Traversable;
 
+/**
+ * @implements \IteratorAggregate<string, mixed>
+ * @implements \ArrayAccess<string, mixed>
+ */
 final class Context implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     private $contextVariables = [];
 
@@ -35,6 +39,8 @@ final class Context implements IteratorAggregate, Countable, ArrayAccess
      * Adds the provided hash array of values to the context.
      *
      * This replaces already existing variables.
+     *
+     * @param array<string, mixed> $context
      */
     public function add(array $context): void
     {
@@ -67,6 +73,8 @@ final class Context implements IteratorAggregate, Countable, ArrayAccess
 
     /**
      * Returns all variables from the context.
+     *
+     * @return array<string, mixed>
      */
     public function all(): array
     {

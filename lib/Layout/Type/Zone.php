@@ -21,7 +21,7 @@ final class Zone
     private $name;
 
     /**
-     * @var array
+     * @var string[]
      */
     private $allowedBlockDefinitions = [];
 
@@ -43,6 +43,8 @@ final class Zone
 
     /**
      * Returns allowed block definition identifiers.
+     *
+     * @return string[]
      */
     public function getAllowedBlockDefinitions(): array
     {

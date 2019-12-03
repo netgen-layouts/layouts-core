@@ -12,6 +12,8 @@ final class LayoutMapper
     /**
      * Maps data from database to layout values.
      *
+     * @param mixed[] $data
+     *
      * @return \Netgen\Layouts\Persistence\Values\Layout\Layout[]
      */
     public function mapLayouts(array $data): array
@@ -56,6 +58,8 @@ final class LayoutMapper
 
     /**
      * Maps data from database to zone values.
+     *
+     * @param mixed[] $data
      *
      * @return \Netgen\Layouts\Persistence\Values\Layout\Zone[]
      */

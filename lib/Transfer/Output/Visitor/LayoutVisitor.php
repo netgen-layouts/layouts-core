@@ -28,7 +28,7 @@ final class LayoutVisitor implements VisitorInterface
      * @param \Netgen\Layouts\API\Values\Layout\Layout $value
      * @param \Netgen\Layouts\Transfer\Output\OutputVisitor $outputVisitor
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
@@ -50,6 +50,8 @@ final class LayoutVisitor implements VisitorInterface
 
     /**
      * Visit the given $layout zones into hash representation.
+     *
+     * @return \Generator<string, array<string, mixed>>
      */
     private function visitZones(Layout $layout, OutputVisitor $outputVisitor): Generator
     {

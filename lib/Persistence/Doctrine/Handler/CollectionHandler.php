@@ -78,7 +78,7 @@ final class CollectionHandler implements CollectionHandlerInterface
         foreach ($collections as $collection) {
             foreach ($data as $dataItem) {
                 if ($collection->uuid === $dataItem['uuid']) {
-                    $collectionsWithIdentifier[$dataItem['identifier']] = $collection;
+                    $collectionsWithIdentifier[(string) $dataItem['identifier']] = $collection;
 
                     break;
                 }
@@ -854,6 +854,8 @@ final class CollectionHandler implements CollectionHandlerInterface
 
     /**
      * Builds the condition array that will be used with position helper and items in collections.
+     *
+     * @return array<string, mixed>
      */
     private function getPositionHelperItemConditions(int $collectionId, int $status): array
     {

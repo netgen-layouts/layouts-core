@@ -35,6 +35,10 @@ final class LayoutTypePass implements CompilerPassInterface
 
     /**
      * Builds the layout type objects from provided configuration.
+     *
+     * @param array<string, array> $layoutTypes
+     *
+     * @return \Generator<string, \Symfony\Component\DependencyInjection\Reference>
      */
     private function buildLayoutTypes(ContainerBuilder $container, array $layoutTypes): Generator
     {
@@ -53,6 +57,9 @@ final class LayoutTypePass implements CompilerPassInterface
 
     /**
      * Validates layout type config.
+     *
+     * @param array<string, array> $layoutTypes
+     * @param array<string, array> $blockDefinitions
      *
      * @throws \Netgen\Layouts\Exception\RuntimeException If validation failed
      */

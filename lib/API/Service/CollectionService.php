@@ -32,6 +32,8 @@ interface CollectionService extends Service
      * set to true, collection in main locale will be returned if none of the
      * locales in $locales array are found.
      *
+     * @param string[]|null $locales
+     *
      * @throws \Netgen\Layouts\Exception\NotFoundException If collection with specified UUID does not exist
      */
     public function loadCollection(UuidInterface $collectionId, ?array $locales = null, bool $useMainLocale = true): Collection;
@@ -45,6 +47,8 @@ interface CollectionService extends Service
      * be returned. If the collection is always available and $useMainLocale is
      * set to true, collection in main locale will be returned if none of the
      * locales in $locales array are found.
+     *
+     * @param string[]|null $locales
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If collection with specified UUID does not exist
      */
@@ -81,6 +85,8 @@ interface CollectionService extends Service
      * set to true, query in main locale will be returned if none of the
      * locales in $locales array are found.
      *
+     * @param string[]|null $locales
+     *
      * @throws \Netgen\Layouts\Exception\NotFoundException If query with specified UUID does not exist
      */
     public function loadQuery(UuidInterface $queryId, ?array $locales = null, bool $useMainLocale = true): Query;
@@ -94,6 +100,8 @@ interface CollectionService extends Service
      * be returned. If the query is always available and $useMainLocale is
      * set to true, query in main locale will be returned if none of the
      * locales in $locales array are found.
+     *
+     * @param string[]|null $locales
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If query with specified UUID does not exist
      */

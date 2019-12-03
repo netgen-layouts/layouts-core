@@ -35,9 +35,10 @@ final class BlockUpdateStructValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, BlockUpdateStruct::class);
         }
 
-        /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
         $block = $constraint->payload;
         $blockDefinition = $block->getDefinition();
+
+        /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
         $validator = $this->context->getValidator()->inContext($this->context);
 
         $validator->atPath('locale')->validate(

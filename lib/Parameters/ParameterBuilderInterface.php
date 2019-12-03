@@ -20,6 +20,8 @@ interface ParameterBuilderInterface extends Countable
 
     /**
      * Returns the parameter options.
+     *
+     * @return array<string, mixed>
      */
     public function getOptions(): array;
 
@@ -97,11 +99,15 @@ interface ParameterBuilderInterface extends Countable
 
     /**
      * Returns the parameter groups.
+     *
+     * @return string[]
      */
     public function getGroups(): array;
 
     /**
      * Sets the parameter groups.
+     *
+     * @param string[] $groups
      */
     public function setGroups(array $groups): self;
 
@@ -114,11 +120,15 @@ interface ParameterBuilderInterface extends Countable
 
     /**
      * Sets the parameter constraints.
+     *
+     * @param \Symfony\Component\Validator\Constraint[] $constraints
      */
     public function setConstraints(array $constraints): self;
 
     /**
      * Adds the parameter to the builder.
+     *
+     * @param array<string, mixed> $options
      */
     public function add(string $name, string $type, array $options = []): self;
 

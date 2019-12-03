@@ -20,7 +20,7 @@ final class QueryCreateStruct
     /**
      * Parameters for the new query.
      *
-     * @var array
+     * @var array<string, array<string, mixed>>
      */
     public $parameters;
 }

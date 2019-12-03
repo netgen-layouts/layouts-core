@@ -8,6 +8,8 @@ interface ClientInterface
 {
     /**
      * Purges all caches that have one of the provided tags.
+     *
+     * @param string[] $tags
      */
     public function purge(array $tags): void;
 

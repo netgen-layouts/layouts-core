@@ -76,7 +76,7 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
     private $placeholders = [];
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var \Doctrine\Common\Collections\Collection<string, \Netgen\Layouts\API\Values\Collection\Collection>
      */
     private $collections;
 

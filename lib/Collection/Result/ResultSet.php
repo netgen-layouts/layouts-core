@@ -17,6 +17,9 @@ use Traversable;
 /**
  * Result set is a calculated result of the collection
  * containing manual items + items received from running the query.
+ *
+ * @implements \IteratorAggregate<int, \Netgen\Layouts\Collection\Result\Result>
+ * @implements \ArrayAccess<int, \Netgen\Layouts\Collection\Result\Result>
  */
 final class ResultSet implements ArrayAccess, IteratorAggregate, Countable
 {
@@ -152,10 +155,8 @@ final class ResultSet implements ArrayAccess, IteratorAggregate, Countable
 
     /**
      * @param mixed $offset
-     *
-     * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): Result
     {
         return $this->results[$offset];
     }

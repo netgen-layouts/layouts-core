@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 abstract class View implements ViewInterface
 {
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     protected $parameters = [];
 
@@ -35,7 +35,7 @@ abstract class View implements ViewInterface
     private $response;
 
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     private $customParameters = [];
 
@@ -98,6 +98,9 @@ abstract class View implements ViewInterface
         return $this->customParameters[$identifier];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function getParameters(): array
     {
         return $this->parameters + $this->customParameters;
@@ -108,6 +111,9 @@ abstract class View implements ViewInterface
         $this->customParameters[$parameterName] = $parameterValue;
     }
 
+    /**
+     * @param array<string, mixed> $parameters
+     */
     public function addParameters(array $parameters): void
     {
         $this->customParameters = $parameters + $this->customParameters;

@@ -5,9 +5,16 @@ declare(strict_types=1);
 namespace Netgen\Layouts\API\Values\Block;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Ramsey\Uuid\UuidInterface;
 
+/**
+ * @extends \Doctrine\Common\Collections\ArrayCollection<int, \Netgen\Layouts\API\Values\Block\Block>
+ */
 final class BlockList extends ArrayCollection
 {
+    /**
+     * @param \Netgen\Layouts\API\Values\Block\Block[] $blocks
+     */
     public function __construct(array $blocks = [])
     {
         parent::__construct(
@@ -34,7 +41,7 @@ final class BlockList extends ArrayCollection
     public function getBlockIds(): array
     {
         return array_map(
-            static function (Block $block) {
+            static function (Block $block): UuidInterface {
                 return $block->getId();
             },
             $this->getBlocks()

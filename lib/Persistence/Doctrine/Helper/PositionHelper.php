@@ -26,6 +26,8 @@ final class PositionHelper
      * Processes the database table to create space for an item which will
      * be inserted at specified position.
      *
+     * @param array<string, mixed> $conditions
+     *
      * @throws \Netgen\Layouts\Exception\BadStateException If position is out of range
      */
     public function createPosition(array $conditions, ?int $position = null, ?int $endPosition = null, bool $allowOutOfRange = false): int
@@ -61,6 +63,8 @@ final class PositionHelper
      * Processes the database table to make space for the item which
      * will be moved inside the table.
      *
+     * @param array<string, mixed> $conditions
+     *
      * @throws \Netgen\Layouts\Exception\BadStateException If position is out of range
      */
     public function moveToPosition(array $conditions, int $originalPosition, int $position, bool $allowOutOfRange = false): int
@@ -94,6 +98,8 @@ final class PositionHelper
 
     /**
      * Reorders the positions after item at the specified position has been removed.
+     *
+     * @param array<string, mixed> $conditions
      */
     public function removePosition(array $conditions, int $removedPosition): void
     {
@@ -105,6 +111,8 @@ final class PositionHelper
 
     /**
      * Returns the next available position in the table.
+     *
+     * @param array<string, mixed> $conditions
      */
     public function getNextPosition(array $conditions): int
     {
@@ -123,6 +131,8 @@ final class PositionHelper
 
     /**
      * Increments all positions in a table starting from provided position.
+     *
+     * @param array<string, mixed> $conditions
      */
     private function incrementPositions(array $conditions, ?int $startPosition = null, ?int $endPosition = null): void
     {
@@ -151,6 +161,8 @@ final class PositionHelper
 
     /**
      * Decrements all positions in a table starting from provided position.
+     *
+     * @param array<string, mixed> $conditions
      */
     private function decrementPositions(array $conditions, ?int $startPosition = null, ?int $endPosition = null): void
     {
@@ -179,6 +191,8 @@ final class PositionHelper
 
     /**
      * Applies the provided conditions to the query.
+     *
+     * @param array<string, mixed> $conditions
      */
     private function applyConditions(QueryBuilder $query, array $conditions): void
     {

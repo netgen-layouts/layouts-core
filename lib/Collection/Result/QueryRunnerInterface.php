@@ -12,6 +12,8 @@ interface QueryRunnerInterface
     /**
      * Runs the provided query with offset and limit and returns
      * the iterator which can be used to iterate over the results.
+     *
+     * @return \Iterator<\Netgen\Layouts\Item\CmsItemInterface>
      */
     public function runQuery(Query $query, int $offset = 0, ?int $limit = null): Iterator;
 

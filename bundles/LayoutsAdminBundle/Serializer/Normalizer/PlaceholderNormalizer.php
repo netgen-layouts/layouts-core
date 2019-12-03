@@ -16,7 +16,7 @@ final class PlaceholderNormalizer implements NormalizerInterface, NormalizerAwar
 {
     use NormalizerAwareTrait;
 
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\API\Values\Block\Placeholder $placeholder */
         $placeholder = $object->getValue();
@@ -40,6 +40,10 @@ final class PlaceholderNormalizer implements NormalizerInterface, NormalizerAwar
 
     /**
      * Builds the list of View objects for provided list of values.
+     *
+     * @param iterable<object> $values
+     *
+     * @return \Generator<array-key, \Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\View>
      */
     private function buildViewValues(iterable $values): Generator
     {

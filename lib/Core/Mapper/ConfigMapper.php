@@ -26,7 +26,7 @@ final class ConfigMapper
      * @param array<string, array<string, mixed>> $config
      * @param \Netgen\Layouts\Config\ConfigDefinitionInterface[] $configDefinitions
      *
-     * @return \Generator
+     * @return \Generator<string, \Netgen\Layouts\API\Values\Config\Config>
      */
     public function mapConfig(array $config, array $configDefinitions): Generator
     {
@@ -53,7 +53,7 @@ final class ConfigMapper
      * @param \Netgen\Layouts\Config\ConfigDefinitionInterface[] $configDefinitions
      * @param array<string, array<string, mixed>> $fallbackValues
      *
-     * @return \Generator
+     * @return \Generator<string, array<string, mixed>>
      */
     public function serializeValues(array $configStructs, array $configDefinitions, array $fallbackValues = []): Generator
     {

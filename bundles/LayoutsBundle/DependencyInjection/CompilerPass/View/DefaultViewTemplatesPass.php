@@ -23,6 +23,10 @@ final class DefaultViewTemplatesPass implements CompilerPassInterface
 
     /**
      * Updates all view rules to add the default template match.
+     *
+     * @param mixed[]|null $allRules
+     *
+     * @return mixed[]
      */
     private function updateRules(ContainerBuilder $container, ?array $allRules): array
     {
@@ -49,6 +53,10 @@ final class DefaultViewTemplatesPass implements CompilerPassInterface
 
     /**
      * Adds the default view template as a fallback to specified view rules.
+     *
+     * @param mixed[] $rules
+     *
+     * @return mixed[]
      */
     private function addDefaultRule(string $viewName, string $context, array $rules, string $defaultTemplate): array
     {

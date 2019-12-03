@@ -10,6 +10,8 @@ final class Hydrator
 {
     /**
      * Extract values from an object.
+     *
+     * @return array<string, mixed>
      */
     public function extract(object $object): array
     {

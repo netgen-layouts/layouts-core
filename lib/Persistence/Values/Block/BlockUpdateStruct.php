@@ -48,7 +48,7 @@ final class BlockUpdateStruct
     /**
      * New block configuration.
      *
-     * @var array|null
+     * @var array<string, array<string, mixed>>|null
      */
     public $config;
 }

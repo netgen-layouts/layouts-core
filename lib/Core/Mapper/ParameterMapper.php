@@ -13,6 +13,10 @@ final class ParameterMapper
 {
     /**
      * Maps the parameter values based on provided collection of parameters.
+     *
+     * @param array<string, mixed> $values
+     *
+     * @return \Generator<string, \Netgen\Layouts\Parameters\Parameter>
      */
     public function mapParameters(ParameterDefinitionCollectionInterface $definitions, array $values): Generator
     {
@@ -41,6 +45,11 @@ final class ParameterMapper
 
     /**
      * Serializes the parameter values based on provided collection of parameters.
+     *
+     * @param array<string, mixed> $values
+     * @param array<string, mixed> $fallbackValues
+     *
+     * @return \Generator<string, mixed>
      */
     public function serializeValues(ParameterDefinitionCollectionInterface $definitions, array $values, array $fallbackValues = []): Generator
     {
@@ -63,6 +72,11 @@ final class ParameterMapper
         }
     }
 
+    /**
+     * @param array<string, mixed> $values
+     *
+     * @return \Generator<string, mixed>
+     */
     public function extractUntranslatableParameters(ParameterDefinitionCollectionInterface $definitions, array $values): Generator
     {
         foreach ($definitions->getParameterDefinitions() as $paramName => $parameterDefinition) {

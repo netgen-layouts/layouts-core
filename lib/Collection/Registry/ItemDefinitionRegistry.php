@@ -13,15 +13,19 @@ use Netgen\Layouts\Exception\Collection\ItemDefinitionException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Traversable;
 
+/**
+ * @implements \IteratorAggregate<string, \Netgen\Layouts\Collection\Item\ItemDefinitionInterface>
+ * @implements \ArrayAccess<string, \Netgen\Layouts\Collection\Item\ItemDefinitionInterface>
+ */
 final class ItemDefinitionRegistry implements IteratorAggregate, Countable, ArrayAccess
 {
     /**
-     * @var \Netgen\Layouts\Collection\Item\ItemDefinitionInterface[]
+     * @var array<string, \Netgen\Layouts\Collection\Item\ItemDefinitionInterface>
      */
     private $itemDefinitions;
 
     /**
-     * @param \Netgen\Layouts\Collection\Item\ItemDefinitionInterface[] $itemDefinitions
+     * @param array<string, \Netgen\Layouts\Collection\Item\ItemDefinitionInterface> $itemDefinitions
      */
     public function __construct(array $itemDefinitions)
     {
@@ -58,7 +62,7 @@ final class ItemDefinitionRegistry implements IteratorAggregate, Countable, Arra
     /**
      * Returns all item definitions.
      *
-     * @return \Netgen\Layouts\Collection\Item\ItemDefinitionInterface[]
+     * @return array<string, \Netgen\Layouts\Collection\Item\ItemDefinitionInterface>
      */
     public function getItemDefinitions(): array
     {
@@ -87,10 +91,8 @@ final class ItemDefinitionRegistry implements IteratorAggregate, Countable, Arra
 
     /**
      * @param mixed $offset
-     *
-     * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): ItemDefinitionInterface
     {
         return $this->getItemDefinition($offset);
     }

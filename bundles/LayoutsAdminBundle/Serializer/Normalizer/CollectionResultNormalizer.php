@@ -37,7 +37,7 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
         $this->visibilityResolver = $visibilityResolver;
     }
 
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\Collection\Result\Result $result */
         $result = $object->getValue();
@@ -76,6 +76,10 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
 
     /**
      * Normalizes the provided result item into an array.
+     *
+     * @param array<string, mixed> $context
+     *
+     * @return array<string, mixed>
      */
     private function normalizeResultItem(CmsItemInterface $resultItem, ?string $format = null, array $context = []): array
     {
@@ -125,6 +129,10 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
 
     /**
      * Builds the list of Value objects for provided list of values.
+     *
+     * @param iterable<object> $values
+     *
+     * @return \Generator<\Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value>
      */
     private function buildValues(iterable $values): Generator
     {

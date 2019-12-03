@@ -45,6 +45,9 @@ final class ItemDefinitionPass implements CompilerPassInterface
         $itemDefinitionRegistry->replaceArgument(0, $itemDefinitions);
     }
 
+    /**
+     * @return \Generator<string, \Symfony\Component\DependencyInjection\Reference>
+     */
     private function getConfigHandlers(ContainerBuilder $container): Generator
     {
         $configHandlerServices = $container->findTaggedServiceIds('netgen_layouts.item_config_handler');

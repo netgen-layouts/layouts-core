@@ -17,7 +17,7 @@ final class DateTimeType extends AbstractType
     private const HTML5_FORMAT = "yyyy-MM-dd'T'HH:mm";
 
     /**
-     * @var array
+     * @var array<string, array<string, string>>
      */
     private $timeZoneList = [];
 
@@ -69,6 +69,8 @@ final class DateTimeType extends AbstractType
 
     /**
      * Returns the formatted list of all timezones, separated by regions.
+     *
+     * @return array<string, array<string, string>>
      */
     private function getTimeZoneList(): array
     {

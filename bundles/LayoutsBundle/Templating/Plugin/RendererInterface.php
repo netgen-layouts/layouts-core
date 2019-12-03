@@ -13,6 +13,8 @@ interface RendererInterface
      *
      * Parameters provided by plugins themselves override any parameters
      * specified here.
+     *
+     * @param array<string, mixed> $parameters
      */
     public function renderPlugins(string $pluginName, array $parameters = []): string;
 }

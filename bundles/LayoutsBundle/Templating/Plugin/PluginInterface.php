@@ -15,6 +15,8 @@ interface PluginInterface
      * Returns the template parameters that will be injected into the template.
      *
      * They override any parameters provided by the renderer.
+     *
+     * @return array<string, mixed>
      */
     public function getParameters(): array;
 }

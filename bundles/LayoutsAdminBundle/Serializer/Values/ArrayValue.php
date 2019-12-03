@@ -11,6 +11,9 @@ use Symfony\Component\HttpFoundation\Response;
  */
 final class ArrayValue extends AbstractValue
 {
+    /**
+     * @param mixed[] $value
+     */
     public function __construct(array $value, int $statusCode = Response::HTTP_OK)
     {
         parent::__construct($value, $statusCode);

@@ -34,7 +34,7 @@ final class CollectionItemNormalizer implements NormalizerInterface, NormalizerA
         $this->visibilityResolver = $visibilityResolver;
     }
 
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\API\Values\Collection\Item $collectionItem */
         $collectionItem = $object->getValue();
@@ -80,6 +80,10 @@ final class CollectionItemNormalizer implements NormalizerInterface, NormalizerA
 
     /**
      * Builds the list of Value objects for provided list of values.
+     *
+     * @param iterable<object> $values
+     *
+     * @return \Generator<\Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value>
      */
     private function buildValues(iterable $values): Generator
     {

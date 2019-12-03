@@ -33,8 +33,8 @@ final class QueryUpdateStructValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, QueryUpdateStruct::class);
         }
 
-        /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
         $query = $constraint->payload;
+        /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
         $validator = $this->context->getValidator()->inContext($this->context);
 
         $validator->atPath('locale')->validate(

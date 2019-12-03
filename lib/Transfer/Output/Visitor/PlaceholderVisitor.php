@@ -25,7 +25,7 @@ final class PlaceholderVisitor implements VisitorInterface
      * @param \Netgen\Layouts\API\Values\Block\Placeholder $value
      * @param \Netgen\Layouts\Transfer\Output\OutputVisitor $outputVisitor
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
@@ -37,6 +37,8 @@ final class PlaceholderVisitor implements VisitorInterface
 
     /**
      * Visit the given $placeholder blocks into hash representation.
+     *
+     * @return \Generator<array<string, mixed>>
      */
     private function visitBlocks(Placeholder $placeholder, OutputVisitor $outputVisitor): Generator
     {

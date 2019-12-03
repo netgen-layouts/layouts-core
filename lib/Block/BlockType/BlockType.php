@@ -45,7 +45,7 @@ class BlockType
     private $definition;
 
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     private $defaults = [];
 
@@ -91,6 +91,8 @@ class BlockType
 
     /**
      * Returns the default block values.
+     *
+     * @return array<string, mixed>
      */
     public function getDefaults(): array
     {
@@ -123,6 +125,8 @@ class BlockType
 
     /**
      * Returns the default block parameters.
+     *
+     * @return array<string, mixed>
      */
     public function getDefaultParameters(): array
     {

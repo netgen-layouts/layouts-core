@@ -49,7 +49,7 @@ final class Query extends Value
     /**
      * Query parameters.
      *
-     * @var array[]
+     * @var array<string, array<string, mixed>>
      */
     public $parameters;
 

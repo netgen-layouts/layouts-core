@@ -36,7 +36,7 @@ final class BlockVisitor implements VisitorInterface
      * @param \Netgen\Layouts\API\Values\Block\Block $value
      * @param \Netgen\Layouts\Transfer\Output\OutputVisitor $outputVisitor
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
@@ -59,6 +59,8 @@ final class BlockVisitor implements VisitorInterface
 
     /**
      * Visit the given $block placeholders into hash representation.
+     *
+     * @return \Generator<string, array<string, mixed>>
      */
     private function visitPlaceholders(Block $block, OutputVisitor $outputVisitor): Generator
     {
@@ -69,6 +71,8 @@ final class BlockVisitor implements VisitorInterface
 
     /**
      * Visit the given $block parameters into hash representation.
+     *
+     * @return array<string, array<string, mixed>>
      */
     private function visitParameters(Block $block): array
     {
@@ -101,6 +105,8 @@ final class BlockVisitor implements VisitorInterface
 
     /**
      * Return parameters for the given $block.
+     *
+     * @return \Generator<string, mixed>
      */
     private function visitTranslationParameters(Block $block): Generator
     {
@@ -114,6 +120,8 @@ final class BlockVisitor implements VisitorInterface
 
     /**
      * Visit the given $block configuration into hash representation.
+     *
+     * @return \Generator<string, mixed>
      */
     private function visitConfiguration(Block $block, OutputVisitor $outputVisitor): Generator
     {
@@ -124,6 +132,8 @@ final class BlockVisitor implements VisitorInterface
 
     /**
      * Visit the given $block collections into hash representation.
+     *
+     * @return \Generator<string, array<string, mixed>>
      */
     private function visitCollections(Block $block, OutputVisitor $outputVisitor): Generator
     {

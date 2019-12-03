@@ -11,6 +11,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 abstract class AbstractController extends BaseAbstractController
 {
+    /**
+     * @return array<string, class-string>
+     */
     public static function getSubscribedServices(): array
     {
         return [

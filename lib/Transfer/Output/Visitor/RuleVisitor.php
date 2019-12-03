@@ -29,7 +29,7 @@ final class RuleVisitor implements VisitorInterface
      * @param \Netgen\Layouts\API\Values\LayoutResolver\Rule $value
      * @param \Netgen\Layouts\Transfer\Output\OutputVisitor $outputVisitor
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
@@ -49,6 +49,8 @@ final class RuleVisitor implements VisitorInterface
 
     /**
      * Visit the given $rule targets into hash representation.
+     *
+     * @return \Generator<string, mixed>
      */
     private function visitTargets(Rule $rule, OutputVisitor $outputVisitor): Generator
     {
@@ -59,6 +61,8 @@ final class RuleVisitor implements VisitorInterface
 
     /**
      * Visit the given $rule conditions into hash representation.
+     *
+     * @return \Generator<string, array<string, mixed>>
      */
     private function visitConditions(Rule $rule, OutputVisitor $outputVisitor): Generator
     {

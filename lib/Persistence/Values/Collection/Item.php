@@ -72,7 +72,7 @@ final class Item extends Value
     /**
      * Item configuration.
      *
-     * @var array
+     * @var array<string, array<string, mixed>>
      */
     public $config;
 }

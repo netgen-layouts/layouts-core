@@ -13,6 +13,9 @@ use Netgen\Layouts\Block\NullBlockDefinition;
  */
 trait DefinitionTrait
 {
+    /**
+     * @param mixed[] $config
+     */
     private function doMatch(Block $block, array $config): bool
     {
         $blockDefinition = $block->getDefinition();

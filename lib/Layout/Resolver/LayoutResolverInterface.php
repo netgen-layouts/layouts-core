@@ -16,6 +16,8 @@ interface LayoutResolverInterface
      * If no request is provided, current request is used.
      *
      * If $enabledConditions is not an empty array, only the conditions listed in the array will be enabled.
+     *
+     * @param string[] $enabledConditions
      */
     public function resolveRule(?Request $request = null, array $enabledConditions = []): ?Rule;
 
@@ -42,6 +44,8 @@ interface LayoutResolverInterface
      * Returns true if the rule matches the provided request.
      *
      * If $enabledConditions is not an empty array, only the conditions listed in the array will be enabled.
+     *
+     * @param string[] $enabledConditions
      */
     public function matches(Rule $rule, Request $request, array $enabledConditions = []): bool;
 }

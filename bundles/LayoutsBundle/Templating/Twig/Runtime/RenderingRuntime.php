@@ -71,6 +71,9 @@ final class RenderingRuntime
 
     /**
      * Renders the provided item.
+     *
+     * @param array<string, mixed> $context
+     * @param array<string, mixed> $parameters
      */
     public function renderItem(array $context, CmsItemInterface $item, string $viewType, array $parameters = [], ?string $viewContext = null): string
     {
@@ -95,6 +98,9 @@ final class RenderingRuntime
 
     /**
      * Renders the provided result.
+     *
+     * @param array<string, mixed> $context
+     * @param array<string, mixed> $parameters
      */
     public function renderResult(array $context, Result $result, ?string $overrideViewType = null, ?string $fallbackViewType = null, array $parameters = [], ?string $viewContext = null): string
     {
@@ -139,9 +145,6 @@ final class RenderingRuntime
      * @param array<string, mixed> $context
      * @param mixed $value
      * @param array<string, mixed> $parameters
-     * @param string $viewContext
-     *
-     * @return string
      */
     public function renderValue(array $context, $value, array $parameters = [], ?string $viewContext = null): string
     {
@@ -196,6 +199,9 @@ final class RenderingRuntime
 
     /**
      * Renders the provided block.
+     *
+     * @param array<string, mixed> $context
+     * @param array<string, mixed> $parameters
      */
     public function renderBlock(array $context, Block $block, array $parameters = [], ?string $viewContext = null): string
     {
@@ -218,6 +224,9 @@ final class RenderingRuntime
 
     /**
      * Renders the provided placeholder.
+     *
+     * @param array<string, mixed> $context
+     * @param array<string, mixed> $parameters
      */
     public function renderPlaceholder(array $context, Block $block, string $placeholder, array $parameters = [], ?string $viewContext = null): string
     {
@@ -246,6 +255,8 @@ final class RenderingRuntime
     /**
      * Renders the provided template, with a reduced set of variables from the provided
      * parameters list. Variables included are only those which can be safely printed.
+     *
+     * @param array<string, mixed> $parameters
      */
     public function renderStringTemplate(string $string, array $parameters = []): string
     {
@@ -264,6 +275,8 @@ final class RenderingRuntime
     /**
      * Returns the correct view context based on provided Twig context and view context
      * provided through function call.
+     *
+     * @param array<string, mixed> $context
      */
     private function getViewContext(array $context, ?string $viewContext = null): string
     {
@@ -276,6 +289,10 @@ final class RenderingRuntime
      * If the context has an instance of ContextualizedTwigTemplate, its context is also
      * included in the output. Any variables from the main context will override variables
      * from ContextualizedTwigTemplate objects.
+     *
+     * @param array<string, mixed> $parameters
+     *
+     * @return \Generator<string, mixed>
      */
     private function getTemplateVariables(array $parameters): Generator
     {

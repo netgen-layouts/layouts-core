@@ -16,7 +16,7 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Normal
 {
     use NormalizerAwareTrait;
 
-    public function normalize($object, $format = null, array $context = [])
+    public function normalize($object, $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\Collection\Result\ResultSet $resultSet */
         $resultSet = $object->getValue();
@@ -43,6 +43,8 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Normal
      * Returns all items from the collection which are overflown. Overflown items
      * are those NOT included in the provided result set, as defined by collection
      * offset and limit.
+     *
+     * @return \Generator<\Netgen\Layouts\API\Values\Collection\Item>
      */
     private function getOverflowItems(ResultSet $resultSet): Generator
     {
@@ -69,6 +71,10 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Normal
 
     /**
      * Builds the list of Value objects for provided list of values.
+     *
+     * @param iterable<object> $values
+     *
+     * @return \Generator<array-key, \Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value>
      */
     private function buildValues(iterable $values): Generator
     {

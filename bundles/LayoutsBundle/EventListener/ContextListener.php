@@ -78,6 +78,8 @@ final class ContextListener implements EventSubscriberInterface
 
     /**
      * Validates and returns the array with context information filled from the URI.
+     *
+     * @return array<string, mixed>
      */
     private function getUriContext(Request $request): array
     {

@@ -65,6 +65,12 @@ final class ResultBuilderAdapter implements AdapterInterface
         return $this->totalCount;
     }
 
+    /**
+     * @param int $offset
+     * @param int $length
+     *
+     * @return iterable<\Netgen\Layouts\Collection\Result\Result>
+     */
     public function getSlice($offset, $length)
     {
         $result = $this->resultBuilder->build(

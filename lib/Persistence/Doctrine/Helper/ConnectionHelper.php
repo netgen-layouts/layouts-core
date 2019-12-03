@@ -8,7 +8,7 @@ use Doctrine\DBAL\Connection;
 use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Postgres;
 use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite;
 
-final class ConnectionHelper
+final class ConnectionHelper implements ConnectionHelperInterface
 {
     /**
      * @var \Doctrine\DBAL\Connection
@@ -16,7 +16,7 @@ final class ConnectionHelper
     private $connection;
 
     /**
-     * @var array
+     * @var array<string, \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelperInterface>
      */
     private $databaseSpecificHelpers;
 
@@ -30,15 +30,6 @@ final class ConnectionHelper
         ];
     }
 
-    /**
-     * Returns the auto increment value.
-     *
-     * Returns the value used for autoincrement tables. Usually this will just
-     * be null. In case for sequence based RDBMS, this method can return a
-     * proper value for the given column.
-     *
-     * @return mixed
-     */
     public function getAutoIncrementValue(string $table, string $column = 'id')
     {
         $databaseServer = $this->connection->getDatabasePlatform()->getName();
@@ -50,11 +41,6 @@ final class ConnectionHelper
         return 'null';
     }
 
-    /**
-     * Returns the last inserted ID.
-     *
-     * @return mixed
-     */
     public function lastInsertId(string $table, string $column = 'id')
     {
         $databaseServer = $this->connection->getDatabasePlatform()->getName();

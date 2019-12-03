@@ -27,7 +27,7 @@ final class CollectionVisitor implements VisitorInterface
      * @param \Netgen\Layouts\API\Values\Collection\Collection $value
      * @param \Netgen\Layouts\Transfer\Output\OutputVisitor $outputVisitor
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
@@ -47,6 +47,8 @@ final class CollectionVisitor implements VisitorInterface
 
     /**
      * Visit the given collection $items into hash representation.
+     *
+     * @return \Generator<array<string, mixed>>
      */
     private function visitItems(ItemList $items, OutputVisitor $outputVisitor): Generator
     {
@@ -57,6 +59,8 @@ final class CollectionVisitor implements VisitorInterface
 
     /**
      * Visit the given collection $slots into hash representation.
+     *
+     * @return \Generator<array<string, mixed>>
      */
     private function visitSlots(SlotList $slots, OutputVisitor $outputVisitor): Generator
     {
@@ -67,6 +71,8 @@ final class CollectionVisitor implements VisitorInterface
 
     /**
      * Visit the given $collection query into hash representation.
+     *
+     * @return array<string, mixed>|null
      */
     private function visitQuery(Collection $collection, OutputVisitor $outputVisitor): ?array
     {

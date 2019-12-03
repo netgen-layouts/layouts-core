@@ -18,6 +18,10 @@ use Netgen\Layouts\Utils\HydratorTrait;
 use Ramsey\Uuid\UuidInterface;
 use Traversable;
 
+/**
+ * @implements \IteratorAggregate<string, \Netgen\Layouts\API\Values\Layout\Zone>
+ * @implements \ArrayAccess<string, \Netgen\Layouts\API\Values\Layout\Zone>
+ */
 final class Layout implements Value, ArrayAccess, IteratorAggregate, Countable
 {
     use HydratorTrait;
@@ -69,7 +73,7 @@ final class Layout implements Value, ArrayAccess, IteratorAggregate, Countable
     private $availableLocales = [];
 
     /**
-     * @var \Doctrine\Common\Collections\Collection
+     * @var \Doctrine\Common\Collections\Collection<string, \Netgen\Layouts\API\Values\Layout\Zone>
      */
     private $zones;
 
@@ -212,10 +216,8 @@ final class Layout implements Value, ArrayAccess, IteratorAggregate, Countable
 
     /**
      * @param mixed $offset
-     *
-     * @return mixed
      */
-    public function offsetGet($offset)
+    public function offsetGet($offset): ?Zone
     {
         return $this->zones->offsetGet($offset);
     }

@@ -91,6 +91,8 @@ final class LayoutDataHandler
 
     /**
      * Create and return layout from the given serialized $data.
+     *
+     * @param array<string, mixed> $data
      */
     public function createLayout(array $data): Layout
     {
@@ -117,6 +119,8 @@ final class LayoutDataHandler
     /**
      * Processes zones in the given $layout from the $layoutData.
      *
+     * @param array<string, mixed> $layoutData
+     *
      * @throws \Netgen\Layouts\Exception\RuntimeException If data is not consistent
      */
     private function processZones(Layout $layout, array $layoutData): void
@@ -134,6 +138,8 @@ final class LayoutDataHandler
 
     /**
      * Add translations to the $layout from the given $layoutData.
+     *
+     * @param array<string, mixed> $layoutData
      */
     private function addTranslations(Layout $layout, array $layoutData): void
     {
@@ -146,6 +152,8 @@ final class LayoutDataHandler
 
     /**
      * Extract translation locales from the given $layoutData.
+     *
+     * @param array<string, mixed> $layoutData
      *
      * @return string[]
      */
@@ -161,6 +169,8 @@ final class LayoutDataHandler
      * Update all translations of the given block with the $translationsData.
      *
      * $translationsData is an array of parameters, indexed by translation locale.
+     *
+     * @param array<string, mixed> $translationsData
      *
      * @throws \Netgen\Layouts\Exception\RuntimeException If translation data is not consistent
      */
@@ -185,6 +195,8 @@ final class LayoutDataHandler
 
     /**
      * Update given $block with $parameterData for the $locale.
+     *
+     * @param array<string, mixed> $parameterData
      */
     private function updateBlockTranslation(Block $block, array $parameterData, string $locale): void
     {
@@ -198,6 +210,8 @@ final class LayoutDataHandler
      * Update all translations of the given query with $translationsData.
      *
      * $translationsData is an array of query parameters indexed by translation locale.
+     *
+     * @param array<string, mixed> $translationsData
      *
      * @throws \Netgen\Layouts\Exception\RuntimeException If translation data is not consistent
      */
@@ -222,6 +236,8 @@ final class LayoutDataHandler
 
     /**
      * Update given $query with $parameterData for the $locale.
+     *
+     * @param array<string, mixed> $parameterData
      */
     private function updateQueryTranslation(Query $query, array $parameterData, string $locale): void
     {
@@ -233,6 +249,8 @@ final class LayoutDataHandler
 
     /**
      * Creates blocks in the given $zone or links linked zone to it.
+     *
+     * @param array<string, mixed> $zoneData
      */
     private function processZone(Zone $zone, array $zoneData): void
     {
@@ -244,6 +262,8 @@ final class LayoutDataHandler
 
     /**
      * Link given $zone with the zone given in $zoneData.
+     *
+     * @param array<string, mixed> $zoneData
      */
     private function linkZone(Zone $zone, array $zoneData): void
     {
@@ -254,6 +274,8 @@ final class LayoutDataHandler
 
     /**
      * Create blocks in the given $zone from the given $blocksData.
+     *
+     * @param array<string, mixed> $blocksData
      */
     private function createBlocks(Zone $zone, array $blocksData): void
     {
@@ -264,6 +286,8 @@ final class LayoutDataHandler
 
     /**
      * Create a block in the given $zone from the given $blockData.
+     *
+     * @param array<string, mixed> $blockData
      */
     private function createBlockInZone(Zone $zone, array $blockData): Block
     {
@@ -279,6 +303,8 @@ final class LayoutDataHandler
 
     /**
      * Create a block in the given $targetBlock and $placeholder from the given $blockData.
+     *
+     * @param array<string, mixed> $blockData
      */
     private function createBlock(Block $targetBlock, string $placeholder, array $blockData): Block
     {
@@ -294,6 +320,8 @@ final class LayoutDataHandler
 
     /**
      * Creates sub-blocks in $targetBlock from provided placeholder $data.
+     *
+     * @param array<string, mixed> $data
      */
     private function processPlaceholderBlocks(Block $targetBlock, array $data): void
     {
@@ -306,6 +334,8 @@ final class LayoutDataHandler
 
     /**
      * Builds the block create struct from provided $blockData.
+     *
+     * @param array<string, mixed> $blockData
      */
     private function buildBlockCreateStruct(array $blockData): BlockCreateStruct
     {
@@ -332,6 +362,8 @@ final class LayoutDataHandler
 
     /**
      * Set collection structs to the given $blockCreateStruct.
+     *
+     * @param array<string, mixed> $data
      */
     private function setCollectionStructs(BlockCreateStruct $blockCreateStruct, array $data): void
     {
@@ -360,6 +392,8 @@ final class LayoutDataHandler
 
     /**
      * Set configuration structs to the given $blockCreateStruct.
+     *
+     * @param array<string, mixed> $configurationData
      */
     private function setConfigStructs(
         ConfigAwareStruct $configAwareStruct,
@@ -377,6 +411,8 @@ final class LayoutDataHandler
 
     /**
      * Process collections in the given $block.
+     *
+     * @param array<string, mixed> $collectionsData
      */
     private function processCollections(Block $block, array $collectionsData): void
     {
@@ -399,6 +435,8 @@ final class LayoutDataHandler
 
     /**
      * Create items in the $collection from the given $collectionItemsData.
+     *
+     * @param array<string, mixed> $collectionItemsData
      */
     private function createItems(Collection $collection, array $collectionItemsData): void
     {
@@ -429,6 +467,8 @@ final class LayoutDataHandler
 
     /**
      * Create slots in the $collection from the given $collectionSlotsData.
+     *
+     * @param array<string, mixed> $collectionSlotsData
      */
     private function createSlots(Collection $collection, array $collectionSlotsData): void
     {

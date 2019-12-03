@@ -72,7 +72,7 @@ final class Serializer implements SerializerInterface
      *
      * @param string[] $layoutIds
      *
-     * @return \Generator
+     * @return \Generator<\Netgen\Layouts\API\Values\Layout\Layout>
      */
     private function loadLayouts(array $layoutIds): Generator
     {
@@ -90,7 +90,7 @@ final class Serializer implements SerializerInterface
      *
      * @param string[] $ruleIds
      *
-     * @return \Generator
+     * @return \Generator<\Netgen\Layouts\API\Values\LayoutResolver\Rule>
      */
     private function loadRules(array $ruleIds): Generator
     {
@@ -105,6 +105,8 @@ final class Serializer implements SerializerInterface
 
     /**
      * Creates the array with basic serialized data from provided type and version.
+     *
+     * @return array<string, mixed>
      */
     private function createBasicData(): array
     {

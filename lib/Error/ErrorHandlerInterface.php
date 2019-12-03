@@ -10,6 +10,8 @@ interface ErrorHandlerInterface
 {
     /**
      * Handles the provided throwable. Context can be arbitrary data relevant to the error.
+     *
+     * @param array<string, mixed> $context
      */
     public function handleError(Throwable $throwable, ?string $message = null, array $context = []): void;
 }

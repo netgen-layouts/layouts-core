@@ -69,14 +69,14 @@ final class BlockCreateStruct
     /**
      * The block parameters.
      *
-     * @var array
+     * @var array<string, array<string, mixed>>
      */
     public $parameters;
 
     /**
      * The block configuration.
      *
-     * @var array
+     * @var array<string, array<string, mixed>>
      */
     public $config;
 }

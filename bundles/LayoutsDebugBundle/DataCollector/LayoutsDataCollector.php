@@ -177,6 +177,8 @@ final class LayoutsDataCollector extends DataCollector
 
     /**
      * Returns the collected data.
+     *
+     * @return mixed[]
      */
     public function getData(): array
     {

@@ -101,6 +101,9 @@ final class BlockDefinitionPass implements CompilerPassInterface
         $blockDefinitionRegistry->replaceArgument(0, $blockDefinitionServices);
     }
 
+    /**
+     * @return \Generator<string, \Symfony\Component\DependencyInjection\Reference>
+     */
     private function getConfigHandlers(ContainerBuilder $container): Generator
     {
         $configHandlerServices = $container->findTaggedServiceIds('netgen_layouts.block_config_handler');

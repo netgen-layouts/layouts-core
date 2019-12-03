@@ -14,6 +14,9 @@ final class LocaleProvider implements LocaleProviderInterface
      */
     private $enabledLocales;
 
+    /**
+     * @param string[] $enabledLocales
+     */
     public function __construct(array $enabledLocales = [])
     {
         $this->enabledLocales = $enabledLocales;

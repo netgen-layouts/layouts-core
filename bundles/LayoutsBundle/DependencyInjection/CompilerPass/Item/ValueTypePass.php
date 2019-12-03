@@ -32,6 +32,10 @@ final class ValueTypePass implements CompilerPassInterface
 
     /**
      * Builds the value type objects from provided configuration.
+     *
+     * @param array<string, array> $valueTypes
+     *
+     * @return \Generator<string, \Symfony\Component\DependencyInjection\Reference>
      */
     private function buildValueTypes(ContainerBuilder $container, array $valueTypes): Generator
     {

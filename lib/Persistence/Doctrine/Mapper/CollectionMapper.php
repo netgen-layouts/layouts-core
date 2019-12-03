@@ -17,6 +17,8 @@ final class CollectionMapper
      *
      * If block UUID is provided, block UUID is mapped from it instead of data.
      *
+     * @param mixed[] $data
+     *
      * @return \Netgen\Layouts\Persistence\Values\Collection\Collection[]
      */
     public function mapCollections(array $data, ?string $blockUuid = null): array
@@ -62,6 +64,8 @@ final class CollectionMapper
     /**
      * Maps data from database to collection reference values.
      *
+     * @param mixed[] $data
+     *
      * @return \Netgen\Layouts\Persistence\Values\Block\CollectionReference[]
      */
     public function mapCollectionReferences(array $data): array
@@ -85,6 +89,8 @@ final class CollectionMapper
 
     /**
      * Maps data from database to item values.
+     *
+     * @param mixed[] $data
      *
      * @return \Netgen\Layouts\Persistence\Values\Collection\Item[]
      */
@@ -114,6 +120,10 @@ final class CollectionMapper
 
     /**
      * Maps data from database to query values.
+     *
+     * @param mixed[] $data
+     *
+     * @return \Netgen\Layouts\Persistence\Values\Collection\Query[]
      */
     public function mapQueries(array $data): array
     {
@@ -161,6 +171,8 @@ final class CollectionMapper
     /**
      * Maps data from database to slot values.
      *
+     * @param mixed[] $data
+     *
      * @return \Netgen\Layouts\Persistence\Values\Collection\Slot[]
      */
     public function mapSlots(array $data): array
@@ -187,6 +199,8 @@ final class CollectionMapper
 
     /**
      * Builds the array of parameters from provided JSON string.
+     *
+     * @return array<string, mixed>
      */
     private function buildParameters(string $parameters): array
     {

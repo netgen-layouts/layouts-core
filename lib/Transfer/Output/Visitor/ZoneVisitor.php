@@ -36,7 +36,7 @@ final class ZoneVisitor implements VisitorInterface
      * @param \Netgen\Layouts\API\Values\Layout\Zone $value
      * @param \Netgen\Layouts\Transfer\Output\OutputVisitor $outputVisitor
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
@@ -49,6 +49,8 @@ final class ZoneVisitor implements VisitorInterface
 
     /**
      * Visit the given $zone linked zone into hash representation.
+     *
+     * @return array<string, mixed>|null
      */
     private function visitLinkedZone(Zone $zone): ?array
     {
@@ -68,6 +70,8 @@ final class ZoneVisitor implements VisitorInterface
      * Visit the given $zone blocks into hash representation.
      *
      * Note: here we rely on API returning blocks already sorted by their position in the zone.
+     *
+     * @return \Generator<array<string, mixed>>
      */
     private function visitBlocks(Zone $zone, OutputVisitor $outputVisitor): Generator
     {

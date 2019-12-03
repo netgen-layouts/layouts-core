@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper;
 
 use Doctrine\DBAL\Connection;
+use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelperInterface;
 
-final class Postgres
+final class Postgres implements ConnectionHelperInterface
 {
     /**
      * @var \Doctrine\DBAL\Connection
@@ -18,25 +19,11 @@ final class Postgres
         $this->connection = $connection;
     }
 
-    /**
-     * Returns the auto increment value.
-     *
-     * Returns the value used for autoincrement tables. Usually this will just
-     * be null. In case for sequence based RDBMS, this method can return a
-     * proper value for the given column.
-     *
-     * @return mixed
-     */
     public function getAutoIncrementValue(string $table, string $column = 'id')
     {
         return "nextval('" . $this->connection->getDatabasePlatform()->getIdentitySequenceName($table, $column) . "')";
     }
 
-    /**
-     * Returns the last inserted ID.
-     *
-     * @return mixed
-     */
     public function lastInsertId(string $table, string $column = 'id')
     {
         return $this->connection->lastInsertId(

@@ -8,10 +8,13 @@ use ArrayAccess;
 use Closure;
 use Countable;
 
+/**
+ * @implements \ArrayAccess<string, mixed>
+ */
 final class DynamicParameters implements ArrayAccess, Countable
 {
     /**
-     * @var array
+     * @var array<string, mixed>
      */
     private $dynamicParameters = [];
 

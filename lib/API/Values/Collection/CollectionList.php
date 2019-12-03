@@ -5,9 +5,16 @@ declare(strict_types=1);
 namespace Netgen\Layouts\API\Values\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Ramsey\Uuid\UuidInterface;
 
+/**
+ * @extends \Doctrine\Common\Collections\ArrayCollection<string, \Netgen\Layouts\API\Values\Collection\Collection>
+ */
 final class CollectionList extends ArrayCollection
 {
+    /**
+     * @param \Netgen\Layouts\API\Values\Collection\Collection[] $collections
+     */
     public function __construct(array $collections = [])
     {
         parent::__construct(
@@ -21,7 +28,7 @@ final class CollectionList extends ArrayCollection
     }
 
     /**
-     * @return \Netgen\Layouts\API\Values\Collection\Collection[]
+     * @return array<string, \Netgen\Layouts\API\Values\Collection\Collection>
      */
     public function getCollections(): array
     {
@@ -34,7 +41,7 @@ final class CollectionList extends ArrayCollection
     public function getCollectionIds(): array
     {
         return array_map(
-            static function (Collection $collection) {
+            static function (Collection $collection): UuidInterface {
                 return $collection->getId();
             },
             $this->getCollections()

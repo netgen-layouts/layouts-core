@@ -137,6 +137,8 @@ final class LayoutValidator
     /**
      * Validates zone mappings for changing the provided layout type.
      *
+     * @param array<string, string[]> $zoneMappings
+     *
      * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
     public function validateChangeLayoutType(Layout $layout, LayoutTypeInterface $targetLayoutType, array $zoneMappings, bool $preserveSharedZones = true): void
