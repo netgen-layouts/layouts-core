@@ -30,9 +30,16 @@
 
         <UndefinedClass>
             <errorLevel type="suppress">
+                <referencedClass name="Symfony\Component\Debug\Exception\FlattenException" />
                 <referencedClass name="Symfony\Component\ErrorHandler\Exception\FlattenException" />
             </errorLevel>
         </UndefinedClass>
+
+        <UndefinedMethod>
+            <errorLevel type="suppress">
+                <referencedMethod name="Symfony\Component\Intl\Intl::getLocaleBundle" />
+            </errorLevel>
+        </UndefinedMethod>
 
         <!-- Doctrine Collections -->
 
@@ -99,6 +106,35 @@
                 <file name="lib/Parameters/Form/Type/DataMapper/LinkDataMapper.php" />
             </errorLevel>
         </PossiblyInvalidArgument>
+
+        <MissingParamType>
+            <errorLevel type="suppress">
+                <directory name="bundles/LayoutsAdminBundle/Serializer/Normalizer" />
+                <file name="lib/Collection/Form/CollectionDataMapper.php" />
+                <file name="lib/Form/DataMapper/DateTimeDataMapper.php" />
+                <file name="lib/Parameters/Form/Type/DataMapper/ItemLinkDataMapper.php" />
+                <file name="lib/Parameters/Form/Type/DataMapper/LinkDataMapper.php" />
+                <file name="lib/Security/Authorization/Voter/PolicyToRoleMapVoter.php" />
+            </errorLevel>
+        </MissingParamType>
+
+        <InvalidArgument>
+            <errorLevel type="suppress">
+                <file name="lib/Collection/Form/CollectionDataMapper.php" />
+                <file name="lib/Form/DataMapper/DateTimeDataMapper.php" />
+                <file name="lib/Parameters/Form/Type/DataMapper/ItemLinkDataMapper.php" />
+                <file name="lib/Parameters/Form/Type/DataMapper/LinkDataMapper.php" />
+                <file name="lib/Utils/BackwardsCompatibility/EventDispatcherProxy.php" />
+            </errorLevel>
+        </InvalidArgument>
+
+        <!-- Other -->
+
+        <ImplementedReturnTypeMismatch>
+            <errorLevel type="suppress">
+                <file name="lib/Collection/Result/Pagerfanta/ResultBuilderAdapter.php" />
+            </errorLevel>
+        </ImplementedReturnTypeMismatch>
 
         <!-- Netgen Layouts specifics -->
 

@@ -236,11 +236,12 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
      */
     public function getCollection(string $identifier): Collection
     {
-        if (!$this->hasCollection($identifier)) {
+        $collection = $this->collections->get($identifier);
+        if ($collection === null) {
             throw BlockException::noCollection($identifier);
         }
 
-        return $this->collections->get($identifier);
+        return $collection;
     }
 
     /**
