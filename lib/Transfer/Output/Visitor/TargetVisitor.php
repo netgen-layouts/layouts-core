@@ -12,6 +12,8 @@ use Netgen\Layouts\Transfer\Output\VisitorInterface;
  * Target value visitor.
  *
  * @see \Netgen\Layouts\API\Values\LayoutResolver\Target
+ *
+ * @implements \Netgen\Layouts\Transfer\Output\VisitorInterface<\Netgen\Layouts\API\Values\LayoutResolver\Target>
  */
 final class TargetVisitor implements VisitorInterface
 {
@@ -20,12 +22,6 @@ final class TargetVisitor implements VisitorInterface
         return $value instanceof Target;
     }
 
-    /**
-     * @param \Netgen\Layouts\API\Values\LayoutResolver\Target $value
-     * @param \Netgen\Layouts\Transfer\Output\OutputVisitor $outputVisitor
-     *
-     * @return array<string, mixed>
-     */
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
         return [

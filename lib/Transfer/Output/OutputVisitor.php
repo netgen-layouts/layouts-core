@@ -9,12 +9,12 @@ use Netgen\Layouts\Exception\RuntimeException;
 final class OutputVisitor
 {
     /**
-     * @var \Netgen\Layouts\Transfer\Output\VisitorInterface[]
+     * @var array<\Netgen\Layouts\Transfer\Output\VisitorInterface<object>>
      */
     private $subVisitors = [];
 
     /**
-     * @param iterable<\Netgen\Layouts\Transfer\Output\VisitorInterface> $subVisitors
+     * @param iterable<\Netgen\Layouts\Transfer\Output\VisitorInterface<object>> $subVisitors
      */
     public function __construct(iterable $subVisitors)
     {

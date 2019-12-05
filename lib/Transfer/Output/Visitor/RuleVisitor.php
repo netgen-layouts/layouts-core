@@ -15,6 +15,8 @@ use Netgen\Layouts\Transfer\Output\VisitorInterface;
  * Rule value visitor.
  *
  * @see \Netgen\Layouts\API\Values\LayoutResolver\Rule
+ *
+ * @implements \Netgen\Layouts\Transfer\Output\VisitorInterface<\Netgen\Layouts\API\Values\LayoutResolver\Rule>
  */
 final class RuleVisitor implements VisitorInterface
 {
@@ -25,12 +27,6 @@ final class RuleVisitor implements VisitorInterface
         return $value instanceof Rule;
     }
 
-    /**
-     * @param \Netgen\Layouts\API\Values\LayoutResolver\Rule $value
-     * @param \Netgen\Layouts\Transfer\Output\OutputVisitor $outputVisitor
-     *
-     * @return array<string, mixed>
-     */
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
         $layout = $value->getLayout();

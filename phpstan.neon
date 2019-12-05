@@ -80,7 +80,3 @@ parameters:
         -
             message: '#Unsafe usage of new static().#'
             path: lib/Utils/HydratorTrait.php
-
-        -
-            message: '#should be contravariant with parameter \$value#'
-            path: lib/Transfer/Output/Visitor/

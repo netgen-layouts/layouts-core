@@ -13,6 +13,8 @@ use Netgen\Layouts\Transfer\Output\VisitorInterface;
  * Collection item value visitor.
  *
  * @see \Netgen\Layouts\API\Values\Collection\Item
+ *
+ * @implements \Netgen\Layouts\Transfer\Output\VisitorInterface<\Netgen\Layouts\API\Values\Collection\Item>
  */
 final class ItemVisitor implements VisitorInterface
 {
@@ -21,12 +23,6 @@ final class ItemVisitor implements VisitorInterface
         return $value instanceof Item;
     }
 
-    /**
-     * @param \Netgen\Layouts\API\Values\Collection\Item $value
-     * @param \Netgen\Layouts\Transfer\Output\OutputVisitor $outputVisitor
-     *
-     * @return array<string, mixed>
-     */
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
         return [

@@ -14,6 +14,8 @@ use Netgen\Layouts\Transfer\Output\VisitorInterface;
  * Zone value visitor.
  *
  * @see \Netgen\Layouts\API\Values\Layout\Zone
+ *
+ * @implements \Netgen\Layouts\Transfer\Output\VisitorInterface<\Netgen\Layouts\API\Values\Layout\Zone>
  */
 final class ZoneVisitor implements VisitorInterface
 {
@@ -32,12 +34,6 @@ final class ZoneVisitor implements VisitorInterface
         return $value instanceof Zone;
     }
 
-    /**
-     * @param \Netgen\Layouts\API\Values\Layout\Zone $value
-     * @param \Netgen\Layouts\Transfer\Output\OutputVisitor $outputVisitor
-     *
-     * @return array<string, mixed>
-     */
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
         return [

@@ -13,6 +13,8 @@ use Netgen\Layouts\Transfer\Output\VisitorInterface;
  * Config value visitor.
  *
  * @see \Netgen\Layouts\API\Values\Config\Config
+ *
+ * @implements \Netgen\Layouts\Transfer\Output\VisitorInterface<\Netgen\Layouts\API\Values\Config\Config>
  */
 final class ConfigVisitor implements VisitorInterface
 {
@@ -21,12 +23,6 @@ final class ConfigVisitor implements VisitorInterface
         return $value instanceof Config;
     }
 
-    /**
-     * @param \Netgen\Layouts\API\Values\Config\Config $value
-     * @param \Netgen\Layouts\Transfer\Output\OutputVisitor $outputVisitor
-     *
-     * @return array<string, mixed>
-     */
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
         return array_map(

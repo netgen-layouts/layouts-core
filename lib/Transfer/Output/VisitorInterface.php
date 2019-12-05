@@ -11,6 +11,8 @@ namespace Netgen\Layouts\Transfer\Output;
  * a pure numeric array or a nested combination of these.
  *
  * @see \Netgen\Layouts\Transfer\SerializerInterface
+ *
+ * @template T of object
  */
 interface VisitorInterface
 {
@@ -21,6 +23,8 @@ interface VisitorInterface
 
     /**
      * Visit the given $value into hash array representation.
+     *
+     * @param T $value
      *
      * @return array<string, mixed>
      */

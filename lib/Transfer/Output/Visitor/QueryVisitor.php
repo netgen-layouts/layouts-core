@@ -14,6 +14,8 @@ use Netgen\Layouts\Transfer\Output\VisitorInterface;
  * Query value visitor.
  *
  * @see \Netgen\Layouts\API\Values\Collection\Query
+ *
+ * @implements \Netgen\Layouts\Transfer\Output\VisitorInterface<\Netgen\Layouts\API\Values\Collection\Query>
  */
 final class QueryVisitor implements VisitorInterface
 {
@@ -32,12 +34,6 @@ final class QueryVisitor implements VisitorInterface
         return $value instanceof Query;
     }
 
-    /**
-     * @param \Netgen\Layouts\API\Values\Collection\Query $value
-     * @param \Netgen\Layouts\Transfer\Output\OutputVisitor $outputVisitor
-     *
-     * @return array<string, mixed>
-     */
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
         return [

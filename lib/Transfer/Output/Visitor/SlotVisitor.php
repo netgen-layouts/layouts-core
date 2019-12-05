@@ -12,6 +12,8 @@ use Netgen\Layouts\Transfer\Output\VisitorInterface;
  * Collection slot value visitor.
  *
  * @see \Netgen\Layouts\API\Values\Collection\Slot
+ *
+ * @implements \Netgen\Layouts\Transfer\Output\VisitorInterface<\Netgen\Layouts\API\Values\Collection\Slot>
  */
 final class SlotVisitor implements VisitorInterface
 {
@@ -20,12 +22,6 @@ final class SlotVisitor implements VisitorInterface
         return $value instanceof Slot;
     }
 
-    /**
-     * @param \Netgen\Layouts\API\Values\Collection\Slot $value
-     * @param \Netgen\Layouts\Transfer\Output\OutputVisitor $outputVisitor
-     *
-     * @return array<string, mixed>
-     */
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
         return [

@@ -13,6 +13,8 @@ use Netgen\Layouts\Transfer\Output\VisitorInterface;
  * Placeholder value visitor.
  *
  * @see \Netgen\Layouts\API\Values\Block\Placeholder
+ *
+ * @implements \Netgen\Layouts\Transfer\Output\VisitorInterface<\Netgen\Layouts\API\Values\Block\Placeholder>
  */
 final class PlaceholderVisitor implements VisitorInterface
 {
@@ -21,12 +23,6 @@ final class PlaceholderVisitor implements VisitorInterface
         return $value instanceof Placeholder;
     }
 
-    /**
-     * @param \Netgen\Layouts\API\Values\Block\Placeholder $value
-     * @param \Netgen\Layouts\Transfer\Output\OutputVisitor $outputVisitor
-     *
-     * @return array<string, mixed>
-     */
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
         return [

@@ -14,6 +14,8 @@ use Netgen\Layouts\Transfer\Output\VisitorInterface;
  * Block value visitor.
  *
  * @see \Netgen\Layouts\API\Values\Block\Block
+ *
+ * @implements \Netgen\Layouts\Transfer\Output\VisitorInterface<\Netgen\Layouts\API\Values\Block\Block>
  */
 final class BlockVisitor implements VisitorInterface
 {
@@ -32,12 +34,6 @@ final class BlockVisitor implements VisitorInterface
         return $value instanceof Block;
     }
 
-    /**
-     * @param \Netgen\Layouts\API\Values\Block\Block $value
-     * @param \Netgen\Layouts\Transfer\Output\OutputVisitor $outputVisitor
-     *
-     * @return array<string, mixed>
-     */
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
         return [
