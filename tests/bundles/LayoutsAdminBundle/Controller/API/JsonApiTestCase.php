@@ -110,6 +110,8 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
     /**
      * Pretty encodes the provided array.
      *
+     * @param mixed[] $content
+     *
      * @throws \Netgen\Layouts\Exception\RuntimeException If encoding failed
      */
     protected function jsonEncode(array $content): string

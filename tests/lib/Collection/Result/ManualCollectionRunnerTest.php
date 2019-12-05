@@ -29,11 +29,14 @@ final class ManualCollectionRunnerTest extends TestCase
     }
 
     /**
+     * @param mixed[] $itemValues
+     * @param mixed[] $expected
+     *
      * @covers \Netgen\Layouts\Collection\Result\ManualCollectionRunner::__construct
      * @covers \Netgen\Layouts\Collection\Result\ManualCollectionRunner::count
      * @covers \Netgen\Layouts\Collection\Result\ManualCollectionRunner::runCollection
      *
-     * @dataProvider manualCollectionProvider
+     * @dataProvider manualCollectionDataProvider
      */
     public function testCollectionResult(array $itemValues, array $expected, int $totalCount, int $offset = 0, int $limit = 200, int $flags = 0): void
     {
@@ -71,7 +74,7 @@ final class ManualCollectionRunnerTest extends TestCase
      *
      * IDs are identifiers of 3rd party values (for example eZ content)
      */
-    public function manualCollectionProvider(): array
+    public function manualCollectionDataProvider(): array
     {
         return [
             [

@@ -43,6 +43,9 @@ final class RenderZoneTest extends NodeTest
         self::assertFalse($node->hasNode('context'));
     }
 
+    /**
+     * @return mixed[]
+     */
     public function getTests(): array
     {
         $environment = $this->getEnvironment();

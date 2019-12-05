@@ -54,6 +54,9 @@ final class IndexPage extends SymfonyPage
         }
     }
 
+    /**
+     * @return array<string, string>
+     */
     protected function getDefinedElements(): array
     {
         return [

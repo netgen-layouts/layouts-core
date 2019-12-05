@@ -34,7 +34,7 @@ final class RequestUriTest extends TestCase
      * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Layout\Resolver\TargetType\RequestUri::getConstraints
-     * @dataProvider validationProvider
+     * @dataProvider validationDataProvider
      */
     public function testValidation($value, bool $isValid): void
     {
@@ -57,7 +57,7 @@ final class RequestUriTest extends TestCase
         );
     }
 
-    public function validationProvider(): array
+    public function validationDataProvider(): array
     {
         return [
             ['/some/route?id=42', true],

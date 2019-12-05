@@ -25,8 +25,10 @@ final class ValueTypeTest extends TestCase
     }
 
     /**
+     * @param mixed[] $config
+     *
      * @covers \Netgen\Layouts\View\Matcher\Item\ValueType::match
-     * @dataProvider matchProvider
+     * @dataProvider matchDataProvider
      */
     public function testMatch(array $config, bool $expected): void
     {
@@ -55,7 +57,7 @@ final class ValueTypeTest extends TestCase
         self::assertFalse($this->matcher->match($view, ['test']));
     }
 
-    public function matchProvider(): array
+    public function matchDataProvider(): array
     {
         return [
             [[], false],

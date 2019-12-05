@@ -43,6 +43,8 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
     }
 
     /**
+     * @param mixed[] $value
+     *
      * @covers \Netgen\Layouts\Validator\Structs\ConfigAwareStructValidator::validate
      * @dataProvider validateDataProvider
      */

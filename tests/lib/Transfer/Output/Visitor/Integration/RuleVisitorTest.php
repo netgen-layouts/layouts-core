@@ -11,6 +11,9 @@ use Netgen\Layouts\Transfer\Output\Visitor\RuleVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * @extends \Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration\VisitorTest<\Netgen\Layouts\API\Values\LayoutResolver\Rule>
+ */
 abstract class RuleVisitorTest extends VisitorTest
 {
     public function getVisitor(): VisitorInterface
@@ -18,7 +21,7 @@ abstract class RuleVisitorTest extends VisitorTest
         return new RuleVisitor();
     }
 
-    public function acceptProvider(): array
+    public function acceptDataProvider(): array
     {
         return [
             [new Rule(), true],
@@ -27,7 +30,7 @@ abstract class RuleVisitorTest extends VisitorTest
         ];
     }
 
-    public function visitProvider(): array
+    public function visitDataProvider(): array
     {
         return [
             [function (): Rule { return $this->layoutResolverService->loadRule(Uuid::fromString('55622437-f700-5378-99c9-7dafe89a8fb6')); }, 'rule/rule_2.json'],

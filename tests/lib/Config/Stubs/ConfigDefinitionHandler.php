@@ -11,6 +11,9 @@ use Netgen\Layouts\Parameters\ParameterType;
 
 final class ConfigDefinitionHandler implements ConfigDefinitionHandlerInterface
 {
+    /**
+     * @return array<string, \Netgen\Layouts\Parameters\ParameterDefinition>
+     */
     public function getParameterDefinitions(): array
     {
         return [

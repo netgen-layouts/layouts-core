@@ -12,7 +12,7 @@ trait UuidGeneratorTrait
 {
     /**
      * @param callable $callable
-     * @param array $uuids
+     * @param string[] $uuids
      *
      * @return mixed
      */

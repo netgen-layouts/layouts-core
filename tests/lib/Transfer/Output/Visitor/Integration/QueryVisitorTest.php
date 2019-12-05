@@ -11,6 +11,9 @@ use Netgen\Layouts\Transfer\Output\Visitor\QueryVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * @extends \Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration\VisitorTest<\Netgen\Layouts\API\Values\Collection\Query>
+ */
 abstract class QueryVisitorTest extends VisitorTest
 {
     public function getVisitor(): VisitorInterface
@@ -18,7 +21,7 @@ abstract class QueryVisitorTest extends VisitorTest
         return new QueryVisitor($this->collectionService);
     }
 
-    public function acceptProvider(): array
+    public function acceptDataProvider(): array
     {
         return [
             [new Query(), true],
@@ -27,7 +30,7 @@ abstract class QueryVisitorTest extends VisitorTest
         ];
     }
 
-    public function visitProvider(): array
+    public function visitDataProvider(): array
     {
         return [
             [function (): Query { return $this->collectionService->loadQuery(Uuid::fromString('86c5af5d-bcb3-5a93-aeed-754466d76878')); }, 'query/query_1.json'],

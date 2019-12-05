@@ -29,6 +29,8 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
     }
 
     /**
+     * @param mixed[]|null $valueTypes
+     *
      * @covers \Netgen\Layouts\Validator\Parameters\ItemLinkValidator::__construct
      * @covers \Netgen\Layouts\Validator\Parameters\ItemLinkValidator::validate
      * @dataProvider validateDataProvider

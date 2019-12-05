@@ -32,6 +32,8 @@ final class QueryUpdateStructValidatorTest extends ValidatorTestCase
     }
 
     /**
+     * @param mixed[] $value
+     *
      * @covers \Netgen\Layouts\Validator\Structs\QueryUpdateStructValidator::validate
      * @dataProvider validateDataProvider
      */

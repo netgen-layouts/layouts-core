@@ -25,7 +25,7 @@ final class TargetTypeRegistry implements IteratorAggregate, Countable, ArrayAcc
     private $targetTypes = [];
 
     /**
-     * @param iterable<string, \Netgen\Layouts\Layout\Resolver\TargetTypeInterface> $targetTypes
+     * @param iterable<int, \Netgen\Layouts\Layout\Resolver\TargetTypeInterface> $targetTypes
      */
     public function __construct(iterable $targetTypes)
     {

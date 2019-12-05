@@ -33,14 +33,14 @@ final class DateTimeTypeTest extends TestCase
      * @param bool $isEmpty
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::isValueEmpty
-     * @dataProvider emptyProvider
+     * @dataProvider emptyDataProvider
      */
     public function testIsValueEmpty($value, bool $isEmpty): void
     {
         self::assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }
 
-    public function emptyProvider(): array
+    public function emptyDataProvider(): array
     {
         return [
             [null, true],
@@ -56,14 +56,14 @@ final class DateTimeTypeTest extends TestCase
      * @param mixed $convertedValue
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::toHash
-     * @dataProvider toHashProvider
+     * @dataProvider toHashDataProvider
      */
     public function testToHash($value, $convertedValue): void
     {
         self::assertSame($convertedValue, $this->type->toHash($this->getParameterDefinition(), $value));
     }
 
-    public function toHashProvider(): array
+    public function toHashDataProvider(): array
     {
         return [
             [42, null],
@@ -103,14 +103,14 @@ final class DateTimeTypeTest extends TestCase
      * @param mixed $convertedValue
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::fromHash
-     * @dataProvider invalidFromHashProvider
+     * @dataProvider invalidFromHashDataProvider
      */
     public function testFromHashWithInvalidValues($value, $convertedValue): void
     {
         self::assertSame($convertedValue, $this->type->fromHash($this->getParameterDefinition(), $value));
     }
 
-    public function invalidFromHashProvider(): array
+    public function invalidFromHashDataProvider(): array
     {
         return [
             [null, null],
@@ -129,7 +129,7 @@ final class DateTimeTypeTest extends TestCase
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::getRequiredConstraints
      * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::getValueConstraints
-     * @dataProvider validationProvider
+     * @dataProvider validationDataProvider
      */
     public function testValidation($value, bool $isValid): void
     {
@@ -142,7 +142,7 @@ final class DateTimeTypeTest extends TestCase
         self::assertSame($isValid, $errors->count() === 0);
     }
 
-    public function validationProvider(): array
+    public function validationDataProvider(): array
     {
         return [
             [null, true],

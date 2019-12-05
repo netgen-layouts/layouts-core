@@ -23,6 +23,9 @@ final class ParameterStruct implements APIParameterStruct
         $this->fillFromCollection($definitions, $parameters);
     }
 
+    /**
+     * @param array<string, mixed> $values
+     */
     public function fillParametersFromHash(ParameterDefinitionCollectionInterface $definitions, array $values, bool $doImport = false): void
     {
         $this->fillFromHash($definitions, $values, $doImport);

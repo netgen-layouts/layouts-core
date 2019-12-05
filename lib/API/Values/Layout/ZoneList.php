@@ -39,11 +39,13 @@ final class ZoneList extends ArrayCollection
      */
     public function getZoneIdentifiers(): array
     {
-        return array_map(
-            static function (Zone $zone): string {
-                return $zone->getIdentifier();
-            },
-            $this->getZones()
+        return array_values(
+            array_map(
+                static function (Zone $zone): string {
+                    return $zone->getIdentifier();
+                },
+                $this->getZones()
+            )
         );
     }
 }

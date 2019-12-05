@@ -50,8 +50,10 @@ final class CollectionValidatorTest extends TestCase
     }
 
     /**
+     * @param array<string, mixed> $params
+     *
      * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateCollectionCreateStruct
-     * @dataProvider validateCollectionCreateStructProvider
+     * @dataProvider validateCollectionCreateStructDataProvider
      */
     public function testValidateCollectionCreateStruct(array $params, bool $isValid): void
     {
@@ -69,8 +71,10 @@ final class CollectionValidatorTest extends TestCase
     }
 
     /**
+     * @param array<string, mixed> $params
+     *
      * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateCollectionUpdateStruct
-     * @dataProvider validateCollectionUpdateStructProvider
+     * @dataProvider validateCollectionUpdateStructDataProvider
      */
     public function testValidateCollectionUpdateStruct(array $params, bool $isDynamic, bool $isValid): void
     {
@@ -91,8 +95,10 @@ final class CollectionValidatorTest extends TestCase
     }
 
     /**
+     * @param array<string, mixed> $params
+     *
      * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateItemCreateStruct
-     * @dataProvider validateItemCreateStructProvider
+     * @dataProvider validateItemCreateStructDataProvider
      */
     public function testValidateItemCreateStruct(array $params, bool $isValid): void
     {
@@ -110,6 +116,8 @@ final class CollectionValidatorTest extends TestCase
     }
 
     /**
+     * @param array<string, mixed> $params
+     *
      * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateItemUpdateStruct
      * @dataProvider validateItemUpdateStructDataProvider
      */
@@ -142,8 +150,10 @@ final class CollectionValidatorTest extends TestCase
     }
 
     /**
+     * @param array<string, mixed> $params
+     *
      * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateQueryCreateStruct
-     * @dataProvider validateQueryCreateStructProvider
+     * @dataProvider validateQueryCreateStructDataProvider
      */
     public function testValidateQueryCreateStruct(array $params, bool $isValid): void
     {
@@ -161,8 +171,10 @@ final class CollectionValidatorTest extends TestCase
     }
 
     /**
+     * @param array<string, mixed> $params
+     *
      * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateQueryUpdateStruct
-     * @dataProvider validateQueryUpdateStructProvider
+     * @dataProvider validateQueryUpdateStructDataProvider
      */
     public function testValidateQueryUpdateStruct(array $params, bool $isValid): void
     {
@@ -183,8 +195,10 @@ final class CollectionValidatorTest extends TestCase
     }
 
     /**
+     * @param array<string, mixed> $params
+     *
      * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateSlotCreateStruct
-     * @dataProvider validateSlotCreateStructProvider
+     * @dataProvider validateSlotCreateStructDataProvider
      */
     public function testValidateSlotCreateStruct(array $params, bool $isValid): void
     {
@@ -202,6 +216,8 @@ final class CollectionValidatorTest extends TestCase
     }
 
     /**
+     * @param array<string, mixed> $params
+     *
      * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateSlotUpdateStruct
      * @dataProvider validateSlotUpdateStructDataProvider
      */
@@ -220,7 +236,7 @@ final class CollectionValidatorTest extends TestCase
         $this->collectionValidator->validateSlotUpdateStruct($struct);
     }
 
-    public function validateCollectionCreateStructProvider(): array
+    public function validateCollectionCreateStructDataProvider(): array
     {
         $queryCreateStruct = new QueryCreateStruct(new QueryType('test'));
         $queryCreateStruct->setParameterValues(['param' => 'value']);
@@ -320,7 +336,7 @@ final class CollectionValidatorTest extends TestCase
         ];
     }
 
-    public function validateCollectionUpdateStructProvider(): array
+    public function validateCollectionUpdateStructDataProvider(): array
     {
         return [
             [
@@ -466,7 +482,7 @@ final class CollectionValidatorTest extends TestCase
         ];
     }
 
-    public function validateItemCreateStructProvider(): array
+    public function validateItemCreateStructDataProvider(): array
     {
         return [
             [
@@ -564,7 +580,7 @@ final class CollectionValidatorTest extends TestCase
         ];
     }
 
-    public function validateQueryCreateStructProvider(): array
+    public function validateQueryCreateStructDataProvider(): array
     {
         return [
             [
@@ -604,7 +620,7 @@ final class CollectionValidatorTest extends TestCase
         ];
     }
 
-    public function validateQueryUpdateStructProvider(): array
+    public function validateQueryUpdateStructDataProvider(): array
     {
         return [
             [
@@ -688,7 +704,7 @@ final class CollectionValidatorTest extends TestCase
         ];
     }
 
-    public function validateSlotCreateStructProvider(): array
+    public function validateSlotCreateStructDataProvider(): array
     {
         return [
             [

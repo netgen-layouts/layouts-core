@@ -35,6 +35,9 @@ final class DefaultContextTest extends NodeTest
         self::assertSame($var, $node->getNode('expr'));
     }
 
+    /**
+     * @return mixed[]
+     */
     public function getTests(): array
     {
         $environment = $this->getEnvironment();

@@ -35,7 +35,7 @@ final class ChoiceTypeTest extends TestCase
      * @param mixed $defaultValue
      * @param mixed $expected
      *
-     * @dataProvider defaultValueProvider
+     * @dataProvider defaultValueDataProvider
      */
     public function testGetDefaultValue(array $options, bool $required, $defaultValue, $expected): void
     {
@@ -44,8 +44,11 @@ final class ChoiceTypeTest extends TestCase
     }
 
     /**
+     * @param mixed[] $options
+     * @param mixed[] $resolvedOptions
+     *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::configureOptions
-     * @dataProvider validOptionsProvider
+     * @dataProvider validOptionsDataProvider
      */
     public function testValidOptions(array $options, array $resolvedOptions): void
     {
@@ -54,8 +57,10 @@ final class ChoiceTypeTest extends TestCase
     }
 
     /**
+     * @param mixed[] $options
+     *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::configureOptions
-     * @dataProvider invalidOptionsProvider
+     * @dataProvider invalidOptionsDataProvider
      */
     public function testInvalidOptions(array $options): void
     {
@@ -67,7 +72,7 @@ final class ChoiceTypeTest extends TestCase
     /**
      * Provider for testing default parameter values.
      */
-    public function defaultValueProvider(): array
+    public function defaultValueDataProvider(): array
     {
         $optionsClosure = static function (): array {
             return ['Option' => 'option'];
@@ -88,7 +93,7 @@ final class ChoiceTypeTest extends TestCase
     /**
      * Provider for testing valid parameter attributes.
      */
-    public function validOptionsProvider(): array
+    public function validOptionsDataProvider(): array
     {
         $closure = static function (): void {};
 
@@ -193,7 +198,7 @@ final class ChoiceTypeTest extends TestCase
     /**
      * Provider for testing invalid parameter attributes.
      */
-    public function invalidOptionsProvider(): array
+    public function invalidOptionsDataProvider(): array
     {
         return [
             [
@@ -240,7 +245,7 @@ final class ChoiceTypeTest extends TestCase
      * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::getValueConstraints
-     * @dataProvider validationProvider
+     * @dataProvider validationDataProvider
      */
     public function testValidation($value, bool $isValid): void
     {
@@ -256,7 +261,7 @@ final class ChoiceTypeTest extends TestCase
      * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::getValueConstraints
-     * @dataProvider validationProvider
+     * @dataProvider validationDataProvider
      */
     public function testValidationWithClosure($value, bool $isValid): void
     {
@@ -274,7 +279,7 @@ final class ChoiceTypeTest extends TestCase
     /**
      * Provider for testing valid parameter values.
      */
-    public function validationProvider(): array
+    public function validationDataProvider(): array
     {
         return [
             [1, true],
@@ -295,7 +300,7 @@ final class ChoiceTypeTest extends TestCase
      * @param bool $multiple
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::fromHash
-     * @dataProvider fromHashProvider
+     * @dataProvider fromHashDataProvider
      */
     public function testFromHash($value, $convertedValue, bool $multiple): void
     {
@@ -313,7 +318,7 @@ final class ChoiceTypeTest extends TestCase
         );
     }
 
-    public function fromHashProvider(): array
+    public function fromHashDataProvider(): array
     {
         return [
             [
@@ -364,14 +369,14 @@ final class ChoiceTypeTest extends TestCase
      * @param bool $isEmpty
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::isValueEmpty
-     * @dataProvider emptyProvider
+     * @dataProvider emptyDataProvider
      */
     public function testIsValueEmpty($value, bool $isEmpty): void
     {
         self::assertSame($isEmpty, $this->type->isValueEmpty(new ParameterDefinition(), $value));
     }
 
-    public function emptyProvider(): array
+    public function emptyDataProvider(): array
     {
         return [
             [null, true],

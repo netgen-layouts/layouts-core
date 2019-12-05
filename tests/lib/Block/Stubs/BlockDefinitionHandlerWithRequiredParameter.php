@@ -12,6 +12,9 @@ use Netgen\Layouts\Parameters\ParameterType;
 
 final class BlockDefinitionHandlerWithRequiredParameter extends BaseBlockDefinitionHandler
 {
+    /**
+     * @return array<string, \Netgen\Layouts\Parameters\ParameterDefinition>
+     */
     public function getParameterDefinitions(): array
     {
         return [

@@ -27,8 +27,10 @@ final class TypeTest extends TestCase
     }
 
     /**
+     * @param mixed[] $config
+     *
      * @covers \Netgen\Layouts\View\Matcher\Layout\Type::match
-     * @dataProvider matchProvider
+     * @dataProvider matchDataProvider
      */
     public function testMatch(array $config, bool $expected): void
     {
@@ -76,8 +78,10 @@ final class TypeTest extends TestCase
     }
 
     /**
+     * @param mixed[] $config
+     *
      * @covers \Netgen\Layouts\View\Matcher\Layout\Type::match
-     * @dataProvider matchLayoutTypeProvider
+     * @dataProvider matchLayoutTypeDataProvider
      */
     public function testMatchLayoutType(array $config, bool $expected): void
     {
@@ -86,7 +90,7 @@ final class TypeTest extends TestCase
         self::assertSame($expected, $this->matcher->match($view, $config));
     }
 
-    public function matchProvider(): array
+    public function matchDataProvider(): array
     {
         return [
             [[], false],
@@ -97,7 +101,7 @@ final class TypeTest extends TestCase
         ];
     }
 
-    public function matchLayoutTypeProvider(): array
+    public function matchLayoutTypeDataProvider(): array
     {
         return [
             [[], false],

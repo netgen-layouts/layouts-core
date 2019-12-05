@@ -14,15 +14,21 @@ use Netgen\Layouts\Parameters\ParameterType;
 final class BlockDefinitionHandlerWithTranslatableCompoundParameter extends BaseBlockDefinitionHandler
 {
     /**
-     * @var array
+     * @var string[]
      */
     private $parameterGroups;
 
+    /**
+     * @param string[] $parameterGroups
+     */
     public function __construct(array $parameterGroups = [])
     {
         $this->parameterGroups = $parameterGroups;
     }
 
+    /**
+     * @return array<string, \Netgen\Layouts\Parameters\ParameterDefinition>
+     */
     public function getParameterDefinitions(): array
     {
         $compoundParam = CompoundParameterDefinition::fromArray(

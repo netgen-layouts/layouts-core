@@ -39,11 +39,13 @@ final class ConfigList extends ArrayCollection
      */
     public function getConfigKeys(): array
     {
-        return array_map(
-            static function (Config $config): string {
-                return $config->getConfigKey();
-            },
-            $this->getConfigs()
+        return array_values(
+            array_map(
+                static function (Config $config): string {
+                    return $config->getConfigKey();
+                },
+                $this->getConfigs()
+            )
         );
     }
 }

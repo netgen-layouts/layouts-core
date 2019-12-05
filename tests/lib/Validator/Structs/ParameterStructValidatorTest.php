@@ -62,6 +62,8 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
     }
 
     /**
+     * @param mixed[] $value
+     *
      * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::buildConstraintFields
      * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::getAllValues
      * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::getParameterConstraints
@@ -80,12 +82,14 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
     }
 
     /**
+     * @param mixed[] $value
+     *
      * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::buildConstraintFields
      * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::getAllValues
      * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::getParameterConstraints
      * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::getRuntimeParameterConstraints
      * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::validate
-     * @dataProvider validateDataProviderWithRuntimeConstraints
+     * @dataProvider validateWithRuntimeConstraintsDataProvider
      */
     public function testValidateWithRuntimeConstraints(array $value, bool $required, bool $isValid): void
     {
@@ -216,7 +220,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
         ];
     }
 
-    public function validateDataProviderWithRuntimeConstraints(): array
+    public function validateWithRuntimeConstraintsDataProvider(): array
     {
         return [
             [['css_id' => 'fo'], true, false],

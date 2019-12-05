@@ -27,8 +27,11 @@ final class UrlTypeTest extends TestCase
     }
 
     /**
+     * @param mixed[] $options
+     * @param mixed[] $resolvedOptions
+     *
      * @covers \Netgen\Layouts\Parameters\ParameterType\UrlType::configureOptions
-     * @dataProvider validOptionsProvider
+     * @dataProvider validOptionsDataProvider
      */
     public function testValidOptions(array $options, array $resolvedOptions): void
     {
@@ -37,8 +40,10 @@ final class UrlTypeTest extends TestCase
     }
 
     /**
+     * @param mixed[] $options
+     *
      * @covers \Netgen\Layouts\Parameters\ParameterType\UrlType::configureOptions
-     * @dataProvider invalidOptionsProvider
+     * @dataProvider invalidOptionsDataProvider
      */
     public function testInvalidOptions(array $options): void
     {
@@ -50,7 +55,7 @@ final class UrlTypeTest extends TestCase
     /**
      * Provider for testing valid parameter attributes.
      */
-    public function validOptionsProvider(): array
+    public function validOptionsDataProvider(): array
     {
         return [
             [
@@ -63,7 +68,7 @@ final class UrlTypeTest extends TestCase
     /**
      * Provider for testing invalid parameter attributes.
      */
-    public function invalidOptionsProvider(): array
+    public function invalidOptionsDataProvider(): array
     {
         return [
             [
@@ -80,7 +85,7 @@ final class UrlTypeTest extends TestCase
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\UrlType::getRequiredConstraints
      * @covers \Netgen\Layouts\Parameters\ParameterType\UrlType::getValueConstraints
-     * @dataProvider validationProvider
+     * @dataProvider validationDataProvider
      */
     public function testValidation($value, bool $isValid): void
     {
@@ -91,7 +96,7 @@ final class UrlTypeTest extends TestCase
         self::assertSame($isValid, $errors->count() === 0);
     }
 
-    public function validationProvider(): array
+    public function validationDataProvider(): array
     {
         return [
             [null, true],
@@ -105,14 +110,14 @@ final class UrlTypeTest extends TestCase
      * @param bool $isEmpty
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\UrlType::isValueEmpty
-     * @dataProvider emptyProvider
+     * @dataProvider emptyDataProvider
      */
     public function testIsValueEmpty($value, bool $isEmpty): void
     {
         self::assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }
 
-    public function emptyProvider(): array
+    public function emptyDataProvider(): array
     {
         return [
             [null, true],

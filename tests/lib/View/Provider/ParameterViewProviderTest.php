@@ -51,14 +51,14 @@ final class ParameterViewProviderTest extends TestCase
      * @param bool $supports
      *
      * @covers \Netgen\Layouts\View\Provider\ParameterViewProvider::supports
-     * @dataProvider supportsProvider
+     * @dataProvider supportsDataProvider
      */
     public function testSupports($value, bool $supports): void
     {
         self::assertSame($supports, $this->parameterViewProvider->supports($value));
     }
 
-    public function supportsProvider(): array
+    public function supportsDataProvider(): array
     {
         return [
             [new Value(), false],

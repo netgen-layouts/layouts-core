@@ -25,7 +25,7 @@ final class ConditionTypeRegistry implements IteratorAggregate, Countable, Array
     private $conditionTypes = [];
 
     /**
-     * @param iterable<string, \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface> $conditionTypes
+     * @param iterable<int, \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface> $conditionTypes
      */
     public function __construct(iterable $conditionTypes)
     {

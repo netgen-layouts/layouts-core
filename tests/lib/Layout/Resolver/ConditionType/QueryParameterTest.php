@@ -34,7 +34,7 @@ final class QueryParameterTest extends TestCase
      * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\QueryParameter::getConstraints
-     * @dataProvider validationProvider
+     * @dataProvider validationDataProvider
      */
     public function testValidation($value, bool $isValid): void
     {
@@ -50,7 +50,7 @@ final class QueryParameterTest extends TestCase
      * @param mixed $value
      * @param bool $matches
      *
-     * @dataProvider matchesProvider
+     * @dataProvider matchesDataProvider
      */
     public function testMatches($value, bool $matches): void
     {
@@ -60,7 +60,7 @@ final class QueryParameterTest extends TestCase
         self::assertSame($matches, $this->conditionType->matches($request, $value));
     }
 
-    public function validationProvider(): array
+    public function validationDataProvider(): array
     {
         return [
             [['parameter_name' => 'name', 'parameter_values' => ['one', 'two']], true],
@@ -86,7 +86,7 @@ final class QueryParameterTest extends TestCase
         ];
     }
 
-    public function matchesProvider(): array
+    public function matchesDataProvider(): array
     {
         return [
             ['not_array', false],

@@ -55,14 +55,14 @@ final class FormViewProviderTest extends TestCase
      * @param bool $supports
      *
      * @covers \Netgen\Layouts\View\Provider\FormViewProvider::supports
-     * @dataProvider supportsProvider
+     * @dataProvider supportsDataProvider
      */
     public function testSupports($value, bool $supports): void
     {
         self::assertSame($supports, $this->formViewProvider->supports($value));
     }
 
-    public function supportsProvider(): array
+    public function supportsDataProvider(): array
     {
         return [
             [new Value(), false],

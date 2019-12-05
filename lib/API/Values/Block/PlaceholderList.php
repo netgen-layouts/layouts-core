@@ -39,11 +39,13 @@ final class PlaceholderList extends ArrayCollection
      */
     public function getPlaceholderIdentifiers(): array
     {
-        return array_map(
-            static function (Placeholder $placeholder): string {
-                return $placeholder->getIdentifier();
-            },
-            $this->getPlaceholders()
+        return array_values(
+            array_map(
+                static function (Placeholder $placeholder): string {
+                    return $placeholder->getIdentifier();
+                },
+                $this->getPlaceholders()
+            )
         );
     }
 }

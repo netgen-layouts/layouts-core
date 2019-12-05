@@ -49,14 +49,14 @@ final class RuleTargetProviderTest extends TestCase
      * @param bool $supports
      *
      * @covers \Netgen\Layouts\View\Provider\RuleTargetViewProvider::supports
-     * @dataProvider supportsProvider
+     * @dataProvider supportsDataProvider
      */
     public function testSupports($value, bool $supports): void
     {
         self::assertSame($supports, $this->ruleTargetViewProvider->supports($value));
     }
 
-    public function supportsProvider(): array
+    public function supportsDataProvider(): array
     {
         return [
             [new Target(), true],

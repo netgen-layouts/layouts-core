@@ -41,6 +41,10 @@ final class DynamicCollectionRunnerTest extends TestCase
     }
 
     /**
+     * @param mixed[] $itemValues
+     * @param mixed[] $queryItems
+     * @param mixed[] $expected
+     *
      * @covers \Netgen\Layouts\Collection\Result\DynamicCollectionRunner::__construct
      * @covers \Netgen\Layouts\Collection\Result\DynamicCollectionRunner::buildManualResult
      * @covers \Netgen\Layouts\Collection\Result\DynamicCollectionRunner::count
@@ -49,7 +53,7 @@ final class DynamicCollectionRunnerTest extends TestCase
      * @covers \Netgen\Layouts\Collection\Result\DynamicCollectionRunner::runCollection
      * @covers \Netgen\Layouts\Collection\Result\DynamicCollectionRunner::runQuery
      *
-     * @dataProvider dynamicCollectionProvider
+     * @dataProvider dynamicCollectionDataProvider
      */
     public function testCollectionResult(
         array $itemValues,
@@ -103,7 +107,7 @@ final class DynamicCollectionRunnerTest extends TestCase
     /**
      * Builds data providers for building result from dynamic collection.
      */
-    public function dynamicCollectionProvider(): array
+    public function dynamicCollectionDataProvider(): array
     {
         return [
             [

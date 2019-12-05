@@ -27,6 +27,9 @@ final class QueryType implements QueryTypeInterface
      */
     private $handler;
 
+    /**
+     * @param mixed[] $values
+     */
     public function __construct(string $type, array $values = [], ?int $count = null, bool $isContextual = false, bool $enabled = true)
     {
         $this->type = $type;

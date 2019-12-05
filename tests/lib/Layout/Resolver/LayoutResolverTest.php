@@ -326,11 +326,13 @@ final class LayoutResolverTest extends TestCase
     }
 
     /**
+     * @param string[] $conditionTypes
+     *
      * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::innerResolveRules
      * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::matches
      * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveRules
      *
-     * @dataProvider resolveRulesWithPartialRuleConditionsProvider
+     * @dataProvider resolveRulesWithPartialRuleConditionsDataProvider
      */
     public function testResolveRulesWithConditionsAndPartialConditionMatching(array $conditionTypes, ?int $layoutId): void
     {
@@ -376,11 +378,13 @@ final class LayoutResolverTest extends TestCase
     }
 
     /**
+     * @param string[] $conditionTypes
+     *
      * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::innerResolveRules
      * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::matches
      * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveRules
      *
-     * @dataProvider resolveRulesWithRuleConditionsProvider
+     * @dataProvider resolveRulesWithRuleConditionsDataProvider
      */
     public function testResolveRulesWithConditions(array $conditionTypes, ?int $layoutId): void
     {
@@ -644,11 +648,13 @@ final class LayoutResolverTest extends TestCase
     }
 
     /**
+     * @param string[] $conditionTypes
+     *
      * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::innerResolveRules
      * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::matches
      * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveRule
      *
-     * @dataProvider resolveRulesWithPartialRuleConditionsProvider
+     * @dataProvider resolveRulesWithPartialRuleConditionsDataProvider
      */
     public function testResolveRuleWithConditionsAndPartialConditionMatching(array $conditionTypes, ?int $layoutId): void
     {
@@ -680,11 +686,13 @@ final class LayoutResolverTest extends TestCase
     }
 
     /**
+     * @param string[] $conditionTypes
+     *
      * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::innerResolveRules
      * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::matches
      * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveRule
      *
-     * @dataProvider resolveRulesWithRuleConditionsProvider
+     * @dataProvider resolveRulesWithRuleConditionsDataProvider
      */
     public function testResolveRuleWithConditions(array $conditionTypes, ?int $layoutId): void
     {
@@ -716,9 +724,11 @@ final class LayoutResolverTest extends TestCase
     }
 
     /**
+     * @param string[] $conditionTypes
+     *
      * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::matches
      *
-     * @dataProvider matchesProvider
+     * @dataProvider matchesDataProvider
      */
     public function testMatches(array $conditionTypes, bool $isMatch): void
     {
@@ -739,7 +749,7 @@ final class LayoutResolverTest extends TestCase
         self::assertSame($isMatch, $this->layoutResolver->matches($rule, Request::create('/')));
     }
 
-    public function resolveRulesWithRuleConditionsProvider(): array
+    public function resolveRulesWithRuleConditionsDataProvider(): array
     {
         return [
             [[], 42],
@@ -752,7 +762,7 @@ final class LayoutResolverTest extends TestCase
         ];
     }
 
-    public function resolveRulesWithPartialRuleConditionsProvider(): array
+    public function resolveRulesWithPartialRuleConditionsDataProvider(): array
     {
         return [
             [[], 42],
@@ -765,7 +775,7 @@ final class LayoutResolverTest extends TestCase
         ];
     }
 
-    public function matchesProvider(): array
+    public function matchesDataProvider(): array
     {
         return [
             [[], true],

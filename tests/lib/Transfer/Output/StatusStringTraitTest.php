@@ -23,8 +23,10 @@ final class StatusStringTraitTest extends TestCase
     }
 
     /**
+     * @param mixed[] $visitedValue
+     *
      * @covers \Netgen\Layouts\Transfer\Output\StatusStringTrait::getStatusString
-     * @dataProvider visitProvider
+     * @dataProvider visitDataProvider
      */
     public function testVisit(int $status, array $visitedValue): void
     {
@@ -42,7 +44,7 @@ final class StatusStringTraitTest extends TestCase
         $this->visitor->visit(Value::fromArray(['status' => 9999]), new OutputVisitor([]));
     }
 
-    public function visitProvider(): array
+    public function visitDataProvider(): array
     {
         return [
             [Value::STATUS_DRAFT, ['status' => 'DRAFT']],

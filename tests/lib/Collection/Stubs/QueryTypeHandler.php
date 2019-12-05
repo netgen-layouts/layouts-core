@@ -13,7 +13,7 @@ use Netgen\Layouts\Parameters\ParameterType\TextLineType;
 final class QueryTypeHandler implements QueryTypeHandlerInterface
 {
     /**
-     * @var array
+     * @var mixed[]
      */
     private $values;
 
@@ -27,6 +27,9 @@ final class QueryTypeHandler implements QueryTypeHandlerInterface
      */
     private $isContextual;
 
+    /**
+     * @param mixed[] $values
+     */
     public function __construct(array $values = [], ?int $count = null, bool $isContextual = false)
     {
         $this->values = $values;
@@ -38,6 +41,9 @@ final class QueryTypeHandler implements QueryTypeHandlerInterface
     {
     }
 
+    /**
+     * @return array<string, \Netgen\Layouts\Parameters\ParameterDefinition>
+     */
     public function getParameterDefinitions(): array
     {
         return [

@@ -11,6 +11,9 @@ use Netgen\Layouts\Transfer\Output\Visitor\SlotVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * @extends \Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration\VisitorTest<\Netgen\Layouts\API\Values\Collection\Slot>
+ */
 abstract class SlotVisitorTest extends VisitorTest
 {
     public function getVisitor(): VisitorInterface
@@ -18,7 +21,7 @@ abstract class SlotVisitorTest extends VisitorTest
         return new SlotVisitor();
     }
 
-    public function acceptProvider(): array
+    public function acceptDataProvider(): array
     {
         return [
             [new Slot(), true],
@@ -27,7 +30,7 @@ abstract class SlotVisitorTest extends VisitorTest
         ];
     }
 
-    public function visitProvider(): array
+    public function visitDataProvider(): array
     {
         return [
             [function (): Slot { return $this->collectionService->loadSlot(Uuid::fromString('c63c9523-e579-4dc9-b1d2-f9d12470a014')); }, 'slot/slot_3.json'],

@@ -44,6 +44,8 @@ final class LayoutValidatorTest extends TestCase
     }
 
     /**
+     * @param array<string, mixed> $params
+     *
      * @covers \Netgen\Layouts\Core\Validator\LayoutValidator::validateLayoutCreateStruct
      * @dataProvider validateLayoutCreateStructDataProvider
      */
@@ -63,6 +65,8 @@ final class LayoutValidatorTest extends TestCase
     }
 
     /**
+     * @param array<string, mixed> $params
+     *
      * @covers \Netgen\Layouts\Core\Validator\LayoutValidator::validateLayoutUpdateStruct
      * @dataProvider validateLayoutUpdateStructDataProvider
      */
@@ -82,6 +86,8 @@ final class LayoutValidatorTest extends TestCase
     }
 
     /**
+     * @param array<string, mixed> $params
+     *
      * @covers \Netgen\Layouts\Core\Validator\LayoutValidator::validateLayoutCopyStruct
      * @dataProvider validateLayoutCopyStructDataProvider
      */
@@ -101,6 +107,8 @@ final class LayoutValidatorTest extends TestCase
     }
 
     /**
+     * @param array<string, string[]> $zoneMapping
+     *
      * @covers \Netgen\Layouts\Core\Validator\LayoutValidator::validateChangeLayoutType
      * @dataProvider validateChangeLayoutTypeDataProvider
      */

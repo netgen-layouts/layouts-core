@@ -15,7 +15,7 @@ final class ValueStatusTraitTest extends TestCase
      * @covers \Netgen\Layouts\API\Values\ValueStatusTrait::isDraft
      * @covers \Netgen\Layouts\API\Values\ValueStatusTrait::isPublished
      *
-     * @dataProvider statusProvider
+     * @dataProvider statusDataProvider
      */
     public function testStatus(int $status, bool $isDraft, bool $isPublished, bool $isArchived): void
     {
@@ -27,7 +27,7 @@ final class ValueStatusTraitTest extends TestCase
         self::assertSame($isArchived, $value->isArchived());
     }
 
-    public function statusProvider(): array
+    public function statusDataProvider(): array
     {
         return [
             [Value::STATUS_DRAFT, true, false, false],

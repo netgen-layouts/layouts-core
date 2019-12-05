@@ -11,6 +11,9 @@ use Netgen\Layouts\Transfer\Output\Visitor\ConfigVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * @extends \Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration\VisitorTest<\Netgen\Layouts\API\Values\Config\Config>
+ */
 abstract class ConfigVisitorTest extends VisitorTest
 {
     public function getVisitor(): VisitorInterface
@@ -18,7 +21,7 @@ abstract class ConfigVisitorTest extends VisitorTest
         return new ConfigVisitor();
     }
 
-    public function acceptProvider(): array
+    public function acceptDataProvider(): array
     {
         return [
             [new Config(), true],
@@ -27,7 +30,7 @@ abstract class ConfigVisitorTest extends VisitorTest
         ];
     }
 
-    public function visitProvider(): array
+    public function visitDataProvider(): array
     {
         return [
             [function (): Config { return $this->blockService->loadBlock(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'))->getConfig('key'); }, 'config/block_31.json'],

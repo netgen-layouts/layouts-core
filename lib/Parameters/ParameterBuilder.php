@@ -58,7 +58,7 @@ class ParameterBuilder implements ParameterBuilderInterface
     private $groups = [];
 
     /**
-     * @var \Symfony\Component\Validator\Constraint[]
+     * @var array<\Symfony\Component\Validator\Constraint|\Closure>
      */
     private $constraints = [];
 

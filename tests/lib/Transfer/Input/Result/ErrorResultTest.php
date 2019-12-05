@@ -31,7 +31,7 @@ final class ErrorResultTest extends TestCase
         $this->entityId = Uuid::uuid4();
         $this->error = new Exception();
 
-        $this->result = new ErrorResult('type', ['data'], $this->entityId, $this->error);
+        $this->result = new ErrorResult('type', ['key' => 'data'], $this->entityId, $this->error);
     }
 
     /**
@@ -48,7 +48,7 @@ final class ErrorResultTest extends TestCase
      */
     public function testGetData(): void
     {
-        self::assertSame(['data'], $this->result->getData());
+        self::assertSame(['key' => 'data'], $this->result->getData());
     }
 
     /**

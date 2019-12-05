@@ -6,6 +6,7 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection;
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension;
+use Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\Stubs\DummyExtensionPlugin;
 use Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\Stubs\ExtensionPlugin;
 use Netgen\Layouts\Exception\RuntimeException;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
@@ -18,7 +19,7 @@ use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 final class NetgenLayoutsExtensionTest extends AbstractExtensionTestCase
 {
     /**
-     * @var array
+     * @var mixed[]
      */
     private $minimalConfig = [
         'design_list' => [
@@ -66,9 +67,9 @@ final class NetgenLayoutsExtensionTest extends AbstractExtensionTestCase
     public function testGetPluginThrowsRuntimeException(): void
     {
         $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Extension plugin "unknown" does not exist');
+        $this->expectExceptionMessage(sprintf('Extension plugin "%s" does not exist', DummyExtensionPlugin::class));
 
-        $this->extension->getPlugin('unknown');
+        $this->extension->getPlugin(DummyExtensionPlugin::class);
     }
 
     /**

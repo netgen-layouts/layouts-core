@@ -53,14 +53,14 @@ final class BlockViewProviderTest extends TestCase
      * @param bool $supports
      *
      * @covers \Netgen\Layouts\View\Provider\BlockViewProvider::supports
-     * @dataProvider supportsProvider
+     * @dataProvider supportsDataProvider
      */
     public function testSupports($value, bool $supports): void
     {
         self::assertSame($supports, $this->blockViewProvider->supports($value));
     }
 
-    public function supportsProvider(): array
+    public function supportsDataProvider(): array
     {
         return [
             [new Value(), false],

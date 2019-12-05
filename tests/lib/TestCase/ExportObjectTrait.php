@@ -8,6 +8,9 @@ use Netgen\Layouts\Utils\Hydrator;
 
 trait ExportObjectTrait
 {
+    /**
+     * @return array<string, mixed>
+     */
     private function exportObject(object $object, bool $recursive = false): array
     {
         $data = (new Hydrator())->extract($object);
@@ -19,6 +22,11 @@ trait ExportObjectTrait
         return $this->exportArray($data, $recursive);
     }
 
+    /**
+     * @param array<object> $objects
+     *
+     * @return array<array<string, mixed>>
+     */
     private function exportObjectList(array $objects, bool $recursive = false): array
     {
         $data = [];
@@ -34,6 +42,11 @@ trait ExportObjectTrait
         return $data;
     }
 
+    /**
+     * @param mixed[] $data
+     *
+     * @return mixed[]
+     */
     private function exportArray(array $data, bool $recursive = false): array
     {
         $exportedData = [];

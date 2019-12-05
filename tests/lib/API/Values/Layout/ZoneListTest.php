@@ -28,7 +28,7 @@ final class ZoneListTest extends TestCase
             )
         );
 
-        new ZoneList([new Zone(), new stdClass(), new Zone()]);
+        new ZoneList(['one' => new Zone(), 'two' => new stdClass(), 'three' => new Zone()]);
     }
 
     /**
@@ -37,7 +37,7 @@ final class ZoneListTest extends TestCase
      */
     public function testGetZones(): void
     {
-        $zones = [new Zone(), new Zone()];
+        $zones = ['one' => new Zone(), 'two' => new Zone()];
 
         self::assertSame($zones, (new ZoneList($zones))->getZones());
     }
@@ -47,7 +47,10 @@ final class ZoneListTest extends TestCase
      */
     public function testGetZoneIdentifiers(): void
     {
-        $zones = [Zone::fromArray(['identifier' => 'left']), Zone::fromArray(['identifier' => 'right'])];
+        $zones = [
+            'left' => Zone::fromArray(['identifier' => 'left']),
+            'right' => Zone::fromArray(['identifier' => 'right']),
+        ];
 
         self::assertSame(['left', 'right'], (new ZoneList($zones))->getZoneIdentifiers());
     }

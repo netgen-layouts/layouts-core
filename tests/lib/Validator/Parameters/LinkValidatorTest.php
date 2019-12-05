@@ -22,6 +22,8 @@ final class LinkValidatorTest extends ValidatorTestCase
     }
 
     /**
+     * @param mixed[]|null $valueTypes
+     *
      * @covers \Netgen\Layouts\Validator\Parameters\LinkValidator::validate
      * @dataProvider validateDataProvider
      */

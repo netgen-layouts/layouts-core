@@ -34,7 +34,7 @@ final class PathInfoTest extends TestCase
      * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Layout\Resolver\TargetType\PathInfo::getConstraints
-     * @dataProvider validationProvider
+     * @dataProvider validationDataProvider
      */
     public function testValidation($value, bool $isValid): void
     {
@@ -57,7 +57,7 @@ final class PathInfoTest extends TestCase
         );
     }
 
-    public function validationProvider(): array
+    public function validationDataProvider(): array
     {
         return [
             ['/some/route', true],

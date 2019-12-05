@@ -36,8 +36,10 @@ final class DefinitionTest extends TestCase
     }
 
     /**
+     * @param mixed[] $config
+     *
      * @covers \Netgen\Layouts\View\Matcher\Form\Block\Definition::match
-     * @dataProvider matchProvider
+     * @dataProvider matchDataProvider
      */
     public function testMatch(array $config, bool $expected): void
     {
@@ -98,7 +100,7 @@ final class DefinitionTest extends TestCase
         self::assertFalse($this->matcher->match(new FormView($form), ['test']));
     }
 
-    public function matchProvider(): array
+    public function matchDataProvider(): array
     {
         return [
             [[], false],

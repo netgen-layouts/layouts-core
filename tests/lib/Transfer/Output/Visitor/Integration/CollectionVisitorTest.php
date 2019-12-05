@@ -11,6 +11,9 @@ use Netgen\Layouts\Transfer\Output\Visitor\CollectionVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 use Ramsey\Uuid\Uuid;
 
+/**
+ * @extends \Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration\VisitorTest<\Netgen\Layouts\API\Values\Collection\Collection>
+ */
 abstract class CollectionVisitorTest extends VisitorTest
 {
     public function getVisitor(): VisitorInterface
@@ -18,7 +21,7 @@ abstract class CollectionVisitorTest extends VisitorTest
         return new CollectionVisitor();
     }
 
-    public function acceptProvider(): array
+    public function acceptDataProvider(): array
     {
         return [
             [new Collection(), true],
@@ -27,7 +30,7 @@ abstract class CollectionVisitorTest extends VisitorTest
         ];
     }
 
-    public function visitProvider(): array
+    public function visitDataProvider(): array
     {
         return [
             [function (): Collection { return $this->collectionService->loadCollection(Uuid::fromString('45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a')); }, 'collection/collection_2.json'],

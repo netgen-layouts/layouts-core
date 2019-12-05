@@ -55,14 +55,14 @@ final class DateTimeUtilsTest extends TestCase
 
     /**
      * @covers \Netgen\Layouts\Utils\DateTimeUtils::isBetweenDates
-     * @dataProvider isBetweenDatesProvider
+     * @dataProvider isBetweenDatesDataProvider
      */
     public function testIsBetweenDates(?DateTimeInterface $from = null, ?DateTimeInterface $to = null, bool $result = false): void
     {
         self::assertSame($result, DateTimeUtils::isBetweenDates(new DateTimeImmutable('@15000'), $from, $to));
     }
 
-    public function isBetweenDatesProvider(): array
+    public function isBetweenDatesDataProvider(): array
     {
         return [
             [new DateTimeImmutable('@10000'), new DateTimeImmutable('@20000'), true],
@@ -86,8 +86,10 @@ final class DateTimeUtilsTest extends TestCase
     }
 
     /**
+     * @param mixed[] $input
+     *
      * @covers \Netgen\Layouts\Utils\DateTimeUtils::createFromArray
-     * @dataProvider createFromArrayProvider
+     * @dataProvider createFromArrayDataProvider
      */
     public function testCreateFromArray(array $input, bool $isValid): void
     {
@@ -103,7 +105,7 @@ final class DateTimeUtilsTest extends TestCase
         self::assertSame($input['timezone'], $dateTime->getTimezone()->getName());
     }
 
-    public function createFromArrayProvider(): array
+    public function createFromArrayDataProvider(): array
     {
         return [
             [['datetime' => '2018-03-31 11:00:00', 'timezone' => 'Antarctica/Casey'], true],

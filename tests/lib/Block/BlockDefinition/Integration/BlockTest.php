@@ -22,6 +22,9 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 abstract class BlockTest extends CoreTestCase
 {
     /**
+     * @param array<string, mixed> $parameters
+     * @param array<string, mixed> $expectedParameters
+     *
      * @dataProvider parametersDataProvider
      */
     public function testCreateBlock(array $parameters, array $expectedParameters): void
@@ -53,6 +56,9 @@ abstract class BlockTest extends CoreTestCase
     }
 
     /**
+     * @param array<string, mixed> $parameters
+     * @param string[] $testedParams
+     *
      * @dataProvider invalidParametersDataProvider
      */
     public function testCreateBlockWithInvalidParameters(array $parameters, array $testedParams = []): void
@@ -98,6 +104,9 @@ abstract class BlockTest extends CoreTestCase
             ->getValidator();
     }
 
+    /**
+     * @param string[] $parameterNames
+     */
     private function createBlockDefinition(array $parameterNames = []): BlockDefinitionInterface
     {
         $handler = $this->createBlockDefinitionHandler();

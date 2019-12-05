@@ -34,7 +34,7 @@ final class NumberTypeTest extends TestCase
      * @param mixed $defaultValue
      * @param mixed $expected
      *
-     * @dataProvider defaultValueProvider
+     * @dataProvider defaultValueDataProvider
      */
     public function testGetDefaultValue(array $options, bool $required, $defaultValue, $expected): void
     {
@@ -43,8 +43,11 @@ final class NumberTypeTest extends TestCase
     }
 
     /**
+     * @param mixed[] $options
+     * @param mixed[] $resolvedOptions
+     *
      * @covers \Netgen\Layouts\Parameters\ParameterType\NumberType::configureOptions
-     * @dataProvider validOptionsProvider
+     * @dataProvider validOptionsDataProvider
      */
     public function testValidOptions(array $options, array $resolvedOptions): void
     {
@@ -53,8 +56,10 @@ final class NumberTypeTest extends TestCase
     }
 
     /**
+     * @param mixed[] $options
+     *
      * @covers \Netgen\Layouts\Parameters\ParameterType\NumberType::configureOptions
-     * @dataProvider invalidOptionsProvider
+     * @dataProvider invalidOptionsDataProvider
      */
     public function testInvalidOptions(array $options): void
     {
@@ -63,7 +68,7 @@ final class NumberTypeTest extends TestCase
         $this->getParameterDefinition($options);
     }
 
-    public function defaultValueProvider(): array
+    public function defaultValueDataProvider(): array
     {
         return [
             [[], true, null, null],
@@ -77,7 +82,7 @@ final class NumberTypeTest extends TestCase
         ];
     }
 
-    public function validOptionsProvider(): array
+    public function validOptionsDataProvider(): array
     {
         return [
             [
@@ -164,7 +169,7 @@ final class NumberTypeTest extends TestCase
         ];
     }
 
-    public function invalidOptionsProvider(): array
+    public function invalidOptionsDataProvider(): array
     {
         return [
             [
@@ -208,7 +213,7 @@ final class NumberTypeTest extends TestCase
      * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\NumberType::getValueConstraints
-     * @dataProvider validationProvider
+     * @dataProvider validationDataProvider
      */
     public function testValidation($value, bool $required, bool $isValid): void
     {
@@ -219,7 +224,7 @@ final class NumberTypeTest extends TestCase
         self::assertSame($isValid, $errors->count() === 0);
     }
 
-    public function validationProvider(): array
+    public function validationDataProvider(): array
     {
         return [
             ['12', false, false],
@@ -247,14 +252,14 @@ final class NumberTypeTest extends TestCase
      * @param bool $isEmpty
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\NumberType::isValueEmpty
-     * @dataProvider emptyProvider
+     * @dataProvider emptyDataProvider
      */
     public function testIsValueEmpty($value, bool $isEmpty): void
     {
         self::assertSame($isEmpty, $this->type->isValueEmpty($this->getParameterDefinition(), $value));
     }
 
-    public function emptyProvider(): array
+    public function emptyDataProvider(): array
     {
         return [
             [null, true],

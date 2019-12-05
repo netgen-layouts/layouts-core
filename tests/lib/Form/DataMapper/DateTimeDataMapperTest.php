@@ -43,8 +43,10 @@ final class DateTimeDataMapperTest extends DataMapperTest
     }
 
     /**
+     * @param mixed[] $input
+     *
      * @covers \Netgen\Layouts\Form\DataMapper\DateTimeDataMapper::mapDataToForms
-     * @dataProvider mapDataToFormsWithArrayProvider
+     * @dataProvider mapDataToFormsWithArrayDataProvider
      */
     public function testMapDataToFormsWithArray(array $input, ?string $dateTime, string $timeZone): void
     {
@@ -61,7 +63,7 @@ final class DateTimeDataMapperTest extends DataMapperTest
         self::assertSame($timeZone, $forms['timezone']->getData());
     }
 
-    public function mapDataToFormsWithArrayProvider(): array
+    public function mapDataToFormsWithArrayDataProvider(): array
     {
         return [
             [['datetime' => '2018-02-01 15:00:00', 'timezone' => 'Antarctica/Casey'], '2018-02-01 15:00:00', 'Antarctica/Casey'],

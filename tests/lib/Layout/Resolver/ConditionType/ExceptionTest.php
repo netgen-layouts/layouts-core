@@ -37,7 +37,7 @@ final class ExceptionTest extends TestCase
      * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\Exception::getConstraints
-     * @dataProvider validationProvider
+     * @dataProvider validationDataProvider
      */
     public function testValidation($value, bool $isValid): void
     {
@@ -53,7 +53,7 @@ final class ExceptionTest extends TestCase
      * @param mixed $value
      * @param bool $matches
      *
-     * @dataProvider matchesProvider
+     * @dataProvider matchesDataProvider
      */
     public function testMatches($value, bool $matches): void
     {
@@ -90,7 +90,7 @@ final class ExceptionTest extends TestCase
         self::assertFalse($this->conditionType->matches($request, [404]));
     }
 
-    public function validationProvider(): array
+    public function validationDataProvider(): array
     {
         return [
             [[200], false],
@@ -110,7 +110,7 @@ final class ExceptionTest extends TestCase
         ];
     }
 
-    public function matchesProvider(): array
+    public function matchesDataProvider(): array
     {
         return [
             ['not_array', false],

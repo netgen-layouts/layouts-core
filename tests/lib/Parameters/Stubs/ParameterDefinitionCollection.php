@@ -11,6 +11,9 @@ final class ParameterDefinitionCollection implements ParameterDefinitionCollecti
 {
     use ParameterDefinitionCollectionTrait;
 
+    /**
+     * @param \Netgen\Layouts\Parameters\ParameterDefinition[] $parameterDefinitions
+     */
     public function __construct(array $parameterDefinitions = [])
     {
         $this->parameterDefinitions = $parameterDefinitions;

@@ -9,10 +9,13 @@ use Psr\Container\ContainerInterface;
 final class Container implements ContainerInterface
 {
     /**
-     * @var array
+     * @var mixed[]
      */
     private $entries;
 
+    /**
+     * @param mixed[] $entries
+     */
     public function __construct(array $entries = [])
     {
         $this->entries = $entries;

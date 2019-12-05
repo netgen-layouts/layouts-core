@@ -14,6 +14,9 @@ use Netgen\Layouts\Tests\Transfer\Output\Visitor\Stubs\VisitorStub;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
+/**
+ * @template T of object
+ */
 abstract class VisitorTest extends CoreTestCase
 {
     /**
@@ -32,7 +35,7 @@ abstract class VisitorTest extends CoreTestCase
      * @param mixed $value
      * @param bool $accepted
      *
-     * @dataProvider acceptProvider
+     * @dataProvider acceptDataProvider
      */
     public function testAccept($value, bool $accepted): void
     {
@@ -43,7 +46,7 @@ abstract class VisitorTest extends CoreTestCase
      * @param mixed $value
      * @param string $fixturePath
      *
-     * @dataProvider visitProvider
+     * @dataProvider visitDataProvider
      */
     public function testVisit($value, string $fixturePath): void
     {
@@ -80,16 +83,18 @@ abstract class VisitorTest extends CoreTestCase
 
     /**
      * Returns the visitor under test.
+     *
+     * @return \Netgen\Layouts\Transfer\Output\VisitorInterface<T>
      */
     abstract public function getVisitor(): VisitorInterface;
 
     /**
      * Provides data for testing VisitorInterface::accept method.
      */
-    abstract public function acceptProvider(): array;
+    abstract public function acceptDataProvider(): array;
 
     /**
      * Provides data for testing VisitorInterface::visit method.
      */
-    abstract public function visitProvider(): array;
+    abstract public function visitDataProvider(): array;
 }

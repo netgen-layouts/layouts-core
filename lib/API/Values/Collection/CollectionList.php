@@ -13,7 +13,7 @@ use Ramsey\Uuid\UuidInterface;
 final class CollectionList extends ArrayCollection
 {
     /**
-     * @param \Netgen\Layouts\API\Values\Collection\Collection[] $collections
+     * @param array<string, \Netgen\Layouts\API\Values\Collection\Collection> $collections
      */
     public function __construct(array $collections = [])
     {
@@ -40,11 +40,13 @@ final class CollectionList extends ArrayCollection
      */
     public function getCollectionIds(): array
     {
-        return array_map(
-            static function (Collection $collection): UuidInterface {
-                return $collection->getId();
-            },
-            $this->getCollections()
+        return array_values(
+            array_map(
+                static function (Collection $collection): UuidInterface {
+                    return $collection->getId();
+                },
+                $this->getCollections()
+            )
         );
     }
 }

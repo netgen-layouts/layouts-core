@@ -313,7 +313,9 @@ final class BlockHandlerTest extends TestCase
         ];
 
         $blockCreateStruct->config = [
-            'config_param' => 'Config value',
+            'config_key' => [
+                'config_param' => 'Config value',
+            ],
         ];
 
         $createdBlock = $this->withUuids(
@@ -350,7 +352,9 @@ final class BlockHandlerTest extends TestCase
                     ],
                 ],
                 'config' => [
-                    'config_param' => 'Config value',
+                    'config_key' => [
+                        'config_param' => 'Config value',
+                    ],
                 ],
                 'viewType' => 'large',
                 'itemViewType' => 'standard',
@@ -531,7 +535,9 @@ final class BlockHandlerTest extends TestCase
         ];
 
         $blockCreateStruct->config = [
-            'config_param' => 'Config value',
+            'config_key' => [
+                'config_param' => 'Config value',
+            ],
         ];
 
         $block = $this->withUuids(
@@ -563,7 +569,9 @@ final class BlockHandlerTest extends TestCase
                     ],
                 ],
                 'config' => [
-                    'config_param' => 'Config value',
+                    'config_key' => [
+                        'config_param' => 'Config value',
+                    ],
                 ],
                 'viewType' => 'large',
                 'itemViewType' => 'standard',
@@ -599,7 +607,9 @@ final class BlockHandlerTest extends TestCase
         ];
 
         $blockCreateStruct->config = [
-            'config' => 'Config value',
+            'config_key' => [
+                'config_param' => 'Config value',
+            ],
         ];
 
         $block = $this->withUuids(
@@ -636,7 +646,9 @@ final class BlockHandlerTest extends TestCase
                     ],
                 ],
                 'config' => [
-                    'config' => 'Config value',
+                    'config_key' => [
+                        'config_param' => 'Config value',
+                    ],
                 ],
                 'viewType' => 'large',
                 'itemViewType' => 'standard',
@@ -754,10 +766,13 @@ final class BlockHandlerTest extends TestCase
         $blockUpdateStruct->viewType = 'large';
         $blockUpdateStruct->itemViewType = 'new';
         $blockUpdateStruct->name = 'Updated name';
-        $blockUpdateStruct->config = ['config'];
         $blockUpdateStruct->isTranslatable = false;
         $blockUpdateStruct->alwaysAvailable = false;
-        $blockUpdateStruct->config = ['config'];
+        $blockUpdateStruct->config = [
+            'config_key' => [
+                'config_param' => 'Config value',
+            ],
+        ];
 
         $updatedBlock = $this->blockHandler->updateBlock(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
@@ -788,7 +803,11 @@ final class BlockHandlerTest extends TestCase
                         'css_id' => 'css-id',
                     ],
                 ],
-                'config' => ['config'],
+                'config' => [
+                    'config_key' => [
+                        'config_param' => 'Config value',
+                    ],
+                ],
                 'viewType' => 'large',
                 'itemViewType' => 'new',
                 'name' => 'Updated name',

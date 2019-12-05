@@ -7,6 +7,9 @@ namespace Netgen\Layouts\Tests\Transfer\Output\Visitor\Stubs;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
+/**
+ * @implements \Netgen\Layouts\Transfer\Output\VisitorInterface<object>
+ */
 final class VisitorStub implements VisitorInterface
 {
     public function accept(object $value): bool

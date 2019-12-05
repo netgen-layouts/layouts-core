@@ -97,7 +97,7 @@ final class InvalidationListenerTest extends TestCase
             ->expects(self::once())
             ->method('commit');
 
-        $this->listener->OnKernelException($event);
+        $this->listener->onKernelException($event);
     }
 
     /**

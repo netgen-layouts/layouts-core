@@ -51,6 +51,8 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
     }
 
     /**
+     * @param mixed[] $value
+     *
      * @covers \Netgen\Layouts\Validator\Structs\BlockUpdateStructValidator::validate
      * @dataProvider validateDataProvider
      */

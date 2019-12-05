@@ -36,7 +36,7 @@ final class TimeTest extends TestCase
      * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\Time::getConstraints
-     * @dataProvider validationProvider
+     * @dataProvider validationDataProvider
      */
     public function testValidation($value, bool $isValid): void
     {
@@ -54,7 +54,7 @@ final class TimeTest extends TestCase
      * @param mixed $value
      * @param bool $matches
      *
-     * @dataProvider matchesProvider
+     * @dataProvider matchesDataProvider
      */
     public function testMatches($value, bool $matches): void
     {
@@ -66,7 +66,7 @@ final class TimeTest extends TestCase
         ClockMock::withClockMock(false);
     }
 
-    public function validationProvider(): array
+    public function validationDataProvider(): array
     {
         return [
             [['from' => [], 'to' => []], false],
@@ -95,7 +95,7 @@ final class TimeTest extends TestCase
         ];
     }
 
-    public function matchesProvider(): array
+    public function matchesDataProvider(): array
     {
         return [
             [['from' => [], 'to' => []], true],

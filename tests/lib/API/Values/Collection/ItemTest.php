@@ -62,7 +62,7 @@ final class ItemTest extends TestCase
 
     /**
      * @covers \Netgen\Layouts\API\Values\Collection\Item::isValid
-     * @dataProvider isValidProvider
+     * @dataProvider isValidDataProvider
      */
     public function testIsValid(bool $cmsItemVisible, bool $isValid): void
     {
@@ -94,7 +94,7 @@ final class ItemTest extends TestCase
         self::assertFalse($item->isValid());
     }
 
-    public function isValidProvider(): array
+    public function isValidDataProvider(): array
     {
         return [
             [true, true],

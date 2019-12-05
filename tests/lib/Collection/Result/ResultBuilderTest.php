@@ -175,7 +175,10 @@ final class ResultBuilderTest extends TestCase
     }
 
     /**
-     * Builds the dynamic collection for provided type and list of values.
+     * @param mixed[] $itemIds
+     * @param mixed[] $queryValues
+     *
+     * Builds the dynamic collection for provided type and list of values
      */
     private function buildCollection(
         array $itemIds,
@@ -215,6 +218,8 @@ final class ResultBuilderTest extends TestCase
 
     /**
      * Builds the list of values as returned by queries from provided IDs.
+     *
+     * @param int[] $ids
      *
      * @return \Netgen\Layouts\Tests\Item\Stubs\Value[]
      */

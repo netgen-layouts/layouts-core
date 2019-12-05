@@ -28,7 +28,7 @@ final class ConfigListTest extends TestCase
             )
         );
 
-        new ConfigList([new Config(), new stdClass(), new Config()]);
+        new ConfigList(['key1' => new Config(), 'key2' => new stdClass(), 'key3' => new Config()]);
     }
 
     /**
@@ -37,7 +37,7 @@ final class ConfigListTest extends TestCase
      */
     public function testGetConfigs(): void
     {
-        $configs = [new Config(), new Config()];
+        $configs = ['key1' => new Config(), 'key2' => new Config()];
 
         self::assertSame($configs, (new ConfigList($configs))->getConfigs());
     }
@@ -47,8 +47,11 @@ final class ConfigListTest extends TestCase
      */
     public function testGetConfigKeys(): void
     {
-        $configs = [Config::fromArray(['configKey' => 'foo']), Config::fromArray(['configKey' => 'bar'])];
+        $configs = [
+            'key1' => Config::fromArray(['configKey' => 'key1']),
+            'key2' => Config::fromArray(['configKey' => 'key2']),
+        ];
 
-        self::assertSame(['foo', 'bar'], (new ConfigList($configs))->getConfigKeys());
+        self::assertSame(['key1', 'key2'], (new ConfigList($configs))->getConfigKeys());
     }
 }

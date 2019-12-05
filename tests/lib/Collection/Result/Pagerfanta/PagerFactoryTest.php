@@ -38,7 +38,7 @@ final class PagerFactoryTest extends TestCase
      * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::buildPager
      * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::getMaxPerPage
      * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::getPager
-     * @dataProvider getPagerProvider
+     * @dataProvider getPagerDataProvider
      */
     public function testGetPager(int $startPage, int $currentPage): void
     {
@@ -50,7 +50,7 @@ final class PagerFactoryTest extends TestCase
         self::assertSame(200, $pager->getNbPages());
     }
 
-    public function getPagerProvider(): array
+    public function getPagerDataProvider(): array
     {
         return [
             [-5, 1],
@@ -67,7 +67,7 @@ final class PagerFactoryTest extends TestCase
      * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::buildPager
      * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::getMaxPerPage
      * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::getPager
-     * @dataProvider getMaxPagesPagerProvider
+     * @dataProvider getMaxPagesPagerDataProvider
      */
     public function testGetPagerWithMaxPages(int $maxPages, int $currentPage, int $nbPages): void
     {
@@ -79,7 +79,7 @@ final class PagerFactoryTest extends TestCase
         self::assertSame($nbPages, $pager->getNbPages());
     }
 
-    public function getMaxPagesPagerProvider(): array
+    public function getMaxPagesPagerDataProvider(): array
     {
         return [
             [-2, 2, 200],
@@ -100,7 +100,7 @@ final class PagerFactoryTest extends TestCase
      * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::buildPager
      * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::getMaxPerPage
      * @covers \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory::getPager
-     * @dataProvider getPagerWithCollectionLimitProvider
+     * @dataProvider getPagerWithCollectionLimitDataProvider
      */
     public function testGetPagerWithCollectionLimit(int $limit, ?int $maxPages, int $maxPerPage, int $nbPages): void
     {
@@ -112,7 +112,7 @@ final class PagerFactoryTest extends TestCase
         self::assertSame($nbPages, $pager->getNbPages());
     }
 
-    public function getPagerWithCollectionLimitProvider(): array
+    public function getPagerWithCollectionLimitDataProvider(): array
     {
         return [
             [100, null, 100, 10],

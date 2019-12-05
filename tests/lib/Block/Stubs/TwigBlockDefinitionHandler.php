@@ -15,6 +15,9 @@ final class TwigBlockDefinitionHandler extends BaseBlockDefinitionHandler implem
      */
     private $twigBlocks;
 
+    /**
+     * @param string[] $twigBlocks
+     */
     public function __construct(array $twigBlocks = ['twig_block'])
     {
         $this->twigBlocks = $twigBlocks;

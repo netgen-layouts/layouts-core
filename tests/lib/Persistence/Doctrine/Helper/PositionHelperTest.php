@@ -198,6 +198,8 @@ final class PositionHelperTest extends TestCase
 
     /**
      * Builds the condition array that will be used with position helper.
+     *
+     * @return array<string, mixed>
      */
     private function getPositionHelperConditions(): array
     {
@@ -213,6 +215,8 @@ final class PositionHelperTest extends TestCase
 
     /**
      * Returns the position data from the table under test.
+     *
+     * @return int[]
      */
     private function getPositionData(): array
     {

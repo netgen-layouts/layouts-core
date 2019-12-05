@@ -66,9 +66,11 @@ final class LayoutResolverValidatorTest extends TestCase
     }
 
     /**
+     * @param array<string, mixed> $params
+     *
      * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::__construct
      * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::validateRuleCreateStruct
-     * @dataProvider validateRuleCreateStructProvider
+     * @dataProvider validateRuleCreateStructDataProvider
      */
     public function testValidateRuleCreateStruct(array $params, bool $isValid): void
     {
@@ -86,8 +88,10 @@ final class LayoutResolverValidatorTest extends TestCase
     }
 
     /**
+     * @param array<string, mixed> $params
+     *
      * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::validateRuleUpdateStruct
-     * @dataProvider validateRuleUpdateStructProvider
+     * @dataProvider validateRuleUpdateStructDataProvider
      */
     public function testValidateRuleUpdateStruct(array $params, bool $isValid): void
     {
@@ -105,8 +109,10 @@ final class LayoutResolverValidatorTest extends TestCase
     }
 
     /**
+     * @param array<string, mixed> $params
+     *
      * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::validateRuleMetadataUpdateStruct
-     * @dataProvider validateRuleMetadataUpdateStructProvider
+     * @dataProvider validateRuleMetadataUpdateStructDataProvider
      */
     public function testValidateRuleMetadataUpdateStruct(array $params, bool $isValid): void
     {
@@ -124,8 +130,10 @@ final class LayoutResolverValidatorTest extends TestCase
     }
 
     /**
+     * @param array<string, mixed> $params
+     *
      * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::validateTargetCreateStruct
-     * @dataProvider validateTargetCreateStructProvider
+     * @dataProvider validateTargetCreateStructDataProvider
      */
     public function testValidateTargetCreateStruct(array $params, bool $isValid): void
     {
@@ -143,8 +151,10 @@ final class LayoutResolverValidatorTest extends TestCase
     }
 
     /**
+     * @param array<string, mixed> $params
+     *
      * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::validateTargetUpdateStruct
-     * @dataProvider validateTargetUpdateStructProvider
+     * @dataProvider validateTargetUpdateStructDataProvider
      */
     public function testValidateTargetUpdateStruct(array $params, bool $isValid): void
     {
@@ -165,8 +175,10 @@ final class LayoutResolverValidatorTest extends TestCase
     }
 
     /**
+     * @param array<string, mixed> $params
+     *
      * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::validateConditionCreateStruct
-     * @dataProvider validateConditionCreateStructProvider
+     * @dataProvider validateConditionCreateStructDataProvider
      */
     public function testValidateConditionCreateStruct(array $params, bool $isValid): void
     {
@@ -184,8 +196,10 @@ final class LayoutResolverValidatorTest extends TestCase
     }
 
     /**
+     * @param array<string, mixed> $params
+     *
      * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::validateConditionUpdateStruct
-     * @dataProvider validateConditionUpdateStructProvider
+     * @dataProvider validateConditionUpdateStructDataProvider
      */
     public function testValidateConditionUpdateStruct(array $params, bool $isValid): void
     {
@@ -205,7 +219,7 @@ final class LayoutResolverValidatorTest extends TestCase
         );
     }
 
-    public function validateRuleCreateStructProvider(): array
+    public function validateRuleCreateStructDataProvider(): array
     {
         return [
             [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
@@ -225,7 +239,7 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
-    public function validateRuleUpdateStructProvider(): array
+    public function validateRuleUpdateStructDataProvider(): array
     {
         return [
             [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'comment' => 'Comment'], true],
@@ -238,7 +252,7 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
-    public function validateRuleMetadataUpdateStructProvider(): array
+    public function validateRuleMetadataUpdateStructDataProvider(): array
     {
         return [
             [['priority' => -12], true],
@@ -250,7 +264,7 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
-    public function validateTargetCreateStructProvider(): array
+    public function validateTargetCreateStructDataProvider(): array
     {
         return [
             [['type' => 'target1', 'value' => 42], true],
@@ -265,7 +279,7 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
-    public function validateTargetUpdateStructProvider(): array
+    public function validateTargetUpdateStructDataProvider(): array
     {
         return [
             [['value' => 42], true],
@@ -277,7 +291,7 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
-    public function validateConditionCreateStructProvider(): array
+    public function validateConditionCreateStructDataProvider(): array
     {
         return [
             [['type' => 'condition1', 'value' => 42], true],
@@ -292,7 +306,7 @@ final class LayoutResolverValidatorTest extends TestCase
         ];
     }
 
-    public function validateConditionUpdateStructProvider(): array
+    public function validateConditionUpdateStructDataProvider(): array
     {
         return [
             [['value' => 42], true],

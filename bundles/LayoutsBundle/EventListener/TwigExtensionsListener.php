@@ -20,13 +20,13 @@ class TwigExtensionsListener implements EventSubscriberInterface
     private $twig;
 
     /**
-     * @var array<class-string<\Twig\Extension\ExtensionInterface>>
+     * @var string[]
      */
     private $extensions;
 
     /**
      * @param \Twig\Environment $twig
-     * @param array<class-string<\Twig\Extension\ExtensionInterface>> $extensions
+     * @param string[] $extensions
      */
     public function __construct(Environment $twig, array $extensions)
     {

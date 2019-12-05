@@ -51,6 +51,8 @@ final class BlockValidatorTest extends TestCase
     }
 
     /**
+     * @param array<string, mixed> $params
+     *
      * @covers \Netgen\Layouts\Core\Validator\BlockValidator::__construct
      * @covers \Netgen\Layouts\Core\Validator\BlockValidator::validateBlockCreateStruct
      * @dataProvider validateBlockCreateStructDataProvider
@@ -71,6 +73,8 @@ final class BlockValidatorTest extends TestCase
     }
 
     /**
+     * @param array<string, mixed> $params
+     *
      * @covers \Netgen\Layouts\Core\Validator\BlockValidator::validateBlockUpdateStruct
      * @dataProvider validateBlockUpdateStructDataProvider
      */

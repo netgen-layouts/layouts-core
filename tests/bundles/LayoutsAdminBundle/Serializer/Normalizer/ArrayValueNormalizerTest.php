@@ -58,14 +58,14 @@ final class ArrayValueNormalizerTest extends TestCase
      * @param bool $expected
      *
      * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ArrayValueNormalizer::supportsNormalization
-     * @dataProvider supportsNormalizationProvider
+     * @dataProvider supportsNormalizationDataProvider
      */
     public function testSupportsNormalization($data, bool $expected): void
     {
         self::assertSame($expected, $this->normalizer->supportsNormalization($data));
     }
 
-    public function supportsNormalizationProvider(): array
+    public function supportsNormalizationDataProvider(): array
     {
         return [
             [null, false],

@@ -46,7 +46,7 @@ final class DefaultContextTest extends TestCase
      * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\TokenParser\DefaultContext::getTag
      * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\TokenParser\DefaultContext::parse
      *
-     * @dataProvider compileProvider
+     * @dataProvider compileDataProvider
      */
     public function testCompile(string $source, DefaultContextNode $node): void
     {
@@ -71,7 +71,7 @@ final class DefaultContextTest extends TestCase
         $this->parser->parse($stream);
     }
 
-    public function compileProvider(): array
+    public function compileDataProvider(): array
     {
         return [
             [

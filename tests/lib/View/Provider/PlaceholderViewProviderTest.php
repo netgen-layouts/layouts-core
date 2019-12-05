@@ -80,14 +80,14 @@ final class PlaceholderViewProviderTest extends TestCase
      * @param bool $supports
      *
      * @covers \Netgen\Layouts\View\Provider\PlaceholderViewProvider::supports
-     * @dataProvider supportsProvider
+     * @dataProvider supportsDataProvider
      */
     public function testSupports($value, bool $supports): void
     {
         self::assertSame($supports, $this->placeholderViewProvider->supports($value));
     }
 
-    public function supportsProvider(): array
+    public function supportsDataProvider(): array
     {
         return [
             [new Value(), false],

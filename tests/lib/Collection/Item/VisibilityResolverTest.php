@@ -11,10 +11,12 @@ use PHPUnit\Framework\TestCase;
 final class VisibilityResolverTest extends TestCase
 {
     /**
+     * @param \Netgen\Layouts\Collection\Item\VisibilityVoterInterface[] $voters
+     *
      * @covers \Netgen\Layouts\Collection\Item\VisibilityResolver::__construct
      * @covers \Netgen\Layouts\Collection\Item\VisibilityResolver::isVisible
      *
-     * @dataProvider isVisibleProvider
+     * @dataProvider isVisibleDataProvider
      */
     public function testIsVisible(array $voters, bool $result): void
     {
@@ -23,7 +25,7 @@ final class VisibilityResolverTest extends TestCase
         self::assertSame($result, $visibilityResolver->isVisible(new Item()));
     }
 
-    public function isVisibleProvider(): array
+    public function isVisibleDataProvider(): array
     {
         return [
             [

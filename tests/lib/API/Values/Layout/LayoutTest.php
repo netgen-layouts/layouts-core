@@ -59,11 +59,8 @@ final class LayoutTest extends TestCase
      */
     public function testSetProperties(): void
     {
-        $createdDate = new DateTimeImmutable();
-        $createdDate->setTimestamp(123);
-
-        $modifiedDate = new DateTimeImmutable();
-        $modifiedDate->setTimestamp(456);
+        $createdDate = (new DateTimeImmutable())->setTimestamp(123);
+        $modifiedDate = (new DateTimeImmutable())->setTimestamp(456);
 
         $layoutType = LayoutType::fromArray(['identifier' => '4_zones_a']);
 

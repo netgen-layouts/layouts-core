@@ -13,7 +13,7 @@ final class QueryTranslationUpdateStruct
     /**
      * New parameter values for the query.
      *
-     * @var array<string, array<string, mixed>>|null
+     * @var array<string, mixed>
      */
     public $parameters;
 }

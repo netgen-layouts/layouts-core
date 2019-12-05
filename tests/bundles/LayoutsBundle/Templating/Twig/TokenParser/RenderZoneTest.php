@@ -46,7 +46,7 @@ final class RenderZoneTest extends TestCase
      * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\TokenParser\RenderZone::getTag
      * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\TokenParser\RenderZone::parse
      *
-     * @dataProvider compileProvider
+     * @dataProvider compileDataProvider
      */
     public function testCompile(string $source, RenderZoneNode $node): void
     {
@@ -71,7 +71,7 @@ final class RenderZoneTest extends TestCase
         $this->parser->parse($stream);
     }
 
-    public function compileProvider(): array
+    public function compileDataProvider(): array
     {
         return [
             [

@@ -50,7 +50,7 @@ final class RouteGeneratorTest extends TestCase
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\CollectionPager\RouteGenerator::__construct
      * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\CollectionPager\RouteGenerator::__invoke
-     * @dataProvider invokeProvider
+     * @dataProvider invokeDataProvider
      */
     public function testInvoke(int $page, string $signedUri, string $signedUriSuffix): void
     {
@@ -88,7 +88,7 @@ final class RouteGeneratorTest extends TestCase
         self::assertSame($signedUri . $signedUriSuffix, $url);
     }
 
-    public function invokeProvider(): array
+    public function invokeDataProvider(): array
     {
         return [
             [-5, '/signed/uri', ''],

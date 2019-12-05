@@ -89,14 +89,14 @@ final class ExceptionNormalizerTest extends TestCase
      * @param bool $expected
      *
      * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ExceptionNormalizer::supportsNormalization
-     * @dataProvider supportsNormalizationProvider
+     * @dataProvider supportsNormalizationDataProvider
      */
     public function testSupportsNormalization($data, bool $expected): void
     {
         self::assertSame($expected, $this->exceptionNormalizer->supportsNormalization($data));
     }
 
-    public function supportsNormalizationProvider(): array
+    public function supportsNormalizationDataProvider(): array
     {
         return [
             [null, false],

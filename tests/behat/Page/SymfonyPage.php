@@ -24,6 +24,9 @@ abstract class SymfonyPage extends BaseSymfonyPage
         throw new UnexpectedPageException(sprintf('Expected to have "%s" fragment but found "%s" instead', $fragment, $parsedUrl['fragment']));
     }
 
+    /**
+     * @param array<string, mixed> $parameters
+     */
     protected function waitForElement(int $timeout, string $elementName, array $parameters = [], bool $waitForRemoval = false): void
     {
         $this->getDocument()->waitFor(

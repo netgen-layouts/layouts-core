@@ -32,7 +32,10 @@ final class Kernel extends BaseKernel
         parent::boot();
 
         $databaseUrl = getenv('DATABASE');
-        $databaseUrl = $databaseUrl ?: 'sqlite:///' . $this->getCacheDir() . '/nglayouts.db';
+        if (!is_string($databaseUrl) || trim($databaseUrl) === '') {
+            $databaseUrl = 'sqlite:///' . $this->getCacheDir() . '/nglayouts.db';
+        }
+
         putenv('DATABASE=' . $databaseUrl);
 
         $databaseCharset = mb_stripos($databaseUrl, 'mysql://') === 0 ? 'utf8mb4' : 'utf8';

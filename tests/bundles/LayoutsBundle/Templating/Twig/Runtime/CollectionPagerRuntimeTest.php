@@ -126,7 +126,7 @@ final class CollectionPagerRuntimeTest extends TestCase
 
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\CollectionPagerRuntime::getCollectionPageUrl
-     * @dataProvider invalidPageProvider
+     * @dataProvider invalidPageDataProvider
      */
     public function testGetCollectionPageUrlThrowsInvalidArgumentExceptionWithInvalidPage(int $page): void
     {
@@ -146,7 +146,7 @@ final class CollectionPagerRuntimeTest extends TestCase
         );
     }
 
-    public function invalidPageProvider(): array
+    public function invalidPageDataProvider(): array
     {
         return [
             [-5],

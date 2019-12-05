@@ -34,7 +34,7 @@ final class RouteTest extends TestCase
      * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Layout\Resolver\TargetType\Route::getConstraints
-     * @dataProvider validationProvider
+     * @dataProvider validationDataProvider
      */
     public function testValidation($value, bool $isValid): void
     {
@@ -58,7 +58,7 @@ final class RouteTest extends TestCase
         );
     }
 
-    public function validationProvider(): array
+    public function validationDataProvider(): array
     {
         return [
             ['route_name', true],

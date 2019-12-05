@@ -13,7 +13,7 @@ use Netgen\Layouts\Parameters\ParameterType;
 final class BlockDefinitionHandler extends BaseBlockDefinitionHandler
 {
     /**
-     * @var array
+     * @var string[]
      */
     private $parameterGroups;
 
@@ -22,12 +22,18 @@ final class BlockDefinitionHandler extends BaseBlockDefinitionHandler
      */
     private $isContextual;
 
+    /**
+     * @param string[] $parameterGroups
+     */
     public function __construct(array $parameterGroups = [], bool $isContextual = false)
     {
         $this->parameterGroups = $parameterGroups;
         $this->isContextual = $isContextual;
     }
 
+    /**
+     * @return array<string, \Netgen\Layouts\Parameters\ParameterDefinition>
+     */
     public function getParameterDefinitions(): array
     {
         return [

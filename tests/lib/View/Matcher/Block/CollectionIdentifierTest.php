@@ -24,8 +24,10 @@ final class CollectionIdentifierTest extends TestCase
     }
 
     /**
+     * @param mixed[] $config
+     *
      * @covers \Netgen\Layouts\View\Matcher\Block\CollectionIdentifier::match
-     * @dataProvider matchProvider
+     * @dataProvider matchDataProvider
      */
     public function testMatch(array $config, bool $expected): void
     {
@@ -36,7 +38,7 @@ final class CollectionIdentifierTest extends TestCase
         self::assertSame($expected, $this->matcher->match($view, $config));
     }
 
-    public function matchProvider(): array
+    public function matchDataProvider(): array
     {
         return [
             [[], false],

@@ -124,6 +124,9 @@ final class ContainerConfigurationTest extends TestCase
         $this->configuration->getParameter('some_param');
     }
 
+    /**
+     * @param array<string, mixed> $injectedParameters
+     */
     private function createConfiguration(array $injectedParameters = []): void
     {
         $this->containerMock = $this->createMock(ContainerInterface::class);

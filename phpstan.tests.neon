@@ -4,6 +4,9 @@ includes:
     - vendor/phpstan/phpstan-phpunit/rules.neon
 
 parameters:
+    dynamicConstantNames:
+        - Symfony\Component\HttpKernel\Kernel::VERSION_ID
+
     excludes_analyse:
         - tests/application/public/bundles/
         - tests/application/config/bootstrap.php
@@ -27,6 +30,30 @@ parameters:
         - '#Method .+::createExceptionEvent\(\) should return .+\\ExceptionEvent but returns .+\\GetResponseForExceptionEvent.#'
         - '#Method .+::createViewEvent\(\) should return .+\\ViewEvent but returns .+\\GetResponseForControllerResultEvent.#'
         - '#Method .+::createTerminateEvent\(\) should return .+\\TerminateEvent but returns .+\\PostResponseEvent.#'
+
+        # Disable errors about missing value types in PHPUnit data providers
+
+        - '#Method .+Test::\w+DataProvider\(\) return type has no value type specified in iterable type array.#'
+
+        # Disable errors about missing value types in various Symfony based classes
+
+        - '#Method .+NormalizerStub::normalize\(\) has parameter \$context with no value type specified in iterable type array.#'
+        - '#Method .+TypeStub::buildForm\(\) has parameter \$options with no value type specified in iterable type array.#'
+        - '#no value type specified in iterable type Symfony\\Component\\Form\\FormInterface#'
+        - '#no value type specified in iterable type Symfony\\Component\\Form\\FormBuilder#'
+        - '#no value type specified in iterable type Knp\\Menu\\ItemInterface#'
+        - '#no value type specified in iterable type Netgen\\Bundle\\LayoutsBundle\\Templating\\Twig\\Node\\DefaultContext#'
+        - '#no value type specified in iterable type Netgen\\Bundle\\LayoutsBundle\\Templating\\Twig\\Node\\RenderZone#'
+
+        # Disable errors about values inferred from iterable typehints
+
+        - '#Call to static method PHPUnit\\Framework\\Assert::assert\w+\(\) with .+ will always evaluate to (true|false).#'
+
+        # Disable errors for various tests that verify values have correct types
+        - '/Parameter \#1 \$\w+ of class .+ constructor expects array\<.+\>, array\<.+\|stdClass\> given./'
+        - '/Parameter \#1 \$\w+ of method .+ expects array\<.+\>, array\<.+\, stdClass\> given./'
+        - '/Parameter \#3 \$zoneMappings of method .+::validateChangeLayoutType\(\) expects array\<string, array\<string\>\>, array\<string, int\> given./'
+        - '#Call to function is_object\(\) with object will always evaluate to true.#'
 
         # Netgen Layouts specifics
 
