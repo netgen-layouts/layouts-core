@@ -45,7 +45,7 @@ parameters:
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Exception' will always evaluate to false.#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Throwable' will always evaluate to true.#"
 
-        # Disable errors about missing value types in various Symfony based classes
+        # Disable errors about missing value types in various vendor classes
 
         - '#Method (.+Type|.+Extension)::buildForm\(\) has parameter \$options with no value type specified in iterable type array.#'
         - '#Method (.+Type|.+Extension)::(buildView|finishView)\(\) has parameter \$options with no value type specified in iterable type array.#'
@@ -53,6 +53,7 @@ parameters:
         - '#Method .+Normalizer::normalize\(\) has parameter \$context with no value type specified in iterable type array.#'
         - '#Method .+Normalizer::normalize\(\) return type has no value type specified in iterable type (array|ArrayObject).#'
         - '#Method .+Normalizer::normalize\(\) return type with generic class ArrayObject does not specify its types#'
+        - '#Method .+Listener::getSubscribedEvents\(\) return type has no value type specified in iterable type array.#'
         - '#no value type specified in iterable type Symfony\\Component\\HttpFoundation\\ParameterBag#'
         - '#no value type specified in iterable type Knp\\Menu\\ItemInterface#'
         - '#no value type specified in iterable type Symfony\\Component\\Form\\FormInterface#'
@@ -60,7 +61,6 @@ parameters:
         - '#no value type specified in iterable type Pagerfanta\\Pagerfanta#'
         - '#no value type specified in iterable type Twig\\Node\\Node#'
         - '#no value type specified in iterable type Twig\\Node\\Expression\\AbstractExpression#'
-        - '#Method .+Listener::getSubscribedEvents\(\) return type has no value type specified in iterable type array.#'
 
         # Netgen Layouts specifics
 

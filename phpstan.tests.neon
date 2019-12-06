@@ -35,7 +35,7 @@ parameters:
 
         - '#Method .+Test::\w+DataProvider\(\) return type has no value type specified in iterable type array.#'
 
-        # Disable errors about missing value types in various Symfony based classes
+        # Disable errors about missing value types in various vendor classes
 
         - '#Method .+NormalizerStub::normalize\(\) has parameter \$context with no value type specified in iterable type array.#'
         - '#Method .+TypeStub::buildForm\(\) has parameter \$options with no value type specified in iterable type array.#'
