@@ -9,7 +9,7 @@ namespace Netgen\Layouts\Item;
  * It is used and injected into UrlGeneratorInterface which is a central
  * point for generating URLs for items.
  *
- * @template T of object
+ * @template-covariant T of object
  */
 interface ValueUrlGeneratorInterface
 {

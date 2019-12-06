@@ -15,7 +15,7 @@ use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 
 /**
- * @template T of object
+ * @template-covariant T of object
  */
 abstract class VisitorTest extends CoreTestCase
 {
