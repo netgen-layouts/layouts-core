@@ -9,12 +9,12 @@ use Netgen\Layouts\Exception\Item\ValueException;
 final class CmsItemBuilder implements CmsItemBuilderInterface
 {
     /**
-     * @var \Netgen\Layouts\Item\ValueConverterInterface[]
+     * @var array<\Netgen\Layouts\Item\ValueConverterInterface<object>>
      */
     private $valueConverters = [];
 
     /**
-     * @param iterable<\Netgen\Layouts\Item\ValueConverterInterface> $valueConverters
+     * @param iterable<\Netgen\Layouts\Item\ValueConverterInterface<object>> $valueConverters
      */
     public function __construct(iterable $valueConverters)
     {

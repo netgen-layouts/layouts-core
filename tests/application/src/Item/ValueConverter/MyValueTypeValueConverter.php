@@ -7,6 +7,9 @@ namespace Netgen\Layouts\Tests\App\Item\ValueConverter;
 use Netgen\Layouts\Item\ValueConverterInterface;
 use Netgen\Layouts\Tests\App\Item\Value;
 
+/**
+ * @implements \Netgen\Layouts\Item\ValueConverterInterface<\Netgen\Layouts\Tests\App\Item\Value>
+ */
 final class MyValueTypeValueConverter implements ValueConverterInterface
 {
     public function supports(object $object): bool
@@ -19,29 +22,16 @@ final class MyValueTypeValueConverter implements ValueConverterInterface
         return 'my_value_type';
     }
 
-    /**
-     * @param \Netgen\Layouts\Tests\App\Item\Value $object
-     *
-     * @return int|string
-     */
     public function getId(object $object)
     {
         return $object->id;
     }
 
-    /**
-     * @param \Netgen\Layouts\Tests\App\Item\Value $object
-     *
-     * @return int|string
-     */
     public function getRemoteId(object $object)
     {
         return $object->id;
     }
 
-    /**
-     * @param \Netgen\Layouts\Tests\App\Item\Value $object
-     */
     public function getName(object $object): string
     {
         return 'Value with ID #' . $object->id;

@@ -6,6 +6,9 @@ namespace Netgen\Layouts\Tests\Item\Stubs;
 
 use Netgen\Layouts\Item\ValueConverterInterface;
 
+/**
+ * @implements \Netgen\Layouts\Item\ValueConverterInterface<\Netgen\Layouts\Tests\Item\Stubs\Value>
+ */
 final class ValueConverter implements ValueConverterInterface
 {
     public function supports(object $object): bool
@@ -18,21 +21,11 @@ final class ValueConverter implements ValueConverterInterface
         return 'value';
     }
 
-    /**
-     * @param \Netgen\Layouts\Tests\Item\Stubs\Value $object
-     *
-     * @return int|string
-     */
     public function getId(object $object)
     {
         return $object->getId();
     }
 
-    /**
-     * @param \Netgen\Layouts\Tests\Item\Stubs\Value $object
-     *
-     * @return int|string
-     */
     public function getRemoteId(object $object)
     {
         return $object->getRemoteId();
@@ -43,9 +36,6 @@ final class ValueConverter implements ValueConverterInterface
         return 'Some value';
     }
 
-    /**
-     * @param \Netgen\Layouts\Tests\Item\Stubs\Value $object
-     */
     public function getIsVisible(object $object): bool
     {
         return $object->isVisible();
