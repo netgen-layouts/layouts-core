@@ -35,6 +35,8 @@ final class UrlGenerator implements UrlGeneratorInterface
      * Returns the value URL generator for provided value type from the collection.
      *
      * @throws \Netgen\Layouts\Exception\Item\ItemException If the value URL generator does not exist or is not of correct type
+     *
+     * @return \Netgen\Layouts\Item\ValueUrlGeneratorInterface<object>
      */
     private function getValueUrlGenerator(string $valueType): ValueUrlGeneratorInterface
     {
