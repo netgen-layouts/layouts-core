@@ -12,7 +12,7 @@ namespace Netgen\Layouts\Transfer\Output;
  *
  * @see \Netgen\Layouts\Transfer\SerializerInterface
  *
- * @template-covariant T of object
+ * @template T of object
  */
 interface VisitorInterface
 {

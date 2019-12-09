@@ -24,7 +24,9 @@ final class CmsItemBuilderTest extends TestCase
     {
         $value = new Value(42, 'abc');
 
-        $builder = new CmsItemBuilder([new UnsupportedValueConverter(), new ValueConverter()]);
+        /** @var iterable<\Netgen\Layouts\Item\ValueConverterInterface<object>> $valueConverters */
+        $valueConverters = [new UnsupportedValueConverter(), new ValueConverter()];
+        $builder = new CmsItemBuilder($valueConverters);
 
         $builtItem = $builder->build($value);
 
@@ -49,7 +51,9 @@ final class CmsItemBuilderTest extends TestCase
         $this->expectException(ValueException::class);
         $this->expectExceptionMessage('Value converter for "Netgen\\Layouts\\Tests\\Item\\Stubs\\Value" type does not exist.');
 
-        $builder = new CmsItemBuilder([new UnsupportedValueConverter()]);
+        /** @var iterable<\Netgen\Layouts\Item\ValueConverterInterface<object>> $valueConverters */
+        $valueConverters = [new UnsupportedValueConverter()];
+        $builder = new CmsItemBuilder($valueConverters);
 
         $builder->build(new Value(42, 'abc'));
     }

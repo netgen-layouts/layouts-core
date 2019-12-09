@@ -98,22 +98,23 @@ abstract class ImporterTest extends CoreTestCase
             )
         );
 
+        /** @var iterable<\Netgen\Layouts\Transfer\Output\VisitorInterface<object>> $outputVisitors */
+        $outputVisitors = [
+            new Visitor\BlockVisitor($this->blockService),
+            new Visitor\CollectionVisitor(),
+            new Visitor\ConfigVisitor(),
+            new Visitor\ItemVisitor(),
+            new Visitor\SlotVisitor(),
+            new Visitor\LayoutVisitor(),
+            new Visitor\PlaceholderVisitor(),
+            new Visitor\QueryVisitor($this->collectionService),
+            new Visitor\ZoneVisitor($this->blockService),
+        ];
+
         $this->serializer = new Serializer(
             $this->layoutService,
             $this->layoutResolverService,
-            new OutputVisitor(
-                [
-                    new Visitor\BlockVisitor($this->blockService),
-                    new Visitor\CollectionVisitor(),
-                    new Visitor\ConfigVisitor(),
-                    new Visitor\ItemVisitor(),
-                    new Visitor\SlotVisitor(),
-                    new Visitor\LayoutVisitor(),
-                    new Visitor\PlaceholderVisitor(),
-                    new Visitor\QueryVisitor($this->collectionService),
-                    new Visitor\ZoneVisitor($this->blockService),
-                ]
-            )
+            new OutputVisitor($outputVisitors)
         );
 
         $this->matcherFactory = new SimpleFactory();

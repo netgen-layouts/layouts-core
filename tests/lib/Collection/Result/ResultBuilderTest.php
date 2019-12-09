@@ -36,9 +36,9 @@ final class ResultBuilderTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->cmsItemBuilder = new CmsItemBuilder(
-            [new ValueConverter()]
-        );
+        /** @var iterable<\Netgen\Layouts\Item\ValueConverterInterface<object>> $valueConverters */
+        $valueConverters = [new ValueConverter()];
+        $this->cmsItemBuilder = new CmsItemBuilder($valueConverters);
 
         $this->resultBuilder = $this->buildResultBuilder(200);
     }

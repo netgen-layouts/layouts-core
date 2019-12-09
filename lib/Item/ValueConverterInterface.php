@@ -9,7 +9,7 @@ namespace Netgen\Layouts\Item;
  * This is achieved by providing information (ID, name, visibility...) used by
  * the item builder service which actually builds the item.
  *
- * @template-covariant T of object
+ * @template T of object
  */
 interface ValueConverterInterface
 {
