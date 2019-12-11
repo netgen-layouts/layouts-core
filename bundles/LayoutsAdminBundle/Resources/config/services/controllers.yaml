@@ -166,6 +166,13 @@ services:
         arguments:
             - "@netgen_layouts.api.service.layout"
 
+    netgen_layouts.controller.admin.shared_layouts.related_layouts:
+        class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\SharedLayouts\RelatedLayouts
+        public: true
+        parent: netgen_layouts.controller.base
+        arguments:
+            - "@netgen_layouts.api.service.layout"
+
     netgen_layouts.controller.admin.shared_layouts.clear_related_layouts_cache:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\SharedLayouts\ClearRelatedLayoutsCache
         public: true

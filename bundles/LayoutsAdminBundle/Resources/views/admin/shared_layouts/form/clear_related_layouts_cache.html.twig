@@ -15,8 +15,8 @@
             <thead>
                 <tr>
                     <th class="nl-caches-checkbox"><input type="checkbox" id="toggle-all-cache"><label for="toggle-all-cache"></label></th>
-                    <th class="nl-caches-name">{{ 'shared_layouts.cache.related_layouts.layout_name'|trans }}</th>
-                    <th class="nl-caches-zones">{{ 'shared_layouts.cache.related_layouts.zones'|trans }}</th>
+                    <th class="nl-caches-name">{{ 'shared_layouts.related_layouts.layout_name'|trans }}</th>
+                    <th class="nl-caches-zones">{{ 'shared_layouts.related_layouts.zones'|trans }}</th>
                     <th class="nl-caches-action">
                         <button type="submit" class="nl-btn nl-btn-primary action-apply">{{ 'shared_layouts.cache.related_layouts.button.clear'|trans }}</button>
                     </th>
@@ -41,7 +41,7 @@
             </tbody>
         </table>
     {% else %}
-        <p class="nl-caches-empty">{{ 'shared_layouts.cache.related_layouts.no_related_layouts'|trans }}</p>
+        <p class="nl-caches-empty">{{ 'shared_layouts.related_layouts.no_related_layouts'|trans }}</p>
     {% endif %}
 {% endblock %}
 

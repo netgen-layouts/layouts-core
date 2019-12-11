@@ -3,6 +3,13 @@ nglayouts_admin_shared_layouts_index:
     controller: netgen_layouts.controller.admin.shared_layouts.index
     methods: [GET]
 
+nglayouts_admin_shared_layouts_related_layouts:
+    path: /{layoutId}/related_layouts
+    controller: netgen_layouts.controller.admin.shared_layouts.related_layouts
+    methods: [GET]
+    defaults:
+        _nglayouts_status: published
+
 nglayouts_admin_shared_layouts_layout_copy:
     path: /{layoutId}/copy
     controller: netgen_layouts.controller.admin.layouts.copy_layout_form
