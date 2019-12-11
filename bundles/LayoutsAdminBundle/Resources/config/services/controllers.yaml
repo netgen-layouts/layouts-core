@@ -17,6 +17,13 @@ services:
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
 
+    netgen_layouts.controller.admin.layout_resolver.edit_rule_form:
+        class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\EditRuleForm
+        public: true
+        parent: netgen_layouts.controller.base
+        arguments:
+            - "@netgen_layouts.api.service.layout_resolver"
+
     netgen_layouts.controller.admin.layout_resolver.update_rule_priorities:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\UpdateRulePriorities
         public: true

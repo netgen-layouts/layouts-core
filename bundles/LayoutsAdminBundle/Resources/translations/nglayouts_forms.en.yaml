@@ -39,6 +39,12 @@ layout.edit.button.cancel: 'Cancel'
 layout.edit.button.save: 'Save'
 layout.edit.title: 'Edit layout name and description'
 
+rule.comment: 'Comment'
+
+rule.edit.title: 'Edit mapping'
+rule.edit.button.cancel: 'Cancel'
+rule.edit.button.save: 'Save mapping'
+
 target_type.button.cancel: 'Cancel'
 target_type.button.save: 'Save target'
 

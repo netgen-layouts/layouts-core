@@ -46,6 +46,10 @@ view:
                 template: "@NetgenLayoutsAdmin/admin/shared_layouts/form/clear_related_layouts_cache.html.twig"
                 match:
                     form\type: Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type\ClearLayoutsCacheType
+            rule\edit:
+                template: "@NetgenLayoutsAdmin/admin/layout_resolver/form/edit_rule.html.twig"
+                match:
+                    form\type: Netgen\Layouts\Layout\Resolver\Form\RuleType
             condition\edit:
                 template: "@NetgenLayoutsAdmin/admin/layout_resolver/form/edit_condition.html.twig"
                 match:

@@ -8,6 +8,13 @@ nglayouts_admin_layout_resolver_rule_create:
     controller: netgen_layouts.controller.admin.layout_resolver.create_rule
     methods: [POST]
 
+nglayouts_admin_layout_resolver_rule_form_edit:
+    path: /rules/{ruleId}/edit
+    controller: netgen_layouts.controller.admin.layout_resolver.edit_rule_form
+    methods: [GET, POST]
+    defaults:
+        _nglayouts_status: draft
+
 nglayouts_admin_layout_resolver_rule_update_prorities:
     path: /rules/priorities
     controller: netgen_layouts.controller.admin.layout_resolver.update_rule_priorities

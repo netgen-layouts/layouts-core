@@ -1,6 +1,11 @@
 services:
     # Forms
 
+    netgen_layouts.layout.resolver.form.rule_type:
+        class: Netgen\Layouts\Layout\Resolver\Form\RuleType
+        tags:
+            - { name: form.type }
+
     netgen_layouts.layout.resolver.form.target_type:
         class: Netgen\Layouts\Layout\Resolver\Form\TargetType
         tags:
