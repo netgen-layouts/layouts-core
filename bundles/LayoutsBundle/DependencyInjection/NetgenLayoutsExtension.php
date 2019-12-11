@@ -60,7 +60,6 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
     /**
      * Returns the plugin by name. Name of the plugin is its fully qualified class name.
      *
-     *
      * @param class-string<\Netgen\Bundle\LayoutsBundle\DependencyInjection\ExtensionPluginInterface> $pluginName
      *
      * @throws \Netgen\Layouts\Exception\RuntimeException If the specified plugin does not exist
