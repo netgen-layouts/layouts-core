@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Layouts\Tests\Layout\Form;
+namespace Netgen\Layouts\Tests\Layout\Resolver\Form;
 
 use Netgen\Layouts\API\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\Layouts\Layout\Resolver\Form\RuleType;
