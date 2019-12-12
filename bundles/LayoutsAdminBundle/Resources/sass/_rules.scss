@@ -170,6 +170,13 @@
             content: 'keyboard_arrow_down';
         }
     }
+    .nl-rule-description {
+        padding: 10px 20px;
+        font-size: 12px;
+        line-height: 1.2;
+        background: hsl(0, 0, 94);
+        color: hsl(0, 0, 54);
+    }
     .nl-rule-head {
         display: flex;
         padding-left: $gutter;

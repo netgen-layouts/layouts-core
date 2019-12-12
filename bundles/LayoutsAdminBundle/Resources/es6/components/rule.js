@@ -389,6 +389,28 @@ export default class NlRule {
         fetchModal(url, modal, formAction, () => indeterminateCheckboxes(modal.el));
     }
 
+    editRule(e) {
+        e.preventDefault();
+        const url = `${this.rules.baseUrl}rules/${this.id}/edit`;
+        const modal = new NlModal({
+            preload: true,
+            autoClose: false,
+        });
+        this.createDraft(() => {
+          document.body.click();
+          const formAction = (ev) => {
+              ev.preventDefault();
+              modal.loadingStart();
+              const formEl = modal.el.getElementsByTagName('FORM')[0];
+              const afterSuccess = (data) => {
+                this.renderEl(data);
+              };
+              submitModal(url, modal, 'POST', this.rules.csrf, new URLSearchParams(new FormData(formEl)), afterSuccess);
+          };
+          fetchModal(url, modal, formAction);
+        });
+    }
+
     setupEvents() {
         this.el.addEventListener('click', (e) => {
             if (e.target.closest('.js-rule-edit')) {
@@ -397,6 +419,8 @@ export default class NlRule {
                 this.ruleUnlink(e);
             } else if (e.target.closest('.js-rule-delete')) {
                 this.ruleDelete(e);
+            } else if (e.target.closest('.js-rule-edit-rule')) {
+                this.editRule(e);
             } else if (e.target.closest('.js-setting-delete')) {
                 this.settingDelete(e);
             } else if (e.target.closest('.js-setting-edit')) {

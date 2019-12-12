@@ -1,16 +1,18 @@
-{% extends '@NetgenLayoutsAdmin/form/form.html.twig' %}
+{% extends '@NetgenLayoutsAdmin/form/modal.html.twig' %}
 
 {% form_theme form '@NetgenLayoutsAdmin/form/theme/nglayouts.html.twig' %}
 
 {% trans_default_domain 'nglayouts_forms' %}
 
+{% block header %}
+    {{ 'rule.edit.title'|trans }}
+{% endblock %}
+
 {% block children %}
-    <p>{{ 'rule.edit.title'|trans }}</p>
-
     {{ form_row(form.comment) }}
+{% endblock %}
 
-    <div class="form-actions">
-        <a class="nl-btn js-cancel-add">{{ 'rule.edit.button.cancel'|trans }}</a>
-        <button type="submit" class="nl-btn nl-btn-primary">{{ 'rule.edit.button.save'|trans }}</button>
-    </div>
+{% block buttons %}
+    <button class="nl-btn action-cancel">{{ 'rule.edit.button.cancel'|trans }}</button>
+    <button type="submit" class="nl-btn nl-btn-primary action-apply">{{ 'rule.edit.button.save'|trans }}</button>
 {% endblock %}
