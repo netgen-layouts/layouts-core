@@ -131,6 +131,18 @@ export default class NlLayout {
         fetchModal(url, modal, formAction, () => indeterminateCheckboxes(modal.el));
     }
 
+    showRelatedLayouts(e) {
+        e.preventDefault();
+        const modal = new NlModal({
+            preload: true,
+            autoClose: false,
+            className: 'nl-modal-cache',
+        });
+        const url = `${this.layouts.baseUrl}${this.id}/related_layouts`;
+        document.body.click();
+        fetchModal(url, modal);
+    }
+
     setupEvents() {
         this.el.addEventListener('click', (e) => {
             if (e.target.closest('.js-layout-delete')) {
@@ -141,6 +153,8 @@ export default class NlLayout {
                 this.clearLayoutCache(e);
             } else if (e.target.closest('.js-layout-clear-block-caches')) {
                 this.clearBlockCaches(e);
+              } else if (e.target.closest('.js-layout-show-related')) {
+                  this.showRelatedLayouts(e);
             } else if (e.target.closest('.js-layout-clear-related-layouts-caches')) {
                 this.clearRelatedLayoutCaches(e);
             }

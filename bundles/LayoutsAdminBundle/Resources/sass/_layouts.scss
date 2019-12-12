@@ -407,7 +407,19 @@
 .nl-shared-layouts {
     .meta-info {
         i {
-            transform:translate3d(0, 0.1em, 0) rotate(210deg);
+            transform: translate3d(0, .1em, 0) rotate(210deg);
+        }
+    }
+    a.meta-info {
+        padding: .5em 0;
+        display: inline-block;
+        color: inherit;
+        text-decoration: none;
+        &:hover {
+            color: $linkColor;
+            i {
+                color: inherit;
+            }
         }
     }
 }
@@ -456,4 +468,32 @@
     .layout-export & {
         display: inline-block;
     }
+}
+
+.nl-layouts-table {
+    width: 100%;
+    td,
+    th {
+        padding: 12px 15px;
+        font-size: .875em;
+    }
+    th {
+        background: hsl(0, 0, 95);
+    }
+    tbody {
+        tr {
+            border-bottom: 1px solid hsl(0, 0, 90);
+            &:last-child {
+                border-bottom: 0;
+            }
+        }
+    }
+    &-zone {
+        font-size: .8571428571em;
+    }
+}
+
+.nl-layouts-empty {
+    padding: 1em;
+    text-align: center;
 }
