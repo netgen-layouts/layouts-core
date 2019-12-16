@@ -49,7 +49,6 @@ export default class NlRule {
         if (!this.attributes.targetType || this.attributes.targetType === 'null') this.attributes.targetType = 'undefined';
         this.id = this.attributes.id;
         this.draftCreated = false;
-        [this.priorityEl] = this.el.getElementsByClassName('rule-priority');
 
         this.el.dataset.id = this.id;
         this.setupEvents();
@@ -417,7 +416,7 @@ export default class NlRule {
         this.selectEl.add(option);
       }
       this.selectEl.value = this.priority;
-      this.priorityEl.appendChild(this.selectEl);
+      this.el.getElementsByClassName('rule-priority')[0].appendChild(this.selectEl);
       this.selectEl.addEventListener('change', e => this.rules.moveRule(this.priority, parseInt(e.currentTarget.value, 10), true));
     }
 
