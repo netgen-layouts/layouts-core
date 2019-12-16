@@ -109,7 +109,7 @@ shared_layouts.layout.clear_related_layouts_caches: 'Clear linked layouts caches
 shared_layouts.related_layouts.layout_name: 'Layout name'
 shared_layouts.related_layouts.zones: 'Zone(s) containing shared layout'
 shared_layouts.related_layouts.no_related_layouts: 'There are no linked layouts.'
-shared_layouts.related_layouts.references_modal_title: 'Layouts which use this shared layout:'
+shared_layouts.related_layouts.title: 'Layouts which use this shared layout'
 
 shared_layouts.cache.related_layouts.title: 'Clear linked layouts caches for shared layout'
 shared_layouts.cache.related_layouts.button.clear: 'Clear selected'
