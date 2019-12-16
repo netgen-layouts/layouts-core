@@ -119,7 +119,9 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
                                 'type' => new ParameterType\TextLineType(),
                                 'isRequired' => true,
                                 'constraints' => [
-                                    new Length(['max' => 6]),
+                                    Kernel::VERSION_ID >= 40400 ?
+                                        new Length(['max' => 6, 'allowEmptyString' => false]) :
+                                        new Length(['max' => 6]),
                                     static function (): Constraint {
                                         return Kernel::VERSION_ID >= 40400 ?
                                             new Length(['min' => 3, 'allowEmptyString' => false]) :
