@@ -49,12 +49,6 @@
     display: flex;
     align-items: center;
     padding: 4px $gutter 4px 0;
-    &.rule-priority {
-        width: 40px;
-        display: flex;
-        font-size: 12px;
-        padding-right: 0;
-    }
     &.rule-layout {
         width: 25%;
     }
@@ -126,12 +120,9 @@
     display: flex;
     margin: 0 0 10px;
     font-size: 12px;
+    align-items: center;
     &.nl-rule-hidden {
         display: none;
-    }
-    .rule-priority {
-        align-items: flex-start;
-        padding-top: $gutter;
     }
     &.show-body {
         .nl-rule-body {
@@ -488,7 +479,7 @@
     right: 0;
     top: 164px;
     bottom: $gutter * 1.5;
-    padding: 4px $gutter * 1.5 $gutter * 4 $gutter * 1.5;
+    padding: 6px $gutter * 1.5 $gutter * 4 $gutter * 1.5;
     .nl-rule-between {
         text-align: center;
         margin: .75em 0;
@@ -535,4 +526,20 @@
 
 .nl-mappings-filter {
     text-align: left;
+}
+
+.rule-priority {
+    display: none;
+    width: 60px;
+    font-size: 12px;
+    padding: 0 10px 0 0;
+    .sorting & {
+        display: inline-flex;
+    }
+    .nl-select {
+        background-color: #fff;
+        padding: 4px 20px 4px 6px;
+        width: 100%;
+        background-position: calc(100% - 12px) 50%, calc(100% - 7px) 50%;
+    }
 }

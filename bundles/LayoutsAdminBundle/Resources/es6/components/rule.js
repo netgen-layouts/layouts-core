@@ -41,13 +41,15 @@ const addedFormInit = (form) => {
 
 /* nl rule plugin */
 export default class NlRule {
-    constructor(el, rules) {
+    constructor(el, priority, rules) {
         this.el = el;
+        this.priority = priority;
         this.rules = rules;
         this.attributes = this.el.getElementsByClassName('nl-rule-content')[0].dataset;
         if (!this.attributes.targetType || this.attributes.targetType === 'null') this.attributes.targetType = 'undefined';
         this.id = this.attributes.id;
         this.draftCreated = false;
+        [this.priorityEl] = this.el.getElementsByClassName('rule-priority');
 
         this.el.dataset.id = this.id;
         this.setupEvents();
@@ -195,13 +197,7 @@ export default class NlRule {
             }).then(() => {
                 modal.close();
                 this.el.parentElement.removeChild(this.el);
-                for (let i = 0, len = this.rules.rules.length; i < len; i++) {
-                    if (this.rules.rules[i].id === this.id) {
-                        this.rules.rules.splice(i, 1);
-                        this.rules.toggleUI();
-                        return true;
-                    }
-                }
+                this.rules.deleteRule(this.id);
                 return true;
             }).catch((error) => {
                 console.log(error); // eslint-disable-line no-console
@@ -409,6 +405,34 @@ export default class NlRule {
           };
           fetchModal(url, modal, formAction);
         });
+    }
+
+    onSortingStart() {
+      this.selectEl = document.createElement('select');
+      this.selectEl.className = 'nl-select';
+      for (let i = 0; i <= this.rules.rules.ids.length - 1; i++) {
+        const option = document.createElement('option');
+        option.text = i + 1;
+        option.value = i;
+        this.selectEl.add(option);
+      }
+      this.selectEl.value = this.priority;
+      this.priorityEl.appendChild(this.selectEl);
+      this.selectEl.addEventListener('change', e => this.rules.moveRule(this.priority, parseInt(e.currentTarget.value, 10), true));
+    }
+
+    onSortingCancel(priority) {
+      if (priority !== undefined) this.priority = priority;
+      this.onSortingEnd();
+    }
+
+    onSortingChange(newPriority) {
+      this.priority = newPriority;
+      this.selectEl.value = newPriority;
+    }
+
+    onSortingEnd() {
+      this.selectEl.parentNode.removeChild(this.selectEl);
     }
 
     setupEvents() {

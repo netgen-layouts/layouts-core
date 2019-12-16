@@ -6,7 +6,10 @@ export default class NlRules {
     constructor(el) {
         this.el = el;
         [this.rulesContainer] = this.el.getElementsByClassName('nl-rules');
-        this.rules = [];
+        this.rules = {
+          byId: {},
+          ids: [],
+        };
         [this.rulesHeader] = this.el.getElementsByClassName('nl-rules-head');
         [this.noRulesMsg] = this.el.getElementsByClassName('nl-no-items');
         [this.sortBtn] = this.el.getElementsByClassName('js-sort-start');
@@ -29,22 +32,23 @@ export default class NlRules {
     }
 
     initializeRulePlugin() {
-        [...this.el.getElementsByClassName('nl-rule')].forEach((el) => {
-            const newRule = new NlRule(el, this);
-            this.rules.push(newRule);
+        [...this.el.getElementsByClassName('nl-rule')].forEach((el, i) => {
+            const newRule = new NlRule(el, i, this);
+            this.rules.byId[newRule.id] = newRule;
+            this.rules.ids.push(newRule.id);
         });
         this.filterMappings();
     }
 
     toggleUI() {
-        if (!this.rules.length) {
+        if (!this.rules.ids.length) {
             this.rulesHeader.style.display = 'none';
             this.noRulesMsg.style.display = 'block';
         } else {
             this.rulesHeader.style.display = 'flex';
             this.noRulesMsg.style.display = 'none';
         }
-        this.sortBtn.style.display = this.rules.length < 2 ? 'none' : 'inline-block';
+        this.sortBtn.style.display = this.rules.ids.length < 2 ? 'none' : 'inline-block';
     }
 
     setRulesTop() {
@@ -76,8 +80,9 @@ export default class NlRules {
             newRuleEl.className = 'nl-rule show-body';
             newRuleEl.innerHTML = data;
             this.rulesContainer.appendChild(newRuleEl);
-            const newRule = new NlRule(newRuleEl, this);
-            this.rules.push(newRule);
+            const newRule = new NlRule(newRuleEl, this.rules.ids.length, this);
+            this.rules.byId[newRule.id] = newRule;
+            this.rules.ids.push(newRule.id);
             this.toggleUI();
             newRuleEl.scrollIntoView({
                 behavior: 'smooth',
@@ -88,13 +93,18 @@ export default class NlRules {
     }
 
     sortStart() {
+        this.rules.ids.forEach(id => this.rules.byId[id].onSortingStart());
         this.appContainer.classList.add('sorting');
         [...document.getElementsByClassName('nl-rule-between')].forEach(el => el.parentElement.removeChild(el));
         this.sortable = new Sortable(this.rulesContainer, {
             draggable: '> .nl-rule',
             direction: 'vertical',
+            animation: 150,
+            onEnd: (e) => {
+              this.moveRule(e.oldIndex, e.newIndex);
+            },
         });
-        this.order = this.sortable.toArray();
+        this.initialOrder = this.sortable.toArray();
     }
 
     sortSave() {
@@ -113,7 +123,11 @@ export default class NlRules {
             if (!response.ok) throw new Error(`HTTP error, status ${response.status}`);
             return response.text();
         }).then(() => {
-            window.location.reload(); /* reload to set new priority numbers */
+            this.sortable.destroy();
+            this.appContainer.classList.remove('ajax-loading');
+            this.appContainer.classList.remove('sorting');
+            this.rules.ids.forEach(id => this.rules.byId[id].onSortingEnd());
+            this.filterMappings();
         }).catch((error) => {
             this.appContainer.classList.remove('ajax-loading');
             console.log(error); // eslint-disable-line no-console
@@ -121,10 +135,28 @@ export default class NlRules {
     }
 
     sortCancel() {
-        this.sortable.sort(this.order);
+        this.rules.ids = this.initialOrder;
+        this.rules.ids.forEach((id, i) => this.rules.byId[id].onSortingCancel(i));
+        this.sortable.sort(this.initialOrder);
         this.sortable.destroy();
         this.appContainer.classList.remove('sorting');
         this.filterMappings();
+    }
+
+    moveRule(oldIndex, newIndex, shouldSort) {
+      const newOrder = [];
+      this.rules.ids.splice(newIndex, 0, this.rules.ids.splice(oldIndex, 1)[0]);
+      this.rules.ids.forEach((id, i) => {
+        this.rules.byId[id].onSortingChange(i);
+        newOrder.push(id);
+      });
+      shouldSort && this.sortable.sort(newOrder);
+    }
+
+    deleteRule(id) {
+      this.rules.ids.splice(this.rules.ids.indexOf(id), 1);
+      delete this.rules.byId[id];
+      this.toggleUI();
     }
 
     /* mapping filtering */
@@ -164,13 +196,14 @@ export default class NlRules {
         } else {
             filterAmountEl.style.display = 'none';
         }
-        this.rules.forEach((rule, i) => {
+        this.rules.ids.forEach((id, i) => {
+            const rule = this.rules.byId[id];
             const isHidden = !!this.filter.length && !this.filter.includes(rule.attributes.targetType);
             rule.isHidden = isHidden; // eslint-disable-line no-param-reassign
             rule.el.classList.toggle('nl-rule-hidden', isHidden);
             if (isHidden) {
                 hiddenItems++;
-                if (i === this.rules.length - 1) {
+                if (i === this.rules.ids.length - 1) {
                     addRuleBetween(rule, hiddenItems);
                 }
             } else if (hiddenItems) {
@@ -178,7 +211,7 @@ export default class NlRules {
                 hiddenItems = 0;
             }
         });
-        this.el.classList.toggle('no-filtered-items', !!this.rules.length && !this.rules.some(rule => !rule.isHidden));
+        this.el.classList.toggle('no-filtered-items', !!this.rules.ids.length && !this.rules.ids.some(id => !this.rules.byId[id].isHidden));
     }
 
     saveFilterToStorage() {
