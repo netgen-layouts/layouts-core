@@ -9,6 +9,10 @@
     beStrictAboutTodoAnnotatedTests="true"
     beStrictAboutChangesToGlobalState="true"
 >
+    <php>
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[self]=0" />
+    </php>
+
     <testsuites>
         <testsuite name="Netgen\Layouts">
             <directory>tests/lib</directory>
