@@ -1,0 +1,42 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Call to function method_exists\\(\\) with Symfony\\\\Component\\\\Console\\\\Application and 'renderException' will always evaluate to true\\.$#"
+			count: 1
+			path: bundles/LayoutsBundle/Command/ImportCommand.php
+
+		-
+			message: "#^Method Symfony\\\\Contracts\\\\EventDispatcher\\\\EventDispatcherInterface\\:\\:dispatch\\(\\) invoked with 2 parameters, 1 required\\.$#"
+			count: 2
+			path: lib/Utils/BackwardsCompatibility/EventDispatcherProxy.php
+
+		-
+			message: "#^Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and 'getException' will always evaluate to true\\.$#"
+			count: 1
+			path: bundles/LayoutsAdminBundle/EventListener/AdminAuthenticationExceptionListener.php
+
+		-
+			message: "#^Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and 'setException' will always evaluate to true\\.$#"
+			count: 1
+			path: bundles/LayoutsAdminBundle/EventListener/AdminAuthenticationExceptionListener.php
+
+		-
+			message: "#^Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and 'getException' will always evaluate to true\\.$#"
+			count: 1
+			path: bundles/LayoutsAdminBundle/EventListener/ExceptionConversionListener.php
+
+		-
+			message: "#^Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and 'setException' will always evaluate to true\\.$#"
+			count: 1
+			path: bundles/LayoutsAdminBundle/EventListener/ExceptionConversionListener.php
+
+		-
+			message: "#^Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and 'getException' will always evaluate to true\\.$#"
+			count: 1
+			path: bundles/LayoutsAdminBundle/EventListener/ExceptionSerializerListener.php
+
+		-
+			message: "#^Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and 'setException' will always evaluate to true\\.$#"
+			count: 1
+			path: bundles/LayoutsAdminBundle/EventListener/ExceptionSerializerListener.php
+
