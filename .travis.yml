@@ -37,7 +37,7 @@ matrix:
       env: RUN_PHPSTAN="yes"
     - php: 7.4
       env: RUN_PSALM="yes"
-    - php: 7.4
+    - php: 7.3
       env: RUN_BEHAT="yes"
     - php: 7.4
       env: RUN_MIGRATIONS="yes" DB="mysql"
