@@ -151,9 +151,12 @@
         display: flex;
         cursor: pointer;
         padding: $gutter 12px;
-        background: hsl(0, 0, 90);
         line-height: 1.6666666667;
         color: hsl(0, 0, 20);
+        transition: background-color .2s;
+        &:hover {
+            background: hsla(0, 0, 62, .2);
+        }
         &::after {
             font-size: 16px;
             margin: 1px 0 0 .125em;
@@ -165,8 +168,8 @@
         padding: 10px 20px;
         font-size: 12px;
         line-height: 1.2;
-        background: hsl(0, 0, 94);
-        color: hsl(0, 0, 54);
+        background: hsl(0, 0, 90);
+        color: hsl(0, 0, 50);
     }
     .nl-rule-head {
         display: flex;
