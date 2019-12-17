@@ -133,6 +133,7 @@ module.exports = (env, argv) => {
     optimization: {
       minimizer: [
         new TerserPlugin({
+          extractComments: false,
           terserOptions: {
             output: {
               comments: false,
