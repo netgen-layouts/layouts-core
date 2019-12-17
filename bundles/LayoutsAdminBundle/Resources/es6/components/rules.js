@@ -156,6 +156,9 @@ export default class NlRules {
     deleteRule(id) {
       this.rules.ids.splice(this.rules.ids.indexOf(id), 1);
       delete this.rules.byId[id];
+      this.rules.ids.forEach((ruleId, i) => {
+        this.rules.byId[ruleId].priority = i;
+      });
       this.toggleUI();
     }
 
