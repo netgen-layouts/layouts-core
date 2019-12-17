@@ -46,7 +46,7 @@ interface LayoutResolverService extends Service
      *
      * If the layout is provided, only rules pointing to provided layout are returned.
      *
-     * @throws \Netgen\Layouts\Exception\BadStateException if provided layout is not published
+     * @throws \Netgen\Layouts\Exception\BadStateException If provided layout is not published
      */
     public function loadRules(?Layout $layout = null, int $offset = 0, ?int $limit = null): RuleList;
 
@@ -55,7 +55,7 @@ interface LayoutResolverService extends Service
      *
      * If the layout is provided, the count of rules pointing to provided layout is returned.
      *
-     * @throws \Netgen\Layouts\Exception\BadStateException if provided layout is not published
+     * @throws \Netgen\Layouts\Exception\BadStateException If provided layout is not published
      */
     public function getRuleCount(?Layout $layout = null): int;
 
@@ -125,7 +125,7 @@ interface LayoutResolverService extends Service
      * Creates a rule draft.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If rule is not published
-     *                                                          If draft already exists for the rule and $discardExisting is set to false
+     *                                                     If draft already exists for the rule and $discardExisting is set to false
      */
     public function createDraft(Rule $rule, bool $discardExisting = false): Rule;
 
@@ -160,7 +160,7 @@ interface LayoutResolverService extends Service
      * Enables a rule.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If rule is not published
-     *                                                          If rule cannot be enabled
+     *                                                     If rule cannot be enabled
      */
     public function enableRule(Rule $rule): Rule;
 
@@ -168,7 +168,7 @@ interface LayoutResolverService extends Service
      * Disables a rule.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If rule is not published
-     *                                                          If rule cannot be disabled
+     *                                                     If rule cannot be disabled
      */
     public function disableRule(Rule $rule): Rule;
 
@@ -176,7 +176,7 @@ interface LayoutResolverService extends Service
      * Adds a target to rule.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If rule is not a draft
-     *                                                          If target of different type than it already exists in the rule is added
+     *                                                     If target of different type than it already exists in the rule is added
      */
     public function addTarget(Rule $rule, TargetCreateStruct $targetCreateStruct): Target;
 

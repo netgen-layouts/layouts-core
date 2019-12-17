@@ -90,6 +90,8 @@
 
                     <li><a href="#" class="js-rule-edit-rule">{{ 'layout_resolver.rule.edit_rule'|trans }}</a></li>
 
+                    <li><a href="#" class="js-rule-copy-rule">{{ 'layout_resolver.rule.copy_rule'|trans }}</a></li>
+
                     <li>
                         <a class="js-link-layout" {% if rule.layout is not empty %}data-linked-layout="{{ rule.layout.id.toString }}"{% endif %} data-browser-item-type="layout" href="#">
                             {% if rule.layout is not empty %}

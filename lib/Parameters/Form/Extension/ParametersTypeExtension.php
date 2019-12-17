@@ -22,6 +22,9 @@ final class ParametersTypeExtension extends AbstractTypeExtension
         return FormType::class;
     }
 
+    /**
+     * @return iterable<class-string>
+     */
     public static function getExtendedTypes(): iterable
     {
         return [FormType::class];

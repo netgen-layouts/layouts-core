@@ -41,6 +41,13 @@ nglayouts_admin_layout_resolver_rule_disable:
     defaults:
         _nglayouts_status: published
 
+nglayouts_admin_layout_resolver_rule_copy:
+    path: /rules/{ruleId}/copy
+    controller: netgen_layouts.controller.admin.layout_resolver.copy_rule
+    methods: [POST]
+    defaults:
+        _nglayouts_status: published
+
 nglayouts_admin_layout_resolver_rule_create_draft:
     path: /rules/{ruleId}/draft
     controller: netgen_layouts.controller.admin.layout_resolver.create_rule_draft
