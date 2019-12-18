@@ -133,6 +133,7 @@ export default class NlLayout {
 
     showRelatedLayouts(e) {
         e.preventDefault();
+        if (!this.published) return;
         const modal = new NlModal({
             preload: true,
             autoClose: false,

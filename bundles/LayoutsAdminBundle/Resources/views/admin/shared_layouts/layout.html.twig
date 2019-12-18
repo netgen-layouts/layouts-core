@@ -53,7 +53,7 @@
 
     <div class="nl-layout-actions">
         <div class="nl-layout-data">
-            <a href="#" class="meta-info nl-tt js-layout-show-related" title="{{ 'shared_layouts.layout.number_of_references'|trans }}">
+            <a href="#" class="meta-info nl-tt js-layout-show-related{% if not layout.published %} disabled{% endif %}" title="{{ 'shared_layouts.layout.number_of_references'|trans }}">
                 <i class="material-icons" role="presentation">share</i> <span class="meta-badge js-target-counter">
                     {{ related_layouts_count }}
                 </span>
