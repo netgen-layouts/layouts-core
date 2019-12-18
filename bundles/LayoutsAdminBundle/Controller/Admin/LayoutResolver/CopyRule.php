@@ -30,7 +30,7 @@ final class CopyRule extends AbstractController
         $this->denyAccessUnlessGranted('nglayouts:mapping:edit');
 
         $updateStruct = $this->layoutResolverService->newRuleMetadataUpdateStruct();
-        $updateStruct->priority = $rule->getPriority() + 1;
+        $updateStruct->priority = $rule->getPriority() - 1;
 
         $copiedRule = $this->layoutResolverService->updateRuleMetadata(
             $this->layoutResolverService->copyRule($rule),
