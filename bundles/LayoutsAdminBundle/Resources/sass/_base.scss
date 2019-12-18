@@ -117,7 +117,6 @@ body {
         .multientry-item {
             position:relative;
             .icon-close {
-                @extend %material-icons;
                 position:absolute;
                 right:6px;
                 top:9px;
@@ -128,9 +127,6 @@ body {
                 cursor:pointer;
                 text-align:center;
                 transition:background 0.15s;
-                &::before {
-                    content:"clear";
-                }
                 &:hover {
                     background:rgba(0, 0, 0, 0.05);
                 }

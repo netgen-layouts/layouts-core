@@ -15,7 +15,7 @@ export default class MultiEntry {
         this.items_exist = !![...this.items_container.getElementsByClassName('multientry-item')].length;
         [this.add_button] = el.getElementsByClassName('multientry_add');
         this.item_template = this.el.dataset.prototype;
-        this.close_element = '<i class="icon-close"></i>';
+        this.close_element = '<i class="material-icons icon-close">close</i>';
         this.error_message = this.options.error_message || (`Max number of items: ${this.options.limit}`);
         this.error_el = document.createElement('div');
         this.error_el.className = 'multientry-error';
