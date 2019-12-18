@@ -63,8 +63,8 @@ export default class NlRule {
 
     onRender() {
         if (this.draftCreated) this.afterDraftCreate();
-        this.renderPriority();
         [this.priorityEl] = this.el.getElementsByClassName('rule-priority');
+        this.renderPriority();
         [...this.el.getElementsByClassName('nl-dropdown')].forEach((el) => {
             !el.getElementsByClassName('nl-dropdown-menu')[0].childElementCount && el.parentElement.removeChild(el);
         });
@@ -131,6 +131,7 @@ export default class NlRule {
     ruleEdit(e) {
         e.preventDefault();
         const { action } = e.target.closest('.js-rule-edit').dataset;
+        if (action === 'publish') return this.publishRule();
         const url = `${this.rules.baseUrl}rules/${this.id}/${action}`;
         const getDraft = !!((action === 'disable' || action === 'enable') && this.draftCreated);
         fetch(url, {
@@ -147,6 +148,29 @@ export default class NlRule {
             getDraft || this.afterDraftRemove();
         }).catch((error) => {
             console.log(error); // eslint-disable-line no-console
+        });
+        return true;
+    }
+
+    publishRule() {
+        const url = `${this.rules.baseUrl}rules/${this.id}/publish`;
+        this.rules.showLoader();
+        fetch(url, {
+            method: 'POST',
+            credentials: 'same-origin',
+            headers: {
+                'X-CSRF-Token': this.rules.csrf,
+            },
+        }).then((response) => {
+            if (!response.ok) throw new Error(`HTTP error, status ${response.status}`);
+            return response.text();
+        }).then((data) => {
+            this.renderEl(data);
+            this.afterDraftRemove();
+            this.rules.hideLoader();
+        }).catch((error) => {
+            console.log(error); // eslint-disable-line no-console
+            this.rules.hideLoader();
         });
     }
 
@@ -389,6 +413,7 @@ export default class NlRule {
 
     editRule(e) {
         e.preventDefault();
+        const shouldPublish = !this.draftCreated;
         const url = `${this.rules.baseUrl}rules/${this.id}/edit`;
         const modal = new NlModal({
             preload: true,
@@ -400,8 +425,8 @@ export default class NlRule {
               ev.preventDefault();
               modal.loadingStart();
               const formEl = modal.el.getElementsByTagName('FORM')[0];
-              const afterSuccess = (data) => {
-                this.renderEl(data);
+              const afterSuccess = (html) => {
+                shouldPublish ? this.publishRule() : this.renderEl(html);
               };
               submitModal(url, modal, 'POST', this.rules.csrf, new URLSearchParams(new FormData(formEl)), afterSuccess);
           };
