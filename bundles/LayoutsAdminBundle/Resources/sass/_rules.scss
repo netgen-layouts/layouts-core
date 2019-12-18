@@ -533,13 +533,16 @@
 
 .rule-priority {
     display: inline-flex;
-    width: 60px;
+    width: 50px;
     font-size: 12px;
     padding: 0 10px 0 0;
     .nl-select {
         background-color: #fff;
-        padding: 4px 20px 4px 6px;
+        font-size: 12px;
+        padding: 4px 12px 4px 6px;
         width: 100%;
-        background-position: calc(100% - 12px) 50%, calc(100% - 7px) 50%;
+        font-size: 12px;
+        background-position: calc(100% - 9px) 50%, calc(100% - 5px) 50%;
+        background-size: 3px 4px, 4px 5px;
     }
 }
