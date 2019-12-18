@@ -532,13 +532,10 @@
 }
 
 .rule-priority {
-    display: none;
+    display: inline-flex;
     width: 60px;
     font-size: 12px;
     padding: 0 10px 0 0;
-    .sorting & {
-        display: inline-flex;
-    }
     .nl-select {
         background-color: #fff;
         padding: 4px 20px 4px 6px;

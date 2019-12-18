@@ -49,6 +49,7 @@ export default class NlRule {
         if (!this.attributes.targetType || this.attributes.targetType === 'null') this.attributes.targetType = 'undefined';
         this.id = this.attributes.id;
         this.draftCreated = false;
+        [this.priorityEl] = this.el.getElementsByClassName('rule-priority');
 
         this.el.dataset.id = this.id;
         this.setupEvents();
@@ -62,6 +63,8 @@ export default class NlRule {
 
     onRender() {
         if (this.draftCreated) this.afterDraftCreate();
+        this.renderPriority();
+        [this.priorityEl] = this.el.getElementsByClassName('rule-priority');
         [...this.el.getElementsByClassName('nl-dropdown')].forEach((el) => {
             !el.getElementsByClassName('nl-dropdown-menu')[0].childElementCount && el.parentElement.removeChild(el);
         });
@@ -416,7 +419,8 @@ export default class NlRule {
         this.selectEl.add(option);
       }
       this.selectEl.value = this.priority;
-      this.el.getElementsByClassName('rule-priority')[0].appendChild(this.selectEl);
+      this.priorityEl.innerHTML = '';
+      this.priorityEl.appendChild(this.selectEl);
       this.selectEl.addEventListener('change', e => this.rules.moveRule(this.priority, parseInt(e.currentTarget.value, 10), true));
     }
 
@@ -431,7 +435,11 @@ export default class NlRule {
     }
 
     onSortingEnd() {
-      this.selectEl.parentNode.removeChild(this.selectEl);
+      this.renderPriority();
+    }
+
+    renderPriority() {
+      this.priorityEl.innerHTML = `<span class="rule-priority-nr">${this.priority + 1}</span>`;
     }
 
     setupEvents() {
