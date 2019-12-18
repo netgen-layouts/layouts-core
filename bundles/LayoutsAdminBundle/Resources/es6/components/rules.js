@@ -64,7 +64,7 @@ export default class NlRules {
 
     addRule(e) {
         e.preventDefault();
-        this.appContainer.classList.add('ajax-loading');
+        this.showLoader();
         fetch(`${this.baseUrl}rules`, {
             method: 'POST',
             credentials: 'same-origin',
@@ -72,24 +72,31 @@ export default class NlRules {
                 'X-CSRF-Token': this.csrf,
             },
         }).then((response) => {
-            this.appContainer.classList.remove('ajax-loading');
+            this.hideLoader();
             if (!response.ok) throw new Error(`HTTP error, status ${response.status}`);
             return response.text();
         }).then((data) => {
-            const newRuleEl = document.createElement('div');
-            newRuleEl.className = 'nl-rule show-body';
-            newRuleEl.innerHTML = data;
-            this.rulesContainer.appendChild(newRuleEl);
-            const newRule = new NlRule(newRuleEl, this.rules.ids.length, this);
-            this.rules.byId[newRule.id] = newRule;
-            this.rules.ids.push(newRule.id);
-            this.toggleUI();
-            newRuleEl.scrollIntoView({
-                behavior: 'smooth',
-            });
+          this.createRule(data, this.rules.ids.length, true);
         }).catch((error) => {
             console.log(error); // eslint-disable-line no-console
         });
+    }
+
+    createRule(html, priority, shouldScroll) {
+      const newRuleEl = document.createElement('div');
+      newRuleEl.className = 'nl-rule show-body';
+      newRuleEl.innerHTML = html;
+      priority >= this.rules.ids.length
+        ? this.rulesContainer.appendChild(newRuleEl)
+        : this.rulesContainer.insertBefore(newRuleEl, this.rules.byId[this.rules.ids[priority]].el);
+      const newRule = new NlRule(newRuleEl, priority, this);
+      this.rules.byId[newRule.id] = newRule;
+      this.rules.ids.splice(priority, 0, newRule.id);
+      this.renderRulesPriorities();
+      this.toggleUI();
+      shouldScroll && newRuleEl.scrollIntoView({
+          behavior: 'smooth',
+      });
     }
 
     sortStart() {
@@ -108,7 +115,7 @@ export default class NlRules {
     }
 
     sortSave() {
-        this.appContainer.classList.add('ajax-loading');
+        this.showLoader();
         const sorted = this.sortable.toArray();
         const rules = sorted.map(rule => `rule_ids[]=${rule}`);
         const body = new URLSearchParams(rules.join('&'));
@@ -124,12 +131,12 @@ export default class NlRules {
             return response.text();
         }).then(() => {
             this.sortable.destroy();
-            this.appContainer.classList.remove('ajax-loading');
+            this.hideLoader();
             this.appContainer.classList.remove('sorting');
             this.rules.ids.forEach(id => this.rules.byId[id].onSortingEnd());
             this.filterMappings();
         }).catch((error) => {
-            this.appContainer.classList.remove('ajax-loading');
+            this.hideLoader();
             console.log(error); // eslint-disable-line no-console
         });
     }
@@ -156,12 +163,16 @@ export default class NlRules {
     deleteRule(id) {
       this.rules.ids.splice(this.rules.ids.indexOf(id), 1);
       delete this.rules.byId[id];
+      this.renderRulesPriorities();
+      this.toggleUI();
+    }
+
+    renderRulesPriorities() {
       this.rules.ids.forEach((ruleId, i) => {
         const rule = this.rules.byId[ruleId];
         rule.priority = i;
         rule.renderPriority();
       });
-      this.toggleUI();
     }
 
     /* mapping filtering */
@@ -221,6 +232,14 @@ export default class NlRules {
 
     saveFilterToStorage() {
         localStorage.setItem('ngMappingFilters', JSON.stringify(this.filter));
+    }
+
+    showLoader() {
+      this.appContainer.classList.add('ajax-loading');
+    }
+
+    hideLoader() {
+      this.appContainer.classList.remove('ajax-loading');
     }
 
     checkAllFilters(e) {

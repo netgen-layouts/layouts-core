@@ -409,6 +409,29 @@ export default class NlRule {
         });
     }
 
+    copyRule(e) {
+      e.preventDefault();
+      this.rules.showLoader();
+      const url = `${this.rules.baseUrl}rules/${this.id}/copy`;
+      fetch(url, {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: {
+              'X-CSRF-Token': this.rules.csrf,
+          },
+      }).then((response) => {
+          if (!response.ok) throw new Error(`HTTP error, status ${response.status}`);
+          return response.text();
+      }).then((html) => {
+          document.body.click();
+          this.rules.createRule(html, this.priority + 1);
+          this.rules.hideLoader();
+      }).catch((error) => {
+          console.log(error); // eslint-disable-line no-console
+          this.rules.hideLoader();
+      });
+    }
+
     onSortingStart() {
       this.selectEl = document.createElement('select');
       this.selectEl.className = 'nl-select';
@@ -452,6 +475,8 @@ export default class NlRule {
                 this.ruleDelete(e);
             } else if (e.target.closest('.js-rule-edit-rule')) {
                 this.editRule(e);
+            } else if (e.target.closest('.js-rule-copy-rule')) {
+                this.copyRule(e);
             } else if (e.target.closest('.js-setting-delete')) {
                 this.settingDelete(e);
             } else if (e.target.closest('.js-setting-edit')) {
