@@ -21,6 +21,7 @@ final class ValueTypeTest extends TestCase
                 'identifier' => 'value',
                 'isEnabled' => false,
                 'name' => 'Value type',
+                'supportsManualItems' => true,
             ]
         );
     }
@@ -47,5 +48,13 @@ final class ValueTypeTest extends TestCase
     public function testGetName(): void
     {
         self::assertSame('Value type', $this->valueType->getName());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Item\ValueType\ValueType::supportsManualItems
+     */
+    public function testSupportsManualItems(): void
+    {
+        self::assertTrue($this->valueType->supportsManualItems());
     }
 }

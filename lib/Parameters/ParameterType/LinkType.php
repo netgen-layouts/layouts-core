@@ -57,9 +57,16 @@ final class LinkType extends ParameterType
                     return $value;
                 }
 
-                return array_keys(
-                    $this->valueTypeRegistry->getValueTypes(true)
-                );
+                $valueTypes = [];
+
+                /** @var \Netgen\Layouts\Item\ValueType\ValueType $valueType */
+                foreach ($this->valueTypeRegistry->getValueTypes(true) as $identifier => $valueType) {
+                    if ($valueType->supportsManualItems()) {
+                        $valueTypes[] = $identifier;
+                    }
+                }
+
+                return $valueTypes;
             }
         );
     }

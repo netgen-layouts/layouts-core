@@ -25,6 +25,9 @@ final class ValueTypeNode implements ConfigurationNodeInterface
                         ->isRequired()
                         ->cannotBeEmpty()
                     ->end()
+                    ->booleanNode('manual_items')
+                        ->defaultTrue()
+                    ->end()
                 ->end()
             ->end();
 

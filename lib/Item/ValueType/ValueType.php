@@ -35,6 +35,11 @@ class ValueType
     private $name;
 
     /**
+     * @var bool
+     */
+    private $supportsManualItems;
+
+    /**
      * Returns the value type identifier.
      */
     public function getIdentifier(): string
@@ -56,5 +61,13 @@ class ValueType
     public function getName(): string
     {
         return $this->name;
+    }
+
+    /**
+     * Returns if the value type supports selecting manual items through Content Browser.
+     */
+    public function supportsManualItems(): bool
+    {
+        return $this->supportsManualItems;
     }
 }

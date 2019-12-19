@@ -28,6 +28,37 @@ final class ValueTypePassTest extends AbstractCompilerPassTestCase
             [
                 'test' => [
                     'enabled' => true,
+                    'manual_items' => true,
+                ],
+            ]
+        );
+
+        $this->container->setDefinition('netgen_layouts.item.registry.value_type', new Definition(null, [[]]));
+
+        $this->compile();
+
+        $this->assertContainerBuilderHasService('netgen_layouts.item.value_type.test');
+        $this->assertContainerBuilderHasServiceDefinitionWithArgument(
+            'netgen_layouts.item.registry.value_type',
+            0,
+            [
+                'test' => new Reference('netgen_layouts.item.value_type.test'),
+            ]
+        );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::buildValueTypes
+     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::process
+     */
+    public function testProcessWithUnsupportedManualItems(): void
+    {
+        $this->setParameter(
+            'netgen_layouts.value_types',
+            [
+                'test' => [
+                    'enabled' => true,
+                    'manual_items' => false,
                 ],
             ]
         );
@@ -63,6 +94,7 @@ final class ValueTypePassTest extends AbstractCompilerPassTestCase
             [
                 'test' => [
                     'enabled' => true,
+                    'manual_items' => true,
                 ],
             ]
         );

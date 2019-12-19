@@ -22,6 +22,7 @@ final class ValueTypeFactoryTest extends TestCase
             [
                 'name' => 'Value type',
                 'enabled' => false,
+                'manual_items' => true,
             ]
         );
 
@@ -30,6 +31,7 @@ final class ValueTypeFactoryTest extends TestCase
                 'identifier' => 'value',
                 'isEnabled' => false,
                 'name' => 'Value type',
+                'supportsManualItems' => true,
             ],
             $this->exportObject($valueType)
         );

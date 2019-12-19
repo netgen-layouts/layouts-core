@@ -31,6 +31,7 @@ final class ValueTypeNodeTest extends TestCase
                     'value2' => [
                         'enabled' => false,
                         'name' => 'Value 2',
+                        'manual_items' => false,
                     ],
                 ],
             ],
@@ -41,10 +42,12 @@ final class ValueTypeNodeTest extends TestCase
                 'value1' => [
                     'name' => 'Value 1',
                     'enabled' => true,
+                    'manual_items' => true,
                 ],
                 'value2' => [
                     'name' => 'Value 2',
                     'enabled' => false,
+                    'manual_items' => false,
                 ],
             ],
         ];

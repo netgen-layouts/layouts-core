@@ -18,6 +18,7 @@ final class ValueTypeFactory
                 'identifier' => $identifier,
                 'isEnabled' => $config['enabled'],
                 'name' => $config['name'],
+                'supportsManualItems' => $config['manual_items'],
             ]
         );
     }

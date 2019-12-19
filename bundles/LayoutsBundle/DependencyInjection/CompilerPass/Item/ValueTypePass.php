@@ -40,7 +40,9 @@ final class ValueTypePass implements CompilerPassInterface
     private function buildValueTypes(ContainerBuilder $container, array $valueTypes): Generator
     {
         foreach ($valueTypes as $identifier => $valueType) {
-            $this->validateBrowserType($container, $identifier);
+            if ($valueType['manual_items']) {
+                $this->validateBrowserType($container, $identifier);
+            }
 
             $serviceIdentifier = sprintf('netgen_layouts.item.value_type.%s', $identifier);
 

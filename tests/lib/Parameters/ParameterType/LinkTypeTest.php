@@ -37,8 +37,9 @@ final class LinkTypeTest extends TestCase
     {
         $this->valueTypeRegistry = new ValueTypeRegistry(
             [
-                'default' => ValueType::fromArray(['isEnabled' => true]),
-                'disabled' => ValueType::fromArray(['isEnabled' => false]),
+                'default' => ValueType::fromArray(['isEnabled' => true, 'supportsManualItems' => true]),
+                'no_manual' => ValueType::fromArray(['isEnabled' => true, 'supportsManualItems' => false]),
+                'disabled' => ValueType::fromArray(['isEnabled' => false, 'supportsManualItems' => true]),
             ]
         );
 
