@@ -8,6 +8,7 @@ use ArrayIterator;
 use Netgen\Layouts\Collection\Form\CollectionDataMapper;
 use Netgen\Layouts\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\Layouts\Tests\Form\DataMapper\DataMapperTest;
+use Symfony\Component\Form\FormInterface;
 
 final class CollectionDataMapperTest extends DataMapperTest
 {
@@ -39,8 +40,14 @@ final class CollectionDataMapperTest extends DataMapperTest
 
         $this->mapper->mapDataToForms($data, $forms);
 
-        self::assertSame('10', $forms['offset']->getData());
-        self::assertSame('5', $forms['limit']->getData());
+        $offsetForm = $forms['offset'];
+        $limitForm = $forms['limit'];
+
+        self::assertInstanceOf(FormInterface::class, $offsetForm);
+        self::assertInstanceOf(FormInterface::class, $limitForm);
+
+        self::assertSame('10', $offsetForm->getData());
+        self::assertSame('5', $limitForm->getData());
     }
 
     /**
@@ -61,8 +68,14 @@ final class CollectionDataMapperTest extends DataMapperTest
 
         $this->mapper->mapDataToForms($data, $forms);
 
-        self::assertSame('10', $forms['offset']->getData());
-        self::assertNull($forms['limit']->getData());
+        $offsetForm = $forms['offset'];
+        $limitForm = $forms['limit'];
+
+        self::assertInstanceOf(FormInterface::class, $offsetForm);
+        self::assertInstanceOf(FormInterface::class, $limitForm);
+
+        self::assertSame('10', $offsetForm->getData());
+        self::assertNull($limitForm->getData());
     }
 
     /**

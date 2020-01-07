@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Tests\Parameters\Form\Type\DataMapper;
 use ArrayIterator;
 use Netgen\Layouts\Parameters\Form\Type\DataMapper\ItemLinkDataMapper;
 use Netgen\Layouts\Tests\Form\DataMapper\DataMapperTest;
+use Symfony\Component\Form\FormInterface;
 
 final class ItemLinkDataMapperTest extends DataMapperTest
 {
@@ -34,8 +35,14 @@ final class ItemLinkDataMapperTest extends DataMapperTest
 
         $this->mapper->mapDataToForms('value://42', $forms);
 
-        self::assertSame('42', $forms['item_value']->getData());
-        self::assertSame('value', $forms['item_type']->getData());
+        $itemValueForm = $forms['item_value'];
+        $itemTypeForm = $forms['item_type'];
+
+        self::assertInstanceOf(FormInterface::class, $itemValueForm);
+        self::assertInstanceOf(FormInterface::class, $itemTypeForm);
+
+        self::assertSame('42', $itemValueForm->getData());
+        self::assertSame('value', $itemTypeForm->getData());
     }
 
     /**
@@ -52,8 +59,14 @@ final class ItemLinkDataMapperTest extends DataMapperTest
 
         $this->mapper->mapDataToForms('value://', $forms);
 
-        self::assertNull($forms['item_value']->getData());
-        self::assertNull($forms['item_type']->getData());
+        $itemValueForm = $forms['item_value'];
+        $itemTypeForm = $forms['item_type'];
+
+        self::assertInstanceOf(FormInterface::class, $itemValueForm);
+        self::assertInstanceOf(FormInterface::class, $itemTypeForm);
+
+        self::assertNull($itemValueForm->getData());
+        self::assertNull($itemTypeForm->getData());
     }
 
     /**
@@ -70,8 +83,14 @@ final class ItemLinkDataMapperTest extends DataMapperTest
 
         $this->mapper->mapDataToForms(42, $forms);
 
-        self::assertNull($forms['item_value']->getData());
-        self::assertNull($forms['item_type']->getData());
+        $itemValueForm = $forms['item_value'];
+        $itemTypeForm = $forms['item_type'];
+
+        self::assertInstanceOf(FormInterface::class, $itemValueForm);
+        self::assertInstanceOf(FormInterface::class, $itemTypeForm);
+
+        self::assertNull($itemValueForm->getData());
+        self::assertNull($itemTypeForm->getData());
     }
 
     /**

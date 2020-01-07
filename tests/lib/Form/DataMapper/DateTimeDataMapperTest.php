@@ -8,6 +8,7 @@ use ArrayIterator;
 use DateTimeImmutable;
 use DateTimeZone;
 use Netgen\Layouts\Form\DataMapper\DateTimeDataMapper;
+use Symfony\Component\Form\FormInterface;
 
 final class DateTimeDataMapperTest extends DataMapperTest
 {
@@ -38,8 +39,14 @@ final class DateTimeDataMapperTest extends DataMapperTest
 
         $this->mapper->mapDataToForms($value, $forms);
 
-        self::assertSame('2018-02-01 15:00:00', $forms['datetime']->getData());
-        self::assertSame('Antarctica/Casey', $forms['timezone']->getData());
+        $dateTimeForm = $forms['datetime'];
+        $timeZoneForm = $forms['timezone'];
+
+        self::assertInstanceOf(FormInterface::class, $dateTimeForm);
+        self::assertInstanceOf(FormInterface::class, $timeZoneForm);
+
+        self::assertSame('2018-02-01 15:00:00', $dateTimeForm->getData());
+        self::assertSame('Antarctica/Casey', $timeZoneForm->getData());
     }
 
     /**
@@ -59,8 +66,14 @@ final class DateTimeDataMapperTest extends DataMapperTest
 
         $this->mapper->mapDataToForms($input, $forms);
 
-        self::assertSame($dateTime, $forms['datetime']->getData());
-        self::assertSame($timeZone, $forms['timezone']->getData());
+        $dateTimeForm = $forms['datetime'];
+        $timeZoneForm = $forms['timezone'];
+
+        self::assertInstanceOf(FormInterface::class, $dateTimeForm);
+        self::assertInstanceOf(FormInterface::class, $timeZoneForm);
+
+        self::assertSame($dateTime, $dateTimeForm->getData());
+        self::assertSame($timeZone, $timeZoneForm->getData());
     }
 
     public function mapDataToFormsWithArrayDataProvider(): array
@@ -88,8 +101,14 @@ final class DateTimeDataMapperTest extends DataMapperTest
 
         $this->mapper->mapDataToForms(null, $forms);
 
-        self::assertNull($forms['datetime']->getData());
-        self::assertSame(date_default_timezone_get(), $forms['timezone']->getData());
+        $dateTimeForm = $forms['datetime'];
+        $timeZoneForm = $forms['timezone'];
+
+        self::assertInstanceOf(FormInterface::class, $dateTimeForm);
+        self::assertInstanceOf(FormInterface::class, $timeZoneForm);
+
+        self::assertNull($dateTimeForm->getData());
+        self::assertSame(date_default_timezone_get(), $timeZoneForm->getData());
     }
 
     /**

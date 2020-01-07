@@ -14,6 +14,7 @@ use Netgen\Layouts\Parameters\ParameterType\LinkType;
 use Netgen\Layouts\Parameters\Value\LinkValue;
 use Netgen\Layouts\Tests\Form\DataMapper\DataMapperTest;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
+use Symfony\Component\Form\FormInterface;
 
 final class LinkDataMapperTest extends DataMapperTest
 {
@@ -64,10 +65,20 @@ final class LinkDataMapperTest extends DataMapperTest
 
         $this->mapper->mapDataToForms($linkValue, $forms);
 
-        self::assertSame('url', $forms['link_type']->getData());
-        self::assertSame('?suffix', $forms['link_suffix']->getData());
-        self::assertSame('1', $forms['new_window']->getData());
-        self::assertSame('https://netgen.io', $forms['url']->getData());
+        $linkTypeForm = $forms['link_type'];
+        $linkSuffixForm = $forms['link_suffix'];
+        $newWindowForm = $forms['new_window'];
+        $urlForm = $forms['url'];
+
+        self::assertInstanceOf(FormInterface::class, $linkTypeForm);
+        self::assertInstanceOf(FormInterface::class, $linkSuffixForm);
+        self::assertInstanceOf(FormInterface::class, $newWindowForm);
+        self::assertInstanceOf(FormInterface::class, $urlForm);
+
+        self::assertSame('url', $linkTypeForm->getData());
+        self::assertSame('?suffix', $linkSuffixForm->getData());
+        self::assertSame('1', $newWindowForm->getData());
+        self::assertSame('https://netgen.io', $urlForm->getData());
     }
 
     /**
@@ -87,9 +98,17 @@ final class LinkDataMapperTest extends DataMapperTest
 
         $this->mapper->mapDataToForms($linkValue, $forms);
 
-        self::assertNull($forms['link_type']->getData());
-        self::assertNull($forms['link_suffix']->getData());
-        self::assertNull($forms['new_window']->getData());
+        $linkTypeForm = $forms['link_type'];
+        $linkSuffixForm = $forms['link_suffix'];
+        $newWindowForm = $forms['new_window'];
+
+        self::assertInstanceOf(FormInterface::class, $linkTypeForm);
+        self::assertInstanceOf(FormInterface::class, $linkSuffixForm);
+        self::assertInstanceOf(FormInterface::class, $newWindowForm);
+
+        self::assertNull($linkTypeForm->getData());
+        self::assertNull($linkSuffixForm->getData());
+        self::assertNull($newWindowForm->getData());
     }
 
     /**
