@@ -15,6 +15,8 @@ use Netgen\Layouts\View\RendererInterface;
 use Netgen\Layouts\View\View\ZoneView\ZoneReference;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Twig\Environment;
+use Twig\Loader\ArrayLoader;
 use Twig\RuntimeLoader\FactoryRuntimeLoader;
 use Twig\Test\IntegrationTestCase;
 
@@ -63,7 +65,8 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
             $this->rendererMock,
             $this->localeProviderMock,
             $this->requestStack,
-            new ErrorHandler()
+            new ErrorHandler(),
+            new Environment(new ArrayLoader())
         );
     }
 

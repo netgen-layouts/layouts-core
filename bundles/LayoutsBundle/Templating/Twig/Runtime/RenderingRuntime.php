@@ -24,7 +24,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Throwable;
 use Twig\Environment;
-use Twig\Loader\ArrayLoader;
 use Twig\Template;
 use Twig\TemplateWrapper;
 
@@ -55,18 +54,25 @@ final class RenderingRuntime
      */
     private $errorHandler;
 
+    /**
+     * @var \Twig\Environment
+     */
+    private $simpleTwig;
+
     public function __construct(
         BlockService $blockService,
         RendererInterface $renderer,
         LocaleProviderInterface $localeProvider,
         RequestStack $requestStack,
-        ErrorHandlerInterface $errorHandler
+        ErrorHandlerInterface $errorHandler,
+        Environment $simpleTwig
     ) {
         $this->blockService = $blockService;
         $this->renderer = $renderer;
         $this->localeProvider = $localeProvider;
         $this->requestStack = $requestStack;
         $this->errorHandler = $errorHandler;
+        $this->simpleTwig = $simpleTwig;
     }
 
     /**
@@ -262,11 +268,9 @@ final class RenderingRuntime
     {
         try {
             $parameters = iterator_to_array($this->getTemplateVariables($parameters));
+            $template = $this->simpleTwig->createTemplate($string);
 
-            $environment = new Environment(new ArrayLoader());
-            $template = $environment->createTemplate($string);
-
-            return $environment->resolveTemplate($template)->render($parameters);
+            return $this->simpleTwig->resolveTemplate($template)->render($parameters);
         } catch (Throwable $t) {
             return '';
         }

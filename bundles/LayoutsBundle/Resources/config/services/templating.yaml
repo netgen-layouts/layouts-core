@@ -20,6 +20,13 @@ services:
         tags:
             - { name: twig.extension }
 
+    netgen_layouts.templating.twig.runtime.rendering.simple_twig:
+        class: Twig\Environment
+        arguments:
+            - !service { class: Twig\Loader\ArrayLoader }
+        calls:
+            - [addExtension, ["@twig.extension.trans"]]
+
     netgen_layouts.templating.twig.runtime.rendering:
         class: Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime
         arguments:
@@ -28,6 +35,7 @@ services:
             - "@netgen_layouts.locale.provider"
             - "@request_stack"
             - "@netgen_layouts.error.handler"
+            - "@netgen_layouts.templating.twig.runtime.rendering.simple_twig"
         tags:
             - { name: twig.runtime }
 

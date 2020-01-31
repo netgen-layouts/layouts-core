@@ -26,6 +26,7 @@ use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
+use Twig\Loader\ArrayLoader;
 use Twig\Template;
 use Twig\TemplateWrapper;
 
@@ -68,7 +69,8 @@ final class RenderingRuntimeTest extends TestCase
             $this->rendererMock,
             $this->localeProviderMock,
             new RequestStack(),
-            $this->errorHandler
+            $this->errorHandler,
+            new Environment(new ArrayLoader())
         );
     }
 
