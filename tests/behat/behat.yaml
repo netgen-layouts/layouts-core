@@ -4,7 +4,7 @@ imports:
 default:
     extensions:
         Behat\MinkExtension:
-            base_url: "https://admin:admin@127.0.0.1:4242"
+            base_url: "http://admin:admin@127.0.0.1:4242"
             default_session: symfony
             javascript_session: chrome
             show_auto: false
