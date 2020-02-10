@@ -14,7 +14,3 @@ if [ ! -f vendor/bin/chromedriver ]; then
     unzip chromedriver.zip && rm chromedriver.zip
     mv -f chromedriver vendor/bin/
 fi
-
-vendor/bin/symfony server:ca:install
-vendor/bin/symfony server:start --daemon --port=4242 --document-root=tests/application/public
-vendor/bin/chromedriver

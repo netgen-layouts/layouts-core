@@ -2,11 +2,6 @@ dist: xenial
 
 language: php
 
-php:
-  - 7.2
-  - 7.3
-  - 7.4
-
 services:
   - mysql
   - postgresql
@@ -19,45 +14,10 @@ cache:
   directories:
     - $HOME/.cache/composer
 
-env:
-  - PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~3.4.0" DB="mysql"
-  - PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~4.4.0" DB="postgresql"
-  - PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~4.4.0"
-  - PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~3.4.0" DB="mysql"
-  - PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~4.4.0" DB="postgresql"
-  - PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~4.4.0"
-
 matrix:
   include:
-    - php: 7.2
-      env: PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~3.4.0" DEPS="low"
-    - php: 7.2
-      env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~3.4.0" DEPS="low"
-    - php: 7.4
-      env: RUN_PHPSTAN="yes"
-    - php: 7.4
-      env: RUN_PSALM="yes"
     - php: 7.4
       env: RUN_BEHAT="yes"
-    - php: 7.4
-      env: RUN_MIGRATIONS="yes" DB="mysql"
-    - php: 7.4
-      env: RUN_COVERAGE="yes"
-    - env: ~
-      php: 7.4
-      cache: ~
-      language: node_js
-      node_js: node
-      # We disable install phase as we need to run yarn install only after "before_script" is completed
-      install: true
-      script:
-        - yarn install
-        - yarn run prod
-        - yarn run admin:prod
-  allow_failures:
-    - env: RUN_COVERAGE="yes"
-    - env: RUN_BEHAT="yes"
-  fast_finish: true
 
 branches:
   only:
@@ -100,24 +60,12 @@ before_script:
       sleep 15
     fi
 
+  - vendor/bin/symfony server:start no-tls --daemon --port=4242 --document-root=tests/application/public > /dev/null 2>&1 &
+  - vendor/bin/chromedriver > /dev/null 2>&1 &
+
 script:
   - composer validate --strict
-  - if [ "$PHPUNIT_CONFIG" != "" ] ; then vendor/bin/phpunit -c $PHPUNIT_CONFIG --colors=always ; fi
-  - if [ "$RUN_PHPSTAN" != "" ] ; then composer phpstan ; fi
-  - if [ "$RUN_PHPSTAN" != "" ] ; then composer phpstan-tests ; fi
-  - if [ "$RUN_PSALM" != "" ] ; then composer psalm ; fi
   - if [ "$RUN_BEHAT" != "" ] ; then composer behat-headless ; fi
-  - |
-    if [ "$RUN_MIGRATIONS" != "" ] ; then
-      php tests/application/bin/console doctrine:migrations:migrate \
-      --no-interaction --no-debug --env=prod --configuration=migrations/doctrine.yaml --ansi
-    fi
-  - |
-    if [ "$RUN_COVERAGE" != "" ] ; then
-      composer coverage-clover
-      composer coverage-clover-api
-      bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
-    fi
 
 notifications:
   email: false
