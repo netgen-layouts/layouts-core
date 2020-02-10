@@ -41,14 +41,6 @@
             </errorLevel>
         </UndefinedMethod>
 
-        <!-- Doctrine Collections -->
-
-        <InvalidPropertyAssignmentValue>
-            <errorLevel type="suppress">
-                <file name="lib/API/Values/LazyCollection.php" />
-            </errorLevel>
-        </InvalidPropertyAssignmentValue>
-
         <!-- Doctrine DBAL -->
 
         <TooManyArguments>
@@ -144,13 +136,7 @@
             </errorLevel>
         </PossiblyNullPropertyAssignmentValue>
 
-        <MoreSpecificImplementedParamType>
-            <errorLevel type="suppress">
-                <directory name="lib/Transfer/Output/Visitor" />
-            </errorLevel>
-        </MoreSpecificImplementedParamType>
-
-        <!-- level 3 issues - slightly lazy code writing, but provably low false-negatives -->
+        <!-- level 3 issues - slightly lazy code writing, but probably low false-negatives -->
 
         <DeprecatedMethod errorLevel="info" />
         <DeprecatedClass errorLevel="info" />
