@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsDebugBundle\DataCollector;
 
-use Exception;
 use Jean85\PrettyVersions;
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\GlobalVariable;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
@@ -16,7 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 use Twig\Environment;
 use Twig\Source;
-use Version\Exception\InvalidVersionStringException;
+use Version\Exception\InvalidVersionString;
 use Version\Version;
 
 final class LayoutsDataCollector extends DataCollector
@@ -54,7 +53,7 @@ final class LayoutsDataCollector extends DataCollector
         try {
             $version = Version::fromString($coreVersion);
             $this->data['docs_version'] = sprintf('%d.%d', $version->getMajor(), $version->getMinor());
-        } catch (InvalidVersionStringException $e) {
+        } catch (InvalidVersionString $e) {
             // Do nothing
         }
 

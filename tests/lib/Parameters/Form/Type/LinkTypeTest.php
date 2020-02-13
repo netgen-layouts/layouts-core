@@ -171,9 +171,11 @@ final class LinkTypeTest extends FormTestCase
         $form->createView();
 
         $errors = $form->get('url')->getErrors();
-
         self::assertCount(1, $errors);
-        self::assertSame('an error', iterator_to_array($errors)[0]->getMessage());
+
+        /** @var \Symfony\Component\Form\FormError $firstError */
+        $firstError = iterator_to_array($errors)[0];
+        self::assertSame('an error', $firstError->getMessage());
     }
 
     /**
