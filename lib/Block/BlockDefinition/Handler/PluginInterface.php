@@ -25,11 +25,11 @@ interface PluginInterface
     /**
      * Returns the list of fully qualified class names of the block definition handlers
      * which this plugin extends. If you wish to extend every existing handler,
-     * return the array with FQCN of the block handler interface.
+     * return the list with FQCN of the block handler interface.
      *
-     * @return string[]
+     * @return iterable<string>
      */
-    public static function getExtendedHandlers(): array;
+    public static function getExtendedHandlers(): iterable;
 
     /**
      * Builds the parameters by using provided parameter builder.

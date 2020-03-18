@@ -36,9 +36,9 @@ final class PagedCollectionsPlugin extends Plugin
         $this->defaultGroups = $defaultGroups;
     }
 
-    public static function getExtendedHandlers(): array
+    public static function getExtendedHandlers(): iterable
     {
-        return [PagedCollectionsBlockInterface::class];
+        yield PagedCollectionsBlockInterface::class;
     }
 
     public function buildParameters(ParameterBuilderInterface $builder): void

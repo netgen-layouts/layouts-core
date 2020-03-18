@@ -38,8 +38,7 @@ final class HandlerPluginRegistry
             array_filter(
                 $this->handlerPlugins,
                 static function (PluginInterface $plugin) use ($handlerClass): bool {
-                    $extendedHandlers = $plugin::getExtendedHandlers();
-                    foreach ($extendedHandlers as $extendedHandler) {
+                    foreach ($plugin::getExtendedHandlers() as $extendedHandler) {
                         if (is_a($handlerClass, $extendedHandler, true)) {
                             return true;
                         }

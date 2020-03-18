@@ -27,9 +27,9 @@ final class HandlerPlugin extends Plugin
         return new self();
     }
 
-    public static function getExtendedHandlers(): array
+    public static function getExtendedHandlers(): iterable
     {
-        return self::$extendedHandlers;
+        yield from self::$extendedHandlers;
     }
 
     public function buildParameters(ParameterBuilderInterface $builder): void

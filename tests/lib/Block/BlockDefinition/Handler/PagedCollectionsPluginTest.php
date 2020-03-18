@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Block\BlockDefinition\Handler;
 
+use Generator;
 use Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsBlockInterface;
 use Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
 use Netgen\Layouts\Parameters\ParameterType;
@@ -52,9 +53,10 @@ final class PagedCollectionsPluginTest extends TestCase
      */
     public function testGetExtendedHandlers(): void
     {
-        $plugin = $this->plugin;
-
-        self::assertSame([PagedCollectionsBlockInterface::class], $plugin::getExtendedHandlers());
+        self::assertSame(
+            [PagedCollectionsBlockInterface::class],
+            iterator_to_array((function (): Generator { yield from $this->plugin::getExtendedHandlers(); })())
+        );
     }
 
     /**
