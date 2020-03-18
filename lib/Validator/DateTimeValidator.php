@@ -63,14 +63,17 @@ final class DateTimeValidator extends ConstraintValidator
             $value->getTimezone()->getName() :
             ($value['timezone'] ?? '');
 
+        /** @var array<string> $timeZoneIdentifiers */
+        $timeZoneIdentifiers = DateTimeZone::listIdentifiers();
+
         $validator->atPath('timezone')->validate(
             $timeZone,
             [
                 new Constraints\Type(['type' => 'string']),
                 new Constraints\Callback(
                     [
-                        'callback' => static function (string $timeZoneName, ExecutionContextInterface $context) use ($constraint): void {
-                            if (in_array($timeZoneName, DateTimeZone::listIdentifiers(), true)) {
+                        'callback' => static function (string $timeZoneName, ExecutionContextInterface $context) use ($constraint, $timeZoneIdentifiers): void {
+                            if (in_array($timeZoneName, $timeZoneIdentifiers, true)) {
                                 return;
                             }
 

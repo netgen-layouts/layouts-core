@@ -76,7 +76,11 @@ final class DateTimeUtils
     public static function getTimeZoneList(): array
     {
         $timeZoneList = [];
-        foreach (DateTimeZone::listIdentifiers() as $timeZone) {
+
+        /** @var array<string> $timeZoneIdentifiers */
+        $timeZoneIdentifiers = DateTimeZone::listIdentifiers();
+
+        foreach ($timeZoneIdentifiers as $timeZone) {
             [$region, $name] = self::parseTimeZone($timeZone);
 
             $offset = self::buildOffsetString($timeZone);
