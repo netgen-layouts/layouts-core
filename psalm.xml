@@ -41,6 +41,12 @@
             </errorLevel>
         </UndefinedMethod>
 
+        <UndefinedFunction>
+            <errorLevel type="suppress">
+                <referencedFunction name="twig_date_converter" />
+            </errorLevel>
+        </UndefinedFunction>
+
         <!-- Doctrine Collections -->
 
         <InvalidPropertyAssignmentValue>

@@ -46,6 +46,10 @@ parameters:
         # - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Exception' will always evaluate to false.#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Throwable' will always evaluate to true.#"
 
+        -
+            message: '#twig_date_converter not found.#'
+            path: bundles/LayoutsBundle/Templating/Twig/Runtime/HelpersRuntime.php
+
         # Disable errors about missing value types in various vendor classes
 
         - '#Method (.+Type|.+Extension)::buildForm\(\) has parameter \$options with no value type specified in iterable type array.#'

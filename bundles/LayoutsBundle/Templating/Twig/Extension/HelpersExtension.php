@@ -25,6 +25,13 @@ final class HelpersExtension extends AbstractExtension
                 'nglayouts_value_type_name',
                 [HelpersRuntime::class, 'getValueTypeName']
             ),
+            new TwigFunction(
+                'nglayouts_format_datetime',
+                [HelpersRuntime::class, 'formatDateTime'],
+                [
+                    'needs_environment' => true,
+                ]
+            ),
         ];
     }
 
@@ -41,6 +48,13 @@ final class HelpersExtension extends AbstractExtension
             new TwigFilter(
                 'nglayouts_country_flag',
                 [HelpersRuntime::class, 'getCountryFlag']
+            ),
+            new TwigFilter(
+                'nglayouts_format_datetime',
+                [HelpersRuntime::class, 'formatDateTime'],
+                [
+                    'needs_environment' => true,
+                ]
             ),
         ];
     }

@@ -1,6 +1,5 @@
 parameters:
     netgen_layouts.event_listener.twig_extensions.extensions:
-        - Twig\Extensions\IntlExtension
         - EdiModric\Twig\VersionExtension
 
 services:
