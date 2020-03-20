@@ -4,14 +4,20 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime;
 
+use IntlDateFormatter;
+use IntlTimeZone;
+use Locale;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\Exception\Item\ItemException;
+use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Item\CmsItemInterface;
 use Netgen\Layouts\Item\Registry\ValueTypeRegistry;
 use Netgen\Layouts\Utils\BackwardsCompatibility\Locales;
 use Netgen\Layouts\Utils\FlagGenerator;
 use Ramsey\Uuid\Uuid;
 use Throwable;
+use Twig\Environment;
+use function twig_date_converter;
 
 final class HelpersRuntime
 {
@@ -81,5 +87,34 @@ final class HelpersRuntime
         } catch (Throwable $t) {
             return $countryCode;
         }
+    }
+
+    /**
+     * @param \DateTimeInterface|string $dateTime
+     */
+    public function formatDateTime(Environment $twig, $dateTime, string $dateFormat = 'medium', string $timeFormat = 'medium'): string
+    {
+        $dateTime = twig_date_converter($twig, $dateTime);
+
+        $formatValues = [
+            'none' => IntlDateFormatter::NONE,
+            'short' => IntlDateFormatter::SHORT,
+            'medium' => IntlDateFormatter::MEDIUM,
+            'long' => IntlDateFormatter::LONG,
+            'full' => IntlDateFormatter::FULL,
+        ];
+
+        $formatter = IntlDateFormatter::create(
+            Locale::getDefault(),
+            $formatValues[$dateFormat],
+            $formatValues[$timeFormat],
+            IntlTimeZone::createTimeZone($dateTime->getTimezone()->getName())
+        );
+
+        if (!$formatter instanceof IntlDateFormatter) {
+            throw new RuntimeException('Unable to format the given date.');
+        }
+
+        return $formatter->format($dateTime->getTimestamp());
     }
 }
