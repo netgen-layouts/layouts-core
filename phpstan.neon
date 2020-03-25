@@ -1,5 +1,4 @@
 includes:
-    - phpstan-sf5-baseline.neon
     - vendor/phpstan/phpstan-strict-rules/rules.neon
 
 parameters:
@@ -13,7 +12,7 @@ parameters:
         - '#Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::children\(\)#'
 
         # Symfony Form component
-        # - '/Parameter \#1 \$it of function iterator_to_array expects Traversable, iterable\<Symfony\\Component\\Form\\FormInterface\> given./'
+        - '/Parameter \#1 \$it of function iterator_to_array expects Traversable, iterable\<Symfony\\Component\\Form\\FormInterface\> given./'
 
         # Doctrine DBAL
         - '#Cannot call method fetchAll\(\) on Doctrine\\DBAL\\Driver\\Statement\|int#'
@@ -24,26 +23,26 @@ parameters:
             message: '#Method Symfony\\Component\\HttpFoundation\\Request::isMethodSafe\(\) invoked with 1 parameter, 0 required.#'
             path: bundles/LayoutsAdminBundle/Security/CsrfTokenValidator.php
 
-        # -
-        #     message: '#Call to an undefined method Netgen\\Layouts\\Utils\\BackwardsCompatibility\\TreeBuilder::root\(\).#'
-        #     path: lib/Utils/BackwardsCompatibility/TreeBuilder.php
+        -
+            message: '#Call to an undefined method Netgen\\Layouts\\Utils\\BackwardsCompatibility\\TreeBuilder::root\(\).#'
+            path: lib/Utils/BackwardsCompatibility/TreeBuilder.php
 
         -
             message: '/Parameter #1 \$event of method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) expects object, string given/'
             path: lib/Utils/BackwardsCompatibility/EventDispatcherProxy.php
 
-        # -
-        #     message: '/Parameter #2 \$eventName of method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) expects string\|null, object given/'
-        #     path: lib/Utils/BackwardsCompatibility/EventDispatcherProxy.php
+        -
+            message: '/Parameter #2 \$eventName of method Symfony\\Contracts\\EventDispatcher\\EventDispatcherInterface::dispatch\(\) expects string\|null, object given/'
+            path: lib/Utils/BackwardsCompatibility/EventDispatcherProxy.php
 
         -
             message: '#Call to an undefined static method Symfony\\Component\\Intl\\Intl::getLocaleBundle\(\).#'
             path: lib/Utils/BackwardsCompatibility/Locales.php
 
-        # - '#Symfony\\Component\\Debug\\Exception\\FlattenException#'
-        # - '#Symfony\\Component\\Debug\\Exception\\FatalThrowableError#'
+        - '#Symfony\\Component\\Debug\\Exception\\FlattenException#'
+        - '#Symfony\\Component\\Debug\\Exception\\FatalThrowableError#'
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\Console\\\\Application and 'renderThrowable'#"
-        # - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Exception' will always evaluate to false.#"
+        - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Exception' will always evaluate to false.#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Throwable' will always evaluate to true.#"
 
         -

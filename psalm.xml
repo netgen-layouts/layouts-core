@@ -16,22 +16,10 @@
     <issueHandlers>
         <!-- Symfony BC layer -->
 
-        <InvalidArgument>
-            <errorLevel type="suppress">
-                <referencedFunction name="Symfony\Component\EventDispatcher\EventDispatcherInterface::dispatch" />
-            </errorLevel>
-        </InvalidArgument>
-
-        <UndefinedInterfaceMethod>
-            <errorLevel type="suppress">
-                <referencedMethod name="Symfony\Component\Intl\ResourceBundle\LocaleBundleInterface::getAliases" />
-            </errorLevel>
-        </UndefinedInterfaceMethod>
-
         <UndefinedClass>
             <errorLevel type="suppress">
                 <referencedClass name="Symfony\Component\Debug\Exception\FlattenException" />
-                <referencedClass name="Symfony\Component\ErrorHandler\Exception\FlattenException" />
+                <referencedClass name="Symfony\Component\Debug\Exception\FatalThrowableError" />
             </errorLevel>
         </UndefinedClass>
 
@@ -47,6 +35,12 @@
             </errorLevel>
         </UndefinedFunction>
 
+        <DuplicateClass>
+            <errorLevel type="suppress">
+                <file name="lib/Utils/BackwardsCompatibility/Event.php" />
+            </errorLevel>
+        </DuplicateClass>
+
         <!-- Doctrine DBAL -->
 
         <TooManyArguments>
@@ -56,7 +50,6 @@
                 <referencedFunction name="Doctrine\DBAL\Query\QueryBuilder::select" />
                 <referencedFunction name="Doctrine\DBAL\Query\QueryBuilder::where" />
                 <referencedFunction name="Doctrine\DBAL\Platforms\AbstractPlatform::getConcatExpression" />
-                <referencedFunction name="Symfony\Component\EventDispatcher\EventDispatcherInterface::dispatch" />
                 <referencedFunction name="Symfony\Component\HttpFoundation\Request::isMethodSafe" />
             </errorLevel>
         </TooManyArguments>
@@ -90,20 +83,8 @@
                 <referencedMethod name="Symfony\Component\Config\Definition\Builder\NodeDefinition::addDefaultsIfNotSet" />
                 <referencedMethod name="Symfony\Component\Config\Definition\Builder\NodeDefinition::requiresAtLeastOneElement" />
                 <referencedMethod name="Symfony\Component\Config\Definition\Builder\NodeDefinition::children" />
-                <referencedMethod name="Symfony\Component\HttpKernel\Exception\HttpExceptionInterface::getMessage" />
-                <referencedMethod name="Symfony\Component\HttpKernel\Exception\HttpExceptionInterface::getFile" />
-                <referencedMethod name="Symfony\Component\HttpKernel\Exception\HttpExceptionInterface::getLine" />
             </errorLevel>
         </PossiblyUndefinedMethod>
-
-        <PossiblyInvalidArgument>
-            <errorLevel type="suppress">
-                <file name="lib/Form/DataMapper/DateTimeDataMapper.php" />
-                <file name="lib/Collection/Form/CollectionDataMapper.php" />
-                <file name="lib/Parameters/Form/Type/DataMapper/ItemLinkDataMapper.php" />
-                <file name="lib/Parameters/Form/Type/DataMapper/LinkDataMapper.php" />
-            </errorLevel>
-        </PossiblyInvalidArgument>
 
         <MissingParamType>
             <errorLevel type="suppress">

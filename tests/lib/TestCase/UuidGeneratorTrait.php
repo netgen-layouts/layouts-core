@@ -29,12 +29,9 @@ trait UuidGeneratorTrait
 
         $factoryMock = $this->createMock(UuidFactoryInterface::class);
 
-        if (method_exists($originalFactory, 'getValidator')) {
-            // UuidFactoryInterface::getValidator exists only in v4 of the lib
-            $factoryMock->expects(self::any())
-                ->method('getValidator')
-                ->willReturn($originalFactory->getValidator());
-        }
+        $factoryMock->expects(self::any())
+            ->method('getValidator')
+            ->willReturn($originalFactory->getValidator());
 
         $factoryMock->expects(self::any())
             ->method('fromString')

@@ -31,21 +31,34 @@ final class FilesystemLoader implements LoaderInterface
         $this->configuration = $configuration;
     }
 
+    /**
+     * @param string $name
+     */
     public function getSourceContext($name): Source
     {
         return $this->innerLoader->getSourceContext($this->getRealName($name));
     }
 
+    /**
+     * @param string $name
+     */
     public function getCacheKey($name): string
     {
         return $this->innerLoader->getCacheKey($this->getRealName($name));
     }
 
+    /**
+     * @param string $name
+     * @param int $time
+     */
     public function isFresh($name, $time): bool
     {
         return $this->innerLoader->isFresh($this->getRealName($name), $time);
     }
 
+    /**
+     * @param string $name
+     */
     public function exists($name): bool
     {
         return $this->innerLoader->exists($this->getRealName($name));

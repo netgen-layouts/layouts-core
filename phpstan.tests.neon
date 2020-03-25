@@ -19,12 +19,12 @@ parameters:
 
         # Compatibility with Symfony 3.4
 
-        # - '#Symfony\\Component\\Debug\\Exception\\FlattenException#'
-        # - '#Symfony\\Component\\HttpKernel\\Event\\GetResponseEvent not found.#'
-        # - '#Symfony\\Component\\HttpKernel\\Event\\FilterResponseEvent not found.#'
-        # - '#Symfony\\Component\\HttpKernel\\Event\\GetResponseForExceptionEvent not found.#'
-        # - '#Symfony\\Component\\HttpKernel\\Event\\GetResponseForControllerResultEvent not found.#'
-        # - '#Symfony\\Component\\HttpKernel\\Event\\PostResponseEvent not found.#'
+        - '#Symfony\\Component\\Debug\\Exception\\FlattenException#'
+        - '#Symfony\\Component\\HttpKernel\\Event\\GetResponseEvent not found.#'
+        - '#Symfony\\Component\\HttpKernel\\Event\\FilterResponseEvent not found.#'
+        - '#Symfony\\Component\\HttpKernel\\Event\\GetResponseForExceptionEvent not found.#'
+        - '#Symfony\\Component\\HttpKernel\\Event\\GetResponseForControllerResultEvent not found.#'
+        - '#Symfony\\Component\\HttpKernel\\Event\\PostResponseEvent not found.#'
         - '#Method .+::createRequestEvent\(\) should return .+\\RequestEvent but returns .+\\GetResponseEvent.#'
         - '#Method .+::createResponseEvent\(\) should return .+\\ResponseEvent but returns .+\\FilterResponseEvent.#'
         - '#Method .+::createExceptionEvent\(\) should return .+\\ExceptionEvent but returns .+\\GetResponseForExceptionEvent.#'

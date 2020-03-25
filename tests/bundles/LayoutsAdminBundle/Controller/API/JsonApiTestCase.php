@@ -17,6 +17,11 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
 {
     use DatabaseTrait;
 
+    /**
+     * @var \Symfony\Bundle\FrameworkBundle\KernelBrowser
+     */
+    protected $client;
+
     protected function setUp(): void
     {
         parent::setUp();
