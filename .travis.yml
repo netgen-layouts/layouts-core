@@ -22,10 +22,10 @@ cache:
 env:
   - PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~3.4.0" DB="mysql"
   - PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~4.4.0" DB="postgresql"
-  - PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~4.4.0"
+  - PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~5.0.0"
   - PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~3.4.0" DB="mysql"
   - PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~4.4.0" DB="postgresql"
-  - PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~4.4.0"
+  - PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~5.0.0"
 
 matrix:
   include:
