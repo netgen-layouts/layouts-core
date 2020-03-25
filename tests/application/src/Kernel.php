@@ -59,6 +59,9 @@ final class Kernel extends BaseKernel
 
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
     {
+        // Temp fix for https://github.com/doctrine/DoctrineMigrationsBundle/issues/305
+        $container->setParameter('kernel.root_dir', $container->getParameter('kernel.project_dir') . '/config');
+
         $container->addResource(new FileResource($this->getProjectDir() . '/config/bundles.php'));
         $container->setParameter('container.dumper.inline_class_loader', true);
         $confDir = $this->getProjectDir() . '/config';
