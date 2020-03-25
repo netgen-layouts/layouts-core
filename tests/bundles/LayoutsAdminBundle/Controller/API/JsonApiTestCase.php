@@ -30,6 +30,8 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
 
     protected function tearDown(): void
     {
+        parent::tearDown();
+
         $this->closeDatabase();
     }
 
