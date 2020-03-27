@@ -53,7 +53,7 @@ final class RouteGenerator
         );
 
         if ($page > 1) {
-            $signedUri .= (mb_strpos($signedUri, '?') === false ? '?' : '&') . 'page=' . $page;
+            $signedUri .= (!str_contains($signedUri, '?') ? '?' : '&') . 'page=' . $page;
         }
 
         return $signedUri;

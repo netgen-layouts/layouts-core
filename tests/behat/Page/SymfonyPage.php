@@ -17,7 +17,7 @@ abstract class SymfonyPage extends BaseSymfonyPage
             throw new UnexpectedPageException(sprintf('%s URL is not valid or does not contain a fragment', $this->getDriver()->getCurrentUrl()));
         }
 
-        if (mb_strpos($parsedUrl['fragment'], $fragment) !== false) {
+        if (str_contains($parsedUrl['fragment'], $fragment)) {
             return;
         }
 
