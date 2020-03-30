@@ -43,7 +43,7 @@ final class JsonValidator implements JsonValidatorInterface
         }
 
         throw JsonValidationException::notAcceptable(
-            sprintf('Expected a JSON object, got %s', gettype($data))
+            sprintf('Expected a JSON object, got %s', get_debug_type($data))
         );
     }
 }

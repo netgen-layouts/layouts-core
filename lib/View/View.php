@@ -88,7 +88,7 @@ abstract class View implements ViewInterface
     public function getParameter(string $identifier)
     {
         if (!$this->hasParameter($identifier)) {
-            throw ViewException::parameterNotFound($identifier, get_class($this));
+            throw ViewException::parameterNotFound($identifier, get_debug_type($this));
         }
 
         if (array_key_exists($identifier, $this->parameters)) {

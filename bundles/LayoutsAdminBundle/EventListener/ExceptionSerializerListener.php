@@ -61,7 +61,7 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
             $this->logger->critical(
                 sprintf(
                     'Uncaught PHP Exception %s: "%s" at %s line %s',
-                    get_class($exception),
+                    get_debug_type($exception),
                     $exception->getMessage(),
                     $exception->getFile(),
                     $exception->getLine()

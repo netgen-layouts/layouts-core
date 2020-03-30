@@ -80,6 +80,6 @@ final class ViewBuilder implements ViewBuilderInterface
             }
         }
 
-        throw ViewProviderException::noViewProvider(get_class($value));
+        throw ViewProviderException::noViewProvider(get_debug_type($value));
     }
 }

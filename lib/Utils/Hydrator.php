@@ -37,7 +37,7 @@ final class Hydrator
                         sprintf(
                             'Property "%s" does not exist in "%s" class.',
                             $property,
-                            get_class($this)
+                            get_debug_type($this)
                         )
                     );
                 }

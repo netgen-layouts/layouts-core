@@ -161,10 +161,7 @@ final class RenderingRuntime
                 $parameters
             );
         } catch (Throwable $t) {
-            $message = sprintf(
-                'Error rendering a value of type "%s"',
-                is_object($value) ? get_class($value) : gettype($value)
-            );
+            $message = sprintf('Error rendering a value of type "%s"', get_debug_type($value));
 
             $this->errorHandler->handleError($t, $message, ['object' => $value]);
         }
