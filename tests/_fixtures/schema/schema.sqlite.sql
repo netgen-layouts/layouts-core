@@ -27,7 +27,7 @@ CREATE TABLE `nglayouts_layout` (
   `uuid` text(36) NOT NULL,
   `type` text(255) NOT NULL,
   `name` text(255) NOT NULL,
-  `description` text NOT NULL,
+  `description` longtext NOT NULL,
   `created` integer NOT NULL,
   `modified` integer NOT NULL,
   `shared` integer NOT NULL,
@@ -59,7 +59,7 @@ CREATE TABLE `nglayouts_block` (
   `view_type` text(255) NOT NULL,
   `item_view_type` text(255) NOT NULL,
   `name` text(255) NOT NULL,
-  `config` text NOT NULL,
+  `config` longtext NOT NULL,
   `translatable` integer NOT NULL,
   `main_locale` text(255) NOT NULL,
   `always_available` integer NOT NULL,
@@ -73,7 +73,7 @@ CREATE TABLE `nglayouts_block_translation` (
   `block_id` integer NOT NULL,
   `status` integer NOT NULL,
   `locale` text(255) NOT NULL,
-  `parameters` text NOT NULL,
+  `parameters` longtext NOT NULL,
   PRIMARY KEY (`block_id`, `status`, `locale`),
   FOREIGN KEY (`block_id`, `status`)
     REFERENCES `nglayouts_block` (`id`, `status`)
@@ -124,7 +124,7 @@ CREATE TABLE `nglayouts_collection_item` (
   `value` text(255),
   `value_type` text(255) NOT NULL,
   `view_type` text(255),
-  `config` text NOT NULL,
+  `config` longtext NOT NULL,
   PRIMARY KEY (`id`, `status`),
   UNIQUE (`uuid`, `status`),
   FOREIGN KEY (`collection_id`, `status`)
@@ -147,7 +147,7 @@ CREATE TABLE `nglayouts_collection_query_translation` (
   `query_id` integer NOT NULL,
   `status` integer NOT NULL,
   `locale` text(255) NOT NULL,
-  `parameters` text NOT NULL,
+  `parameters` longtext NOT NULL,
   PRIMARY KEY (`query_id`, `status`, `locale`),
   FOREIGN KEY (`query_id`, `status`)
     REFERENCES `nglayouts_collection_query` (`id`, `status`)
@@ -186,7 +186,7 @@ CREATE TABLE `nglayouts_role_policy` (
   `role_id` integer NOT NULL,
   `component` text(255) DEFAULT NULL,
   `permission` text(255) DEFAULT NULL,
-  `limitations` text NOT NULL,
+  `limitations` longtext NOT NULL,
   PRIMARY KEY (`id`, `status`),
   UNIQUE (`uuid`, `status`),
   FOREIGN KEY (`role_id`, `status`)
@@ -199,7 +199,7 @@ CREATE TABLE `nglayouts_role` (
   `uuid` text(36) NOT NULL,
   `name` text(255) NOT NULL,
   `identifier` text(255) NOT NULL,
-  `description` text NOT NULL,
+  `description` longtext NOT NULL,
   PRIMARY KEY (`id`, `status`),
   UNIQUE (`uuid`, `status`)
 );
@@ -242,7 +242,7 @@ CREATE TABLE `nglayouts_rule` (
   `status` integer NOT NULL,
   `uuid` text(36) NOT NULL,
   `layout_id` integer DEFAULT NULL,
-  `comment` text NOT NULL,
+  `comment` longtext NOT NULL,
   PRIMARY KEY (`id`, `status`),
   UNIQUE (`uuid`, `status`)
 );

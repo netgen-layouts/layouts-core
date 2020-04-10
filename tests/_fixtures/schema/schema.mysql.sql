@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS `nglayouts_layout` (
   `uuid` char(36) NOT NULL,
   `type` varchar(191) NOT NULL,
   `name` varchar(191) NOT NULL,
-  `description` text NOT NULL,
+  `description` longtext NOT NULL,
   `created` int(11) NOT NULL,
   `modified` int(11) NOT NULL,
   `shared` tinyint NOT NULL,
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `nglayouts_block` (
   `view_type` varchar(191) NOT NULL,
   `item_view_type` varchar(191) NOT NULL,
   `name` varchar(191) NOT NULL,
-  `config` text NOT NULL,
+  `config` longtext NOT NULL,
   `translatable` tinyint NOT NULL,
   `main_locale` varchar(191) NOT NULL,
   `always_available` tinyint NOT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `nglayouts_block_translation` (
   `block_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
   `locale` varchar(191) NOT NULL,
-  `parameters` text NOT NULL,
+  `parameters` longtext NOT NULL,
   PRIMARY KEY (`block_id`, `status`, `locale`(191)),
   FOREIGN KEY (`block_id`, `status`)
     REFERENCES nglayouts_block (`id`, `status`)
@@ -101,7 +101,7 @@ CREATE TABLE IF NOT EXISTS `nglayouts_collection_item` (
   `value` varchar(191),
   `value_type` varchar(191) NOT NULL,
   `view_type` varchar(191),
-  `config` text NOT NULL,
+  `config` longtext NOT NULL,
   PRIMARY KEY (`id`, `status`),
   UNIQUE KEY (`uuid`, `status`),
   FOREIGN KEY (`collection_id`, `status`)
@@ -124,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `nglayouts_collection_query_translation` (
   `query_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
   `locale` varchar(191) NOT NULL,
-  `parameters` text NOT NULL,
+  `parameters` longtext NOT NULL,
   PRIMARY KEY (`query_id`, `status`, `locale`(191)),
   FOREIGN KEY (`query_id`, `status`)
     REFERENCES nglayouts_collection_query (`id`, `status`)
@@ -162,7 +162,7 @@ CREATE TABLE IF NOT EXISTS `nglayouts_role` (
   `uuid` char(36) NOT NULL,
   `name` varchar(191) NOT NULL,
   `identifier` varchar(191) NOT NULL,
-  `description` text NOT NULL,
+  `description` longtext NOT NULL,
   PRIMARY KEY (`id`, `status`),
   UNIQUE KEY (`uuid`, `status`)
 ) ENGINE=InnoDB;
@@ -174,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `nglayouts_role_policy` (
   `role_id` int(11) NOT NULL,
   `component` varchar(191) DEFAULT NULL,
   `permission` varchar(191) DEFAULT NULL,
-  `limitations` text NOT NULL,
+  `limitations` longtext NOT NULL,
   PRIMARY KEY (`id`, `status`),
   UNIQUE KEY (`uuid`, `status`),
   FOREIGN KEY (`role_id`, `status`)
@@ -186,7 +186,7 @@ CREATE TABLE IF NOT EXISTS `nglayouts_rule` (
   `status` int(11) NOT NULL,
   `uuid` char(36) NOT NULL,
   `layout_id` int(11) DEFAULT NULL,
-  `comment` text NOT NULL,
+  `comment` longtext NOT NULL,
   PRIMARY KEY (`id`, `status`),
   UNIQUE KEY (`uuid`, `status`)
 ) ENGINE=InnoDB;
@@ -204,7 +204,7 @@ CREATE TABLE IF NOT EXISTS `nglayouts_rule_target` (
   `uuid` char(36) NOT NULL,
   `rule_id` int(11) NOT NULL,
   `type` varchar(191) NOT NULL,
-  `value` text,
+  `value` longtext,
   PRIMARY KEY (`id`, `status`),
   UNIQUE KEY (`uuid`, `status`),
   FOREIGN KEY (`rule_id`, `status`)
@@ -217,7 +217,7 @@ CREATE TABLE IF NOT EXISTS `nglayouts_rule_condition` (
   `uuid` char(36) NOT NULL,
   `rule_id` int(11) NOT NULL,
   `type` varchar(191) NOT NULL,
-  `value` text,
+  `value` longtext,
   PRIMARY KEY (`id`, `status`),
   UNIQUE KEY (`uuid`, `status`),
   FOREIGN KEY (`rule_id`, `status`)
