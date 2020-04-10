@@ -7,7 +7,7 @@
     {% if layout.published %}data-published="true"{% endif %}
     data-name="{{ layout.name }}"
     data-description="{{ layout.description }}"
-    data-modified="{{ layout.modified|date(constant('DateTimeInterface::ISO8601')) }}"
+    data-modified="{{ layout.modified|date(constant('DateTimeInterface::ATOM')) }}"
     data-type="{{ layout.layoutType.name }}"
     data-mappings="{{ rule_count }}"
     >

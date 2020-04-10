@@ -54,8 +54,8 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
             'type' => $layoutType->getIdentifier(),
             'published' => $layout->isPublished(),
             'has_published_state' => $this->layoutService->hasStatus($layout->getId(), Layout::STATUS_PUBLISHED),
-            'created_at' => $layout->getCreated()->format(DateTimeInterface::ISO8601),
-            'updated_at' => $layout->getModified()->format(DateTimeInterface::ISO8601),
+            'created_at' => $layout->getCreated()->format(DateTimeInterface::ATOM),
+            'updated_at' => $layout->getModified()->format(DateTimeInterface::ATOM),
             'has_archived_state' => false,
             'archive_created_at' => null,
             'archive_updated_at' => null,
@@ -71,8 +71,8 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
             $archivedLayout = $this->layoutService->loadLayoutArchive($layout->getId());
 
             $data['has_archived_state'] = true;
-            $data['archive_created_at'] = $archivedLayout->getCreated()->format(DateTimeInterface::ISO8601);
-            $data['archive_updated_at'] = $archivedLayout->getModified()->format(DateTimeInterface::ISO8601);
+            $data['archive_created_at'] = $archivedLayout->getCreated()->format(DateTimeInterface::ATOM);
+            $data['archive_updated_at'] = $archivedLayout->getModified()->format(DateTimeInterface::ATOM);
         } catch (NotFoundException $e) {
             // Do nothing
         }

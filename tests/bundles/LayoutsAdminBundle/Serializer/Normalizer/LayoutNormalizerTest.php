@@ -169,8 +169,8 @@ final class LayoutNormalizerTest extends TestCase
                 'type' => $this->layoutType->getIdentifier(),
                 'published' => false,
                 'has_published_state' => true,
-                'created_at' => $layout->getCreated()->format(DateTimeInterface::ISO8601),
-                'updated_at' => $layout->getModified()->format(DateTimeInterface::ISO8601),
+                'created_at' => $layout->getCreated()->format(DateTimeInterface::ATOM),
+                'updated_at' => $layout->getModified()->format(DateTimeInterface::ATOM),
                 'has_archived_state' => false,
                 'archive_created_at' => null,
                 'archive_updated_at' => null,
@@ -274,8 +274,8 @@ final class LayoutNormalizerTest extends TestCase
 
         self::assertIsArray($data);
         self::assertTrue($data['has_archived_state']);
-        self::assertSame($archivedLayout->getCreated()->format(DateTimeInterface::ISO8601), $data['archive_created_at']);
-        self::assertSame($archivedLayout->getModified()->format(DateTimeInterface::ISO8601), $data['archive_updated_at']);
+        self::assertSame($archivedLayout->getCreated()->format(DateTimeInterface::ATOM), $data['archive_created_at']);
+        self::assertSame($archivedLayout->getModified()->format(DateTimeInterface::ATOM), $data['archive_updated_at']);
     }
 
     /**
