@@ -49,8 +49,10 @@ final class Exception implements ConditionTypeInterface
             if (!$exception instanceof ErrorHandlerFlattenException) {
                 return false;
             }
-        } elseif (!$exception instanceof DebugFlattenException) {
-            return false;
+        } elseif (class_exists(DebugFlattenException::class)) {
+            if (!$exception instanceof DebugFlattenException) {
+                return false;
+            }
         }
 
         return count($value) === 0 || in_array($exception->getStatusCode(), $value, true);

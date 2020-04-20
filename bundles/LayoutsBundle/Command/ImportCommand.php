@@ -114,7 +114,11 @@ final class ImportCommand extends Command
         if (method_exists($app, 'renderThrowable')) {
             $app->renderThrowable($t, $this->io);
         } elseif (method_exists($app, 'renderException')) {
-            $app->renderException($t instanceof Exception ? $t : new FatalThrowableError($t), $this->io);
+            if (!$t instanceof Exception && class_exists(FatalThrowableError::class)) {
+                $t = new FatalThrowableError($t);
+            }
+
+            $app->renderException($t, $this->io);
         }
 
         $this->io->setVerbosity($previousVerbosity);

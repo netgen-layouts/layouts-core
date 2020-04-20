@@ -39,8 +39,6 @@ parameters:
             message: '#Call to an undefined static method Symfony\\Component\\Intl\\Intl::getLocaleBundle\(\).#'
             path: lib/Utils/BackwardsCompatibility/Locales.php
 
-        - '#Symfony\\Component\\Debug\\Exception\\FlattenException#'
-        - '#Symfony\\Component\\Debug\\Exception\\FatalThrowableError#'
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\Console\\\\Application and 'renderThrowable'#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Exception' will always evaluate to false.#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Throwable' will always evaluate to true.#"

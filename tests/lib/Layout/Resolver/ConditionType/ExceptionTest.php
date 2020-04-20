@@ -59,9 +59,12 @@ final class ExceptionTest extends TestCase
     {
         $request = Request::create('/');
 
-        $exception = class_exists(ErrorHandlerFlattenException::class) ?
-            ErrorHandlerFlattenException::createFromThrowable(new Exception(), 404) :
-            DebugFlattenException::create(new Exception(), 404);
+        $exception = new Exception();
+        if (class_exists(ErrorHandlerFlattenException::class)) {
+            $exception = ErrorHandlerFlattenException::createFromThrowable($exception, 404);
+        } elseif (class_exists(DebugFlattenException::class)) {
+            $exception = DebugFlattenException::create($exception, 404);
+        }
 
         $request->attributes->set('exception', $exception);
 

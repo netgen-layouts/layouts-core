@@ -42,7 +42,7 @@ final class ExceptionNormalizer implements NormalizerInterface
             $debugException = $object->getPrevious() ?? $object;
             if (class_exists(ErrorHandlerFlattenException::class)) {
                 $debugException = ErrorHandlerFlattenException::createFromThrowable($debugException);
-            } elseif ($debugException instanceof Exception) {
+            } elseif ($debugException instanceof Exception && class_exists(DebugFlattenException::class)) {
                 $debugException = DebugFlattenException::create($debugException);
             }
 
