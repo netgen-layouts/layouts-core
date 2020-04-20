@@ -6,13 +6,13 @@ namespace Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration;
 
 use Closure;
 use Coduo\PHPMatcher\Factory\SimpleFactory;
-use Diff;
-use Diff_Renderer_Text_Unified;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\Transfer\Output\Visitor\Stubs\VisitorStub;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
+use SebastianBergmann\Diff\Differ;
+use SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
 
 /**
  * @template T of object
@@ -71,10 +71,9 @@ abstract class VisitorTest extends CoreTestCase
         $matchResult = $matcher->match($visitedData, json_decode($expectedData, true));
 
         if (!$matchResult) {
-            $visitedData = json_encode($visitedData, JSON_PRETTY_PRINT);
-            $diff = new Diff(explode(PHP_EOL, is_string($visitedData) ? $visitedData : ''), explode(PHP_EOL, $expectedData));
-
-            self::fail($matcher->getError() . PHP_EOL . $diff->render(new Diff_Renderer_Text_Unified()));
+            $visitedData = (string) json_encode($visitedData, JSON_PRETTY_PRINT);
+            $differ = new Differ(new UnifiedDiffOutputBuilder("--- Expected\n+++ Actual\n", false));
+            self::fail($matcher->getError() . PHP_EOL . $differ->diff($expectedData, $visitedData));
         }
 
         // We fake the assertion count to disable risky warning

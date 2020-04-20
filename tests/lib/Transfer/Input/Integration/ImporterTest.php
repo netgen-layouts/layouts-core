@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Transfer\Input\Integration;
 
 use Coduo\PHPMatcher\Factory\SimpleFactory;
-use Diff;
-use Diff_Renderer_Text_Unified;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\Block\BlockDefinition\Handler\CommonParametersPlugin;
 use Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
@@ -34,6 +32,8 @@ use Netgen\Layouts\Transfer\Input\Result\SuccessResult;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\Serializer;
 use Netgen\Layouts\Transfer\Output\Visitor;
+use SebastianBergmann\Diff\Differ;
+use SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
 
 abstract class ImporterTest extends CoreTestCase
 {
@@ -156,14 +156,13 @@ abstract class ImporterTest extends CoreTestCase
             $matchResult = $matcher->match($exportedLayoutData, $layoutData);
 
             if (!$matchResult) {
-                $prettyLayoutData = json_encode($layoutData, JSON_PRETTY_PRINT);
-                $prettyExportedLayoutData = json_encode($exportedLayoutData, JSON_PRETTY_PRINT);
-                $diff = new Diff(
-                    explode(PHP_EOL, is_string($prettyExportedLayoutData) ? $prettyExportedLayoutData : ''),
-                    explode(PHP_EOL, is_string($prettyLayoutData) ? $prettyLayoutData : '')
+                $differ = new Differ(new UnifiedDiffOutputBuilder("--- Expected\n+++ Actual\n", false));
+                $diff = $differ->diff(
+                    (string) json_encode($layoutData, JSON_PRETTY_PRINT),
+                    (string) json_encode($exportedLayoutData, JSON_PRETTY_PRINT)
                 );
 
-                self::fail($matcher->getError() . PHP_EOL . $diff->render(new Diff_Renderer_Text_Unified()));
+                self::fail($matcher->getError() . PHP_EOL . $diff);
             }
         }
 
