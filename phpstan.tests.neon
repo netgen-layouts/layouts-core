@@ -14,7 +14,7 @@ parameters:
     ignoreErrors:
         # Doctrine DBAL
         -
-            message: '#Cannot call method fetchAll\(\) on Doctrine\\DBAL\\Driver\\Statement\|int#'
+            message: '#Cannot call method fetchAll\(\) on Doctrine\\DBAL\\Driver\\ResultStatement\|int#'
             path: tests/lib/Persistence/Doctrine/Helper/PositionHelperTest.php
 
         # Compatibility with Symfony 3.4
