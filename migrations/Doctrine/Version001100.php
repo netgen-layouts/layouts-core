@@ -28,6 +28,11 @@ final class Version001100 extends AbstractMigration
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
 
+        $this->addSql('DROP INDEX idx_ngl_layout_type ON ngbm_layout');
+        $this->addSql('DROP INDEX idx_ngl_layout_shared ON ngbm_layout');
+
+        $this->addSql('DROP INDEX idx_ngl_linked_zone ON ngbm_zone');
+
         $this->addSql('ALTER TABLE ngbm_collection_item DROP COLUMN config');
         $this->addSql('ALTER TABLE ngbm_collection_item CHANGE value value_id varchar(191)');
     }
