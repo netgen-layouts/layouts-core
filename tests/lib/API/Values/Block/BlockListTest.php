@@ -10,6 +10,8 @@ use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use stdClass;
 use TypeError;
+use function sprintf;
+use function str_replace;
 
 final class BlockListTest extends TestCase
 {

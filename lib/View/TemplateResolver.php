@@ -9,6 +9,12 @@ use Netgen\Layouts\Exception\View\TemplateResolverException;
 use Netgen\Layouts\View\Matcher\MatcherInterface;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
+use function is_array;
+use function is_string;
+use function iterator_to_array;
+use function mb_strpos;
+use function mb_substr;
+use function sprintf;
 
 /**
  * @final

@@ -13,6 +13,7 @@ use Netgen\Layouts\Collection\Result\ManualCollectionRunner;
 use Netgen\Layouts\Item\CmsItemBuilderInterface;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
+use const PHP_INT_MAX;
 
 final class CollectionRunnerFactoryTest extends TestCase
 {

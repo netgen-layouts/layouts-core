@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values;
 
+use function is_callable;
+
 trait LazyPropertyTrait
 {
     /**

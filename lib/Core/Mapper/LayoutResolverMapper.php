@@ -22,6 +22,7 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition as PersistenceCon
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
 use Ramsey\Uuid\Uuid;
+use function array_map;
 
 final class LayoutResolverMapper
 {

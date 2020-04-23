@@ -7,6 +7,14 @@ namespace Netgen\Layouts\Utils;
 use DateTimeImmutable;
 use DateTimeInterface;
 use DateTimeZone;
+use function abs;
+use function count;
+use function explode;
+use function intdiv;
+use function is_int;
+use function is_string;
+use function sprintf;
+use function str_replace;
 
 final class DateTimeUtils
 {

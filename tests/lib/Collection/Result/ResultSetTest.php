@@ -12,6 +12,7 @@ use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
+use function iterator_to_array;
 
 final class ResultSetTest extends TestCase
 {

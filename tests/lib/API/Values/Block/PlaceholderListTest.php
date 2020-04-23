@@ -9,6 +9,8 @@ use Netgen\Layouts\API\Values\Block\PlaceholderList;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use TypeError;
+use function sprintf;
+use function str_replace;
 
 final class PlaceholderListTest extends TestCase
 {

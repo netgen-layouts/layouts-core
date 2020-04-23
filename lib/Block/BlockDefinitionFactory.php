@@ -15,6 +15,10 @@ use Netgen\Layouts\Block\Registry\HandlerPluginRegistry;
 use Netgen\Layouts\Config\ConfigDefinitionFactory;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface;
+use function count;
+use function get_class;
+use function is_array;
+use function sprintf;
 
 final class BlockDefinitionFactory
 {

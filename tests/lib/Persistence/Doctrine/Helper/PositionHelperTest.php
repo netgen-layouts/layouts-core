@@ -11,6 +11,8 @@ use Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper;
 use Netgen\Layouts\Persistence\Values\Value;
 use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use PHPUnit\Framework\TestCase;
+use function array_column;
+use function array_map;
 
 final class PositionHelperTest extends TestCase
 {

@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Collection\Result;
 
 use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Collection\Query;
+use function iterator_to_array;
 
 /**
  * A builder generates the collection results. Note that in order to disable fetching unlimited

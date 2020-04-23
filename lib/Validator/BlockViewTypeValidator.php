@@ -9,6 +9,7 @@ use Netgen\Layouts\Validator\Constraint\BlockViewType;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use function is_string;
 
 /**
  * Validates if passed view type is valid for the block definition

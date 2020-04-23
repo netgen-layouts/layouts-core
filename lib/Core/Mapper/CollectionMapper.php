@@ -24,6 +24,13 @@ use Netgen\Layouts\Persistence\Values\Collection\Item as PersistenceItem;
 use Netgen\Layouts\Persistence\Values\Collection\Query as PersistenceQuery;
 use Netgen\Layouts\Persistence\Values\Collection\Slot as PersistenceSlot;
 use Ramsey\Uuid\Uuid;
+use function array_intersect;
+use function array_map;
+use function array_unique;
+use function array_values;
+use function count;
+use function is_array;
+use function iterator_to_array;
 
 final class CollectionMapper
 {

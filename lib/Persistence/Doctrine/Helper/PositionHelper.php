@@ -9,6 +9,7 @@ use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Exception\BadStateException;
+use function is_int;
 
 final class PositionHelper
 {

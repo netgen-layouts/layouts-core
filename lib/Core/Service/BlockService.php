@@ -38,6 +38,14 @@ use Netgen\Layouts\Persistence\Values\Collection\QueryCreateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\SlotUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Layout\Layout as PersistenceLayout;
 use Ramsey\Uuid\UuidInterface;
+use function array_filter;
+use function array_search;
+use function array_splice;
+use function array_values;
+use function count;
+use function in_array;
+use function is_int;
+use function iterator_to_array;
 
 final class BlockService extends Service implements BlockServiceInterface
 {

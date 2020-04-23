@@ -5,6 +5,11 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Utils;
 
 use Netgen\Layouts\Exception\RuntimeException;
+use function array_key_exists;
+use function mb_str_split;
+use function mb_strlen;
+use function mb_strtolower;
+use function sprintf;
 
 final class FlagGenerator
 {

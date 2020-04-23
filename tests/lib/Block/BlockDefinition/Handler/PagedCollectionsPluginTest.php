@@ -11,6 +11,7 @@ use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory;
 use PHPUnit\Framework\TestCase;
+use function iterator_to_array;
 
 final class PagedCollectionsPluginTest extends TestCase
 {

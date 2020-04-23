@@ -7,6 +7,8 @@ namespace Netgen\Layouts\Security\Authorization\Voter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use function is_string;
+use function mb_strpos;
 
 /**
  * Votes on Netgen Layouts permissions (nglayouts:*) by mapping the permissions to built-in roles (ROLE_NGLAYOUTS_*).

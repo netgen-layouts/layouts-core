@@ -10,6 +10,7 @@ use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\HttpCache\FOSHo
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
+use function class_exists;
 
 final class FOSHostHeaderProviderPassTest extends AbstractCompilerPassTestCase
 {

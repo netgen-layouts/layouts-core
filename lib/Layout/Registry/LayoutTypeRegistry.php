@@ -12,6 +12,8 @@ use Netgen\Layouts\Exception\Layout\LayoutTypeException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 use Traversable;
+use function array_filter;
+use function count;
 
 /**
  * @implements \IteratorAggregate<string, \Netgen\Layouts\Layout\Type\LayoutTypeInterface>

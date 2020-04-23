@@ -13,6 +13,12 @@ use Netgen\Layouts\Exception\Validation\ValidationException;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 use Netgen\Layouts\Validator\ValidatorTrait;
 use Symfony\Component\Validator\Constraints;
+use function count;
+use function in_array;
+use function is_array;
+use function is_string;
+use function sprintf;
+use function trim;
 
 final class LayoutValidator
 {

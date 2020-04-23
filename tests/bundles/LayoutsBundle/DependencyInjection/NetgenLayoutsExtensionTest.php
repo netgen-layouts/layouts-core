@@ -10,6 +10,8 @@ use Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\Stubs\DummyExtensionPl
 use Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\Stubs\ExtensionPlugin;
 use Netgen\Layouts\Exception\RuntimeException;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+use function array_merge_recursive;
+use function sprintf;
 
 /**
  * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension::getConfiguration

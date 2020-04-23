@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Persistence\Doctrine\Mapper;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
+use function json_decode;
 
 final class LayoutResolverMapper
 {

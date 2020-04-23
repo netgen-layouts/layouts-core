@@ -17,6 +17,8 @@ use Netgen\Layouts\Utils\BackwardsCompatibility\Locales;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerAwareTrait;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use function array_map;
+use function count;
 
 final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInterface
 {

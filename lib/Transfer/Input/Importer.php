@@ -10,6 +10,8 @@ use Netgen\Layouts\Transfer\Input\Result\SuccessResult;
 use Ramsey\Uuid\Uuid;
 use Throwable;
 use Traversable;
+use function file_get_contents;
+use function json_decode;
 
 /**
  * Importer creates Netgen Layouts entities from the serialized JSON data.

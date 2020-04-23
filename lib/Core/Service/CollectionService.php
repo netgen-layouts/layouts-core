@@ -40,6 +40,11 @@ use Netgen\Layouts\Persistence\Values\Collection\Slot as PersistenceSlot;
 use Netgen\Layouts\Persistence\Values\Collection\SlotCreateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\SlotUpdateStruct;
 use Ramsey\Uuid\UuidInterface;
+use function array_search;
+use function array_splice;
+use function in_array;
+use function is_int;
+use function iterator_to_array;
 
 final class CollectionService extends Service implements APICollectionService
 {

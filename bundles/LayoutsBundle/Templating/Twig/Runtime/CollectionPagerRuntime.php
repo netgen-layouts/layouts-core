@@ -8,6 +8,8 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Exception\InvalidArgumentException;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\View\ViewInterface;
+use function call_user_func;
+use function sprintf;
 
 final class CollectionPagerRuntime
 {

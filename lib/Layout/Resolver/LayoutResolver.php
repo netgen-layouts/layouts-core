@@ -10,6 +10,11 @@ use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use function array_filter;
+use function array_values;
+use function count;
+use function in_array;
+use function usort;
 
 final class LayoutResolver implements LayoutResolverInterface
 {

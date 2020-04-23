@@ -11,6 +11,8 @@ use Netgen\Layouts\Layout\Type\LayoutTypeFactory;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+use function iterator_to_array;
+use function sprintf;
 
 final class LayoutTypePass implements CompilerPassInterface
 {

@@ -9,6 +9,12 @@ use Netgen\Layouts\Persistence\Values\Collection\Collection;
 use Netgen\Layouts\Persistence\Values\Collection\Item;
 use Netgen\Layouts\Persistence\Values\Collection\Query;
 use Netgen\Layouts\Persistence\Values\Collection\Slot;
+use function array_map;
+use function array_values;
+use function is_array;
+use function json_decode;
+use function ksort;
+use function sort;
 
 final class CollectionMapper
 {

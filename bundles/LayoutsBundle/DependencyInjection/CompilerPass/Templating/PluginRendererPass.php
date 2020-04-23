@@ -8,6 +8,8 @@ use Netgen\Layouts\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
+use function array_merge;
+use function krsort;
 
 final class PluginRendererPass implements CompilerPassInterface
 {

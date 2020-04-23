@@ -9,6 +9,10 @@ use Symfony\Component\Debug\Exception\FlattenException as DebugFlattenException;
 use Symfony\Component\ErrorHandler\Exception\FlattenException as ErrorHandlerFlattenException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;
+use function class_exists;
+use function count;
+use function in_array;
+use function is_array;
 
 final class Exception implements ConditionTypeInterface
 {

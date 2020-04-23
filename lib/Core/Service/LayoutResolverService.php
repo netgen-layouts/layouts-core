@@ -37,6 +37,9 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\Target as PersistenceTarget
 use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetUpdateStruct;
 use Ramsey\Uuid\UuidInterface;
+use function array_map;
+use function count;
+use function sprintf;
 
 final class LayoutResolverService extends Service implements APILayoutResolverService
 {

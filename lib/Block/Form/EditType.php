@@ -17,6 +17,15 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use function array_flip;
+use function array_keys;
+use function call_user_func_array;
+use function count;
+use function implode;
+use function in_array;
+use function is_array;
+use function mb_strpos;
+use function mb_substr;
 
 abstract class EditType extends AbstractType
 {

@@ -13,6 +13,8 @@ use Netgen\Layouts\Validator\Constraint\Parameters\Link as LinkConstraint;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
+use function count;
+use function is_array;
 
 /**
  * Parameter type used to store and validate a URL. Valid value for this type

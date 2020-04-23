@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Utils\BackwardsCompatibility;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader as BaseYamlFileLoader;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Yaml\Tag\TaggedValue;
+use function array_key_exists;
 
 /**
  * Overrides the original YamlFileLoader to replace !tagged YAML tag with !tagged_iterator in Symfony 4.4.

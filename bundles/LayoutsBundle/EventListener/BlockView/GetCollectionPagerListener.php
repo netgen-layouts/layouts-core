@@ -13,6 +13,8 @@ use Netgen\Layouts\View\View\BlockViewInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use function in_array;
+use function sprintf;
 
 final class GetCollectionPagerListener implements EventSubscriberInterface
 {

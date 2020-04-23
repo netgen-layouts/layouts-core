@@ -12,6 +12,7 @@ use Netgen\Layouts\Item\CmsItemInterface;
 use Netgen\Layouts\Tests\Collection\Result\Stubs\Value;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
+use function iterator_to_array;
 
 final class QueryRunnerTest extends TestCase
 {

@@ -9,6 +9,8 @@ use Netgen\Layouts\API\Values\Config\ConfigList;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use TypeError;
+use function sprintf;
+use function str_replace;
 
 final class ConfigListTest extends TestCase
 {

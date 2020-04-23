@@ -10,6 +10,11 @@ use Netgen\Layouts\Item\CmsItemInterface;
 use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Item\UrlGeneratorInterface;
 use Throwable;
+use function is_array;
+use function is_int;
+use function is_string;
+use function parse_url;
+use function str_replace;
 
 final class ItemRuntime
 {

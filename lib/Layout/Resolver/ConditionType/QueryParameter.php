@@ -7,6 +7,10 @@ namespace Netgen\Layouts\Layout\Resolver\ConditionType;
 use Netgen\Layouts\Layout\Resolver\ConditionTypeInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;
+use function array_map;
+use function count;
+use function in_array;
+use function is_array;
 
 final class QueryParameter implements ConditionTypeInterface
 {

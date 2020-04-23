@@ -7,6 +7,14 @@ namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Design;
 use Symfony\Component\Config\Resource\FileExistenceResource;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use function array_filter;
+use function array_map;
+use function array_merge;
+use function array_reverse;
+use function array_unique;
+use function array_unshift;
+use function array_values;
+use function is_dir;
 
 final class ThemePass implements CompilerPassInterface
 {

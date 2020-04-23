@@ -12,6 +12,9 @@ use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use function in_array;
+use function is_array;
+use function sprintf;
 
 /**
  * Validates if the provided DateTimeInterface object is a valid value (that is, if it has

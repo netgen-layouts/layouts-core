@@ -12,6 +12,7 @@ use Netgen\Layouts\Exception\Layout\TargetTypeException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Layout\Resolver\TargetTypeInterface;
 use Traversable;
+use function count;
 
 /**
  * @implements \IteratorAggregate<string, \Netgen\Layouts\Layout\Resolver\TargetTypeInterface>

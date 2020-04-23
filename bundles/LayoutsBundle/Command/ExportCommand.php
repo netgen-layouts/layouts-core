@@ -11,6 +11,12 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use function explode;
+use function is_array;
+use function is_string;
+use function json_encode;
+use function sprintf;
+use const JSON_PRETTY_PRINT;
 
 /**
  * Command to export Netgen Layouts entities.

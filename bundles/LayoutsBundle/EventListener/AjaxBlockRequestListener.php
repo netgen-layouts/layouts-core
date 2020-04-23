@@ -6,6 +6,7 @@ namespace Netgen\Bundle\LayoutsBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
+use function preg_replace;
 
 final class AjaxBlockRequestListener implements EventSubscriberInterface
 {

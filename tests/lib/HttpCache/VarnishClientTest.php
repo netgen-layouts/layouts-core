@@ -10,6 +10,7 @@ use FOS\HttpCache\ProxyClient\Invalidation\TagCapable;
 use Netgen\Layouts\HttpCache\Varnish\HostHeaderProviderInterface;
 use Netgen\Layouts\HttpCache\VarnishClient;
 use PHPUnit\Framework\TestCase;
+use function interface_exists;
 
 final class VarnishClientTest extends TestCase
 {

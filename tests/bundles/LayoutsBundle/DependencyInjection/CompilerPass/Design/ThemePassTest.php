@@ -9,6 +9,7 @@ use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Design\ThemePas
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
+use function mkdir;
 
 final class ThemePassTest extends AbstractCompilerPassTestCase
 {

@@ -9,6 +9,8 @@ use Netgen\Layouts\Validator\Constraint\LayoutName;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use function is_string;
+use function trim;
 
 /**
  * Validates if the provided layout name already exists in the system.

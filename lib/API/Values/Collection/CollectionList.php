@@ -6,6 +6,9 @@ namespace Netgen\Layouts\API\Values\Collection;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Ramsey\Uuid\UuidInterface;
+use function array_filter;
+use function array_map;
+use function array_values;
 
 /**
  * @extends \Doctrine\Common\Collections\ArrayCollection<string, \Netgen\Layouts\API\Values\Collection\Collection>

@@ -15,6 +15,8 @@ use Netgen\Layouts\View\ViewBuilder;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpKernel\Kernel;
+use function array_reverse;
+use function sprintf;
 
 final class ViewBuilderTest extends TestCase
 {

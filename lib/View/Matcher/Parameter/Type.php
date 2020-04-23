@@ -7,6 +7,7 @@ namespace Netgen\Layouts\View\Matcher\Parameter;
 use Netgen\Layouts\View\Matcher\MatcherInterface;
 use Netgen\Layouts\View\View\ParameterViewInterface;
 use Netgen\Layouts\View\ViewInterface;
+use function in_array;
 
 /**
  * This matcher matches if the parameter in the provided view

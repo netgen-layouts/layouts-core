@@ -7,6 +7,10 @@ namespace Netgen\Layouts\Layout\Type;
 use Netgen\Layouts\Block\BlockDefinitionInterface;
 use Netgen\Layouts\Exception\Layout\LayoutTypeException;
 use Netgen\Layouts\Utils\HydratorTrait;
+use function array_key_exists;
+use function array_keys;
+use function count;
+use function in_array;
 
 /**
  * @final

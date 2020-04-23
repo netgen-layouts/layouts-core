@@ -14,6 +14,7 @@ use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Layout\Type\LayoutType;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
+use function iterator_to_array;
 
 final class LayoutTest extends TestCase
 {

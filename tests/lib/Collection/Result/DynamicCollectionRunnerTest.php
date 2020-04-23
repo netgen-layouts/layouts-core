@@ -18,6 +18,9 @@ use Netgen\Layouts\Item\NullCmsItem;
 use Netgen\Layouts\Tests\Collection\Result\Stubs\Value;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
+use function array_map;
+use function count;
+use function iterator_to_array;
 
 final class DynamicCollectionRunnerTest extends TestCase
 {

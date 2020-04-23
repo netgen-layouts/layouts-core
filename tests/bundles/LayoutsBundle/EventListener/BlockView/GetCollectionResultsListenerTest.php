@@ -23,6 +23,7 @@ use Netgen\Layouts\View\View\BlockView;
 use Netgen\Layouts\View\ViewInterface;
 use Pagerfanta\Pagerfanta;
 use PHPUnit\Framework\TestCase;
+use function sprintf;
 
 final class GetCollectionResultsListenerTest extends TestCase
 {

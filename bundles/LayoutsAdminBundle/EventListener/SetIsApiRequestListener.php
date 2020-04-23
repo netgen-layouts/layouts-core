@@ -6,6 +6,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
+use function mb_stripos;
 
 final class SetIsApiRequestListener implements EventSubscriberInterface
 {

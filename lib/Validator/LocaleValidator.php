@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use function is_string;
 
 /**
  * Validates if the locale is a valid one, while disallowing the non-canonicalized versions

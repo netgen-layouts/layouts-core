@@ -9,6 +9,7 @@ use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Tests\App\MockerContainer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use function json_decode;
 
 final class LoadConfigTest extends JsonApiTestCase
 {

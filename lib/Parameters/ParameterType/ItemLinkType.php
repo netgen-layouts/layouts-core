@@ -12,6 +12,10 @@ use Netgen\Layouts\Validator\Constraint\Parameters\ItemLink as ItemLinkConstrain
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
+use function count;
+use function is_array;
+use function is_string;
+use function parse_url;
 
 /**
  * Parameter type used to store and validate a link to an existing item in the system.

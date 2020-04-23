@@ -11,6 +11,7 @@ use Symfony\Component\Debug\Exception\FlattenException as DebugFlattenException;
 use Symfony\Component\ErrorHandler\Exception\FlattenException as ErrorHandlerFlattenException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Validation;
+use function class_exists;
 
 final class ExceptionTest extends TestCase
 {

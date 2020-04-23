@@ -12,6 +12,7 @@ use Netgen\Layouts\Exception\Layout\ConditionTypeException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Layout\Resolver\ConditionTypeInterface;
 use Traversable;
+use function count;
 
 /**
  * @implements \IteratorAggregate<string, \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface>

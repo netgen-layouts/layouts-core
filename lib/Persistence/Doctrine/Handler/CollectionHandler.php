@@ -26,6 +26,15 @@ use Netgen\Layouts\Persistence\Values\Collection\SlotCreateStruct;
 use Netgen\Layouts\Persistence\Values\Collection\SlotUpdateStruct;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use function array_fill_keys;
+use function array_values;
+use function count;
+use function in_array;
+use function is_array;
+use function is_bool;
+use function is_int;
+use function is_string;
+use function sprintf;
 
 final class CollectionHandler implements CollectionHandlerInterface
 {

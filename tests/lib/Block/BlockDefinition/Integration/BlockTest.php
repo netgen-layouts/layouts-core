@@ -18,6 +18,9 @@ use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use function array_keys;
+use function count;
+use function in_array;
 
 abstract class BlockTest extends CoreTestCase
 {

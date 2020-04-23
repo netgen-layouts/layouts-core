@@ -9,6 +9,7 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\Placeholder;
 use Netgen\Layouts\Exception\RuntimeException;
 use PHPUnit\Framework\TestCase;
+use function iterator_to_array;
 
 final class PlaceholderTest extends TestCase
 {

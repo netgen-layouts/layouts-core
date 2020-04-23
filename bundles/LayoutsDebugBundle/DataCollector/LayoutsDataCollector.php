@@ -17,6 +17,8 @@ use Twig\Environment;
 use Twig\Source;
 use Version\Exception\InvalidVersionString;
 use Version\Version;
+use function is_array;
+use function sprintf;
 
 final class LayoutsDataCollector extends DataCollector
 {

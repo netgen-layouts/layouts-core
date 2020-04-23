@@ -7,6 +7,9 @@ namespace Netgen\Layouts\Form\DataMapper;
 use DateTimeInterface;
 use Netgen\Layouts\Utils\DateTimeUtils;
 use Symfony\Component\Form\DataMapperInterface;
+use function date_default_timezone_get;
+use function is_array;
+use function iterator_to_array;
 
 /**
  * Mapper used to convert to and from the DateTimeInterface object to the Symfony form structure.

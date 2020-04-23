@@ -6,6 +6,10 @@ namespace Netgen\Layouts\View\Twig;
 
 use Throwable;
 use Twig\Template;
+use function ob_end_clean;
+use function ob_get_clean;
+use function ob_get_level;
+use function ob_start;
 
 /**
  * Wrapper around a Twig template with a context included (all variables

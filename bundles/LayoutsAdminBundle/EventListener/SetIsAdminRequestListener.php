@@ -10,6 +10,7 @@ use Netgen\Layouts\Utils\BackwardsCompatibility\EventDispatcherProxy;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
+use function mb_stripos;
 
 final class SetIsAdminRequestListener implements EventSubscriberInterface
 {

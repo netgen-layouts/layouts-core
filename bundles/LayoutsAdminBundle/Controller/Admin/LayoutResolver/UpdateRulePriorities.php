@@ -14,6 +14,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints;
 use Throwable;
+use function array_reverse;
+use function array_unique;
+use function array_values;
 
 final class UpdateRulePriorities extends AbstractController
 {

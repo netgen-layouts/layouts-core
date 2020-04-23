@@ -12,6 +12,8 @@ use Netgen\Layouts\Block\BlockType\BlockType;
 use Netgen\Layouts\Exception\Block\BlockTypeException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Traversable;
+use function array_filter;
+use function count;
 
 /**
  * @implements \IteratorAggregate<string, \Netgen\Layouts\Block\BlockType\BlockType>

@@ -21,6 +21,13 @@ use Netgen\Layouts\Persistence\Values\Layout\ZoneUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Value;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use function array_values;
+use function count;
+use function in_array;
+use function is_int;
+use function is_string;
+use function time;
+use function trim;
 
 final class LayoutHandler implements LayoutHandlerInterface
 {

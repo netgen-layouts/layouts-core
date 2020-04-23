@@ -9,6 +9,7 @@ use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Utils\DateTimeUtils;
 use Netgen\Layouts\Validator\Constraint\DateTime as DateTimeConstraint;
+use function is_array;
 
 /**
  * Parameter type used to store and validate a date and time value. The value of the parameter

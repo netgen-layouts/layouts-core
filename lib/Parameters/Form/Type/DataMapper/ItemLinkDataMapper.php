@@ -5,6 +5,11 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Parameters\Form\Type\DataMapper;
 
 use Symfony\Component\Form\DataMapperInterface;
+use function is_array;
+use function is_string;
+use function iterator_to_array;
+use function parse_url;
+use function str_replace;
 
 /**
  * Mapper used to convert to and from the "link" to an item in "value_type://value"

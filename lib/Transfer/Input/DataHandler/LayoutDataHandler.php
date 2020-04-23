@@ -23,6 +23,12 @@ use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
 use Ramsey\Uuid\Uuid;
+use function array_flip;
+use function array_key_exists;
+use function array_keys;
+use function date;
+use function is_array;
+use function sprintf;
 
 /**
  * LayoutDataHandler handles serialized Layout data.

@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Parameters;
 use Netgen\Layouts\Exception\Parameters\ParameterTypeException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
+use function array_merge;
 
 abstract class ParameterType implements ParameterTypeInterface
 {

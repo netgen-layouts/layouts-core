@@ -16,6 +16,8 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
 use Netgen\Layouts\Persistence\Values\Value;
 use Psr\Container\ContainerInterface;
+use function is_array;
+use function json_encode;
 
 final class LayoutResolverQueryHandler extends QueryHandler
 {

@@ -8,6 +8,7 @@ use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\Collection\Result\ResultBuilderInterface;
 use Pagerfanta\Adapter\AdapterInterface;
 use Pagerfanta\Pagerfanta;
+use function is_int;
 
 final class PagerFactory
 {

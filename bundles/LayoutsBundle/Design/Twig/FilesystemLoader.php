@@ -7,6 +7,8 @@ namespace Netgen\Bundle\LayoutsBundle\Design\Twig;
 use Netgen\Bundle\LayoutsBundle\Configuration\ConfigurationInterface;
 use Twig\Loader\LoaderInterface;
 use Twig\Source;
+use function mb_strpos;
+use function str_replace;
 
 final class FilesystemLoader implements LoaderInterface
 {

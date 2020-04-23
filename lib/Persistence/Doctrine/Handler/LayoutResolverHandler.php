@@ -23,6 +23,11 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\Layouts\Persistence\Values\Value;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use function count;
+use function is_bool;
+use function is_int;
+use function is_string;
+use function trim;
 
 final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 {

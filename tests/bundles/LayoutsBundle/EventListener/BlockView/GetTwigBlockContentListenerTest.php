@@ -18,6 +18,7 @@ use Netgen\Layouts\View\View\BlockView;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Twig\Template;
+use function sprintf;
 
 final class GetTwigBlockContentListenerTest extends TestCase
 {

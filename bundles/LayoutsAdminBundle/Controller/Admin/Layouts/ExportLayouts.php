@@ -9,6 +9,12 @@ use Netgen\Layouts\Transfer\Output\SerializerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use function array_unique;
+use function date;
+use function is_string;
+use function json_encode;
+use function sprintf;
+use const JSON_PRETTY_PRINT;
 
 final class ExportLayouts extends AbstractController
 {

@@ -9,6 +9,10 @@ use Netgen\Layouts\Parameters\ParameterType;
 use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
+use function array_values;
+use function count;
+use function is_array;
+use function is_callable;
 
 /**
  * Parameter type used to store and validate a selection option.

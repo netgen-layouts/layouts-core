@@ -12,6 +12,16 @@ use Netgen\Layouts\Tests\App\MockerContainer;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use Netgen\Layouts\Tests\Persistence\Doctrine\DatabaseTrait;
 use Symfony\Component\HttpFoundation\Response;
+use function count;
+use function getenv;
+use function is_string;
+use function json_decode;
+use function json_encode;
+use function json_last_error_msg;
+use function sprintf;
+use const JSON_PRETTY_PRINT;
+use const JSON_UNESCAPED_SLASHES;
+use const JSON_UNESCAPED_UNICODE;
 
 abstract class JsonApiTestCase extends BaseJsonApiTestCase
 {

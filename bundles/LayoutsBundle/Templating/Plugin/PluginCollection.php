@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Templating\Plugin;
 
+use function array_filter;
+
 final class PluginCollection
 {
     /**

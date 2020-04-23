@@ -17,6 +17,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 use Throwable;
+use function class_exists;
+use function file_exists;
+use function file_get_contents;
+use function is_string;
+use function method_exists;
+use function sprintf;
 
 /**
  * Command to import Netgen Layouts entities.

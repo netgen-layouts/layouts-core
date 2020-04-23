@@ -12,6 +12,9 @@ use Netgen\Layouts\Exception\Parameters\ParameterTypeException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Parameters\ParameterTypeInterface;
 use Traversable;
+use function array_key_exists;
+use function count;
+use function get_class;
 
 /**
  * @implements \IteratorAggregate<string, \Netgen\Layouts\Parameters\ParameterTypeInterface>

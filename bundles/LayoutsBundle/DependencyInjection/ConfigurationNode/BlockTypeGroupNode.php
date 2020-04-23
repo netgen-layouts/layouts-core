@@ -7,6 +7,8 @@ namespace Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNode;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\ConfigurationNodeInterface;
 use Netgen\Layouts\Utils\BackwardsCompatibility\TreeBuilder;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
+use function array_unique;
+use function array_values;
 
 final class BlockTypeGroupNode implements ConfigurationNodeInterface
 {

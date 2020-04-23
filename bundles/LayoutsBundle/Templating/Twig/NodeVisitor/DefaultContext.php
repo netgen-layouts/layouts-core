@@ -16,6 +16,10 @@ use Twig\Node\ModuleNode;
 use Twig\Node\Node;
 use Twig\Node\SetNode;
 use Twig\NodeVisitor\NodeVisitorInterface;
+use function hash;
+use function mt_rand;
+use function sprintf;
+use function uniqid;
 
 final class DefaultContext implements NodeVisitorInterface
 {

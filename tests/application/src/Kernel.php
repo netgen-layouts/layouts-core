@@ -10,6 +10,13 @@ use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\RouteCollectionBuilder;
+use function dirname;
+use function getenv;
+use function is_string;
+use function mb_stripos;
+use function putenv;
+use function sys_get_temp_dir;
+use function trim;
 
 final class Kernel extends BaseKernel
 {
@@ -44,17 +51,17 @@ final class Kernel extends BaseKernel
 
     public function getProjectDir(): string
     {
-        return \dirname(__DIR__);
+        return dirname(__DIR__);
     }
 
     public function getCacheDir(): string
     {
-        return \sys_get_temp_dir() . '/nglayouts/cache';
+        return sys_get_temp_dir() . '/nglayouts/cache';
     }
 
     public function getLogDir(): string
     {
-        return \sys_get_temp_dir() . '/nglayouts/logs';
+        return sys_get_temp_dir() . '/nglayouts/logs';
     }
 
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void

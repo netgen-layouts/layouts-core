@@ -6,6 +6,8 @@ namespace Netgen\Layouts\API\Values\LayoutResolver;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Ramsey\Uuid\UuidInterface;
+use function array_filter;
+use function array_map;
 
 /**
  * @extends \Doctrine\Common\Collections\ArrayCollection<int, \Netgen\Layouts\API\Values\LayoutResolver\Target>

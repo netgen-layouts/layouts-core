@@ -11,6 +11,12 @@ use Netgen\Layouts\Validator\Constraint\ValueType;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use function count;
+use function in_array;
+use function is_array;
+use function is_string;
+use function parse_url;
+use function str_replace;
 
 /**
  * Validates if the provided value is a valid link to an item.

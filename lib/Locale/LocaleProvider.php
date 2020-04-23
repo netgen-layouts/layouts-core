@@ -6,6 +6,8 @@ namespace Netgen\Layouts\Locale;
 
 use Netgen\Layouts\Utils\BackwardsCompatibility\Locales;
 use Symfony\Component\HttpFoundation\Request;
+use function count;
+use function in_array;
 
 final class LocaleProvider implements LocaleProviderInterface
 {
