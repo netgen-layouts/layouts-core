@@ -63,6 +63,7 @@
         "nikolaposa/version": "^4.0"
     },
     "require-dev": {
+        "netgen/layouts-coding-standard": "^1.0",
         "netgen/layouts-standard": "~1.2.0",
         "phpunit/phpunit": "^8.5",
         "symfony/phpunit-bridge": "^5.0",
