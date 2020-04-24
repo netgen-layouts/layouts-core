@@ -126,10 +126,7 @@
             "Netgen\\Bundle\\LayoutsBundle\\Tests\\": "tests/bundles/LayoutsBundle/",
             "Netgen\\Bundle\\LayoutsAdminBundle\\Tests\\": "tests/bundles/LayoutsAdminBundle/",
             "Netgen\\ContentBrowser\\Tests\\": "vendor/netgen/content-browser/tests/lib/"
-        },
-        "files": [
-            "vendor/symfony/var-dumper/Resources/functions/dump.php"
-        ]
+        }
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
