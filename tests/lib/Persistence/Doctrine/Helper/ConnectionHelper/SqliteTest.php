@@ -19,7 +19,7 @@ final class SqliteTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->createDatabase(__DIR__ . '/../../../../../_fixtures');
+        $this->createDatabase();
 
         $this->helper = new Sqlite($this->databaseConnection);
     }

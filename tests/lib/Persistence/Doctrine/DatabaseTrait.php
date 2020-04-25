@@ -7,8 +7,6 @@ namespace Netgen\Layouts\Tests\Persistence\Doctrine;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\Migrations\Configuration\YamlConfiguration;
-use Doctrine\Migrations\DependencyFactory;
 use Netgen\Layouts\Exception\RuntimeException;
 use function array_fill_keys;
 use function array_keys;
@@ -49,9 +47,7 @@ trait DatabaseTrait
      */
     protected function insertDatabaseFixtures(string $fixturesPath): void
     {
-        $data = require $fixturesPath . '/data.php';
-
-        foreach ($data as $tableName => $tableData) {
+        foreach (require $fixturesPath as $tableName => $tableData) {
             if (count($tableData) > 0) {
                 foreach ($tableData as $tableRow) {
                     $this->databaseConnection
@@ -101,15 +97,11 @@ trait DatabaseTrait
             $this->createDatabaseConnection();
         }
 
-        $useMigrations = getenv('USE_MIGRATIONS') === 'true';
-
         $schemaPath = rtrim($fixturesPath, '/') . '/schema';
 
-        $useMigrations ?
-            $this->executeMigrations() :
-            $this->executeStatements($schemaPath);
+        $this->executeStatements($schemaPath);
 
-        $this->insertDatabaseFixtures($fixturesPath);
+        $this->insertDatabaseFixtures($fixturesPath . '/data.php');
 
         if ($this->databaseServer === 'pgsql') {
             $this->executeStatements($schemaPath, 'setval');
@@ -149,20 +141,5 @@ trait DatabaseTrait
                 $this->databaseConnection->query($sqlQuery);
             }
         }
-    }
-
-    /**
-     * Creates the database schema from all available Doctrine migrations.
-     */
-    private function executeMigrations(): void
-    {
-        $configuration = new YamlConfiguration($this->databaseConnection);
-        $configuration->load(__DIR__ . '/../../../../migrations/doctrine.yaml');
-
-        $dependencyFactory = new DependencyFactory($configuration);
-
-        $migrator = $dependencyFactory->getMigrator();
-        $migrator->migrate('0');
-        $migrator->migrate();
     }
 }
