@@ -10,6 +10,7 @@ use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Exception\RuntimeException;
 use function array_fill_keys;
 use function array_keys;
+use function array_map;
 use function array_values;
 use function count;
 use function explode;
@@ -19,14 +20,15 @@ use function getenv;
 use function is_string;
 use function preg_match;
 use function rtrim;
-use function trim;
+use function sprintf;
 
 trait DatabaseTrait
 {
     /**
      * @var \Doctrine\DBAL\Connection
      */
-    protected $databaseConnection;
+    private $databaseConnection;
+
     /**
      * @var string
      */
@@ -42,9 +44,6 @@ trait DatabaseTrait
      */
     private $databaseServer;
 
-    /**
-     * Inserts database fixtures.
-     */
     protected function insertDatabaseFixtures(string $fixturesPath): void
     {
         foreach (require $fixturesPath as $tableName => $tableData) {
@@ -64,9 +63,6 @@ trait DatabaseTrait
         }
     }
 
-    /**
-     * Sets up the database connection.
-     */
     private function createDatabaseConnection(): Connection
     {
         $this->databaseUri = $this->inMemoryDsn;
@@ -88,9 +84,6 @@ trait DatabaseTrait
         return $this->databaseConnection;
     }
 
-    /**
-     * Sets up the database connection.
-     */
     private function createDatabase(string $fixturesPath = __DIR__ . '/../../../_fixtures'): void
     {
         if ($this->databaseConnection === null) {
@@ -100,7 +93,6 @@ trait DatabaseTrait
         $schemaPath = rtrim($fixturesPath, '/') . '/schema';
 
         $this->executeStatements($schemaPath);
-
         $this->insertDatabaseFixtures($fixturesPath . '/data.php');
 
         if ($this->databaseServer === 'pgsql') {
@@ -108,9 +100,6 @@ trait DatabaseTrait
         }
     }
 
-    /**
-     * Closes the database connection.
-     */
     private function closeDatabase(): void
     {
         if ($this->databaseUri !== $this->inMemoryDsn) {
@@ -118,25 +107,19 @@ trait DatabaseTrait
         }
     }
 
-    /**
-     * Creates the database schema.
-     */
-    private function executeStatements(string $schemaPath, string $fileName = 'schema'): void
+    private function executeStatements(string $filePath, string $fileName = 'schema'): void
     {
-        $fullPath = $schemaPath . '/' . $fileName . '.' . $this->databaseServer . '.sql';
+        $fullPath = sprintf('%s/%s.%s.sql', $filePath, $fileName, $this->databaseServer);
         if (!file_exists($fullPath)) {
-            throw new RuntimeException("File '{$fullPath}' does not exist.");
+            throw new RuntimeException(sprintf('File "%s" does not exist.', $fullPath));
         }
 
         $schema = file_get_contents($fullPath);
         if (!is_string($schema)) {
-            throw new RuntimeException("File '{$fullPath}' is not readable.");
+            throw new RuntimeException(sprintf('File "%s" is not readable.', $fullPath));
         }
 
-        $sqlQueries = explode(';', $schema);
-
-        foreach ($sqlQueries as $sqlQuery) {
-            $sqlQuery = trim($sqlQuery);
+        foreach (array_map('trim', explode(';', $schema)) as $sqlQuery) {
             if ($sqlQuery !== '') {
                 $this->databaseConnection->query($sqlQuery);
             }
