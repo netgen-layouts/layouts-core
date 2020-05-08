@@ -394,37 +394,6 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
                 ],
                 true,
             ],
-
-            [
-                [
-                    'definition' => $this->getBlockDefinition(),
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => false,
-                    'alwaysAvailable' => true,
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                true,
-            ],
-            [
-                [
-                    'definition' => $this->getBlockDefinition(),
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => false,
-                    'alwaysAvailable' => true,
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                true,
-            ],
         ];
     }
 
@@ -455,9 +424,11 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
 
     private function getContainerDefinition(): ContainerDefinitionInterface
     {
+        $handler = new ContainerDefinitionHandler([], ['main']);
+
         return ContainerDefinition::fromArray(
             [
-                'handler' => new ContainerDefinitionHandler([], ['main']),
+                'parameterDefinitions' => $handler->getParameterDefinitions(),
                 'viewTypes' => [
                     'large' => ViewType::fromArray(
                         [
