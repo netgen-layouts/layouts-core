@@ -822,9 +822,11 @@ final class BlockValidatorTest extends TestCase
 
     private function getContainerDefinition(): ContainerDefinitionInterface
     {
+        $handler = new ContainerDefinitionHandler([], ['main']);
+
         return ContainerDefinition::fromArray(
             [
-                'handler' => new ContainerDefinitionHandler([], ['main']),
+                'parameterDefinitions' => $handler->getParameterDefinitions(),
                 'viewTypes' => [
                     'large' => ViewType::fromArray(
                         [
