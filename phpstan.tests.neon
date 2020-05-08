@@ -45,6 +45,6 @@ parameters:
 
         # Disable errors for various tests that verify values have correct types
         - '/Parameter \#1 \$\w+ of class .+ constructor expects array\<.+\>, array\<.+\|stdClass\> given./'
-        - '/Parameter \#1 \$\w+ of method .+ expects array\<.+\>, array\<.+\, stdClass\> given./'
+        - '/Parameter \#1 \$\w+ of method .+ expects array\<.+\>, array\(stdClass\) given./'
         - '/Parameter \#3 \$zoneMappings of method .+::validateChangeLayoutType\(\) expects array\<string, array\<string\>\>, array\<string, int\> given./'
         - '#Call to function is_object\(\) with object will always evaluate to true.#'
