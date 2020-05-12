@@ -9,6 +9,7 @@ use Netgen\Layouts\Transfer\Output\SerializerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\HttpKernel\Kernel;
 use function array_unique;
 use function date;
 use function is_string;
@@ -35,9 +36,11 @@ final class ExportLayouts extends AbstractController
     {
         $this->denyAccessUnlessGranted('nglayouts:ui:access');
 
-        $serializedLayouts = $this->serializer->serializeLayouts(
-            array_unique($request->request->get('layout_ids'))
-        );
+        $layoutIds = Kernel::VERSION_ID >= 50100 ?
+            $request->request->all('layout_ids') :
+            (array) ($request->request->get('layout_ids') ?? []);
+
+        $serializedLayouts = $this->serializer->serializeLayouts(array_unique($layoutIds));
 
         $json = json_encode($serializedLayouts, JSON_PRETTY_PRINT);
         $response = new Response(is_string($json) ? $json : '');

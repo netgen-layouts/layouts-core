@@ -12,6 +12,7 @@ use Netgen\Layouts\Validator\ValidatorTrait;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Validator\Constraints;
 use Throwable;
 use function array_reverse;
@@ -41,21 +42,21 @@ final class UpdateRulePriorities extends AbstractController
     {
         $this->denyAccessUnlessGranted('nglayouts:mapping:reorder');
 
-        $this->validatePriorities($request);
+        $ruleIds = Kernel::VERSION_ID >= 50100 ?
+            $request->request->all('rule_ids') :
+            (array) ($request->request->get('rule_ids') ?? []);
+
+        $this->validatePriorities($ruleIds);
 
         try {
             $this->layoutResolverService->transaction(
-                function () use ($request): void {
+                function () use ($ruleIds): void {
                     // Rules are ordered by descending priority
                     // in the request variable, we reverse the list here
                     // as it is way easier to increment priorities
                     // then decrement them (especially when we need to
                     // make sure to skip rules which do not exist)
-                    $ruleIds = array_reverse(
-                        array_unique(
-                            $request->request->get('rule_ids')
-                        )
-                    );
+                    $ruleIds = array_reverse(array_unique($ruleIds));
 
                     $ruleUpdateStruct = $this->layoutResolverService->newRuleMetadataUpdateStruct();
                     $ruleUpdateStruct->priority = 10;
@@ -86,20 +87,21 @@ final class UpdateRulePriorities extends AbstractController
     /**
      * Validates list of rules from the request when updating priorities.
      *
+     * @param string[] $ruleIds
+     *
      * @throws \Netgen\Layouts\Exception\Validation\ValidationException If validation failed
      */
-    private function validatePriorities(Request $request): void
+    private function validatePriorities(array $ruleIds): void
     {
         $this->validate(
-            $request->request->get('rule_ids'),
+            $ruleIds,
             [
                 new Constraints\NotBlank(),
-                new Constraints\Type(['type' => 'array']),
                 new Constraints\All(
                     [
                         'constraints' => [
                             new Constraints\NotBlank(),
-                            new Constraints\Type(['type' => 'scalar']),
+                            new Constraints\Type(['type' => 'string']),
                         ],
                     ]
                 ),

@@ -8,6 +8,7 @@ use Netgen\Layouts\Context\Context;
 use Netgen\Layouts\Context\ContextBuilderInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpKernel\UriSigner;
 use function is_array;
@@ -84,7 +85,10 @@ final class ContextListener implements EventSubscriberInterface
      */
     private function getUriContext(Request $request): array
     {
-        $context = $request->query->get('nglContext');
+        $context = Kernel::VERSION_ID >= 50100 ?
+            $request->query->all('nglContext') :
+            $request->query->get('nglContext');
+
         $context = is_array($context) ? $context : [];
 
         if (!$this->uriSigner->check($this->getUri($request))) {

@@ -78,7 +78,7 @@ final class GetCollectionPagerListenerTest extends TestCase
     public function testOnRenderView(): void
     {
         $request = Request::create('/');
-        $request->query->set('page', 3);
+        $request->query->set('page', '3');
 
         $this->requestStack->push($request);
 
@@ -144,7 +144,7 @@ final class GetCollectionPagerListenerTest extends TestCase
     public function testOnRenderViewWithPagedCollection(): void
     {
         $request = Request::create('/');
-        $request->query->set('page', 3);
+        $request->query->set('page', '3');
 
         $this->requestStack->push($request);
 
@@ -218,7 +218,7 @@ final class GetCollectionPagerListenerTest extends TestCase
     public function testOnRenderViewWithPagedCollectionAndEmptyMaxPages(): void
     {
         $request = Request::create('/');
-        $request->query->set('page', 3);
+        $request->query->set('page', '3');
 
         $this->requestStack->push($request);
 
@@ -292,7 +292,7 @@ final class GetCollectionPagerListenerTest extends TestCase
     public function testOnRenderViewWithPagedCollectionAndDisabledPaging(): void
     {
         $request = Request::create('/');
-        $request->query->set('page', 3);
+        $request->query->set('page', '3');
 
         $this->requestStack->push($request);
 
