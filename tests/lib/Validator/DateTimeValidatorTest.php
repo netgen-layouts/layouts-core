@@ -52,7 +52,7 @@ final class DateTimeValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "DateTimeInterface or array", "integer" given');
+        $this->expectExceptionMessageMatches('/^Expected argument of type "DateTimeInterface or array", "int(eger)?" given$/');
 
         $this->assertValid(true, 42);
     }
@@ -63,7 +63,7 @@ final class DateTimeValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValueAndDisabledArray(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "DateTimeInterface", "integer" given');
+        $this->expectExceptionMessageMatches('/^Expected argument of type "DateTimeInterface", "int(eger)?" given$/');
 
         $this->constraint->allowArray = false;
 

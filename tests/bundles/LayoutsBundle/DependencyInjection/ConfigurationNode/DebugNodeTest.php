@@ -73,7 +73,11 @@ final class DebugNodeTest extends TestCase
             ],
         ];
 
-        $this->assertConfigurationIsInvalid($config, 'Invalid type for path "netgen_layouts.debug". Expected boolean, but got array.');
+        $this->assertConfigurationIsInvalid(
+            $config,
+            '/^Invalid type for path "netgen_layouts.debug". Expected "?bool(ean)?"?, but got "?array"?.$/',
+            true
+        );
     }
 
     protected function getConfiguration(): ConfigurationInterface

@@ -120,7 +120,9 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
         self::assertSame(Response::$statusTexts[$statusCode], $responseContent['status_text']);
 
         if ($message !== null) {
-            self::assertSame($message, $responseContent['message']);
+            $message !== '' && $message[0] === '/' && $message[-1] === '/' ?
+                self::assertMatchesRegularExpression($message, $responseContent['message']) :
+                self::assertSame($message, $responseContent['message']);
         }
     }
 

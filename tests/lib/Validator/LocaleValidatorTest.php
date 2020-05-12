@@ -47,7 +47,7 @@ final class LocaleValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "string", "integer" given');
+        $this->expectExceptionMessageMatches('/^Expected argument of type "string", "int(eger)?" given$/');
 
         $this->assertValid(true, 42);
     }

@@ -296,7 +296,7 @@ final class ParametersTypeTest extends FormTestCase
     public function testConfigureOptionsWithInvalidParameters(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "parameter_definitions" with value null is expected to be of type "Netgen\\Layouts\\Parameters\\ParameterDefinitionCollectionInterface", but is of type "NULL".');
+        $this->expectExceptionMessageMatches('/^The option "parameter_definitions" with value null is expected to be of type "Netgen\\\\Layouts\\\\Parameters\\\\ParameterDefinitionCollectionInterface", but is of type "(NULL|null)".$/');
 
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
@@ -317,7 +317,7 @@ final class ParametersTypeTest extends FormTestCase
     public function testConfigureOptionsWithInvalidGroup(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "groups" with value array is expected to be of type "string[]", but one of the elements is of type "integer".');
+        $this->expectExceptionMessageMatches('/^The option "groups" with value array is expected to be of type "string\[\]", but one of the elements is of type "int(eger)?".$/');
 
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');

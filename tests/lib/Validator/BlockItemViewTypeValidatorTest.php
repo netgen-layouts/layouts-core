@@ -84,7 +84,7 @@ final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidViewType(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "string", "integer" given');
+        $this->expectExceptionMessageMatches('/^Expected argument of type "string", "int(eger)?" given$/');
 
         $this->constraint->viewType = 42;
         $this->assertValid(true, 'standard');
@@ -96,7 +96,7 @@ final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "string", "integer" given');
+        $this->expectExceptionMessageMatches('/^Expected argument of type "string", "int(eger)?" given$/');
 
         $this->constraint->viewType = 'large';
         $this->assertValid(true, 42);

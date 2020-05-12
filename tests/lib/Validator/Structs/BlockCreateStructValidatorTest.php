@@ -62,7 +62,7 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidValue(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\API\\Values\\Block\\BlockCreateStruct", "integer" given');
+        $this->expectExceptionMessageMatches('/^Expected argument of type "Netgen\\\\Layouts\\\\API\\\\Values\\\\Block\\\\BlockCreateStruct", "int(eger)?" given$/');
 
         $this->assertValid(true, 42);
     }

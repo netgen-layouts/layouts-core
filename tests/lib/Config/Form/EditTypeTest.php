@@ -268,7 +268,7 @@ final class EditTypeTest extends FormTestCase
     public function testConfigureOptionsWithInvalidLabelPrefix(): void
     {
         $this->expectException(InvalidOptionsException::class);
-        $this->expectExceptionMessage('The option "label_prefix" with value 42 is expected to be of type "string", but is of type "integer".');
+        $this->expectExceptionMessageMatches('/^The option "label_prefix" with value 42 is expected to be of type "string", but is of type "int(eger)?".$/');
 
         $optionsResolver = new OptionsResolver();
         $optionsResolver->setDefined('data');
