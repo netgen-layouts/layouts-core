@@ -9,7 +9,7 @@ use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
-use Symfony\Component\Routing\RouteCollectionBuilder;
+use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 use function dirname;
 use function getenv;
 use function is_string;
@@ -80,8 +80,19 @@ final class Kernel extends BaseKernel
         $loader->load($confDir . '/{services}_' . $this->environment . self::CONFIG_EXTS, 'glob');
     }
 
-    protected function configureRoutes(RouteCollectionBuilder $routes): void
+    /**
+     * @param \Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator|\Symfony\Component\Routing\RouteCollectionBuilder $routes
+     */
+    protected function configureRoutes($routes): void
     {
+        if ($routes instanceof RoutingConfigurator) {
+            $routes->import('../config/{routes}/' . $this->environment . '/*.yaml');
+            $routes->import('../config/{routes}/*.yaml');
+            $routes->import('../config/{routes}.yaml');
+
+            return;
+        }
+
         $confDir = $this->getProjectDir() . '/config';
 
         $routes->import($confDir . '/{routes}/' . $this->environment . '/**/*' . self::CONFIG_EXTS, '/', 'glob');
