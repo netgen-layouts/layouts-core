@@ -91,7 +91,7 @@ final class MoveToZone extends AbstractController
             $data->get('parent_position'),
             [
                 new Constraints\NotBlank(),
-                new Constraints\Type(['type' => 'integer']),
+                new Constraints\Type(['type' => 'int']),
             ],
             'parent_position'
         );

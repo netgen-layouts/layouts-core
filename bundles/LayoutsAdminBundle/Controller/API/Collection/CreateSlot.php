@@ -58,7 +58,7 @@ final class CreateSlot extends AbstractController
             $data->get('position'),
             [
                 new Constraints\NotBlank(),
-                new Constraints\Type(['type' => 'integer']),
+                new Constraints\Type(['type' => 'int']),
             ],
             'position'
         );

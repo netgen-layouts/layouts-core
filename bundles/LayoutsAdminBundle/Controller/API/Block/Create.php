@@ -111,7 +111,7 @@ final class Create extends AbstractController
         $this->validate(
             $data->get('parent_position'),
             [
-                new Constraints\Type(['type' => 'integer']),
+                new Constraints\Type(['type' => 'int']),
             ],
             'parent_position'
         );
