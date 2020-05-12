@@ -83,8 +83,6 @@ final class BlockDefinitionRegistry implements IteratorAggregate, Countable, Arr
 
     /**
      * @param mixed $offset
-     *
-     * @return bool
      */
     public function offsetExists($offset): bool
     {

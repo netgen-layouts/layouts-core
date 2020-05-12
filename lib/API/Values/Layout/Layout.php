@@ -208,8 +208,6 @@ final class Layout implements Value, ArrayAccess, IteratorAggregate, Countable
 
     /**
      * @param mixed $offset
-     *
-     * @return bool
      */
     public function offsetExists($offset): bool
     {

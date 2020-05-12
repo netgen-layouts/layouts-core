@@ -32,12 +32,7 @@ abstract class QueryHandler
     /**
      * Applies ID condition to the query.
      *
-     * @param QueryBuilder $query
      * @param int|string $id
-     * @param string $idColumn
-     * @param string $uuidColumn
-     * @param string $idParamName
-     * @param string $uuidParamName
      */
     public function applyIdCondition(QueryBuilder $query, $id, string $idColumn = 'id', string $uuidColumn = 'uuid', string $idParamName = 'id', string $uuidParamName = 'uuid'): void
     {

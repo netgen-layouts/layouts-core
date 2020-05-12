@@ -52,7 +52,6 @@ final class FormViewProviderTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $supports
      *
      * @covers \Netgen\Layouts\View\Provider\FormViewProvider::supports
      * @dataProvider supportsDataProvider

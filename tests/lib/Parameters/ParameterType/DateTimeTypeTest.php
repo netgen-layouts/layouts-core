@@ -30,7 +30,6 @@ final class DateTimeTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $isEmpty
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::isValueEmpty
      * @dataProvider emptyDataProvider
@@ -125,7 +124,6 @@ final class DateTimeTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::getRequiredConstraints
      * @covers \Netgen\Layouts\Parameters\ParameterType\DateTimeType::getValueConstraints

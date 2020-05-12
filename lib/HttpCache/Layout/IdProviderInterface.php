@@ -12,9 +12,7 @@ interface IdProviderInterface
     /**
      * Extracts all relevant UUIDs for a given layout.
      *
-     * @param string $layoutId
-     *
      * @return string[]
      */
-    public function provideIds($layoutId): array;
+    public function provideIds(string $layoutId): array;
 }

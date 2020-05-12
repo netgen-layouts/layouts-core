@@ -41,7 +41,6 @@ abstract class VisitorTest extends CoreTestCase
 
     /**
      * @param mixed $value
-     * @param bool $accepted
      *
      * @dataProvider acceptDataProvider
      */
@@ -52,7 +51,6 @@ abstract class VisitorTest extends CoreTestCase
 
     /**
      * @param mixed $value
-     * @param string $fixturePath
      *
      * @dataProvider visitDataProvider
      */

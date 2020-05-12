@@ -75,8 +75,6 @@ final class IdentifierTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $required
-     * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\IdentifierType::getValueConstraints
      * @dataProvider validationDataProvider
@@ -108,7 +106,6 @@ final class IdentifierTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $isEmpty
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\IdentifierType::isValueEmpty
      * @dataProvider emptyDataProvider

@@ -64,8 +64,6 @@ final class BlockTypeRegistry implements IteratorAggregate, Countable, ArrayAcce
     /**
      * Returns all block types.
      *
-     * @param bool $onlyEnabled
-     *
      * @return array<string, \Netgen\Layouts\Block\BlockType\BlockType>
      */
     public function getBlockTypes(bool $onlyEnabled = false): array
@@ -94,8 +92,6 @@ final class BlockTypeRegistry implements IteratorAggregate, Countable, ArrayAcce
 
     /**
      * @param mixed $offset
-     *
-     * @return bool
      */
     public function offsetExists($offset): bool
     {

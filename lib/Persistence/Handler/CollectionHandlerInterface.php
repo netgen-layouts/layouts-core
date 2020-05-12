@@ -27,11 +27,8 @@ interface CollectionHandlerInterface
      * Collection ID can be an auto-incremented ID or an UUID.
      *
      * @param int|string|\Ramsey\Uuid\UuidInterface $collectionId
-     * @param int $status
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If collection with specified ID does not exist
-     *
-     * @return \Netgen\Layouts\Persistence\Values\Collection\Collection
      */
     public function loadCollection($collectionId, int $status): Collection;
 
@@ -62,11 +59,8 @@ interface CollectionHandlerInterface
      * Item ID can be an auto-incremented ID or an UUID.
      *
      * @param int|string|\Ramsey\Uuid\UuidInterface $itemId
-     * @param int $status
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If item with specified ID does not exist
-     *
-     * @return \Netgen\Layouts\Persistence\Values\Collection\Item
      */
     public function loadItem($itemId, int $status): Item;
 
@@ -90,11 +84,8 @@ interface CollectionHandlerInterface
      * Query ID can be an auto-incremented ID or an UUID.
      *
      * @param int|string|\Ramsey\Uuid\UuidInterface $queryId
-     * @param int $status
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If query with specified ID does not exist
-     *
-     * @return \Netgen\Layouts\Persistence\Values\Collection\Query
      */
     public function loadQuery($queryId, int $status): Query;
 
@@ -111,18 +102,13 @@ interface CollectionHandlerInterface
      * Slot ID can be an auto-incremented ID or an UUID.
      *
      * @param int|string|\Ramsey\Uuid\UuidInterface $slotId
-     * @param int $status
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If slot with specified ID does not exist
-     *
-     * @return \Netgen\Layouts\Persistence\Values\Collection\Slot
      */
     public function loadSlot($slotId, int $status): Slot;
 
     /**
      * Loads the slots that belong to specified collection.
-     *
-     * @param \Netgen\Layouts\Persistence\Values\Collection\Collection $collection
      *
      * @return \Netgen\Layouts\Persistence\Values\Collection\Slot[]
      */
@@ -134,9 +120,6 @@ interface CollectionHandlerInterface
      * Collection ID can be an auto-incremented ID or an UUID.
      *
      * @param int|string|\Ramsey\Uuid\UuidInterface $collectionId
-     * @param int $status
-     *
-     * @return bool
      */
     public function collectionExists($collectionId, int $status): bool;
 

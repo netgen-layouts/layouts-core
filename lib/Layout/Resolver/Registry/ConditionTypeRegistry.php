@@ -81,8 +81,6 @@ final class ConditionTypeRegistry implements IteratorAggregate, Countable, Array
 
     /**
      * @param mixed $offset
-     *
-     * @return bool
      */
     public function offsetExists($offset): bool
     {

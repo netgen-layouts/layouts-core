@@ -19,8 +19,6 @@ interface ViewProviderInterface
      *
      * @param mixed $value
      * @param array<string, mixed> $parameters
-     *
-     * @return \Netgen\Layouts\View\ViewInterface
      */
     public function provideView($value, array $parameters = []): ViewInterface;
 
@@ -28,8 +26,6 @@ interface ViewProviderInterface
      * Returns if this view provider supports the given value.
      *
      * @param mixed $value
-     *
-     * @return bool
      */
     public function supports($value): bool;
 }

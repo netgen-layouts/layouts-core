@@ -53,11 +53,8 @@ final class ItemRuntime
      * 3) \Netgen\Layouts\Item\CmsItemInterface object
      *
      * @param mixed $value
-     * @param string|null $valueType
      *
      * @throws \Netgen\Layouts\Exception\Item\ItemException If provided item or item reference is not valid
-     *
-     * @return string
      */
     public function getItemPath($value, ?string $valueType = null): string
     {

@@ -51,7 +51,6 @@ final class CollectionSlotNormalizerTest extends TestCase
 
     /**
      * @param mixed $data
-     * @param bool $expected
      *
      * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionSlotNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationDataProvider

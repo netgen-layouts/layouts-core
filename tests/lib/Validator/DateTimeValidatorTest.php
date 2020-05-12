@@ -25,7 +25,6 @@ final class DateTimeValidatorTest extends ValidatorTestCase
 
     /**
      * @param mixed $value
-     * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Validator\DateTimeValidator::validate
      * @dataProvider validateDataProvider

@@ -65,8 +65,6 @@ class BlockTypeGroup
     /**
      * Returns the block types in this group.
      *
-     * @param bool $onlyEnabled
-     *
      * @return \Netgen\Layouts\Block\BlockType\BlockType[]
      */
     public function getBlockTypes(bool $onlyEnabled = false): array

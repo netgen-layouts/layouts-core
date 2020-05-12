@@ -32,10 +32,7 @@ interface ConditionTypeInterface
     /**
      * Returns if this request matches the provided value.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param mixed $value
-     *
-     * @return bool
      */
     public function matches(Request $request, $value): bool;
 }

@@ -30,7 +30,6 @@ final class BooleanTypeTest extends TestCase
      * @covers \Netgen\Layouts\Parameters\ParameterType\BooleanType::configureOptions
      *
      * @param array<string, mixed> $options
-     * @param bool $required
      * @param mixed $defaultValue
      * @param mixed $expected
      *
@@ -103,8 +102,6 @@ final class BooleanTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $required
-     * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\BooleanType::getRequiredConstraints
      * @covers \Netgen\Layouts\Parameters\ParameterType\BooleanType::getValueConstraints
@@ -137,7 +134,6 @@ final class BooleanTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $isEmpty
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\BooleanType::isValueEmpty
      * @dataProvider emptyDataProvider

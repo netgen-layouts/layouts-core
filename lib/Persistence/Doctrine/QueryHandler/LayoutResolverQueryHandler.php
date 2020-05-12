@@ -40,7 +40,6 @@ final class LayoutResolverQueryHandler extends QueryHandler
      * Returns all data for specified rule.
      *
      * @param int|string $ruleId
-     * @param int $status
      *
      * @return mixed[]
      */
@@ -104,7 +103,6 @@ final class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Returns all rule data for rules that match specified target type and value.
      *
-     * @param string $targetType
      * @param mixed $targetValue
      *
      * @return mixed[]
@@ -140,7 +138,6 @@ final class LayoutResolverQueryHandler extends QueryHandler
      * Returns all data for specified target.
      *
      * @param int|string $targetId
-     * @param int $status
      *
      * @return mixed[]
      */
@@ -197,7 +194,6 @@ final class LayoutResolverQueryHandler extends QueryHandler
      * Returns all data for specified condition.
      *
      * @param int|string $conditionId
-     * @param int $status
      *
      * @return mixed[]
      */
@@ -234,9 +230,6 @@ final class LayoutResolverQueryHandler extends QueryHandler
      * Returns if the specified rule exists.
      *
      * @param int|string $ruleId
-     * @param int $status
-     *
-     * @return bool
      */
     public function ruleExists($ruleId, ?int $status = null): bool
     {

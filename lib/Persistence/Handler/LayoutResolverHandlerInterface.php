@@ -24,11 +24,8 @@ interface LayoutResolverHandlerInterface
      * Rule ID can be an auto-incremented ID or an UUID.
      *
      * @param int|string|\Ramsey\Uuid\UuidInterface $ruleId
-     * @param int $status
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If rule with specified ID does not exist
-     *
-     * @return \Netgen\Layouts\Persistence\Values\LayoutResolver\Rule
      */
     public function loadRule($ruleId, int $status): Rule;
 
@@ -51,7 +48,6 @@ interface LayoutResolverHandlerInterface
     /**
      * Returns all rules that match specified target type and value.
      *
-     * @param string $targetType
      * @param mixed $targetValue
      *
      * @return \Netgen\Layouts\Persistence\Values\LayoutResolver\Rule[]
@@ -64,11 +60,8 @@ interface LayoutResolverHandlerInterface
      * Target ID can be an auto-incremented ID or an UUID.
      *
      * @param int|string|\Ramsey\Uuid\UuidInterface $targetId
-     * @param int $status
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If target with specified ID does not exist
-     *
-     * @return \Netgen\Layouts\Persistence\Values\LayoutResolver\Target
      */
     public function loadTarget($targetId, int $status): Target;
 
@@ -90,11 +83,8 @@ interface LayoutResolverHandlerInterface
      * Condition ID can be an auto-incremented ID or an UUID.
      *
      * @param int|string|\Ramsey\Uuid\UuidInterface $conditionId
-     * @param int $status
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified ID does not exist
-     *
-     * @return \Netgen\Layouts\Persistence\Values\LayoutResolver\Condition
      */
     public function loadCondition($conditionId, int $status): Condition;
 
@@ -111,9 +101,6 @@ interface LayoutResolverHandlerInterface
      * Rule ID can be an auto-incremented ID or an UUID.
      *
      * @param int|string|\Ramsey\Uuid\UuidInterface $ruleId
-     * @param int $status
-     *
-     * @return bool
      */
     public function ruleExists($ruleId, int $status): bool;
 

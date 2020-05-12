@@ -147,8 +147,6 @@ final class ResultSet implements ArrayAccess, IteratorAggregate, Countable
 
     /**
      * @param mixed $offset
-     *
-     * @return bool
      */
     public function offsetExists($offset): bool
     {

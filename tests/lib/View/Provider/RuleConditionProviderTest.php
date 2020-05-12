@@ -46,7 +46,6 @@ final class RuleConditionProviderTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $supports
      *
      * @covers \Netgen\Layouts\View\Provider\RuleConditionViewProvider::supports
      * @dataProvider supportsDataProvider

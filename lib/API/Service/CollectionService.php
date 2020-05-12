@@ -223,10 +223,7 @@ interface CollectionService extends Service
     /**
      * Creates a new item create struct from provided values.
      *
-     * @param \Netgen\Layouts\Collection\Item\ItemDefinitionInterface $itemDefinition
      * @param int|string $value
-     *
-     * @return \Netgen\Layouts\API\Values\Collection\ItemCreateStruct
      */
     public function newItemCreateStruct(ItemDefinitionInterface $itemDefinition, $value): ItemCreateStruct;
 

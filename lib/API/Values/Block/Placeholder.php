@@ -68,8 +68,6 @@ final class Placeholder implements ArrayAccess, IteratorAggregate, Countable
 
     /**
      * @param mixed $offset
-     *
-     * @return bool
      */
     public function offsetExists($offset): bool
     {

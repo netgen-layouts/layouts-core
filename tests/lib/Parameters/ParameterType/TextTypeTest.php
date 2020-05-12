@@ -75,7 +75,6 @@ final class TextTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\TextType::getRequiredConstraints
      * @covers \Netgen\Layouts\Parameters\ParameterType\TextType::getValueConstraints
@@ -105,7 +104,6 @@ final class TextTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $isEmpty
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\TextType::isValueEmpty
      * @dataProvider emptyDataProvider

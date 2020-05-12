@@ -31,7 +31,6 @@ final class RouteParameterTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\RouteParameter::getConstraints
      * @dataProvider validationDataProvider
@@ -48,7 +47,6 @@ final class RouteParameterTest extends TestCase
      * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\RouteParameter::matches
      *
      * @param mixed $value
-     * @param bool $matches
      *
      * @dataProvider matchesDataProvider
      */

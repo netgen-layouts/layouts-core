@@ -31,8 +31,6 @@ final class HandlerPluginRegistry
     /**
      * Returns all handler plugins for the provided handler class.
      *
-     * @param string $handlerClass
-     *
      * @return \Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface[]
      */
     public function getPlugins(string $handlerClass): array

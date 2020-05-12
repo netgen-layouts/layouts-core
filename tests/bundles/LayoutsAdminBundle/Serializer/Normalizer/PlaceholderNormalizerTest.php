@@ -52,7 +52,6 @@ final class PlaceholderNormalizerTest extends TestCase
 
     /**
      * @param mixed $data
-     * @param bool $expected
      *
      * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\PlaceholderNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationDataProvider

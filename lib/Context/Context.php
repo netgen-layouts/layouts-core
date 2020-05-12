@@ -29,7 +29,6 @@ final class Context implements IteratorAggregate, Countable, ArrayAccess
      * Sets a variable to the context. Variable value needs to be
      * a scalar or an array/hash of scalars.
      *
-     * @param string $variableName
      * @param mixed $value
      */
     public function set(string $variableName, $value): void
@@ -95,8 +94,6 @@ final class Context implements IteratorAggregate, Countable, ArrayAccess
 
     /**
      * @param mixed $offset
-     *
-     * @return bool
      */
     public function offsetExists($offset): bool
     {

@@ -18,10 +18,7 @@ trait ParameterTypeTestTrait
      * Returns the parameter under test.
      *
      * @param array<string, mixed> $options
-     * @param bool $required
      * @param mixed $defaultValue
-     *
-     * @return \Netgen\Layouts\Parameters\ParameterDefinition
      */
     private function getParameterDefinition(array $options = [], bool $required = false, $defaultValue = null): ParameterDefinition
     {

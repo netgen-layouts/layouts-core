@@ -64,8 +64,6 @@ final class ValueTypeRegistry implements IteratorAggregate, Countable, ArrayAcce
     /**
      * Returns all value types.
      *
-     * @param bool $onlyEnabled
-     *
      * @return array<string, \Netgen\Layouts\Item\ValueType\ValueType>
      */
     public function getValueTypes(bool $onlyEnabled = false): array
@@ -94,8 +92,6 @@ final class ValueTypeRegistry implements IteratorAggregate, Countable, ArrayAcce
 
     /**
      * @param mixed $offset
-     *
-     * @return bool
      */
     public function offsetExists($offset): bool
     {

@@ -104,7 +104,6 @@ interface ViewInterface
     /**
      * Adds a parameter to the view.
      *
-     * @param string $parameterName
      * @param mixed $parameterValue
      */
     public function addParameter(string $parameterName, $parameterValue): void;

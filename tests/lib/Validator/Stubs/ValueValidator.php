@@ -13,7 +13,6 @@ final class ValueValidator
     /**
      * @param mixed $value
      * @param \Symfony\Component\Validator\Constraint[] $constraints
-     * @param string|null $propertyPath
      */
     public function validateValue($value, $constraints, ?string $propertyPath = null): void
     {

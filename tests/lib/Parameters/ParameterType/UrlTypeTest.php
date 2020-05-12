@@ -81,7 +81,6 @@ final class UrlTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\UrlType::getRequiredConstraints
      * @covers \Netgen\Layouts\Parameters\ParameterType\UrlType::getValueConstraints
@@ -107,7 +106,6 @@ final class UrlTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $isEmpty
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\UrlType::isValueEmpty
      * @dataProvider emptyDataProvider

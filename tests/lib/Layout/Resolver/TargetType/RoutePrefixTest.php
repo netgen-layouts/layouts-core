@@ -31,7 +31,6 @@ final class RoutePrefixTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Layout\Resolver\TargetType\RoutePrefix::getConstraints
      * @dataProvider validationDataProvider

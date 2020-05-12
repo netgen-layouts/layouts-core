@@ -9,8 +9,6 @@ interface Service
     /**
      * Runs the provided callable inside a transaction.
      *
-     * @param callable $callable
-     *
      * @return mixed
      */
     public function transaction(callable $callable);

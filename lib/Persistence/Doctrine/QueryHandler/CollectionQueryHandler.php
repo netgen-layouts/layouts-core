@@ -23,7 +23,6 @@ final class CollectionQueryHandler extends QueryHandler
      * Loads all collection data for collection with specified ID.
      *
      * @param int|string $collectionId
-     * @param int $status
      *
      * @return mixed[]
      */
@@ -82,7 +81,6 @@ final class CollectionQueryHandler extends QueryHandler
      * Loads all data for an item.
      *
      * @param int|string $itemId
-     * @param int $status
      *
      * @return mixed[]
      */
@@ -142,7 +140,6 @@ final class CollectionQueryHandler extends QueryHandler
      * Loads all data for a query.
      *
      * @param int|string $queryId
-     * @param int $status
      *
      * @return mixed[]
      */
@@ -202,7 +199,6 @@ final class CollectionQueryHandler extends QueryHandler
      * Loads all data for a slot.
      *
      * @param int|string $slotId
-     * @param int $status
      *
      * @return mixed[]
      */
@@ -240,9 +236,6 @@ final class CollectionQueryHandler extends QueryHandler
      * Returns if the collection exists.
      *
      * @param int|string $collectionId
-     * @param int $status
-     *
-     * @return bool
      */
     public function collectionExists($collectionId, int $status): bool
     {

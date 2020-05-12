@@ -48,7 +48,6 @@ final class ParameterNormalizerTest extends TestCase
 
     /**
      * @param mixed $data
-     * @param bool $expected
      *
      * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ParameterNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationDataProvider

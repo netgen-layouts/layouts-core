@@ -42,8 +42,6 @@ final class ItemException extends InvalidArgumentException implements Exception
 
     /**
      * @param int|string $value
-     *
-     * @return \Netgen\Layouts\Exception\Item\ItemException
      */
     public static function noValue($value): self
     {
@@ -57,8 +55,6 @@ final class ItemException extends InvalidArgumentException implements Exception
 
     /**
      * @param int|string $value
-     *
-     * @return \Netgen\Layouts\Exception\Item\ItemException
      */
     public static function invalidValue($value): self
     {

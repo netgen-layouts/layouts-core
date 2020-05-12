@@ -77,8 +77,6 @@ final class HelpersRuntime
      * Returns the country flag as an emoji string for provided country code.
      *
      * If the flag cannot be generated, the country code is returned as is.
-     *
-     * @param string $countryCode
      */
     public function getCountryFlag(string $countryCode): string
     {

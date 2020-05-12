@@ -13,10 +13,7 @@ use Symfony\Component\Form\FormInterface;
 abstract class DataMapperTest extends TestCase
 {
     /**
-     * @param string $formName
      * @param mixed $formData
-     *
-     * @return \Symfony\Component\Form\FormInterface
      */
     protected function getForm(string $formName, $formData = null): FormInterface
     {

@@ -55,7 +55,6 @@ final class CollectionNormalizerTest extends TestCase
 
     /**
      * @param mixed $data
-     * @param bool $expected
      *
      * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationDataProvider

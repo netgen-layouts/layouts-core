@@ -19,8 +19,6 @@ interface ValueLoaderInterface
      * and just return null.
      *
      * @param int|string $id
-     *
-     * @return object|null
      */
     public function load($id): ?object;
 
@@ -32,8 +30,6 @@ interface ValueLoaderInterface
      * and just return null.
      *
      * @param int|string $remoteId
-     *
-     * @return object|null
      */
     public function loadByRemoteId($remoteId): ?object;
 }

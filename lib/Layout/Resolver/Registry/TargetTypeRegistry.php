@@ -81,8 +81,6 @@ final class TargetTypeRegistry implements IteratorAggregate, Countable, ArrayAcc
 
     /**
      * @param mixed $offset
-     *
-     * @return bool
      */
     public function offsetExists($offset): bool
     {

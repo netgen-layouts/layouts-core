@@ -20,7 +20,6 @@ abstract class AbstractValue
 
     /**
      * @param mixed $value
-     * @param int $statusCode
      */
     public function __construct($value, int $statusCode = Response::HTTP_OK)
     {

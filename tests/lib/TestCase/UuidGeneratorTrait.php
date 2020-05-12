@@ -13,7 +13,6 @@ use function count;
 trait UuidGeneratorTrait
 {
     /**
-     * @param callable $callable
      * @param string[] $uuids
      *
      * @return mixed

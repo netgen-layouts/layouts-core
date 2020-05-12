@@ -71,8 +71,6 @@ final class ViewBuilder implements ViewBuilderInterface
      * Returns the view provider that supports the given value.
      *
      * @param mixed $value
-     *
-     * @return \Netgen\Layouts\View\Provider\ViewProviderInterface
      */
     private function getViewProvider($value): ViewProviderInterface
     {

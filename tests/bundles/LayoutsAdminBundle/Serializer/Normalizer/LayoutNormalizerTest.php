@@ -280,7 +280,6 @@ final class LayoutNormalizerTest extends TestCase
 
     /**
      * @param mixed $data
-     * @param bool $expected
      *
      * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\LayoutNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationDataProvider

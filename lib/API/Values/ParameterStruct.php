@@ -20,7 +20,6 @@ interface ParameterStruct
      *
      * The value needs to be in the domain format of the value for the parameter.
      *
-     * @param string $parameterName
      * @param mixed $parameterValue
      */
     public function setParameterValue(string $parameterName, $parameterValue): void;

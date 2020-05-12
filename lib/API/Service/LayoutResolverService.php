@@ -62,10 +62,7 @@ interface LayoutResolverService extends Service
     /**
      * Returns all rules that match specified target type and value.
      *
-     * @param string $targetType
      * @param int|string $targetValue
-     *
-     * @return \Netgen\Layouts\API\Values\LayoutResolver\RuleList
      */
     public function matchRules(string $targetType, $targetValue): RuleList;
 

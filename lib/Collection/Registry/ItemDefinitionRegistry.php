@@ -83,8 +83,6 @@ final class ItemDefinitionRegistry implements IteratorAggregate, Countable, Arra
 
     /**
      * @param mixed $offset
-     *
-     * @return bool
      */
     public function offsetExists($offset): bool
     {

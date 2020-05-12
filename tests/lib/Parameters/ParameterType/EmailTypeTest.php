@@ -75,7 +75,6 @@ final class EmailTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\EmailType::getRequiredConstraints
      * @covers \Netgen\Layouts\Parameters\ParameterType\EmailType::getValueConstraints
@@ -101,7 +100,6 @@ final class EmailTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $isEmpty
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\EmailType::isValueEmpty
      * @dataProvider emptyDataProvider

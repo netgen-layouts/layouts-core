@@ -31,7 +31,6 @@ final class RangeTypeTest extends TestCase
      * @covers \Netgen\Layouts\Parameters\ParameterType\RangeType::configureOptions
      *
      * @param array<string, mixed> $options
-     * @param bool $required
      * @param mixed $defaultValue
      * @param mixed $expected
      *
@@ -158,8 +157,6 @@ final class RangeTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $required
-     * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\RangeType::getValueConstraints
      * @dataProvider validationDataProvider
@@ -198,7 +195,6 @@ final class RangeTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $isEmpty
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\RangeType::isValueEmpty
      * @dataProvider emptyDataProvider

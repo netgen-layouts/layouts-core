@@ -48,10 +48,7 @@ interface ParameterBuilderInterface extends Countable
      * The options will keep their existing values (unless the options resolver modifies them
      * according to rules in the parameter type).
      *
-     * @param string $name
      * @param mixed $value
-     *
-     * @return \Netgen\Layouts\Parameters\ParameterBuilderInterface
      */
     public function setOption(string $name, $value): self;
 
@@ -76,8 +73,6 @@ interface ParameterBuilderInterface extends Countable
      * Sets the default value of the parameter.
      *
      * @param mixed $defaultValue
-     *
-     * @return \Netgen\Layouts\Parameters\ParameterBuilderInterface
      */
     public function setDefaultValue($defaultValue): self;
 
@@ -92,8 +87,6 @@ interface ParameterBuilderInterface extends Countable
      * Sets the parameter label.
      *
      * @param string|bool|null $label
-     *
-     * @return \Netgen\Layouts\Parameters\ParameterBuilderInterface
      */
     public function setLabel($label): self;
 

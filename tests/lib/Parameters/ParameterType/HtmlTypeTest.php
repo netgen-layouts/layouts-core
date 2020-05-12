@@ -88,7 +88,6 @@ final class HtmlTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\HtmlType::getRequiredConstraints
      * @covers \Netgen\Layouts\Parameters\ParameterType\HtmlType::getValueConstraints
@@ -118,7 +117,6 @@ final class HtmlTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $isEmpty
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\HtmlType::isValueEmpty
      * @dataProvider emptyDataProvider

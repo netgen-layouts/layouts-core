@@ -154,7 +154,6 @@ final class ItemLinkTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::getRequiredConstraints
      * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::getValueConstraints
@@ -215,7 +214,6 @@ final class ItemLinkTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $isEmpty
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ItemLinkType::isValueEmpty
      * @dataProvider emptyDataProvider

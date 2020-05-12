@@ -89,7 +89,6 @@ trait ValidatorTrait
      *
      * @param mixed $value
      * @param \Symfony\Component\Validator\Constraint|\Symfony\Component\Validator\Constraint[] $constraints
-     * @param string $propertyPath
      *
      * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */

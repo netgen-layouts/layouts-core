@@ -50,7 +50,6 @@ final class BlockViewProviderTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $supports
      *
      * @covers \Netgen\Layouts\View\Provider\BlockViewProvider::supports
      * @dataProvider supportsDataProvider

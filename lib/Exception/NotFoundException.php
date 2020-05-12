@@ -13,9 +13,7 @@ final class NotFoundException extends BaseException implements Exception
     /**
      * Creates a new not found exception.
      *
-     * @param string $what
      * @param int|string $identifier
-     * @param \Throwable $previous
      */
     public function __construct(string $what, $identifier = '', ?Throwable $previous = null)
     {

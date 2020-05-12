@@ -9,11 +9,8 @@ final class BlockTypeGroupFactory
     /**
      * Builds the block type group.
      *
-     * @param string $identifier
      * @param array<string, mixed> $config
      * @param \Netgen\Layouts\Block\BlockType\BlockType[] $blockTypes
-     *
-     * @return \Netgen\Layouts\Block\BlockType\BlockTypeGroup
      */
     public static function buildBlockTypeGroup(string $identifier, array $config, array $blockTypes): BlockTypeGroup
     {

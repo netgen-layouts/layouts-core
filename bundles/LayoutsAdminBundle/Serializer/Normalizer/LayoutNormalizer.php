@@ -138,9 +138,6 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
      * Returns all allowed block definitions from provided zone or
      * true if all block definitions are allowed.
      *
-     * @param \Netgen\Layouts\API\Values\Layout\Zone $zone
-     * @param \Netgen\Layouts\Layout\Type\LayoutTypeInterface $layoutType
-     *
      * @return string[]|bool
      */
     private function getAllowedBlocks(Zone $zone, LayoutTypeInterface $layoutType)

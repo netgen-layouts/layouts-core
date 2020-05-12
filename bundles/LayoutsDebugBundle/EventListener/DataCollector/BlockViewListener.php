@@ -25,7 +25,6 @@ final class BlockViewListener implements EventSubscriberInterface
     private $enabledContexts;
 
     /**
-     * @param \Netgen\Bundle\LayoutsDebugBundle\DataCollector\LayoutsDataCollector $dataCollector
      * @param string[] $enabledContexts
      */
     public function __construct(LayoutsDataCollector $dataCollector, array $enabledContexts)

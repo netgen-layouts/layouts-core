@@ -64,8 +64,6 @@ final class LayoutTypeRegistry implements IteratorAggregate, Countable, ArrayAcc
     /**
      * Returns all layout types.
      *
-     * @param bool $onlyEnabled
-     *
      * @return array<string, \Netgen\Layouts\Layout\Type\LayoutTypeInterface>
      */
     public function getLayoutTypes(bool $onlyEnabled = false): array
@@ -94,8 +92,6 @@ final class LayoutTypeRegistry implements IteratorAggregate, Countable, ArrayAcc
 
     /**
      * @param mixed $offset
-     *
-     * @return bool
      */
     public function offsetExists($offset): bool
     {

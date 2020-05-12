@@ -182,7 +182,6 @@ final class BlockNormalizerTest extends TestCase
 
     /**
      * @param mixed $data
-     * @param bool $expected
      *
      * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\BlockNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationDataProvider

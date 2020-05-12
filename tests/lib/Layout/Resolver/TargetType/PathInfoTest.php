@@ -31,7 +31,6 @@ final class PathInfoTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Layout\Resolver\TargetType\PathInfo::getConstraints
      * @dataProvider validationDataProvider

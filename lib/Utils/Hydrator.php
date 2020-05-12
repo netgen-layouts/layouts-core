@@ -28,7 +28,6 @@ final class Hydrator
      * Hydrate $object with the provided $data.
      *
      * @param array<string, mixed> $data
-     * @param object $object
      *
      * @return mixed
      */

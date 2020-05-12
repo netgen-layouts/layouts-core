@@ -86,7 +86,6 @@ final class ExceptionNormalizerTest extends TestCase
 
     /**
      * @param mixed $data
-     * @param bool $expected
      *
      * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ExceptionNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationDataProvider

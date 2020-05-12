@@ -37,8 +37,6 @@ interface TargetTypeInterface
      * be something that uniquely identifies a page in the CMS or a set of
      * pages.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
      * @return mixed
      */
     public function provideValue(Request $request);

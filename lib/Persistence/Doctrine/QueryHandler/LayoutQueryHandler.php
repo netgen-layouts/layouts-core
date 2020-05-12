@@ -22,7 +22,6 @@ final class LayoutQueryHandler extends QueryHandler
      * Loads all data for layout with specified ID.
      *
      * @param int|string $layoutId
-     * @param int $status
      *
      * @return mixed[]
      */
@@ -258,8 +257,6 @@ final class LayoutQueryHandler extends QueryHandler
      * Loads all zone data with provided identifier.
      *
      * @param int|string $layoutId
-     * @param int $status
-     * @param string $identifier
      *
      * @return mixed[]
      */
@@ -300,9 +297,6 @@ final class LayoutQueryHandler extends QueryHandler
      * Returns if the layout exists.
      *
      * @param int|string $layoutId
-     * @param int $status
-     *
-     * @return bool
      */
     public function layoutExists($layoutId, int $status): bool
     {
@@ -321,10 +315,7 @@ final class LayoutQueryHandler extends QueryHandler
     /**
      * Returns if the layout with provided name exists.
      *
-     * @param string $name
      * @param int|string|null $excludedLayoutId
-     *
-     * @return bool
      */
     public function layoutNameExists(string $name, $excludedLayoutId = null): bool
     {

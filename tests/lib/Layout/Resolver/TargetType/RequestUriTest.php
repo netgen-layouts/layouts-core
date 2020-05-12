@@ -31,7 +31,6 @@ final class RequestUriTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Layout\Resolver\TargetType\RequestUri::getConstraints
      * @dataProvider validationDataProvider

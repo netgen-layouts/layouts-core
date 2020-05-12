@@ -64,8 +64,6 @@ final class QueryTypeRegistry implements IteratorAggregate, Countable, ArrayAcce
     /**
      * Returns all query types.
      *
-     * @param bool $onlyEnabled
-     *
      * @return array<string, \Netgen\Layouts\Collection\QueryType\QueryTypeInterface>
      */
     public function getQueryTypes(bool $onlyEnabled = false): array
@@ -94,8 +92,6 @@ final class QueryTypeRegistry implements IteratorAggregate, Countable, ArrayAcce
 
     /**
      * @param mixed $offset
-     *
-     * @return bool
      */
     public function offsetExists($offset): bool
     {

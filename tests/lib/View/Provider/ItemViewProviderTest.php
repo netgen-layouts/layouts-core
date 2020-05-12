@@ -70,7 +70,6 @@ final class ItemViewProviderTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $supports
      *
      * @covers \Netgen\Layouts\View\Provider\ItemViewProvider::supports
      * @dataProvider supportsDataProvider

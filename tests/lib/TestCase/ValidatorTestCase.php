@@ -40,7 +40,6 @@ abstract class ValidatorTestCase extends TestCase
     }
 
     /**
-     * @param bool $isValid
      * @param mixed $value
      */
     protected function assertValid(bool $isValid, $value): void

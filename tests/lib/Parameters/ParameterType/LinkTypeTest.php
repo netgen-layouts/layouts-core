@@ -133,9 +133,7 @@ final class LinkTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $isRequired
      * @param string[] $valueTypes
-     * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::getRequiredConstraints
      * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::getValueConstraints
@@ -580,7 +578,6 @@ final class LinkTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $isEmpty
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\LinkType::isValueEmpty
      * @dataProvider emptyDataProvider

@@ -30,7 +30,6 @@ final class NumberTypeTest extends TestCase
      * @covers \Netgen\Layouts\Parameters\ParameterType\NumberType::configureOptions
      *
      * @param array<string, mixed> $options
-     * @param bool $required
      * @param mixed $defaultValue
      * @param mixed $expected
      *
@@ -209,8 +208,6 @@ final class NumberTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $required
-     * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\NumberType::getValueConstraints
      * @dataProvider validationDataProvider
@@ -249,7 +246,6 @@ final class NumberTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $isEmpty
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\NumberType::isValueEmpty
      * @dataProvider emptyDataProvider

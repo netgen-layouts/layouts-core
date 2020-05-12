@@ -31,7 +31,6 @@ final class RouteTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Layout\Resolver\TargetType\Route::getConstraints
      * @dataProvider validationDataProvider

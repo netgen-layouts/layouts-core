@@ -302,7 +302,6 @@ final class CollectionResultNormalizerTest extends TestCase
 
     /**
      * @param mixed $data
-     * @param bool $expected
      *
      * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionResultNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationDataProvider

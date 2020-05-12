@@ -31,7 +31,6 @@ final class QueryParameterTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\QueryParameter::getConstraints
      * @dataProvider validationDataProvider
@@ -48,7 +47,6 @@ final class QueryParameterTest extends TestCase
      * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\QueryParameter::matches
      *
      * @param mixed $value
-     * @param bool $matches
      *
      * @dataProvider matchesDataProvider
      */

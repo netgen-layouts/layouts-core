@@ -20,11 +20,8 @@ interface LayoutHandlerInterface
      * Layout ID can be an auto-incremented ID or an UUID.
      *
      * @param int|string|\Ramsey\Uuid\UuidInterface $layoutId
-     * @param int $status
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If layout with specified ID does not exist
-     *
-     * @return \Netgen\Layouts\Persistence\Values\Layout\Layout
      */
     public function loadLayout($layoutId, int $status): Layout;
 
@@ -34,12 +31,8 @@ interface LayoutHandlerInterface
      * Layout ID can be an auto-incremented ID or an UUID.
      *
      * @param int|string|\Ramsey\Uuid\UuidInterface $layoutId
-     * @param int $status
-     * @param string $identifier
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If layout with specified ID or zone with specified identifier do not exist
-     *
-     * @return \Netgen\Layouts\Persistence\Values\Layout\Zone
      */
     public function loadZone($layoutId, int $status, string $identifier): Zone;
 
@@ -103,9 +96,6 @@ interface LayoutHandlerInterface
      * Layout ID can be an auto-incremented ID or an UUID.
      *
      * @param int|string|\Ramsey\Uuid\UuidInterface $layoutId
-     * @param int $status
-     *
-     * @return bool
      */
     public function layoutExists($layoutId, int $status): bool;
 
@@ -121,10 +111,7 @@ interface LayoutHandlerInterface
      *
      * Excluded layout ID can be an auto-incremented ID or an UUID.
      *
-     * @param string $name
      * @param int|string|\Ramsey\Uuid\UuidInterface|null $excludedLayoutId
-     *
-     * @return bool
      */
     public function layoutNameExists(string $name, $excludedLayoutId = null): bool;
 

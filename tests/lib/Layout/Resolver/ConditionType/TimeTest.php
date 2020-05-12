@@ -33,7 +33,6 @@ final class TimeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\Time::getConstraints
      * @dataProvider validationDataProvider
@@ -52,7 +51,6 @@ final class TimeTest extends TestCase
      * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\Time::matches
      *
      * @param mixed $value
-     * @param bool $matches
      *
      * @dataProvider matchesDataProvider
      */

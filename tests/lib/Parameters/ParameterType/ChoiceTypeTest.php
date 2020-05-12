@@ -31,7 +31,6 @@ final class ChoiceTypeTest extends TestCase
      * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::configureOptions
      *
      * @param array<string, mixed> $options
-     * @param bool $required
      * @param mixed $defaultValue
      * @param mixed $expected
      *
@@ -242,7 +241,6 @@ final class ChoiceTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::getValueConstraints
      * @dataProvider validationDataProvider
@@ -258,7 +256,6 @@ final class ChoiceTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::getValueConstraints
      * @dataProvider validationDataProvider
@@ -297,7 +294,6 @@ final class ChoiceTypeTest extends TestCase
     /**
      * @param mixed $value
      * @param mixed $convertedValue
-     * @param bool $multiple
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::fromHash
      * @dataProvider fromHashDataProvider
@@ -366,7 +362,6 @@ final class ChoiceTypeTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $isEmpty
      *
      * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::isValueEmpty
      * @dataProvider emptyDataProvider

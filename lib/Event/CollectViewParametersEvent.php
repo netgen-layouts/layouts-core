@@ -46,7 +46,6 @@ final class CollectViewParametersEvent extends Event
     /**
      * Adds the parameter to the view.
      *
-     * @param string $parameterName
      * @param mixed $parameterValue
      */
     public function addParameter(string $parameterName, $parameterValue): void

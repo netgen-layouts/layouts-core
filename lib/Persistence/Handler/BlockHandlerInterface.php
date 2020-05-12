@@ -18,11 +18,8 @@ interface BlockHandlerInterface
      * Block ID can be an auto-incremented ID or an UUID.
      *
      * @param int|string|\Ramsey\Uuid\UuidInterface $blockId
-     * @param int $status
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If block with specified ID does not exist
-     *
-     * @return \Netgen\Layouts\Persistence\Values\Block\Block
      */
     public function loadBlock($blockId, int $status): Block;
 
@@ -32,9 +29,6 @@ interface BlockHandlerInterface
      * Block ID can be an auto-incremented ID or an UUID.
      *
      * @param int|string|\Ramsey\Uuid\UuidInterface $blockId
-     * @param int $status
-     *
-     * @return bool
      */
     public function blockExists($blockId, int $status): bool;
 

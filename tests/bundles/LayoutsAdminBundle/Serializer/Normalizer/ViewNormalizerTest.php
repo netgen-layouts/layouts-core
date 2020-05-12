@@ -125,7 +125,6 @@ final class ViewNormalizerTest extends TestCase
 
     /**
      * @param mixed $data
-     * @param bool $expected
      *
      * @covers \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ViewNormalizer::supportsNormalization
      * @dataProvider supportsNormalizationDataProvider

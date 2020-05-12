@@ -27,8 +27,6 @@ final class DynamicParameters implements ArrayAccess, Countable
 
     /**
      * @param mixed $offset
-     *
-     * @return bool
      */
     public function offsetExists($offset): bool
     {

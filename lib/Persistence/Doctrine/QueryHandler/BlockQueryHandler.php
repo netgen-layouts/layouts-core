@@ -20,7 +20,6 @@ final class BlockQueryHandler extends QueryHandler
      * Loads all block data.
      *
      * @param int|string $blockId
-     * @param int $status
      *
      * @return mixed[]
      */
@@ -138,9 +137,6 @@ final class BlockQueryHandler extends QueryHandler
      * Returns if block exists.
      *
      * @param int|string $blockId
-     * @param int $status
-     *
-     * @return bool
      */
     public function blockExists($blockId, int $status): bool
     {

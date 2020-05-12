@@ -46,7 +46,6 @@ final class RuleTargetProviderTest extends TestCase
 
     /**
      * @param mixed $value
-     * @param bool $supports
      *
      * @covers \Netgen\Layouts\View\Provider\RuleTargetViewProvider::supports
      * @dataProvider supportsDataProvider

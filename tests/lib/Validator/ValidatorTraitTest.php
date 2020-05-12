@@ -34,7 +34,6 @@ final class ValidatorTraitTest extends TestCase
 
     /**
      * @param mixed $identifier
-     * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Validator\ValidatorTrait::validate
      * @covers \Netgen\Layouts\Validator\ValidatorTrait::validateIdentifier
@@ -54,8 +53,6 @@ final class ValidatorTraitTest extends TestCase
 
     /**
      * @param mixed $position
-     * @param bool $isRequired
-     * @param bool $isValid
      *
      * @covers \Netgen\Layouts\Validator\ValidatorTrait::validate
      * @covers \Netgen\Layouts\Validator\ValidatorTrait::validatePosition

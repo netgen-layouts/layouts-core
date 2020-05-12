@@ -25,11 +25,7 @@ abstract class AbstractController extends BaseAbstractController
      * Builds the view from provided value.
      *
      * @param mixed $value
-     * @param string $context
      * @param array<string, mixed> $parameters
-     * @param \Symfony\Component\HttpFoundation\Response $response
-     *
-     * @return \Netgen\Layouts\View\ViewInterface
      */
     protected function buildView(
         $value,

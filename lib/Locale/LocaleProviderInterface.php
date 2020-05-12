@@ -20,8 +20,6 @@ interface LocaleProviderInterface
     /**
      * Returns the list of locale codes available for the provided request.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request
-     *
      * @return string[]
      */
     public function getRequestLocales(Request $request): array;
