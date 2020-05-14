@@ -11,6 +11,7 @@ use Netgen\Layouts\Tests\App\Item\Value;
 use Netgen\Layouts\Tests\App\MockerContainer;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use Netgen\Layouts\Tests\Persistence\Doctrine\DatabaseTrait;
+use Netgen\Layouts\Tests\TestCase\LegacyTestCaseTrait;
 use Symfony\Component\HttpFoundation\Response;
 use function count;
 use function getenv;
@@ -26,6 +27,7 @@ use const JSON_UNESCAPED_UNICODE;
 abstract class JsonApiTestCase extends BaseJsonApiTestCase
 {
     use DatabaseTrait;
+    use LegacyTestCaseTrait;
 
     /**
      * @var \Symfony\Bundle\FrameworkBundle\KernelBrowser
