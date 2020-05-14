@@ -25,6 +25,10 @@ parameters:
         - '#Method .+::createViewEvent\(\) should return .+\\ViewEvent but returns .+\\GetResponseForControllerResultEvent.#'
         - '#Method .+::createTerminateEvent\(\) should return .+\\TerminateEvent but returns .+\\PostResponseEvent.#'
 
+        # PHPUnit 8
+
+        - '#Call to function method_exists\(\) with .PHPUnit\\\\Framework\\\\Assert.#'
+
         # Disable errors about missing value types in PHPUnit data providers
 
         - '#Method .+Test::\w+DataProvider\(\) return type has no value type specified in iterable type array.#'
