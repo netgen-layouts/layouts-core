@@ -24,7 +24,7 @@ use function in_array;
 use function is_array;
 use function is_bool;
 use function is_string;
-use function mb_strpos;
+use function str_starts_with;
 use function trim;
 
 final class BlockHandler implements BlockHandlerInterface
@@ -252,7 +252,7 @@ final class BlockHandler implements BlockHandlerInterface
 
     public function copyBlock(Block $block, Block $targetBlock, string $placeholder, ?int $position = null): Block
     {
-        if (mb_strpos($targetBlock->path, $block->path) === 0) {
+        if (str_starts_with($targetBlock->path, $block->path)) {
             throw new BadStateException('targetBlock', 'Block cannot be copied below itself or its children.');
         }
 
@@ -303,7 +303,7 @@ final class BlockHandler implements BlockHandlerInterface
             throw new BadStateException('targetBlock', 'Block is already in specified target block and placeholder.');
         }
 
-        if (mb_strpos($targetBlock->path, $block->path) === 0) {
+        if (str_starts_with($targetBlock->path, $block->path)) {
             throw new BadStateException('targetBlock', 'Block cannot be moved below itself or its children.');
         }
 

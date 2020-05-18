@@ -7,8 +7,8 @@ namespace Netgen\Bundle\LayoutsBundle\Design\Twig;
 use Netgen\Bundle\LayoutsBundle\Configuration\ConfigurationInterface;
 use Twig\Loader\LoaderInterface;
 use Twig\Source;
-use function mb_strpos;
 use function str_replace;
+use function str_starts_with;
 
 final class FilesystemLoader implements LoaderInterface
 {
@@ -72,7 +72,7 @@ final class FilesystemLoader implements LoaderInterface
      */
     private function getRealName(string $name): string
     {
-        if (mb_strpos($name, '@nglayouts/') !== 0) {
+        if (!str_starts_with($name, '@nglayouts/')) {
             return $name;
         }
 

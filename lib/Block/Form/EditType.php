@@ -24,8 +24,8 @@ use function count;
 use function implode;
 use function in_array;
 use function is_array;
-use function mb_strpos;
 use function mb_substr;
+use function str_starts_with;
 
 abstract class EditType extends AbstractType
 {
@@ -187,7 +187,7 @@ abstract class EditType extends AbstractType
                 $includedParameters = $blockDefinitionParameters;
             } elseif (count($validParameters) > 0) {
                 foreach ($validParameters as $validParameter) {
-                    mb_strpos($validParameter, '!') === 0 ?
+                    str_starts_with($validParameter, '!') ?
                         $excludedParameters[] = mb_substr($validParameter, 1) :
                         $includedParameters[] = $validParameter;
 

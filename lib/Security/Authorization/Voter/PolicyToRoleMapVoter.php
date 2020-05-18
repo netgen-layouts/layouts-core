@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use function is_string;
-use function mb_strpos;
+use function str_starts_with;
 
 /**
  * Votes on Netgen Layouts permissions (nglayouts:*) by mapping the permissions to built-in roles (ROLE_NGLAYOUTS_*).
@@ -67,7 +67,7 @@ final class PolicyToRoleMapVoter extends Voter
 
     protected function supports($attribute, $subject): bool
     {
-        return is_string($attribute) && mb_strpos($attribute, 'nglayouts:') === 0;
+        return is_string($attribute) && str_starts_with($attribute, 'nglayouts:');
     }
 
     /**

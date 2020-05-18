@@ -12,9 +12,9 @@ use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use function is_array;
 use function is_string;
 use function iterator_to_array;
-use function mb_strpos;
 use function mb_substr;
 use function sprintf;
+use function str_starts_with;
 
 /**
  * @final
@@ -105,7 +105,7 @@ class TemplateResolver implements TemplateResolverInterface
     private function evaluateParameters(ViewInterface $view, array $parameters): Generator
     {
         foreach ($parameters as $key => $value) {
-            if (is_string($value) && mb_strpos($value, '@=') === 0) {
+            if (is_string($value) && str_starts_with($value, '@=')) {
                 $expressionLanguage = new ExpressionLanguage();
                 $value = $expressionLanguage->evaluate(
                     mb_substr($value, 2),

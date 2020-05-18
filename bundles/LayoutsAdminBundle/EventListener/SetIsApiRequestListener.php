@@ -6,7 +6,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
-use function mb_stripos;
+use function str_starts_with;
 
 final class SetIsApiRequestListener implements EventSubscriberInterface
 {
@@ -32,7 +32,7 @@ final class SetIsApiRequestListener implements EventSubscriberInterface
 
         $request = $event->getRequest();
         $currentRoute = $request->attributes->get('_route', '');
-        if (mb_stripos($currentRoute, self::API_ROUTE_PREFIX) !== 0) {
+        if (!str_starts_with($currentRoute, self::API_ROUTE_PREFIX)) {
             return;
         }
 

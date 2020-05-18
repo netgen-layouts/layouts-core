@@ -13,8 +13,8 @@ use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 use function dirname;
 use function getenv;
 use function is_string;
-use function mb_stripos;
 use function putenv;
+use function str_starts_with;
 use function sys_get_temp_dir;
 use function trim;
 
@@ -45,7 +45,7 @@ final class Kernel extends BaseKernel
 
         putenv('DATABASE=' . $databaseUrl);
 
-        $databaseCharset = mb_stripos($databaseUrl, 'mysql://') === 0 ? 'utf8mb4' : 'utf8';
+        $databaseCharset = str_starts_with($databaseUrl, 'mysql://') ? 'utf8mb4' : 'utf8';
         putenv('DATABASE_CHARSET=' . $databaseCharset);
     }
 

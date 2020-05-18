@@ -10,7 +10,7 @@ use Netgen\Layouts\Utils\BackwardsCompatibility\EventDispatcherProxy;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
-use function mb_stripos;
+use function str_starts_with;
 
 final class SetIsAdminRequestListener implements EventSubscriberInterface
 {
@@ -46,7 +46,7 @@ final class SetIsAdminRequestListener implements EventSubscriberInterface
 
         $request = $event->getRequest();
         $currentRoute = $request->attributes->get('_route', '');
-        if (mb_stripos($currentRoute, self::ADMIN_ROUTE_PREFIX) !== 0) {
+        if (!str_starts_with($currentRoute, self::ADMIN_ROUTE_PREFIX)) {
             return;
         }
 
