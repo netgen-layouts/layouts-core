@@ -12,8 +12,8 @@ use Netgen\Layouts\Block\BlockDefinitionInterface;
 
 final class BlockUpdateStruct implements ParameterStruct, ConfigAwareStruct
 {
-    use ParameterStructTrait;
     use ConfigAwareStructTrait;
+    use ParameterStructTrait;
 
     /**
      * The locale which will be updated.

@@ -10,6 +10,6 @@ use Netgen\Layouts\Utils\HydratorTrait;
 
 final class ConfigDefinitionAware implements ConfigDefinitionAwareInterface
 {
-    use HydratorTrait;
     use ConfigDefinitionAwareTrait;
+    use HydratorTrait;
 }

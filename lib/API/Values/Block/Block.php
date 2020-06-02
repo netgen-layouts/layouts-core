@@ -20,10 +20,10 @@ use Ramsey\Uuid\UuidInterface;
 
 final class Block implements Value, ParameterCollectionInterface, ConfigAwareValue
 {
-    use HydratorTrait;
-    use ValueStatusTrait;
     use ConfigAwareValueTrait;
+    use HydratorTrait;
     use ParameterCollectionTrait;
+    use ValueStatusTrait;
 
     /**
      * @var \Ramsey\Uuid\UuidInterface

@@ -17,10 +17,10 @@ use Ramsey\Uuid\UuidInterface;
 
 final class Item implements Value, ConfigAwareValue
 {
-    use HydratorTrait;
-    use ValueStatusTrait;
     use ConfigAwareValueTrait;
+    use HydratorTrait;
     use LazyPropertyTrait;
+    use ValueStatusTrait;
 
     /**
      * @var \Ramsey\Uuid\UuidInterface

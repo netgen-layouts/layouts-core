@@ -10,6 +10,6 @@ use Netgen\Layouts\Utils\HydratorTrait;
 
 final class ConfigAwareStruct implements APIConfigAwareStruct
 {
-    use HydratorTrait;
     use ConfigAwareStructTrait;
+    use HydratorTrait;
 }

@@ -14,8 +14,8 @@ use Ramsey\Uuid\UuidInterface;
 final class Collection implements Value
 {
     use HydratorTrait;
-    use ValueStatusTrait;
     use LazyPropertyTrait;
+    use ValueStatusTrait;
 
     /**
      * Denotes that the collection is manual, i.e., does not have a query.

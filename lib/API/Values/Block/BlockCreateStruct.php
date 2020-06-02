@@ -13,8 +13,8 @@ use Netgen\Layouts\Block\BlockDefinitionInterface;
 
 final class BlockCreateStruct implements ParameterStruct, ConfigAwareStruct
 {
-    use ParameterStructTrait;
     use ConfigAwareStructTrait;
+    use ParameterStructTrait;
 
     /**
      * View type of the new block.

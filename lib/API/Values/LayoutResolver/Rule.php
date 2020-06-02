@@ -15,8 +15,8 @@ use Ramsey\Uuid\UuidInterface;
 final class Rule implements Value
 {
     use HydratorTrait;
-    use ValueStatusTrait;
     use LazyPropertyTrait;
+    use ValueStatusTrait;
 
     /**
      * @var \Ramsey\Uuid\UuidInterface

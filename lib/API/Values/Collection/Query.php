@@ -15,8 +15,8 @@ use Ramsey\Uuid\UuidInterface;
 final class Query implements Value, ParameterCollectionInterface
 {
     use HydratorTrait;
-    use ValueStatusTrait;
     use ParameterCollectionTrait;
+    use ValueStatusTrait;
 
     /**
      * @var \Ramsey\Uuid\UuidInterface

@@ -14,8 +14,8 @@ use Netgen\Layouts\Parameters\ParameterDefinitionCollectionTrait;
 
 final class NullBlockDefinition implements BlockDefinitionInterface
 {
-    use ParameterDefinitionCollectionTrait;
     use ConfigDefinitionAwareTrait;
+    use ParameterDefinitionCollectionTrait;
 
     /**
      * @var string

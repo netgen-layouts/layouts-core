@@ -13,8 +13,8 @@ use Ramsey\Uuid\UuidInterface;
 final class Zone implements Value
 {
     use HydratorTrait;
-    use ValueStatusTrait;
     use LazyPropertyTrait;
+    use ValueStatusTrait;
 
     /**
      * @var string

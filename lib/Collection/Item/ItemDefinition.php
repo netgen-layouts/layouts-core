@@ -12,8 +12,8 @@ use Netgen\Layouts\Utils\HydratorTrait;
  */
 class ItemDefinition implements ItemDefinitionInterface
 {
-    use HydratorTrait;
     use ConfigDefinitionAwareTrait;
+    use HydratorTrait;
 
     /**
      * @var string

@@ -20,8 +20,8 @@ use function sprintf;
 
 final class BlockHandlerTest extends TestCase
 {
-    use TestCaseTrait;
     use ExportObjectTrait;
+    use TestCaseTrait;
     use UuidGeneratorTrait;
 
     /**

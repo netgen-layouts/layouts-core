@@ -23,8 +23,8 @@ use PHPUnit\Framework\TestCase;
 
 final class LayoutResolverHandlerTest extends TestCase
 {
-    use TestCaseTrait;
     use ExportObjectTrait;
+    use TestCaseTrait;
     use UuidGeneratorTrait;
 
     /**

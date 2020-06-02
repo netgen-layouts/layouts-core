@@ -19,9 +19,9 @@ use function is_a;
 
 abstract class AbstractBlockDefinition implements BlockDefinitionInterface
 {
+    use ConfigDefinitionAwareTrait;
     use HydratorTrait;
     use ParameterDefinitionCollectionTrait;
-    use ConfigDefinitionAwareTrait;
 
     /**
      * @var string

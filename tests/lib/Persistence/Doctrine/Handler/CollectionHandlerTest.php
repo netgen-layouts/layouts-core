@@ -27,8 +27,8 @@ use PHPUnit\Framework\TestCase;
 
 final class CollectionHandlerTest extends TestCase
 {
-    use TestCaseTrait;
     use ExportObjectTrait;
+    use TestCaseTrait;
     use UuidGeneratorTrait;
 
     /**
