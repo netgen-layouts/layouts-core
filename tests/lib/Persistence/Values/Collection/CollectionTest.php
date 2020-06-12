@@ -10,6 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 final class CollectionTest extends TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testSetProperties(): void
     {
         $collection = Collection::fromArray(

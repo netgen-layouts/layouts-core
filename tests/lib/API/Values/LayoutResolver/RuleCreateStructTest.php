@@ -9,6 +9,9 @@ use PHPUnit\Framework\TestCase;
 
 final class RuleCreateStructTest extends TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testDefaultProperties(): void
     {
         $ruleCreateStruct = new RuleCreateStruct();

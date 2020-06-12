@@ -9,6 +9,9 @@ use PHPUnit\Framework\TestCase;
 
 final class LayoutCreateStructTest extends TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testDefaultProperties(): void
     {
         $layoutCreateStruct = new LayoutCreateStruct();

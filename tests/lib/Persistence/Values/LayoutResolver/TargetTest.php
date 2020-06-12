@@ -10,6 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 final class TargetTest extends TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testSetProperties(): void
     {
         $target = Target::fromArray(

@@ -10,6 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 final class RuleTest extends TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testSetProperties(): void
     {
         $rule = Rule::fromArray(

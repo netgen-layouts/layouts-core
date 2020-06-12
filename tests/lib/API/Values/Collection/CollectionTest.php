@@ -16,13 +16,15 @@ use Ramsey\Uuid\Uuid;
 
 final class CollectionTest extends TestCase
 {
+    /**
+     * @covers \Netgen\Layouts\API\Values\Collection\Collection::__construct
+     */
     public function testInstance(): void
     {
         self::assertInstanceOf(Value::class, new Collection());
     }
 
     /**
-     * @covers \Netgen\Layouts\API\Values\Collection\Collection::__construct
      * @covers \Netgen\Layouts\API\Values\Collection\Collection::getAvailableLocales
      * @covers \Netgen\Layouts\API\Values\Collection\Collection::getItems
      * @covers \Netgen\Layouts\API\Values\Collection\Collection::getSlots
@@ -37,7 +39,6 @@ final class CollectionTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\API\Values\Collection\Collection::__construct
      * @covers \Netgen\Layouts\API\Values\Collection\Collection::getAvailableLocales
      * @covers \Netgen\Layouts\API\Values\Collection\Collection::getBlockId
      * @covers \Netgen\Layouts\API\Values\Collection\Collection::getId

@@ -10,6 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 final class ZoneTest extends TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testSetProperties(): void
     {
         $zone = Zone::fromArray(

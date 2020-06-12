@@ -10,6 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 final class LayoutTest extends TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testSetProperties(): void
     {
         $layout = Layout::fromArray(

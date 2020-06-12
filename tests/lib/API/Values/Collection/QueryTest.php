@@ -12,6 +12,9 @@ use Ramsey\Uuid\Uuid;
 
 final class QueryTest extends TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testInstance(): void
     {
         self::assertInstanceOf(Value::class, new Query());

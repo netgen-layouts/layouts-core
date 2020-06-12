@@ -10,6 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 final class BlockTest extends TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testSetProperties(): void
     {
         $block = Block::fromArray(

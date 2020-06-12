@@ -111,6 +111,25 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
         $this->doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs, $deprecation);
     }
 
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime::displayZone
+     *
+     * @dataProvider getLegacyTests
+     * @group legacy
+     *
+     * @param mixed $file
+     * @param mixed $message
+     * @param mixed $condition
+     * @param mixed $templates
+     * @param mixed $exception
+     * @param mixed $outputs
+     * @param mixed $deprecation
+     */
+    public function testLegacyIntegration($file, $message, $condition, $templates, $exception, $outputs, $deprecation = ''): void
+    {
+        $this->doIntegrationTest($file, $message, $condition, $templates, $exception, $outputs, $deprecation);
+    }
+
     protected function getExtensions(): array
     {
         return [$this->extension];

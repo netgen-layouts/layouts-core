@@ -15,6 +15,9 @@ use Ramsey\Uuid\Uuid;
 
 final class ItemTest extends TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testInstance(): void
     {
         self::assertInstanceOf(Value::class, new Item());

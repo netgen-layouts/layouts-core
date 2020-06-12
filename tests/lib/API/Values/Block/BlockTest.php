@@ -18,13 +18,15 @@ use Ramsey\Uuid\UuidInterface;
 
 final class BlockTest extends TestCase
 {
+    /**
+     * @covers \Netgen\Layouts\API\Values\Block\Block::__construct
+     */
     public function testInstance(): void
     {
         self::assertInstanceOf(Value::class, new Block());
     }
 
     /**
-     * @covers \Netgen\Layouts\API\Values\Block\Block::__construct
      * @covers \Netgen\Layouts\API\Values\Block\Block::getAvailableLocales
      * @covers \Netgen\Layouts\API\Values\Block\Block::getCollections
      * @covers \Netgen\Layouts\API\Values\Block\Block::getPlaceholders
@@ -39,7 +41,6 @@ final class BlockTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\API\Values\Block\Block::__construct
      * @covers \Netgen\Layouts\API\Values\Block\Block::getAvailableLocales
      * @covers \Netgen\Layouts\API\Values\Block\Block::getCollection
      * @covers \Netgen\Layouts\API\Values\Block\Block::getCollections

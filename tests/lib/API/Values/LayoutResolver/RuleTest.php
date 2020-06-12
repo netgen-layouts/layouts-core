@@ -15,13 +15,15 @@ use Ramsey\Uuid\Uuid;
 
 final class RuleTest extends TestCase
 {
+    /**
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::__construct
+     */
     public function testInstance(): void
     {
         self::assertInstanceOf(Value::class, new Rule());
     }
 
     /**
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::__construct
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getConditions
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getTargets
      */
@@ -34,7 +36,6 @@ final class RuleTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::__construct
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getComment
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getConditions
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getId

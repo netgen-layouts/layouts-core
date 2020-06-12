@@ -10,6 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 final class ConditionTest extends TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testSetProperties(): void
     {
         $condition = Condition::fromArray(

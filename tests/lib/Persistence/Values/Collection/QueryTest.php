@@ -10,6 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 final class QueryTest extends TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testSetProperties(): void
     {
         $query = Query::fromArray(

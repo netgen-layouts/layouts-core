@@ -10,6 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 final class SlotTest extends TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testSetProperties(): void
     {
         $slot = Slot::fromArray(

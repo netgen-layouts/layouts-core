@@ -18,13 +18,15 @@ use function iterator_to_array;
 
 final class LayoutTest extends TestCase
 {
+    /**
+     * @covers \Netgen\Layouts\API\Values\Layout\Layout::__construct
+     */
     public function testInstance(): void
     {
         self::assertInstanceOf(Value::class, new Layout());
     }
 
     /**
-     * @covers \Netgen\Layouts\API\Values\Layout\Layout::__construct
      * @covers \Netgen\Layouts\API\Values\Layout\Layout::getAvailableLocales
      * @covers \Netgen\Layouts\API\Values\Layout\Layout::getZones
      */
@@ -37,7 +39,6 @@ final class LayoutTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\API\Values\Layout\Layout::__construct
      * @covers \Netgen\Layouts\API\Values\Layout\Layout::count
      * @covers \Netgen\Layouts\API\Values\Layout\Layout::getAvailableLocales
      * @covers \Netgen\Layouts\API\Values\Layout\Layout::getCreated

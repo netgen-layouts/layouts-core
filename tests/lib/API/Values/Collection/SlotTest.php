@@ -11,6 +11,9 @@ use Ramsey\Uuid\Uuid;
 
 final class SlotTest extends TestCase
 {
+    /**
+     * @covers \Netgen\Layouts\API\Values\Collection\Slot::isEmpty
+     */
     public function testInstance(): void
     {
         self::assertInstanceOf(Value::class, new Slot());

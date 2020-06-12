@@ -11,6 +11,9 @@ use Ramsey\Uuid\Uuid;
 
 final class ZoneTest extends TestCase
 {
+    /**
+     * @coversNothing
+     */
     public function testInstance(): void
     {
         self::assertInstanceOf(Value::class, new Zone());
