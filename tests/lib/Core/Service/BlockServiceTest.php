@@ -1906,11 +1906,11 @@ abstract class BlockServiceTest extends CoreTestCase
                 'alwaysAvailable' => true,
                 'definition' => $blockDefinition,
                 'collectionCreateStructs' => [],
+                'configStructs' => [],
                 'parameterValues' => [
                     'css_class' => 'some-class',
                     'css_id' => null,
                 ],
-                'configStructs' => [],
             ],
             $this->exportObject($struct)
         );
@@ -1930,8 +1930,8 @@ abstract class BlockServiceTest extends CoreTestCase
                 'itemViewType' => null,
                 'name' => null,
                 'alwaysAvailable' => null,
-                'parameterValues' => [],
                 'configStructs' => [],
+                'parameterValues' => [],
             ],
             $this->exportObject($struct)
         );
@@ -1954,10 +1954,6 @@ abstract class BlockServiceTest extends CoreTestCase
                 'itemViewType' => 'standard',
                 'name' => 'My sixth block',
                 'alwaysAvailable' => true,
-                'parameterValues' => [
-                    'css_class' => 'CSS class',
-                    'css_id' => null,
-                ],
                 'configStructs' => [
                     'key' => [
                         'parameterValues' => [
@@ -1965,6 +1961,10 @@ abstract class BlockServiceTest extends CoreTestCase
                             'param2' => null,
                         ],
                     ],
+                ],
+                'parameterValues' => [
+                    'css_class' => 'CSS class',
+                    'css_id' => null,
                 ],
             ],
             $this->exportObject($struct, true)
