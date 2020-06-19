@@ -12,7 +12,6 @@ services:
   - postgresql
 
 addons:
-  postgresql: "9.6"
   chrome: stable
 
 cache:
