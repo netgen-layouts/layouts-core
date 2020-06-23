@@ -94,6 +94,11 @@ interface LayoutService extends Service
     public function hasStatus(UuidInterface $layoutId, int $status): bool;
 
     /**
+     * Returns if layout with provided UUID exists.
+     */
+    public function layoutUuidExists(UuidInterface $uuid): bool;
+
+    /**
      * Returns if layout with provided name exists.
      *
      * If $excludedLayoutId is provided, the check will not apply to the provided UUID.

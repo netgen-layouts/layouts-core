@@ -18,6 +18,7 @@ use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use Netgen\Layouts\Tests\TestCase\UuidGeneratorTrait;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class LayoutHandlerTest extends TestCase
 {
@@ -617,6 +618,24 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::layoutUuidExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutUuidExists
+     */
+    public function testLayoutUuidExists(): void
+    {
+        self::assertTrue($this->layoutHandler->layoutUuidExists('8626a1ca-6413-5f54-acef-de7db06272ce'));
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::layoutUuidExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutUuidExists
+     */
+    public function testLayoutUuidNotExists(): void
+    {
+        self::assertFalse($this->layoutHandler->layoutUuidExists('ffffffff-ffff-ffff-ffff-ffffffffffff'));
+    }
+
+    /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::layoutNameExists
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutNameExists
      */
@@ -793,6 +812,56 @@ final class LayoutHandlerTest extends TestCase
         self::assertSame('en', $createdLayout->mainLocale);
         self::assertGreaterThan(0, $createdLayout->created);
         self::assertGreaterThan(0, $createdLayout->modified);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::createLayout
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayout
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::createLayoutTranslation
+     */
+    public function testCreateLayoutWithCustomUuid(): void
+    {
+        $layoutCreateStruct = new LayoutCreateStruct();
+        $layoutCreateStruct->uuid = Uuid::fromString('5f35d4d3-8fa7-4602-9d4c-c74c2b16e3d7');
+        $layoutCreateStruct->type = 'new_layout';
+        $layoutCreateStruct->name = 'New layout';
+        $layoutCreateStruct->description = 'New description';
+        $layoutCreateStruct->shared = true;
+        $layoutCreateStruct->status = Value::STATUS_DRAFT;
+        $layoutCreateStruct->mainLocale = 'en';
+
+        $createdLayout = $this->layoutHandler->createLayout($layoutCreateStruct);
+
+        self::assertSame(8, $createdLayout->id);
+        self::assertSame('5f35d4d3-8fa7-4602-9d4c-c74c2b16e3d7', $createdLayout->uuid);
+        self::assertSame('new_layout', $createdLayout->type);
+        self::assertSame('New layout', $createdLayout->name);
+        self::assertSame('New description', $createdLayout->description);
+        self::assertSame(Value::STATUS_DRAFT, $createdLayout->status);
+        self::assertTrue($createdLayout->shared);
+        self::assertSame('en', $createdLayout->mainLocale);
+        self::assertGreaterThan(0, $createdLayout->created);
+        self::assertGreaterThan(0, $createdLayout->modified);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::createLayout
+     */
+    public function testCreateLayoutWithExistingCustomUuidThrowsBadStateException(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "uuid" has an invalid state. Layout with provided UUID already exists.');
+
+        $layoutCreateStruct = new LayoutCreateStruct();
+        $layoutCreateStruct->uuid = Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136');
+        $layoutCreateStruct->type = 'new_layout';
+        $layoutCreateStruct->name = 'New layout';
+        $layoutCreateStruct->description = 'New description';
+        $layoutCreateStruct->shared = true;
+        $layoutCreateStruct->status = Value::STATUS_DRAFT;
+        $layoutCreateStruct->mainLocale = 'en';
+
+        $this->layoutHandler->createLayout($layoutCreateStruct);
     }
 
     /**

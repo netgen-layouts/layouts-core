@@ -278,6 +278,22 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::layoutUuidExists
+     */
+    public function testLayoutUuidExists(): void
+    {
+        self::assertTrue($this->layoutService->layoutUuidExists(Uuid::fromString('8626a1ca-6413-5f54-acef-de7db06272ce')));
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::layoutUuidExists
+     */
+    public function testLayoutUuidNotExists(): void
+    {
+        self::assertFalse($this->layoutService->layoutUuidExists(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff')));
+    }
+
+    /**
      * @covers \Netgen\Layouts\Core\Service\LayoutService::layoutNameExists
      */
     public function testLayoutNameExists(): void
@@ -437,6 +453,50 @@ abstract class LayoutServiceTest extends CoreTestCase
             $createdLayout->getCreated()->format(DateTimeInterface::ATOM),
             $createdLayout->getModified()->format(DateTimeInterface::ATOM)
         );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::createLayout
+     */
+    public function testCreateLayoutWithCustomUuid(): void
+    {
+        $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
+            $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
+            'My new layout',
+            'en'
+        );
+
+        $layoutCreateStruct->uuid = Uuid::fromString('5f35d4d3-8fa7-4602-9d4c-c74c2b16e3d7');
+
+        $createdLayout = $this->layoutService->createLayout($layoutCreateStruct);
+
+        self::assertTrue($createdLayout->isDraft());
+        self::assertGreaterThan(new DateTimeImmutable('@0'), $createdLayout->getCreated());
+        self::assertSame($layoutCreateStruct->uuid->toString(), $createdLayout->getId()->toString());
+
+        self::assertSame(
+            $createdLayout->getCreated()->format(DateTimeInterface::ATOM),
+            $createdLayout->getModified()->format(DateTimeInterface::ATOM)
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::createLayout
+     */
+    public function testCreateLayoutWithExistingCustomUuidThrowsBadStateException(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "uuid" has an invalid state. Layout with provided UUID already exists.');
+
+        $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
+            $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
+            'My new layout',
+            'en'
+        );
+
+        $layoutCreateStruct->uuid = Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136');
+
+        $this->layoutService->createLayout($layoutCreateStruct);
     }
 
     /**
@@ -1288,6 +1348,7 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertSame(
             [
+                'uuid' => null,
                 'layoutType' => $layoutType,
                 'name' => 'New layout',
                 'description' => null,

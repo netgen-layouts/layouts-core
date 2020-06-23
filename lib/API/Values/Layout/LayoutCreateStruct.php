@@ -7,6 +7,14 @@ namespace Netgen\Layouts\API\Values\Layout;
 final class LayoutCreateStruct
 {
     /**
+     * Layout UUID. If specified, layout will be created with this UUID if not
+     * already taken by an existing layout.
+     *
+     * @var \Ramsey\Uuid\UuidInterface|null
+     */
+    public $uuid;
+
+    /**
      * Layout type from which the new layout will be created.
      *
      * Required.

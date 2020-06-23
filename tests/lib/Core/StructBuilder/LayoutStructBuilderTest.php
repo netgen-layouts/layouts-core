@@ -41,6 +41,7 @@ abstract class LayoutStructBuilderTest extends CoreTestCase
 
         self::assertSame(
             [
+                'uuid' => null,
                 'layoutType' => $layoutType,
                 'name' => 'New layout',
                 'description' => null,

@@ -108,6 +108,11 @@ final class LayoutDataHandler
             $data['main_locale']
         );
 
+        $uuid = Uuid::fromString($data['id']);
+        if (!$this->layoutService->layoutUuidExists($uuid)) {
+            $createStruct->uuid = $uuid;
+        }
+
         $createStruct->description = $data['description'];
         $createStruct->shared = $data['is_shared'];
 

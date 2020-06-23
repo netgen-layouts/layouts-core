@@ -11,6 +11,14 @@ final class LayoutCreateStruct
     use HydratorTrait;
 
     /**
+     * Layout UUID. If specified, layout will be created with this UUID if not
+     * already taken by an existing layout.
+     *
+     * @var \Ramsey\Uuid\UuidInterface|null
+     */
+    public $uuid;
+
+    /**
      * Identifier of the layout type for the new layout.
      *
      * @var string

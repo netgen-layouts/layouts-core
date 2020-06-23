@@ -12,6 +12,7 @@ use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\Exception\Validation\ValidationException;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 use Netgen\Layouts\Validator\ValidatorTrait;
+use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints;
 use function count;
 use function in_array;
@@ -31,6 +32,16 @@ final class LayoutValidator
      */
     public function validateLayoutCreateStruct(LayoutCreateStruct $layoutCreateStruct): void
     {
+        if ($layoutCreateStruct->uuid !== null) {
+            $this->validate(
+                $layoutCreateStruct->uuid,
+                [
+                    new Constraints\Type(['type' => UuidInterface::class]),
+                ],
+                'uuid'
+            );
+        }
+
         $layoutName = is_string($layoutCreateStruct->name) ?
             trim($layoutCreateStruct->name) :
             $layoutCreateStruct->name;

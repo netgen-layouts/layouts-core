@@ -145,6 +145,13 @@ final class LayoutHandler implements LayoutHandlerInterface
         );
     }
 
+    public function layoutUuidExists($uuid): bool
+    {
+        $uuid = $uuid instanceof UuidInterface ? $uuid->toString() : $uuid;
+
+        return $this->queryHandler->layoutUuidExists($uuid);
+    }
+
     public function layoutNameExists(string $name, $excludedLayoutId = null): bool
     {
         $excludedLayoutId = $excludedLayoutId instanceof UuidInterface ?
@@ -156,11 +163,20 @@ final class LayoutHandler implements LayoutHandlerInterface
 
     public function createLayout(LayoutCreateStruct $layoutCreateStruct): Layout
     {
+        if (
+            $layoutCreateStruct->uuid instanceof UuidInterface &&
+            $this->layoutUuidExists($layoutCreateStruct->uuid)
+        ) {
+            throw new BadStateException('uuid', 'Layout with provided UUID already exists.');
+        }
+
         $currentTimeStamp = time();
 
         $newLayout = Layout::fromArray(
             [
-                'uuid' => Uuid::uuid4()->toString(),
+                'uuid' => $layoutCreateStruct->uuid instanceof UuidInterface ?
+                    $layoutCreateStruct->uuid->toString() :
+                    Uuid::uuid4()->toString(),
                 'type' => $layoutCreateStruct->type,
                 'name' => trim($layoutCreateStruct->name),
                 'description' => trim($layoutCreateStruct->description ?? ''),

@@ -313,6 +313,26 @@ final class LayoutQueryHandler extends QueryHandler
     }
 
     /**
+     * Returns if the layout with provided UUID exists.
+     */
+    public function layoutUuidExists(string $uuid): bool
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('count(*) AS count')
+            ->from('nglayouts_layout')
+            ->where(
+                $query->expr()->andX(
+                    $query->expr()->eq('uuid', ':uuid')
+                )
+            )
+            ->setParameter('uuid', trim($uuid), Types::STRING);
+
+        $data = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+
+        return (int) ($data[0]['count'] ?? 0) > 0;
+    }
+
+    /**
      * Returns if the layout with provided name exists.
      *
      * @param int|string|null $excludedLayoutId

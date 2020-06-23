@@ -19,6 +19,7 @@ use Netgen\Layouts\Layout\Type\Zone as LayoutTypeZone;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use Netgen\Layouts\Utils\Hydrator;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Validator\Validation;
 
 final class LayoutValidatorTest extends TestCase
@@ -220,6 +221,7 @@ final class LayoutValidatorTest extends TestCase
         return [
             [
                 [
+                    'uuid' => null,
                     'layoutType' => $this->getLayoutType(),
                     'name' => 'Name',
                     'description' => 'Description',
@@ -230,6 +232,18 @@ final class LayoutValidatorTest extends TestCase
             ],
             [
                 [
+                    'uuid' => Uuid::uuid4(),
+                    'layoutType' => $this->getLayoutType(),
+                    'name' => 'Name',
+                    'description' => 'Description',
+                    'mainLocale' => 'en',
+                    'shared' => null,
+                ],
+                true,
+            ],
+            [
+                [
+                    'uuid' => null,
                     'layoutType' => $this->getLayoutType(),
                     'name' => 'Name',
                     'description' => 'Description',
@@ -240,6 +254,7 @@ final class LayoutValidatorTest extends TestCase
             ],
             [
                 [
+                    'uuid' => null,
                     'layoutType' => $this->getLayoutType(),
                     'name' => 'Name',
                     'description' => 'Description',
@@ -250,6 +265,18 @@ final class LayoutValidatorTest extends TestCase
             ],
             [
                 [
+                    'uuid' => 42,
+                    'layoutType' => $this->getLayoutType(),
+                    'name' => 'Name',
+                    'description' => 'Description',
+                    'mainLocale' => 'en',
+                    'shared' => null,
+                ],
+                false,
+            ],
+            [
+                [
+                    'uuid' => null,
                     'layoutType' => null,
                     'name' => 'Name',
                     'description' => 'Description',
@@ -260,6 +287,7 @@ final class LayoutValidatorTest extends TestCase
             ],
             [
                 [
+                    'uuid' => null,
                     'layoutType' => 42,
                     'name' => 'Name',
                     'description' => 'Description',
@@ -270,6 +298,7 @@ final class LayoutValidatorTest extends TestCase
             ],
             [
                 [
+                    'uuid' => null,
                     'layoutType' => $this->getLayoutType(),
                     'name' => null,
                     'description' => 'Description',
@@ -280,6 +309,7 @@ final class LayoutValidatorTest extends TestCase
             ],
             [
                 [
+                    'uuid' => null,
                     'layoutType' => $this->getLayoutType(),
                     'name' => '',
                     'description' => 'Description',
@@ -290,6 +320,7 @@ final class LayoutValidatorTest extends TestCase
             ],
             [
                 [
+                    'uuid' => null,
                     'layoutType' => $this->getLayoutType(),
                     'name' => '   ',
                     'description' => 'Description',
@@ -300,6 +331,7 @@ final class LayoutValidatorTest extends TestCase
             ],
             [
                 [
+                    'uuid' => null,
                     'layoutType' => $this->getLayoutType(),
                     'name' => 42,
                     'description' => 'Description',
@@ -310,6 +342,7 @@ final class LayoutValidatorTest extends TestCase
             ],
             [
                 [
+                    'uuid' => null,
                     'layoutType' => $this->getLayoutType(),
                     'name' => 'Name',
                     'description' => null,
@@ -320,6 +353,7 @@ final class LayoutValidatorTest extends TestCase
             ],
             [
                 [
+                    'uuid' => null,
                     'layoutType' => $this->getLayoutType(),
                     'name' => 'Name',
                     'description' => '',
@@ -330,6 +364,7 @@ final class LayoutValidatorTest extends TestCase
             ],
             [
                 [
+                    'uuid' => null,
                     'layoutType' => $this->getLayoutType(),
                     'name' => 'Name',
                     'description' => 42,
@@ -340,6 +375,7 @@ final class LayoutValidatorTest extends TestCase
             ],
             [
                 [
+                    'uuid' => null,
                     'layoutType' => $this->getLayoutType(),
                     'name' => 'Name',
                     'description' => 'Description',
@@ -350,6 +386,7 @@ final class LayoutValidatorTest extends TestCase
             ],
             [
                 [
+                    'uuid' => null,
                     'layoutType' => $this->getLayoutType(),
                     'name' => 'Name',
                     'description' => 'Description',
@@ -360,6 +397,7 @@ final class LayoutValidatorTest extends TestCase
             ],
             [
                 [
+                    'uuid' => null,
                     'layoutType' => $this->getLayoutType(),
                     'name' => 'Name',
                     'description' => 'Description',
@@ -370,6 +408,7 @@ final class LayoutValidatorTest extends TestCase
             ],
             [
                 [
+                    'uuid' => null,
                     'layoutType' => $this->getLayoutType(),
                     'name' => 'Name',
                     'description' => 'Description',

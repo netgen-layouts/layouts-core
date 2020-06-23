@@ -107,6 +107,13 @@ interface LayoutHandlerInterface
     public function loadLayoutZones(Layout $layout): array;
 
     /**
+     * Returns if layout with provided UUID exists.
+     *
+     * @param string|\Ramsey\Uuid\UuidInterface $uuid
+     */
+    public function layoutUuidExists($uuid): bool;
+
+    /**
      * Returns if layout with provided name exists.
      *
      * Excluded layout ID can be an auto-incremented ID or an UUID.
