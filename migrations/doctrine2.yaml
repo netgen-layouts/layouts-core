@@ -1,0 +1,6 @@
+# Deprecated, use doctrine.yaml file instead
+
+name: Netgen Layouts Migrations
+migrations_namespace: Netgen\Layouts\Migrations\Doctrine
+table_name: nglayouts_migration_versions
+migrations_directory: Doctrine
