@@ -57,7 +57,7 @@
         "swaggest/json-schema": "^0.12",
         "friendsofsymfony/http-cache-bundle": "^1.3.16 || ^2.8",
         "pagerfanta/pagerfanta": "^2.1",
-        "jean85/pretty-package-versions": "^1.2",
+        "jean85/pretty-package-versions": "^1.5 || ^2.0",
         "emodric/twig-package-versions": "^1.0",
         "nikolaposa/version": "^3.2"
     },
