@@ -60,16 +60,12 @@ final class SerializerTest extends TestCase
         $layout2 = Layout::fromArray(['id' => $uuid2]);
 
         $this->layoutServiceMock
-            ->expects(self::at(0))
             ->method('loadLayout')
-            ->with(self::equalTo($uuid1))
-            ->willReturn($layout1);
-
-        $this->layoutServiceMock
-            ->expects(self::at(1))
-            ->method('loadLayout')
-            ->with(self::equalTo($uuid2))
-            ->willReturn($layout2);
+            ->withConsecutive(
+                [self::equalTo($uuid1)],
+                [self::equalTo($uuid2)]
+            )
+            ->willReturnOnConsecutiveCalls($layout1, $layout2);
 
         self::assertSame(
             [
@@ -96,16 +92,15 @@ final class SerializerTest extends TestCase
         $layout = Layout::fromArray(['id' => $uuid2]);
 
         $this->layoutServiceMock
-            ->expects(self::at(0))
             ->method('loadLayout')
-            ->with(self::equalTo($uuid1))
-            ->willThrowException(new NotFoundException('layout', $uuid1->toString()));
-
-        $this->layoutServiceMock
-            ->expects(self::at(1))
-            ->method('loadLayout')
-            ->with(self::equalTo($uuid2))
-            ->willReturn($layout);
+            ->withConsecutive(
+                [self::equalTo($uuid1)],
+                [self::equalTo($uuid2)]
+            )
+            ->willReturnOnConsecutiveCalls(
+                self::throwException(new NotFoundException('layout', $uuid1->toString())),
+                self::returnValue($layout)
+            );
 
         self::assertSame(
             [
@@ -132,16 +127,12 @@ final class SerializerTest extends TestCase
         $rule2 = Rule::fromArray(['id' => $uuid2]);
 
         $this->layoutResolverServiceMock
-            ->expects(self::at(0))
             ->method('loadRule')
-            ->with(self::equalTo($uuid1))
-            ->willReturn($rule1);
-
-        $this->layoutResolverServiceMock
-            ->expects(self::at(1))
-            ->method('loadRule')
-            ->with(self::equalTo($uuid2))
-            ->willReturn($rule2);
+            ->withConsecutive(
+                [self::equalTo($uuid1)],
+                [self::equalTo($uuid2)]
+            )
+            ->willReturnOnConsecutiveCalls($rule1, $rule2);
 
         self::assertSame(
             [
@@ -168,16 +159,15 @@ final class SerializerTest extends TestCase
         $rule = Rule::fromArray(['id' => $uuid2]);
 
         $this->layoutResolverServiceMock
-            ->expects(self::at(0))
             ->method('loadRule')
-            ->with(self::equalTo($uuid1))
-            ->willThrowException(new NotFoundException('rule', $uuid1->toString()));
-
-        $this->layoutResolverServiceMock
-            ->expects(self::at(1))
-            ->method('loadRule')
-            ->with(self::equalTo($uuid2))
-            ->willReturn($rule);
+            ->withConsecutive(
+                [self::equalTo($uuid1)],
+                [self::equalTo($uuid2)]
+            )
+            ->willReturnOnConsecutiveCalls(
+                self::throwException(new NotFoundException('rule', $uuid1->toString())),
+                self::returnValue($rule)
+            );
 
         self::assertSame(
             [

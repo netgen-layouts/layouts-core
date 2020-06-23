@@ -43,16 +43,12 @@ final class TemplateResolverTest extends TestCase
         $matcherMock = $this->createMock(MatcherInterface::class);
 
         $matcherMock
-            ->expects(self::at(0))
             ->method('match')
-            ->with(self::identicalTo($this->view), self::identicalTo(['value']))
-            ->willReturn(false);
-
-        $matcherMock
-            ->expects(self::at(1))
-            ->method('match')
-            ->with(self::identicalTo($this->view), self::identicalTo(['value2']))
-            ->willReturn(true);
+            ->withConsecutive(
+                [self::identicalTo($this->view), self::identicalTo(['value'])],
+                [self::identicalTo($this->view), self::identicalTo(['value2'])]
+            )
+            ->willReturnOnConsecutiveCalls(false, true);
 
         $viewConfiguration = [
             'stub_view' => [

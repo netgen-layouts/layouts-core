@@ -43,30 +43,31 @@ final class RendererTest extends TestCase
      */
     public function testRenderPlugins(): void
     {
-        $this->twigMock
-            ->expects(self::at(0))
-            ->method('display')
-            ->with(
-                self::identicalTo('template1.html.twig'),
-                self::identicalTo(['param' => 'value'])
-            )
-            ->willReturnCallback(
-                static function (): void {
-                    echo 'rendered1';
-                }
-            );
+        $mock = $this->twigMock
+            ->method('display');
 
-        $this->twigMock
-            ->expects(self::at(1))
-            ->method('display')
-            ->with(
-                self::identicalTo('template2.html.twig'),
-                self::identicalTo(['param2' => 'value2', 'param' => 'value3'])
+        $mock
+            ->withConsecutive(
+                [
+                    self::identicalTo('template1.html.twig'),
+                    self::identicalTo(['param' => 'value']),
+                ],
+                [
+                    self::identicalTo('template2.html.twig'),
+                    self::identicalTo(['param2' => 'value2', 'param' => 'value3']),
+                ]
             )
-            ->willReturnCallback(
-                static function (): void {
-                    echo 'rendered2';
-                }
+            ->willReturnOnConsecutiveCalls(
+                self::returnCallback(
+                    static function (): void {
+                        echo 'rendered1';
+                    }
+                ),
+                self::returnCallback(
+                    static function (): void {
+                        echo 'rendered2';
+                    }
+                )
             );
 
         self::assertSame('rendered1rendered2', $this->renderer->renderPlugins('plugin', ['param' => 'value']));
@@ -93,7 +94,6 @@ final class RendererTest extends TestCase
         $this->expectExceptionMessage('Test exception message');
 
         $this->twigMock
-            ->expects(self::at(0))
             ->method('display')
             ->willThrowException(new Exception('Test exception message'));
 

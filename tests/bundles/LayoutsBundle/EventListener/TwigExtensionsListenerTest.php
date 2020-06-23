@@ -65,16 +65,12 @@ final class TwigExtensionsListenerTest extends TestCase
         $request = Request::create('/');
 
         $this->twigMock
-            ->expects(self::at(0))
             ->method('hasExtension')
-            ->with(self::identicalTo(CoreExtension::class))
-            ->willReturn(true);
-
-        $this->twigMock
-            ->expects(self::at(1))
-            ->method('hasExtension')
-            ->with(self::identicalTo(VersionExtension::class))
-            ->willReturn(false);
+            ->withConsecutive(
+                [self::identicalTo(CoreExtension::class)],
+                [self::identicalTo(VersionExtension::class)]
+            )
+            ->willReturnOnConsecutiveCalls(true, false);
 
         $this->twigMock
             ->expects(self::once())

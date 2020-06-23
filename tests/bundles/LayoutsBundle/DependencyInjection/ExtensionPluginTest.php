@@ -68,17 +68,14 @@ final class ExtensionPluginTest extends TestCase
         $nodeBuilderMock = $this->createMock(NodeBuilder::class);
 
         $rootNodeMock
-            ->expects(self::at(0))
             ->method('children')
             ->willReturn($nodeBuilderMock);
 
         $nodeBuilderMock
-            ->expects(self::at(0))
             ->method('append')
             ->with(self::equalTo($node1->getConfigurationNode()));
 
         $nodeBuilderMock
-            ->expects(self::at(1))
             ->method('append')
             ->with(self::equalTo($node2->getConfigurationNode()));
 

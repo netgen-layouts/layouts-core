@@ -92,13 +92,11 @@ final class IdProviderTest extends TestCase
         );
 
         $this->layoutServiceMock
-            ->expects(self::at(0))
             ->method('loadLayout')
             ->with(self::equalTo($uuid1))
             ->willReturn($sharedLayout);
 
         $this->layoutServiceMock
-            ->expects(self::at(1))
             ->method('loadRelatedLayouts')
             ->with(self::identicalTo($sharedLayout))
             ->willReturn(

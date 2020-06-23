@@ -75,7 +75,6 @@ final class CollectionItemNormalizerTest extends TestCase
         ];
 
         $this->normalizerMock
-            ->expects(self::at(0))
             ->method('normalize')
             ->willReturn($serializedConfig);
 

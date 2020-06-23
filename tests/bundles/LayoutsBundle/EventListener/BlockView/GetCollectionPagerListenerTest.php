@@ -103,26 +103,25 @@ final class GetCollectionPagerListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
 
         $this->resultBuilderMock
-            ->expects(self::at(0))
             ->method('build')
-            ->with(
-                self::identicalTo($collection),
-                self::identicalTo(0),
-                self::identicalTo(0),
-                self::identicalTo(0)
+            ->withConsecutive(
+                [
+                    self::identicalTo($collection),
+                    self::identicalTo(0),
+                    self::identicalTo(0),
+                    self::identicalTo(0),
+                ],
+                [
+                    self::identicalTo($collection),
+                    self::identicalTo(13),
+                    self::identicalTo(5),
+                    self::identicalTo(0),
+                ]
             )
-            ->willReturn(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]));
-
-        $this->resultBuilderMock
-            ->expects(self::at(1))
-            ->method('build')
-            ->with(
-                self::identicalTo($collection),
-                self::identicalTo(13),
-                self::identicalTo(5),
-                self::identicalTo(0)
-            )
-            ->willReturn(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]));
+            ->willReturnOnConsecutiveCalls(
+                ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]),
+                ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])
+            );
 
         $this->listener->onRenderView($event);
 
@@ -177,26 +176,25 @@ final class GetCollectionPagerListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
 
         $this->resultBuilderMock
-            ->expects(self::at(0))
             ->method('build')
-            ->with(
-                self::identicalTo($collection),
-                self::identicalTo(0),
-                self::identicalTo(0),
-                self::identicalTo(0)
+            ->withConsecutive(
+                [
+                    self::identicalTo($collection),
+                    self::identicalTo(0),
+                    self::identicalTo(0),
+                    self::identicalTo(0),
+                ],
+                [
+                    self::identicalTo($collection),
+                    self::identicalTo(8),
+                    self::identicalTo(5),
+                    self::identicalTo(0),
+                ]
             )
-            ->willReturn(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]));
-
-        $this->resultBuilderMock
-            ->expects(self::at(1))
-            ->method('build')
-            ->with(
-                self::identicalTo($collection),
-                self::identicalTo(8),
-                self::identicalTo(5),
-                self::identicalTo(0)
-            )
-            ->willReturn(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]));
+            ->willReturnOnConsecutiveCalls(
+                ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]),
+                ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])
+            );
 
         $this->listener->onRenderView($event);
 
@@ -251,26 +249,25 @@ final class GetCollectionPagerListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
 
         $this->resultBuilderMock
-            ->expects(self::at(0))
             ->method('build')
-            ->with(
-                self::identicalTo($collection),
-                self::identicalTo(0),
-                self::identicalTo(0),
-                self::identicalTo(0)
+            ->withConsecutive(
+                [
+                    self::identicalTo($collection),
+                    self::identicalTo(0),
+                    self::identicalTo(0),
+                    self::identicalTo(0),
+                ],
+                [
+                    self::identicalTo($collection),
+                    self::identicalTo(13),
+                    self::identicalTo(5),
+                    self::identicalTo(0),
+                ]
             )
-            ->willReturn(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]));
-
-        $this->resultBuilderMock
-            ->expects(self::at(1))
-            ->method('build')
-            ->with(
-                self::identicalTo($collection),
-                self::identicalTo(13),
-                self::identicalTo(5),
-                self::identicalTo(0)
-            )
-            ->willReturn(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]));
+            ->willReturnOnConsecutiveCalls(
+                ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]),
+                ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])
+            );
 
         $this->listener->onRenderView($event);
 
@@ -324,26 +321,25 @@ final class GetCollectionPagerListenerTest extends TestCase
         $event = new CollectViewParametersEvent($view);
 
         $this->resultBuilderMock
-            ->expects(self::at(0))
             ->method('build')
-            ->with(
-                self::identicalTo($collection),
-                self::identicalTo(0),
-                self::identicalTo(0),
-                self::identicalTo(0)
+            ->withConsecutive(
+                [
+                    self::identicalTo($collection),
+                    self::identicalTo(0),
+                    self::identicalTo(0),
+                    self::identicalTo(0),
+                ],
+                [
+                    self::identicalTo($collection),
+                    self::identicalTo(13),
+                    self::identicalTo(5),
+                    self::identicalTo(0),
+                ]
             )
-            ->willReturn(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]));
-
-        $this->resultBuilderMock
-            ->expects(self::at(1))
-            ->method('build')
-            ->with(
-                self::identicalTo($collection),
-                self::identicalTo(13),
-                self::identicalTo(5),
-                self::identicalTo(0)
-            )
-            ->willReturn(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]));
+            ->willReturnOnConsecutiveCalls(
+                ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]),
+                ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])
+            );
 
         $this->listener->onRenderView($event);
 

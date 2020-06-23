@@ -75,7 +75,6 @@ final class CollectionResultNormalizerTest extends TestCase
         ];
 
         $this->normalizerMock
-            ->expects(self::at(0))
             ->method('normalize')
             ->willReturn($serializedConfig);
 
@@ -139,7 +138,6 @@ final class CollectionResultNormalizerTest extends TestCase
         ];
 
         $this->normalizerMock
-            ->expects(self::at(0))
             ->method('normalize')
             ->willReturn($serializedConfig);
 
@@ -188,7 +186,6 @@ final class CollectionResultNormalizerTest extends TestCase
         $result = new Result(3, $item);
 
         $this->normalizerMock
-            ->expects(self::at(0))
             ->method('normalize')
             ->willReturn([]);
 
@@ -250,14 +247,11 @@ final class CollectionResultNormalizerTest extends TestCase
         ];
 
         $this->normalizerMock
-            ->expects(self::at(0))
             ->method('normalize')
-            ->willReturn([]);
-
-        $this->normalizerMock
-            ->expects(self::at(1))
-            ->method('normalize')
-            ->willReturn($serializedConfig);
+            ->willReturnOnConsecutiveCalls(
+                [],
+                $serializedConfig
+            );
 
         $result = new Result(3, new ManualItem($collectionItem), $item);
         $this->urlGeneratorMock

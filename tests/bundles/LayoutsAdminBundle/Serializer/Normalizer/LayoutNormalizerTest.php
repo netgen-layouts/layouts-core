@@ -137,28 +137,19 @@ final class LayoutNormalizerTest extends TestCase
         );
 
         $this->blockServiceMock
-            ->expects(self::at(0))
             ->method('loadZoneBlocks')
-            ->willReturn(new BlockList([$block]));
-
-        $this->blockServiceMock
-            ->expects(self::at(1))
-            ->method('loadZoneBlocks')
-            ->willReturn(new BlockList());
-
-        $this->blockServiceMock
-            ->expects(self::at(2))
-            ->method('loadZoneBlocks')
-            ->willReturn(new BlockList());
+            ->willReturnOnConsecutiveCalls(
+                new BlockList([$block]),
+                new BlockList(),
+                new BlockList()
+            );
 
         $this->layoutServiceMock
-            ->expects(self::at(0))
             ->method('hasStatus')
             ->with(self::identicalTo($layout->getId()), self::identicalTo(Layout::STATUS_PUBLISHED))
             ->willReturn(true);
 
         $this->layoutServiceMock
-            ->expects(self::at(1))
             ->method('loadLayoutArchive')
             ->with(self::identicalTo($layout->getId()))
             ->willThrowException(new NotFoundException('layout'));
@@ -259,13 +250,11 @@ final class LayoutNormalizerTest extends TestCase
         );
 
         $this->layoutServiceMock
-            ->expects(self::at(0))
             ->method('hasStatus')
             ->with(self::identicalTo($layout->getId()), self::identicalTo(Layout::STATUS_PUBLISHED))
             ->willReturn(true);
 
         $this->layoutServiceMock
-            ->expects(self::at(1))
             ->method('loadLayoutArchive')
             ->with(self::identicalTo($layout->getId()))
             ->willReturn($archivedLayout);

@@ -39,7 +39,6 @@ final class ArrayValueNormalizerTest extends TestCase
     {
         $value = new StubValue();
         $this->normalizerMock
-            ->expects(self::at(0))
             ->method('normalize')
             ->with(
                 self::identicalTo($value),

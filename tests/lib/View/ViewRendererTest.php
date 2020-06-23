@@ -67,10 +67,7 @@ final class ViewRendererTest extends TestCase
             $args = array_reverse($args);
         }
 
-        $this->eventDispatcherMock
-            ->expects(self::at(0))
-            ->method('dispatch')
-            ->with(...$args);
+        $consecutiveArgs = [$args];
 
         $args = [
             self::isInstanceOf(CollectViewParametersEvent::class),
@@ -81,10 +78,11 @@ final class ViewRendererTest extends TestCase
             $args = array_reverse($args);
         }
 
+        $consecutiveArgs[] = $args;
+
         $this->eventDispatcherMock
-            ->expects(self::at(1))
             ->method('dispatch')
-            ->with(...$args);
+            ->withConsecutive(...$consecutiveArgs);
 
         $this->twigEnvironmentMock
             ->expects(self::once())
@@ -123,10 +121,7 @@ final class ViewRendererTest extends TestCase
             $args = array_reverse($args);
         }
 
-        $this->eventDispatcherMock
-            ->expects(self::at(0))
-            ->method('dispatch')
-            ->with(...$args);
+        $consecutiveArgs = [$args];
 
         $args = [
             self::isInstanceOf(CollectViewParametersEvent::class),
@@ -137,10 +132,11 @@ final class ViewRendererTest extends TestCase
             $args = array_reverse($args);
         }
 
+        $consecutiveArgs[] = $args;
+
         $this->eventDispatcherMock
-            ->expects(self::at(1))
             ->method('dispatch')
-            ->with(...$args);
+            ->withConsecutive(...$consecutiveArgs);
 
         $this->twigEnvironmentMock
             ->expects(self::never())

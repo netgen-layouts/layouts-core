@@ -50,16 +50,15 @@ final class InvalidatorTest extends TestCase
         $uuid4 = Uuid::uuid4();
 
         $this->idProviderMock
-            ->expects(self::at(0))
             ->method('provideIds')
-            ->with(self::identicalTo($uuid1->toString()))
-            ->willReturn([$uuid1->toString(), $uuid3->toString(), $uuid4->toString()]);
-
-        $this->idProviderMock
-            ->expects(self::at(1))
-            ->method('provideIds')
-            ->with(self::identicalTo($uuid2->toString()))
-            ->willReturn([$uuid2->toString()]);
+            ->withConsecutive(
+                [self::identicalTo($uuid1->toString())],
+                [self::identicalTo($uuid2->toString())]
+            )
+            ->willReturnOnConsecutiveCalls(
+                [$uuid1->toString(), $uuid3->toString(), $uuid4->toString()],
+                [$uuid2->toString()]
+            );
 
         $this->clientMock
             ->expects(self::once())

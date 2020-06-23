@@ -34,7 +34,6 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutResolverHandler
-            ->expects(self::at(0))
             ->method('createRule')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -54,12 +53,10 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutResolverHandler
-            ->expects(self::at(0))
             ->method('loadRule')
             ->willReturn(PersistenceRule::fromArray(['id' => 42]));
 
         $this->layoutResolverHandler
-            ->expects(self::at(1))
             ->method('updateRule')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -82,12 +79,10 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutResolverHandler
-            ->expects(self::at(0))
             ->method('loadRule')
             ->willReturn(PersistenceRule::fromArray(['id' => 42]));
 
         $this->layoutResolverHandler
-            ->expects(self::at(1))
             ->method('updateRuleMetadata')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -110,12 +105,10 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutResolverHandler
-            ->expects(self::at(0))
             ->method('loadRule')
             ->willReturn(PersistenceRule::fromArray(['id' => 42]));
 
         $this->layoutResolverHandler
-            ->expects(self::at(1))
             ->method('copyRule')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -135,17 +128,14 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutResolverHandler
-            ->expects(self::at(0))
             ->method('loadRule')
             ->willReturn(PersistenceRule::fromArray(['id' => 42]));
 
         $this->layoutResolverHandler
-            ->expects(self::at(1))
             ->method('ruleExists')
             ->willReturn(false);
 
         $this->layoutResolverHandler
-            ->expects(self::at(2))
             ->method('deleteRule')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -165,12 +155,10 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutResolverHandler
-            ->expects(self::at(0))
             ->method('loadRule')
             ->willReturn(PersistenceRule::fromArray(['id' => 42]));
 
         $this->layoutResolverHandler
-            ->expects(self::at(1))
             ->method('deleteRule')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -190,12 +178,10 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutResolverHandler
-            ->expects(self::at(0))
             ->method('loadRule')
             ->willReturn(PersistenceRule::fromArray(['id' => 42]));
 
         $this->layoutResolverHandler
-            ->expects(self::at(1))
             ->method('deleteRule')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -215,17 +201,14 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutResolverHandler
-            ->expects(self::at(0))
             ->method('loadRule')
             ->willReturn(PersistenceRule::fromArray(['id' => 42]));
 
         $this->layoutResolverHandler
-            ->expects(self::at(1))
             ->method('loadRule')
             ->willReturn(PersistenceRule::fromArray(['id' => 42]));
 
         $this->layoutResolverHandler
-            ->expects(self::at(2))
             ->method('deleteRule')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -245,12 +228,10 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutResolverHandler
-            ->expects(self::at(0))
             ->method('loadRule')
             ->willReturn(PersistenceRule::fromArray(['id' => 42]));
 
         $this->layoutResolverHandler
-            ->expects(self::at(1))
             ->method('deleteRule')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -270,7 +251,6 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutResolverHandler
-            ->expects(self::at(0))
             ->method('loadRule')
             ->willReturn(
                 PersistenceRule::fromArray(
@@ -282,7 +262,6 @@ final class LayoutResolverServiceTest extends TestCase
             );
 
         $this->layoutResolverHandler
-            ->expects(self::at(1))
             ->method('updateRuleMetadata')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -302,7 +281,6 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutResolverHandler
-            ->expects(self::at(0))
             ->method('loadRule')
             ->willReturn(
                 PersistenceRule::fromArray(
@@ -313,7 +291,6 @@ final class LayoutResolverServiceTest extends TestCase
             );
 
         $this->layoutResolverHandler
-            ->expects(self::at(1))
             ->method('updateRuleMetadata')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -333,17 +310,14 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutResolverHandler
-            ->expects(self::at(0))
             ->method('loadRule')
             ->willReturn(PersistenceRule::fromArray(['id' => 42]));
 
         $this->layoutResolverHandler
-            ->expects(self::at(1))
             ->method('loadRuleTargets')
             ->willReturn([]);
 
         $this->layoutResolverHandler
-            ->expects(self::at(2))
             ->method('addTarget')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -369,12 +343,10 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutResolverHandler
-            ->expects(self::at(0))
             ->method('loadTarget')
             ->willReturn(new PersistenceTarget());
 
         $this->layoutResolverHandler
-            ->expects(self::at(1))
             ->method('updateTarget')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -397,12 +369,10 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutResolverHandler
-            ->expects(self::at(0))
             ->method('loadTarget')
             ->willReturn(new PersistenceTarget());
 
         $this->layoutResolverHandler
-            ->expects(self::at(1))
             ->method('deleteTarget')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -422,12 +392,10 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutResolverHandler
-            ->expects(self::at(0))
             ->method('loadRule')
             ->willReturn(PersistenceRule::fromArray(['id' => 42]));
 
         $this->layoutResolverHandler
-            ->expects(self::at(1))
             ->method('addCondition')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -453,12 +421,10 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutResolverHandler
-            ->expects(self::at(0))
             ->method('loadCondition')
             ->willReturn(new PersistenceCondition());
 
         $this->layoutResolverHandler
-            ->expects(self::at(1))
             ->method('updateCondition')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -481,12 +447,10 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutResolverHandler
-            ->expects(self::at(0))
             ->method('loadCondition')
             ->willReturn(new PersistenceCondition());
 
         $this->layoutResolverHandler
-            ->expects(self::at(1))
             ->method('deleteCondition')
             ->willThrowException(new Exception('Test exception text'));
 

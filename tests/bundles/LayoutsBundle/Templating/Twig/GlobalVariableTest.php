@@ -364,7 +364,6 @@ final class GlobalVariableTest extends TestCase
             ->method('buildView');
 
         $this->pageLayoutResolverMock
-            ->expects(self::at(0))
             ->method('resolvePageLayout')
             ->willReturn('pagelayout.html.twig');
 
@@ -388,7 +387,6 @@ final class GlobalVariableTest extends TestCase
             ->method('buildView');
 
         $this->pageLayoutResolverMock
-            ->expects(self::at(0))
             ->method('resolvePageLayout')
             ->willReturn('pagelayout.html.twig');
 
@@ -454,7 +452,6 @@ final class GlobalVariableTest extends TestCase
             ->method('buildView');
 
         $this->pageLayoutResolverMock
-            ->expects(self::at(0))
             ->method('resolvePageLayout')
             ->willReturn('pagelayout.html.twig');
 

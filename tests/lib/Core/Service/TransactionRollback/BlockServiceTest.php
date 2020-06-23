@@ -34,17 +34,14 @@ final class BlockServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutHandler
-            ->expects(self::at(0))
             ->method('loadLayout')
             ->willReturn(PersistenceLayout::fromArray(['availableLocales' => ['en']]));
 
         $this->blockHandler
-            ->expects(self::at(0))
             ->method('loadBlock')
             ->willReturn(new PersistenceBlock());
 
         $this->blockHandler
-            ->expects(self::at(1))
             ->method('createBlock')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -80,22 +77,18 @@ final class BlockServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutHandler
-            ->expects(self::at(0))
             ->method('loadLayout')
             ->willReturn(PersistenceLayout::fromArray(['type' => '4_zones_a']));
 
         $this->layoutHandler
-            ->expects(self::at(1))
             ->method('loadZone')
             ->willReturn(PersistenceZone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'left']));
 
         $this->blockHandler
-            ->expects(self::at(0))
             ->method('loadBlock')
             ->willReturn(new PersistenceBlock());
 
         $this->blockHandler
-            ->expects(self::at(1))
             ->method('createBlock')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -127,12 +120,10 @@ final class BlockServiceTest extends TestCase
         );
 
         $this->blockHandler
-            ->expects(self::at(0))
             ->method('loadBlock')
             ->willReturn($persistenceBlock);
 
         $this->blockHandler
-            ->expects(self::at(1))
             ->method('updateBlockTranslation')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -165,17 +156,14 @@ final class BlockServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->blockHandler
-            ->expects(self::at(0))
             ->method('loadBlock')
             ->willReturn(new PersistenceBlock());
 
         $this->blockHandler
-            ->expects(self::at(1))
             ->method('loadBlock')
             ->willReturn(new PersistenceBlock());
 
         $this->blockHandler
-            ->expects(self::at(2))
             ->method('copyBlock')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -209,27 +197,22 @@ final class BlockServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->blockHandler
-            ->expects(self::at(0))
             ->method('loadBlock')
             ->willReturn(new PersistenceBlock());
 
         $this->layoutHandler
-            ->expects(self::at(0))
             ->method('loadLayout')
             ->willReturn(PersistenceLayout::fromArray(['type' => '4_zones_a']));
 
         $this->layoutHandler
-            ->expects(self::at(1))
             ->method('loadZone')
             ->willReturn(PersistenceZone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'left']));
 
         $this->blockHandler
-            ->expects(self::at(1))
             ->method('loadBlock')
             ->willReturn(new PersistenceBlock());
 
         $this->blockHandler
-            ->expects(self::at(2))
             ->method('copyBlock')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -253,17 +236,13 @@ final class BlockServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->blockHandler
-            ->expects(self::at(0))
             ->method('loadBlock')
-            ->willReturn(PersistenceBlock::fromArray(['parentId' => 1, 'placeholder' => 'main']));
+            ->willReturnOnConsecutiveCalls(
+                PersistenceBlock::fromArray(['parentId' => 1, 'placeholder' => 'main']),
+                PersistenceBlock::fromArray(['id' => 1])
+            );
 
         $this->blockHandler
-            ->expects(self::at(1))
-            ->method('loadBlock')
-            ->willReturn(PersistenceBlock::fromArray(['id' => 1]));
-
-        $this->blockHandler
-            ->expects(self::at(2))
             ->method('moveBlockToPosition')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -299,27 +278,21 @@ final class BlockServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->blockHandler
-            ->expects(self::at(0))
             ->method('loadBlock')
-            ->willReturn(PersistenceBlock::fromArray(['parentId' => 1, 'placeholder' => 'root']));
+            ->willReturnOnConsecutiveCalls(
+                PersistenceBlock::fromArray(['parentId' => 1, 'placeholder' => 'root']),
+                PersistenceBlock::fromArray(['id' => 1])
+            );
 
         $this->layoutHandler
-            ->expects(self::at(0))
             ->method('loadLayout')
             ->willReturn(PersistenceLayout::fromArray(['type' => '4_zones_a']));
 
         $this->layoutHandler
-            ->expects(self::at(1))
             ->method('loadZone')
             ->willReturn(PersistenceZone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'left']));
 
         $this->blockHandler
-            ->expects(self::at(1))
-            ->method('loadBlock')
-            ->willReturn(PersistenceBlock::fromArray(['id' => 1]));
-
-        $this->blockHandler
-            ->expects(self::at(2))
             ->method('moveBlockToPosition')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -343,17 +316,14 @@ final class BlockServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->blockHandler
-            ->expects(self::at(0))
             ->method('loadBlock')
             ->willReturn(new PersistenceBlock());
 
         $this->layoutHandler
-            ->expects(self::at(0))
             ->method('loadLayout')
             ->willReturn(new PersistenceLayout());
 
         $this->blockHandler
-            ->expects(self::at(1))
             ->method('restoreBlock')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -373,22 +343,18 @@ final class BlockServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->blockHandler
-            ->expects(self::at(0))
             ->method('loadBlock')
             ->willReturn(PersistenceBlock::fromArray(['isTranslatable' => false, 'parentId' => 42]));
 
         $this->blockHandler
-            ->expects(self::at(1))
             ->method('loadBlock')
             ->willReturn(PersistenceBlock::fromArray(['isTranslatable' => true, 'depth' => 1]));
 
         $this->layoutHandler
-            ->expects(self::at(0))
             ->method('loadLayout')
             ->willReturn(new PersistenceLayout());
 
         $this->blockHandler
-            ->expects(self::at(2))
             ->method('updateBlock')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -408,12 +374,10 @@ final class BlockServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->blockHandler
-            ->expects(self::at(0))
             ->method('loadBlock')
             ->willReturn(PersistenceBlock::fromArray(['isTranslatable' => true]));
 
         $this->blockHandler
-            ->expects(self::at(1))
             ->method('updateBlock')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -433,12 +397,10 @@ final class BlockServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->blockHandler
-            ->expects(self::at(0))
             ->method('loadBlock')
             ->willReturn(new PersistenceBlock());
 
         $this->blockHandler
-            ->expects(self::at(1))
             ->method('deleteBlock')
             ->willThrowException(new Exception('Test exception text'));
 

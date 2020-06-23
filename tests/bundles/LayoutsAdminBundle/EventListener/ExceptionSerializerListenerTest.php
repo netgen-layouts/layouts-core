@@ -76,7 +76,6 @@ final class ExceptionSerializerListenerTest extends TestCase
             ->willReturn('serialized content');
 
         $this->loggerMock
-            ->expects(self::at(0))
             ->method('critical');
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);
@@ -122,7 +121,7 @@ final class ExceptionSerializerListenerTest extends TestCase
             ->willReturn('serialized content');
 
         $this->loggerMock
-            ->expects($loggerCalled ? self::at(0) : self::never())
+            ->expects($loggerCalled ? self::once() : self::never())
             ->method('critical');
 
         $kernelMock = $this->createMock(HttpKernelInterface::class);

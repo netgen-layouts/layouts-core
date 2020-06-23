@@ -27,27 +27,20 @@ final class LayoutServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutHandler
-            ->expects(self::at(0))
             ->method('loadLayout')
-            ->willReturn(PersistenceLayout::fromArray(['shared' => false]));
+            ->willReturnOnConsecutiveCalls(
+                PersistenceLayout::fromArray(['shared' => false]),
+                PersistenceLayout::fromArray(['shared' => true])
+            );
 
         $this->layoutHandler
-            ->expects(self::at(1))
             ->method('loadZone')
-            ->willReturn(PersistenceZone::fromArray(['layoutId' => 1]));
+            ->willReturnOnConsecutiveCalls(
+                PersistenceZone::fromArray(['layoutId' => 1]),
+                PersistenceZone::fromArray(['layoutId' => 2])
+            );
 
         $this->layoutHandler
-            ->expects(self::at(2))
-            ->method('loadLayout')
-            ->willReturn(PersistenceLayout::fromArray(['shared' => true]));
-
-        $this->layoutHandler
-            ->expects(self::at(3))
-            ->method('loadZone')
-            ->willReturn(PersistenceZone::fromArray(['layoutId' => 2]));
-
-        $this->layoutHandler
-            ->expects(self::at(4))
             ->method('updateZone')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -70,12 +63,10 @@ final class LayoutServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutHandler
-            ->expects(self::at(0))
             ->method('loadZone')
             ->willReturn(new PersistenceZone());
 
         $this->layoutHandler
-            ->expects(self::at(1))
             ->method('updateZone')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -95,12 +86,10 @@ final class LayoutServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutHandler
-            ->expects(self::at(0))
             ->method('layoutNameExists')
             ->willReturn(false);
 
         $this->layoutHandler
-            ->expects(self::at(1))
             ->method('createLayout')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -125,7 +114,6 @@ final class LayoutServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutHandler
-            ->expects(self::at(0))
             ->method('loadLayout')
             ->willReturn(
                 PersistenceLayout::fromArray(
@@ -137,7 +125,6 @@ final class LayoutServiceTest extends TestCase
             );
 
         $this->layoutHandler
-            ->expects(self::at(1))
             ->method('createLayoutTranslation')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -157,7 +144,6 @@ final class LayoutServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutHandler
-            ->expects(self::at(0))
             ->method('loadLayout')
             ->willReturn(
                 PersistenceLayout::fromArray(
@@ -169,7 +155,6 @@ final class LayoutServiceTest extends TestCase
             );
 
         $this->layoutHandler
-            ->expects(self::at(1))
             ->method('deleteLayoutTranslation')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -189,17 +174,14 @@ final class LayoutServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutHandler
-            ->expects(self::at(0))
             ->method('loadLayout')
             ->willReturn(new PersistenceLayout());
 
         $this->layoutHandler
-            ->expects(self::at(1))
             ->method('layoutNameExists')
             ->willReturn(false);
 
         $this->layoutHandler
-            ->expects(self::at(2))
             ->method('updateLayout')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -225,17 +207,14 @@ final class LayoutServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutHandler
-            ->expects(self::at(0))
             ->method('layoutNameExists')
             ->willReturn(false);
 
         $this->layoutHandler
-            ->expects(self::at(1))
             ->method('loadLayout')
             ->willReturn(new PersistenceLayout());
 
         $this->layoutHandler
-            ->expects(self::at(2))
             ->method('copyLayout')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -261,17 +240,14 @@ final class LayoutServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutHandler
-            ->expects(self::at(0))
             ->method('loadLayout')
             ->willReturn(new PersistenceLayout());
 
         $this->layoutHandler
-            ->expects(self::at(1))
             ->method('loadLayoutZones')
             ->willReturn([]);
 
         $this->layoutHandler
-            ->expects(self::at(2))
             ->method('changeLayoutType')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -295,17 +271,14 @@ final class LayoutServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutHandler
-            ->expects(self::at(0))
             ->method('loadLayout')
             ->willReturn(PersistenceLayout::fromArray(['id' => 42]));
 
         $this->layoutHandler
-            ->expects(self::at(1))
             ->method('layoutExists')
             ->willReturn(false);
 
         $this->layoutHandler
-            ->expects(self::at(2))
             ->method('deleteLayout')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -325,12 +298,10 @@ final class LayoutServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutHandler
-            ->expects(self::at(0))
             ->method('loadLayout')
             ->willReturn(PersistenceLayout::fromArray(['id' => 42]));
 
         $this->layoutHandler
-            ->expects(self::at(1))
             ->method('deleteLayout')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -350,12 +321,10 @@ final class LayoutServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutHandler
-            ->expects(self::at(0))
             ->method('loadLayout')
             ->willReturn(PersistenceLayout::fromArray(['id' => 42]));
 
         $this->layoutHandler
-            ->expects(self::at(1))
             ->method('deleteLayout')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -375,22 +344,18 @@ final class LayoutServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutHandler
-            ->expects(self::at(0))
             ->method('loadLayout')
             ->willReturn(PersistenceLayout::fromArray(['id' => 42]));
 
         $this->layoutHandler
-            ->expects(self::at(1))
             ->method('loadLayout')
             ->willReturn(PersistenceLayout::fromArray(['id' => 42]));
 
         $this->layoutHandler
-            ->expects(self::at(2))
             ->method('loadLayout')
             ->willReturn(PersistenceLayout::fromArray(['id' => 42]));
 
         $this->layoutHandler
-            ->expects(self::at(3))
             ->method('deleteLayout')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -410,12 +375,10 @@ final class LayoutServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutHandler
-            ->expects(self::at(0))
             ->method('loadLayout')
             ->willReturn(PersistenceLayout::fromArray(['id' => 42]));
 
         $this->layoutHandler
-            ->expects(self::at(1))
             ->method('deleteLayout')
             ->willThrowException(new Exception('Test exception text'));
 

@@ -78,10 +78,7 @@ final class ViewBuilderTest extends TestCase
             $args = array_reverse($args);
         }
 
-        $this->eventDispatcherMock
-            ->expects(self::at(0))
-            ->method('dispatch')
-            ->with(...$args);
+        $consecutiveArgs = [$args];
 
         $args = [
             self::isInstanceOf(CollectViewParametersEvent::class),
@@ -92,10 +89,11 @@ final class ViewBuilderTest extends TestCase
             $args = array_reverse($args);
         }
 
+        $consecutiveArgs[] = $args;
+
         $this->eventDispatcherMock
-            ->expects(self::at(1))
             ->method('dispatch')
-            ->with(...$args);
+            ->withConsecutive(...$consecutiveArgs);
 
         $viewBuilder = new ViewBuilder(
             $this->templateResolverMock,

@@ -106,16 +106,15 @@ final class LayoutResolverTest extends TestCase
         );
 
         $this->layoutResolverServiceMock
-            ->expects(self::at(0))
             ->method('matchRules')
-            ->with(self::identicalTo('target1'), self::identicalTo(42))
-            ->willReturn(new RuleList([$rule1, $rule2]));
-
-        $this->layoutResolverServiceMock
-            ->expects(self::at(1))
-            ->method('matchRules')
-            ->with(self::identicalTo('target2'), self::identicalTo(84))
-            ->willReturn(new RuleList([$rule3, $rule4]));
+            ->withConsecutive(
+                [self::identicalTo('target1'), self::identicalTo(42)],
+                [self::identicalTo('target2'), self::identicalTo(84)]
+            )
+            ->willReturnOnConsecutiveCalls(
+                new RuleList([$rule1, $rule2]),
+                new RuleList([$rule3, $rule4])
+            );
 
         $resolvedRules = $this->layoutResolver->resolveRules();
 
@@ -158,7 +157,6 @@ final class LayoutResolverTest extends TestCase
         );
 
         $this->layoutResolverServiceMock
-            ->expects(self::at(0))
             ->method('matchRules')
             ->with(self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(new RuleList([$rule1, $rule2]));
@@ -197,7 +195,6 @@ final class LayoutResolverTest extends TestCase
         );
 
         $this->layoutResolverServiceMock
-            ->expects(self::at(0))
             ->method('matchRules')
             ->with(self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(new RuleList([$rule1, $rule2]));
@@ -236,7 +233,6 @@ final class LayoutResolverTest extends TestCase
         );
 
         $this->layoutResolverServiceMock
-            ->expects(self::at(0))
             ->method('matchRules')
             ->with(self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(new RuleList([$rule1, $rule2]));
@@ -280,7 +276,6 @@ final class LayoutResolverTest extends TestCase
         );
 
         $this->layoutResolverServiceMock
-            ->expects(self::at(0))
             ->method('matchRules')
             ->with(self::identicalTo('target2'), self::identicalTo(84))
             ->willReturn(new RuleList([$rule1, $rule2]));
@@ -474,16 +469,15 @@ final class LayoutResolverTest extends TestCase
         );
 
         $this->layoutResolverServiceMock
-            ->expects(self::at(0))
             ->method('matchRules')
-            ->with(self::identicalTo('target1'), self::identicalTo(42))
-            ->willReturn(new RuleList([$rule1, $rule2]));
-
-        $this->layoutResolverServiceMock
-            ->expects(self::at(1))
-            ->method('matchRules')
-            ->with(self::identicalTo('target2'), self::identicalTo(84))
-            ->willReturn(new RuleList([$rule3, $rule4]));
+            ->withConsecutive(
+                [self::identicalTo('target1'), self::identicalTo(42)],
+                [self::identicalTo('target2'), self::identicalTo(84)]
+            )
+            ->willReturnOnConsecutiveCalls(
+                new RuleList([$rule1, $rule2]),
+                new RuleList([$rule3, $rule4])
+            );
 
         self::assertSame($rule3, $this->layoutResolver->resolveRule());
     }
@@ -519,7 +513,6 @@ final class LayoutResolverTest extends TestCase
         );
 
         $this->layoutResolverServiceMock
-            ->expects(self::at(0))
             ->method('matchRules')
             ->with(self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(new RuleList([$rule1, $rule2]));
@@ -558,7 +551,6 @@ final class LayoutResolverTest extends TestCase
         );
 
         $this->layoutResolverServiceMock
-            ->expects(self::at(0))
             ->method('matchRules')
             ->with(self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(new RuleList([$rule1, $rule2]));
@@ -602,7 +594,6 @@ final class LayoutResolverTest extends TestCase
         );
 
         $this->layoutResolverServiceMock
-            ->expects(self::at(0))
             ->method('matchRules')
             ->with(self::identicalTo('target2'), self::identicalTo(84))
             ->willReturn(new RuleList([$rule1, $rule2]));
