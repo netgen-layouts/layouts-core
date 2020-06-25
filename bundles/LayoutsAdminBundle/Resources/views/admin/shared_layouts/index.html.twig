@@ -11,7 +11,7 @@
         <div class="layouts-header">
             <h2 class="layouts-title">{{ 'shared_layouts.title'|trans }}</h2>
             <div class="layouts-controls">
-                <a href="#" class="nl-btn js-export-layouts" title="{{ 'shared_layouts.export.title'|trans }}"><i class="material-icons">file_download</i></a>
+                <a href="#" class="nl-btn js-export" title="{{ 'shared_layouts.export.title'|trans }}"><i class="material-icons">file_download</i></a>
                 <a href="#" class="nl-btn js-change-layouts-view"></a>
                 {% if is_granted('nglayouts:layout:add') %}
                     <a href="{{ path('nglayouts_app', {shared: true}) }}" id="add-new-button" class="nl-btn nl-btn-primary js-open-ngl">
@@ -33,8 +33,8 @@
                     </select>
                 </div>
             </div>
-            <div class="export-layouts-controls">
-                <a href="#" class="nl-btn nl-btn-primary js-download-layouts">{{ 'shared_layouts.export.download'|trans }}</a>
+            <div class="export-controls">
+                <a href="#" class="nl-btn nl-btn-primary js-download-export">{{ 'shared_layouts.export.download'|trans }}</a>
                 <a href="" class="nl-btn nl-btn-white js-cancel-export">{{ 'shared_layouts.export.cancel'|trans }}</a>
             </div>
         </div>
@@ -43,7 +43,7 @@
                 <div class="nl-layout-type"><a class="js-reorder-layouts" data-sorting="type">{{ 'layouts.layout.layout_type'|trans }}<i class="sort-icon"></i></a></div>
                 <div class="nl-layout-text">
                     <div class="nl-layout-name">
-                        <div class="nl-layout-export-checkbox">
+                        <div class="nl-export-checkbox">
                             <input type="checkbox" id="toggleSelectAll">
                             <label for="toggleSelectAll"></label>
                         </div>

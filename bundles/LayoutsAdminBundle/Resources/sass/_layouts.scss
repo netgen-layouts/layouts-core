@@ -222,7 +222,7 @@
         .nl-layout-name {
             padding:0 $gutter 0 0;
             width:30%;
-            .nl-layout-export-checkbox {
+            .nl-export-checkbox {
                 vertical-align: middle;
             }
         }
@@ -424,7 +424,7 @@
     }
 }
 
-.nl-layout-export-checkbox {
+.nl-export-checkbox {
     display: none;
     input {
         position: absolute;
@@ -465,7 +465,7 @@
             }
         }
     }
-    .layout-export & {
+    .export & {
         display: inline-block;
     }
 }

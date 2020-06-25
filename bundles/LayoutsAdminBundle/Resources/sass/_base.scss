@@ -13,17 +13,17 @@ body {
     .sorting-show {
         display:none;
     }
-    .layout-export & {
+    .export & {
         display: none;
     }
 }
 
-.export-layouts-controls {
+.export-controls {
     display: none;
     float: right;
     margin:0 0 1em;
     text-align:right;
-    .layout-export & {
+    .export & {
         display: block;
     }
 }

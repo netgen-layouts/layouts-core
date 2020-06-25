@@ -13,9 +13,9 @@
     >
     <div class="nl-layout-info">
 
-        <div class="nl-layout-export-checkbox">
-            <input type="checkbox" id="exportLayout{{ layout.id.toString }}" {% if not layout.published %}disabled{% endif %}>
-            <label for="exportLayout{{ layout.id.toString }}"></label>
+        <div class="nl-export-checkbox">
+            <input type="checkbox" id="export{{ layout.id.toString }}" {% if not layout.published %}disabled{% endif %}>
+            <label for="export{{ layout.id.toString }}"></label>
         </div>
 
         <div class="nl-layout-type">

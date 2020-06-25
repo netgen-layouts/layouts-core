@@ -16,7 +16,7 @@ export default class NlLayouts {
         [this.noLayoutsMsg] = this.el.getElementsByClassName('nl-no-items');
         [this.layoutsHead] = this.el.getElementsByClassName('nl-layouts-head');
         [this.toggleViewBtn] = this.el.getElementsByClassName('js-change-layouts-view');
-        [this.exportLayoutsBtn] = this.el.getElementsByClassName('js-export-layouts');
+        [this.exportBtn] = this.el.getElementsByClassName('js-export');
         this.toggleAllCheckbox = document.getElementById('toggleSelectAll');
         this.shared = typeof this.el.dataset.shared !== 'undefined';
         this.csrf = document.querySelector('meta[name=nglayouts-admin-csrf-token]').getAttribute('content');
@@ -49,15 +49,15 @@ export default class NlLayouts {
                 this.setViewClass();
             } else if (e.target.closest('.js-cancel-export')) {
                 this.endExport(e);
-            } else if (e.target.closest('.js-download-layouts')) {
-                this.downloadLayouts(e);
+            } else if (e.target.closest('.js-download-export')) {
+                this.downloadExport(e, this.layouts);
             } else if (e.target.closest('.js-reorder-layouts')) {
                 e.preventDefault();
                 this.setSorting(e.target.dataset.sorting);
             }
         });
 
-        this.exportLayoutsBtn.addEventListener('click', this.startExport.bind(this));
+        this.exportBtn.addEventListener('click', this.startExport.bind(this));
         this.toggleAllCheckbox.addEventListener('change', this.toggleSelectAll.bind(this));
 
         this.el.addEventListener('reorder', this.reorderLayouts.bind(this));
@@ -75,12 +75,12 @@ export default class NlLayouts {
             this.noLayoutsMsg.style.display = 'block';
             this.layoutsHead.style.display = 'none';
             this.toggleViewBtn.style.display = 'none';
-            this.exportLayoutsBtn.style.display = 'none';
+            this.exportBtn.style.display = 'none';
         } else {
             this.noLayoutsMsg.style.display = 'none';
             this.layoutsHead.style.display = 'flex';
             this.toggleViewBtn.style.display = 'inline-block';
-            this.exportLayoutsBtn.style.display = 'inline-block';
+            this.exportBtn.style.display = 'inline-block';
         }
     }
 
@@ -95,12 +95,12 @@ export default class NlLayouts {
 
     startExport(e) {
         e.preventDefault();
-        this.el.classList.add('layout-export');
+        this.el.classList.add('export');
     }
 
     endExport(e) {
         e && e.preventDefault();
-        this.el.classList.remove('layout-export');
+        this.el.classList.remove('export');
         this.layouts.forEach((layout) => {
             layout.selected && layout.toggleSelected(false);
         });
@@ -111,14 +111,14 @@ export default class NlLayouts {
         this.layouts.forEach(layout => layout.published && layout.toggleSelected(e.currentTarget.checked));
     }
 
-    downloadLayouts(e) {
+    downloadExport(e, items) {
         e.preventDefault();
-        const selectedLayouts = [];
+        const selectedItems = [];
         const layoutsAppEl = document.getElementsByClassName('ng-layouts-app')[0];
-        this.layouts.forEach(layout => layout.selected && selectedLayouts.push(layout.id));
+        items.forEach(item => item.selected && selectedItems.push(item.id));
         layoutsAppEl.classList.add('ajax-loading');
-        const layouts = selectedLayouts.map(layout => `layout_ids[]=${layout}`);
-        const body = new URLSearchParams(layouts.join('&'));
+        const itemIds = selectedItems.map(item => `item_ids[]=${item}`);
+        const body = new URLSearchParams(itemIds.join('&'));
         let fileName = '';
         fetch(`${this.baseUrl}export`, {
             method: 'POST',

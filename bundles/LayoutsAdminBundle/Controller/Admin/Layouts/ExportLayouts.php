@@ -37,8 +37,8 @@ final class ExportLayouts extends AbstractController
         $this->denyAccessUnlessGranted('nglayouts:ui:access');
 
         $layoutIds = Kernel::VERSION_ID >= 50100 ?
-            $request->request->all('layout_ids') :
-            (array) ($request->request->get('layout_ids') ?? []);
+            $request->request->all('item_ids') :
+            (array) ($request->request->get('item_ids') ?? []);
 
         $serializedLayouts = $this->serializer->serializeLayouts(array_unique($layoutIds));
 
