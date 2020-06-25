@@ -23,6 +23,8 @@ final class RuleVisitor implements VisitorInterface
 {
     use StatusStringTrait;
 
+    public const ENTITY_TYPE = 'rule';
+
     public function accept(object $value): bool
     {
         return $value instanceof Rule;
@@ -33,6 +35,7 @@ final class RuleVisitor implements VisitorInterface
         $layout = $value->getLayout();
 
         return [
+            '__type' => self::ENTITY_TYPE,
             'id' => $value->getId()->toString(),
             'status' => $this->getStatusString($value),
             'layout_id' => $layout instanceof Layout ? $layout->getId()->toString() : null,

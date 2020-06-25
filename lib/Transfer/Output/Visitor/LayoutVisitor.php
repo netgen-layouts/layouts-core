@@ -22,6 +22,8 @@ final class LayoutVisitor implements VisitorInterface
 {
     use StatusStringTrait;
 
+    public const ENTITY_TYPE = 'layout';
+
     public function accept(object $value): bool
     {
         return $value instanceof Layout;
@@ -30,7 +32,7 @@ final class LayoutVisitor implements VisitorInterface
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
         return [
-            '__type' => 'layout',
+            '__type' => self::ENTITY_TYPE,
             'id' => $value->getId()->toString(),
             'type_identifier' => $value->getLayoutType()->getIdentifier(),
             'name' => $value->getName(),

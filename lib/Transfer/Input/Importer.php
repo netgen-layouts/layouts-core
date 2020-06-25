@@ -50,9 +50,9 @@ final class Importer implements ImporterInterface
         foreach ($data['entities'] as $entityData) {
             try {
                 $layout = $this->layoutDataHandler->createLayout($entityData);
-                yield new SuccessResult('layout', $entityData, $layout->getId(), $layout);
+                yield new SuccessResult($entityData['__type'], $entityData, $layout->getId(), $layout);
             } catch (Throwable $t) {
-                yield new ErrorResult('layout', $entityData, Uuid::fromString($entityData['id']), $t);
+                yield new ErrorResult($entityData['__type'], $entityData, Uuid::fromString($entityData['id']), $t);
             }
         }
     }
