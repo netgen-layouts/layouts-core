@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\Layouts;
+namespace Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\Transfer;
 
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\Transfer\Output\SerializerInterface;
@@ -17,7 +17,7 @@ use function sprintf;
 use const JSON_PRETTY_PRINT;
 use const JSON_THROW_ON_ERROR;
 
-final class ExportLayouts extends AbstractController
+final class Export extends AbstractController
 {
     /**
      * @var \Netgen\Layouts\Transfer\Output\SerializerInterface
@@ -30,22 +30,28 @@ final class ExportLayouts extends AbstractController
     }
 
     /**
-     * Exports the provided list of layouts.
+     * Exports the provided list of items.
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(string $type, Request $request): Response
     {
         $this->denyAccessUnlessGranted('nglayouts:ui:access');
 
-        $layoutIds = Kernel::VERSION_ID >= 50100 ?
+        $itemIds = Kernel::VERSION_ID >= 50100 ?
             $request->request->all('item_ids') :
             (array) ($request->request->get('item_ids') ?? []);
 
-        $serializedLayouts = $this->serializer->serializeLayouts(array_unique($layoutIds));
+        $serializedItems = [];
 
-        $json = json_encode($serializedLayouts, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
+        if ($type === 'layout') {
+            $serializedItems = $this->serializer->serializeLayouts(array_unique($itemIds));
+        } elseif ($type === 'rule') {
+            $serializedItems = $this->serializer->serializeRules(array_unique($itemIds));
+        }
+
+        $json = json_encode($serializedItems, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
         $response = new Response($json);
 
-        $fileName = sprintf('layouts_export_%s.json', date('Y-m-d_H-i-s'));
+        $fileName = sprintf('netgen_layouts_export_%s.json', date('Y-m-d_H-i-s'));
         $disposition = $response->headers->makeDisposition(
             ResponseHeaderBag::DISPOSITION_ATTACHMENT,
             $fileName

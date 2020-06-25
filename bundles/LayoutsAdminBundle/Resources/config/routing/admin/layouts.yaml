@@ -8,11 +8,6 @@ nglayouts_admin_layouts_layout_copy:
     controller: netgen_layouts.controller.admin.layouts.copy_layout_form
     methods: [GET, POST]
 
-nglayouts_admin_layouts_export:
-    path: /export
-    controller: netgen_layouts.controller.admin.layouts.export_layouts
-    methods: [POST]
-
 nglayouts_admin_layouts_layout_delete:
     path: /{layoutId}/delete
     controller: netgen_layouts.controller.admin.layouts.delete_layout

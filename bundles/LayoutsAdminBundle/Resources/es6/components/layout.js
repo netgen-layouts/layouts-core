@@ -178,4 +178,8 @@ export default class NlLayout {
             behavior: 'smooth',
         });
     }
+
+    canExport() {
+        return this.published;
+    }
 }

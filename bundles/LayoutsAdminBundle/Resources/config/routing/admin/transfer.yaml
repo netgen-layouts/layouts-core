@@ -1,0 +1,4 @@
+nglayouts_admin_transfer_export:
+    path: /export/{type}
+    controller: netgen_layouts.controller.admin.transfer.export
+    methods: [POST]

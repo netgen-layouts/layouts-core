@@ -5,6 +5,10 @@ _nglayouts_admin_redirect:
 
 # Regular routes follow
 
+_nglayouts_admin_transfer:
+    resource: "admin/transfer.yaml"
+    prefix: /admin/transfer
+
 _nglayouts_admin_layout_resolver:
     resource: "admin/layout_resolver.yaml"
     prefix: /admin/mappings

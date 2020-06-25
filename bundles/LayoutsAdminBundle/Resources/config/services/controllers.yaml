@@ -1,6 +1,15 @@
 services:
     # Admin controllers
 
+    ## Transfer controllers
+
+    netgen_layouts.controller.admin.transfer.export:
+        class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\Transfer\Export
+        public: true
+        parent: netgen_layouts.controller.base
+        arguments:
+            - "@netgen_layouts.transfer.serializer"
+
     ## Layout resolver controllers
 
     netgen_layouts.controller.admin.layout_resolver.index:
@@ -149,13 +158,6 @@ services:
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout"
-
-    netgen_layouts.controller.admin.layouts.export_layouts:
-        class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\Layouts\ExportLayouts
-        public: true
-        parent: netgen_layouts.controller.base
-        arguments:
-            - "@netgen_layouts.transfer.serializer"
 
     netgen_layouts.controller.admin.layouts.delete_layout:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\Layouts\DeleteLayout
