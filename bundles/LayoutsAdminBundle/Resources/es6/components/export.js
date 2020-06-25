@@ -29,7 +29,7 @@ export default class NlExport {
             if (e.target.closest('.js-cancel-export')) {
                 this.endExport(e);
             } else if (e.target.closest('.js-download-export')) {
-                this.downloadExport(e, this.items);
+                this.downloadExport(e);
             }
         });
 
@@ -38,7 +38,7 @@ export default class NlExport {
     }
 
     toggleUI() {
-        if (!this.items.length) {
+        if (!Object.keys(this.items).length) {
             this.exportBtn.style.display = 'none';
         } else {
             this.exportBtn.style.display = 'inline-block';
@@ -53,21 +53,21 @@ export default class NlExport {
     endExport(e) {
         e && e.preventDefault();
         this.el.classList.remove('export');
-        this.items.forEach((item) => {
-            item.selected && item.toggleSelected(false);
+        Object.keys(this.items).forEach((key) => {
+            this.items[key].selected && this.items[key].toggleSelected(false);
         });
         this.toggleAllCheckbox.checked = false;
     }
 
     toggleSelectAll(e) {
-        this.items.forEach(item => item.canExport() && item.toggleSelected(e.currentTarget.checked));
+        Object.keys(this.items).forEach(key => this.items[key].canExport() && this.items[key].toggleSelected(e.currentTarget.checked));
     }
 
-    downloadExport(e, items) {
+    downloadExport(e) {
         e.preventDefault();
         const selectedItems = [];
         const layoutsAppEl = document.getElementsByClassName('ng-layouts-app')[0];
-        items.forEach(item => item.selected && selectedItems.push(item.id));
+        Object.keys(this.items).forEach(key => this.items[key].selected && selectedItems.push(this.items[key].id));
         layoutsAppEl.classList.add('ajax-loading');
         const itemIds = selectedItems.map(item => `item_ids[]=${item}`);
         const body = new URLSearchParams(itemIds.join('&'));

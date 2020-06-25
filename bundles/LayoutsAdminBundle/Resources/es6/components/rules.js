@@ -1,5 +1,6 @@
 import Sortable from 'sortablejs';
 import NlRule from './rule';
+import NlExport from './export';
 
 /* nl rules app plugin */
 export default class NlRules {
@@ -38,6 +39,7 @@ export default class NlRules {
             this.rules.ids.push(newRule.id);
         });
         this.filterMappings();
+        this.export = new NlExport(this.el, this.rules.byId, 'rule');
     }
 
     toggleUI() {

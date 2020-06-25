@@ -51,6 +51,9 @@ export default class NlRule {
         this.draftCreated = false;
         [this.priorityEl] = this.el.getElementsByClassName('rule-priority');
 
+        this.selectExport = document.getElementById(`export${this.id}`);
+        this.selected = this.selectExport && this.selectExport.checked;
+
         this.el.dataset.id = this.id;
         this.setupEvents();
         this.onRender();
@@ -518,5 +521,20 @@ export default class NlRule {
                 this.el.classList.toggle('show-body');
             }
         });
+
+        if (this.selectExport) {
+            this.selectExport.addEventListener('change', () => {
+                this.selected = this.selectExport.checked;
+            });
+        }
+    }
+
+    toggleSelected(select) {
+        this.selected = select;
+        this.selectExport.checked = select;
+    }
+
+    canExport() {
+        return true;
     }
 }

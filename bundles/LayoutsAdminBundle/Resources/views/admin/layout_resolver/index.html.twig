@@ -13,6 +13,7 @@
         <div class="layouts-header">
             <h2 class="layouts-title">{{ 'menu.main_menu.layout_resolver'|trans }}</h2>
             <div class="layouts-controls">
+                <a href="#" class="nl-btn js-export" title="{{ 'layout_resolver.export.title'|trans }}"><i class="material-icons">file_download</i></a>
                 <div class="nl-dropdown nl-filter-dropdown" data-position="right">
                     <span class="filter-checked-amount"></span>
                     <button class="nl-btn nl-btn-white nl-dropdown-toggle"><i class="material-icons">filter_list</i> {{ 'layout_resolver.filter_by_target'|trans }}</button>
@@ -49,9 +50,19 @@
                     <button class="nl-btn nl-btn-primary sorting-show js-sort-save">{{ 'layout_resolver.save_order'|trans }}</button>
                 {% endif %}
             </div>
+            <div class="export-controls">
+                <a href="#" class="nl-btn nl-btn-primary js-download-export">{{ 'layout_resolver.export.download'|trans }}</a>
+                <a href="" class="nl-btn nl-btn-white js-cancel-export">{{ 'layout_resolver.export.cancel'|trans }}</a>
+            </div>
             <p>{{ 'layout_resolver.priority.notice'|trans }}</p>
         </div>
         <div class="nl-rules-head">
+            <div class="nl-rule-cell">
+                <div class="nl-export-checkbox">
+                    <input type="checkbox" id="toggleSelectAll">
+                    <label for="toggleSelectAll"></label>
+                </div>
+            </div>
             <div class="nl-rule-cell rule-priority">{{ 'layout_resolver.priority'|trans }}</div>
             <div class="nl-rules-head-wrapper">
                 <div class="nl-rule-cell rule-layout">{{ 'layout_resolver.mapped_layout'|trans }}</div>
