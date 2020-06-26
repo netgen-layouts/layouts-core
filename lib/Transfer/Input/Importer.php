@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Transfer\Input;
 
 use Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler;
+use Netgen\Layouts\Transfer\Input\DataHandler\RuleDataHandler;
 use Netgen\Layouts\Transfer\Input\Result\ErrorResult;
 use Netgen\Layouts\Transfer\Input\Result\SuccessResult;
+use Netgen\Layouts\Transfer\Output\Visitor\LayoutVisitor;
+use Netgen\Layouts\Transfer\Output\Visitor\RuleVisitor;
 use Ramsey\Uuid\Uuid;
 use Throwable;
 use Traversable;
@@ -34,10 +37,19 @@ final class Importer implements ImporterInterface
      */
     private $layoutDataHandler;
 
-    public function __construct(JsonValidatorInterface $jsonValidator, LayoutDataHandler $layoutDataHandler)
-    {
+    /**
+     * @var \Netgen\Layouts\Transfer\Input\DataHandler\RuleDataHandler
+     */
+    private $ruleDataHandler;
+
+    public function __construct(
+        JsonValidatorInterface $jsonValidator,
+        LayoutDataHandler $layoutDataHandler,
+        RuleDataHandler $ruleDataHandler
+    ) {
         $this->jsonValidator = $jsonValidator;
         $this->layoutDataHandler = $layoutDataHandler;
+        $this->ruleDataHandler = $ruleDataHandler;
     }
 
     public function importData(string $data): Traversable
@@ -49,8 +61,13 @@ final class Importer implements ImporterInterface
 
         foreach ($data['entities'] as $entityData) {
             try {
-                $layout = $this->layoutDataHandler->createLayout($entityData);
-                yield new SuccessResult($entityData['__type'], $entityData, $layout->getId(), $layout);
+                if ($entityData['__type'] === LayoutVisitor::ENTITY_TYPE) {
+                    $layout = $this->layoutDataHandler->createLayout($entityData);
+                    yield new SuccessResult($entityData['__type'], $entityData, $layout->getId(), $layout);
+                } elseif ($entityData['__type'] === RuleVisitor::ENTITY_TYPE) {
+                    $rule = $this->ruleDataHandler->createRule($entityData);
+                    yield new SuccessResult($entityData['__type'], $entityData, $rule->getId(), $rule);
+                }
             } catch (Throwable $t) {
                 yield new ErrorResult($entityData['__type'], $entityData, Uuid::fromString($entityData['id']), $t);
             }

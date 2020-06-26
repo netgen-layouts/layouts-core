@@ -19,6 +19,11 @@
                         "if": { "type": "object", "properties": { "__type": { "const": "layout" } } },
                         "then": { "$ref": "#/definitions/complex/layout" },
                         "else": false
+                    },
+                    {
+                        "if": { "type": "object", "properties": { "__type": { "const": "rule" } } },
+                        "then": { "$ref": "#/definitions/complex/rule" },
+                        "else": false
                     }
                 ]
             }
@@ -460,6 +465,117 @@
                             { "type": "null" }
                         ],
                         "description": "The view type of the slot"
+                    }
+                }
+            },
+            "rule": {
+                "type": "object",
+                "description": "A rule",
+                "required": ["__type", "status", "layout_id", "is_enabled", "priority", "comment", "targets", "conditions"],
+                "additionalProperties": false,
+                "properties": {
+                    "__type": {
+                        "type": "string",
+                        "description": "The type of the entity to import",
+                        "const": "rule"
+                    },
+                    "id": {
+                        "$ref": "#/definitions/simple/uuid",
+                        "description": "The UUID of the rule"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "The status of the rule",
+                        "enum": ["DRAFT", "PUBLISHED", "ARCHIVED"]
+                    },
+                    "layout_id": {
+                        "oneOf": [
+                            { "$ref": "#/definitions/simple/uuid" },
+                            { "type": "null" }
+                        ],
+                        "description": "The ID of the mapped layout"
+                    },
+                    "is_enabled": {
+                        "type": "boolean",
+                        "description": "The flag indicating if the rule is active"
+                    },
+                    "priority": {
+                        "type": "integer",
+                        "description": "The rule priority"
+                    },
+                    "comment": {
+                        "type": ["string"],
+                        "description": "The comment of the rule"
+                    },
+                    "targets": {
+                        "type": "array",
+                        "description": "The list of targets in the rule",
+                        "items": {
+                            "$ref": "#/definitions/complex/target"
+                        }
+                    },
+                    "conditions": {
+                        "type": "array",
+                        "description": "The list of conditions in the rule",
+                        "items": {
+                            "$ref": "#/definitions/complex/condition"
+                        }
+                    }
+                }
+            },
+            "target": {
+                "type": "object",
+                "description": "A rule target",
+                "required": ["type", "value"],
+                "additionalProperties": false,
+                "properties": {
+                    "id": {
+                        "$ref": "#/definitions/simple/uuid",
+                        "description": "The UUID of the rule target"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "The type of the rule target",
+                        "pattern": "^[A-Za-z]([A-Za-z0-9_])*$"
+                    },
+                    "value": {
+                        "description": "The value of the rule target",
+                        "examples": [
+                            null,
+                            42,
+                            "2a7b26be9b0499dc087f3c6b7d2ec343",
+                            [24, "abc"],
+                            true,
+                            { "foo": "bar" }
+                        ]
+                    }
+                }
+            },
+            "condition": {
+                "type": "object",
+                "description": "A rule condition",
+                "required": ["type", "value"],
+                "additionalProperties": false,
+                "properties": {
+                    "id": {
+                        "$ref": "#/definitions/simple/uuid",
+                        "description": "The UUID of the rule condition"
+                    },
+                    "type": {
+                        "type": "string",
+                        "description": "The type of the rule condition",
+                        "pattern": "^[A-Za-z]([A-Za-z0-9_])*$"
+                    },
+                    "value": {
+                        "description": "The value of the rule condition",
+                        "examples": [
+                            null,
+                            42,
+                            "2a7b26be9b0499dc087f3c6b7d2ec343",
+                            [24, "abc"],
+                            true,
+                            { "foo": "bar" }
+                        ]
                     }
                 }
             }

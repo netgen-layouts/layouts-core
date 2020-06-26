@@ -50,24 +50,24 @@ final class RuleVisitor implements VisitorInterface
     /**
      * Visit the given $rule targets into hash representation.
      *
-     * @return \Generator<string, mixed>
+     * @return \Generator<array<string, mixed>>
      */
     private function visitTargets(Rule $rule, OutputVisitor $outputVisitor): Generator
     {
         foreach ($rule->getTargets() as $target) {
-            yield $target->getId()->toString() => $outputVisitor->visit($target);
+            yield $outputVisitor->visit($target);
         }
     }
 
     /**
      * Visit the given $rule conditions into hash representation.
      *
-     * @return \Generator<string, array<string, mixed>>
+     * @return \Generator<array<string, mixed>>
      */
     private function visitConditions(Rule $rule, OutputVisitor $outputVisitor): Generator
     {
         foreach ($rule->getConditions() as $condition) {
-            yield $condition->getId()->toString() => $outputVisitor->visit($condition);
+            yield $outputVisitor->visit($condition);
         }
     }
 }

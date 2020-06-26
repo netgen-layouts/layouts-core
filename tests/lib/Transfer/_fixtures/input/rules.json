@@ -1,0 +1,56 @@
+{
+    "__version": 1,
+    "entities": [
+        {
+            "__type": "rule",
+            "id": "6106c759-d6c0-571b-a052-1ed8e4b56fa8",
+            "status": "PUBLISHED",
+            "layout_id": "81168ed3-86f9-55ea-b153-101f96f2c136",
+            "is_enabled": true,
+            "priority": 120,
+            "comment": "First rule",
+            "targets": [
+                {
+                    "id": "57f5a929-ff00-5fcb-8fdf-3be3b1428df3",
+                    "type": "route",
+                    "value": "my_route"
+                }
+            ],
+            "conditions": []
+        },
+        {
+            "__type": "rule",
+            "id": "1c2e0fe1-7014-409f-ac17-1206464ad386",
+            "status": "PUBLISHED",
+            "layout_id": "71cbe281-430c-51d5-8e21-c3cc4e656dac",
+            "is_enabled": true,
+            "priority": 110,
+            "comment": "Second rule",
+            "targets": [],
+            "conditions": [
+                {
+                    "id": "1ef0b8d2-f12a-4f0a-8df5-cc65dc59a930",
+                    "type": "route_parameter",
+                    "value": {
+                        "parameter_name": "foo",
+                        "parameter_values": [
+                            "bar",
+                            "baz"
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "__type": "rule",
+            "id": "39100058-9fcb-52f9-b279-bc49450791d3",
+            "status": "PUBLISHED",
+            "layout_id": null,
+            "is_enabled": false,
+            "priority": 100,
+            "comment": "Third rule",
+            "targets": [],
+            "conditions": []
+        }
+    ]
+}

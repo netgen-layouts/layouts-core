@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\Transfer\Input\Integration;
 
 use Coduo\PHPMatcher\Factory\SimpleFactory;
 use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Block\BlockDefinition\Handler\CommonParametersPlugin;
 use Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
 use Netgen\Layouts\Block\BlockDefinitionFactory;
@@ -25,6 +26,7 @@ use Netgen\Layouts\Standard\Block\BlockDefinition\Handler\TitleHandler;
 use Netgen\Layouts\Tests\Config\Stubs\Block\ConfigHandler;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler;
+use Netgen\Layouts\Transfer\Input\DataHandler\RuleDataHandler;
 use Netgen\Layouts\Transfer\Input\Importer;
 use Netgen\Layouts\Transfer\Input\JsonValidator;
 use Netgen\Layouts\Transfer\Input\Result\ErrorResult;
@@ -103,6 +105,11 @@ abstract class ImporterTest extends CoreTestCase
                 $this->itemDefinitionRegistry,
                 $this->queryTypeRegistry,
                 $this->cmsItemLoaderMock
+            ),
+            new RuleDataHandler(
+                $this->layoutResolverService,
+                $this->targetTypeRegistry,
+                $this->conditionTypeRegistry
             )
         );
 
@@ -117,6 +124,9 @@ abstract class ImporterTest extends CoreTestCase
             new Visitor\PlaceholderVisitor(),
             new Visitor\QueryVisitor($this->collectionService),
             new Visitor\ZoneVisitor($this->blockService),
+            new Visitor\RuleVisitor(),
+            new Visitor\TargetVisitor(),
+            new Visitor\ConditionVisitor(),
         ];
 
         $this->serializer = new Serializer(
@@ -129,11 +139,49 @@ abstract class ImporterTest extends CoreTestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Transfer\Input\DataHandler\RuleDataHandler
+     * @covers \Netgen\Layouts\Transfer\Input\Importer::__construct
+     * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
+     */
+    public function testImportRules(): void
+    {
+        $importData = (string) file_get_contents(__DIR__ . '/../../_fixtures/input/rules.json');
+        $decodedData = json_decode((string) preg_replace('/[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}/', '@uuid@', $importData), true);
+
+        foreach ($this->importer->importData($importData) as $index => $result) {
+            self::assertInstanceOf(SuccessResult::class, $result);
+            self::assertInstanceOf(Rule::class, $result->getEntity());
+            self::assertSame($result->getEntity()->getId()->toString(), $result->getEntityId()->toString());
+
+            $ruleData = $decodedData['entities'][$index];
+            $exportedRuleData = $this->serializer->serializeRules([$result->getEntityId()->toString()]);
+
+            $exportedRuleData = $exportedRuleData['entities'][0];
+
+            $matcher = $this->matcherFactory->createMatcher();
+            $matchResult = $matcher->match($exportedRuleData, $ruleData);
+
+            if (!$matchResult) {
+                $differ = new Differ(new UnifiedDiffOutputBuilder("--- Expected\n+++ Actual\n", false));
+                $diff = $differ->diff(
+                    (string) json_encode($ruleData, JSON_PRETTY_PRINT),
+                    (string) json_encode($exportedRuleData, JSON_PRETTY_PRINT)
+                );
+
+                self::fail($matcher->getError() . PHP_EOL . $diff);
+            }
+        }
+
+        // We fake the assertion count to disable risky warning
+        $this->addToAssertionCount(1);
+    }
+
+    /**
      * @covers \Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler
      * @covers \Netgen\Layouts\Transfer\Input\Importer::__construct
      * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
      */
-    public function testImportData(): void
+    public function testImportLayouts(): void
     {
         $importData = (string) file_get_contents(__DIR__ . '/../../_fixtures/input/layouts.json');
         $decodedData = json_decode((string) preg_replace('/[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}/', '@uuid@', $importData), true, 512, JSON_THROW_ON_ERROR);
@@ -182,7 +230,7 @@ abstract class ImporterTest extends CoreTestCase
      * @covers \Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler
      * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
      */
-    public function testImportDataWithMissingQueryTranslationThrowsRuntimeException(): void
+    public function testImportLayoutsWithMissingQueryTranslationThrowsRuntimeException(): void
     {
         $layoutData = (string) file_get_contents(
             __DIR__ . '/../../_fixtures/input/invalid/missing_query_parameters_in_translation.json'
@@ -199,7 +247,7 @@ abstract class ImporterTest extends CoreTestCase
      * @covers \Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler
      * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
      */
-    public function testImportDataWithMissingMainQueryTranslationThrowsRuntimeException(): void
+    public function testImportLayoutsWithMissingMainQueryTranslationThrowsRuntimeException(): void
     {
         $layoutData = (string) file_get_contents(
             __DIR__ . '/../../_fixtures/input/invalid/missing_query_parameters_in_main_translation.json'
@@ -216,7 +264,7 @@ abstract class ImporterTest extends CoreTestCase
      * @covers \Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler
      * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
      */
-    public function testImportDataWithMissingBlockTranslationThrowsRuntimeException(): void
+    public function testImportLayoutsWithMissingBlockTranslationThrowsRuntimeException(): void
     {
         $layoutData = (string) file_get_contents(
             __DIR__ . '/../../_fixtures/input/invalid/missing_block_parameters_in_translation.json'
@@ -233,7 +281,7 @@ abstract class ImporterTest extends CoreTestCase
      * @covers \Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler
      * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
      */
-    public function testImportDataWithMissingMainBlockTranslationThrowsRuntimeException(): void
+    public function testImportLayoutsWithMissingMainBlockTranslationThrowsRuntimeException(): void
     {
         $layoutData = (string) file_get_contents(
             __DIR__ . '/../../_fixtures/input/invalid/missing_block_parameters_in_main_translation.json'
@@ -250,7 +298,7 @@ abstract class ImporterTest extends CoreTestCase
      * @covers \Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler
      * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
      */
-    public function testImportDataWithMissingZoneThrowsRuntimeException(): void
+    public function testImportLayoutsWithMissingZoneThrowsRuntimeException(): void
     {
         $layoutData = (string) file_get_contents(
             __DIR__ . '/../../_fixtures/input/invalid/missing_zone.json'

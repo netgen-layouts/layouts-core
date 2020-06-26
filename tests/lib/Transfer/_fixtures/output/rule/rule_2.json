@@ -6,11 +6,11 @@
     "is_enabled": true,
     "priority": 8,
     "comment": "My other comment",
-    "targets": {
-        "59cbea15-a034-5fcf-ba9b-d59426d6b601": ["visited_value"],
-        "48c8c075-83f0-53f5-8192-4530b6d5a17b": ["visited_value"]
-    },
-    "conditions": {
-        "35f4594c-6674-5815-add6-07f288b79686": ["visited_value"]
-    }
+    "targets": [
+        ["visited_value"],
+        ["visited_value"]
+    ],
+    "conditions": [
+        ["visited_value"]
+    ]
 }
