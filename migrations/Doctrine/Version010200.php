@@ -28,6 +28,11 @@ final class Version010200 extends AbstractMigration
         $this->addSql('ALTER TABLE nglayouts_rule DROP KEY idx_ngl_related_layout, ADD KEY idx_ngl_related_layout(layout_uuid)');
         $this->addSql('UPDATE nglayouts_rule r LEFT JOIN nglayouts_layout l ON r.layout_id = l.id SET r.layout_uuid = l.uuid');
         $this->addSql('ALTER TABLE nglayouts_rule DROP COLUMN layout_id');
+
+        $this->addSql('ALTER TABLE nglayouts_zone ADD COLUMN linked_layout_uuid char(36) DEFAULT NULL AFTER linked_layout_id');
+        $this->addSql('ALTER TABLE nglayouts_zone DROP KEY idx_ngl_linked_zone, ADD KEY idx_ngl_linked_zone(linked_layout_uuid, linked_zone_identifier)');
+        $this->addSql('UPDATE nglayouts_zone z LEFT JOIN nglayouts_layout l ON z.linked_layout_id = l.id SET z.linked_layout_uuid = l.uuid');
+        $this->addSql('ALTER TABLE nglayouts_zone DROP COLUMN linked_layout_id');
     }
 
     public function down(Schema $schema): void
@@ -49,5 +54,10 @@ final class Version010200 extends AbstractMigration
         $this->addSql('ALTER TABLE nglayouts_rule DROP KEY idx_ngl_related_layout, ADD KEY idx_ngl_related_layout(layout_id)');
         $this->addSql('UPDATE nglayouts_rule r LEFT JOIN nglayouts_layout l ON r.layout_uuid = l.uuid SET r.layout_id = l.id');
         $this->addSql('ALTER TABLE nglayouts_rule DROP COLUMN layout_uuid');
+
+        $this->addSql('ALTER TABLE nglayouts_zone ADD COLUMN linked_layout_id int(11) DEFAULT NULL AFTER linked_layout_uuid');
+        $this->addSql('ALTER TABLE nglayouts_zone DROP KEY idx_ngl_linked_zone, ADD KEY idx_ngl_linked_zone(linked_layout_id, linked_zone_identifier)');
+        $this->addSql('UPDATE nglayouts_zone z LEFT JOIN nglayouts_layout l ON z.linked_layout_uuid = l.uuid SET z.linked_layout_id = l.id');
+        $this->addSql('ALTER TABLE nglayouts_zone DROP COLUMN linked_layout_uuid');
     }
 }

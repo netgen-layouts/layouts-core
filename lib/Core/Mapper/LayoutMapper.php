@@ -47,14 +47,14 @@ final class LayoutMapper
             'layoutId' => Uuid::fromString($zone->layoutUuid),
             'status' => $zone->status,
             'linkedZone' => function () use ($zone): ?Zone {
-                if ($zone->linkedLayoutId === null || $zone->linkedZoneIdentifier === null) {
+                if ($zone->linkedLayoutUuid === null || $zone->linkedZoneIdentifier === null) {
                     return null;
                 }
 
                 try {
                     // We're always using published versions of linked zones
                     $linkedZone = $this->layoutHandler->loadZone(
-                        $zone->linkedLayoutId,
+                        $zone->linkedLayoutUuid,
                         PersistenceValue::STATUS_PUBLISHED,
                         $zone->linkedZoneIdentifier
                     );

@@ -202,7 +202,7 @@ final class LayoutQueryHandler extends QueryHandler
             $query->expr()->andX(
                 $query->expr()->eq('z.layout_id', 'l.id'),
                 $query->expr()->eq('z.status', 'l.status'),
-                $query->expr()->eq('z.linked_layout_id', ':linked_layout_id')
+                $query->expr()->eq('z.linked_layout_uuid', ':linked_layout_uuid')
             )
         )
         ->where(
@@ -213,7 +213,7 @@ final class LayoutQueryHandler extends QueryHandler
         )
         ->setParameter('shared', false, Types::BOOLEAN)
         ->setParameter('status', Value::STATUS_PUBLISHED, Types::INTEGER)
-        ->setParameter('linked_layout_id', $sharedLayout->id, Types::INTEGER);
+        ->setParameter('linked_layout_uuid', $sharedLayout->uuid, Types::STRING);
 
         $query->orderBy('l.name', 'ASC');
 
@@ -235,7 +235,7 @@ final class LayoutQueryHandler extends QueryHandler
                 $query->expr()->andX(
                     $query->expr()->eq('z.layout_id', 'nglayouts_layout.id'),
                     $query->expr()->eq('z.status', 'nglayouts_layout.status'),
-                    $query->expr()->eq('z.linked_layout_id', ':linked_layout_id')
+                    $query->expr()->eq('z.linked_layout_uuid', ':linked_layout_uuid')
                 )
             )
             ->where(
@@ -246,7 +246,7 @@ final class LayoutQueryHandler extends QueryHandler
             )
             ->setParameter('shared', false, Types::BOOLEAN)
             ->setParameter('status', Value::STATUS_PUBLISHED, Types::INTEGER)
-            ->setParameter('linked_layout_id', $sharedLayout->id, Types::INTEGER);
+            ->setParameter('linked_layout_uuid', $sharedLayout->uuid, Types::STRING);
 
         $data = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
 
@@ -441,7 +441,7 @@ final class LayoutQueryHandler extends QueryHandler
                     'layout_id' => ':layout_id',
                     'status' => ':status',
                     'root_block_id' => ':root_block_id',
-                    'linked_layout_id' => ':linked_layout_id',
+                    'linked_layout_uuid' => ':linked_layout_uuid',
                     'linked_zone_identifier' => ':linked_zone_identifier',
                 ]
             )
@@ -449,7 +449,7 @@ final class LayoutQueryHandler extends QueryHandler
             ->setParameter('layout_id', $zone->layoutId, Types::INTEGER)
             ->setParameter('status', $zone->status, Types::INTEGER)
             ->setParameter('root_block_id', $zone->rootBlockId, Types::INTEGER)
-            ->setParameter('linked_layout_id', $zone->linkedLayoutId, Types::INTEGER)
+            ->setParameter('linked_layout_uuid', $zone->linkedLayoutUuid, Types::STRING)
             ->setParameter('linked_zone_identifier', $zone->linkedZoneIdentifier, Types::STRING);
 
         $query->execute();
@@ -498,7 +498,7 @@ final class LayoutQueryHandler extends QueryHandler
         $query
             ->update('nglayouts_zone')
             ->set('root_block_id', ':root_block_id')
-            ->set('linked_layout_id', ':linked_layout_id')
+            ->set('linked_layout_uuid', ':linked_layout_uuid')
             ->set('linked_zone_identifier', ':linked_zone_identifier')
             ->where(
                 $query->expr()->andX(
@@ -509,7 +509,7 @@ final class LayoutQueryHandler extends QueryHandler
             ->setParameter('layout_id', $zone->layoutId, Types::INTEGER)
             ->setParameter('identifier', $zone->identifier, Types::STRING)
             ->setParameter('root_block_id', $zone->rootBlockId, Types::INTEGER)
-            ->setParameter('linked_layout_id', $zone->linkedLayoutId, Types::INTEGER)
+            ->setParameter('linked_layout_uuid', $zone->linkedLayoutUuid, Types::STRING)
             ->setParameter('linked_zone_identifier', $zone->linkedZoneIdentifier, Types::STRING);
 
         $this->applyStatusCondition($query, $zone->status);

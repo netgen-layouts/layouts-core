@@ -80,7 +80,7 @@ CREATE TABLE nglayouts_zone (
   layout_id int NOT NULL,
   status int NOT NULL,
   root_block_id int NOT NULL,
-  linked_layout_id int,
+  linked_layout_uuid nchar(36),
   linked_zone_identifier nvarchar(255),
   PRIMARY KEY (identifier, layout_id, status),
   FOREIGN KEY (layout_id, status)

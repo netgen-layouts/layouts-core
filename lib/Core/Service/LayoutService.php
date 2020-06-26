@@ -480,13 +480,13 @@ final class LayoutService extends Service implements LayoutServiceInterface
 
                     $oldZone = $layoutZones[$oldZones[0]];
 
-                    if ($oldZone->linkedLayoutId !== null && $oldZone->linkedZoneIdentifier !== null) {
+                    if ($oldZone->linkedLayoutUuid !== null && $oldZone->linkedZoneIdentifier !== null) {
                         $this->layoutHandler->updateZone(
                             $this->layoutHandler->loadZone($updatedLayout->id, Value::STATUS_DRAFT, $newZone),
                             ZoneUpdateStruct::fromArray(
                                 [
                                     'linkedZone' => $this->layoutHandler->loadZone(
-                                        $oldZone->linkedLayoutId,
+                                        $oldZone->linkedLayoutUuid,
                                         Value::STATUS_PUBLISHED,
                                         $oldZone->linkedZoneIdentifier
                                     ),

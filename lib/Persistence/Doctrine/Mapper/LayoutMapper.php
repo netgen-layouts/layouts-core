@@ -78,7 +78,7 @@ final class LayoutMapper
                     'layoutUuid' => $dataItem['layout_uuid'],
                     'status' => (int) $dataItem['status'],
                     'rootBlockId' => (int) $dataItem['root_block_id'],
-                    'linkedLayoutId' => $dataItem['linked_layout_id'] !== null ? (int) $dataItem['linked_layout_id'] : null,
+                    'linkedLayoutUuid' => $dataItem['linked_layout_uuid'],
                     'linkedZoneIdentifier' => $dataItem['linked_zone_identifier'],
                 ]
             );

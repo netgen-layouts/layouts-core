@@ -278,12 +278,12 @@ final class LayoutHandler implements LayoutHandlerInterface
             'status' => $layout->status,
             'rootBlockId' => $rootBlock->id,
             'identifier' => $zoneCreateStruct->identifier,
-            'linkedLayoutId' => null,
+            'linkedLayoutUuid' => null,
             'linkedZoneIdentifier' => null,
         ];
 
         if ($zoneCreateStruct->linkedZone instanceof Zone) {
-            $newZoneData['linkedLayoutId'] = $zoneCreateStruct->linkedZone->layoutId;
+            $newZoneData['linkedLayoutUuid'] = $zoneCreateStruct->linkedZone->layoutUuid;
             $newZoneData['linkedZoneIdentifier'] = $zoneCreateStruct->linkedZone->identifier;
         }
 
@@ -320,11 +320,11 @@ final class LayoutHandler implements LayoutHandlerInterface
         $updatedZone = clone $zone;
 
         if ($zoneUpdateStruct->linkedZone instanceof Zone) {
-            $updatedZone->linkedLayoutId = $zoneUpdateStruct->linkedZone->layoutId;
+            $updatedZone->linkedLayoutUuid = $zoneUpdateStruct->linkedZone->layoutUuid;
             $updatedZone->linkedZoneIdentifier = $zoneUpdateStruct->linkedZone->identifier;
         } elseif ($zoneUpdateStruct->linkedZone !== null) {
             // Linked zone other than a zone object (e.g. false) indicates we want to remove the link
-            $updatedZone->linkedLayoutId = null;
+            $updatedZone->linkedLayoutUuid = null;
             $updatedZone->linkedZoneIdentifier = null;
         }
 
@@ -359,10 +359,10 @@ final class LayoutHandler implements LayoutHandlerInterface
         foreach ($layoutZones as $layoutZone) {
             $linkedZone = null;
 
-            if ($layoutZone->linkedLayoutId !== null && $layoutZone->linkedZoneIdentifier !== null) {
+            if ($layoutZone->linkedLayoutUuid !== null && $layoutZone->linkedZoneIdentifier !== null) {
                 try {
                     $linkedZone = $this->loadZone(
-                        $layoutZone->linkedLayoutId,
+                        $layoutZone->linkedLayoutUuid,
                         Value::STATUS_PUBLISHED,
                         $layoutZone->linkedZoneIdentifier
                     );
@@ -451,7 +451,7 @@ final class LayoutHandler implements LayoutHandlerInterface
                     'status' => $layout->status,
                     'rootBlockId' => $rootBlock->id,
                     'identifier' => $newZoneIdentifier,
-                    'linkedLayoutId' => null,
+                    'linkedLayoutUuid' => null,
                     'linkedZoneIdentifier' => null,
                 ]
             );

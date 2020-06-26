@@ -84,7 +84,7 @@ CREATE TABLE `nglayouts_zone` (
   `layout_id` integer NOT NULL,
   `status` integer NOT NULL,
   `root_block_id` integer NOT NULL,
-  `linked_layout_id` integer,
+  `linked_layout_uuid` text(36),
   `linked_zone_identifier` text(255),
   PRIMARY KEY (`identifier`, `layout_id`, `status`),
   FOREIGN KEY (`layout_id`, `status`)

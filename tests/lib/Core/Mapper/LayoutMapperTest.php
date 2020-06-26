@@ -38,7 +38,7 @@ abstract class LayoutMapperTest extends CoreTestCase
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'status' => Value::STATUS_PUBLISHED,
                 'rootBlockId' => 3,
-                'linkedLayoutId' => 3,
+                'linkedLayoutUuid' => 'd8e55af7-cf62-5f28-ae15-331b457d82e9',
                 'linkedZoneIdentifier' => 'right',
             ]
         );
@@ -66,7 +66,7 @@ abstract class LayoutMapperTest extends CoreTestCase
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'status' => Value::STATUS_PUBLISHED,
                 'rootBlockId' => 3,
-                'linkedLayoutId' => null,
+                'linkedLayoutUuid' => null,
                 'linkedZoneIdentifier' => null,
             ]
         );
@@ -91,7 +91,7 @@ abstract class LayoutMapperTest extends CoreTestCase
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'status' => Value::STATUS_PUBLISHED,
                 'rootBlockId' => 3,
-                'linkedLayoutId' => 9999,
+                'linkedLayoutUuid' => 'd8e55af7-cf62-5f28-ae15-331b457d82e9',
                 'linkedZoneIdentifier' => 'unknown',
             ]
         );

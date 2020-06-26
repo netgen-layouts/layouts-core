@@ -427,12 +427,12 @@ CREATE TABLE `nglayouts_zone` (
   `layout_id` int(11) NOT NULL,
   `status` int(11) NOT NULL,
   `root_block_id` int(11) NOT NULL,
-  `linked_layout_id` int(11) DEFAULT NULL,
+  `linked_layout_uuid` char(36) DEFAULT NULL,
   `linked_zone_identifier` varchar(191) DEFAULT NULL,
   PRIMARY KEY (`identifier`,`layout_id`,`status`),
   KEY `idx_ngl_layout` (`layout_id`,`status`),
   KEY `idx_ngl_root_block` (`root_block_id`,`status`),
-  KEY `idx_ngl_linked_zone` (`linked_layout_id`,`linked_zone_identifier`),
+  KEY `idx_ngl_linked_zone` (`linked_layout_uuid`,`linked_zone_identifier`),
   CONSTRAINT `fk_ngl_zone_block` FOREIGN KEY (`root_block_id`, `status`)
     REFERENCES `nglayouts_block` (`id`, `status`),
   CONSTRAINT `fk_ngl_zone_layout` FOREIGN KEY (`layout_id`, `status`)

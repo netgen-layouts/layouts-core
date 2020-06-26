@@ -40,11 +40,11 @@ final class Zone extends Value
     public $rootBlockId;
 
     /**
-     * ID of layout this zone is linked to or null if no zone is linked.
+     * UUID of layout this zone is linked to or null if no zone is linked.
      *
-     * @var int|null
+     * @var string|null
      */
-    public $linkedLayoutId;
+    public $linkedLayoutUuid;
 
     /**
      * Zone identifier this zone is linked to or null if no zone is linked.

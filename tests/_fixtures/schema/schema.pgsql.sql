@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS "nglayouts_zone" (
   "layout_id" integer NOT NULL,
   "status" integer NOT NULL,
   "root_block_id" integer NOT NULL,
-  "linked_layout_id" integer,
+  "linked_layout_uuid" character(36),
   "linked_zone_identifier" character varying(255),
   PRIMARY KEY ("identifier", "layout_id", "status"),
   FOREIGN KEY ("layout_id", "status") REFERENCES nglayouts_layout ("id", "status"),
