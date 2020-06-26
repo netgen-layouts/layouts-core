@@ -152,7 +152,6 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
             [
                 'uuid' => Uuid::uuid4()->toString(),
                 'status' => $ruleCreateStruct->status,
-                'layoutId' => $layout instanceof Layout ? $layout->id : null,
                 'layoutUuid' => $layout instanceof Layout ? $layout->uuid : null,
                 'enabled' => $ruleCreateStruct->enabled ? true : false,
                 'priority' => $this->getRulePriority($ruleCreateStruct),
@@ -170,11 +169,9 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         if ($ruleUpdateStruct->layoutId !== null && !is_bool($ruleUpdateStruct->layoutId)) {
             $layout = $this->layoutHandler->loadLayout($ruleUpdateStruct->layoutId, Value::STATUS_PUBLISHED);
 
-            $updatedRule->layoutId = $layout->id;
             $updatedRule->layoutUuid = $layout->uuid;
         } elseif ($ruleUpdateStruct->layoutId === false) {
             // Layout ID can be "false", to indicate removal of the linked layout
-            $updatedRule->layoutId = null;
             $updatedRule->layoutUuid = null;
         }
 

@@ -23,6 +23,11 @@ final class Version010200 extends AbstractMigration
         $this->addSql('ALTER TABLE nglayouts_rule CHANGE comment comment LONGTEXT NOT NULL');
         $this->addSql('ALTER TABLE nglayouts_rule_condition CHANGE value value LONGTEXT NOT NULL');
         $this->addSql('ALTER TABLE nglayouts_rule_target CHANGE value value LONGTEXT NOT NULL');
+
+        $this->addSql('ALTER TABLE nglayouts_rule ADD COLUMN layout_uuid char(36) DEFAULT NULL AFTER layout_id');
+        $this->addSql('ALTER TABLE nglayouts_rule DROP KEY idx_ngl_related_layout, ADD KEY idx_ngl_related_layout(layout_uuid)');
+        $this->addSql('UPDATE nglayouts_rule r LEFT JOIN nglayouts_layout l ON r.layout_id = l.id SET r.layout_uuid = l.uuid');
+        $this->addSql('ALTER TABLE nglayouts_rule DROP COLUMN layout_id');
     }
 
     public function down(Schema $schema): void
@@ -39,5 +44,10 @@ final class Version010200 extends AbstractMigration
         $this->addSql('ALTER TABLE nglayouts_rule CHANGE comment comment TEXT NOT NULL');
         $this->addSql('ALTER TABLE nglayouts_rule_condition CHANGE value value TEXT NOT NULL');
         $this->addSql('ALTER TABLE nglayouts_rule_target CHANGE value value TEXT NOT NULL');
+
+        $this->addSql('ALTER TABLE nglayouts_rule ADD COLUMN layout_id int(11) DEFAULT NULL AFTER layout_uuid');
+        $this->addSql('ALTER TABLE nglayouts_rule DROP KEY idx_ngl_related_layout, ADD KEY idx_ngl_related_layout(layout_id)');
+        $this->addSql('UPDATE nglayouts_rule r LEFT JOIN nglayouts_layout l ON r.layout_uuid = l.uuid SET r.layout_id = l.id');
+        $this->addSql('ALTER TABLE nglayouts_rule DROP COLUMN layout_uuid');
     }
 }

@@ -39,7 +39,6 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
                 'id' => 3,
                 'uuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
                 'status' => Value::STATUS_PUBLISHED,
-                'layoutId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'enabled' => true,
                 'priority' => 12,
@@ -69,7 +68,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
         $persistenceRule = Rule::fromArray(
             [
                 'uuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
-                'layoutId' => Uuid::uuid4(),
+                'layoutUuid' => Uuid::uuid4()->toString(),
             ]
         );
 

@@ -68,7 +68,6 @@ final class LayoutResolverHandlerTest extends TestCase
             [
                 'id' => 1,
                 'uuid' => '26768324-03dd-5952-8a55-4b449d6cd634',
-                'layoutId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'enabled' => true,
                 'priority' => 9,
@@ -325,7 +324,6 @@ final class LayoutResolverHandlerTest extends TestCase
 
         self::assertSame(13, $createdRule->id);
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $createdRule->uuid);
-        self::assertSame(3, $createdRule->layoutId);
         self::assertSame('d8e55af7-cf62-5f28-ae15-331b457d82e9', $createdRule->layoutUuid);
         self::assertSame(5, $createdRule->priority);
         self::assertTrue($createdRule->enabled);
@@ -353,7 +351,6 @@ final class LayoutResolverHandlerTest extends TestCase
 
         self::assertSame(13, $createdRule->id);
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $createdRule->uuid);
-        self::assertNull($createdRule->layoutId);
         self::assertNull($createdRule->layoutUuid);
         self::assertSame(-12, $createdRule->priority);
         self::assertFalse($createdRule->enabled);
@@ -406,7 +403,6 @@ final class LayoutResolverHandlerTest extends TestCase
 
         self::assertSame(3, $updatedRule->id);
         self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $updatedRule->uuid);
-        self::assertSame(6, $updatedRule->layoutId);
         self::assertSame('7900306c-0351-5f0a-9b33-5d4f5a1f3943', $updatedRule->layoutUuid);
         self::assertSame('New comment', $updatedRule->comment);
         self::assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
@@ -428,7 +424,6 @@ final class LayoutResolverHandlerTest extends TestCase
 
         self::assertSame(3, $updatedRule->id);
         self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $updatedRule->uuid);
-        self::assertNull($updatedRule->layoutId);
         self::assertNull($updatedRule->layoutUuid);
         self::assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
     }
@@ -446,7 +441,6 @@ final class LayoutResolverHandlerTest extends TestCase
 
         self::assertSame(3, $updatedRule->id);
         self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $updatedRule->uuid);
-        self::assertSame(3, $updatedRule->layoutId);
         self::assertSame('d8e55af7-cf62-5f28-ae15-331b457d82e9', $updatedRule->layoutUuid);
         self::assertSame($rule->comment, $updatedRule->comment);
         self::assertSame(Value::STATUS_PUBLISHED, $updatedRule->status);
@@ -516,7 +510,6 @@ final class LayoutResolverHandlerTest extends TestCase
 
         self::assertSame(13, $copiedRule->id);
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedRule->uuid);
-        self::assertSame($rule->layoutId, $copiedRule->layoutId);
         self::assertSame($rule->layoutUuid, $copiedRule->layoutUuid);
         self::assertSame($rule->priority, $copiedRule->priority);
         self::assertSame($rule->enabled, $copiedRule->enabled);
@@ -583,7 +576,6 @@ final class LayoutResolverHandlerTest extends TestCase
 
         self::assertSame($rule->id, $copiedRule->id);
         self::assertSame($rule->uuid, $copiedRule->uuid);
-        self::assertSame($rule->layoutId, $copiedRule->layoutId);
         self::assertSame($rule->layoutUuid, $copiedRule->layoutUuid);
         self::assertSame($rule->priority, $copiedRule->priority);
         self::assertSame($rule->enabled, $copiedRule->enabled);

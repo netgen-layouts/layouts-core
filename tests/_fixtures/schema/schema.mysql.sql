@@ -185,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `nglayouts_rule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `uuid` char(36) NOT NULL,
-  `layout_id` int(11) DEFAULT NULL,
+  `layout_uuid` char(36) DEFAULT NULL,
   `comment` longtext NOT NULL,
   PRIMARY KEY (`id`, `status`),
   UNIQUE KEY (`uuid`, `status`)

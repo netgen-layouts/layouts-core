@@ -255,7 +255,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willReturn(
                 PersistenceRule::fromArray(
                     [
-                        'layoutId' => 42,
+                        'layoutUuid' => Uuid::uuid4()->toString(),
                         'enabled' => false,
                     ]
                 )

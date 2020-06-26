@@ -64,9 +64,9 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         if ($layout instanceof Layout) {
             $query->andWhere(
-                $query->expr()->eq('layout_id', ':layout_id')
+                $query->expr()->eq('layout_uuid', ':layout_uuid')
             )
-            ->setParameter('layout_id', $layout->id, Types::INTEGER);
+            ->setParameter('layout_uuid', $layout->uuid, Types::STRING);
         }
 
         $query->addOrderBy('rd.priority', 'DESC');
@@ -88,9 +88,9 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         if ($layout instanceof Layout) {
             $query->andWhere(
-                $query->expr()->eq('layout_id', ':layout_id')
+                $query->expr()->eq('layout_uuid', ':layout_uuid')
             )
-            ->setParameter('layout_id', $layout->id, Types::INTEGER);
+            ->setParameter('layout_uuid', $layout->uuid, Types::STRING);
         }
 
         $this->applyStatusCondition($query, $ruleStatus);
@@ -277,14 +277,14 @@ final class LayoutResolverQueryHandler extends QueryHandler
                     'id' => ':id',
                     'uuid' => ':uuid',
                     'status' => ':status',
-                    'layout_id' => ':layout_id',
+                    'layout_uuid' => ':layout_uuid',
                     'comment' => ':comment',
                 ]
             )
             ->setValue('id', $rule->id ?? $this->connectionHelper->getAutoIncrementValue('nglayouts_rule'))
             ->setParameter('uuid', $rule->uuid, Types::STRING)
             ->setParameter('status', $rule->status, Types::INTEGER)
-            ->setParameter('layout_id', $rule->layoutId, Types::INTEGER)
+            ->setParameter('layout_uuid', $rule->layoutUuid, Types::STRING)
             ->setParameter('comment', $rule->comment, Types::STRING);
 
         $query->execute();
@@ -320,14 +320,14 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query
             ->update('nglayouts_rule')
             ->set('uuid', ':uuid')
-            ->set('layout_id', ':layout_id')
+            ->set('layout_uuid', ':layout_uuid')
             ->set('comment', ':comment')
             ->where(
                 $query->expr()->eq('id', ':id')
             )
             ->setParameter('id', $rule->id, Types::INTEGER)
             ->setParameter('uuid', $rule->uuid, Types::STRING)
-            ->setParameter('layout_id', $rule->layoutId, Types::INTEGER)
+            ->setParameter('layout_uuid', $rule->layoutUuid, Types::STRING)
             ->setParameter('comment', $rule->comment, Types::STRING);
 
         $this->applyStatusCondition($query, $rule->status);
@@ -593,7 +593,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 'nglayouts_layout',
                 'l',
                 $query->expr()->andX(
-                    $query->expr()->eq('r.layout_id', 'l.id'),
+                    $query->expr()->eq('r.layout_uuid', 'l.uuid'),
                     $query->expr()->eq('l.status', Value::STATUS_PUBLISHED)
                 )
             );
