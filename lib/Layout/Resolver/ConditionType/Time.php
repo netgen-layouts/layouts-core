@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Layout\Resolver\ConditionType;
 
-use Netgen\Layouts\Layout\Resolver\ConditionTypeInterface;
+use Netgen\Layouts\Layout\Resolver\ConditionType;
 use Netgen\Layouts\Utils\DateTimeUtils;
 use Netgen\Layouts\Validator\Constraint\ConditionType\Time as TimeConstraint;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;
 use function is_array;
 
-final class Time implements ConditionTypeInterface
+final class Time extends ConditionType
 {
     public static function getType(): string
     {

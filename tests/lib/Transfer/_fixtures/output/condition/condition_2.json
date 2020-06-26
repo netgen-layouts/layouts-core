@@ -1,11 +1,5 @@
 {
-    "id": "9a6c8459-5fda-5d4b-b06e-06f637ab6e01",
-    "type": "route_parameter",
-    "value": {
-        "parameter_name": "some_param",
-        "parameter_values": [
-            3,
-            4
-        ]
-    }
+    "id": "7db46c94-3139-5a3d-9b2a-b2d28e7573ca",
+    "type": "condition1",
+    "value": ["some_value_exported"]
 }

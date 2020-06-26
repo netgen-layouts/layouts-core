@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Layout\Resolver\Stubs;
 
-use Netgen\Layouts\Layout\Resolver\TargetTypeInterface;
+use Netgen\Layouts\Layout\Resolver\TargetType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;
 
-final class TargetType1 implements TargetTypeInterface
+final class TargetType1 extends TargetType
 {
     /**
      * @var mixed

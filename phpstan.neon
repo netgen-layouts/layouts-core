@@ -66,6 +66,8 @@ parameters:
 
         # Netgen Layouts specifics
 
+        - "#Call to function method_exists\\(\\) with Netgen\\\\Layouts\\\\Layout\\\\Resolver\\\\(Condition|Target)TypeInterface and '(export|import)' will always evaluate to true.#"
+
         - '#Property Netgen\\Layouts\\Persistence\\Values\\.+::\$\w+ \(int\) does not accept null.#'
         -
             message: '#Else branch is unreachable because ternary operator condition is always true.#'

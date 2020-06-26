@@ -34,7 +34,7 @@ abstract class ConditionVisitorTest extends VisitorTest
     {
         return [
             [function (): Condition { return $this->layoutResolverService->loadCondition(Uuid::fromString('35f4594c-6674-5815-add6-07f288b79686')); }, 'condition/condition_1.json'],
-            [function (): Condition { return $this->layoutResolverService->loadCondition(Uuid::fromString('9a6c8459-5fda-5d4b-b06e-06f637ab6e01')); }, 'condition/condition_2.json'],
+            [function (): Condition { return $this->layoutResolverService->loadCondition(Uuid::fromString('7db46c94-3139-5a3d-9b2a-b2d28e7573ca')); }, 'condition/condition_2.json'],
         ];
     }
 }

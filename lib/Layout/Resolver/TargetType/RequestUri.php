@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Layout\Resolver\TargetType;
 
-use Netgen\Layouts\Layout\Resolver\TargetTypeInterface;
+use Netgen\Layouts\Layout\Resolver\TargetType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;
 
-final class RequestUri implements TargetTypeInterface
+final class RequestUri extends TargetType
 {
     public static function getType(): string
     {

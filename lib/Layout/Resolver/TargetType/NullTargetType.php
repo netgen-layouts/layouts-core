@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Layout\Resolver\TargetType;
 
-use Netgen\Layouts\Layout\Resolver\TargetTypeInterface;
+use Netgen\Layouts\Layout\Resolver\TargetType;
 use Symfony\Component\HttpFoundation\Request;
 
-final class NullTargetType implements TargetTypeInterface
+final class NullTargetType extends TargetType
 {
     public static function getType(): string
     {

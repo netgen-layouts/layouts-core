@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Layout\Resolver\Stubs;
 
-use Netgen\Layouts\Layout\Resolver\ConditionTypeInterface;
+use Netgen\Layouts\Layout\Resolver\ConditionType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;
 
-final class ConditionType1 implements ConditionTypeInterface
+final class ConditionType1 extends ConditionType
 {
     /**
      * @var bool
@@ -33,5 +33,10 @@ final class ConditionType1 implements ConditionTypeInterface
     public function matches(Request $request, $value): bool
     {
         return $this->matches;
+    }
+
+    public function export($value)
+    {
+        return  ['some_value_exported'];
     }
 }

@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Layout\Resolver\ConditionType;
 
-use Netgen\Layouts\Layout\Resolver\ConditionTypeInterface;
+use Netgen\Layouts\Layout\Resolver\ConditionType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Validator\Constraints;
 use function count;
 use function in_array;
 use function is_array;
 
-final class RouteParameter implements ConditionTypeInterface
+final class RouteParameter extends ConditionType
 {
     public static function getType(): string
     {

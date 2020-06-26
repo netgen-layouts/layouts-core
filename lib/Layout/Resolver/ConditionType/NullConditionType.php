@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Layout\Resolver\ConditionType;
 
-use Netgen\Layouts\Layout\Resolver\ConditionTypeInterface;
+use Netgen\Layouts\Layout\Resolver\ConditionType;
 use Symfony\Component\HttpFoundation\Request;
 
-final class NullConditionType implements ConditionTypeInterface
+final class NullConditionType extends ConditionType
 {
     public static function getType(): string
     {
