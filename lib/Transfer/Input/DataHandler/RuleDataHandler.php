@@ -53,9 +53,7 @@ final class RuleDataHandler
 
         $createStruct->enabled = $data['is_enabled'];
         $createStruct->comment = $data['comment'];
-        // @todo How to handle priorities?
         $createStruct->priority = $data['priority'];
-        // @todo Make it possible to save link to non-existing layout
         $createStruct->layoutId = $data['layout_id'] !== null ?
             Uuid::fromString($data['layout_id']) :
             null;
