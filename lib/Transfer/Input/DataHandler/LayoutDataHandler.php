@@ -102,9 +102,14 @@ final class LayoutDataHandler
      */
     public function createLayout(array $data): Layout
     {
+        $layoutName = $data['name'];
+        if ($this->layoutService->layoutNameExists($layoutName)) {
+            $layoutName = sprintf('%s (Imported on %s)', $data['name'], date('D, d M Y H:i:s'));
+        }
+
         $createStruct = $this->layoutService->newLayoutCreateStruct(
             $this->layoutTypeRegistry->getLayoutType($data['type_identifier']),
-            sprintf('%s (Imported on %s)', $data['name'], date('D, d M Y H:i:s')),
+            $layoutName,
             $data['main_locale']
         );
 
