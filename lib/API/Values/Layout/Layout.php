@@ -83,9 +83,6 @@ final class Layout implements Value, ArrayAccess, IteratorAggregate, Countable
         $this->zones = $this->zones ?? new ArrayCollection();
     }
 
-    /**
-     * Returns the layout UUID.
-     */
     public function getId(): UuidInterface
     {
         return $this->id;

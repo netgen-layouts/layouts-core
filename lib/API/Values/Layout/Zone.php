@@ -5,12 +5,11 @@ declare(strict_types=1);
 namespace Netgen\Layouts\API\Values\Layout;
 
 use Netgen\Layouts\API\Values\LazyPropertyTrait;
-use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Utils\HydratorTrait;
 use Ramsey\Uuid\UuidInterface;
 
-final class Zone implements Value
+final class Zone
 {
     use HydratorTrait;
     use LazyPropertyTrait;

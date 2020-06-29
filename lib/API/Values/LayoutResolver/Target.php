@@ -35,9 +35,6 @@ final class Target implements Value
      */
     private $value;
 
-    /**
-     * Returns the target UUID.
-     */
     public function getId(): UuidInterface
     {
         return $this->id;

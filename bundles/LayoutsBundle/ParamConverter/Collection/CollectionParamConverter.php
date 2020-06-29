@@ -7,7 +7,6 @@ namespace Netgen\Bundle\LayoutsBundle\ParamConverter\Collection;
 use Netgen\Bundle\LayoutsBundle\ParamConverter\ParamConverter;
 use Netgen\Layouts\API\Service\CollectionService;
 use Netgen\Layouts\API\Values\Collection\Collection;
-use Netgen\Layouts\API\Values\Value;
 use Ramsey\Uuid\Uuid;
 
 final class CollectionParamConverter extends ParamConverter
@@ -37,7 +36,7 @@ final class CollectionParamConverter extends ParamConverter
         return Collection::class;
     }
 
-    public function loadValue(array $values): Value
+    public function loadValue(array $values): object
     {
         /** @var string[] $locales */
         $locales = isset($values['locale']) ? [$values['locale']] : null;

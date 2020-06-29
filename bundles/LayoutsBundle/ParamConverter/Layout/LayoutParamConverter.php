@@ -7,7 +7,6 @@ namespace Netgen\Bundle\LayoutsBundle\ParamConverter\Layout;
 use Netgen\Bundle\LayoutsBundle\ParamConverter\ParamConverter;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
-use Netgen\Layouts\API\Values\Value;
 use Ramsey\Uuid\Uuid;
 
 final class LayoutParamConverter extends ParamConverter
@@ -37,7 +36,7 @@ final class LayoutParamConverter extends ParamConverter
         return Layout::class;
     }
 
-    public function loadValue(array $values): Value
+    public function loadValue(array $values): object
     {
         if ($values['status'] === self::STATUS_PUBLISHED) {
             return $this->layoutService->loadLayout(Uuid::fromString($values['layoutId']));

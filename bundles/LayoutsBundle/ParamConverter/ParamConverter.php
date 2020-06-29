@@ -96,5 +96,5 @@ abstract class ParamConverter implements ParamConverterInterface
      *
      * @param array<string, mixed> $values
      */
-    abstract public function loadValue(array $values): Value;
+    abstract public function loadValue(array $values): object;
 }

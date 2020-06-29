@@ -115,9 +115,6 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
         $this->collections = $this->collections ?? new ArrayCollection();
     }
 
-    /**
-     * Returns the block UUID.
-     */
     public function getId(): UuidInterface
     {
         return $this->id;

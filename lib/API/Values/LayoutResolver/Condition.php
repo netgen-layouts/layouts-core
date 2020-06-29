@@ -35,9 +35,6 @@ final class Condition implements Value
      */
     private $value;
 
-    /**
-     * Returns the condition UUID.
-     */
     public function getId(): UuidInterface
     {
         return $this->id;

@@ -93,9 +93,6 @@ final class Collection implements Value
         $this->slots = $this->slots ?? new ArrayCollection();
     }
 
-    /**
-     * Returns the collection UUID.
-     */
     public function getId(): UuidInterface
     {
         return $this->id;

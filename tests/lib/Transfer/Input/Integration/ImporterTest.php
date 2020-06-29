@@ -26,8 +26,8 @@ use Netgen\Layouts\Standard\Block\BlockDefinition\Handler\TitleHandler;
 use Netgen\Layouts\Tests\Config\Stubs\Block\ConfigHandler;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\Stubs\Container;
-use Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler;
-use Netgen\Layouts\Transfer\Input\DataHandler\RuleDataHandler;
+use Netgen\Layouts\Transfer\Input\EntityImporter\LayoutEntityImporter;
+use Netgen\Layouts\Transfer\Input\EntityImporter\RuleEntityImporter;
 use Netgen\Layouts\Transfer\Input\Importer;
 use Netgen\Layouts\Transfer\Input\JsonValidator;
 use Netgen\Layouts\Transfer\Input\Result\ErrorResult;
@@ -99,20 +99,24 @@ abstract class ImporterTest extends CoreTestCase
 
         $this->importer = new Importer(
             new JsonValidator(),
-            new LayoutDataHandler(
-                $this->blockService,
-                $this->collectionService,
-                $this->layoutService,
-                $this->blockDefinitionRegistry,
-                $this->layoutTypeRegistry,
-                $this->itemDefinitionRegistry,
-                $this->queryTypeRegistry,
-                $this->cmsItemLoaderMock
-            ),
-            new RuleDataHandler(
-                $this->layoutResolverService,
-                $this->targetTypeRegistry,
-                $this->conditionTypeRegistry
+            new Container(
+                [
+                    'layout' => new LayoutEntityImporter(
+                        $this->blockService,
+                        $this->collectionService,
+                        $this->layoutService,
+                        $this->blockDefinitionRegistry,
+                        $this->layoutTypeRegistry,
+                        $this->itemDefinitionRegistry,
+                        $this->queryTypeRegistry,
+                        $this->cmsItemLoaderMock
+                    ),
+                    'rule' => new RuleEntityImporter(
+                        $this->layoutResolverService,
+                        $this->targetTypeRegistry,
+                        $this->conditionTypeRegistry
+                    ),
+                ]
             )
         );
 
@@ -146,7 +150,7 @@ abstract class ImporterTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Transfer\Input\DataHandler\RuleDataHandler
+     * @covers \Netgen\Layouts\Transfer\Input\EntityImporter\RuleEntityImporter
      * @covers \Netgen\Layouts\Transfer\Input\Importer::__construct
      * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
      */
@@ -184,7 +188,7 @@ abstract class ImporterTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler
+     * @covers \Netgen\Layouts\Transfer\Input\EntityImporter\LayoutEntityImporter
      * @covers \Netgen\Layouts\Transfer\Input\Importer::__construct
      * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
      */
@@ -234,7 +238,7 @@ abstract class ImporterTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler
+     * @covers \Netgen\Layouts\Transfer\Input\EntityImporter\LayoutEntityImporter
      * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
      */
     public function testImportLayoutsWithMissingQueryTranslationThrowsRuntimeException(): void
@@ -251,7 +255,7 @@ abstract class ImporterTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler
+     * @covers \Netgen\Layouts\Transfer\Input\EntityImporter\LayoutEntityImporter
      * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
      */
     public function testImportLayoutsWithMissingMainQueryTranslationThrowsRuntimeException(): void
@@ -268,7 +272,7 @@ abstract class ImporterTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler
+     * @covers \Netgen\Layouts\Transfer\Input\EntityImporter\LayoutEntityImporter
      * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
      */
     public function testImportLayoutsWithMissingBlockTranslationThrowsRuntimeException(): void
@@ -285,7 +289,7 @@ abstract class ImporterTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler
+     * @covers \Netgen\Layouts\Transfer\Input\EntityImporter\LayoutEntityImporter
      * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
      */
     public function testImportLayoutsWithMissingMainBlockTranslationThrowsRuntimeException(): void
@@ -302,7 +306,7 @@ abstract class ImporterTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler
+     * @covers \Netgen\Layouts\Transfer\Input\EntityImporter\LayoutEntityImporter
      * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
      */
     public function testImportLayoutsWithMissingZoneThrowsRuntimeException(): void

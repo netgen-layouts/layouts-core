@@ -39,7 +39,7 @@ final class ParamConverterTest extends TestCase
         $value = $request->attributes->get('value');
 
         self::assertInstanceOf(Value::class, $value);
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $value->getId());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $value->getId()->toString());
         self::assertSame(Value::STATUS_DRAFT, $value->getStatus());
     }
 
@@ -60,7 +60,7 @@ final class ParamConverterTest extends TestCase
         $value = $request->attributes->get('value');
 
         self::assertInstanceOf(Value::class, $value);
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $value->getId());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $value->getId()->toString());
         self::assertSame('en', $value->getLocale());
         self::assertSame(Value::STATUS_DRAFT, $value->getStatus());
     }
@@ -82,7 +82,7 @@ final class ParamConverterTest extends TestCase
         $value = $request->attributes->get('value');
 
         self::assertInstanceOf(Value::class, $value);
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $value->getId());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $value->getId()->toString());
         self::assertSame(Value::STATUS_PUBLISHED, $value->getStatus());
     }
 
@@ -103,7 +103,7 @@ final class ParamConverterTest extends TestCase
         $value = $request->attributes->get('value');
 
         self::assertInstanceOf(Value::class, $value);
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $value->getId());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $value->getId()->toString());
         self::assertSame(Value::STATUS_ARCHIVED, $value->getStatus());
     }
 
@@ -124,7 +124,7 @@ final class ParamConverterTest extends TestCase
         $value = $request->attributes->get('value');
 
         self::assertInstanceOf(Value::class, $value);
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $value->getId());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $value->getId()->toString());
         self::assertSame(Value::STATUS_DRAFT, $value->getStatus());
     }
 
@@ -145,7 +145,7 @@ final class ParamConverterTest extends TestCase
         $value = $request->attributes->get('value');
 
         self::assertInstanceOf(Value::class, $value);
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $value->getId());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $value->getId()->toString());
         self::assertSame(Value::STATUS_PUBLISHED, $value->getStatus());
     }
 
@@ -166,7 +166,7 @@ final class ParamConverterTest extends TestCase
         $value = $request->attributes->get('value');
 
         self::assertInstanceOf(Value::class, $value);
-        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $value->getId());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $value->getId()->toString());
         self::assertSame(Value::STATUS_DRAFT, $value->getStatus());
     }
 

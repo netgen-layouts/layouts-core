@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Layouts\Transfer\Input\DataHandler;
+namespace Netgen\Layouts\Transfer\Input\EntityImporter;
 
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Service\CollectionService;
@@ -15,6 +15,7 @@ use Netgen\Layouts\API\Values\Config\ConfigAwareStruct;
 use Netgen\Layouts\API\Values\Config\ConfigStruct;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
+use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Block\Registry\BlockDefinitionRegistry;
 use Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry;
 use Netgen\Layouts\Collection\Registry\QueryTypeRegistry;
@@ -22,6 +23,7 @@ use Netgen\Layouts\Config\ConfigDefinitionAwareInterface;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
+use Netgen\Layouts\Transfer\Input\EntityImporterInterface;
 use Ramsey\Uuid\Uuid;
 use function array_flip;
 use function array_key_exists;
@@ -30,10 +32,7 @@ use function date;
 use function is_array;
 use function sprintf;
 
-/**
- * LayoutDataHandler handles serialized Layout data.
- */
-final class LayoutDataHandler
+final class LayoutEntityImporter implements EntityImporterInterface
 {
     /**
      * @var \Netgen\Layouts\API\Service\BlockService
@@ -95,12 +94,7 @@ final class LayoutDataHandler
         $this->cmsItemLoader = $cmsItemLoader;
     }
 
-    /**
-     * Create and return layout from the given serialized $data.
-     *
-     * @param array<string, mixed> $data
-     */
-    public function createLayout(array $data): Layout
+    public function importEntity(array $data): Value
     {
         $layoutName = $data['name'];
         if ($this->layoutService->layoutNameExists($layoutName)) {

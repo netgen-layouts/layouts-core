@@ -34,9 +34,6 @@ final class Slot implements Value
      */
     private $viewType;
 
-    /**
-     * Returns the slot UUID.
-     */
     public function getId(): UuidInterface
     {
         return $this->id;

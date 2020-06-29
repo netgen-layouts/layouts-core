@@ -2,20 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Layouts\Transfer\Input\DataHandler;
+namespace Netgen\Layouts\Transfer\Input\EntityImporter;
 
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct;
+use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry;
+use Netgen\Layouts\Transfer\Input\EntityImporterInterface;
 use Ramsey\Uuid\Uuid;
 
-/**
- * RuleDataHandler handles serialized Rule data.
- */
-final class RuleDataHandler
+final class RuleEntityImporter implements EntityImporterInterface
 {
     /**
      * @var \Netgen\Layouts\API\Service\LayoutResolverService
@@ -42,12 +41,7 @@ final class RuleDataHandler
         $this->conditionTypeRegistry = $conditionTypeRegistry;
     }
 
-    /**
-     * Create and return rule from the given serialized $data.
-     *
-     * @param array<string, mixed> $data
-     */
-    public function createRule(array $data): Rule
+    public function importEntity(array $data): Value
     {
         $createStruct = $this->layoutResolverService->newRuleCreateStruct();
 

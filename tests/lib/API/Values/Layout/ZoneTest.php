@@ -5,20 +5,11 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\API\Values\Layout;
 
 use Netgen\Layouts\API\Values\Layout\Zone;
-use Netgen\Layouts\API\Values\Value;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 final class ZoneTest extends TestCase
 {
-    /**
-     * @coversNothing
-     */
-    public function testInstance(): void
-    {
-        self::assertInstanceOf(Value::class, new Zone());
-    }
-
     /**
      * @covers \Netgen\Layouts\API\Values\Layout\Zone::getIdentifier
      * @covers \Netgen\Layouts\API\Values\Layout\Zone::getLayoutId

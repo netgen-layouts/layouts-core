@@ -58,9 +58,6 @@ final class Query implements Value, ParameterCollectionInterface
      */
     private $locale;
 
-    /**
-     * Returns the query UUID.
-     */
     public function getId(): UuidInterface
     {
         return $this->id;

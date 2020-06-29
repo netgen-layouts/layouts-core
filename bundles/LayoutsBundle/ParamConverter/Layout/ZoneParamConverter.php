@@ -7,7 +7,6 @@ namespace Netgen\Bundle\LayoutsBundle\ParamConverter\Layout;
 use Netgen\Bundle\LayoutsBundle\ParamConverter\ParamConverter;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Zone;
-use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Exception\NotFoundException;
 use Ramsey\Uuid\Uuid;
 
@@ -38,7 +37,7 @@ final class ZoneParamConverter extends ParamConverter
         return Zone::class;
     }
 
-    public function loadValue(array $values): Value
+    public function loadValue(array $values): object
     {
         $layout = $values['status'] === self::STATUS_PUBLISHED ?
             $this->layoutService->loadLayout(Uuid::fromString($values['layoutId'])) :

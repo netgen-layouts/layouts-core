@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Transfer\Output;
 
-use Netgen\Layouts\Exception\Transfer\SerializerException;
+use Netgen\Layouts\Exception\Transfer\TransferException;
 use Netgen\Layouts\Transfer\Descriptor;
 use Psr\Container\ContainerInterface;
 
@@ -62,17 +62,17 @@ final class Serializer implements SerializerInterface
     /**
      * Returns the entity loader for provided entity type from the collection.
      *
-     * @throws \Netgen\Layouts\Exception\Transfer\SerializerException If the entity loader does not exist or is not of correct type
+     * @throws \Netgen\Layouts\Exception\Transfer\TransferException If the entity loader does not exist or is not of correct type
      */
     private function getEntityLoader(string $type): EntityLoaderInterface
     {
         if (!$this->entityLoaders->has($type)) {
-            throw SerializerException::noEntityLoader($type);
+            throw TransferException::noEntityLoader($type);
         }
 
         $entityLoader = $this->entityLoaders->get($type);
         if (!$entityLoader instanceof EntityLoaderInterface) {
-            throw SerializerException::noEntityLoader($type);
+            throw TransferException::noEntityLoader($type);
         }
 
         return $entityLoader;

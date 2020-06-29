@@ -18,8 +18,8 @@ services:
         arguments:
             - "@netgen_layouts.transfer.serializer.visitor"
 
-    netgen_layouts.transfer.input.data_handler.layout:
-        class: Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler
+    netgen_layouts.transfer.entity_importer.layout:
+        class: Netgen\Layouts\Transfer\Input\EntityImporter\LayoutEntityImporter
         arguments:
             - "@netgen_layouts.api.service.block"
             - "@netgen_layouts.api.service.collection"
@@ -29,13 +29,17 @@ services:
             - "@netgen_layouts.collection.registry.item_definition"
             - "@netgen_layouts.collection.registry.query_type"
             - "@netgen_layouts.item.item_loader"
+        tags:
+            - { name: netgen_layouts.transfer.entity_importer,  entity_type: layout }
 
-    netgen_layouts.transfer.input.data_handler.rule:
-        class: Netgen\Layouts\Transfer\Input\DataHandler\RuleDataHandler
+    netgen_layouts.transfer.entity_importer.rule:
+        class: Netgen\Layouts\Transfer\Input\EntityImporter\RuleEntityImporter
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
             - "@netgen_layouts.layout.resolver.registry.target_type"
             - "@netgen_layouts.layout.resolver.registry.condition_type"
+        tags:
+            - { name: netgen_layouts.transfer.entity_importer,  entity_type: rule }
 
     netgen_layouts.transfer.input.json_validator:
         class: Netgen\Layouts\Transfer\Input\JsonValidator
@@ -44,5 +48,3 @@ services:
         class: Netgen\Layouts\Transfer\Input\Importer
         arguments:
             - "@netgen_layouts.transfer.input.json_validator"
-            - "@netgen_layouts.transfer.input.data_handler.layout"
-            - "@netgen_layouts.transfer.input.data_handler.rule"

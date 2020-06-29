@@ -59,9 +59,6 @@ final class Rule implements Value
         $this->conditions = $this->conditions ?? new ArrayCollection();
     }
 
-    /**
-     * Returns the rule UUID.
-     */
     public function getId(): UuidInterface
     {
         return $this->id;

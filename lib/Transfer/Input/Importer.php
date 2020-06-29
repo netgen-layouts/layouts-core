@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Transfer\Input;
 
-use Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler;
-use Netgen\Layouts\Transfer\Input\DataHandler\RuleDataHandler;
+use Netgen\Layouts\Exception\Transfer\TransferException;
 use Netgen\Layouts\Transfer\Input\Result\ErrorResult;
 use Netgen\Layouts\Transfer\Input\Result\SuccessResult;
-use Netgen\Layouts\Transfer\Output\Visitor\LayoutVisitor;
-use Netgen\Layouts\Transfer\Output\Visitor\RuleVisitor;
+use Psr\Container\ContainerInterface;
 use Ramsey\Uuid\Uuid;
 use Throwable;
 use Traversable;
@@ -33,23 +31,16 @@ final class Importer implements ImporterInterface
     private $jsonValidator;
 
     /**
-     * @var \Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler
+     * @var \Psr\Container\ContainerInterface
      */
-    private $layoutDataHandler;
-
-    /**
-     * @var \Netgen\Layouts\Transfer\Input\DataHandler\RuleDataHandler
-     */
-    private $ruleDataHandler;
+    private $entityImporters;
 
     public function __construct(
         JsonValidatorInterface $jsonValidator,
-        LayoutDataHandler $layoutDataHandler,
-        RuleDataHandler $ruleDataHandler
+        ContainerInterface $entityImporters
     ) {
         $this->jsonValidator = $jsonValidator;
-        $this->layoutDataHandler = $layoutDataHandler;
-        $this->ruleDataHandler = $ruleDataHandler;
+        $this->entityImporters = $entityImporters;
     }
 
     public function importData(string $data): Traversable
@@ -61,16 +52,30 @@ final class Importer implements ImporterInterface
 
         foreach ($data['entities'] as $entityData) {
             try {
-                if ($entityData['__type'] === LayoutVisitor::ENTITY_TYPE) {
-                    $layout = $this->layoutDataHandler->createLayout($entityData);
-                    yield new SuccessResult($entityData['__type'], $entityData, $layout->getId(), $layout);
-                } elseif ($entityData['__type'] === RuleVisitor::ENTITY_TYPE) {
-                    $rule = $this->ruleDataHandler->createRule($entityData);
-                    yield new SuccessResult($entityData['__type'], $entityData, $rule->getId(), $rule);
-                }
+                $entity = $this->getEntityImporter($entityData['__type'])->importEntity($entityData);
+                yield new SuccessResult($entityData['__type'], $entityData, $entity->getId(), $entity);
             } catch (Throwable $t) {
                 yield new ErrorResult($entityData['__type'], $entityData, Uuid::fromString($entityData['id']), $t);
             }
         }
+    }
+
+    /**
+     * Returns the entity importer for provided entity type from the collection.
+     *
+     * @throws \Netgen\Layouts\Exception\Transfer\TransferException If the entity importer does not exist or is not of correct type
+     */
+    private function getEntityImporter(string $type): EntityImporterInterface
+    {
+        if (!$this->entityImporters->has($type)) {
+            throw TransferException::noEntityImporter($type);
+        }
+
+        $entityImporter = $this->entityImporters->get($type);
+        if (!$entityImporter instanceof EntityImporterInterface) {
+            throw TransferException::noEntityImporter($type);
+        }
+
+        return $entityImporter;
     }
 }

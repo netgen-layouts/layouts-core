@@ -7,7 +7,6 @@ namespace Netgen\Bundle\LayoutsBundle\ParamConverter\Collection;
 use Netgen\Bundle\LayoutsBundle\ParamConverter\ParamConverter;
 use Netgen\Layouts\API\Service\CollectionService;
 use Netgen\Layouts\API\Values\Collection\Item;
-use Netgen\Layouts\API\Values\Value;
 use Ramsey\Uuid\Uuid;
 
 final class ItemParamConverter extends ParamConverter
@@ -37,7 +36,7 @@ final class ItemParamConverter extends ParamConverter
         return Item::class;
     }
 
-    public function loadValue(array $values): Value
+    public function loadValue(array $values): object
     {
         if ($values['status'] === self::STATUS_PUBLISHED) {
             return $this->collectionService->loadItem(Uuid::fromString($values['itemId']));

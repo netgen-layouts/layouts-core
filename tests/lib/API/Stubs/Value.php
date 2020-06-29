@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Tests\API\Stubs;
 use Netgen\Layouts\API\Values\Value as APIValue;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Utils\HydratorTrait;
+use Ramsey\Uuid\UuidInterface;
 
 final class Value implements APIValue
 {
@@ -14,7 +15,7 @@ final class Value implements APIValue
     use ValueStatusTrait;
 
     /**
-     * @var mixed
+     * @var \Ramsey\Uuid\UuidInterface
      */
     public $id;
 
@@ -22,4 +23,9 @@ final class Value implements APIValue
      * @var mixed
      */
     public $someProperty;
+
+    public function getId(): UuidInterface
+    {
+        return $this->id;
+    }
 }

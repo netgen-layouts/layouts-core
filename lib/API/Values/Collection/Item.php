@@ -57,9 +57,6 @@ final class Item implements Value, ConfigAwareValue
      */
     private $cmsItem;
 
-    /**
-     * Returns the item UUID.
-     */
     public function getId(): UuidInterface
     {
         return $this->id;
