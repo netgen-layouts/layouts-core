@@ -107,9 +107,11 @@ final class LayoutEntityImporter implements EntityImporterInterface
             $data['main_locale']
         );
 
-        $uuid = Uuid::fromString($data['id']);
-        if (!$this->layoutService->layoutUuidExists($uuid)) {
-            $createStruct->uuid = $uuid;
+        if (is_string($data['id'] ?? null)) {
+            $uuid = Uuid::fromString($data['id']);
+            if (!$this->layoutService->layoutUuidExists($uuid)) {
+                $createStruct->uuid = $uuid;
+            }
         }
 
         $createStruct->description = $data['description'];
