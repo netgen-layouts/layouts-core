@@ -20,6 +20,7 @@ use function json_encode;
 use function sprintf;
 use function trim;
 use const JSON_PRETTY_PRINT;
+use const JSON_THROW_ON_ERROR;
 use const PHP_EOL;
 
 /**
@@ -74,10 +75,10 @@ abstract class VisitorTest extends CoreTestCase
         $visitedData = $this->getVisitor()->visit($value, new OutputVisitor([new VisitorStub()]));
 
         $matcher = $this->matcherFactory->createMatcher();
-        $matchResult = $matcher->match($visitedData, json_decode($expectedData, true));
+        $matchResult = $matcher->match($visitedData, json_decode($expectedData, true, 512, JSON_THROW_ON_ERROR));
 
         if (!$matchResult) {
-            $visitedData = (string) json_encode($visitedData, JSON_PRETTY_PRINT);
+            $visitedData = json_encode($visitedData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
             $differ = new Differ(new UnifiedDiffOutputBuilder("--- Expected\n+++ Actual\n", false));
             self::fail($matcher->getError() . PHP_EOL . $differ->diff($expectedData, $visitedData));
         }

@@ -12,6 +12,7 @@ use Throwable;
 use Traversable;
 use function file_get_contents;
 use function json_decode;
+use const JSON_THROW_ON_ERROR;
 
 /**
  * Importer creates Netgen Layouts entities from the serialized JSON data.
@@ -44,7 +45,7 @@ final class Importer implements ImporterInterface
         $schema = (string) file_get_contents(self::SCHEMA_FILE);
         $this->jsonValidator->validateJson($data, $schema);
 
-        $data = json_decode($data, true);
+        $data = json_decode($data, true, 512, JSON_THROW_ON_ERROR);
 
         foreach ($data['entities'] as $entityData) {
             try {

@@ -12,10 +12,10 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Kernel;
 use function array_unique;
 use function date;
-use function is_string;
 use function json_encode;
 use function sprintf;
 use const JSON_PRETTY_PRINT;
+use const JSON_THROW_ON_ERROR;
 
 final class ExportLayouts extends AbstractController
 {
@@ -42,8 +42,8 @@ final class ExportLayouts extends AbstractController
 
         $serializedLayouts = $this->serializer->serializeLayouts(array_unique($layoutIds));
 
-        $json = json_encode($serializedLayouts, JSON_PRETTY_PRINT);
-        $response = new Response(is_string($json) ? $json : '');
+        $json = json_encode($serializedLayouts, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
+        $response = new Response($json);
 
         $fileName = sprintf('layouts_export_%s.json', date('Y-m-d_H-i-s'));
         $disposition = $response->headers->makeDisposition(

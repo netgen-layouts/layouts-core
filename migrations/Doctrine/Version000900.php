@@ -34,15 +34,15 @@ final class Version000900 extends AbstractMigration
 
         $this->addSql(
             <<<'EOT'
-CREATE TABLE `ngbm_layout_translation` (
-  `layout_id` int(11) NOT NULL,
-  `status` int(11) NOT NULL,
-  `locale` varchar(191) NOT NULL,
-  PRIMARY KEY (`layout_id`, `status`, `locale`),
-  CONSTRAINT `fk_ngl_layout_translation_layout` FOREIGN KEY (`layout_id`, `status`)
-    REFERENCES ngbm_layout (`id`, `status`)
-)
-EOT
+            CREATE TABLE `ngbm_layout_translation` (
+              `layout_id` int(11) NOT NULL,
+              `status` int(11) NOT NULL,
+              `locale` varchar(191) NOT NULL,
+              PRIMARY KEY (`layout_id`, `status`, `locale`),
+              CONSTRAINT `fk_ngl_layout_translation_layout` FOREIGN KEY (`layout_id`, `status`)
+                REFERENCES ngbm_layout (`id`, `status`)
+            )
+            EOT
         );
 
         $this->addSql('UPDATE ngbm_layout SET main_locale = :main_locale', ['main_locale' => $defaultLocale], ['main_locale' => Types::STRING]);
@@ -56,16 +56,16 @@ EOT
 
         $this->addSql(
             <<<'EOT'
-CREATE TABLE `ngbm_block_translation` (
-  `block_id` int(11) NOT NULL,
-  `status` int(11) NOT NULL,
-  `locale` varchar(191) NOT NULL,
-  `parameters` text NOT NULL,
-  PRIMARY KEY (`block_id`, `status`, `locale`),
-  CONSTRAINT `fk_ngl_block_translation_block` FOREIGN KEY (`block_id`, `status`)
-    REFERENCES ngbm_block (`id`, `status`)
-)
-EOT
+            CREATE TABLE `ngbm_block_translation` (
+              `block_id` int(11) NOT NULL,
+              `status` int(11) NOT NULL,
+              `locale` varchar(191) NOT NULL,
+              `parameters` text NOT NULL,
+              PRIMARY KEY (`block_id`, `status`, `locale`),
+              CONSTRAINT `fk_ngl_block_translation_block` FOREIGN KEY (`block_id`, `status`)
+                REFERENCES ngbm_block (`id`, `status`)
+            )
+            EOT
         );
 
         $this->addSql('UPDATE ngbm_block SET translatable = 0, always_available = 1');
@@ -82,15 +82,15 @@ EOT
 
         $this->addSql(
             <<<'EOT'
-CREATE TABLE `ngbm_collection_translation` (
-  `collection_id` int(11) NOT NULL,
-  `status` int(11) NOT NULL,
-  `locale` varchar(191) NOT NULL,
-  PRIMARY KEY (`collection_id`, `status`, `locale`),
-  CONSTRAINT `fk_ngl_collection_translation_collection` FOREIGN KEY (`collection_id`, `status`)
-    REFERENCES ngbm_collection (`id`, `status`)
-)
-EOT
+            CREATE TABLE `ngbm_collection_translation` (
+              `collection_id` int(11) NOT NULL,
+              `status` int(11) NOT NULL,
+              `locale` varchar(191) NOT NULL,
+              PRIMARY KEY (`collection_id`, `status`, `locale`),
+              CONSTRAINT `fk_ngl_collection_translation_collection` FOREIGN KEY (`collection_id`, `status`)
+                REFERENCES ngbm_collection (`id`, `status`)
+            )
+            EOT
         );
 
         $this->addSql('UPDATE ngbm_collection SET translatable = 0, always_available = 1');
@@ -101,16 +101,16 @@ EOT
 
         $this->addSql(
             <<<'EOT'
-CREATE TABLE `ngbm_collection_query_translation` (
-  `query_id` int(11) NOT NULL,
-  `status` int(11) NOT NULL,
-  `locale` varchar(191) NOT NULL,
-  `parameters` text NOT NULL,
-  PRIMARY KEY (`query_id`, `status`, `locale`),
-  CONSTRAINT `fk_ngl_query_translation_query` FOREIGN KEY (`query_id`, `status`)
-    REFERENCES ngbm_collection_query (`id`, `status`)
-)
-EOT
+            CREATE TABLE `ngbm_collection_query_translation` (
+              `query_id` int(11) NOT NULL,
+              `status` int(11) NOT NULL,
+              `locale` varchar(191) NOT NULL,
+              `parameters` text NOT NULL,
+              PRIMARY KEY (`query_id`, `status`, `locale`),
+              CONSTRAINT `fk_ngl_query_translation_query` FOREIGN KEY (`query_id`, `status`)
+                REFERENCES ngbm_collection_query (`id`, `status`)
+            )
+            EOT
         );
 
         $this->addSql('INSERT INTO ngbm_collection_query_translation SELECT id, status, "", parameters FROM ngbm_collection_query');

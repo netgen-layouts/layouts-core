@@ -40,6 +40,7 @@ use function json_decode;
 use function json_encode;
 use function preg_replace;
 use const JSON_PRETTY_PRINT;
+use const JSON_THROW_ON_ERROR;
 use const PHP_EOL;
 
 abstract class ImporterTest extends CoreTestCase
@@ -135,7 +136,7 @@ abstract class ImporterTest extends CoreTestCase
     public function testImportData(): void
     {
         $importData = (string) file_get_contents(__DIR__ . '/../../_fixtures/input/layouts.json');
-        $decodedData = json_decode((string) preg_replace('/[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}/', '@uuid@', $importData), true);
+        $decodedData = json_decode((string) preg_replace('/[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}/', '@uuid@', $importData), true, 512, JSON_THROW_ON_ERROR);
 
         foreach ($this->importer->importData($importData) as $index => $result) {
             self::assertInstanceOf(SuccessResult::class, $result);
@@ -165,8 +166,8 @@ abstract class ImporterTest extends CoreTestCase
             if (!$matchResult) {
                 $differ = new Differ(new UnifiedDiffOutputBuilder("--- Expected\n+++ Actual\n", false));
                 $diff = $differ->diff(
-                    (string) json_encode($layoutData, JSON_PRETTY_PRINT),
-                    (string) json_encode($exportedLayoutData, JSON_PRETTY_PRINT)
+                    json_encode($layoutData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR),
+                    json_encode($exportedLayoutData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR)
                 );
 
                 self::fail($matcher->getError() . PHP_EOL . $diff);

@@ -10,6 +10,7 @@ use Netgen\Layouts\Tests\App\MockerContainer;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use function json_decode;
+use const JSON_THROW_ON_ERROR;
 
 final class LoadConfigTest extends JsonApiTestCase
 {
@@ -36,7 +37,7 @@ final class LoadConfigTest extends JsonApiTestCase
 
         $this->assertResponseCode($response, Response::HTTP_OK);
 
-        $responseContent = json_decode((string) $response->getContent(), true);
+        $responseContent = json_decode((string) $response->getContent(), true, 512, JSON_THROW_ON_ERROR);
 
         self::assertIsArray($responseContent);
         self::assertArrayHasKey('csrf_token', $responseContent);

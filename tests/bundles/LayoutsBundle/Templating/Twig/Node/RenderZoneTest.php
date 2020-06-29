@@ -64,52 +64,52 @@ final class RenderZoneTest extends NodeTest
             [
                 new RenderZone($zone, $context, 1),
                 <<<EOT
-// line 1
-\$nglZone = {$this->getNodeGetter('zone')};
-\$nglZoneIdentifier = \$nglZone instanceof {$zoneClass} ? \$nglZone->getIdentifier() : \$nglZone;
-\$nglContext = {$this->getNodeGetter('context')};
-\$nglTemplate = new {$templateClass}(\$this, \$context, \$blocks);
-\$this->env->getRuntime("{$runtimeClass}")->displayZone(\$context["nglayouts"]->getLayout(), \$nglZoneIdentifier, \$nglContext, \$nglTemplate);
-EOT
+                // line 1
+                \$nglZone = {$this->getNodeGetter('zone')};
+                \$nglZoneIdentifier = \$nglZone instanceof {$zoneClass} ? \$nglZone->getIdentifier() : \$nglZone;
+                \$nglContext = {$this->getNodeGetter('context')};
+                \$nglTemplate = new {$templateClass}(\$this, \$context, \$blocks);
+                \$this->env->getRuntime("{$runtimeClass}")->displayZone(\$context["nglayouts"]->getLayout(), \$nglZoneIdentifier, \$nglContext, \$nglTemplate);
+                EOT
                 ,
                 $environment,
             ],
             [
                 new RenderZone($zoneName, $context, 1),
                 <<<EOT
-// line 1
-\$nglZone = "zone";
-\$nglZoneIdentifier = \$nglZone instanceof {$zoneClass} ? \$nglZone->getIdentifier() : \$nglZone;
-\$nglContext = {$this->getNodeGetter('context')};
-\$nglTemplate = new {$templateClass}(\$this, \$context, \$blocks);
-\$this->env->getRuntime("{$runtimeClass}")->displayZone(\$context["nglayouts"]->getLayout(), \$nglZoneIdentifier, \$nglContext, \$nglTemplate);
-EOT
+                // line 1
+                \$nglZone = "zone";
+                \$nglZoneIdentifier = \$nglZone instanceof {$zoneClass} ? \$nglZone->getIdentifier() : \$nglZone;
+                \$nglContext = {$this->getNodeGetter('context')};
+                \$nglTemplate = new {$templateClass}(\$this, \$context, \$blocks);
+                \$this->env->getRuntime("{$runtimeClass}")->displayZone(\$context["nglayouts"]->getLayout(), \$nglZoneIdentifier, \$nglContext, \$nglTemplate);
+                EOT
                 ,
                 $environment,
             ],
             [
                 new RenderZone($zone, null, 1),
                 <<<EOT
-// line 1
-\$nglZone = {$this->getNodeGetter('zone')};
-\$nglZoneIdentifier = \$nglZone instanceof {$zoneClass} ? \$nglZone->getIdentifier() : \$nglZone;
-\$nglContext = {$viewInterface}::CONTEXT_DEFAULT;
-\$nglTemplate = new {$templateClass}(\$this, \$context, \$blocks);
-\$this->env->getRuntime("{$runtimeClass}")->displayZone(\$context["nglayouts"]->getLayout(), \$nglZoneIdentifier, \$nglContext, \$nglTemplate);
-EOT
+                // line 1
+                \$nglZone = {$this->getNodeGetter('zone')};
+                \$nglZoneIdentifier = \$nglZone instanceof {$zoneClass} ? \$nglZone->getIdentifier() : \$nglZone;
+                \$nglContext = {$viewInterface}::CONTEXT_DEFAULT;
+                \$nglTemplate = new {$templateClass}(\$this, \$context, \$blocks);
+                \$this->env->getRuntime("{$runtimeClass}")->displayZone(\$context["nglayouts"]->getLayout(), \$nglZoneIdentifier, \$nglContext, \$nglTemplate);
+                EOT
                 ,
                 $environment,
             ],
             [
                 new RenderZone($zoneName, null, 1),
                 <<<EOT
-// line 1
-\$nglZone = "zone";
-\$nglZoneIdentifier = \$nglZone instanceof {$zoneClass} ? \$nglZone->getIdentifier() : \$nglZone;
-\$nglContext = {$viewInterface}::CONTEXT_DEFAULT;
-\$nglTemplate = new {$templateClass}(\$this, \$context, \$blocks);
-\$this->env->getRuntime("{$runtimeClass}")->displayZone(\$context["nglayouts"]->getLayout(), \$nglZoneIdentifier, \$nglContext, \$nglTemplate);
-EOT
+                // line 1
+                \$nglZone = "zone";
+                \$nglZoneIdentifier = \$nglZone instanceof {$zoneClass} ? \$nglZone->getIdentifier() : \$nglZone;
+                \$nglContext = {$viewInterface}::CONTEXT_DEFAULT;
+                \$nglTemplate = new {$templateClass}(\$this, \$context, \$blocks);
+                \$this->env->getRuntime("{$runtimeClass}")->displayZone(\$context["nglayouts"]->getLayout(), \$nglZoneIdentifier, \$nglContext, \$nglTemplate);
+                EOT
                 ,
                 $environment,
             ],

@@ -15,12 +15,10 @@ use Netgen\Layouts\Tests\TestCase\LegacyTestCaseTrait;
 use Symfony\Component\HttpFoundation\Response;
 use function count;
 use function getenv;
-use function is_string;
 use function json_decode;
 use function json_encode;
-use function json_last_error_msg;
-use function sprintf;
 use const JSON_PRETTY_PRINT;
+use const JSON_THROW_ON_ERROR;
 use const JSON_UNESCAPED_SLASHES;
 use const JSON_UNESCAPED_UNICODE;
 
@@ -112,7 +110,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
      */
     protected function assertExceptionResponse(Response $response, int $statusCode = Response::HTTP_BAD_REQUEST, ?string $message = null): void
     {
-        $responseContent = json_decode((string) $response->getContent(), true);
+        $responseContent = json_decode((string) $response->getContent(), true, 512, JSON_THROW_ON_ERROR);
         self::assertIsArray($responseContent);
 
         self::assertArrayHasKey('status_code', $responseContent);
@@ -137,17 +135,6 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
      */
     protected function jsonEncode(array $content): string
     {
-        $encodedContent = json_encode($content, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-
-        if (!is_string($encodedContent)) {
-            throw new RuntimeException(
-                sprintf(
-                    'There was an error encoding the value: %s',
-                    json_last_error_msg()
-                )
-            );
-        }
-
-        return $encodedContent;
+        return json_encode($content, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_THROW_ON_ERROR);
     }
 }

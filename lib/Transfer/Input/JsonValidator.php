@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Transfer\Input;
 
+use JsonException;
 use Netgen\Layouts\Exception\Transfer\JsonValidationException;
 use stdClass;
 use Swaggest\JsonSchema\Schema;
 use Throwable;
 use function get_debug_type;
 use function json_decode;
-use function json_last_error;
-use function json_last_error_msg;
 use function sprintf;
-use const JSON_ERROR_NONE;
+use const JSON_THROW_ON_ERROR;
 
 final class JsonValidator implements JsonValidatorInterface
 {
@@ -36,20 +35,18 @@ final class JsonValidator implements JsonValidatorInterface
      */
     private function parseJson(string $data): stdClass
     {
-        $data = json_decode($data);
+        try {
+            $data = json_decode($data, false, 512, JSON_THROW_ON_ERROR);
 
-        if ($data instanceof stdClass) {
+            if (!$data instanceof stdClass) {
+                throw JsonValidationException::notAcceptable(
+                    sprintf('Expected a JSON object, got %s', get_debug_type($data))
+                );
+            }
+
             return $data;
+        } catch (JsonException $e) {
+            throw JsonValidationException::parseError($e->getMessage(), $e->getCode());
         }
-
-        $errorCode = json_last_error();
-
-        if ($errorCode !== JSON_ERROR_NONE) {
-            throw JsonValidationException::parseError(json_last_error_msg(), $errorCode);
-        }
-
-        throw JsonValidationException::notAcceptable(
-            sprintf('Expected a JSON object, got %s', get_debug_type($data))
-        );
     }
 }

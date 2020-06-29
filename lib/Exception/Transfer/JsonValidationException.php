@@ -11,11 +11,14 @@ use function sprintf;
 
 final class JsonValidationException extends InvalidArgumentException implements Exception
 {
-    public static function parseError(string $errorMessage, int $errorCode): self
+    /**
+     * @param int|string $errorCode
+     */
+    public static function parseError(string $errorMessage, $errorCode): self
     {
         return new self(
             sprintf(
-                'Provided data is not a valid JSON string: %s (error code %d)',
+                'Provided data is not a valid JSON string: %s (error code %s)',
                 $errorMessage,
                 $errorCode
             )

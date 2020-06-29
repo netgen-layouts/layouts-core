@@ -17,6 +17,7 @@ use function is_string;
 use function json_encode;
 use function sprintf;
 use const JSON_PRETTY_PRINT;
+use const JSON_THROW_ON_ERROR;
 
 /**
  * Command to export Netgen Layouts entities.
@@ -77,12 +78,7 @@ final class ExportCommand extends Command
                 throw new RuntimeException(sprintf('Unhandled type %s', $type));
         }
 
-        $json = json_encode($hash, JSON_PRETTY_PRINT);
-        if (!is_string($json)) {
-            throw new RuntimeException('Serialization failed.');
-        }
-
-        $this->io->writeln($json);
+        $this->io->writeln(json_encode($hash, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR));
 
         return 0;
     }

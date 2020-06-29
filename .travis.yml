@@ -3,7 +3,6 @@ dist: bionic
 language: php
 
 php:
-  - 7.2
   - 7.3
   - 7.4
 
@@ -28,9 +27,9 @@ env:
 
 matrix:
   include:
-    - php: 7.2
+    - php: 7.3
       env: PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~3.4.0" DEPS="low"
-    - php: 7.2
+    - php: 7.3
       env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~3.4.0" DEPS="low"
     - php: 7.4
       env: RUN_PHPSTAN="yes"

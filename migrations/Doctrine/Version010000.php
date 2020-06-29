@@ -75,21 +75,21 @@ final class Version010000 extends AbstractMigration
 
         $this->addSql(
             <<<'EOT'
-CREATE TABLE `nglayouts_collection_slot` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `status` int(11) NOT NULL,
-  `uuid` char(36) NOT NULL,
-  `collection_id` int(11) NOT NULL,
-  `position` int(11) NOT NULL,
-  `view_type` varchar(191) DEFAULT NULL,
-  PRIMARY KEY (`id`,`status`),
-  UNIQUE KEY `idx_ngl_collection_slot_uuid` (`uuid`, `status`),
-  KEY `idx_ngl_collection` (`collection_id`,`status`),
-  KEY `idx_ngl_position` (`collection_id`,`position`),
-  CONSTRAINT `fk_ngl_slot_collection` FOREIGN KEY (`collection_id`, `status`)
-    REFERENCES `nglayouts_collection` (`id`, `status`)
-)
-EOT
+            CREATE TABLE `nglayouts_collection_slot` (
+              `id` int(11) NOT NULL AUTO_INCREMENT,
+              `status` int(11) NOT NULL,
+              `uuid` char(36) NOT NULL,
+              `collection_id` int(11) NOT NULL,
+              `position` int(11) NOT NULL,
+              `view_type` varchar(191) DEFAULT NULL,
+              PRIMARY KEY (`id`,`status`),
+              UNIQUE KEY `idx_ngl_collection_slot_uuid` (`uuid`, `status`),
+              KEY `idx_ngl_collection` (`collection_id`,`status`),
+              KEY `idx_ngl_position` (`collection_id`,`position`),
+              CONSTRAINT `fk_ngl_slot_collection` FOREIGN KEY (`collection_id`, `status`)
+                REFERENCES `nglayouts_collection` (`id`, `status`)
+            )
+            EOT
         );
 
         $this->addSql('UPDATE nglayouts_rule_target SET type = "ez_content" WHERE type = "ezcontent"');
