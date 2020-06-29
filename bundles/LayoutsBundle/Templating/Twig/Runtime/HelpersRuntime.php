@@ -113,6 +113,6 @@ final class HelpersRuntime
             throw new RuntimeException('Unable to format the given date.');
         }
 
-        return (string) $formatter->format($dateTime->getTimestamp());
+        return $formatter->format($dateTime->getTimestamp());
     }
 }
