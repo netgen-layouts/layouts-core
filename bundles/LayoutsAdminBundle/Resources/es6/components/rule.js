@@ -534,7 +534,7 @@ export default class NlRule {
         this.selectExport.checked = select;
     }
 
-    canExport() {
+    canExport() { // eslint-disable-line class-methods-use-this
         return true;
     }
 }
