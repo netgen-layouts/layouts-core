@@ -42,10 +42,12 @@ matrix:
     - php: 7.4
       env: RUN_COVERAGE="yes"
     - env: ~
-      php: 7.4
+      php: ~
       cache: ~
       language: node_js
       node_js: node
+      before_install:
+        - phpenv global 7.4
       # We disable install phase as we need to run yarn install only after "before_script" is completed
       install: true
       script:
