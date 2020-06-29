@@ -40,14 +40,7 @@ final class Export extends AbstractController
             $request->request->all('item_ids') :
             (array) ($request->request->get('item_ids') ?? []);
 
-        $serializedItems = [];
-
-        if ($type === 'layout') {
-            $serializedItems = $this->serializer->serializeLayouts(array_unique($itemIds));
-        } elseif ($type === 'rule') {
-            $serializedItems = $this->serializer->serializeRules(array_unique($itemIds));
-        }
-
+        $serializedItems = $this->serializer->serialize($type, array_unique($itemIds));
         $json = json_encode($serializedItems, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
         $response = new Response($json);
 

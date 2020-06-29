@@ -25,12 +25,15 @@ use Netgen\Layouts\Standard\Block\BlockDefinition\Handler\TextHandler;
 use Netgen\Layouts\Standard\Block\BlockDefinition\Handler\TitleHandler;
 use Netgen\Layouts\Tests\Config\Stubs\Block\ConfigHandler;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
+use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Transfer\Input\DataHandler\LayoutDataHandler;
 use Netgen\Layouts\Transfer\Input\DataHandler\RuleDataHandler;
 use Netgen\Layouts\Transfer\Input\Importer;
 use Netgen\Layouts\Transfer\Input\JsonValidator;
 use Netgen\Layouts\Transfer\Input\Result\ErrorResult;
 use Netgen\Layouts\Transfer\Input\Result\SuccessResult;
+use Netgen\Layouts\Transfer\Output\EntityLoader\LayoutEntityLoader;
+use Netgen\Layouts\Transfer\Output\EntityLoader\RuleEntityLoader;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\Serializer;
 use Netgen\Layouts\Transfer\Output\Visitor;
@@ -130,9 +133,13 @@ abstract class ImporterTest extends CoreTestCase
         ];
 
         $this->serializer = new Serializer(
-            $this->layoutService,
-            $this->layoutResolverService,
-            new OutputVisitor($outputVisitors)
+            new OutputVisitor($outputVisitors),
+            new Container(
+                [
+                    'layout' => new LayoutEntityLoader($this->layoutService),
+                    'rule' => new RuleEntityLoader($this->layoutResolverService),
+                ]
+            )
         );
 
         $this->matcherFactory = new SimpleFactory();
@@ -154,7 +161,7 @@ abstract class ImporterTest extends CoreTestCase
             self::assertSame($result->getEntity()->getId()->toString(), $result->getEntityId()->toString());
 
             $ruleData = $decodedData['entities'][$index];
-            $exportedRuleData = $this->serializer->serializeRules([$result->getEntityId()->toString()]);
+            $exportedRuleData = $this->serializer->serialize($ruleData['__type'], [$result->getEntityId()->toString()]);
 
             $exportedRuleData = $exportedRuleData['entities'][0];
 
@@ -192,7 +199,7 @@ abstract class ImporterTest extends CoreTestCase
             self::assertSame($result->getEntity()->getId()->toString(), $result->getEntityId()->toString());
 
             $layoutData = $decodedData['entities'][$index];
-            $exportedLayoutData = $this->serializer->serializeLayouts([$result->getEntityId()->toString()]);
+            $exportedLayoutData = $this->serializer->serialize($layoutData['__type'], [$result->getEntityId()->toString()]);
 
             $exportedLayoutData = $exportedLayoutData['entities'][0];
 

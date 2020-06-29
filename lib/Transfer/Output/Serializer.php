@@ -4,12 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Transfer\Output;
 
-use Generator;
-use Netgen\Layouts\API\Service\LayoutResolverService;
-use Netgen\Layouts\API\Service\LayoutService;
-use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Exception\Transfer\SerializerException;
 use Netgen\Layouts\Transfer\Descriptor;
-use Ramsey\Uuid\Uuid;
+use Psr\Container\ContainerInterface;
 
 /**
  * Serializer serializes domain entities into hash representation, which can be
@@ -21,86 +18,32 @@ use Ramsey\Uuid\Uuid;
 final class Serializer implements SerializerInterface
 {
     /**
-     * @var \Netgen\Layouts\API\Service\LayoutService
-     */
-    private $layoutService;
-
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutResolverService
-     */
-    private $layoutResolverService;
-
-    /**
      * @var \Netgen\Layouts\Transfer\Output\OutputVisitor
      */
     private $visitor;
 
+    /**
+     * @var \Psr\Container\ContainerInterface
+     */
+    private $entityLoaders;
+
     public function __construct(
-        LayoutService $layoutService,
-        LayoutResolverService $layoutResolverService,
-        OutputVisitor $visitor
+        OutputVisitor $visitor,
+        ContainerInterface $entityLoaders
     ) {
-        $this->layoutService = $layoutService;
-        $this->layoutResolverService = $layoutResolverService;
         $this->visitor = $visitor;
+        $this->entityLoaders = $entityLoaders;
     }
 
-    public function serializeLayouts(array $layoutIds): array
+    public function serialize(string $type, array $entityIds): array
     {
         $data = $this->createBasicData();
 
-        foreach ($this->loadLayouts($layoutIds) as $layout) {
-            $data['entities'][] = $this->visitor->visit($layout);
+        foreach ($this->getEntityLoader($type)->loadEntities($entityIds) as $entity) {
+            $data['entities'][] = $this->visitor->visit($entity);
         }
 
         return $data;
-    }
-
-    public function serializeRules(array $ruleIds): array
-    {
-        $data = $this->createBasicData();
-
-        foreach ($this->loadRules($ruleIds) as $rule) {
-            $data['entities'][] = $this->visitor->visit($rule);
-        }
-
-        return $data;
-    }
-
-    /**
-     * Loads the layouts for provided UUIDs.
-     *
-     * @param string[] $layoutIds
-     *
-     * @return \Generator<\Netgen\Layouts\API\Values\Layout\Layout>
-     */
-    private function loadLayouts(array $layoutIds): Generator
-    {
-        foreach ($layoutIds as $layoutId) {
-            try {
-                yield $this->layoutService->loadLayout(Uuid::fromString($layoutId));
-            } catch (NotFoundException $e) {
-                continue;
-            }
-        }
-    }
-
-    /**
-     * Loads the rules for provided UUIDs.
-     *
-     * @param string[] $ruleIds
-     *
-     * @return \Generator<\Netgen\Layouts\API\Values\LayoutResolver\Rule>
-     */
-    private function loadRules(array $ruleIds): Generator
-    {
-        foreach ($ruleIds as $ruleId) {
-            try {
-                yield $this->layoutResolverService->loadRule(Uuid::fromString($ruleId));
-            } catch (NotFoundException $e) {
-                continue;
-            }
-        }
     }
 
     /**
@@ -114,5 +57,24 @@ final class Serializer implements SerializerInterface
             '__version' => Descriptor::FORMAT_VERSION,
             'entities' => [],
         ];
+    }
+
+    /**
+     * Returns the entity loader for provided entity type from the collection.
+     *
+     * @throws \Netgen\Layouts\Exception\Transfer\SerializerException If the entity loader does not exist or is not of correct type
+     */
+    private function getEntityLoader(string $type): EntityLoaderInterface
+    {
+        if (!$this->entityLoaders->has($type)) {
+            throw SerializerException::noEntityLoader($type);
+        }
+
+        $entityLoader = $this->entityLoaders->get($type);
+        if (!$entityLoader instanceof EntityLoaderInterface) {
+            throw SerializerException::noEntityLoader($type);
+        }
+
+        return $entityLoader;
     }
 }

@@ -15,7 +15,6 @@ use function explode;
 use function is_array;
 use function is_string;
 use function json_encode;
-use function sprintf;
 use const JSON_PRETTY_PRINT;
 use const JSON_THROW_ON_ERROR;
 
@@ -65,18 +64,7 @@ final class ExportCommand extends Command
             $ids = explode(',', $ids ?? '');
         }
 
-        switch ($type) {
-            case 'layout':
-                $hash = $this->serializer->serializeLayouts($ids);
-
-                break;
-            case 'rule':
-                $hash = $this->serializer->serializeRules($ids);
-
-                break;
-            default:
-                throw new RuntimeException(sprintf('Unhandled type %s', $type));
-        }
+        $hash = $this->serializer->serialize($type, $ids);
 
         $this->io->writeln(json_encode($hash, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR));
 

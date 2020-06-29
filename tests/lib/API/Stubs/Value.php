@@ -16,10 +16,10 @@ final class Value implements APIValue
     /**
      * @var mixed
      */
-    public $someProperty;
+    public $id;
 
     /**
      * @var mixed
      */
-    public $someOtherProperty;
+    public $someProperty;
 }

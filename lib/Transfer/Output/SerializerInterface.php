@@ -14,20 +14,11 @@ namespace Netgen\Layouts\Transfer\Output;
 interface SerializerInterface
 {
     /**
-     * Serializes the layouts with provided UUIDs.
+     * Serializes the entities with provided UUIDs.
      *
-     * @param string[] $layoutIds
-     *
-     * @return array<string, mixed>
-     */
-    public function serializeLayouts(array $layoutIds): array;
-
-    /**
-     * Serializes the rules with provided UUIDs.
-     *
-     * @param string[] $ruleIds
+     * @param string[] $entityIds
      *
      * @return array<string, mixed>
      */
-    public function serializeRules(array $ruleIds): array;
+    public function serialize(string $type, array $entityIds): array;
 }

@@ -1,9 +1,21 @@
 services:
+    netgen_layouts.transfer.serializer.layout_entity_loader:
+        class: Netgen\Layouts\Transfer\Output\EntityLoader\LayoutEntityLoader
+        arguments:
+            - "@netgen_layouts.api.service.layout"
+        tags:
+            - { name: netgen_layouts.transfer.entity_loader,  entity_type: layout }
+
+    netgen_layouts.transfer.serializer.rule_entity_loader:
+        class: Netgen\Layouts\Transfer\Output\EntityLoader\RuleEntityLoader
+        arguments:
+            - "@netgen_layouts.api.service.layout_resolver"
+        tags:
+            - { name: netgen_layouts.transfer.entity_loader,  entity_type: rule }
+
     netgen_layouts.transfer.serializer:
         class: Netgen\Layouts\Transfer\Output\Serializer
         arguments:
-            - "@netgen_layouts.api.service.layout"
-            - "@netgen_layouts.api.service.layout_resolver"
             - "@netgen_layouts.transfer.serializer.visitor"
 
     netgen_layouts.transfer.input.data_handler.layout:
