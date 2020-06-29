@@ -24,6 +24,11 @@
                         "if": { "type": "object", "properties": { "__type": { "const": "rule" } } },
                         "then": { "$ref": "#/definitions/complex/rule" },
                         "else": false
+                    },
+                    {
+                        "if": { "type": "object", "properties": { "__type": { "const": "role" } } },
+                        "then": { "$ref": "#/definitions/complex/role" },
+                        "else": false
                     }
                 ]
             }
@@ -575,6 +580,108 @@
                             [24, "abc"],
                             true,
                             { "foo": "bar" }
+                        ]
+                    }
+                }
+            },
+            "role": {
+                "type": "object",
+                "description": "A role",
+                "required": ["__type", "status", "identifier", "name", "description", "policies"],
+                "additionalProperties": false,
+                "properties": {
+                    "__type": {
+                        "type": "string",
+                        "description": "The type of the entity to import",
+                        "const": "role"
+                    },
+                    "id": {
+                        "$ref": "#/definitions/simple/uuid",
+                        "description": "The UUID of the role"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "The status of the role",
+                        "enum": ["DRAFT", "PUBLISHED", "ARCHIVED"]
+                    },
+                    "identifier": {
+                        "$ref": "#/definitions/simple/identifier",
+                        "description": "The identifier of the role"
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the role",
+                        "minLength": 1
+                    },
+                    "description": {
+                        "type": ["string", "null"],
+                        "description": "The description of the role"
+                    },
+                    "policies": {
+                        "type": "array",
+                        "description": "The list of policies in the role",
+                        "items": {
+                            "$ref": "#/definitions/complex/policy"
+                        }
+                    }
+                }
+            },
+            "policy": {
+                "type": "object",
+                "description": "A role policy",
+                "required": ["component", "permission", "limitations"],
+                "additionalProperties": false,
+                "properties": {
+                    "id": {
+                        "$ref": "#/definitions/simple/uuid",
+                        "description": "The UUID of the role policy"
+                    },
+                    "component": {
+                        "type": ["string", "null"],
+                        "description": "The policy component",
+                        "pattern": "^[A-Za-z]([A-Za-z0-9_])*$"
+                    },
+                    "permission": {
+                        "type": ["string", "null"],
+                        "description": "The policy permission",
+                        "pattern": "^[A-Za-z]([A-Za-z0-9_])*$"
+                    },
+                    "limitations": {
+                        "oneOf": [
+                            {
+                                "type": "object",
+                                "description": "The list of limitations in the policy",
+                                "minProperties": 1,
+                                "patternProperties": {
+                                    "^[A-Za-z]([A-Za-z0-9_])*$": {
+                                        "$ref": "#/definitions/complex/limitation"
+                                    }
+                                }
+                            },
+                            { "type": "array", "enum": [[]] }
+                        ]
+                    }
+                }
+            },
+            "limitation": {
+                "type": "object",
+                "description": "A policy limitation",
+                "required": ["type", "values"],
+                "additionalProperties": false,
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "description": "The limitation type",
+                        "pattern": "^[A-Za-z]([A-Za-z0-9_])*$"
+                    },
+                    "values": {
+                        "description": "The list of limitation values",
+                        "oneOf": [
+                            {
+                                "type": "object",
+                                "minProperties": 1
+                            },
+                            { "type": "array", "minItems": 1 }
                         ]
                     }
                 }
