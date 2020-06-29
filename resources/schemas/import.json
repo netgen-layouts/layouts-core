@@ -504,7 +504,7 @@
                         "description": "The rule priority"
                     },
                     "comment": {
-                        "type": ["string"],
+                        "type": ["string", "null"],
                         "description": "The comment of the rule"
                     },
                     "targets": {
