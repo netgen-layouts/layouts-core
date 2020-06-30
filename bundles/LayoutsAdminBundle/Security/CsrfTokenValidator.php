@@ -32,6 +32,10 @@ final class CsrfTokenValidator implements CsrfTokenValidatorInterface
             return true;
         }
 
+        if ($request->attributes->get('_nglayouts_no_csrf', false) === true) {
+            return true;
+        }
+
         if (!$request->headers->has(self::CSRF_TOKEN_HEADER)) {
             return false;
         }

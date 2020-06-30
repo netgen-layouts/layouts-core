@@ -134,6 +134,29 @@ final class CsrfTokenValidatorTest extends TestCase
     /**
      * @covers \Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidator::validateCsrfToken
      */
+    public function testValidateCsrfTokenWithNoCsrfFlag(): void
+    {
+        $this->csrfTokenManagerMock
+            ->expects(self::never())
+            ->method('isTokenValid');
+
+        $this->sessionMock
+            ->expects(self::once())
+            ->method('isStarted')
+            ->willReturn(true);
+
+        $request = Request::create('/');
+        $request->setMethod(Request::METHOD_POST);
+        $request->attributes->set('_nglayouts_no_csrf', true);
+        $request->headers->set('X-CSRF-Token', 'token');
+        $request->setSession($this->sessionMock);
+
+        $this->validator->validateCsrfToken($request, 'token_id');
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidator::validateCsrfToken
+     */
     public function testValidateCsrfTokenWithNoSession(): void
     {
         $this->csrfTokenManagerMock
