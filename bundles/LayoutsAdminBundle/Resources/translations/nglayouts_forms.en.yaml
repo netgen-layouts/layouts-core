@@ -57,3 +57,7 @@ condition_type.query_parameter.parameter_name: 'Parameter name'
 condition_type.query_parameter.parameter_values: 'Parameter values'
 condition_type.time.from: 'From'
 condition_type.time.to: 'Until'
+
+import.file: 'File'
+import.overwrite_existing: 'Overwrite existing entities'
+import.button.upload: 'Upload'

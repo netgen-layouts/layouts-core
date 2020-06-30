@@ -40,6 +40,7 @@ final class ImportType extends AbstractType
             'file',
             FileType::class,
             [
+                'label' => 'import.file',
                 'constraints' => [
                     new Constraints\File(
                         [
@@ -61,6 +62,7 @@ final class ImportType extends AbstractType
             CheckboxType::class,
             [
                 'required' => false,
+                'label' => 'import.overwrite_existing',
                 'data' => $this->overwriteExisting,
             ]
         );
