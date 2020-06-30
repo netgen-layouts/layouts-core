@@ -278,22 +278,6 @@ abstract class LayoutServiceTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutService::layoutUuidExists
-     */
-    public function testLayoutUuidExists(): void
-    {
-        self::assertTrue($this->layoutService->layoutUuidExists(Uuid::fromString('8626a1ca-6413-5f54-acef-de7db06272ce')));
-    }
-
-    /**
-     * @covers \Netgen\Layouts\Core\Service\LayoutService::layoutUuidExists
-     */
-    public function testLayoutUuidNotExists(): void
-    {
-        self::assertFalse($this->layoutService->layoutUuidExists(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff')));
-    }
-
-    /**
      * @covers \Netgen\Layouts\Core\Service\LayoutService::layoutNameExists
      */
     public function testLayoutNameExists(): void

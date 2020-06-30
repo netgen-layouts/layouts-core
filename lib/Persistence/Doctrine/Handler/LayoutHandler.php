@@ -131,7 +131,7 @@ final class LayoutHandler implements LayoutHandlerInterface
         return $this->queryHandler->getRelatedLayoutsCount($sharedLayout);
     }
 
-    public function layoutExists($layoutId, int $status): bool
+    public function layoutExists($layoutId, ?int $status = null): bool
     {
         $layoutId = $layoutId instanceof UuidInterface ? $layoutId->toString() : $layoutId;
 
@@ -143,13 +143,6 @@ final class LayoutHandler implements LayoutHandlerInterface
         return $this->layoutMapper->mapZones(
             $this->queryHandler->loadLayoutZonesData($layout)
         );
-    }
-
-    public function layoutUuidExists($uuid): bool
-    {
-        $uuid = $uuid instanceof UuidInterface ? $uuid->toString() : $uuid;
-
-        return $this->queryHandler->layoutUuidExists($uuid);
     }
 
     public function layoutNameExists(string $name, $excludedLayoutId = null): bool
@@ -165,7 +158,7 @@ final class LayoutHandler implements LayoutHandlerInterface
     {
         if (
             $layoutCreateStruct->uuid instanceof UuidInterface &&
-            $this->layoutUuidExists($layoutCreateStruct->uuid)
+            $this->layoutExists($layoutCreateStruct->uuid)
         ) {
             throw new BadStateException('uuid', 'Layout with provided UUID already exists.');
         }

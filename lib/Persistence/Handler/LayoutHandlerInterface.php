@@ -97,7 +97,7 @@ interface LayoutHandlerInterface
      *
      * @param int|string|\Ramsey\Uuid\UuidInterface $layoutId
      */
-    public function layoutExists($layoutId, int $status): bool;
+    public function layoutExists($layoutId, ?int $status = null): bool;
 
     /**
      * Loads all zones that belong to provided layout.
@@ -105,13 +105,6 @@ interface LayoutHandlerInterface
      * @return \Netgen\Layouts\Persistence\Values\Layout\Zone[]
      */
     public function loadLayoutZones(Layout $layout): array;
-
-    /**
-     * Returns if layout with provided UUID exists.
-     *
-     * @param string|\Ramsey\Uuid\UuidInterface $uuid
-     */
-    public function layoutUuidExists($uuid): bool;
 
     /**
      * Returns if layout with provided name exists.

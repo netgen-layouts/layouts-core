@@ -618,24 +618,6 @@ final class LayoutHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::layoutUuidExists
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutUuidExists
-     */
-    public function testLayoutUuidExists(): void
-    {
-        self::assertTrue($this->layoutHandler->layoutUuidExists('8626a1ca-6413-5f54-acef-de7db06272ce'));
-    }
-
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::layoutUuidExists
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutUuidExists
-     */
-    public function testLayoutUuidNotExists(): void
-    {
-        self::assertFalse($this->layoutHandler->layoutUuidExists('ffffffff-ffff-ffff-ffff-ffffffffffff'));
-    }
-
-    /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::layoutNameExists
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutNameExists
      */
