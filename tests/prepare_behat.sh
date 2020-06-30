@@ -15,5 +15,5 @@ if [ ! -f vendor/bin/chromedriver ]; then
     mv -f chromedriver vendor/bin/
 fi
 
-mkdir -p ~/.symfony/ && vendor/bin/symfony server:start --no-tls --daemon --port=4242 --document-root=tests/application/public
+vendor/bin/symfony server:start --no-tls --daemon --port=4242 --document-root=tests/application/public
 vendor/bin/chromedriver
