@@ -42,6 +42,7 @@ final class ImportType extends AbstractType
             [
                 'label' => 'import.file',
                 'constraints' => [
+                    new Constraints\NotBlank(),
                     new Constraints\File(
                         [
                             'maxSize' => $this->maxUploadSize,

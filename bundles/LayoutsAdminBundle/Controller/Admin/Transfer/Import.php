@@ -7,6 +7,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\Transfer;
 use Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type\ImportType;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\Transfer\Input\ImporterInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use function file_get_contents;
@@ -43,13 +44,14 @@ final class Import extends AbstractController
         $results = [];
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var \Symfony\Component\HttpFoundation\File\UploadedFile $jsonFile */
             $jsonFile = $form->get('file')->getData();
             $overwriteExisting = $form->get('overwriteExisting')->getData();
 
-            $json = (string) file_get_contents($jsonFile->getPathname());
-            foreach ($this->importer->importData($json, $overwriteExisting) as $result) {
-                $results[] = $result;
+            if ($jsonFile instanceof UploadedFile && $jsonFile->isValid()) {
+                $json = (string) file_get_contents($jsonFile->getPathname());
+                foreach ($this->importer->importData($json, $overwriteExisting) as $result) {
+                    $results[] = $result;
+                }
             }
         }
 
