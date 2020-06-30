@@ -1,0 +1,17 @@
+{% trans_default_domain 'nglayouts_admin' %}
+
+{% if results is not empty %}
+    {% for result in results %}
+        {% if result.entity is defined %}
+            <p>
+                {{ 'transfer.import.result.success'|trans({
+                    '%entityType%': result.entityType,
+                    '%index%': loop.index,
+                    '%uuid%': result.entity.id.toString
+                }) }}
+            </p>
+        {% elseif result.error is defined %}
+            <p>{{ dump(result.error) }}</p>
+        {% endif %}
+    {% endfor %}
+{% endif %}

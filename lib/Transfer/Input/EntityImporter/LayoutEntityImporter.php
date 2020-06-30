@@ -20,6 +20,7 @@ use Netgen\Layouts\Block\Registry\BlockDefinitionRegistry;
 use Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry;
 use Netgen\Layouts\Collection\Registry\QueryTypeRegistry;
 use Netgen\Layouts\Config\ConfigDefinitionAwareInterface;
+use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
@@ -30,6 +31,7 @@ use function array_key_exists;
 use function array_keys;
 use function date;
 use function is_array;
+use function is_string;
 use function sprintf;
 
 final class LayoutEntityImporter implements EntityImporterInterface
@@ -94,31 +96,37 @@ final class LayoutEntityImporter implements EntityImporterInterface
         $this->cmsItemLoader = $cmsItemLoader;
     }
 
-    public function importEntity(array $data): Value
+    public function importEntity(array $data, bool $overwriteExisting): Value
     {
-        $layoutName = $data['name'];
-        if ($this->layoutService->layoutNameExists($layoutName)) {
-            $layoutName = sprintf('%s (Imported on %s)', $data['name'], date('D, d M Y H:i:s'));
-        }
-
         $createStruct = $this->layoutService->newLayoutCreateStruct(
             $this->layoutTypeRegistry->getLayoutType($data['type_identifier']),
-            $layoutName,
+            $data['name'],
             $data['main_locale']
         );
-
-        if (is_string($data['id'] ?? null)) {
-            $uuid = Uuid::fromString($data['id']);
-            if (!$this->layoutService->layoutUuidExists($uuid)) {
-                $createStruct->uuid = $uuid;
-            }
-        }
 
         $createStruct->description = $data['description'];
         $createStruct->shared = $data['is_shared'];
 
         return $this->layoutService->transaction(
-            function () use ($createStruct, $data): Layout {
+            function () use ($createStruct, $data, $overwriteExisting): Layout {
+                if ($overwriteExisting && is_string($data['id'] ?? null)) {
+                    $uuid = Uuid::fromString($data['id']);
+
+                    try {
+                        $this->layoutService->deleteLayout(
+                            $this->layoutService->loadLayout($uuid)
+                        );
+                    } catch (NotFoundException $e) {
+                        // Do nothing
+                    }
+
+                    $createStruct->uuid = $uuid;
+                }
+
+                if ($this->layoutService->layoutNameExists($createStruct->name)) {
+                    $createStruct->name = sprintf('%s (Imported on %s)', $data['name'], date('D, d M Y H:i:s'));
+                }
+
                 $layoutDraft = $this->layoutService->createLayout($createStruct);
                 $this->addTranslations($layoutDraft, $data);
                 $this->processZones($layoutDraft, $data);

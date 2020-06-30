@@ -66,3 +66,19 @@ nglayouts_admin_shared_layouts_root_slash:
     defaults:
         route: nglayouts_admin_shared_layouts_index
         permanent: true
+
+nglayouts_admin_transfer_root:
+    path: /admin/transfer
+    controller: 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction'
+    methods: [GET]
+    defaults:
+        route: nglayouts_admin_transfer_index
+        permanent: true
+
+nglayouts_admin_transfer_root_slash:
+    path: /admin/transfer/
+    controller: 'Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction'
+    methods: [GET]
+    defaults:
+        route: nglayouts_admin_transfer_index
+        permanent: true

@@ -11,7 +11,10 @@ interface EntityImporterInterface
     /**
      * Imports an entity from the given serialized $data.
      *
+     * If $overwriteExisting flag is true, the entities with the same UUID as the
+     * ones in provided data need to be deleted.
+     *
      * @param array<string, mixed> $data
      */
-    public function importEntity(array $data): Value;
+    public function importEntity(array $data, bool $overwriteExisting): Value;
 }

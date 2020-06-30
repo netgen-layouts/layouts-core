@@ -61,6 +61,11 @@ final class MainMenuBuilder
                 ->addChild('shared_layouts', ['route' => 'nglayouts_admin_shared_layouts_index'])
                 ->setLabel('menu.main_menu.shared_layouts')
                 ->setExtra('translation_domain', 'nglayouts_admin');
+
+            $menu
+                ->addChild('transfer', ['route' => 'nglayouts_admin_transfer_index'])
+                ->setLabel('menu.main_menu.transfer')
+                ->setExtra('translation_domain', 'nglayouts_admin');
         }
 
         $this->eventDispatcher->dispatch(

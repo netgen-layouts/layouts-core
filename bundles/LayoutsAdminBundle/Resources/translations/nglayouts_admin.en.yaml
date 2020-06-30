@@ -119,7 +119,12 @@ shared_layouts.cache.related_layouts.title: 'Clear linked layouts caches for sha
 shared_layouts.cache.related_layouts.button.clear: 'Clear selected'
 shared_layouts.cache.related_layouts.error: 'An error occurred while clearing the linked layouts caches. Please check the log for details.'
 
+transfer.import.title: 'Import'
+transfer.import.button.upload: 'Upload'
+transfer.import.result.success: 'Imported %entityType% #%index% into %entityType% with UUID "%uuid%"'
+
 menu.main_menu.header: 'Netgen Layouts'
 menu.main_menu.layout_resolver: 'Layout mappings'
 menu.main_menu.layouts: 'Layouts'
 menu.main_menu.shared_layouts: 'Shared layouts'
+menu.main_menu.transfer: 'Import'

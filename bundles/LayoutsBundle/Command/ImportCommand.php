@@ -13,6 +13,7 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
@@ -51,6 +52,7 @@ final class ImportCommand extends Command
     {
         $this
             ->setDescription('Imports Netgen Layouts entities')
+            ->addOption('overwrite', 'o', InputOption::VALUE_NONE, 'If specified, existing entities will be overwritten')
             ->addArgument('file', InputArgument::REQUIRED, 'JSON file to import')
             ->setHelp('The command <info>%command.name%</info> imports Netgen Layouts entities.');
     }
@@ -64,7 +66,10 @@ final class ImportCommand extends Command
             throw new RuntimeException('Provided file does not exist.');
         }
 
-        $errorCount = $this->importData((string) file_get_contents($file));
+        $errorCount = $this->importData(
+            (string) file_get_contents($file),
+            $input->getOption('overwrite')
+        );
 
         $errorCount > 0 ?
             $this->io->caution('Import completed with errors.') :
@@ -76,11 +81,11 @@ final class ImportCommand extends Command
     /**
      * Import new entities from the given data and returns the error count.
      */
-    private function importData(string $data): int
+    private function importData(string $data, bool $overwrite): int
     {
         $errorCount = 0;
 
-        foreach ($this->importer->importData($data) as $index => $result) {
+        foreach ($this->importer->importData($data, $overwrite) as $index => $result) {
             if ($result instanceof SuccessResult) {
                 $this->io->note(
                     sprintf(

@@ -63,7 +63,7 @@ final class MainMenuBuilderTest extends TestCase
 
         $menu = $this->builder->createMenu();
 
-        self::assertCount(3, $menu);
+        self::assertCount(4, $menu);
 
         self::assertInstanceOf(ItemInterface::class, $menu->getChild('layout_resolver'));
         self::assertSame(
@@ -81,6 +81,12 @@ final class MainMenuBuilderTest extends TestCase
         self::assertSame(
             'nglayouts_admin_shared_layouts_index',
             $menu->getChild('shared_layouts')->getUri()
+        );
+
+        self::assertInstanceOf(ItemInterface::class, $menu->getChild('transfer'));
+        self::assertSame(
+            'nglayouts_admin_transfer_index',
+            $menu->getChild('transfer')->getUri()
         );
     }
 

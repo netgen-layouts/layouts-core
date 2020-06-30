@@ -1,3 +1,10 @@
+nglayouts_admin_transfer_index:
+    path: /import
+    controller: netgen_layouts.controller.admin.transfer.import
+    methods: [GET, POST]
+    defaults:
+        _nglayouts_no_csrf: true
+
 nglayouts_admin_transfer_export:
     path: /export/{type}
     controller: netgen_layouts.controller.admin.transfer.export

@@ -43,7 +43,7 @@ final class Importer implements ImporterInterface
         $this->entityImporters = $entityImporters;
     }
 
-    public function importData(string $data): Traversable
+    public function importData(string $data, bool $overwriteExisting = false): Traversable
     {
         $schema = (string) file_get_contents(self::SCHEMA_FILE);
         $this->jsonValidator->validateJson($data, $schema);
@@ -52,7 +52,7 @@ final class Importer implements ImporterInterface
 
         foreach ($data['entities'] as $entityData) {
             try {
-                $entity = $this->getEntityImporter($entityData['__type'])->importEntity($entityData);
+                $entity = $this->getEntityImporter($entityData['__type'])->importEntity($entityData, $overwriteExisting);
                 yield new SuccessResult($entityData['__type'], $entityData, $entity->getId(), $entity);
             } catch (Throwable $t) {
                 yield new ErrorResult($entityData['__type'], $entityData, Uuid::fromString($entityData['id']), $t);
