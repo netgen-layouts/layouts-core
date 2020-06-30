@@ -68,7 +68,7 @@ final class ImportCommand extends Command
 
         $errorCount = $this->importData(
             (string) file_get_contents($file),
-            $input->getOption('overwrite')
+            (bool) $input->getOption('overwrite')
         );
 
         $errorCount > 0 ?
