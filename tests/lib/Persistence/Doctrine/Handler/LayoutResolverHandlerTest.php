@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Persistence\Doctrine\Handler;
 
+use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\ConditionCreateStruct;
@@ -329,6 +330,55 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertTrue($createdRule->enabled);
         self::assertSame('My rule', $createdRule->comment);
         self::assertSame(Value::STATUS_DRAFT, $createdRule->status);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getRulePriority
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestRulePriority
+     */
+    public function testCreateRuleWithCustomUuid(): void
+    {
+        $ruleCreateStruct = new RuleCreateStruct();
+        $ruleCreateStruct->uuid = '0f714915-eef0-4dc1-b22b-1107cb1ab92b';
+        $ruleCreateStruct->layoutId = 'd8e55af7-cf62-5f28-ae15-331b457d82e9';
+        $ruleCreateStruct->priority = 5;
+        $ruleCreateStruct->enabled = true;
+        $ruleCreateStruct->comment = 'My rule';
+        $ruleCreateStruct->status = Value::STATUS_DRAFT;
+
+        $createdRule = $this->handler->createRule($ruleCreateStruct);
+
+        self::assertSame(13, $createdRule->id);
+        self::assertSame('0f714915-eef0-4dc1-b22b-1107cb1ab92b', $createdRule->uuid);
+        self::assertSame('d8e55af7-cf62-5f28-ae15-331b457d82e9', $createdRule->layoutUuid);
+        self::assertSame(5, $createdRule->priority);
+        self::assertTrue($createdRule->enabled);
+        self::assertSame('My rule', $createdRule->comment);
+        self::assertSame(Value::STATUS_DRAFT, $createdRule->status);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getRulePriority
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestRulePriority
+     */
+    public function testCreateRuleWithExistingUuidThrowsBadStateException(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "uuid" has an invalid state. Rule with provided UUID already exists.');
+
+        $ruleCreateStruct = new RuleCreateStruct();
+        $ruleCreateStruct->uuid = '26768324-03dd-5952-8a55-4b449d6cd634';
+        $ruleCreateStruct->layoutId = 'd8e55af7-cf62-5f28-ae15-331b457d82e9';
+        $ruleCreateStruct->priority = 5;
+        $ruleCreateStruct->enabled = true;
+        $ruleCreateStruct->comment = 'My rule';
+        $ruleCreateStruct->status = Value::STATUS_DRAFT;
+
+        $this->handler->createRule($ruleCreateStruct);
     }
 
     /**

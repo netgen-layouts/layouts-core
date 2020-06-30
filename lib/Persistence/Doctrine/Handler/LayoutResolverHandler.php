@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Persistence\Doctrine\Handler;
 
+use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutResolverMapper;
 use Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler;
@@ -134,7 +135,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         );
     }
 
-    public function ruleExists($ruleId, int $status): bool
+    public function ruleExists($ruleId, ?int $status = null): bool
     {
         $ruleId = $ruleId instanceof UuidInterface ? $ruleId->toString() : $ruleId;
 
@@ -143,6 +144,10 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
     public function createRule(RuleCreateStruct $ruleCreateStruct): Rule
     {
+        if (is_string($ruleCreateStruct->uuid) && $this->ruleExists($ruleCreateStruct->uuid)) {
+            throw new BadStateException('uuid', 'Rule with provided UUID already exists.');
+        }
+
         $layout = null;
         if ($ruleCreateStruct->layoutId !== null) {
             $layout = $this->layoutHandler->loadLayout($ruleCreateStruct->layoutId, Value::STATUS_PUBLISHED);
@@ -150,7 +155,9 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
         $newRule = Rule::fromArray(
             [
-                'uuid' => Uuid::uuid4()->toString(),
+                'uuid' => is_string($ruleCreateStruct->uuid) ?
+                    $ruleCreateStruct->uuid :
+                    Uuid::uuid4()->toString(),
                 'status' => $ruleCreateStruct->status,
                 'layoutUuid' => $layout instanceof Layout ? $layout->uuid : null,
                 'enabled' => $ruleCreateStruct->enabled ? true : false,

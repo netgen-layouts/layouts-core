@@ -33,6 +33,7 @@ abstract class LayoutResolverStructBuilderTest extends CoreTestCase
 
         self::assertSame(
             [
+                'uuid' => null,
                 'layoutId' => null,
                 'priority' => null,
                 'enabled' => true,

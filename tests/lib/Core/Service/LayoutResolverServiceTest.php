@@ -275,6 +275,36 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRule
+     */
+    public function testCreateRuleWithCustomUuid(): void
+    {
+        $ruleCreateStruct = $this->layoutResolverService->newRuleCreateStruct();
+        $ruleCreateStruct->uuid = Uuid::fromString('0f714915-eef0-4dc1-b22b-1107cb1ab92b');
+
+        $createdRule = $this->layoutResolverService->createRule($ruleCreateStruct);
+
+        self::assertTrue($createdRule->isDraft());
+        self::assertSame($ruleCreateStruct->uuid->toString(), $createdRule->getId()->toString());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRule
+     */
+    public function testCreateRuleWithExistingUuidThrowsBadStateException(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "uuid" has an invalid state. Rule with provided UUID already exists.');
+
+        $ruleCreateStruct = $this->layoutResolverService->newRuleCreateStruct();
+        $ruleCreateStruct->uuid = Uuid::fromString('26768324-03dd-5952-8a55-4b449d6cd634');
+
+        $createdRule = $this->layoutResolverService->createRule($ruleCreateStruct);
+
+        self::assertTrue($createdRule->isDraft());
+    }
+
+    /**
      * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRule
      */
     public function testUpdateRule(): void
@@ -858,6 +888,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         self::assertSame(
             [
+                'uuid' => null,
                 'layoutId' => null,
                 'priority' => null,
                 'enabled' => true,

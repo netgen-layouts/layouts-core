@@ -224,6 +224,9 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
                 return $this->layoutResolverHandler->createRule(
                     RuleCreateStruct::fromArray(
                         [
+                            'uuid' => $ruleCreateStruct->uuid instanceof UuidInterface ?
+                                $ruleCreateStruct->uuid->toString() :
+                                $ruleCreateStruct->uuid,
                             'layoutId' => $ruleCreateStruct->layoutId instanceof UuidInterface ?
                                 $ruleCreateStruct->layoutId->toString() :
                                 $ruleCreateStruct->layoutId,

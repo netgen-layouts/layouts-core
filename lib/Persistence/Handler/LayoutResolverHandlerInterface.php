@@ -102,7 +102,7 @@ interface LayoutResolverHandlerInterface
      *
      * @param int|string|\Ramsey\Uuid\UuidInterface $ruleId
      */
-    public function ruleExists($ruleId, int $status): bool;
+    public function ruleExists($ruleId, ?int $status = null): bool;
 
     /**
      * Creates a rule.

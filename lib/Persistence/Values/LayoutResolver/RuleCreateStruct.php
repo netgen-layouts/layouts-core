@@ -11,6 +11,14 @@ final class RuleCreateStruct
     use HydratorTrait;
 
     /**
+     * Rule UUID. If specified, rule will be created with this UUID if not
+     * already taken by an existing rule.
+     *
+     * @var string|null
+     */
+    public $uuid;
+
+    /**
      * UUID of the layout mapped to new rule.
      *
      * @var string|null

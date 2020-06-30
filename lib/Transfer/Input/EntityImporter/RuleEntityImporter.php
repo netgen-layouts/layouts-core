@@ -66,6 +66,8 @@ final class RuleEntityImporter implements EntityImporterInterface
                     } catch (NotFoundException $e) {
                         // Do nothing
                     }
+
+                    $createStruct->uuid = $uuid;
                 }
 
                 $ruleDraft = $this->layoutResolverService->createRule($createStruct);

@@ -48,6 +48,16 @@ final class LayoutResolverValidator
      */
     public function validateRuleCreateStruct(RuleCreateStruct $ruleCreateStruct): void
     {
+        if ($ruleCreateStruct->uuid !== null) {
+            $this->validate(
+                $ruleCreateStruct->uuid,
+                [
+                    new Constraints\Type(['type' => UuidInterface::class]),
+                ],
+                'uuid'
+            );
+        }
+
         if ($ruleCreateStruct->layoutId !== null) {
             $this->validate(
                 $ruleCreateStruct->layoutId,

@@ -222,20 +222,22 @@ final class LayoutResolverValidatorTest extends TestCase
     public function validateRuleCreateStructDataProvider(): array
     {
         return [
-            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
-            [['layoutId' => null, 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
-            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
-            [['layoutId' => '', 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], false],
-            [['layoutId' => [], 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], false],
-            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => null, 'enabled' => true, 'comment' => 'Comment'], true],
-            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => '2', 'enabled' => true, 'comment' => 'Comment'], false],
-            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => false, 'comment' => 'Comment'], true],
-            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => null, 'comment' => 'Comment'], true],
-            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => 0, 'comment' => 'Comment'], false],
-            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => 1, 'comment' => 'Comment'], false],
-            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => true, 'comment' => null], true],
-            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => true, 'comment' => ''], true],
-            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => true, 'comment' => 42], false],
+            [['uuid' => null, 'layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
+            [['uuid' => Uuid::uuid4(), 'layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
+            [['uuid' => 42, 'layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], false],
+            [['uuid' => null, 'layoutId' => null, 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
+            [['uuid' => null, 'layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
+            [['uuid' => null, 'layoutId' => '', 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], false],
+            [['uuid' => null, 'layoutId' => [], 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], false],
+            [['uuid' => null, 'layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => null, 'enabled' => true, 'comment' => 'Comment'], true],
+            [['uuid' => null, 'layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => '2', 'enabled' => true, 'comment' => 'Comment'], false],
+            [['uuid' => null, 'layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => false, 'comment' => 'Comment'], true],
+            [['uuid' => null, 'layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => null, 'comment' => 'Comment'], true],
+            [['uuid' => null, 'layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => 0, 'comment' => 'Comment'], false],
+            [['uuid' => null, 'layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => 1, 'comment' => 'Comment'], false],
+            [['uuid' => null, 'layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => true, 'comment' => null], true],
+            [['uuid' => null, 'layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => true, 'comment' => ''], true],
+            [['uuid' => null, 'layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => true, 'comment' => 42], false],
         ];
     }
 
