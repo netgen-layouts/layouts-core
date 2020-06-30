@@ -175,8 +175,8 @@ abstract class ImporterTest extends CoreTestCase
             if (!$matchResult) {
                 $differ = new Differ(new UnifiedDiffOutputBuilder("--- Expected\n+++ Actual\n", false));
                 $diff = $differ->diff(
-                    (string) json_encode($ruleData, JSON_PRETTY_PRINT),
-                    (string) json_encode($exportedRuleData, JSON_PRETTY_PRINT)
+                    json_encode($ruleData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR),
+                    json_encode($exportedRuleData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR)
                 );
 
                 self::fail($matcher->getError() . PHP_EOL . $diff);
