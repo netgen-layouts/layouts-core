@@ -18,7 +18,6 @@ use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use Netgen\Layouts\Tests\TestCase\UuidGeneratorTrait;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
 
 final class LayoutHandlerTest extends TestCase
 {
@@ -804,7 +803,7 @@ final class LayoutHandlerTest extends TestCase
     public function testCreateLayoutWithCustomUuid(): void
     {
         $layoutCreateStruct = new LayoutCreateStruct();
-        $layoutCreateStruct->uuid = Uuid::fromString('5f35d4d3-8fa7-4602-9d4c-c74c2b16e3d7');
+        $layoutCreateStruct->uuid = '5f35d4d3-8fa7-4602-9d4c-c74c2b16e3d7';
         $layoutCreateStruct->type = 'new_layout';
         $layoutCreateStruct->name = 'New layout';
         $layoutCreateStruct->description = 'New description';
@@ -835,7 +834,7 @@ final class LayoutHandlerTest extends TestCase
         $this->expectExceptionMessage('Argument "uuid" has an invalid state. Layout with provided UUID already exists.');
 
         $layoutCreateStruct = new LayoutCreateStruct();
-        $layoutCreateStruct->uuid = Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136');
+        $layoutCreateStruct->uuid = '81168ed3-86f9-55ea-b153-101f96f2c136';
         $layoutCreateStruct->type = 'new_layout';
         $layoutCreateStruct->name = 'New layout';
         $layoutCreateStruct->description = 'New description';

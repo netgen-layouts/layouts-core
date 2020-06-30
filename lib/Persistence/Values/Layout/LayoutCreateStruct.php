@@ -14,7 +14,7 @@ final class LayoutCreateStruct
      * Layout UUID. If specified, layout will be created with this UUID if not
      * already taken by an existing layout.
      *
-     * @var \Ramsey\Uuid\UuidInterface|null
+     * @var string|null
      */
     public $uuid;
 

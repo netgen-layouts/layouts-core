@@ -292,7 +292,9 @@ final class LayoutService extends Service implements LayoutServiceInterface
                 $createdLayout = $this->layoutHandler->createLayout(
                     LayoutCreateStruct::fromArray(
                         [
-                            'uuid' => $layoutCreateStruct->uuid,
+                            'uuid' => $layoutCreateStruct->uuid instanceof UuidInterface ?
+                                $layoutCreateStruct->uuid->toString() :
+                                $layoutCreateStruct->uuid,
                             'type' => $layoutCreateStruct->layoutType->getIdentifier(),
                             'name' => $layoutCreateStruct->name,
                             'description' => $layoutCreateStruct->description,
