@@ -46,8 +46,10 @@ use function in_array;
 use function is_int;
 use function iterator_to_array;
 
-final class CollectionService extends Service implements APICollectionService
+final class CollectionService implements APICollectionService
 {
+    use TransactionTrait;
+
     /**
      * @var \Netgen\Layouts\Core\Validator\CollectionValidator
      */
@@ -87,7 +89,7 @@ final class CollectionService extends Service implements APICollectionService
         ConfigMapper $configMapper,
         CollectionHandlerInterface $collectionHandler
     ) {
-        parent::__construct($transactionHandler);
+        $this->transactionHandler = $transactionHandler;
 
         $this->validator = $validator;
         $this->mapper = $mapper;

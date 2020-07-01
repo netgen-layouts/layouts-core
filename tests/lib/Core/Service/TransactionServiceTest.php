@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Core\Service;
 
 use Exception;
-use Netgen\Layouts\Core\Service\Service;
+use Netgen\Layouts\Core\Service\TransactionService;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Persistence\TransactionHandlerInterface;
 use PHPUnit\Framework\TestCase;
 
-final class ServiceTest extends TestCase
+final class TransactionServiceTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
@@ -18,7 +18,7 @@ final class ServiceTest extends TestCase
     private $transactionHandlerMock;
 
     /**
-     * @var \Netgen\Layouts\Core\Service\Service
+     * @var \Netgen\Layouts\Core\Service\TransactionService
      */
     private $service;
 
@@ -26,15 +26,12 @@ final class ServiceTest extends TestCase
     {
         $this->transactionHandlerMock = $this->createMock(TransactionHandlerInterface::class);
 
-        $this->service = $this->getMockForAbstractClass(
-            Service::class,
-            [$this->transactionHandlerMock]
-        );
+        $this->service = new TransactionService($this->transactionHandlerMock);
     }
 
     /**
-     * @covers \Netgen\Layouts\Core\Service\Service::__construct
-     * @covers \Netgen\Layouts\Core\Service\Service::transaction
+     * @covers \Netgen\Layouts\Core\Service\TransactionService::__construct
+     * @covers \Netgen\Layouts\Core\Service\TransactionService::transaction
      */
     public function testTransaction(): void
     {
@@ -60,7 +57,7 @@ final class ServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Core\Service\Service::transaction
+     * @covers \Netgen\Layouts\Core\Service\TransactionService::transaction
      */
     public function testTransactionWithException(): void
     {
@@ -87,7 +84,7 @@ final class ServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Core\Service\Service::beginTransaction
+     * @covers \Netgen\Layouts\Core\Service\TransactionService::beginTransaction
      */
     public function testBeginTransaction(): void
     {
@@ -99,7 +96,7 @@ final class ServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Core\Service\Service::commitTransaction
+     * @covers \Netgen\Layouts\Core\Service\TransactionService::commitTransaction
      */
     public function testCommitTransaction(): void
     {
@@ -111,7 +108,7 @@ final class ServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Core\Service\Service::commitTransaction
+     * @covers \Netgen\Layouts\Core\Service\TransactionService::commitTransaction
      */
     public function testCommitTransactionThrowsRuntimeException(): void
     {
@@ -127,7 +124,7 @@ final class ServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Core\Service\Service::rollbackTransaction
+     * @covers \Netgen\Layouts\Core\Service\TransactionService::rollbackTransaction
      */
     public function testRollbackTransaction(): void
     {
@@ -139,7 +136,7 @@ final class ServiceTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Core\Service\Service::rollbackTransaction
+     * @covers \Netgen\Layouts\Core\Service\TransactionService::rollbackTransaction
      */
     public function testRollbackTransactionThrowsRuntimeException(): void
     {

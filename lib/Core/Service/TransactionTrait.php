@@ -4,22 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Core\Service;
 
-use Netgen\Layouts\API\Service\Service as APIService;
 use Netgen\Layouts\Exception\RuntimeException;
-use Netgen\Layouts\Persistence\TransactionHandlerInterface;
 use Throwable;
 
-abstract class Service implements APIService
+trait TransactionTrait
 {
     /**
      * @var \Netgen\Layouts\Persistence\TransactionHandlerInterface
      */
     private $transactionHandler;
-
-    public function __construct(TransactionHandlerInterface $transactionHandler)
-    {
-        $this->transactionHandler = $transactionHandler;
-    }
 
     public function transaction(callable $callable)
     {

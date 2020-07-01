@@ -89,6 +89,13 @@ services:
             - "@netgen_layouts.persistence.doctrine.layout_resolver.query_handler"
             - "@netgen_layouts.persistence.doctrine.layout_resolver.mapper"
 
+    # Public API
+
+    netgen_layouts.core.service.transaction:
+        class: Netgen\Layouts\Core\Service\TransactionService
+        arguments:
+            - "@netgen_layouts.persistence.transaction_handler"
+
     # Layout related APIs
 
     netgen_layouts.core.validator.layout:
@@ -232,6 +239,9 @@ services:
         class: Netgen\Layouts\Core\Mapper\ParameterMapper
 
     # Service aliases
+
+    netgen_layouts.api.service.transaction:
+        alias: netgen_layouts.core.service.transaction
 
     netgen_layouts.api.service.layout:
         alias: netgen_layouts.core.service.layout

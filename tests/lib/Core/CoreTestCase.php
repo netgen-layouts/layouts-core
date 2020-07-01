@@ -8,6 +8,7 @@ use Netgen\Layouts\API\Service\BlockService as APIBlockService;
 use Netgen\Layouts\API\Service\CollectionService as APICollectionService;
 use Netgen\Layouts\API\Service\LayoutResolverService as APILayoutResolverService;
 use Netgen\Layouts\API\Service\LayoutService as APILayoutService;
+use Netgen\Layouts\API\Service\TransactionService as APITransactionService;
 use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\Block\BlockDefinition;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType;
@@ -28,6 +29,7 @@ use Netgen\Layouts\Core\Service\BlockService;
 use Netgen\Layouts\Core\Service\CollectionService;
 use Netgen\Layouts\Core\Service\LayoutResolverService;
 use Netgen\Layouts\Core\Service\LayoutService;
+use Netgen\Layouts\Core\Service\TransactionService;
 use Netgen\Layouts\Core\StructBuilder\BlockStructBuilder;
 use Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder;
 use Netgen\Layouts\Core\StructBuilder\ConfigStructBuilder;
@@ -135,6 +137,11 @@ abstract class CoreTestCase extends TestCase
     protected $layoutResolverHandler;
 
     /**
+     * @var \Netgen\Layouts\API\Service\TransactionService
+     */
+    protected $transactionService;
+
+    /**
      * @var \Netgen\Layouts\API\Service\BlockService
      */
     protected $blockService;
@@ -172,6 +179,7 @@ abstract class CoreTestCase extends TestCase
         $this->targetTypeRegistry = $this->targetTypeRegistry ?? $this->createTargetTypeRegistry();
         $this->conditionTypeRegistry = $this->conditionTypeRegistry ?? $this->createConditionTypeRegistry();
 
+        $this->transactionService = $this->transactionService ?? $this->createTransactionService();
         $this->layoutService = $this->layoutService ?? $this->createLayoutService();
         $this->blockService = $this->blockService ?? $this->createBlockService();
         $this->collectionService = $this->collectionService ?? $this->createCollectionService();
@@ -197,6 +205,16 @@ abstract class CoreTestCase extends TestCase
             ->willReturn(new ConstraintViolationList());
 
         return $validator;
+    }
+
+    /**
+     * Creates a transaction service under test.
+     */
+    protected function createTransactionService(): APITransactionService
+    {
+        return new TransactionService(
+            $this->transactionHandler
+        );
     }
 
     /**

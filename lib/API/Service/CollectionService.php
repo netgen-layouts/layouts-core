@@ -20,7 +20,7 @@ use Netgen\Layouts\Collection\Item\ItemDefinitionInterface;
 use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
 use Ramsey\Uuid\UuidInterface;
 
-interface CollectionService extends Service
+interface CollectionService extends TransactionService
 {
     /**
      * Loads a collection with specified UUID.

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Service;
 
-interface Service
+interface TransactionService
 {
     /**
      * Runs the provided callable inside a transaction.

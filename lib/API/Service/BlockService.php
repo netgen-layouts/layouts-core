@@ -13,7 +13,7 @@ use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\Block\BlockDefinitionInterface;
 use Ramsey\Uuid\UuidInterface;
 
-interface BlockService extends Service
+interface BlockService extends TransactionService
 {
     /**
      * Loads a block with specified ID.

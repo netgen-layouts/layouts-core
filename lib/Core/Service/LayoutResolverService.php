@@ -41,8 +41,10 @@ use function array_map;
 use function count;
 use function sprintf;
 
-final class LayoutResolverService extends Service implements APILayoutResolverService
+final class LayoutResolverService implements APILayoutResolverService
 {
+    use TransactionTrait;
+
     /**
      * @var \Netgen\Layouts\Core\Validator\LayoutResolverValidator
      */
@@ -76,7 +78,7 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         LayoutResolverHandlerInterface $layoutResolverHandler,
         LayoutHandlerInterface $layoutHandler
     ) {
-        parent::__construct($transactionHandler);
+        $this->transactionHandler = $transactionHandler;
 
         $this->validator = $validator;
         $this->mapper = $mapper;

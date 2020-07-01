@@ -47,8 +47,10 @@ use function in_array;
 use function is_int;
 use function iterator_to_array;
 
-final class BlockService extends Service implements BlockServiceInterface
+final class BlockService implements BlockServiceInterface
 {
+    use TransactionTrait;
+
     /**
      * @var \Netgen\Layouts\Core\Validator\BlockValidator
      */
@@ -106,7 +108,7 @@ final class BlockService extends Service implements BlockServiceInterface
         LayoutHandlerInterface $layoutHandler,
         CollectionHandlerInterface $collectionHandler
     ) {
-        parent::__construct($transactionHandler);
+        $this->transactionHandler = $transactionHandler;
 
         $this->validator = $validator;
         $this->mapper = $mapper;

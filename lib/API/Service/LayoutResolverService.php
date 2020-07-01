@@ -18,7 +18,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetUpdateStruct;
 use Ramsey\Uuid\UuidInterface;
 
-interface LayoutResolverService extends Service
+interface LayoutResolverService extends TransactionService
 {
     /**
      * Loads a rule by its' UUID.

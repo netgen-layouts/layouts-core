@@ -13,7 +13,7 @@ use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 use Ramsey\Uuid\UuidInterface;
 
-interface LayoutService extends Service
+interface LayoutService extends TransactionService
 {
     /**
      * Loads a layout with specified UUID.

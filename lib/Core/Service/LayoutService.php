@@ -32,8 +32,10 @@ use function array_map;
 use function array_merge;
 use function count;
 
-final class LayoutService extends Service implements LayoutServiceInterface
+final class LayoutService implements LayoutServiceInterface
 {
+    use TransactionTrait;
+
     /**
      * @var \Netgen\Layouts\Core\Validator\LayoutValidator
      */
@@ -61,7 +63,7 @@ final class LayoutService extends Service implements LayoutServiceInterface
         LayoutStructBuilder $structBuilder,
         LayoutHandlerInterface $layoutHandler
     ) {
-        parent::__construct($transactionHandler);
+        $this->transactionHandler = $transactionHandler;
 
         $this->validator = $validator;
         $this->mapper = $mapper;
