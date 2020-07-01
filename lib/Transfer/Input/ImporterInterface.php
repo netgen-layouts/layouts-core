@@ -14,6 +14,8 @@ interface ImporterInterface
     /**
      * Imports the data into the system from provided JSON string.
      *
+     * @throws \Netgen\Layouts\Exception\Transfer\ImportException if there was an error importing entities
+     *
      * @return \Traversable<\Netgen\Layouts\Transfer\Input\Result\ResultInterface>
      */
     public function importData(string $data, ImportOptions $options): Traversable;

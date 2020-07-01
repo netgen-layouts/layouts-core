@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Transfer\Input;
 
 use Netgen\Layouts\API\Service\TransactionService;
 use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\Exception\Transfer\ImportException;
 use Netgen\Layouts\Exception\Transfer\TransferException;
 use Netgen\Layouts\Transfer\EntityHandlerInterface;
 use Netgen\Layouts\Transfer\Input\Result\ErrorResult;
@@ -57,24 +58,28 @@ final class Importer implements ImporterInterface
 
     public function importData(string $data, ImportOptions $options): Traversable
     {
-        $schema = (string) file_get_contents(self::SCHEMA_FILE);
-        $this->jsonValidator->validateJson($data, $schema);
+        try {
+            $schema = (string) file_get_contents(self::SCHEMA_FILE);
+            $this->jsonValidator->validateJson($data, $schema);
 
-        $data = json_decode($data, true, 512, JSON_THROW_ON_ERROR);
+            $data = json_decode($data, true, 512, JSON_THROW_ON_ERROR);
+        } catch (Throwable $t) {
+            throw ImportException::importError($t);
+        }
 
         foreach ($data['entities'] as $entityData) {
-            $uuid = Uuid::fromString($entityData['id']);
-
-            $handler = $this->getEntityHandler($entityData['__type']);
-            $entityExists = $uuid instanceof UuidInterface && $handler->entityExists($uuid);
-
-            if ($entityExists && $options->skipExisting()) {
-                yield new SkippedResult($entityData['__type'], $entityData, $uuid);
-
-                continue;
-            }
-
             try {
+                $uuid = Uuid::fromString($entityData['id']);
+
+                $handler = $this->getEntityHandler($entityData['__type']);
+                $entityExists = $uuid instanceof UuidInterface && $handler->entityExists($uuid);
+
+                if ($entityExists && $options->skipExisting()) {
+                    yield new SkippedResult($entityData['__type'], $entityData, $uuid);
+
+                    continue;
+                }
+
                 $entity = $this->transactionService->transaction(
                     static function () use ($handler, $entityData, $options, $uuid, $entityExists): Value {
                         $keepUuid = true;

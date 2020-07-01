@@ -6,6 +6,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\Transfer;
 
 use Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type\ImportType;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
+use Netgen\Layouts\Exception\Transfer\ImportException;
 use Netgen\Layouts\Transfer\Input\ImporterInterface;
 use Netgen\Layouts\Transfer\Input\ImportOptions;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -52,8 +53,20 @@ final class Import extends AbstractController
                     ->setMode($form->get('import_mode')->getData());
 
                 $json = (string) file_get_contents($jsonFile->getPathname());
-                foreach ($this->importer->importData($json, $options) as $result) {
-                    $results[] = $result;
+
+                try {
+                    foreach ($this->importer->importData($json, $options) as $result) {
+                        $results[] = $result;
+                    }
+                } catch (ImportException $e) {
+                    return $this->render(
+                        '@NetgenLayoutsAdmin/admin/transfer/import.html.twig',
+                        [
+                            'form' => $form->createView(),
+                            'results' => $results,
+                            'error' => $e,
+                        ]
+                    );
                 }
             }
         }
