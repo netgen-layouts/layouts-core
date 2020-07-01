@@ -8,7 +8,7 @@ services:
         public: true
         parent: netgen_layouts.controller.base
         arguments:
-            - "@netgen_layouts.transfer.input.importer"
+            - "@netgen_layouts.transfer.importer"
 
     netgen_layouts.controller.admin.transfer.export:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\Transfer\Export

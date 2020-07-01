@@ -121,6 +121,7 @@ shared_layouts.cache.related_layouts.error: 'An error occurred while clearing th
 
 transfer.import.title: 'Import'
 transfer.import.result.success: 'Imported %entityType% #%index% into %entityType% with UUID "%uuid%"'
+transfer.import.result.skipped: 'Skipped importing %entityType% #%index% with UUID "%uuid%"'
 
 menu.main_menu.header: 'Netgen Layouts'
 menu.main_menu.layout_resolver: 'Layout mappings'

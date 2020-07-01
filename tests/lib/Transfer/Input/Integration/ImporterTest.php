@@ -26,14 +26,13 @@ use Netgen\Layouts\Standard\Block\BlockDefinition\Handler\TitleHandler;
 use Netgen\Layouts\Tests\Config\Stubs\Block\ConfigHandler;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\Stubs\Container;
-use Netgen\Layouts\Transfer\Input\EntityImporter\LayoutEntityImporter;
-use Netgen\Layouts\Transfer\Input\EntityImporter\RuleEntityImporter;
+use Netgen\Layouts\Transfer\EntityHandler\LayoutEntityHandler;
+use Netgen\Layouts\Transfer\EntityHandler\RuleEntityHandler;
 use Netgen\Layouts\Transfer\Input\Importer;
+use Netgen\Layouts\Transfer\Input\ImportOptions;
 use Netgen\Layouts\Transfer\Input\JsonValidator;
 use Netgen\Layouts\Transfer\Input\Result\ErrorResult;
 use Netgen\Layouts\Transfer\Input\Result\SuccessResult;
-use Netgen\Layouts\Transfer\Output\EntityLoader\LayoutEntityLoader;
-use Netgen\Layouts\Transfer\Output\EntityLoader\RuleEntityLoader;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\Serializer;
 use Netgen\Layouts\Transfer\Output\Visitor;
@@ -97,27 +96,28 @@ abstract class ImporterTest extends CoreTestCase
                 }
             );
 
+        $entityHandlers = [
+            'layout' => new LayoutEntityHandler(
+                $this->blockService,
+                $this->collectionService,
+                $this->layoutService,
+                $this->blockDefinitionRegistry,
+                $this->layoutTypeRegistry,
+                $this->itemDefinitionRegistry,
+                $this->queryTypeRegistry,
+                $this->cmsItemLoaderMock
+            ),
+            'rule' => new RuleEntityHandler(
+                $this->layoutResolverService,
+                $this->targetTypeRegistry,
+                $this->conditionTypeRegistry
+            ),
+        ];
+
         $this->importer = new Importer(
+            $this->transactionService,
             new JsonValidator(),
-            new Container(
-                [
-                    'layout' => new LayoutEntityImporter(
-                        $this->blockService,
-                        $this->collectionService,
-                        $this->layoutService,
-                        $this->blockDefinitionRegistry,
-                        $this->layoutTypeRegistry,
-                        $this->itemDefinitionRegistry,
-                        $this->queryTypeRegistry,
-                        $this->cmsItemLoaderMock
-                    ),
-                    'rule' => new RuleEntityImporter(
-                        $this->layoutResolverService,
-                        $this->targetTypeRegistry,
-                        $this->conditionTypeRegistry
-                    ),
-                ]
-            )
+            new Container($entityHandlers)
         );
 
         /** @var iterable<\Netgen\Layouts\Transfer\Output\VisitorInterface<object>> $outputVisitors */
@@ -138,19 +138,14 @@ abstract class ImporterTest extends CoreTestCase
 
         $this->serializer = new Serializer(
             new OutputVisitor($outputVisitors),
-            new Container(
-                [
-                    'layout' => new LayoutEntityLoader($this->layoutService),
-                    'rule' => new RuleEntityLoader($this->layoutResolverService),
-                ]
-            )
+            new Container($entityHandlers)
         );
 
         $this->matcherFactory = new SimpleFactory();
     }
 
     /**
-     * @covers \Netgen\Layouts\Transfer\Input\EntityImporter\RuleEntityImporter
+     * @covers \Netgen\Layouts\Transfer\EntityHandler\RuleEntityHandler
      * @covers \Netgen\Layouts\Transfer\Input\Importer::__construct
      * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
      */
@@ -159,7 +154,7 @@ abstract class ImporterTest extends CoreTestCase
         $importData = (string) file_get_contents(__DIR__ . '/../../_fixtures/input/rules.json');
         $decodedData = json_decode((string) preg_replace('/[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}/', '@uuid@', $importData), true);
 
-        foreach ($this->importer->importData($importData) as $index => $result) {
+        foreach ($this->importer->importData($importData, new ImportOptions()) as $index => $result) {
             self::assertInstanceOf(SuccessResult::class, $result);
             self::assertInstanceOf(Rule::class, $result->getEntity());
             self::assertSame($result->getEntity()->getId()->toString(), $result->getEntityId()->toString());
@@ -188,7 +183,7 @@ abstract class ImporterTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Transfer\Input\EntityImporter\LayoutEntityImporter
+     * @covers \Netgen\Layouts\Transfer\EntityHandler\LayoutEntityHandler
      * @covers \Netgen\Layouts\Transfer\Input\Importer::__construct
      * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
      */
@@ -197,7 +192,7 @@ abstract class ImporterTest extends CoreTestCase
         $importData = (string) file_get_contents(__DIR__ . '/../../_fixtures/input/layouts.json');
         $decodedData = json_decode((string) preg_replace('/[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}/', '@uuid@', $importData), true, 512, JSON_THROW_ON_ERROR);
 
-        foreach ($this->importer->importData($importData) as $index => $result) {
+        foreach ($this->importer->importData($importData, new ImportOptions()) as $index => $result) {
             self::assertInstanceOf(SuccessResult::class, $result);
             self::assertInstanceOf(Layout::class, $result->getEntity());
             self::assertSame($result->getEntity()->getId()->toString(), $result->getEntityId()->toString());
@@ -238,7 +233,7 @@ abstract class ImporterTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Transfer\Input\EntityImporter\LayoutEntityImporter
+     * @covers \Netgen\Layouts\Transfer\EntityHandler\LayoutEntityHandler
      * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
      */
     public function testImportLayoutsWithMissingQueryTranslationThrowsRuntimeException(): void
@@ -247,7 +242,7 @@ abstract class ImporterTest extends CoreTestCase
             __DIR__ . '/../../_fixtures/input/invalid/missing_query_parameters_in_translation.json'
         );
 
-        $result = iterator_to_array($this->importer->importData($layoutData));
+        $result = iterator_to_array($this->importer->importData($layoutData, new ImportOptions()));
 
         self::assertInstanceOf(ErrorResult::class, $result[0]);
         self::assertInstanceOf(RuntimeException::class, $result[0]->getError());
@@ -255,7 +250,7 @@ abstract class ImporterTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Transfer\Input\EntityImporter\LayoutEntityImporter
+     * @covers \Netgen\Layouts\Transfer\EntityHandler\LayoutEntityHandler
      * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
      */
     public function testImportLayoutsWithMissingMainQueryTranslationThrowsRuntimeException(): void
@@ -264,7 +259,7 @@ abstract class ImporterTest extends CoreTestCase
             __DIR__ . '/../../_fixtures/input/invalid/missing_query_parameters_in_main_translation.json'
         );
 
-        $result = iterator_to_array($this->importer->importData($layoutData));
+        $result = iterator_to_array($this->importer->importData($layoutData, new ImportOptions()));
 
         self::assertInstanceOf(ErrorResult::class, $result[0]);
         self::assertInstanceOf(RuntimeException::class, $result[0]->getError());
@@ -272,7 +267,7 @@ abstract class ImporterTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Transfer\Input\EntityImporter\LayoutEntityImporter
+     * @covers \Netgen\Layouts\Transfer\EntityHandler\LayoutEntityHandler
      * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
      */
     public function testImportLayoutsWithMissingBlockTranslationThrowsRuntimeException(): void
@@ -281,7 +276,7 @@ abstract class ImporterTest extends CoreTestCase
             __DIR__ . '/../../_fixtures/input/invalid/missing_block_parameters_in_translation.json'
         );
 
-        $result = iterator_to_array($this->importer->importData($layoutData));
+        $result = iterator_to_array($this->importer->importData($layoutData, new ImportOptions()));
 
         self::assertInstanceOf(ErrorResult::class, $result[0]);
         self::assertInstanceOf(RuntimeException::class, $result[0]->getError());
@@ -289,7 +284,7 @@ abstract class ImporterTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Transfer\Input\EntityImporter\LayoutEntityImporter
+     * @covers \Netgen\Layouts\Transfer\EntityHandler\LayoutEntityHandler
      * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
      */
     public function testImportLayoutsWithMissingMainBlockTranslationThrowsRuntimeException(): void
@@ -298,7 +293,7 @@ abstract class ImporterTest extends CoreTestCase
             __DIR__ . '/../../_fixtures/input/invalid/missing_block_parameters_in_main_translation.json'
         );
 
-        $result = iterator_to_array($this->importer->importData($layoutData));
+        $result = iterator_to_array($this->importer->importData($layoutData, new ImportOptions()));
 
         self::assertInstanceOf(ErrorResult::class, $result[0]);
         self::assertInstanceOf(RuntimeException::class, $result[0]->getError());
@@ -306,7 +301,7 @@ abstract class ImporterTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Transfer\Input\EntityImporter\LayoutEntityImporter
+     * @covers \Netgen\Layouts\Transfer\EntityHandler\LayoutEntityHandler
      * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
      */
     public function testImportLayoutsWithMissingZoneThrowsRuntimeException(): void
@@ -315,7 +310,7 @@ abstract class ImporterTest extends CoreTestCase
             __DIR__ . '/../../_fixtures/input/invalid/missing_zone.json'
         );
 
-        $result = iterator_to_array($this->importer->importData($layoutData));
+        $result = iterator_to_array($this->importer->importData($layoutData, new ImportOptions()));
 
         self::assertInstanceOf(ErrorResult::class, $result[0]);
         self::assertInstanceOf(RuntimeException::class, $result[0]->getError());

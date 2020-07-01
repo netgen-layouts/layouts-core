@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type;
 
+use Netgen\Layouts\Transfer\Input\ImportOptions;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints;
@@ -19,14 +19,14 @@ final class ImportType extends AbstractType
     private $maxUploadSize;
 
     /**
-     * @var bool
+     * @var string
      */
-    private $overwriteExisting;
+    private $importMode;
 
-    public function __construct(string $maxUploadSize, bool $overwriteExisting)
+    public function __construct(string $maxUploadSize, string $importMode)
     {
         $this->maxUploadSize = $maxUploadSize;
-        $this->overwriteExisting = $overwriteExisting;
+        $this->importMode = $importMode;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -38,7 +38,7 @@ final class ImportType extends AbstractType
     {
         $builder->add(
             'file',
-            FileType::class,
+            Type\FileType::class,
             [
                 'label' => 'import.file',
                 'constraints' => [
@@ -59,12 +59,17 @@ final class ImportType extends AbstractType
         );
 
         $builder->add(
-            'overwriteExisting',
-            CheckboxType::class,
+            'import_mode',
+            Type\ChoiceType::class,
             [
-                'required' => false,
-                'label' => 'import.overwrite_existing',
-                'data' => $this->overwriteExisting,
+                'label' => 'import.import_mode',
+                'expanded' => true,
+                'data' => $this->importMode,
+                'choices' => [
+                    'import.import_mode.copy' => ImportOptions::MODE_COPY,
+                    'import.import_mode.overwrite' => ImportOptions::MODE_OVERWRITE,
+                    'import.import_mode.skip' => ImportOptions::MODE_SKIP,
+                ],
             ]
         );
     }

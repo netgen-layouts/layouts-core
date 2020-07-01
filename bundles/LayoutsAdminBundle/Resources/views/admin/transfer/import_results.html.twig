@@ -12,6 +12,14 @@
             </p>
         {% elseif result.error is defined %}
             <p>{{ dump(result.error) }}</p>
+        {% else %}
+            <p>
+                {{ 'transfer.import.result.skipped'|trans({
+                    '%entityType%': result.entityType,
+                    '%index%': loop.index,
+                    '%uuid%': result.entityId.toString
+                }) }}
+            </p>
         {% endif %}
     {% endfor %}
 {% endif %}

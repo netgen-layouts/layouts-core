@@ -6,7 +6,9 @@ namespace Netgen\Layouts\Transfer\Output;
 
 use Netgen\Layouts\Exception\Transfer\TransferException;
 use Netgen\Layouts\Transfer\Descriptor;
+use Netgen\Layouts\Transfer\EntityHandlerInterface;
 use Psr\Container\ContainerInterface;
+use Ramsey\Uuid\Uuid;
 
 /**
  * Serializer serializes domain entities into hash representation, which can be
@@ -25,22 +27,24 @@ final class Serializer implements SerializerInterface
     /**
      * @var \Psr\Container\ContainerInterface
      */
-    private $entityLoaders;
+    private $entityHandlers;
 
     public function __construct(
         OutputVisitor $visitor,
-        ContainerInterface $entityLoaders
+        ContainerInterface $entityHandlers
     ) {
         $this->visitor = $visitor;
-        $this->entityLoaders = $entityLoaders;
+        $this->entityHandlers = $entityHandlers;
     }
 
     public function serialize(string $type, array $entityIds): array
     {
         $data = $this->createBasicData();
 
-        foreach ($this->getEntityLoader($type)->loadEntities($entityIds) as $entity) {
-            $data['entities'][] = $this->visitor->visit($entity);
+        foreach ($entityIds as $entityId) {
+            $data['entities'][] = $this->visitor->visit(
+                $this->getEntityHandler($type)->loadEntity(Uuid::fromString($entityId))
+            );
         }
 
         return $data;
@@ -60,21 +64,21 @@ final class Serializer implements SerializerInterface
     }
 
     /**
-     * Returns the entity loader for provided entity type from the collection.
+     * Returns the entity handler for provided entity type from the collection.
      *
-     * @throws \Netgen\Layouts\Exception\Transfer\TransferException If the entity loader does not exist or is not of correct type
+     * @throws \Netgen\Layouts\Exception\Transfer\TransferException If the entity handler does not exist or is not of correct type
      */
-    private function getEntityLoader(string $type): EntityLoaderInterface
+    private function getEntityHandler(string $type): EntityHandlerInterface
     {
-        if (!$this->entityLoaders->has($type)) {
-            throw TransferException::noEntityLoader($type);
+        if (!$this->entityHandlers->has($type)) {
+            throw TransferException::noEntityHandler($type);
         }
 
-        $entityLoader = $this->entityLoaders->get($type);
-        if (!$entityLoader instanceof EntityLoaderInterface) {
-            throw TransferException::noEntityLoader($type);
+        $entityHandler = $this->entityHandlers->get($type);
+        if (!$entityHandler instanceof EntityHandlerInterface) {
+            throw TransferException::noEntityHandler($type);
         }
 
-        return $entityLoader;
+        return $entityHandler;
     }
 }

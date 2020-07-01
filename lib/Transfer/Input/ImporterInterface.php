@@ -14,10 +14,7 @@ interface ImporterInterface
     /**
      * Imports the data into the system from provided JSON string.
      *
-     * If $overwriteExisting flag is true, the entities with the same UUID as the
-     * ones in provided data will be deleted.
-     *
      * @return \Traversable<\Netgen\Layouts\Transfer\Input\Result\ResultInterface>
      */
-    public function importData(string $data, bool $overwriteExisting = false): Traversable;
+    public function importData(string $data, ImportOptions $options): Traversable;
 }

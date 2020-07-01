@@ -13,25 +13,23 @@ use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use function preg_match;
 
-final class SerializerPass implements CompilerPassInterface
+final class EntityHandlerPass implements CompilerPassInterface
 {
-    private const SERVICE_NAME = 'netgen_layouts.transfer.serializer';
-    private const TAG_NAME = 'netgen_layouts.transfer.entity_loader';
+    private const SERVICE_NAMES = [
+        'netgen_layouts.transfer.importer',
+        'netgen_layouts.transfer.serializer',
+    ];
+
+    private const TAG_NAME = 'netgen_layouts.transfer.entity_handler';
 
     public function process(ContainerBuilder $container): void
     {
-        if (!$container->has(self::SERVICE_NAME)) {
-            return;
-        }
-
-        $serializer = $container->findDefinition(self::SERVICE_NAME);
-
-        $entityLoaders = [];
+        $handlers = [];
         foreach ($container->findTaggedServiceIds(self::TAG_NAME) as $serviceName => $tags) {
             foreach ($tags as $tag) {
                 if (!isset($tag['entity_type'])) {
                     throw new RuntimeException(
-                        "Entity loader service definition must have a 'entity_type' attribute in its' tag."
+                        "Entity handler service definition must have a 'entity_type' attribute in its' tag."
                     );
                 }
 
@@ -41,10 +39,20 @@ final class SerializerPass implements CompilerPassInterface
                     );
                 }
 
-                $entityLoaders[$tag['entity_type']] = new ServiceClosureArgument(new Reference($serviceName));
+                $handlers[$tag['entity_type']] = new ServiceClosureArgument(new Reference($serviceName));
             }
         }
 
-        $serializer->addArgument(new Definition(ServiceLocator::class, [$entityLoaders]));
+        $handlers = new Definition(ServiceLocator::class, [$handlers]);
+
+        foreach (self::SERVICE_NAMES as $serviceName) {
+            if (!$container->has($serviceName)) {
+                continue;
+            }
+
+            $container
+                ->findDefinition($serviceName)
+                ->addArgument($handlers);
+        }
     }
 }

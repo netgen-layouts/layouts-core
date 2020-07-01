@@ -2,21 +2,20 @@
 
 declare(strict_types=1);
 
-namespace Netgen\Layouts\Transfer\Input\EntityImporter;
+namespace Netgen\Layouts\Transfer\EntityHandler;
 
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\API\Values\Value;
-use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry;
-use Netgen\Layouts\Transfer\Input\EntityImporterInterface;
+use Netgen\Layouts\Transfer\EntityHandlerInterface;
 use Ramsey\Uuid\Uuid;
-use function is_string;
+use Ramsey\Uuid\UuidInterface;
 
-final class RuleEntityImporter implements EntityImporterInterface
+final class RuleEntityHandler implements EntityHandlerInterface
 {
     /**
      * @var \Netgen\Layouts\API\Service\LayoutResolverService
@@ -43,7 +42,24 @@ final class RuleEntityImporter implements EntityImporterInterface
         $this->conditionTypeRegistry = $conditionTypeRegistry;
     }
 
-    public function importEntity(array $data, bool $overwriteExisting): Value
+    public function loadEntity(UuidInterface $uuid): Value
+    {
+        return $this->layoutResolverService->loadRule($uuid);
+    }
+
+    public function entityExists(UuidInterface $uuid): bool
+    {
+        return $this->layoutResolverService->ruleExists($uuid);
+    }
+
+    public function deleteEntity(UuidInterface $uuid): void
+    {
+        $this->layoutResolverService->deleteRule(
+            $this->layoutResolverService->loadRule($uuid)
+        );
+    }
+
+    public function importEntity(array $data, bool $keepUuid): Value
     {
         $createStruct = $this->layoutResolverService->newRuleCreateStruct();
 
@@ -54,29 +70,15 @@ final class RuleEntityImporter implements EntityImporterInterface
             Uuid::fromString($data['layout_id']) :
             null;
 
-        return $this->layoutResolverService->transaction(
-            function () use ($createStruct, $data, $overwriteExisting): Rule {
-                if ($overwriteExisting && is_string($data['id'] ?? null)) {
-                    $uuid = Uuid::fromString($data['id']);
+        if ($keepUuid) {
+            $createStruct->uuid = Uuid::fromString($data['id']);
+        }
 
-                    try {
-                        $this->layoutResolverService->deleteRule(
-                            $this->layoutResolverService->loadRule($uuid)
-                        );
-                    } catch (NotFoundException $e) {
-                        // Do nothing
-                    }
+        $ruleDraft = $this->layoutResolverService->createRule($createStruct);
+        $this->createTargets($ruleDraft, $data['targets']);
+        $this->createConditions($ruleDraft, $data['conditions']);
 
-                    $createStruct->uuid = $uuid;
-                }
-
-                $ruleDraft = $this->layoutResolverService->createRule($createStruct);
-                $this->createTargets($ruleDraft, $data['targets']);
-                $this->createConditions($ruleDraft, $data['conditions']);
-
-                return $this->layoutResolverService->publishRule($ruleDraft);
-            }
-        );
+        return $this->layoutResolverService->publishRule($ruleDraft);
     }
 
     /**

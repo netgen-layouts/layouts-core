@@ -10,21 +10,11 @@ use function sprintf;
 
 final class TransferException extends InvalidArgumentException implements Exception
 {
-    public static function noEntityLoader(string $entityType): self
+    public static function noEntityHandler(string $entityType): self
     {
         return new self(
             sprintf(
-                'Entity loader for "%s" entity type does not exist.',
-                $entityType
-            )
-        );
-    }
-
-    public static function noEntityImporter(string $entityType): self
-    {
-        return new self(
-            sprintf(
-                'Entity importer for "%s" entity type does not exist.',
+                'Entity handler for "%s" entity type does not exist.',
                 $entityType
             )
         );

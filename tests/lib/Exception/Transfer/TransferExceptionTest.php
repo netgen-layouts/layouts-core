@@ -10,27 +10,14 @@ use PHPUnit\Framework\TestCase;
 final class TransferExceptionTest extends TestCase
 {
     /**
-     * @covers \Netgen\Layouts\Exception\Transfer\TransferException::noEntityLoader
+     * @covers \Netgen\Layouts\Exception\Transfer\TransferException::noEntityHandler
      */
-    public function testNoEntityLoader(): void
+    public function testNoEntityHandler(): void
     {
-        $exception = TransferException::noEntityLoader('type');
+        $exception = TransferException::noEntityHandler('type');
 
         self::assertSame(
-            'Entity loader for "type" entity type does not exist.',
-            $exception->getMessage()
-        );
-    }
-
-    /**
-     * @covers \Netgen\Layouts\Exception\Transfer\TransferException::noEntityImporter
-     */
-    public function testNoEntityImporter(): void
-    {
-        $exception = TransferException::noEntityImporter('type');
-
-        self::assertSame(
-            'Entity importer for "type" entity type does not exist.',
+            'Entity handler for "type" entity type does not exist.',
             $exception->getMessage()
         );
     }

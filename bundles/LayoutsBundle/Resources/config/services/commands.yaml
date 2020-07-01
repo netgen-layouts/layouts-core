@@ -24,6 +24,6 @@ services:
     netgen_layouts.command.import:
         class: Netgen\Bundle\LayoutsBundle\Command\ImportCommand
         arguments:
-            - "@netgen_layouts.transfer.input.importer"
+            - "@netgen_layouts.transfer.importer"
         tags:
             - { name: console.command, command: nglayouts:import }

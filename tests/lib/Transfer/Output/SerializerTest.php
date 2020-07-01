@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Transfer\Output;
 
 use Netgen\Layouts\Tests\Stubs\Container;
-use Netgen\Layouts\Tests\Transfer\Output\EntityLoader\Stubs\EntityLoaderStub;
 use Netgen\Layouts\Tests\Transfer\Output\Visitor\Stubs\VisitorStub;
+use Netgen\Layouts\Tests\Transfer\Stubs\EntityHandlerStub;
 use Netgen\Layouts\Transfer\Descriptor;
 use Netgen\Layouts\Transfer\Output\OutputVisitor;
 use Netgen\Layouts\Transfer\Output\Serializer;
@@ -24,14 +24,14 @@ final class SerializerTest extends TestCase
     {
         $this->serializer = new Serializer(
             new OutputVisitor([new VisitorStub()]),
-            new Container(['entity' => new EntityLoaderStub()])
+            new Container(['entity' => new EntityHandlerStub()])
         );
     }
 
     /**
      * @covers \Netgen\Layouts\Transfer\Output\Serializer::__construct
      * @covers \Netgen\Layouts\Transfer\Output\Serializer::createBasicData
-     * @covers \Netgen\Layouts\Transfer\Output\Serializer::getEntityLoader
+     * @covers \Netgen\Layouts\Transfer\Output\Serializer::getEntityHandler
      * @covers \Netgen\Layouts\Transfer\Output\Serializer::serialize
      */
     public function testSerialize(): void
