@@ -263,6 +263,22 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::ruleExists
+     */
+    public function testRuleExists(): void
+    {
+        self::assertTrue($this->layoutResolverService->ruleExists(Uuid::fromString('26768324-03dd-5952-8a55-4b449d6cd634')));
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::ruleExists
+     */
+    public function testRuleExistsReturnsFalse(): void
+    {
+        self::assertFalse($this->layoutResolverService->ruleExists(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff')));
+    }
+
+    /**
      * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRule
      */
     public function testCreateRule(): void

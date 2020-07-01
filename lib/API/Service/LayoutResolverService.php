@@ -95,6 +95,11 @@ interface LayoutResolverService extends Service
     public function loadConditionDraft(UuidInterface $conditionId): Condition;
 
     /**
+     * Returns if rule with provided UUID, and optionally status, exists.
+     */
+    public function ruleExists(UuidInterface $ruleId, ?int $status = null): bool;
+
+    /**
      * Creates a rule.
      */
     public function createRule(RuleCreateStruct $ruleCreateStruct): Rule;

@@ -210,6 +210,11 @@ final class LayoutService extends Service implements LayoutServiceInterface
         return $this->layoutHandler->layoutExists($layoutId, $status);
     }
 
+    public function layoutExists(UuidInterface $layoutId, ?int $status = null): bool
+    {
+        return $this->layoutHandler->layoutExists($layoutId, $status);
+    }
+
     public function layoutNameExists(string $name, ?UuidInterface $excludedLayoutId = null): bool
     {
         return $this->layoutHandler->layoutNameExists($name, $excludedLayoutId);

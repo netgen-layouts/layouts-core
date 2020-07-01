@@ -272,9 +272,25 @@ abstract class LayoutServiceTest extends CoreTestCase
     /**
      * @covers \Netgen\Layouts\Core\Service\LayoutService::hasStatus
      */
-    public function testHasPublishedStateReturnsFalse(): void
+    public function testHasStatusReturnsFalse(): void
     {
         self::assertFalse($this->layoutService->hasStatus(Uuid::fromString('8626a1ca-6413-5f54-acef-de7db06272ce'), Layout::STATUS_PUBLISHED));
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::layoutExists
+     */
+    public function testLayoutExists(): void
+    {
+        self::assertTrue($this->layoutService->layoutExists(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136')));
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutService::layoutExists
+     */
+    public function testLayoutExistsReturnsFalse(): void
+    {
+        self::assertFalse($this->layoutService->layoutExists(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff')));
     }
 
     /**

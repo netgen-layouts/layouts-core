@@ -215,6 +215,11 @@ final class LayoutResolverService extends Service implements APILayoutResolverSe
         );
     }
 
+    public function ruleExists(UuidInterface $ruleId, ?int $status = null): bool
+    {
+        return $this->layoutResolverHandler->ruleExists($ruleId, $status);
+    }
+
     public function createRule(APIRuleCreateStruct $ruleCreateStruct): Rule
     {
         $this->validator->validateRuleCreateStruct($ruleCreateStruct);

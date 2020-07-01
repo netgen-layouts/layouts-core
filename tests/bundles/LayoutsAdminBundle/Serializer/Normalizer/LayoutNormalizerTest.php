@@ -145,7 +145,7 @@ final class LayoutNormalizerTest extends TestCase
             );
 
         $this->layoutServiceMock
-            ->method('hasStatus')
+            ->method('layoutExists')
             ->with(self::identicalTo($layout->getId()), self::identicalTo(Layout::STATUS_PUBLISHED))
             ->willReturn(true);
 
@@ -250,7 +250,7 @@ final class LayoutNormalizerTest extends TestCase
         );
 
         $this->layoutServiceMock
-            ->method('hasStatus')
+            ->method('layoutExists')
             ->with(self::identicalTo($layout->getId()), self::identicalTo(Layout::STATUS_PUBLISHED))
             ->willReturn(true);
 

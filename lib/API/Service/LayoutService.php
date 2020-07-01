@@ -90,8 +90,15 @@ interface LayoutService extends Service
 
     /**
      * Returns if layout with provided UUID has a provided status (published, draft or archived).
+     *
+     * @deprecated Will be removed in 2.0. Use LayoutService::layoutExists.
      */
     public function hasStatus(UuidInterface $layoutId, int $status): bool;
+
+    /**
+     * Returns if layout with provided UUID, and optionally status, exists.
+     */
+    public function layoutExists(UuidInterface $layoutId, ?int $status = null): bool;
 
     /**
      * Returns if layout with provided name exists.
