@@ -68,9 +68,14 @@ final class ImportCommand extends Command
             throw new RuntimeException('Provided file does not exist.');
         }
 
+        $importMode = $input->getOption('mode');
+        if (!is_string($importMode)) {
+            $importMode = ImportOptions::MODE_COPY;
+        }
+
         $errorCount = $this->importData(
             (string) file_get_contents($file),
-            $input->getOption('mode')
+            $importMode
         );
 
         $errorCount > 0 ?

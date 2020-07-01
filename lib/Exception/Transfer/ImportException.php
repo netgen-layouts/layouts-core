@@ -18,7 +18,7 @@ final class ImportException extends RuntimeException implements Exception
                 'There was an error importing entities: %s',
                 $previous->getMessage()
             ),
-            $previous->getCode(),
+            0,
             $previous
         );
     }

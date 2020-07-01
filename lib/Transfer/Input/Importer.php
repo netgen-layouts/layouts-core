@@ -68,9 +68,9 @@ final class Importer implements ImporterInterface
         }
 
         foreach ($data['entities'] as $entityData) {
-            try {
-                $uuid = Uuid::fromString($entityData['id']);
+            $uuid = Uuid::fromString($entityData['id']);
 
+            try {
                 $handler = $this->getEntityHandler($entityData['__type']);
                 $entityExists = $uuid instanceof UuidInterface && $handler->entityExists($uuid);
 
