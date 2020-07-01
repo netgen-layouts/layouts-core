@@ -99,7 +99,7 @@
             "layout": {
                 "type": "object",
                 "description": "A layout",
-                "required": ["__type", "status", "type_identifier", "name", "description", "creation_date", "modification_date", "is_shared", "main_locale", "available_locales", "zones"],
+                "required": ["__type", "id", "status", "type_identifier", "name", "description", "creation_date", "modification_date", "is_shared", "main_locale", "available_locales", "zones"],
                 "additionalProperties": false,
                 "properties": {
                     "__type": {
@@ -205,7 +205,7 @@
             "block": {
                 "type": "object",
                 "description": "A block",
-                "required": ["definition_identifier", "name", "view_type", "item_view_type", "is_translatable", "is_always_available", "main_locale", "available_locales", "parameters", "configuration", "placeholders", "collections"],
+                "required": ["id", "definition_identifier", "name", "view_type", "item_view_type", "is_translatable", "is_always_available", "main_locale", "available_locales", "parameters", "configuration", "placeholders", "collections"],
                 "additionalProperties": false,
                 "properties": {
                     "id": {
@@ -310,7 +310,7 @@
             "collection": {
                 "type": "object",
                 "description": "A collection",
-                "required": ["offset", "limit", "is_translatable", "is_always_available", "main_locale", "available_locales", "items", "slots", "query"],
+                "required": ["id", "offset", "limit", "is_translatable", "is_always_available", "main_locale", "available_locales", "items", "slots", "query"],
                 "additionalProperties": false,
                 "properties": {
                     "id": {
@@ -368,7 +368,7 @@
             "item": {
                 "type": "object",
                 "description": "A collection item",
-                "required": ["position", "value", "value_type", "view_type", "configuration"],
+                "required": ["id", "position", "value", "value_type", "view_type", "configuration"],
                 "additionalProperties": false,
                 "properties": {
                     "id": {
@@ -414,7 +414,7 @@
             "query": {
                 "type": "object",
                 "description": "A collection query",
-                "required": ["query_type", "is_translatable", "is_always_available", "main_locale", "available_locales", "parameters"],
+                "required": ["id", "query_type", "is_translatable", "is_always_available", "main_locale", "available_locales", "parameters"],
                 "additionalProperties": false,
                 "properties": {
                     "id": {
@@ -452,7 +452,7 @@
             "slot": {
                 "type": "object",
                 "description": "A collection slot",
-                "required": ["position", "view_type"],
+                "required": ["id", "position", "view_type"],
                 "additionalProperties": false,
                 "properties": {
                     "id": {
@@ -476,7 +476,7 @@
             "rule": {
                 "type": "object",
                 "description": "A rule",
-                "required": ["__type", "status", "layout_id", "is_enabled", "priority", "comment", "targets", "conditions"],
+                "required": ["__type", "id", "status", "layout_id", "is_enabled", "priority", "comment", "targets", "conditions"],
                 "additionalProperties": false,
                 "properties": {
                     "__type": {
@@ -531,7 +531,7 @@
             "target": {
                 "type": "object",
                 "description": "A rule target",
-                "required": ["type", "value"],
+                "required": ["id", "type", "value"],
                 "additionalProperties": false,
                 "properties": {
                     "id": {
@@ -559,7 +559,7 @@
             "condition": {
                 "type": "object",
                 "description": "A rule condition",
-                "required": ["type", "value"],
+                "required": ["id", "type", "value"],
                 "additionalProperties": false,
                 "properties": {
                     "id": {
@@ -587,7 +587,7 @@
             "role": {
                 "type": "object",
                 "description": "A role",
-                "required": ["__type", "status", "identifier", "name", "description", "policies"],
+                "required": ["__type", "id", "status", "identifier", "name", "description", "policies"],
                 "additionalProperties": false,
                 "properties": {
                     "__type": {
@@ -629,7 +629,7 @@
             "policy": {
                 "type": "object",
                 "description": "A role policy",
-                "required": ["component", "permission", "limitations"],
+                "required": ["id", "component", "permission", "limitations"],
                 "additionalProperties": false,
                 "properties": {
                     "id": {
