@@ -7,7 +7,9 @@ namespace Netgen\Bundle\LayoutsBundle\Command;
 use Exception;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Transfer\Input\ImporterInterface;
+use Netgen\Layouts\Transfer\Input\ImportOptions;
 use Netgen\Layouts\Transfer\Input\Result\ErrorResult;
+use Netgen\Layouts\Transfer\Input\Result\SkippedResult;
 use Netgen\Layouts\Transfer\Input\Result\SuccessResult;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
@@ -52,8 +54,8 @@ final class ImportCommand extends Command
     {
         $this
             ->setDescription('Imports Netgen Layouts entities')
-            ->addOption('overwrite', 'o', InputOption::VALUE_NONE, 'If specified, existing entities will be overwritten')
             ->addArgument('file', InputArgument::REQUIRED, 'JSON file to import')
+            ->addOption('mode', 'm', InputOption::VALUE_REQUIRED, 'Defines how to handle existing entities when importing', 'copy')
             ->setHelp('The command <info>%command.name%</info> imports Netgen Layouts entities.');
     }
 
@@ -68,7 +70,7 @@ final class ImportCommand extends Command
 
         $errorCount = $this->importData(
             (string) file_get_contents($file),
-            (bool) $input->getOption('overwrite')
+            $input->getOption('mode')
         );
 
         $errorCount > 0 ?
@@ -81,11 +83,26 @@ final class ImportCommand extends Command
     /**
      * Import new entities from the given data and returns the error count.
      */
-    private function importData(string $data, bool $overwrite): int
+    private function importData(string $data, string $mode): int
     {
         $errorCount = 0;
+        $importOptions = (new ImportOptions())
+            ->setMode($mode);
 
-        foreach ($this->importer->importData($data, $overwrite) as $index => $result) {
+        foreach ($this->importer->importData($data, $importOptions) as $index => $result) {
+            if ($result instanceof SkippedResult) {
+                $this->io->note(
+                    sprintf(
+                        'Skipped importing %1$s #%2$d with UUID %3$s',
+                        $result->getEntityType(),
+                        $index + 1,
+                        $result->getEntityId()->toString()
+                    )
+                );
+
+                continue;
+            }
+
             if ($result instanceof SuccessResult) {
                 $this->io->note(
                     sprintf(
