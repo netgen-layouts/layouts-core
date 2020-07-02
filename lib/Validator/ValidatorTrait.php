@@ -10,6 +10,7 @@ use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Throwable;
 use function count;
+use function sprintf;
 
 trait ValidatorTrait
 {
@@ -104,11 +105,8 @@ trait ValidatorTrait
             return;
         }
 
-        $propertyName = $violations[0]->getPropertyPath() ?? '';
-        if ($propertyName === '') {
-            $propertyName = $propertyPath ?? '';
-        }
+        $propertyPath = sprintf('%s%s', $propertyPath ?? '', $violations[0]->getPropertyPath() ?? '');
 
-        throw ValidationException::validationFailed($propertyName, $violations[0]->getMessage());
+        throw ValidationException::validationFailed($propertyPath, $violations[0]->getMessage());
     }
 }

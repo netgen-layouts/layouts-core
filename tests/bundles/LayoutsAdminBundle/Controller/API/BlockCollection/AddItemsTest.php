@@ -232,7 +232,7 @@ final class AddItemsTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "[0][value]": This value should be of type scalar.'
+            'There was an error validating "items[0][value]": This value should be of type scalar.'
         );
     }
 
@@ -265,7 +265,7 @@ final class AddItemsTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "[0][value]": This field is missing.'
+            'There was an error validating "items[0][value]": This field is missing.'
         );
     }
 
@@ -299,7 +299,7 @@ final class AddItemsTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "[0][value_type]": This value should be of type string.'
+            'There was an error validating "items[0][value_type]": This value should be of type string.'
         );
     }
 
@@ -332,7 +332,7 @@ final class AddItemsTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "[0][value_type]": This field is missing.'
+            'There was an error validating "items[0][value_type]": This field is missing.'
         );
     }
 
@@ -366,7 +366,7 @@ final class AddItemsTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "[0][position]": This value should be of type int.'
+            'There was an error validating "items[0][position]": This value should be of type int.'
         );
     }
 
