@@ -1,3 +1,4 @@
+os: linux
 dist: bionic
 
 language: php
@@ -25,22 +26,22 @@ env:
   - PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~4.4.0" DB="postgresql"
   - PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~5.1.0"
 
-matrix:
+jobs:
   include:
     - php: 7.3
       env: PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~3.4.0" DEPS="low"
     - php: 7.3
       env: PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~3.4.0" DEPS="low"
     - php: 7.4
-      env: RUN_PHPSTAN="yes"
+      env: RUN_PHPSTAN="yes" SYMFONY_VERSION="~5.1.0"
     - php: 7.4
-      env: RUN_PSALM="yes"
+      env: RUN_PSALM="yes" SYMFONY_VERSION="~5.1.0"
     - php: 7.4
-      env: RUN_BEHAT="yes"
+      env: RUN_BEHAT="yes" SYMFONY_VERSION="~5.1.0"
     - php: 7.4
-      env: RUN_MIGRATIONS="yes" DB="mysql"
+      env: RUN_MIGRATIONS="yes" DB="mysql" SYMFONY_VERSION="~5.1.0"
     - php: 7.4
-      env: RUN_COVERAGE="yes"
+      env: RUN_COVERAGE="yes" SYMFONY_VERSION="~5.1.0"
     - env: ~
       php: ~
       cache: ~
@@ -56,6 +57,7 @@ matrix:
         - yarn run admin:prod
   allow_failures:
     - env: RUN_COVERAGE="yes"
+    - env: RUN_BEHAT="yes"
   fast_finish: true
 
 branches:
