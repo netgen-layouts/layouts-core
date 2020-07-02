@@ -1,25 +1,43 @@
 {% trans_default_domain 'nglayouts_admin' %}
 
 {% if results is not empty %}
-    {% for result in results %}
-        {% if result.entity is defined %}
-            <p>
-                {{ 'transfer.import.result.success'|trans({
-                    '%entityType%': result.entityType,
-                    '%index%': loop.index,
-                    '%uuid%': result.entity.id.toString
-                }) }}
-            </p>
-        {% elseif result.error is defined %}
-            <p>{{ dump(result.error) }}</p>
-        {% else %}
-            <p>
-                {{ 'transfer.import.result.skipped'|trans({
-                    '%entityType%': result.entityType,
-                    '%index%': loop.index,
-                    '%uuid%': result.entityId.toString
-                }) }}
-            </p>
-        {% endif %}
-    {% endfor %}
+    <div class="results">
+        {% for result in results %}
+            <div class="result">
+                {% if result.entity is defined %}
+                    <div class="result-success">
+                        <p>
+                            {{ 'transfer.import.result.success'|trans({
+                                '%entityType%': result.entityType,
+                                '%index%': loop.index,
+                                '%uuid%': result.entity.id.toString
+                            }) }}
+                        </p>
+                    </div>
+                {% elseif result.error is defined %}
+                    <div class="result-danger">
+                        <p>
+                            {{ 'transfer.import.result.error'|trans({
+                                '%entityType%': result.entityType,
+                                '%index%': loop.index,
+                                '%uuid%': result.entityId.toString
+                            }) }}
+                        </p>
+
+                        <p>{{ result.error.message }}</p>
+                    </div>
+                {% else %}
+                    <div class="result-warning">
+                        <p>
+                            {{ 'transfer.import.result.skipped'|trans({
+                                '%entityType%': result.entityType,
+                                '%index%': loop.index,
+                                '%uuid%': result.entityId.toString
+                            }) }}
+                        </p>
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
 {% endif %}
