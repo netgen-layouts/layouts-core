@@ -56,8 +56,8 @@ jobs:
         - yarn run prod
         - yarn run admin:prod
   allow_failures:
-    - env: RUN_COVERAGE="yes"
-    - env: RUN_BEHAT="yes"
+    - env: RUN_COVERAGE="yes" SYMFONY_VERSION="~5.1.0"
+    - env: RUN_BEHAT="yes" SYMFONY_VERSION="~5.1.0"
   fast_finish: true
 
 branches:
