@@ -4,16 +4,22 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Templating;
 
-use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
+use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Templating\PluginRendererPass;
 use Netgen\Layouts\Exception\RuntimeException;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 
-final class PluginRendererPassTest extends AbstractCompilerPassTestCase
+final class PluginRendererPassTest extends AbstractContainerBuilderTestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->container->addCompilerPass(new PluginRendererPass());
+    }
+
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Templating\PluginRendererPass::process
      */
@@ -75,10 +81,5 @@ final class PluginRendererPassTest extends AbstractCompilerPassTestCase
         $this->compile();
 
         self::assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
-    }
-
-    protected function registerCompilerPass(ContainerBuilder $container): void
-    {
-        $container->addCompilerPass(new PluginRendererPass());
     }
 }

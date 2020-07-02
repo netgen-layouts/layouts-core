@@ -4,16 +4,22 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Item;
 
-use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
+use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\ValueTypePass;
 use Netgen\Layouts\Exception\RuntimeException;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 
-final class ValueTypePassTest extends AbstractCompilerPassTestCase
+final class ValueTypePassTest extends AbstractContainerBuilderTestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->container->addCompilerPass(new ValueTypePass());
+    }
+
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::buildValueTypes
      * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\ValueTypePass::process
@@ -112,10 +118,5 @@ final class ValueTypePassTest extends AbstractCompilerPassTestCase
         $this->compile();
 
         self::assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
-    }
-
-    protected function registerCompilerPass(ContainerBuilder $container): void
-    {
-        $container->addCompilerPass(new ValueTypePass());
     }
 }

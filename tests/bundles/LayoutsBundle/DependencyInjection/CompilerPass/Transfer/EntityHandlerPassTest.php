@@ -4,18 +4,24 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Transfer;
 
-use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
+use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Transfer\EntityHandlerPass;
 use Netgen\Layouts\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 
-final class EntityHandlerPassTest extends AbstractCompilerPassTestCase
+final class EntityHandlerPassTest extends AbstractContainerBuilderTestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->container->addCompilerPass(new EntityHandlerPass());
+    }
+
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Transfer\EntityHandlerPass::process
      */
@@ -97,10 +103,5 @@ final class EntityHandlerPassTest extends AbstractCompilerPassTestCase
         $this->compile();
 
         self::assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
-    }
-
-    protected function registerCompilerPass(ContainerBuilder $container): void
-    {
-        $container->addCompilerPass(new EntityHandlerPass());
     }
 }

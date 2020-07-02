@@ -5,15 +5,21 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\HttpCache;
 
 use FOS\HttpCache\ProxyClient\HttpDispatcher;
-use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
+use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\HttpCache\FOSHostHeaderProviderPass;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use function class_exists;
 
-final class FOSHostHeaderProviderPassTest extends AbstractCompilerPassTestCase
+final class FOSHostHeaderProviderPassTest extends AbstractContainerBuilderTestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->container->addCompilerPass(new FOSHostHeaderProviderPass());
+    }
+
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\HttpCache\FOSHostHeaderProviderPass::process
      */
@@ -75,10 +81,5 @@ final class FOSHostHeaderProviderPassTest extends AbstractCompilerPassTestCase
         $this->compile();
 
         self::assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
-    }
-
-    protected function registerCompilerPass(ContainerBuilder $container): void
-    {
-        $container->addCompilerPass(new FOSHostHeaderProviderPass());
     }
 }

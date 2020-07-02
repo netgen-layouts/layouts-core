@@ -4,15 +4,21 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Block;
 
-use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
+use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 
-final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
+final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->container->addCompilerPass(new BlockTypeGroupPass());
+    }
+
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::buildBlockTypeGroups
      * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockTypeGroupPass::generateBlockTypeGroupConfig
@@ -188,10 +194,5 @@ final class BlockTypeGroupPassTest extends AbstractCompilerPassTestCase
         $this->compile();
 
         self::assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
-    }
-
-    protected function registerCompilerPass(ContainerBuilder $container): void
-    {
-        $container->addCompilerPass(new BlockTypeGroupPass());
     }
 }

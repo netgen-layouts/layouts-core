@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Block;
 
-use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
+use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass;
 use Netgen\Layouts\Block\BlockDefinition;
 use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandler;
@@ -14,13 +14,19 @@ use Netgen\Layouts\Block\ContainerDefinition;
 use Netgen\Layouts\Block\TwigBlockDefinition;
 use Netgen\Layouts\Exception\RuntimeException;
 use stdClass;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 
-final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
+final class BlockDefinitionPassTest extends AbstractContainerBuilderTestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->container->addCompilerPass(new BlockDefinitionPass());
+    }
+
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::getConfigHandlers
      * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Block\BlockDefinitionPass::process
@@ -233,10 +239,5 @@ final class BlockDefinitionPassTest extends AbstractCompilerPassTestCase
             [TwigBlockDefinitionHandlerInterface::class, TwigBlockDefinition::class],
             [ContainerDefinitionHandlerInterface::class, ContainerDefinition::class],
         ];
-    }
-
-    protected function registerCompilerPass(ContainerBuilder $container): void
-    {
-        $container->addCompilerPass(new BlockDefinitionPass());
     }
 }

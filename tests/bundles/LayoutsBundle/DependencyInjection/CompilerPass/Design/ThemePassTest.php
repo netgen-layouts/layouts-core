@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Design;
 
-use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
+use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Design\ThemePass;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use function mkdir;
 
-final class ThemePassTest extends AbstractCompilerPassTestCase
+final class ThemePassTest extends AbstractContainerBuilderTestCase
 {
     protected function setUp(): void
     {
+        parent::setUp();
+
         @mkdir('/tmp/nglayouts/templates/nglayouts/themes/theme2', 0777, true);
         @mkdir('/tmp/nglayouts/templates/nglayouts/themes/theme3', 0777, true);
         @mkdir('/tmp/nglayouts/app/Resources/views/nglayouts/themes/theme3', 0777, true);
@@ -28,7 +29,7 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
         @mkdir('/tmp/nglayouts/bundles/second/Resources/views/nglayouts/themes/standard', 0777, true);
         @mkdir('/tmp/nglayouts/bundles/second/templates/nglayouts/themes/standard', 0777, true);
 
-        parent::setUp();
+        $this->container->addCompilerPass(new ThemePass());
     }
 
     /**
@@ -110,10 +111,5 @@ final class ThemePassTest extends AbstractCompilerPassTestCase
         $this->compile();
 
         self::assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
-    }
-
-    protected function registerCompilerPass(ContainerBuilder $container): void
-    {
-        $container->addCompilerPass(new ThemePass());
     }
 }

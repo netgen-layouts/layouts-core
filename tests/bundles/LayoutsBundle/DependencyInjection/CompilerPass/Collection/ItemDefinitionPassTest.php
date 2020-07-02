@@ -4,17 +4,23 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Collection;
 
-use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractCompilerPassTestCase;
+use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Collection\ItemDefinitionPass;
 use Netgen\Layouts\Collection\Item\ItemDefinition;
 use Netgen\Layouts\Exception\RuntimeException;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
 use Symfony\Component\DependencyInjection\Reference;
 
-final class ItemDefinitionPassTest extends AbstractCompilerPassTestCase
+final class ItemDefinitionPassTest extends AbstractContainerBuilderTestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->container->addCompilerPass(new ItemDefinitionPass());
+    }
+
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Collection\ItemDefinitionPass::getConfigHandlers
      * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Collection\ItemDefinitionPass::process
@@ -98,10 +104,5 @@ final class ItemDefinitionPassTest extends AbstractCompilerPassTestCase
         $this->compile();
 
         self::assertInstanceOf(FrozenParameterBag::class, $this->container->getParameterBag());
-    }
-
-    protected function registerCompilerPass(ContainerBuilder $container): void
-    {
-        $container->addCompilerPass(new ItemDefinitionPass());
     }
 }
