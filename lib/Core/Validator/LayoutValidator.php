@@ -76,7 +76,7 @@ final class LayoutValidator
 
         $this->validateLocale($layoutCreateStruct->mainLocale, 'mainLocale');
 
-        if ($layoutCreateStruct->shared !== null) {
+        if (isset($layoutCreateStruct->shared)) {
             $this->validate(
                 $layoutCreateStruct->shared,
                 [

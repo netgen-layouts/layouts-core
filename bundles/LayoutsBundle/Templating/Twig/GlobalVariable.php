@@ -173,7 +173,9 @@ final class GlobalVariable
      */
     public function getPageLayoutTemplate(): string
     {
-        $this->pageLayoutTemplate = $this->pageLayoutTemplate ?? $this->pageLayoutResolver->resolvePageLayout();
+        if (!isset($this->pageLayoutTemplate)) {
+            $this->pageLayoutTemplate = $this->pageLayoutResolver->resolvePageLayout();
+        }
 
         return $this->pageLayoutTemplate;
     }

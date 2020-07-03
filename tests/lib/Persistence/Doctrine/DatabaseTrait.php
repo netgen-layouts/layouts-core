@@ -86,7 +86,7 @@ trait DatabaseTrait
 
     private function createDatabase(string $fixturesPath = __DIR__ . '/../../../_fixtures'): void
     {
-        if ($this->databaseConnection === null) {
+        if (!isset($this->databaseConnection)) {
             $this->createDatabaseConnection();
         }
 

@@ -111,7 +111,7 @@ final class Collection implements Value
      */
     public function getOffset(): int
     {
-        if ($this->offset !== null && !$this->hasQuery()) {
+        if (!$this->hasQuery()) {
             // Manual collections always use offset of 0
             return 0;
         }

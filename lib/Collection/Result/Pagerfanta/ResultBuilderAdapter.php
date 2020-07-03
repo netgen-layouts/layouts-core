@@ -57,7 +57,7 @@ final class ResultBuilderAdapter implements AdapterInterface
 
     public function getNbResults(): int
     {
-        if ($this->totalCount === null) {
+        if (!isset($this->totalCount)) {
             $result = $this->resultBuilder->build($this->collection, 0, 0, $this->flags);
             $this->setTotalCount($result);
         }
@@ -80,7 +80,7 @@ final class ResultBuilderAdapter implements AdapterInterface
             $this->flags
         );
 
-        if ($this->totalCount === null) {
+        if (!isset($this->totalCount)) {
             $this->setTotalCount($result);
         }
 

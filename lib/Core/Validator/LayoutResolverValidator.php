@@ -78,7 +78,7 @@ final class LayoutResolverValidator
             );
         }
 
-        if ($ruleCreateStruct->enabled !== null) {
+        if (isset($ruleCreateStruct->enabled)) {
             $this->validate(
                 $ruleCreateStruct->enabled,
                 [

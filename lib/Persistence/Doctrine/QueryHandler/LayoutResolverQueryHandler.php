@@ -289,7 +289,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $query->execute();
 
-        if ($rule->id === null) {
+        if (!isset($rule->id)) {
             $rule->id = (int) $this->connectionHelper->lastInsertId('nglayouts_rule');
 
             $query = $this->connection->createQueryBuilder()
