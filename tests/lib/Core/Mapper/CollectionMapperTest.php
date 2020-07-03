@@ -269,6 +269,55 @@ abstract class CollectionMapperTest extends CoreTestCase
     /**
      * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapItem
      */
+    public function testMapItemWithNullItemValue(): void
+    {
+        $persistenceItem = Item::fromArray(
+            [
+                'id' => 1,
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
+                'status' => Value::STATUS_PUBLISHED,
+                'collectionId' => 42,
+                'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'position' => 1,
+                'value' => null,
+                'valueType' => 'my_value_type',
+                'viewType' => 'overlay',
+                'config' => [
+                    'key' => [
+                        'param1' => true,
+                        'param2' => 42,
+                    ],
+                ],
+            ]
+        );
+
+        $this->cmsItemLoaderMock
+            ->expects(self::never())
+            ->method('load');
+
+        $item = $this->mapper->mapItem($persistenceItem);
+
+        self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $item->getId()->toString());
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $item->getCollectionId()->toString());
+        self::assertSame($this->itemDefinitionRegistry->getItemDefinition('my_value_type'), $item->getDefinition());
+        self::assertSame(1, $item->getPosition());
+        self::assertNull($item->getValue());
+        self::assertSame('overlay', $item->getViewType());
+        self::assertInstanceOf(NullCmsItem::class, $item->getCmsItem());
+        self::assertSame('my_value_type', $item->getCmsItem()->getValueType());
+        self::assertTrue($item->isPublished());
+
+        self::assertTrue($item->hasConfig('key'));
+
+        $itemConfig = $item->getConfig('key');
+
+        self::assertTrue($itemConfig->getParameter('param1')->getValue());
+        self::assertSame(42, $itemConfig->getParameter('param2')->getValue());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Mapper\CollectionMapper::mapItem
+     */
     public function testMapItemWithInvalidItemDefinition(): void
     {
         $persistenceItem = Item::fromArray(

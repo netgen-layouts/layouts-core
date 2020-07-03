@@ -18,6 +18,7 @@ use Netgen\Layouts\Exception\Collection\QueryTypeException;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Item\CmsItemInterface;
 use Netgen\Layouts\Item\CmsItemLoaderInterface;
+use Netgen\Layouts\Item\NullCmsItem;
 use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\Layouts\Persistence\Values\Collection\Collection as PersistenceCollection;
 use Netgen\Layouts\Persistence\Values\Collection\Item as PersistenceItem;
@@ -176,7 +177,13 @@ final class CollectionMapper
                 )
             ),
             'cmsItem' => function () use ($item, $itemDefinition): CmsItemInterface {
-                $valueType = $itemDefinition instanceof NullItemDefinition ? 'null' : $itemDefinition->getValueType();
+                $valueType = !$itemDefinition instanceof NullItemDefinition ?
+                    $itemDefinition->getValueType() :
+                    'null';
+
+                if ($item->value === null) {
+                    return new NullCmsItem($valueType);
+                }
 
                 return $this->cmsItemLoader->load($item->value, $valueType);
             },

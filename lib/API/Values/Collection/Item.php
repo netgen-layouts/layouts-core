@@ -43,7 +43,7 @@ final class Item implements Value, ConfigAwareValue
     private $position;
 
     /**
-     * @var int|string
+     * @var int|string|null
      */
     private $value;
 
@@ -89,7 +89,7 @@ final class Item implements Value, ConfigAwareValue
     /**
      * Returns the value stored inside the collection item.
      *
-     * @return int|string
+     * @return int|string|null
      */
     public function getValue()
     {
