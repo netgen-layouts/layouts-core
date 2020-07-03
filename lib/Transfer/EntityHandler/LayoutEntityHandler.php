@@ -20,6 +20,7 @@ use Netgen\Layouts\Block\Registry\BlockDefinitionRegistry;
 use Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry;
 use Netgen\Layouts\Collection\Registry\QueryTypeRegistry;
 use Netgen\Layouts\Config\ConfigDefinitionAwareInterface;
+use Netgen\Layouts\Config\ConfigDefinitionInterface;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
@@ -425,6 +426,10 @@ final class LayoutEntityHandler implements EntityHandlerInterface
         $configDefinitions = $configDefinitionAware->getConfigDefinitions();
 
         foreach ($configurationData as $configKey => $hash) {
+            if (!($configDefinitions[$configKey] ?? null) instanceof ConfigDefinitionInterface) {
+                continue;
+            }
+
             $configStruct = new ConfigStruct();
             $configStruct->fillParametersFromHash($configDefinitions[$configKey], $hash, true);
             $configAwareStruct->setConfigStruct($configKey, $configStruct);
