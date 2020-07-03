@@ -34,19 +34,19 @@ final class SqliteTest extends TestCase
 
     /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite::__construct
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite::getAutoIncrementValue
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite::nextId
      */
-    public function testGetAutoIncrementValue(): void
+    public function testNextId(): void
     {
-        self::assertSame(39, $this->helper->getAutoIncrementValue('nglayouts_block'));
+        self::assertSame(39, $this->helper->nextId('nglayouts_block'));
     }
 
     /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite::__construct
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite::lastInsertId
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite::lastId
      */
-    public function testLastInsertId(): void
+    public function testLastId(): void
     {
-        self::assertSame(38, $this->helper->lastInsertId('nglayouts_block'));
+        self::assertSame(38, $this->helper->lastId('nglayouts_block'));
     }
 }

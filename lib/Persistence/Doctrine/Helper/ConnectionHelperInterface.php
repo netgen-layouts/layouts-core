@@ -15,12 +15,12 @@ interface ConnectionHelperInterface
      *
      * @return mixed
      */
-    public function getAutoIncrementValue(string $table, string $column = 'id');
+    public function nextId(string $table, string $column = 'id');
 
     /**
      * Returns the last inserted ID.
      *
      * @return mixed
      */
-    public function lastInsertId(string $table, string $column = 'id');
+    public function lastId(string $table, string $column = 'id');
 }

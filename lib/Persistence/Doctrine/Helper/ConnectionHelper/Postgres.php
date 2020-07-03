@@ -19,12 +19,12 @@ final class Postgres implements ConnectionHelperInterface
         $this->connection = $connection;
     }
 
-    public function getAutoIncrementValue(string $table, string $column = 'id')
+    public function nextId(string $table, string $column = 'id')
     {
         return "nextval('" . $this->connection->getDatabasePlatform()->getIdentitySequenceName($table, $column) . "')";
     }
 
-    public function lastInsertId(string $table, string $column = 'id')
+    public function lastId(string $table, string $column = 'id')
     {
         return $this->connection->lastInsertId(
             $this->connection->getDatabasePlatform()->getIdentitySequenceName($table, $column)

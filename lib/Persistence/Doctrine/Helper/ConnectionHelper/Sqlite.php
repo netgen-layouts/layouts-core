@@ -20,7 +20,7 @@ final class Sqlite implements ConnectionHelperInterface
         $this->connection = $connection;
     }
 
-    public function getAutoIncrementValue(string $table, string $column = 'id')
+    public function nextId(string $table, string $column = 'id')
     {
         $query = $this->connection->createQueryBuilder();
         $query->select($this->connection->getDatabasePlatform()->getMaxExpression($column) . ' AS id')
@@ -31,7 +31,7 @@ final class Sqlite implements ConnectionHelperInterface
         return (int) ($data[0]['id'] ?? 0) + 1;
     }
 
-    public function lastInsertId(string $table, string $column = 'id')
+    public function lastId(string $table, string $column = 'id')
     {
         $query = $this->connection->createQueryBuilder();
         $query->select($this->connection->getDatabasePlatform()->getMaxExpression($column) . ' AS id')

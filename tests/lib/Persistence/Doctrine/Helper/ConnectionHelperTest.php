@@ -41,24 +41,24 @@ final class ConnectionHelperTest extends TestCase
 
     /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper::__construct
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper::getAutoIncrementValue
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper::nextId
      */
-    public function testGetAutoIncrementValue(): void
+    public function testNextId(): void
     {
         $this->databasePlatformMock
             ->expects(self::any())
             ->method('getName')
             ->willReturn('mysql');
 
-        self::assertSame('null', $this->connectionHelper->getAutoIncrementValue('table'));
+        self::assertSame('null', $this->connectionHelper->nextId('table'));
     }
 
     /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper::getAutoIncrementValue
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper::nextId
      * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Postgres::__construct
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Postgres::getAutoIncrementValue
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Postgres::nextId
      */
-    public function testGetAutoIncrementValueForPostgres(): void
+    public function testNextIdForPostgres(): void
     {
         $this->databasePlatformMock
             ->expects(self::any())
@@ -71,14 +71,14 @@ final class ConnectionHelperTest extends TestCase
             ->with(self::identicalTo('table'), self::identicalTo('id'))
             ->willReturn('s_table_id');
 
-        self::assertSame("nextval('s_table_id')", $this->connectionHelper->getAutoIncrementValue('table'));
+        self::assertSame("nextval('s_table_id')", $this->connectionHelper->nextId('table'));
     }
 
     /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper::__construct
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper::lastInsertId
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper::lastId
      */
-    public function testLastInsertId(): void
+    public function testLastId(): void
     {
         $this->databasePlatformMock
             ->expects(self::any())
@@ -91,15 +91,15 @@ final class ConnectionHelperTest extends TestCase
             ->with(self::identicalTo('table'))
             ->willReturn(42);
 
-        self::assertSame(42, $this->connectionHelper->lastInsertId('table'));
+        self::assertSame(42, $this->connectionHelper->lastId('table'));
     }
 
     /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper::lastInsertId
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper::lastId
      * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Postgres::__construct
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Postgres::lastInsertId
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Postgres::lastId
      */
-    public function testLastInsertIdForPostgres(): void
+    public function testLastIdForPostgres(): void
     {
         $this->databasePlatformMock
             ->expects(self::any())
@@ -118,6 +118,6 @@ final class ConnectionHelperTest extends TestCase
             ->with(self::identicalTo('s_table_id'))
             ->willReturn(43);
 
-        self::assertSame(43, $this->connectionHelper->lastInsertId('table'));
+        self::assertSame(43, $this->connectionHelper->lastId('table'));
     }
 }

@@ -30,23 +30,23 @@ final class ConnectionHelper implements ConnectionHelperInterface
         ];
     }
 
-    public function getAutoIncrementValue(string $table, string $column = 'id')
+    public function nextId(string $table, string $column = 'id')
     {
         $databaseServer = $this->connection->getDatabasePlatform()->getName();
         if (isset($this->databaseSpecificHelpers[$databaseServer])) {
             return $this->databaseSpecificHelpers[$databaseServer]
-                ->getAutoIncrementValue($table, $column);
+                ->nextId($table, $column);
         }
 
         return 'null';
     }
 
-    public function lastInsertId(string $table, string $column = 'id')
+    public function lastId(string $table, string $column = 'id')
     {
         $databaseServer = $this->connection->getDatabasePlatform()->getName();
         if (isset($this->databaseSpecificHelpers[$databaseServer])) {
             return $this->databaseSpecificHelpers[$databaseServer]
-                ->lastInsertId($table, $column);
+                ->lastId($table, $column);
         }
 
         return $this->connection->lastInsertId($table);
