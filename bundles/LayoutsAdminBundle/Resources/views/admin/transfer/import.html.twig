@@ -18,14 +18,14 @@
         </div>
     {{ form_end(form) }}
 
+    {% if error is defined %}
+        <div class="error">
+            <p>{{ error.message|nl2br }}</p>
+        </div>
+    {% endif %}
+
     {% if results is not empty %}
         <div class="results">
-            {% if error is defined %}
-                <div class="error">
-                    <p>{{ error.message }}</p>
-                </div>
-            {% endif %}
-
             {% for result in results %}
                 <div class="result">
                     {% if result.entity is defined %}
