@@ -87,11 +87,11 @@ before_script:
 
   - if [ "$SYMFONY_VERSION" != "" ] ; then composer config extra.symfony.require $SYMFONY_VERSION ; fi
 
-  - composer update --no-suggest --prefer-dist
-
   - |
     if [ "$DEPS" = "low" ] ; then
       composer update --no-suggest --prefer-dist --prefer-lowest --prefer-stable
+    else
+      composer update --no-suggest --prefer-dist
     fi
 
   - |
