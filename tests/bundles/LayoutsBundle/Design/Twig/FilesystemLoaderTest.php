@@ -18,7 +18,7 @@ final class FilesystemLoaderTest extends TestCase
     private $innerLoaderMock;
 
     /**
-     * @var \Netgen\Bundle\LayoutsBundle\Configuration\ConfigurationInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $configurationMock;
 

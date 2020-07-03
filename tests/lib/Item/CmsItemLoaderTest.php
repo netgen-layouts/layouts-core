@@ -17,7 +17,7 @@ use PHPUnit\Framework\TestCase;
 final class CmsItemLoaderTest extends TestCase
 {
     /**
-     * @var \Netgen\Layouts\Item\CmsItemBuilderInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Item\CmsItemBuilderInterface
      */
     private $cmsItemBuilderMock;
 

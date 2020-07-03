@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 final class TransactionHandlerTest extends TestCase
 {
     /**
-     * @var \Doctrine\DBAL\Connection&\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $connectionMock;
 

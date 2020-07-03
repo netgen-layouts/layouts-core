@@ -16,12 +16,12 @@ use stdClass;
 final class ItemRuntimeTest extends TestCase
 {
     /**
-     * @var \Netgen\Layouts\Item\CmsItemLoaderInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $cmsItemLoaderMock;
 
     /**
-     * @var \Netgen\Layouts\Item\UrlGeneratorInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $urlGeneratorMock;
 

@@ -21,17 +21,17 @@ use function sprintf;
 final class ViewBuilderTest extends TestCase
 {
     /**
-     * @var \Netgen\Layouts\View\Provider\ViewProviderInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\View\Provider\ViewProviderInterface
      */
     private $viewProviderMock;
 
     /**
-     * @var \Netgen\Layouts\View\TemplateResolverInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\View\TemplateResolverInterface
      */
     private $templateResolverMock;
 
     /**
-     * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject&\Symfony\Component\EventDispatcher\EventDispatcherInterface
      */
     private $eventDispatcherMock;
 

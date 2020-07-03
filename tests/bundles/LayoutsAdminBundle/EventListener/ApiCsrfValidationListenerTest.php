@@ -19,7 +19,7 @@ final class ApiCsrfValidationListenerTest extends TestCase
     use CreateEventTrait;
 
     /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidatorInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject
      */
     private $csrfTokenValidatorMock;
 

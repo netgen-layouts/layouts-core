@@ -25,7 +25,7 @@ use function iterator_to_array;
 final class DynamicCollectionRunnerTest extends TestCase
 {
     /**
-     * @var \Netgen\Layouts\Item\CmsItemBuilderInterface&\PHPUnit\Framework\MockObject\MockObject
+     * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Item\CmsItemBuilderInterface
      */
     private $cmsItemBuilderMock;
 
