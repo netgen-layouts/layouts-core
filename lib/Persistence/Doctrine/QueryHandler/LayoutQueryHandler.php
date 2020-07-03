@@ -372,7 +372,7 @@ final class LayoutQueryHandler extends QueryHandler
                     'main_locale' => ':main_locale',
                 ]
             )
-            ->setValue('id', $layout->id ?? $this->connectionHelper->nextId('nglayouts_layout'))
+            ->setValue('id', isset($layout->id) ? $layout->id : $this->connectionHelper->nextId('nglayouts_layout'))
             ->setParameter('status', $layout->status, Types::INTEGER)
             ->setParameter('uuid', $layout->uuid, Types::STRING)
             ->setParameter('type', $layout->type, Types::STRING)
@@ -385,7 +385,9 @@ final class LayoutQueryHandler extends QueryHandler
 
         $query->execute();
 
-        $layout->id = $layout->id ?? (int) $this->connectionHelper->lastId('nglayouts_layout');
+        if (!isset($layout->id)) {
+            $layout->id = (int) $this->connectionHelper->lastId('nglayouts_layout');
+        }
 
         return $layout;
     }

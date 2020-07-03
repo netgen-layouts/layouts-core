@@ -327,7 +327,7 @@ final class LayoutHandler implements LayoutHandlerInterface
     {
         $copiedLayout = clone $layout;
 
-        $copiedLayout->id = null;
+        unset($copiedLayout->id);
         $copiedLayout->uuid = Uuid::uuid4()->toString();
 
         $currentTimeStamp = time();

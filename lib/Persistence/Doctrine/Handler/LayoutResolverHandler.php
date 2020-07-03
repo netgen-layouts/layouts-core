@@ -213,7 +213,8 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         // First copy the rule
 
         $copiedRule = clone $rule;
-        $copiedRule->id = null;
+
+        unset($copiedRule->id);
         $copiedRule->uuid = Uuid::uuid4()->toString();
 
         $copiedRule = $this->queryHandler->createRule($copiedRule);
@@ -224,7 +225,8 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
         foreach ($ruleTargets as $ruleTarget) {
             $copiedTarget = clone $ruleTarget;
-            $copiedTarget->id = null;
+
+            unset($copiedTarget->id);
             $copiedTarget->uuid = Uuid::uuid4()->toString();
 
             $copiedTarget->ruleId = $copiedRule->id;
@@ -239,7 +241,8 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
         foreach ($ruleConditions as $ruleCondition) {
             $copiedCondition = clone $ruleCondition;
-            $copiedCondition->id = null;
+
+            unset($copiedCondition->id);
             $copiedCondition->uuid = Uuid::uuid4()->toString();
 
             $copiedCondition->ruleId = $copiedRule->id;

@@ -257,7 +257,8 @@ final class BlockHandler implements BlockHandlerInterface
         }
 
         $newBlock = clone $block;
-        $newBlock->id = null;
+
+        unset($newBlock->id);
         $newBlock->uuid = Uuid::uuid4()->toString();
 
         $newBlock->layoutId = $targetBlock->layoutId;

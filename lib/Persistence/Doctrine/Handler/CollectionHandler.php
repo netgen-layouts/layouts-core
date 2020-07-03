@@ -361,7 +361,8 @@ final class CollectionHandler implements CollectionHandlerInterface
         }
 
         $newCollection = clone $collection;
-        $newCollection->id = null;
+
+        unset($newCollection->id);
         $newCollection->uuid = Uuid::uuid4()->toString();
 
         $newCollection = $this->queryHandler->createCollection($newCollection);
@@ -374,7 +375,8 @@ final class CollectionHandler implements CollectionHandlerInterface
 
         foreach ($collectionItems as $collectionItem) {
             $newItem = clone $collectionItem;
-            $newItem->id = null;
+
+            unset($newItem->id);
             $newItem->uuid = Uuid::uuid4()->toString();
 
             $newItem->collectionId = $newCollection->id;
@@ -393,7 +395,8 @@ final class CollectionHandler implements CollectionHandlerInterface
 
         if ($collectionQuery instanceof Query) {
             $newQuery = clone $collectionQuery;
-            $newQuery->id = null;
+
+            unset($newQuery->id);
             $newQuery->uuid = Uuid::uuid4()->toString();
 
             $newQuery->collectionId = $newCollection->id;
@@ -410,7 +413,8 @@ final class CollectionHandler implements CollectionHandlerInterface
 
         foreach ($collectionSlots as $collectionSlot) {
             $newSlot = clone $collectionSlot;
-            $newSlot->id = null;
+
+            unset($newSlot->id);
             $newSlot->uuid = Uuid::uuid4()->toString();
 
             $newSlot->collectionId = $newCollection->id;
