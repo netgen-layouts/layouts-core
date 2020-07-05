@@ -126,7 +126,7 @@
                         "minLength": 1
                     },
                     "description": {
-                        "type": ["string", "null"],
+                        "type": "string",
                         "description": "The description of the layout"
                     },
                     "creation_date": {
@@ -217,7 +217,7 @@
                         "description": "The identifier of the block definition"
                     },
                     "name": {
-                        "type": ["string", "null"],
+                        "type": "string",
                         "description": "The name of the block"
                     },
                     "view_type": {
@@ -509,7 +509,7 @@
                         "description": "The rule priority"
                     },
                     "comment": {
-                        "type": ["string", "null"],
+                        "type": "string",
                         "description": "The comment of the rule"
                     },
                     "targets": {
@@ -614,7 +614,7 @@
                         "minLength": 1
                     },
                     "description": {
-                        "type": ["string", "null"],
+                        "type": "string",
                         "description": "The description of the role"
                     },
                     "policies": {
