@@ -9,6 +9,7 @@ use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\Exception\Transfer\ImportException;
 use Netgen\Layouts\Transfer\Input\ImporterInterface;
 use Netgen\Layouts\Transfer\Input\ImportOptions;
+use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -59,13 +60,8 @@ final class Import extends AbstractController
                         $results[] = $result;
                     }
                 } catch (ImportException $e) {
-                    return $this->render(
-                        '@NetgenLayoutsAdmin/admin/transfer/import.html.twig',
-                        [
-                            'form' => $form->createView(),
-                            'results' => $results,
-                            'error' => $e,
-                        ]
+                    $form->get('file')->addError(
+                        new FormError($e->getMessage(), null, [], null, $e)
                     );
                 }
             }
