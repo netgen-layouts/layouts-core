@@ -1,0 +1,154 @@
+.layouts-form {
+    margin-bottom: 2em;
+    .row-input {
+        margin-bottom: 1em;
+    }
+    label {
+        display:block;
+        font-weight:normal;
+        font-size:14px;
+        margin:0;
+    }
+    input[type="text"],
+    input[type="number"],
+    input[type="url"],
+    input[type="email"],
+    textarea,
+    select {
+        display:block;
+        margin:0 0 1em;
+        border-radius:2px;
+        width:100%;
+        padding:0 0.75em;
+        font-size:14px;
+        height:44px;
+        border:1px solid hsl(0, 0, 70);
+        background: #fff;
+        &::placeholder {
+            color:hsl(0, 0, 70);
+        }
+        &[disabled] {
+            color: hsl(0, 0, 60);
+            border-color: hsl(0, 0, 80);
+            cursor: not-allowed;
+        }
+    }
+    select {
+        appearance: none;
+        padding-right: 2em;
+        background-image: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEuNDEiPjxwYXRoIGQ9Ik01LjUzIDcuNDlMLjIgMi4xNWEuNjYuNjYgMCAwIDEgMC0uOTNMLjgyLjU5YS42Ni42NiAwIDAgMSAuOTMgMEw2IDQuODIgMTAuMjUuNmEuNjYuNjYgMCAwIDEgLjkzIDBsLjYzLjYzYy4yNS4yNS4yNS42NyAwIC45M0w2LjQ3IDcuNDlhLjY2LjY2IDAgMCAxLS45NCAweiIgZmlsbC1ydWxlPSJub256ZXJvIi8+PC9zdmc+');
+        background-repeat: no-repeat;
+        background-position: right .75em center;
+        background-size: .75em auto;
+        &::-ms-expand {
+            display: none;
+        }
+        &[multiple] {
+            background-image: none;
+            height: auto;
+            padding: .25em 0;
+            option {
+                padding: .25em .5em;
+            }
+        }
+    }
+    textarea {
+        height:auto;
+        min-height:120px;
+        padding-top:0.375em;
+        resize:vertical;
+    }
+    input[type="checkbox"] {
+        position:absolute;
+        left:-9999em;
+        + label {
+            display:block;
+            position:relative;
+            padding:0.3846153846em 0.3846153846em 0.3846153846em 2em !important;
+            margin:0 0 0.5em;
+            cursor:pointer;
+            &::before {
+                @extend %material-icons;
+                font-size:24px;
+                content:"check_box_outline_blank";
+                position:absolute;
+                left:0;
+                top:0.1em;
+                color:hsl(0, 0, 40);
+            }
+        }
+        &:checked {
+            + label {
+                &::before {
+                    content:"check_box";
+                    color:$linkColor;
+                }
+            }
+        }
+        &:indeterminate {
+            + label {
+                &::before {
+                    content:"indeterminate_check_box";
+                }
+            }
+        }
+    }
+
+    input[type="radio"] {
+        position:absolute;
+        left:-9999em;
+        + label {
+            display:block;
+            position:relative;
+            padding:0.3846153846em 0.3846153846em 0.3846153846em 2em !important;
+            margin:0.5em 0 0;
+            cursor:pointer;
+            font-size: 13px;
+            &::before {
+                @extend %material-icons;
+                font-size: 18px;
+                content:"radio_button_unchecked";
+                position:absolute;
+                left:0;
+                color:hsl(0, 0, 40);
+            }
+        }
+        &:checked {
+            + label {
+                &::before {
+                    content:"radio_button_checked";
+                    color:$linkColor;
+                }
+            }
+        }
+        &:indeterminate {
+            + label {
+                &::before {
+                    content:"indeterminate_check_box";
+                }
+            }
+        }
+    }
+    .file-input-group {
+        input[type="file"] { // hiding input field so label acts as button
+            width: 0.1px;
+            height: 0.1px;
+            opacity: 0;
+            overflow: hidden;
+            position: absolute;
+            z-index: -1;
+        }
+        label {
+            &:after {
+                @extend %material-icons;
+                content:"file_upload";
+                font-size: 1.25em;
+                margin-left: 0.5em;
+            }
+        }
+        .filename {
+            margin-left: 1em;
+            font-size: 0.875em;
+        }
+    }
+}

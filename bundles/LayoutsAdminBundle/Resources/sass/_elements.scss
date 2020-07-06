@@ -61,6 +61,11 @@
         }
     }
 
+    &.nl-btn-with-icon {
+      display: inline-flex;
+      align-items: center;
+    }
+
     &.nl-btn-white {
         background:#fff;
         &:hover {

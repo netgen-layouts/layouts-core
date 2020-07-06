@@ -9,27 +9,29 @@
 {% endblock %}
 
 {% block content %}
-    {{ form_start(form) }}
-        {{ form_row(form.file) }}
-        {{ form_row(form.import_mode) }}
-
-        <div class="form-actions">
-            <button type="submit" class="nl-btn nl-btn-primary">{{ 'import.button.upload'|trans({}, 'nglayouts_forms') }}</button>
+    <div class="layouts-import">
+        <div class="layouts-header">
+            <h2 class="layouts-title">{{ 'transfer.import.title'|trans }}</h2>
+            <p>{{ 'transfer.import.notice'|trans }}</p>
         </div>
-    {{ form_end(form) }}
 
-    {% if error is defined %}
-        <div class="error">
-            <p>{{ error.message|nl2br }}</p>
+        <div class="layouts-form">
+            {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+
+                {{ form_row(form.file) }}
+                {{ form_row(form.import_mode) }}
+
+                <div class="form-actions">
+                    <button type="submit" class="nl-btn nl-btn-primary">{{ 'import.button.upload'|trans({}, 'nglayouts_forms') }}</button>
+                </div>
+            {{ form_end(form) }}
         </div>
-    {% endif %}
 
-    {% if results is not empty %}
-        <div class="results">
-            {% for result in results %}
-                <div class="result">
+        {% if results is not empty %}
+            <div class="results">
+                {% for result in results %}
                     {% if result.entity is defined %}
-                        <div class="result-success">
+                        <div class="result result-success">
                             <p>
                                 {{ 'transfer.import.result.success'|trans({
                                     '%entityType%': result.entityType,
@@ -39,8 +41,8 @@
                             </p>
                         </div>
                     {% elseif result.error is defined %}
-                        <div class="result-danger">
-                            <p>
+                        <div class="result result-danger">
+                            <p class="error-type">
                                 {{ 'transfer.import.result.error'|trans({
                                     '%entityType%': result.entityType,
                                     '%index%': loop.index,
@@ -48,10 +50,10 @@
                                 }) }}
                             </p>
 
-                            <p>{{ result.error.message }}</p>
+                            <p class="error-message">{{ result.error.message }}</p>
                         </div>
                     {% else %}
-                        <div class="result-warning">
+                        <div class="result result-warning">
                             <p>
                                 {{ 'transfer.import.result.skipped'|trans({
                                     '%entityType%': result.entityType,
@@ -61,8 +63,8 @@
                             </p>
                         </div>
                     {% endif %}
-                </div>
-            {% endfor %}
-        </div>
-    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}

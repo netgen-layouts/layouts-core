@@ -1,0 +1,50 @@
+.layouts-import {
+    .layouts-title {
+        float: none;
+    }
+    .error {
+        color: red;
+    }
+    .errors {
+        list-style-type: none;
+        padding-left: 0;
+        li {
+            color: red;
+        }
+    }
+    .results {
+        max-width: 700px; // to limit the width of result messages
+        .result {
+            position: relative;
+            padding: .75rem 1.25rem;
+            margin-bottom: 1rem;
+            border: 1px solid transparent;
+            border-radius: .25rem;
+            p {
+                margin: 0;
+                font-size: 0.875rem;
+                &.error-message {
+                    font-weight: 700;
+                }
+            }
+            p + p {
+                margin: 0.5em 0 0;
+            }
+            &.result-danger {
+                color: #721c24;
+                background-color: #f8d7da;
+                border-color: #f5c6cb;
+            }
+            &.result-success {
+                color: #155724;
+                background-color: #d4edda;
+                border-color: #c3e6cb;
+            }
+            &.result-warning {
+                color: #004085;
+                background-color: #cce5ff;
+                border-color: #b8daff;
+            }
+        }
+    }
+}
