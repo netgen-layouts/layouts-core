@@ -58,7 +58,7 @@ condition_type.query_parameter.parameter_values: 'Parameter values'
 condition_type.time.from: 'From'
 condition_type.time.to: 'Until'
 
-import.file: 'File'
+import.file: 'Select file'
 import.import_mode: 'Import mode'
 import.import_mode.copy: 'Copy existing entities'
 import.import_mode.overwrite: 'Overwrite existing entities'

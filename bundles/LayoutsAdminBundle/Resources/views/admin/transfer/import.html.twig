@@ -17,7 +17,6 @@
 
         <div class="layouts-form">
             {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
-
                 {{ form_row(form.file) }}
                 {{ form_row(form.import_mode) }}
 
@@ -42,7 +41,7 @@
                         </div>
                     {% elseif result.error is defined %}
                         <div class="result result-danger">
-                            <p class="error-type">
+                            <p>
                                 {{ 'transfer.import.result.error'|trans({
                                     '%entityType%': result.entityType,
                                     '%index%': loop.index,

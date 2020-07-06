@@ -120,7 +120,7 @@ shared_layouts.cache.related_layouts.button.clear: 'Clear selected'
 shared_layouts.cache.related_layouts.error: 'An error occurred while clearing the linked layouts caches. Please check the log for details.'
 
 transfer.import.title: 'Import'
-transfer.import.notice: 'Please choose a JSON file containing Layouts info for import:'
+transfer.import.notice: 'Please choose a JSON file containing entities to import'
 transfer.import.result.success: 'Imported %entityType% #%index% into %entityType% with UUID %uuid%.'
 transfer.import.result.error: 'There was an error while importing %entityType% #%index% with UUID %uuid%.'
 transfer.import.result.skipped: 'Skipped importing %entityType% #%index% with UUID %uuid%.'
