@@ -1,4 +1,3 @@
-
 const formsInit = () => {
     const fileInputs = document.querySelectorAll('input[type=file]');
     [...fileInputs].forEach((i) => {
