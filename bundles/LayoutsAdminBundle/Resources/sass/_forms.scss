@@ -67,9 +67,10 @@
             padding:0.3846153846em 0.3846153846em 0.3846153846em 2em !important;
             margin:0 0 0.5em;
             cursor:pointer;
+            font-size: 13px;
             &::before {
                 @extend %material-icons;
-                font-size:24px;
+                font-size: 18px;
                 content:"check_box_outline_blank";
                 position:absolute;
                 left:0;

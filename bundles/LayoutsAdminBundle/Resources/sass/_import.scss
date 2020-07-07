@@ -1,13 +1,11 @@
 .layouts-import {
     .layouts-title {
-        float: none;
-    }
-    .error {
-        color: red;
+        float: none; // to remove the standard floating behaviour of title
     }
     .errors {
         list-style-type: none;
         padding-left: 0;
+        margin: 1em 0;
         li {
             color: red;
         }
@@ -16,13 +14,14 @@
         max-width: 700px; // to limit the width of result messages
         .result {
             position: relative;
-            padding: .75rem 1.25rem;
+            padding: 12px 20px;
             margin-bottom: 1rem;
             border: 1px solid transparent;
-            border-radius: .25rem;
+            border-radius: 4px;
             p {
                 margin: 0;
-                font-size: 0.875rem;
+                font-size: 14px;
+                line-height: 1.25em;
                 &.error-message {
                     font-weight: 700;
                 }
