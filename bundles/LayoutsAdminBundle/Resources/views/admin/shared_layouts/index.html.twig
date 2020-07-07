@@ -11,7 +11,7 @@
         <div class="layouts-header">
             <h2 class="layouts-title">{{ 'shared_layouts.title'|trans }}</h2>
             <div class="layouts-controls">
-                <a href="#" class="nl-btn js-export" title="{{ 'shared_layouts.export.title'|trans }}"><i class="material-icons">file_download</i></a>
+                <a href="#" class="nl-btn js-export" title="{{ 'shared_layouts.export.title'|trans }}"></a>
                 <a href="#" class="nl-btn js-change-layouts-view"></a>
                 {% if is_granted('nglayouts:layout:add') %}
                     <a href="{{ path('nglayouts_app', {shared: true}) }}" id="add-new-button" class="nl-btn nl-btn-primary js-open-ngl">

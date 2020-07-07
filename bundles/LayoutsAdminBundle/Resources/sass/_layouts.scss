@@ -2,12 +2,25 @@
     display:none;
 }
 
-.js-change-layouts-view {
+.js-change-layouts-view,
+.js-export {
     &::before {
         @extend %material-icons;
-        content:"view_comfy";
         line-height:inherit;
         font-size:24px;
+    }
+}
+
+.js-change-layouts-view {
+    &::before {
+        content:"view_comfy";
+    }
+}
+
+.js-export {
+    &::before {
+        content:"file_download";
+        font-size: 18px;
     }
 }
 
