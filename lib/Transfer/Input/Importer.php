@@ -26,9 +26,6 @@ use const JSON_THROW_ON_ERROR;
  */
 final class Importer implements ImporterInterface
 {
-    /**
-     * The path to the root schema directory.
-     */
     private const SCHEMA_FILE = __DIR__ . '/../../../resources/schemas/import.json';
 
     /**

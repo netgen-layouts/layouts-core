@@ -12,7 +12,7 @@ final class AdminMatchEvent extends Event
     /**
      * The request the kernel is currently processing.
      *
-     * @var Request
+     * @var \Symfony\Component\HttpFoundation\Request
      */
     private $request;
 
@@ -27,7 +27,7 @@ final class AdminMatchEvent extends Event
     /**
      * Pagelayout template to be used by admin interface.
      *
-     * @var string
+     * @var string|null
      */
     private $pageLayoutTemplate;
 
