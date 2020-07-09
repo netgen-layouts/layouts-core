@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Browser\Backend;
 
+use Netgen\ContentBrowser\Backend\SearchQuery;
 use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\NotFoundException as ContentBrowserNotFoundException;
 use Netgen\ContentBrowser\Item\ItemInterface;
@@ -199,6 +200,36 @@ final class LayoutBackendTest extends TestCase
         $count = $this->backend->getSubItemsCount(new RootLocation());
 
         self::assertSame(2, $count);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::searchItems
+     */
+    public function testSearchItems(): void
+    {
+        $searchResult = $this->backend->searchItems(new SearchQuery('test'));
+
+        self::assertEmpty($searchResult->getResults());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::searchItems
+     */
+    public function testSearchItemsWithOffsetAndLimit(): void
+    {
+        $searchResult = $this->backend->searchItems((new SearchQuery('test'))->setOffset(5)->setLimit(10));
+
+        self::assertEmpty($searchResult->getResults());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::searchItemsCount
+     */
+    public function testSearchItemsCount(): void
+    {
+        $count = $this->backend->searchItemsCount(new SearchQuery('test'));
+
+        self::assertSame(0, $count);
     }
 
     /**

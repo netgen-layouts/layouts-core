@@ -6,6 +6,9 @@ namespace Netgen\Layouts\Browser\Backend;
 
 use Generator;
 use Netgen\ContentBrowser\Backend\BackendInterface;
+use Netgen\ContentBrowser\Backend\SearchQuery;
+use Netgen\ContentBrowser\Backend\SearchResult;
+use Netgen\ContentBrowser\Backend\SearchResultInterface;
 use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
 use Netgen\ContentBrowser\Item\ItemInterface;
@@ -87,6 +90,16 @@ final class LayoutBackend implements BackendInterface
         return $this->includeSharedLayouts() ?
             $this->layoutService->getAllLayoutsCount() :
             $this->layoutService->getLayoutsCount();
+    }
+
+    public function searchItems(SearchQuery $searchQuery): SearchResultInterface
+    {
+        return new SearchResult();
+    }
+
+    public function searchItemsCount(SearchQuery $searchQuery): int
+    {
+        return 0;
     }
 
     public function search(string $searchText, int $offset = 0, int $limit = 25): iterable
