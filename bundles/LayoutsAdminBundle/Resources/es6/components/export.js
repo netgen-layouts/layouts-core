@@ -7,10 +7,10 @@ const downloadFile = (fileName, json) => {
 
 /* export plugin */
 export default class NlExport {
-    constructor(el, items, itemType) {
+    constructor(el, entities, entityType) {
         this.el = el;
-        this.items = items;
-        this.itemType = itemType;
+        this.entities = entities;
+        this.entityType = entityType;
         [this.exportBtn] = this.el.getElementsByClassName('js-export');
         this.toggleAllCheckbox = document.getElementById('toggleSelectAll');
         this.csrf = document.querySelector('meta[name=nglayouts-admin-csrf-token]').getAttribute('content');
@@ -38,7 +38,7 @@ export default class NlExport {
     }
 
     toggleUI() {
-        if (!Object.keys(this.items).length) {
+        if (!Object.keys(this.entities).length) {
             this.exportBtn.style.display = 'none';
         } else {
             this.exportBtn.style.display = 'inline-block';
@@ -53,26 +53,26 @@ export default class NlExport {
     endExport(e) {
         e && e.preventDefault();
         this.el.classList.remove('export');
-        Object.keys(this.items).forEach((key) => {
-            this.items[key].selected && this.items[key].toggleSelected(false);
+        Object.keys(this.entities).forEach((key) => {
+            this.entities[key].selected && this.entities[key].toggleSelected(false);
         });
         this.toggleAllCheckbox.checked = false;
     }
 
     toggleSelectAll(e) {
-        Object.keys(this.items).forEach(key => this.items[key].canExport() && this.items[key].toggleSelected(e.currentTarget.checked));
+        Object.keys(this.entities).forEach(key => this.entities[key].canExport() && this.entities[key].toggleSelected(e.currentTarget.checked));
     }
 
     downloadExport(e) {
         e.preventDefault();
-        const selectedItems = [];
+        const selectedEntities = [];
         const layoutsAppEl = document.getElementsByClassName('ng-layouts-app')[0];
-        Object.keys(this.items).forEach(key => this.items[key].selected && selectedItems.push(this.items[key].id));
+        Object.keys(this.entities).forEach(key => this.entities[key].selected && selectedEntities.push(this.entities[key].id));
         layoutsAppEl.classList.add('ajax-loading');
-        const itemIds = selectedItems.map(item => `item_ids[]=${item}`);
-        const body = new URLSearchParams(itemIds.join('&'));
+        const entityIds = selectedEntities.map(entity => `entity_ids[]=${entity}`);
+        const body = new URLSearchParams(entityIds.join('&'));
         let fileName = '';
-        fetch(`${this.baseUrl}export/${this.itemType}`, {
+        fetch(`${this.baseUrl}export/${this.entityType}`, {
             method: 'POST',
             credentials: 'same-origin',
             headers: {

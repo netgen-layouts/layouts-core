@@ -30,18 +30,18 @@ final class Export extends AbstractController
     }
 
     /**
-     * Exports the provided list of items.
+     * Exports the provided list of entities.
      */
     public function __invoke(string $type, Request $request): Response
     {
         $this->denyAccessUnlessGranted('nglayouts:ui:access');
 
-        $itemIds = Kernel::VERSION_ID >= 50100 ?
-            $request->request->all('item_ids') :
-            (array) ($request->request->get('item_ids') ?? []);
+        $entityIds = Kernel::VERSION_ID >= 50100 ?
+            $request->request->all('entity_ids') :
+            (array) ($request->request->get('entity_ids') ?? []);
 
-        $serializedItems = $this->serializer->serialize($type, array_unique($itemIds));
-        $json = json_encode($serializedItems, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
+        $serializedEntities = $this->serializer->serialize($type, array_unique($entityIds));
+        $json = json_encode($serializedEntities, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
         $response = new Response($json);
 
         $fileName = sprintf('netgen_layouts_export_%s.json', date('Y-m-d_H-i-s'));
