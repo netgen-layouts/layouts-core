@@ -47,8 +47,8 @@ final class Version010200 extends AbstractMigration
         $this->addSql('ALTER TABLE nglayouts_role CHANGE description description TEXT NOT NULL');
         $this->addSql('ALTER TABLE nglayouts_role_policy CHANGE limitations limitations TEXT NOT NULL');
         $this->addSql('ALTER TABLE nglayouts_rule CHANGE comment comment TEXT NOT NULL');
-        $this->addSql('ALTER TABLE nglayouts_rule_condition CHANGE value value TEXT NOT NULL');
-        $this->addSql('ALTER TABLE nglayouts_rule_target CHANGE value value TEXT NOT NULL');
+        $this->addSql('ALTER TABLE nglayouts_rule_condition CHANGE value value TEXT');
+        $this->addSql('ALTER TABLE nglayouts_rule_target CHANGE value value TEXT');
 
         $this->addSql('ALTER TABLE nglayouts_rule ADD COLUMN layout_id int(11) DEFAULT NULL AFTER layout_uuid');
         $this->addSql('ALTER TABLE nglayouts_rule DROP KEY idx_ngl_related_layout, ADD KEY idx_ngl_related_layout(layout_id)');
