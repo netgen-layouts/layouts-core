@@ -223,7 +223,7 @@ CREATE TABLE nglayouts_rule_target (
   uuid nchar(36) NOT NULL,
   rule_id int NOT NULL,
   type nvarchar(255) NOT NULL,
-  value nvarchar(max) NOT NULL,
+  value nvarchar(max),
   PRIMARY KEY (id, status),
   UNIQUE (uuid, status),
   FOREIGN KEY (rule_id, status)
@@ -236,7 +236,7 @@ CREATE TABLE nglayouts_rule_condition (
   uuid nchar(36) NOT NULL,
   rule_id int NOT NULL,
   type nvarchar(255) NOT NULL,
-  value nvarchar(max) NOT NULL,
+  value nvarchar(max),
   PRIMARY KEY (id, status),
   UNIQUE (uuid, status),
   FOREIGN KEY (rule_id, status)
