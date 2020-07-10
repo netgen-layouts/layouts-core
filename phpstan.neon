@@ -18,7 +18,7 @@ parameters:
         - '#Cannot call method fetchAll\(\) on Doctrine\\DBAL\\Driver\\ResultStatement\|int#'
         - '#expects string\|null, Doctrine\\DBAL\\Query\\Expression\\CompositeExpression given#'
 
-        # Compatibility with Symfony 3.4
+        # Compatibility with older versions of Symfony
         -
             message: '#Method Symfony\\Component\\HttpFoundation\\Request::isMethodSafe\(\) invoked with 1 parameter, 0 required.#'
             path: bundles/LayoutsAdminBundle/Security/CsrfTokenValidator.php
@@ -42,6 +42,7 @@ parameters:
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\Console\\\\Application and 'renderThrowable'#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Exception' will always evaluate to false.#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Throwable' will always evaluate to true.#"
+        - "#Call to function method_exists\\(\\) with 'Symfony\\\\\\\\Component\\\\\\\\Inflector\\\\\\\\Inflector' and 'pluralize' will always evaluate to true.#"
 
         -
             message: '#twig_date_converter not found.#'
