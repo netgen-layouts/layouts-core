@@ -44,7 +44,7 @@ final class Export extends AbstractController
         $json = json_encode($serializedEntities, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
         $response = new Response($json);
 
-        $fileName = sprintf('netgen_layouts_export_%s.json', date('Y-m-d_H-i-s'));
+        $fileName = sprintf('netgen_layouts_export_%s_%s.json', $type, date('Y-m-d_H-i-s'));
         $disposition = $response->headers->makeDisposition(
             ResponseHeaderBag::DISPOSITION_ATTACHMENT,
             $fileName
