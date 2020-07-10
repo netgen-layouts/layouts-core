@@ -59,6 +59,7 @@ condition_type.time.from: 'From'
 condition_type.time.to: 'Until'
 
 import.file: 'Select file'
+import.file.no_file_selected: '(No file selected)'
 import.import_mode: 'Import mode'
 import.import_mode.copy: 'Copy existing entities'
 import.import_mode.overwrite: 'Overwrite existing entities'

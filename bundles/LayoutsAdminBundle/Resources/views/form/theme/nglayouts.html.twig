@@ -21,7 +21,7 @@
 {%- block file_row -%}
     <div class="row-input file-input-group{% if errors|length > 0 %} error-input{% endif %}{% if form.vars.disabled %} disabled-input{% endif %}">
         {{- form_label(form, null, {label_attr: {class: 'nl-btn nl-btn-primary nl-btn-with-icon'}}) -}}
-        <span class="filename"></span>
+        <span class="filename">{{ 'import.file.no_file_selected'|trans({}, 'nglayouts_forms') }}</span>
 
         {{- form_widget(form) -}}
         {{- form_errors(form) -}}
