@@ -82,5 +82,5 @@ parameters:
             path: lib/Utils/Hydrator.php
 
         -
-            message: '#Unsafe usage of new static().#'
+            message: '#Unsafe usage of new static\(\).#'
             path: lib/Utils/HydratorTrait.php
