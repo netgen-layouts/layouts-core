@@ -121,7 +121,7 @@ trait DatabaseTrait
 
         foreach (array_map('trim', explode(';', $schema)) as $sqlQuery) {
             if ($sqlQuery !== '') {
-                $this->databaseConnection->query($sqlQuery);
+                $this->databaseConnection->executeQuery($sqlQuery);
             }
         }
     }
