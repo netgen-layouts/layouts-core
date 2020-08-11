@@ -20,6 +20,7 @@
             <errorLevel type="suppress">
                 <referencedClass name="Symfony\Component\Debug\Exception\FlattenException" />
                 <referencedClass name="Symfony\Component\Debug\Exception\FatalThrowableError" />
+                <referencedClass name="Symfony\Component\Inflector\Inflector" />
             </errorLevel>
         </UndefinedClass>
 
