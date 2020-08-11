@@ -9,6 +9,7 @@ use Ramsey\Uuid\UuidFactoryInterface;
 use Ramsey\Uuid\UuidInterface;
 use function array_map;
 use function count;
+use function method_exists;
 
 trait UuidGeneratorTrait
 {
@@ -27,12 +28,13 @@ trait UuidGeneratorTrait
         );
 
         $originalFactory = Uuid::getFactory();
-
         $factoryMock = $this->createMock(UuidFactoryInterface::class);
 
-        $factoryMock->expects(self::any())
-            ->method('getValidator')
-            ->willReturn($originalFactory->getValidator());
+        if (method_exists(UuidFactoryInterface::class, 'getValidator')) {
+            $factoryMock->expects(self::any())
+                ->method('getValidator')
+                ->willReturn($originalFactory->getValidator());
+        }
 
         $factoryMock->expects(self::any())
             ->method('fromString')

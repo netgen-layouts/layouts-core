@@ -27,7 +27,8 @@ parameters:
 
         # PHPUnit 8
 
-        - '#Call to function method_exists\(\) with .PHPUnit\\\\Framework\\\\Assert.#'
+        - "#Call to function method_exists\\(\\) with 'PHPUnit\\\\\\\\Framework\\\\\\\\Assert'#"
+        - "#Call to function method_exists\\(\\) with 'Ramsey\\\\\\\\Uuid\\\\\\\\UuidFactoryInterface' and 'getValidator' will always evaluate to true.#"
 
         # Disable errors about missing value types in PHPUnit data providers
 
