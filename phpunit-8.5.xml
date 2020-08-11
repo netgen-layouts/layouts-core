@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/8.0/phpunit.xsd"
     bootstrap="tests/bootstrap.php"
     colors="true"
     forceCoversAnnotation="true"
@@ -26,20 +26,22 @@
         </testsuite>
     </testsuites>
 
-    <coverage>
-        <include>
+    <filter>
+        <whitelist>
             <directory suffix=".php">lib</directory>
             <directory suffix=".php">bundles/LayoutsBundle</directory>
             <directory suffix=".php">bundles/LayoutsAdminBundle</directory>
-        </include>
-        <exclude>
-            <directory>bundles/*Bundle/Command</directory>
-            <directory>bundles/*Bundle/Controller</directory>
-            <directory>bundles/*Bundle/Resources</directory>
-            <file>bundles/LayoutsBundle/NetgenLayoutsBundle.php</file>
-            <file>bundles/LayoutsAdminBundle/NetgenLayoutsAdminBundle.php</file>
-            <file>bundles/LayoutsAdminBundle/DependencyInjection/ExtensionPlugin.php</file>
-            <file>bundles/LayoutsAdminBundle/DependencyInjection/NetgenLayoutsAdminExtension.php</file>
-        </exclude>
-    </coverage>
+            <exclude>
+                <file>bundles/LayoutsBundle/NetgenLayoutsBundle.php</file>
+                <file>bundles/LayoutsAdminBundle/NetgenLayoutsAdminBundle.php</file>
+                <file>bundles/LayoutsAdminBundle/DependencyInjection/ExtensionPlugin.php</file>
+                <file>bundles/LayoutsAdminBundle/DependencyInjection/NetgenLayoutsAdminExtension.php</file>
+            </exclude>
+            <exclude>
+                <directory>bundles/*Bundle/Command</directory>
+                <directory>bundles/*Bundle/Controller</directory>
+                <directory>bundles/*Bundle/Resources</directory>
+            </exclude>
+        </whitelist>
+    </filter>
 </phpunit>
