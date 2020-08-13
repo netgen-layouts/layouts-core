@@ -72,23 +72,6 @@ final class CmsItemLoaderPassTest extends AbstractContainerBuilderTestCase
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\CmsItemLoaderPass::process
      */
-    public function testProcessThrowsRuntimeExceptionWithNoTagValueType(): void
-    {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Value loader service definition must have a \'value_type\' attribute in its\' tag.');
-
-        $this->setDefinition('netgen_layouts.item.item_loader', new Definition());
-
-        $valueLoader = new Definition();
-        $valueLoader->addTag('netgen_layouts.cms_value_loader');
-        $this->setDefinition('netgen_layouts.item.value_loader.test', $valueLoader);
-
-        $this->compile();
-    }
-
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\CmsItemLoaderPass::process
-     */
     public function testProcessWithEmptyContainer(): void
     {
         $this->compile();

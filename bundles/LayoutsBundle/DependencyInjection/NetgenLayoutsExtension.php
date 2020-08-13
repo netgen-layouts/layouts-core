@@ -11,6 +11,9 @@ use Netgen\Layouts\Collection\Item\VisibilityVoterInterface;
 use Netgen\Layouts\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\Layouts\Context\ContextProviderInterface;
 use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Item\ValueConverterInterface;
+use Netgen\Layouts\Item\ValueLoaderInterface;
+use Netgen\Layouts\Item\ValueUrlGeneratorInterface;
 use Netgen\Layouts\Layout\Resolver\ConditionTypeInterface;
 use Netgen\Layouts\Layout\Resolver\Form\ConditionType\MapperInterface as ConditionTypeFormMapperInterface;
 use Netgen\Layouts\Layout\Resolver\Form\TargetType\MapperInterface as TargetTypeFormMapperInterface;
@@ -20,6 +23,7 @@ use Netgen\Layouts\Parameters\ParameterTypeInterface;
 use Netgen\Layouts\Persistence\Doctrine\QueryHandler\TargetHandlerInterface;
 use Netgen\Layouts\Transfer\Output\VisitorInterface;
 use Netgen\Layouts\Utils\BackwardsCompatibility\YamlFileLoader;
+use Netgen\Layouts\View\Matcher\MatcherInterface;
 use Netgen\Layouts\View\Provider\ViewProviderInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\FileLocator;
@@ -278,5 +282,21 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
         $container
             ->registerForAutoconfiguration(VisitorInterface::class)
             ->addTag('netgen_layouts.transfer_output_visitor');
+
+        $container
+            ->registerForAutoconfiguration(ValueConverterInterface::class)
+            ->addTag('netgen_layouts.cms_value_converter');
+
+        $container
+            ->registerForAutoconfiguration(ValueLoaderInterface::class)
+            ->addTag('netgen_layouts.cms_value_loader');
+
+        $container
+            ->registerForAutoconfiguration(ValueUrlGeneratorInterface::class)
+            ->addTag('netgen_layouts.cms_value_url_generator');
+
+        $container
+            ->registerForAutoconfiguration(MatcherInterface::class)
+            ->addTag('netgen_layouts.view_matcher');
     }
 }

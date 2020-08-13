@@ -6,7 +6,6 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\CompilerPass\Vie
 
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractContainerBuilderTestCase;
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\View\TemplateResolverPass;
-use Netgen\Layouts\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Argument\ServiceClosureArgument;
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\ParameterBag\FrozenParameterBag;
@@ -50,26 +49,6 @@ final class TemplateResolverPassTest extends AbstractContainerBuilderTestCase
                 ]
             )
         );
-    }
-
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\View\TemplateResolverPass::process
-     */
-    public function testProcessThrowsExceptionWithNoTagIdentifier(): void
-    {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Matcher service definition must have an \'identifier\' attribute in its\' tag.');
-
-        $templateResolver = new Definition();
-        $templateResolver->addArgument([]);
-
-        $this->setDefinition('netgen_layouts.view.template_resolver', $templateResolver);
-
-        $matcher = new Definition();
-        $matcher->addTag('netgen_layouts.view_matcher');
-        $this->setDefinition('netgen_layouts.view.template_matcher.test', $matcher);
-
-        $this->compile();
     }
 
     /**

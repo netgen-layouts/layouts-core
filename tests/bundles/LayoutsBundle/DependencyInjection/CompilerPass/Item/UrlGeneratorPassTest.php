@@ -71,26 +71,6 @@ final class UrlGeneratorPassTest extends AbstractContainerBuilderTestCase
     /**
      * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\UrlGeneratorPass::process
      */
-    public function testProcessThrowsRuntimeExceptionWithNoTagValueType(): void
-    {
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('Value URL generator service definition must have a \'value_type\' attribute in its\' tag.');
-
-        $urlGenerator = new Definition();
-        $urlGenerator->addArgument(null);
-
-        $this->setDefinition('netgen_layouts.item.url_generator', $urlGenerator);
-
-        $valueUrlGenerator = new Definition();
-        $valueUrlGenerator->addTag('netgen_layouts.cms_value_url_generator');
-        $this->setDefinition('netgen_layouts.item.value_url_generator.test', $valueUrlGenerator);
-
-        $this->compile();
-    }
-
-    /**
-     * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\CompilerPass\Item\UrlGeneratorPass::process
-     */
     public function testProcessWithEmptyContainer(): void
     {
         $this->compile();
