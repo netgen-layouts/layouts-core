@@ -11,7 +11,7 @@ services:
             - "@netgen_layouts.collection.registry.query_type"
             - "@netgen_layouts.item.item_loader"
         tags:
-            - { name: netgen_layouts.transfer.entity_handler,  entity_type: layout }
+            - { name: netgen_layouts.transfer.entity_handler, entity_type: layout }
 
     netgen_layouts.transfer.entity_handler.rule:
         class: Netgen\Layouts\Transfer\EntityHandler\RuleEntityHandler
@@ -20,7 +20,7 @@ services:
             - "@netgen_layouts.layout.resolver.registry.target_type"
             - "@netgen_layouts.layout.resolver.registry.condition_type"
         tags:
-            - { name: netgen_layouts.transfer.entity_handler,  entity_type: rule }
+            - { name: netgen_layouts.transfer.entity_handler, entity_type: rule }
 
     netgen_layouts.transfer.serializer:
         class: Netgen\Layouts\Transfer\Output\Serializer
