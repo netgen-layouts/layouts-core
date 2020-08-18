@@ -124,6 +124,13 @@
 
         <!-- Netgen Layouts specifics -->
 
+        <UnsafeInstantiation>
+            <errorLevel type="suppress">
+                <file name="bundles/LayoutsAdminBundle/EventListener/ExceptionConversionListener.php" />
+                <file name="lib/Utils/HydratorTrait.php" />
+            </errorLevel>
+        </UnsafeInstantiation>
+
         <PossiblyNullPropertyAssignmentValue>
             <errorLevel type="suppress">
                 <directory name="lib/Persistence/Doctrine/Handler" />
