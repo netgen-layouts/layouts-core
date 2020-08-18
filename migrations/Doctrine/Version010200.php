@@ -4,14 +4,28 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Migrations\Doctrine;
 
+use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
+use function sprintf;
 
 final class Version010200 extends AbstractMigration
 {
     public function up(Schema $schema): void
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
+
+        // Make sure we only run the migration if the UUID migration script from Netgen Layouts 1.0 has been ran
+        $queryResult = $this->connection->executeQuery('SELECT COUNT(*) as count FROM nglayouts_layout WHERE LENGTH(uuid) < 36');
+
+        $this->abortIf(
+            ((int) $queryResult->fetchAll(FetchMode::ASSOCIATIVE)[0]['count']) > 0,
+            sprintf(
+                '%s %s',
+                'Database migration to version 1.2 can only be executed safely after you have ran the UUID migration script from 1.0 upgrade.',
+                'Run the UUID migration script and then run Doctrine Migrations again.'
+            )
+        );
 
         $this->addSql('ALTER TABLE nglayouts_block CHANGE config config LONGTEXT NOT NULL');
         $this->addSql('ALTER TABLE nglayouts_block_translation CHANGE parameters parameters LONGTEXT NOT NULL');
