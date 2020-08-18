@@ -250,7 +250,7 @@ final class CollectionService implements APICollectionService
                     foreach ($this->collectionHandler->loadCollectionItems($persistenceCollection) as $index => $item) {
                         $this->collectionHandler->moveItem($item, $index);
                     }
-                } elseif ($newType === Collection::TYPE_DYNAMIC && $queryCreateStruct !== null) {
+                } elseif ($queryCreateStruct !== null) {
                     $queryType = $queryCreateStruct->getQueryType();
 
                     $this->collectionHandler->createQuery(

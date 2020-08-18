@@ -14,7 +14,6 @@ use Netgen\Layouts\Transfer\Input\Result\SkippedResult;
 use Netgen\Layouts\Transfer\Input\Result\SuccessResult;
 use Psr\Container\ContainerInterface;
 use Ramsey\Uuid\Uuid;
-use Ramsey\Uuid\UuidInterface;
 use Throwable;
 use Traversable;
 use function file_get_contents;
@@ -69,7 +68,7 @@ final class Importer implements ImporterInterface
 
             try {
                 $handler = $this->getEntityHandler($entityData['__type']);
-                $entityExists = $uuid instanceof UuidInterface && $handler->entityExists($uuid);
+                $entityExists = $handler->entityExists($uuid);
 
                 if ($entityExists && $options->skipExisting()) {
                     yield new SkippedResult($entityData['__type'], $entityData, $uuid);

@@ -72,7 +72,7 @@ final class UpdateRule extends AbstractController
         $ruleUpdateStruct->comment = $comment;
 
         if ($layoutId !== null) {
-            $ruleUpdateStruct->layoutId = is_string($layoutId) && !in_array($layoutId, ['0', ''], true) ?
+            $ruleUpdateStruct->layoutId = !in_array($layoutId, ['0', ''], true) ?
                 Uuid::fromString($layoutId) :
                 false;
         }

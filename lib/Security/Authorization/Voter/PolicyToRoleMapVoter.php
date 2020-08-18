@@ -65,6 +65,10 @@ final class PolicyToRoleMapVoter extends Voter
         $this->accessDecisionManager = $accessDecisionManager;
     }
 
+    /**
+     * @param mixed $attribute
+     * @param mixed $subject
+     */
     protected function supports($attribute, $subject): bool
     {
         return is_string($attribute) && str_starts_with($attribute, 'nglayouts:');
