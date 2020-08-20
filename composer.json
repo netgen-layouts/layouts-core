@@ -72,7 +72,7 @@
         "phpstan/phpstan": "^0.12",
         "phpstan/phpstan-strict-rules": "^0.12",
         "phpstan/phpstan-phpunit": "^0.12",
-        "vimeo/psalm": "^3.10",
+        "vimeo/psalm": "^3.14",
         "coduo/php-matcher": "^3.2 || ^4.0",
         "sebastian/diff": "^3.0 || ^4.0",
         "matthiasnoback/symfony-dependency-injection-test": "^4.1",
