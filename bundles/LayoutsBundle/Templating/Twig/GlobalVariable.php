@@ -183,10 +183,13 @@ final class GlobalVariable
     /**
      * Returns the currently valid layout template, or base pagelayout if
      * no layout was resolved.
+     *
+     * If $layout was provided, that specific layout will be used when building the view,
+     * instead of resolving the template.
      */
-    public function getLayoutTemplate(string $context = ViewInterface::CONTEXT_DEFAULT): ?string
+    public function getLayoutTemplate(string $context = ViewInterface::CONTEXT_DEFAULT, ?Layout $layout = null): ?string
     {
-        $layoutView = $this->buildLayoutView($context);
+        $layoutView = $this->buildLayoutView($context, $layout);
         if (!$layoutView instanceof LayoutViewInterface) {
             return $this->getPageLayoutTemplate();
         }
@@ -212,11 +215,14 @@ final class GlobalVariable
      * attribute. This is useful when outside sources need to control the displayed
      * layout, like preview mechanism and so on.
      *
+     * If $layout was provided, that specific layout will be used when building the view,
+     * instead of resolving the template.
+     *
      * See class docs for more details.
      *
      * @return \Netgen\Layouts\View\ViewInterface|false|null
      */
-    public function buildLayoutView(string $context = ViewInterface::CONTEXT_DEFAULT)
+    public function buildLayoutView(string $context = ViewInterface::CONTEXT_DEFAULT, ?Layout $layout = null)
     {
         $currentRequest = $this->requestStack->getCurrentRequest();
         $masterRequest = $this->requestStack->getMasterRequest();
@@ -252,16 +258,19 @@ final class GlobalVariable
         // exception, or the exception layout (both of those for the first time).
 
         $layoutView = false;
+        $usedLayout = $layout;
+        $viewParams = [];
 
-        $resolvedRule = $this->layoutResolver->resolveRule();
-        if ($resolvedRule instanceof Rule) {
-            $layoutView = $this->viewBuilder->buildView(
-                $resolvedRule->getLayout(),
-                $context,
-                [
-                    'rule' => $resolvedRule,
-                ]
-            );
+        if (!$usedLayout instanceof Layout) {
+            $resolvedRule = $this->layoutResolver->resolveRule();
+            if ($resolvedRule instanceof Rule) {
+                $usedLayout = $resolvedRule->getLayout();
+                $viewParams = ['rule' => $resolvedRule];
+            }
+        }
+
+        if ($usedLayout instanceof Layout) {
+            $layoutView = $this->viewBuilder->buildView($usedLayout, $context, $viewParams);
         }
 
         $masterRequest->attributes->set(
