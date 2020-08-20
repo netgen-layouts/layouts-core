@@ -26,7 +26,7 @@ final class LoadConfigTest extends JsonApiTestCase
         }
 
         /** @var \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface $tokenManager */
-        $tokenManager = $clientContainer->get('security.csrf.token_manager');
+        $tokenManager = $clientContainer->get('test.security.csrf.token_manager');
         $tokenId = $clientContainer->getParameter('netgen_layouts.app.csrf_token_id');
 
         $currentToken = $tokenManager->getToken($tokenId);
