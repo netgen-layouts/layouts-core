@@ -13,6 +13,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Layout\Resolver\LayoutResolverInterface;
 use Netgen\Layouts\View\View\LayoutView;
 use Netgen\Layouts\View\ViewBuilderInterface;
+use Netgen\Layouts\View\ViewInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -337,6 +338,38 @@ final class GlobalVariableTest extends TestCase
             ->method('resolvePageLayout');
 
         self::assertSame('layout.html.twig', $this->globalVariable->getLayoutTemplate());
+
+        self::assertSame($layoutView, $request->attributes->get('nglLayoutView'));
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\GlobalVariable::buildLayoutView
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\GlobalVariable::getLayoutTemplate
+     */
+    public function testGetLayoutTemplateWithLayoutOverride(): void
+    {
+        $request = Request::create('/');
+        $this->requestStack->push($request);
+        $layout = new Layout();
+
+        $this->layoutResolverMock
+            ->expects(self::never())
+            ->method('resolveRule');
+
+        $layoutView = new LayoutView($layout);
+        $layoutView->setTemplate('layout.html.twig');
+
+        $this->viewBuilderMock
+            ->expects(self::once())
+            ->method('buildView')
+            ->with(self::identicalTo($layout))
+            ->willReturn($layoutView);
+
+        $this->pageLayoutResolverMock
+            ->expects(self::never())
+            ->method('resolvePageLayout');
+
+        self::assertSame('layout.html.twig', $this->globalVariable->getLayoutTemplate(ViewInterface::CONTEXT_DEFAULT, $layout));
 
         self::assertSame($layoutView, $request->attributes->get('nglLayoutView'));
     }
