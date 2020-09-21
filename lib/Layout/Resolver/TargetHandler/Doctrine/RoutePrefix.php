@@ -15,7 +15,7 @@ final class RoutePrefix implements TargetHandlerInterface
         $databasePlatform = $query->getConnection()->getDatabasePlatform();
 
         $query->andWhere(
-            $query->expr()->andX(
+            $query->expr()->and(
                 $query->expr()->gt(
                     $databasePlatform->getLengthExpression(
                         $databasePlatform->getTrimExpression('rt.value')

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Migrations\Doctrine;
 
-use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
 use function sprintf;
@@ -19,7 +18,7 @@ final class Version010200 extends AbstractMigration
         $queryResult = $this->connection->executeQuery('SELECT COUNT(*) as count FROM nglayouts_layout WHERE LENGTH(uuid) < 36');
 
         $this->abortIf(
-            ((int) $queryResult->fetchAll(FetchMode::ASSOCIATIVE)[0]['count']) > 0,
+            ((int) $queryResult->fetchAllAssociative()[0]['count']) > 0,
             sprintf(
                 '%s %s',
                 'Database migration to version 1.2 can only be executed safely after you have ran the UUID migration script from 1.0 upgrade.',

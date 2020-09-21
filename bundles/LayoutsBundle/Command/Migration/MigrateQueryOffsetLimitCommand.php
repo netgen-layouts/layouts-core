@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Command\Migration;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\Types\Types;
 use Generator;
 use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
@@ -269,7 +268,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
                 'c',
                 'nglayouts_collection_query',
                 'q',
-                $queryBuilder->expr()->andX(
+                $queryBuilder->expr()->and(
                     $queryBuilder->expr()->eq('c.id', 'q.collection_id'),
                     $queryBuilder->expr()->eq('c.status', 'q.status')
                 )
@@ -278,14 +277,14 @@ final class MigrateQueryOffsetLimitCommand extends Command
                 'q',
                 'nglayouts_collection_query_translation',
                 'qt',
-                $queryBuilder->expr()->andX(
+                $queryBuilder->expr()->and(
                     $queryBuilder->expr()->eq('q.id', 'qt.query_id'),
                     $queryBuilder->expr()->eq('q.status', 'qt.status'),
                     $queryBuilder->expr()->eq('c.main_locale', 'qt.locale')
                 )
             );
 
-        return $queryBuilder->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        return $queryBuilder->execute()->fetchAllAssociative();
     }
 
     /**
@@ -299,7 +298,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
             ->set('start', ':start')
             ->set('length', ':length')
             ->where(
-                $queryBuilder->expr()->andX(
+                $queryBuilder->expr()->and(
                     $queryBuilder->expr()->eq('id', ':id'),
                     $queryBuilder->expr()->eq('status', ':status')
                 )

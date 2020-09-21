@@ -79,6 +79,12 @@
             </errorLevel>
         </InvalidScalarArgument>
 
+        <UndefinedInterfaceMethod>
+            <errorLevel type="suppress">
+                <referencedMethod name="Doctrine\DBAL\Driver\ResultStatement::fetchAllAssociative" />
+            </errorLevel>
+        </UndefinedInterfaceMethod>
+
         <!-- Symfony -->
 
         <PossiblyUndefinedMethod>

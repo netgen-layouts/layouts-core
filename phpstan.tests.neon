@@ -14,8 +14,10 @@ parameters:
     ignoreErrors:
         # Doctrine DBAL
         -
-            message: '#Cannot call method fetchAll\(\) on Doctrine\\DBAL\\Driver\\ResultStatement\|int#'
+            message: '#Cannot call method fetchAllAssociative\(\) on Doctrine\\DBAL\\Driver\\ResultStatement\|int#'
             path: tests/lib/Persistence/Doctrine/Helper/PositionHelperTest.php
+
+        - '#Unable to resolve the template type T in call to method static method Doctrine\\DBAL\\DriverManager::getConnection\(\)#'
 
         # Compatibility with Symfony 3.4
 

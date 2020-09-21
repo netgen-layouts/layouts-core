@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Exception\Persistence\TargetHandlerException;
@@ -50,7 +49,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $ruleId, 'r.id', 'r.uuid');
         $this->applyStatusCondition($query, $status, 'r.status');
 
-        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        return $query->execute()->fetchAllAssociative();
     }
 
     /**
@@ -74,7 +73,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $this->applyStatusCondition($query, $status, 'r.status');
         $this->applyOffsetAndLimit($query, $offset, $limit);
 
-        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        return $query->execute()->fetchAllAssociative();
     }
 
     /**
@@ -95,7 +94,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $ruleStatus);
 
-        $data = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        $data = $query->execute()->fetchAllAssociative();
 
         return (int) ($data[0]['count'] ?? 0);
     }
@@ -131,7 +130,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $targetHandler = $this->getTargetHandler($targetType);
         $targetHandler->handleQuery($query, $targetValue);
 
-        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        return $query->execute()->fetchAllAssociative();
     }
 
     /**
@@ -148,7 +147,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $targetId, 't.id', 't.uuid');
         $this->applyStatusCondition($query, $status, 't.status');
 
-        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        return $query->execute()->fetchAllAssociative();
     }
 
     /**
@@ -167,7 +166,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $rule->status, 't.status');
 
-        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        return $query->execute()->fetchAllAssociative();
     }
 
     /**
@@ -185,7 +184,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $rule->status);
 
-        $data = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        $data = $query->execute()->fetchAllAssociative();
 
         return (int) ($data[0]['count'] ?? 0);
     }
@@ -204,7 +203,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $conditionId, 'c.id', 'c.uuid');
         $this->applyStatusCondition($query, $status, 'c.status');
 
-        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        return $query->execute()->fetchAllAssociative();
     }
 
     /**
@@ -223,7 +222,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $rule->status, 'c.status');
 
-        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        return $query->execute()->fetchAllAssociative();
     }
 
     /**
@@ -243,7 +242,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status);
         }
 
-        $data = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        $data = $query->execute()->fetchAllAssociative();
 
         return (int) ($data[0]['count'] ?? 0) > 0;
     }
@@ -260,7 +259,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query->addOrderBy('priority', 'ASC');
         $this->applyOffsetAndLimit($query, 0, 1);
 
-        $data = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        $data = $query->execute()->fetchAllAssociative();
 
         return isset($data[0]['priority']) ? (int) $data[0]['priority'] : null;
     }
@@ -596,7 +595,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 'r',
                 'nglayouts_layout',
                 'l',
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('r.layout_uuid', 'l.uuid'),
                     $query->expr()->eq('l.status', Value::STATUS_PUBLISHED)
                 )
@@ -617,7 +616,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 't',
                 'nglayouts_rule',
                 'r',
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('r.id', 't.rule_id'),
                     $query->expr()->eq('r.status', 't.status')
                 )
@@ -638,7 +637,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 'c',
                 'nglayouts_rule',
                 'r',
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('r.id', 'c.rule_id'),
                     $query->expr()->eq('r.status', 'c.status')
                 )

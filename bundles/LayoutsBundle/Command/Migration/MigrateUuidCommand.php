@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Command\Migration;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\API\Values\Value;
 use Ramsey\Uuid\Uuid;
@@ -120,7 +119,7 @@ final class MigrateUuidCommand extends Command
         $queryBuilder->select('id, status, name')
             ->from('nglayouts_layout');
 
-        $data = $queryBuilder->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        $data = $queryBuilder->execute()->fetchAllAssociative();
 
         $this->io->writeln(['Generating UUIDs for layouts...', '']);
         $progressBar = $this->io->createProgressBar(count($data));
@@ -143,7 +142,7 @@ final class MigrateUuidCommand extends Command
                 ->update('nglayouts_layout')
                 ->set('uuid', ':uuid')
                 ->where(
-                    $queryBuilder->expr()->andX(
+                    $queryBuilder->expr()->and(
                         $queryBuilder->expr()->eq('id', ':id'),
                         $queryBuilder->expr()->eq('status', ':status')
                     )
@@ -166,7 +165,7 @@ final class MigrateUuidCommand extends Command
         $queryBuilder->select('id, status')
             ->from($tableName);
 
-        $data = $queryBuilder->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        $data = $queryBuilder->execute()->fetchAllAssociative();
 
         $this->io->writeln([sprintf('Generating UUIDs for %s...', $entityName), '']);
         $progressBar = $this->io->createProgressBar(count($data));
@@ -179,7 +178,7 @@ final class MigrateUuidCommand extends Command
                 ->update($tableName)
                 ->set('uuid', ':uuid')
                 ->where(
-                    $queryBuilder->expr()->andX(
+                    $queryBuilder->expr()->and(
                         $queryBuilder->expr()->eq('id', ':id'),
                         $queryBuilder->expr()->eq('status', ':status')
                     )

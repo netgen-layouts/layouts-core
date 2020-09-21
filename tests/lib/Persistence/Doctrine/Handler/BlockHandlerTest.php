@@ -2240,7 +2240,7 @@ final class BlockHandlerTest extends TestCase
 
         $query->delete('nglayouts_zone')
             ->where(
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('layout_id', ':layout_id'),
                     $query->expr()->eq('status', ':status')
                 )

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Migrations\Doctrine;
 
-use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\Migrations\AbstractMigration;
@@ -167,7 +166,7 @@ final class Version000900 extends AbstractMigration
         $queryBuilder->select('COUNT(id) as count')
             ->from('ngbm_layout');
 
-        $result = $queryBuilder->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        $result = $queryBuilder->execute()->fetchAllAssociative();
 
         return (int) $result[0]['count'] > 0;
     }

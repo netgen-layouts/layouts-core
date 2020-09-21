@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Persistence\Values\Block\Block;
@@ -33,7 +32,7 @@ final class CollectionQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $collectionId, 'c.id', 'c.uuid');
         $this->applyStatusCondition($query, $status, 'c.status');
 
-        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        return $query->execute()->fetchAllAssociative();
     }
 
     /**
@@ -48,7 +47,7 @@ final class CollectionQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $block->id, 'bc.block_id');
         $this->applyStatusCondition($query, $block->status, 'bc.block_status');
 
-        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        return $query->execute()->fetchAllAssociative();
     }
 
     /**
@@ -74,7 +73,7 @@ final class CollectionQueryHandler extends QueryHandler
                 ->setParameter('identifier', $identifier, Types::STRING);
         }
 
-        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        return $query->execute()->fetchAllAssociative();
     }
 
     /**
@@ -91,7 +90,7 @@ final class CollectionQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $itemId, 'i.id', 'i.uuid');
         $this->applyStatusCondition($query, $status, 'i.status');
 
-        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        return $query->execute()->fetchAllAssociative();
     }
 
     /**
@@ -103,7 +102,7 @@ final class CollectionQueryHandler extends QueryHandler
     {
         $query = $this->getItemSelectQuery();
         $query->where(
-            $query->expr()->andX(
+            $query->expr()->and(
                 $query->expr()->eq('i.collection_id', ':collection_id'),
                 $query->expr()->eq('i.position', ':position')
             )
@@ -113,7 +112,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $collection->status, 'i.status');
 
-        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        return $query->execute()->fetchAllAssociative();
     }
 
     /**
@@ -133,7 +132,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $query->addOrderBy('i.position', 'ASC');
 
-        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        return $query->execute()->fetchAllAssociative();
     }
 
     /**
@@ -150,7 +149,7 @@ final class CollectionQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $queryId, 'q.id', 'q.uuid');
         $this->applyStatusCondition($query, $status, 'q.status');
 
-        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        return $query->execute()->fetchAllAssociative();
     }
 
     /**
@@ -172,7 +171,7 @@ final class CollectionQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status);
         }
 
-        $result = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        $result = $query->execute()->fetchAllAssociative();
 
         return array_map('intval', array_column($result, 'id'));
     }
@@ -192,7 +191,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $collection->status, 'q.status');
 
-        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        return $query->execute()->fetchAllAssociative();
     }
 
     /**
@@ -209,7 +208,7 @@ final class CollectionQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $slotId, 's.id', 's.uuid');
         $this->applyStatusCondition($query, $status, 's.status');
 
-        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        return $query->execute()->fetchAllAssociative();
     }
 
     /**
@@ -229,7 +228,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $query->addOrderBy('s.position', 'ASC');
 
-        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        return $query->execute()->fetchAllAssociative();
     }
 
     /**
@@ -246,7 +245,7 @@ final class CollectionQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $collectionId);
         $this->applyStatusCondition($query, $status);
 
-        $data = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        $data = $query->execute()->fetchAllAssociative();
 
         return (int) ($data[0]['count'] ?? 0) > 0;
     }
@@ -498,7 +497,7 @@ final class CollectionQueryHandler extends QueryHandler
         $query->select('count(*) AS count')
             ->from('nglayouts_collection_slot')
             ->where(
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('collection_id', ':collection_id'),
                     $query->expr()->eq('position', ':position')
                 )
@@ -508,7 +507,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $collection->status);
 
-        $data = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        $data = $query->execute()->fetchAllAssociative();
 
         return (int) ($data[0]['count'] ?? 0) > 0;
     }
@@ -747,7 +746,7 @@ final class CollectionQueryHandler extends QueryHandler
             ->update('nglayouts_collection_query_translation')
             ->set('parameters', ':parameters')
             ->where(
-                $dbQuery->expr()->andX(
+                $dbQuery->expr()->and(
                     $dbQuery->expr()->eq('query_id', ':query_id'),
                     $dbQuery->expr()->eq('locale', ':locale')
                 )
@@ -832,7 +831,7 @@ final class CollectionQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status, 'bc.block_status', 'block_status');
         }
 
-        $result = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        $result = $query->execute()->fetchAllAssociative();
 
         return array_map('intval', array_column($result, 'collection_id'));
     }
@@ -849,7 +848,7 @@ final class CollectionQueryHandler extends QueryHandler
                 'c',
                 'nglayouts_collection_translation',
                 'ct',
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('ct.collection_id', 'c.id'),
                     $query->expr()->eq('ct.status', 'c.status')
                 )
@@ -857,7 +856,7 @@ final class CollectionQueryHandler extends QueryHandler
                 'c',
                 'nglayouts_block_collection',
                 'bc',
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('c.id', 'bc.collection_id'),
                     $query->expr()->eq('c.status', 'bc.collection_status')
                 )
@@ -878,7 +877,7 @@ final class CollectionQueryHandler extends QueryHandler
                 'c',
                 'nglayouts_collection_translation',
                 'ct',
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('ct.collection_id', 'c.id'),
                     $query->expr()->eq('ct.status', 'c.status')
                 )
@@ -886,7 +885,7 @@ final class CollectionQueryHandler extends QueryHandler
                 'c',
                 'nglayouts_block_collection',
                 'bc',
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('c.id', 'bc.collection_id'),
                     $query->expr()->eq('c.status', 'bc.collection_status')
                 )
@@ -894,7 +893,7 @@ final class CollectionQueryHandler extends QueryHandler
                 'bc',
                 'nglayouts_block',
                 'b',
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('bc.block_id', 'b.id'),
                     $query->expr()->eq('bc.block_status', 'b.status')
                 )
@@ -915,7 +914,7 @@ final class CollectionQueryHandler extends QueryHandler
                 'i',
                 'nglayouts_collection',
                 'c',
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('c.id', 'i.collection_id'),
                     $query->expr()->eq('c.status', 'i.status')
                 )
@@ -936,7 +935,7 @@ final class CollectionQueryHandler extends QueryHandler
                 'q',
                 'nglayouts_collection_query_translation',
                 'qt',
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('qt.query_id', 'q.id'),
                     $query->expr()->eq('qt.status', 'q.status')
                 )
@@ -944,7 +943,7 @@ final class CollectionQueryHandler extends QueryHandler
                 'q',
                 'nglayouts_collection',
                 'c',
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('c.id', 'q.collection_id'),
                     $query->expr()->eq('c.status', 'q.status')
                 )
@@ -965,7 +964,7 @@ final class CollectionQueryHandler extends QueryHandler
                 's',
                 'nglayouts_collection',
                 'c',
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('c.id', 's.collection_id'),
                     $query->expr()->eq('c.status', 's.status')
                 )

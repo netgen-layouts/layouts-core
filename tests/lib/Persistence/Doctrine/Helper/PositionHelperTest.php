@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Persistence\Doctrine\Helper;
 
-use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper;
@@ -171,7 +170,7 @@ final class PositionHelperTest extends TestCase
 
         $query->delete('nglayouts_collection_item')
             ->where(
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('id', ':id'),
                     $query->expr()->eq('status', ':status')
                 )
@@ -226,7 +225,7 @@ final class PositionHelperTest extends TestCase
         $query->select('position')
             ->from('nglayouts_collection_item')
             ->where(
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('collection_id', ':collection_id'),
                     $query->expr()->eq('status', ':status')
                 )
@@ -235,7 +234,7 @@ final class PositionHelperTest extends TestCase
             ->setParameter('status', Value::STATUS_DRAFT, Types::INTEGER)
             ->orderBy('position', 'ASC');
 
-        $result = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        $result = $query->execute()->fetchAllAssociative();
 
         return array_map('intval', array_column($result, 'position'));
     }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Persistence\Values\Block\Block;
@@ -30,7 +29,7 @@ final class BlockQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $blockId, 'b.id', 'b.uuid');
         $this->applyStatusCondition($query, $status, 'b.status');
 
-        $blocksData = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        $blocksData = $query->execute()->fetchAllAssociative();
 
         // Inject the parent UUID into the result
         // This is to avoid inner joining the block table with itself
@@ -67,7 +66,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $layout->status, 'b.status');
 
-        $blocksData = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        $blocksData = $query->execute()->fetchAllAssociative();
 
         // Map block IDs to UUIDs to inject parent UUID into the result
         // This is to avoid inner joining the block table with itself
@@ -113,7 +112,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $block->status, 'b.status');
 
-        $blocksData = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        $blocksData = $query->execute()->fetchAllAssociative();
 
         // Map block IDs to UUIDs to inject parent UUID into the result
         // This is to avoid inner joining the block table with itself
@@ -147,7 +146,7 @@ final class BlockQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $blockId);
         $this->applyStatusCondition($query, $status);
 
-        $data = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        $data = $query->execute()->fetchAllAssociative();
 
         return (int) ($data[0]['count'] ?? 0) > 0;
     }
@@ -311,7 +310,7 @@ final class BlockQueryHandler extends QueryHandler
             ->update('nglayouts_block_translation')
             ->set('parameters', ':parameters')
             ->where(
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('block_id', ':block_id'),
                     $query->expr()->eq('locale', ':locale')
                 )
@@ -442,7 +441,7 @@ final class BlockQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status);
         }
 
-        $result = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        $result = $query->execute()->fetchAllAssociative();
 
         return array_map('intval', array_column($result, 'id'));
     }
@@ -466,7 +465,7 @@ final class BlockQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status);
         }
 
-        $result = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        $result = $query->execute()->fetchAllAssociative();
 
         return array_map('intval', array_column($result, 'id'));
     }
@@ -489,7 +488,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $this->applyOffsetAndLimit($query, 0, 1);
 
-        $data = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        $data = $query->execute()->fetchAllAssociative();
 
         if (count($data) === 0) {
             return null;
@@ -510,7 +509,7 @@ final class BlockQueryHandler extends QueryHandler
                 'b',
                 'nglayouts_block_translation',
                 'bt',
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('bt.block_id', 'b.id'),
                     $query->expr()->eq('bt.status', 'b.status')
                 )
@@ -531,7 +530,7 @@ final class BlockQueryHandler extends QueryHandler
                 'b',
                 'nglayouts_block_translation',
                 'bt',
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('bt.block_id', 'b.id'),
                     $query->expr()->eq('bt.status', 'b.status')
                 )
@@ -539,7 +538,7 @@ final class BlockQueryHandler extends QueryHandler
                 'b',
                 'nglayouts_layout',
                 'l',
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('l.id', 'b.layout_id'),
                     $query->expr()->eq('l.status', 'b.status')
                 )

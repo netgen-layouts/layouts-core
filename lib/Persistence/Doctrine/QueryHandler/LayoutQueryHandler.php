@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Persistence\Doctrine\QueryHandler;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\FetchMode;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
@@ -32,7 +31,7 @@ final class LayoutQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $layoutId, 'l.id', 'l.uuid');
         $this->applyStatusCondition($query, $status, 'l.status');
 
-        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        return $query->execute()->fetchAllAssociative();
     }
 
     /**
@@ -53,7 +52,7 @@ final class LayoutQueryHandler extends QueryHandler
                 'l',
                 'nglayouts_layout',
                 'l2',
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('l.id', 'l2.id'),
                     $query->expr()->eq('l2.status', ':status')
                 )
@@ -68,7 +67,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $statusExpr = $query->expr()->eq('l.status', ':status');
         if ($includeDrafts) {
-            $statusExpr = $query->expr()->orX(
+            $statusExpr = $query->expr()->or(
                 $statusExpr,
                 $query->expr()->isNull('l2.id')
             );
@@ -85,7 +84,7 @@ final class LayoutQueryHandler extends QueryHandler
         $this->applyOffsetAndLimit($query, $offset, $limit);
         $query->orderBy('l.name', 'ASC');
 
-        $result = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        $result = $query->execute()->fetchAllAssociative();
 
         return array_map('intval', array_column($result, 'id'));
     }
@@ -106,7 +105,7 @@ final class LayoutQueryHandler extends QueryHandler
                 'l',
                 'nglayouts_layout',
                 'l2',
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('l.id', 'l2.id'),
                     $query->expr()->eq('l2.status', ':status')
                 )
@@ -121,7 +120,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $statusExpr = $query->expr()->eq('l.status', ':status');
         if ($includeDrafts) {
-            $statusExpr = $query->expr()->orX(
+            $statusExpr = $query->expr()->or(
                 $statusExpr,
                 $query->expr()->isNull('l2.id')
             );
@@ -135,7 +134,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $query->setParameter('status', Value::STATUS_PUBLISHED, Types::INTEGER);
 
-        $data = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        $data = $query->execute()->fetchAllAssociative();
 
         return (int) ($data[0]['count'] ?? 0);
     }
@@ -157,7 +156,7 @@ final class LayoutQueryHandler extends QueryHandler
                 'l',
                 'nglayouts_layout',
                 'l2',
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('l.id', 'l2.id'),
                     $query->expr()->eq('l2.status', ':status')
                 )
@@ -170,7 +169,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $statusExpr = $query->expr()->eq('l.status', ':status');
         if ($includeDrafts) {
-            $statusExpr = $query->expr()->orX(
+            $statusExpr = $query->expr()->or(
                 $statusExpr,
                 $query->expr()->isNull('l2.id')
             );
@@ -183,7 +182,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $query->orderBy('l.name', 'ASC');
 
-        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        return $query->execute()->fetchAllAssociative();
     }
 
     /**
@@ -199,14 +198,14 @@ final class LayoutQueryHandler extends QueryHandler
             'l',
             'nglayouts_zone',
             'z',
-            $query->expr()->andX(
+            $query->expr()->and(
                 $query->expr()->eq('z.layout_id', 'l.id'),
                 $query->expr()->eq('z.status', 'l.status'),
                 $query->expr()->eq('z.linked_layout_uuid', ':linked_layout_uuid')
             )
         )
         ->where(
-            $query->expr()->andX(
+            $query->expr()->and(
                 $query->expr()->eq('l.shared', ':shared'),
                 $query->expr()->eq('l.status', ':status')
             )
@@ -217,7 +216,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $query->orderBy('l.name', 'ASC');
 
-        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        return $query->execute()->fetchAllAssociative();
     }
 
     /**
@@ -232,14 +231,14 @@ final class LayoutQueryHandler extends QueryHandler
                 'nglayouts_layout',
                 'nglayouts_zone',
                 'z',
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('z.layout_id', 'nglayouts_layout.id'),
                     $query->expr()->eq('z.status', 'nglayouts_layout.status'),
                     $query->expr()->eq('z.linked_layout_uuid', ':linked_layout_uuid')
                 )
             )
             ->where(
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('nglayouts_layout.shared', ':shared'),
                     $query->expr()->eq('nglayouts_layout.status', ':status')
                 )
@@ -248,7 +247,7 @@ final class LayoutQueryHandler extends QueryHandler
             ->setParameter('status', Value::STATUS_PUBLISHED, Types::INTEGER)
             ->setParameter('linked_layout_uuid', $sharedLayout->uuid, Types::STRING);
 
-        $data = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        $data = $query->execute()->fetchAllAssociative();
 
         return (int) ($data[0]['count'] ?? 0);
     }
@@ -271,7 +270,7 @@ final class LayoutQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $layoutId, 'l.id', 'l.uuid');
         $this->applyStatusCondition($query, $status, 'l.status');
 
-        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        return $query->execute()->fetchAllAssociative();
     }
 
     /**
@@ -290,7 +289,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $this->applyStatusCondition($query, $layout->status, 'z.status');
 
-        return $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        return $query->execute()->fetchAllAssociative();
     }
 
     /**
@@ -310,7 +309,7 @@ final class LayoutQueryHandler extends QueryHandler
             $this->applyStatusCondition($query, $status);
         }
 
-        $data = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        $data = $query->execute()->fetchAllAssociative();
 
         return (int) ($data[0]['count'] ?? 0) > 0;
     }
@@ -326,7 +325,7 @@ final class LayoutQueryHandler extends QueryHandler
         $query->select('count(*) AS count')
             ->from('nglayouts_layout')
             ->where(
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('name', ':name')
                 )
             )
@@ -346,7 +345,7 @@ final class LayoutQueryHandler extends QueryHandler
             );
         }
 
-        $data = $query->execute()->fetchAll(FetchMode::ASSOCIATIVE);
+        $data = $query->execute()->fetchAllAssociative();
 
         return (int) ($data[0]['count'] ?? 0) > 0;
     }
@@ -486,7 +485,7 @@ final class LayoutQueryHandler extends QueryHandler
             ->set('linked_layout_uuid', ':linked_layout_uuid')
             ->set('linked_zone_identifier', ':linked_zone_identifier')
             ->where(
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('layout_id', ':layout_id'),
                     $query->expr()->eq('identifier', ':identifier')
                 )
@@ -548,7 +547,7 @@ final class LayoutQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder();
         $query->delete('nglayouts_zone')
             ->where(
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('layout_id', ':layout_id'),
                     $query->expr()->eq('identifier', ':identifier')
                 )
@@ -601,7 +600,7 @@ final class LayoutQueryHandler extends QueryHandler
                 'l',
                 'nglayouts_layout_translation',
                 'lt',
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('lt.layout_id', 'l.id'),
                     $query->expr()->eq('lt.status', 'l.status')
                 )
@@ -622,7 +621,7 @@ final class LayoutQueryHandler extends QueryHandler
                 'z',
                 'nglayouts_layout',
                 'l',
-                $query->expr()->andX(
+                $query->expr()->and(
                     $query->expr()->eq('l.id', 'z.layout_id'),
                     $query->expr()->eq('l.status', 'z.status')
                 )
