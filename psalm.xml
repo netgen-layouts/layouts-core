@@ -48,8 +48,6 @@
 
         <TooManyArguments>
             <errorLevel type="suppress">
-                <referencedFunction name="Doctrine\DBAL\Query\Expression\ExpressionBuilder::andX" />
-                <referencedFunction name="Doctrine\DBAL\Query\Expression\ExpressionBuilder::orX" />
                 <referencedFunction name="Doctrine\DBAL\Query\QueryBuilder::select" />
                 <referencedFunction name="Doctrine\DBAL\Query\QueryBuilder::where" />
                 <referencedFunction name="Doctrine\DBAL\Platforms\AbstractPlatform::getConcatExpression" />
