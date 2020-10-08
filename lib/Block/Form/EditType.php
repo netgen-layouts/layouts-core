@@ -19,7 +19,8 @@ use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use function array_flip;
 use function array_keys;
-use function call_user_func_array;
+use function array_merge;
+use function array_values;
 use function count;
 use function implode;
 use function in_array;
@@ -104,7 +105,7 @@ abstract class EditType extends AbstractType
             ChoiceType::class,
             [
                 'label' => 'block.item_view_type',
-                'choices' => array_flip(call_user_func_array('array_merge', $this->itemViewTypes)),
+                'choices' => array_flip(array_merge(...array_values($this->itemViewTypes))),
                 'choice_attr' => function ($value): array {
                     return [
                         'data-master' => implode(',', $this->viewTypesByItemViewType[$value]),
