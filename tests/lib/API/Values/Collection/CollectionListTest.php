@@ -21,12 +21,10 @@ final class CollectionListTest extends TestCase
     public function testConstructorWithInvalidType(): void
     {
         $this->expectException(TypeError::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageMatches(
             sprintf(
-                'Argument 1 passed to %s::%s\{closure}() must be an instance of %s, instance of %s given',
-                CollectionList::class,
-                str_replace('\CollectionList', '', CollectionList::class),
-                Collection::class,
+                '/(must be an instance of|must be of type) %s, (instance of )?%s given/',
+                str_replace('\\', '\\\\', Collection::class),
                 stdClass::class
             )
         );

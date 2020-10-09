@@ -21,12 +21,10 @@ final class RuleListTest extends TestCase
     public function testConstructorWithInvalidType(): void
     {
         $this->expectException(TypeError::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageMatches(
             sprintf(
-                'Argument 1 passed to %s::%s\{closure}() must be an instance of %s, instance of %s given',
-                RuleList::class,
-                str_replace('\RuleList', '', RuleList::class),
-                Rule::class,
+                '/(must be an instance of|must be of type) %s, (instance of )?%s given/',
+                str_replace('\\', '\\\\', Rule::class),
                 stdClass::class
             )
         );

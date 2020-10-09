@@ -21,12 +21,10 @@ final class ConditionListTest extends TestCase
     public function testConstructorWithInvalidType(): void
     {
         $this->expectException(TypeError::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageMatches(
             sprintf(
-                'Argument 1 passed to %s::%s\{closure}() must be an instance of %s, instance of %s given',
-                ConditionList::class,
-                str_replace('\ConditionList', '', ConditionList::class),
-                Condition::class,
+                '/(must be an instance of|must be of type) %s, (instance of )?%s given/',
+                str_replace('\\', '\\\\', Condition::class),
                 stdClass::class
             )
         );

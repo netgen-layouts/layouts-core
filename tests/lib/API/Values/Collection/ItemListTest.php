@@ -21,12 +21,10 @@ final class ItemListTest extends TestCase
     public function testConstructorWithInvalidType(): void
     {
         $this->expectException(TypeError::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageMatches(
             sprintf(
-                'Argument 1 passed to %s::%s\{closure}() must be an instance of %s, instance of %s given',
-                ItemList::class,
-                str_replace('\ItemList', '', ItemList::class),
-                Item::class,
+                '/(must be an instance of|must be of type) %s, (instance of )?%s given/',
+                str_replace('\\', '\\\\', Item::class),
                 stdClass::class
             )
         );

@@ -20,12 +20,10 @@ final class ConfigListTest extends TestCase
     public function testConstructorWithInvalidType(): void
     {
         $this->expectException(TypeError::class);
-        $this->expectExceptionMessage(
+        $this->expectExceptionMessageMatches(
             sprintf(
-                'Argument 1 passed to %s::%s\{closure}() must be an instance of %s, instance of %s given',
-                ConfigList::class,
-                str_replace('\ConfigList', '', ConfigList::class),
-                Config::class,
+                '/(must be an instance of|must be of type) %s, (instance of )?%s given/',
+                str_replace('\\', '\\\\', Config::class),
                 stdClass::class
             )
         );
