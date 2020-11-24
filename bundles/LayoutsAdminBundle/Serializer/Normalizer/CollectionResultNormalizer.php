@@ -37,6 +37,10 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
         $this->visibilityResolver = $visibilityResolver;
     }
 
+    /**
+     * @param mixed $object
+     * @param string|null $format
+     */
     public function normalize($object, $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\Collection\Result\Result $result */
@@ -65,6 +69,10 @@ final class CollectionResultNormalizer implements NormalizerInterface, Normalize
         return $data;
     }
 
+    /**
+     * @param mixed $data
+     * @param string|null $format
+     */
     public function supportsNormalization($data, $format = null): bool
     {
         if (!$data instanceof Value) {

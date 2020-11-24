@@ -10,6 +10,10 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class CollectionNormalizer implements NormalizerInterface
 {
+    /**
+     * @param mixed $object
+     * @param string|null $format
+     */
     public function normalize($object, $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\API\Values\Collection\Collection $collection */
@@ -25,6 +29,10 @@ final class CollectionNormalizer implements NormalizerInterface
         ];
     }
 
+    /**
+     * @param mixed $data
+     * @param string|null $format
+     */
     public function supportsNormalization($data, $format = null): bool
     {
         if (!$data instanceof Value) {

@@ -16,6 +16,10 @@ final class LayoutTypeNormalizer implements NormalizerInterface, NormalizerAware
 {
     use NormalizerAwareTrait;
 
+    /**
+     * @param mixed $object
+     * @param string|null $format
+     */
     public function normalize($object, $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\Layout\Type\LayoutTypeInterface $layoutType */
@@ -29,6 +33,10 @@ final class LayoutTypeNormalizer implements NormalizerInterface, NormalizerAware
         ];
     }
 
+    /**
+     * @param mixed $data
+     * @param string|null $format
+     */
     public function supportsNormalization($data, $format = null): bool
     {
         if (!$data instanceof Value) {

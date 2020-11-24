@@ -26,6 +26,10 @@ final class ViewNormalizer implements NormalizerInterface, NormalizerAwareInterf
         $this->viewRenderer = $viewRenderer;
     }
 
+    /**
+     * @param mixed $object
+     * @param string|null $format
+     */
     public function normalize($object, $format = null, array $context = []): array
     {
         /** @var array<string, mixed> $normalizedData */
@@ -48,6 +52,10 @@ final class ViewNormalizer implements NormalizerInterface, NormalizerAwareInterf
         return $normalizedData;
     }
 
+    /**
+     * @param mixed $data
+     * @param string|null $format
+     */
     public function supportsNormalization($data, $format = null): bool
     {
         return $data instanceof View;

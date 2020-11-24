@@ -40,6 +40,10 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
         $this->blockService = $blockService;
     }
 
+    /**
+     * @param mixed $object
+     * @param string|null $format
+     */
     public function normalize($object, $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\API\Values\Layout\Layout $layout */
@@ -82,6 +86,10 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
         return $data;
     }
 
+    /**
+     * @param mixed $data
+     * @param string|null $format
+     */
     public function supportsNormalization($data, $format = null): bool
     {
         if (!$data instanceof Value) {

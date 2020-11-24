@@ -28,6 +28,10 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
         $this->blockService = $blockService;
     }
 
+    /**
+     * @param mixed $object
+     * @param string|null $format
+     */
     public function normalize($object, $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\API\Values\Block\Block $block */
@@ -70,6 +74,10 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
         return $data;
     }
 
+    /**
+     * @param mixed $data
+     * @param string|null $format
+     */
     public function supportsNormalization($data, $format = null): bool
     {
         if (!$data instanceof Value) {

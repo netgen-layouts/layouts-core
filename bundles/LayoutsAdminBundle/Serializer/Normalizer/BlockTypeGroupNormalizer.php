@@ -12,6 +12,10 @@ use function array_map;
 
 final class BlockTypeGroupNormalizer implements NormalizerInterface
 {
+    /**
+     * @param mixed $object
+     * @param string|null $format
+     */
     public function normalize($object, $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\Block\BlockType\BlockTypeGroup $blockTypeGroup */
@@ -30,6 +34,10 @@ final class BlockTypeGroupNormalizer implements NormalizerInterface
         ];
     }
 
+    /**
+     * @param mixed $data
+     * @param string|null $format
+     */
     public function supportsNormalization($data, $format = null): bool
     {
         if (!$data instanceof Value) {

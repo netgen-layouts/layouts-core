@@ -24,6 +24,10 @@ final class ExceptionNormalizer implements NormalizerInterface
         $this->outputDebugInfo = $outputDebugInfo;
     }
 
+    /**
+     * @param mixed $object
+     * @param string|null $format
+     */
     public function normalize($object, $format = null, array $context = []): array
     {
         $data = [
@@ -57,6 +61,10 @@ final class ExceptionNormalizer implements NormalizerInterface
         return $data;
     }
 
+    /**
+     * @param mixed $data
+     * @param string|null $format
+     */
     public function supportsNormalization($data, $format = null): bool
     {
         return $data instanceof Exception;

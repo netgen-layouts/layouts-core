@@ -11,6 +11,10 @@ use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class BlockTypeNormalizer implements NormalizerInterface
 {
+    /**
+     * @param mixed $object
+     * @param string|null $format
+     */
     public function normalize($object, $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\Block\BlockType\BlockType $blockType */
@@ -34,6 +38,10 @@ final class BlockTypeNormalizer implements NormalizerInterface
         return $data;
     }
 
+    /**
+     * @param mixed $data
+     * @param string|null $format
+     */
     public function supportsNormalization($data, $format = null): bool
     {
         if (!$data instanceof Value) {

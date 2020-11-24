@@ -15,6 +15,10 @@ final class CollectionQueryNormalizer implements NormalizerInterface, Normalizer
 {
     use NormalizerAwareTrait;
 
+    /**
+     * @param mixed $object
+     * @param string|null $format
+     */
     public function normalize($object, $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\API\Values\Collection\Query $query */
@@ -33,6 +37,10 @@ final class CollectionQueryNormalizer implements NormalizerInterface, Normalizer
         ];
     }
 
+    /**
+     * @param mixed $data
+     * @param string|null $format
+     */
     public function supportsNormalization($data, $format = null): bool
     {
         if (!$data instanceof Value) {

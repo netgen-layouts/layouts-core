@@ -17,6 +17,10 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Normal
 {
     use NormalizerAwareTrait;
 
+    /**
+     * @param mixed $object
+     * @param string|null $format
+     */
     public function normalize($object, $format = null, array $context = []): array
     {
         /** @var \Netgen\Layouts\Collection\Result\ResultSet $resultSet */
@@ -31,6 +35,10 @@ final class CollectionResultSetNormalizer implements NormalizerInterface, Normal
         ];
     }
 
+    /**
+     * @param mixed $data
+     * @param string|null $format
+     */
     public function supportsNormalization($data, $format = null): bool
     {
         if (!$data instanceof Value) {
