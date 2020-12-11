@@ -1,0 +1,102 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - 'master'
+      - 'ghactions'
+      - '[0-9].[0-9]+'
+  pull_request: ~
+
+jobs:
+  tests:
+    name: ${{ matrix.php }} / ${{ matrix.symfony }} / ${{ matrix.phpunit }} / ${{ matrix.db }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['7.3', '7.4']
+        symfony: ['~3.4.0', '~4.4.0', '~5.2.0']
+        phpunit: ['phpunit.xml', 'phpunit-api.xml']
+        db: ['sqlite']
+        deps: ['normal']
+        include:
+          - php: '7.4'
+            symfony: '~5.2.0'
+            phpunit: 'phpunit.xml'
+            db: 'mysql'
+          - php: '7.4'
+            symfony: '~5.2.0'
+            phpunit: 'phpunit-api.xml'
+            db: 'mysql'
+
+          - php: '7.4'
+            symfony: '~4.4.0'
+            phpunit: 'phpunit.xml'
+            db: 'postgres'
+          - php: '7.4'
+            symfony: '~4.4.0'
+            phpunit: 'phpunit-api.xml'
+            db: 'postgres'
+
+          - php: '7.3'
+            symfony: '~3.4.0'
+            phpunit: 'phpunit.xml'
+            db: 'sqlite'
+            deps: 'low'
+          - php: '7.3'
+            symfony: '~3.4.0'
+            phpunit: 'phpunit-api.xml'
+            db: 'sqlite'
+            deps: 'low'
+
+    services:
+      mysql:
+        image: 'mysql:latest'
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: testdb
+        ports:
+          - '3306:3306'
+
+      postgres:
+        image: 'postgres:latest'
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: testdb
+        ports:
+          - '5432:5432'
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+
+      - run: composer --version
+      - run: composer validate --strict
+
+      - run: echo "DATABASE=mysql://root@127.0.0.1/testdb" >> $GITHUB_ENV
+        if: ${{ matrix.db == 'mysql' }}
+
+      - run: echo "DATABASE=pgsql://postgres:postgres@127.0.0.1/testdb" >> $GITHUB_ENV
+        if: ${{ matrix.db == 'postgres' }}
+
+      # Install Flex as a global dependency to enable usage of extra.symfony.require
+      # while keeping Flex recipes from applying
+      - run: composer global require --no-scripts symfony/flex
+
+      - run: composer config extra.symfony.require ${{ matrix.symfony }}
+
+      -
+        run: composer update --prefer-dist
+        if: ${{ matrix.deps != 'low' }}
+
+      -
+        run: composer update --prefer-dist --prefer-lowest --prefer-stable
+        if: ${{ matrix.deps == 'low' }}
+
+      - run: vendor/bin/phpunit -c ${{ matrix.phpunit }} --colors=always

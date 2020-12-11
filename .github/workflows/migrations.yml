@@ -1,0 +1,42 @@
+name: Doctrine Migrations
+
+on:
+  push:
+    branches:
+      - 'master'
+      - 'ghactions'
+      - '[0-9].[0-9]+'
+  pull_request: ~
+
+jobs:
+  mysql-migrations:
+    name: MySQL migrations
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: 'mysql:latest'
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: testdb
+        ports:
+          - '3306:3306'
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          coverage: none
+
+      - run: echo "DATABASE=mysql://root@127.0.0.1/testdb" >> $GITHUB_ENV
+
+      # Install Flex as a global dependency to enable usage of extra.symfony.require
+      # while keeping Flex recipes from applying
+      - run: composer global require --no-scripts symfony/flex
+
+      - run: composer config extra.symfony.require ~5.2.0
+
+      - run: composer update --prefer-dist
+
+      - run: php tests/application/bin/console doctrine:migrations:migrate --no-interaction --no-debug --env=prod --configuration=migrations/doctrine.yaml --ansi
