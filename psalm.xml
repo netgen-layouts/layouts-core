@@ -144,5 +144,7 @@
                 <directory name="lib/Persistence/Doctrine/Handler" />
             </errorLevel>
         </PossiblyNullPropertyAssignmentValue>
+
+        <RedundantPropertyInitializationCheck errorLevel="suppress" />
     </issueHandlers>
 </psalm>

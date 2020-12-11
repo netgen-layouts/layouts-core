@@ -39,7 +39,10 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
         $blockDefinition = $block->getDefinition();
 
         $parameters = $this->buildValues($block->getParameters());
-        $placeholders = $this->buildValues($block->getPlaceholders()->getValues());
+
+        /** @var iterable<object> $placeholders */
+        $placeholders = $block->getPlaceholders()->getValues();
+        $placeholders = $this->buildValues($placeholders);
 
         $configuration = (function () use ($block): Generator {
             foreach ($block->getConfigs() as $configKey => $config) {
