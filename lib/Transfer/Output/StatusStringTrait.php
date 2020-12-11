@@ -21,8 +21,10 @@ trait StatusStringTrait
         switch ($value->getStatus()) {
             case Value::STATUS_DRAFT:
                 return 'DRAFT';
+
             case Value::STATUS_PUBLISHED:
                 return 'PUBLISHED';
+
             case Value::STATUS_ARCHIVED:
                 return 'ARCHIVED';
         }

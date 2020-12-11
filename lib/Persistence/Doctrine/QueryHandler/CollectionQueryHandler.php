@@ -269,7 +269,7 @@ final class CollectionQueryHandler extends QueryHandler
                     'always_available' => ':always_available',
                 ]
             )
-            ->setValue('id', isset($collection->id) ? $collection->id : $this->connectionHelper->nextId('nglayouts_collection'))
+            ->setValue('id', $collection->id ?? $this->connectionHelper->nextId('nglayouts_collection'))
             ->setParameter('uuid', $collection->uuid, Types::STRING)
             ->setParameter('status', $collection->status, Types::INTEGER)
             ->setParameter('start', $collection->offset, Types::INTEGER)
@@ -469,7 +469,7 @@ final class CollectionQueryHandler extends QueryHandler
                     'config' => ':config',
                 ]
             )
-            ->setValue('id', isset($item->id) ? $item->id : $this->connectionHelper->nextId('nglayouts_collection_item'))
+            ->setValue('id', $item->id ?? $this->connectionHelper->nextId('nglayouts_collection_item'))
             ->setParameter('uuid', $item->uuid, Types::STRING)
             ->setParameter('status', $item->status, Types::INTEGER)
             ->setParameter('collection_id', $item->collectionId, Types::INTEGER)
@@ -529,7 +529,7 @@ final class CollectionQueryHandler extends QueryHandler
                     'view_type' => ':view_type',
                 ]
             )
-            ->setValue('id', isset($slot->id) ? $slot->id : $this->connectionHelper->nextId('nglayouts_collection_slot'))
+            ->setValue('id', $slot->id ?? $this->connectionHelper->nextId('nglayouts_collection_slot'))
             ->setParameter('uuid', $slot->uuid, Types::STRING)
             ->setParameter('status', $slot->status, Types::INTEGER)
             ->setParameter('collection_id', $slot->collectionId, Types::INTEGER)
@@ -697,7 +697,7 @@ final class CollectionQueryHandler extends QueryHandler
                     'type' => ':type',
                 ]
             )
-            ->setValue('id', isset($query->id) ? $query->id : $this->connectionHelper->nextId('nglayouts_collection_query'))
+            ->setValue('id', $query->id ?? $this->connectionHelper->nextId('nglayouts_collection_query'))
             ->setParameter('uuid', $query->uuid, Types::STRING)
             ->setParameter('status', $query->status, Types::INTEGER)
             ->setParameter('collection_id', $query->collectionId, Types::INTEGER)

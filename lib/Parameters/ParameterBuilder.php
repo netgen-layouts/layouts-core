@@ -243,8 +243,8 @@ class ParameterBuilder implements ParameterBuilderInterface
         }
 
         if (
-            $this->type instanceof CompoundParameterTypeInterface &&
-            is_a($type, CompoundParameterTypeInterface::class, true)
+            $this->type instanceof CompoundParameterTypeInterface
+            && is_a($type, CompoundParameterTypeInterface::class, true)
         ) {
             throw ParameterBuilderException::subCompound();
         }

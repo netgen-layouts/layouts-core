@@ -37,6 +37,6 @@ final class ConditionType1 extends ConditionType
 
     public function export($value)
     {
-        return  ['some_value_exported'];
+        return ['some_value_exported'];
     }
 }

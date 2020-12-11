@@ -13,8 +13,8 @@ final class CacheManagerPass implements CompilerPassInterface
     public function process(ContainerBuilder $container): void
     {
         if (
-            !$container->has('fos_http_cache.cache_manager') ||
-            !$container->has('fos_http_cache.proxy_client.varnish')
+            !$container->has('fos_http_cache.cache_manager')
+            || !$container->has('fos_http_cache.proxy_client.varnish')
         ) {
             $container->setAlias(
                 'netgen_layouts.http_cache.client',

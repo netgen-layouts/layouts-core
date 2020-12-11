@@ -62,8 +62,8 @@ final class ConfigMapper
             $configValues = [];
 
             if (
-                isset($configStructs[$configKey]) &&
-                $configStructs[$configKey] instanceof ParameterStruct
+                isset($configStructs[$configKey])
+                && $configStructs[$configKey] instanceof ParameterStruct
             ) {
                 $configValues = $configStructs[$configKey]->getParameterValues();
             }

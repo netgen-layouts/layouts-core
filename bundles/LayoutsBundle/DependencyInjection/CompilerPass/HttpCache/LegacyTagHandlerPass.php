@@ -18,8 +18,8 @@ final class LegacyTagHandlerPass implements CompilerPassInterface
     public function process(ContainerBuilder $container): void
     {
         if (
-            !$container->has('netgen_layouts.http_cache.tagger') ||
-            !$container->has('fos_http_cache.handler.tag_handler')
+            !$container->has('netgen_layouts.http_cache.tagger')
+            || !$container->has('fos_http_cache.handler.tag_handler')
         ) {
             return;
         }

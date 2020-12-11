@@ -83,8 +83,8 @@ abstract class View implements ViewInterface
 
     public function hasParameter(string $identifier): bool
     {
-        return array_key_exists($identifier, $this->parameters) ||
-            array_key_exists($identifier, $this->customParameters);
+        return array_key_exists($identifier, $this->parameters)
+            || array_key_exists($identifier, $this->customParameters);
     }
 
     public function getParameter(string $identifier)

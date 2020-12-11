@@ -371,7 +371,7 @@ final class LayoutQueryHandler extends QueryHandler
                     'main_locale' => ':main_locale',
                 ]
             )
-            ->setValue('id', isset($layout->id) ? $layout->id : $this->connectionHelper->nextId('nglayouts_layout'))
+            ->setValue('id', $layout->id ?? $this->connectionHelper->nextId('nglayouts_layout'))
             ->setParameter('status', $layout->status, Types::INTEGER)
             ->setParameter('uuid', $layout->uuid, Types::STRING)
             ->setParameter('type', $layout->type, Types::STRING)

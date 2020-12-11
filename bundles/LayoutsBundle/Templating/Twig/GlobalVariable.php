@@ -245,8 +245,8 @@ final class GlobalVariable
         }
 
         if (
-            !$currentRequest->attributes->has('exception') &&
-            $masterRequest->attributes->has('nglLayoutView')
+            !$currentRequest->attributes->has('exception')
+            && $masterRequest->attributes->has('nglLayoutView')
         ) {
             // This is the case where we request the main layout more than once
             // within the regular page display, without the exception, so again

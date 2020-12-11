@@ -121,7 +121,7 @@ final class LayoutNormalizer implements NormalizerInterface, NormalizerAwareInte
                 'linked_zone_identifier' => null,
             ];
 
-            if ($linkedZone instanceof  Zone) {
+            if ($linkedZone instanceof Zone) {
                 $data['linked_layout_id'] = $linkedZone->getLayoutId()->toString();
                 $data['linked_zone_identifier'] = $linkedZone->getIdentifier();
             }
