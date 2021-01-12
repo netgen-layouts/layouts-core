@@ -5,14 +5,13 @@ declare(strict_types=1);
 namespace Netgen\Layouts\API\Values\LayoutResolver;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\LazyPropertyTrait;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Utils\HydratorTrait;
 use Ramsey\Uuid\UuidInterface;
 
-final class Rule implements Value
+final class RuleGroup implements Value
 {
     use HydratorTrait;
     use LazyPropertyTrait;
@@ -22,16 +21,6 @@ final class Rule implements Value
      * @var \Ramsey\Uuid\UuidInterface
      */
     private $id;
-
-    /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    private $ruleGroupId;
-
-    /**
-     * @var \Netgen\Layouts\API\Values\Layout\Layout|null
-     */
-    private $layout;
 
     /**
      * @var bool
@@ -49,9 +38,9 @@ final class Rule implements Value
     private $comment;
 
     /**
-     * @var \Doctrine\Common\Collections\Collection<int, \Netgen\Layouts\API\Values\LayoutResolver\Target>
+     * @var \Doctrine\Common\Collections\Collection<int, \Netgen\Layouts\API\Values\LayoutResolver\Rule>
      */
-    private $targets;
+    private $rules;
 
     /**
      * @var \Doctrine\Common\Collections\Collection<int, \Netgen\Layouts\API\Values\LayoutResolver\Condition>
@@ -60,7 +49,7 @@ final class Rule implements Value
 
     public function __construct()
     {
-        $this->targets = $this->targets ?? new ArrayCollection();
+        $this->rules = $this->rules ?? new ArrayCollection();
         $this->conditions = $this->conditions ?? new ArrayCollection();
     }
 
@@ -70,23 +59,7 @@ final class Rule implements Value
     }
 
     /**
-     * Returns the UUID of the rule group where this rule belongs.
-     */
-    public function getRuleGroupId(): UuidInterface
-    {
-        return $this->ruleGroupId;
-    }
-
-    /**
-     * Returns the layout mapped to this rule.
-     */
-    public function getLayout(): ?Layout
-    {
-        return $this->getLazyProperty($this->layout);
-    }
-
-    /**
-     * Returns if the rule is enabled.
+     * Returns if the rule group is enabled.
      */
     public function isEnabled(): bool
     {
@@ -94,7 +67,7 @@ final class Rule implements Value
     }
 
     /**
-     * Returns the rule priority.
+     * Returns the rule group priority.
      */
     public function getPriority(): int
     {
@@ -102,7 +75,7 @@ final class Rule implements Value
     }
 
     /**
-     * Returns the rule comment.
+     * Returns the rule group comment.
      */
     public function getComment(): string
     {
@@ -110,15 +83,15 @@ final class Rule implements Value
     }
 
     /**
-     * Returns all the targets in the rule.
+     * Returns all the rules in the rule group.
      */
-    public function getTargets(): TargetList
+    public function getRules(): RuleList
     {
-        return new TargetList($this->targets->toArray());
+        return new RuleList($this->rules->toArray());
     }
 
     /**
-     * Returns all conditions in the rule.
+     * Returns all conditions in the rule group.
      */
     public function getConditions(): ConditionList
     {

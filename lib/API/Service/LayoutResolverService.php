@@ -10,6 +10,11 @@ use Netgen\Layouts\API\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\ConditionUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupList;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupMetadataUpdateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleList;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleUpdateStruct;
@@ -42,6 +47,27 @@ interface LayoutResolverService extends TransactionService
     public function loadRuleArchive(UuidInterface $ruleId): Rule;
 
     /**
+     * Loads a rule group by its' UUID.
+     *
+     * @throws \Netgen\Layouts\Exception\NotFoundException If rule group with specified UUID does not exist
+     */
+    public function loadRuleGroup(UuidInterface $ruleGroupId): RuleGroup;
+
+    /**
+     * Loads a rule group draft by its' UUID.
+     *
+     * @throws \Netgen\Layouts\Exception\NotFoundException If rule group with specified UUID does not exist
+     */
+    public function loadRuleGroupDraft(UuidInterface $ruleGroupId): RuleGroup;
+
+    /**
+     * Loads a rule group archive by its' UUID.
+     *
+     * @throws \Netgen\Layouts\Exception\NotFoundException If rule group with specified UUID does not exist
+     */
+    public function loadRuleGroupArchive(UuidInterface $ruleGroupId): RuleGroup;
+
+    /**
      * Loads all published rules.
      *
      * If the layout is provided, only rules pointing to provided layout are returned.
@@ -58,6 +84,26 @@ interface LayoutResolverService extends TransactionService
      * @throws \Netgen\Layouts\Exception\BadStateException If provided layout is not published
      */
     public function getRuleCount(?Layout $layout = null): int;
+
+    /**
+     * Loads all rules from the provided parent group.
+     */
+    public function loadRulesFromGroup(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null): RuleList;
+
+    /**
+     * Returns the number of rules from the provided parent group.
+     */
+    public function getRuleCountFromGroup(RuleGroup $ruleGroup): int;
+
+    /**
+     * Loads all rule groups from the provided parent group.
+     */
+    public function loadRuleGroups(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null): RuleGroupList;
+
+    /**
+     * Returns the number of rule groups from the provided parent group.
+     */
+    public function getRuleGroupCount(RuleGroup $ruleGroup): int;
 
     /**
      * Returns all rules that match specified target type and value.
@@ -102,7 +148,7 @@ interface LayoutResolverService extends TransactionService
     /**
      * Creates a rule.
      */
-    public function createRule(RuleCreateStruct $ruleCreateStruct): Rule;
+    public function createRule(RuleCreateStruct $ruleCreateStruct, RuleGroup $targetGroup): Rule;
 
     /**
      * Updates a rule.
@@ -121,7 +167,12 @@ interface LayoutResolverService extends TransactionService
     /**
      * Copies a rule.
      */
-    public function copyRule(Rule $rule): Rule;
+    public function copyRule(Rule $rule, ?RuleGroup $targetGroup = null): Rule;
+
+    /**
+     * Moves a rule.
+     */
+    public function moveRule(Rule $rule, RuleGroup $targetGroup, ?int $newPriority = null): Rule;
 
     /**
      * Creates a rule draft.
@@ -159,6 +210,77 @@ interface LayoutResolverService extends TransactionService
     public function deleteRule(Rule $rule): void;
 
     /**
+     * Returns if rule group with provided UUID, and optionally status, exists.
+     */
+    public function ruleGroupExists(UuidInterface $ruleGroupId, ?int $status = null): bool;
+
+    /**
+     * Creates a rule group.
+     */
+    public function createRuleGroup(RuleGroupCreateStruct $ruleGroupCreateStruct, ?RuleGroup $parentGroup = null): RuleGroup;
+
+    /**
+     * Updates a rule group.
+     *
+     * @throws \Netgen\Layouts\Exception\BadStateException If rule group is not a draft
+     */
+    public function updateRuleGroup(RuleGroup $ruleGroup, RuleGroupUpdateStruct $ruleGroupUpdateStruct): RuleGroup;
+
+    /**
+     * Updates rule group metadata.
+     *
+     * @throws \Netgen\Layouts\Exception\BadStateException If rule group is not published
+     */
+    public function updateRuleGroupMetadata(RuleGroup $ruleGroup, RuleGroupMetadataUpdateStruct $ruleGroupUpdateStruct): RuleGroup;
+
+    /**
+     * Copies a rule group.
+     *
+     * If $copyChildren is set to true, all groups and rules within the group will also be copied.
+     */
+    public function copyRuleGroup(RuleGroup $ruleGroup, RuleGroup $targetGroup, bool $copyChildren = false): RuleGroup;
+
+    /**
+     * Moves a rule group.
+     */
+    public function moveRuleGroup(RuleGroup $ruleGroup, RuleGroup $targetGroup, ?int $newPriority = null): RuleGroup;
+
+    /**
+     * Creates a rule group draft.
+     *
+     * @throws \Netgen\Layouts\Exception\BadStateException If rule group is not published
+     *                                                     If draft already exists for the rule group and $discardExisting is set to false
+     */
+    public function createRuleGroupDraft(RuleGroup $ruleGroup, bool $discardExisting = false): RuleGroup;
+
+    /**
+     * Discards a rule group draft.
+     *
+     * @throws \Netgen\Layouts\Exception\BadStateException If rule group is not a draft
+     */
+    public function discardRuleGroupDraft(RuleGroup $ruleGroup): void;
+
+    /**
+     * Publishes a rule group.
+     *
+     * @throws \Netgen\Layouts\Exception\BadStateException If rule group is not a draft
+     */
+    public function publishRuleGroup(RuleGroup $ruleGroup): RuleGroup;
+
+    /**
+     * Restores the archived version of a rule group to a draft. If draft already exists,
+     * it will be removed.
+     *
+     * @throws \Netgen\Layouts\Exception\BadStateException If provided rule group is not archived
+     */
+    public function restoreRuleGroupFromArchive(RuleGroup $ruleGroup): RuleGroup;
+
+    /**
+     * Deletes a rule group together with all groups and rules with the group.
+     */
+    public function deleteRuleGroup(RuleGroup $ruleGroup): void;
+
+    /**
      * Enables a rule.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If rule is not published
@@ -173,6 +295,20 @@ interface LayoutResolverService extends TransactionService
      *                                                     If rule cannot be disabled
      */
     public function disableRule(Rule $rule): Rule;
+
+    /**
+     * Enables a rule group.
+     *
+     * @throws \Netgen\Layouts\Exception\BadStateException If rule group is not published
+     */
+    public function enableRuleGroup(RuleGroup $ruleGroup): RuleGroup;
+
+    /**
+     * Disables a rule group.
+     *
+     * @throws \Netgen\Layouts\Exception\BadStateException If rule group is not published
+     */
+    public function disableRuleGroup(RuleGroup $ruleGroup): RuleGroup;
 
     /**
      * Adds a target to rule.
@@ -204,6 +340,13 @@ interface LayoutResolverService extends TransactionService
     public function addCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct): Condition;
 
     /**
+     * Adds a condition to rule group.
+     *
+     * @throws \Netgen\Layouts\Exception\BadStateException If rule group is not a draft
+     */
+    public function addConditionToRuleGroup(RuleGroup $ruleGroup, ConditionCreateStruct $conditionCreateStruct): Condition;
+
+    /**
      * Updates a condition.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If condition is not a draft
@@ -231,6 +374,21 @@ interface LayoutResolverService extends TransactionService
      * Creates a new rule metadata update struct.
      */
     public function newRuleMetadataUpdateStruct(): RuleMetadataUpdateStruct;
+
+    /**
+     * Creates a new rule group create struct.
+     */
+    public function newRuleGroupCreateStruct(): RuleGroupCreateStruct;
+
+    /**
+     * Creates a new rule group update struct.
+     */
+    public function newRuleGroupUpdateStruct(): RuleGroupUpdateStruct;
+
+    /**
+     * Creates a new rule group metadata update struct.
+     */
+    public function newRuleGroupMetadataUpdateStruct(): RuleGroupMetadataUpdateStruct;
 
     /**
      * Creates a new target create struct from the provided values.
