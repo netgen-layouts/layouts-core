@@ -7,7 +7,7 @@ namespace Netgen\Layouts\API\Values\LayoutResolver;
 final class RuleMetadataUpdateStruct
 {
     /**
-     * New priority of the layout.
+     * New priority of the rule.
      *
      * @var int|null
      */
