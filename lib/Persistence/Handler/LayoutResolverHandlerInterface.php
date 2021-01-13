@@ -10,6 +10,10 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCreateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCreateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupMetadataUpdateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
@@ -30,6 +34,17 @@ interface LayoutResolverHandlerInterface
     public function loadRule($ruleId, int $status): Rule;
 
     /**
+     * Loads a rule group with specified ID.
+     *
+     * Rule group ID can be an auto-incremented ID or an UUID.
+     *
+     * @param int|string|\Ramsey\Uuid\UuidInterface $ruleGroupId
+     *
+     * @throws \Netgen\Layouts\Exception\NotFoundException If rule group with specified ID does not exist
+     */
+    public function loadRuleGroup($ruleGroupId, int $status): RuleGroup;
+
+    /**
      * Loads all rules.
      *
      * If the layout is provided, only rules pointing to provided layout are returned.
@@ -44,6 +59,28 @@ interface LayoutResolverHandlerInterface
      * If the layout is provided, the count of rules pointing to provided layout is returned.
      */
     public function getRuleCount(?Layout $layout = null): int;
+
+    /**
+     * Loads all rules from the provided parent group.
+     *
+     * @return \Netgen\Layouts\Persistence\Values\LayoutResolver\Rule[]
+     */
+    public function loadRulesFromGroup(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null): array;
+
+    /**
+     * Returns the number of rules from the provided parent group.
+     */
+    public function getRuleCountFromGroup(RuleGroup $ruleGroup): int;
+
+    /**
+     * Loads all rule groups from the provided parent group.
+     */
+    public function loadRuleGroups(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null): array;
+
+    /**
+     * Returns the number of rule groups from the provided parent group.
+     */
+    public function getRuleGroupCount(RuleGroup $ruleGroup): int;
 
     /**
      * Returns all rules that match specified target type and value.
@@ -96,6 +133,13 @@ interface LayoutResolverHandlerInterface
     public function loadRuleConditions(Rule $rule): array;
 
     /**
+     * Loads all conditions that belong to rule group with specified ID.
+     *
+     * @return \Netgen\Layouts\Persistence\Values\LayoutResolver\Condition[]
+     */
+    public function loadRuleGroupConditions(RuleGroup $ruleGroup): array;
+
+    /**
      * Returns if rule with specified ID exists.
      *
      * Rule ID can be an auto-incremented ID or an UUID.
@@ -107,7 +151,7 @@ interface LayoutResolverHandlerInterface
     /**
      * Creates a rule.
      */
-    public function createRule(RuleCreateStruct $ruleCreateStruct): Rule;
+    public function createRule(RuleCreateStruct $ruleCreateStruct, RuleGroup $targetGroup): Rule;
 
     /**
      * Updates a rule with specified ID.
@@ -122,7 +166,12 @@ interface LayoutResolverHandlerInterface
     /**
      * Copies a rule.
      */
-    public function copyRule(Rule $rule): Rule;
+    public function copyRule(Rule $rule, ?RuleGroup $targetGroup = null): Rule;
+
+    /**
+     * Moves a rule.
+     */
+    public function moveRule(Rule $rule, RuleGroup $targetGroup, ?int $newPriority = null): Rule;
 
     /**
      * Creates a new rule status.
@@ -133,6 +182,52 @@ interface LayoutResolverHandlerInterface
      * Deletes a rule with specified ID.
      */
     public function deleteRule(int $ruleId, ?int $status = null): void;
+
+    /**
+     * Returns if rule group with specified ID exists.
+     *
+     * Rule group ID can be an auto-incremented ID or an UUID.
+     *
+     * @param int|string|\Ramsey\Uuid\UuidInterface $ruleGroupId
+     */
+    public function ruleGroupExists($ruleGroupId, ?int $status = null): bool;
+
+    /**
+     * Creates a rule group.
+     */
+    public function createRuleGroup(RuleGroupCreateStruct $ruleGroupCreateStruct, ?RuleGroup $parentGroup = null): RuleGroup;
+
+    /**
+     * Updates a rule group with specified ID.
+     */
+    public function updateRuleGroup(RuleGroup $ruleGroup, RuleGroupUpdateStruct $ruleGroupUpdateStruct): RuleGroup;
+
+    /**
+     * Updates rule group metadata.
+     */
+    public function updateRuleGroupMetadata(RuleGroup $ruleGroup, RuleGroupMetadataUpdateStruct $ruleGroupUpdateStruct): RuleGroup;
+
+    /**
+     * Copies a rule group.
+     *
+     * If $copyChildren is set to true, all groups and rules within the group will also be copied.
+     */
+    public function copyRuleGroup(RuleGroup $ruleGroup, RuleGroup $targetGroup, bool $copyChildren = false): RuleGroup;
+
+    /**
+     * Moves a rule group.
+     */
+    public function moveRuleGroup(RuleGroup $ruleGroup, RuleGroup $targetGroup, ?int $newPriority = null): RuleGroup;
+
+    /**
+     * Creates a new rule group status.
+     */
+    public function createRuleGroupStatus(RuleGroup $ruleGroup, int $newStatus): RuleGroup;
+
+    /**
+     * Deletes a rule group with specified ID.
+     */
+    public function deleteRuleGroup(int $ruleGroupId, ?int $status = null): void;
 
     /**
      * Adds a target to rule.
@@ -153,6 +248,11 @@ interface LayoutResolverHandlerInterface
      * Adds a condition to rule.
      */
     public function addCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct): Condition;
+
+    /**
+     * Adds a condition to rule.
+     */
+    public function addConditionToGroup(RuleGroup $ruleGroup, ConditionCreateStruct $conditionCreateStruct): Condition;
 
     /**
      * Updates a condition with specified ID.

@@ -26,6 +26,20 @@ final class Rule extends Value
     public $uuid;
 
     /**
+     * ID of the rule group where this rule belongs.
+     *
+     * @var int
+     */
+    public $ruleId;
+
+    /**
+     * UUID of the rule group where this rule belongs.
+     *
+     * @var string
+     */
+    public $ruleGroupUuid;
+
+    /**
      * UUID of the layout mapped to this rule. Can be null if there's no mapped layout.
      *
      * @var string|null
