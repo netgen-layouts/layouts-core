@@ -12,6 +12,7 @@ use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelperInterface;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
 use Netgen\Layouts\Persistence\Values\Value;
 use Psr\Container\ContainerInterface;
@@ -93,6 +94,99 @@ final class LayoutResolverQueryHandler extends QueryHandler
         }
 
         $this->applyStatusCondition($query, $ruleStatus);
+
+        $data = $query->execute()->fetchAllAssociative();
+
+        return (int) ($data[0]['count'] ?? 0);
+    }
+
+    /**
+     * Returns all data for all rules located in provided group.
+     *
+     * @return mixed[]
+     */
+    public function loadRulesFromGroupData(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null): array
+    {
+        $query = $this->getRuleSelectQuery();
+
+        $query->andWhere(
+            $query->expr()->eq('rule_group_uuid', ':rule_group_uuid')
+        )
+        ->setParameter('rule_group_uuid', $ruleGroup->uuid, Types::STRING);
+
+        $query->addOrderBy('rd.priority', 'DESC');
+
+        $this->applyStatusCondition($query, $ruleGroup->status, 'r.status');
+        $this->applyOffsetAndLimit($query, $offset, $limit);
+
+        return $query->execute()->fetchAllAssociative();
+    }
+
+    /**
+     * Returns the number of rules in provided group.
+     */
+    public function getRuleCountFromGroup(RuleGroup $ruleGroup): int
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('count(*) AS count')
+            ->from('nglayouts_rule_group');
+
+        $query->andWhere(
+            $query->expr()->eq('rule_group_uuid', ':rule_group_uuid')
+        )
+        ->setParameter('rule_group_uuid', $ruleGroup->uuid, Types::STRING);
+
+        $this->applyStatusCondition($query, $ruleGroup->status);
+
+        $data = $query->execute()->fetchAllAssociative();
+
+        return (int) ($data[0]['count'] ?? 0);
+    }
+
+    /**
+     * Returns all data for specified rule group.
+     *
+     * @param int|string $ruleGroupId
+     *
+     * @return mixed[]
+     */
+    public function loadRuleGroupData($ruleGroupId, int $status): array
+    {
+        $query = $this->getRuleGroupSelectQuery();
+
+        $this->applyIdCondition($query, $ruleGroupId, 'rg.id', 'rg.uuid');
+        $this->applyStatusCondition($query, $status, 'rg.status');
+
+        return $query->execute()->fetchAllAssociative();
+    }
+
+    /**
+     * Returns all data for all rule groups.
+     *
+     * @return mixed[]
+     */
+    public function loadRuleGroupsData(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null): array
+    {
+        $query = $this->getRuleGroupSelectQuery();
+
+        $query->addOrderBy('rgd.priority', 'DESC');
+
+        $this->applyStatusCondition($query, $ruleGroup->status, 'rg.status');
+        $this->applyOffsetAndLimit($query, $offset, $limit);
+
+        return $query->execute()->fetchAllAssociative();
+    }
+
+    /**
+     * Returns the number of rule groups.
+     */
+    public function getRuleGroupCount(RuleGroup $ruleGroup): int
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('count(*) AS count')
+            ->from('nglayouts_rule_group');
+
+        $this->applyStatusCondition($query, $ruleGroup->status);
 
         $data = $query->execute()->fetchAllAssociative();
 
@@ -226,6 +320,25 @@ final class LayoutResolverQueryHandler extends QueryHandler
     }
 
     /**
+     * Returns all data for for all rule group conditions.
+     *
+     * @return mixed[]
+     */
+    public function loadRuleGroupConditionsData(RuleGroup $ruleGroup): array
+    {
+        $query = $this->getConditionSelectQuery();
+        $query->where(
+            $query->expr()->eq('c.rule_group_id', ':rule_group_id')
+        )
+        ->setParameter('rule_group_id', $rule->id, Types::INTEGER)
+        ->orderBy('c.id', 'ASC');
+
+        $this->applyStatusCondition($query, $rule->status, 'c.status');
+
+        return $query->execute()->fetchAllAssociative();
+    }
+
+    /**
      * Returns if the specified rule exists.
      *
      * @param int|string $ruleId
@@ -248,15 +361,74 @@ final class LayoutResolverQueryHandler extends QueryHandler
     }
 
     /**
-     * Returns the lowest priority from the list of all the rules.
+     * Returns if the specified rule group exists.
+     *
+     * @param int|string $ruleGroupId
      */
-    public function getLowestRulePriority(): ?int
+    public function ruleGroupExists($ruleGroupId, ?int $status = null): bool
     {
         $query = $this->connection->createQueryBuilder();
-        $query->select('priority')
-            ->from('nglayouts_rule_data');
+        $query->select('count(*) AS count')
+            ->from('nglayouts_rule_group');
 
-        $query->addOrderBy('priority', 'ASC');
+        $this->applyIdCondition($query, $ruleGroupId);
+
+        if ($status !== null) {
+            $this->applyStatusCondition($query, $status);
+        }
+
+        $data = $query->execute()->fetchAllAssociative();
+
+        return (int) ($data[0]['count'] ?? 0) > 0;
+    }
+
+    /**
+     * Returns the lowest priority from the list of all the rules.
+     */
+    public function getLowestRulePriority(RuleGroup $targetGroup): ?int
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('rd.priority')
+            ->from('nglayouts_rule_data')
+            ->innerJoin(
+                'rd',
+                'nglayouts_rule',
+                'r',
+                $query->expr()->eq('rd.rule_id', 'r.id')
+            )
+            ->where(
+                $query->expr()->eq('r.rule_group_uuid', ':rule_group_uuid')
+            )
+            ->setParameter('rule_group_uuid', $targetGroup->uuid, Types::INTEGER);
+
+        $query->addOrderBy('rd.priority', 'ASC');
+        $this->applyOffsetAndLimit($query, 0, 1);
+
+        $data = $query->execute()->fetchAllAssociative();
+
+        return isset($data[0]['priority']) ? (int) $data[0]['priority'] : null;
+    }
+
+    /**
+     * Returns the lowest priority from the list of all the rule groups in provided parent group.
+     */
+    public function getLowestRuleGroupPriority(RuleGroup $parentGroup): ?int
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('rgd.priority')
+            ->from('nglayouts_rule_group_data', 'rgd')
+            ->innerJoin(
+                'rgd',
+                'nglayouts_rule_group',
+                'rg',
+                $query->expr()->eq('rgd.rule_group_id', 'rg.id')
+            )
+            ->where(
+                $query->expr()->eq('rg.parent_id', ':parent_id')
+            )
+            ->setParameter('parent_id', $parentGroup->id, Types::INTEGER);
+
+        $query->addOrderBy('rgd.priority', 'ASC');
         $this->applyOffsetAndLimit($query, 0, 1);
 
         $data = $query->execute()->fetchAllAssociative();
@@ -276,6 +448,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                     'id' => ':id',
                     'uuid' => ':uuid',
                     'status' => ':status',
+                    'rule_group_uuid' => ':rule_group_uuid',
                     'layout_uuid' => ':layout_uuid',
                     'comment' => ':comment',
                 ]
@@ -283,6 +456,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->setValue('id', $rule->id ?? $this->connectionHelper->nextId('nglayouts_rule'))
             ->setParameter('uuid', $rule->uuid, Types::STRING)
             ->setParameter('status', $rule->status, Types::INTEGER)
+            ->setParameter('rule_group_uuid', $rule->ruleGroupUuid, Types::STRING)
             ->setParameter('layout_uuid', $rule->layoutUuid, Types::STRING)
             ->setParameter('comment', $rule->comment, Types::STRING);
 
@@ -350,6 +524,219 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->setParameter('rule_id', $rule->id, Types::INTEGER)
             ->setParameter('enabled', $rule->enabled, Types::BOOLEAN)
             ->setParameter('priority', $rule->priority, Types::INTEGER);
+
+        $query->execute();
+    }
+
+    /**
+     * Moves a rule.
+     */
+    public function moveRule(Rule $rule, RuleGroup $targetGroup, ?int $newPriority = null): void
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        $query
+            ->update('nglayouts_rule')
+            ->set('rule_group_uuid', ':rule_group_uuid')
+            ->where(
+                $query->expr()->eq('id', ':id')
+            )
+            ->setParameter('id', $rule->id, Types::INTEGER)
+            ->setParameter('rule_group_uuid', $targetGroup->uuid, Types::INTEGER);
+
+        $this->applyStatusCondition($query, $rule->status);
+
+        $query->execute();
+
+        if ($newPriority !== null) {
+            $query = $this->connection->createQueryBuilder();
+            $query
+                ->update('nglayouts_rule_data')
+                ->set('priority', ':priority')
+                ->where(
+                    $query->expr()->eq('rule_id', ':rule_id')
+                )
+                ->setParameter('rule_id', $rule->id, Types::INTEGER)
+                ->setParameter('priority', $newPriority, Types::INTEGER);
+
+            $query->execute();
+        }
+
+        $query->execute();
+    }
+
+    /**
+     * Creates a rule group.
+     */
+    public function createRuleGroup(RuleGroup $ruleGroup, bool $updatePath = true): RuleGroup
+    {
+        $query = $this->connection->createQueryBuilder()
+            ->insert('nglayouts_rule_group')
+            ->values(
+                [
+                    'id' => ':id',
+                    'uuid' => ':uuid',
+                    'status' => ':status',
+                    'depth' => ':depth',
+                    'path' => ':path',
+                    'parent_id' => ':parent_id',
+                    'comment' => ':comment',
+                ]
+            )
+            ->setValue('id', $ruleGroup->id ?? $this->connectionHelper->nextId('nglayouts_rule_group'))
+            ->setParameter('uuid', $ruleGroup->uuid, Types::STRING)
+            ->setParameter('status', $ruleGroup->status, Types::INTEGER)
+            ->setParameter('depth', $ruleGroup->depth, Types::STRING)
+            // Materialized path is updated after rule group is created
+            ->setParameter('path', $ruleGroup->path, Types::STRING)
+            ->setParameter('parent_id', $ruleGroup->parentId, Types::INTEGER)
+            ->setParameter('comment', $ruleGroup->comment, Types::STRING);
+
+        $query->execute();
+
+        if (!isset($ruleGroup->id)) {
+            $ruleGroup->id = (int) $this->connectionHelper->lastId('nglayouts_rule_group');
+
+            $query = $this->connection->createQueryBuilder()
+                ->insert('nglayouts_rule_group_data')
+                ->values(
+                    [
+                        'rule_group_id' => ':rule_group_id',
+                        'enabled' => ':enabled',
+                        'priority' => ':priority',
+                    ]
+                )
+                ->setParameter('rule_group_id', $ruleGroup->id, Types::INTEGER)
+                ->setParameter('enabled', $ruleGroup->enabled, Types::BOOLEAN)
+                ->setParameter('priority', $ruleGroup->priority, Types::INTEGER);
+
+            $query->execute();
+        }
+
+        if (!$updatePath) {
+            return $ruleGroup;
+        }
+
+        // Update materialized path only after creating the rule group, when we have the ID
+
+        $ruleGroup->path = $ruleGroup->path . $ruleGroup->id . '/';
+
+        $query = $this->connection->createQueryBuilder();
+        $query
+            ->update('nglayouts_rule_group')
+            ->set('path', ':path')
+            ->where(
+                $query->expr()->eq('id', ':id')
+            )
+            ->setParameter('id', $ruleGroup->id, Types::INTEGER)
+            ->setParameter('path', $ruleGroup->path, Types::STRING);
+
+        $this->applyStatusCondition($query, $ruleGroup->status);
+
+        $query->execute();
+
+        return $ruleGroup;
+    }
+
+    /**
+     * Updates a rule group.
+     */
+    public function updateRuleGroup(RuleGroup $ruleGroup): void
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query
+            ->update('nglayouts_rule_group')
+            ->set('uuid', ':uuid')
+            ->set('depth', ':depth')
+            ->set('path', ':path')
+            ->set('parent_id', ':parent_id')
+            ->set('comment', ':comment')
+            ->where(
+                $query->expr()->eq('id', ':id')
+            )
+            ->setParameter('id', $ruleGroup->id, Types::INTEGER)
+            ->setParameter('uuid', $ruleGroup->uuid, Types::STRING)
+            ->setParameter('depth', $ruleGroup->depth, Types::STRING)
+            ->setParameter('path', $ruleGroup->path, Types::STRING)
+            ->setParameter('parent_id', $ruleGroup->parentId, Types::INTEGER)
+            ->setParameter('comment', $ruleGroup->comment, Types::STRING);
+
+        $this->applyStatusCondition($query, $ruleGroup->status);
+
+        $query->execute();
+    }
+
+    /**
+     * Updates rule group data which is independent of statuses.
+     */
+    public function updateRuleGroupData(RuleGroup $ruleGroup): void
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query
+            ->update('nglayouts_rule_group_data')
+            ->set('enabled', ':enabled')
+            ->set('priority', ':priority')
+            ->where(
+                $query->expr()->eq('rule_group_id', ':rule_group_id')
+            )
+            ->setParameter('rule_group_id', $ruleGroup->id, Types::INTEGER)
+            ->setParameter('enabled', $ruleGroup->enabled, Types::BOOLEAN)
+            ->setParameter('priority', $ruleGroup->priority, Types::INTEGER);
+
+        $query->execute();
+    }
+
+    /**
+     * Moves a rule group.
+     */
+    public function moveRuleGroup(RuleGroup $ruleGroup, RuleGroup $targetGroup, ?int $newPriority = null): void
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        $query
+            ->update('nglayouts_rule_group')
+            ->set('parent_id', ':parent_id')
+            ->where(
+                $query->expr()->eq('id', ':id')
+            )
+            ->setParameter('id', $ruleGroup->id, Types::INTEGER)
+            ->setParameter('parent_id', $targetGroup->id, Types::INTEGER);
+
+        $this->applyStatusCondition($query, $ruleGroup->status);
+
+        $query->execute();
+
+        $depthDifference = $ruleGroup->depth - ($targetGroup->depth + 1);
+
+        $query = $this->connection->createQueryBuilder();
+
+        $query
+            ->update('nglayouts_rule_group')
+            ->set('depth', 'depth - :depth_difference')
+            ->set('path', 'replace(path, :old_path, :new_path)')
+            ->where(
+                $query->expr()->like('path', ':path')
+            )
+            ->setParameter('depth_difference', $depthDifference, Types::INTEGER)
+            ->setParameter('old_path', $ruleGroup->path, Types::STRING)
+            ->setParameter('new_path', $targetGroup->path . $ruleGroup->id . '/', Types::STRING)
+            ->setParameter('path', $ruleGroup->path . '%', Types::STRING);
+
+        $this->applyStatusCondition($query, $ruleGroup->status);
+
+        if ($newPriority !== null) {
+            $query = $this->connection->createQueryBuilder();
+            $query
+                ->update('nglayouts_rule_group_data')
+                ->set('priority', ':priority')
+                ->where(
+                    $query->expr()->eq('rule_group_id', ':rule_group_id')
+                )
+                ->setParameter('rule_group_id', $ruleGroup->id, Types::INTEGER)
+                ->setParameter('priority', $newPriority, Types::INTEGER);
+
+            $query->execute();
+        }
 
         $query->execute();
     }
@@ -599,6 +986,24 @@ final class LayoutResolverQueryHandler extends QueryHandler
                     $query->expr()->eq('r.layout_uuid', 'l.uuid'),
                     $query->expr()->eq('l.status', Value::STATUS_PUBLISHED)
                 )
+            );
+
+        return $query;
+    }
+
+    /**
+     * Builds and returns a rule group database SELECT query.
+     */
+    private function getRuleGroupSelectQuery(): QueryBuilder
+    {
+        $query = $this->connection->createQueryBuilder();
+        $query->select('DISTINCT rg.*', 'rgd.*')
+            ->from('nglayouts_rule_group', 'rg')
+            ->innerJoin(
+                'rg',
+                'nglayouts_rule_group_data',
+                'rgd',
+                $query->expr()->eq('rgd.rule_id', 'rg.id')
             );
 
         return $query;

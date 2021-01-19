@@ -16,6 +16,10 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCreateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCreateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupMetadataUpdateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
@@ -28,6 +32,7 @@ use function count;
 use function is_bool;
 use function is_int;
 use function is_string;
+use function str_starts_with;
 use function trim;
 
 final class LayoutResolverHandler implements LayoutResolverHandlerInterface
@@ -69,6 +74,18 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->mapper->mapRules($data)[0];
     }
 
+    public function loadRuleGroup($ruleGroupId, int $status): RuleGroup
+    {
+        $ruleGroupId = $ruleGroupId instanceof UuidInterface ? $ruleGroupId->toString() : $ruleGroupId;
+        $data = $this->queryHandler->loadRuleGroupData($ruleGroupId, $status);
+
+        if (count($data) === 0) {
+            throw new NotFoundException('rule group', $ruleGroupId);
+        }
+
+        return $this->mapper->mapRuleGroups($data)[0];
+    }
+
     public function loadRules(int $status, ?Layout $layout = null, int $offset = 0, ?int $limit = null): array
     {
         $data = $this->queryHandler->loadRulesData($status, $layout, $offset, $limit);
@@ -79,6 +96,30 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
     public function getRuleCount(?Layout $layout = null): int
     {
         return $this->queryHandler->getRuleCount(Value::STATUS_PUBLISHED, $layout);
+    }
+
+    public function loadRulesFromGroup(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null): array
+    {
+        $data = $this->queryHandler->loadRulesFromGroupData($ruleGroup, $offset, $limit);
+
+        return $this->mapper->mapRules($data);
+    }
+
+    public function getRuleCountFromGroup(RuleGroup $ruleGroup): int
+    {
+        return $this->queryHandler->getRuleCountFromGroup($ruleGroup);
+    }
+
+    public function loadRuleGroups(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null): array
+    {
+        $data = $this->queryHandler->loadRuleGroupsData($ruleGroup, $offset, $limit);
+
+        return $this->mapper->mapRuleGroups($data);
+    }
+
+    public function getRuleGroupCount(RuleGroup $ruleGroup): int
+    {
+        return $this->queryHandler->getRuleGroupCount($ruleGroup);
     }
 
     public function matchRules(string $targetType, $targetValue): array
@@ -135,6 +176,13 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         );
     }
 
+    public function loadRuleGroupConditions(RuleGroup $ruleGroup): array
+    {
+        return $this->mapper->mapConditions(
+            $this->queryHandler->loadRuleGroupConditionsData($ruleGroup)
+        );
+    }
+
     public function ruleExists($ruleId, ?int $status = null): bool
     {
         $ruleId = $ruleId instanceof UuidInterface ? $ruleId->toString() : $ruleId;
@@ -142,7 +190,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->queryHandler->ruleExists($ruleId, $status);
     }
 
-    public function createRule(RuleCreateStruct $ruleCreateStruct): Rule
+    public function createRule(RuleCreateStruct $ruleCreateStruct, RuleGroup $targetGroup): Rule
     {
         if (is_string($ruleCreateStruct->uuid) && $this->ruleExists($ruleCreateStruct->uuid)) {
             throw new BadStateException('uuid', 'Rule with provided UUID already exists.');
@@ -159,9 +207,10 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
                     $ruleCreateStruct->uuid :
                     Uuid::uuid4()->toString(),
                 'status' => $ruleCreateStruct->status,
+                'ruleGroupUuid' => $targetGroup->uuid,
                 'layoutUuid' => $layout instanceof Layout ? $layout->uuid : null,
                 'enabled' => $ruleCreateStruct->enabled ? true : false,
-                'priority' => $this->getRulePriority($ruleCreateStruct),
+                'priority' => $this->getRulePriority($ruleCreateStruct, $targetGroup),
                 'comment' => trim($ruleCreateStruct->comment ?? ''),
             ]
         );
@@ -208,7 +257,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $updatedRule;
     }
 
-    public function copyRule(Rule $rule): Rule
+    public function copyRule(Rule $rule, ?RuleGroup $targetGroup = null): Rule
     {
         // First copy the rule
 
@@ -216,6 +265,10 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
         unset($copiedRule->id);
         $copiedRule->uuid = Uuid::uuid4()->toString();
+
+        if ($targetGroup !== null) {
+            $rule->ruleGroupUuid = $targetGroup->uuid;
+        }
 
         $copiedRule = $this->queryHandler->createRule($copiedRule);
 
@@ -252,6 +305,17 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         }
 
         return $copiedRule;
+    }
+
+    public function moveRule(Rule $rule, RuleGroup $targetGroup, ?int $newPriority = null): Rule
+    {
+        if ($rule->ruleGroupUuid === $targetGroup->uuid) {
+            throw new BadStateException('targetGroup', 'Rule is already in specified target group.');
+        }
+
+        $this->queryHandler->moveRule($rule, $targetGroup, $newPriority);
+
+        return $this->loadRule($rule->id, $rule->status);
     }
 
     public function createRuleStatus(Rule $rule, int $newStatus): Rule
@@ -293,6 +357,172 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         $this->queryHandler->deleteRuleTargets($ruleId, $status);
         $this->queryHandler->deleteRuleConditions($ruleId, $status);
         $this->queryHandler->deleteRule($ruleId, $status);
+    }
+
+    public function ruleGroupExists($ruleGroupId, ?int $status = null): bool
+    {
+        $ruleGroupId = $ruleGroupId instanceof UuidInterface ? $ruleGroupId->toString() : $ruleGroupId;
+
+        return $this->queryHandler->ruleGroupExists($ruleGroupId, $status);
+    }
+
+    public function createRuleGroup(RuleGroupCreateStruct $ruleGroupCreateStruct, ?RuleGroup $parentGroup = null): RuleGroup
+    {
+        if ($parentGroup === null && $this->queryHandler->ruleGroupExists(RuleGroup::ROOT_UUID)) {
+            throw new BadStateException('parentGroup', 'Root rule group already exists.');
+        }
+
+        if (is_string($ruleGroupCreateStruct->uuid) && $this->ruleGroupExists($ruleGroupCreateStruct->uuid)) {
+            throw new BadStateException('uuid', 'Rule group with provided UUID already exists.');
+        }
+
+        $newRuleGroup = RuleGroup::fromArray(
+            [
+                'uuid' => is_string($ruleGroupCreateStruct->uuid) ?
+                    $ruleGroupCreateStruct->uuid :
+                    Uuid::uuid4()->toString(),
+                'status' => $ruleGroupCreateStruct->status,
+                'depth' => $parentGroup !== null ? $parentGroup->depth + 1 : 0,
+                'path' => $parentGroup !== null ? $parentGroup->path : '/',
+                'parentId' => $parentGroup !== null ? $parentGroup->id : null,
+                'parentUuid' => $parentGroup !== null ? $parentGroup->uuid : null,
+                'enabled' => $ruleGroupCreateStruct->enabled ? true : false,
+                'priority' => $parentGroup !== null ? $this->getRuleGroupPriority($ruleGroupCreateStruct, $parentGroup) : 0,
+                'comment' => trim($ruleGroupCreateStruct->comment ?? ''),
+            ]
+        );
+
+        if ($parentGroup === null) {
+            // If the group has no parent, we make sure the the UUID is a NIL UUID. This, combined
+            // with a check that only one group with no parent can be created, makes sure that we
+            // only have one root group ever.
+            $newRuleGroup->uuid = RuleGroup::ROOT_UUID;
+        }
+
+        return $this->queryHandler->createRuleGroup($newRuleGroup);
+    }
+
+    public function updateRuleGroup(RuleGroup $ruleGroup, RuleGroupUpdateStruct $ruleGroupUpdateStruct): RuleGroup
+    {
+        $updatedRuleGroup = clone $ruleGroup;
+
+        if (is_string($ruleGroupUpdateStruct->comment)) {
+            $updatedRuleGroup->comment = trim($ruleGroupUpdateStruct->comment);
+        }
+
+        $this->queryHandler->updateRuleGroup($updatedRuleGroup);
+
+        return $updatedRuleGroup;
+    }
+
+    public function updateRuleGroupMetadata(RuleGroup $ruleGroup, RuleGroupMetadataUpdateStruct $ruleGroupUpdateStruct): RuleGroup
+    {
+        $updatedRuleGroup = clone $ruleGroup;
+
+        if (is_int($ruleGroupUpdateStruct->priority)) {
+            $updatedRuleGroup->priority = $ruleGroupUpdateStruct->priority;
+        }
+
+        if (is_bool($ruleGroupUpdateStruct->enabled)) {
+            $updatedRuleGroup->enabled = $ruleGroupUpdateStruct->enabled;
+        }
+
+        $this->queryHandler->updateRuleGroupData($updatedRuleGroup);
+
+        return $updatedRuleGroup;
+    }
+
+    public function copyRuleGroup(RuleGroup $ruleGroup, RuleGroup $targetGroup, bool $copyChildren = false): RuleGroup
+    {
+        if (str_starts_with($targetGroup->path, $ruleGroup->path)) {
+            throw new BadStateException('targetGroup', 'Rule group cannot be copied below itself or its children.');
+        }
+
+        $newRuleGroup = clone $ruleGroup;
+
+        unset($newRuleGroup->id);
+        $newRuleGroup->uuid = Uuid::uuid4()->toString();
+
+        $newRuleGroup->depth = $targetGroup->depth + 1;
+        // This is only the initial path.
+        // Full path is updated after we get the rule group ID.
+        $newRuleGroup->path = $targetGroup->path;
+        $newRuleGroup->parentId = $targetGroup->id;
+        $newRuleGroup->parentUuid = $targetGroup->uuid;
+
+        $copiedRuleGroup = $this->queryHandler->createRuleGroup($newRuleGroup);
+
+        // Copy rule group conditions
+
+        $ruleGroupConditions = $this->loadRuleGroupConditions($ruleGroup);
+
+        foreach ($ruleGroupConditions as $ruleGroupCondition) {
+            $copiedCondition = clone $ruleGroupCondition;
+
+            unset($copiedCondition->id);
+            $copiedCondition->uuid = Uuid::uuid4()->toString();
+
+            $copiedCondition->ruleGroupId = $copiedRuleGroup->id;
+            $copiedCondition->ruleGroupUuid = $copiedRuleGroup->uuid;
+
+            $this->queryHandler->addCondition($copiedCondition);
+        }
+
+        if (!$copyChildren) {
+            return $copiedRuleGroup;
+        }
+
+        foreach ($this->loadRulesFromGroup($ruleGroup) as $childRule) {
+            $this->copyRule($childRule, $copiedRuleGroup);
+        }
+
+        foreach ($this->loadRuleGroups($ruleGroup) as $childGroup) {
+            $this->copyRuleGroup($childGroup, $copiedRuleGroup, true);
+        }
+
+        return $copiedRuleGroup;
+    }
+
+    public function moveRuleGroup(RuleGroup $ruleGroup, RuleGroup $targetGroup, ?int $newPriority = null): RuleGroup
+    {
+        if ($ruleGroup->parentId === $targetGroup->id) {
+            throw new BadStateException('targetGroup', 'Rule group is already in specified target group.');
+        }
+
+        if (str_starts_with($targetGroup->path, $ruleGroup->path)) {
+            throw new BadStateException('targetGroup', 'Rule group cannot be moved below itself or its children.');
+        }
+
+        $this->queryHandler->moveRuleGroup($ruleGroup, $targetGroup, $newPriority);
+
+        return $this->loadRuleGroup($ruleGroup->id, $ruleGroup->status);
+    }
+
+    public function createRuleGroupStatus(RuleGroup $ruleGroup, int $newStatus): RuleGroup
+    {
+        // First copy the rule group
+
+        $copiedRuleGroup = clone $ruleGroup;
+        $copiedRuleGroup->status = $newStatus;
+
+        $copiedRuleGroup = $this->queryHandler->createRuleGroup($copiedRuleGroup);
+
+        // Then copy rule group conditions
+
+        $ruleGroupConditions = $this->loadRuleGroupConditions($ruleGroup);
+
+        foreach ($ruleGroupConditions as $ruleGroupCondition) {
+            $copiedCondition = clone $ruleGroupCondition;
+            $copiedCondition->status = $newStatus;
+
+            $this->queryHandler->addConditionToGroup($copiedCondition);
+        }
+
+        return $copiedRuleGroup;
+    }
+
+    public function deleteRuleGroup(int $ruleGroupId, ?int $status = null): void
+    {
     }
 
     public function addTarget(Rule $rule, TargetCreateStruct $targetCreateStruct): Target
@@ -342,6 +572,22 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->queryHandler->addCondition($newCondition);
     }
 
+    public function addConditionToGroup(RuleGroup $ruleGroup, ConditionCreateStruct $conditionCreateStruct): Condition
+    {
+        $newCondition = Condition::fromArray(
+            [
+                'uuid' => Uuid::uuid4()->toString(),
+                'status' => $rule->status,
+                'ruleId' => $rule->id,
+                'ruleUuid' => $rule->uuid,
+                'type' => $conditionCreateStruct->type,
+                'value' => $conditionCreateStruct->value,
+            ]
+        );
+
+        return $this->queryHandler->addCondition($newCondition);
+    }
+
     public function updateCondition(Condition $condition, ConditionUpdateStruct $conditionUpdateStruct): Condition
     {
         $updatedCondition = clone $condition;
@@ -367,15 +613,29 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
      *
      * If no rules exist, priority is 0.
      */
-    private function getRulePriority(RuleCreateStruct $ruleCreateStruct): int
+    private function getRulePriority(RuleCreateStruct $ruleCreateStruct, RuleGroup $targetGroup): int
     {
         if (is_int($ruleCreateStruct->priority)) {
             return $ruleCreateStruct->priority;
         }
 
-        $lowestRulePriority = $this->queryHandler->getLowestRulePriority();
+        $lowestRulePriority = $this->queryHandler->getLowestRulePriority($targetGroup);
         if ($lowestRulePriority !== null) {
             return $lowestRulePriority - 10;
+        }
+
+        return 0;
+    }
+
+    private function getRuleGroupPriority(RuleGroupCreateStruct $ruleGroupCreateStruct, RuleGroup $parentGroup): int
+    {
+        if (is_int($ruleGroupCreateStruct->priority)) {
+            return $ruleGroupCreateStruct->priority;
+        }
+
+        $lowestRuleGroupPriority = $this->queryHandler->getLowestRuleGroupPriority($parentGroup);
+        if ($lowestRuleGroupPriority !== null) {
+            return $lowestRuleGroupPriority - 10;
         }
 
         return 0;
