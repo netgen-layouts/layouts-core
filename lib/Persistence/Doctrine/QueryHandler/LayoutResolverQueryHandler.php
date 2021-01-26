@@ -21,6 +21,7 @@ use function array_map;
 use function count;
 use function is_array;
 use function json_encode;
+use function min;
 
 final class LayoutResolverQueryHandler extends QueryHandler
 {
@@ -411,9 +412,9 @@ final class LayoutResolverQueryHandler extends QueryHandler
     }
 
     /**
-     * Returns the lowest priority from the list of all the rules.
+     * Returns the lowest priority from the list of all the rules and rule groups in provided rule group.
      */
-    public function getLowestRulePriority(RuleGroup $targetGroup): ?int
+    public function getLowestPriority(RuleGroup $parentGroup): ?int
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('rd.priority')
@@ -427,21 +428,15 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->eq('r.rule_group_id', ':rule_group_id')
             )
-            ->setParameter('rule_group_id', $targetGroup->id, Types::INTEGER);
+            ->setParameter('rule_group_id', $parentGroup->id, Types::INTEGER);
 
         $query->addOrderBy('rd.priority', 'ASC');
         $this->applyOffsetAndLimit($query, 0, 1);
 
         $data = $query->execute()->fetchAllAssociative();
 
-        return isset($data[0]['priority']) ? (int) $data[0]['priority'] : null;
-    }
+        $lowestRulePriority = isset($data[0]['priority']) ? (int) $data[0]['priority'] : null;
 
-    /**
-     * Returns the lowest priority from the list of all the rule groups in provided parent group.
-     */
-    public function getLowestRuleGroupPriority(RuleGroup $parentGroup): ?int
-    {
         $query = $this->connection->createQueryBuilder();
         $query->select('rgd.priority')
             ->from('nglayouts_rule_group_data', 'rgd')
@@ -461,7 +456,13 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $data = $query->execute()->fetchAllAssociative();
 
-        return isset($data[0]['priority']) ? (int) $data[0]['priority'] : null;
+        $lowestRuleGroupPriority = isset($data[0]['priority']) ? (int) $data[0]['priority'] : null;
+
+        if ($lowestRulePriority !== null && $lowestRuleGroupPriority !== null) {
+            return min($lowestRulePriority, $lowestRuleGroupPriority);
+        }
+
+        return $lowestRuleGroupPriority ?? $lowestRulePriority;
     }
 
     /**

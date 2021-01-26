@@ -210,7 +210,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
                 'ruleGroupId' => $targetGroup->id,
                 'layoutUuid' => $layout instanceof Layout ? $layout->uuid : null,
                 'enabled' => $ruleCreateStruct->enabled ? true : false,
-                'priority' => $this->getRulePriority($ruleCreateStruct, $targetGroup),
+                'priority' => $ruleCreateStruct->priority ?? $this->getPriority($targetGroup),
                 'comment' => trim($ruleCreateStruct->comment ?? ''),
             ]
         );
@@ -387,7 +387,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
                 'parentId' => $parentGroup !== null ? $parentGroup->id : null,
                 'parentUuid' => $parentGroup !== null ? $parentGroup->uuid : null,
                 'enabled' => $ruleGroupCreateStruct->enabled ? true : false,
-                'priority' => $parentGroup !== null ? $this->getRuleGroupPriority($ruleGroupCreateStruct, $parentGroup) : 0,
+                'priority' => $parentGroup !== null ? ($ruleGroupCreateStruct->priority ?? $this->getPriority($parentGroup)) : 0,
                 'comment' => trim($ruleGroupCreateStruct->comment ?? ''),
             ]
         );
@@ -619,37 +619,18 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
     }
 
     /**
-     * Returns the rule priority when creating a new rule.
+     * Returns the priority when creating a new rule or rule group.
      *
-     * If priority is specified in the struct, it is used automatically. Otherwise,
-     * the returned priority is the lowest available priority subtracted by 10 (to allow
-     * inserting rules in between).
+     * The returned priority is the lowest available priority subtracted by 10 (to allow
+     * inserting rules and rule groups in between).
      *
-     * If no rules exist, priority is 0.
+     * If no rules and rule groups exist, priority is 0.
      */
-    private function getRulePriority(RuleCreateStruct $ruleCreateStruct, RuleGroup $targetGroup): int
+    private function getPriority(RuleGroup $parentGroup): int
     {
-        if (is_int($ruleCreateStruct->priority)) {
-            return $ruleCreateStruct->priority;
-        }
-
-        $lowestRulePriority = $this->queryHandler->getLowestRulePriority($targetGroup);
-        if ($lowestRulePriority !== null) {
-            return $lowestRulePriority - 10;
-        }
-
-        return 0;
-    }
-
-    private function getRuleGroupPriority(RuleGroupCreateStruct $ruleGroupCreateStruct, RuleGroup $parentGroup): int
-    {
-        if (is_int($ruleGroupCreateStruct->priority)) {
-            return $ruleGroupCreateStruct->priority;
-        }
-
-        $lowestRuleGroupPriority = $this->queryHandler->getLowestRuleGroupPriority($parentGroup);
-        if ($lowestRuleGroupPriority !== null) {
-            return $lowestRuleGroupPriority - 10;
+        $lowestPriority = $this->queryHandler->getLowestPriority($parentGroup);
+        if ($lowestPriority !== null) {
+            return $lowestPriority - 10;
         }
 
         return 0;

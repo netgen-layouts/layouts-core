@@ -305,9 +305,9 @@ final class LayoutResolverHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getRulePriority
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getPriority
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestRulePriority
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestPriority
      */
     public function testCreateRule(): void
     {
@@ -339,9 +339,9 @@ final class LayoutResolverHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getRulePriority
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getPriority
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestRulePriority
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestPriority
      */
     public function testCreateRuleWithCustomUuid(): void
     {
@@ -369,9 +369,9 @@ final class LayoutResolverHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getRulePriority
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getPriority
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestRulePriority
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestPriority
      */
     public function testCreateRuleWithExistingUuidThrowsBadStateException(): void
     {
@@ -393,9 +393,9 @@ final class LayoutResolverHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getRulePriority
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getPriority
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestRulePriority
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestPriority
      */
     public function testCreateRuleWithNoPriority(): void
     {
@@ -423,9 +423,9 @@ final class LayoutResolverHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getRulePriority
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getPriority
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestRulePriority
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestPriority
      */
     public function testCreateRuleWithNoPriorityAndNoRules(): void
     {
