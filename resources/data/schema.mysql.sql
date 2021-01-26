@@ -347,11 +347,13 @@ CREATE TABLE `nglayouts_rule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `uuid` char(36) NOT NULL,
+  `rule_group_id` int(11) NOT NULL,
   `layout_uuid` char(36) DEFAULT NULL,
   `comment` longtext NOT NULL,
   PRIMARY KEY (`id`,`status`),
   UNIQUE KEY `idx_ngl_rule_uuid` (`uuid`, `status`),
-  KEY `idx_ngl_related_layout` (`layout_uuid`)
+  KEY `idx_ngl_related_layout` (`layout_uuid`),
+  KEY `idx_ngl_rule_group` (`rule_group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -389,6 +391,42 @@ CREATE TABLE `nglayouts_rule_data` (
   `enabled` tinyint(1) NOT NULL,
   `priority` int(11) NOT NULL,
   PRIMARY KEY (`rule_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `nglayouts_rule_group`
+--
+
+DROP TABLE IF EXISTS `nglayouts_rule_group`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `nglayouts_rule_group` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `status` int(11) NOT NULL,
+  `uuid` char(36) NOT NULL,
+  `depth` int(11) NOT NULL,
+  `path` varchar(191) NOT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `comment` longtext NOT NULL,
+  PRIMARY KEY (`id`,`status`),
+  UNIQUE KEY `idx_ngl_rule_group_uuid` (`uuid`, `status`),
+  KEY `idx_ngl_parent_rule_group` (`parent_id`),
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `nglayouts_rule_group_data`
+--
+
+DROP TABLE IF EXISTS `nglayouts_rule_group_data`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `nglayouts_rule_group_data` (
+  `rule_group_id` int(11) NOT NULL,
+  `enabled` tinyint(1) NOT NULL,
+  `priority` int(11) NOT NULL,
+  PRIMARY KEY (`rule_group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

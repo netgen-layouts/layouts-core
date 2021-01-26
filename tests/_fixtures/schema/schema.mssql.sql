@@ -16,6 +16,8 @@ IF OBJECT_ID('dbo.nglayouts_rule_target', 'U') IS NOT NULL DROP TABLE dbo.nglayo
 IF OBJECT_ID('dbo.nglayouts_rule_condition', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_rule_condition;
 IF OBJECT_ID('dbo.nglayouts_rule_data', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_rule_data;
 IF OBJECT_ID('dbo.nglayouts_rule', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_rule;
+IF OBJECT_ID('dbo.nglayouts_rule_group_data', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_rule_group_data;
+IF OBJECT_ID('dbo.nglayouts_rule_group', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_rule_group;
 
 CREATE TABLE nglayouts_layout (
   id int IDENTITY(1, 1),
@@ -204,6 +206,7 @@ CREATE TABLE nglayouts_rule (
   id int IDENTITY(1, 1),
   status int NOT NULL,
   uuid nchar(36) NOT NULL,
+  rule_group_id int NOT NULL,
   layout_uuid nchar(36) DEFAULT NULL,
   comment nvarchar(max) NOT NULL,
   PRIMARY KEY (id, status),
@@ -241,4 +244,23 @@ CREATE TABLE nglayouts_rule_condition (
   UNIQUE (uuid, status),
   FOREIGN KEY (rule_id, status)
     REFERENCES nglayouts_rule (id, status)
+);
+
+CREATE TABLE nglayouts_rule_group (
+  id int IDENTITY(1, 1),
+  status int NOT NULL,
+  uuid nchar(36) NOT NULL,
+  depth int NOT NULL,
+  path nvarchar(255) NOT NULL,
+  parent_id int DEFAULT NULL,
+  comment nvarchar(max) NOT NULL,
+  PRIMARY KEY (id, status),
+  UNIQUE (uuid, status)
+);
+
+CREATE TABLE nglayouts_rule_group_data (
+  rule_group_id int NOT NULL,
+  enabled tinyint NOT NULL,
+  priority int NOT NULL,
+  PRIMARY KEY (rule_group_id)
 );

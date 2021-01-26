@@ -9,3 +9,4 @@ SELECT setval('nglayouts_role_policy_id_seq', max(id)) FROM nglayouts_role_polic
 SELECT setval('nglayouts_rule_id_seq', max(id)) FROM nglayouts_rule;
 SELECT setval('nglayouts_rule_target_id_seq', max(id)) FROM nglayouts_rule_target;
 SELECT setval('nglayouts_rule_condition_id_seq', max(id)) FROM nglayouts_rule_condition;
+SELECT setval('nglayouts_rule_group_id_seq', max(id)) FROM nglayouts_rule_group;

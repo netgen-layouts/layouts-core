@@ -185,6 +185,7 @@ CREATE TABLE IF NOT EXISTS `nglayouts_rule` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `uuid` char(36) NOT NULL,
+  `rule_group_id` int(11) NOT NULL,
   `layout_uuid` char(36) DEFAULT NULL,
   `comment` longtext NOT NULL,
   PRIMARY KEY (`id`, `status`),
@@ -196,6 +197,25 @@ CREATE TABLE IF NOT EXISTS `nglayouts_rule_data` (
   `enabled` tinyint NOT NULL,
   `priority` int(11) NOT NULL,
   PRIMARY KEY (`rule_id`)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS `nglayouts_rule_group` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `status` int(11) NOT NULL,
+  `uuid` char(36) NOT NULL,
+  `depth` int(11) NOT NULL,
+  `path` varchar(191) NOT NULL,
+  `parent_id` int(11) DEFAULT NULL,
+  `comment` longtext NOT NULL,
+  PRIMARY KEY (`id`, `status`),
+  UNIQUE KEY (`uuid`, `status`)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS `nglayouts_rule_group_data` (
+  `rule_group_id` int(11) NOT NULL,
+  `enabled` tinyint NOT NULL,
+  `priority` int(11) NOT NULL,
+  PRIMARY KEY (`rule_group_id`)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `nglayouts_rule_target` (

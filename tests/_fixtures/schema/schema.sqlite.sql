@@ -20,6 +20,8 @@ DROP TABLE IF EXISTS `nglayouts_rule_target`;
 DROP TABLE IF EXISTS `nglayouts_rule_condition`;
 DROP TABLE IF EXISTS `nglayouts_rule_data`;
 DROP TABLE IF EXISTS `nglayouts_rule`;
+DROP TABLE IF EXISTS `nglayouts_rule_group_data`;
+DROP TABLE IF EXISTS `nglayouts_rule_group`;
 
 CREATE TABLE `nglayouts_layout` (
   `id` integer NOT NULL,
@@ -241,8 +243,28 @@ CREATE TABLE `nglayouts_rule` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
   `uuid` text(36) NOT NULL,
+  `rule_group_id` integer NOT NULL,
   `layout_uuid` text(36) DEFAULT NULL,
   `comment` longtext NOT NULL,
   PRIMARY KEY (`id`, `status`),
   UNIQUE (`uuid`, `status`)
+);
+
+CREATE TABLE `nglayouts_rule_group` (
+  `id` integer NOT NULL,
+  `status` integer NOT NULL,
+  `uuid` text(36) NOT NULL,
+  `depth` integer NOT NULL,
+  `path` text(255) NOT NULL,
+  `parent_id` integer DEFAULT NULL,
+  `comment` longtext NOT NULL,
+  PRIMARY KEY (`id`, `status`),
+  UNIQUE (`uuid`, `status`)
+);
+
+CREATE TABLE `nglayouts_rule_group_data` (
+  `rule_group_id` integer NOT NULL,
+  `enabled` integer NOT NULL,
+  `priority` integer NOT NULL,
+  PRIMARY KEY (`rule_group_id`)
 );
