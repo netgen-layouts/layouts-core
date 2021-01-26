@@ -417,7 +417,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('rd.priority')
-            ->from('nglayouts_rule_data')
+            ->from('nglayouts_rule_data', 'rd')
             ->innerJoin(
                 'rd',
                 'nglayouts_rule',
