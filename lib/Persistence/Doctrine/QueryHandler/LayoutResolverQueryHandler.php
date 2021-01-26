@@ -16,6 +16,8 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
 use Netgen\Layouts\Persistence\Values\Value;
 use Psr\Container\ContainerInterface;
+use function array_column;
+use function array_map;
 use function is_array;
 use function json_encode;
 
@@ -899,7 +901,6 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 $query->expr()->in('rule_id', [':rule_id'])
             )
             ->setParameter('rule_id', $ruleIds, Connection::PARAM_INT_ARRAY);
-
 
         $query->execute();
     }

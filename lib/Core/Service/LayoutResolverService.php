@@ -12,12 +12,9 @@ use Netgen\Layouts\API\Values\LayoutResolver\ConditionUpdateStruct as APIConditi
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleCreateStruct as APIRuleCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
-use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupCreateStruct as APIRuleGroupCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupList;
-use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupMetadataUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupMetadataUpdateStruct as APIRuleGroupMetadataUpdateStruct;
-use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupUpdateStruct as APIRuleGroupUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleList;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleMetadataUpdateStruct as APIRuleMetadataUpdateStruct;
@@ -40,6 +37,9 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCreateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup as PersistenceRuleGroup;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCreateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupMetadataUpdateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
@@ -782,10 +782,65 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function publishRuleGroup(RuleGroup $ruleGroup): RuleGroup
     {
+        if (!$ruleGroup->isDraft()) {
+            throw new BadStateException('ruleGroup', 'Only draft rule groups can be published.');
+        }
+
+        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), Value::STATUS_DRAFT);
+
+        $publishedRuleGroup = $this->transaction(
+            function () use ($persistenceRuleGroup): PersistenceRuleGroup {
+                $this->layoutResolverHandler->deleteRuleGroup($persistenceRuleGroup->id, Value::STATUS_ARCHIVED);
+
+                if ($this->layoutResolverHandler->ruleGroupExists($persistenceRuleGroup->id, Value::STATUS_PUBLISHED)) {
+                    $this->layoutResolverHandler->createRuleGroupStatus(
+                        $this->layoutResolverHandler->loadRuleGroup(
+                            $persistenceRuleGroup->id,
+                            Value::STATUS_PUBLISHED
+                        ),
+                        Value::STATUS_ARCHIVED
+                    );
+
+                    $this->layoutResolverHandler->deleteRuleGroup($persistenceRuleGroup->id, Value::STATUS_PUBLISHED);
+                }
+
+                $publishedRuleGroup = $this->layoutResolverHandler->createRuleGroupStatus($persistenceRuleGroup, Value::STATUS_PUBLISHED);
+                $this->layoutResolverHandler->deleteRuleGroup($persistenceRuleGroup->id, Value::STATUS_DRAFT);
+
+                return $publishedRuleGroup;
+            }
+        );
+
+        return $this->mapper->mapRuleGroup($publishedRuleGroup);
     }
 
     public function restoreRuleGroupFromArchive(RuleGroup $ruleGroup): RuleGroup
     {
+        if (!$ruleGroup->isArchived()) {
+            throw new BadStateException('ruleGroup', 'Only archived rule groups can be restored.');
+        }
+
+        $archivedRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), Value::STATUS_ARCHIVED);
+
+        $draftRuleGroup = null;
+
+        try {
+            $draftRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), Value::STATUS_DRAFT);
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
+
+        $draftRuleGroup = $this->transaction(
+            function () use ($draftRuleGroup, $archivedRuleGroup): PersistenceRuleGroup {
+                if ($draftRuleGroup instanceof PersistenceRuleGroup) {
+                    $this->layoutResolverHandler->deleteRuleGroup($draftRuleGroup->id, $draftRuleGroup->status);
+                }
+
+                return $this->layoutResolverHandler->createRuleGroupStatus($archivedRuleGroup, Value::STATUS_DRAFT);
+            }
+        );
+
+        return $this->mapper->mapRuleGroup($draftRuleGroup);
     }
 
     public function deleteRuleGroup(RuleGroup $ruleGroup): void
