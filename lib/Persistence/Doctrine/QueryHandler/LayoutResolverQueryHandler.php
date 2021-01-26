@@ -1200,7 +1200,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 'rg',
                 'nglayouts_rule_group_data',
                 'rgd',
-                $query->expr()->eq('rgd.rule_id', 'rg.id')
+                $query->expr()->eq('rgd.rule_group_id', 'rg.id')
             );
 
         return $query;
