@@ -18,6 +18,7 @@ use Netgen\Layouts\Persistence\Values\Value;
 use Psr\Container\ContainerInterface;
 use function array_column;
 use function array_map;
+use function count;
 use function is_array;
 use function json_encode;
 
@@ -159,11 +160,30 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $this->applyIdCondition($query, $ruleGroupId, 'rg.id', 'rg.uuid');
         $this->applyStatusCondition($query, $status, 'rg.status');
 
-        return $query->execute()->fetchAllAssociative();
+        $ruleGroupsData = $query->execute()->fetchAllAssociative();
+
+        // Inject the parent UUID into the result
+        // This is to avoid inner joining the block table with itself
+
+        if (count($ruleGroupsData) > 0 && $ruleGroupsData[0]['parent_id'] > 0) {
+            $parentUuid = $this->getRuleGroupUuid((int) $ruleGroupsData[0]['parent_id']);
+            if ($parentUuid === null) {
+                // Having a parent ID, but not being able to find the UUID should not happen.
+                // If it does, return any empty array as if the rule group with provided ID and status
+                // does not exist.
+                return [];
+            }
+
+            foreach ($ruleGroupsData as &$ruleGroupData) {
+                $ruleGroupData['parent_uuid'] = $parentUuid;
+            }
+        }
+
+        return $ruleGroupsData;
     }
 
     /**
-     * Returns all data for all rule groups.
+     * Returns all data for all rule groups from the provided rule group.
      *
      * @return mixed[]
      */
@@ -176,7 +196,13 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $this->applyStatusCondition($query, $ruleGroup->status, 'rg.status');
         $this->applyOffsetAndLimit($query, $offset, $limit);
 
-        return $query->execute()->fetchAllAssociative();
+        $ruleGroupsData = $query->execute()->fetchAllAssociative();
+
+        foreach ($ruleGroupsData as &$ruleGroupData) {
+            $ruleGroupData['parent_uuid'] = $ruleGroup->uuid;
+        }
+
+        return $ruleGroupsData;
     }
 
     /**
@@ -1107,6 +1133,33 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $this->applyStatusCondition($query, $status);
 
         $query->execute();
+    }
+
+    /**
+     * Returns the rule group UUID for provided rule group ID.
+     *
+     * If rule group with provided ID does not exist, null is returned.
+     */
+    private function getRuleGroupUuid(int $ruleGroupId): ?string
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        $query->select('rg.uuid')
+            ->from('nglayouts_rule_group', 'rg')
+            ->where(
+                $query->expr()->eq('rg.id', ':id')
+            )
+            ->setParameter('id', $ruleGroupId, Types::INTEGER);
+
+        $this->applyOffsetAndLimit($query, 0, 1);
+
+        $data = $query->execute()->fetchAllAssociative();
+
+        if (count($data) === 0) {
+            return null;
+        }
+
+        return $data[0]['uuid'];
     }
 
     /**
