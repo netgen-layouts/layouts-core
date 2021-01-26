@@ -8,6 +8,9 @@ use Netgen\Layouts\API\Values\LayoutResolver\Condition;
 use Netgen\Layouts\API\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\ConditionUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupMetadataUpdateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
@@ -100,6 +103,54 @@ final class LayoutResolverValidator
     }
 
     /**
+     * Validates the provided rule group create struct.
+     *
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
+     */
+    public function validateRuleGroupCreateStruct(RuleGroupCreateStruct $ruleGroupCreateStruct): void
+    {
+        if ($ruleGroupCreateStruct->uuid !== null) {
+            $this->validate(
+                $ruleGroupCreateStruct->uuid,
+                [
+                    new Constraints\Type(['type' => UuidInterface::class]),
+                ],
+                'uuid'
+            );
+        }
+
+        if ($ruleGroupCreateStruct->priority !== null) {
+            $this->validate(
+                $ruleGroupCreateStruct->priority,
+                [
+                    new Constraints\Type(['type' => 'int']),
+                ],
+                'priority'
+            );
+        }
+
+        if (isset($ruleGroupCreateStruct->enabled)) {
+            $this->validate(
+                $ruleGroupCreateStruct->enabled,
+                [
+                    new Constraints\Type(['type' => 'bool']),
+                ],
+                'enabled'
+            );
+        }
+
+        if ($ruleGroupCreateStruct->comment !== null) {
+            $this->validate(
+                $ruleGroupCreateStruct->comment,
+                [
+                    new Constraints\Type(['type' => 'string']),
+                ],
+                'comment'
+            );
+        }
+    }
+
+    /**
      * Validates the provided rule update struct.
      *
      * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
@@ -128,11 +179,48 @@ final class LayoutResolverValidator
     }
 
     /**
+     * Validates the provided rule group update struct.
+     *
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
+     */
+    public function validateRuleGroupUpdateStruct(RuleGroupUpdateStruct $ruleGroupUpdateStruct): void
+    {
+        if ($ruleGroupUpdateStruct->comment !== null) {
+            $this->validate(
+                $ruleGroupUpdateStruct->comment,
+                [
+                    new Constraints\Type(['type' => 'string']),
+                ],
+                'comment'
+            );
+        }
+    }
+
+    /**
      * Validates the provided rule metadata update struct.
      *
      * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
      */
     public function validateRuleMetadataUpdateStruct(RuleMetadataUpdateStruct $ruleUpdateStruct): void
+    {
+        if ($ruleUpdateStruct->priority !== null) {
+            $this->validate(
+                $ruleUpdateStruct->priority,
+                [
+                    new Constraints\NotBlank(),
+                    new Constraints\Type(['type' => 'int']),
+                ],
+                'priority'
+            );
+        }
+    }
+
+    /**
+     * Validates the provided rule group metadata update struct.
+     *
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
+     */
+    public function validateRuleGroupMetadataUpdateStruct(RuleGroupMetadataUpdateStruct $ruleUpdateStruct): void
     {
         if ($ruleUpdateStruct->priority !== null) {
             $this->validate(

@@ -7,6 +7,9 @@ namespace Netgen\Layouts\Core\StructBuilder;
 use Netgen\Layouts\API\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\ConditionUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupMetadataUpdateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct;
@@ -36,6 +39,30 @@ final class LayoutResolverStructBuilder
     public function newRuleMetadataUpdateStruct(): RuleMetadataUpdateStruct
     {
         return new RuleMetadataUpdateStruct();
+    }
+
+    /**
+     * Creates a new rule group create struct.
+     */
+    public function newRuleGroupCreateStruct(): RuleGroupCreateStruct
+    {
+        return new RuleGroupCreateStruct();
+    }
+
+    /**
+     * Creates a new rule group update struct.
+     */
+    public function newRuleGroupUpdateStruct(): RuleGroupUpdateStruct
+    {
+        return new RuleGroupUpdateStruct();
+    }
+
+    /**
+     * Creates a new rule group metadata update struct.
+     */
+    public function newRuleGroupMetadataUpdateStruct(): RuleGroupMetadataUpdateStruct
+    {
+        return new RuleGroupMetadataUpdateStruct();
     }
 
     /**

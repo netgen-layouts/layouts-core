@@ -11,6 +11,14 @@ use Netgen\Layouts\API\Values\LayoutResolver\ConditionCreateStruct as APIConditi
 use Netgen\Layouts\API\Values\LayoutResolver\ConditionUpdateStruct as APIConditionUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleCreateStruct as APIRuleCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupCreateStruct as APIRuleGroupCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupList;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupMetadataUpdateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupMetadataUpdateStruct as APIRuleGroupMetadataUpdateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupUpdateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupUpdateStruct as APIRuleGroupUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleList;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleMetadataUpdateStruct as APIRuleMetadataUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleUpdateStruct as APIRuleUpdateStruct;
@@ -31,6 +39,7 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCreateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup as PersistenceRuleGroup;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
@@ -117,6 +126,36 @@ final class LayoutResolverService implements APILayoutResolverService
         );
     }
 
+    public function loadRuleGroup(UuidInterface $ruleGroupId): RuleGroup
+    {
+        return $this->mapper->mapRuleGroup(
+            $this->layoutResolverHandler->loadRuleGroup(
+                $ruleGroupId,
+                Value::STATUS_PUBLISHED
+            )
+        );
+    }
+
+    public function loadRuleGroupDraft(UuidInterface $ruleGroupId): RuleGroup
+    {
+        return $this->mapper->mapRuleGroup(
+            $this->layoutResolverHandler->loadRuleGroup(
+                $ruleGroupId,
+                Value::STATUS_DRAFT
+            )
+        );
+    }
+
+    public function loadRuleGroupArchive(UuidInterface $ruleGroupId): RuleGroup
+    {
+        return $this->mapper->mapRuleGroup(
+            $this->layoutResolverHandler->loadRuleGroup(
+                $ruleGroupId,
+                Value::STATUS_ARCHIVED
+            )
+        );
+    }
+
     public function loadRules(?Layout $layout = null, int $offset = 0, ?int $limit = null): RuleList
     {
         if ($layout instanceof Layout && !$layout->isPublished()) {
@@ -163,6 +202,88 @@ final class LayoutResolverService implements APILayoutResolverService
         }
 
         return $this->layoutResolverHandler->getRuleCount($persistenceLayout);
+    }
+
+    public function loadRulesFromGroup(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null): RuleList
+    {
+        if (!$ruleGroup->isPublished()) {
+            throw new BadStateException('ruleGroup', 'Rules can be loaded only from published rule groups.');
+        }
+
+        $persistenceGroup = $this->layoutResolverHandler->loadRuleGroup(
+            $ruleGroup->getId(),
+            Value::STATUS_PUBLISHED
+        );
+
+        $persistenceRules = $this->layoutResolverHandler->loadRulesFromGroup(
+            $persistenceGroup,
+            $offset,
+            $limit
+        );
+
+        return new RuleList(
+            array_map(
+                function (PersistenceRule $rule): Rule {
+                    return $this->mapper->mapRule($rule);
+                },
+                $persistenceRules
+            )
+        );
+    }
+
+    public function getRuleCountFromGroup(RuleGroup $ruleGroup): int
+    {
+        if (!$ruleGroup->isPublished()) {
+            throw new BadStateException('ruleGroup', 'Rule count can be fetched only for published rule groups.');
+        }
+
+        $persistenceGroup = $this->layoutResolverHandler->loadRuleGroup(
+            $ruleGroup->getId(),
+            Value::STATUS_PUBLISHED
+        );
+
+        return $this->layoutResolverHandler->getRuleCountFromGroup($persistenceGroup);
+    }
+
+    public function loadRuleGroups(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null): RuleGroupList
+    {
+        if (!$ruleGroup->isPublished()) {
+            throw new BadStateException('ruleGroup', 'Rule groups can be loaded only from published rule groups.');
+        }
+
+        $persistenceGroup = $this->layoutResolverHandler->loadRuleGroup(
+            $ruleGroup->getId(),
+            Value::STATUS_PUBLISHED
+        );
+
+        $persistenceRuleGroups = $this->layoutResolverHandler->loadRuleGroups(
+            $persistenceGroup,
+            $offset,
+            $limit
+        );
+
+        return new RuleGroupList(
+            array_map(
+                function (PersistenceRuleGroup $ruleGroup): RuleGroup {
+                    return $this->mapper->mapRuleGroup($ruleGroup);
+                },
+                $persistenceRuleGroups
+            )
+        );
+    }
+
+    public function getRuleGroupCount(RuleGroup $ruleGroup): int
+    {
+        if (!$ruleGroup->isPublished()) {
+            throw new BadStateException('ruleGroup', 'Rule group count can be fetched only for published rule groups.');
+        }
+
+        $persistenceGroup = $this->layoutResolverHandler->loadRuleGroup(
+            $ruleGroup->getId(),
+            Value::STATUS_PUBLISHED
+        );
+
+        return $this->layoutResolverHandler->getRuleGroupCount($persistenceGroup);
     }
 
     public function matchRules(string $targetType, $targetValue): RuleList
@@ -222,12 +343,16 @@ final class LayoutResolverService implements APILayoutResolverService
         return $this->layoutResolverHandler->ruleExists($ruleId, $status);
     }
 
-    public function createRule(APIRuleCreateStruct $ruleCreateStruct): Rule
+    public function createRule(APIRuleCreateStruct $ruleCreateStruct, RuleGroup $targetGroup): Rule
     {
+        if (!$targetGroup->isPublished()) {
+            throw new BadStateException('targetGroup', 'Rules can be created only in published groups.');
+        }
+
         $this->validator->validateRuleCreateStruct($ruleCreateStruct);
 
         $createdRule = $this->transaction(
-            function () use ($ruleCreateStruct): PersistenceRule {
+            function () use ($ruleCreateStruct, $targetGroup): PersistenceRule {
                 return $this->layoutResolverHandler->createRule(
                     RuleCreateStruct::fromArray(
                         [
@@ -242,7 +367,8 @@ final class LayoutResolverService implements APILayoutResolverService
                             'comment' => $ruleCreateStruct->comment,
                             'status' => Value::STATUS_DRAFT,
                         ]
-                    )
+                    ),
+                    $this->layoutResolverHandler->loadRuleGroup($targetGroup->getId(), Value::STATUS_PUBLISHED)
                 );
             }
         );
@@ -305,17 +431,56 @@ final class LayoutResolverService implements APILayoutResolverService
         return $this->mapper->mapRule($updatedRule);
     }
 
-    public function copyRule(Rule $rule): Rule
+    public function copyRule(Rule $rule, ?RuleGroup $targetGroup = null): Rule
     {
-        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), $rule->getStatus());
+        if (!$rule->isPublished()) {
+            throw new BadStateException('rule', 'Only published rules can be copied.');
+        }
+
+        if ($targetGroup !== null && !$targetGroup->isPublished()) {
+            throw new BadStateException('targetGroup', 'Rules can be copied only to published groups.');
+        }
+
+        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), Value::STATUS_PUBLISHED);
+
+        $persistenceGroup = null;
+        if ($targetGroup !== null) {
+            $persistenceGroup = $this->layoutResolverHandler->loadRuleGroup($targetGroup->getId(), Value::STATUS_PUBLISHED);
+        }
 
         $copiedRule = $this->transaction(
-            function () use ($persistenceRule): PersistenceRule {
-                return $this->layoutResolverHandler->copyRule($persistenceRule);
+            function () use ($persistenceRule, $persistenceGroup): PersistenceRule {
+                return $this->layoutResolverHandler->copyRule($persistenceRule, $persistenceGroup);
             }
         );
 
         return $this->mapper->mapRule($copiedRule);
+    }
+
+    public function moveRule(Rule $rule, RuleGroup $targetGroup, ?int $newPriority = null): Rule
+    {
+        if (!$rule->isPublished()) {
+            throw new BadStateException('rule', 'Only published rules can be moved.');
+        }
+
+        if (!$targetGroup->isPublished()) {
+            throw new BadStateException('targetGroup', 'Rules can be moved only to published groups.');
+        }
+
+        $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), Value::STATUS_PUBLISHED);
+        $persistenceTargetGroup = $this->layoutResolverHandler->loadRuleGroup($targetGroup->getId(), Value::STATUS_PUBLISHED);
+
+        $movedRule = $this->transaction(
+            function () use ($persistenceRule, $persistenceTargetGroup, $newPriority): PersistenceRule {
+                return $this->layoutResolverHandler->moveRule(
+                    $persistenceRule,
+                    $persistenceTargetGroup,
+                    $newPriority
+                );
+            }
+        );
+
+        return $this->mapper->mapRule($movedRule);
     }
 
     public function createDraft(Rule $rule, bool $discardExisting = false): Rule
@@ -435,6 +600,207 @@ final class LayoutResolverService implements APILayoutResolverService
         );
     }
 
+    public function ruleGroupExists(UuidInterface $ruleGroupId, ?int $status = null): bool
+    {
+        return $this->layoutResolverHandler->ruleGroupExists($ruleGroupId, $status);
+    }
+
+    public function createRuleGroup(APIRuleGroupCreateStruct $ruleGroupCreateStruct, ?RuleGroup $parentGroup = null): RuleGroup
+    {
+        if ($parentGroup !== null && !$parentGroup->isPublished()) {
+            throw new BadStateException('parentGroup', 'Rule groups can be created only in published groups.');
+        }
+
+        $this->validator->validateRuleGroupCreateStruct($ruleGroupCreateStruct);
+
+        $createdRuleGroup = $this->transaction(
+            function () use ($ruleGroupCreateStruct, $parentGroup): PersistenceRuleGroup {
+                return $this->layoutResolverHandler->createRuleGroup(
+                    RuleGroupCreateStruct::fromArray(
+                        [
+                            'uuid' => $ruleGroupCreateStruct->uuid instanceof UuidInterface ?
+                                $ruleGroupCreateStruct->uuid->toString() :
+                                $ruleGroupCreateStruct->uuid,
+                            'priority' => $ruleGroupCreateStruct->priority,
+                            'enabled' => $ruleGroupCreateStruct->enabled,
+                            'comment' => $ruleGroupCreateStruct->comment,
+                            'status' => Value::STATUS_DRAFT,
+                        ]
+                    ),
+                    $this->layoutResolverHandler->loadRuleGroup($parentGroup->getId(), Value::STATUS_PUBLISHED)
+                );
+            }
+        );
+
+        return $this->mapper->mapRuleGroup($createdRuleGroup);
+    }
+
+    public function updateRuleGroup(RuleGroup $ruleGroup, APIRuleGroupUpdateStruct $ruleGroupUpdateStruct): RuleGroup
+    {
+        if (!$ruleGroup->isDraft()) {
+            throw new BadStateException('ruleGroup', 'Only draft rule groups can be updated.');
+        }
+
+        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), Value::STATUS_DRAFT);
+
+        $this->validator->validateRuleGroupUpdateStruct($ruleGroupUpdateStruct);
+
+        $updatedRuleGroup = $this->transaction(
+            function () use ($persistenceRuleGroup, $ruleGroupUpdateStruct): PersistenceRuleGroup {
+                return $this->layoutResolverHandler->updateRuleGroup(
+                    $persistenceRuleGroup,
+                    RuleGroupUpdateStruct::fromArray(
+                        [
+                            'comment' => $ruleGroupUpdateStruct->comment,
+                        ]
+                    )
+                );
+            }
+        );
+
+        return $this->mapper->mapRuleGroup($updatedRuleGroup);
+    }
+
+    public function updateRuleGroupMetadata(RuleGroup $ruleGroup, APIRuleGroupMetadataUpdateStruct $ruleGroupUpdateStruct): RuleGroup
+    {
+        if (!$ruleGroup->isPublished()) {
+            throw new BadStateException('ruleGroup', 'Metadata can be updated only for published rule groups.');
+        }
+
+        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), Value::STATUS_PUBLISHED);
+
+        $this->validator->validateRuleGroupMetadataUpdateStruct($ruleGroupUpdateStruct);
+
+        $updatedRuleGroup = $this->transaction(
+            function () use ($persistenceRuleGroup, $ruleGroupUpdateStruct): PersistenceRuleGroup {
+                return $this->layoutResolverHandler->updateRuleGroupMetadata(
+                    $persistenceRuleGroup,
+                    RuleGroupMetadataUpdateStruct::fromArray(
+                        [
+                            'priority' => $ruleGroupUpdateStruct->priority,
+                        ]
+                    )
+                );
+            }
+        );
+
+        return $this->mapper->mapRuleGroup($updatedRuleGroup);
+    }
+
+    public function copyRuleGroup(RuleGroup $ruleGroup, RuleGroup $targetGroup, bool $copyChildren = false): RuleGroup
+    {
+        if (!$ruleGroup->isPublished()) {
+            throw new BadStateException('ruleGroup', 'Only published rule groups can be copied.');
+        }
+
+        if (!$targetGroup->isPublished()) {
+            throw new BadStateException('targetGroup', 'Rules can be copied only to published groups.');
+        }
+
+        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), Value::STATUS_PUBLISHED);
+
+        $persistenceTargetGroup = null;
+        if ($targetGroup !== null) {
+            $persistenceTargetGroup = $this->layoutResolverHandler->loadRuleGroup($targetGroup->getId(), Value::STATUS_PUBLISHED);
+        }
+
+        $copiedRuleGroup = $this->transaction(
+            function () use ($persistenceRuleGroup, $persistenceTargetGroup): PersistenceRuleGroup {
+                return $this->layoutResolverHandler->copyRuleGroup($persistenceRuleGroup, $persistenceTargetGroup);
+            }
+        );
+
+        return $this->mapper->mapRuleGroup($copiedRuleGroup);
+    }
+
+    public function moveRuleGroup(RuleGroup $ruleGroup, RuleGroup $targetGroup, ?int $newPriority = null): RuleGroup
+    {
+        if (!$ruleGroup->isPublished()) {
+            throw new BadStateException('ruleGroup', 'Only published rule groups can be moved.');
+        }
+
+        if (!$targetGroup->isPublished()) {
+            throw new BadStateException('targetGroup', 'Rules can be moved only to published groups.');
+        }
+
+        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), Value::STATUS_PUBLISHED);
+        $persistenceTargetGroup = $this->layoutResolverHandler->loadRuleGroup($targetGroup->getId(), Value::STATUS_PUBLISHED);
+
+        $movedRuleGroup = $this->transaction(
+            function () use ($persistenceRuleGroup, $persistenceTargetGroup, $newPriority): PersistenceRuleGroup {
+                return $this->layoutResolverHandler->moveRuleGroup(
+                    $persistenceRuleGroup,
+                    $persistenceTargetGroup,
+                    $newPriority
+                );
+            }
+        );
+
+        return $this->mapper->mapRuleGroup($movedRuleGroup);
+    }
+
+    public function createRuleGroupDraft(RuleGroup $ruleGroup, bool $discardExisting = false): RuleGroup
+    {
+        if (!$ruleGroup->isPublished()) {
+            throw new BadStateException('ruleGroup', 'Drafts can only be created from published rule groups.');
+        }
+
+        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), Value::STATUS_PUBLISHED);
+
+        if (!$discardExisting && $this->layoutResolverHandler->ruleGroupExists($persistenceRuleGroup->id, Value::STATUS_DRAFT)) {
+            throw new BadStateException('ruleGroup', 'The provided rule group already has a draft.');
+        }
+
+        $ruleGroupDraft = $this->transaction(
+            function () use ($persistenceRuleGroup): PersistenceRuleGroup {
+                $this->layoutResolverHandler->deleteRuleGroup($persistenceRuleGroup->id, Value::STATUS_DRAFT);
+
+                return $this->layoutResolverHandler->createRuleGroupStatus($persistenceRuleGroup, Value::STATUS_DRAFT);
+            }
+        );
+
+        return $this->mapper->mapRuleGroup($ruleGroupDraft);
+    }
+
+    public function discardRuleGroupDraft(RuleGroup $ruleGroup): void
+    {
+        if (!$ruleGroup->isDraft()) {
+            throw new BadStateException('ruleGroup', 'Only draft rule groups can be discarded.');
+        }
+
+        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), Value::STATUS_DRAFT);
+
+        $this->transaction(
+            function () use ($persistenceRuleGroup): void {
+                $this->layoutResolverHandler->deleteRuleGroup(
+                    $persistenceRuleGroup->id,
+                    Value::STATUS_DRAFT
+                );
+            }
+        );
+    }
+
+    public function publishRuleGroup(RuleGroup $ruleGroup): RuleGroup
+    {
+    }
+
+    public function restoreRuleGroupFromArchive(RuleGroup $ruleGroup): RuleGroup
+    {
+    }
+
+    public function deleteRuleGroup(RuleGroup $ruleGroup): void
+    {
+        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), $ruleGroup->getStatus());
+
+        $this->transaction(
+            function () use ($persistenceRuleGroup): void {
+                $this->layoutResolverHandler->deleteRuleGroup(
+                    $persistenceRuleGroup->id
+                );
+            }
+        );
+    }
+
     public function enableRule(Rule $rule): Rule
     {
         if (!$rule->isPublished()) {
@@ -489,6 +855,62 @@ final class LayoutResolverService implements APILayoutResolverService
         );
 
         return $this->mapper->mapRule($updatedRule);
+    }
+
+    public function enableRuleGroup(RuleGroup $ruleGroup): RuleGroup
+    {
+        if (!$ruleGroup->isPublished()) {
+            throw new BadStateException('ruleGroup', 'Only published rule groups can be enabled.');
+        }
+
+        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), Value::STATUS_PUBLISHED);
+
+        if ($persistenceRuleGroup->enabled) {
+            throw new BadStateException('ruleGroup', 'Rule group is already enabled.');
+        }
+
+        $updatedRuleGroup = $this->transaction(
+            function () use ($persistenceRuleGroup): PersistenceRuleGroup {
+                return $this->layoutResolverHandler->updateRuleGroupMetadata(
+                    $persistenceRuleGroup,
+                    RuleGroupMetadataUpdateStruct::fromArray(
+                        [
+                            'enabled' => true,
+                        ]
+                    )
+                );
+            }
+        );
+
+        return $this->mapper->mapRuleGroup($updatedRuleGroup);
+    }
+
+    public function disableRuleGroup(RuleGroup $ruleGroup): RuleGroup
+    {
+        if (!$ruleGroup->isPublished()) {
+            throw new BadStateException('ruleGroup', 'Only published rule groups can be disabled.');
+        }
+
+        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), Value::STATUS_PUBLISHED);
+
+        if (!$persistenceRuleGroup->enabled) {
+            throw new BadStateException('ruleGroup', 'Rule group is already disabled.');
+        }
+
+        $updatedRuleGroup = $this->transaction(
+            function () use ($persistenceRuleGroup): PersistenceRuleGroup {
+                return $this->layoutResolverHandler->updateRuleGroupMetadata(
+                    $persistenceRuleGroup,
+                    RuleGroupMetadataUpdateStruct::fromArray(
+                        [
+                            'enabled' => false,
+                        ]
+                    )
+                );
+            }
+        );
+
+        return $this->mapper->mapRuleGroup($updatedRuleGroup);
     }
 
     public function addTarget(Rule $rule, APITargetCreateStruct $targetCreateStruct): Target
@@ -598,6 +1020,33 @@ final class LayoutResolverService implements APILayoutResolverService
         return $this->mapper->mapCondition($createdCondition);
     }
 
+    public function addConditionToRuleGroup(RuleGroup $ruleGroup, APIConditionCreateStruct $conditionCreateStruct): Condition
+    {
+        if (!$ruleGroup->isDraft()) {
+            throw new BadStateException('ruleGroup', 'Conditions can be added only to draft rule groups.');
+        }
+
+        $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), Value::STATUS_DRAFT);
+
+        $this->validator->validateConditionCreateStruct($conditionCreateStruct);
+
+        $createdCondition = $this->transaction(
+            function () use ($persistenceRuleGroup, $conditionCreateStruct): PersistenceCondition {
+                return $this->layoutResolverHandler->addConditionToGroup(
+                    $persistenceRuleGroup,
+                    ConditionCreateStruct::fromArray(
+                        [
+                            'type' => $conditionCreateStruct->type,
+                            'value' => $conditionCreateStruct->value,
+                        ]
+                    )
+                );
+            }
+        );
+
+        return $this->mapper->mapCondition($createdCondition);
+    }
+
     public function updateCondition(Condition $condition, APIConditionUpdateStruct $conditionUpdateStruct): Condition
     {
         if (!$condition->isDraft()) {
@@ -652,6 +1101,21 @@ final class LayoutResolverService implements APILayoutResolverService
     public function newRuleMetadataUpdateStruct(): APIRuleMetadataUpdateStruct
     {
         return $this->structBuilder->newRuleMetadataUpdateStruct();
+    }
+
+    public function newRuleGroupCreateStruct(): APIRuleGroupCreateStruct
+    {
+        return $this->structBuilder->newRuleGroupCreateStruct();
+    }
+
+    public function newRuleGroupUpdateStruct(): APIRuleGroupUpdateStruct
+    {
+        return $this->structBuilder->newRuleGroupUpdateStruct();
+    }
+
+    public function newRuleGroupMetadataUpdateStruct(): APIRuleGroupMetadataUpdateStruct
+    {
+        return $this->structBuilder->newRuleGroupMetadataUpdateStruct();
     }
 
     public function newTargetCreateStruct(string $type): APITargetCreateStruct

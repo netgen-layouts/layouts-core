@@ -207,7 +207,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
                     $ruleCreateStruct->uuid :
                     Uuid::uuid4()->toString(),
                 'status' => $ruleCreateStruct->status,
-                'ruleGroupUuid' => $targetGroup->uuid,
+                'ruleGroupId' => $targetGroup->id,
                 'layoutUuid' => $layout instanceof Layout ? $layout->uuid : null,
                 'enabled' => $ruleCreateStruct->enabled ? true : false,
                 'priority' => $this->getRulePriority($ruleCreateStruct, $targetGroup),
@@ -267,7 +267,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         $copiedRule->uuid = Uuid::uuid4()->toString();
 
         if ($targetGroup !== null) {
-            $rule->ruleGroupUuid = $targetGroup->uuid;
+            $rule->ruleGroupId = $targetGroup->id;
         }
 
         $copiedRule = $this->queryHandler->createRule($copiedRule);
@@ -309,7 +309,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
     public function moveRule(Rule $rule, RuleGroup $targetGroup, ?int $newPriority = null): Rule
     {
-        if ($rule->ruleGroupUuid === $targetGroup->uuid) {
+        if ($rule->ruleGroupId === $targetGroup->id) {
             throw new BadStateException('targetGroup', 'Rule is already in specified target group.');
         }
 
@@ -354,8 +354,8 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
     public function deleteRule(int $ruleId, ?int $status = null): void
     {
-        $this->queryHandler->deleteRuleTargets($ruleId, $status);
-        $this->queryHandler->deleteRuleConditions($ruleId, $status);
+        $this->queryHandler->deleteRuleTargets([$ruleId], $status);
+        $this->queryHandler->deleteRuleConditions([$ruleId], $status);
         $this->queryHandler->deleteRule($ruleId, $status);
     }
 
@@ -523,6 +523,20 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
     public function deleteRuleGroup(int $ruleGroupId, ?int $status = null): void
     {
+        $this->queryHandler->deleteRuleGroupConditions([$ruleGroupId], $status);
+        $this->queryHandler->deleteRuleGroup($ruleGroupId, $status);
+
+        if ($status === null || !$this->ruleGroupExists($ruleGroupId)) {
+            $subGroupIds = $this->queryHandler->loadSubGroupIds($ruleGroupId);
+            $subRuleIds = $this->queryHandler->loadSubRuleIds($subGroupIds);
+
+            $this->queryHandler->deleteRuleGroupConditions($subGroupIds);
+            $this->queryHandler->deleteRuleGroups($subGroupIds);
+
+            $this->queryHandler->deleteRuleConditions($subRuleIds);
+            $this->queryHandler->deleteRuleTargets($subRuleIds);
+            $this->queryHandler->deleteRules($subRuleIds);
+        }
     }
 
     public function addTarget(Rule $rule, TargetCreateStruct $targetCreateStruct): Target

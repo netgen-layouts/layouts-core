@@ -8,6 +8,7 @@ use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\LayoutResolver\Condition;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\API\Values\LazyCollection;
 use Netgen\Layouts\Exception\Layout\ConditionTypeException;
@@ -20,7 +21,9 @@ use Netgen\Layouts\Layout\Resolver\TargetType\NullTargetType;
 use Netgen\Layouts\Persistence\Handler\LayoutResolverHandlerInterface;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition as PersistenceCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup as PersistenceRuleGroup;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
+use Netgen\Layouts\Persistence\Values\Value;
 use Ramsey\Uuid\Uuid;
 use function array_map;
 
@@ -66,6 +69,12 @@ final class LayoutResolverMapper
         $ruleData = [
             'id' => Uuid::fromString($rule->uuid),
             'status' => $rule->status,
+            'ruleGroupId' => Uuid::fromString(
+                $this->layoutResolverHandler->loadRuleGroup(
+                    $rule->ruleGroupId,
+                    Value::STATUS_PUBLISHED
+                )->uuid
+            ),
             'layout' => function () use ($rule): ?Layout {
                 try {
                     // Layouts used by rule are always in published status
@@ -102,6 +111,42 @@ final class LayoutResolverMapper
         ];
 
         return Rule::fromArray($ruleData);
+    }
+
+    /**
+     * Builds the API rule group value from persistence one.
+     */
+    public function mapRuleGroup(PersistenceRuleGroup $ruleGroup): RuleGroup
+    {
+        $ruleGroupData = [
+            'id' => Uuid::fromString($ruleGroup->uuid),
+            'status' => $ruleGroup->status,
+            'enabled' => $ruleGroup->enabled,
+            'priority' => $ruleGroup->priority,
+            'comment' => $ruleGroup->comment,
+            'rules' => new LazyCollection(
+                function () use ($ruleGroup): array {
+                    return array_map(
+                        function (PersistenceRule $rule): Rule {
+                            return $this->mapRule($rule);
+                        },
+                        $this->layoutResolverHandler->loadRulesFromGroup($ruleGroup)
+                    );
+                }
+            ),
+            'conditions' => new LazyCollection(
+                function () use ($ruleGroup): array {
+                    return array_map(
+                        function (PersistenceCondition $condition): Condition {
+                            return $this->mapCondition($condition);
+                        },
+                        $this->layoutResolverHandler->loadRuleGroupConditions($ruleGroup)
+                    );
+                }
+            ),
+        ];
+
+        return RuleGroup::fromArray($ruleGroupData);
     }
 
     /**
