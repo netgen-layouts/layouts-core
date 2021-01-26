@@ -8,6 +8,7 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use Netgen\Layouts\Tests\TestCase\UuidGeneratorTrait;
@@ -285,8 +286,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     {
         $ruleCreateStruct = $this->layoutResolverService->newRuleCreateStruct();
 
-        $createdRule = $this->layoutResolverService->createRule($ruleCreateStruct);
+        $createdRule = $this->layoutResolverService->createRule(
+            $ruleCreateStruct,
+            $this->layoutResolverService->loadRuleGroup(Uuid::fromString(RuleGroup::ROOT_UUID))
+        );
 
+        self::assertSame(RuleGroup::ROOT_UUID, $createdRule->getRuleGroupId()->toString());
         self::assertTrue($createdRule->isDraft());
     }
 
@@ -298,10 +303,14 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $ruleCreateStruct = $this->layoutResolverService->newRuleCreateStruct();
         $ruleCreateStruct->uuid = Uuid::fromString('0f714915-eef0-4dc1-b22b-1107cb1ab92b');
 
-        $createdRule = $this->layoutResolverService->createRule($ruleCreateStruct);
+        $createdRule = $this->layoutResolverService->createRule(
+            $ruleCreateStruct,
+            $this->layoutResolverService->loadRuleGroup(Uuid::fromString(RuleGroup::ROOT_UUID))
+        );
 
         self::assertTrue($createdRule->isDraft());
         self::assertSame($ruleCreateStruct->uuid->toString(), $createdRule->getId()->toString());
+        self::assertSame(RuleGroup::ROOT_UUID, $createdRule->getRuleGroupId()->toString());
     }
 
     /**
@@ -315,7 +324,10 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $ruleCreateStruct = $this->layoutResolverService->newRuleCreateStruct();
         $ruleCreateStruct->uuid = Uuid::fromString('26768324-03dd-5952-8a55-4b449d6cd634');
 
-        $createdRule = $this->layoutResolverService->createRule($ruleCreateStruct);
+        $createdRule = $this->layoutResolverService->createRule(
+            $ruleCreateStruct,
+            $this->layoutResolverService->loadRuleGroup(Uuid::fromString(RuleGroup::ROOT_UUID))
+        );
 
         self::assertTrue($createdRule->isDraft());
     }

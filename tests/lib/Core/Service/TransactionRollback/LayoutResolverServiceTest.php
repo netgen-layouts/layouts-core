@@ -10,6 +10,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\ConditionUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
@@ -20,6 +21,7 @@ use Netgen\Layouts\Layout\Resolver\ConditionType\RouteParameter;
 use Netgen\Layouts\Layout\Resolver\TargetType\Route;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition as PersistenceCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup as PersistenceRuleGroup;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
 use Ramsey\Uuid\Uuid;
 
@@ -34,6 +36,10 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutResolverHandler
+            ->method('loadRuleGroup')
+            ->willReturn(new PersistenceRuleGroup());
+
+        $this->layoutResolverHandler
             ->method('createRule')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -41,7 +47,15 @@ final class LayoutResolverServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->createRule(new RuleCreateStruct());
+        $this->layoutResolverService->createRule(
+            new RuleCreateStruct(),
+            RuleGroup::fromArray(
+                [
+                    'id' => Uuid::uuid4(),
+                    'status' => Value::STATUS_PUBLISHED,
+                ]
+            )
+        );
     }
 
     /**
@@ -116,7 +130,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->copyRule(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Rule::STATUS_DRAFT]));
+        $this->layoutResolverService->copyRule(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Rule::STATUS_PUBLISHED]));
     }
 
     /**

@@ -41,6 +41,7 @@ final class RuleTest extends TestCase
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getId
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getLayout
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getPriority
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getRuleGroupId
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getTargets
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::isEnabled
      */
@@ -54,10 +55,12 @@ final class RuleTest extends TestCase
         $layout = new Layout();
 
         $uuid = Uuid::uuid4();
+        $ruleGroupUuid = Uuid::uuid4();
 
         $rule = Rule::fromArray(
             [
                 'id' => $uuid,
+                'ruleGroupId' => $ruleGroupUuid,
                 'layout' => $layout,
                 'priority' => 13,
                 'enabled' => true,
@@ -68,6 +71,7 @@ final class RuleTest extends TestCase
         );
 
         self::assertSame($uuid->toString(), $rule->getId()->toString());
+        self::assertSame($ruleGroupUuid->toString(), $rule->getRuleGroupId()->toString());
         self::assertSame($layout, $rule->getLayout());
         self::assertSame(13, $rule->getPriority());
         self::assertTrue($rule->isEnabled());

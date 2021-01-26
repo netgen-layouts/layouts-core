@@ -10,6 +10,7 @@ use Netgen\Layouts\Layout\Resolver\ConditionType\NullConditionType;
 use Netgen\Layouts\Layout\Resolver\TargetType\NullTargetType;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Ramsey\Uuid\Uuid;
@@ -39,6 +40,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
                 'id' => 3,
                 'uuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
                 'status' => Value::STATUS_PUBLISHED,
+                'ruleGroupId' => 1,
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'enabled' => true,
                 'priority' => 12,
@@ -49,6 +51,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
         $rule = $this->mapper->mapRule($persistenceRule);
 
         self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $rule->getId()->toString());
+        self::assertSame(RuleGroup::ROOT_UUID, $rule->getRuleGroupId()->toString());
         self::assertInstanceOf(Layout::class, $rule->getLayout());
         self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $rule->getLayout()->getId()->toString());
         self::assertTrue($rule->isPublished());
@@ -68,6 +71,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
         $persistenceRule = Rule::fromArray(
             [
                 'uuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
+                'ruleGroupId' => 1,
                 'layoutUuid' => Uuid::uuid4()->toString(),
             ]
         );
