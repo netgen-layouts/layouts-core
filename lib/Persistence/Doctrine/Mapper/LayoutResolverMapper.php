@@ -29,7 +29,7 @@ final class LayoutResolverMapper
                     'id' => (int) $dataItem['id'],
                     'uuid' => $dataItem['uuid'],
                     'status' => (int) $dataItem['status'],
-                    'ruleGroupId' => $dataItem['rule_group_id'],
+                    'ruleGroupId' => (int) $dataItem['rule_group_id'],
                     'layoutUuid' => $dataItem['layout_uuid'] ?? null,
                     'enabled' => (bool) $dataItem['enabled'],
                     'priority' => (int) $dataItem['priority'],
