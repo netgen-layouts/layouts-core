@@ -20,6 +20,9 @@ default:
                             browser: chrome
                             version: ""
                             chrome:
+                                prefs:
+                                    # Dummy Chrome preference, to fix "cannot parse pref, must be a dictionary" error
+                                    foo: bar
                                 switches:
                                     - "no-sandbox"
                                     - "disable-extensions"
