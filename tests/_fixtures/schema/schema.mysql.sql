@@ -244,6 +244,30 @@ CREATE TABLE IF NOT EXISTS `nglayouts_rule_condition` (
     REFERENCES nglayouts_rule (`id`, `status`)
 ) ENGINE=InnoDB;
 
+CREATE TABLE IF NOT EXISTS `nglayouts_rule_condition_rule` (
+  `condition_id` int(11) NOT NULL,
+  `condition_status` int(11) NOT NULL,
+  `rule_id` int(11) NOT NULL,
+  `rule_status` int(11) NOT NULL,
+  PRIMARY KEY (`condition_id`, `condition_status`),
+  FOREIGN KEY (`condition_id`, `condition_status`)
+    REFERENCES nglayouts_rule_condition (`id`, `status`),
+  FOREIGN KEY (`rule_id`, `rule_status`)
+    REFERENCES nglayouts_rule (`id`, `status`)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS `nglayouts_rule_condition_rule_group` (
+  `condition_id` int(11) NOT NULL,
+  `condition_status` int(11) NOT NULL,
+  `rule_group_id` int(11) NOT NULL,
+  `rule_group_status` int(11) NOT NULL,
+  PRIMARY KEY (`condition_id`, `condition_status`),
+  FOREIGN KEY (`condition_id`, `condition_status`)
+    REFERENCES nglayouts_rule_condition (`id`, `status`),
+  FOREIGN KEY (`rule_group_id`, `rule_group_status`)
+    REFERENCES nglayouts_rule_group (`id`, `status`)
+) ENGINE=InnoDB;
+
 DELETE FROM `nglayouts_block_collection`;
 
 DELETE FROM `nglayouts_collection_slot`;
@@ -283,6 +307,10 @@ ALTER TABLE `nglayouts_role` AUTO_INCREMENT = 1;
 DELETE FROM `nglayouts_rule_target`;
 ALTER TABLE `nglayouts_rule_target` AUTO_INCREMENT = 1;
 
+DELETE FROM `nglayouts_rule_condition_rule`;
+
+DELETE FROM `nglayouts_rule_condition_rule_group`;
+
 DELETE FROM `nglayouts_rule_condition`;
 ALTER TABLE `nglayouts_rule_condition` AUTO_INCREMENT = 1;
 
@@ -290,3 +318,8 @@ DELETE FROM `nglayouts_rule_data`;
 
 DELETE FROM `nglayouts_rule`;
 ALTER TABLE `nglayouts_rule` AUTO_INCREMENT = 1;
+
+DELETE FROM `nglayouts_rule_group_data`;
+
+DELETE FROM `nglayouts_rule_group`;
+ALTER TABLE `nglayouts_rule_group` AUTO_INCREMENT = 1;

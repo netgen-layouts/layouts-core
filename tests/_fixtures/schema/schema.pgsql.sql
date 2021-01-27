@@ -217,6 +217,26 @@ CREATE TABLE IF NOT EXISTS "nglayouts_rule_group_data" (
   PRIMARY KEY ("rule_group_id")
 );
 
+CREATE TABLE IF NOT EXISTS "nglayouts_rule_condition_rule" (
+  "condition_id" integer NOT NULL,
+  "condition_status" integer NOT NULL,
+  "rule_id" integer NOT NULL,
+  "rule_status" integer NOT NULL,
+  PRIMARY KEY ("condition_id", "condition_status"),
+  FOREIGN KEY ("condition_id", "condition_status") REFERENCES nglayouts_rule_condition ("id", "status"),
+  FOREIGN KEY ("rule_id", "rule_status") REFERENCES nglayouts_rule ("id", "status")
+);
+
+CREATE TABLE IF NOT EXISTS "nglayouts_rule_condition_rule_group" (
+  "condition_id" integer NOT NULL,
+  "condition_status" integer NOT NULL,
+  "rule_group_id" integer NOT NULL,
+  "rule_group_status" integer NOT NULL,
+  PRIMARY KEY ("condition_id", "condition_status"),
+  FOREIGN KEY ("condition_id", "condition_status") REFERENCES nglayouts_rule_condition ("id", "status"),
+  FOREIGN KEY ("rule_group_id", "rule_group_status") REFERENCES nglayouts_rule_group ("id", "status")
+);
+
 DELETE FROM "nglayouts_block_collection";
 DELETE FROM "nglayouts_collection_item";
 DELETE FROM "nglayouts_collection_query_translation";
@@ -232,6 +252,8 @@ DELETE FROM "nglayouts_layout";
 DELETE FROM "nglayouts_role_policy";
 DELETE FROM "nglayouts_role";
 DELETE FROM "nglayouts_rule_target";
+DELETE FROM "nglayouts_rule_condition_rule";
+DELETE FROM "nglayouts_rule_condition_rule_group";
 DELETE FROM "nglayouts_rule_condition";
 DELETE FROM "nglayouts_rule_data";
 DELETE FROM "nglayouts_rule";

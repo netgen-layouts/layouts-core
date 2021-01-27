@@ -408,13 +408,43 @@ UNLOCK TABLES;
 
 LOCK TABLES `nglayouts_rule_condition` WRITE;
 /*!40000 ALTER TABLE `nglayouts_rule_condition` DISABLE KEYS */;
-INSERT INTO `nglayouts_rule_condition` VALUES (1,1,'35f4594c-6674-5815-add6-07f288b79686',2,'route_parameter','{\"parameter_name\": \"some_param\", \"parameter_values\": [1,2]}');
-INSERT INTO `nglayouts_rule_condition` VALUES (1,2,'35f4594c-6674-5815-add6-07f288b79686',2,'route_parameter','{\"parameter_name\": \"some_param\", \"parameter_values\": [1,2]}');
-INSERT INTO `nglayouts_rule_condition` VALUES (2,1,'9a6c8459-5fda-5d4b-b06e-06f637ab6e01',3,'route_parameter','{\"parameter_name\": \"some_param\", \"parameter_values\": [3,4]}');
-INSERT INTO `nglayouts_rule_condition` VALUES (3,1,'dd49afcd-aab0-5970-b7b8-413238faf539',3,'route_parameter','{\"parameter_name\": \"some_other_param\", \"parameter_values\": [5,6]}');
-INSERT INTO `nglayouts_rule_condition` VALUES (4,0,'7db46c94-3139-5a3d-9b2a-b2d28e7573ca',5,'condition1','[\"some_value\"]');
-INSERT INTO `nglayouts_rule_condition` VALUES (4,1,'7db46c94-3139-5a3d-9b2a-b2d28e7573ca',5,'condition1','[\"some_value\"]');
+INSERT INTO `nglayouts_rule_condition` VALUES (1,1,'35f4594c-6674-5815-add6-07f288b79686','route_parameter','{\"parameter_name\": \"some_param\", \"parameter_values\": [1,2]}');
+INSERT INTO `nglayouts_rule_condition` VALUES (1,2,'35f4594c-6674-5815-add6-07f288b79686','route_parameter','{\"parameter_name\": \"some_param\", \"parameter_values\": [1,2]}');
+INSERT INTO `nglayouts_rule_condition` VALUES (2,1,'9a6c8459-5fda-5d4b-b06e-06f637ab6e01','route_parameter','{\"parameter_name\": \"some_param\", \"parameter_values\": [3,4]}');
+INSERT INTO `nglayouts_rule_condition` VALUES (3,1,'dd49afcd-aab0-5970-b7b8-413238faf539','route_parameter','{\"parameter_name\": \"some_other_param\", \"parameter_values\": [5,6]}');
+INSERT INTO `nglayouts_rule_condition` VALUES (4,0,'7db46c94-3139-5a3d-9b2a-b2d28e7573ca','condition1','[\"some_value\"]');
+INSERT INTO `nglayouts_rule_condition` VALUES (4,1,'7db46c94-3139-5a3d-9b2a-b2d28e7573ca','condition1','[\"some_value\"]');
+INSERT INTO `nglayouts_rule_condition` VALUES (5,0,'b084d390-01ea-464b-8282-797b6ef9ef1e','condition1','[\"some_other_value\"]');
+INSERT INTO `nglayouts_rule_condition` VALUES (5,1,'b084d390-01ea-464b-8282-797b6ef9ef1e','condition1','[\"some_other_value\"]');
+INSERT INTO `nglayouts_rule_condition` VALUES (6,1,'46390b11-e077-4979-95cb-782575a9562b','condition1','[\"some_third_value\"]');
 /*!40000 ALTER TABLE `nglayouts_rule_condition` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `nglayouts_rule_condition_rule`
+--
+
+LOCK TABLES `nglayouts_rule_condition_rule` WRITE;
+/*!40000 ALTER TABLE `nglayouts_rule_condition_rule` DISABLE KEYS */;
+INSERT INTO `nglayouts_rule_condition_rule` VALUES (1,1,2,1);
+INSERT INTO `nglayouts_rule_condition_rule` VALUES (1,2,2,2);
+INSERT INTO `nglayouts_rule_condition_rule` VALUES (2,1,3,1);
+INSERT INTO `nglayouts_rule_condition_rule` VALUES (3,1,3,1);
+INSERT INTO `nglayouts_rule_condition_rule` VALUES (4,0,5,0);
+INSERT INTO `nglayouts_rule_condition_rule` VALUES (4,1,5,1);
+/*!40000 ALTER TABLE `nglayouts_rule_condition_rule` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `nglayouts_rule_condition_rule_group`
+--
+
+LOCK TABLES `nglayouts_rule_condition_rule_group` WRITE;
+/*!40000 ALTER TABLE `nglayouts_rule_condition_rule_group` DISABLE KEYS */;
+INSERT INTO `nglayouts_rule_condition_rule_group` VALUES (5,0,2,0);
+INSERT INTO `nglayouts_rule_condition_rule_group` VALUES (5,1,2,1);
+INSERT INTO `nglayouts_rule_condition_rule_group` VALUES (6,1,2,1);
+/*!40000 ALTER TABLE `nglayouts_rule_condition_rule_group` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

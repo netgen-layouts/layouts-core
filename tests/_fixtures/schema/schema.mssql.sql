@@ -13,6 +13,8 @@ IF OBJECT_ID('dbo.nglayouts_layout', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_l
 IF OBJECT_ID('dbo.nglayouts_role_policy', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_role_policy;
 IF OBJECT_ID('dbo.nglayouts_role', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_role;
 IF OBJECT_ID('dbo.nglayouts_rule_target', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_rule_target;
+IF OBJECT_ID('dbo.nglayouts_rule_condition_rule', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_rule_condition_rule;
+IF OBJECT_ID('dbo.nglayouts_rule_condition_rule_group', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_rule_condition_rule_group;
 IF OBJECT_ID('dbo.nglayouts_rule_condition', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_rule_condition;
 IF OBJECT_ID('dbo.nglayouts_rule_data', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_rule_data;
 IF OBJECT_ID('dbo.nglayouts_rule', 'U') IS NOT NULL DROP TABLE dbo.nglayouts_rule;
@@ -263,4 +265,28 @@ CREATE TABLE nglayouts_rule_group_data (
   enabled tinyint NOT NULL,
   priority int NOT NULL,
   PRIMARY KEY (rule_group_id)
+);
+
+CREATE TABLE nglayouts_rule_condition_rule (
+  condition_id int NOT NULL,
+  condition_status int NOT NULL,
+  rule_id int NOT NULL,
+  rule_status int NOT NULL,
+  PRIMARY KEY (condition_id, condition_status),
+  FOREIGN KEY (condition_id, condition_status)
+    REFERENCES nglayouts_rule_condition (id, status),
+  FOREIGN KEY (rule_id, rule_status)
+    REFERENCES nglayouts_rule (id, status)
+);
+
+CREATE TABLE nglayouts_rule_condition_rule_group (
+  condition_id int NOT NULL,
+  condition_status int NOT NULL,
+  rule_group_id int NOT NULL,
+  rule_group_status int NOT NULL,
+  PRIMARY KEY (condition_id, condition_status),
+  FOREIGN KEY (condition_id, condition_status)
+    REFERENCES nglayouts_rule_condition (id, status),
+  FOREIGN KEY (rule_group_id, rule_group_status)
+    REFERENCES nglayouts_rule_group (id, status)
 );

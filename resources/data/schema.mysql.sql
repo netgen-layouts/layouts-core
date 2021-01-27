@@ -368,7 +368,6 @@ CREATE TABLE `nglayouts_rule_condition` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `uuid` char(36) NOT NULL,
-  `rule_id` int(11) NOT NULL,
   `type` varchar(191) NOT NULL,
   `value` longtext,
   PRIMARY KEY (`id`,`status`),
@@ -376,6 +375,48 @@ CREATE TABLE `nglayouts_rule_condition` (
   KEY `idx_ngl_rule` (`rule_id`,`status`),
   CONSTRAINT `fk_ngl_condition_rule` FOREIGN KEY (`rule_id`, `status`)
     REFERENCES `nglayouts_rule` (`id`, `status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `nglayouts_rule_condition_rule`
+--
+
+DROP TABLE IF EXISTS `nglayouts_rule_condition_rule`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `nglayouts_rule_condition_rule` (
+  `condition_id` int(11) NOT NULL,
+  `condition_status` int(11) NOT NULL,
+  `rule_id` int(11) NOT NULL,
+  `rule_status` int(11) NOT NULL,
+  PRIMARY KEY (`condition_id`,`condition_status`),
+  KEY `idx_ngl_rule` (`rule_id`,`rule_status`),
+  CONSTRAINT `fk_ngl_rule_condition_rule_rule_condition` FOREIGN KEY (`condition_id`, `condition_status`)
+    REFERENCES `nglayouts_rule_condition` (`id`, `status`),
+  CONSTRAINT `fk_ngl_rule_condition_rule_rule` FOREIGN KEY (`rule_id`, `rule_status`)
+    REFERENCES `nglayouts_rule` (`id`, `status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `nglayouts_rule_condition_rule_group`
+--
+
+DROP TABLE IF EXISTS `nglayouts_rule_condition_rule_group`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `nglayouts_rule_condition_rule_group` (
+  `condition_id` int(11) NOT NULL,
+  `condition_status` int(11) NOT NULL,
+  `rule_group_id` int(11) NOT NULL,
+  `rule_group_status` int(11) NOT NULL,
+  PRIMARY KEY (`condition_id`,`condition_status`),
+  KEY `idx_ngl_rule_group` (`rule_group_id`,`rule_group_status`),
+  CONSTRAINT `fk_ngl_rule_condition_rule_group_rule_condition` FOREIGN KEY (`condition_id`, `condition_status`)
+    REFERENCES `nglayouts_rule_condition` (`id`, `status`),
+  CONSTRAINT `fk_ngl_rule_condition_rule_group_rule_group` FOREIGN KEY (`rule_group_id`, `rule_group_status`)
+    REFERENCES `nglayouts_rule_group` (`id`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

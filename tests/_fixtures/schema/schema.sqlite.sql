@@ -17,6 +17,8 @@ DROP TABLE IF EXISTS `nglayouts_layout`;
 DROP TABLE IF EXISTS `nglayouts_role_policy`;
 DROP TABLE IF EXISTS `nglayouts_role`;
 DROP TABLE IF EXISTS `nglayouts_rule_target`;
+DROP TABLE IF EXISTS `nglayouts_rule_condition_rule`;
+DROP TABLE IF EXISTS `nglayouts_rule_condition_rule_group`;
 DROP TABLE IF EXISTS `nglayouts_rule_condition`;
 DROP TABLE IF EXISTS `nglayouts_rule_data`;
 DROP TABLE IF EXISTS `nglayouts_rule`;
@@ -230,7 +232,6 @@ CREATE TABLE `nglayouts_rule_condition` (
   `id` integer NOT NULL,
   `status` integer NOT NULL,
   `uuid` text(36) NOT NULL,
-  `rule_id` integer NOT NULL,
   `type` text(255) NOT NULL,
   `value` text,
   PRIMARY KEY (`id`, `status`),
@@ -267,4 +268,28 @@ CREATE TABLE `nglayouts_rule_group_data` (
   `enabled` integer NOT NULL,
   `priority` integer NOT NULL,
   PRIMARY KEY (`rule_group_id`)
+);
+
+CREATE TABLE `nglayouts_rule_condition_rule` (
+  `condition_id` integer NOT NULL,
+  `condition_status` integer NOT NULL,
+  `rule_id` integer NOT NULL,
+  `rule_status` integer NOT NULL,
+  PRIMARY KEY (`condition_id`, `condition_status`),
+  FOREIGN KEY (`condition_id`, `condition_status`)
+    REFERENCES `nglayouts_rule_condition` (`id`, `status`),
+  FOREIGN KEY (`rule_id`, `rule_status`)
+    REFERENCES `nglayouts_rule` (`id`, `status`)
+);
+
+CREATE TABLE `nglayouts_rule_condition_rule_group` (
+  `condition_id` integer NOT NULL,
+  `condition_status` integer NOT NULL,
+  `rule_group_id` integer NOT NULL,
+  `rule_group_status` integer NOT NULL,
+  PRIMARY KEY (`condition_id`, `condition_status`),
+  FOREIGN KEY (`condition_id`, `condition_status`)
+    REFERENCES `nglayouts_rule_condition` (`id`, `status`),
+  FOREIGN KEY (`rule_group_id`, `rule_group_status`)
+    REFERENCES `nglayouts_rule_group` (`id`, `status`)
 );
