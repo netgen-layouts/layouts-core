@@ -235,13 +235,10 @@ CREATE TABLE IF NOT EXISTS `nglayouts_rule_condition` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` int(11) NOT NULL,
   `uuid` char(36) NOT NULL,
-  `rule_id` int(11) NOT NULL,
   `type` varchar(191) NOT NULL,
   `value` longtext,
   PRIMARY KEY (`id`, `status`),
-  UNIQUE KEY (`uuid`, `status`),
-  FOREIGN KEY (`rule_id`, `status`)
-    REFERENCES nglayouts_rule (`id`, `status`)
+  UNIQUE KEY (`uuid`, `status`)
 ) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `nglayouts_rule_condition_rule` (

@@ -371,10 +371,7 @@ CREATE TABLE `nglayouts_rule_condition` (
   `type` varchar(191) NOT NULL,
   `value` longtext,
   PRIMARY KEY (`id`,`status`),
-  UNIQUE KEY `idx_ngl_rule_condition_uuid` (`uuid`, `status`),
-  KEY `idx_ngl_rule` (`rule_id`,`status`),
-  CONSTRAINT `fk_ngl_condition_rule` FOREIGN KEY (`rule_id`, `status`)
-    REFERENCES `nglayouts_rule` (`id`, `status`)
+  UNIQUE KEY `idx_ngl_rule_condition_uuid` (`uuid`, `status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

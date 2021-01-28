@@ -192,11 +192,9 @@ CREATE TABLE IF NOT EXISTS "nglayouts_rule_condition" (
   "id" integer NOT NULL,
   "status" integer NOT NULL,
   "uuid" character(36) NOT NULL,
-  "rule_id" integer NOT NULL,
   "type" character varying(255) NOT NULL,
   "value" text,
-  PRIMARY KEY ("id", "status"),
-  FOREIGN KEY ("rule_id", "status") REFERENCES nglayouts_rule ("id", "status")
+  PRIMARY KEY ("id", "status")
 );
 
 CREATE TABLE IF NOT EXISTS "nglayouts_rule_group" (

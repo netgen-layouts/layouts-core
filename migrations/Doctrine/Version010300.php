@@ -107,6 +107,7 @@ final class Version010300 extends AbstractMigration
         );
 
         $this->addSql('ALTER TABLE nglayouts_rule_condition DROP FOREIGN KEY fk_ngl_condition_rule');
+        $this->addSql('ALTER TABLE nglayouts_rule_condition DROP KEY idx_ngl_rule');
         $this->addSql('ALTER TABLE nglayouts_rule_condition DROP COLUMN rule_id');
     }
 
@@ -127,6 +128,7 @@ final class Version010300 extends AbstractMigration
         );
 
         $this->addSql('ALTER TABLE nglayouts_rule_condition ADD CONSTRAINT fk_ngl_condition_rule FOREIGN KEY (rule_id, status) REFERENCES nglayouts_rule (id, status)');
+        $this->addSql('ALTER TABLE nglayouts_rule_condition ADD KEY idx_ngl_rule (rule_id, status)');
 
         $this->addSql('DROP TABLE nglayouts_rule_condition_rule_group');
         $this->addSql('DROP TABLE nglayouts_rule_condition_rule');

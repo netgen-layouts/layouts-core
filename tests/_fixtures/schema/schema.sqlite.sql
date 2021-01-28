@@ -235,9 +235,7 @@ CREATE TABLE `nglayouts_rule_condition` (
   `type` text(255) NOT NULL,
   `value` text,
   PRIMARY KEY (`id`, `status`),
-  UNIQUE (`uuid`, `status`),
-  FOREIGN KEY (`rule_id`, `status`)
-    REFERENCES `nglayouts_rule` (`id`, `status`)
+  UNIQUE (`uuid`, `status`)
 );
 
 CREATE TABLE `nglayouts_rule` (
