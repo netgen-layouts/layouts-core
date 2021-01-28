@@ -329,6 +329,7 @@ return [
     ],
     'nglayouts_rule_group' => [
         ['id' => 1, 'status' => 1, 'uuid' => '00000000-0000-0000-0000-000000000000', 'depth' => 0, 'path' => '/1/', 'parent_id' => null, 'comment' => 'My comment'],
+        ['id' => 2, 'status' => 0, 'uuid' => 'b4f85f38-de3f-4af7-9a5f-21df63a49da9', 'depth' => 1, 'path' => '/1/2/', 'parent_id' => 1, 'comment' => ''],
         ['id' => 2, 'status' => 1, 'uuid' => 'b4f85f38-de3f-4af7-9a5f-21df63a49da9', 'depth' => 1, 'path' => '/1/2/', 'parent_id' => 1, 'comment' => ''],
         ['id' => 3, 'status' => 1, 'uuid' => 'eb6311eb-24f6-4143-b476-99979a885a7e', 'depth' => 1, 'path' => '/1/3/', 'parent_id' => 1, 'comment' => ''],
         ['id' => 4, 'status' => 1, 'uuid' => '91139748-3bf0-4c25-b45c-d3be6596c399', 'depth' => 2, 'path' => '/1/2/4/', 'parent_id' => 2, 'comment' => ''],
