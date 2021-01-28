@@ -1075,7 +1075,7 @@ final class LayoutResolverService implements APILayoutResolverService
         return $this->mapper->mapCondition($createdCondition);
     }
 
-    public function addConditionToRuleGroup(RuleGroup $ruleGroup, APIConditionCreateStruct $conditionCreateStruct): Condition
+    public function addRuleGroupCondition(RuleGroup $ruleGroup, APIConditionCreateStruct $conditionCreateStruct): Condition
     {
         if (!$ruleGroup->isDraft()) {
             throw new BadStateException('ruleGroup', 'Conditions can be added only to draft rule groups.');
@@ -1087,7 +1087,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
         $createdCondition = $this->transaction(
             function () use ($persistenceRuleGroup, $conditionCreateStruct): PersistenceCondition {
-                return $this->layoutResolverHandler->addConditionToGroup(
+                return $this->layoutResolverHandler->addRuleGroupCondition(
                     $persistenceRuleGroup,
                     ConditionCreateStruct::fromArray(
                         [

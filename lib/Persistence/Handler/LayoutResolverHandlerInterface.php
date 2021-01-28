@@ -250,9 +250,9 @@ interface LayoutResolverHandlerInterface
     public function addCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct): Condition;
 
     /**
-     * Adds a condition to rule.
+     * Adds a condition to rule group.
      */
-    public function addConditionToGroup(RuleGroup $ruleGroup, ConditionCreateStruct $conditionCreateStruct): Condition;
+    public function addRuleGroupCondition(RuleGroup $ruleGroup, ConditionCreateStruct $conditionCreateStruct): Condition;
 
     /**
      * Updates a condition with specified ID.

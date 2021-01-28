@@ -614,7 +614,7 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(
             [
                 [
-                    'id' => 5,
+                    'id' => 7,
                     'uuid' => 'aaa3659b-b574-5e6b-8902-0ea37f576469',
                     'ruleId' => $copiedRule->id,
                     'ruleUuid' => $copiedRule->uuid,
@@ -850,7 +850,7 @@ final class LayoutResolverHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 5,
+                'id' => 7,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'ruleId' => 3,
                 'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',

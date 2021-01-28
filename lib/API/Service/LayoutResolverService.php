@@ -344,7 +344,7 @@ interface LayoutResolverService extends TransactionService
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If rule group is not a draft
      */
-    public function addConditionToRuleGroup(RuleGroup $ruleGroup, ConditionCreateStruct $conditionCreateStruct): Condition;
+    public function addRuleGroupCondition(RuleGroup $ruleGroup, ConditionCreateStruct $conditionCreateStruct): Condition;
 
     /**
      * Updates a condition.

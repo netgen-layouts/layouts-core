@@ -159,8 +159,9 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
     public function loadCondition($conditionId, int $status): Condition
     {
+        /** @todo Recognize if this is rule or rule group condition */
         $conditionId = $conditionId instanceof UuidInterface ? $conditionId->toString() : $conditionId;
-        $data = $this->queryHandler->loadConditionData($conditionId, $status);
+        $data = $this->queryHandler->loadRuleConditionData($conditionId, $status);
 
         if (count($data) === 0) {
             throw new NotFoundException('condition', $conditionId);
@@ -301,7 +302,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
             $copiedCondition->ruleId = $copiedRule->id;
             $copiedCondition->ruleUuid = $copiedRule->uuid;
 
-            $this->queryHandler->addCondition($copiedCondition);
+            $this->queryHandler->addRuleCondition($copiedCondition);
         }
 
         return $copiedRule;
@@ -346,7 +347,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
             $copiedCondition = clone $ruleCondition;
             $copiedCondition->status = $newStatus;
 
-            $this->queryHandler->addCondition($copiedCondition);
+            $this->queryHandler->addRuleCondition($copiedCondition);
         }
 
         return $copiedRule;
@@ -465,7 +466,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
             $copiedCondition->ruleGroupId = $copiedRuleGroup->id;
             $copiedCondition->ruleGroupUuid = $copiedRuleGroup->uuid;
 
-            $this->queryHandler->addCondition($copiedCondition);
+            $this->queryHandler->addRuleGroupCondition($copiedCondition);
         }
 
         if (!$copyChildren) {
@@ -515,7 +516,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
             $copiedCondition = clone $ruleGroupCondition;
             $copiedCondition->status = $newStatus;
 
-            $this->queryHandler->addConditionToGroup($copiedCondition);
+            $this->queryHandler->addRuleGroupCondition($copiedCondition);
         }
 
         return $copiedRuleGroup;
@@ -583,23 +584,23 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
             ]
         );
 
-        return $this->queryHandler->addCondition($newCondition);
+        return $this->queryHandler->addRuleCondition($newCondition);
     }
 
-    public function addConditionToGroup(RuleGroup $ruleGroup, ConditionCreateStruct $conditionCreateStruct): Condition
+    public function addRuleGroupCondition(RuleGroup $ruleGroup, ConditionCreateStruct $conditionCreateStruct): Condition
     {
         $newCondition = Condition::fromArray(
             [
                 'uuid' => Uuid::uuid4()->toString(),
-                'status' => $rule->status,
-                'ruleId' => $rule->id,
-                'ruleUuid' => $rule->uuid,
+                'status' => $ruleGroup->status,
+                'ruleGroupId' => $ruleGroup->id,
+                'ruleGroupUuid' => $ruleGroup->uuid,
                 'type' => $conditionCreateStruct->type,
                 'value' => $conditionCreateStruct->value,
             ]
         );
 
-        return $this->queryHandler->addCondition($newCondition);
+        return $this->queryHandler->addRuleGroupCondition($newCondition);
     }
 
     public function updateCondition(Condition $condition, ConditionUpdateStruct $conditionUpdateStruct): Condition
