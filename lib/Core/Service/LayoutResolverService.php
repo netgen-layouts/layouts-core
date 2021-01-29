@@ -660,7 +660,9 @@ final class LayoutResolverService implements APILayoutResolverService
                             'status' => Value::STATUS_DRAFT,
                         ]
                     ),
-                    $this->layoutResolverHandler->loadRuleGroup($parentGroup->getId(), Value::STATUS_PUBLISHED)
+                    $parentGroup !== null ?
+                        $this->layoutResolverHandler->loadRuleGroup($parentGroup->getId(), Value::STATUS_PUBLISHED) :
+                        null
                 );
             }
         );
@@ -731,11 +733,7 @@ final class LayoutResolverService implements APILayoutResolverService
         }
 
         $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), Value::STATUS_PUBLISHED);
-
-        $persistenceTargetGroup = null;
-        if ($targetGroup !== null) {
-            $persistenceTargetGroup = $this->layoutResolverHandler->loadRuleGroup($targetGroup->getId(), Value::STATUS_PUBLISHED);
-        }
+        $persistenceTargetGroup = $this->layoutResolverHandler->loadRuleGroup($targetGroup->getId(), Value::STATUS_PUBLISHED);
 
         $copiedRuleGroup = $this->transaction(
             function () use ($persistenceRuleGroup, $persistenceTargetGroup): PersistenceRuleGroup {

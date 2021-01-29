@@ -795,6 +795,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Deletes all rule targets for provided rule IDs.
+     *
+     * @param int[] $ruleIds
      */
     public function deleteRuleTargets(array $ruleIds, ?int $status = null): void
     {
@@ -815,6 +817,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Delete all rule conditions for provided rule IDs.
+     *
+     * @param int[] $ruleIds
      */
     public function deleteRuleConditions(array $ruleIds, ?int $status = null): void
     {
@@ -930,6 +934,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Loads all sub rule IDs for the provided group IDs.
      *
+     * @param int[] $ruleGroupIds
+     *
      * @return int[]
      */
     public function loadSubRuleIds(array $ruleGroupIds): array
@@ -949,6 +955,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
     /**
      * Delete all rule group conditions for provided rule group IDs.
+     *
+     * @param int[] $ruleGroupIds
      */
     public function deleteRuleGroupConditions(array $ruleGroupIds, ?int $status = null): void
     {

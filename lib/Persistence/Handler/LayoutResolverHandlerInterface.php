@@ -76,6 +76,8 @@ interface LayoutResolverHandlerInterface
 
     /**
      * Loads all rule groups from the provided parent group.
+     *
+     * @return \Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup[]
      */
     public function loadRuleGroups(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null): array;
 
@@ -141,14 +143,14 @@ interface LayoutResolverHandlerInterface
     /**
      * Loads all conditions that belong to rule with specified ID.
      *
-     * @return \Netgen\Layouts\Persistence\Values\LayoutResolver\Condition[]
+     * @return \Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCondition[]
      */
     public function loadRuleConditions(Rule $rule): array;
 
     /**
      * Loads all conditions that belong to rule group with specified ID.
      *
-     * @return \Netgen\Layouts\Persistence\Values\LayoutResolver\Condition[]
+     * @return \Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCondition[]
      */
     public function loadRuleGroupConditions(RuleGroup $ruleGroup): array;
 
