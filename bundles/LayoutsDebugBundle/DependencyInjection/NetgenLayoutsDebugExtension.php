@@ -31,6 +31,9 @@ final class NetgenLayoutsDebugExtension extends Extension
 
     private function debugEnabled(ContainerBuilder $container): bool
     {
-        return array_key_exists('WebProfilerBundle', $container->getParameter('kernel.bundles'));
+        /** @var array<string, string> $bundles */
+        $bundles = $container->getParameter('kernel.bundles');
+
+        return array_key_exists('WebProfilerBundle', $bundles);
     }
 }

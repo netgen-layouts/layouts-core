@@ -31,6 +31,7 @@ final class QueryTypePass implements CompilerPassInterface
         $queryTypeHandlers = $container->findTaggedServiceIds(self::TAG_NAME);
         $queryTypeServices = [];
 
+        /** @var array<string, mixed[]> $queryTypes */
         $queryTypes = $container->getParameter('netgen_layouts.query_types');
         foreach ($queryTypes as $type => $queryType) {
             $handlerIdentifier = $queryType['handler'] ?? $type;

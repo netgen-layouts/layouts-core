@@ -15,6 +15,7 @@ use function array_unique;
 use function array_unshift;
 use function array_values;
 use function is_dir;
+use function sprintf;
 
 final class ThemePass implements CompilerPassInterface
 {
@@ -26,6 +27,7 @@ final class ThemePass implements CompilerPassInterface
 
         $twigLoader = $container->getDefinition('twig.loader.native_filesystem');
 
+        /** @var array<string, string[]> $designList */
         $designList = $container->getParameter('netgen_layouts.design_list');
         $themeList = array_unique(array_merge(...array_values($designList)));
         $themeList[] = 'standard';
@@ -56,6 +58,9 @@ final class ThemePass implements CompilerPassInterface
      */
     private function getThemeDirs(ContainerBuilder $container, array $themeList): array
     {
+        /** @var array<string, mixed[]> $bundlesMetadata */
+        $bundlesMetadata = $container->getParameter('kernel.bundles_metadata');
+
         $paths = array_map(
             static function (array $bundleMetadata): array {
                 return [
@@ -65,7 +70,7 @@ final class ThemePass implements CompilerPassInterface
             },
             // Reversing the list of bundles so bundles added at end have higher priority
             // when searching for a template
-            array_reverse($container->getParameter('kernel.bundles_metadata'))
+            array_reverse($bundlesMetadata)
         );
 
         $paths = array_merge(...array_values($paths));
@@ -98,6 +103,12 @@ final class ThemePass implements CompilerPassInterface
      */
     private function getAppDir(ContainerBuilder $container): string
     {
-        return (string) $container->getParameter('kernel.project_dir') . '/' . (string) $container->getParameter('kernel.name');
+        /** @var string $projectDir */
+        $projectDir = $container->getParameter('kernel.project_dir');
+
+        /** @var string $kernelName */
+        $kernelName = $container->getParameter('kernel.name');
+
+        return sprintf('%s/%s', $projectDir, $kernelName);
     }
 }

@@ -213,6 +213,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
 
         $this->compile();
 
+        /** @var array<string, mixed[]> $blockTypes */
         $blockTypes = $this->container->getParameter('netgen_layouts.block_types');
         self::assertArrayHasKey('test', $blockTypes);
 

@@ -139,6 +139,7 @@ final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
 
         $this->compile();
 
+        /** @var array<string, mixed[]> $blockTypeGroups */
         $blockTypeGroups = $this->container->getParameter('netgen_layouts.block_type_groups');
         self::assertArrayHasKey('custom', $blockTypeGroups);
 
@@ -174,6 +175,7 @@ final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
 
         $this->compile();
 
+        /** @var array<string, mixed[]> $blockTypeGroups */
         $blockTypeGroups = $this->container->getParameter('netgen_layouts.block_type_groups');
         self::assertArrayHasKey('test', $blockTypeGroups);
 

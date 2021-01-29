@@ -24,6 +24,7 @@ final class ValueTypePass implements CompilerPassInterface
             return;
         }
 
+        /** @var array<string, mixed[]> $valueTypes */
         $valueTypes = $container->getParameter('netgen_layouts.value_types');
         $valueTypeServices = iterator_to_array($this->buildValueTypes($container, $valueTypes));
 

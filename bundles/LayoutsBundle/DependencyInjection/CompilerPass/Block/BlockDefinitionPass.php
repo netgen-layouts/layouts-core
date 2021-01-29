@@ -38,6 +38,7 @@ final class BlockDefinitionPass implements CompilerPassInterface
         $blockDefinitionHandlers = $container->findTaggedServiceIds(self::TAG_NAME);
         $blockDefinitionServices = [];
 
+        /** @var array<string, mixed[]> $blockDefinitions */
         $blockDefinitions = $container->getParameter('netgen_layouts.block_definitions');
         foreach ($blockDefinitions as $identifier => $blockDefinition) {
             $handlerIdentifier = $blockDefinition['handler'] ?? $identifier;

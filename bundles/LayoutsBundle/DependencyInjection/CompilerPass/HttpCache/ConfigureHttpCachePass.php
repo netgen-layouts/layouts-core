@@ -17,9 +17,10 @@ final class ConfigureHttpCachePass implements CompilerPassInterface
             return;
         }
 
+        /** @var array<string, mixed[]> $httpCacheConfig */
         $httpCacheConfig = $container->getParameter('netgen_layouts.http_cache');
 
-        if (!$httpCacheConfig['invalidation']['enabled']) {
+        if ($httpCacheConfig['invalidation']['enabled'] !== true) {
             $container->setAlias(self::SERVICE_NAME, 'netgen_layouts.http_cache.client.null');
         }
     }

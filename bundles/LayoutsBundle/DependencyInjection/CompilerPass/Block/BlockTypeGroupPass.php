@@ -26,7 +26,10 @@ final class BlockTypeGroupPass implements CompilerPassInterface
             return;
         }
 
+        /** @var array<string, mixed[]> $blockTypes */
         $blockTypes = $container->getParameter('netgen_layouts.block_types');
+
+        /** @var array<string, mixed[]> $blockTypeGroups */
         $blockTypeGroups = $container->getParameter('netgen_layouts.block_type_groups');
 
         $blockTypeGroups = $this->generateBlockTypeGroupConfig($blockTypeGroups, $blockTypes);

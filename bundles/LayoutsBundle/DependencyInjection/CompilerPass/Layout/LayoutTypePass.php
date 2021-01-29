@@ -24,7 +24,10 @@ final class LayoutTypePass implements CompilerPassInterface
             return;
         }
 
+        /** @var array<string, mixed[]> $layoutTypes */
         $layoutTypes = $container->getParameter('netgen_layouts.layout_types');
+
+        /** @var array<string, mixed[]> $blockDefinitions */
         $blockDefinitions = $container->getParameter('netgen_layouts.block_definitions');
 
         $this->validateLayoutTypes($layoutTypes, $blockDefinitions);

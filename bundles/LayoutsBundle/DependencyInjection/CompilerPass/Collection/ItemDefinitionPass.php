@@ -25,6 +25,7 @@ final class ItemDefinitionPass implements CompilerPassInterface
             return;
         }
 
+        /** @var array<string, mixed[]> $valueTypes */
         $valueTypes = $container->getParameter('netgen_layouts.value_types');
         $itemDefinitionRegistry = $container->findDefinition(self::SERVICE_NAME);
         $itemDefinitions = [];

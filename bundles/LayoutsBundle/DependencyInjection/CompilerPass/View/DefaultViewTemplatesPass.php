@@ -16,6 +16,7 @@ final class DefaultViewTemplatesPass implements CompilerPassInterface
             return;
         }
 
+        /** @var mixed[] $allRules */
         $allRules = $container->getParameter('netgen_layouts.view');
         $allRules = $this->updateRules($container, $allRules);
 
@@ -33,6 +34,7 @@ final class DefaultViewTemplatesPass implements CompilerPassInterface
     {
         $allRules = is_array($allRules) ? $allRules : [];
 
+        /** @var array<string, mixed[]> $defaultTemplates */
         $defaultTemplates = $container->getParameter('netgen_layouts.default_view_templates');
 
         foreach ($defaultTemplates as $viewName => $viewTemplates) {
