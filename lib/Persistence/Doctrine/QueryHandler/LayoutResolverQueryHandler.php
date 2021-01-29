@@ -148,6 +148,40 @@ final class LayoutResolverQueryHandler extends QueryHandler
     }
 
     /**
+     * Returns all rule data for rules that match specified target type and value.
+     *
+     * @param mixed $targetValue
+     *
+     * @return mixed[]
+     */
+    public function matchRules(string $targetType, $targetValue): array
+    {
+        $query = $this->getRuleSelectQuery();
+        $query
+            ->innerJoin(
+                'r',
+                'nglayouts_rule_target',
+                'rt',
+                $query->expr()->eq('r.id', 'rt.rule_id')
+            )
+            ->where(
+                $query->expr()->eq('rd.enabled', ':enabled'),
+                $query->expr()->eq('rt.type', ':target_type')
+            )
+            ->setParameter('target_type', $targetType, Types::STRING)
+            ->setParameter('enabled', true, Types::BOOLEAN)
+            ->addOrderBy('rd.priority', 'DESC');
+
+        $this->applyStatusCondition($query, Value::STATUS_PUBLISHED, 'r.status');
+        $this->applyStatusCondition($query, Value::STATUS_PUBLISHED, 'rt.status');
+
+        $targetHandler = $this->getTargetHandler($targetType);
+        $targetHandler->handleQuery($query, $targetValue);
+
+        return $query->execute()->fetchAllAssociative();
+    }
+
+    /**
      * Returns all data for specified rule group.
      *
      * @param int|string $ruleGroupId
@@ -220,40 +254,6 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $data = $query->execute()->fetchAllAssociative();
 
         return (int) ($data[0]['count'] ?? 0);
-    }
-
-    /**
-     * Returns all rule data for rules that match specified target type and value.
-     *
-     * @param mixed $targetValue
-     *
-     * @return mixed[]
-     */
-    public function matchRules(string $targetType, $targetValue): array
-    {
-        $query = $this->getRuleSelectQuery();
-        $query
-            ->innerJoin(
-                'r',
-                'nglayouts_rule_target',
-                'rt',
-                $query->expr()->eq('r.id', 'rt.rule_id')
-            )
-            ->where(
-                $query->expr()->eq('rd.enabled', ':enabled'),
-                $query->expr()->eq('rt.type', ':target_type')
-            )
-            ->setParameter('target_type', $targetType, Types::STRING)
-            ->setParameter('enabled', true, Types::BOOLEAN)
-            ->addOrderBy('rd.priority', 'DESC');
-
-        $this->applyStatusCondition($query, Value::STATUS_PUBLISHED, 'r.status');
-        $this->applyStatusCondition($query, Value::STATUS_PUBLISHED, 'rt.status');
-
-        $targetHandler = $this->getTargetHandler($targetType);
-        $targetHandler->handleQuery($query, $targetValue);
-
-        return $query->execute()->fetchAllAssociative();
     }
 
     /**
@@ -330,23 +330,6 @@ final class LayoutResolverQueryHandler extends QueryHandler
     }
 
     /**
-     * Returns all data for specified rule group condition.
-     *
-     * @param int|string $conditionId
-     *
-     * @return mixed[]
-     */
-    public function loadRuleGroupConditionData($conditionId, int $status): array
-    {
-        $query = $this->getRuleGroupConditionSelectQuery();
-
-        $this->applyIdCondition($query, $conditionId, 'c.id', 'c.uuid');
-        $this->applyStatusCondition($query, $status, 'c.status');
-
-        return $query->execute()->fetchAllAssociative();
-    }
-
-    /**
      * Returns all data for for all rule conditions.
      *
      * @return mixed[]
@@ -361,6 +344,23 @@ final class LayoutResolverQueryHandler extends QueryHandler
         ->orderBy('c.id', 'ASC');
 
         $this->applyStatusCondition($query, $rule->status, 'c.status');
+
+        return $query->execute()->fetchAllAssociative();
+    }
+
+    /**
+     * Returns all data for specified rule group condition.
+     *
+     * @param int|string $conditionId
+     *
+     * @return mixed[]
+     */
+    public function loadRuleGroupConditionData($conditionId, int $status): array
+    {
+        $query = $this->getRuleGroupConditionSelectQuery();
+
+        $this->applyIdCondition($query, $conditionId, 'c.id', 'c.uuid');
+        $this->applyStatusCondition($query, $status, 'c.status');
 
         return $query->execute()->fetchAllAssociative();
     }
@@ -882,6 +882,30 @@ final class LayoutResolverQueryHandler extends QueryHandler
     }
 
     /**
+     * Deletes all rules with provided IDs.
+     *
+     * @param int[] $ruleIds
+     */
+    public function deleteRules(array $ruleIds): void
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        $query->delete('nglayouts_rule')
+            ->where(
+                $query->expr()->in('id', [':id'])
+            )
+            ->setParameter('id', $ruleIds, Connection::PARAM_INT_ARRAY);
+
+        $query->delete('nglayouts_rule_data')
+            ->where(
+                $query->expr()->in('rule_id', [':rule_id'])
+            )
+            ->setParameter('rule_id', $ruleIds, Connection::PARAM_INT_ARRAY);
+
+        $query->execute();
+    }
+
+    /**
      * Loads all sub group IDs for the provided group ID.
      *
      * @return int[]
@@ -919,58 +943,6 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $result = $query->execute()->fetchAllAssociative();
 
         return array_map('intval', array_column($result, 'id'));
-    }
-
-    /**
-     * Deletes all rule groups with provided IDs.
-     *
-     * @param int[] $ruleGroupIds
-     */
-    public function deleteRuleGroups(array $ruleGroupIds): void
-    {
-        $query = $this->connection->createQueryBuilder();
-
-        $query->delete('nglayouts_rule_group')
-            ->where(
-                $query->expr()->in('id', [':id'])
-            )
-            ->setParameter('id', $ruleGroupIds, Connection::PARAM_INT_ARRAY);
-
-        $query->execute();
-
-        $query = $this->connection->createQueryBuilder();
-
-        $query->delete('nglayouts_rule_group_data')
-            ->where(
-                $query->expr()->in('rule_group_id', [':rule_group_id'])
-            )
-            ->setParameter('rule_group_id', $ruleGroupIds, Connection::PARAM_INT_ARRAY);
-
-        $query->execute();
-    }
-
-    /**
-     * Deletes all rules with provided IDs.
-     *
-     * @param int[] $ruleIds
-     */
-    public function deleteRules(array $ruleIds): void
-    {
-        $query = $this->connection->createQueryBuilder();
-
-        $query->delete('nglayouts_rule')
-            ->where(
-                $query->expr()->in('id', [':id'])
-            )
-            ->setParameter('id', $ruleIds, Connection::PARAM_INT_ARRAY);
-
-        $query->delete('nglayouts_rule_data')
-            ->where(
-                $query->expr()->in('rule_id', [':rule_id'])
-            )
-            ->setParameter('rule_id', $ruleIds, Connection::PARAM_INT_ARRAY);
-
-        $query->execute();
     }
 
     /**
@@ -1041,6 +1013,34 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
             $query->execute();
         }
+    }
+
+    /**
+     * Deletes all rule groups with provided IDs.
+     *
+     * @param int[] $ruleGroupIds
+     */
+    public function deleteRuleGroups(array $ruleGroupIds): void
+    {
+        $query = $this->connection->createQueryBuilder();
+
+        $query->delete('nglayouts_rule_group')
+            ->where(
+                $query->expr()->in('id', [':id'])
+            )
+            ->setParameter('id', $ruleGroupIds, Connection::PARAM_INT_ARRAY);
+
+        $query->execute();
+
+        $query = $this->connection->createQueryBuilder();
+
+        $query->delete('nglayouts_rule_group_data')
+            ->where(
+                $query->expr()->in('rule_group_id', [':rule_group_id'])
+            )
+            ->setParameter('rule_group_id', $ruleGroupIds, Connection::PARAM_INT_ARRAY);
+
+        $query->execute();
     }
 
     /**
@@ -1125,28 +1125,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      */
     public function addRuleCondition(Condition $condition): Condition
     {
-        $query = $this->connection->createQueryBuilder()
-            ->insert('nglayouts_rule_condition')
-            ->values(
-                [
-                    'id' => ':id',
-                    'uuid' => ':uuid',
-                    'status' => ':status',
-                    'type' => ':type',
-                    'value' => ':value',
-                ]
-            )
-            ->setValue('id', $condition->id ?? $this->connectionHelper->nextId('nglayouts_rule_condition'))
-            ->setParameter('uuid', $condition->uuid, Types::STRING)
-            ->setParameter('status', $condition->status, Types::INTEGER)
-            ->setParameter('type', $condition->type, Types::STRING)
-            ->setParameter('value', json_encode($condition->value), Types::STRING);
-
-        $query->execute();
-
-        if (!isset($condition->id)) {
-            $condition->id = (int) $this->connectionHelper->lastId('nglayouts_rule_condition');
-        }
+        $condition = $this->addCondition($condition);
 
         $query = $this->connection->createQueryBuilder()
             ->insert('nglayouts_rule_condition_rule')
@@ -1169,32 +1148,11 @@ final class LayoutResolverQueryHandler extends QueryHandler
     }
 
     /**
-     * Adds a rule condition.
+     * Adds a rule group condition.
      */
     public function addRuleGroupCondition(Condition $condition): Condition
     {
-        $query = $this->connection->createQueryBuilder()
-            ->insert('nglayouts_rule_condition')
-            ->values(
-                [
-                    'id' => ':id',
-                    'uuid' => ':uuid',
-                    'status' => ':status',
-                    'type' => ':type',
-                    'value' => ':value',
-                ]
-            )
-            ->setValue('id', $condition->id ?? $this->connectionHelper->nextId('nglayouts_rule_condition'))
-            ->setParameter('uuid', $condition->uuid, Types::STRING)
-            ->setParameter('status', $condition->status, Types::INTEGER)
-            ->setParameter('type', $condition->type, Types::STRING)
-            ->setParameter('value', json_encode($condition->value), Types::STRING);
-
-        $query->execute();
-
-        if (!isset($condition->id)) {
-            $condition->id = (int) $this->connectionHelper->lastId('nglayouts_rule_condition');
-        }
+        $condition = $this->addCondition($condition);
 
         $query = $this->connection->createQueryBuilder()
             ->insert('nglayouts_rule_condition_rule_group')
@@ -1289,13 +1247,44 @@ final class LayoutResolverQueryHandler extends QueryHandler
     }
 
     /**
+     * Adds a condition.
+     */
+    private function addCondition(Condition $condition): Condition
+    {
+        $query = $this->connection->createQueryBuilder()
+            ->insert('nglayouts_rule_condition')
+            ->values(
+                [
+                    'id' => ':id',
+                    'uuid' => ':uuid',
+                    'status' => ':status',
+                    'type' => ':type',
+                    'value' => ':value',
+                ]
+            )
+            ->setValue('id', $condition->id ?? $this->connectionHelper->nextId('nglayouts_rule_condition'))
+            ->setParameter('uuid', $condition->uuid, Types::STRING)
+            ->setParameter('status', $condition->status, Types::INTEGER)
+            ->setParameter('type', $condition->type, Types::STRING)
+            ->setParameter('value', json_encode($condition->value), Types::STRING);
+
+        $query->execute();
+
+        if (!isset($condition->id)) {
+            $condition->id = (int) $this->connectionHelper->lastId('nglayouts_rule_condition');
+        }
+
+        return $condition;
+    }
+
+    /**
      * Returns all condition IDs belonging to provided rule IDs.
      *
      * @param int[] $ruleIds
      *
      * @return int[]
      */
-    public function loadRuleConditionIds(array $ruleIds): array
+    private function loadRuleConditionIds(array $ruleIds): array
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT condition_id')
@@ -1317,7 +1306,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return int[]
      */
-    public function loadRuleGroupConditionIds(array $ruleGroupIds): array
+    private function loadRuleGroupConditionIds(array $ruleGroupIds): array
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('DISTINCT condition_id')
