@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Core\Service\TransactionRollback;
 
 use Exception;
-use Netgen\Layouts\API\Values\LayoutResolver\Condition;
 use Netgen\Layouts\API\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\ConditionUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
@@ -19,8 +19,8 @@ use Netgen\Layouts\API\Values\LayoutResolver\TargetUpdateStruct;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Layout\Resolver\ConditionType\RouteParameter;
 use Netgen\Layouts\Layout\Resolver\TargetType\Route;
-use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition as PersistenceCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCondition as PersistenceRuleCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup as PersistenceRuleGroup;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
 use Ramsey\Uuid\Uuid;
@@ -410,7 +410,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->willReturn(PersistenceRule::fromArray(['id' => 42]));
 
         $this->layoutResolverHandler
-            ->method('addCondition')
+            ->method('addRuleCondition')
             ->willThrowException(new Exception('Test exception text'));
 
         $this->transactionHandler
@@ -435,8 +435,8 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutResolverHandler
-            ->method('loadCondition')
-            ->willReturn(new PersistenceCondition());
+            ->method('loadRuleCondition')
+            ->willReturn(new PersistenceRuleCondition());
 
         $this->layoutResolverHandler
             ->method('updateCondition')
@@ -447,7 +447,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->updateCondition(
-            Condition::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT, 'conditionType' => new RouteParameter()]),
+            RuleCondition::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT, 'conditionType' => new RouteParameter()]),
             new ConditionUpdateStruct()
         );
     }
@@ -461,8 +461,8 @@ final class LayoutResolverServiceTest extends TestCase
         $this->expectExceptionMessage('Test exception text');
 
         $this->layoutResolverHandler
-            ->method('loadCondition')
-            ->willReturn(new PersistenceCondition());
+            ->method('loadRuleCondition')
+            ->willReturn(new PersistenceRuleCondition());
 
         $this->layoutResolverHandler
             ->method('deleteCondition')
@@ -472,6 +472,6 @@ final class LayoutResolverServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->deleteCondition(Condition::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]));
+        $this->layoutResolverService->deleteCondition(RuleCondition::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]));
     }
 }

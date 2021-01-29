@@ -6,9 +6,10 @@ namespace Netgen\Layouts\Core\Mapper;
 
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
-use Netgen\Layouts\API\Values\LayoutResolver\Condition;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupCondition;
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\API\Values\LazyCollection;
 use Netgen\Layouts\Exception\Layout\ConditionTypeException;
@@ -19,9 +20,10 @@ use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\Layouts\Layout\Resolver\TargetType\NullTargetType;
 use Netgen\Layouts\Persistence\Handler\LayoutResolverHandlerInterface;
-use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition as PersistenceCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCondition as PersistenceRuleCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup as PersistenceRuleGroup;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCondition as PersistenceRuleGroupCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
 use Netgen\Layouts\Persistence\Values\Value;
 use Ramsey\Uuid\Uuid;
@@ -101,8 +103,8 @@ final class LayoutResolverMapper
             'conditions' => new LazyCollection(
                 function () use ($rule): array {
                     return array_map(
-                        function (PersistenceCondition $condition): Condition {
-                            return $this->mapCondition($condition);
+                        function (PersistenceRuleCondition $condition): RuleCondition {
+                            return $this->mapRuleCondition($condition);
                         },
                         $this->layoutResolverHandler->loadRuleConditions($rule)
                     );
@@ -137,8 +139,8 @@ final class LayoutResolverMapper
             'conditions' => new LazyCollection(
                 function () use ($ruleGroup): array {
                     return array_map(
-                        function (PersistenceCondition $condition): Condition {
-                            return $this->mapCondition($condition);
+                        function (PersistenceRuleGroupCondition $condition): RuleGroupCondition {
+                            return $this->mapRuleGroupCondition($condition);
                         },
                         $this->layoutResolverHandler->loadRuleGroupConditions($ruleGroup)
                     );
@@ -174,9 +176,9 @@ final class LayoutResolverMapper
     }
 
     /**
-     * Builds the API condition value from persistence one.
+     * Builds the API rule condition value from persistence one.
      */
-    public function mapCondition(PersistenceCondition $condition): Condition
+    public function mapRuleCondition(PersistenceRuleCondition $condition): RuleCondition
     {
         try {
             $conditionType = $this->conditionTypeRegistry->getConditionType(
@@ -194,6 +196,30 @@ final class LayoutResolverMapper
             'value' => $condition->value,
         ];
 
-        return Condition::fromArray($conditionData);
+        return RuleCondition::fromArray($conditionData);
+    }
+
+    /**
+     * Builds the API rule group condition value from persistence one.
+     */
+    public function mapRuleGroupCondition(PersistenceRuleGroupCondition $condition): RuleGroupCondition
+    {
+        try {
+            $conditionType = $this->conditionTypeRegistry->getConditionType(
+                $condition->type
+            );
+        } catch (ConditionTypeException $e) {
+            $conditionType = new NullConditionType();
+        }
+
+        $conditionData = [
+            'id' => Uuid::fromString($condition->uuid),
+            'status' => $condition->status,
+            'ruleGroupId' => Uuid::fromString($condition->ruleGroupUuid),
+            'conditionType' => $conditionType,
+            'value' => $condition->value,
+        ];
+
+        return RuleGroupCondition::fromArray($conditionData);
     }
 }

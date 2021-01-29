@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\View\Provider;
 
-use Netgen\Layouts\API\Values\LayoutResolver\Condition;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\View\Provider\RuleConditionViewProvider;
 use Netgen\Layouts\View\View\RuleConditionViewInterface;
@@ -28,7 +28,7 @@ final class RuleConditionProviderTest extends TestCase
      */
     public function testProvideView(): void
     {
-        $condition = Condition::fromArray(['id' => 42]);
+        $condition = RuleCondition::fromArray(['id' => 42]);
 
         $view = $this->ruleConditionViewProvider->provideView($condition);
 
@@ -58,7 +58,7 @@ final class RuleConditionProviderTest extends TestCase
     public function supportsDataProvider(): array
     {
         return [
-            [new Condition(), true],
+            [new RuleCondition(), true],
             [new Rule(), false],
             [new Target(), false],
         ];

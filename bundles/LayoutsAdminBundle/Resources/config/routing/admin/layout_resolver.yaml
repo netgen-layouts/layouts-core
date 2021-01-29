@@ -84,14 +84,14 @@ nglayouts_admin_layout_resolver_target_form_create:
         _nglayouts_status: draft
 
 nglayouts_admin_layout_resolver_target_form_edit:
-    path: /targets/{targetId}/edit
+    path: /rules/targets/{targetId}/edit
     controller: netgen_layouts.controller.admin.layout_resolver.edit_target_form
     methods: [GET, POST]
     defaults:
         _nglayouts_status: draft
 
 nglayouts_admin_layout_resolver_target_delete:
-    path: /targets/{targetId}
+    path: /rules/targets/{targetId}
     controller: netgen_layouts.controller.admin.layout_resolver.delete_target
     methods: [DELETE]
     defaults:
@@ -104,16 +104,16 @@ nglayouts_admin_layout_resolver_condition_form_create:
     defaults:
         _nglayouts_status: draft
 
-nglayouts_admin_layout_resolver_condition_form_edit:
-    path: /conditions/{conditionId}/edit
-    controller: netgen_layouts.controller.admin.layout_resolver.edit_condition_form
+nglayouts_admin_layout_resolver_rule_condition_form_edit:
+    path: /rules/conditions/{conditionId}/edit
+    controller: netgen_layouts.controller.admin.layout_resolver.edit_rule_condition_form
     methods: [GET, POST]
     defaults:
         _nglayouts_status: draft
 
-nglayouts_admin_layout_resolver_condition_delete:
-    path: /conditions/{conditionId}
-    controller: netgen_layouts.controller.admin.layout_resolver.delete_condition
+nglayouts_admin_layout_resolver_rule_condition_delete:
+    path: /rules/conditions/{conditionId}
+    controller: netgen_layouts.controller.admin.layout_resolver.delete_rule_condition
     methods: [DELETE]
     defaults:
         _nglayouts_status: draft

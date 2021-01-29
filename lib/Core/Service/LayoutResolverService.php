@@ -10,8 +10,10 @@ use Netgen\Layouts\API\Values\LayoutResolver\Condition;
 use Netgen\Layouts\API\Values\LayoutResolver\ConditionCreateStruct as APIConditionCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\ConditionUpdateStruct as APIConditionUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleCreateStruct as APIRuleCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupCondition;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupCreateStruct as APIRuleGroupCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupList;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupMetadataUpdateStruct as APIRuleGroupMetadataUpdateStruct;
@@ -35,8 +37,10 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition as PersistenceCon
 use Netgen\Layouts\Persistence\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule as PersistenceRule;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCondition as PersistenceRuleCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCreateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup as PersistenceRuleGroup;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCondition as PersistenceRuleGroupCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCreateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupMetadataUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupUpdateStruct;
@@ -49,6 +53,7 @@ use Ramsey\Uuid\UuidInterface;
 use function array_map;
 use function count;
 use function sprintf;
+use function trigger_deprecation;
 
 final class LayoutResolverService implements APILayoutResolverService
 {
@@ -158,6 +163,10 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function loadRules(?Layout $layout = null, int $offset = 0, ?int $limit = null): RuleList
     {
+        if ($layout === null) {
+            trigger_deprecation('netgen/layouts-core', '1.3', 'Calling "LayoutResolverService::loadRules" method with no layout is deprecated. In 2.0, "$layout" argument will become required.');
+        }
+
         if ($layout instanceof Layout && !$layout->isPublished()) {
             throw new BadStateException('layout', 'Only published layouts can be used in rules.');
         }
@@ -189,6 +198,10 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function getRuleCount(?Layout $layout = null): int
     {
+        if ($layout === null) {
+            trigger_deprecation('netgen/layouts-core', '1.3', 'Calling "LayoutResolverService::getRuleCount" method with no layout is deprecated. In 2.0, "$layout" argument will become required.');
+        }
+
         if ($layout instanceof Layout && !$layout->isPublished()) {
             throw new BadStateException('layout', 'Only published layouts can be used in rules.');
         }
@@ -318,20 +331,40 @@ final class LayoutResolverService implements APILayoutResolverService
         );
     }
 
-    public function loadCondition(UuidInterface $conditionId): Condition
+    public function loadCondition(UuidInterface $conditionId): RuleCondition
     {
-        return $this->mapper->mapCondition(
-            $this->layoutResolverHandler->loadCondition(
+        return $this->mapper->mapRuleCondition(
+            $this->layoutResolverHandler->loadRuleCondition(
                 $conditionId,
                 Value::STATUS_PUBLISHED
             )
         );
     }
 
-    public function loadConditionDraft(UuidInterface $conditionId): Condition
+    public function loadConditionDraft(UuidInterface $conditionId): RuleCondition
     {
-        return $this->mapper->mapCondition(
-            $this->layoutResolverHandler->loadCondition(
+        return $this->mapper->mapRuleCondition(
+            $this->layoutResolverHandler->loadRuleCondition(
+                $conditionId,
+                Value::STATUS_DRAFT
+            )
+        );
+    }
+
+    public function loadRuleGroupCondition(UuidInterface $conditionId): RuleGroupCondition
+    {
+        return $this->mapper->mapRuleGroupCondition(
+            $this->layoutResolverHandler->loadRuleGroupCondition(
+                $conditionId,
+                Value::STATUS_PUBLISHED
+            )
+        );
+    }
+
+    public function loadRuleGroupConditionDraft(UuidInterface $conditionId): RuleGroupCondition
+    {
+        return $this->mapper->mapRuleGroupCondition(
+            $this->layoutResolverHandler->loadRuleGroupCondition(
                 $conditionId,
                 Value::STATUS_DRAFT
             )
@@ -1048,7 +1081,7 @@ final class LayoutResolverService implements APILayoutResolverService
         );
     }
 
-    public function addCondition(Rule $rule, APIConditionCreateStruct $conditionCreateStruct): Condition
+    public function addCondition(Rule $rule, APIConditionCreateStruct $conditionCreateStruct): RuleCondition
     {
         if (!$rule->isDraft()) {
             throw new BadStateException('rule', 'Conditions can be added only to draft rules.');
@@ -1059,8 +1092,8 @@ final class LayoutResolverService implements APILayoutResolverService
         $this->validator->validateConditionCreateStruct($conditionCreateStruct);
 
         $createdCondition = $this->transaction(
-            function () use ($persistenceRule, $conditionCreateStruct): PersistenceCondition {
-                return $this->layoutResolverHandler->addCondition(
+            function () use ($persistenceRule, $conditionCreateStruct): PersistenceRuleCondition {
+                return $this->layoutResolverHandler->addRuleCondition(
                     $persistenceRule,
                     ConditionCreateStruct::fromArray(
                         [
@@ -1072,10 +1105,10 @@ final class LayoutResolverService implements APILayoutResolverService
             }
         );
 
-        return $this->mapper->mapCondition($createdCondition);
+        return $this->mapper->mapRuleCondition($createdCondition);
     }
 
-    public function addRuleGroupCondition(RuleGroup $ruleGroup, APIConditionCreateStruct $conditionCreateStruct): Condition
+    public function addRuleGroupCondition(RuleGroup $ruleGroup, APIConditionCreateStruct $conditionCreateStruct): RuleGroupCondition
     {
         if (!$ruleGroup->isDraft()) {
             throw new BadStateException('ruleGroup', 'Conditions can be added only to draft rule groups.');
@@ -1086,7 +1119,7 @@ final class LayoutResolverService implements APILayoutResolverService
         $this->validator->validateConditionCreateStruct($conditionCreateStruct);
 
         $createdCondition = $this->transaction(
-            function () use ($persistenceRuleGroup, $conditionCreateStruct): PersistenceCondition {
+            function () use ($persistenceRuleGroup, $conditionCreateStruct): PersistenceRuleGroupCondition {
                 return $this->layoutResolverHandler->addRuleGroupCondition(
                     $persistenceRuleGroup,
                     ConditionCreateStruct::fromArray(
@@ -1099,16 +1132,16 @@ final class LayoutResolverService implements APILayoutResolverService
             }
         );
 
-        return $this->mapper->mapCondition($createdCondition);
+        return $this->mapper->mapRuleGroupCondition($createdCondition);
     }
 
-    public function updateCondition(Condition $condition, APIConditionUpdateStruct $conditionUpdateStruct): Condition
+    public function updateCondition(RuleCondition $condition, APIConditionUpdateStruct $conditionUpdateStruct): RuleCondition
     {
         if (!$condition->isDraft()) {
             throw new BadStateException('condition', 'Only draft conditions can be updated.');
         }
 
-        $persistenceCondition = $this->layoutResolverHandler->loadCondition($condition->getId(), Value::STATUS_DRAFT);
+        $persistenceCondition = $this->layoutResolverHandler->loadRuleCondition($condition->getId(), Value::STATUS_DRAFT);
 
         $this->validator->validateConditionUpdateStruct($condition, $conditionUpdateStruct);
 
@@ -1125,7 +1158,33 @@ final class LayoutResolverService implements APILayoutResolverService
             }
         );
 
-        return $this->mapper->mapCondition($updatedCondition);
+        return $this->mapper->mapRuleCondition($updatedCondition);
+    }
+
+    public function updateRuleGroupCondition(RuleGroupCondition $condition, APIConditionUpdateStruct $conditionUpdateStruct): RuleGroupCondition
+    {
+        if (!$condition->isDraft()) {
+            throw new BadStateException('condition', 'Only draft conditions can be updated.');
+        }
+
+        $persistenceCondition = $this->layoutResolverHandler->loadRuleGroupCondition($condition->getId(), Value::STATUS_DRAFT);
+
+        $this->validator->validateConditionUpdateStruct($condition, $conditionUpdateStruct);
+
+        $updatedCondition = $this->transaction(
+            function () use ($persistenceCondition, $conditionUpdateStruct): PersistenceCondition {
+                return $this->layoutResolverHandler->updateCondition(
+                    $persistenceCondition,
+                    ConditionUpdateStruct::fromArray(
+                        [
+                            'value' => $conditionUpdateStruct->value,
+                        ]
+                    )
+                );
+            }
+        );
+
+        return $this->mapper->mapRuleGroupCondition($updatedCondition);
     }
 
     public function deleteCondition(Condition $condition): void
@@ -1134,7 +1193,7 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('condition', 'Only draft conditions can be deleted.');
         }
 
-        $persistenceCondition = $this->layoutResolverHandler->loadCondition($condition->getId(), Value::STATUS_DRAFT);
+        $persistenceCondition = $this->layoutResolverHandler->loadRuleCondition($condition->getId(), Value::STATUS_DRAFT);
 
         $this->transaction(
             function () use ($persistenceCondition): void {

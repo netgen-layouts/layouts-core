@@ -7,7 +7,7 @@ namespace Netgen\Layouts\Persistence\Values\LayoutResolver;
 use Netgen\Layouts\Persistence\Values\Value;
 use Netgen\Layouts\Utils\HydratorTrait;
 
-final class Condition extends Value
+abstract class Condition extends Value
 {
     use HydratorTrait;
 
@@ -24,20 +24,6 @@ final class Condition extends Value
      * @var string
      */
     public $uuid;
-
-    /**
-     * ID of the rule where the condition is located.
-     *
-     * @var int
-     */
-    public $ruleId;
-
-    /**
-     * UUID of the rule where the condition is located.
-     *
-     * @var string
-     */
-    public $ruleUuid;
 
     /**
      * Identifier of the condition type.

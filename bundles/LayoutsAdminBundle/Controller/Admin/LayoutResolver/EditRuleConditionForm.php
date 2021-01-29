@@ -6,13 +6,13 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver;
 
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\LayoutResolverService;
-use Netgen\Layouts\API\Values\LayoutResolver\Condition;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\Layout\Resolver\Form\ConditionType;
 use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class EditConditionForm extends AbstractController
+final class EditRuleConditionForm extends AbstractController
 {
     /**
      * @var \Netgen\Layouts\API\Service\LayoutResolverService
@@ -25,9 +25,9 @@ final class EditConditionForm extends AbstractController
     }
 
     /**
-     * Displays the condition edit form.
+     * Displays the rule condition edit form.
      */
-    public function __invoke(Condition $condition, Request $request): ViewInterface
+    public function __invoke(RuleCondition $condition, Request $request): ViewInterface
     {
         $this->denyAccessUnlessGranted('nglayouts:mapping:edit');
 
@@ -42,7 +42,7 @@ final class EditConditionForm extends AbstractController
             [
                 'condition_type' => $conditionType,
                 'action' => $this->generateUrl(
-                    'nglayouts_admin_layout_resolver_condition_form_edit',
+                    'nglayouts_admin_layout_resolver_rule_condition_form_edit',
                     [
                         'conditionId' => $condition->getId()->toString(),
                     ]

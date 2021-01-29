@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\View\Provider;
 
-use Netgen\Layouts\API\Values\LayoutResolver\Condition;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\View\Provider\RuleTargetViewProvider;
 use Netgen\Layouts\View\View\RuleTargetViewInterface;
@@ -60,7 +60,7 @@ final class RuleTargetProviderTest extends TestCase
         return [
             [new Target(), true],
             [new Rule(), false],
-            [new Condition(), false],
+            [new RuleCondition(), false],
         ];
     }
 }

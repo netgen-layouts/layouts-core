@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\ParamConverter\LayoutResolver;
 
-use Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver\ConditionParamConverter;
+use Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver\RuleConditionParamConverter;
 use Netgen\Layouts\API\Service\LayoutResolverService;
-use Netgen\Layouts\API\Values\LayoutResolver\Condition;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
-final class ConditionParamConverterTest extends TestCase
+final class RuleConditionParamConverterTest extends TestCase
 {
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject
@@ -18,7 +18,7 @@ final class ConditionParamConverterTest extends TestCase
     private $layoutResolverServiceMock;
 
     /**
-     * @var \Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver\ConditionParamConverter
+     * @var \Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver\RuleConditionParamConverter
      */
     private $paramConverter;
 
@@ -26,12 +26,12 @@ final class ConditionParamConverterTest extends TestCase
     {
         $this->layoutResolverServiceMock = $this->createMock(LayoutResolverService::class);
 
-        $this->paramConverter = new ConditionParamConverter($this->layoutResolverServiceMock);
+        $this->paramConverter = new RuleConditionParamConverter($this->layoutResolverServiceMock);
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver\ConditionParamConverter::__construct
-     * @covers \Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver\ConditionParamConverter::getSourceAttributeNames
+     * @covers \Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver\RuleConditionParamConverter::__construct
+     * @covers \Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver\RuleConditionParamConverter::getSourceAttributeNames
      */
     public function testGetSourceAttributeName(): void
     {
@@ -39,7 +39,7 @@ final class ConditionParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver\ConditionParamConverter::getDestinationAttributeName
+     * @covers \Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver\RuleConditionParamConverter::getDestinationAttributeName
      */
     public function testGetDestinationAttributeName(): void
     {
@@ -47,19 +47,19 @@ final class ConditionParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver\ConditionParamConverter::getSupportedClass
+     * @covers \Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver\RuleConditionParamConverter::getSupportedClass
      */
     public function testGetSupportedClass(): void
     {
-        self::assertSame(Condition::class, $this->paramConverter->getSupportedClass());
+        self::assertSame(RuleCondition::class, $this->paramConverter->getSupportedClass());
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver\ConditionParamConverter::loadValue
+     * @covers \Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver\RuleConditionParamConverter::loadValue
      */
     public function testLoadValue(): void
     {
-        $condition = new Condition();
+        $condition = new RuleCondition();
 
         $uuid = Uuid::uuid4();
 
@@ -81,11 +81,11 @@ final class ConditionParamConverterTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver\ConditionParamConverter::loadValue
+     * @covers \Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver\RuleConditionParamConverter::loadValue
      */
     public function testLoadValueDraft(): void
     {
-        $condition = new Condition();
+        $condition = new RuleCondition();
 
         $uuid = Uuid::uuid4();
 

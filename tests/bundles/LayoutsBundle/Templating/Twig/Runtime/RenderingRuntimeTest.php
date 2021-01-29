@@ -11,7 +11,7 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\Placeholder;
 use Netgen\Layouts\API\Values\Collection\Item;
 use Netgen\Layouts\API\Values\Collection\Slot;
-use Netgen\Layouts\API\Values\LayoutResolver\Condition;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\Block\BlockDefinition;
 use Netgen\Layouts\Collection\Result\ManualItem;
 use Netgen\Layouts\Collection\Result\Result;
@@ -968,7 +968,7 @@ final class RenderingRuntimeTest extends TestCase
      */
     public function testRenderValue(): void
     {
-        $condition = new Condition();
+        $condition = new RuleCondition();
 
         $this->rendererMock
             ->expects(self::once())
@@ -996,7 +996,7 @@ final class RenderingRuntimeTest extends TestCase
      */
     public function testRenderValueWithViewContext(): void
     {
-        $condition = new Condition();
+        $condition = new RuleCondition();
 
         $this->rendererMock
             ->expects(self::once())
@@ -1025,7 +1025,7 @@ final class RenderingRuntimeTest extends TestCase
      */
     public function testRenderValueWithContextFromTwigContext(): void
     {
-        $condition = new Condition();
+        $condition = new RuleCondition();
 
         $this->rendererMock
             ->expects(self::once())
@@ -1055,7 +1055,7 @@ final class RenderingRuntimeTest extends TestCase
      */
     public function testRenderValueReturnsEmptyStringOnException(): void
     {
-        $condition = new Condition();
+        $condition = new RuleCondition();
 
         $this->rendererMock
             ->expects(self::once())
@@ -1088,7 +1088,7 @@ final class RenderingRuntimeTest extends TestCase
 
         $this->errorHandler->setThrow(true);
 
-        $condition = new Condition();
+        $condition = new RuleCondition();
 
         $this->rendererMock
             ->expects(self::once())

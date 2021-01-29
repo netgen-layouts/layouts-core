@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Core\Validator;
 
-use Netgen\Layouts\API\Values\LayoutResolver\Condition;
 use Netgen\Layouts\API\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\ConditionUpdateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleUpdateStruct;
@@ -214,7 +214,7 @@ final class LayoutResolverValidatorTest extends TestCase
         $this->addToAssertionCount(1);
 
         $this->layoutResolverValidator->validateConditionUpdateStruct(
-            Condition::fromArray(['conditionType' => new ConditionType1()]),
+            RuleCondition::fromArray(['conditionType' => new ConditionType1()]),
             $struct
         );
     }

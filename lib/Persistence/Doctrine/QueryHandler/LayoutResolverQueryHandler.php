@@ -12,7 +12,9 @@ use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelperInterface;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
 use Netgen\Layouts\Persistence\Values\Value;
 use Psr\Container\ContainerInterface;
@@ -1123,9 +1125,10 @@ final class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Adds a rule condition.
      */
-    public function addRuleCondition(Condition $condition): Condition
+    public function addRuleCondition(RuleCondition $condition): RuleCondition
     {
-        $condition = $this->addCondition($condition);
+        /** @var \Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCondition $ruleCondition */
+        $ruleCondition = $this->addCondition($condition);
 
         $query = $this->connection->createQueryBuilder()
             ->insert('nglayouts_rule_condition_rule')
@@ -1137,22 +1140,23 @@ final class LayoutResolverQueryHandler extends QueryHandler
                     'rule_status' => ':rule_status',
                 ]
             )
-            ->setParameter('condition_id', $condition->id, Types::INTEGER)
-            ->setParameter('condition_status', $condition->status, Types::INTEGER)
-            ->setParameter('rule_id', $condition->ruleId, Types::INTEGER)
-            ->setParameter('rule_status', $condition->status, Types::INTEGER);
+            ->setParameter('condition_id', $ruleCondition->id, Types::INTEGER)
+            ->setParameter('condition_status', $ruleCondition->status, Types::INTEGER)
+            ->setParameter('rule_id', $ruleCondition->ruleId, Types::INTEGER)
+            ->setParameter('rule_status', $ruleCondition->status, Types::INTEGER);
 
         $query->execute();
 
-        return $condition;
+        return $ruleCondition;
     }
 
     /**
      * Adds a rule group condition.
      */
-    public function addRuleGroupCondition(Condition $condition): Condition
+    public function addRuleGroupCondition(RuleGroupCondition $condition): RuleGroupCondition
     {
-        $condition = $this->addCondition($condition);
+        /** @var \Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCondition $ruleGroupCondition */
+        $ruleGroupCondition = $this->addCondition($condition);
 
         $query = $this->connection->createQueryBuilder()
             ->insert('nglayouts_rule_condition_rule_group')
@@ -1164,14 +1168,14 @@ final class LayoutResolverQueryHandler extends QueryHandler
                     'rule_group_status' => ':rule_group_status',
                 ]
             )
-            ->setParameter('condition_id', $condition->id, Types::INTEGER)
-            ->setParameter('condition_status', $condition->status, Types::INTEGER)
-            ->setParameter('rule_group_id', $condition->ruleGroupId, Types::INTEGER)
-            ->setParameter('rule_group_status', $condition->status, Types::INTEGER);
+            ->setParameter('condition_id', $ruleGroupCondition->id, Types::INTEGER)
+            ->setParameter('condition_status', $ruleGroupCondition->status, Types::INTEGER)
+            ->setParameter('rule_group_id', $ruleGroupCondition->ruleGroupId, Types::INTEGER)
+            ->setParameter('rule_group_status', $ruleGroupCondition->status, Types::INTEGER);
 
         $query->execute();
 
-        return $condition;
+        return $ruleGroupCondition;
     }
 
     /**

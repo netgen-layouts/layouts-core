@@ -6,10 +6,10 @@ namespace Netgen\Layouts\Tests\Persistence\Doctrine\Handler;
 
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
-use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCreateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct;
@@ -225,20 +225,20 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadCondition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getConditionSelectQuery
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadConditionData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRuleCondition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleConditionSelectQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleConditionData
      */
-    public function testLoadCondition(): void
+    public function testLoadRuleCondition(): void
     {
-        $condition = $this->handler->loadCondition(1, Value::STATUS_PUBLISHED);
+        $condition = $this->handler->loadRuleCondition(1, Value::STATUS_PUBLISHED);
 
         self::assertSame(
             [
-                'id' => 1,
-                'uuid' => '35f4594c-6674-5815-add6-07f288b79686',
                 'ruleId' => 2,
                 'ruleUuid' => '55622437-f700-5378-99c9-7dafe89a8fb6',
+                'id' => 1,
+                'uuid' => '35f4594c-6674-5815-add6-07f288b79686',
                 'type' => 'route_parameter',
                 'value' => [
                     'parameter_name' => 'some_param',
@@ -251,15 +251,15 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadCondition
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadConditionData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRuleCondition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleConditionData
      */
-    public function testLoadConditionThrowsNotFoundException(): void
+    public function testLoadRuleConditionThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
         $this->expectExceptionMessage('Could not find condition with identifier "999999"');
 
-        $this->handler->loadCondition(999999, Value::STATUS_PUBLISHED);
+        $this->handler->loadRuleCondition(999999, Value::STATUS_PUBLISHED);
     }
 
     /**
@@ -273,7 +273,7 @@ final class LayoutResolverHandlerTest extends TestCase
         );
 
         self::assertNotEmpty($conditions);
-        self::assertContainsOnlyInstancesOf(Condition::class, $conditions);
+        self::assertContainsOnlyInstancesOf(RuleCondition::class, $conditions);
     }
 
     /**
@@ -614,10 +614,10 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(
             [
                 [
-                    'id' => 7,
-                    'uuid' => 'aaa3659b-b574-5e6b-8902-0ea37f576469',
                     'ruleId' => $copiedRule->id,
                     'ruleUuid' => $copiedRule->uuid,
+                    'id' => 7,
+                    'uuid' => 'aaa3659b-b574-5e6b-8902-0ea37f576469',
                     'type' => 'condition1',
                     'value' => ['some_value'],
                     'status' => Value::STATUS_PUBLISHED,
@@ -681,10 +681,10 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame(
             [
                 [
-                    'id' => 2,
-                    'uuid' => '9a6c8459-5fda-5d4b-b06e-06f637ab6e01',
                     'ruleId' => 3,
                     'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
+                    'id' => 2,
+                    'uuid' => '9a6c8459-5fda-5d4b-b06e-06f637ab6e01',
                     'type' => 'route_parameter',
                     'value' => [
                         'parameter_name' => 'some_param',
@@ -693,10 +693,10 @@ final class LayoutResolverHandlerTest extends TestCase
                     'status' => Value::STATUS_ARCHIVED,
                 ],
                 [
-                    'id' => 3,
-                    'uuid' => 'dd49afcd-aab0-5970-b7b8-413238faf539',
                     'ruleId' => 3,
                     'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
+                    'id' => 3,
+                    'uuid' => 'dd49afcd-aab0-5970-b7b8-413238faf539',
                     'type' => 'route_parameter',
                     'value' => [
                         'parameter_name' => 'some_other_param',
@@ -829,18 +829,19 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::addCondition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::addRuleCondition
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addCondition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addRuleCondition
      */
-    public function testAddCondition(): void
+    public function testAddRuleCondition(): void
     {
         $conditionCreateStruct = new ConditionCreateStruct();
         $conditionCreateStruct->type = 'condition';
         $conditionCreateStruct->value = ['param' => 'value'];
 
         $condition = $this->withUuids(
-            function () use ($conditionCreateStruct): Condition {
-                return $this->handler->addCondition(
+            function () use ($conditionCreateStruct): RuleCondition {
+                return $this->handler->addRuleCondition(
                     $this->handler->loadRule(3, Value::STATUS_PUBLISHED),
                     $conditionCreateStruct
                 );
@@ -850,10 +851,10 @@ final class LayoutResolverHandlerTest extends TestCase
 
         self::assertSame(
             [
-                'id' => 7,
-                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'ruleId' => 3,
                 'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
+                'id' => 7,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => 'condition',
                 'value' => ['param' => 'value'],
                 'status' => Value::STATUS_PUBLISHED,
@@ -872,16 +873,16 @@ final class LayoutResolverHandlerTest extends TestCase
         $conditionUpdateStruct->value = ['new_param' => 'new_value'];
 
         $condition = $this->handler->updateCondition(
-            $this->handler->loadCondition(1, Value::STATUS_PUBLISHED),
+            $this->handler->loadRuleCondition(1, Value::STATUS_PUBLISHED),
             $conditionUpdateStruct
         );
 
         self::assertSame(
             [
-                'id' => 1,
-                'uuid' => '35f4594c-6674-5815-add6-07f288b79686',
                 'ruleId' => 2,
                 'ruleUuid' => '55622437-f700-5378-99c9-7dafe89a8fb6',
+                'id' => 1,
+                'uuid' => '35f4594c-6674-5815-add6-07f288b79686',
                 'type' => 'route_parameter',
                 'value' => ['new_param' => 'new_value'],
                 'status' => Value::STATUS_PUBLISHED,
@@ -900,9 +901,9 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->expectExceptionMessage('Could not find condition with identifier "2"');
 
         $this->handler->deleteCondition(
-            $this->handler->loadCondition(2, Value::STATUS_PUBLISHED)
+            $this->handler->loadRuleCondition(2, Value::STATUS_PUBLISHED)
         );
 
-        $this->handler->loadCondition(2, Value::STATUS_PUBLISHED);
+        $this->handler->loadRuleCondition(2, Value::STATUS_PUBLISHED);
     }
 }

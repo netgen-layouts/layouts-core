@@ -8,8 +8,8 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Layout\Resolver\ConditionType\NullConditionType;
 use Netgen\Layouts\Layout\Resolver\TargetType\NullTargetType;
-use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
@@ -139,11 +139,11 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Core\Mapper\LayoutResolverMapper::mapCondition
+     * @covers \Netgen\Layouts\Core\Mapper\LayoutResolverMapper::mapRuleCondition
      */
-    public function testMapCondition(): void
+    public function testMapRuleCondition(): void
     {
-        $persistenceCondition = Condition::fromArray(
+        $persistenceCondition = RuleCondition::fromArray(
             [
                 'id' => 1,
                 'uuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
@@ -155,7 +155,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
             ]
         );
 
-        $condition = $this->mapper->mapCondition($persistenceCondition);
+        $condition = $this->mapper->mapRuleCondition($persistenceCondition);
 
         self::assertSame(
             $this->conditionTypeRegistry->getConditionType('condition1'),
@@ -169,11 +169,11 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Core\Mapper\LayoutResolverMapper::mapCondition
+     * @covers \Netgen\Layouts\Core\Mapper\LayoutResolverMapper::mapRuleCondition
      */
-    public function testMapConditionWithInvalidConditionType(): void
+    public function testMapRuleConditionWithInvalidConditionType(): void
     {
-        $persistenceCondition = Condition::fromArray(
+        $persistenceCondition = RuleCondition::fromArray(
             [
                 'id' => 1,
                 'uuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
@@ -185,7 +185,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
             ]
         );
 
-        $condition = $this->mapper->mapCondition($persistenceCondition);
+        $condition = $this->mapper->mapRuleCondition($persistenceCondition);
 
         self::assertInstanceOf(NullConditionType::class, $condition->getConditionType());
 

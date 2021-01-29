@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Persistence\Values\LayoutResolver;
 
-use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\Persistence\Values\Value;
 use PHPUnit\Framework\TestCase;
 
-final class ConditionTest extends TestCase
+final class RuleConditionTest extends TestCase
 {
     /**
      * @coversNothing
      */
     public function testSetProperties(): void
     {
-        $condition = Condition::fromArray(
+        $condition = RuleCondition::fromArray(
             [
                 'id' => 42,
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',

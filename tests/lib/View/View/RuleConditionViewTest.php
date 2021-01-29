@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\View\View;
 
-use Netgen\Layouts\API\Values\LayoutResolver\Condition;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\View\View\RuleConditionView;
 use PHPUnit\Framework\TestCase;
 
@@ -22,7 +22,7 @@ final class RuleConditionViewTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->condition = Condition::fromArray(['id' => 42]);
+        $this->condition = RuleCondition::fromArray(['id' => 42]);
 
         $this->view = new RuleConditionView($this->condition);
 

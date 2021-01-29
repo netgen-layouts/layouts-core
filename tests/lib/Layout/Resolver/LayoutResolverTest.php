@@ -7,8 +7,8 @@ namespace Netgen\Layouts\Tests\Layout\Resolver;
 use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\Layout\Layout;
-use Netgen\Layouts\API\Values\LayoutResolver\Condition;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleList;
 use Netgen\Layouts\Layout\Resolver\LayoutResolver;
 use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry;
@@ -337,7 +337,7 @@ final class LayoutResolverTest extends TestCase
 
         $conditions = [];
         foreach ($conditionTypes as $conditionType) {
-            $conditions[] = Condition::fromArray(['conditionType' => $conditionType]);
+            $conditions[] = RuleCondition::fromArray(['conditionType' => $conditionType]);
         }
 
         $rule1 = Rule::fromArray(
@@ -346,7 +346,7 @@ final class LayoutResolverTest extends TestCase
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'priority' => 4,
-                'conditions' => new ArrayCollection([Condition::fromArray(['conditionType' => new ConditionType2(false)])]),
+                'conditions' => new ArrayCollection([RuleCondition::fromArray(['conditionType' => new ConditionType2(false)])]),
             ]
         );
 
@@ -389,7 +389,7 @@ final class LayoutResolverTest extends TestCase
 
         $conditions = [];
         foreach ($conditionTypes as $conditionType) {
-            $conditions[] = Condition::fromArray(['conditionType' => $conditionType]);
+            $conditions[] = RuleCondition::fromArray(['conditionType' => $conditionType]);
         }
 
         $rule = Rule::fromArray(
@@ -655,7 +655,7 @@ final class LayoutResolverTest extends TestCase
 
         $conditions = [];
         foreach ($conditionTypes as $conditionType) {
-            $conditions[] = Condition::fromArray(['conditionType' => $conditionType]);
+            $conditions[] = RuleCondition::fromArray(['conditionType' => $conditionType]);
         }
 
         $rule = Rule::fromArray(
@@ -693,7 +693,7 @@ final class LayoutResolverTest extends TestCase
 
         $conditions = [];
         foreach ($conditionTypes as $conditionType) {
-            $conditions[] = Condition::fromArray(['conditionType' => $conditionType]);
+            $conditions[] = RuleCondition::fromArray(['conditionType' => $conditionType]);
         }
 
         $rule = Rule::fromArray(
@@ -725,7 +725,7 @@ final class LayoutResolverTest extends TestCase
     {
         $conditions = [];
         foreach ($conditionTypes as $conditionType) {
-            $conditions[] = Condition::fromArray(['conditionType' => $conditionType]);
+            $conditions[] = RuleCondition::fromArray(['conditionType' => $conditionType]);
         }
 
         $rule = Rule::fromArray(

@@ -6,8 +6,8 @@ namespace Netgen\Layouts\Tests\API\Values\LayoutResolver;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\Layouts\API\Values\Layout\Layout;
-use Netgen\Layouts\API\Values\LayoutResolver\Condition;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\API\Values\Value;
 use PHPUnit\Framework\TestCase;
@@ -50,7 +50,7 @@ final class RuleTest extends TestCase
         $target1 = new Target();
         $target2 = new Target();
 
-        $condition = new Condition();
+        $condition = new RuleCondition();
 
         $layout = new Layout();
 

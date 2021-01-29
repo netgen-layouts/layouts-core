@@ -15,8 +15,10 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCreateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCreateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupMetadataUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupUpdateStruct;
@@ -157,9 +159,8 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->queryHandler->getTargetCount($rule);
     }
 
-    public function loadCondition($conditionId, int $status): Condition
+    public function loadRuleCondition($conditionId, int $status): RuleCondition
     {
-        /** @todo Recognize if this is rule or rule group condition */
         $conditionId = $conditionId instanceof UuidInterface ? $conditionId->toString() : $conditionId;
         $data = $this->queryHandler->loadRuleConditionData($conditionId, $status);
 
@@ -167,19 +168,31 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
             throw new NotFoundException('condition', $conditionId);
         }
 
-        return $this->mapper->mapConditions($data)[0];
+        return $this->mapper->mapRuleConditions($data)[0];
+    }
+
+    public function loadRuleGroupCondition($conditionId, int $status): RuleGroupCondition
+    {
+        $conditionId = $conditionId instanceof UuidInterface ? $conditionId->toString() : $conditionId;
+        $data = $this->queryHandler->loadRuleGroupConditionData($conditionId, $status);
+
+        if (count($data) === 0) {
+            throw new NotFoundException('condition', $conditionId);
+        }
+
+        return $this->mapper->mapRuleGroupConditions($data)[0];
     }
 
     public function loadRuleConditions(Rule $rule): array
     {
-        return $this->mapper->mapConditions(
+        return $this->mapper->mapRuleConditions(
             $this->queryHandler->loadRuleConditionsData($rule)
         );
     }
 
     public function loadRuleGroupConditions(RuleGroup $ruleGroup): array
     {
-        return $this->mapper->mapConditions(
+        return $this->mapper->mapRuleGroupConditions(
             $this->queryHandler->loadRuleGroupConditionsData($ruleGroup)
         );
     }
@@ -571,9 +584,9 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         $this->queryHandler->deleteTarget($target->id, $target->status);
     }
 
-    public function addCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct): Condition
+    public function addRuleCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct): RuleCondition
     {
-        $newCondition = Condition::fromArray(
+        $newCondition = RuleCondition::fromArray(
             [
                 'uuid' => Uuid::uuid4()->toString(),
                 'status' => $rule->status,
@@ -587,9 +600,9 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->queryHandler->addRuleCondition($newCondition);
     }
 
-    public function addRuleGroupCondition(RuleGroup $ruleGroup, ConditionCreateStruct $conditionCreateStruct): Condition
+    public function addRuleGroupCondition(RuleGroup $ruleGroup, ConditionCreateStruct $conditionCreateStruct): RuleGroupCondition
     {
-        $newCondition = Condition::fromArray(
+        $newCondition = RuleGroupCondition::fromArray(
             [
                 'uuid' => Uuid::uuid4()->toString(),
                 'status' => $ruleGroup->status,

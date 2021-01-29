@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\View\Matcher\RuleCondition;
 
-use Netgen\Layouts\API\Values\LayoutResolver\Condition;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\Layout\Resolver\ConditionType\NullConditionType;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionType1;
@@ -33,7 +33,7 @@ final class TypeTest extends TestCase
      */
     public function testMatch(array $config, bool $expected): void
     {
-        $condition = Condition::fromArray(
+        $condition = RuleCondition::fromArray(
             [
                 'conditionType' => new ConditionType1(),
             ]
@@ -49,7 +49,7 @@ final class TypeTest extends TestCase
      */
     public function testMatchWithNullConditionType(): void
     {
-        $condition = Condition::fromArray(
+        $condition = RuleCondition::fromArray(
             [
                 'conditionType' => new NullConditionType(),
             ]
@@ -65,7 +65,7 @@ final class TypeTest extends TestCase
      */
     public function testMatchWithNullConditionTypeReturnsFalse(): void
     {
-        $condition = Condition::fromArray(
+        $condition = RuleCondition::fromArray(
             [
                 'conditionType' => new NullConditionType(),
             ]

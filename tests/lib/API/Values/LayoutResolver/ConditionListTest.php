@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\API\Values\LayoutResolver;
 
 use Netgen\Layouts\API\Values\LayoutResolver\Condition;
 use Netgen\Layouts\API\Values\LayoutResolver\ConditionList;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use stdClass;
@@ -29,7 +30,7 @@ final class ConditionListTest extends TestCase
             )
         );
 
-        new ConditionList([new Condition(), new stdClass(), new Condition()]);
+        new ConditionList([new RuleCondition(), new stdClass(), new RuleCondition()]);
     }
 
     /**
@@ -38,7 +39,7 @@ final class ConditionListTest extends TestCase
      */
     public function testGetConditions(): void
     {
-        $conditions = [new Condition(), new Condition()];
+        $conditions = [new RuleCondition(), new RuleCondition()];
 
         self::assertSame($conditions, (new ConditionList($conditions))->getConditions());
     }
@@ -51,7 +52,7 @@ final class ConditionListTest extends TestCase
         $uuid1 = Uuid::uuid4();
         $uuid2 = Uuid::uuid4();
 
-        $conditions = [Condition::fromArray(['id' => $uuid1]), Condition::fromArray(['id' => $uuid2])];
+        $conditions = [RuleCondition::fromArray(['id' => $uuid1]), RuleCondition::fromArray(['id' => $uuid2])];
 
         self::assertSame([$uuid1, $uuid2], (new ConditionList($conditions))->getConditionIds());
     }

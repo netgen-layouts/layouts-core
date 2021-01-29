@@ -55,8 +55,8 @@ services:
         tags:
             - { name: request.param_converter, priority: 0 }
 
-    netgen_layouts.param_converter.layout_resolver.condition:
-        class: Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver\ConditionParamConverter
+    netgen_layouts.param_converter.layout_resolver.rule_condition:
+        class: Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver\RuleConditionParamConverter
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
         tags:

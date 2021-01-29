@@ -136,15 +136,15 @@ services:
             - "@netgen_layouts.api.service.layout_resolver"
             - "@netgen_layouts.layout.resolver.registry.condition_type"
 
-    netgen_layouts.controller.admin.layout_resolver.edit_condition_form:
-        class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\EditConditionForm
+    netgen_layouts.controller.admin.layout_resolver.edit_rule_condition_form:
+        class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\EditRuleConditionForm
         public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
 
-    netgen_layouts.controller.admin.layout_resolver.delete_condition:
-        class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\DeleteCondition
+    netgen_layouts.controller.admin.layout_resolver.delete_rule_condition:
+        class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\DeleteRuleCondition
         public: true
         parent: netgen_layouts.controller.base
         arguments:

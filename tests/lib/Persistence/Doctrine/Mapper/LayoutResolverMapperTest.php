@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Persistence\Doctrine\Mapper;
 
 use Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutResolverMapper;
-use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
 use Netgen\Layouts\Persistence\Values\Value;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
@@ -137,9 +137,9 @@ final class LayoutResolverMapperTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutResolverMapper::mapConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutResolverMapper::mapRuleConditions
      */
-    public function testMapConditions(): void
+    public function testMapRuleConditions(): void
     {
         $data = [
             [
@@ -164,19 +164,19 @@ final class LayoutResolverMapperTest extends TestCase
 
         $expectedData = [
             [
-                'id' => 42,
-                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'ruleId' => 1,
                 'ruleUuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
+                'id' => 42,
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'type' => 'condition',
                 'value' => 24,
                 'status' => Value::STATUS_PUBLISHED,
             ],
             [
-                'id' => 43,
-                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'ruleId' => 2,
                 'ruleUuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
+                'id' => 43,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => 'condition2',
                 'value' => [
                     'param' => 'value',
@@ -185,9 +185,9 @@ final class LayoutResolverMapperTest extends TestCase
             ],
         ];
 
-        $conditions = $this->mapper->mapConditions($data);
+        $conditions = $this->mapper->mapRuleConditions($data);
 
-        self::assertContainsOnlyInstancesOf(Condition::class, $conditions);
+        self::assertContainsOnlyInstancesOf(RuleCondition::class, $conditions);
         self::assertSame($expectedData, $this->exportObjectList($conditions));
     }
 }

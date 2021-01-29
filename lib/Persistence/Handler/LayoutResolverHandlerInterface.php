@@ -9,8 +9,10 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCreateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCreateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupMetadataUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupUpdateStruct;
@@ -115,7 +117,7 @@ interface LayoutResolverHandlerInterface
     public function getTargetCount(Rule $rule): int;
 
     /**
-     * Loads a condition with specified ID.
+     * Loads a rule condition with specified ID.
      *
      * Condition ID can be an auto-incremented ID or an UUID.
      *
@@ -123,7 +125,18 @@ interface LayoutResolverHandlerInterface
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified ID does not exist
      */
-    public function loadCondition($conditionId, int $status): Condition;
+    public function loadRuleCondition($conditionId, int $status): RuleCondition;
+
+    /**
+     * Loads a rule group condition with specified ID.
+     *
+     * Condition ID can be an auto-incremented ID or an UUID.
+     *
+     * @param int|string|\Ramsey\Uuid\UuidInterface $conditionId
+     *
+     * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified ID does not exist
+     */
+    public function loadRuleGroupCondition($conditionId, int $status): RuleGroupCondition;
 
     /**
      * Loads all conditions that belong to rule with specified ID.
@@ -247,12 +260,12 @@ interface LayoutResolverHandlerInterface
     /**
      * Adds a condition to rule.
      */
-    public function addCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct): Condition;
+    public function addRuleCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct): RuleCondition;
 
     /**
      * Adds a condition to rule group.
      */
-    public function addRuleGroupCondition(RuleGroup $ruleGroup, ConditionCreateStruct $conditionCreateStruct): Condition;
+    public function addRuleGroupCondition(RuleGroup $ruleGroup, ConditionCreateStruct $conditionCreateStruct): RuleGroupCondition;
 
     /**
      * Updates a condition with specified ID.

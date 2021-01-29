@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Persistence\Doctrine\Mapper;
 
-use Netgen\Layouts\Persistence\Values\LayoutResolver\Condition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
 use function json_decode;
 
@@ -101,18 +102,46 @@ final class LayoutResolverMapper
     }
 
     /**
-     * Maps data from database to condition values.
+     * Maps data from database to rule condition values.
      *
      * @param mixed[] $data
      *
-     * @return \Netgen\Layouts\Persistence\Values\LayoutResolver\Condition[]
+     * @return \Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCondition[]
      */
-    public function mapConditions(array $data): array
+    public function mapRuleConditions(array $data): array
     {
         $conditions = [];
 
         foreach ($data as $dataItem) {
-            $conditions[] = Condition::fromArray(
+            $conditions[] = RuleCondition::fromArray(
+                [
+                    'id' => (int) $dataItem['id'],
+                    'uuid' => $dataItem['uuid'],
+                    'status' => (int) $dataItem['status'],
+                    'ruleId' => (int) $dataItem['rule_id'],
+                    'ruleUuid' => $dataItem['rule_uuid'],
+                    'type' => $dataItem['type'],
+                    'value' => json_decode($dataItem['value'], true),
+                ]
+            );
+        }
+
+        return $conditions;
+    }
+
+    /**
+     * Maps data from database to rule group condition values.
+     *
+     * @param mixed[] $data
+     *
+     * @return \Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCondition[]
+     */
+    public function mapRuleGroupConditions(array $data): array
+    {
+        $conditions = [];
+
+        foreach ($data as $dataItem) {
+            $conditions[] = RuleGroupCondition::fromArray(
                 [
                     'id' => (int) $dataItem['id'],
                     'uuid' => $dataItem['uuid'],

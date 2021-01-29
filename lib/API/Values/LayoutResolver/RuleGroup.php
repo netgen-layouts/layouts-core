@@ -18,6 +18,13 @@ final class RuleGroup implements Value
     use ValueStatusTrait;
 
     /**
+     * The UUID of the root rule group.
+     *
+     * Only one root rule group can exist and all other rule groups are below it.
+     */
+    public const ROOT_UUID = '00000000-0000-0000-0000-000000000000';
+
+    /**
      * @var \Ramsey\Uuid\UuidInterface
      */
     private $id;

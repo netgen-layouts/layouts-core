@@ -9,8 +9,10 @@ use Netgen\Layouts\API\Values\LayoutResolver\Condition;
 use Netgen\Layouts\API\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\ConditionUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupCondition;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupList;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupMetadataUpdateStruct;
@@ -72,6 +74,8 @@ interface LayoutResolverService extends TransactionService
      *
      * If the layout is provided, only rules pointing to provided layout are returned.
      *
+     * @deprecated Will be renamed to loadRulesForLayout in 2.0
+     *
      * @throws \Netgen\Layouts\Exception\BadStateException If provided layout is not published
      */
     public function loadRules(?Layout $layout = null, int $offset = 0, ?int $limit = null): RuleList;
@@ -80,6 +84,8 @@ interface LayoutResolverService extends TransactionService
      * Returns the number of published rules.
      *
      * If the layout is provided, the count of rules pointing to provided layout is returned.
+     *
+     * @deprecated Will be renamed to getRuleCountForLayout in 2.0
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If provided layout is not published
      */
@@ -127,18 +133,36 @@ interface LayoutResolverService extends TransactionService
     public function loadTargetDraft(UuidInterface $targetId): Target;
 
     /**
-     * Loads a condition by its' UUID.
+     * Loads a rule condition by its' UUID.
+     *
+     * @deprecated Will be renamed to loadRuleCondition in 2.0.
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified UUID does not exist
      */
-    public function loadCondition(UuidInterface $conditionId): Condition;
+    public function loadCondition(UuidInterface $conditionId): RuleCondition;
 
     /**
-     * Loads a condition draft by its' UUID.
+     * Loads a rule condition draft by its' UUID.
+     *
+     * @deprecated Will be renamed to loadRuleConditionDraft in 2.0.
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified UUID does not exist
      */
-    public function loadConditionDraft(UuidInterface $conditionId): Condition;
+    public function loadConditionDraft(UuidInterface $conditionId): RuleCondition;
+
+    /**
+     * Loads a rule group condition by its' UUID.
+     *
+     * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified UUID does not exist
+     */
+    public function loadRuleGroupCondition(UuidInterface $conditionId): RuleGroupCondition;
+
+    /**
+     * Loads a rule group condition draft by its' UUID.
+     *
+     * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified UUID does not exist
+     */
+    public function loadRuleGroupConditionDraft(UuidInterface $conditionId): RuleGroupCondition;
 
     /**
      * Returns if rule with provided UUID, and optionally status, exists.
@@ -177,6 +201,8 @@ interface LayoutResolverService extends TransactionService
     /**
      * Creates a rule draft.
      *
+     * @deprecated Will be renamed to createRuleDraft in 2.0.
+     *
      * @throws \Netgen\Layouts\Exception\BadStateException If rule is not published
      *                                                     If draft already exists for the rule and $discardExisting is set to false
      */
@@ -184,6 +210,8 @@ interface LayoutResolverService extends TransactionService
 
     /**
      * Discards a rule draft.
+     *
+     * @deprecated Will be renamed to discardRuleDraft in 2.0.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If rule is not a draft
      */
@@ -199,6 +227,8 @@ interface LayoutResolverService extends TransactionService
     /**
      * Restores the archived version of a rule to a draft. If draft already exists,
      * it will be removed.
+     *
+     * @deprecated Will be renamed to restoreRuleFromArchive in 2.0.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If provided rule is not archived
      */
@@ -335,23 +365,34 @@ interface LayoutResolverService extends TransactionService
     /**
      * Adds a condition to rule.
      *
+     * @deprecated Will be renamed to addRuleCondition in 2.0.
+     *
      * @throws \Netgen\Layouts\Exception\BadStateException If rule is not a draft
      */
-    public function addCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct): Condition;
+    public function addCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct): RuleCondition;
 
     /**
      * Adds a condition to rule group.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If rule group is not a draft
      */
-    public function addRuleGroupCondition(RuleGroup $ruleGroup, ConditionCreateStruct $conditionCreateStruct): Condition;
+    public function addRuleGroupCondition(RuleGroup $ruleGroup, ConditionCreateStruct $conditionCreateStruct): RuleGroupCondition;
 
     /**
-     * Updates a condition.
+     * Updates a rule condition.
+     *
+     * @deprecated Will be renamed to updateRuleCondition in 2.0.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If condition is not a draft
      */
-    public function updateCondition(Condition $condition, ConditionUpdateStruct $conditionUpdateStruct): Condition;
+    public function updateCondition(RuleCondition $condition, ConditionUpdateStruct $conditionUpdateStruct): RuleCondition;
+
+    /**
+     * Updates a rule group condition.
+     *
+     * @throws \Netgen\Layouts\Exception\BadStateException If condition is not a draft
+     */
+    public function updateRuleGroupCondition(RuleGroupCondition $condition, ConditionUpdateStruct $conditionUpdateStruct): RuleGroupCondition;
 
     /**
      * Removes a condition.

@@ -248,7 +248,7 @@ export default class NlRule {
     settingDelete(e) {
         e.preventDefault();
         const { dataset } = e.target.closest('.js-setting-delete');
-        const url = `${this.rules.baseUrl}${dataset.settingType}s/${dataset.settingId}`;
+        const url = `${this.rules.baseUrl}rules/${dataset.settingType}s/${dataset.settingId}`;
         this.createDraft(() => {
             fetch(url, {
                 method: 'DELETE',
@@ -270,7 +270,7 @@ export default class NlRule {
     settingEdit(e) {
         e.preventDefault();
         const { dataset } = e.target.closest('.js-setting-edit');
-        const url = `${this.rules.baseUrl}${dataset.settingType}s/${dataset.settingId}/edit`;
+        const url = `${this.rules.baseUrl}rules/${dataset.settingType}s/${dataset.settingId}/edit`;
         const conditionEl = e.target.closest('li');
         this.createDraft(() => {
             fetch(url, {

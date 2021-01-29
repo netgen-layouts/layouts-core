@@ -6,10 +6,10 @@ namespace Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver;
 
 use Netgen\Bundle\LayoutsBundle\ParamConverter\ParamConverter;
 use Netgen\Layouts\API\Service\LayoutResolverService;
-use Netgen\Layouts\API\Values\LayoutResolver\Condition;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use Ramsey\Uuid\Uuid;
 
-final class ConditionParamConverter extends ParamConverter
+final class RuleConditionParamConverter extends ParamConverter
 {
     /**
      * @var \Netgen\Layouts\API\Service\LayoutResolverService
@@ -33,7 +33,7 @@ final class ConditionParamConverter extends ParamConverter
 
     public function getSupportedClass(): string
     {
-        return Condition::class;
+        return RuleCondition::class;
     }
 
     public function loadValue(array $values): object
