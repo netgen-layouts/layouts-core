@@ -21,10 +21,10 @@ cache:
 env:
   - PHPUNIT_CONFIG="phpunit-8.5.xml" SYMFONY_VERSION="~3.4.0" DB="mysql"
   - PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~4.4.0" DB="postgresql"
-  - PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~5.1.0"
+  - PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~5.2.0"
   - PHPUNIT_CONFIG="phpunit-8.5-api.xml" SYMFONY_VERSION="~3.4.0" DB="mysql"
   - PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~4.4.0" DB="postgresql"
-  - PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~5.1.0"
+  - PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~5.2.0"
 
 jobs:
   include:
@@ -33,15 +33,15 @@ jobs:
     - php: 7.3
       env: PHPUNIT_CONFIG="phpunit-8.5-api.xml" SYMFONY_VERSION="~3.4.0" DEPS="low"
     - php: 7.4
-      env: RUN_PHPSTAN="yes" SYMFONY_VERSION="~5.1.0"
+      env: RUN_PHPSTAN="yes" SYMFONY_VERSION="~5.2.0"
     - php: 7.4
-      env: RUN_PSALM="yes" SYMFONY_VERSION="~5.1.0"
+      env: RUN_PSALM="yes" SYMFONY_VERSION="~5.2.0"
     - php: 7.4
-      env: RUN_BEHAT="yes" SYMFONY_VERSION="~5.1.0"
+      env: RUN_BEHAT="yes" SYMFONY_VERSION="~5.2.0"
     - php: 7.4
-      env: RUN_MIGRATIONS="yes" DB="mysql" SYMFONY_VERSION="~5.1.0"
+      env: RUN_MIGRATIONS="yes" DB="mysql" SYMFONY_VERSION="~5.2.0"
     - php: 7.4
-      env: RUN_COVERAGE="yes" SYMFONY_VERSION="~5.1.0"
+      env: RUN_COVERAGE="yes" SYMFONY_VERSION="~5.2.0"
     - env: ~
       php: ~
       cache: ~
@@ -56,7 +56,7 @@ jobs:
         - yarn run prod
         - yarn run admin:prod
   allow_failures:
-    - env: RUN_COVERAGE="yes" SYMFONY_VERSION="~5.1.0"
+    - env: RUN_COVERAGE="yes" SYMFONY_VERSION="~5.2.0"
   fast_finish: true
 
 branches:
