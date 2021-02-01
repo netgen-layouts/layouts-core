@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Transfer\Output\Visitor\Integration;
 
 use Closure;
-use Coduo\PHPMatcher\Factory\SimpleFactory;
+use Coduo\PHPMatcher\PHPMatcher;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\Transfer\Output\Visitor\Stubs\VisitorStub;
@@ -28,18 +28,6 @@ use const PHP_EOL;
  */
 abstract class VisitorTest extends CoreTestCase
 {
-    /**
-     * @var \Coduo\PHPMatcher\Factory\SimpleFactory
-     */
-    private $matcherFactory;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->matcherFactory = new SimpleFactory();
-    }
-
     /**
      * @param mixed $value
      *
@@ -74,13 +62,13 @@ abstract class VisitorTest extends CoreTestCase
         $expectedData = trim((string) file_get_contents($fixturePath));
         $visitedData = $this->getVisitor()->visit($value, new OutputVisitor([new VisitorStub()]));
 
-        $matcher = $this->matcherFactory->createMatcher();
+        $matcher = new PHPMatcher();
         $matchResult = $matcher->match($visitedData, json_decode($expectedData, true, 512, JSON_THROW_ON_ERROR));
 
         if (!$matchResult) {
             $visitedData = json_encode($visitedData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
             $differ = new Differ(new UnifiedDiffOutputBuilder("--- Expected\n+++ Actual\n", false));
-            self::fail($matcher->getError() . PHP_EOL . $differ->diff($expectedData, $visitedData));
+            self::fail($matcher->error() . PHP_EOL . $differ->diff($expectedData, $visitedData));
         }
 
         // We fake the assertion count to disable risky warning

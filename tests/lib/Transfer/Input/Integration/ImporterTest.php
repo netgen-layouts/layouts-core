@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Transfer\Input\Integration;
 
-use Coduo\PHPMatcher\Factory\SimpleFactory;
+use Coduo\PHPMatcher\PHPMatcher;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Block\BlockDefinition\Handler\CommonParametersPlugin;
@@ -58,11 +58,6 @@ abstract class ImporterTest extends CoreTestCase
      * @var \Netgen\Layouts\Transfer\Output\SerializerInterface
      */
     private $serializer;
-
-    /**
-     * @var \Coduo\PHPMatcher\Factory\SimpleFactory
-     */
-    private $matcherFactory;
 
     protected function setUp(): void
     {
@@ -140,8 +135,6 @@ abstract class ImporterTest extends CoreTestCase
             new OutputVisitor($outputVisitors),
             new Container($entityHandlers)
         );
-
-        $this->matcherFactory = new SimpleFactory();
     }
 
     /**
@@ -164,7 +157,7 @@ abstract class ImporterTest extends CoreTestCase
 
             $exportedRuleData = $exportedRuleData['entities'][0];
 
-            $matcher = $this->matcherFactory->createMatcher();
+            $matcher = new PHPMatcher();
             $matchResult = $matcher->match($exportedRuleData, $ruleData);
 
             if (!$matchResult) {
@@ -174,7 +167,7 @@ abstract class ImporterTest extends CoreTestCase
                     json_encode($exportedRuleData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR)
                 );
 
-                self::fail($matcher->getError() . PHP_EOL . $diff);
+                self::fail($matcher->error() . PHP_EOL . $diff);
             }
         }
 
@@ -214,7 +207,7 @@ abstract class ImporterTest extends CoreTestCase
             self::assertGreaterThan($layoutData['modification_date'], $exportedLayoutData['modification_date']);
             unset($layoutData['modification_date'], $exportedLayoutData['modification_date']);
 
-            $matcher = $this->matcherFactory->createMatcher();
+            $matcher = new PHPMatcher();
             $matchResult = $matcher->match($exportedLayoutData, $layoutData);
 
             if (!$matchResult) {
@@ -224,7 +217,7 @@ abstract class ImporterTest extends CoreTestCase
                     json_encode($exportedLayoutData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR)
                 );
 
-                self::fail($matcher->getError() . PHP_EOL . $diff);
+                self::fail($matcher->error() . PHP_EOL . $diff);
             }
         }
 
