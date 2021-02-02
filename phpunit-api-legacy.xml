@@ -10,7 +10,7 @@
     beStrictAboutChangesToGlobalState="true"
 >
     <php>
-        <server name="KERNEL_CLASS" value="Netgen\Layouts\Tests\App\Kernel" />
+        <server name="KERNEL_CLASS" value="Netgen\Layouts\Tests\App\LegacyKernel" />
         <env name="SF_USERNAME" value="admin" />
         <env name="SF_PASSWORD" value="admin" />
         <env name="SHELL_VERBOSITY" value="1" />

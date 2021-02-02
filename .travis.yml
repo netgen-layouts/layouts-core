@@ -19,19 +19,20 @@ cache:
     - $HOME/.cache/composer
 
 env:
-  - PHPUNIT_CONFIG="phpunit-8.5.xml" SYMFONY_VERSION="~3.4.0" DB="mysql"
+  - PHPUNIT_CONFIG="phpunit-legacy.xml" SYMFONY_VERSION="~3.4.0" DB="mysql"
   - PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~4.4.0" DB="postgresql"
   - PHPUNIT_CONFIG="phpunit.xml" SYMFONY_VERSION="~5.2.0"
-  - PHPUNIT_CONFIG="phpunit-8.5-api.xml" SYMFONY_VERSION="~3.4.0" DB="mysql"
-  - PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~4.4.0" DB="postgresql"
+  - PHPUNIT_CONFIG="phpunit-api-legacy.xml" SYMFONY_VERSION="~3.4.0" DB="mysql"
+  # API tests on Symfony 4.4 require legacy PHPUnit config due to usage of legacy app kernel
+  - PHPUNIT_CONFIG="phpunit-api-legacy.xml" SYMFONY_VERSION="~4.4.0" DB="postgresql"
   - PHPUNIT_CONFIG="phpunit-api.xml" SYMFONY_VERSION="~5.2.0"
 
 jobs:
   include:
     - php: 7.3
-      env: PHPUNIT_CONFIG="phpunit-8.5.xml" SYMFONY_VERSION="~3.4.0" DEPS="low"
+      env: PHPUNIT_CONFIG="phpunit-legacy.xml" SYMFONY_VERSION="~3.4.0" DEPS="low"
     - php: 7.3
-      env: PHPUNIT_CONFIG="phpunit-8.5-api.xml" SYMFONY_VERSION="~3.4.0" DEPS="low"
+      env: PHPUNIT_CONFIG="phpunit-api-legacy.xml" SYMFONY_VERSION="~3.4.0" DEPS="low"
     - php: 7.4
       env: RUN_PHPSTAN="yes" SYMFONY_VERSION="~5.2.0"
     - php: 7.4

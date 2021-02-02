@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\App;
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
-use Symfony\Component\Config\Loader\LoaderInterface;
-use Symfony\Component\Config\Resource\FileResource;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 use function dirname;
 use function getenv;
+use function is_file;
 use function is_string;
 use function putenv;
 use function str_starts_with;
@@ -21,18 +20,6 @@ use function trim;
 final class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
-
-    private const CONFIG_EXTS = '.{php,xml,yaml,yml}';
-
-    public function registerBundles(): iterable
-    {
-        $contents = require $this->getProjectDir() . '/config/bundles.php';
-        foreach ($contents as $class => $envs) {
-            if ($envs[$this->environment] ?? $envs['all'] ?? false) {
-                yield new $class();
-            }
-        }
-    }
 
     public function boot(): void
     {
@@ -64,37 +51,30 @@ final class Kernel extends BaseKernel
         return sys_get_temp_dir() . '/nglayouts/logs';
     }
 
-    protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
+    protected function configureContainer(ContainerConfigurator $container): void
     {
-        $container->addResource(new FileResource($this->getProjectDir() . '/config/bundles.php'));
-        $container->setParameter('container.dumper.inline_class_loader', true);
-        $confDir = $this->getProjectDir() . '/config';
+        $container->import('../config/{packages}/*.yaml');
+        $container->import('../config/{packages}/netgen_layouts/**/*.yaml');
+        $container->import('../config/{packages}/' . $this->environment . '/*.yaml');
 
-        $loader->load($confDir . '/{packages}/*' . self::CONFIG_EXTS, 'glob');
-        $loader->load($confDir . '/{packages}/netgen_layouts/**/*' . self::CONFIG_EXTS, 'glob');
-        $loader->load($confDir . '/{packages}/' . $this->environment . '/**/*' . self::CONFIG_EXTS, 'glob');
-        $loader->load($confDir . '/{services}' . self::CONFIG_EXTS, 'glob');
-        $loader->load($confDir . '/{services}_' . $this->environment . self::CONFIG_EXTS, 'glob');
+        if (is_file(dirname(__DIR__) . '/config/services.yaml')) {
+            $container->import('../config/services.yaml');
+            $container->import('../config/{services}_' . $this->environment . '.yaml');
+        } elseif (is_file($path = dirname(__DIR__) . '/config/services.php')) {
+            (require $path)($container->withPath($path), $this);
+        }
     }
 
-    /**
-     * @param \Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator|\Symfony\Component\Routing\RouteCollectionBuilder $routes
-     */
-    protected function configureRoutes($routes): void
+    protected function configureRoutes(RoutingConfigurator $routes): void
     {
-        if ($routes instanceof RoutingConfigurator) {
-            $routes->import('../config/{routes}/' . $this->environment . '/*.yaml');
-            $routes->import('../config/{routes}/*.yaml');
-            $routes->import('../config/{routes}.yaml');
+        $routes->import('../config/{routes}/' . $this->environment . '/*.yaml');
+        $routes->import('../config/{routes}/*.yaml');
 
-            return;
+        if (is_file(dirname(__DIR__) . '/config/routes.yaml')) {
+            $routes->import('../config/routes.yaml');
+        } elseif (is_file($path = dirname(__DIR__) . '/config/routes.php')) {
+            (require $path)($routes->withPath($path), $this);
         }
-
-        $confDir = $this->getProjectDir() . '/config';
-
-        $routes->import($confDir . '/{routes}/' . $this->environment . '/**/*' . self::CONFIG_EXTS, '/', 'glob');
-        $routes->import($confDir . '/{routes}/*' . self::CONFIG_EXTS, '/', 'glob');
-        $routes->import($confDir . '/{routes}' . self::CONFIG_EXTS, '/', 'glob');
     }
 
     protected function getContainerBaseClass(): string

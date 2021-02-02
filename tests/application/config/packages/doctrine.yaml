@@ -1,7 +1,3 @@
-parameters:
-    env(DATABASE): ''
-    env(DATABASE_CHARSET): ''
-
 doctrine:
     dbal:
         connections:
