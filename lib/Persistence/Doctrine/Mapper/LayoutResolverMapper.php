@@ -146,8 +146,8 @@ final class LayoutResolverMapper
                     'id' => (int) $dataItem['id'],
                     'uuid' => $dataItem['uuid'],
                     'status' => (int) $dataItem['status'],
-                    'ruleId' => (int) $dataItem['rule_id'],
-                    'ruleUuid' => $dataItem['rule_uuid'],
+                    'ruleGroupId' => (int) $dataItem['rule_group_id'],
+                    'ruleGroupUuid' => $dataItem['rule_group_uuid'],
                     'type' => $dataItem['type'],
                     'value' => json_decode($dataItem['value'], true),
                 ]
