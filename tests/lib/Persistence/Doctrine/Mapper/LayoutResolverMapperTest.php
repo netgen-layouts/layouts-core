@@ -7,6 +7,8 @@ namespace Netgen\Layouts\Tests\Persistence\Doctrine\Mapper;
 use Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutResolverMapper;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCondition;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
 use Netgen\Layouts\Persistence\Values\Value;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
@@ -81,6 +83,71 @@ final class LayoutResolverMapperTest extends TestCase
 
         self::assertContainsOnlyInstancesOf(Rule::class, $rules);
         self::assertSame($expectedData, $this->exportObjectList($rules));
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutResolverMapper::mapRuleGroups
+     */
+    public function testMapRuleGroups(): void
+    {
+        $data = [
+            [
+                'id' => '42',
+                'uuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
+                'depth' => 1,
+                'path' => '/62/43/',
+                'parent_id' => '62',
+                'parent_uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'enabled' => '1',
+                'priority' => '2',
+                'comment' => 'Comment',
+                'status' => '1',
+            ],
+            [
+                'id' => '43',
+                'uuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
+                'depth' => 0,
+                'path' => '/43/',
+                'parent_id' => null,
+                'parent_uuid' => null,
+                'enabled' => '0',
+                'priority' => '3',
+                'comment' => null,
+                'status' => Value::STATUS_DRAFT,
+            ],
+        ];
+
+        $expectedData = [
+            [
+                'id' => 42,
+                'uuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
+                'depth' => 1,
+                'path' => '/62/43/',
+                'parentId' => 62,
+                'parentUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'enabled' => true,
+                'priority' => 2,
+                'comment' => 'Comment',
+                'status' => Value::STATUS_PUBLISHED,
+            ],
+            [
+                'id' => 43,
+                'uuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
+                'depth' => 0,
+                'path' => '/43/',
+                'parentId' => null,
+                'parentUuid' => null,
+                'enabled' => false,
+                'priority' => 3,
+                'comment' => null,
+                'status' => Value::STATUS_DRAFT,
+            ],
+        ];
+
+        $ruleGroups = $this->mapper->mapRuleGroups($data);
+
+        self::assertContainsOnlyInstancesOf(RuleGroup::class, $ruleGroups);
+        self::assertSame($expectedData, $this->exportObjectList($ruleGroups));
     }
 
     /**
@@ -188,6 +255,61 @@ final class LayoutResolverMapperTest extends TestCase
         $conditions = $this->mapper->mapRuleConditions($data);
 
         self::assertContainsOnlyInstancesOf(RuleCondition::class, $conditions);
+        self::assertSame($expectedData, $this->exportObjectList($conditions));
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutResolverMapper::mapRuleGroupConditions
+     */
+    public function testMapRuleGroupConditions(): void
+    {
+        $data = [
+            [
+                'id' => '42',
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
+                'rule_group_id' => '1',
+                'rule_group_uuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
+                'type' => 'condition',
+                'value' => '24',
+                'status' => '1',
+            ],
+            [
+                'id' => 43,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'rule_group_id' => 2,
+                'rule_group_uuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
+                'type' => 'condition2',
+                'value' => '{"param":"value"}',
+                'status' => Value::STATUS_DRAFT,
+            ],
+        ];
+
+        $expectedData = [
+            [
+                'ruleGroupId' => 1,
+                'ruleGroupUuid' => '02a720f4-1083-58f5-bb23-7067c3451b19',
+                'id' => 42,
+                'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
+                'type' => 'condition',
+                'value' => 24,
+                'status' => Value::STATUS_PUBLISHED,
+            ],
+            [
+                'ruleGroupId' => 2,
+                'ruleGroupUuid' => '92bc1d5d-0016-5510-a095-65e218db0adf',
+                'id' => 43,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'type' => 'condition2',
+                'value' => [
+                    'param' => 'value',
+                ],
+                'status' => Value::STATUS_DRAFT,
+            ],
+        ];
+
+        $conditions = $this->mapper->mapRuleGroupConditions($data);
+
+        self::assertContainsOnlyInstancesOf(RuleGroupCondition::class, $conditions);
         self::assertSame($expectedData, $this->exportObjectList($conditions));
     }
 }

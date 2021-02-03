@@ -11,6 +11,7 @@ use Netgen\Layouts\Layout\Resolver\TargetType\NullTargetType;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Ramsey\Uuid\Uuid;
@@ -79,6 +80,39 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
         $rule = $this->mapper->mapRule($persistenceRule);
 
         self::assertNull($rule->getLayout());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Mapper\LayoutResolverMapper::__construct
+     * @covers \Netgen\Layouts\Core\Mapper\LayoutResolverMapper::mapRuleGroup
+     */
+    public function testMapRuleGroup(): void
+    {
+        $persistenceRuleGroup = RuleGroup::fromArray(
+            [
+                'id' => 2,
+                'uuid' => 'b4f85f38-de3f-4af7-9a5f-21df63a49da9',
+                'status' => Value::STATUS_PUBLISHED,
+                'depth' => 1,
+                'path' => '/1/2/',
+                'parentId' => 1,
+                'parentUuid' => RuleGroup::ROOT_UUID,
+                'enabled' => true,
+                'priority' => 1,
+                'comment' => 'Comment',
+            ]
+        );
+
+        $ruleGroup = $this->mapper->mapRuleGroup($persistenceRuleGroup);
+
+        self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $ruleGroup->getId()->toString());
+        self::assertTrue($ruleGroup->isPublished());
+        self::assertTrue($ruleGroup->isEnabled());
+        self::assertSame(1, $ruleGroup->getPriority());
+        self::assertSame('Comment', $ruleGroup->getComment());
+
+        self::assertCount(2, $ruleGroup->getRules());
+        self::assertCount(2, $ruleGroup->getConditions());
     }
 
     /**
@@ -192,6 +226,63 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
         self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $condition->getId()->toString());
         self::assertTrue($condition->isPublished());
         self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $condition->getRuleId()->toString());
+        self::assertSame(42, $condition->getValue());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Mapper\LayoutResolverMapper::mapRuleGroupCondition
+     */
+    public function testMapRuleGroupCondition(): void
+    {
+        $persistenceCondition = RuleGroupCondition::fromArray(
+            [
+                'id' => 1,
+                'uuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
+                'status' => Value::STATUS_PUBLISHED,
+                'ruleGroupId' => 42,
+                'ruleGroupUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
+                'type' => 'condition1',
+                'value' => 42,
+            ]
+        );
+
+        $condition = $this->mapper->mapRuleGroupCondition($persistenceCondition);
+
+        self::assertSame(
+            $this->conditionTypeRegistry->getConditionType('condition1'),
+            $condition->getConditionType()
+        );
+
+        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $condition->getId()->toString());
+        self::assertTrue($condition->isPublished());
+        self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $condition->getRuleGroupId()->toString());
+        self::assertSame(42, $condition->getValue());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Mapper\LayoutResolverMapper::mapRuleGroupCondition
+     */
+    public function testMapRuleGroupConditionWithInvalidConditionType(): void
+    {
+        $persistenceCondition = RuleGroupCondition::fromArray(
+            [
+                'id' => 1,
+                'uuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
+                'status' => Value::STATUS_PUBLISHED,
+                'ruleGroupId' => 42,
+                'ruleGroupUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
+                'type' => 'unknown',
+                'value' => 42,
+            ]
+        );
+
+        $condition = $this->mapper->mapRuleGroupCondition($persistenceCondition);
+
+        self::assertInstanceOf(NullConditionType::class, $condition->getConditionType());
+
+        self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $condition->getId()->toString());
+        self::assertTrue($condition->isPublished());
+        self::assertSame('23eece92-8cce-5155-9fef-58fb5e3decd6', $condition->getRuleGroupId()->toString());
         self::assertSame(42, $condition->getValue());
     }
 }

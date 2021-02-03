@@ -75,6 +75,54 @@ abstract class LayoutResolverStructBuilderTest extends CoreTestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder::newRuleGroupCreateStruct
+     */
+    public function testNewRuleGroupCreateStruct(): void
+    {
+        $struct = $this->structBuilder->newRuleGroupCreateStruct();
+
+        self::assertSame(
+            [
+                'uuid' => null,
+                'priority' => null,
+                'enabled' => true,
+                'comment' => null,
+            ],
+            $this->exportObject($struct)
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder::newRuleGroupUpdateStruct
+     */
+    public function testNewRuleGroupUpdateStruct(): void
+    {
+        $struct = $this->structBuilder->newRuleGroupUpdateStruct();
+
+        self::assertSame(
+            [
+                'comment' => null,
+            ],
+            $this->exportObject($struct)
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder::newRuleGroupMetadataUpdateStruct
+     */
+    public function testNewRuleGroupMetadataUpdateStruct(): void
+    {
+        $struct = $this->structBuilder->newRuleGroupMetadataUpdateStruct();
+
+        self::assertSame(
+            [
+                'priority' => null,
+            ],
+            $this->exportObject($struct)
+        );
+    }
+
+    /**
      * @covers \Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder::newTargetCreateStruct
      */
     public function testNewTargetCreateStruct(): void

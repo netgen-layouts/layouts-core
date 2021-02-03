@@ -66,6 +66,7 @@ abstract class CollectionMapperTest extends CoreTestCase
         self::assertSame(['en'], $collection->getAvailableLocales());
 
         self::assertCount(3, $collection->getItems());
+        self::assertCount(2, $collection->getSlots());
         self::assertInstanceOf(APIQuery::class, $collection->getQuery());
     }
 
