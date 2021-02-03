@@ -31,6 +31,6 @@ final class RoutePrefix implements TargetHandlerInterface
                 )
             )
         )
-        ->setParameter(':target_value', $value, Types::STRING);
+        ->setParameter('target_value', $value, Types::STRING);
     }
 }

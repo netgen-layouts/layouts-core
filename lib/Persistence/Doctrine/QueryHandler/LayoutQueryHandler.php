@@ -582,7 +582,7 @@ final class LayoutQueryHandler extends QueryHandler
         if ($locale !== null) {
             $query
                 ->andWhere($query->expr()->eq('locale', ':locale'))
-                ->setParameter(':locale', $locale, Types::STRING);
+                ->setParameter('locale', $locale, Types::STRING);
         }
 
         $query->execute();
