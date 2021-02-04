@@ -92,6 +92,20 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
      */
     public function testLoadRules(): void
     {
+        $rules = $this->layoutResolverService->loadRules();
+
+        self::assertCount(12, $rules);
+
+        foreach ($rules as $rule) {
+            self::assertTrue($rule->isPublished());
+        }
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRules
+     */
+    public function testLoadRulesWithLayout(): void
+    {
         $rules = $this->layoutResolverService->loadRules(
             $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))
         );
@@ -120,6 +134,16 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
      * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::getRuleCount
      */
     public function testGetRuleCount(): void
+    {
+        $ruleCount = $this->layoutResolverService->getRuleCount();
+
+        self::assertSame(12, $ruleCount);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::getRuleCount
+     */
+    public function testGetRuleCountWithLayout(): void
     {
         $ruleCount = $this->layoutResolverService->getRuleCount(
             $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))
