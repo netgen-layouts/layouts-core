@@ -281,7 +281,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         $copiedRule->uuid = Uuid::uuid4()->toString();
 
         if ($targetGroup !== null) {
-            $rule->ruleGroupId = $targetGroup->id;
+            $copiedRule->ruleGroupId = $targetGroup->id;
         }
 
         $copiedRule = $this->queryHandler->createRule($copiedRule);
@@ -519,7 +519,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         $copiedRuleGroup = clone $ruleGroup;
         $copiedRuleGroup->status = $newStatus;
 
-        $copiedRuleGroup = $this->queryHandler->createRuleGroup($copiedRuleGroup);
+        $copiedRuleGroup = $this->queryHandler->createRuleGroup($copiedRuleGroup, false);
 
         // Then copy rule group conditions
 

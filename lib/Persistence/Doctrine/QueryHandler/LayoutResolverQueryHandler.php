@@ -118,7 +118,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query->andWhere(
             $query->expr()->eq('rule_group_id', ':rule_group_id')
         )
-        ->setParameter('rule_group_id', $ruleGroup->id, Types::STRING);
+        ->setParameter('rule_group_id', $ruleGroup->id, Types::INTEGER);
 
         $query->addOrderBy('rd.priority', 'DESC');
 
@@ -140,7 +140,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query->andWhere(
             $query->expr()->eq('rule_group_id', ':rule_group_id')
         )
-        ->setParameter('rule_group_id', $ruleGroup->id, Types::STRING);
+        ->setParameter('rule_group_id', $ruleGroup->id, Types::INTEGER);
 
         $this->applyStatusCondition($query, $ruleGroup->status);
 
@@ -228,6 +228,11 @@ final class LayoutResolverQueryHandler extends QueryHandler
     {
         $query = $this->getRuleGroupSelectQuery();
 
+        $query->andWhere(
+            $query->expr()->eq('parent_id', ':parent_id')
+        )
+        ->setParameter('parent_id', $ruleGroup->id, Types::INTEGER);
+
         $query->addOrderBy('rgd.priority', 'DESC');
 
         $this->applyStatusCondition($query, $ruleGroup->status, 'rg.status');
@@ -250,6 +255,11 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
             ->from('nglayouts_rule_group');
+
+        $query->andWhere(
+            $query->expr()->eq('parent_id', ':parent_id')
+        )
+        ->setParameter('parent_id', $ruleGroup->id, Types::INTEGER);
 
         $this->applyStatusCondition($query, $ruleGroup->status);
 
@@ -510,7 +520,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->setValue('id', $rule->id ?? $this->connectionHelper->nextId('nglayouts_rule'))
             ->setParameter('uuid', $rule->uuid, Types::STRING)
             ->setParameter('status', $rule->status, Types::INTEGER)
-            ->setParameter('rule_group_id', $rule->ruleGroupId, Types::STRING)
+            ->setParameter('rule_group_id', $rule->ruleGroupId, Types::INTEGER)
             ->setParameter('layout_uuid', $rule->layoutUuid, Types::STRING)
             ->setParameter('comment', $rule->comment, Types::STRING);
 
@@ -638,7 +648,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->setValue('id', $ruleGroup->id ?? $this->connectionHelper->nextId('nglayouts_rule_group'))
             ->setParameter('uuid', $ruleGroup->uuid, Types::STRING)
             ->setParameter('status', $ruleGroup->status, Types::INTEGER)
-            ->setParameter('depth', $ruleGroup->depth, Types::STRING)
+            ->setParameter('depth', $ruleGroup->depth, Types::INTEGER)
             // Materialized path is updated after rule group is created
             ->setParameter('path', $ruleGroup->path, Types::STRING)
             ->setParameter('parent_id', $ruleGroup->parentId, Types::INTEGER)
@@ -708,7 +718,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             )
             ->setParameter('id', $ruleGroup->id, Types::INTEGER)
             ->setParameter('uuid', $ruleGroup->uuid, Types::STRING)
-            ->setParameter('depth', $ruleGroup->depth, Types::STRING)
+            ->setParameter('depth', $ruleGroup->depth, Types::INTEGER)
             ->setParameter('path', $ruleGroup->path, Types::STRING)
             ->setParameter('parent_id', $ruleGroup->parentId, Types::INTEGER)
             ->setParameter('comment', $ruleGroup->comment, Types::STRING);
@@ -1013,7 +1023,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $query->execute();
 
-        if (!$this->ruleExists($ruleGroupId)) {
+        if (!$this->ruleGroupExists($ruleGroupId)) {
             $query = $this->connection->createQueryBuilder();
             $query->delete('nglayouts_rule_group_data')
                 ->where(

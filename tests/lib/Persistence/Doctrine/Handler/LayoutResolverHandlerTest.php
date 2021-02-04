@@ -12,6 +12,10 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleCreateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCondition;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCreateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupMetadataUpdateStruct;
+use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleMetadataUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
@@ -94,6 +98,46 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRuleGroup
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleGroupSelectQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleGroupUuid
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupData
+     */
+    public function testLoadRuleGroup(): void
+    {
+        $rule = $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED);
+
+        self::assertSame(
+            [
+                'id' => 2,
+                'uuid' => 'b4f85f38-de3f-4af7-9a5f-21df63a49da9',
+                'depth' => 1,
+                'path' => '/1/2/',
+                'parentId' => 1,
+                'parentUuid' => RuleGroup::ROOT_UUID,
+                'enabled' => true,
+                'priority' => 1,
+                'comment' => '',
+                'status' => Value::STATUS_PUBLISHED,
+            ],
+            $this->exportObject($rule)
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRuleGroup
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleGroupUuid
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupData
+     */
+    public function testLoadRuleGroupThrowsNotFoundException(): void
+    {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find rule group with identifier "999999"');
+
+        $this->handler->loadRuleGroup(999999, Value::STATUS_PUBLISHED);
+    }
+
+    /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRules
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRulesData
      */
@@ -160,6 +204,78 @@ final class LayoutResolverHandlerTest extends TestCase
         );
 
         self::assertSame(2, $rules);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRulesFromGroup
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRulesFromGroupData
+     */
+    public function testLoadRulesFromGroup(): void
+    {
+        $rules = $this->handler->loadRulesFromGroup(
+            $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED)
+        );
+
+        self::assertCount(2, $rules);
+        self::assertContainsOnlyInstancesOf(Rule::class, $rules);
+
+        $previousPriority = null;
+        foreach ($rules as $index => $rule) {
+            if ($index > 0) {
+                self::assertLessThanOrEqual($previousPriority, $rule->priority);
+            }
+
+            $previousPriority = $rule->priority;
+        }
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getRuleCountFromGroup
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleCountFromGroup
+     */
+    public function testGetRuleCountFromGroup(): void
+    {
+        $rules = $this->handler->getRuleCountFromGroup(
+            $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED)
+        );
+
+        self::assertSame(2, $rules);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRuleGroups
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupsData
+     */
+    public function testLoadRuleGroups(): void
+    {
+        $ruleGroups = $this->handler->loadRuleGroups(
+            $this->handler->loadRuleGroup(1, Value::STATUS_PUBLISHED)
+        );
+
+        self::assertCount(2, $ruleGroups);
+        self::assertContainsOnlyInstancesOf(RuleGroup::class, $ruleGroups);
+
+        $previousPriority = null;
+        foreach ($ruleGroups as $index => $ruleGroup) {
+            if ($index > 0) {
+                self::assertLessThanOrEqual($previousPriority, $ruleGroup->priority);
+            }
+
+            $previousPriority = $ruleGroup->priority;
+        }
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getRuleGroupCount
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleGroupCount
+     */
+    public function testGetRuleGroupCount(): void
+    {
+        $ruleGroups = $this->handler->getRuleGroupCount(
+            $this->handler->loadRuleGroup(1, Value::STATUS_PUBLISHED)
+        );
+
+        self::assertSame(2, $ruleGroups);
     }
 
     /**
@@ -263,6 +379,43 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRuleGroupCondition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleGroupConditionSelectQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupConditionData
+     */
+    public function testLoadRuleGroupCondition(): void
+    {
+        $condition = $this->handler->loadRuleGroupCondition(5, Value::STATUS_PUBLISHED);
+
+        self::assertSame(
+            [
+                'ruleGroupId' => 2,
+                'ruleGroupUuid' => 'b4f85f38-de3f-4af7-9a5f-21df63a49da9',
+                'id' => 5,
+                'uuid' => 'b084d390-01ea-464b-8282-797b6ef9ef1e',
+                'type' => 'condition1',
+                'value' => [
+                    'some_other_value',
+                ],
+                'status' => Value::STATUS_PUBLISHED,
+            ],
+            $this->exportObject($condition)
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRuleGroupCondition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupConditionData
+     */
+    public function testLoadRuleGroupConditionThrowsNotFoundException(): void
+    {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find condition with identifier "999999"');
+
+        $this->handler->loadRuleGroupCondition(999999, Value::STATUS_PUBLISHED);
+    }
+
+    /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRuleConditions
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleConditionsData
      */
@@ -274,6 +427,20 @@ final class LayoutResolverHandlerTest extends TestCase
 
         self::assertNotEmpty($conditions);
         self::assertContainsOnlyInstancesOf(RuleCondition::class, $conditions);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRuleGroupConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupConditionsData
+     */
+    public function testLoadRuleGroupConditions(): void
+    {
+        $conditions = $this->handler->loadRuleGroupConditions(
+            $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED)
+        );
+
+        self::assertNotEmpty($conditions);
+        self::assertContainsOnlyInstancesOf(RuleGroupCondition::class, $conditions);
     }
 
     /**
@@ -554,6 +721,7 @@ final class LayoutResolverHandlerTest extends TestCase
     /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::copyRule
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addCondition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addRuleCondition
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addTarget
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleConditionsData
@@ -630,8 +798,231 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::copyRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addCondition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addRuleCondition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addTarget
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleConditionsData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleTargetsData
+     */
+    public function testCopyRuleToOtherGroup(): void
+    {
+        $rule = $this->handler->loadRule(5, Value::STATUS_PUBLISHED);
+        $targetGroup = $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED);
+
+        $copiedRule = $this->withUuids(
+            function () use ($rule, $targetGroup): Rule {
+                return $this->handler->copyRule($rule, $targetGroup);
+            },
+            [
+                'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'efd1d54a-5d53-518f-91a5-f4965c242a67',
+                '1169074c-8779-5b64-afec-c910705e418a',
+                'aaa3659b-b574-5e6b-8902-0ea37f576469',
+            ]
+        );
+
+        self::assertSame(13, $copiedRule->id);
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedRule->uuid);
+        self::assertSame($targetGroup->id, $copiedRule->ruleGroupId);
+        self::assertSame($rule->layoutUuid, $copiedRule->layoutUuid);
+        self::assertSame($rule->priority, $copiedRule->priority);
+        self::assertSame($rule->enabled, $copiedRule->enabled);
+        self::assertSame($rule->comment, $copiedRule->comment);
+        self::assertSame($rule->status, $copiedRule->status);
+
+        self::assertSame(
+            [
+                [
+                    'id' => 21,
+                    'uuid' => 'efd1d54a-5d53-518f-91a5-f4965c242a67',
+                    'ruleId' => $copiedRule->id,
+                    'ruleUuid' => $copiedRule->uuid,
+                    'type' => 'route_prefix',
+                    'value' => 'my_second_cool_',
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+                [
+                    'id' => 22,
+                    'uuid' => '1169074c-8779-5b64-afec-c910705e418a',
+                    'ruleId' => $copiedRule->id,
+                    'ruleUuid' => $copiedRule->uuid,
+                    'type' => 'route_prefix',
+                    'value' => 'my_third_cool_',
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+            ],
+            $this->exportObjectList(
+                $this->handler->loadRuleTargets($copiedRule)
+            )
+        );
+
+        self::assertSame(
+            [
+                [
+                    'ruleId' => $copiedRule->id,
+                    'ruleUuid' => $copiedRule->uuid,
+                    'id' => 7,
+                    'uuid' => 'aaa3659b-b574-5e6b-8902-0ea37f576469',
+                    'type' => 'condition1',
+                    'value' => ['some_value'],
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+            ],
+            $this->exportObjectList(
+                $this->handler->loadRuleConditions($copiedRule)
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::moveRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::moveRule
+     */
+    public function testMoveRule(): void
+    {
+        $rule = $this->handler->loadRule(5, Value::STATUS_PUBLISHED);
+        $targetGroup = $this->handler->loadRuleGroup(4, Value::STATUS_PUBLISHED);
+
+        $movedRule = $this->handler->moveRule($rule, $targetGroup);
+
+        self::assertSame($rule->id, $movedRule->id);
+        self::assertSame($rule->uuid, $movedRule->uuid);
+        self::assertSame($targetGroup->id, $movedRule->ruleGroupId);
+        self::assertSame($rule->layoutUuid, $movedRule->layoutUuid);
+        self::assertSame($rule->priority, $movedRule->priority);
+        self::assertSame($rule->enabled, $movedRule->enabled);
+        self::assertSame($rule->comment, $movedRule->comment);
+        self::assertSame($rule->status, $movedRule->status);
+
+        self::assertSame(
+            [
+                [
+                    'id' => 9,
+                    'uuid' => '5104e4e7-1a20-5db8-8857-5ab99f1290b9',
+                    'ruleId' => $movedRule->id,
+                    'ruleUuid' => $movedRule->uuid,
+                    'type' => 'route_prefix',
+                    'value' => 'my_second_cool_',
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+                [
+                    'id' => 10,
+                    'uuid' => 'f0019d3e-5868-503d-b81b-5263af428495',
+                    'ruleId' => $movedRule->id,
+                    'ruleUuid' => $movedRule->uuid,
+                    'type' => 'route_prefix',
+                    'value' => 'my_third_cool_',
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+            ],
+            $this->exportObjectList(
+                $this->handler->loadRuleTargets($movedRule)
+            )
+        );
+
+        self::assertSame(
+            [
+                [
+                    'ruleId' => $movedRule->id,
+                    'ruleUuid' => $movedRule->uuid,
+                    'id' => 4,
+                    'uuid' => '7db46c94-3139-5a3d-9b2a-b2d28e7573ca',
+                    'type' => 'condition1',
+                    'value' => ['some_value'],
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+            ],
+            $this->exportObjectList(
+                $this->handler->loadRuleConditions($movedRule)
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::moveRule
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::moveRule
+     */
+    public function testMoveRuleWithSpecifiedPriority(): void
+    {
+        $rule = $this->handler->loadRule(5, Value::STATUS_PUBLISHED);
+        $targetGroup = $this->handler->loadRuleGroup(4, Value::STATUS_PUBLISHED);
+
+        $movedRule = $this->handler->moveRule($rule, $targetGroup, 42);
+
+        self::assertSame($rule->id, $movedRule->id);
+        self::assertSame($rule->uuid, $movedRule->uuid);
+        self::assertSame($targetGroup->id, $movedRule->ruleGroupId);
+        self::assertSame($rule->layoutUuid, $movedRule->layoutUuid);
+        self::assertSame(42, $movedRule->priority);
+        self::assertSame($rule->enabled, $movedRule->enabled);
+        self::assertSame($rule->comment, $movedRule->comment);
+        self::assertSame($rule->status, $movedRule->status);
+
+        self::assertSame(
+            [
+                [
+                    'id' => 9,
+                    'uuid' => '5104e4e7-1a20-5db8-8857-5ab99f1290b9',
+                    'ruleId' => $movedRule->id,
+                    'ruleUuid' => $movedRule->uuid,
+                    'type' => 'route_prefix',
+                    'value' => 'my_second_cool_',
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+                [
+                    'id' => 10,
+                    'uuid' => 'f0019d3e-5868-503d-b81b-5263af428495',
+                    'ruleId' => $movedRule->id,
+                    'ruleUuid' => $movedRule->uuid,
+                    'type' => 'route_prefix',
+                    'value' => 'my_third_cool_',
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+            ],
+            $this->exportObjectList(
+                $this->handler->loadRuleTargets($movedRule)
+            )
+        );
+
+        self::assertSame(
+            [
+                [
+                    'ruleId' => $movedRule->id,
+                    'ruleUuid' => $movedRule->uuid,
+                    'id' => 4,
+                    'uuid' => '7db46c94-3139-5a3d-9b2a-b2d28e7573ca',
+                    'type' => 'condition1',
+                    'value' => ['some_value'],
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+            ],
+            $this->exportObjectList(
+                $this->handler->loadRuleConditions($movedRule)
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::moveRule
+     */
+    public function testMoveRuleToSameGroupThrowsBadStateException(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Rule is already in specified target group.');
+
+        $rule = $this->handler->loadRule(5, Value::STATUS_PUBLISHED);
+        $targetGroup = $this->handler->loadRuleGroup(1, Value::STATUS_PUBLISHED);
+
+        $this->handler->moveRule($rule, $targetGroup);
+    }
+
+    /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRuleStatus
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addCondition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addRuleCondition
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addTarget
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRule
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleConditionsData
@@ -716,6 +1107,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRule
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleConditions
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleTargets
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleConditionIds
      */
     public function testDeleteRule(): void
     {
@@ -732,6 +1124,7 @@ final class LayoutResolverHandlerTest extends TestCase
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRule
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleConditions
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleTargets
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleConditionIds
      */
     public function testDeleteRuleInOneStatus(): void
     {
@@ -748,6 +1141,575 @@ final class LayoutResolverHandlerTest extends TestCase
         }
 
         $this->handler->loadRule(5, Value::STATUS_DRAFT);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::ruleGroupExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::ruleGroupExists
+     */
+    public function testRuleGroupExists(): void
+    {
+        self::assertTrue($this->handler->ruleGroupExists(1, Value::STATUS_PUBLISHED));
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::ruleGroupExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::ruleGroupExists
+     */
+    public function testRuleGroupNotExists(): void
+    {
+        self::assertFalse($this->handler->ruleGroupExists(999999, Value::STATUS_PUBLISHED));
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::ruleGroupExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::ruleGroupExists
+     */
+    public function testRuleGroupNotExistsInStatus(): void
+    {
+        self::assertFalse($this->handler->ruleGroupExists(1, Value::STATUS_ARCHIVED));
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRuleGroup
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getPriority
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRuleGroup
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestPriority
+     */
+    public function testCreateRuleGroup(): void
+    {
+        $ruleGroupCreateStruct = new RuleGroupCreateStruct();
+        $ruleGroupCreateStruct->priority = 5;
+        $ruleGroupCreateStruct->enabled = true;
+        $ruleGroupCreateStruct->comment = 'My rule group';
+        $ruleGroupCreateStruct->status = Value::STATUS_DRAFT;
+
+        $parentGroup = $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Value::STATUS_PUBLISHED);
+
+        $createdRuleGroup = $this->withUuids(
+            function () use ($ruleGroupCreateStruct, $parentGroup): RuleGroup {
+                return $this->handler->createRuleGroup($ruleGroupCreateStruct, $parentGroup);
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+        );
+
+        self::assertSame(5, $createdRuleGroup->id);
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $createdRuleGroup->uuid);
+        self::assertSame($parentGroup->depth + 1, $createdRuleGroup->depth);
+        self::assertSame($parentGroup->path . $createdRuleGroup->id . '/', $createdRuleGroup->path);
+        self::assertSame($parentGroup->id, $createdRuleGroup->parentId);
+        self::assertSame($parentGroup->uuid, $createdRuleGroup->parentUuid);
+        self::assertSame(5, $createdRuleGroup->priority);
+        self::assertTrue($createdRuleGroup->enabled);
+        self::assertSame('My rule group', $createdRuleGroup->comment);
+        self::assertSame(Value::STATUS_DRAFT, $createdRuleGroup->status);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRuleGroup
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getPriority
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRuleGroup
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestPriority
+     */
+    public function testCreateRuleGroupWithCustomUuid(): void
+    {
+        $ruleGroupCreateStruct = new RuleGroupCreateStruct();
+        $ruleGroupCreateStruct->uuid = 'f06f245a-f951-52c8-bfa3-84c80154eadc';
+        $ruleGroupCreateStruct->priority = 5;
+        $ruleGroupCreateStruct->enabled = true;
+        $ruleGroupCreateStruct->comment = 'My rule group';
+        $ruleGroupCreateStruct->status = Value::STATUS_DRAFT;
+
+        $parentGroup = $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Value::STATUS_PUBLISHED);
+
+        $createdRuleGroup = $this->handler->createRuleGroup($ruleGroupCreateStruct, $parentGroup);
+
+        self::assertSame(5, $createdRuleGroup->id);
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $createdRuleGroup->uuid);
+        self::assertSame($parentGroup->depth + 1, $createdRuleGroup->depth);
+        self::assertSame($parentGroup->path . $createdRuleGroup->id . '/', $createdRuleGroup->path);
+        self::assertSame($parentGroup->id, $createdRuleGroup->parentId);
+        self::assertSame($parentGroup->uuid, $createdRuleGroup->parentUuid);
+        self::assertSame(5, $createdRuleGroup->priority);
+        self::assertTrue($createdRuleGroup->enabled);
+        self::assertSame('My rule group', $createdRuleGroup->comment);
+        self::assertSame(Value::STATUS_DRAFT, $createdRuleGroup->status);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRuleGroup
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getPriority
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRuleGroup
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestPriority
+     */
+    public function testCreateRuleGroupWithNoPriority(): void
+    {
+        $ruleGroupCreateStruct = new RuleGroupCreateStruct();
+        $ruleGroupCreateStruct->status = Value::STATUS_DRAFT;
+
+        $parentGroup = $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Value::STATUS_PUBLISHED);
+
+        $createdRuleGroup = $this->withUuids(
+            function () use ($ruleGroupCreateStruct, $parentGroup): RuleGroup {
+                return $this->handler->createRuleGroup($ruleGroupCreateStruct, $parentGroup);
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+        );
+
+        self::assertSame(5, $createdRuleGroup->id);
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $createdRuleGroup->uuid);
+        self::assertSame($parentGroup->depth + 1, $createdRuleGroup->depth);
+        self::assertSame($parentGroup->path . $createdRuleGroup->id . '/', $createdRuleGroup->path);
+        self::assertSame($parentGroup->id, $createdRuleGroup->parentId);
+        self::assertSame($parentGroup->uuid, $createdRuleGroup->parentUuid);
+        self::assertSame(-12, $createdRuleGroup->priority);
+        self::assertFalse($createdRuleGroup->enabled);
+        self::assertSame('', $createdRuleGroup->comment);
+        self::assertSame(Value::STATUS_DRAFT, $createdRuleGroup->status);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRuleGroup
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getPriority
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRuleGroup
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestPriority
+     */
+    public function testCreateRuleGroupWithNoPriorityAndNoRulesAndRuleGroups(): void
+    {
+        $ruleGroupCreateStruct = new RuleGroupCreateStruct();
+        $ruleGroupCreateStruct->status = Value::STATUS_DRAFT;
+
+        $ruleGroup = $this->handler->loadRuleGroup(3, Value::STATUS_PUBLISHED);
+
+        $createdRuleGroup = $this->handler->createRuleGroup($ruleGroupCreateStruct, $ruleGroup);
+
+        self::assertSame(0, $createdRuleGroup->priority);
+        self::assertSame(Value::STATUS_DRAFT, $createdRuleGroup->status);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRuleGroup
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getPriority
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRuleGroup
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestPriority
+     */
+    public function testCreateRootRuleGroupWithExistingRootRuleGroupThrowsBadStateException(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Root rule group already exists.');
+
+        $ruleGroupCreateStruct = new RuleGroupCreateStruct();
+        $ruleGroupCreateStruct->priority = 5;
+        $ruleGroupCreateStruct->enabled = true;
+        $ruleGroupCreateStruct->comment = 'My rule group';
+        $ruleGroupCreateStruct->status = Value::STATUS_DRAFT;
+
+        $this->handler->createRuleGroup($ruleGroupCreateStruct);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRuleGroup
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getPriority
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRuleGroup
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getLowestPriority
+     */
+    public function testCreateRuleGroupWithExistingUuidThrowsBadStateException(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "uuid" has an invalid state. Rule group with provided UUID already exists.');
+
+        $ruleGroup = $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Value::STATUS_PUBLISHED);
+
+        $ruleGroupCreateStruct = new RuleGroupCreateStruct();
+        $ruleGroupCreateStruct->uuid = 'b4f85f38-de3f-4af7-9a5f-21df63a49da9';
+        $ruleGroupCreateStruct->priority = 5;
+        $ruleGroupCreateStruct->enabled = true;
+        $ruleGroupCreateStruct->comment = 'My rule group';
+        $ruleGroupCreateStruct->status = Value::STATUS_DRAFT;
+
+        $this->handler->createRuleGroup($ruleGroupCreateStruct, $ruleGroup);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRuleGroup
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRuleGroup
+     */
+    public function testUpdateRuleGroup(): void
+    {
+        $ruleGroupUpdateStruct = new RuleGroupUpdateStruct();
+        $ruleGroupUpdateStruct->comment = 'New comment';
+
+        $updatedRuleGroup = $this->handler->updateRuleGroup(
+            $this->handler->loadRuleGroup(3, Value::STATUS_PUBLISHED),
+            $ruleGroupUpdateStruct
+        );
+
+        self::assertSame(3, $updatedRuleGroup->id);
+        self::assertSame('eb6311eb-24f6-4143-b476-99979a885a7e', $updatedRuleGroup->uuid);
+        self::assertSame('New comment', $updatedRuleGroup->comment);
+        self::assertSame(Value::STATUS_PUBLISHED, $updatedRuleGroup->status);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRuleGroup
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRuleGroup
+     */
+    public function testUpdateRuleGroupWithDefaultValues(): void
+    {
+        $ruleGroup = $this->handler->loadRuleGroup(3, Value::STATUS_PUBLISHED);
+        $ruleGroupUpdateStruct = new RuleGroupUpdateStruct();
+
+        $updatedRuleGroup = $this->handler->updateRuleGroup($ruleGroup, $ruleGroupUpdateStruct);
+
+        self::assertSame(3, $updatedRuleGroup->id);
+        self::assertSame('eb6311eb-24f6-4143-b476-99979a885a7e', $updatedRuleGroup->uuid);
+        self::assertSame($ruleGroup->comment, $updatedRuleGroup->comment);
+        self::assertSame(Value::STATUS_PUBLISHED, $updatedRuleGroup->status);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRuleGroupMetadata
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRuleGroupData
+     */
+    public function testUpdateRuleGroupMetadata(): void
+    {
+        $updatedRuleGroup = $this->handler->updateRuleGroupMetadata(
+            $this->handler->loadRuleGroup(3, Value::STATUS_PUBLISHED),
+            RuleGroupMetadataUpdateStruct::fromArray(
+                [
+                    'enabled' => false,
+                    'priority' => 50,
+                ]
+            )
+        );
+
+        self::assertSame(50, $updatedRuleGroup->priority);
+        self::assertFalse($updatedRuleGroup->enabled);
+        self::assertSame(Value::STATUS_PUBLISHED, $updatedRuleGroup->status);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::updateRuleGroupMetadata
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::updateRuleGroupData
+     */
+    public function testUpdateRuleGroupMetadataWithDefaultValues(): void
+    {
+        $updatedRuleGroup = $this->handler->updateRuleGroupMetadata(
+            $this->handler->loadRuleGroup(3, Value::STATUS_PUBLISHED),
+            new RuleGroupMetadataUpdateStruct()
+        );
+
+        self::assertSame(2, $updatedRuleGroup->priority);
+        self::assertTrue($updatedRuleGroup->enabled);
+        self::assertSame(Value::STATUS_PUBLISHED, $updatedRuleGroup->status);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::copyRuleGroup
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addCondition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addRuleGroupCondition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRuleGroup
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleGroupUuid
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupConditionsData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupData
+     */
+    public function testCopyRuleGroup(): void
+    {
+        $ruleGroup = $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED);
+        $targetGroup = $this->handler->loadRuleGroup(1, Value::STATUS_PUBLISHED);
+
+        $copiedRuleGroup = $this->withUuids(
+            function () use ($ruleGroup, $targetGroup): RuleGroup {
+                return $this->handler->copyRuleGroup($ruleGroup, $targetGroup);
+            },
+            [
+                'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'efd1d54a-5d53-518f-91a5-f4965c242a67',
+                '1169074c-8779-5b64-afec-c910705e418a',
+            ]
+        );
+
+        self::assertSame(5, $copiedRuleGroup->id);
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedRuleGroup->uuid);
+        self::assertSame($targetGroup->depth + 1, $copiedRuleGroup->depth);
+        self::assertSame($targetGroup->path . $copiedRuleGroup->id . '/', $copiedRuleGroup->path);
+        self::assertSame($targetGroup->id, $copiedRuleGroup->parentId);
+        self::assertSame($targetGroup->uuid, $copiedRuleGroup->parentUuid);
+        self::assertSame($ruleGroup->priority, $copiedRuleGroup->priority);
+        self::assertSame($ruleGroup->enabled, $copiedRuleGroup->enabled);
+        self::assertSame($ruleGroup->comment, $copiedRuleGroup->comment);
+        self::assertSame($ruleGroup->status, $copiedRuleGroup->status);
+
+        self::assertSame(
+            [
+                [
+                    'ruleGroupId' => $copiedRuleGroup->id,
+                    'ruleGroupUuid' => $copiedRuleGroup->uuid,
+                    'id' => 7,
+                    'uuid' => 'efd1d54a-5d53-518f-91a5-f4965c242a67',
+                    'type' => 'condition1',
+                    'value' => ['some_other_value'],
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+                [
+                    'ruleGroupId' => $copiedRuleGroup->id,
+                    'ruleGroupUuid' => $copiedRuleGroup->uuid,
+                    'id' => 8,
+                    'uuid' => '1169074c-8779-5b64-afec-c910705e418a',
+                    'type' => 'condition1',
+                    'value' => ['some_third_value'],
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+            ],
+            $this->exportObjectList(
+                $this->handler->loadRuleGroupConditions($copiedRuleGroup)
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::copyRuleGroup
+     */
+    public function testCopyRuleGroupBelowItselfThrowsBadStateException(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Rule group cannot be copied below itself or its children.');
+
+        $ruleGroup = $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED);
+        $targetGroup = $this->handler->loadRuleGroup(4, Value::STATUS_PUBLISHED);
+
+        $this->handler->copyRuleGroup($ruleGroup, $targetGroup);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::moveRuleGroup
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::moveRuleGroup
+     */
+    public function testMoveRuleGroup(): void
+    {
+        $ruleGroup = $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED);
+        $targetGroup = $this->handler->loadRuleGroup(3, Value::STATUS_PUBLISHED);
+
+        $movedRuleGroup = $this->handler->moveRuleGroup($ruleGroup, $targetGroup);
+
+        self::assertSame($ruleGroup->id, $movedRuleGroup->id);
+        self::assertSame($ruleGroup->uuid, $movedRuleGroup->uuid);
+        self::assertSame($targetGroup->depth + 1, $movedRuleGroup->depth);
+        self::assertSame($targetGroup->path . $movedRuleGroup->id . '/', $movedRuleGroup->path);
+        self::assertSame($targetGroup->id, $movedRuleGroup->parentId);
+        self::assertSame($targetGroup->uuid, $movedRuleGroup->parentUuid);
+        self::assertSame($ruleGroup->priority, $movedRuleGroup->priority);
+        self::assertSame($ruleGroup->enabled, $movedRuleGroup->enabled);
+        self::assertSame($ruleGroup->comment, $movedRuleGroup->comment);
+        self::assertSame($ruleGroup->status, $movedRuleGroup->status);
+
+        self::assertSame(
+            [
+                [
+                    'ruleGroupId' => $movedRuleGroup->id,
+                    'ruleGroupUuid' => $movedRuleGroup->uuid,
+                    'id' => 5,
+                    'uuid' => 'b084d390-01ea-464b-8282-797b6ef9ef1e',
+                    'type' => 'condition1',
+                    'value' => ['some_other_value'],
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+                [
+                    'ruleGroupId' => $movedRuleGroup->id,
+                    'ruleGroupUuid' => $movedRuleGroup->uuid,
+                    'id' => 6,
+                    'uuid' => '46390b11-e077-4979-95cb-782575a9562b',
+                    'type' => 'condition1',
+                    'value' => ['some_third_value'],
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+            ],
+            $this->exportObjectList(
+                $this->handler->loadRuleGroupConditions($movedRuleGroup)
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::moveRuleGroup
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::moveRuleGroup
+     */
+    public function testMoveRuleGroupWithPriority(): void
+    {
+        $ruleGroup = $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED);
+        $targetGroup = $this->handler->loadRuleGroup(3, Value::STATUS_PUBLISHED);
+
+        $movedRuleGroup = $this->handler->moveRuleGroup($ruleGroup, $targetGroup, 42);
+
+        self::assertSame($ruleGroup->id, $movedRuleGroup->id);
+        self::assertSame($ruleGroup->uuid, $movedRuleGroup->uuid);
+        self::assertSame($targetGroup->depth + 1, $movedRuleGroup->depth);
+        self::assertSame($targetGroup->path . $movedRuleGroup->id . '/', $movedRuleGroup->path);
+        self::assertSame($targetGroup->id, $movedRuleGroup->parentId);
+        self::assertSame($targetGroup->uuid, $movedRuleGroup->parentUuid);
+        self::assertSame(42, $movedRuleGroup->priority);
+        self::assertSame($ruleGroup->enabled, $movedRuleGroup->enabled);
+        self::assertSame($ruleGroup->comment, $movedRuleGroup->comment);
+        self::assertSame($ruleGroup->status, $movedRuleGroup->status);
+
+        self::assertSame(
+            [
+                [
+                    'ruleGroupId' => $movedRuleGroup->id,
+                    'ruleGroupUuid' => $movedRuleGroup->uuid,
+                    'id' => 5,
+                    'uuid' => 'b084d390-01ea-464b-8282-797b6ef9ef1e',
+                    'type' => 'condition1',
+                    'value' => ['some_other_value'],
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+                [
+                    'ruleGroupId' => $movedRuleGroup->id,
+                    'ruleGroupUuid' => $movedRuleGroup->uuid,
+                    'id' => 6,
+                    'uuid' => '46390b11-e077-4979-95cb-782575a9562b',
+                    'type' => 'condition1',
+                    'value' => ['some_third_value'],
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+            ],
+            $this->exportObjectList(
+                $this->handler->loadRuleGroupConditions($movedRuleGroup)
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::moveRuleGroup
+     */
+    public function testMoveRuleGroupToSameGroupThrowsBadStateException(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Rule group is already in specified target group.');
+
+        $ruleGroup = $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED);
+        $targetGroup = $this->handler->loadRuleGroup(1, Value::STATUS_PUBLISHED);
+
+        $this->handler->moveRuleGroup($ruleGroup, $targetGroup);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::moveRuleGroup
+     */
+    public function testMoveRuleGroupBelowItselfThrowsBadStateException(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Rule group cannot be moved below itself or its children.');
+
+        $ruleGroup = $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED);
+        $targetGroup = $this->handler->loadRuleGroup(4, Value::STATUS_PUBLISHED);
+
+        $this->handler->moveRuleGroup($ruleGroup, $targetGroup);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::createRuleGroupStatus
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addCondition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addRuleGroupCondition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRuleGroup
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleGroupUuid
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupConditionsData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupData
+     */
+    public function testCreateRuleGroupStatus(): void
+    {
+        $ruleGroup = $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED);
+        $copiedRuleGroup = $this->handler->createRuleGroupStatus($ruleGroup, Value::STATUS_ARCHIVED);
+
+        self::assertSame($ruleGroup->id, $copiedRuleGroup->id);
+        self::assertSame($ruleGroup->uuid, $copiedRuleGroup->uuid);
+        self::assertSame($ruleGroup->depth, $copiedRuleGroup->depth);
+        self::assertSame($ruleGroup->path, $copiedRuleGroup->path);
+        self::assertSame($ruleGroup->parentId, $copiedRuleGroup->parentId);
+        self::assertSame($ruleGroup->parentUuid, $copiedRuleGroup->parentUuid);
+        self::assertSame($ruleGroup->priority, $copiedRuleGroup->priority);
+        self::assertSame($ruleGroup->enabled, $copiedRuleGroup->enabled);
+        self::assertSame($ruleGroup->comment, $copiedRuleGroup->comment);
+        self::assertSame(Value::STATUS_ARCHIVED, $copiedRuleGroup->status);
+
+        self::assertSame(
+            [
+                [
+                    'ruleGroupId' => $copiedRuleGroup->id,
+                    'ruleGroupUuid' => $copiedRuleGroup->uuid,
+                    'id' => 5,
+                    'uuid' => 'b084d390-01ea-464b-8282-797b6ef9ef1e',
+                    'type' => 'condition1',
+                    'value' => [
+                        'some_other_value',
+                    ],
+                    'status' => Value::STATUS_ARCHIVED,
+                ],
+                [
+                    'ruleGroupId' => $copiedRuleGroup->id,
+                    'ruleGroupUuid' => $copiedRuleGroup->uuid,
+                    'id' => 6,
+                    'uuid' => '46390b11-e077-4979-95cb-782575a9562b',
+                    'type' => 'condition1',
+                    'value' => [
+                        'some_third_value',
+                    ],
+                    'status' => Value::STATUS_ARCHIVED,
+                ],
+            ],
+            $this->exportObjectList(
+                $this->handler->loadRuleGroupConditions($copiedRuleGroup)
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::deleteRuleGroup
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleGroup
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleGroupConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleGroups
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRules
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupConditionData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupConditionIds
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadSubGroupIds
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadSubRuleIds
+     */
+    public function testDeleteRuleGroup(): void
+    {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find rule group with identifier "2"');
+
+        $this->handler->deleteRuleGroup(2);
+
+        $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::deleteRuleGroup
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleGroup
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleGroupConditions
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRuleGroups
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::deleteRules
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupConditionData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupConditionIds
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadSubGroupIds
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadSubRuleIds
+     */
+    public function testDeleteRuleGroupInOneStatus(): void
+    {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find rule group with identifier "2"');
+
+        $this->handler->deleteRuleGroup(2, Value::STATUS_DRAFT);
+
+        // First, verify that NOT all rule group statuses are deleted
+        try {
+            $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED);
+        } catch (NotFoundException $e) {
+            self::fail('Deleting the rule group in draft status deleted other/all statuses.');
+        }
+
+        $this->handler->loadRuleGroup(2, Value::STATUS_DRAFT);
     }
 
     /**
@@ -853,6 +1815,41 @@ final class LayoutResolverHandlerTest extends TestCase
             [
                 'ruleId' => 3,
                 'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
+                'id' => 7,
+                'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'type' => 'condition',
+                'value' => ['param' => 'value'],
+                'status' => Value::STATUS_PUBLISHED,
+            ],
+            $this->exportObject($condition)
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::addRuleGroupCondition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addCondition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addRuleGroupCondition
+     */
+    public function testAddRuleGroupCondition(): void
+    {
+        $conditionCreateStruct = new ConditionCreateStruct();
+        $conditionCreateStruct->type = 'condition';
+        $conditionCreateStruct->value = ['param' => 'value'];
+
+        $condition = $this->withUuids(
+            function () use ($conditionCreateStruct): RuleGroupCondition {
+                return $this->handler->addRuleGroupCondition(
+                    $this->handler->loadRuleGroup(3, Value::STATUS_PUBLISHED),
+                    $conditionCreateStruct
+                );
+            },
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+        );
+
+        self::assertSame(
+            [
+                'ruleGroupId' => 3,
+                'ruleGroupUuid' => 'eb6311eb-24f6-4143-b476-99979a885a7e',
                 'id' => 7,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => 'condition',
