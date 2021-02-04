@@ -138,7 +138,7 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
     {
         $container->setParameter(
             'netgen_layouts.asset_version',
-            PrettyVersions::getVersion('netgen/layouts-core')->getShortCommitHash()
+            PrettyVersions::getVersion('netgen/layouts-core')->getShortReference()
         );
 
         $prependConfigs = [
