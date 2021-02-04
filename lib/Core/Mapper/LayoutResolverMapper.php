@@ -122,6 +122,9 @@ final class LayoutResolverMapper
     {
         $ruleGroupData = [
             'id' => Uuid::fromString($ruleGroup->uuid),
+            'parentId' => $ruleGroup->parentUuid !== null ?
+                Uuid::fromString($ruleGroup->parentUuid) :
+                null,
             'status' => $ruleGroup->status,
             'enabled' => $ruleGroup->enabled,
             'priority' => $ruleGroup->priority,

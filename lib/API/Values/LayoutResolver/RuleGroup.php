@@ -30,6 +30,11 @@ final class RuleGroup implements Value
     private $id;
 
     /**
+     * @var \Ramsey\Uuid\UuidInterface|null
+     */
+    private $parentId;
+
+    /**
      * @var bool
      */
     private $enabled;
@@ -63,6 +68,16 @@ final class RuleGroup implements Value
     public function getId(): UuidInterface
     {
         return $this->id;
+    }
+
+    /**
+     * Returns the UUID of the parent rule group where this rule group is located.
+     *
+     * If rule group does not have a parent rule group, null is returned.
+     */
+    public function getParentId(): ?UuidInterface
+    {
+        return $this->parentId;
     }
 
     /**

@@ -11,6 +11,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupCondition;
 use Netgen\Layouts\API\Values\Value;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 final class RuleGroupTest extends TestCase
 {
@@ -38,6 +39,7 @@ final class RuleGroupTest extends TestCase
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getComment
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getConditions
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getId
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getParentId
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getPriority
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getRules
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::isEnabled
@@ -50,10 +52,12 @@ final class RuleGroupTest extends TestCase
         $condition = new RuleGroupCondition();
 
         $uuid = Uuid::uuid4();
+        $parentUuid = Uuid::uuid4();
 
         $ruleGroup = RuleGroup::fromArray(
             [
                 'id' => $uuid,
+                'parentId' => $parentUuid,
                 'priority' => 13,
                 'enabled' => true,
                 'comment' => 'Comment',
@@ -63,6 +67,8 @@ final class RuleGroupTest extends TestCase
         );
 
         self::assertSame($uuid->toString(), $ruleGroup->getId()->toString());
+        self::assertInstanceOf(UuidInterface::class, $ruleGroup->getParentId());
+        self::assertSame($parentUuid->toString(), $ruleGroup->getParentId()->toString());
         self::assertSame(13, $ruleGroup->getPriority());
         self::assertTrue($ruleGroup->isEnabled());
         self::assertSame('Comment', $ruleGroup->getComment());

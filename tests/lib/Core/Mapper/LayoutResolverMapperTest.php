@@ -15,6 +15,7 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroupCondition;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 abstract class LayoutResolverMapperTest extends CoreTestCase
 {
@@ -106,6 +107,8 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
         $ruleGroup = $this->mapper->mapRuleGroup($persistenceRuleGroup);
 
         self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $ruleGroup->getId()->toString());
+        self::assertInstanceOf(UuidInterface::class, $ruleGroup->getParentId());
+        self::assertSame(RuleGroup::ROOT_UUID, $ruleGroup->getParentId()->toString());
         self::assertTrue($ruleGroup->isPublished());
         self::assertTrue($ruleGroup->isEnabled());
         self::assertSame(1, $ruleGroup->getPriority());

@@ -11,6 +11,7 @@ use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use Netgen\Layouts\Tests\TestCase\UuidGeneratorTrait;
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 abstract class LayoutResolverServiceTest extends CoreTestCase
 {
@@ -986,7 +987,8 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         );
 
         self::assertTrue($createdRuleGroup->isDraft());
-        // self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $createdRuleGroup->getParentId()->toString());
+        self::assertInstanceOf(UuidInterface::class, $createdRuleGroup->getParentId());
+        self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $createdRuleGroup->getParentId()->toString());
     }
 
     /**
@@ -1003,8 +1005,9 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         );
 
         self::assertTrue($createdRuleGroup->isDraft());
+        self::assertInstanceOf(UuidInterface::class, $createdRuleGroup->getParentId());
         self::assertSame($ruleGroupCreateStruct->uuid->toString(), $createdRuleGroup->getId()->toString());
-        // self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $createdRuleGroup->getParentId()->toString());
+        self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $createdRuleGroup->getParentId()->toString());
     }
 
     /**
@@ -1119,7 +1122,8 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $copiedRuleGroup = $this->layoutResolverService->copyRuleGroup($ruleGroup, $targetGroup);
 
         self::assertSame($ruleGroup->isPublished(), $copiedRuleGroup->isPublished());
-        // self::assertSame($targetGroup->getId()->toString(), $copiedRuleGroup->getParentId()->toString());
+        self::assertInstanceOf(UuidInterface::class, $copiedRuleGroup->getParentId());
+        self::assertSame($targetGroup->getId()->toString(), $copiedRuleGroup->getParentId()->toString());
         self::assertNotSame($ruleGroup->getId()->toString(), $copiedRuleGroup->getId()->toString());
     }
 
@@ -1134,7 +1138,8 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $copiedRuleGroup = $this->layoutResolverService->copyRuleGroup($ruleGroup, $targetGroup);
 
         self::assertSame($ruleGroup->isPublished(), $copiedRuleGroup->isPublished());
-        // self::assertSame($targetGroup->getId()->toString(), $copiedRuleGroup->getParentId()->toString());
+        self::assertInstanceOf(UuidInterface::class, $copiedRuleGroup->getParentId());
+        self::assertSame($targetGroup->getId()->toString(), $copiedRuleGroup->getParentId()->toString());
         self::assertNotSame($ruleGroup->getId()->toString(), $copiedRuleGroup->getId()->toString());
     }
 
@@ -1179,7 +1184,8 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         self::assertTrue($movedRuleGroup->isPublished());
         self::assertSame($ruleGroup->getId()->toString(), $movedRuleGroup->getId()->toString());
         self::assertSame($ruleGroup->getPriority(), $movedRuleGroup->getPriority());
-        // self::assertSame($targetGroup->getId()->toString(), $movedRuleGroup->getParentId()->toString());
+        self::assertInstanceOf(UuidInterface::class, $movedRuleGroup->getParentId());
+        self::assertSame($targetGroup->getId()->toString(), $movedRuleGroup->getParentId()->toString());
     }
 
     /**
@@ -1195,7 +1201,8 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         self::assertTrue($movedRuleGroup->isPublished());
         self::assertSame($ruleGroup->getId()->toString(), $movedRuleGroup->getId()->toString());
         self::assertSame(42, $movedRuleGroup->getPriority());
-        // self::assertSame($targetGroup->getId()->toString(), $movedRuleGroup->getParentId()->toString());
+        self::assertInstanceOf(UuidInterface::class, $movedRuleGroup->getParentId());
+        self::assertSame($targetGroup->getId()->toString(), $movedRuleGroup->getParentId()->toString());
     }
 
     /**
