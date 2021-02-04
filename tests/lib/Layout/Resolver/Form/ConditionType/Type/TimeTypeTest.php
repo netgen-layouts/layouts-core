@@ -13,6 +13,7 @@ final class TimeTypeTest extends FormTestCase
 {
     /**
      * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType\Type\TimeType::buildForm
+     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType\Type\TimeType::configureOptions
      */
     public function testSubmitValidData(): void
     {

@@ -27,6 +27,7 @@ final class ContextBuilderTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Context\ContextBuilder::__construct
      * @covers \Netgen\Layouts\Context\ContextBuilder::buildContext
      */
     public function testBuildContext(): void

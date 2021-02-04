@@ -10,7 +10,6 @@ use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\Collection;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\Form;
 use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
-use Netgen\Layouts\Block\DynamicParameters;
 use Netgen\Layouts\Config\ConfigDefinition;
 use Netgen\Layouts\Exception\Block\BlockDefinitionException;
 use Netgen\Layouts\Exception\Config\ConfigDefinitionException;
@@ -268,15 +267,10 @@ final class BlockDefinitionTest extends TestCase
 
     /**
      * @covers \Netgen\Layouts\Block\BlockDefinition::getDynamicParameters
+     * @covers \Netgen\Layouts\Block\BlockDefinition::getHandler
      */
     public function testGetDynamicParameters(): void
     {
-        $dynamicParameters = new DynamicParameters();
-        $dynamicParameters['definition_param'] = 'definition_value';
-        $dynamicParameters['closure_param'] = static function (): string {
-            return 'closure_value';
-        };
-
         $dynamicParameters = $this->blockDefinition->getDynamicParameters(new Block());
 
         self::assertCount(3, $dynamicParameters);
@@ -291,6 +285,7 @@ final class BlockDefinitionTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Block\BlockDefinition::getHandler
      * @covers \Netgen\Layouts\Block\BlockDefinition::isContextual
      */
     public function testIsContextual(): void

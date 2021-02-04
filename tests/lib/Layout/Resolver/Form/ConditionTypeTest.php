@@ -33,8 +33,9 @@ final class ConditionTypeTest extends FormTestCase
     /**
      * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType::__construct
      * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType::buildForm
+     * @covers \Netgen\Layouts\Layout\Resolver\Form\ConditionType::getMapper
      */
-    public function testBuildFormThrowsConditionTypeException(): void
+    public function testBuildFormThrowsConditionTypeExceptionWithNoMapper(): void
     {
         $this->expectException(ConditionTypeException::class);
         $this->expectExceptionMessage('Form mapper for "condition1" condition type does not exist.');

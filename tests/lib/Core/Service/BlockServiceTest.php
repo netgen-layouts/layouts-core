@@ -681,6 +681,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Core\Service\BlockService::resetItemViewTypes
+     * @covers \Netgen\Layouts\Core\Service\BlockService::resetSlotViewTypes
      * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlock
      * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlockTranslations
      */
@@ -712,6 +714,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Core\Service\BlockService::resetItemViewTypes
+     * @covers \Netgen\Layouts\Core\Service\BlockService::resetSlotViewTypes
      * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlock
      * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlockTranslations
      */
@@ -743,6 +747,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Core\Service\BlockService::resetItemViewTypes
+     * @covers \Netgen\Layouts\Core\Service\BlockService::resetSlotViewTypes
      * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlock
      * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlockTranslations
      */
@@ -772,6 +778,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Core\Service\BlockService::resetItemViewTypes
+     * @covers \Netgen\Layouts\Core\Service\BlockService::resetSlotViewTypes
      * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlock
      * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlockTranslations
      */
@@ -798,6 +806,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Core\Service\BlockService::resetItemViewTypes
+     * @covers \Netgen\Layouts\Core\Service\BlockService::resetSlotViewTypes
      * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlock
      * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlockTranslations
      */
@@ -821,6 +831,8 @@ abstract class BlockServiceTest extends CoreTestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Core\Service\BlockService::resetItemViewTypes
+     * @covers \Netgen\Layouts\Core\Service\BlockService::resetSlotViewTypes
      * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlock
      * @covers \Netgen\Layouts\Core\Service\BlockService::updateBlockTranslations
      */

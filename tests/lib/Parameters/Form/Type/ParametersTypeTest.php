@@ -17,6 +17,7 @@ use Netgen\Layouts\Tests\API\Stubs\ParameterStruct;
 use Netgen\Layouts\Tests\Parameters\Stubs\ParameterDefinitionCollection;
 use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Tests\TestCase\FormTestCase;
+use stdClass;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormTypeInterface;
@@ -31,6 +32,7 @@ final class ParametersTypeTest extends FormTestCase
      * @covers \Netgen\Layouts\Parameters\Form\Mapper::handleForm
      * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::__construct
      * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::buildForm
+     * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::getMapper
      * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::includeParameter
      */
     public function testSubmitValidData(): void
@@ -147,6 +149,7 @@ final class ParametersTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::buildForm
+     * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::getMapper
      */
     public function testBuildFormWithNoMapper(): void
     {
@@ -185,6 +188,7 @@ final class ParametersTypeTest extends FormTestCase
 
     /**
      * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::buildForm
+     * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::getMapper
      * @covers \Netgen\Layouts\Parameters\Form\Type\ParametersType::includeParameter
      */
     public function testSubmitValidDataWithGroups(): void
@@ -348,5 +352,16 @@ final class ParametersTypeTest extends FormTestCase
     protected function getTypeExtensions(): array
     {
         return [new ParametersTypeExtension()];
+    }
+
+    private function getMainTypeWithInvalidMapper(): FormTypeInterface
+    {
+        return new ParametersType(
+            new Container(
+                [
+                    'text' => new stdClass(),
+                ]
+            )
+        );
     }
 }

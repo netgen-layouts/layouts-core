@@ -18,6 +18,7 @@ use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use Netgen\Layouts\Tests\TestCase\UuidGeneratorTrait;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class LayoutHandlerTest extends TestCase
 {
@@ -641,6 +642,15 @@ final class LayoutHandlerTest extends TestCase
     public function testLayoutNameNotExistsWithExcludedId(): void
     {
         self::assertFalse($this->layoutHandler->layoutNameExists('My layout', 1));
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutHandler::layoutNameExists
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler::layoutNameExists
+     */
+    public function testLayoutNameNotExistsWithExcludedUuid(): void
+    {
+        self::assertFalse($this->layoutHandler->layoutNameExists('My layout', Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136')));
     }
 
     /**

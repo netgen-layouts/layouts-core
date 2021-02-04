@@ -100,6 +100,7 @@ final class CollectionHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\CollectionHandler::loadCollections
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::getCollectionSelectQuery
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler::loadBlockCollectionsData
      */
     public function testLoadCollections(): void

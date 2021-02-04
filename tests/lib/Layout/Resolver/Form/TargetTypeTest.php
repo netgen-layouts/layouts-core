@@ -33,8 +33,9 @@ final class TargetTypeTest extends FormTestCase
     /**
      * @covers \Netgen\Layouts\Layout\Resolver\Form\TargetType::__construct
      * @covers \Netgen\Layouts\Layout\Resolver\Form\TargetType::buildForm
+     * @covers \Netgen\Layouts\Layout\Resolver\Form\TargetType::getMapper
      */
-    public function testBuildFormThrowsTargetTypeException(): void
+    public function testBuildFormThrowsTargetTypeExceptionWithNoMapper(): void
     {
         $this->expectException(TargetTypeException::class);
         $this->expectExceptionMessage('Form mapper for "target1" target type does not exist.');

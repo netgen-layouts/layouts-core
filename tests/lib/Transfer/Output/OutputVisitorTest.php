@@ -26,6 +26,7 @@ final class OutputVisitorTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Transfer\Output\OutputVisitor::__construct
      * @covers \Netgen\Layouts\Transfer\Output\OutputVisitor::visit
      */
     public function testVisit(): void

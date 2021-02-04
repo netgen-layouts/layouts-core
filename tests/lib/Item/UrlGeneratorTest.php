@@ -30,6 +30,7 @@ final class UrlGeneratorTest extends TestCase
     /**
      * @covers \Netgen\Layouts\Item\UrlGenerator::__construct
      * @covers \Netgen\Layouts\Item\UrlGenerator::generate
+     * @covers \Netgen\Layouts\Item\UrlGenerator::getValueUrlGenerator
      */
     public function testGenerate(): void
     {
@@ -44,6 +45,7 @@ final class UrlGeneratorTest extends TestCase
     /**
      * @covers \Netgen\Layouts\Item\UrlGenerator::__construct
      * @covers \Netgen\Layouts\Item\UrlGenerator::generate
+     * @covers \Netgen\Layouts\Item\UrlGenerator::getValueUrlGenerator
      */
     public function testGenerateWithNullCmsItem(): void
     {
@@ -53,6 +55,7 @@ final class UrlGeneratorTest extends TestCase
     /**
      * @covers \Netgen\Layouts\Item\UrlGenerator::__construct
      * @covers \Netgen\Layouts\Item\UrlGenerator::generate
+     * @covers \Netgen\Layouts\Item\UrlGenerator::getValueUrlGenerator
      */
     public function testGenerateWithNullObject(): void
     {
@@ -61,8 +64,9 @@ final class UrlGeneratorTest extends TestCase
 
     /**
      * @covers \Netgen\Layouts\Item\UrlGenerator::generate
+     * @covers \Netgen\Layouts\Item\UrlGenerator::getValueUrlGenerator
      */
-    public function testGenerateWithNoUrlGenerator(): void
+    public function testGenerateThrowsItemExceptionWithNoUrlGenerator(): void
     {
         $this->expectException(ItemException::class);
         $this->expectExceptionMessage('Value URL generator for "unknown" value type does not exist.');
@@ -70,6 +74,26 @@ final class UrlGeneratorTest extends TestCase
         $this->urlGenerator->generate(
             CmsItem::fromArray(
                 ['valueType' => 'unknown', 'object' => new stdClass()]
+            )
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Item\UrlGenerator::generate
+     * @covers \Netgen\Layouts\Item\UrlGenerator::getValueUrlGenerator
+     */
+    public function testGenerateThrowsItemExceptionWithInvalidUrlGenerator(): void
+    {
+        $this->expectException(ItemException::class);
+        $this->expectExceptionMessage('Value URL generator for "value" value type does not exist.');
+
+        $this->urlGenerator = new UrlGenerator(
+            new Container(['value' => new stdClass()])
+        );
+
+        $this->urlGenerator->generate(
+            CmsItem::fromArray(
+                ['valueType' => 'value', 'object' => new stdClass()]
             )
         );
     }

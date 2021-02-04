@@ -51,6 +51,7 @@ final class CollectionTest extends TestCase
      * @covers \Netgen\Layouts\API\Values\Collection\Collection::getQuery
      * @covers \Netgen\Layouts\API\Values\Collection\Collection::getSlot
      * @covers \Netgen\Layouts\API\Values\Collection\Collection::getSlots
+     * @covers \Netgen\Layouts\API\Values\Collection\Collection::hasItem
      * @covers \Netgen\Layouts\API\Values\Collection\Collection::hasQuery
      * @covers \Netgen\Layouts\API\Values\Collection\Collection::hasSlot
      * @covers \Netgen\Layouts\API\Values\Collection\Collection::isAlwaysAvailable
@@ -124,6 +125,7 @@ final class CollectionTest extends TestCase
 
         self::assertSame($slots[2], $collection->getSlot(2));
         self::assertSame($slots[3], $collection->getSlot(3));
+        self::assertNull($collection->getSlot(999999));
     }
 
     /**

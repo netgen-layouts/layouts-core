@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 final class FOSHostHeaderProviderTest extends TestCase
 {
     /**
+     * @covers \Netgen\Layouts\HttpCache\Varnish\FOSHostHeaderProvider::__construct
      * @covers \Netgen\Layouts\HttpCache\Varnish\FOSHostHeaderProvider::provideHostHeader
      */
     public function testProvideHostHeader(): void

@@ -61,6 +61,8 @@ final class BlockHandlerTest extends TestCase
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::loadBlock
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::__construct
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::getBlockSelectQuery
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::getBlockUuid
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::getBlockWithLayoutSelectQuery
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadBlockData
      */
     public function testLoadBlock(): void
@@ -104,6 +106,8 @@ final class BlockHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::loadBlock
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::getBlockUuid
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::getBlockWithLayoutSelectQuery
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadBlockData
      */
     public function testLoadBlockThrowsNotFoundException(): void
@@ -143,6 +147,7 @@ final class BlockHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::loadLayoutBlocks
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::getBlockSelectQuery
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadLayoutBlocksData
      */
     public function testLoadLayoutBlocks(): void
@@ -156,6 +161,7 @@ final class BlockHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::loadChildBlocks
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::getBlockWithLayoutSelectQuery
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadChildBlocksData
      */
     public function testLoadChildBlocks(): void
@@ -232,6 +238,7 @@ final class BlockHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::loadChildBlocks
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::getBlockWithLayoutSelectQuery
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadChildBlocksData
      */
     public function testLoadChildBlocksInPlaceholder(): void
@@ -279,6 +286,7 @@ final class BlockHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\BlockHandler::loadChildBlocks
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::getBlockWithLayoutSelectQuery
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler::loadChildBlocksData
      */
     public function testLoadChildBlocksWithUnknownPlaceholder(): void

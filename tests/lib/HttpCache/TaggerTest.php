@@ -35,6 +35,7 @@ final class TaggerTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\HttpCache\Tagger::__construct
      * @covers \Netgen\Layouts\HttpCache\Tagger::tagLayout
      */
     public function testTagLayout(): void

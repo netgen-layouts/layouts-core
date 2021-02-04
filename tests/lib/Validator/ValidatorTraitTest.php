@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Validator;
 
+use Exception;
 use Netgen\Layouts\Exception\Validation\ValidationException;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use Netgen\Layouts\Tests\Validator\Stubs\ValueValidator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class ValidatorTraitTest extends TestCase
 {
@@ -49,6 +51,24 @@ final class ValidatorTraitTest extends TestCase
         $this->addToAssertionCount(1);
 
         $this->validator->validateIdentifier($identifier);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Validator\ValidatorTrait::setValidator
+     * @covers \Netgen\Layouts\Validator\ValidatorTrait::validate
+     */
+    public function testValidateIdentifierThrowsValidationExceptionOnValidationError(): void
+    {
+        $this->expectException(ValidationException::class);
+
+        $validatorMock = $this->createMock(ValidatorInterface::class);
+        $validatorMock
+            ->expects(self::any())
+            ->method('validate')
+            ->willThrowException(new Exception());
+
+        $this->validator->setValidator($validatorMock);
+        $this->validator->validateIdentifier('identifier');
     }
 
     /**

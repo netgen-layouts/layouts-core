@@ -17,6 +17,7 @@ use function sprintf;
  * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension::getConfiguration
  * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension::load
  * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension::loadConfigFiles
+ * @covers \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension::registerAutoConfiguration
  */
 final class NetgenLayoutsExtensionTest extends AbstractExtensionTestCase
 {

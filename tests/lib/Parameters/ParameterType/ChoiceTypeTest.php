@@ -242,12 +242,13 @@ final class ChoiceTypeTest extends TestCase
     /**
      * @param mixed $value
      *
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::getRequiredConstraints
      * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::getValueConstraints
      * @dataProvider validationDataProvider
      */
-    public function testValidation($value, bool $isValid): void
+    public function testValidation($value, bool $isRequired, bool $isValid): void
     {
-        $parameter = $this->getParameterDefinition(['options' => ['One' => 1, 'Two' => 2]]);
+        $parameter = $this->getParameterDefinition(['options' => ['Null' => null, 'One' => 1, 'Two' => 2]], $isRequired);
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
@@ -257,16 +258,17 @@ final class ChoiceTypeTest extends TestCase
     /**
      * @param mixed $value
      *
+     * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::getRequiredConstraints
      * @covers \Netgen\Layouts\Parameters\ParameterType\ChoiceType::getValueConstraints
      * @dataProvider validationDataProvider
      */
-    public function testValidationWithClosure($value, bool $isValid): void
+    public function testValidationWithClosure($value, bool $isRequired, bool $isValid): void
     {
         $closure = static function (): array {
-            return ['One' => 1, 'Two' => 2];
+            return ['Null' => null, 'One' => 1, 'Two' => 2];
         };
 
-        $parameter = $this->getParameterDefinition(['options' => $closure]);
+        $parameter = $this->getParameterDefinition(['options' => $closure], $isRequired);
         $validator = Validation::createValidator();
 
         $errors = $validator->validate($value, $this->type->getConstraints($parameter, $value));
@@ -279,15 +281,19 @@ final class ChoiceTypeTest extends TestCase
     public function validationDataProvider(): array
     {
         return [
-            [1, true],
-            ['1', false],
-            ['One', false],
-            [2, true],
-            ['2', false],
-            ['Two', false],
-            ['123abc.ASD', false],
-            [0, false],
-            ['0', false],
+            [1, false, true],
+            ['1', false, false],
+            ['One', false, false],
+            [2, false, true],
+            ['2', false, false],
+            ['Two', false, false],
+            ['123abc.ASD', false, false],
+            [0, false, false],
+            ['0', false, false],
+            [null, false, true],
+            ['Null', false, false],
+            [null, true, false],
+            ['Null', true, false],
         ];
     }
 

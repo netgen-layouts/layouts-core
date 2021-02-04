@@ -40,4 +40,24 @@ final class TwigBlockDefinitionTest extends TestCase
     {
         self::assertSame(['twig_block'], $this->blockDefinition->getTwigBlockNames(new Block()));
     }
+
+    /**
+     * @covers \Netgen\Layouts\Block\TwigBlockDefinition::getDynamicParameters
+     * @covers \Netgen\Layouts\Block\TwigBlockDefinition::getHandler
+     */
+    public function testGetDynamicParameters(): void
+    {
+        $dynamicParameters = $this->blockDefinition->getDynamicParameters(new Block());
+
+        self::assertCount(0, $dynamicParameters);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Block\TwigBlockDefinition::getHandler
+     * @covers \Netgen\Layouts\Block\TwigBlockDefinition::isContextual
+     */
+    public function testIsContextual(): void
+    {
+        self::assertTrue($this->blockDefinition->isContextual(new Block()));
+    }
 }

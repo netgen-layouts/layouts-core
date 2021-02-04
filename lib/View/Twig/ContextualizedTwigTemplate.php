@@ -54,7 +54,7 @@ final class ContextualizedTwigTemplate
     }
 
     /**
-     * Renders if the template has a block with provided name.
+     * Returns if the template has a block with provided name.
      */
     public function hasBlock(string $blockName): bool
     {

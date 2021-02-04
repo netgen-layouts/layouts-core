@@ -187,6 +187,38 @@ final class LayoutBackendTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::buildItem
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::buildItems
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::getSubItems
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::includeSharedLayouts
+     */
+    public function testGetSubItemsWithSharedLayouts(): void
+    {
+        $this->backend = new LayoutBackend(
+            $this->layoutServiceMock,
+            new Configuration('layout', 'Layout', [], ['include_shared_layouts' => 'true'])
+        );
+
+        $this->layoutServiceMock
+            ->expects(self::once())
+            ->method('loadAllLayouts')
+            ->with(
+                self::identicalTo(false),
+                self::identicalTo(0),
+                self::identicalTo(25)
+            )
+            ->willReturn(new LayoutList([new Layout(), new Layout()]));
+
+        $items = [];
+        foreach ($this->backend->getSubItems(new RootLocation()) as $item) {
+            $items[] = $item;
+        }
+
+        self::assertCount(2, $items);
+        self::assertContainsOnlyInstancesOf(ItemInterface::class, $items);
+    }
+
+    /**
      * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::getSubItemsCount
      * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::includeSharedLayouts
      */
@@ -195,6 +227,27 @@ final class LayoutBackendTest extends TestCase
         $this->layoutServiceMock
             ->expects(self::once())
             ->method('getLayoutsCount')
+            ->willReturn(2);
+
+        $count = $this->backend->getSubItemsCount(new RootLocation());
+
+        self::assertSame(2, $count);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::getSubItemsCount
+     * @covers \Netgen\Layouts\Browser\Backend\LayoutBackend::includeSharedLayouts
+     */
+    public function testGetSubItemsCountWithSharedLayouts(): void
+    {
+        $this->backend = new LayoutBackend(
+            $this->layoutServiceMock,
+            new Configuration('layout', 'Layout', [], ['include_shared_layouts' => 'true'])
+        );
+
+        $this->layoutServiceMock
+            ->expects(self::once())
+            ->method('getAllLayoutsCount')
             ->willReturn(2);
 
         $count = $this->backend->getSubItemsCount(new RootLocation());

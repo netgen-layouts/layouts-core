@@ -11,6 +11,7 @@ use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\Matcher\MatcherInterface;
 use Netgen\Layouts\View\TemplateResolver;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 final class TemplateResolverTest extends TestCase
 {
@@ -35,6 +36,7 @@ final class TemplateResolverTest extends TestCase
     /**
      * @covers \Netgen\Layouts\View\TemplateResolver::__construct
      * @covers \Netgen\Layouts\View\TemplateResolver::evaluateParameters
+     * @covers \Netgen\Layouts\View\TemplateResolver::getMatcher
      * @covers \Netgen\Layouts\View\TemplateResolver::matches
      * @covers \Netgen\Layouts\View\TemplateResolver::resolveTemplate
      */
@@ -99,6 +101,7 @@ final class TemplateResolverTest extends TestCase
 
     /**
      * @covers \Netgen\Layouts\View\TemplateResolver::evaluateParameters
+     * @covers \Netgen\Layouts\View\TemplateResolver::getMatcher
      * @covers \Netgen\Layouts\View\TemplateResolver::matches
      * @covers \Netgen\Layouts\View\TemplateResolver::resolveTemplate
      */
@@ -132,6 +135,7 @@ final class TemplateResolverTest extends TestCase
 
     /**
      * @covers \Netgen\Layouts\View\TemplateResolver::evaluateParameters
+     * @covers \Netgen\Layouts\View\TemplateResolver::getMatcher
      * @covers \Netgen\Layouts\View\TemplateResolver::matches
      * @covers \Netgen\Layouts\View\TemplateResolver::resolveTemplate
      */
@@ -166,6 +170,7 @@ final class TemplateResolverTest extends TestCase
 
     /**
      * @covers \Netgen\Layouts\View\TemplateResolver::evaluateParameters
+     * @covers \Netgen\Layouts\View\TemplateResolver::getMatcher
      * @covers \Netgen\Layouts\View\TemplateResolver::matches
      * @covers \Netgen\Layouts\View\TemplateResolver::resolveTemplate
      */
@@ -225,6 +230,7 @@ final class TemplateResolverTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\View\TemplateResolver::getMatcher
      * @covers \Netgen\Layouts\View\TemplateResolver::matches
      * @covers \Netgen\Layouts\View\TemplateResolver::resolveTemplate
      */
@@ -266,6 +272,7 @@ final class TemplateResolverTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\View\TemplateResolver::getMatcher
      * @covers \Netgen\Layouts\View\TemplateResolver::matches
      * @covers \Netgen\Layouts\View\TemplateResolver::resolveTemplate
      */
@@ -290,6 +297,41 @@ final class TemplateResolverTest extends TestCase
         $templateResolver = new TemplateResolver(
             $viewConfiguration,
             new Container()
+        );
+
+        $templateResolver->resolveTemplate($this->view);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\View\TemplateResolver::getMatcher
+     * @covers \Netgen\Layouts\View\TemplateResolver::matches
+     * @covers \Netgen\Layouts\View\TemplateResolver::resolveTemplate
+     */
+    public function testResolveTemplateThrowsTemplateResolverExceptionIfInvalidMatcher(): void
+    {
+        $this->expectException(TemplateResolverException::class);
+        $this->expectExceptionMessage('No template matcher could be found with identifier "matcher".');
+
+        $viewConfiguration = [
+            'stub_view' => [
+                'context' => [
+                    'value' => [
+                        'template' => 'template.html.twig',
+                        'match' => [
+                            'matcher' => 'value',
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        $templateResolver = new TemplateResolver(
+            $viewConfiguration,
+            new Container(
+                [
+                    'matcher' => new stdClass(),
+                ]
+            )
         );
 
         $templateResolver->resolveTemplate($this->view);

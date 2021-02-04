@@ -739,6 +739,18 @@ abstract class CollectionServiceTest extends CoreTestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Core\Service\CollectionService::deleteSlots
+     */
+    public function testDeleteSlotsThrowsBadStateExceptionWithNonDraftCollection(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "collection" has an invalid state. Only slots in draft collections can be deleted.');
+
+        $collection = $this->collectionService->loadCollection(Uuid::fromString('45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a'));
+        $this->collectionService->deleteSlots($collection);
+    }
+
+    /**
      * @covers \Netgen\Layouts\Core\Service\CollectionService::newCollectionCreateStruct
      */
     public function testNewCollectionCreateStruct(): void

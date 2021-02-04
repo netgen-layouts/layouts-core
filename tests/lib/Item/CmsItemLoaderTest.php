@@ -13,6 +13,7 @@ use Netgen\Layouts\Tests\Item\Stubs\Value;
 use Netgen\Layouts\Tests\Item\Stubs\ValueLoader;
 use Netgen\Layouts\Tests\Stubs\Container;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 final class CmsItemLoaderTest extends TestCase
 {
@@ -33,6 +34,7 @@ final class CmsItemLoaderTest extends TestCase
 
     /**
      * @covers \Netgen\Layouts\Item\CmsItemLoader::__construct
+     * @covers \Netgen\Layouts\Item\CmsItemLoader::getValueLoader
      * @covers \Netgen\Layouts\Item\CmsItemLoader::load
      */
     public function testLoad(): void
@@ -62,6 +64,7 @@ final class CmsItemLoaderTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Item\CmsItemLoader::getValueLoader
      * @covers \Netgen\Layouts\Item\CmsItemLoader::load
      */
     public function testLoadItemWithNoItem(): void
@@ -78,6 +81,7 @@ final class CmsItemLoaderTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Item\CmsItemLoader::getValueLoader
      * @covers \Netgen\Layouts\Item\CmsItemLoader::load
      */
     public function testLoadItemThrowsItemException(): void
@@ -91,6 +95,7 @@ final class CmsItemLoaderTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Item\CmsItemLoader::getValueLoader
      * @covers \Netgen\Layouts\Item\CmsItemLoader::loadByRemoteId
      */
     public function testLoadByRemoteId(): void
@@ -120,6 +125,7 @@ final class CmsItemLoaderTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Item\CmsItemLoader::getValueLoader
      * @covers \Netgen\Layouts\Item\CmsItemLoader::loadByRemoteId
      */
     public function testLoadByRemoteIdItemThrowsItemExceptionWithNoItem(): void
@@ -136,14 +142,29 @@ final class CmsItemLoaderTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Item\CmsItemLoader::getValueLoader
      * @covers \Netgen\Layouts\Item\CmsItemLoader::loadByRemoteId
      */
-    public function testLoadByRemoteIdItemThrowsItemException(): void
+    public function testLoadByRemoteIdItemThrowsItemExceptionWithNoLoader(): void
     {
         $this->expectException(ItemException::class);
         $this->expectExceptionMessage('Value loader for "value" value type does not exist.');
 
         $this->cmsItemLoader = new CmsItemLoader($this->cmsItemBuilderMock, new Container());
+
+        $this->cmsItemLoader->loadByRemoteId(42, 'value');
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Item\CmsItemLoader::getValueLoader
+     * @covers \Netgen\Layouts\Item\CmsItemLoader::loadByRemoteId
+     */
+    public function testLoadByRemoteIdItemThrowsItemExceptionWithInvalidLoader(): void
+    {
+        $this->expectException(ItemException::class);
+        $this->expectExceptionMessage('Value loader for "value" value type does not exist.');
+
+        $this->cmsItemLoader = new CmsItemLoader($this->cmsItemBuilderMock, new Container(['value' => new stdClass()]));
 
         $this->cmsItemLoader->loadByRemoteId(42, 'value');
     }

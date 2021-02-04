@@ -26,7 +26,7 @@ final class ContextualizedTwigTemplateTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\View\Twig\ContextualizedTwigTemplate::renderBlock
+     * @covers \Netgen\Layouts\View\Twig\ContextualizedTwigTemplate::hasBlock
      */
     public function testHasBlock(): void
     {

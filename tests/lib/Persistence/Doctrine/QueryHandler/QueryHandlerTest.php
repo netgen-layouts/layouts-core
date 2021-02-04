@@ -35,6 +35,29 @@ final class QueryHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\QueryHandler::__construct
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\QueryHandler::applyIdCondition
+     */
+    public function testApplyIdCondition(): void
+    {
+        $query = $this->databaseConnection->createQueryBuilder();
+        $this->queryHandler->applyIdCondition($query, 1);
+
+        self::assertSame(['id' => 1], $query->getParameters());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\QueryHandler::__construct
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\QueryHandler::applyIdCondition
+     */
+    public function testApplyIdConditionWithUuid(): void
+    {
+        $query = $this->databaseConnection->createQueryBuilder();
+        $this->queryHandler->applyIdCondition($query, '205d4dbb-b9e9-45d5-9dac-642730d29457');
+
+        self::assertSame(['uuid' => '205d4dbb-b9e9-45d5-9dac-642730d29457'], $query->getParameters());
+    }
+
+    /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\QueryHandler::applyStatusCondition
      */
     public function testApplyStatusCondition(): void
