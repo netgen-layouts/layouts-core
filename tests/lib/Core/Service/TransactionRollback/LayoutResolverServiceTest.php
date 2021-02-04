@@ -128,6 +128,10 @@ final class LayoutResolverServiceTest extends TestCase
             ->willReturn(PersistenceRule::fromArray(['id' => 42]));
 
         $this->layoutResolverHandler
+            ->method('loadRuleGroup')
+            ->willReturn(PersistenceRuleGroup::fromArray(['id' => 42]));
+
+        $this->layoutResolverHandler
             ->method('copyRule')
             ->willThrowException(new Exception('Test exception text'));
 
@@ -135,7 +139,15 @@ final class LayoutResolverServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
-        $this->layoutResolverService->copyRule(Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Rule::STATUS_PUBLISHED]));
+        $this->layoutResolverService->copyRule(
+            Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Rule::STATUS_PUBLISHED]),
+            RuleGroup::fromArray(
+                [
+                    'id' => Uuid::uuid4(),
+                    'status' => Value::STATUS_PUBLISHED,
+                ]
+            )
+        );
     }
 
     /**

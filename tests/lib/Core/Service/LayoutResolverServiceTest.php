@@ -696,11 +696,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     public function testCopyRule(): void
     {
         $rule = $this->layoutResolverService->loadRule(Uuid::fromString('4f63660c-bd58-5efa-81a8-6c81b4484a61'));
+        $targetGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('91139748-3bf0-4c25-b45c-d3be6596c399'));
 
-        $copiedRule = $this->layoutResolverService->copyRule($rule);
+        $copiedRule = $this->layoutResolverService->copyRule($rule, $targetGroup);
 
         self::assertSame($rule->isPublished(), $copiedRule->isPublished());
-        self::assertSame($rule->getRuleGroupId()->toString(), $copiedRule->getRuleGroupId()->toString());
+        self::assertSame($targetGroup->getId()->toString(), $copiedRule->getRuleGroupId()->toString());
         self::assertNotSame($rule->getId()->toString(), $copiedRule->getId()->toString());
     }
 
@@ -728,8 +729,9 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "rule" has an invalid state. Only published rules can be copied.');
 
         $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('816c00bb-8253-5bba-a067-ba6de1f94a65'));
+        $targetGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('91139748-3bf0-4c25-b45c-d3be6596c399'));
 
-        $this->layoutResolverService->copyRule($rule);
+        $this->layoutResolverService->copyRule($rule, $targetGroup);
     }
 
     /**

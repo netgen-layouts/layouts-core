@@ -464,22 +464,18 @@ final class LayoutResolverService implements APILayoutResolverService
         return $this->mapper->mapRule($updatedRule);
     }
 
-    public function copyRule(Rule $rule, ?RuleGroup $targetGroup = null): Rule
+    public function copyRule(Rule $rule, RuleGroup $targetGroup): Rule
     {
         if (!$rule->isPublished()) {
             throw new BadStateException('rule', 'Only published rules can be copied.');
         }
 
-        if ($targetGroup !== null && !$targetGroup->isPublished()) {
+        if (!$targetGroup->isPublished()) {
             throw new BadStateException('targetGroup', 'Rules can be copied only to published groups.');
         }
 
         $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), Value::STATUS_PUBLISHED);
-
-        $persistenceGroup = null;
-        if ($targetGroup !== null) {
-            $persistenceGroup = $this->layoutResolverHandler->loadRuleGroup($targetGroup->getId(), Value::STATUS_PUBLISHED);
-        }
+        $persistenceGroup = $this->layoutResolverHandler->loadRuleGroup($targetGroup->getId(), Value::STATUS_PUBLISHED);
 
         $copiedRule = $this->transaction(
             function () use ($persistenceRule, $persistenceGroup): PersistenceRule {

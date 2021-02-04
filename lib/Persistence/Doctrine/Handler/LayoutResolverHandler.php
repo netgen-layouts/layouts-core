@@ -271,7 +271,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $updatedRule;
     }
 
-    public function copyRule(Rule $rule, ?RuleGroup $targetGroup = null): Rule
+    public function copyRule(Rule $rule, RuleGroup $targetGroup): Rule
     {
         // First copy the rule
 
@@ -279,10 +279,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
         unset($copiedRule->id);
         $copiedRule->uuid = Uuid::uuid4()->toString();
-
-        if ($targetGroup !== null) {
-            $copiedRule->ruleGroupId = $targetGroup->id;
-        }
+        $copiedRule->ruleGroupId = $targetGroup->id;
 
         $copiedRule = $this->queryHandler->createRule($copiedRule);
 

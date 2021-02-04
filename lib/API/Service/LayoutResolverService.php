@@ -191,7 +191,7 @@ interface LayoutResolverService extends TransactionService
     /**
      * Copies a rule.
      */
-    public function copyRule(Rule $rule, ?RuleGroup $targetGroup = null): Rule;
+    public function copyRule(Rule $rule, RuleGroup $targetGroup): Rule;
 
     /**
      * Moves a rule.

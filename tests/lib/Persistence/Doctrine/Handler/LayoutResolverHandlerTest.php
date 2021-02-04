@@ -731,10 +731,11 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testCopyRule(): void
     {
         $rule = $this->handler->loadRule(5, Value::STATUS_PUBLISHED);
+        $targetGroup = $this->handler->loadRuleGroup(1, Value::STATUS_PUBLISHED);
 
         $copiedRule = $this->withUuids(
-            function () use ($rule): Rule {
-                return $this->handler->copyRule($rule);
+            function () use ($rule, $targetGroup): Rule {
+                return $this->handler->copyRule($rule, $targetGroup);
             },
             [
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
@@ -746,7 +747,7 @@ final class LayoutResolverHandlerTest extends TestCase
 
         self::assertSame(13, $copiedRule->id);
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedRule->uuid);
-        self::assertSame($rule->ruleGroupId, $copiedRule->ruleGroupId);
+        self::assertSame($targetGroup->id, $copiedRule->ruleGroupId);
         self::assertSame($rule->layoutUuid, $copiedRule->layoutUuid);
         self::assertSame($rule->priority, $copiedRule->priority);
         self::assertSame($rule->enabled, $copiedRule->enabled);
