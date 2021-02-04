@@ -258,19 +258,19 @@ final class LayoutResolverService implements APILayoutResolverService
         return $this->layoutResolverHandler->getRuleCountFromGroup($persistenceGroup);
     }
 
-    public function loadRuleGroups(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null): RuleGroupList
+    public function loadRuleGroups(RuleGroup $parentGroup, int $offset = 0, ?int $limit = null): RuleGroupList
     {
-        if (!$ruleGroup->isPublished()) {
-            throw new BadStateException('ruleGroup', 'Rule groups can be loaded only from published rule groups.');
+        if (!$parentGroup->isPublished()) {
+            throw new BadStateException('parentGroup', 'Rule groups can be loaded only from published parent groups.');
         }
 
-        $persistenceGroup = $this->layoutResolverHandler->loadRuleGroup(
-            $ruleGroup->getId(),
+        $persistenceParentGroup = $this->layoutResolverHandler->loadRuleGroup(
+            $parentGroup->getId(),
             Value::STATUS_PUBLISHED
         );
 
         $persistenceRuleGroups = $this->layoutResolverHandler->loadRuleGroups(
-            $persistenceGroup,
+            $persistenceParentGroup,
             $offset,
             $limit
         );
@@ -285,18 +285,18 @@ final class LayoutResolverService implements APILayoutResolverService
         );
     }
 
-    public function getRuleGroupCount(RuleGroup $ruleGroup): int
+    public function getRuleGroupCount(RuleGroup $parentGroup): int
     {
-        if (!$ruleGroup->isPublished()) {
-            throw new BadStateException('ruleGroup', 'Rule group count can be fetched only for published rule groups.');
+        if (!$parentGroup->isPublished()) {
+            throw new BadStateException('parentGroup', 'Rule group count can be fetched only for published parent groups.');
         }
 
-        $persistenceGroup = $this->layoutResolverHandler->loadRuleGroup(
-            $ruleGroup->getId(),
+        $persistenceParentGroup = $this->layoutResolverHandler->loadRuleGroup(
+            $parentGroup->getId(),
             Value::STATUS_PUBLISHED
         );
 
-        return $this->layoutResolverHandler->getRuleGroupCount($persistenceGroup);
+        return $this->layoutResolverHandler->getRuleGroupCount($persistenceParentGroup);
     }
 
     public function matchRules(string $targetType, $targetValue): RuleList
@@ -729,7 +729,7 @@ final class LayoutResolverService implements APILayoutResolverService
         }
 
         if (!$targetGroup->isPublished()) {
-            throw new BadStateException('targetGroup', 'Rules can be copied only to published groups.');
+            throw new BadStateException('targetGroup', 'Rule groups can be copied only to published groups.');
         }
 
         $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), Value::STATUS_PUBLISHED);
@@ -751,7 +751,7 @@ final class LayoutResolverService implements APILayoutResolverService
         }
 
         if (!$targetGroup->isPublished()) {
-            throw new BadStateException('targetGroup', 'Rules can be moved only to published groups.');
+            throw new BadStateException('targetGroup', 'Rule groups can be moved only to published groups.');
         }
 
         $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), Value::STATUS_PUBLISHED);

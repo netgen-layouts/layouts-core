@@ -1400,7 +1400,7 @@ final class LayoutResolverHandlerTest extends TestCase
         );
 
         self::assertSame(2, $updatedRuleGroup->priority);
-        self::assertTrue($updatedRuleGroup->enabled);
+        self::assertFalse($updatedRuleGroup->enabled);
         self::assertSame(Value::STATUS_PUBLISHED, $updatedRuleGroup->status);
     }
 

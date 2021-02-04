@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Core\Service;
 
 use Netgen\Layouts\API\Values\Layout\Layout;
-use Netgen\Layouts\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
-use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use Netgen\Layouts\Tests\TestCase\UuidGeneratorTrait;
@@ -88,6 +86,73 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleGroup
+     */
+    public function testLoadRuleGroup(): void
+    {
+        $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+
+        self::assertTrue($ruleGroup->isPublished());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleGroup
+     */
+    public function testLoadRuleGroupThrowsNotFoundException(): void
+    {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find rule group with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
+
+        $this->layoutResolverService->loadRuleGroup(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::__construct
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleGroupDraft
+     */
+    public function testLoadRuleGroupDraft(): void
+    {
+        $ruleGroup = $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+
+        self::assertTrue($ruleGroup->isDraft());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleGroupDraft
+     */
+    public function testLoadRuleGroupDraftThrowsNotFoundException(): void
+    {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find rule group with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
+
+        $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleGroupArchive
+     */
+    public function testLoadRuleGroupArchive(): void
+    {
+        $ruleGroupDraft = $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+        $this->layoutResolverService->publishRuleGroup($ruleGroupDraft);
+
+        $ruleGroupArchive = $this->layoutResolverService->loadRuleGroupArchive(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+
+        self::assertTrue($ruleGroupArchive->isArchived());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleGroupArchive
+     */
+    public function testLoadRuleGroupArchiveThrowsNotFoundException(): void
+    {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find rule group with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
+
+        $this->layoutResolverService->loadRuleGroupArchive(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
+    }
+
+    /**
      * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRules
      */
     public function testLoadRules(): void
@@ -120,7 +185,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     /**
      * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRules
      */
-    public function testLoadRulesWithDraftLayoutThrowsBadStateException(): void
+    public function testLoadRulesThrowsBadStateExceptionWithNonPublishedLayout(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "layout" has an invalid state. Only published layouts can be used in rules.');
@@ -162,6 +227,114 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $this->layoutResolverService->getRuleCount(
             $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRulesFromGroup
+     */
+    public function testLoadRulesFromGroup(): void
+    {
+        $rules = $this->layoutResolverService->loadRulesFromGroup(
+            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+        );
+
+        self::assertCount(2, $rules);
+
+        foreach ($rules as $rule) {
+            self::assertTrue($rule->isPublished());
+        }
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRulesFromGroup
+     */
+    public function testLoadRulesFromGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Rules can be loaded only from published rule groups.');
+
+        $this->layoutResolverService->loadRulesFromGroup(
+            $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::getRuleCountFromGroup
+     */
+    public function testGetRuleCountFromGroup(): void
+    {
+        $ruleCount = $this->layoutResolverService->getRuleCountFromGroup(
+            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+        );
+
+        self::assertSame(2, $ruleCount);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::getRuleCountFromGroup
+     */
+    public function testGetRuleCountFromGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Rule count can be fetched only for published rule groups.');
+
+        $this->layoutResolverService->getRuleCountFromGroup(
+            $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleGroups
+     */
+    public function testLoadRuleGroups(): void
+    {
+        $ruleGroups = $this->layoutResolverService->loadRuleGroups(
+            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+        );
+
+        self::assertCount(1, $ruleGroups);
+
+        foreach ($ruleGroups as $ruleGroup) {
+            self::assertTrue($ruleGroup->isPublished());
+        }
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleGroups
+     */
+    public function testLoadRuleGroupsThrowsBadStateExceptionWithNonPublishedParentGroup(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "parentGroup" has an invalid state. Rule groups can be loaded only from published parent groups.');
+
+        $this->layoutResolverService->loadRuleGroups(
+            $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::getRuleGroupCount
+     */
+    public function testGetRuleGroupCount(): void
+    {
+        $ruleGroupCount = $this->layoutResolverService->getRuleGroupCount(
+            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+        );
+
+        self::assertSame(1, $ruleGroupCount);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::getRuleGroupCount
+     */
+    public function testGetRuleGroupCountThrowsBadStateExceptionWithNonPublishedParentGroup(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "parentGroup" has an invalid state. Rule group count can be fetched only for published parent groups.');
+
+        $this->layoutResolverService->getRuleGroupCount(
+            $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
         );
     }
 
@@ -264,6 +437,48 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleGroupCondition
+     */
+    public function testLoadRuleGroupCondition(): void
+    {
+        $condition = $this->layoutResolverService->loadRuleGroupCondition(Uuid::fromString('b084d390-01ea-464b-8282-797b6ef9ef1e'));
+
+        self::assertTrue($condition->isPublished());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleGroupCondition
+     */
+    public function testLoadRuleGroupConditionThrowsNotFoundException(): void
+    {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find condition with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
+
+        $this->layoutResolverService->loadRuleGroupCondition(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleGroupConditionDraft
+     */
+    public function testLoadRuleGroupConditionDraft(): void
+    {
+        $condition = $this->layoutResolverService->loadRuleGroupConditionDraft(Uuid::fromString('b084d390-01ea-464b-8282-797b6ef9ef1e'));
+
+        self::assertTrue($condition->isDraft());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::loadRuleGroupConditionDraft
+     */
+    public function testLoadRuleGroupConditionDraftThrowsNotFoundException(): void
+    {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find condition with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"');
+
+        $this->layoutResolverService->loadRuleGroupConditionDraft(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff'));
+    }
+
+    /**
      * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::ruleExists
      */
     public function testRuleExists(): void
@@ -288,10 +503,10 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $createdRule = $this->layoutResolverService->createRule(
             $ruleCreateStruct,
-            $this->layoutResolverService->loadRuleGroup(Uuid::fromString(RuleGroup::ROOT_UUID))
+            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
         );
 
-        self::assertSame(RuleGroup::ROOT_UUID, $createdRule->getRuleGroupId()->toString());
+        self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $createdRule->getRuleGroupId()->toString());
         self::assertTrue($createdRule->isDraft());
     }
 
@@ -305,18 +520,37 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $createdRule = $this->layoutResolverService->createRule(
             $ruleCreateStruct,
-            $this->layoutResolverService->loadRuleGroup(Uuid::fromString(RuleGroup::ROOT_UUID))
+            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
         );
 
         self::assertTrue($createdRule->isDraft());
         self::assertSame($ruleCreateStruct->uuid->toString(), $createdRule->getId()->toString());
-        self::assertSame(RuleGroup::ROOT_UUID, $createdRule->getRuleGroupId()->toString());
+        self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $createdRule->getRuleGroupId()->toString());
     }
 
     /**
      * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRule
      */
-    public function testCreateRuleWithExistingUuidThrowsBadStateException(): void
+    public function testCreateRuleWithAssignedLayout(): void
+    {
+        $ruleCreateStruct = $this->layoutResolverService->newRuleCreateStruct();
+        $ruleCreateStruct->layoutId = Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136');
+
+        $createdRule = $this->layoutResolverService->createRule(
+            $ruleCreateStruct,
+            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+        );
+
+        self::assertTrue($createdRule->isDraft());
+        self::assertInstanceOf(Layout::class, $createdRule->getLayout());
+        self::assertSame($ruleCreateStruct->layoutId->toString(), $createdRule->getLayout()->getId()->toString());
+        self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $createdRule->getRuleGroupId()->toString());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRule
+     */
+    public function testCreateRuleThrowsBadStateExceptionWithExistingUuid(): void
     {
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "uuid" has an invalid state. Rule with provided UUID already exists.');
@@ -324,12 +558,27 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $ruleCreateStruct = $this->layoutResolverService->newRuleCreateStruct();
         $ruleCreateStruct->uuid = Uuid::fromString('26768324-03dd-5952-8a55-4b449d6cd634');
 
-        $createdRule = $this->layoutResolverService->createRule(
+        $this->layoutResolverService->createRule(
             $ruleCreateStruct,
-            $this->layoutResolverService->loadRuleGroup(Uuid::fromString(RuleGroup::ROOT_UUID))
+            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
         );
+    }
 
-        self::assertTrue($createdRule->isDraft());
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRule
+     */
+    public function testCreateRuleThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "targetGroup" has an invalid state. Rules can be created only in published groups.');
+
+        $ruleCreateStruct = $this->layoutResolverService->newRuleCreateStruct();
+        $ruleCreateStruct->uuid = Uuid::fromString('26768324-03dd-5952-8a55-4b449d6cd634');
+
+        $this->layoutResolverService->createRule(
+            $ruleCreateStruct,
+            $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+        );
     }
 
     /**
@@ -413,7 +662,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     {
         $rule = $this->layoutResolverService->loadRule(Uuid::fromString('d5bcbdfc-2e75-5f06-8c47-c26d68bb7b5e'));
 
-        $struct = new RuleMetadataUpdateStruct();
+        $struct = $this->layoutResolverService->newRuleMetadataUpdateStruct();
         $struct->priority = 50;
 
         $updatedRule = $this->layoutResolverService->updateRuleMetadata(
@@ -435,7 +684,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('816c00bb-8253-5bba-a067-ba6de1f94a65'));
 
-        $struct = new RuleMetadataUpdateStruct();
+        $struct = $this->layoutResolverService->newRuleMetadataUpdateStruct();
         $struct->priority = 50;
 
         $this->layoutResolverService->updateRuleMetadata($rule, $struct);
@@ -446,12 +695,115 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
      */
     public function testCopyRule(): void
     {
-        $rule = $this->layoutResolverService->loadRule(Uuid::fromString('55622437-f700-5378-99c9-7dafe89a8fb6'));
+        $rule = $this->layoutResolverService->loadRule(Uuid::fromString('4f63660c-bd58-5efa-81a8-6c81b4484a61'));
 
         $copiedRule = $this->layoutResolverService->copyRule($rule);
 
         self::assertSame($rule->isPublished(), $copiedRule->isPublished());
+        self::assertSame($rule->getRuleGroupId()->toString(), $copiedRule->getRuleGroupId()->toString());
         self::assertNotSame($rule->getId()->toString(), $copiedRule->getId()->toString());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::copyRule
+     */
+    public function testCopyRuleToDifferentRuleGroup(): void
+    {
+        $rule = $this->layoutResolverService->loadRule(Uuid::fromString('55622437-f700-5378-99c9-7dafe89a8fb6'));
+        $targetGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+
+        $copiedRule = $this->layoutResolverService->copyRule($rule, $targetGroup);
+
+        self::assertSame($rule->isPublished(), $copiedRule->isPublished());
+        self::assertSame($targetGroup->getId()->toString(), $copiedRule->getRuleGroupId()->toString());
+        self::assertNotSame($rule->getId()->toString(), $copiedRule->getId()->toString());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::copyRule
+     */
+    public function testCopyRuleThrowsBadStateExceptionWithNonPublishedRule(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "rule" has an invalid state. Only published rules can be copied.');
+
+        $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('816c00bb-8253-5bba-a067-ba6de1f94a65'));
+
+        $this->layoutResolverService->copyRule($rule);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::copyRule
+     */
+    public function testCopyRuleThrowsBadStateExceptionWithNonPublishedTargetGroup(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "targetGroup" has an invalid state. Rules can be copied only to published groups.');
+
+        $rule = $this->layoutResolverService->loadRule(Uuid::fromString('816c00bb-8253-5bba-a067-ba6de1f94a65'));
+        $targetGroup = $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+
+        $this->layoutResolverService->copyRule($rule, $targetGroup);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::moveRule
+     */
+    public function testMoveRule(): void
+    {
+        $rule = $this->layoutResolverService->loadRule(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
+        $targetGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+
+        $movedRule = $this->layoutResolverService->moveRule($rule, $targetGroup);
+
+        self::assertTrue($movedRule->isPublished());
+        self::assertSame($rule->getId()->toString(), $movedRule->getId()->toString());
+        self::assertSame($rule->getPriority(), $movedRule->getPriority());
+        self::assertSame($targetGroup->getId()->toString(), $movedRule->getRuleGroupId()->toString());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::moveRule
+     */
+    public function testMoveRuleWithNewPriority(): void
+    {
+        $rule = $this->layoutResolverService->loadRule(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
+        $targetGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+
+        $movedRule = $this->layoutResolverService->moveRule($rule, $targetGroup, 42);
+
+        self::assertTrue($movedRule->isPublished());
+        self::assertSame($rule->getId()->toString(), $movedRule->getId()->toString());
+        self::assertSame(42, $movedRule->getPriority());
+        self::assertSame($targetGroup->getId()->toString(), $movedRule->getRuleGroupId()->toString());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::moveRule
+     */
+    public function testMoveRuleThrowsBadStateExceptionWithNonPublishedRule(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "rule" has an invalid state. Only published rules can be moved.');
+
+        $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
+        $targetGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+
+        $this->layoutResolverService->moveRule($rule, $targetGroup);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::moveRule
+     */
+    public function testMoveRuleThrowsBadStateExceptionWithNonPublishedTargetRule(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "targetGroup" has an invalid state. Rules can be moved only to published groups.');
+
+        $rule = $this->layoutResolverService->loadRule(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
+        $targetGroup = $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+
+        $this->layoutResolverService->moveRule($rule, $targetGroup);
     }
 
     /**
@@ -604,6 +956,423 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::ruleGroupExists
+     */
+    public function testRuleGroupExists(): void
+    {
+        self::assertTrue($this->layoutResolverService->ruleGroupExists(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')));
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::ruleGroupExists
+     */
+    public function testRuleGroupExistsReturnsFalse(): void
+    {
+        self::assertFalse($this->layoutResolverService->ruleGroupExists(Uuid::fromString('ffffffff-ffff-ffff-ffff-ffffffffffff')));
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRuleGroup
+     */
+    public function testCreateRuleGroup(): void
+    {
+        $ruleGroupCreateStruct = $this->layoutResolverService->newRuleGroupCreateStruct();
+
+        $createdRuleGroup = $this->layoutResolverService->createRuleGroup(
+            $ruleGroupCreateStruct,
+            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+        );
+
+        self::assertTrue($createdRuleGroup->isDraft());
+        // self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $createdRuleGroup->getParentId()->toString());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRuleGroup
+     */
+    public function testCreateRuleGroupWithCustomUuid(): void
+    {
+        $ruleGroupCreateStruct = $this->layoutResolverService->newRuleGroupCreateStruct();
+        $ruleGroupCreateStruct->uuid = Uuid::fromString('0f714915-eef0-4dc1-b22b-1107cb1ab92b');
+
+        $createdRuleGroup = $this->layoutResolverService->createRuleGroup(
+            $ruleGroupCreateStruct,
+            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+        );
+
+        self::assertTrue($createdRuleGroup->isDraft());
+        self::assertSame($ruleGroupCreateStruct->uuid->toString(), $createdRuleGroup->getId()->toString());
+        // self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $createdRuleGroup->getParentId()->toString());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRuleGroup
+     */
+    public function testCreateRuleGroupThrowsBadStateExceptionWithExistingUuid(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "uuid" has an invalid state. Rule group with provided UUID already exists.');
+
+        $ruleGroupCreateStruct = $this->layoutResolverService->newRuleGroupCreateStruct();
+        $ruleGroupCreateStruct->uuid = Uuid::fromString('eb6311eb-24f6-4143-b476-99979a885a7e');
+
+        $this->layoutResolverService->createRuleGroup(
+            $ruleGroupCreateStruct,
+            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRuleGroup
+     */
+    public function testCreateRuleGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "parentGroup" has an invalid state. Rule groups can be created only in published groups.');
+
+        $ruleGroupCreateStruct = $this->layoutResolverService->newRuleGroupCreateStruct();
+        $ruleGroupCreateStruct->uuid = Uuid::fromString('eb6311eb-24f6-4143-b476-99979a885a7e');
+
+        $this->layoutResolverService->createRuleGroup(
+            $ruleGroupCreateStruct,
+            $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRuleGroup
+     */
+    public function testUpdateRuleGroup(): void
+    {
+        $ruleGroup = $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+
+        $ruleGroupUpdateStruct = $this->layoutResolverService->newRuleGroupUpdateStruct();
+        $ruleGroupUpdateStruct->comment = 'Updated comment';
+
+        $updatedRuleGroup = $this->layoutResolverService->updateRuleGroup($ruleGroup, $ruleGroupUpdateStruct);
+
+        self::assertTrue($updatedRuleGroup->isDraft());
+        self::assertSame('Updated comment', $updatedRuleGroup->getComment());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRuleGroup
+     */
+    public function testUpdateRuleGroupThrowsBadStateExceptionWithNonDraftRuleGroup(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Only draft rule groups can be updated.');
+
+        $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+
+        $ruleGroupUpdateStruct = $this->layoutResolverService->newRuleGroupUpdateStruct();
+        $ruleGroupUpdateStruct->comment = 'Updated comment';
+
+        $this->layoutResolverService->updateRuleGroup($ruleGroup, $ruleGroupUpdateStruct);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRuleGroupMetadata
+     */
+    public function testUpdateRuleGroupMetadata(): void
+    {
+        $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+
+        $struct = $this->layoutResolverService->newRuleGroupMetadataUpdateStruct();
+        $struct->priority = 50;
+
+        $updatedRuleGroup = $this->layoutResolverService->updateRuleGroupMetadata(
+            $ruleGroup,
+            $struct
+        );
+
+        self::assertSame(50, $updatedRuleGroup->getPriority());
+        self::assertTrue($updatedRuleGroup->isPublished());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRuleGroupMetadata
+     */
+    public function testUpdateRuleGroupMetadataThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Metadata can be updated only for published rule groups.');
+
+        $ruleGroup = $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+
+        $struct = $this->layoutResolverService->newRuleGroupMetadataUpdateStruct();
+        $struct->priority = 50;
+
+        $this->layoutResolverService->updateRuleGroupMetadata($ruleGroup, $struct);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::copyRuleGroup
+     */
+    public function testCopyRuleGroup(): void
+    {
+        $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('91139748-3bf0-4c25-b45c-d3be6596c399'));
+        $targetGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+
+        $copiedRuleGroup = $this->layoutResolverService->copyRuleGroup($ruleGroup, $targetGroup);
+
+        self::assertSame($ruleGroup->isPublished(), $copiedRuleGroup->isPublished());
+        // self::assertSame($targetGroup->getId()->toString(), $copiedRuleGroup->getParentId()->toString());
+        self::assertNotSame($ruleGroup->getId()->toString(), $copiedRuleGroup->getId()->toString());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::copyRuleGroup
+     */
+    public function testCopyRuleGroupToDifferentRuleGroup(): void
+    {
+        $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('eb6311eb-24f6-4143-b476-99979a885a7e'));
+        $targetGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+
+        $copiedRuleGroup = $this->layoutResolverService->copyRuleGroup($ruleGroup, $targetGroup);
+
+        self::assertSame($ruleGroup->isPublished(), $copiedRuleGroup->isPublished());
+        // self::assertSame($targetGroup->getId()->toString(), $copiedRuleGroup->getParentId()->toString());
+        self::assertNotSame($ruleGroup->getId()->toString(), $copiedRuleGroup->getId()->toString());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::copyRuleGroup
+     */
+    public function testCopyRuleGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Only published rule groups can be copied.');
+
+        $ruleGroup = $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('eb6311eb-24f6-4143-b476-99979a885a7e'));
+        $targetGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+
+        $this->layoutResolverService->copyRuleGroup($ruleGroup, $targetGroup);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::copyRuleGroup
+     */
+    public function testCopyRuleGroupThrowsBadStateExceptionWithNonPublishedTargetGroup(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "targetGroup" has an invalid state. Rule groups can be copied only to published groups.');
+
+        $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('eb6311eb-24f6-4143-b476-99979a885a7e'));
+        $targetGroup = $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+
+        $this->layoutResolverService->copyRuleGroup($ruleGroup, $targetGroup);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::moveRuleGroup
+     */
+    public function testMoveRuleGroup(): void
+    {
+        $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('eb6311eb-24f6-4143-b476-99979a885a7e'));
+        $targetGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+
+        $movedRuleGroup = $this->layoutResolverService->moveRuleGroup($ruleGroup, $targetGroup);
+
+        self::assertTrue($movedRuleGroup->isPublished());
+        self::assertSame($ruleGroup->getId()->toString(), $movedRuleGroup->getId()->toString());
+        self::assertSame($ruleGroup->getPriority(), $movedRuleGroup->getPriority());
+        // self::assertSame($targetGroup->getId()->toString(), $movedRuleGroup->getParentId()->toString());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::moveRuleGroup
+     */
+    public function testMoveRuleGroupWithNewPriority(): void
+    {
+        $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('eb6311eb-24f6-4143-b476-99979a885a7e'));
+        $targetGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+
+        $movedRuleGroup = $this->layoutResolverService->moveRuleGroup($ruleGroup, $targetGroup, 42);
+
+        self::assertTrue($movedRuleGroup->isPublished());
+        self::assertSame($ruleGroup->getId()->toString(), $movedRuleGroup->getId()->toString());
+        self::assertSame(42, $movedRuleGroup->getPriority());
+        // self::assertSame($targetGroup->getId()->toString(), $movedRuleGroup->getParentId()->toString());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::moveRuleGroup
+     */
+    public function testMoveRuleGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Only published rule groups can be moved.');
+
+        $ruleGroup = $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('eb6311eb-24f6-4143-b476-99979a885a7e'));
+        $targetGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+
+        $this->layoutResolverService->moveRuleGroup($ruleGroup, $targetGroup);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::moveRuleGroup
+     */
+    public function testMoveRuleGroupThrowsBadStateExceptionWithNonPublishedTargetRuleGroup(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "targetGroup" has an invalid state. Rule groups can be moved only to published groups.');
+
+        $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('eb6311eb-24f6-4143-b476-99979a885a7e'));
+        $targetGroup = $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+
+        $this->layoutResolverService->moveRuleGroup($ruleGroup, $targetGroup);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRuleGroupDraft
+     */
+    public function testCreateRuleGroupDraft(): void
+    {
+        $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('91139748-3bf0-4c25-b45c-d3be6596c399'));
+
+        $draftRuleGroup = $this->layoutResolverService->createRuleGroupDraft($ruleGroup);
+
+        self::assertTrue($draftRuleGroup->isDraft());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRuleGroupDraft
+     */
+    public function testCreateRuleGroupDraftWithDiscardingExistingDraft(): void
+    {
+        $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+
+        $draftRuleGroup = $this->layoutResolverService->createRuleGroupDraft($ruleGroup, true);
+
+        self::assertTrue($draftRuleGroup->isDraft());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRuleGroupDraft
+     */
+    public function testCreateRuleGroupDraftThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Drafts can only be created from published rule groups.');
+
+        $ruleGroup = $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+
+        $this->layoutResolverService->createRuleGroupDraft($ruleGroup);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::createRuleGroupDraft
+     */
+    public function testCreateRuleGroupDraftThrowsBadStateExceptionIfDraftAlreadyExists(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. The provided rule group already has a draft.');
+
+        $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+        $this->layoutResolverService->createRuleGroupDraft($ruleGroup);
+
+        $this->layoutResolverService->createRuleGroupDraft($ruleGroup);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::discardRuleGroupDraft
+     */
+    public function testDiscardRuleGroupDraft(): void
+    {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find rule group with identifier "b4f85f38-de3f-4af7-9a5f-21df63a49da9"');
+
+        $ruleGroup = $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+        $this->layoutResolverService->discardRuleGroupDraft($ruleGroup);
+
+        $this->layoutResolverService->loadRuleGroupDraft($ruleGroup->getId());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::discardRuleGroupDraft
+     */
+    public function testDiscardRuleGroupDraftThrowsBadStateExceptionWithNonDraftRuleGroup(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Only draft rule groups can be discarded.');
+
+        $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+        $this->layoutResolverService->discardRuleGroupDraft($ruleGroup);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::publishRuleGroup
+     */
+    public function testPublishRuleGroup(): void
+    {
+        $ruleGroup = $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+        $publishedRuleGroup = $this->layoutResolverService->publishRuleGroup($ruleGroup);
+
+        self::assertTrue($publishedRuleGroup->isPublished());
+        self::assertTrue($publishedRuleGroup->isEnabled());
+
+        try {
+            $this->layoutResolverService->loadRuleGroupDraft($ruleGroup->getId());
+            self::fail('Draft rule group still exists after publishing.');
+        } catch (NotFoundException $e) {
+            // Do nothing
+        }
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::publishRuleGroup
+     */
+    public function testPublishRuleGroupThrowsBadStateExceptionWithNonDraftRuleGroup(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Only draft rule groups can be published.');
+
+        $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+        $this->layoutResolverService->publishRuleGroup($ruleGroup);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::restoreRuleGroupFromArchive
+     */
+    public function testRestoreRuleGroupFromArchive(): void
+    {
+        $restoredRuleGroup = $this->layoutResolverService->restoreRuleGroupFromArchive(
+            $this->layoutResolverService->loadRuleGroupArchive(Uuid::fromString('91139748-3bf0-4c25-b45c-d3be6596c399'))
+        );
+
+        self::assertTrue($restoredRuleGroup->isDraft());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::restoreRuleGroupFromArchive
+     */
+    public function testRestoreRuleGroupFromArchiveThrowsBadStateExceptionOnNonArchivedLayout(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Only archived rule groups can be restored.');
+
+        $this->layoutResolverService->restoreRuleGroupFromArchive(
+            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::deleteRuleGroup
+     */
+    public function testDeleteRuleGroup(): void
+    {
+        $this->expectException(NotFoundException::class);
+        $this->expectExceptionMessage('Could not find rule group with identifier "b4f85f38-de3f-4af7-9a5f-21df63a49da9"');
+
+        $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+
+        $this->layoutResolverService->deleteRuleGroup($ruleGroup);
+
+        $this->layoutResolverService->loadRuleGroup($ruleGroup->getId());
+    }
+
+    /**
      * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::enableRule
      */
     public function testEnableRule(): void
@@ -679,6 +1448,84 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $rule = $this->layoutResolverService->loadRule(Uuid::fromString('d5bcbdfc-2e75-5f06-8c47-c26d68bb7b5e'));
 
         $this->layoutResolverService->disableRule($rule);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::enableRuleGroup
+     */
+    public function testEnableRuleGroup(): void
+    {
+        $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('eb6311eb-24f6-4143-b476-99979a885a7e'));
+
+        $enabledRuleGroup = $this->layoutResolverService->enableRuleGroup($ruleGroup);
+
+        self::assertTrue($enabledRuleGroup->isEnabled());
+        self::assertTrue($enabledRuleGroup->isPublished());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::enableRuleGroup
+     */
+    public function testEnableRuleGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Only published rule groups can be enabled.');
+
+        $ruleGroup = $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('eb6311eb-24f6-4143-b476-99979a885a7e'));
+
+        $this->layoutResolverService->enableRuleGroup($ruleGroup);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::enableRuleGroup
+     */
+    public function testEnableRuleGroupThrowsBadStateExceptionIfRuleGroupIsAlreadyEnabled(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Rule group is already enabled.');
+
+        $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+
+        $this->layoutResolverService->enableRuleGroup($ruleGroup);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::disableRuleGroup
+     */
+    public function testDisableRuleGroup(): void
+    {
+        $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+
+        $disabledRuleGroup = $this->layoutResolverService->disableRuleGroup($ruleGroup);
+
+        self::assertFalse($disabledRuleGroup->isEnabled());
+        self::assertTrue($disabledRuleGroup->isPublished());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::disableRuleGroup
+     */
+    public function testDisableRuleGroupThrowsBadStateExceptionWithNonPublishedRuleGroup(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Only published rule groups can be disabled.');
+
+        $ruleGroup = $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+
+        $this->layoutResolverService->disableRuleGroup($ruleGroup);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::disableRuleGroup
+     */
+    public function testDisableRuleGroupThrowsBadStateExceptionIfRuleGroupIsAlreadyDisabled(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Rule group is already disabled.');
+
+        $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('eb6311eb-24f6-4143-b476-99979a885a7e'));
+
+        $this->layoutResolverService->disableRuleGroup($ruleGroup);
     }
 
     /**
@@ -850,6 +1697,49 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     }
 
     /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::addRuleGroupCondition
+     */
+    public function testAddRuleGroupCondition(): void
+    {
+        $conditionCreateStruct = $this->layoutResolverService->newConditionCreateStruct(
+            'condition1'
+        );
+
+        $conditionCreateStruct->value = 'value';
+
+        $ruleGroup = $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+
+        $createdCondition = $this->layoutResolverService->addRuleGroupCondition(
+            $ruleGroup,
+            $conditionCreateStruct
+        );
+
+        self::assertTrue($createdCondition->isDraft());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::addRuleGroupCondition
+     */
+    public function testAddRuleGroupConditionThrowsBadStateExceptionOnNonDraftRuleGroup(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Conditions can be added only to draft rule groups.');
+
+        $conditionCreateStruct = $this->layoutResolverService->newConditionCreateStruct(
+            'condition1'
+        );
+
+        $conditionCreateStruct->value = 'value';
+
+        $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
+
+        $this->layoutResolverService->addRuleGroupCondition(
+            $ruleGroup,
+            $conditionCreateStruct
+        );
+    }
+
+    /**
      * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateCondition
      */
     public function testUpdateCondition(): void
@@ -879,6 +1769,38 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $conditionUpdateStruct->value = 'new_value';
 
         $this->layoutResolverService->updateCondition($condition, $conditionUpdateStruct);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRuleGroupCondition
+     */
+    public function testUpdateRuleGroupCondition(): void
+    {
+        $condition = $this->layoutResolverService->loadRuleGroupConditionDraft(Uuid::fromString('b084d390-01ea-464b-8282-797b6ef9ef1e'));
+
+        $conditionUpdateStruct = $this->layoutResolverService->newConditionUpdateStruct();
+        $conditionUpdateStruct->value = 'new_value';
+
+        $updatedCondition = $this->layoutResolverService->updateRuleGroupCondition($condition, $conditionUpdateStruct);
+
+        self::assertTrue($updatedCondition->isDraft());
+        self::assertSame('new_value', $updatedCondition->getValue());
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::updateRuleGroupCondition
+     */
+    public function testUpdateRuleGroupConditionThrowsBadStateExceptionOnNonDraftCondition(): void
+    {
+        $this->expectException(BadStateException::class);
+        $this->expectExceptionMessage('Argument "condition" has an invalid state. Only draft conditions can be updated.');
+
+        $condition = $this->layoutResolverService->loadRuleGroupCondition(Uuid::fromString('b084d390-01ea-464b-8282-797b6ef9ef1e'));
+
+        $conditionUpdateStruct = $this->layoutResolverService->newConditionUpdateStruct();
+        $conditionUpdateStruct->value = 'new_value';
+
+        $this->layoutResolverService->updateRuleGroupCondition($condition, $conditionUpdateStruct);
     }
 
     /**
@@ -948,6 +1870,54 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     public function testNewRuleMetadataUpdateStruct(): void
     {
         $struct = $this->layoutResolverService->newRuleMetadataUpdateStruct();
+
+        self::assertSame(
+            [
+                'priority' => null,
+            ],
+            $this->exportObject($struct)
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::newRuleGroupCreateStruct
+     */
+    public function testNewRuleGroupCreateStruct(): void
+    {
+        $struct = $this->layoutResolverService->newRuleGroupCreateStruct();
+
+        self::assertSame(
+            [
+                'uuid' => null,
+                'priority' => null,
+                'enabled' => true,
+                'comment' => null,
+            ],
+            $this->exportObject($struct)
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::newRuleGroupUpdateStruct
+     */
+    public function testNewRuleGroupUpdateStruct(): void
+    {
+        $struct = $this->layoutResolverService->newRuleGroupUpdateStruct();
+
+        self::assertSame(
+            [
+                'comment' => null,
+            ],
+            $this->exportObject($struct)
+        );
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Core\Service\LayoutResolverService::newRuleGroupMetadataUpdateStruct
+     */
+    public function testNewRuleGroupMetadataUpdateStruct(): void
+    {
+        $struct = $this->layoutResolverService->newRuleGroupMetadataUpdateStruct();
 
         self::assertSame(
             [

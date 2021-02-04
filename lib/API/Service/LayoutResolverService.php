@@ -104,12 +104,12 @@ interface LayoutResolverService extends TransactionService
     /**
      * Loads all rule groups from the provided parent group.
      */
-    public function loadRuleGroups(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null): RuleGroupList;
+    public function loadRuleGroups(RuleGroup $parentGroup, int $offset = 0, ?int $limit = null): RuleGroupList;
 
     /**
      * Returns the number of rule groups from the provided parent group.
      */
-    public function getRuleGroupCount(RuleGroup $ruleGroup): int;
+    public function getRuleGroupCount(RuleGroup $parentGroup): int;
 
     /**
      * Returns all rules that match specified target type and value.
