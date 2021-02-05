@@ -10,13 +10,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Kernel;
-use Symfony\Component\Inflector\Inflector;
 use Symfony\Component\String\Inflector\EnglishInflector;
 use function array_unique;
-use function class_exists;
 use function date;
 use function json_encode;
-use function method_exists;
 use function sprintf;
 use const JSON_PRETTY_PRINT;
 use const JSON_THROW_ON_ERROR;
@@ -67,16 +64,6 @@ final class Export extends AbstractController
      */
     private function getTypePlural(string $type): string
     {
-        if (class_exists(EnglishInflector::class)) {
-            return (new EnglishInflector())->pluralize($type)[0] ?? $type;
-        }
-
-        // @deprecated Drop when support for Symfony < 5.1 ends and require symfony/string
-
-        if (class_exists(Inflector::class) && method_exists(Inflector::class, 'pluralize')) {
-            return ((array) Inflector::pluralize($type))[0] ?? $type;
-        }
-
-        return $type;
+        return (new EnglishInflector())->pluralize($type)[0] ?? $type;
     }
 }
