@@ -1470,6 +1470,88 @@ final class LayoutResolverHandlerTest extends TestCase
 
     /**
      * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::copyRuleGroup
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addCondition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::addRuleGroupCondition
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::createRuleGroup
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleGroupUuid
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupConditionsData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRuleGroupData
+     */
+    public function testCopyRuleGroupWithChildren(): void
+    {
+        $ruleGroup = $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED);
+        $targetGroup = $this->handler->loadRuleGroup(1, Value::STATUS_PUBLISHED);
+
+        $copiedRuleGroup = $this->withUuids(
+            function () use ($ruleGroup, $targetGroup): RuleGroup {
+                return $this->handler->copyRuleGroup($ruleGroup, $targetGroup, true);
+            },
+            [
+                'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'efd1d54a-5d53-518f-91a5-f4965c242a67',
+                '1169074c-8779-5b64-afec-c910705e418a',
+                '5848c206-341b-4142-a2e0-b27a5309cc6c',
+                'ecae57e9-42ca-423f-80f4-7c4c129fc439',
+                '9da71481-a9ec-47f1-800f-b2fc4e0fd136',
+                '85286fb0-efe7-4ab2-97a3-e4a130006afd',
+                'a2bd079c-b008-41d5-a4fe-179f3bf1c3da',
+                '4d8881cb-e9ac-4fd0-a0f2-69303192febd',
+                'a802af45-7d1a-4c01-99e2-246f9d41541f',
+                '094d64e6-b22f-46ef-b573-63ee2e308530',
+                'ce747405-4641-436a-8fe2-7969354e6452',
+                'aa82ce80-c4c4-4b80-819a-baf5c8af69d6',
+                '81ecb297-52a0-4ec7-89d5-eebe595c8d2c',
+                'b1e5bc79-610f-41b7-9505-7567435cb80e',
+            ]
+        );
+
+        self::assertSame(5, $copiedRuleGroup->id);
+        self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $copiedRuleGroup->uuid);
+        self::assertSame($targetGroup->depth + 1, $copiedRuleGroup->depth);
+        self::assertSame($targetGroup->path . $copiedRuleGroup->id . '/', $copiedRuleGroup->path);
+        self::assertSame($targetGroup->id, $copiedRuleGroup->parentId);
+        self::assertSame($targetGroup->uuid, $copiedRuleGroup->parentUuid);
+        self::assertSame($ruleGroup->priority, $copiedRuleGroup->priority);
+        self::assertSame($ruleGroup->enabled, $copiedRuleGroup->enabled);
+        self::assertSame($ruleGroup->comment, $copiedRuleGroup->comment);
+        self::assertSame($ruleGroup->status, $copiedRuleGroup->status);
+
+        self::assertSame(
+            [
+                [
+                    'ruleGroupId' => $copiedRuleGroup->id,
+                    'ruleGroupUuid' => $copiedRuleGroup->uuid,
+                    'id' => 7,
+                    'uuid' => 'efd1d54a-5d53-518f-91a5-f4965c242a67',
+                    'type' => 'condition1',
+                    'value' => ['some_other_value'],
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+                [
+                    'ruleGroupId' => $copiedRuleGroup->id,
+                    'ruleGroupUuid' => $copiedRuleGroup->uuid,
+                    'id' => 8,
+                    'uuid' => '1169074c-8779-5b64-afec-c910705e418a',
+                    'type' => 'condition1',
+                    'value' => ['some_third_value'],
+                    'status' => Value::STATUS_PUBLISHED,
+                ],
+            ],
+            $this->exportObjectList(
+                $this->handler->loadRuleGroupConditions($copiedRuleGroup)
+            )
+        );
+
+        self::assertSame(1, $this->handler->getRuleGroupCount($copiedRuleGroup));
+
+        $copiedSubGroup = $this->handler->loadRuleGroup('ce747405-4641-436a-8fe2-7969354e6452', Value::STATUS_PUBLISHED);
+
+        self::assertSame(2, $this->handler->getRuleCountFromGroup($copiedRuleGroup));
+        self::assertSame(1, $this->handler->getRuleCountFromGroup($copiedSubGroup));
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::copyRuleGroup
      */
     public function testCopyRuleGroupBelowItselfThrowsBadStateException(): void
     {
