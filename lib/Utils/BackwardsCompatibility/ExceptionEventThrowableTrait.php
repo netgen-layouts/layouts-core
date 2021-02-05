@@ -10,10 +10,10 @@ use Throwable;
 use function method_exists;
 
 /**
- * @deprecated Remove when support for Symfony 3.4 ends.
- *
  * Trait that supports (get|set)Throwable and (get|set)Exception in exception
  * events.
+ *
+ * Remove when support for Symfony 3.4 ends.
  */
 trait ExceptionEventThrowableTrait
 {

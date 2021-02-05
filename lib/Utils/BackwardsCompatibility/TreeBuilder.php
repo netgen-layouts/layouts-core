@@ -10,7 +10,7 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder as BaseTreeBuilder;
 use function is_callable;
 
 /**
- * @deprecated BC layer for Symfony 4.2 which deprecated building TreeBuilder objects without root node
+ * BC layer for Symfony 4.2 which deprecated building TreeBuilder objects without root node
  * Remove when support for Symfony 3.4 and lower ends.
  */
 final class TreeBuilder extends BaseTreeBuilder
