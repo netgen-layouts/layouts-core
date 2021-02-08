@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Layout\Resolver;
 
+use Generator;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\LayoutResolver\ConditionList;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
-use function array_filter;
-use function array_values;
 use function count;
 use function in_array;
 use function trigger_deprecation;
@@ -48,10 +48,10 @@ final class LayoutResolver implements LayoutResolverInterface
             return null;
         }
 
-        foreach ($this->innerResolveRules($currentRequest, $enabledConditions) as $resolvedRule) {
-            if ($resolvedRule->getLayout() instanceof Layout) {
-                return $resolvedRule;
-            }
+        $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString(RuleGroup::ROOT_UUID));
+
+        foreach ($this->innerResolveRules($ruleGroup, $currentRequest, $enabledConditions) as $resolvedRule) {
+            return $resolvedRule;
         }
 
         return null;
@@ -60,7 +60,7 @@ final class LayoutResolver implements LayoutResolverInterface
     public function resolveRules(?Request $request = null, array $enabledConditions = []): array
     {
         if ($request === null) {
-            trigger_deprecation('netgen/layouts-core', '1.3', 'Calling "LayoutResolverInterface::resolveRule" method with no request is deprecated. In 2.0, "$request" argument will become required.');
+            trigger_deprecation('netgen/layouts-core', '1.3', 'Calling "LayoutResolverInterface::resolveRules" method with no request is deprecated. In 2.0, "$request" argument will become required.');
         }
 
         $currentRequest = $request ?? $this->requestStack->getCurrentRequest();
@@ -68,17 +68,73 @@ final class LayoutResolver implements LayoutResolverInterface
             return [];
         }
 
-        return array_values(
-            array_filter(
-                $this->innerResolveRules($currentRequest, $enabledConditions),
-                static fn (Rule $rule): bool => $rule->getLayout() instanceof Layout
-            )
-        );
+        $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString(RuleGroup::ROOT_UUID));
+
+        return [...$this->innerResolveRules($ruleGroup, $currentRequest, $enabledConditions)];
     }
 
     public function matches(Rule $rule, Request $request, array $enabledConditions = []): bool
     {
-        foreach ($rule->getConditions() as $condition) {
+        return $this->conditionsMatch($rule->getConditions(), $request, $enabledConditions);
+    }
+
+    /**
+     * @param string[] $enabledConditions
+     *
+     * @return \Generator<\Netgen\Layouts\API\Values\LayoutResolver\Rule>
+     */
+    private function innerResolveRules(RuleGroup $ruleGroup, Request $request, array $enabledConditions = []): Generator
+    {
+        $resolvedGroups = $this->layoutResolverService->loadRuleGroups($ruleGroup)->filter(
+            fn (RuleGroup $ruleGroup): bool => $ruleGroup->isEnabled()
+                && $this->conditionsMatch($ruleGroup->getConditions(), $request, $enabledConditions)
+        );
+
+        $matches = [...$resolvedGroups, ...$this->resolveGroupRules($ruleGroup, $request, $enabledConditions)];
+        usort($matches, static fn ($a, $b): int => $b->getPriority() <=> $a->getPriority());
+
+        foreach ($matches as $match) {
+            /** @var \Netgen\Layouts\API\Values\LayoutResolver\Rule|\Netgen\Layouts\API\Values\LayoutResolver\RuleGroup $match */
+            if ($match instanceof RuleGroup) {
+                yield from $this->innerResolveRules($match, $request, $enabledConditions);
+
+                continue;
+            }
+
+            if (!$match->getLayout() instanceof Layout) {
+                continue;
+            }
+
+            yield $match;
+        }
+    }
+
+    /**
+     * @param string[] $enabledConditions
+     *
+     * @return \Generator<\Netgen\Layouts\API\Values\LayoutResolver\Rule>
+     */
+    private function resolveGroupRules(RuleGroup $ruleGroup, Request $request, array $enabledConditions = []): Generator
+    {
+        foreach ($this->targetTypeRegistry->getTargetTypes() as $targetType) {
+            $targetValue = $targetType->provideValue($request);
+            if ($targetValue === null) {
+                continue;
+            }
+
+            yield from $this->layoutResolverService->matchRules($ruleGroup, $targetType::getType(), $targetValue)->filter(
+                fn (Rule $rule): bool => $rule->isEnabled()
+                    && $this->conditionsMatch($rule->getConditions(), $request, $enabledConditions)
+            );
+        }
+    }
+
+    /**
+     * @param string[] $enabledConditions
+     */
+    private function conditionsMatch(ConditionList $conditions, Request $request, array $enabledConditions = []): bool
+    {
+        foreach ($conditions as $condition) {
             $conditionType = $condition->getConditionType();
 
             if (count($enabledConditions) > 0 && !in_array($conditionType::getType(), $enabledConditions, true)) {
@@ -91,43 +147,5 @@ final class LayoutResolver implements LayoutResolverInterface
         }
 
         return true;
-    }
-
-    /**
-     * @param string[] $enabledConditions
-     *
-     * @return \Netgen\Layouts\API\Values\LayoutResolver\Rule[]
-     */
-    private function innerResolveRules(Request $request, array $enabledConditions = []): array
-    {
-        $resolvedRules = [];
-
-        foreach ($this->targetTypeRegistry->getTargetTypes() as $targetType) {
-            $targetValue = $targetType->provideValue($request);
-            if ($targetValue === null) {
-                continue;
-            }
-
-            $matchedRules = $this->layoutResolverService->matchRules(
-                $this->layoutResolverService->loadRuleGroup(Uuid::fromString(RuleGroup::ROOT_UUID)),
-                $targetType::getType(),
-                $targetValue
-            );
-
-            foreach ($matchedRules as $matchedRule) {
-                if (!$matchedRule->isEnabled() || !$this->matches($matchedRule, $request, $enabledConditions)) {
-                    continue;
-                }
-
-                $resolvedRules[] = $matchedRule;
-            }
-        }
-
-        usort(
-            $resolvedRules,
-            static fn (Rule $a, Rule $b): int => $b->getPriority() <=> $a->getPriority()
-        );
-
-        return $resolvedRules;
     }
 }
