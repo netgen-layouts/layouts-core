@@ -25,6 +25,17 @@ use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetUpdateStruct;
 use Ramsey\Uuid\UuidInterface;
 
+/**
+ * @method RuleList loadRulesForLayout(Layout $layout, int $offset = 0, ?int $limit = null)
+ * @method int getRuleCountForLayout(Layout $layout)
+ * @method RuleCondition loadRuleCondition(UuidInterface $conditionId)
+ * @method RuleCondition loadRuleConditionDraft(UuidInterface $conditionId)
+ * @method Rule createRuleDraft(Rule $rule, bool $discardExisting = false)
+ * @method void discardRuleDraft(Rule $rule)
+ * @method Rule restoreRuleFromArchive(Rule $rule)
+ * @method RuleCondition addRuleCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct)
+ * @method RuleCondition updateRuleCondition(RuleCondition $condition, ConditionUpdateStruct $conditionUpdateStruct)
+ */
 interface LayoutResolverService extends TransactionService
 {
     /**
@@ -74,22 +85,36 @@ interface LayoutResolverService extends TransactionService
      *
      * If the layout is provided, only rules pointing to provided layout are returned.
      *
-     * @deprecated Will be renamed to loadRulesForLayout in 2.0
+     * @deprecated since 1.3. Use LayoutResolverService::loadRulesFromGroup or LayoutResolverService::loadRulesForLayout
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If provided layout is not published
      */
     public function loadRules(?Layout $layout = null, int $offset = 0, ?int $limit = null): RuleList;
 
     /**
+     * Loads all published rules pointing to the provided layout.
+     *
+     * @throws \Netgen\Layouts\Exception\BadStateException If provided layout is not published
+     */
+    // public function loadRulesForLayout(Layout $layout, int $offset = 0, ?int $limit = null): RuleList;
+
+    /**
      * Returns the number of published rules.
      *
      * If the layout is provided, the count of rules pointing to provided layout is returned.
      *
-     * @deprecated Will be renamed to getRuleCountForLayout in 2.0
+     * @deprecated since 1.3. Use LayoutResolverService::getRuleCountFromGroup or LayoutResolverService::getRuleCountForLayout
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If provided layout is not published
      */
     public function getRuleCount(?Layout $layout = null): int;
+
+    /**
+     * Returns the number of published rules pointing to the provided layout.
+     *
+     * @throws \Netgen\Layouts\Exception\BadStateException If provided layout is not published
+     */
+    // public function getRuleCountForLayout(Layout $layout): int;
 
     /**
      * Loads all rules from the provided parent group.
@@ -135,20 +160,34 @@ interface LayoutResolverService extends TransactionService
     /**
      * Loads a rule condition by its' UUID.
      *
-     * @deprecated Will be renamed to loadRuleCondition in 2.0.
+     * @deprecated since 1.3. Use LayoutResolverService::loadRuleCondition
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified UUID does not exist
      */
     public function loadCondition(UuidInterface $conditionId): RuleCondition;
 
     /**
+     * Loads a rule condition by its' UUID.
+     *
+     * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified UUID does not exist
+     */
+    // public function loadRuleCondition(UuidInterface $conditionId): RuleCondition;
+
+    /**
      * Loads a rule condition draft by its' UUID.
      *
-     * @deprecated Will be renamed to loadRuleConditionDraft in 2.0.
+     * @deprecated since 1.3. Use LayoutResolverService::loadRuleConditionDraft
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified UUID does not exist
      */
     public function loadConditionDraft(UuidInterface $conditionId): RuleCondition;
+
+    /**
+     * Loads a rule condition draft by its' UUID.
+     *
+     * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified UUID does not exist
+     */
+    // public function loadRuleConditionDraft(UuidInterface $conditionId): RuleCondition;
 
     /**
      * Loads a rule group condition by its' UUID.
@@ -201,7 +240,7 @@ interface LayoutResolverService extends TransactionService
     /**
      * Creates a rule draft.
      *
-     * @deprecated Will be renamed to createRuleDraft in 2.0.
+     * @deprecated since 1.3. Use LayoutResolverService::createRuleDraft
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If rule is not published
      *                                                     If draft already exists for the rule and $discardExisting is set to false
@@ -209,13 +248,28 @@ interface LayoutResolverService extends TransactionService
     public function createDraft(Rule $rule, bool $discardExisting = false): Rule;
 
     /**
+     * Creates a rule draft.
+     *
+     * @throws \Netgen\Layouts\Exception\BadStateException If rule is not published
+     *                                                     If draft already exists for the rule and $discardExisting is set to false
+     */
+    // public function createRuleDraft(Rule $rule, bool $discardExisting = false): Rule;
+
+    /**
      * Discards a rule draft.
      *
-     * @deprecated Will be renamed to discardRuleDraft in 2.0.
+     * @deprecated since 1.3. Use LayoutResolverService::discardRuleDraft
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If rule is not a draft
      */
     public function discardDraft(Rule $rule): void;
+
+    /**
+     * Discards a rule draft.
+     *
+     * @throws \Netgen\Layouts\Exception\BadStateException If rule is not a draft
+     */
+    // public function discardRuleDraft(Rule $rule): void;
 
     /**
      * Publishes a rule.
@@ -228,11 +282,19 @@ interface LayoutResolverService extends TransactionService
      * Restores the archived version of a rule to a draft. If draft already exists,
      * it will be removed.
      *
-     * @deprecated Will be renamed to restoreRuleFromArchive in 2.0.
+     * @deprecated since 1.3. Use LayoutResolverService::restoreRuleFromArchive
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If provided rule is not archived
      */
     public function restoreFromArchive(Rule $rule): Rule;
+
+    /**
+     * Restores the archived version of a rule to a draft. If draft already exists,
+     * it will be removed.
+     *
+     * @throws \Netgen\Layouts\Exception\BadStateException If provided rule is not archived
+     */
+    // public function restoreRuleFromArchive(Rule $rule): Rule;
 
     /**
      * Deletes a rule.

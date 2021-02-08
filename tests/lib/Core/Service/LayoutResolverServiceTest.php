@@ -161,7 +161,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     {
         $rules = $this->layoutResolverService->loadRules();
 
-        self::assertCount(12, $rules);
+        self::assertCount(9, $rules);
 
         foreach ($rules as $rule) {
             self::assertTrue($rule->isPublished());
@@ -204,7 +204,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     {
         $ruleCount = $this->layoutResolverService->getRuleCount();
 
-        self::assertSame(12, $ruleCount);
+        self::assertSame(9, $ruleCount);
     }
 
     /**

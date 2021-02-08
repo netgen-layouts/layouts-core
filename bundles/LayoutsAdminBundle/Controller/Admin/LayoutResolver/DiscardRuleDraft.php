@@ -28,7 +28,7 @@ final class DiscardRuleDraft extends AbstractController
     {
         $this->denyAccessUnlessGranted('nglayouts:mapping:edit');
 
-        $this->layoutResolverService->discardDraft($rule);
+        $this->layoutResolverService->discardRuleDraft($rule);
 
         $publishedRule = $this->layoutResolverService->loadRule($rule->getId());
 

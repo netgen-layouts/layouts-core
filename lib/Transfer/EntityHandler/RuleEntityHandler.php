@@ -123,7 +123,7 @@ final class RuleEntityHandler implements EntityHandlerInterface
     {
         foreach ($conditionsData as $conditionData) {
             $conditionCreateStruct = $this->buildConditionCreateStruct($conditionData);
-            $this->layoutResolverService->addCondition($rule, $conditionCreateStruct);
+            $this->layoutResolverService->addRuleCondition($rule, $conditionCreateStruct);
         }
     }
 

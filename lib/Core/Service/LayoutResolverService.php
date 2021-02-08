@@ -49,6 +49,7 @@ use Netgen\Layouts\Persistence\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Target as PersistenceTarget;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\TargetUpdateStruct;
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 use function array_map;
 use function count;
@@ -165,19 +166,27 @@ final class LayoutResolverService implements APILayoutResolverService
     {
         if ($layout === null) {
             trigger_deprecation('netgen/layouts-core', '1.3', 'Calling "LayoutResolverService::loadRules" method with no layout is deprecated. In 2.0, "$layout" argument will become required.');
+
+            return $this->loadRulesFromGroup(
+                $this->loadRuleGroup(Uuid::fromString(RuleGroup::ROOT_UUID)),
+                $offset,
+                $limit
+            );
         }
 
-        if ($layout instanceof Layout && !$layout->isPublished()) {
+        return $this->loadRulesForLayout($layout, $offset, $limit);
+    }
+
+    public function loadRulesForLayout(Layout $layout, int $offset = 0, ?int $limit = null): RuleList
+    {
+        if (!$layout->isPublished()) {
             throw new BadStateException('layout', 'Only published layouts can be used in rules.');
         }
 
-        $persistenceLayout = null;
-        if ($layout instanceof Layout) {
-            $persistenceLayout = $this->layoutHandler->loadLayout(
-                $layout->getId(),
-                Value::STATUS_PUBLISHED
-            );
-        }
+        $persistenceLayout = $this->layoutHandler->loadLayout(
+            $layout->getId(),
+            Value::STATUS_PUBLISHED
+        );
 
         $persistenceRules = $this->layoutResolverHandler->loadRules(
             Value::STATUS_PUBLISHED,
@@ -200,19 +209,25 @@ final class LayoutResolverService implements APILayoutResolverService
     {
         if ($layout === null) {
             trigger_deprecation('netgen/layouts-core', '1.3', 'Calling "LayoutResolverService::getRuleCount" method with no layout is deprecated. In 2.0, "$layout" argument will become required.');
+
+            return $this->getRuleCountFromGroup(
+                $this->loadRuleGroup(Uuid::fromString(RuleGroup::ROOT_UUID))
+            );
         }
 
-        if ($layout instanceof Layout && !$layout->isPublished()) {
+        return $this->getRuleCountForLayout($layout);
+    }
+
+    public function getRuleCountForLayout(Layout $layout): int
+    {
+        if (!$layout->isPublished()) {
             throw new BadStateException('layout', 'Only published layouts can be used in rules.');
         }
 
-        $persistenceLayout = null;
-        if ($layout instanceof Layout) {
-            $persistenceLayout = $this->layoutHandler->loadLayout(
-                $layout->getId(),
-                Value::STATUS_PUBLISHED
-            );
-        }
+        $persistenceLayout = $this->layoutHandler->loadLayout(
+            $layout->getId(),
+            Value::STATUS_PUBLISHED
+        );
 
         return $this->layoutResolverHandler->getRuleCount($persistenceLayout);
     }
@@ -338,6 +353,11 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function loadCondition(UuidInterface $conditionId): RuleCondition
     {
+        return $this->loadRuleCondition($conditionId);
+    }
+
+    public function loadRuleCondition(UuidInterface $conditionId): RuleCondition
+    {
         return $this->mapper->mapRuleCondition(
             $this->layoutResolverHandler->loadRuleCondition(
                 $conditionId,
@@ -347,6 +367,11 @@ final class LayoutResolverService implements APILayoutResolverService
     }
 
     public function loadConditionDraft(UuidInterface $conditionId): RuleCondition
+    {
+        return $this->loadRuleConditionDraft($conditionId);
+    }
+
+    public function loadRuleConditionDraft(UuidInterface $conditionId): RuleCondition
     {
         return $this->mapper->mapRuleCondition(
             $this->layoutResolverHandler->loadRuleCondition(
@@ -519,6 +544,11 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function createDraft(Rule $rule, bool $discardExisting = false): Rule
     {
+        return $this->createRuleDraft($rule, $discardExisting);
+    }
+
+    public function createRuleDraft(Rule $rule, bool $discardExisting = false): Rule
+    {
         if (!$rule->isPublished()) {
             throw new BadStateException('rule', 'Drafts can only be created from published rules.');
         }
@@ -541,6 +571,11 @@ final class LayoutResolverService implements APILayoutResolverService
     }
 
     public function discardDraft(Rule $rule): void
+    {
+        $this->discardRuleDraft($rule);
+    }
+
+    public function discardRuleDraft(Rule $rule): void
     {
         if (!$rule->isDraft()) {
             throw new BadStateException('rule', 'Only draft rules can be discarded.');
@@ -593,6 +628,11 @@ final class LayoutResolverService implements APILayoutResolverService
     }
 
     public function restoreFromArchive(Rule $rule): Rule
+    {
+        return $this->restoreRuleFromArchive($rule);
+    }
+
+    public function restoreRuleFromArchive(Rule $rule): Rule
     {
         if (!$rule->isArchived()) {
             throw new BadStateException('rule', 'Only archived rules can be restored.');
@@ -1082,6 +1122,11 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function addCondition(Rule $rule, APIConditionCreateStruct $conditionCreateStruct): RuleCondition
     {
+        return $this->addRuleCondition($rule, $conditionCreateStruct);
+    }
+
+    public function addRuleCondition(Rule $rule, APIConditionCreateStruct $conditionCreateStruct): RuleCondition
+    {
         if (!$rule->isDraft()) {
             throw new BadStateException('rule', 'Conditions can be added only to draft rules.');
         }
@@ -1135,6 +1180,11 @@ final class LayoutResolverService implements APILayoutResolverService
     }
 
     public function updateCondition(RuleCondition $condition, APIConditionUpdateStruct $conditionUpdateStruct): RuleCondition
+    {
+        return $this->updateRuleCondition($condition, $conditionUpdateStruct);
+    }
+
+    public function updateRuleCondition(RuleCondition $condition, APIConditionUpdateStruct $conditionUpdateStruct): RuleCondition
     {
         if (!$condition->isDraft()) {
             throw new BadStateException('condition', 'Only draft conditions can be updated.');

@@ -57,7 +57,7 @@ final class EditRuleConditionForm extends AbstractController
         }
 
         if ($form->isValid()) {
-            $this->layoutResolverService->updateCondition($condition, $updateStruct);
+            $this->layoutResolverService->updateRuleCondition($condition, $updateStruct);
 
             return $this->buildView(
                 $this->layoutResolverService->loadRuleDraft(

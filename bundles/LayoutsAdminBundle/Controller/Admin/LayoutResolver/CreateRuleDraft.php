@@ -28,7 +28,7 @@ final class CreateRuleDraft extends AbstractController
     {
         $this->denyAccessUnlessGranted('nglayouts:mapping:edit');
 
-        $createdDraft = $this->layoutResolverService->createDraft($rule, true);
+        $createdDraft = $this->layoutResolverService->createRuleDraft($rule, true);
 
         return $this->buildView($createdDraft, ViewInterface::CONTEXT_ADMIN);
     }

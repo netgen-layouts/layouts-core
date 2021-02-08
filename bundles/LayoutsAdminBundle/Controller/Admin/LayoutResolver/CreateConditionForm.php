@@ -65,7 +65,7 @@ final class CreateConditionForm extends AbstractController
         }
 
         if ($form->isValid()) {
-            $this->layoutResolverService->addCondition($rule, $createStruct);
+            $this->layoutResolverService->addRuleCondition($rule, $createStruct);
 
             return $this->buildView(
                 $this->layoutResolverService->loadRuleDraft(
