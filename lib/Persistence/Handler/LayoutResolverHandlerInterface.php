@@ -87,13 +87,13 @@ interface LayoutResolverHandlerInterface
     public function getRuleGroupCount(RuleGroup $ruleGroup): int;
 
     /**
-     * Returns all rules that match specified target type and value.
+     * Returns all rules from the provided group that match specified target type and value.
      *
      * @param mixed $targetValue
      *
      * @return \Netgen\Layouts\Persistence\Values\LayoutResolver\Rule[]
      */
-    public function matchRules(string $targetType, $targetValue): array;
+    public function matchRules(RuleGroup $ruleGroup, string $targetType, $targetValue): array;
 
     /**
      * Loads an target with specified ID.

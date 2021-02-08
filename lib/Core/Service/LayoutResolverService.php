@@ -299,14 +299,19 @@ final class LayoutResolverService implements APILayoutResolverService
         return $this->layoutResolverHandler->getRuleGroupCount($persistenceParentGroup);
     }
 
-    public function matchRules(string $targetType, $targetValue): RuleList
+    public function matchRules(RuleGroup $ruleGroup, string $targetType, $targetValue): RuleList
     {
+        $persistenceGroup = $this->layoutResolverHandler->loadRuleGroup(
+            $ruleGroup->getId(),
+            $ruleGroup->getStatus()
+        );
+
         return new RuleList(
             array_map(
                 function (PersistenceRule $rule): Rule {
                     return $this->mapper->mapRule($rule);
                 },
-                $this->layoutResolverHandler->matchRules($targetType, $targetValue)
+                $this->layoutResolverHandler->matchRules($persistenceGroup, $targetType, $targetValue)
             )
         );
     }

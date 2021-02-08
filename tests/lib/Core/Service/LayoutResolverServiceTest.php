@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Core\Service;
 
 use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
@@ -344,7 +345,11 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
      */
     public function testMatchRules(): void
     {
-        $rules = $this->layoutResolverService->matchRules('route', 'my_cool_route');
+        $rules = $this->layoutResolverService->matchRules(
+            $this->layoutResolverService->loadRuleGroup(Uuid::fromString(RuleGroup::ROOT_UUID)),
+            'route',
+            'my_cool_route'
+        );
 
         self::assertNotEmpty($rules);
 

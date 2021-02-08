@@ -124,9 +124,9 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->queryHandler->getRuleGroupCount($ruleGroup);
     }
 
-    public function matchRules(string $targetType, $targetValue): array
+    public function matchRules(RuleGroup $ruleGroup, string $targetType, $targetValue): array
     {
-        $data = $this->queryHandler->matchRules($targetType, $targetValue);
+        $data = $this->queryHandler->matchRules($ruleGroup, $targetType, $targetValue);
 
         if (count($data) === 0) {
             return [];

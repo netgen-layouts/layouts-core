@@ -150,13 +150,13 @@ final class LayoutResolverQueryHandler extends QueryHandler
     }
 
     /**
-     * Returns all rule data for rules that match specified target type and value.
+     * Returns all rule data for rules from the provided group that match specified target type and value.
      *
      * @param mixed $targetValue
      *
      * @return mixed[]
      */
-    public function matchRules(string $targetType, $targetValue): array
+    public function matchRules(RuleGroup $ruleGroup, string $targetType, $targetValue): array
     {
         $query = $this->getRuleSelectQuery();
         $query
@@ -167,9 +167,13 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 $query->expr()->eq('r.id', 'rt.rule_id')
             )
             ->where(
-                $query->expr()->eq('rd.enabled', ':enabled'),
-                $query->expr()->eq('rt.type', ':target_type')
+                $query->expr()->and(
+                    $query->expr()->eq('r.rule_group_id', ':rule_group_id'),
+                    $query->expr()->eq('rd.enabled', ':enabled'),
+                    $query->expr()->eq('rt.type', ':target_type')
+                )
             )
+            ->setParameter('rule_group_id', $ruleGroup->id, Types::INTEGER)
             ->setParameter('target_type', $targetType, Types::STRING)
             ->setParameter('enabled', true, Types::BOOLEAN)
             ->addOrderBy('rd.priority', 'DESC');

@@ -7,7 +7,9 @@ namespace Netgen\Layouts\Layout\Resolver;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use function array_filter;
@@ -110,7 +112,11 @@ final class LayoutResolver implements LayoutResolverInterface
                 continue;
             }
 
-            $matchedRules = $this->layoutResolverService->matchRules($targetType::getType(), $targetValue);
+            $matchedRules = $this->layoutResolverService->matchRules(
+                $this->layoutResolverService->loadRuleGroup(Uuid::fromString(RuleGroup::ROOT_UUID)),
+                $targetType::getType(),
+                $targetValue
+            );
 
             foreach ($matchedRules as $matchedRule) {
                 if (!$matchedRule->isEnabled() || !$this->matches($matchedRule, $request, $enabledConditions)) {
