@@ -121,7 +121,7 @@ final class LayoutResolverTest extends TestCase
                 new RuleList([$rule3, $rule4])
             );
 
-        $resolvedRules = $this->layoutResolver->resolveRules();
+        $resolvedRules = $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest());
 
         self::assertCount(4, $resolvedRules);
 
@@ -166,7 +166,7 @@ final class LayoutResolverTest extends TestCase
             ->with(self::isInstanceOf(RuleGroup::class), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(new RuleList([$rule1, $rule2]));
 
-        self::assertSame([$rule1], $this->layoutResolver->resolveRules());
+        self::assertSame([$rule1], $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest()));
     }
 
     /**
@@ -204,7 +204,7 @@ final class LayoutResolverTest extends TestCase
             ->with(self::isInstanceOf(RuleGroup::class), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(new RuleList([$rule1, $rule2]));
 
-        self::assertSame([$rule1], $this->layoutResolver->resolveRules());
+        self::assertSame([$rule1], $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest()));
     }
 
     /**
@@ -242,7 +242,7 @@ final class LayoutResolverTest extends TestCase
             ->with(self::isInstanceOf(RuleGroup::class), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(new RuleList([$rule1, $rule2]));
 
-        self::assertSame([], $this->layoutResolver->resolveRules());
+        self::assertSame([], $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest()));
     }
 
     /**
@@ -285,7 +285,7 @@ final class LayoutResolverTest extends TestCase
             ->with(self::isInstanceOf(RuleGroup::class), self::identicalTo('target2'), self::identicalTo(84))
             ->willReturn(new RuleList([$rule1, $rule2]));
 
-        self::assertSame([$rule2, $rule1], $this->layoutResolver->resolveRules());
+        self::assertSame([$rule2, $rule1], $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest()));
     }
 
     /**
@@ -307,22 +307,7 @@ final class LayoutResolverTest extends TestCase
             ->expects(self::never())
             ->method('matchRules');
 
-        self::assertSame([], $this->layoutResolver->resolveRules());
-    }
-
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::innerResolveRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveRules
-     */
-    public function testResolveRulesWithNoRequest(): void
-    {
-        $this->requestStack->pop();
-
-        $this->layoutResolverServiceMock
-            ->expects(self::never())
-            ->method('matchRules');
-
-        self::assertSame([], $this->layoutResolver->resolveRules());
+        self::assertSame([], $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest()));
     }
 
     /**
@@ -373,7 +358,7 @@ final class LayoutResolverTest extends TestCase
 
         self::assertSame(
             $layoutId !== null ? [$rule2] : [],
-            $this->layoutResolver->resolveRules(null, ['condition2'])
+            $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest(), ['condition2'])
         );
     }
 
@@ -414,7 +399,7 @@ final class LayoutResolverTest extends TestCase
 
         self::assertSame(
             $layoutId !== null ? [$rule] : [],
-            $this->layoutResolver->resolveRules()
+            $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest())
         );
     }
 
@@ -484,7 +469,7 @@ final class LayoutResolverTest extends TestCase
                 new RuleList([$rule3, $rule4])
             );
 
-        self::assertSame($rule3, $this->layoutResolver->resolveRule());
+        self::assertSame($rule3, $this->layoutResolver->resolveRule($this->requestStack->getCurrentRequest()));
     }
 
     /**
@@ -522,7 +507,7 @@ final class LayoutResolverTest extends TestCase
             ->with(self::isInstanceOf(RuleGroup::class), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(new RuleList([$rule1, $rule2]));
 
-        self::assertSame($rule1, $this->layoutResolver->resolveRule());
+        self::assertSame($rule1, $this->layoutResolver->resolveRule($this->requestStack->getCurrentRequest()));
     }
 
     /**
@@ -560,7 +545,7 @@ final class LayoutResolverTest extends TestCase
             ->with(self::isInstanceOf(RuleGroup::class), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(new RuleList([$rule1, $rule2]));
 
-        self::assertNull($this->layoutResolver->resolveRule());
+        self::assertNull($this->layoutResolver->resolveRule($this->requestStack->getCurrentRequest()));
     }
 
     /**
@@ -603,7 +588,7 @@ final class LayoutResolverTest extends TestCase
             ->with(self::isInstanceOf(RuleGroup::class), self::identicalTo('target2'), self::identicalTo(84))
             ->willReturn(new RuleList([$rule1, $rule2]));
 
-        self::assertSame($rule2, $this->layoutResolver->resolveRule());
+        self::assertSame($rule2, $this->layoutResolver->resolveRule($this->requestStack->getCurrentRequest()));
     }
 
     /**
@@ -625,22 +610,7 @@ final class LayoutResolverTest extends TestCase
             ->expects(self::never())
             ->method('matchRules');
 
-        self::assertNull($this->layoutResolver->resolveRule());
-    }
-
-    /**
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::innerResolveRules
-     * @covers \Netgen\Layouts\Layout\Resolver\LayoutResolver::resolveRule
-     */
-    public function testResolveRuleWithNoRequest(): void
-    {
-        $this->requestStack->pop();
-
-        $this->layoutResolverServiceMock
-            ->expects(self::never())
-            ->method('matchRules');
-
-        self::assertNull($this->layoutResolver->resolveRule());
+        self::assertNull($this->layoutResolver->resolveRule($this->requestStack->getCurrentRequest()));
     }
 
     /**
@@ -678,7 +648,13 @@ final class LayoutResolverTest extends TestCase
             ->with(self::isInstanceOf(RuleGroup::class), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(new RuleList([$rule]));
 
-        self::assertSame($layoutId !== null ? $rule : null, $this->layoutResolver->resolveRule(null, ['condition2']));
+        self::assertSame(
+            $layoutId !== null ? $rule : null,
+            $this->layoutResolver->resolveRule(
+                $this->requestStack->getCurrentRequest(),
+                ['condition2']
+            )
+        );
     }
 
     /**
@@ -716,7 +692,7 @@ final class LayoutResolverTest extends TestCase
             ->with(self::isInstanceOf(RuleGroup::class), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(new RuleList([$rule]));
 
-        self::assertSame($layoutId !== null ? $rule : null, $this->layoutResolver->resolveRule());
+        self::assertSame($layoutId !== null ? $rule : null, $this->layoutResolver->resolveRule($this->requestStack->getCurrentRequest()));
     }
 
     /**

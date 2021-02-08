@@ -16,6 +16,7 @@ use function array_filter;
 use function array_values;
 use function count;
 use function in_array;
+use function trigger_deprecation;
 use function usort;
 
 final class LayoutResolver implements LayoutResolverInterface
@@ -47,9 +48,16 @@ final class LayoutResolver implements LayoutResolverInterface
 
     public function resolveRule(?Request $request = null, array $enabledConditions = []): ?Rule
     {
-        $resolvedRules = $this->innerResolveRules($request, $enabledConditions);
+        if ($request === null) {
+            trigger_deprecation('netgen/layouts-core', '1.3', 'Calling "LayoutResolverInterface::resolveRule" method with no request is deprecated. In 2.0, "$request" argument will become required.');
+        }
 
-        foreach ($resolvedRules as $resolvedRule) {
+        $currentRequest = $request ?? $this->requestStack->getCurrentRequest();
+        if (!$currentRequest instanceof Request) {
+            return null;
+        }
+
+        foreach ($this->innerResolveRules($currentRequest, $enabledConditions) as $resolvedRule) {
             if ($resolvedRule->getLayout() instanceof Layout) {
                 return $resolvedRule;
             }
@@ -60,11 +68,18 @@ final class LayoutResolver implements LayoutResolverInterface
 
     public function resolveRules(?Request $request = null, array $enabledConditions = []): array
     {
-        $resolvedRules = $this->innerResolveRules($request, $enabledConditions);
+        if ($request === null) {
+            trigger_deprecation('netgen/layouts-core', '1.3', 'Calling "LayoutResolverInterface::resolveRule" method with no request is deprecated. In 2.0, "$request" argument will become required.');
+        }
+
+        $currentRequest = $request ?? $this->requestStack->getCurrentRequest();
+        if (!$currentRequest instanceof Request) {
+            return [];
+        }
 
         return array_values(
             array_filter(
-                $resolvedRules,
+                $this->innerResolveRules($currentRequest, $enabledConditions),
                 static function (Rule $rule): bool {
                     return $rule->getLayout() instanceof Layout;
                 }
@@ -94,16 +109,8 @@ final class LayoutResolver implements LayoutResolverInterface
      *
      * @return \Netgen\Layouts\API\Values\LayoutResolver\Rule[]
      */
-    private function innerResolveRules(?Request $request = null, array $enabledConditions = []): array
+    private function innerResolveRules(Request $request, array $enabledConditions = []): array
     {
-        if (!$request instanceof Request) {
-            $request = $this->requestStack->getCurrentRequest();
-        }
-
-        if (!$request instanceof Request) {
-            return [];
-        }
-
         $resolvedRules = [];
 
         foreach ($this->targetTypeRegistry->getTargetTypes() as $targetType) {
