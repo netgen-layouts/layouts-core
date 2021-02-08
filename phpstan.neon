@@ -43,7 +43,6 @@ parameters:
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\Console\\\\Application and 'renderThrowable'#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Exception' will always evaluate to false.#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Throwable' will always evaluate to true.#"
-        - "#Call to function method_exists\\(\\) with 'Symfony\\\\\\\\Component\\\\\\\\Inflector\\\\\\\\Inflector' and 'pluralize' will always evaluate to false.#"
 
         -
             message: '#twig_date_converter not found.#'
