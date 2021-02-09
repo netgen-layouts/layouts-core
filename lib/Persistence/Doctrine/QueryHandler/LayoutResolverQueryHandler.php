@@ -164,7 +164,10 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 'r',
                 'nglayouts_rule_target',
                 'rt',
-                $query->expr()->eq('r.id', 'rt.rule_id')
+                $query->expr()->and(
+                    $query->expr()->eq('r.id', 'rt.rule_id'),
+                    $query->expr()->eq('r.status', 'rt.status')
+                )
             )
             ->where(
                 $query->expr()->and(
@@ -179,7 +182,6 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->addOrderBy('rd.priority', 'DESC');
 
         $this->applyStatusCondition($query, Value::STATUS_PUBLISHED, 'r.status');
-        $this->applyStatusCondition($query, Value::STATUS_PUBLISHED, 'rt.status');
 
         $targetHandler = $this->getTargetHandler($targetType);
         $targetHandler->handleQuery($query, $targetValue);
