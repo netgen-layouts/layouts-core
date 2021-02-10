@@ -11,10 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class DeleteSlot extends AbstractController
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\CollectionService
-     */
-    private $collectionService;
+    private CollectionService $collectionService;
 
     public function __construct(CollectionService $collectionService)
     {

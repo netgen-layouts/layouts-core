@@ -11,10 +11,7 @@ use Netgen\Layouts\Block\BlockType\BlockType;
 
 final class CreateStructBuilder
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\BlockService
-     */
-    private $blockService;
+    private BlockService $blockService;
 
     public function __construct(BlockService $blockService)
     {

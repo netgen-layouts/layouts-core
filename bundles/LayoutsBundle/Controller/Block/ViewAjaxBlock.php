@@ -14,10 +14,7 @@ use function sprintf;
 
 final class ViewAjaxBlock extends AbstractController
 {
-    /**
-     * @var \Netgen\Layouts\Error\ErrorHandlerInterface
-     */
-    private $errorHandler;
+    private ErrorHandlerInterface $errorHandler;
 
     public function __construct(ErrorHandlerInterface $errorHandler)
     {

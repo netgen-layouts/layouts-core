@@ -14,10 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class EditTargetForm extends AbstractController
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutResolverService
-     */
-    private $layoutResolverService;
+    private LayoutResolverService $layoutResolverService;
 
     public function __construct(LayoutResolverService $layoutResolverService)
     {

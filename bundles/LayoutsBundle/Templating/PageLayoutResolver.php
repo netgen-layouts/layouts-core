@@ -13,10 +13,7 @@ use function sprintf;
  */
 final class PageLayoutResolver implements PageLayoutResolverInterface
 {
-    /**
-     * @var string
-     */
-    private $pageLayout;
+    private string $pageLayout;
 
     public function __construct(string $pageLayout)
     {

@@ -12,10 +12,7 @@ use Netgen\Layouts\Collection\Result\ResultSet;
 
 final class LoadCollectionResult extends AbstractController
 {
-    /**
-     * @var \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory
-     */
-    private $pagerFactory;
+    private PagerFactory $pagerFactory;
 
     public function __construct(PagerFactory $pagerFactory)
     {

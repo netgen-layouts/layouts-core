@@ -11,10 +11,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 final class Configuration implements ConfigurationInterface
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension
-     */
-    private $extension;
+    private NetgenLayoutsExtension $extension;
 
     public function __construct(NetgenLayoutsExtension $extension)
     {

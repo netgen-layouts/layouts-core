@@ -14,15 +14,12 @@ use function sprintf;
 
 final class BlockViewListener implements EventSubscriberInterface
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsDebugBundle\DataCollector\LayoutsDataCollector
-     */
-    private $dataCollector;
+    private LayoutsDataCollector $dataCollector;
 
     /**
      * @var string[]
      */
-    private $enabledContexts;
+    private array $enabledContexts;
 
     /**
      * @param string[] $enabledContexts

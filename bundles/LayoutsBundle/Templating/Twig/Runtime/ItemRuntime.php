@@ -18,20 +18,11 @@ use function str_replace;
 
 final class ItemRuntime
 {
-    /**
-     * @var \Netgen\Layouts\Item\CmsItemLoaderInterface
-     */
-    private $cmsItemLoader;
+    private CmsItemLoaderInterface $cmsItemLoader;
 
-    /**
-     * @var \Netgen\Layouts\Item\UrlGeneratorInterface
-     */
-    private $urlGenerator;
+    private UrlGeneratorInterface $urlGenerator;
 
-    /**
-     * @var \Netgen\Layouts\Error\ErrorHandlerInterface
-     */
-    private $errorHandler;
+    private ErrorHandlerInterface $errorHandler;
 
     public function __construct(
         CmsItemLoaderInterface $cmsItemLoader,

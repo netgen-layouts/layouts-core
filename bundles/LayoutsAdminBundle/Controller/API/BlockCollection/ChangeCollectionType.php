@@ -21,15 +21,9 @@ final class ChangeCollectionType extends AbstractController
 {
     use ValidatorTrait;
 
-    /**
-     * @var \Netgen\Layouts\API\Service\CollectionService
-     */
-    private $collectionService;
+    private CollectionService $collectionService;
 
-    /**
-     * @var \Netgen\Layouts\Collection\Registry\QueryTypeRegistry
-     */
-    private $queryTypeRegistry;
+    private QueryTypeRegistry $queryTypeRegistry;
 
     public function __construct(
         CollectionService $collectionService,

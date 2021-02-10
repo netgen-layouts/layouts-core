@@ -11,15 +11,9 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 final class AdminCsrfValidationListener implements EventSubscriberInterface
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidatorInterface
-     */
-    private $csrfTokenValidator;
+    private CsrfTokenValidatorInterface $csrfTokenValidator;
 
-    /**
-     * @var string
-     */
-    private $csrfTokenId;
+    private string $csrfTokenId;
 
     public function __construct(CsrfTokenValidatorInterface $csrfTokenValidator, string $csrfTokenId)
     {

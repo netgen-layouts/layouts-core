@@ -13,15 +13,9 @@ use function count;
 
 final class LoadBlockTypes extends AbstractController
 {
-    /**
-     * @var \Netgen\Layouts\Block\Registry\BlockTypeRegistry
-     */
-    private $blockTypeRegistry;
+    private BlockTypeRegistry $blockTypeRegistry;
 
-    /**
-     * @var \Netgen\Layouts\Block\Registry\BlockTypeGroupRegistry
-     */
-    private $blockTypeGroupRegistry;
+    private BlockTypeGroupRegistry $blockTypeGroupRegistry;
 
     public function __construct(
         BlockTypeRegistry $blockTypeRegistry,

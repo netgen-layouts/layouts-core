@@ -13,10 +13,7 @@ use Netgen\Layouts\Exception\NotFoundException;
 
 final class LoadLayoutBlocks extends AbstractController
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\BlockService
-     */
-    private $blockService;
+    private BlockService $blockService;
 
     public function __construct(BlockService $blockService)
     {

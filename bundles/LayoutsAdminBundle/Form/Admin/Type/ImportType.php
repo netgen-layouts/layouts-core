@@ -13,15 +13,9 @@ use Symfony\Component\Validator\Constraints;
 
 final class ImportType extends AbstractType
 {
-    /**
-     * @var string
-     */
-    private $maxUploadSize;
+    private string $maxUploadSize;
 
-    /**
-     * @var string
-     */
-    private $importMode;
+    private string $importMode;
 
     public function __construct(string $maxUploadSize, string $importMode)
     {

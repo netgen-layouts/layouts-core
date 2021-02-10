@@ -16,10 +16,7 @@ use function sprintf;
 
 final class CacheEnabledListener implements EventSubscriberInterface
 {
-    /**
-     * @var bool
-     */
-    private $cacheEnabled;
+    private bool $cacheEnabled;
 
     public function __construct(ClientInterface $httpCacheClient)
     {

@@ -37,25 +37,13 @@ final class MigrateUuidCommand extends Command
 
     private const NAMESPACE_POLICY = 'a3468559-de48-4cc3-818d-7a3350ee5d40';
 
-    /**
-     * @var \Doctrine\DBAL\Connection
-     */
-    private $connection;
+    private Connection $connection;
 
-    /**
-     * @var \Symfony\Component\Console\Input\InputInterface
-     */
-    private $input;
+    private InputInterface $input;
 
-    /**
-     * @var \Symfony\Component\Console\Output\OutputInterface
-     */
-    private $output;
+    private OutputInterface $output;
 
-    /**
-     * @var \Symfony\Component\Console\Style\SymfonyStyle
-     */
-    private $io;
+    private SymfonyStyle $io;
 
     public function __construct(Connection $connection)
     {

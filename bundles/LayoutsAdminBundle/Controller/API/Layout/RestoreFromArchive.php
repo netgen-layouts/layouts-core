@@ -11,10 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class RestoreFromArchive extends AbstractController
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutService
-     */
-    private $layoutService;
+    private LayoutService $layoutService;
 
     public function __construct(LayoutService $layoutService)
     {

@@ -20,15 +20,9 @@ final class MoveToZone extends AbstractController
 {
     use ValidatorTrait;
 
-    /**
-     * @var \Netgen\Layouts\API\Service\BlockService
-     */
-    private $blockService;
+    private BlockService $blockService;
 
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutService
-     */
-    private $layoutService;
+    private LayoutService $layoutService;
 
     public function __construct(BlockService $blockService, LayoutService $layoutService)
     {

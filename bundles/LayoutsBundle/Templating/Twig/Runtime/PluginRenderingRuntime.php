@@ -10,15 +10,9 @@ use Throwable;
 
 final class PluginRenderingRuntime
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\Templating\Plugin\RendererInterface
-     */
-    private $pluginRenderer;
+    private RendererInterface $pluginRenderer;
 
-    /**
-     * @var \Netgen\Layouts\Error\ErrorHandlerInterface
-     */
-    private $errorHandler;
+    private ErrorHandlerInterface $errorHandler;
 
     public function __construct(RendererInterface $pluginRenderer, ErrorHandlerInterface $errorHandler)
     {

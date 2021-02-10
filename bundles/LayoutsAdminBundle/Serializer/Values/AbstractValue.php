@@ -13,10 +13,7 @@ abstract class AbstractValue
      */
     private $value;
 
-    /**
-     * @var int
-     */
-    private $statusCode;
+    private int $statusCode;
 
     /**
      * @param mixed $value

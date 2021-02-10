@@ -14,15 +14,9 @@ use Throwable;
 
 final class ViewRendererListener implements EventSubscriberInterface
 {
-    /**
-     * @var \Netgen\Layouts\View\ViewRendererInterface
-     */
-    private $viewRenderer;
+    private ViewRendererInterface $viewRenderer;
 
-    /**
-     * @var \Netgen\Layouts\Error\ErrorHandlerInterface
-     */
-    private $errorHandler;
+    private ErrorHandlerInterface $errorHandler;
 
     public function __construct(ViewRendererInterface $viewRenderer, ErrorHandlerInterface $errorHandler)
     {

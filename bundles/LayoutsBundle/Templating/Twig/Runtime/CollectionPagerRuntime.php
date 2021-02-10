@@ -18,10 +18,7 @@ final class CollectionPagerRuntime
      */
     private $routeGenerator;
 
-    /**
-     * @var \Pagerfanta\View\ViewInterface
-     */
-    private $pagerfantaView;
+    private ViewInterface $pagerfantaView;
 
     public function __construct(callable $routeGenerator, ViewInterface $pagerfantaView)
     {

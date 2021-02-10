@@ -15,15 +15,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class CreateConditionForm extends AbstractController
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutResolverService
-     */
-    private $layoutResolverService;
+    private LayoutResolverService $layoutResolverService;
 
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry
-     */
-    private $conditionTypeRegistry;
+    private ConditionTypeRegistry $conditionTypeRegistry;
 
     public function __construct(
         LayoutResolverService $layoutResolverService,

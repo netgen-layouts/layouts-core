@@ -17,15 +17,12 @@ use function array_key_exists;
  */
 class ContainerConfiguration implements ConfigurationInterface
 {
-    /**
-     * @var \Symfony\Component\DependencyInjection\ContainerInterface
-     */
-    private $container;
+    private ContainerInterface $container;
 
     /**
      * @var array<string, mixed>
      */
-    private $parameters;
+    private array $parameters;
 
     /**
      * @param array<string, mixed> $parameters

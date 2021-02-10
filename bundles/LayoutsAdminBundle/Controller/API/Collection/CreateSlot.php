@@ -18,10 +18,7 @@ final class CreateSlot extends AbstractController
 {
     use ValidatorTrait;
 
-    /**
-     * @var \Netgen\Layouts\API\Service\CollectionService
-     */
-    private $collectionService;
+    private CollectionService $collectionService;
 
     public function __construct(CollectionService $collectionService)
     {

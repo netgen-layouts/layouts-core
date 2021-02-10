@@ -16,15 +16,9 @@ use function array_map;
 
 final class ClearRelatedLayoutsCache extends AbstractController
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutService
-     */
-    private $layoutService;
+    private LayoutService $layoutService;
 
-    /**
-     * @var \Netgen\Layouts\HttpCache\InvalidatorInterface
-     */
-    private $invalidator;
+    private InvalidatorInterface $invalidator;
 
     public function __construct(LayoutService $layoutService, InvalidatorInterface $invalidator)
     {

@@ -16,15 +16,12 @@ use function is_a;
  */
 class TwigExtensionsListener implements EventSubscriberInterface
 {
-    /**
-     * @var \Twig\Environment
-     */
-    private $twig;
+    private Environment $twig;
 
     /**
      * @var string[]
      */
-    private $extensions;
+    private array $extensions;
 
     /**
      * @param string[] $extensions

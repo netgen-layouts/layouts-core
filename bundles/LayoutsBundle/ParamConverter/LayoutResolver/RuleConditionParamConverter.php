@@ -11,10 +11,7 @@ use Ramsey\Uuid\Uuid;
 
 final class RuleConditionParamConverter extends ParamConverter
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutResolverService
-     */
-    private $layoutResolverService;
+    private LayoutResolverService $layoutResolverService;
 
     public function __construct(LayoutResolverService $layoutResolverService)
     {

@@ -19,15 +19,9 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
 {
     use ExceptionEventThrowableTrait;
 
-    /**
-     * @var \Symfony\Component\Serializer\SerializerInterface
-     */
-    private $serializer;
+    private SerializerInterface $serializer;
 
-    /**
-     * @var \Psr\Log\LoggerInterface
-     */
-    private $logger;
+    private LoggerInterface $logger;
 
     public function __construct(SerializerInterface $serializer, ?LoggerInterface $logger = null)
     {

@@ -19,10 +19,7 @@ final class LinkZone extends AbstractController
 {
     use ValidatorTrait;
 
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutService
-     */
-    private $layoutService;
+    private LayoutService $layoutService;
 
     public function __construct(LayoutService $layoutService)
     {

@@ -18,20 +18,14 @@ use function sprintf;
 
 final class GetCollectionPagerListener implements EventSubscriberInterface
 {
-    /**
-     * @var \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory
-     */
-    private $pagerFactory;
+    private PagerFactory $pagerFactory;
 
-    /**
-     * @var \Symfony\Component\HttpFoundation\RequestStack
-     */
-    private $requestStack;
+    private RequestStack $requestStack;
 
     /**
      * @var string[]
      */
-    private $enabledContexts;
+    private array $enabledContexts;
 
     /**
      * @param string[] $enabledContexts

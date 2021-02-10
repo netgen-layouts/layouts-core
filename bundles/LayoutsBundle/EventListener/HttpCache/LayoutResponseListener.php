@@ -11,15 +11,9 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 final class LayoutResponseListener implements EventSubscriberInterface
 {
-    /**
-     * @var \Netgen\Layouts\HttpCache\TaggerInterface
-     */
-    private $tagger;
+    private TaggerInterface $tagger;
 
-    /**
-     * @var bool
-     */
-    private $isExceptionResponse = false;
+    private bool $isExceptionResponse = false;
 
     public function __construct(TaggerInterface $tagger)
     {

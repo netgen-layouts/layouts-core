@@ -20,15 +20,9 @@ use function trim;
 
 final class UpdateRule extends AbstractController
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutResolverService
-     */
-    private $layoutResolverService;
+    private LayoutResolverService $layoutResolverService;
 
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutService
-     */
-    private $layoutService;
+    private LayoutService $layoutService;
 
     public function __construct(LayoutResolverService $layoutResolverService, LayoutService $layoutService)
     {

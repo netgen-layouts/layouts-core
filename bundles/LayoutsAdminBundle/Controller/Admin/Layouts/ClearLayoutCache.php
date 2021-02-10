@@ -12,10 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class ClearLayoutCache extends AbstractController
 {
-    /**
-     * @var \Netgen\Layouts\HttpCache\InvalidatorInterface
-     */
-    private $invalidator;
+    private InvalidatorInterface $invalidator;
 
     public function __construct(InvalidatorInterface $invalidator)
     {

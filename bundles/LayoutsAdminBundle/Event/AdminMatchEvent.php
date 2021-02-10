@@ -11,25 +11,19 @@ final class AdminMatchEvent extends Event
 {
     /**
      * The request the kernel is currently processing.
-     *
-     * @var \Symfony\Component\HttpFoundation\Request
      */
-    private $request;
+    private Request $request;
 
     /**
      * The request type the kernel is currently processing.  One of
      * HttpKernelInterface::MASTER_REQUEST and HttpKernelInterface::SUB_REQUEST.
-     *
-     * @var int
      */
-    private $requestType;
+    private int $requestType;
 
     /**
      * Pagelayout template to be used by admin interface.
-     *
-     * @var string|null
      */
-    private $pageLayoutTemplate;
+    private ?string $pageLayoutTemplate = null;
 
     public function __construct(Request $request, int $requestType)
     {

@@ -13,15 +13,12 @@ use function ob_start;
 
 final class Renderer implements RendererInterface
 {
-    /**
-     * @var \Twig\Environment
-     */
-    private $twig;
+    private Environment $twig;
 
     /**
      * @var array<string, \Netgen\Bundle\LayoutsBundle\Templating\Plugin\PluginCollection>
      */
-    private $pluginCollections = [];
+    private array $pluginCollections = [];
 
     /**
      * @param array<string, \Netgen\Bundle\LayoutsBundle\Templating\Plugin\PluginInterface[]> $pluginsByPluginName

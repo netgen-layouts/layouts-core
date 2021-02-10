@@ -22,25 +22,16 @@ use function sprintf;
 
 final class LayoutsDataCollector extends DataCollector
 {
-    /**
-     * @var \Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface
-     */
-    private $layoutHandler;
+    private LayoutHandler $layoutHandler;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\Templating\Twig\GlobalVariable
-     */
-    private $globalVariable;
+    private GlobalVariable $globalVariable;
 
-    /**
-     * @var \Twig\Environment
-     */
-    private $twig;
+    private Environment $twig;
 
     /**
      * @var \Netgen\Layouts\Persistence\Values\Layout\Layout[]
      */
-    private $layoutCache = [];
+    private array $layoutCache = [];
 
     public function __construct(LayoutHandler $layoutHandler, GlobalVariable $globalVariable, Environment $twig, string $edition)
     {

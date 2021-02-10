@@ -17,10 +17,7 @@ use function file_get_contents;
 
 final class Import extends AbstractController
 {
-    /**
-     * @var \Netgen\Layouts\Transfer\Input\ImporterInterface
-     */
-    private $importer;
+    private ImporterInterface $importer;
 
     public function __construct(ImporterInterface $importer)
     {

@@ -12,10 +12,7 @@ use Ramsey\Uuid\Uuid;
 
 final class ZoneParamConverter extends ParamConverter
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutService
-     */
-    private $layoutService;
+    private LayoutService $layoutService;
 
     public function __construct(LayoutService $layoutService)
     {

@@ -12,10 +12,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 final class InvalidationListener implements EventSubscriberInterface
 {
-    /**
-     * @var \Netgen\Layouts\HttpCache\InvalidatorInterface
-     */
-    private $invalidator;
+    private InvalidatorInterface $invalidator;
 
     public function __construct(InvalidatorInterface $invalidator)
     {

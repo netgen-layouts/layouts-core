@@ -13,20 +13,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class PublishDraft extends AbstractController
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutService
-     */
-    private $layoutService;
+    private LayoutService $layoutService;
 
-    /**
-     * @var \Netgen\Layouts\HttpCache\InvalidatorInterface
-     */
-    private $invalidator;
+    private InvalidatorInterface $invalidator;
 
-    /**
-     * @var bool
-     */
-    private $automaticCacheClear;
+    private bool $automaticCacheClear;
 
     public function __construct(
         LayoutService $layoutService,

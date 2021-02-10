@@ -6,10 +6,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Templating\Twig;
 
 final class GlobalVariable
 {
-    /**
-     * @var string
-     */
-    private $pageLayoutTemplate;
+    private string $pageLayoutTemplate;
 
     public function __construct(string $defaultTemplate)
     {

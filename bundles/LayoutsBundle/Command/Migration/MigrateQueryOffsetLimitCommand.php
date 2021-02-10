@@ -44,30 +44,15 @@ final class MigrateQueryOffsetLimitCommand extends Command
         ],
     ];
 
-    /**
-     * @var \Netgen\Layouts\Collection\Registry\QueryTypeRegistry
-     */
-    private $queryTypeRegistry;
+    private QueryTypeRegistry $queryTypeRegistry;
 
-    /**
-     * @var \Doctrine\DBAL\Connection
-     */
-    private $connection;
+    private Connection $connection;
 
-    /**
-     * @var \Symfony\Component\Console\Input\InputInterface
-     */
-    private $input;
+    private InputInterface $input;
 
-    /**
-     * @var \Symfony\Component\Console\Output\OutputInterface
-     */
-    private $output;
+    private OutputInterface $output;
 
-    /**
-     * @var \Symfony\Component\Console\Style\SymfonyStyle
-     */
-    private $io;
+    private SymfonyStyle $io;
 
     public function __construct(QueryTypeRegistry $queryTypeRegistry, Connection $connection)
     {

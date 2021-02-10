@@ -18,10 +18,7 @@ final class SetIsAdminRequestListener implements EventSubscriberInterface
 
     private const ADMIN_ROUTE_PREFIX = 'nglayouts_admin_';
 
-    /**
-     * @var \Netgen\Layouts\Utils\BackwardsCompatibility\EventDispatcherProxy
-     */
-    private $eventDispatcher;
+    private EventDispatcherProxy $eventDispatcher;
 
     public function __construct(EventDispatcherInterface $eventDispatcher)
     {

@@ -11,10 +11,7 @@ use Ramsey\Uuid\Uuid;
 
 final class BlockParamConverter extends ParamConverter
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\BlockService
-     */
-    private $blockService;
+    private BlockService $blockService;
 
     public function __construct(BlockService $blockService)
     {

@@ -14,10 +14,7 @@ use function sprintf;
 
 final class RelatedLayoutsCountListener implements EventSubscriberInterface
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutService
-     */
-    private $layoutService;
+    private LayoutService $layoutService;
 
     public function __construct(LayoutService $layoutService)
     {

@@ -20,15 +20,9 @@ final class AddItems extends AbstractController
 {
     use ValidatorTrait;
 
-    /**
-     * @var \Netgen\Layouts\API\Service\CollectionService
-     */
-    private $collectionService;
+    private CollectionService $collectionService;
 
-    /**
-     * @var \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry
-     */
-    private $itemDefinitionRegistry;
+    private ItemDefinitionRegistry $itemDefinitionRegistry;
 
     public function __construct(
         CollectionService $collectionService,

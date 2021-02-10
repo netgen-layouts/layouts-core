@@ -23,10 +23,7 @@ final class UpdateRulePriorities extends AbstractController
 {
     use ValidatorTrait;
 
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutResolverService
-     */
-    private $layoutResolverService;
+    private LayoutResolverService $layoutResolverService;
 
     public function __construct(LayoutResolverService $layoutResolverService)
     {

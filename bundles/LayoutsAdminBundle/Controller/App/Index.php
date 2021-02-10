@@ -10,10 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class Index extends AbstractController
 {
-    /**
-     * @var string
-     */
-    private $pageLayout;
+    private string $pageLayout;
 
     public function __construct(string $pageLayout)
     {

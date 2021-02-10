@@ -11,10 +11,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 final class CsrfTokenValidator implements CsrfTokenValidatorInterface
 {
-    /**
-     * @var \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface
-     */
-    private $csrfTokenManager;
+    private CsrfTokenManagerInterface $csrfTokenManager;
 
     public function __construct(CsrfTokenManagerInterface $csrfTokenManager)
     {

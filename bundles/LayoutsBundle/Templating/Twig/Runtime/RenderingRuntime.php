@@ -35,35 +35,17 @@ use function sprintf;
 
 final class RenderingRuntime
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\BlockService
-     */
-    private $blockService;
+    private BlockService $blockService;
 
-    /**
-     * @var \Netgen\Layouts\View\RendererInterface
-     */
-    private $renderer;
+    private RendererInterface $renderer;
 
-    /**
-     * @var \Netgen\Layouts\Locale\LocaleProviderInterface
-     */
-    private $localeProvider;
+    private LocaleProviderInterface $localeProvider;
 
-    /**
-     * @var \Symfony\Component\HttpFoundation\RequestStack
-     */
-    private $requestStack;
+    private RequestStack $requestStack;
 
-    /**
-     * @var \Netgen\Layouts\Error\ErrorHandlerInterface
-     */
-    private $errorHandler;
+    private ErrorHandlerInterface $errorHandler;
 
-    /**
-     * @var \Twig\Environment
-     */
-    private $simpleTwig;
+    private Environment $simpleTwig;
 
     public function __construct(
         BlockService $blockService,

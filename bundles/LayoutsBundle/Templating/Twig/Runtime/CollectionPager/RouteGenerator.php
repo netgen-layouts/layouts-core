@@ -12,20 +12,11 @@ use function str_contains;
 
 final class RouteGenerator
 {
-    /**
-     * @var \Netgen\Layouts\Context\Context
-     */
-    private $context;
+    private Context $context;
 
-    /**
-     * @var \Symfony\Component\HttpKernel\UriSigner
-     */
-    private $uriSigner;
+    private UriSigner $uriSigner;
 
-    /**
-     * @var \Symfony\Component\Routing\Generator\UrlGeneratorInterface
-     */
-    private $urlGenerator;
+    private UrlGeneratorInterface $urlGenerator;
 
     public function __construct(
         Context $context,

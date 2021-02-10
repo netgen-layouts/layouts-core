@@ -40,40 +40,19 @@ use Symfony\Component\HttpFoundation\RequestStack;
  */
 final class GlobalVariable
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\Configuration\ConfigurationInterface
-     */
-    private $configuration;
+    private ConfigurationInterface $configuration;
 
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\LayoutResolverInterface
-     */
-    private $layoutResolver;
+    private LayoutResolverInterface $layoutResolver;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\Templating\PageLayoutResolverInterface
-     */
-    private $pageLayoutResolver;
+    private PageLayoutResolverInterface $pageLayoutResolver;
 
-    /**
-     * @var \Netgen\Layouts\View\ViewBuilderInterface
-     */
-    private $viewBuilder;
+    private ViewBuilderInterface $viewBuilder;
 
-    /**
-     * @var \Symfony\Component\HttpFoundation\RequestStack
-     */
-    private $requestStack;
+    private RequestStack $requestStack;
 
-    /**
-     * @var string
-     */
-    private $pageLayoutTemplate;
+    private bool $debug;
 
-    /**
-     * @var bool
-     */
-    private $debug;
+    private string $pageLayoutTemplate;
 
     public function __construct(
         ConfigurationInterface $configuration,

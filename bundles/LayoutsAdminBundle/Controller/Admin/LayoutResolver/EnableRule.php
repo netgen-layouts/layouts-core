@@ -11,10 +11,7 @@ use Netgen\Layouts\View\ViewInterface;
 
 final class EnableRule extends AbstractController
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutResolverService
-     */
-    private $layoutResolverService;
+    private LayoutResolverService $layoutResolverService;
 
     public function __construct(LayoutResolverService $layoutResolverService)
     {

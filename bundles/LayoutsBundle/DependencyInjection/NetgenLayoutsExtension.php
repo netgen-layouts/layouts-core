@@ -48,7 +48,7 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
     /**
      * @var array<class-string<\Netgen\Bundle\LayoutsBundle\DependencyInjection\ExtensionPluginInterface>, \Netgen\Bundle\LayoutsBundle\DependencyInjection\ExtensionPluginInterface>
      */
-    private $plugins = [];
+    private array $plugins = [];
 
     /**
      * Adds a plugin to the extension.

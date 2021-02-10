@@ -14,10 +14,7 @@ use function class_exists;
 
 final class ExceptionNormalizer implements NormalizerInterface
 {
-    /**
-     * @var bool
-     */
-    private $outputDebugInfo;
+    private bool $outputDebugInfo;
 
     public function __construct(bool $outputDebugInfo)
     {

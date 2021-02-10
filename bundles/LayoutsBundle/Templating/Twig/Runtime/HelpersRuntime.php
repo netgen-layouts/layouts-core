@@ -21,15 +21,9 @@ use function twig_date_converter;
 
 final class HelpersRuntime
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutService
-     */
-    private $layoutService;
+    private LayoutService $layoutService;
 
-    /**
-     * @var \Netgen\Layouts\Item\Registry\ValueTypeRegistry
-     */
-    private $valueTypeRegistry;
+    private ValueTypeRegistry $valueTypeRegistry;
 
     public function __construct(LayoutService $layoutService, ValueTypeRegistry $valueTypeRegistry)
     {

@@ -11,10 +11,7 @@ use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
 
 final class LoadLayoutTypes extends AbstractController
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry
-     */
-    private $layoutTypeRegistry;
+    private LayoutTypeRegistry $layoutTypeRegistry;
 
     public function __construct(LayoutTypeRegistry $layoutTypeRegistry)
     {

@@ -16,10 +16,7 @@ final class ViewNormalizer implements NormalizerInterface, NormalizerAwareInterf
 {
     use NormalizerAwareTrait;
 
-    /**
-     * @var \Netgen\Layouts\View\RendererInterface
-     */
-    private $viewRenderer;
+    private RendererInterface $viewRenderer;
 
     public function __construct(RendererInterface $viewRenderer)
     {

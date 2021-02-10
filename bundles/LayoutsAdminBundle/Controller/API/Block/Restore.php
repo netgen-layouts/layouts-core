@@ -11,10 +11,7 @@ use Netgen\Layouts\API\Values\Block\Block;
 
 final class Restore extends AbstractController
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\BlockService
-     */
-    private $blockService;
+    private BlockService $blockService;
 
     public function __construct(BlockService $blockService)
     {

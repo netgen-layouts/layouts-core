@@ -23,10 +23,7 @@ use function uniqid;
 
 final class DefaultContext implements NodeVisitorInterface
 {
-    /**
-     * @var \Symfony\Bridge\Twig\NodeVisitor\Scope|null
-     */
-    private $scope;
+    private ?Scope $scope;
 
     public function __construct()
     {

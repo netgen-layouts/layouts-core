@@ -16,10 +16,7 @@ use function is_array;
 
 final class RequestBodyListener implements EventSubscriberInterface
 {
-    /**
-     * @var \Symfony\Component\Serializer\Encoder\DecoderInterface
-     */
-    private $decoder;
+    private DecoderInterface $decoder;
 
     public function __construct(DecoderInterface $decoder)
     {

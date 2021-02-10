@@ -12,10 +12,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 final class SerializerListener implements EventSubscriberInterface
 {
-    /**
-     * @var \Symfony\Component\Serializer\SerializerInterface
-     */
-    private $serializer;
+    private SerializerInterface $serializer;
 
     public function __construct(SerializerInterface $serializer)
     {

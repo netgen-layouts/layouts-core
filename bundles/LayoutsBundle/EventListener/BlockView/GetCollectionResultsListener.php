@@ -18,15 +18,12 @@ use function sprintf;
 
 final class GetCollectionResultsListener implements EventSubscriberInterface
 {
-    /**
-     * @var \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory
-     */
-    private $pagerFactory;
+    private PagerFactory $pagerFactory;
 
     /**
      * @var string[]
      */
-    private $enabledContexts;
+    private array $enabledContexts;
 
     /**
      * @param string[] $enabledContexts

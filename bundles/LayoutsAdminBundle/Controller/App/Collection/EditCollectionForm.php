@@ -14,10 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class EditCollectionForm extends AbstractController
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\CollectionService
-     */
-    private $collectionService;
+    private CollectionService $collectionService;
 
     public function __construct(CollectionService $collectionService)
     {

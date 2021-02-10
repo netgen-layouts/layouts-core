@@ -15,20 +15,11 @@ use function is_array;
 
 final class ContextListener implements EventSubscriberInterface
 {
-    /**
-     * @var \Netgen\Layouts\Context\Context
-     */
-    private $context;
+    private Context $context;
 
-    /**
-     * @var \Netgen\Layouts\Context\ContextBuilderInterface
-     */
-    private $contextBuilder;
+    private ContextBuilderInterface $contextBuilder;
 
-    /**
-     * @var \Symfony\Component\HttpKernel\UriSigner
-     */
-    private $uriSigner;
+    private UriSigner $uriSigner;
 
     public function __construct(
         Context $context,

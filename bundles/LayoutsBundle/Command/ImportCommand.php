@@ -32,15 +32,9 @@ use function sprintf;
  */
 final class ImportCommand extends Command
 {
-    /**
-     * @var \Netgen\Layouts\Transfer\Input\ImporterInterface
-     */
-    private $importer;
+    private ImporterInterface $importer;
 
-    /**
-     * @var \Symfony\Component\Console\Style\SymfonyStyle
-     */
-    private $io;
+    private SymfonyStyle $io;
 
     public function __construct(ImporterInterface $importer)
     {

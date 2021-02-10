@@ -8,15 +8,12 @@ use function array_filter;
 
 final class PluginCollection
 {
-    /**
-     * @var string
-     */
-    private $pluginName;
+    private string $pluginName;
 
     /**
      * @var \Netgen\Bundle\LayoutsBundle\Templating\Plugin\PluginInterface[]
      */
-    private $plugins;
+    private array $plugins;
 
     /**
      * @param \Netgen\Bundle\LayoutsBundle\Templating\Plugin\PluginInterface[] $plugins

@@ -12,20 +12,14 @@ use function str_starts_with;
 
 final class FilesystemLoader implements LoaderInterface
 {
-    /**
-     * @var \Twig\Loader\LoaderInterface
-     */
-    private $innerLoader;
+    private LoaderInterface $innerLoader;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\Configuration\ConfigurationInterface
-     */
-    private $configuration;
+    private ConfigurationInterface $configuration;
 
     /**
      * @var array<string, string>
      */
-    private $templateMap;
+    private array $templateMap = [];
 
     public function __construct(LoaderInterface $innerLoader, ConfigurationInterface $configuration)
     {

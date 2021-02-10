@@ -15,15 +15,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class EditItemViewTypeForm extends AbstractController
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\BlockService
-     */
-    private $blockService;
+    private BlockService $blockService;
 
-    /**
-     * @var \Netgen\Layouts\API\Service\CollectionService
-     */
-    private $collectionService;
+    private CollectionService $collectionService;
 
     public function __construct(BlockService $blockService, CollectionService $collectionService)
     {

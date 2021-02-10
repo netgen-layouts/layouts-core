@@ -13,10 +13,7 @@ use Ramsey\Uuid\Uuid;
 
 final class CopyRule extends AbstractController
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutResolverService
-     */
-    private $layoutResolverService;
+    private LayoutResolverService $layoutResolverService;
 
     public function __construct(LayoutResolverService $layoutResolverService)
     {

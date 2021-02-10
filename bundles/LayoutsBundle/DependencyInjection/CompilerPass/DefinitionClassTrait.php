@@ -11,7 +11,7 @@ trait DefinitionClassTrait
     /**
      * @var string[]
      */
-    private $definitionClasses = [];
+    private array $definitionClasses = [];
 
     private function getDefinitionClass(ContainerBuilder $container, string $serviceId): string
     {

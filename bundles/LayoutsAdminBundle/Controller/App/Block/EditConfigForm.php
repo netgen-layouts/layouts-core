@@ -14,10 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class EditConfigForm extends AbstractController
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\BlockService
-     */
-    private $blockService;
+    private BlockService $blockService;
 
     public function __construct(BlockService $blockService)
     {

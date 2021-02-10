@@ -11,10 +11,7 @@ use Netgen\Layouts\API\Service\LayoutService;
 
 final class LoadSharedLayouts extends AbstractController
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutService
-     */
-    private $layoutService;
+    private LayoutService $layoutService;
 
     public function __construct(LayoutService $layoutService)
     {

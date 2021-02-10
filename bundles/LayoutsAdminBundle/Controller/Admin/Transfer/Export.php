@@ -20,10 +20,7 @@ use const JSON_THROW_ON_ERROR;
 
 final class Export extends AbstractController
 {
-    /**
-     * @var \Netgen\Layouts\Transfer\Output\SerializerInterface
-     */
-    private $serializer;
+    private SerializerInterface $serializer;
 
     public function __construct(SerializerInterface $serializer)
     {

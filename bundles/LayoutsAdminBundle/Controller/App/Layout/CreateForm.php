@@ -18,15 +18,9 @@ use function count;
 
 final class CreateForm extends AbstractController
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutService
-     */
-    private $layoutService;
+    private LayoutService $layoutService;
 
-    /**
-     * @var \Netgen\Layouts\Locale\LocaleProviderInterface
-     */
-    private $localeProvider;
+    private LocaleProviderInterface $localeProvider;
 
     public function __construct(LayoutService $layoutService, LocaleProviderInterface $localeProvider)
     {

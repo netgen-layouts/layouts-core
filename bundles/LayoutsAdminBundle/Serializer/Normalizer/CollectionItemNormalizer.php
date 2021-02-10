@@ -18,15 +18,9 @@ final class CollectionItemNormalizer implements NormalizerInterface, NormalizerA
 {
     use NormalizerAwareTrait;
 
-    /**
-     * @var \Netgen\Layouts\Item\UrlGeneratorInterface
-     */
-    private $urlGenerator;
+    private UrlGeneratorInterface $urlGenerator;
 
-    /**
-     * @var \Netgen\Layouts\Collection\Item\VisibilityResolverInterface
-     */
-    private $visibilityResolver;
+    private VisibilityResolverInterface $visibilityResolver;
 
     public function __construct(UrlGeneratorInterface $urlGenerator, VisibilityResolverInterface $visibilityResolver)
     {

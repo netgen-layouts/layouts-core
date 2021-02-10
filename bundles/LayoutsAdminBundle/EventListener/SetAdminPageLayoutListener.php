@@ -11,10 +11,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class SetAdminPageLayoutListener implements EventSubscriberInterface
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\Templating\Twig\GlobalVariable
-     */
-    private $globalVariable;
+    private GlobalVariable $globalVariable;
 
     public function __construct(GlobalVariable $globalVariable)
     {

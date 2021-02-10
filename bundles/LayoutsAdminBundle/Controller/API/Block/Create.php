@@ -22,20 +22,11 @@ final class Create extends AbstractController
 {
     use ValidatorTrait;
 
-    /**
-     * @var \Netgen\Layouts\API\Service\BlockService
-     */
-    private $blockService;
+    private BlockService $blockService;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\Controller\API\Block\Utils\CreateStructBuilder
-     */
-    private $createStructBuilder;
+    private CreateStructBuilder $createStructBuilder;
 
-    /**
-     * @var \Netgen\Layouts\Block\Registry\BlockTypeRegistry
-     */
-    private $blockTypeRegistry;
+    private BlockTypeRegistry $blockTypeRegistry;
 
     public function __construct(
         BlockService $blockService,

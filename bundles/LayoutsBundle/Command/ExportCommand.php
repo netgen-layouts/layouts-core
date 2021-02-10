@@ -23,15 +23,9 @@ use const JSON_THROW_ON_ERROR;
  */
 final class ExportCommand extends Command
 {
-    /**
-     * @var \Netgen\Layouts\Transfer\Output\SerializerInterface
-     */
-    private $serializer;
+    private SerializerInterface $serializer;
 
-    /**
-     * @var \Symfony\Component\Console\Style\SymfonyStyle
-     */
-    private $io;
+    private SymfonyStyle $io;
 
     public function __construct(SerializerInterface $serializer)
     {

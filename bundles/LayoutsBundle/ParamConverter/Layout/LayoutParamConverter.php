@@ -11,10 +11,7 @@ use Ramsey\Uuid\Uuid;
 
 final class LayoutParamConverter extends ParamConverter
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutService
-     */
-    private $layoutService;
+    private LayoutService $layoutService;
 
     public function __construct(LayoutService $layoutService)
     {

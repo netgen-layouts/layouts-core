@@ -6,15 +6,12 @@ namespace Netgen\Bundle\LayoutsBundle\Templating\Plugin;
 
 final class SimplePlugin implements PluginInterface
 {
-    /**
-     * @var string
-     */
-    private $templateName;
+    private string $templateName;
 
     /**
      * @var array<string, mixed>
      */
-    private $parameters;
+    private array $parameters;
 
     /**
      * @param array<string, mixed> $parameters

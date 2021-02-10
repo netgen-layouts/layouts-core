@@ -11,10 +11,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 final class BlockResponseListener implements EventSubscriberInterface
 {
-    /**
-     * @var \Netgen\Layouts\HttpCache\TaggerInterface
-     */
-    private $tagger;
+    private TaggerInterface $tagger;
 
     public function __construct(TaggerInterface $tagger)
     {

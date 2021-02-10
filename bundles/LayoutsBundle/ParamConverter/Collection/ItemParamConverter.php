@@ -11,10 +11,7 @@ use Ramsey\Uuid\Uuid;
 
 final class ItemParamConverter extends ParamConverter
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\CollectionService
-     */
-    private $collectionService;
+    private CollectionService $collectionService;
 
     public function __construct(CollectionService $collectionService)
     {
