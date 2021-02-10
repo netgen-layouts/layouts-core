@@ -18,45 +18,24 @@ final class Query implements Value, ParameterCollectionInterface
     use ParameterCollectionTrait;
     use ValueStatusTrait;
 
-    /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    private $id;
+    private UuidInterface $id;
 
-    /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    private $collectionId;
+    private UuidInterface $collectionId;
 
-    /**
-     * @var \Netgen\Layouts\Collection\QueryType\QueryTypeInterface
-     */
-    private $queryType;
+    private QueryTypeInterface $queryType;
 
     /**
      * @var string[]
      */
-    private $availableLocales = [];
+    private array $availableLocales;
 
-    /**
-     * @var string
-     */
-    private $mainLocale;
+    private string $mainLocale;
 
-    /**
-     * @var bool
-     */
-    private $isTranslatable;
+    private bool $isTranslatable;
 
-    /**
-     * @var bool
-     */
-    private $alwaysAvailable;
+    private bool $alwaysAvailable;
 
-    /**
-     * @var string
-     */
-    private $locale;
+    private string $locale;
 
     public function getId(): UuidInterface
     {

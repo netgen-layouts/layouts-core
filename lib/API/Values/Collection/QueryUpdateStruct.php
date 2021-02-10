@@ -16,10 +16,8 @@ final class QueryUpdateStruct implements ParameterStruct
      * The locale which will be updated.
      *
      * Required.
-     *
-     * @var string
      */
-    public $locale;
+    public string $locale;
 
     /**
      * Fills the parameter values based on provided query.

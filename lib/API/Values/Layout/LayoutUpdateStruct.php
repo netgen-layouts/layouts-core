@@ -8,15 +8,11 @@ final class LayoutUpdateStruct
 {
     /**
      * New human readable name of the layout.
-     *
-     * @var string|null
      */
-    public $name;
+    public ?string $name = null;
 
     /**
      * New description of the layout.
-     *
-     * @var string|null
      */
-    public $description;
+    public ?string $description = null;
 }

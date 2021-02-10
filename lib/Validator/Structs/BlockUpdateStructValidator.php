@@ -15,6 +15,8 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use function sprintf;
+use function trim;
 
 /**
  * Validates the complete BlockUpdateStruct value.
@@ -35,6 +37,13 @@ final class BlockUpdateStructValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, BlockUpdateStruct::class);
         }
 
+        if (!isset($value->locale)) {
+            $this->context->buildViolation(sprintf('"locale" is required in %s', BlockUpdateStruct::class))
+                ->addViolation();
+
+            return;
+        }
+
         $block = $constraint->payload;
         $blockDefinition = $block->getDefinition();
 
@@ -42,10 +51,9 @@ final class BlockUpdateStructValidator extends ConstraintValidator
         $validator = $this->context->getValidator()->inContext($this->context);
 
         $validator->atPath('locale')->validate(
-            $value->locale,
+            trim($value->locale),
             [
                 new Constraints\NotBlank(),
-                new Constraints\Type(['type' => 'string']),
                 new LocaleConstraint(),
             ]
         );
@@ -54,7 +62,6 @@ final class BlockUpdateStructValidator extends ConstraintValidator
             $validator->atPath('viewType')->validate(
                 $value->viewType,
                 [
-                    new Constraints\Type(['type' => 'string']),
                     new BlockViewType(['definition' => $blockDefinition]),
                 ]
             );
@@ -64,31 +71,12 @@ final class BlockUpdateStructValidator extends ConstraintValidator
             $validator->atPath('itemViewType')->validate(
                 $value->itemViewType,
                 [
-                    new Constraints\Type(['type' => 'string']),
                     new BlockItemViewType(
                         [
                             'viewType' => $value->viewType ?? $block->getViewType(),
                             'definition' => $blockDefinition,
                         ]
                     ),
-                ]
-            );
-        }
-
-        if ($value->name !== null) {
-            $validator->atPath('name')->validate(
-                $value->name,
-                [
-                    new Constraints\Type(['type' => 'string']),
-                ]
-            );
-        }
-
-        if ($value->alwaysAvailable !== null) {
-            $validator->atPath('alwaysAvailable')->validate(
-                $value->alwaysAvailable,
-                [
-                    new Constraints\Type(['type' => 'bool']),
                 ]
             );
         }

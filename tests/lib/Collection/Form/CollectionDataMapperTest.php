@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Collection\Form;
 
 use ArrayIterator;
+use Netgen\Layouts\API\Values\Collection\CollectionUpdateStruct;
 use Netgen\Layouts\Collection\Form\CollectionDataMapper;
-use Netgen\Layouts\Persistence\Values\Collection\CollectionUpdateStruct;
 use Netgen\Layouts\Tests\Form\DataMapper\DataMapperTest;
 use Symfony\Component\Form\FormInterface;
 
@@ -94,8 +94,8 @@ final class CollectionDataMapperTest extends DataMapperTest
 
         $this->mapper->mapFormsToData($forms, $data);
 
-        self::assertSame('10', $data->offset);
-        self::assertSame('5', $data->limit);
+        self::assertSame(10, $data->offset);
+        self::assertSame(5, $data->limit);
     }
 
     /**
@@ -114,7 +114,7 @@ final class CollectionDataMapperTest extends DataMapperTest
 
         $this->mapper->mapFormsToData($forms, $data);
 
-        self::assertSame('10', $data->offset);
+        self::assertSame(10, $data->offset);
         self::assertSame(0, $data->limit);
     }
 }

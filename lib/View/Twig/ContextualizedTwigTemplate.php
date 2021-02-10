@@ -17,20 +17,17 @@ use function ob_start;
  */
 final class ContextualizedTwigTemplate
 {
-    /**
-     * @var \Twig\Template
-     */
-    private $template;
+    private Template $template;
 
     /**
      * @var array<string, mixed>
      */
-    private $context;
+    private array $context;
 
     /**
      * @var array<string, mixed>
      */
-    private $blocks;
+    private array $blocks;
 
     /**
      * @param array<string, mixed> $context

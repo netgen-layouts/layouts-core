@@ -11,10 +11,7 @@ use function iterator_to_array;
 
 final class ConfigMapper
 {
-    /**
-     * @var \Netgen\Layouts\Core\Mapper\ParameterMapper
-     */
-    private $parameterMapper;
+    private ParameterMapper $parameterMapper;
 
     public function __construct(ParameterMapper $parameterMapper)
     {

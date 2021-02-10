@@ -45,6 +45,7 @@ final class BooleanMapperTest extends TestCase
                     [
                         'name' => 'name',
                         'type' => new BooleanType(),
+                        'isRequired' => false,
                         'options' => ['reverse' => true],
                     ]
                 )

@@ -18,10 +18,7 @@ use function array_merge;
  */
 final class IdProvider implements IdProviderInterface
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutService
-     */
-    private $layoutService;
+    private LayoutService $layoutService;
 
     public function __construct(LayoutService $layoutService)
     {

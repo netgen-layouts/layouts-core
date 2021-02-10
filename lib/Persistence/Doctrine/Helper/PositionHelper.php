@@ -12,10 +12,7 @@ use function is_int;
 
 final class PositionHelper
 {
-    /**
-     * @var \Doctrine\DBAL\Connection
-     */
-    private $connection;
+    private Connection $connection;
 
     public function __construct(Connection $connection)
     {

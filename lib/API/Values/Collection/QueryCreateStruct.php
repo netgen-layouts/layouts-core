@@ -14,10 +14,8 @@ final class QueryCreateStruct implements ParameterStruct
 
     /**
      * Query type for which the new query will be created.
-     *
-     * @var \Netgen\Layouts\Collection\QueryType\QueryTypeInterface
      */
-    private $queryType;
+    private QueryTypeInterface $queryType;
 
     public function __construct(QueryTypeInterface $queryType)
     {

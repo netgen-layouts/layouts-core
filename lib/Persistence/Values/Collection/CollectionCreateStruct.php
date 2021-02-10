@@ -12,43 +12,31 @@ final class CollectionCreateStruct
 
     /**
      * Status of the new collection.
-     *
-     * @var int
      */
-    public $status;
+    public int $status;
 
     /**
      * Starting offset for the collection results.
-     *
-     * @var int
      */
-    public $offset;
+    public int $offset;
 
     /**
      * Starting limit for the collection results.
-     *
-     * @var int|null
      */
-    public $limit;
+    public ?int $limit;
 
     /**
      * Flag indicating if the collection will be always available.
-     *
-     * @var bool
      */
-    public $alwaysAvailable;
+    public bool $alwaysAvailable;
 
     /**
      * Flag indicating if the collection will be translatable.
-     *
-     * @var bool
      */
-    public $isTranslatable;
+    public bool $isTranslatable;
 
     /**
      * Main locale of the new collection.
-     *
-     * @var string
      */
-    public $mainLocale;
+    public string $mainLocale;
 }

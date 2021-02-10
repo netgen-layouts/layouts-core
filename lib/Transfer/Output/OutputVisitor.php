@@ -13,7 +13,7 @@ final class OutputVisitor
     /**
      * @var array<\Netgen\Layouts\Transfer\Output\VisitorInterface<object>>
      */
-    private $subVisitors = [];
+    private array $subVisitors = [];
 
     /**
      * @param iterable<\Netgen\Layouts\Transfer\Output\VisitorInterface<object>> $subVisitors

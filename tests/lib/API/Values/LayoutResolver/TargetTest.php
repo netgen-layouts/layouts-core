@@ -5,21 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\API\Values\LayoutResolver;
 
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
-use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\TargetType1;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 final class TargetTest extends TestCase
 {
-    /**
-     * @coversNothing
-     */
-    public function testInstance(): void
-    {
-        self::assertInstanceOf(Value::class, new Target());
-    }
-
     /**
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\Target::getId
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\Target::getRuleId

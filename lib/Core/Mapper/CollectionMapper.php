@@ -35,35 +35,17 @@ use function iterator_to_array;
 
 final class CollectionMapper
 {
-    /**
-     * @var \Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface
-     */
-    private $collectionHandler;
+    private CollectionHandlerInterface $collectionHandler;
 
-    /**
-     * @var \Netgen\Layouts\Core\Mapper\ParameterMapper
-     */
-    private $parameterMapper;
+    private ParameterMapper $parameterMapper;
 
-    /**
-     * @var \Netgen\Layouts\Core\Mapper\ConfigMapper
-     */
-    private $configMapper;
+    private ConfigMapper $configMapper;
 
-    /**
-     * @var \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry
-     */
-    private $itemDefinitionRegistry;
+    private ItemDefinitionRegistry $itemDefinitionRegistry;
 
-    /**
-     * @var \Netgen\Layouts\Collection\Registry\QueryTypeRegistry
-     */
-    private $queryTypeRegistry;
+    private QueryTypeRegistry $queryTypeRegistry;
 
-    /**
-     * @var \Netgen\Layouts\Item\CmsItemLoaderInterface
-     */
-    private $cmsItemLoader;
+    private CmsItemLoaderInterface $cmsItemLoader;
 
     public function __construct(
         CollectionHandlerInterface $collectionHandler,

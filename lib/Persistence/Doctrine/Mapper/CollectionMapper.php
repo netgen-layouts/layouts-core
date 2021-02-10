@@ -47,6 +47,7 @@ final class CollectionMapper
                     'isTranslatable' => (bool) $dataItem['translatable'],
                     'mainLocale' => $dataItem['main_locale'],
                     'alwaysAvailable' => (bool) $dataItem['always_available'],
+                    'availableLocales' => [],
                 ];
             }
 
@@ -140,6 +141,8 @@ final class CollectionMapper
             $locale = $dataItem['locale'];
 
             if (!isset($queries[$queryId])) {
+                // isTranslatable, mainLocale and alwaysAvailable properties are
+                // mapped after creating the query as they are taken from the collection
                 $queries[$queryId] = [
                     'id' => $queryId,
                     'uuid' => $dataItem['uuid'],
@@ -147,6 +150,8 @@ final class CollectionMapper
                     'collectionUuid' => $dataItem['collection_uuid'],
                     'type' => $dataItem['type'],
                     'status' => (int) $dataItem['status'],
+                    'availableLocales' => [],
+                    'parameters' => [],
                 ];
             }
 

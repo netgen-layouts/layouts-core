@@ -479,6 +479,7 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testCreateRule(): void
     {
         $ruleCreateStruct = new RuleCreateStruct();
+        $ruleCreateStruct->uuid = null;
         $ruleCreateStruct->layoutId = 'd8e55af7-cf62-5f28-ae15-331b457d82e9';
         $ruleCreateStruct->priority = 5;
         $ruleCreateStruct->enabled = true;
@@ -567,6 +568,11 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testCreateRuleWithNoPriority(): void
     {
         $ruleCreateStruct = new RuleCreateStruct();
+        $ruleCreateStruct->uuid = null;
+        $ruleCreateStruct->layoutId = null;
+        $ruleCreateStruct->priority = null;
+        $ruleCreateStruct->enabled = false;
+        $ruleCreateStruct->comment = '';
         $ruleCreateStruct->status = Value::STATUS_DRAFT;
 
         $ruleGroup = $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Value::STATUS_PUBLISHED);
@@ -608,6 +614,11 @@ final class LayoutResolverHandlerTest extends TestCase
         }
 
         $ruleCreateStruct = new RuleCreateStruct();
+        $ruleCreateStruct->uuid = null;
+        $ruleCreateStruct->layoutId = null;
+        $ruleCreateStruct->priority = null;
+        $ruleCreateStruct->enabled = false;
+        $ruleCreateStruct->comment = '';
         $ruleCreateStruct->status = Value::STATUS_DRAFT;
 
         $ruleGroup = $this->handler->loadRuleGroup('eb6311eb-24f6-4143-b476-99979a885a7e', Value::STATUS_PUBLISHED);
@@ -1180,6 +1191,7 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testCreateRuleGroup(): void
     {
         $ruleGroupCreateStruct = new RuleGroupCreateStruct();
+        $ruleGroupCreateStruct->uuid = null;
         $ruleGroupCreateStruct->priority = 5;
         $ruleGroupCreateStruct->enabled = true;
         $ruleGroupCreateStruct->comment = 'My rule group';
@@ -1246,6 +1258,10 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testCreateRuleGroupWithNoPriority(): void
     {
         $ruleGroupCreateStruct = new RuleGroupCreateStruct();
+        $ruleGroupCreateStruct->uuid = null;
+        $ruleGroupCreateStruct->priority = null;
+        $ruleGroupCreateStruct->enabled = false;
+        $ruleGroupCreateStruct->comment = '';
         $ruleGroupCreateStruct->status = Value::STATUS_DRAFT;
 
         $parentGroup = $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Value::STATUS_PUBLISHED);
@@ -1278,6 +1294,10 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testCreateRuleGroupWithNoPriorityAndNoRulesAndRuleGroups(): void
     {
         $ruleGroupCreateStruct = new RuleGroupCreateStruct();
+        $ruleGroupCreateStruct->uuid = null;
+        $ruleGroupCreateStruct->priority = null;
+        $ruleGroupCreateStruct->enabled = false;
+        $ruleGroupCreateStruct->comment = '';
         $ruleGroupCreateStruct->status = Value::STATUS_DRAFT;
 
         $ruleGroup = $this->handler->loadRuleGroup(3, Value::STATUS_PUBLISHED);

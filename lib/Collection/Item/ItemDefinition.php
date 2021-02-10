@@ -15,10 +15,7 @@ class ItemDefinition implements ItemDefinitionInterface
     use ConfigDefinitionAwareTrait;
     use HydratorTrait;
 
-    /**
-     * @var string
-     */
-    private $valueType;
+    private string $valueType;
 
     public function getValueType(): string
     {

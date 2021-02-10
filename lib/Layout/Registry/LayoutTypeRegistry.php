@@ -24,7 +24,7 @@ final class LayoutTypeRegistry implements IteratorAggregate, Countable, ArrayAcc
     /**
      * @var array<string, \Netgen\Layouts\Layout\Type\LayoutTypeInterface>
      */
-    private $layoutTypes;
+    private array $layoutTypes;
 
     /**
      * @param array<string, \Netgen\Layouts\Layout\Type\LayoutTypeInterface> $layoutTypes

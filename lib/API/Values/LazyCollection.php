@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values;
 
+use Closure;
 use Doctrine\Common\Collections\AbstractLazyCollection;
 use Doctrine\Common\Collections\ArrayCollection;
 use function call_user_func;
@@ -13,18 +14,15 @@ use function call_user_func;
  */
 final class LazyCollection extends AbstractLazyCollection
 {
-    /**
-     * @var callable
-     */
-    private $callable;
+    private Closure $closure;
 
     public function __construct(callable $callable)
     {
-        $this->callable = $callable;
+        $this->closure = Closure::fromCallable($callable);
     }
 
     protected function doInitialize(): void
     {
-        $this->collection = new ArrayCollection(call_user_func($this->callable));
+        $this->collection = new ArrayCollection(call_user_func($this->closure));
     }
 }

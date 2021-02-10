@@ -8,7 +8,6 @@ use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
-use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Exception\API\LayoutException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Layout\Type\LayoutType;
@@ -18,26 +17,6 @@ use function iterator_to_array;
 
 final class LayoutTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\Layout\Layout::__construct
-     */
-    public function testInstance(): void
-    {
-        self::assertInstanceOf(Value::class, new Layout());
-    }
-
-    /**
-     * @covers \Netgen\Layouts\API\Values\Layout\Layout::getAvailableLocales
-     * @covers \Netgen\Layouts\API\Values\Layout\Layout::getZones
-     */
-    public function testDefaultProperties(): void
-    {
-        $layout = new Layout();
-
-        self::assertCount(0, $layout->getZones());
-        self::assertSame([], $layout->getAvailableLocales());
-    }
-
     /**
      * @covers \Netgen\Layouts\API\Values\Layout\Layout::count
      * @covers \Netgen\Layouts\API\Values\Layout\Layout::getAvailableLocales

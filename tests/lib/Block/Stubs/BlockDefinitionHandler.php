@@ -53,6 +53,7 @@ final class BlockDefinitionHandler extends BaseBlockDefinitionHandler
                 [
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),
+                    'isRequired' => false,
                     'groups' => $this->parameterGroups,
                     'options' => [
                         'translatable' => false,

@@ -1913,7 +1913,7 @@ abstract class BlockServiceTest extends CoreTestCase
             [
                 'viewType' => 'small',
                 'itemViewType' => 'standard',
-                'name' => null,
+                'name' => '',
                 'isTranslatable' => true,
                 'alwaysAvailable' => true,
                 'definition' => $blockDefinition,

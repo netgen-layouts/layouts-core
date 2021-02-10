@@ -175,7 +175,7 @@ final class LayoutServiceTest extends TestCase
 
         $this->layoutHandler
             ->method('loadLayout')
-            ->willReturn(new PersistenceLayout());
+            ->willReturn(PersistenceLayout::fromArray(['id' => 42, 'status' => Value::STATUS_DRAFT]));
 
         $this->layoutHandler
             ->method('layoutNameExists')
@@ -345,15 +345,15 @@ final class LayoutServiceTest extends TestCase
 
         $this->layoutHandler
             ->method('loadLayout')
-            ->willReturn(PersistenceLayout::fromArray(['id' => 42]));
+            ->willReturn(PersistenceLayout::fromArray(['id' => 42, 'status' => Value::STATUS_ARCHIVED]));
 
         $this->layoutHandler
             ->method('loadLayout')
-            ->willReturn(PersistenceLayout::fromArray(['id' => 42]));
+            ->willReturn(PersistenceLayout::fromArray(['id' => 42, 'status' => Value::STATUS_PUBLISHED]));
 
         $this->layoutHandler
             ->method('loadLayout')
-            ->willReturn(PersistenceLayout::fromArray(['id' => 42]));
+            ->willReturn(PersistenceLayout::fromArray(['id' => 42, 'status' => Value::STATUS_DRAFT]));
 
         $this->layoutHandler
             ->method('deleteLayout')

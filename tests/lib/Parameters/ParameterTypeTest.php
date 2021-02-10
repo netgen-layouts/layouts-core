@@ -34,6 +34,7 @@ final class ParameterTypeTest extends TestCase
             ParameterDefinition::fromArray(
                 [
                     'type' => new ParameterType(),
+                    'isRequired' => false,
                 ]
             ),
             42

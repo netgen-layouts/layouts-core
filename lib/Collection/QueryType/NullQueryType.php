@@ -11,10 +11,7 @@ final class NullQueryType implements QueryTypeInterface
 {
     use ParameterDefinitionCollectionTrait;
 
-    /**
-     * @var string
-     */
-    private $queryType;
+    private string $queryType;
 
     public function __construct(string $queryType)
     {

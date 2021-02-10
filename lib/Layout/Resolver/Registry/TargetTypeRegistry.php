@@ -26,7 +26,7 @@ final class TargetTypeRegistry implements IteratorAggregate, Countable, ArrayAcc
     /**
      * @var array<string, \Netgen\Layouts\Layout\Resolver\TargetTypeInterface>
      */
-    private $targetTypes = [];
+    private array $targetTypes = [];
 
     /**
      * @param iterable<int, \Netgen\Layouts\Layout\Resolver\TargetTypeInterface> $targetTypes

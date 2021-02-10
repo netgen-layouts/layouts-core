@@ -12,15 +12,9 @@ use function is_int;
 
 final class PagerFactory
 {
-    /**
-     * @var \Netgen\Layouts\Collection\Result\ResultBuilderInterface
-     */
-    private $resultBuilder;
+    private ResultBuilderInterface $resultBuilder;
 
-    /**
-     * @var int
-     */
-    private $maxLimit;
+    private int $maxLimit;
 
     public function __construct(ResultBuilderInterface $resultBuilder, int $maxLimit)
     {

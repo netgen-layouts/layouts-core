@@ -20,9 +20,10 @@ final class CollectionDataMapper implements DataMapperInterface
     public function mapFormsToData($forms, &$viewData): void
     {
         $forms = iterator_to_array($forms);
+
         $limit = $forms['limit']->getData();
 
-        $viewData->offset = $forms['offset']->getData();
-        $viewData->limit = $limit ?? 0;
+        $viewData->offset = (int) $forms['offset']->getData();
+        $viewData->limit = $limit !== null ? (int) $limit : 0;
     }
 }

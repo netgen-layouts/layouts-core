@@ -20,51 +20,39 @@ final class BlockCreateStruct implements ParameterStruct, ConfigAwareStruct
      * View type of the new block.
      *
      * Required.
-     *
-     * @var string
      */
-    public $viewType;
+    public string $viewType;
 
     /**
      * Item view type of the new block.
      *
      * Required.
-     *
-     * @var string
      */
-    public $itemViewType;
+    public string $itemViewType;
 
     /**
      * Human readable name of the block.
-     *
-     * @var string|null
      */
-    public $name;
+    public ?string $name = '';
 
     /**
      * Specifies if the block will be translatable.
      *
      * Required.
-     *
-     * @var bool
      */
-    public $isTranslatable;
+    public bool $isTranslatable;
 
     /**
      * Specifies if the block will be always available.
      *
      * Required.
-     *
-     * @var bool
      */
-    public $alwaysAvailable;
+    public bool $alwaysAvailable;
 
     /**
      * Block definition to create the new block from.
-     *
-     * @var \Netgen\Layouts\Block\BlockDefinitionInterface
      */
-    private $definition;
+    private BlockDefinitionInterface $definition;
 
     /**
      * The list of collections to create in the block.
@@ -73,7 +61,7 @@ final class BlockCreateStruct implements ParameterStruct, ConfigAwareStruct
      *
      * @var \Netgen\Layouts\API\Values\Collection\CollectionCreateStruct[]
      */
-    private $collectionCreateStructs = [];
+    private array $collectionCreateStructs = [];
 
     public function __construct(BlockDefinitionInterface $definition)
     {

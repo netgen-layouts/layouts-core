@@ -6,16 +6,14 @@ namespace Netgen\Layouts\Block;
 
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface;
+use Netgen\Layouts\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface;
 
 /**
  * @final
  */
 class TwigBlockDefinition extends AbstractBlockDefinition implements TwigBlockDefinitionInterface
 {
-    /**
-     * @var \Netgen\Layouts\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface
-     */
-    private $handler;
+    private TwigBlockDefinitionHandlerInterface $handler;
 
     public function getTwigBlockNames(Block $block): array
     {

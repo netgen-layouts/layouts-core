@@ -10,6 +10,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\View\Provider\RuleTargetViewProvider;
 use Netgen\Layouts\View\View\RuleTargetViewInterface;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class RuleTargetProviderTest extends TestCase
 {
@@ -28,7 +29,7 @@ final class RuleTargetProviderTest extends TestCase
      */
     public function testProvideView(): void
     {
-        $target = Target::fromArray(['id' => 42]);
+        $target = Target::fromArray(['id' => Uuid::uuid4()]);
 
         $view = $this->ruleTargetViewProvider->provideView($target);
 

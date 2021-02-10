@@ -39,6 +39,7 @@ final class LayoutMapper
                     'status' => (int) $dataItem['status'],
                     'shared' => (bool) $dataItem['shared'],
                     'mainLocale' => $dataItem['main_locale'],
+                    'availableLocales' => [],
                 ];
             }
 

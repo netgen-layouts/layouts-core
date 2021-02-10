@@ -12,15 +12,13 @@ final class QueryCreateStruct
 
     /**
      * Identifier of the type of new query.
-     *
-     * @var string
      */
-    public $type;
+    public string $type;
 
     /**
      * Parameters for the new query.
      *
      * @var array<string, mixed>
      */
-    public $parameters;
+    public array $parameters;
 }

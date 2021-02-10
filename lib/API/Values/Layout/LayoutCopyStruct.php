@@ -10,15 +10,11 @@ final class LayoutCopyStruct
      * Human readable name of the copied layout.
      *
      * Required.
-     *
-     * @var string
      */
-    public $name;
+    public string $name;
 
     /**
      * Description of the copied layout.
-     *
-     * @var string|null
      */
-    public $description;
+    public ?string $description = null;
 }

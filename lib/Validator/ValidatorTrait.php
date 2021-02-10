@@ -14,10 +14,7 @@ use function sprintf;
 
 trait ValidatorTrait
 {
-    /**
-     * @var \Symfony\Component\Validator\Validator\ValidatorInterface
-     */
-    private $validator;
+    private ValidatorInterface $validator;
 
     public function setValidator(ValidatorInterface $validator): void
     {

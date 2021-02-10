@@ -13,71 +13,55 @@ final class Query extends Value
 
     /**
      * Query ID.
-     *
-     * @var int
      */
-    public $id;
+    public int $id;
 
     /**
      * Query UUID.
-     *
-     * @var string
      */
-    public $uuid;
+    public string $uuid;
 
     /**
      * ID of the collection to which this query belongs.
-     *
-     * @var int
      */
-    public $collectionId;
+    public int $collectionId;
 
     /**
      * UUID of the collection to which this query belongs.
-     *
-     * @var string
      */
-    public $collectionUuid;
+    public string $collectionUuid;
 
     /**
      * Query type.
-     *
-     * @var string
      */
-    public $type;
+    public string $type;
 
     /**
      * Query parameters.
      *
      * @var array<string, array<string, mixed>>
      */
-    public $parameters;
+    public array $parameters;
 
     /**
      * Returns if the query is translatable.
-     *
-     * @var bool
      */
-    public $isTranslatable;
+    public bool $isTranslatable;
 
     /**
      * Returns the main locale of this query.
-     *
-     * @var string
      */
-    public $mainLocale;
+    public string $mainLocale;
 
     /**
      * Returns the list of all locales available in this query.
      *
      * @var string[]
      */
-    public $availableLocales;
+    public array $availableLocales;
 
     /**
      * Returns if main locale of this query will be always available.
-     *
-     * @var bool
      */
-    public $alwaysAvailable;
+    public bool $alwaysAvailable;
 }

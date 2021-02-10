@@ -14,7 +14,7 @@ final class HandlerPluginRegistry
     /**
      * @var \Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface[]
      */
-    private $handlerPlugins = [];
+    private array $handlerPlugins = [];
 
     /**
      * @param iterable<\Netgen\Layouts\Block\BlockDefinition\Handler\PluginInterface> $handlerPlugins

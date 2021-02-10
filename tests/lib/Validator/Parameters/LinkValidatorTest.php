@@ -22,12 +22,12 @@ final class LinkValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @param mixed[]|null $valueTypes
+     * @param mixed[] $valueTypes
      *
      * @covers \Netgen\Layouts\Validator\Parameters\LinkValidator::validate
      * @dataProvider validateDataProvider
      */
-    public function testValidate(?LinkValue $value, bool $required, ?array $valueTypes, bool $isValid): void
+    public function testValidate(?LinkValue $value, bool $required, array $valueTypes, bool $isValid): void
     {
         $this->constraint->required = $required;
         $this->constraint->valueTypes = $valueTypes;
@@ -61,37 +61,37 @@ final class LinkValidatorTest extends ValidatorTestCase
     public function validateDataProvider(): array
     {
         return [
-            [null, true, null, true],
-            [null, false, null, true],
-            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'https://netgen.io', 'linkSuffix' => 'suffix']), true, null, true],
-            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'https://netgen.io', 'newWindow' => true]), true, null, true],
-            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'https://netgen.io', 'newWindow' => false]), true, null, true],
-            [LinkValue::fromArray(['linkType' => null, 'link' => null]), true, null, true],
-            [LinkValue::fromArray(['linkType' => null, 'link' => 'https://netgen.io']), true, null, false],
-            [LinkValue::fromArray(['linkType' => null, 'link' => null]), false, null, true],
-            [LinkValue::fromArray(['linkType' => null, 'link' => 'https://netgen.io']), false, null, false],
-            [LinkValue::fromArray(['linkType' => 'url', 'link' => null]), true, null, false],
-            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'https://netgen.io']), true, null, true],
-            [LinkValue::fromArray(['linkType' => 'url', 'link' => null]), false, null, true],
-            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'https://netgen.io']), false, null, true],
-            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'invalid']), true, null, false],
-            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'invalid']), false, null, false],
-            [LinkValue::fromArray(['linkType' => 'email', 'link' => null]), true, null, false],
-            [LinkValue::fromArray(['linkType' => 'email', 'link' => 'info@netgen.io']), true, null, true],
-            [LinkValue::fromArray(['linkType' => 'email', 'link' => null]), false, null, true],
-            [LinkValue::fromArray(['linkType' => 'email', 'link' => 'info@netgen.io']), false, null, true],
-            [LinkValue::fromArray(['linkType' => 'email', 'link' => 'invalid']), true, null, false],
-            [LinkValue::fromArray(['linkType' => 'email', 'link' => 'invalid']), false, null, false],
-            [LinkValue::fromArray(['linkType' => 'phone', 'link' => null]), true, null, false],
-            [LinkValue::fromArray(['linkType' => 'phone', 'link' => 'info@netgen.io']), true, null, true],
-            [LinkValue::fromArray(['linkType' => 'phone', 'link' => null]), false, null, true],
-            [LinkValue::fromArray(['linkType' => 'phone', 'link' => 'info@netgen.io']), false, null, true],
-            [LinkValue::fromArray(['linkType' => 'internal', 'link' => null]), true, null, false],
-            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value://42']), true, null, true],
-            [LinkValue::fromArray(['linkType' => 'internal', 'link' => null]), false, null, true],
-            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value://42']), false, null, true],
-            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value']), true, null, false],
-            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value']), false, null, false],
+            [null, true, [], true],
+            [null, false, [], true],
+            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'https://netgen.io', 'linkSuffix' => 'suffix']), true, [], true],
+            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'https://netgen.io', 'newWindow' => true]), true, [], true],
+            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'https://netgen.io', 'newWindow' => false]), true, [], true],
+            [LinkValue::fromArray(['linkType' => null, 'link' => null]), true, [], true],
+            [LinkValue::fromArray(['linkType' => null, 'link' => 'https://netgen.io']), true, [], false],
+            [LinkValue::fromArray(['linkType' => null, 'link' => null]), false, [], true],
+            [LinkValue::fromArray(['linkType' => null, 'link' => 'https://netgen.io']), false, [], false],
+            [LinkValue::fromArray(['linkType' => 'url', 'link' => null]), true, [], false],
+            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'https://netgen.io']), true, [], true],
+            [LinkValue::fromArray(['linkType' => 'url', 'link' => null]), false, [], true],
+            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'https://netgen.io']), false, [], true],
+            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'invalid']), true, [], false],
+            [LinkValue::fromArray(['linkType' => 'url', 'link' => 'invalid']), false, [], false],
+            [LinkValue::fromArray(['linkType' => 'email', 'link' => null]), true, [], false],
+            [LinkValue::fromArray(['linkType' => 'email', 'link' => 'info@netgen.io']), true, [], true],
+            [LinkValue::fromArray(['linkType' => 'email', 'link' => null]), false, [], true],
+            [LinkValue::fromArray(['linkType' => 'email', 'link' => 'info@netgen.io']), false, [], true],
+            [LinkValue::fromArray(['linkType' => 'email', 'link' => 'invalid']), true, [], false],
+            [LinkValue::fromArray(['linkType' => 'email', 'link' => 'invalid']), false, [], false],
+            [LinkValue::fromArray(['linkType' => 'phone', 'link' => null]), true, [], false],
+            [LinkValue::fromArray(['linkType' => 'phone', 'link' => 'info@netgen.io']), true, [], true],
+            [LinkValue::fromArray(['linkType' => 'phone', 'link' => null]), false, [], true],
+            [LinkValue::fromArray(['linkType' => 'phone', 'link' => 'info@netgen.io']), false, [], true],
+            [LinkValue::fromArray(['linkType' => 'internal', 'link' => null]), true, [], false],
+            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value://42']), true, [], true],
+            [LinkValue::fromArray(['linkType' => 'internal', 'link' => null]), false, [], true],
+            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value://42']), false, [], true],
+            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value']), true, [], false],
+            [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value']), false, [], false],
             [LinkValue::fromArray(['linkType' => 'internal', 'link' => null]), true, ['value'], false],
             [LinkValue::fromArray(['linkType' => 'internal', 'link' => 'value://42']), true, ['value'], true],
             [LinkValue::fromArray(['linkType' => 'internal', 'link' => null]), false, ['value'], true],

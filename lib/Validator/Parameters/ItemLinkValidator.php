@@ -23,10 +23,7 @@ use function str_replace;
  */
 final class ItemLinkValidator extends ConstraintValidator
 {
-    /**
-     * @var \Netgen\Layouts\Item\CmsItemLoaderInterface
-     */
-    private $cmsItemLoader;
+    private CmsItemLoaderInterface $cmsItemLoader;
 
     public function __construct(CmsItemLoaderInterface $cmsItemLoader)
     {
@@ -70,7 +67,7 @@ final class ItemLinkValidator extends ConstraintValidator
                 return;
             }
 
-            if (is_array($constraint->valueTypes) && count($constraint->valueTypes) > 0) {
+            if (count($constraint->valueTypes) > 0) {
                 if (!in_array($valueType, $constraint->valueTypes, true)) {
                     $this->context->buildViolation($constraint->valueTypeNotAllowedMessage)
                         ->setParameter('%valueType%', $valueType)

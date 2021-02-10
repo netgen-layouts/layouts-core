@@ -73,6 +73,54 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
             [
                 [
                     'definition' => $this->getBlockDefinition(),
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'isTranslatable' => false,
+                    'alwaysAvailable' => true,
+                    'parameterValues' => [
+                        'css_class' => 'class',
+                        'css_id' => 'id',
+                    ],
+                ],
+                false,
+                [
+                    'definition' => $this->getBlockDefinition(),
+                    'viewType' => 'large',
+                    'name' => 'My block',
+                    'isTranslatable' => false,
+                    'alwaysAvailable' => true,
+                    'parameterValues' => [
+                        'css_class' => 'class',
+                        'css_id' => 'id',
+                    ],
+                ],
+                false,
+                [
+                    'definition' => $this->getBlockDefinition(),
+                    'viewType' => 'large',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'alwaysAvailable' => true,
+                    'parameterValues' => [
+                        'css_class' => 'class',
+                        'css_id' => 'id',
+                    ],
+                ],
+                false,
+                [
+                    'definition' => $this->getBlockDefinition(),
+                    'viewType' => 'large',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'isTranslatable' => false,
+                    'parameterValues' => [
+                        'css_class' => 'class',
+                        'css_id' => 'id',
+                    ],
+                ],
+                false,
+                [
+                    'definition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -180,21 +228,6 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
                     'definition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
-                    'name' => 42,
-                    'isTranslatable' => false,
-                    'alwaysAvailable' => true,
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
-            ],
-            [
-                [
-                    'definition' => $this->getBlockDefinition(),
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'isTranslatable' => true,
                     'alwaysAvailable' => true,
@@ -204,66 +237,6 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
                     ],
                 ],
                 true,
-            ],
-            [
-                [
-                    'definition' => $this->getBlockDefinition(),
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => null,
-                    'alwaysAvailable' => true,
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
-            ],
-            [
-                [
-                    'definition' => $this->getBlockDefinition(),
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => 42,
-                    'alwaysAvailable' => true,
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
-            ],
-            [
-                [
-                    'definition' => $this->getBlockDefinition(),
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => false,
-                    'alwaysAvailable' => null,
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
-            ],
-            [
-                [
-                    'definition' => $this->getBlockDefinition(),
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => false,
-                    'alwaysAvailable' => 42,
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
             ],
             [
                 [

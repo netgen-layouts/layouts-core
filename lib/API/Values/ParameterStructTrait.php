@@ -15,7 +15,7 @@ trait ParameterStructTrait
     /**
      * @var array<string, mixed>
      */
-    private $parameterValues = [];
+    private array $parameterValues = [];
 
     /**
      * Sets the provided parameter values to the struct.

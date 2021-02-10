@@ -25,15 +25,9 @@ use function sprintf;
 
 final class LayoutBackend implements BackendInterface
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutService
-     */
-    private $layoutService;
+    private LayoutService $layoutService;
 
-    /**
-     * @var \Netgen\ContentBrowser\Config\Configuration
-     */
-    private $config;
+    private Configuration $config;
 
     public function __construct(LayoutService $layoutService, Configuration $config)
     {

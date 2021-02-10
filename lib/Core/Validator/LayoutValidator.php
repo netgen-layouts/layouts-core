@@ -12,12 +12,10 @@ use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\Exception\Validation\ValidationException;
 use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 use Netgen\Layouts\Validator\ValidatorTrait;
-use Ramsey\Uuid\UuidInterface;
 use Symfony\Component\Validator\Constraints;
 use function count;
 use function in_array;
 use function is_array;
-use function is_string;
 use function sprintf;
 use function trim;
 
@@ -32,59 +30,27 @@ final class LayoutValidator
      */
     public function validateLayoutCreateStruct(LayoutCreateStruct $layoutCreateStruct): void
     {
-        if ($layoutCreateStruct->uuid !== null) {
-            $this->validate(
-                $layoutCreateStruct->uuid,
-                [
-                    new Constraints\Type(['type' => UuidInterface::class]),
-                ],
-                'uuid'
-            );
+        if (!isset($layoutCreateStruct->name)) {
+            throw ValidationException::validationFailed('name', sprintf('"name" is required in %s', LayoutCreateStruct::class));
         }
 
-        $layoutName = is_string($layoutCreateStruct->name) ?
-            trim($layoutCreateStruct->name) :
-            $layoutCreateStruct->name;
+        if (!isset($layoutCreateStruct->layoutType)) {
+            throw ValidationException::validationFailed('layoutType', sprintf('"layoutType" is required in %s', LayoutCreateStruct::class));
+        }
+
+        if (!isset($layoutCreateStruct->mainLocale)) {
+            throw ValidationException::validationFailed('mainLocale', sprintf('"mainLocale" is required in %s', LayoutCreateStruct::class));
+        }
 
         $this->validate(
-            $layoutName,
+            trim($layoutCreateStruct->name),
             [
                 new Constraints\NotBlank(),
-                new Constraints\Type(['type' => 'string']),
             ],
             'name'
         );
 
-        if ($layoutCreateStruct->description !== null) {
-            $this->validate(
-                $layoutCreateStruct->description,
-                [
-                    new Constraints\Type(['type' => 'string']),
-                ],
-                'description'
-            );
-        }
-
-        $this->validate(
-            $layoutCreateStruct->layoutType,
-            [
-                new Constraints\NotBlank(),
-                new Constraints\Type(['type' => LayoutTypeInterface::class]),
-            ],
-            'layoutType'
-        );
-
         $this->validateLocale($layoutCreateStruct->mainLocale, 'mainLocale');
-
-        if (isset($layoutCreateStruct->shared)) {
-            $this->validate(
-                $layoutCreateStruct->shared,
-                [
-                    new Constraints\Type(['type' => 'bool']),
-                ],
-                'shared'
-            );
-        }
     }
 
     /**
@@ -94,28 +60,13 @@ final class LayoutValidator
      */
     public function validateLayoutUpdateStruct(LayoutUpdateStruct $layoutUpdateStruct): void
     {
-        $layoutName = is_string($layoutUpdateStruct->name) ?
-            trim($layoutUpdateStruct->name) :
-            $layoutUpdateStruct->name;
-
-        if ($layoutName !== null) {
+        if ($layoutUpdateStruct->name !== null) {
             $this->validate(
-                $layoutName,
+                trim($layoutUpdateStruct->name),
                 [
                     new Constraints\NotBlank(),
-                    new Constraints\Type(['type' => 'string']),
                 ],
                 'name'
-            );
-        }
-
-        if ($layoutUpdateStruct->description !== null) {
-            $this->validate(
-                $layoutUpdateStruct->description,
-                [
-                    new Constraints\Type(['type' => 'string']),
-                ],
-                'description'
             );
         }
     }
@@ -127,28 +78,17 @@ final class LayoutValidator
      */
     public function validateLayoutCopyStruct(LayoutCopyStruct $layoutCopyStruct): void
     {
-        $layoutName = is_string($layoutCopyStruct->name) ?
-            trim($layoutCopyStruct->name) :
-            $layoutCopyStruct->name;
+        if (!isset($layoutCopyStruct->name)) {
+            throw ValidationException::validationFailed('name', sprintf('"name" is required in %s', LayoutCopyStruct::class));
+        }
 
         $this->validate(
-            $layoutName,
+            trim($layoutCopyStruct->name),
             [
                 new Constraints\NotBlank(),
-                new Constraints\Type(['type' => 'string']),
             ],
             'name'
         );
-
-        if ($layoutCopyStruct->description !== null) {
-            $this->validate(
-                $layoutCopyStruct->description,
-                [
-                    new Constraints\Type(['type' => 'string']),
-                ],
-                'description'
-            );
-        }
     }
 
     /**

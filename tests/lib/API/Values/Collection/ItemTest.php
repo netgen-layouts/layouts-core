@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\API\Values\Collection;
 
 use Netgen\Layouts\API\Values\Collection\Item;
-use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Collection\Item\ItemDefinition;
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Item\CmsItemInterface;
@@ -15,14 +14,6 @@ use Ramsey\Uuid\Uuid;
 
 final class ItemTest extends TestCase
 {
-    /**
-     * @coversNothing
-     */
-    public function testInstance(): void
-    {
-        self::assertInstanceOf(Value::class, new Item());
-    }
-
     /**
      * @covers \Netgen\Layouts\API\Values\Collection\Item::getCmsItem
      * @covers \Netgen\Layouts\API\Values\Collection\Item::getCollectionId

@@ -9,15 +9,9 @@ use Netgen\Layouts\API\Values\Layout\Zone;
 
 final class ZoneReference
 {
-    /**
-     * @var \Netgen\Layouts\API\Values\Layout\Layout
-     */
-    private $layout;
+    private Layout $layout;
 
-    /**
-     * @var string
-     */
-    private $zoneIdentifier;
+    private string $zoneIdentifier;
 
     public function __construct(Layout $layout, string $zoneIdentifier)
     {

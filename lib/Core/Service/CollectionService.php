@@ -50,35 +50,17 @@ final class CollectionService implements APICollectionService
 {
     use TransactionTrait;
 
-    /**
-     * @var \Netgen\Layouts\Core\Validator\CollectionValidator
-     */
-    private $validator;
+    private CollectionValidator $validator;
 
-    /**
-     * @var \Netgen\Layouts\Core\Mapper\CollectionMapper
-     */
-    private $mapper;
+    private CollectionMapper $mapper;
 
-    /**
-     * @var \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder
-     */
-    private $structBuilder;
+    private CollectionStructBuilder $structBuilder;
 
-    /**
-     * @var \Netgen\Layouts\Core\Mapper\ParameterMapper
-     */
-    private $parameterMapper;
+    private ParameterMapper $parameterMapper;
 
-    /**
-     * @var \Netgen\Layouts\Core\Mapper\ConfigMapper
-     */
-    private $configMapper;
+    private ConfigMapper $configMapper;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface
-     */
-    private $collectionHandler;
+    private CollectionHandlerInterface $collectionHandler;
 
     public function __construct(
         TransactionHandlerInterface $transactionHandler,
@@ -444,7 +426,6 @@ final class CollectionService implements APICollectionService
         $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
 
         $this->validator->validatePosition($position, 'position', true);
-        $this->validator->validateSlotCreateStruct($slotCreateStruct);
 
         $createdSlot = $this->transaction(
             function () use ($persistenceCollection, $position, $slotCreateStruct): PersistenceSlot {
@@ -470,8 +451,6 @@ final class CollectionService implements APICollectionService
         }
 
         $persistenceSlot = $this->collectionHandler->loadSlot($slot->getId(), Value::STATUS_DRAFT);
-
-        $this->validator->validateSlotUpdateStruct($slotUpdateStruct);
 
         $updatedSlot = $this->transaction(
             function () use ($persistenceSlot, $slotUpdateStruct): PersistenceSlot {

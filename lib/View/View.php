@@ -14,32 +14,20 @@ abstract class View implements ViewInterface
     /**
      * @var array<string, mixed>
      */
-    protected $parameters = [];
+    protected array $parameters = [];
 
-    /**
-     * @var string
-     */
-    private $context;
+    private ?string $context = null;
 
-    /**
-     * @var string
-     */
-    private $fallbackContext;
+    private ?string $fallbackContext = null;
 
-    /**
-     * @var string|null
-     */
-    private $template;
+    private ?string $template = null;
 
-    /**
-     * @var \Symfony\Component\HttpFoundation\Response
-     */
-    private $response;
+    private ?Response $response = null;
 
     /**
      * @var array<string, mixed>
      */
-    private $customParameters = [];
+    private array $customParameters = [];
 
     public function getContext(): ?string
     {

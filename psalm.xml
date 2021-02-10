@@ -144,6 +144,20 @@
             </errorLevel>
         </PossiblyNullPropertyAssignmentValue>
 
+        <TypeDoesNotContainType>
+            <errorLevel type="suppress">
+                <directory name="lib/Validator" />
+                <directory name="lib/Core/Validator" />
+                <directory name="lib/Persistence/Doctrine/QueryHandler" />
+            </errorLevel>
+        </TypeDoesNotContainType>
+
+        <RedundantCondition>
+            <errorLevel type="suppress">
+                <directory name="lib/Persistence/Doctrine/QueryHandler" />
+            </errorLevel>
+        </RedundantCondition>
+
         <RedundantPropertyInitializationCheck errorLevel="suppress" />
     </issueHandlers>
 </psalm>

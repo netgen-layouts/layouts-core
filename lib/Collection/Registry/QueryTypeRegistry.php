@@ -24,7 +24,7 @@ final class QueryTypeRegistry implements IteratorAggregate, Countable, ArrayAcce
     /**
      * @var array<string, \Netgen\Layouts\Collection\QueryType\QueryTypeInterface>
      */
-    private $queryTypes;
+    private array $queryTypes;
 
     /**
      * @param array<string, \Netgen\Layouts\Collection\QueryType\QueryTypeInterface> $queryTypes

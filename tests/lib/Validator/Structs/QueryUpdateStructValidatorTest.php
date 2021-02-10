@@ -94,15 +94,6 @@ final class QueryUpdateStructValidatorTest extends ValidatorTestCase
             ],
             [
                 [
-                    'locale' => null,
-                    'parameterValues' => [
-                        'param' => 'value',
-                    ],
-                ],
-                false,
-            ],
-            [
-                [
                     'locale' => '',
                     'parameterValues' => [
                         'param' => 'value',

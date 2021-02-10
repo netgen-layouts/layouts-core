@@ -13,71 +13,53 @@ final class Collection extends Value
 
     /**
      * Collection ID.
-     *
-     * @var int
      */
-    public $id;
+    public int $id;
 
     /**
      * Collection UUID.
-     *
-     * @var string
      */
-    public $uuid;
+    public string $uuid;
 
     /**
      * ID of the block where this collection is located.
-     *
-     * @var int
      */
-    public $blockId;
+    public int $blockId;
 
     /**
      * UUID of the block where this collection is located.
-     *
-     * @var string
      */
-    public $blockUuid;
+    public string $blockUuid;
 
     /**
      * The starting offset for the collection results.
-     *
-     * @var int
      */
-    public $offset;
+    public int $offset;
 
     /**
      * The starting limit for the collection results.
-     *
-     * @var int|null
      */
-    public $limit;
+    public ?int $limit;
 
     /**
      * Returns if the collection is translatable.
-     *
-     * @var bool
      */
-    public $isTranslatable;
+    public bool $isTranslatable;
 
     /**
      * Returns the main locale of this collection.
-     *
-     * @var string
      */
-    public $mainLocale;
+    public string $mainLocale;
 
     /**
      * Returns the list of all locales available in this collection.
      *
      * @var string[]
      */
-    public $availableLocales;
+    public array $availableLocales;
 
     /**
      * Returns if main locale of this collection will be always available.
-     *
-     * @var bool
      */
-    public $alwaysAvailable;
+    public bool $alwaysAvailable;
 }

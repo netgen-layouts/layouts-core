@@ -22,38 +22,23 @@ final class Item implements Value, ConfigAwareValue
     use LazyPropertyTrait;
     use ValueStatusTrait;
 
-    /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    private $id;
+    private UuidInterface $id;
 
-    /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    private $collectionId;
+    private UuidInterface $collectionId;
 
-    /**
-     * @var \Netgen\Layouts\Collection\Item\ItemDefinitionInterface
-     */
-    private $definition;
+    private ItemDefinitionInterface $definition;
 
-    /**
-     * @var int
-     */
-    private $position;
+    private int $position;
 
     /**
      * @var int|string|null
      */
     private $value;
 
-    /**
-     * @var string|null
-     */
-    private $viewType;
+    private ?string $viewType;
 
     /**
-     * @var \Netgen\Layouts\Item\CmsItemInterface
+     * @var \Netgen\Layouts\Item\CmsItemInterface|\Closure
      */
     private $cmsItem;
 

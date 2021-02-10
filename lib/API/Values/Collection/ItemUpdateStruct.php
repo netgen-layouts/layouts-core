@@ -15,8 +15,6 @@ final class ItemUpdateStruct implements ConfigAwareStruct
      * New view type for the item.
      *
      * Set to an empty string to remove the stored view type.
-     *
-     * @var string|null
      */
-    public $viewType;
+    public ?string $viewType = null;
 }

@@ -24,12 +24,9 @@ class TemplateResolver implements TemplateResolverInterface
     /**
      * @var mixed[]
      */
-    private $viewConfig;
+    private array $viewConfig;
 
-    /**
-     * @var \Psr\Container\ContainerInterface
-     */
-    private $matchers;
+    private ContainerInterface $matchers;
 
     /**
      * @param mixed[] $viewConfig

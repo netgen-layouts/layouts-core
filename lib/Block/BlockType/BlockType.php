@@ -19,35 +19,20 @@ class BlockType
 {
     use HydratorTrait;
 
-    /**
-     * @var string
-     */
-    private $identifier;
+    private string $identifier;
 
-    /**
-     * @var bool
-     */
-    private $isEnabled;
+    private bool $isEnabled;
 
-    /**
-     * @var string
-     */
-    private $name;
+    private string $name;
 
-    /**
-     * @var string
-     */
-    private $icon;
+    private ?string $icon;
 
-    /**
-     * @var \Netgen\Layouts\Block\BlockDefinitionInterface
-     */
-    private $definition;
+    private BlockDefinitionInterface $definition;
 
     /**
      * @var array<string, mixed>
      */
-    private $defaults = [];
+    private array $defaults = [];
 
     /**
      * Returns the block type identifier.

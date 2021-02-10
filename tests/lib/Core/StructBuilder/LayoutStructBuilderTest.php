@@ -44,7 +44,7 @@ abstract class LayoutStructBuilderTest extends CoreTestCase
                 'uuid' => null,
                 'layoutType' => $layoutType,
                 'name' => 'New layout',
-                'description' => null,
+                'description' => '',
                 'shared' => false,
                 'mainLocale' => 'en',
             ],
@@ -113,7 +113,7 @@ abstract class LayoutStructBuilderTest extends CoreTestCase
 
         self::assertSame(
             [
-                'name' => null,
+                'name' => 'Layout (copy)',
                 'description' => null,
             ],
             $this->exportObject($struct)

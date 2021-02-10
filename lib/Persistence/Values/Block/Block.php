@@ -13,141 +13,107 @@ final class Block extends Value
 
     /**
      * Block ID.
-     *
-     * @var int
      */
-    public $id;
+    public int $id;
 
     /**
      * Block UUID.
-     *
-     * @var string
      */
-    public $uuid;
+    public string $uuid;
 
     /**
      * ID of the layout where block is located.
-     *
-     * @var int
      */
-    public $layoutId;
+    public int $layoutId;
 
     /**
      * UUID of the layout where block is located.
-     *
-     * @var string
      */
-    public $layoutUuid;
+    public string $layoutUuid;
 
     /**
      * The depth of the block in the tree.
-     *
-     * @var int
      */
-    public $depth;
+    public int $depth;
 
     /**
      * Materialized path of the block.
-     *
-     * @var string
      */
-    public $path;
+    public string $path;
 
     /**
      * ID of the parent block or null if block has no parent.
-     *
-     * @var int|null
      */
-    public $parentId;
+    public ?int $parentId;
 
     /**
      * UUID of the parent block or null if block has no parent.
-     *
-     * @var string|null
      */
-    public $parentUuid;
+    public ?string $parentUuid;
 
     /**
      * Placeholder to which this block belongs in the parent block or null if block has no parent.
-     *
-     * @var string|null
      */
-    public $placeholder;
+    public ?string $placeholder;
 
     /**
      * Position of the block in the parent block or null if block has no parent.
-     *
-     * @var int|null
      */
-    public $position;
+    public ?int $position;
 
     /**
      * Block definition identifier.
-     *
-     * @var string
      */
-    public $definitionIdentifier;
+    public string $definitionIdentifier;
 
     /**
      * Block parameters. Keys are locales, values are parameters in the specific locale.
      *
      * @var array<string, array<string, mixed>>
      */
-    public $parameters;
+    public array $parameters;
 
     /**
      * Block configuration.
      *
      * @var array<string, array<string, mixed>>
      */
-    public $config;
+    public array $config;
 
     /**
      * View type which will be used to render this block.
-     *
-     * @var string
      */
-    public $viewType;
+    public string $viewType;
 
     /**
      * Item view type which will be used to render block items.
-     *
-     * @var string
      */
-    public $itemViewType;
+    public string $itemViewType;
 
     /**
      * Human readable name of this block.
-     *
-     * @var string
      */
-    public $name;
+    public string $name;
 
     /**
      * Returns if the block is translatable.
-     *
-     * @var bool
      */
-    public $isTranslatable;
+    public bool $isTranslatable;
 
     /**
      * Returns the main locale of this block.
-     *
-     * @var string
      */
-    public $mainLocale;
+    public string $mainLocale;
 
     /**
      * Returns the list of all locales available in this block.
      *
      * @var string[]
      */
-    public $availableLocales;
+    public array $availableLocales;
 
     /**
      * Returns if main locale of this block will be always available.
-     *
-     * @var bool
      */
-    public $alwaysAvailable;
+    public bool $alwaysAvailable;
 }

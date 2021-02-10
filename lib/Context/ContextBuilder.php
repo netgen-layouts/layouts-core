@@ -9,7 +9,7 @@ final class ContextBuilder implements ContextBuilderInterface
     /**
      * @var \Netgen\Layouts\Context\ContextProviderInterface[]
      */
-    private $contextProviders = [];
+    private array $contextProviders = [];
 
     /**
      * @param iterable<\Netgen\Layouts\Context\ContextProviderInterface> $contextProviders

@@ -83,7 +83,7 @@ final class DynamicCollectionRunnerTest extends TestCase
 
         $queryItems = array_map(static function (?int $value): Value { return new Value($value); }, $queryItems);
         $query = Query::fromArray(['queryType' => new QueryType('my_query_type', $queryItems, $queryCount)]);
-        $collection = Collection::fromArray(['items' => new ArrayCollection($items), 'query' => $query]);
+        $collection = Collection::fromArray(['items' => new ArrayCollection($items), 'slots' => new ArrayCollection(), 'query' => $query]);
 
         $factory = new CollectionRunnerFactory($this->cmsItemBuilderMock, new VisibilityResolver([]));
         $collectionRunner = $factory->getCollectionRunner($collection);

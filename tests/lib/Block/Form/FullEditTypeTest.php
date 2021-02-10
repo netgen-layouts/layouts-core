@@ -48,6 +48,7 @@ final class FullEditTypeTest extends FormTestCase
                         [
                             'name' => 'large',
                             'identifier' => 'large',
+                            'validParameters' => null,
                             'itemViewTypes' => [
                                 'standard' => ItemViewType::fromArray(
                                     [
@@ -62,6 +63,7 @@ final class FullEditTypeTest extends FormTestCase
                         [
                             'name' => 'small',
                             'identifier' => 'small',
+                            'validParameters' => null,
                             'itemViewTypes' => [
                                 'standard' => ItemViewType::fromArray(
                                     [

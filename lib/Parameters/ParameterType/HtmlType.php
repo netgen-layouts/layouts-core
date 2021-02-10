@@ -16,10 +16,7 @@ use Symfony\Component\Validator\Constraints;
  */
 final class HtmlType extends ParameterType
 {
-    /**
-     * @var \Netgen\Layouts\Utils\HtmlPurifier
-     */
-    private $htmlPurifier;
+    private HtmlPurifier $htmlPurifier;
 
     public function __construct(HtmlPurifier $htmlPurifier)
     {

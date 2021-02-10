@@ -8,8 +8,6 @@ final class RuleGroupMetadataUpdateStruct
 {
     /**
      * New priority of the rule group.
-     *
-     * @var int|null
      */
-    public $priority;
+    public ?int $priority = null;
 }

@@ -7,7 +7,7 @@ namespace Netgen\Layouts\API\Values\Layout;
 use ArrayAccess;
 use Countable;
 use DateTimeInterface;
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use IteratorAggregate;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
@@ -28,60 +28,31 @@ final class Layout implements Value, ArrayAccess, IteratorAggregate, Countable
     use HydratorTrait;
     use ValueStatusTrait;
 
-    /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    private $id;
+    private UuidInterface $id;
 
-    /**
-     * @var \Netgen\Layouts\Layout\Type\LayoutTypeInterface
-     */
-    private $layoutType;
+    private LayoutTypeInterface $layoutType;
 
-    /**
-     * @var string
-     */
-    private $name;
+    private string $name;
 
-    /**
-     * @var string
-     */
-    private $description;
+    private string $description;
 
-    /**
-     * @var \DateTimeInterface
-     */
-    private $created;
+    private DateTimeInterface $created;
 
-    /**
-     * @var \DateTimeInterface
-     */
-    private $modified;
+    private DateTimeInterface $modified;
 
-    /**
-     * @var bool
-     */
-    private $shared;
+    private bool $shared;
 
-    /**
-     * @var string
-     */
-    private $mainLocale;
+    private string $mainLocale;
 
     /**
      * @var string[]
      */
-    private $availableLocales = [];
+    private array $availableLocales;
 
     /**
      * @var \Doctrine\Common\Collections\Collection<string, \Netgen\Layouts\API\Values\Layout\Zone>
      */
-    private $zones;
-
-    public function __construct()
-    {
-        $this->zones = $this->zones ?? new ArrayCollection();
-    }
+    private Collection $zones;
 
     public function getId(): UuidInterface
     {

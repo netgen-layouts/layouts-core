@@ -12,15 +12,11 @@ final class SlotCreateStruct
 
     /**
      * Position of the new slot in the collection.
-     *
-     * @var int
      */
-    public $position;
+    public int $position;
 
     /**
      * View type which will be used to render the item located at the new slot.
-     *
-     * @var string|null
      */
-    public $viewType;
+    public ?string $viewType;
 }

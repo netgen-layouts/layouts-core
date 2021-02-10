@@ -12,8 +12,6 @@ final class RuleGroupUpdateStruct
 
     /**
      * Human readable comment of the rule group.
-     *
-     * @var string|null
      */
-    public $comment;
+    public ?string $comment = null;
 }

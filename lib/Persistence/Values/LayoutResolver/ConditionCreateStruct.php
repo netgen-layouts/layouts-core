@@ -12,10 +12,8 @@ final class ConditionCreateStruct
 
     /**
      * Identifier of the condition type.
-     *
-     * @var string
      */
-    public $type;
+    public string $type;
 
     /**
      * Condition value. Can be a scalar or a multidimensional array of scalars.

@@ -13,8 +13,6 @@ use Netgen\Layouts\API\Values\Collection\ItemUpdateStruct;
 use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\API\Values\Collection\QueryCreateStruct;
 use Netgen\Layouts\API\Values\Collection\QueryUpdateStruct;
-use Netgen\Layouts\API\Values\Collection\SlotCreateStruct;
-use Netgen\Layouts\API\Values\Collection\SlotUpdateStruct;
 use Netgen\Layouts\API\Values\Config\ConfigStruct;
 use Netgen\Layouts\Collection\Item\ItemDefinition;
 use Netgen\Layouts\Config\ConfigDefinition;
@@ -24,7 +22,6 @@ use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use Netgen\Layouts\Utils\Hydrator;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 use Symfony\Component\Validator\Validation;
 
 final class CollectionValidatorTest extends TestCase
@@ -194,48 +191,6 @@ final class CollectionValidatorTest extends TestCase
         );
     }
 
-    /**
-     * @param array<string, mixed> $params
-     *
-     * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateSlotCreateStruct
-     * @dataProvider validateSlotCreateStructDataProvider
-     */
-    public function testValidateSlotCreateStruct(array $params, bool $isValid): void
-    {
-        if (!$isValid) {
-            $this->expectException(ValidationException::class);
-        }
-
-        $struct = new SlotCreateStruct();
-        (new Hydrator())->hydrate($params, $struct);
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
-
-        $this->collectionValidator->validateSlotCreateStruct($struct);
-    }
-
-    /**
-     * @param array<string, mixed> $params
-     *
-     * @covers \Netgen\Layouts\Core\Validator\CollectionValidator::validateSlotUpdateStruct
-     * @dataProvider validateSlotUpdateStructDataProvider
-     */
-    public function testValidateSlotUpdateStruct(array $params, bool $isValid): void
-    {
-        if (!$isValid) {
-            $this->expectException(ValidationException::class);
-        }
-
-        $struct = new SlotUpdateStruct();
-        (new Hydrator())->hydrate($params, $struct);
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
-
-        $this->collectionValidator->validateSlotUpdateStruct($struct);
-    }
-
     public function validateCollectionCreateStructDataProvider(): array
     {
         $queryCreateStruct = new QueryCreateStruct(new QueryType('test'));
@@ -264,21 +219,7 @@ final class CollectionValidatorTest extends TestCase
             ],
             [
                 [
-                    'offset' => null,
-                    'limit' => null,
-                ],
-                false,
-            ],
-            [
-                [
                     'offset' => -3,
-                    'limit' => null,
-                ],
-                false,
-            ],
-            [
-                [
-                    'offset' => '3',
                     'limit' => null,
                 ],
                 false,
@@ -313,25 +254,10 @@ final class CollectionValidatorTest extends TestCase
             [
                 [
                     'offset' => 0,
-                    'limit' => '3',
-                ],
-                false,
-            ],
-            [
-                [
-                    'offset' => 0,
                     'limit' => null,
                     'queryCreateStruct' => $queryCreateStruct,
                 ],
                 true,
-            ],
-            [
-                [
-                    'offset' => 0,
-                    'limit' => null,
-                    'queryCreateStruct' => new stdClass(),
-                ],
-                false,
             ],
         ];
     }
@@ -369,13 +295,6 @@ final class CollectionValidatorTest extends TestCase
             ],
             [
                 [
-                    'offset' => '6',
-                ],
-                true,
-                false,
-            ],
-            [
-                [
                     'limit' => 6,
                 ],
                 true,
@@ -398,13 +317,6 @@ final class CollectionValidatorTest extends TestCase
             [
                 [
                     'limit' => -6,
-                ],
-                true,
-                false,
-            ],
-            [
-                [
-                    'limit' => '6',
                 ],
                 true,
                 false,
@@ -439,13 +351,6 @@ final class CollectionValidatorTest extends TestCase
             ],
             [
                 [
-                    'offset' => '6',
-                ],
-                false,
-                false,
-            ],
-            [
-                [
                     'limit' => 6,
                 ],
                 false,
@@ -472,19 +377,16 @@ final class CollectionValidatorTest extends TestCase
                 false,
                 false,
             ],
-            [
-                [
-                    'limit' => '6',
-                ],
-                false,
-                false,
-            ],
         ];
     }
 
     public function validateItemCreateStructDataProvider(): array
     {
         return [
+            [
+                ['value' => 42, 'viewType' => 'overlay'],
+                false,
+            ],
             [
                 ['definition' => new ItemDefinition(), 'value' => 42, 'viewType' => 'overlay'],
                 true,
@@ -498,10 +400,6 @@ final class CollectionValidatorTest extends TestCase
                 true,
             ],
             [
-                ['definition' => new ItemDefinition(), 'value' => 42, 'viewType' => 42],
-                false,
-            ],
-            [
                 ['definition' => new ItemDefinition(), 'value' => '42', 'viewType' => 'overlay'],
                 true,
             ],
@@ -512,14 +410,6 @@ final class CollectionValidatorTest extends TestCase
             [
                 ['definition' => new ItemDefinition(), 'value' => '', 'viewType' => 'overlay'],
                 true,
-            ],
-            [
-                ['definition' => 42, 'value' => 42, 'viewType' => 'overlay'],
-                false,
-            ],
-            [
-                ['definition' => null, 'value' => 42, 'viewType' => 'overlay'],
-                false,
             ],
         ];
     }
@@ -548,12 +438,6 @@ final class CollectionValidatorTest extends TestCase
                     'viewType' => null,
                 ],
                 true,
-            ],
-            [
-                [
-                    'viewType' => 42,
-                ],
-                false,
             ],
             [
                 [
@@ -633,25 +517,7 @@ final class CollectionValidatorTest extends TestCase
             ],
             [
                 [
-                    'locale' => null,
-                    'parameterValues' => [
-                        'param' => 'value',
-                    ],
-                ],
-                false,
-            ],
-            [
-                [
                     'locale' => '',
-                    'parameterValues' => [
-                        'param' => 'value',
-                    ],
-                ],
-                false,
-            ],
-            [
-                [
-                    'locale' => 42,
                     'parameterValues' => [
                         'param' => 'value',
                     ],
@@ -700,62 +566,6 @@ final class CollectionValidatorTest extends TestCase
                     'parameterValues' => [],
                 ],
                 true,
-            ],
-        ];
-    }
-
-    public function validateSlotCreateStructDataProvider(): array
-    {
-        return [
-            [
-                ['viewType' => 'overlay'],
-                true,
-            ],
-            [
-                ['viewType' => ''],
-                true,
-            ],
-            [
-                ['viewType' => null],
-                true,
-            ],
-            [
-                ['viewType' => 42],
-                false,
-            ],
-        ];
-    }
-
-    public function validateSlotUpdateStructDataProvider(): array
-    {
-        return [
-            [
-                [],
-                true,
-            ],
-            [
-                [
-                    'viewType' => 'overlay',
-                ],
-                true,
-            ],
-            [
-                [
-                    'viewType' => null,
-                ],
-                true,
-            ],
-            [
-                [
-                    'viewType' => '',
-                ],
-                true,
-            ],
-            [
-                [
-                    'viewType' => 42,
-                ],
-                false,
             ],
         ];
     }

@@ -29,13 +29,13 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
     }
 
     /**
-     * @param mixed[]|null $valueTypes
+     * @param mixed[] $valueTypes
      *
      * @covers \Netgen\Layouts\Validator\Parameters\ItemLinkValidator::__construct
      * @covers \Netgen\Layouts\Validator\Parameters\ItemLinkValidator::validate
      * @dataProvider validateDataProvider
      */
-    public function testValidate(?string $value, ?array $valueTypes, bool $isValid): void
+    public function testValidate(?string $value, array $valueTypes, bool $isValid): void
     {
         $this->constraint->valueTypes = $valueTypes;
 
@@ -88,33 +88,30 @@ final class ItemLinkValidatorTest extends ValidatorTestCase
     public function validateDataProvider(): array
     {
         return [
-            ['', null, false],
-            ['', null, false],
-            ['value', null, false],
-            ['other', null, false],
-            ['value:', null, false],
-            ['other:', null, false],
-            ['value:/', null, false],
-            ['other:/', null, false],
-            ['value://', null, false],
-            ['other://', null, false],
-            ['value://42', null, true],
-            ['other://42', null, false],
-            ['value://null', null, true],
-            ['other://null', null, false],
-            ['value://0', null, true],
-            ['other://0', null, false],
+            ['', [], false],
+            ['value', [], false],
+            ['other', [], false],
+            ['value:', [], false],
+            ['other:', [], false],
+            ['value:/', [], false],
+            ['other:/', [], false],
+            ['value://', [], false],
+            ['other://', [], false],
+            ['value://42', [], true],
+            ['other://42', [], false],
+            ['value://null', [], true],
+            ['other://null', [], false],
+            ['value://0', [], true],
+            ['other://0', [], false],
             ['value://42', [], true],
             ['other://42', [], false],
             ['value://42', ['value'], true],
             ['other://42', ['value'], false],
             ['value://42', ['other'], false],
             ['other://42', ['other'], false],
-            ['42', null, false],
             ['42', [], false],
             ['42', ['value'], false],
             ['42', ['other'], false],
-            [null, null, true],
             [null, [], true],
             [null, ['value'], true],
             [null, ['other'], true],

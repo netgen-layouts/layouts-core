@@ -268,11 +268,11 @@ final class LayoutResolverServiceTest extends TestCase
 
         $this->layoutResolverHandler
             ->method('loadRule')
-            ->willReturn(PersistenceRule::fromArray(['id' => 42]));
+            ->willReturn(PersistenceRule::fromArray(['id' => 42, 'status' => Value::STATUS_ARCHIVED]));
 
         $this->layoutResolverHandler
             ->method('loadRule')
-            ->willReturn(PersistenceRule::fromArray(['id' => 42]));
+            ->willReturn(PersistenceRule::fromArray(['id' => 42, 'status' => Value::STATUS_DRAFT]));
 
         $this->layoutResolverHandler
             ->method('deleteRule')
@@ -601,11 +601,11 @@ final class LayoutResolverServiceTest extends TestCase
 
         $this->layoutResolverHandler
             ->method('loadRuleGroup')
-            ->willReturn(PersistenceRuleGroup::fromArray(['id' => 42]));
+            ->willReturn(PersistenceRuleGroup::fromArray(['id' => 42, 'status' => Value::STATUS_ARCHIVED]));
 
         $this->layoutResolverHandler
             ->method('loadRuleGroup')
-            ->willReturn(PersistenceRuleGroup::fromArray(['id' => 42]));
+            ->willReturn(PersistenceRuleGroup::fromArray(['id' => 42, 'status' => Value::STATUS_DRAFT]));
 
         $this->layoutResolverHandler
             ->method('deleteRuleGroup')

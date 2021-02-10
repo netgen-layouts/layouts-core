@@ -13,7 +13,7 @@ final class ZoneUpdateStruct
     /**
      * New linked zone.
      *
-     * @var \Netgen\Layouts\Persistence\Values\Layout\Zone|null
+     * @var \Netgen\Layouts\Persistence\Values\Layout\Zone|bool|null
      */
     public $linkedZone;
 }

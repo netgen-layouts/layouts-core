@@ -8,15 +8,11 @@ final class RuleGroupCondition extends Condition
 {
     /**
      * ID of the rule group where the condition is located.
-     *
-     * @var int
      */
-    public $ruleGroupId;
+    public int $ruleGroupId;
 
     /**
      * UUID of the rule group where the condition is located.
-     *
-     * @var string
      */
-    public $ruleGroupUuid;
+    public string $ruleGroupUuid;
 }

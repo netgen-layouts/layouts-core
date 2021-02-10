@@ -33,22 +33,22 @@ abstract class EditType extends AbstractType
     /**
      * @var string[]
      */
-    private $viewTypes = [];
+    private array $viewTypes = [];
 
     /**
      * @var mixed[]
      */
-    private $itemViewTypes = [];
+    private array $itemViewTypes = [];
 
     /**
      * @var array<string, string[]>
      */
-    private $viewTypesByItemViewType = [];
+    private array $viewTypesByItemViewType = [];
 
     /**
      * @var array<string, string[]>
      */
-    private $viewTypesByParameters = [];
+    private array $viewTypesByParameters = [];
 
     public function configureOptions(OptionsResolver $resolver): void
     {

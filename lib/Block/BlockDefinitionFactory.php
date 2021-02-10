@@ -22,20 +22,11 @@ use function sprintf;
 
 final class BlockDefinitionFactory
 {
-    /**
-     * @var \Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface
-     */
-    private $parameterBuilderFactory;
+    private ParameterBuilderFactoryInterface $parameterBuilderFactory;
 
-    /**
-     * @var \Netgen\Layouts\Block\Registry\HandlerPluginRegistry
-     */
-    private $handlerPluginRegistry;
+    private HandlerPluginRegistry $handlerPluginRegistry;
 
-    /**
-     * @var \Netgen\Layouts\Config\ConfigDefinitionFactory
-     */
-    private $configDefinitionFactory;
+    private ConfigDefinitionFactory $configDefinitionFactory;
 
     public function __construct(
         ParameterBuilderFactoryInterface $parameterBuilderFactory,

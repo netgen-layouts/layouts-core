@@ -4,28 +4,30 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Validator\Constraint\Structs;
 
+use Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface;
 use Symfony\Component\Validator\Constraint;
 
 final class ParameterStruct extends Constraint
 {
-    /**
-     * @var string
-     */
-    public $message = 'netgen_layouts.parameter_struct.invalid_value';
+    public string $message = 'netgen_layouts.parameter_struct.invalid_value';
 
     /**
      * Parameter definition collection used to validate parameter values against.
-     *
-     * @var \Netgen\Layouts\Parameters\ParameterDefinitionCollectionInterface
      */
-    public $parameterDefinitions;
+    public ParameterDefinitionCollectionInterface $parameterDefinitions;
 
     /**
      * If true, missing parameters will pass validation (e.g. when updating the value).
-     *
-     * @var bool
      */
-    public $allowMissingFields = false;
+    public bool $allowMissingFields = false;
+
+    /**
+     * @return string[]
+     */
+    public function getRequiredOptions(): array
+    {
+        return ['parameterDefinitions'];
+    }
 
     public function validatedBy(): string
     {

@@ -10,20 +10,14 @@ final class Zone
 {
     use HydratorTrait;
 
-    /**
-     * @var string
-     */
-    private $identifier;
+    private string $identifier;
 
-    /**
-     * @var string
-     */
-    private $name;
+    private string $name;
 
     /**
      * @var string[]
      */
-    private $allowedBlockDefinitions = [];
+    private array $allowedBlockDefinitions = [];
 
     /**
      * Returns the zone identifier.

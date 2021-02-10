@@ -46,7 +46,7 @@ final class IdProviderTest extends TestCase
             ->willReturn(
                 Layout::fromArray(
                     [
-                        'id' => $uuid->toString(),
+                        'id' => $uuid,
                         'shared' => false,
                     ]
                 )

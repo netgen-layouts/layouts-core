@@ -27,20 +27,11 @@ final class Importer implements ImporterInterface
 {
     private const SCHEMA_FILE = __DIR__ . '/../../../resources/schemas/import.json';
 
-    /**
-     * @var \Netgen\Layouts\API\Service\TransactionService
-     */
-    private $transactionService;
+    private TransactionService $transactionService;
 
-    /**
-     * @var \Netgen\Layouts\Transfer\Input\JsonValidatorInterface
-     */
-    private $jsonValidator;
+    private JsonValidatorInterface $jsonValidator;
 
-    /**
-     * @var \Psr\Container\ContainerInterface
-     */
-    private $entityHandlers;
+    private ContainerInterface $entityHandlers;
 
     public function __construct(
         TransactionService $transactionService,

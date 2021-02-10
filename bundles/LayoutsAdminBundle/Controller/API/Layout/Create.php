@@ -57,7 +57,7 @@ final class Create extends AbstractController
             $requestData->get('locale')
         );
 
-        $layoutCreateStruct->description = $requestData->get('description');
+        $layoutCreateStruct->description = $requestData->get('description', '');
 
         $createdLayout = $this->layoutService->createLayout($layoutCreateStruct);
 

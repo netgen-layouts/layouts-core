@@ -35,6 +35,7 @@ final class BlockDefinitionHandlerWithTranslatableParameter extends BaseBlockDef
                 [
                     'name' => 'css_class',
                     'type' => new ParameterType\TextLineType(),
+                    'isRequired' => false,
                     'defaultValue' => 'some-class',
                     'groups' => $this->parameterGroups,
                     'options' => [
@@ -46,6 +47,7 @@ final class BlockDefinitionHandlerWithTranslatableParameter extends BaseBlockDef
                 [
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),
+                    'isRequired' => false,
                     'groups' => $this->parameterGroups,
                     'options' => [
                         'translatable' => false,

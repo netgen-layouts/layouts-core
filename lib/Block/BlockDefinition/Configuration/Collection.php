@@ -12,20 +12,17 @@ final class Collection
 {
     use HydratorTrait;
 
-    /**
-     * @var string
-     */
-    private $identifier;
+    private string $identifier;
 
     /**
      * @var string[]|null
      */
-    private $validItemTypes;
+    private ?array $validItemTypes;
 
     /**
      * @var string[]|null
      */
-    private $validQueryTypes;
+    private ?array $validQueryTypes;
 
     /**
      * Returns the collection identifier.

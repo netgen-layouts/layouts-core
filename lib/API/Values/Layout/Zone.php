@@ -15,18 +15,12 @@ final class Zone
     use LazyPropertyTrait;
     use ValueStatusTrait;
 
-    /**
-     * @var string
-     */
-    private $identifier;
+    private string $identifier;
+
+    private UuidInterface $layoutId;
 
     /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    private $layoutId;
-
-    /**
-     * @var \Netgen\Layouts\API\Values\Layout\Zone|null
+     * @var \Netgen\Layouts\API\Values\Layout\Zone|\Closure|null
      */
     private $linkedZone;
 

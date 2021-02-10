@@ -18,25 +18,16 @@ class BlockTypeGroup
 {
     use HydratorTrait;
 
-    /**
-     * @var string
-     */
-    private $identifier;
+    private string $identifier;
 
-    /**
-     * @var bool
-     */
-    private $isEnabled;
+    private bool $isEnabled;
 
-    /**
-     * @var string
-     */
-    private $name;
+    private string $name;
 
     /**
      * @var \Netgen\Layouts\Block\BlockType\BlockType[]
      */
-    private $blockTypes = [];
+    private array $blockTypes = [];
 
     /**
      * Returns the block type group identifier.

@@ -8,15 +8,11 @@ final class RuleCondition extends Condition
 {
     /**
      * ID of the rule where the condition is located.
-     *
-     * @var int
      */
-    public $ruleId;
+    public int $ruleId;
 
     /**
      * UUID of the rule where the condition is located.
-     *
-     * @var string
      */
-    public $ruleUuid;
+    public string $ruleUuid;
 }

@@ -58,6 +58,7 @@ final class DesignEditTypeTest extends FormTestCase
                         [
                             'identifier' => 'large',
                             'name' => 'Large',
+                            'validParameters' => null,
                             'itemViewTypes' => [
                                 'standard' => ItemViewType::fromArray(
                                     [
@@ -78,6 +79,7 @@ final class DesignEditTypeTest extends FormTestCase
                         [
                             'identifier' => 'large',
                             'name' => 'Large',
+                            'validParameters' => null,
                             'itemViewTypes' => [
                                 'standard' => ItemViewType::fromArray(
                                     [

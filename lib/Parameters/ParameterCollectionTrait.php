@@ -12,7 +12,7 @@ trait ParameterCollectionTrait
     /**
      * @var \Netgen\Layouts\Parameters\Parameter[]
      */
-    private $parameters = [];
+    private array $parameters = [];
 
     /**
      * Returns all parameters from the collection.

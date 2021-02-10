@@ -9,10 +9,7 @@ use Netgen\Layouts\Exception\Layout\LayoutTypeException;
 
 final class NullLayoutType implements LayoutTypeInterface
 {
-    /**
-     * @var string
-     */
-    private $layoutType;
+    private string $layoutType;
 
     public function __construct(string $layoutType)
     {

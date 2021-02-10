@@ -13,15 +13,9 @@ use function sprintf;
 
 final class ViewRenderer implements ViewRendererInterface
 {
-    /**
-     * @var \Netgen\Layouts\Utils\BackwardsCompatibility\EventDispatcherProxy
-     */
-    private $eventDispatcher;
+    private EventDispatcherProxy $eventDispatcher;
 
-    /**
-     * @var \Twig\Environment
-     */
-    private $twig;
+    private Environment $twig;
 
     public function __construct(EventDispatcherInterface $eventDispatcher, Environment $twig)
     {

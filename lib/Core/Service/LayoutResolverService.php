@@ -60,30 +60,15 @@ final class LayoutResolverService implements APILayoutResolverService
 {
     use TransactionTrait;
 
-    /**
-     * @var \Netgen\Layouts\Core\Validator\LayoutResolverValidator
-     */
-    private $validator;
+    private LayoutResolverValidator $validator;
 
-    /**
-     * @var \Netgen\Layouts\Core\Mapper\LayoutResolverMapper
-     */
-    private $mapper;
+    private LayoutResolverMapper $mapper;
 
-    /**
-     * @var \Netgen\Layouts\Core\StructBuilder\LayoutResolverStructBuilder
-     */
-    private $structBuilder;
+    private LayoutResolverStructBuilder $structBuilder;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Handler\LayoutResolverHandlerInterface
-     */
-    private $layoutResolverHandler;
+    private LayoutResolverHandlerInterface $layoutResolverHandler;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface
-     */
-    private $layoutHandler;
+    private LayoutHandlerInterface $layoutHandler;
 
     public function __construct(
         TransactionHandlerInterface $transactionHandler,
@@ -412,7 +397,9 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('targetGroup', 'Rules can be created only in published groups.');
         }
 
-        $this->validator->validateRuleCreateStruct($ruleCreateStruct);
+        if ($ruleCreateStruct->comment === null) {
+            trigger_deprecation('netgen/layouts-core', '1.3', sprintf('Setting %s::$comment property to null is deprecated. Since 2.0, only valid value will be a string.', APIRuleCreateStruct::class));
+        }
 
         $createdRule = $this->transaction(
             function () use ($ruleCreateStruct, $targetGroup): PersistenceRule {
@@ -427,7 +414,7 @@ final class LayoutResolverService implements APILayoutResolverService
                                 $ruleCreateStruct->layoutId,
                             'priority' => $ruleCreateStruct->priority,
                             'enabled' => $ruleCreateStruct->enabled,
-                            'comment' => $ruleCreateStruct->comment,
+                            'comment' => $ruleCreateStruct->comment ?? '',
                             'status' => Value::STATUS_DRAFT,
                         ]
                     ),
@@ -475,8 +462,6 @@ final class LayoutResolverService implements APILayoutResolverService
         }
 
         $persistenceRule = $this->layoutResolverHandler->loadRule($rule->getId(), Value::STATUS_PUBLISHED);
-
-        $this->validator->validateRuleMetadataUpdateStruct($ruleUpdateStruct);
 
         $updatedRule = $this->transaction(
             function () use ($persistenceRule, $ruleUpdateStruct): PersistenceRule {
@@ -685,8 +670,6 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('parentGroup', 'Rule groups can be created only in published groups.');
         }
 
-        $this->validator->validateRuleGroupCreateStruct($ruleGroupCreateStruct);
-
         $createdRuleGroup = $this->transaction(
             function () use ($ruleGroupCreateStruct, $parentGroup): PersistenceRuleGroup {
                 return $this->layoutResolverHandler->createRuleGroup(
@@ -719,8 +702,6 @@ final class LayoutResolverService implements APILayoutResolverService
 
         $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), Value::STATUS_DRAFT);
 
-        $this->validator->validateRuleGroupUpdateStruct($ruleGroupUpdateStruct);
-
         $updatedRuleGroup = $this->transaction(
             function () use ($persistenceRuleGroup, $ruleGroupUpdateStruct): PersistenceRuleGroup {
                 return $this->layoutResolverHandler->updateRuleGroup(
@@ -744,8 +725,6 @@ final class LayoutResolverService implements APILayoutResolverService
         }
 
         $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), Value::STATUS_PUBLISHED);
-
-        $this->validator->validateRuleGroupMetadataUpdateStruct($ruleGroupUpdateStruct);
 
         $updatedRuleGroup = $this->transaction(
             function () use ($persistenceRuleGroup, $ruleGroupUpdateStruct): PersistenceRuleGroup {

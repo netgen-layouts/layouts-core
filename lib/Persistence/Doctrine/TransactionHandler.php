@@ -9,10 +9,7 @@ use Netgen\Layouts\Persistence\TransactionHandlerInterface;
 
 final class TransactionHandler implements TransactionHandlerInterface
 {
-    /**
-     * @var \Doctrine\DBAL\Connection
-     */
-    private $connection;
+    private Connection $connection;
 
     public function __construct(Connection $connection)
     {

@@ -779,6 +779,7 @@ final class LayoutHandlerTest extends TestCase
     public function testCreateLayout(): void
     {
         $layoutCreateStruct = new LayoutCreateStruct();
+        $layoutCreateStruct->uuid = null;
         $layoutCreateStruct->type = 'new_layout';
         $layoutCreateStruct->name = 'New layout';
         $layoutCreateStruct->description = 'New description';

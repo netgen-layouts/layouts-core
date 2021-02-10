@@ -19,6 +19,7 @@ use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionType3;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\TargetType1;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\TargetType2;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -72,7 +73,7 @@ final class LayoutResolverTest extends TestCase
 
         $rule1 = Rule::fromArray(
             [
-                'layout' => Layout::fromArray(['id' => 12]),
+                'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 2,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -82,7 +83,7 @@ final class LayoutResolverTest extends TestCase
 
         $rule2 = Rule::fromArray(
             [
-                'layout' => Layout::fromArray(['id' => 13]),
+                'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 4,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -92,7 +93,7 @@ final class LayoutResolverTest extends TestCase
 
         $rule3 = Rule::fromArray(
             [
-                'layout' => Layout::fromArray(['id' => 14]),
+                'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 5,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -102,7 +103,7 @@ final class LayoutResolverTest extends TestCase
 
         $rule4 = Rule::fromArray(
             [
-                'layout' => Layout::fromArray(['id' => 15]),
+                'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 4,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -143,7 +144,7 @@ final class LayoutResolverTest extends TestCase
 
         $rule1 = Rule::fromArray(
             [
-                'layout' => Layout::fromArray(['id' => 12]),
+                'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 2,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -181,7 +182,7 @@ final class LayoutResolverTest extends TestCase
 
         $rule1 = Rule::fromArray(
             [
-                'layout' => Layout::fromArray(['id' => 12]),
+                'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 2,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -191,7 +192,7 @@ final class LayoutResolverTest extends TestCase
 
         $rule2 = Rule::fromArray(
             [
-                'layout' => Layout::fromArray(['id' => 24]),
+                'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 4,
                 'enabled' => false,
                 'targets' => new ArrayCollection(),
@@ -262,7 +263,7 @@ final class LayoutResolverTest extends TestCase
 
         $rule1 = Rule::fromArray(
             [
-                'layout' => Layout::fromArray(['id' => 13]),
+                'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 5,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -272,7 +273,7 @@ final class LayoutResolverTest extends TestCase
 
         $rule2 = Rule::fromArray(
             [
-                'layout' => Layout::fromArray(['id' => 13]),
+                'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 7,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -319,7 +320,7 @@ final class LayoutResolverTest extends TestCase
      *
      * @dataProvider resolveRulesWithPartialRuleConditionsDataProvider
      */
-    public function testResolveRulesWithConditionsAndPartialConditionMatching(array $conditionTypes, ?int $layoutId): void
+    public function testResolveRulesWithConditionsAndPartialConditionMatching(array $conditionTypes, bool $resolved): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry([new TargetType1(42)]);
 
@@ -332,7 +333,7 @@ final class LayoutResolverTest extends TestCase
 
         $rule1 = Rule::fromArray(
             [
-                'layout' => Layout::fromArray(['id' => $layoutId]),
+                'layout' => $resolved ? Layout::fromArray(['id' => Uuid::uuid4()]) : null,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'priority' => 4,
@@ -342,7 +343,7 @@ final class LayoutResolverTest extends TestCase
 
         $rule2 = Rule::fromArray(
             [
-                'layout' => Layout::fromArray(['id' => $layoutId]),
+                'layout' => $resolved ? Layout::fromArray(['id' => Uuid::uuid4()]) : null,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'priority' => 2,
@@ -357,7 +358,7 @@ final class LayoutResolverTest extends TestCase
             ->willReturn(new RuleList([$rule1, $rule2]));
 
         self::assertSame(
-            $layoutId !== null ? [$rule2] : [],
+            $resolved ? [$rule2] : [],
             $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest(), ['condition2'])
         );
     }
@@ -371,7 +372,7 @@ final class LayoutResolverTest extends TestCase
      *
      * @dataProvider resolveRulesWithRuleConditionsDataProvider
      */
-    public function testResolveRulesWithConditions(array $conditionTypes, ?int $layoutId): void
+    public function testResolveRulesWithConditions(array $conditionTypes, bool $resolved): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry([new TargetType1(42)]);
 
@@ -384,7 +385,7 @@ final class LayoutResolverTest extends TestCase
 
         $rule = Rule::fromArray(
             [
-                'layout' => Layout::fromArray(['id' => $layoutId]),
+                'layout' => $resolved ? Layout::fromArray(['id' => Uuid::uuid4()]) : null,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection($conditions),
@@ -398,7 +399,7 @@ final class LayoutResolverTest extends TestCase
             ->willReturn(new RuleList([$rule]));
 
         self::assertSame(
-            $layoutId !== null ? [$rule] : [],
+            $resolved ? [$rule] : [],
             $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest())
         );
     }
@@ -420,7 +421,7 @@ final class LayoutResolverTest extends TestCase
 
         $rule1 = Rule::fromArray(
             [
-                'layout' => Layout::fromArray(['id' => 12]),
+                'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 2,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -430,7 +431,7 @@ final class LayoutResolverTest extends TestCase
 
         $rule2 = Rule::fromArray(
             [
-                'layout' => Layout::fromArray(['id' => 13]),
+                'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 4,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -440,7 +441,7 @@ final class LayoutResolverTest extends TestCase
 
         $rule3 = Rule::fromArray(
             [
-                'layout' => Layout::fromArray(['id' => 14]),
+                'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 5,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -450,7 +451,7 @@ final class LayoutResolverTest extends TestCase
 
         $rule4 = Rule::fromArray(
             [
-                'layout' => Layout::fromArray(['id' => 15]),
+                'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 4,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -484,7 +485,7 @@ final class LayoutResolverTest extends TestCase
 
         $rule1 = Rule::fromArray(
             [
-                'layout' => Layout::fromArray(['id' => 12]),
+                'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 2,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -565,7 +566,7 @@ final class LayoutResolverTest extends TestCase
 
         $rule1 = Rule::fromArray(
             [
-                'layout' => Layout::fromArray(['id' => 13]),
+                'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 5,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -575,7 +576,7 @@ final class LayoutResolverTest extends TestCase
 
         $rule2 = Rule::fromArray(
             [
-                'layout' => Layout::fromArray(['id' => 13]),
+                'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'priority' => 7,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
@@ -622,7 +623,7 @@ final class LayoutResolverTest extends TestCase
      *
      * @dataProvider resolveRulesWithPartialRuleConditionsDataProvider
      */
-    public function testResolveRuleWithConditionsAndPartialConditionMatching(array $conditionTypes, ?int $layoutId): void
+    public function testResolveRuleWithConditionsAndPartialConditionMatching(array $conditionTypes, bool $resolved): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry([new TargetType1(42)]);
 
@@ -635,7 +636,7 @@ final class LayoutResolverTest extends TestCase
 
         $rule = Rule::fromArray(
             [
-                'layout' => Layout::fromArray(['id' => $layoutId]),
+                'layout' => $resolved ? Layout::fromArray(['id' => Uuid::uuid4()]) : null,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection($conditions),
@@ -649,7 +650,7 @@ final class LayoutResolverTest extends TestCase
             ->willReturn(new RuleList([$rule]));
 
         self::assertSame(
-            $layoutId !== null ? $rule : null,
+            $resolved ? $rule : null,
             $this->layoutResolver->resolveRule(
                 $this->requestStack->getCurrentRequest(),
                 ['condition2']
@@ -666,7 +667,7 @@ final class LayoutResolverTest extends TestCase
      *
      * @dataProvider resolveRulesWithRuleConditionsDataProvider
      */
-    public function testResolveRuleWithConditions(array $conditionTypes, ?int $layoutId): void
+    public function testResolveRuleWithConditions(array $conditionTypes, bool $resolved): void
     {
         $this->targetTypeRegistry = new TargetTypeRegistry([new TargetType1(42)]);
 
@@ -679,7 +680,7 @@ final class LayoutResolverTest extends TestCase
 
         $rule = Rule::fromArray(
             [
-                'layout' => Layout::fromArray(['id' => $layoutId]),
+                'layout' => $resolved ? Layout::fromArray(['id' => Uuid::uuid4()]) : null,
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection($conditions),
@@ -692,7 +693,7 @@ final class LayoutResolverTest extends TestCase
             ->with(self::isInstanceOf(RuleGroup::class), self::identicalTo('target1'), self::identicalTo(42))
             ->willReturn(new RuleList([$rule]));
 
-        self::assertSame($layoutId !== null ? $rule : null, $this->layoutResolver->resolveRule($this->requestStack->getCurrentRequest()));
+        self::assertSame($resolved ? $rule : null, $this->layoutResolver->resolveRule($this->requestStack->getCurrentRequest()));
     }
 
     /**
@@ -711,7 +712,7 @@ final class LayoutResolverTest extends TestCase
 
         $rule = Rule::fromArray(
             [
-                'layout' => Layout::fromArray(['id' => 42]),
+                'layout' => Layout::fromArray(['id' => Uuid::uuid4()]),
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection($conditions),
@@ -724,26 +725,26 @@ final class LayoutResolverTest extends TestCase
     public function resolveRulesWithRuleConditionsDataProvider(): array
     {
         return [
-            [[], 42],
-            [[new ConditionType3(true)], 42],
-            [[new ConditionType3(false)], null],
-            [[new ConditionType1(true), new ConditionType2(false)], null],
-            [[new ConditionType1(false), new ConditionType2(true)], null],
-            [[new ConditionType1(false), new ConditionType2(false)], null],
-            [[new ConditionType1(true), new ConditionType2(true)], 42],
+            [[], true],
+            [[new ConditionType3(true)], true],
+            [[new ConditionType3(false)], false],
+            [[new ConditionType1(true), new ConditionType2(false)], false],
+            [[new ConditionType1(false), new ConditionType2(true)], false],
+            [[new ConditionType1(false), new ConditionType2(false)], false],
+            [[new ConditionType1(true), new ConditionType2(true)], true],
         ];
     }
 
     public function resolveRulesWithPartialRuleConditionsDataProvider(): array
     {
         return [
-            [[], 42],
-            [[new ConditionType3(true)], 42],
-            [[new ConditionType3(false)], 42],
-            [[new ConditionType1(true), new ConditionType2(false)], null],
-            [[new ConditionType1(false), new ConditionType2(true)], 42],
-            [[new ConditionType1(false), new ConditionType2(false)], null],
-            [[new ConditionType1(true), new ConditionType2(true)], 42],
+            [[], true],
+            [[new ConditionType3(true)], true],
+            [[new ConditionType3(false)], true],
+            [[new ConditionType1(true), new ConditionType2(false)], false],
+            [[new ConditionType1(false), new ConditionType2(true)], true],
+            [[new ConditionType1(false), new ConditionType2(false)], false],
+            [[new ConditionType1(true), new ConditionType2(true)], true],
         ];
     }
 

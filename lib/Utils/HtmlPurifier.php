@@ -13,10 +13,7 @@ use HTMLPurifier_HTML5Config;
  */
 final class HtmlPurifier
 {
-    /**
-     * @var \HTMLPurifier
-     */
-    private $purifier;
+    private BaseHTMLPurifier $purifier;
 
     public function __construct(?HTMLPurifier_Config $config = null)
     {

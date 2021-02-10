@@ -10,6 +10,7 @@ use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\View\Provider\BlockViewProvider;
 use Netgen\Layouts\View\View\BlockViewInterface;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class BlockViewProviderTest extends TestCase
 {
@@ -30,7 +31,7 @@ final class BlockViewProviderTest extends TestCase
     {
         $block = Block::fromArray(
             [
-                'id' => 42,
+                'id' => Uuid::uuid4(),
             ]
         );
 

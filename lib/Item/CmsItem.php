@@ -20,25 +20,13 @@ final class CmsItem implements CmsItemInterface
      */
     private $remoteId;
 
-    /**
-     * @var string
-     */
-    private $valueType;
+    private string $valueType;
 
-    /**
-     * @var string
-     */
-    private $name;
+    private string $name;
 
-    /**
-     * @var bool
-     */
-    private $isVisible;
+    private bool $isVisible;
 
-    /**
-     * @var mixed
-     */
-    private $object;
+    private ?object $object;
 
     public function getValue()
     {

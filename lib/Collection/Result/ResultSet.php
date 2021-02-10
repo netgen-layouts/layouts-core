@@ -47,30 +47,18 @@ final class ResultSet implements ArrayAccess, IteratorAggregate, Countable
      */
     public const INCLUDE_ALL_ITEMS = PHP_INT_MAX;
 
-    /**
-     * @var \Netgen\Layouts\API\Values\Collection\Collection
-     */
-    private $collection;
+    private Collection $collection;
 
     /**
      * @var \Netgen\Layouts\Collection\Result\Result[]
      */
-    private $results;
+    private array $results;
 
-    /**
-     * @var int
-     */
-    private $totalCount;
+    private int $totalCount;
 
-    /**
-     * @var int
-     */
-    private $offset;
+    private int $offset;
 
-    /**
-     * @var int
-     */
-    private $limit;
+    private ?int $limit;
 
     /**
      * Returns the collection from which was this result generated.

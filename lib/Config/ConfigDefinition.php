@@ -15,15 +15,9 @@ class ConfigDefinition implements ConfigDefinitionInterface
     use HydratorTrait;
     use ParameterDefinitionCollectionTrait;
 
-    /**
-     * @var string
-     */
-    private $configKey;
+    private string $configKey;
 
-    /**
-     * @var \Netgen\Layouts\Config\ConfigDefinitionHandlerInterface
-     */
-    private $handler;
+    private ConfigDefinitionHandlerInterface $handler;
 
     public function getConfigKey(): string
     {

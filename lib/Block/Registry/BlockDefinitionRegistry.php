@@ -24,7 +24,7 @@ final class BlockDefinitionRegistry implements IteratorAggregate, Countable, Arr
     /**
      * @var array<string, \Netgen\Layouts\Block\BlockDefinitionInterface>
      */
-    private $blockDefinitions;
+    private array $blockDefinitions;
 
     /**
      * @param array<string, \Netgen\Layouts\Block\BlockDefinitionInterface> $blockDefinitions

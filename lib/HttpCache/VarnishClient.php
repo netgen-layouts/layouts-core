@@ -12,15 +12,9 @@ use function interface_exists;
 
 final class VarnishClient implements ClientInterface
 {
-    /**
-     * @var \FOS\HttpCache\CacheInvalidator
-     */
-    private $fosInvalidator;
+    private CacheInvalidator $fosInvalidator;
 
-    /**
-     * @var \Netgen\Layouts\HttpCache\Varnish\HostHeaderProviderInterface
-     */
-    private $hostHeaderProvider;
+    private HostHeaderProviderInterface $hostHeaderProvider;
 
     public function __construct(
         CacheInvalidator $fosInvalidator,

@@ -11,7 +11,7 @@ final class VisibilityResolver implements VisibilityResolverInterface
     /**
      * @var iterable|\Netgen\Layouts\Collection\Item\VisibilityVoterInterface[]
      */
-    private $voters;
+    private iterable $voters;
 
     /**
      * @param iterable|\Netgen\Layouts\Collection\Item\VisibilityVoterInterface[] $voters

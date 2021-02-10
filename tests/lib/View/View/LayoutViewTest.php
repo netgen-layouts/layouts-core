@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Tests\View\View;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\View\View\LayoutView;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class LayoutViewTest extends TestCase
 {
@@ -22,7 +23,7 @@ final class LayoutViewTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->layout = Layout::fromArray(['id' => 42]);
+        $this->layout = Layout::fromArray(['id' => Uuid::uuid4()]);
 
         $this->view = new LayoutView($this->layout);
 

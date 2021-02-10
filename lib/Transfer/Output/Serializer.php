@@ -19,15 +19,9 @@ use Ramsey\Uuid\Uuid;
  */
 final class Serializer implements SerializerInterface
 {
-    /**
-     * @var \Netgen\Layouts\Transfer\Output\OutputVisitor
-     */
-    private $visitor;
+    private OutputVisitor $visitor;
 
-    /**
-     * @var \Psr\Container\ContainerInterface
-     */
-    private $entityHandlers;
+    private ContainerInterface $entityHandlers;
 
     public function __construct(
         OutputVisitor $visitor,

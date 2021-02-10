@@ -105,33 +105,6 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
         return [
             [
                 [
-                    'alwaysAvailable' => true,
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
-            ],
-            [
-                [
-                    'locale' => null,
-                    'alwaysAvailable' => true,
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
-            ],
-            [
-                [
                     'locale' => '',
                     'alwaysAvailable' => true,
                     'viewType' => 'large',
@@ -198,20 +171,6 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
                     ],
                 ],
                 true,
-            ],
-            [
-                [
-                    'locale' => 'en',
-                    'alwaysAvailable' => 42,
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
             ],
             [
                 [
@@ -324,20 +283,6 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
                     ],
                 ],
                 true,
-            ],
-            [
-                [
-                    'locale' => 'en',
-                    'alwaysAvailable' => true,
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
-                    'name' => 42,
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
             ],
             [
                 [

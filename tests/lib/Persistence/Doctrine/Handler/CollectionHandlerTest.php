@@ -1770,9 +1770,11 @@ final class CollectionHandlerTest extends TestCase
     public function testAddItemWithNoPosition(): void
     {
         $itemCreateStruct = new ItemCreateStruct();
+        $itemCreateStruct->position = null;
         $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'my_value_type';
         $itemCreateStruct->config = ['config' => ['value' => 42]];
+        $itemCreateStruct->viewType = null;
 
         $item = $this->withUuids(
             function () use ($itemCreateStruct): Item {
@@ -1813,8 +1815,11 @@ final class CollectionHandlerTest extends TestCase
         $this->expectExceptionMessage('When adding items to dynamic collections, position is mandatory.');
 
         $itemCreateStruct = new ItemCreateStruct();
+        $itemCreateStruct->position = null;
         $itemCreateStruct->value = '42';
         $itemCreateStruct->valueType = 'my_value_type';
+        $itemCreateStruct->config = [];
+        $itemCreateStruct->viewType = null;
 
         $this->collectionHandler->addItem(
             $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT),

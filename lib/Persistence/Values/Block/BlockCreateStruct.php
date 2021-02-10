@@ -12,71 +12,55 @@ final class BlockCreateStruct
 
     /**
      * Status of the new block.
-     *
-     * @var int
      */
-    public $status;
+    public int $status;
 
     /**
      * Position of the new block.
-     *
-     * @var int
      */
-    public $position;
+    public ?int $position;
 
     /**
      * Identifier of the block definition of the new block.
-     *
-     * @var string
      */
-    public $definitionIdentifier;
+    public string $definitionIdentifier;
 
     /**
      * View type of the new block.
-     *
-     * @var string
      */
-    public $viewType;
+    public string $viewType;
 
     /**
      * Item view type of the new block.
-     *
-     * @var string
      */
-    public $itemViewType;
+    public string $itemViewType;
 
     /**
      * Human readable name of the new block.
-     *
-     * @var string
      */
-    public $name;
+    public string $name;
 
     /**
      * Flag indicating if the block is always available.
-     *
-     * @var bool
      */
-    public $alwaysAvailable;
+    public bool $alwaysAvailable;
 
     /**
      * Flag indicating if the block is translatable.
-     *
-     * @var bool
      */
-    public $isTranslatable;
+    public bool $isTranslatable;
 
     /**
      * The block parameters.
      *
      * @var array<string, mixed>
      */
-    public $parameters;
+    public array $parameters;
 
     /**
      * The block configuration.
      *
      * @var array<string, array<string, mixed>>
      */
-    public $config;
+    public array $config;
 }

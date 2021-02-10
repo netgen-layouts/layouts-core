@@ -39,6 +39,7 @@ final class ChoiceMapperTest extends TestCase
             [
                 'name' => 'name',
                 'type' => new ChoiceParameterType(),
+                'isRequired' => false,
                 'options' => [
                     'multiple' => true,
                     'expanded' => true,
@@ -72,6 +73,7 @@ final class ChoiceMapperTest extends TestCase
             [
                 'name' => 'name',
                 'type' => new ChoiceParameterType(),
+                'isRequired' => false,
                 'options' => [
                     'multiple' => true,
                     'expanded' => true,

@@ -17,7 +17,7 @@ final class CommonParametersPlugin extends Plugin
     /**
      * @var string[]
      */
-    private $defaultGroups;
+    private array $defaultGroups;
 
     /**
      * @param string[] $defaultGroups

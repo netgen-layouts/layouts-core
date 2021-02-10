@@ -14,10 +14,7 @@ final class RemoteIdConverter
 {
     private const NULL_LINK = 'null://0';
 
-    /**
-     * @var \Netgen\Layouts\Item\CmsItemLoaderInterface
-     */
-    private $cmsItemLoader;
+    private CmsItemLoaderInterface $cmsItemLoader;
 
     public function __construct(CmsItemLoaderInterface $cmsItemLoader)
     {

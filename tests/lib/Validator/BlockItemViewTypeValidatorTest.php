@@ -10,10 +10,11 @@ use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
 use Netgen\Layouts\Validator\BlockItemViewTypeValidator;
 use Netgen\Layouts\Validator\Constraint\BlockItemViewType;
-use stdClass;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
+use Symfony\Component\Validator\Exception\MissingOptionsException;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use function sprintf;
 
 final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
 {
@@ -38,7 +39,7 @@ final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
             ]
         );
 
-        $this->constraint = new BlockItemViewType(['definition' => $this->blockDefinition]);
+        $this->constraint = new BlockItemViewType(['viewType' => '', 'definition' => $this->blockDefinition]);
 
         parent::setUp();
     }
@@ -69,24 +70,24 @@ final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
     /**
      * @covers \Netgen\Layouts\Validator\BlockItemViewTypeValidator::validate
      */
-    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidBlockDefinition(): void
+    public function testValidateThrowsMissingOptionsExceptionWithInvalidBlockDefinition(): void
     {
-        $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\Block\\BlockDefinitionInterface", "stdClass" given');
+        $this->expectException(MissingOptionsException::class);
+        $this->expectExceptionMessage(sprintf('The options "definition" must be set for constraint "%s".', BlockItemViewType::class));
 
-        $this->constraint->definition = new stdClass();
+        $this->constraint = new BlockItemViewType(['viewType' => '']);
         $this->assertValid(true, 'standard');
     }
 
     /**
      * @covers \Netgen\Layouts\Validator\BlockItemViewTypeValidator::validate
      */
-    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidViewType(): void
+    public function testValidateThrowsMissingOptionsExceptionWithInvalidViewType(): void
     {
-        $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessageMatches('/^Expected argument of type "string", "int(eger)?" given$/');
+        $this->expectException(MissingOptionsException::class);
+        $this->expectExceptionMessage(sprintf('The options "viewType" must be set for constraint "%s".', BlockItemViewType::class));
 
-        $this->constraint->viewType = 42;
+        $this->constraint = new BlockItemViewType(['definition' => $this->blockDefinition]);
         $this->assertValid(true, 'standard');
     }
 

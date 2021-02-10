@@ -19,34 +19,20 @@ use function is_bool;
 
 class ParameterBuilder implements ParameterBuilderInterface
 {
-    /**
-     * @var string|null
-     */
-    protected $name;
+    protected ?string $name;
 
-    /**
-     * @var \Netgen\Layouts\Parameters\ParameterBuilderInterface|null
-     */
-    protected $parentBuilder;
-    /**
-     * @var \Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface
-     */
-    private $builderFactory;
+    protected ?ParameterBuilderInterface $parentBuilder;
 
-    /**
-     * @var \Netgen\Layouts\Parameters\ParameterTypeInterface|null
-     */
-    private $type;
+    private ParameterBuilderFactoryInterface $builderFactory;
+
+    private ?ParameterTypeInterface $type;
 
     /**
      * @var array<string, mixed>
      */
-    private $options;
+    private array $options;
 
-    /**
-     * @var bool
-     */
-    private $isRequired = false;
+    private bool $isRequired = false;
 
     /**
      * @var mixed
@@ -61,27 +47,24 @@ class ParameterBuilder implements ParameterBuilderInterface
     /**
      * @var string[]
      */
-    private $groups = [];
+    private array $groups = [];
 
     /**
      * @var array<\Symfony\Component\Validator\Constraint|\Closure>
      */
-    private $constraints = [];
+    private array $constraints = [];
 
     /**
      * @var \Netgen\Layouts\Parameters\ParameterBuilderInterface[]
      */
-    private $unresolvedChildren = [];
+    private array $unresolvedChildren = [];
 
     /**
      * @var \Netgen\Layouts\Parameters\ParameterDefinition[]
      */
-    private $resolvedChildren = [];
+    private array $resolvedChildren = [];
 
-    /**
-     * @var bool
-     */
-    private $locked = false;
+    private bool $locked = false;
 
     /**
      * @param array<string, mixed> $options

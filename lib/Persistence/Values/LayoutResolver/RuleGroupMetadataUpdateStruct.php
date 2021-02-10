@@ -12,15 +12,11 @@ final class RuleGroupMetadataUpdateStruct
 
     /**
      * Flag indicating if the rule group will be enabled or not.
-     *
-     * @var bool|null
      */
-    public $enabled;
+    public ?bool $enabled = null;
 
     /**
      * Priority of the rule group.
-     *
-     * @var int|null
      */
-    public $priority;
+    public ?int $priority = null;
 }

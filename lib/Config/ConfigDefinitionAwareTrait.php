@@ -12,7 +12,7 @@ trait ConfigDefinitionAwareTrait
     /**
      * @var \Netgen\Layouts\Config\ConfigDefinitionInterface[]
      */
-    protected $configDefinitions = [];
+    protected array $configDefinitions = [];
 
     /**
      * Returns the config definition with provided config key.

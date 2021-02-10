@@ -54,6 +54,8 @@ final class LayoutStructBuilder
         $layoutCopyStruct = new LayoutCopyStruct();
 
         if (!$layout instanceof Layout) {
+            $layoutCopyStruct->name = 'Layout (copy)';
+
             return $layoutCopyStruct;
         }
 

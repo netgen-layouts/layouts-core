@@ -13,6 +13,7 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use function sprintf;
 
 /**
  * Validates the complete QueryUpdateStruct value.
@@ -33,7 +34,13 @@ final class QueryUpdateStructValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, QueryUpdateStruct::class);
         }
 
-        $query = $constraint->payload;
+        if (!isset($value->locale)) {
+            $this->context->buildViolation(sprintf('"locale" is required in %s', QueryUpdateStruct::class))
+                ->addViolation();
+
+            return;
+        }
+
         /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
         $validator = $this->context->getValidator()->inContext($this->context);
 
@@ -41,7 +48,6 @@ final class QueryUpdateStructValidator extends ConstraintValidator
             $value->locale,
             [
                 new Constraints\NotBlank(),
-                new Constraints\Type(['type' => 'string']),
                 new LocaleConstraint(),
             ]
         );
@@ -51,7 +57,7 @@ final class QueryUpdateStructValidator extends ConstraintValidator
             [
                 new ParameterStruct(
                     [
-                        'parameterDefinitions' => $query->getQueryType(),
+                        'parameterDefinitions' => $constraint->payload->getQueryType(),
                         'allowMissingFields' => true,
                     ]
                 ),

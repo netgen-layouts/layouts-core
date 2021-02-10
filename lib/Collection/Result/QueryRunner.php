@@ -10,10 +10,7 @@ use Netgen\Layouts\Item\CmsItemBuilderInterface;
 
 final class QueryRunner implements QueryRunnerInterface
 {
-    /**
-     * @var \Netgen\Layouts\Item\CmsItemBuilderInterface
-     */
-    private $cmsItemBuilder;
+    private CmsItemBuilderInterface $cmsItemBuilder;
 
     public function __construct(CmsItemBuilderInterface $cmsItemBuilder)
     {

@@ -5,17 +5,13 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Collection\Result;
 
 use Netgen\Layouts\API\Values\Collection\Item;
-use Netgen\Layouts\API\Values\Collection\Item as CollectionItem;
 use Netgen\Layouts\Item\CmsItemInterface;
 
 final class ManualItem implements CmsItemInterface
 {
-    /**
-     * @var \Netgen\Layouts\API\Values\Collection\Item
-     */
-    private $collectionItem;
+    private Item $collectionItem;
 
-    public function __construct(CollectionItem $collectionItem)
+    public function __construct(Item $collectionItem)
     {
         $this->collectionItem = $collectionItem;
     }

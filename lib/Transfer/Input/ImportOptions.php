@@ -19,16 +19,13 @@ final class ImportOptions
     /**
      * @var string[]
      */
-    private static $modes = [
+    private static array $modes = [
         self::MODE_COPY,
         self::MODE_OVERWRITE,
         self::MODE_SKIP,
     ];
 
-    /**
-     * @var string
-     */
-    private $mode = self::MODE_COPY;
+    private string $mode = self::MODE_COPY;
 
     public function setMode(string $mode): self
     {

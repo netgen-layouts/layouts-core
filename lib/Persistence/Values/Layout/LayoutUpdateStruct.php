@@ -12,22 +12,16 @@ final class LayoutUpdateStruct
 
     /**
      * New layout name.
-     *
-     * @var string|null
      */
-    public $name;
+    public ?string $name = null;
 
     /**
      * Modification date of the layout.
-     *
-     * @var int|null
      */
-    public $modified;
+    public ?int $modified = null;
 
     /**
      * New human readable description of the layout.
-     *
-     * @var string|null
      */
-    public $description;
+    public ?string $description = null;
 }

@@ -12,7 +12,7 @@ trait ParameterDefinitionCollectionTrait
     /**
      * @var \Netgen\Layouts\Parameters\ParameterDefinition[]
      */
-    protected $parameterDefinitions = [];
+    protected array $parameterDefinitions = [];
 
     /**
      * Returns all parameter definitions from the collection.

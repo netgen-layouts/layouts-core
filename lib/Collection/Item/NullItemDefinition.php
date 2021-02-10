@@ -10,10 +10,7 @@ final class NullItemDefinition implements ItemDefinitionInterface
 {
     use ConfigDefinitionAwareTrait;
 
-    /**
-     * @var string
-     */
-    private $valueType;
+    private string $valueType;
 
     public function __construct(string $valueType)
     {

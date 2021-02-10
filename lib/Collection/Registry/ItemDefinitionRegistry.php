@@ -24,7 +24,7 @@ final class ItemDefinitionRegistry implements IteratorAggregate, Countable, Arra
     /**
      * @var array<string, \Netgen\Layouts\Collection\Item\ItemDefinitionInterface>
      */
-    private $itemDefinitions;
+    private array $itemDefinitions;
 
     /**
      * @param array<string, \Netgen\Layouts\Collection\Item\ItemDefinitionInterface> $itemDefinitions

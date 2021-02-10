@@ -6,10 +6,7 @@ namespace Netgen\Layouts\Utils;
 
 trait HydratorTrait
 {
-    /**
-     * @var \Netgen\Layouts\Utils\Hydrator
-     */
-    private static $__hydrator;
+    private static Hydrator $__hydrator;
 
     /**
      * Creates a new instance of a class on which the method is called

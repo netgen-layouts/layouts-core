@@ -13,15 +13,9 @@ use function is_string;
 
 abstract class QueryHandler
 {
-    /**
-     * @var \Doctrine\DBAL\Connection
-     */
-    protected $connection;
+    protected Connection $connection;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelperInterface
-     */
-    protected $connectionHelper;
+    protected ConnectionHelperInterface $connectionHelper;
 
     public function __construct(Connection $connection, ConnectionHelperInterface $connectionHelper)
     {

@@ -17,10 +17,7 @@ final class NullBlockDefinition implements BlockDefinitionInterface
     use ConfigDefinitionAwareTrait;
     use ParameterDefinitionCollectionTrait;
 
-    /**
-     * @var string
-     */
-    private $identifier;
+    private string $identifier;
 
     public function __construct(string $identifier)
     {

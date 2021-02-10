@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Core\Service;
 
 use Netgen\Layouts\Exception\RuntimeException;
+use Netgen\Layouts\Persistence\TransactionHandlerInterface;
 use Throwable;
 
 trait TransactionTrait
 {
-    /**
-     * @var \Netgen\Layouts\Persistence\TransactionHandlerInterface
-     */
-    private $transactionHandler;
+    private TransactionHandlerInterface $transactionHandler;
 
     public function transaction(callable $callable)
     {

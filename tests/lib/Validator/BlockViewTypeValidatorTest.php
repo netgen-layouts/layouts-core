@@ -9,10 +9,11 @@ use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
 use Netgen\Layouts\Validator\BlockViewTypeValidator;
 use Netgen\Layouts\Validator\Constraint\BlockViewType;
-use stdClass;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
+use Symfony\Component\Validator\Exception\MissingOptionsException;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use function sprintf;
 
 final class BlockViewTypeValidatorTest extends ValidatorTestCase
 {
@@ -60,12 +61,12 @@ final class BlockViewTypeValidatorTest extends ValidatorTestCase
     /**
      * @covers \Netgen\Layouts\Validator\BlockViewTypeValidator::validate
      */
-    public function testValidateThrowsUnexpectedTypeExceptionWithInvalidBlockDefinition(): void
+    public function testValidateThrowsMissingOptionsExceptionWithInvalidBlockDefinition(): void
     {
-        $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\Block\\BlockDefinitionInterface", "stdClass" given');
+        $this->expectException(MissingOptionsException::class);
+        $this->expectExceptionMessage(sprintf('The options "definition" must be set for constraint "%s".', BlockViewType::class));
 
-        $this->constraint->definition = new stdClass();
+        $this->constraint->definition = new BlockViewType();
         $this->assertValid(true, 'large');
     }
 

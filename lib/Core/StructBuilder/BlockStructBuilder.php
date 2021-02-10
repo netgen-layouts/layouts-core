@@ -11,10 +11,7 @@ use Netgen\Layouts\Block\BlockDefinitionInterface;
 
 final class BlockStructBuilder
 {
-    /**
-     * @var \Netgen\Layouts\Core\StructBuilder\ConfigStructBuilder
-     */
-    private $configStructBuilder;
+    private ConfigStructBuilder $configStructBuilder;
 
     public function __construct(ConfigStructBuilder $configStructBuilder)
     {

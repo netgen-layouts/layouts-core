@@ -345,6 +345,8 @@ final class CollectionMapperTest extends TestCase
             ],
         ];
 
+        // isTranslatable, mainLocale and availableLocales are not mapped as they
+        // depend on collection, so they are mapped outside the method under test
         $expectedData = [
             [
                 'id' => 43,
@@ -357,10 +359,7 @@ final class CollectionMapperTest extends TestCase
                         'param' => 'value',
                     ],
                 ],
-                'isTranslatable' => null,
-                'mainLocale' => null,
                 'availableLocales' => ['en'],
-                'alwaysAvailable' => null,
                 'status' => Value::STATUS_PUBLISHED,
             ],
             [
@@ -377,10 +376,7 @@ final class CollectionMapperTest extends TestCase
                         'param2' => 'value2',
                     ],
                 ],
-                'isTranslatable' => null,
-                'mainLocale' => null,
                 'availableLocales' => ['en', 'hr'],
-                'alwaysAvailable' => null,
                 'status' => Value::STATUS_PUBLISHED,
             ],
         ];

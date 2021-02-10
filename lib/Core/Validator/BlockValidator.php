@@ -17,10 +17,7 @@ final class BlockValidator
 {
     use ValidatorTrait;
 
-    /**
-     * @var \Netgen\Layouts\Core\Validator\CollectionValidator
-     */
-    private $collectionValidator;
+    private CollectionValidator $collectionValidator;
 
     public function __construct(CollectionValidator $collectionValidator)
     {

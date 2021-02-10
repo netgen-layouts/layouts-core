@@ -15,20 +15,11 @@ final class Target implements Value
     use HydratorTrait;
     use ValueStatusTrait;
 
-    /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    private $id;
+    private UuidInterface $id;
 
-    /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    private $ruleId;
+    private UuidInterface $ruleId;
 
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\TargetTypeInterface
-     */
-    private $targetType;
+    private TargetTypeInterface $targetType;
 
     /**
      * @var mixed

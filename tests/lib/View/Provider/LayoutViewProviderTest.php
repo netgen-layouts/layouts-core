@@ -11,6 +11,7 @@ use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\View\Provider\LayoutViewProvider;
 use Netgen\Layouts\View\View\LayoutViewInterface;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class LayoutViewProviderTest extends TestCase
 {
@@ -29,7 +30,7 @@ final class LayoutViewProviderTest extends TestCase
      */
     public function testProvideView(): void
     {
-        $layout = Layout::fromArray(['id' => 42]);
+        $layout = Layout::fromArray(['id' => Uuid::uuid4()]);
 
         $view = $this->layoutViewProvider->provideView($layout);
 

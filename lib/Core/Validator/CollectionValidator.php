@@ -13,14 +13,13 @@ use Netgen\Layouts\API\Values\Collection\ItemUpdateStruct;
 use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\API\Values\Collection\QueryCreateStruct;
 use Netgen\Layouts\API\Values\Collection\QueryUpdateStruct;
-use Netgen\Layouts\API\Values\Collection\SlotCreateStruct;
-use Netgen\Layouts\API\Values\Collection\SlotUpdateStruct;
-use Netgen\Layouts\Collection\Item\ItemDefinitionInterface;
+use Netgen\Layouts\Exception\Validation\ValidationException;
 use Netgen\Layouts\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
 use Netgen\Layouts\Validator\Constraint\Structs\ParameterStruct;
 use Netgen\Layouts\Validator\Constraint\Structs\QueryUpdateStruct as QueryUpdateStructConstraint;
 use Netgen\Layouts\Validator\ValidatorTrait;
 use Symfony\Component\Validator\Constraints;
+use function sprintf;
 
 final class CollectionValidator
 {
@@ -34,29 +33,16 @@ final class CollectionValidator
     public function validateCollectionCreateStruct(CollectionCreateStruct $collectionCreateStruct): void
     {
         if ($collectionCreateStruct->queryCreateStruct !== null) {
-            $this->validate(
-                $collectionCreateStruct->queryCreateStruct,
-                [
-                    new Constraints\Type(['type' => QueryCreateStruct::class]),
-                ],
-                'queryCreateStruct'
-            );
-
             $this->validateQueryCreateStruct($collectionCreateStruct->queryCreateStruct);
         }
 
-        $offsetConstraints = [
-            new Constraints\NotBlank(),
-            new Constraints\Type(['type' => 'int']),
-        ];
-
-        $offsetConstraints[] = $collectionCreateStruct->queryCreateStruct !== null ?
-            new Constraints\GreaterThanOrEqual(['value' => 0]) :
-            new Constraints\EqualTo(['value' => 0]);
-
         $this->validate(
             $collectionCreateStruct->offset,
-            $offsetConstraints,
+            [
+                $collectionCreateStruct->queryCreateStruct !== null ?
+                    new Constraints\GreaterThanOrEqual(['value' => 0]) :
+                    new Constraints\EqualTo(['value' => 0]),
+            ],
             'offset'
         );
 
@@ -64,7 +50,6 @@ final class CollectionValidator
             $this->validate(
                 $collectionCreateStruct->limit,
                 [
-                    new Constraints\Type(['type' => 'int']),
                     new Constraints\GreaterThan(['value' => 0]),
                 ],
                 'limit'
@@ -80,18 +65,13 @@ final class CollectionValidator
     public function validateCollectionUpdateStruct(Collection $collection, CollectionUpdateStruct $collectionUpdateStruct): void
     {
         if ($collectionUpdateStruct->offset !== null) {
-            $offsetConstraints = [
-                new Constraints\NotBlank(),
-                new Constraints\Type(['type' => 'int']),
-            ];
-
-            $offsetConstraints[] = $collection->hasQuery() ?
-                new Constraints\GreaterThanOrEqual(['value' => 0]) :
-                new Constraints\EqualTo(['value' => 0]);
-
             $this->validate(
                 $collectionUpdateStruct->offset,
-                $offsetConstraints,
+                [
+                    $collection->hasQuery() ?
+                        new Constraints\GreaterThanOrEqual(['value' => 0]) :
+                        new Constraints\EqualTo(['value' => 0]),
+                ],
                 'offset'
             );
         }
@@ -100,8 +80,6 @@ final class CollectionValidator
             $this->validate(
                 $collectionUpdateStruct->limit,
                 [
-                    new Constraints\NotBlank(),
-                    new Constraints\Type(['type' => 'int']),
                     new Constraints\GreaterThanOrEqual(['value' => 0]),
                 ],
                 'limit'
@@ -116,14 +94,9 @@ final class CollectionValidator
      */
     public function validateItemCreateStruct(ItemCreateStruct $itemCreateStruct): void
     {
-        $this->validate(
-            $itemCreateStruct->definition,
-            [
-                new Constraints\NotNull(),
-                new Constraints\Type(['type' => ItemDefinitionInterface::class]),
-            ],
-            'definition'
-        );
+        if (!isset($itemCreateStruct->definition)) {
+            throw ValidationException::validationFailed('definition', sprintf('"definition" is required in %s', ItemCreateStruct::class));
+        }
 
         if ($itemCreateStruct->value !== null) {
             $this->validate(
@@ -132,16 +105,6 @@ final class CollectionValidator
                     new Constraints\Type(['type' => 'scalar']),
                 ],
                 'value'
-            );
-        }
-
-        if ($itemCreateStruct->viewType !== null) {
-            $this->validate(
-                $itemCreateStruct->viewType,
-                [
-                    new Constraints\Type(['type' => 'string']),
-                ],
-                'viewType'
             );
         }
 
@@ -162,16 +125,6 @@ final class CollectionValidator
      */
     public function validateItemUpdateStruct(Item $item, ItemUpdateStruct $itemUpdateStruct): void
     {
-        if ($itemUpdateStruct->viewType !== null) {
-            $this->validate(
-                $itemUpdateStruct->viewType,
-                [
-                    new Constraints\Type(['type' => 'string']),
-                ],
-                'viewType'
-            );
-        }
-
         $this->validate(
             $itemUpdateStruct,
             new ConfigAwareStructConstraint(
@@ -220,41 +173,5 @@ final class CollectionValidator
                 ),
             ]
         );
-    }
-
-    /**
-     * Validates the provided slot create struct.
-     *
-     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
-     */
-    public function validateSlotCreateStruct(SlotCreateStruct $slotCreateStruct): void
-    {
-        if ($slotCreateStruct->viewType !== null) {
-            $this->validate(
-                $slotCreateStruct->viewType,
-                [
-                    new Constraints\Type(['type' => 'string']),
-                ],
-                'viewType'
-            );
-        }
-    }
-
-    /**
-     * Validates the provided slot update struct.
-     *
-     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
-     */
-    public function validateSlotUpdateStruct(SlotUpdateStruct $slotUpdateStruct): void
-    {
-        if ($slotUpdateStruct->viewType !== null) {
-            $this->validate(
-                $slotUpdateStruct->viewType,
-                [
-                    new Constraints\Type(['type' => 'string']),
-                ],
-                'viewType'
-            );
-        }
     }
 }

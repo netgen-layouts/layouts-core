@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\Collection;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection as DoctrineCollection;
 use Netgen\Layouts\API\Values\LazyPropertyTrait;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
@@ -27,71 +27,41 @@ final class Collection implements Value
      */
     public const TYPE_DYNAMIC = 1;
 
-    /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    private $id;
+    private UuidInterface $id;
 
-    /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    private $blockId;
+    private UuidInterface $blockId;
 
-    /**
-     * @var int
-     */
-    private $offset;
+    private int $offset;
 
-    /**
-     * @var int|null
-     */
-    private $limit;
+    private ?int $limit;
 
     /**
      * @var \Doctrine\Common\Collections\Collection<int, \Netgen\Layouts\API\Values\Collection\Item>
      */
-    private $items;
+    private DoctrineCollection $items;
 
     /**
-     * @var \Netgen\Layouts\API\Values\Collection\Query|null
+     * @var \Netgen\Layouts\API\Values\Collection\Query|\Closure|null
      */
     private $query;
 
     /**
      * @var \Doctrine\Common\Collections\Collection<int, \Netgen\Layouts\API\Values\Collection\Slot>
      */
-    private $slots;
+    private DoctrineCollection $slots;
 
     /**
      * @var string[]
      */
-    private $availableLocales = [];
+    private array $availableLocales;
 
-    /**
-     * @var string
-     */
-    private $mainLocale;
+    private string $mainLocale;
 
-    /**
-     * @var bool
-     */
-    private $isTranslatable;
+    private bool $isTranslatable;
 
-    /**
-     * @var bool
-     */
-    private $alwaysAvailable;
+    private bool $alwaysAvailable;
 
-    /**
-     * @var string
-     */
-    private $locale;
-
-    public function __construct()
-    {
-        $this->items = $this->items ?? new ArrayCollection();
-        $this->slots = $this->slots ?? new ArrayCollection();
-    }
+    private string $locale;
 
     public function getId(): UuidInterface
     {

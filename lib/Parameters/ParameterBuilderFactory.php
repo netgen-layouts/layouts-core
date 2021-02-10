@@ -11,10 +11,7 @@ use function is_string;
 
 class ParameterBuilderFactory implements ParameterBuilderFactoryInterface
 {
-    /**
-     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry
-     */
-    private $parameterTypeRegistry;
+    private ParameterTypeRegistry $parameterTypeRegistry;
 
     public function __construct(ParameterTypeRegistry $parameterTypeRegistry)
     {

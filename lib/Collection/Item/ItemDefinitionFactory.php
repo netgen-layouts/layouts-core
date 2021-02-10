@@ -8,10 +8,7 @@ use Netgen\Layouts\Config\ConfigDefinitionFactory;
 
 final class ItemDefinitionFactory
 {
-    /**
-     * @var \Netgen\Layouts\Config\ConfigDefinitionFactory
-     */
-    private $configDefinitionFactory;
+    private ConfigDefinitionFactory $configDefinitionFactory;
 
     public function __construct(ConfigDefinitionFactory $configDefinitionFactory)
     {

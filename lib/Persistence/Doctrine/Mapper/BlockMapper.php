@@ -50,6 +50,8 @@ final class BlockMapper
                     'alwaysAvailable' => (bool) $dataItem['always_available'],
                     'status' => (int) $dataItem['status'],
                     'config' => $this->buildParameters((string) $dataItem['config']),
+                    'parameters' => [],
+                    'availableLocales' => [],
                 ];
             }
 

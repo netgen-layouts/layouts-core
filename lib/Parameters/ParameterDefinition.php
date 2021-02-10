@@ -17,25 +17,16 @@ class ParameterDefinition
 {
     use HydratorTrait;
 
-    /**
-     * @var string
-     */
-    protected $name;
+    protected string $name;
 
-    /**
-     * @var \Netgen\Layouts\Parameters\ParameterTypeInterface
-     */
-    protected $type;
+    protected ParameterTypeInterface $type;
 
     /**
      * @var array<string, mixed>
      */
-    protected $options = [];
+    protected array $options = [];
 
-    /**
-     * @var bool
-     */
-    protected $isRequired = false;
+    protected bool $isRequired;
 
     /**
      * @var mixed
@@ -43,19 +34,19 @@ class ParameterDefinition
     protected $defaultValue;
 
     /**
-     * @var string|null
+     * @var string|bool|null
      */
     protected $label;
 
     /**
      * @var string[]
      */
-    protected $groups = [];
+    protected array $groups = [];
 
     /**
      * @var array<\Symfony\Component\Validator\Constraint|\Closure>
      */
-    protected $constraints = [];
+    protected array $constraints = [];
 
     /**
      * Returns the parameter name.

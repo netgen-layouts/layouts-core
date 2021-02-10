@@ -12,31 +12,23 @@ final class CollectionUpdateStruct
 
     /**
      * Starting offset for the collection results.
-     *
-     * @var int|null
      */
-    public $offset;
+    public ?int $offset = null;
 
     /**
      * Starting limit for the collection results.
      *
      * Set to 0 to disable the limit.
-     *
-     * @var int|null
      */
-    public $limit;
+    public ?int $limit = null;
 
     /**
      * Flag indicating if the collection will be always available.
-     *
-     * @var bool|null
      */
-    public $alwaysAvailable;
+    public ?bool $alwaysAvailable = null;
 
     /**
      * Flag indicating if the collection will be translatable.
-     *
-     * @var bool|null
      */
-    public $isTranslatable;
+    public ?bool $isTranslatable = null;
 }

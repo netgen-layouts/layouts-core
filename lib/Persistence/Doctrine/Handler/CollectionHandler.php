@@ -38,20 +38,11 @@ use function sprintf;
 
 final class CollectionHandler implements CollectionHandlerInterface
 {
-    /**
-     * @var \Netgen\Layouts\Persistence\Doctrine\QueryHandler\CollectionQueryHandler
-     */
-    private $queryHandler;
+    private CollectionQueryHandler $queryHandler;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Doctrine\Mapper\CollectionMapper
-     */
-    private $collectionMapper;
+    private CollectionMapper $collectionMapper;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper
-     */
-    private $positionHelper;
+    private PositionHelper $positionHelper;
 
     public function __construct(
         CollectionQueryHandler $queryHandler,
@@ -225,6 +216,8 @@ final class CollectionHandler implements CollectionHandlerInterface
         $newCollection = Collection::fromArray(
             [
                 'uuid' => Uuid::uuid4()->toString(),
+                'blockId' => $block->id,
+                'blockUuid' => $block->uuid,
                 'status' => $collectionCreateStruct->status,
                 'offset' => $collectionCreateStruct->offset,
                 'limit' => $collectionCreateStruct->limit,

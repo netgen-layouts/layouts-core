@@ -15,5 +15,5 @@ final class BlockTranslationUpdateStruct
      *
      * @var array<string, mixed>|null
      */
-    public $parameters;
+    public ?array $parameters = null;
 }

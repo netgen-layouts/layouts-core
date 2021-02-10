@@ -15,10 +15,7 @@ use function iterator_to_array;
  */
 final class LinkDataMapper implements DataMapperInterface
 {
-    /**
-     * @var \Netgen\Layouts\Parameters\ParameterDefinition
-     */
-    private $parameterDefinition;
+    private ParameterDefinition $parameterDefinition;
 
     public function __construct(ParameterDefinition $parameterDefinition)
     {

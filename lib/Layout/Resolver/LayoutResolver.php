@@ -21,20 +21,11 @@ use function usort;
 
 final class LayoutResolver implements LayoutResolverInterface
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutResolverService
-     */
-    private $layoutResolverService;
+    private LayoutResolverService $layoutResolverService;
 
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry
-     */
-    private $targetTypeRegistry;
+    private TargetTypeRegistry $targetTypeRegistry;
 
-    /**
-     * @var \Symfony\Component\HttpFoundation\RequestStack
-     */
-    private $requestStack;
+    private RequestStack $requestStack;
 
     public function __construct(
         LayoutResolverService $layoutResolverService,

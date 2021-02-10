@@ -14,15 +14,13 @@ final class ItemUpdateStruct
      * New view type for the item.
      *
      * Set to an empty string to remove the stored view type.
-     *
-     * @var string|null
      */
-    public $viewType;
+    public ?string $viewType = null;
 
     /**
      * New item configuration.
      *
      * @var array<string, array<string, mixed>>|null
      */
-    public $config;
+    public ?array $config = null;
 }

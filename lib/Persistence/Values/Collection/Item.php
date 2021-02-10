@@ -13,38 +13,28 @@ final class Item extends Value
 
     /**
      * Item ID.
-     *
-     * @var int
      */
-    public $id;
+    public int $id;
 
     /**
      * Item UUID.
-     *
-     * @var string
      */
-    public $uuid;
+    public string $uuid;
 
     /**
      * ID of the collection to which this item belongs.
-     *
-     * @var int
      */
-    public $collectionId;
+    public int $collectionId;
 
     /**
      * UUID of the collection to which this item belongs.
-     *
-     * @var string
      */
-    public $collectionUuid;
+    public string $collectionUuid;
 
     /**
      * Position of item within the collection.
-     *
-     * @var int
      */
-    public $position;
+    public int $position;
 
     /**
      * Value from CMS this item wraps. This is usually the ID of the CMS entity.
@@ -55,24 +45,20 @@ final class Item extends Value
 
     /**
      * Type of value from CMS this item wraps.
-     *
-     * @var string
      */
-    public $valueType;
+    public string $valueType;
 
     /**
      * View type which will be used to render this item.
      *
      * If null, the view type needs to be set from outside to render the item.
-     *
-     * @var string|null
      */
-    public $viewType;
+    public ?string $viewType;
 
     /**
      * Item configuration.
      *
      * @var array<string, array<string, mixed>>
      */
-    public $config;
+    public array $config;
 }

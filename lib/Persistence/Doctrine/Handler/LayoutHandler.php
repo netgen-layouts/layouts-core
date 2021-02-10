@@ -31,20 +31,11 @@ use function trim;
 
 final class LayoutHandler implements LayoutHandlerInterface
 {
-    /**
-     * @var \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutQueryHandler
-     */
-    private $queryHandler;
+    private LayoutQueryHandler $queryHandler;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Handler\BlockHandlerInterface
-     */
-    private $blockHandler;
+    private BlockHandlerInterface $blockHandler;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutMapper
-     */
-    private $layoutMapper;
+    private LayoutMapper $layoutMapper;
 
     public function __construct(
         LayoutQueryHandler $queryHandler,
@@ -169,7 +160,7 @@ final class LayoutHandler implements LayoutHandlerInterface
                     Uuid::uuid4()->toString(),
                 'type' => $layoutCreateStruct->type,
                 'name' => trim($layoutCreateStruct->name),
-                'description' => trim($layoutCreateStruct->description ?? ''),
+                'description' => trim($layoutCreateStruct->description),
                 'created' => $currentTimeStamp,
                 'modified' => $currentTimeStamp,
                 'status' => $layoutCreateStruct->status,

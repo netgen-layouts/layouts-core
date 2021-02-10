@@ -31,25 +31,13 @@ use function array_map;
 
 final class LayoutResolverMapper
 {
-    /**
-     * @var \Netgen\Layouts\Persistence\Handler\LayoutResolverHandlerInterface
-     */
-    private $layoutResolverHandler;
+    private LayoutResolverHandlerInterface $layoutResolverHandler;
 
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry
-     */
-    private $targetTypeRegistry;
+    private TargetTypeRegistry $targetTypeRegistry;
 
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry
-     */
-    private $conditionTypeRegistry;
+    private ConditionTypeRegistry $conditionTypeRegistry;
 
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutService
-     */
-    private $layoutService;
+    private LayoutService $layoutService;
 
     public function __construct(
         LayoutResolverHandlerInterface $layoutResolverHandler,

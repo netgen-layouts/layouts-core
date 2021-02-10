@@ -10,34 +10,11 @@ use Netgen\Layouts\API\Values\Collection\Item;
 use Netgen\Layouts\API\Values\Collection\ItemList;
 use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\API\Values\Collection\Slot;
-use Netgen\Layouts\API\Values\Value;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 final class CollectionTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\Collection\Collection::__construct
-     */
-    public function testInstance(): void
-    {
-        self::assertInstanceOf(Value::class, new Collection());
-    }
-
-    /**
-     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getAvailableLocales
-     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getItems
-     * @covers \Netgen\Layouts\API\Values\Collection\Collection::getSlots
-     */
-    public function testDefaultProperties(): void
-    {
-        $collection = new Collection();
-
-        self::assertSame([], $collection->getAvailableLocales());
-        self::assertCount(0, $collection->getItems());
-        self::assertCount(0, $collection->getSlots());
-    }
-
     /**
      * @covers \Netgen\Layouts\API\Values\Collection\Collection::getAvailableLocales
      * @covers \Netgen\Layouts\API\Values\Collection\Collection::getBlockId

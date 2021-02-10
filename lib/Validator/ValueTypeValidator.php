@@ -16,10 +16,7 @@ use function is_string;
  */
 final class ValueTypeValidator extends ConstraintValidator
 {
-    /**
-     * @var \Netgen\Layouts\Item\Registry\ValueTypeRegistry
-     */
-    private $valueTypeRegistry;
+    private ValueTypeRegistry $valueTypeRegistry;
 
     public function __construct(ValueTypeRegistry $valueTypeRegistry)
     {

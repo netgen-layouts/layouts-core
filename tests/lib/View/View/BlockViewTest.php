@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Tests\View\View;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\View\View\BlockView;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class BlockViewTest extends TestCase
 {
@@ -22,7 +23,7 @@ final class BlockViewTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->block = Block::fromArray(['id' => 42]);
+        $this->block = Block::fromArray(['id' => Uuid::uuid4()]);
 
         $this->view = new BlockView($this->block);
 

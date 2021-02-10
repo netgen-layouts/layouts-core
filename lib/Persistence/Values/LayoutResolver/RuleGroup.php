@@ -20,64 +20,46 @@ final class RuleGroup extends Value
 
     /**
      * Rule group ID.
-     *
-     * @var int
      */
-    public $id;
+    public int $id;
 
     /**
      * Rule group UUID.
-     *
-     * @var string
      */
-    public $uuid;
+    public string $uuid;
 
     /**
      * The depth of the rule group in the tree.
-     *
-     * @var int
      */
-    public $depth;
+    public int $depth;
 
     /**
      * Materialized path of the rule group.
-     *
-     * @var string
      */
-    public $path;
+    public string $path;
 
     /**
      * ID of the parent rule group or null if rule group has no parent.
-     *
-     * @var int|null
      */
-    public $parentId;
+    public ?int $parentId;
 
     /**
      * UUID of the parent rule group or null if rule group has no parent.
-     *
-     * @var string|null
      */
-    public $parentUuid;
+    public ?string $parentUuid;
 
     /**
      * A flag indicating if the rule group is enabled or not.
-     *
-     * @var bool
      */
-    public $enabled;
+    public bool $enabled;
 
     /**
      * Rule group priority.
-     *
-     * @var int
      */
-    public $priority;
+    public int $priority;
 
     /**
      * Human readable comment of the rule group.
-     *
-     * @var string
      */
-    public $comment;
+    public string $comment;
 }

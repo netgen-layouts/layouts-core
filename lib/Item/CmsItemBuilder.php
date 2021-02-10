@@ -12,7 +12,7 @@ final class CmsItemBuilder implements CmsItemBuilderInterface
     /**
      * @var array<\Netgen\Layouts\Item\ValueConverterInterface<object>>
      */
-    private $valueConverters = [];
+    private array $valueConverters = [];
 
     /**
      * @param iterable<\Netgen\Layouts\Item\ValueConverterInterface<object>> $valueConverters

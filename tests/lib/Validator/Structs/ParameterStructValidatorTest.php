@@ -18,7 +18,9 @@ use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
+use Symfony\Component\Validator\Exception\MissingOptionsException;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use function sprintf;
 
 final class ParameterStructValidatorTest extends ValidatorTestCase
 {
@@ -28,6 +30,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
             [
                 'name' => 'checkbox',
                 'type' => new ParameterType\Compound\BooleanType(),
+                'isRequired' => false,
                 'parameterDefinitions' => [
                     'param' => ParameterDefinition::fromArray(
                         [
@@ -97,6 +100,7 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
             [
                 'name' => 'checkbox',
                 'type' => new ParameterType\Compound\BooleanType(),
+                'isRequired' => false,
                 'parameterDefinitions' => [
                     'param' => ParameterDefinition::fromArray(
                         [
@@ -155,6 +159,18 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
 
         $this->constraint = new NotBlank();
         $this->assertValid(true, new BlockCreateStruct(new BlockDefinition()));
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Validator\Structs\ParameterStructValidator::validate
+     */
+    public function testValidateThrowsMissingOptionsExceptionWithInvalidParameterDefinitions(): void
+    {
+        $this->expectException(MissingOptionsException::class);
+        $this->expectExceptionMessage(sprintf('The options "parameterDefinitions" must be set for constraint "%s".', ParameterStruct::class));
+
+        $this->constraint->definition = new ParameterStruct();
+        $this->assertValid(true, 'large');
     }
 
     /**

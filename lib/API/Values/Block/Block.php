@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\Block;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection as DoctrineCollection;
 use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Collection\CollectionList;
 use Netgen\Layouts\API\Values\Config\ConfigAwareValue;
@@ -12,6 +12,7 @@ use Netgen\Layouts\API\Values\Config\ConfigAwareValueTrait;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
 use Netgen\Layouts\Block\BlockDefinitionInterface;
+use Netgen\Layouts\Block\DynamicParameters;
 use Netgen\Layouts\Exception\API\BlockException;
 use Netgen\Layouts\Parameters\ParameterCollectionInterface;
 use Netgen\Layouts\Parameters\ParameterCollectionTrait;
@@ -25,95 +26,48 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
     use ParameterCollectionTrait;
     use ValueStatusTrait;
 
-    /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    private $id;
+    private UuidInterface $id;
 
-    /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    private $layoutId;
+    private UuidInterface $layoutId;
 
-    /**
-     * @var \Netgen\Layouts\Block\BlockDefinitionInterface
-     */
-    private $definition;
+    private BlockDefinitionInterface $definition;
 
-    /**
-     * @var string
-     */
-    private $viewType;
+    private string $viewType;
 
-    /**
-     * @var string
-     */
-    private $itemViewType;
+    private string $itemViewType;
 
-    /**
-     * @var string
-     */
-    private $name;
+    private string $name;
 
-    /**
-     * @var int
-     */
-    private $position;
+    private int $position;
 
-    /**
-     * @var \Ramsey\Uuid\UuidInterface|null
-     */
-    private $parentBlockId;
+    private ?UuidInterface $parentBlockId;
 
-    /**
-     * @var string|null
-     */
-    private $parentPlaceholder;
+    private ?string $parentPlaceholder;
 
     /**
      * @var \Netgen\Layouts\API\Values\Block\Placeholder[]
      */
-    private $placeholders = [];
+    private array $placeholders;
 
     /**
      * @var \Doctrine\Common\Collections\Collection<string, \Netgen\Layouts\API\Values\Collection\Collection>
      */
-    private $collections;
+    private DoctrineCollection $collections;
 
-    /**
-     * @var \Netgen\Layouts\Block\DynamicParameters
-     */
-    private $dynamicParameters;
+    private DynamicParameters $dynamicParameters;
 
     /**
      * @var string[]
      */
-    private $availableLocales = [];
+    private array $availableLocales;
 
-    /**
-     * @var string
-     */
-    private $mainLocale;
+    private string $mainLocale;
 
-    /**
-     * @var bool
-     */
-    private $isTranslatable;
+    private bool $isTranslatable;
 
-    /**
-     * @var bool
-     */
-    private $alwaysAvailable;
+    private bool $alwaysAvailable;
 
-    /**
-     * @var string
-     */
-    private $locale;
-
-    public function __construct()
-    {
-        $this->collections = $this->collections ?? new ArrayCollection();
-    }
+    private string $locale;
 
     public function getId(): UuidInterface
     {

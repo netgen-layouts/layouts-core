@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Tests\View\View;
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\View\View\RuleTargetView;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class RuleTargetViewTest extends TestCase
 {
@@ -22,7 +23,7 @@ final class RuleTargetViewTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->target = Target::fromArray(['id' => 42]);
+        $this->target = Target::fromArray(['id' => Uuid::uuid4()]);
 
         $this->view = new RuleTargetView($this->target);
 

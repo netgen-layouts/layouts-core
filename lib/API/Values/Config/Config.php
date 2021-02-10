@@ -14,15 +14,9 @@ final class Config implements ParameterCollectionInterface
     use HydratorTrait;
     use ParameterCollectionTrait;
 
-    /**
-     * @var string
-     */
-    private $configKey;
+    private string $configKey;
 
-    /**
-     * @var \Netgen\Layouts\Config\ConfigDefinitionInterface
-     */
-    private $definition;
+    private ConfigDefinitionInterface $definition;
 
     /**
      * Returns the config key.

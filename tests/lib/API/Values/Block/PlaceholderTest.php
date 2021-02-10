@@ -14,18 +14,6 @@ use function iterator_to_array;
 final class PlaceholderTest extends TestCase
 {
     /**
-     * @covers \Netgen\Layouts\API\Values\Block\Placeholder::__construct
-     * @covers \Netgen\Layouts\API\Values\Block\Placeholder::getIdentifier
-     */
-    public function testDefaultProperties(): void
-    {
-        $placeholder = new Placeholder();
-
-        self::assertCount(0, $placeholder->getBlocks());
-    }
-
-    /**
-     * @covers \Netgen\Layouts\API\Values\Block\Placeholder::__construct
      * @covers \Netgen\Layouts\API\Values\Block\Placeholder::count
      * @covers \Netgen\Layouts\API\Values\Block\Placeholder::getBlocks
      * @covers \Netgen\Layouts\API\Values\Block\Placeholder::getIdentifier

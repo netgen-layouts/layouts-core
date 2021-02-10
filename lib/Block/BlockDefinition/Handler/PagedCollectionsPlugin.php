@@ -20,12 +20,12 @@ final class PagedCollectionsPlugin extends Plugin
      *
      * @var string[]
      */
-    private $pagerTypes;
+    private array $pagerTypes;
 
     /**
      * @var string[]
      */
-    private $defaultGroups;
+    private array $defaultGroups;
 
     /**
      * @param string[] $pagerTypes

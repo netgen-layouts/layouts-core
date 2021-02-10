@@ -7,11 +7,12 @@ namespace Netgen\Layouts\Tests\Core\Service\TransactionRollback;
 use Exception;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Block\Block;
-use Netgen\Layouts\API\Values\Block\BlockCreateStruct;
 use Netgen\Layouts\API\Values\Block\BlockUpdateStruct;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Block\BlockDefinition;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType;
+use Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType;
 use Netgen\Layouts\Block\ContainerDefinition;
 use Netgen\Layouts\Persistence\Values\Block\Block as PersistenceBlock;
 use Netgen\Layouts\Persistence\Values\Layout\Layout as PersistenceLayout;
@@ -39,7 +40,7 @@ final class BlockServiceTest extends TestCase
 
         $this->blockHandler
             ->method('loadBlock')
-            ->willReturn(new PersistenceBlock());
+            ->willReturn(PersistenceBlock::fromArray(['status' => Value::STATUS_PUBLISHED]));
 
         $this->blockHandler
             ->method('createBlock')
@@ -49,8 +50,26 @@ final class BlockServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
+        $createStruct = $this->blockService->newBlockCreateStruct(
+            BlockDefinition::fromArray(
+                [
+                    'identifier' => 'definition',
+                    'isTranslatable' => false,
+                    'viewTypes' => [
+                        'default' => ViewType::fromArray(
+                            [
+                                'itemViewTypes' => [
+                                    'standard' => new ItemViewType(),
+                                ],
+                            ]
+                        ),
+                    ],
+                ]
+            )
+        );
+
         $this->blockService->createBlock(
-            new BlockCreateStruct(BlockDefinition::fromArray(['identifier' => 'definition'])),
+            $createStruct,
             Block::fromArray(
                 [
                     'id' => Uuid::uuid4(),
@@ -82,11 +101,11 @@ final class BlockServiceTest extends TestCase
 
         $this->layoutHandler
             ->method('loadZone')
-            ->willReturn(PersistenceZone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'left']));
+            ->willReturn(PersistenceZone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'left', 'rootBlockId' => 42]));
 
         $this->blockHandler
             ->method('loadBlock')
-            ->willReturn(new PersistenceBlock());
+            ->willReturn(PersistenceBlock::fromArray(['status' => Value::STATUS_PUBLISHED]));
 
         $this->blockHandler
             ->method('createBlock')
@@ -96,8 +115,26 @@ final class BlockServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
+        $createStruct = $this->blockService->newBlockCreateStruct(
+            BlockDefinition::fromArray(
+                [
+                    'identifier' => 'definition',
+                    'isTranslatable' => false,
+                    'viewTypes' => [
+                        'default' => ViewType::fromArray(
+                            [
+                                'itemViewTypes' => [
+                                    'standard' => new ItemViewType(),
+                                ],
+                            ]
+                        ),
+                    ],
+                ]
+            )
+        );
+
         $this->blockService->createBlockInZone(
-            new BlockCreateStruct(BlockDefinition::fromArray(['identifier' => 'definition'])),
+            $createStruct,
             Zone::fromArray(['layoutId' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT, 'identifier' => 'left'])
         );
     }
@@ -157,11 +194,11 @@ final class BlockServiceTest extends TestCase
 
         $this->blockHandler
             ->method('loadBlock')
-            ->willReturn(new PersistenceBlock());
+            ->willReturn(PersistenceBlock::fromArray(['layoutId' => 42]));
 
         $this->blockHandler
             ->method('loadBlock')
-            ->willReturn(new PersistenceBlock());
+            ->willReturn(PersistenceBlock::fromArray(['layoutId' => 42]));
 
         $this->blockHandler
             ->method('copyBlock')
@@ -198,7 +235,7 @@ final class BlockServiceTest extends TestCase
 
         $this->blockHandler
             ->method('loadBlock')
-            ->willReturn(new PersistenceBlock());
+            ->willReturn(PersistenceBlock::fromArray(['layoutId' => 42]));
 
         $this->layoutHandler
             ->method('loadLayout')
@@ -206,11 +243,11 @@ final class BlockServiceTest extends TestCase
 
         $this->layoutHandler
             ->method('loadZone')
-            ->willReturn(PersistenceZone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'left']));
+            ->willReturn(PersistenceZone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'left', 'layoutId' => 42, 'rootBlockId' => 24]));
 
         $this->blockHandler
             ->method('loadBlock')
-            ->willReturn(new PersistenceBlock());
+            ->willReturn(PersistenceBlock::fromArray(['layoutId' => 42]));
 
         $this->blockHandler
             ->method('copyBlock')
@@ -238,8 +275,8 @@ final class BlockServiceTest extends TestCase
         $this->blockHandler
             ->method('loadBlock')
             ->willReturnOnConsecutiveCalls(
-                PersistenceBlock::fromArray(['parentId' => 1, 'placeholder' => 'main']),
-                PersistenceBlock::fromArray(['id' => 1])
+                PersistenceBlock::fromArray(['parentId' => 1, 'placeholder' => 'main', 'layoutId' => 42]),
+                PersistenceBlock::fromArray(['id' => 1, 'layoutId' => 42])
             );
 
         $this->blockHandler
@@ -280,8 +317,8 @@ final class BlockServiceTest extends TestCase
         $this->blockHandler
             ->method('loadBlock')
             ->willReturnOnConsecutiveCalls(
-                PersistenceBlock::fromArray(['parentId' => 1, 'placeholder' => 'root']),
-                PersistenceBlock::fromArray(['id' => 1])
+                PersistenceBlock::fromArray(['parentId' => 1, 'placeholder' => 'root', 'layoutId' => 42]),
+                PersistenceBlock::fromArray(['id' => 1, 'layoutId' => 42])
             );
 
         $this->layoutHandler
@@ -290,7 +327,7 @@ final class BlockServiceTest extends TestCase
 
         $this->layoutHandler
             ->method('loadZone')
-            ->willReturn(PersistenceZone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'left']));
+            ->willReturn(PersistenceZone::fromArray(['status' => Value::STATUS_DRAFT, 'identifier' => 'left', 'layoutId' => 42, 'rootBlockId' => 24]));
 
         $this->blockHandler
             ->method('moveBlockToPosition')
@@ -317,7 +354,7 @@ final class BlockServiceTest extends TestCase
 
         $this->blockHandler
             ->method('loadBlock')
-            ->willReturn(new PersistenceBlock());
+            ->willReturn(PersistenceBlock::fromArray(['layoutId' => 42]));
 
         $this->layoutHandler
             ->method('loadLayout')
@@ -344,11 +381,10 @@ final class BlockServiceTest extends TestCase
 
         $this->blockHandler
             ->method('loadBlock')
-            ->willReturn(PersistenceBlock::fromArray(['isTranslatable' => false, 'parentId' => 42]));
-
-        $this->blockHandler
-            ->method('loadBlock')
-            ->willReturn(PersistenceBlock::fromArray(['isTranslatable' => true, 'depth' => 1]));
+            ->willReturnOnConsecutiveCalls(
+                PersistenceBlock::fromArray(['isTranslatable' => false, 'parentId' => 42, 'layoutId' => 24]),
+                PersistenceBlock::fromArray(['isTranslatable' => true, 'depth' => 1])
+            );
 
         $this->layoutHandler
             ->method('loadLayout')

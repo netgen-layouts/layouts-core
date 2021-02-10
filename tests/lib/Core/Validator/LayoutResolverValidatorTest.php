@@ -7,11 +7,6 @@ namespace Netgen\Layouts\Tests\Core\Validator;
 use Netgen\Layouts\API\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\ConditionUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
-use Netgen\Layouts\API\Values\LayoutResolver\RuleCreateStruct;
-use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupCreateStruct;
-use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupMetadataUpdateStruct;
-use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupUpdateStruct;
-use Netgen\Layouts\API\Values\LayoutResolver\RuleMetadataUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct;
@@ -71,28 +66,6 @@ final class LayoutResolverValidatorTest extends TestCase
     /**
      * @param array<string, mixed> $params
      *
-     * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::__construct
-     * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::validateRuleCreateStruct
-     * @dataProvider validateRuleCreateStructDataProvider
-     */
-    public function testValidateRuleCreateStruct(array $params, bool $isValid): void
-    {
-        if (!$isValid) {
-            $this->expectException(ValidationException::class);
-        }
-
-        $struct = new RuleCreateStruct();
-        (new Hydrator())->hydrate($params, $struct);
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
-
-        $this->layoutResolverValidator->validateRuleCreateStruct($struct);
-    }
-
-    /**
-     * @param array<string, mixed> $params
-     *
      * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::validateRuleUpdateStruct
      * @dataProvider validateRuleUpdateStructDataProvider
      */
@@ -109,91 +82,6 @@ final class LayoutResolverValidatorTest extends TestCase
         $this->addToAssertionCount(1);
 
         $this->layoutResolverValidator->validateRuleUpdateStruct($struct);
-    }
-
-    /**
-     * @param array<string, mixed> $params
-     *
-     * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::validateRuleMetadataUpdateStruct
-     * @dataProvider validateRuleMetadataUpdateStructDataProvider
-     */
-    public function testValidateRuleMetadataUpdateStruct(array $params, bool $isValid): void
-    {
-        if (!$isValid) {
-            $this->expectException(ValidationException::class);
-        }
-
-        $struct = new RuleMetadataUpdateStruct();
-        (new Hydrator())->hydrate($params, $struct);
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
-
-        $this->layoutResolverValidator->validateRuleMetadataUpdateStruct($struct);
-    }
-
-    /**
-     * @param array<string, mixed> $params
-     *
-     * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::__construct
-     * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::validateRuleGroupCreateStruct
-     * @dataProvider validateRuleGroupCreateStructDataProvider
-     */
-    public function testValidateRuleGroupCreateStruct(array $params, bool $isValid): void
-    {
-        if (!$isValid) {
-            $this->expectException(ValidationException::class);
-        }
-
-        $struct = new RuleGroupCreateStruct();
-        (new Hydrator())->hydrate($params, $struct);
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
-
-        $this->layoutResolverValidator->validateRuleGroupCreateStruct($struct);
-    }
-
-    /**
-     * @param array<string, mixed> $params
-     *
-     * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::validateRuleGroupUpdateStruct
-     * @dataProvider validateRuleGroupUpdateStructDataProvider
-     */
-    public function testValidateRuleGroupUpdateStruct(array $params, bool $isValid): void
-    {
-        if (!$isValid) {
-            $this->expectException(ValidationException::class);
-        }
-
-        $struct = new RuleGroupUpdateStruct();
-        (new Hydrator())->hydrate($params, $struct);
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
-
-        $this->layoutResolverValidator->validateRuleGroupUpdateStruct($struct);
-    }
-
-    /**
-     * @param array<string, mixed> $params
-     *
-     * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::validateRuleGroupMetadataUpdateStruct
-     * @dataProvider validateRuleGroupMetadataUpdateStructDataProvider
-     */
-    public function testValidateRuleGroupMetadataUpdateStruct(array $params, bool $isValid): void
-    {
-        if (!$isValid) {
-            $this->expectException(ValidationException::class);
-        }
-
-        $struct = new RuleGroupMetadataUpdateStruct();
-        (new Hydrator())->hydrate($params, $struct);
-
-        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
-        $this->addToAssertionCount(1);
-
-        $this->layoutResolverValidator->validateRuleGroupMetadataUpdateStruct($struct);
     }
 
     /**
@@ -286,91 +174,16 @@ final class LayoutResolverValidatorTest extends TestCase
         );
     }
 
-    public function validateRuleCreateStructDataProvider(): array
-    {
-        return [
-            [['uuid' => null, 'layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
-            [['uuid' => Uuid::uuid4(), 'layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
-            [['uuid' => 42, 'layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], false],
-            [['uuid' => null, 'layoutId' => null, 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
-            [['uuid' => null, 'layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
-            [['uuid' => null, 'layoutId' => '', 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], false],
-            [['uuid' => null, 'layoutId' => [], 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], false],
-            [['uuid' => null, 'layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => null, 'enabled' => true, 'comment' => 'Comment'], true],
-            [['uuid' => null, 'layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => '2', 'enabled' => true, 'comment' => 'Comment'], false],
-            [['uuid' => null, 'layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => false, 'comment' => 'Comment'], true],
-            [['uuid' => null, 'layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => null, 'comment' => 'Comment'], true],
-            [['uuid' => null, 'layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => 0, 'comment' => 'Comment'], false],
-            [['uuid' => null, 'layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => 1, 'comment' => 'Comment'], false],
-            [['uuid' => null, 'layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => true, 'comment' => null], true],
-            [['uuid' => null, 'layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => true, 'comment' => ''], true],
-            [['uuid' => null, 'layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'priority' => 2, 'enabled' => true, 'comment' => 42], false],
-        ];
-    }
-
     public function validateRuleUpdateStructDataProvider(): array
     {
         return [
             [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'comment' => 'Comment'], true],
             [['layoutId' => null, 'comment' => 'Comment'], true],
+            [['layoutId' => false, 'comment' => 'Comment'], true],
+            [['layoutId' => true, 'comment' => 'Comment'], false],
             [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'comment' => 'Comment'], true],
-            [['layoutId' => '', 'comment' => 'Comment'], false],
             [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'comment' => null], true],
             [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'comment' => ''], true],
-            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'comment' => 42], false],
-        ];
-    }
-
-    public function validateRuleMetadataUpdateStructDataProvider(): array
-    {
-        return [
-            [['priority' => -12], true],
-            [['priority' => 0], true],
-            [['priority' => 12], true],
-            [['priority' => null], true],
-            [['priority' => '12'], false],
-            [['priority' => ''], false],
-        ];
-    }
-
-    public function validateRuleGroupCreateStructDataProvider(): array
-    {
-        return [
-            [['uuid' => null, 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
-            [['uuid' => Uuid::uuid4(), 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
-            [['uuid' => 42, 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], false],
-            [['uuid' => null, 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
-            [['uuid' => null, 'priority' => null, 'enabled' => true, 'comment' => 'Comment'], true],
-            [['uuid' => null, 'priority' => '2', 'enabled' => true, 'comment' => 'Comment'], false],
-            [['uuid' => null, 'priority' => 2, 'enabled' => false, 'comment' => 'Comment'], true],
-            [['uuid' => null, 'priority' => 2, 'enabled' => null, 'comment' => 'Comment'], true],
-            [['uuid' => null, 'priority' => 2, 'enabled' => 0, 'comment' => 'Comment'], false],
-            [['uuid' => null, 'priority' => 2, 'enabled' => 1, 'comment' => 'Comment'], false],
-            [['uuid' => null, 'priority' => 2, 'enabled' => true, 'comment' => null], true],
-            [['uuid' => null, 'priority' => 2, 'enabled' => true, 'comment' => ''], true],
-            [['uuid' => null, 'priority' => 2, 'enabled' => true, 'comment' => 42], false],
-        ];
-    }
-
-    public function validateRuleGroupUpdateStructDataProvider(): array
-    {
-        return [
-            [['comment' => 'Comment'], true],
-            [['comment' => null], true],
-            [['comment' => ''], true],
-            [['comment' => 42], false],
-        ];
-    }
-
-    public function validateRuleGroupMetadataUpdateStructDataProvider(): array
-    {
-        return [
-            [['priority' => -12], true],
-            [['priority' => 0], true],
-            [['priority' => 12], true],
-            [['priority' => null], true],
-            [['priority' => '12'], false],
-            [['priority' => ''], false],
         ];
     }
 
@@ -380,9 +193,6 @@ final class LayoutResolverValidatorTest extends TestCase
             [['type' => 'target1', 'value' => 42], true],
             [['type' => 'target1', 'value' => '42'], true],
             [['type' => 'target1', 'value' => [42]], true],
-            [['type' => '', 'value' => 42], false],
-            [['type' => null, 'value' => 42], false],
-            [['type' => 42, 'value' => 42], false],
             [['type' => 'target1', 'value' => null], false],
             [['type' => 'target1', 'value' => ''], false],
             [['type' => 'target1', 'value' => []], false],
@@ -407,9 +217,6 @@ final class LayoutResolverValidatorTest extends TestCase
             [['type' => 'condition1', 'value' => 42], true],
             [['type' => 'condition1', 'value' => '42'], true],
             [['type' => 'condition1', 'value' => [42]], true],
-            [['type' => '', 'value' => 42], false],
-            [['type' => null, 'value' => 42], false],
-            [['type' => 42, 'value' => 42], false],
             [['type' => 'condition1', 'value' => null], false],
             [['type' => 'condition1', 'value' => ''], false],
             [['type' => 'condition1', 'value' => []], false],

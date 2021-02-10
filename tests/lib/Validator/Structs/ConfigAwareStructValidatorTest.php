@@ -13,9 +13,9 @@ use Netgen\Layouts\Tests\Config\Stubs\ConfigDefinitionHandler;
 use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
 use Netgen\Layouts\Utils\Hydrator;
 use Netgen\Layouts\Validator\Constraint\Structs\ConfigAwareStruct as ConfigAwareStructConstraint;
-use Netgen\Layouts\Validator\Constraint\Structs\ParameterStruct;
 use Netgen\Layouts\Validator\Structs\ConfigAwareStructValidator;
 use stdClass;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
@@ -62,9 +62,9 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
     public function testValidateThrowsUnexpectedTypeExceptionWithInvalidConstraint(): void
     {
         $this->expectException(UnexpectedTypeException::class);
-        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\Validator\\Constraint\\Structs\\ConfigAwareStruct", "Netgen\\Layouts\\Validator\\Constraint\\Structs\\ParameterStruct" given');
+        $this->expectExceptionMessage('Expected argument of type "Netgen\\Layouts\\Validator\\Constraint\\Structs\\ConfigAwareStruct", "Symfony\\Component\\Validator\\Constraints\\NotBlank" given');
 
-        $this->constraint = new ParameterStruct();
+        $this->constraint = new NotBlank();
         $this->assertValid(true, new BlockUpdateStruct());
     }
 

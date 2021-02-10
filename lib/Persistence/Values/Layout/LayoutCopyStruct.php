@@ -12,15 +12,11 @@ final class LayoutCopyStruct
 
     /**
      * Name of the copied layout.
-     *
-     * @var string
      */
-    public $name;
+    public string $name;
 
     /**
      * Description of the copied layout.
-     *
-     * @var string|null
      */
-    public $description;
+    public ?string $description = null;
 }

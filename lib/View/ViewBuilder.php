@@ -15,20 +15,14 @@ use function sprintf;
 
 final class ViewBuilder implements ViewBuilderInterface
 {
-    /**
-     * @var \Netgen\Layouts\View\TemplateResolverInterface
-     */
-    private $templateResolver;
+    private TemplateResolverInterface $templateResolver;
 
-    /**
-     * @var \Netgen\Layouts\Utils\BackwardsCompatibility\EventDispatcherProxy
-     */
-    private $eventDispatcher;
+    private EventDispatcherProxy $eventDispatcher;
 
     /**
      * @var \Netgen\Layouts\View\Provider\ViewProviderInterface[]
      */
-    private $viewProviders = [];
+    private array $viewProviders = [];
 
     /**
      * @param iterable<\Netgen\Layouts\View\Provider\ViewProviderInterface> $viewProviders

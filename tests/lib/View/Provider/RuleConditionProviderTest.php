@@ -10,6 +10,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\View\Provider\RuleConditionViewProvider;
 use Netgen\Layouts\View\View\RuleConditionViewInterface;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class RuleConditionProviderTest extends TestCase
 {
@@ -28,7 +29,7 @@ final class RuleConditionProviderTest extends TestCase
      */
     public function testProvideView(): void
     {
-        $condition = RuleCondition::fromArray(['id' => 42]);
+        $condition = RuleCondition::fromArray(['id' => Uuid::uuid4()]);
 
         $view = $this->ruleConditionViewProvider->provideView($condition);
 

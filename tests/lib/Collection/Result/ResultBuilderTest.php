@@ -204,6 +204,7 @@ final class ResultBuilderTest extends TestCase
         return Collection::fromArray(
             [
                 'items' => new ArrayCollection($items),
+                'slots' => new ArrayCollection(),
                 'query' => Query::fromArray(
                     [
                         'queryType' => new QueryType(

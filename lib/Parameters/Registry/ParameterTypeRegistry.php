@@ -25,12 +25,12 @@ final class ParameterTypeRegistry implements IteratorAggregate, Countable, Array
     /**
      * @var array<string, \Netgen\Layouts\Parameters\ParameterTypeInterface>
      */
-    private $parameterTypes = [];
+    private array $parameterTypes = [];
 
     /**
      * @var array<class-string, \Netgen\Layouts\Parameters\ParameterTypeInterface>
      */
-    private $parameterTypesByClass = [];
+    private array $parameterTypesByClass = [];
 
     /**
      * @param iterable<\Netgen\Layouts\Parameters\ParameterTypeInterface> $parameterTypes

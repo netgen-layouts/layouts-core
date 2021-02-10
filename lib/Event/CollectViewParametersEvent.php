@@ -16,17 +16,15 @@ final class CollectViewParametersEvent extends Event
 {
     /**
      * Returns the view object that is being built.
-     *
-     * @var \Netgen\Layouts\View\ViewInterface
      */
-    private $view;
+    private ViewInterface $view;
 
     /**
      * Parameters to be injected into the view.
      *
      * @var array<string, mixed>
      */
-    private $parameters = [];
+    private array $parameters = [];
 
     public function __construct(ViewInterface $view)
     {

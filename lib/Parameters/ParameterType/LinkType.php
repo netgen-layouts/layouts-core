@@ -22,15 +22,9 @@ use function is_array;
  */
 final class LinkType extends ParameterType
 {
-    /**
-     * @var \Netgen\Layouts\Item\Registry\ValueTypeRegistry
-     */
-    private $valueTypeRegistry;
+    private ValueTypeRegistry $valueTypeRegistry;
 
-    /**
-     * @var \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter
-     */
-    private $remoteIdConverter;
+    private RemoteIdConverter $remoteIdConverter;
 
     public function __construct(ValueTypeRegistry $valueTypeRegistry, RemoteIdConverter $remoteIdConverter)
     {

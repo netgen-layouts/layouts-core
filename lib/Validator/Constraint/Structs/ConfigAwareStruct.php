@@ -8,17 +8,12 @@ use Symfony\Component\Validator\Constraint;
 
 final class ConfigAwareStruct extends Constraint
 {
-    /**
-     * @var string
-     */
-    public $noConfigDefinitionMessage = 'netgen_layouts.config_aware_struct.missing_definition';
+    public string $noConfigDefinitionMessage = 'netgen_layouts.config_aware_struct.missing_definition';
 
     /**
      * If true, missing parameters will pass validation (e.g. when updating the value).
-     *
-     * @var bool
      */
-    public $allowMissingFields = false;
+    public bool $allowMissingFields = false;
 
     public function validatedBy(): string
     {

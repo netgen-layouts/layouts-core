@@ -4,54 +4,45 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\Layout;
 
+use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
+use Ramsey\Uuid\UuidInterface;
+
 final class LayoutCreateStruct
 {
     /**
      * Layout UUID. If specified, layout will be created with this UUID if not
      * already taken by an existing layout.
-     *
-     * @var \Ramsey\Uuid\UuidInterface|null
      */
-    public $uuid;
+    public ?UuidInterface $uuid = null;
 
     /**
      * Layout type from which the new layout will be created.
      *
      * Required.
-     *
-     * @var \Netgen\Layouts\Layout\Type\LayoutTypeInterface
      */
-    public $layoutType;
+    public LayoutTypeInterface $layoutType;
 
     /**
      * Human readable name of the layout.
      *
      * Required.
-     *
-     * @var string
      */
-    public $name;
+    public string $name;
 
     /**
      * Description of the layout.
-     *
-     * @var string|null
      */
-    public $description;
+    public ?string $description = '';
 
     /**
      * Specifies if this layout will be shared or not.
-     *
-     * @var bool
      */
-    public $shared = false;
+    public bool $shared = false;
 
     /**
      * Specifies the main locale of the layout.
      *
      * Required.
-     *
-     * @var string
      */
-    public $mainLocale;
+    public string $mainLocale;
 }

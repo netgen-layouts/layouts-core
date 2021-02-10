@@ -10,6 +10,7 @@ use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\View\Provider\RuleViewProvider;
 use Netgen\Layouts\View\View\RuleViewInterface;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class RuleViewProviderTest extends TestCase
 {
@@ -28,7 +29,7 @@ final class RuleViewProviderTest extends TestCase
      */
     public function testProvideView(): void
     {
-        $rule = Rule::fromArray(['id' => 42]);
+        $rule = Rule::fromArray(['id' => Uuid::uuid4()]);
 
         $view = $this->ruleViewProvider->provideView($rule);
 

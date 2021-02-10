@@ -14,15 +14,9 @@ use Netgen\Layouts\Item\CmsItemInterface;
 
 final class DynamicCollectionRunner implements CollectionRunnerInterface
 {
-    /**
-     * @var \Netgen\Layouts\Collection\Result\QueryRunnerInterface
-     */
-    private $queryRunner;
+    private QueryRunnerInterface $queryRunner;
 
-    /**
-     * @var \Netgen\Layouts\Collection\Item\VisibilityResolverInterface
-     */
-    private $visibilityResolver;
+    private VisibilityResolverInterface $visibilityResolver;
 
     public function __construct(QueryRunnerInterface $queryRunner, VisibilityResolverInterface $visibilityResolver)
     {

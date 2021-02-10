@@ -12,10 +12,8 @@ final class ItemCreateStruct
 
     /**
      * Position of the new item in the collection.
-     *
-     * @var int
      */
-    public $position;
+    public ?int $position;
 
     /**
      * Value from CMS for the new item. This is usually the ID of the CMS entity.
@@ -26,22 +24,18 @@ final class ItemCreateStruct
 
     /**
      * Type of value from CMS for the new item.
-     *
-     * @var string
      */
-    public $valueType;
+    public string $valueType;
 
     /**
      * View type which will be used to render the new item.
-     *
-     * @var string|null
      */
-    public $viewType;
+    public ?string $viewType;
 
     /**
      * The item configuration.
      *
      * @var array<string, array<string, mixed>>
      */
-    public $config;
+    public array $config;
 }

@@ -21,10 +21,7 @@ use Netgen\Layouts\Collection\QueryType\QueryTypeInterface;
 
 final class CollectionStructBuilder
 {
-    /**
-     * @var \Netgen\Layouts\Core\StructBuilder\ConfigStructBuilder
-     */
-    private $configStructBuilder;
+    private ConfigStructBuilder $configStructBuilder;
 
     public function __construct(ConfigStructBuilder $configStructBuilder)
     {

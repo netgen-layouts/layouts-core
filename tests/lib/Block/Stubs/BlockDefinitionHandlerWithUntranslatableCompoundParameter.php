@@ -35,6 +35,7 @@ final class BlockDefinitionHandlerWithUntranslatableCompoundParameter extends Ba
             [
                 'name' => 'compound',
                 'type' => new ParameterType\Compound\BooleanType(),
+                'isRequired' => false,
                 'groups' => $this->parameterGroups,
                 'options' => [
                     'translatable' => false,
@@ -44,6 +45,7 @@ final class BlockDefinitionHandlerWithUntranslatableCompoundParameter extends Ba
                         [
                             'name' => 'inner',
                             'type' => new ParameterType\TextLineType(),
+                            'isRequired' => false,
                             'groups' => $this->parameterGroups,
                             'options' => [
                                 'translatable' => false,
@@ -59,6 +61,7 @@ final class BlockDefinitionHandlerWithUntranslatableCompoundParameter extends Ba
                 [
                     'name' => 'css_class',
                     'type' => new ParameterType\TextLineType(),
+                    'isRequired' => false,
                     'defaultValue' => 'some-class',
                     'groups' => $this->parameterGroups,
                     'options' => [
@@ -70,6 +73,7 @@ final class BlockDefinitionHandlerWithUntranslatableCompoundParameter extends Ba
                 [
                     'name' => 'other',
                     'type' => new ParameterType\TextLineType(),
+                    'isRequired' => false,
                     'groups' => $this->parameterGroups,
                     'options' => [
                         'translatable' => false,
@@ -80,6 +84,7 @@ final class BlockDefinitionHandlerWithUntranslatableCompoundParameter extends Ba
                 [
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),
+                    'isRequired' => false,
                     'groups' => $this->parameterGroups,
                     'options' => [
                         'translatable' => false,

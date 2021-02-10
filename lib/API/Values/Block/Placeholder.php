@@ -6,7 +6,7 @@ namespace Netgen\Layouts\API\Values\Block;
 
 use ArrayAccess;
 use Countable;
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use IteratorAggregate;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Utils\HydratorTrait;
@@ -25,20 +25,12 @@ final class Placeholder implements ArrayAccess, IteratorAggregate, Countable
 {
     use HydratorTrait;
 
-    /**
-     * @var string
-     */
-    private $identifier;
+    private string $identifier;
 
     /**
      * @var \Doctrine\Common\Collections\Collection<int, \Netgen\Layouts\API\Values\Block\Block>
      */
-    private $blocks;
-
-    public function __construct()
-    {
-        $this->blocks = $this->blocks ?? new ArrayCollection();
-    }
+    private Collection $blocks;
 
     /**
      * Returns the placeholder identifier.

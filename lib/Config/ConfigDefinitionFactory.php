@@ -8,10 +8,7 @@ use Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface;
 
 final class ConfigDefinitionFactory
 {
-    /**
-     * @var \Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface
-     */
-    private $parameterBuilderFactory;
+    private ParameterBuilderFactoryInterface $parameterBuilderFactory;
 
     public function __construct(ParameterBuilderFactoryInterface $parameterBuilderFactory)
     {

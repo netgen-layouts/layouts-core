@@ -19,38 +19,28 @@ final class BlockUpdateStruct implements ParameterStruct, ConfigAwareStruct
      * The locale which will be updated.
      *
      * Required.
-     *
-     * @var string
      */
-    public $locale;
+    public string $locale;
 
     /**
      * New view type of the block.
-     *
-     * @var string|null
      */
-    public $viewType;
+    public ?string $viewType = null;
 
     /**
      * New item view type of the block.
-     *
-     * @var string|null
      */
-    public $itemViewType;
+    public ?string $itemViewType = null;
 
     /**
      * New human readable name of the block.
-     *
-     * @var string|null
      */
-    public $name;
+    public ?string $name = null;
 
     /**
      * New state of the always available flag.
-     *
-     * @var bool|null
      */
-    public $alwaysAvailable;
+    public ?bool $alwaysAvailable = null;
 
     /**
      * Fills the parameter values based on provided block.

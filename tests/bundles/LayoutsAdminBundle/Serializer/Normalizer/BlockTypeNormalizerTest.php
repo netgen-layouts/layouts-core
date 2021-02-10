@@ -75,6 +75,7 @@ final class BlockTypeNormalizerTest extends TestCase
             [
                 'identifier' => 'definition',
                 'name' => 'Block type',
+                'icon' => null,
                 'isEnabled' => true,
                 'definition' => ContainerDefinition::fromArray(
                     [

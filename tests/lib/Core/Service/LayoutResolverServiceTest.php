@@ -1856,7 +1856,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
                 'layoutId' => null,
                 'priority' => null,
                 'enabled' => true,
-                'comment' => null,
+                'comment' => '',
             ],
             $this->exportObject($struct)
         );
@@ -1905,7 +1905,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
                 'uuid' => null,
                 'priority' => null,
                 'enabled' => true,
-                'comment' => null,
+                'comment' => '',
             ],
             $this->exportObject($struct)
         );

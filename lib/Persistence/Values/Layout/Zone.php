@@ -13,43 +13,31 @@ final class Zone extends Value
 
     /**
      * Zone identifier.
-     *
-     * @var string
      */
-    public $identifier;
+    public string $identifier;
 
     /**
      * Layout ID to which this zone belongs.
-     *
-     * @var int
      */
-    public $layoutId;
+    public int $layoutId;
 
     /**
      * Layout UUID to which this zone belongs.
-     *
-     * @var string
      */
-    public $layoutUuid;
+    public string $layoutUuid;
 
     /**
      * ID of the root block related to the zone.
-     *
-     * @var int
      */
-    public $rootBlockId;
+    public int $rootBlockId;
 
     /**
      * UUID of layout this zone is linked to or null if no zone is linked.
-     *
-     * @var string|null
      */
-    public $linkedLayoutUuid;
+    public ?string $linkedLayoutUuid;
 
     /**
      * Zone identifier this zone is linked to or null if no zone is linked.
-     *
-     * @var string|null
      */
-    public $linkedZoneIdentifier;
+    public ?string $linkedZoneIdentifier;
 }

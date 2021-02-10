@@ -17,10 +17,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class TargetType extends AbstractType
 {
-    /**
-     * @var \Psr\Container\ContainerInterface
-     */
-    private $mappers;
+    private ContainerInterface $mappers;
 
     public function __construct(ContainerInterface $mappers)
     {

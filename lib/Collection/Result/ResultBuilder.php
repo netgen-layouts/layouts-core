@@ -15,20 +15,11 @@ use function iterator_to_array;
  */
 final class ResultBuilder implements ResultBuilderInterface
 {
-    /**
-     * @var \Netgen\Layouts\Collection\Result\CollectionRunnerFactory
-     */
-    private $runnerFactory;
+    private CollectionRunnerFactory $runnerFactory;
 
-    /**
-     * @var int
-     */
-    private $contextualLimit;
+    private int $contextualLimit;
 
-    /**
-     * @var int
-     */
-    private $maxLimit;
+    private int $maxLimit;
 
     public function __construct(
         CollectionRunnerFactory $runnerFactory,

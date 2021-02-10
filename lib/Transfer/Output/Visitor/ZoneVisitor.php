@@ -20,10 +20,7 @@ use function iterator_to_array;
  */
 final class ZoneVisitor implements VisitorInterface
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\BlockService
-     */
-    private $blockService;
+    private BlockService $blockService;
 
     public function __construct(BlockService $blockService)
     {

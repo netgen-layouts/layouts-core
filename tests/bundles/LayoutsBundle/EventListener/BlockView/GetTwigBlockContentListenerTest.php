@@ -16,6 +16,7 @@ use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\Twig\ContextualizedTwigTemplate;
 use Netgen\Layouts\View\View\BlockView;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 use stdClass;
 use Twig\Template;
 use function sprintf;
@@ -51,7 +52,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
     {
         $block = Block::fromArray(
             [
-                'id' => 42,
+                'id' => Uuid::uuid4(),
                 'definition' => TwigBlockDefinition::fromArray(
                     [
                         'handler' => new TwigBlockDefinitionHandler(),
@@ -97,7 +98,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
     {
         $block = Block::fromArray(
             [
-                'id' => 42,
+                'id' => Uuid::uuid4(),
                 'definition' => TwigBlockDefinition::fromArray(
                     [
                         'handler' => new TwigBlockDefinitionHandler(['block1', 'block2']),
@@ -146,7 +147,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
     {
         $block = Block::fromArray(
             [
-                'id' => 42,
+                'id' => Uuid::uuid4(),
                 'definition' => TwigBlockDefinition::fromArray(
                     [
                         'handler' => new TwigBlockDefinitionHandler(['block1', 'block2']),
@@ -187,7 +188,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
     {
         $block = Block::fromArray(
             [
-                'id' => 42,
+                'id' => Uuid::uuid4(),
                 'definition' => new BlockDefinition(),
             ]
         );
@@ -207,7 +208,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
     {
         $block = Block::fromArray(
             [
-                'id' => 42,
+                'id' => Uuid::uuid4(),
                 'definition' => new TwigBlockDefinition(),
             ]
         );
@@ -230,7 +231,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
     {
         $block = Block::fromArray(
             [
-                'id' => 42,
+                'id' => Uuid::uuid4(),
                 'definition' => new TwigBlockDefinition(),
             ]
         );

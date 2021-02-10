@@ -8,17 +8,13 @@ final class CollectionUpdateStruct
 {
     /**
      * The new offset for the collection.
-     *
-     * @var int|null
      */
-    public $offset;
+    public ?int $offset = null;
 
     /**
      * The new limit for the collection.
      *
      * Set to 0 to disable the limit.
-     *
-     * @var int|null
      */
-    public $limit;
+    public ?int $limit = null;
 }

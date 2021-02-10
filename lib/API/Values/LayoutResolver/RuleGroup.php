@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\LayoutResolver;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Netgen\Layouts\API\Values\LazyPropertyTrait;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\API\Values\ValueStatusTrait;
@@ -24,46 +24,25 @@ final class RuleGroup implements Value
      */
     public const ROOT_UUID = '00000000-0000-0000-0000-000000000000';
 
-    /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    private $id;
+    private UuidInterface $id;
 
-    /**
-     * @var \Ramsey\Uuid\UuidInterface|null
-     */
-    private $parentId;
+    private ?UuidInterface $parentId;
 
-    /**
-     * @var bool
-     */
-    private $enabled;
+    private bool $enabled;
 
-    /**
-     * @var int
-     */
-    private $priority;
+    private int $priority;
 
-    /**
-     * @var string
-     */
-    private $comment;
+    private string $comment;
 
     /**
      * @var \Doctrine\Common\Collections\Collection<int, \Netgen\Layouts\API\Values\LayoutResolver\Rule>
      */
-    private $rules;
+    private Collection $rules;
 
     /**
      * @var \Doctrine\Common\Collections\Collection<int, \Netgen\Layouts\API\Values\LayoutResolver\Condition>
      */
-    private $conditions;
-
-    public function __construct()
-    {
-        $this->rules = $this->rules ?? new ArrayCollection();
-        $this->conditions = $this->conditions ?? new ArrayCollection();
-    }
+    private Collection $conditions;
 
     public function getId(): UuidInterface
     {

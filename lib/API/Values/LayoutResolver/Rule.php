@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\LayoutResolver;
 
-use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\LazyPropertyTrait;
 use Netgen\Layouts\API\Values\Value;
@@ -18,51 +18,30 @@ final class Rule implements Value
     use LazyPropertyTrait;
     use ValueStatusTrait;
 
-    /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    private $id;
+    private UuidInterface $id;
+
+    private UuidInterface $ruleGroupId;
 
     /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    private $ruleGroupId;
-
-    /**
-     * @var \Netgen\Layouts\API\Values\Layout\Layout|null
+     * @var \Netgen\Layouts\API\Values\Layout\Layout|\Closure|null
      */
     private $layout;
 
-    /**
-     * @var bool
-     */
-    private $enabled;
+    private bool $enabled;
 
-    /**
-     * @var int
-     */
-    private $priority;
+    private int $priority;
 
-    /**
-     * @var string
-     */
-    private $comment;
+    private string $comment;
 
     /**
      * @var \Doctrine\Common\Collections\Collection<int, \Netgen\Layouts\API\Values\LayoutResolver\Target>
      */
-    private $targets;
+    private Collection $targets;
 
     /**
      * @var \Doctrine\Common\Collections\Collection<int, \Netgen\Layouts\API\Values\LayoutResolver\Condition>
      */
-    private $conditions;
-
-    public function __construct()
-    {
-        $this->targets = $this->targets ?? new ArrayCollection();
-        $this->conditions = $this->conditions ?? new ArrayCollection();
-    }
+    private Collection $conditions;
 
     public function getId(): UuidInterface
     {

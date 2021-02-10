@@ -21,15 +21,9 @@ use function array_map;
 
 final class LayoutMapper
 {
-    /**
-     * @var \Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface
-     */
-    private $layoutHandler;
+    private LayoutHandlerInterface $layoutHandler;
 
-    /**
-     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry
-     */
-    private $layoutTypeRegistry;
+    private LayoutTypeRegistry $layoutTypeRegistry;
 
     public function __construct(LayoutHandlerInterface $layoutHandler, LayoutTypeRegistry $layoutTypeRegistry)
     {

@@ -19,7 +19,6 @@ use Netgen\Layouts\Layout\Type\Zone as LayoutTypeZone;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use Netgen\Layouts\Utils\Hydrator;
 use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\Uuid;
 use Symfony\Component\Validator\Validation;
 
 final class LayoutValidatorTest extends TestCase
@@ -222,24 +221,32 @@ final class LayoutValidatorTest extends TestCase
             [
                 [
                     'uuid' => null,
-                    'layoutType' => $this->getLayoutType(),
                     'name' => 'Name',
                     'description' => 'Description',
                     'mainLocale' => 'en',
-                    'shared' => null,
+                    'shared' => false,
                 ],
-                true,
+                false,
             ],
             [
                 [
-                    'uuid' => Uuid::uuid4(),
+                    'uuid' => null,
+                    'layoutType' => $this->getLayoutType(),
+                    'description' => 'Description',
+                    'mainLocale' => 'en',
+                    'shared' => false,
+                ],
+                false,
+            ],
+            [
+                [
+                    'uuid' => null,
                     'layoutType' => $this->getLayoutType(),
                     'name' => 'Name',
                     'description' => 'Description',
-                    'mainLocale' => 'en',
-                    'shared' => null,
+                    'shared' => false,
                 ],
-                true,
+                false,
             ],
             [
                 [
@@ -263,160 +270,6 @@ final class LayoutValidatorTest extends TestCase
                 ],
                 true,
             ],
-            [
-                [
-                    'uuid' => 42,
-                    'layoutType' => $this->getLayoutType(),
-                    'name' => 'Name',
-                    'description' => 'Description',
-                    'mainLocale' => 'en',
-                    'shared' => null,
-                ],
-                false,
-            ],
-            [
-                [
-                    'uuid' => null,
-                    'layoutType' => null,
-                    'name' => 'Name',
-                    'description' => 'Description',
-                    'mainLocale' => 'en',
-                    'shared' => null,
-                ],
-                false,
-            ],
-            [
-                [
-                    'uuid' => null,
-                    'layoutType' => 42,
-                    'name' => 'Name',
-                    'description' => 'Description',
-                    'mainLocale' => 'en',
-                    'shared' => null,
-                ],
-                false,
-            ],
-            [
-                [
-                    'uuid' => null,
-                    'layoutType' => $this->getLayoutType(),
-                    'name' => null,
-                    'description' => 'Description',
-                    'mainLocale' => 'en',
-                    'shared' => null,
-                ],
-                false,
-            ],
-            [
-                [
-                    'uuid' => null,
-                    'layoutType' => $this->getLayoutType(),
-                    'name' => '',
-                    'description' => 'Description',
-                    'mainLocale' => 'en',
-                    'shared' => null,
-                ],
-                false,
-            ],
-            [
-                [
-                    'uuid' => null,
-                    'layoutType' => $this->getLayoutType(),
-                    'name' => '   ',
-                    'description' => 'Description',
-                    'mainLocale' => 'en',
-                    'shared' => null,
-                ],
-                false,
-            ],
-            [
-                [
-                    'uuid' => null,
-                    'layoutType' => $this->getLayoutType(),
-                    'name' => 42,
-                    'description' => 'Description',
-                    'mainLocale' => 'en',
-                    'shared' => null,
-                ],
-                false,
-            ],
-            [
-                [
-                    'uuid' => null,
-                    'layoutType' => $this->getLayoutType(),
-                    'name' => 'Name',
-                    'description' => null,
-                    'mainLocale' => 'en',
-                    'shared' => null,
-                ],
-                true,
-            ],
-            [
-                [
-                    'uuid' => null,
-                    'layoutType' => $this->getLayoutType(),
-                    'name' => 'Name',
-                    'description' => '',
-                    'mainLocale' => 'en',
-                    'shared' => null,
-                ],
-                true,
-            ],
-            [
-                [
-                    'uuid' => null,
-                    'layoutType' => $this->getLayoutType(),
-                    'name' => 'Name',
-                    'description' => 42,
-                    'mainLocale' => 'en',
-                    'shared' => null,
-                ],
-                false,
-            ],
-            [
-                [
-                    'uuid' => null,
-                    'layoutType' => $this->getLayoutType(),
-                    'name' => 'Name',
-                    'description' => 'Description',
-                    'mainLocale' => '',
-                    'shared' => null,
-                ],
-                false,
-            ],
-            [
-                [
-                    'uuid' => null,
-                    'layoutType' => $this->getLayoutType(),
-                    'name' => 'Name',
-                    'description' => 'Description',
-                    'mainLocale' => 'unknown',
-                    'shared' => null,
-                ],
-                false,
-            ],
-            [
-                [
-                    'uuid' => null,
-                    'layoutType' => $this->getLayoutType(),
-                    'name' => 'Name',
-                    'description' => 'Description',
-                    'mainLocale' => 'en',
-                    'shared' => '',
-                ],
-                false,
-            ],
-            [
-                [
-                    'uuid' => null,
-                    'layoutType' => $this->getLayoutType(),
-                    'name' => 'Name',
-                    'description' => 'Description',
-                    'mainLocale' => 'en',
-                    'shared' => 42,
-                ],
-                false,
-            ],
         ];
     }
 
@@ -428,12 +281,6 @@ final class LayoutValidatorTest extends TestCase
                     'name' => 'New name',
                 ],
                 true,
-            ],
-            [
-                [
-                    'name' => 23,
-                ],
-                false,
             ],
             [
                 [
@@ -461,12 +308,6 @@ final class LayoutValidatorTest extends TestCase
             ],
             [
                 [
-                    'description' => 23,
-                ],
-                false,
-            ],
-            [
-                [
                     'description' => null,
                 ],
                 true,
@@ -489,11 +330,9 @@ final class LayoutValidatorTest extends TestCase
     public function validateLayoutCopyStructDataProvider(): array
     {
         return [
+            [['description' => 'New description'], false],
             [['name' => 'New name', 'description' => 'New description'], true],
-            [['name' => 23, 'description' => 'New description'], false],
-            [['name' => null, 'description' => 'New description'], false],
             [['name' => '', 'description' => 'New description'], false],
-            [['name' => 'New name', 'description' => 23], false],
             [['name' => 'New name', 'description' => null], true],
             [['name' => 'New name', 'description' => ''], true],
         ];

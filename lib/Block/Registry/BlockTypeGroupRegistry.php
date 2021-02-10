@@ -24,7 +24,7 @@ final class BlockTypeGroupRegistry implements IteratorAggregate, Countable, Arra
     /**
      * @var array<string, \Netgen\Layouts\Block\BlockType\BlockTypeGroup>
      */
-    private $blockTypeGroups;
+    private array $blockTypeGroups;
 
     /**
      * @param array<string, \Netgen\Layouts\Block\BlockType\BlockTypeGroup> $blockTypeGroups

@@ -8,8 +8,6 @@ final class RuleGroupUpdateStruct
 {
     /**
      * Description of the rule group.
-     *
-     * @var string|null
      */
-    public $comment;
+    public ?string $comment = null;
 }

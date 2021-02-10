@@ -18,25 +18,13 @@ final class LinkValue
 
     public const LINK_TYPE_INTERNAL = 'internal';
 
-    /**
-     * @var string
-     */
-    private $linkType;
+    private ?string $linkType = null;
 
-    /**
-     * @var string
-     */
-    private $link;
+    private ?string $link = null;
 
-    /**
-     * @var string
-     */
-    private $linkSuffix;
+    private ?string $linkSuffix = null;
 
-    /**
-     * @var bool
-     */
-    private $newWindow = false;
+    private bool $newWindow = false;
 
     /**
      * Returns the link type.

@@ -8,10 +8,7 @@ use Symfony\Component\Validator\Constraint;
 
 final class Locale extends Constraint
 {
-    /**
-     * @var string
-     */
-    public $message = 'netgen_layouts.locale.invalid_locale';
+    public string $message = 'netgen_layouts.locale.invalid_locale';
 
     public function validatedBy(): string
     {

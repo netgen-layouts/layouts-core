@@ -5,21 +5,11 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\API\Values\Collection;
 
 use Netgen\Layouts\API\Values\Collection\Slot;
-use Netgen\Layouts\API\Values\Value;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 final class SlotTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\Collection\Slot::isEmpty
-     */
-    public function testInstance(): void
-    {
-        self::assertInstanceOf(Value::class, new Slot());
-        self::assertTrue((new Slot())->isEmpty());
-    }
-
     /**
      * @covers \Netgen\Layouts\API\Values\Collection\Slot::getCollectionId
      * @covers \Netgen\Layouts\API\Values\Collection\Slot::getId

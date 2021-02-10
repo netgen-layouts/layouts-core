@@ -9,10 +9,7 @@ use Symfony\Component\HttpKernel\Kernel;
 
 final class EventDispatcherProxy
 {
-    /**
-     * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
-     */
-    private $eventDispatcher;
+    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(EventDispatcherInterface $eventDispatcher)
     {

@@ -24,7 +24,7 @@ final class ValueTypeRegistry implements IteratorAggregate, Countable, ArrayAcce
     /**
      * @var array<string, \Netgen\Layouts\Item\ValueType\ValueType>
      */
-    private $valueTypes;
+    private array $valueTypes;
 
     /**
      * @param array<string, \Netgen\Layouts\Item\ValueType\ValueType> $valueTypes

@@ -20,10 +20,7 @@ use Symfony\Component\Validator\Constraints;
 
 final class CreateType extends AbstractType
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry
-     */
-    private $layoutTypeRegistry;
+    private LayoutTypeRegistry $layoutTypeRegistry;
 
     public function __construct(LayoutTypeRegistry $layoutTypeRegistry)
     {

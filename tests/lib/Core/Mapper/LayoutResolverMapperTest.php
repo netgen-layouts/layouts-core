@@ -72,9 +72,14 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
     {
         $persistenceRule = Rule::fromArray(
             [
+                'id' => 3,
                 'uuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
+                'status' => Value::STATUS_PUBLISHED,
                 'ruleGroupId' => 1,
                 'layoutUuid' => Uuid::uuid4()->toString(),
+                'enabled' => true,
+                'priority' => 12,
+                'comment' => 'Comment',
             ]
         );
 

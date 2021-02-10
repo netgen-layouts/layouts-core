@@ -19,30 +19,18 @@ class LayoutType implements LayoutTypeInterface
 {
     use HydratorTrait;
 
-    /**
-     * @var string
-     */
-    private $identifier;
+    private string $identifier;
 
-    /**
-     * @var bool
-     */
-    private $isEnabled;
+    private bool $isEnabled;
 
-    /**
-     * @var string
-     */
-    private $name;
+    private string $name;
 
-    /**
-     * @var string|null
-     */
-    private $icon;
+    private ?string $icon;
 
     /**
      * @var \Netgen\Layouts\Layout\Type\Zone[]
      */
-    private $zones = [];
+    private array $zones = [];
 
     public function getIdentifier(): string
     {

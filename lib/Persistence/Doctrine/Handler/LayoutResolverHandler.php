@@ -39,20 +39,11 @@ use function trim;
 
 final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 {
-    /**
-     * @var \Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface
-     */
-    private $layoutHandler;
+    private LayoutHandlerInterface $layoutHandler;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler
-     */
-    private $queryHandler;
+    private LayoutResolverQueryHandler $queryHandler;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutResolverMapper
-     */
-    private $mapper;
+    private LayoutResolverMapper $mapper;
 
     public function __construct(
         LayoutHandlerInterface $layoutHandler,
@@ -225,7 +216,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
                 'layoutUuid' => $layout instanceof Layout ? $layout->uuid : null,
                 'enabled' => $ruleCreateStruct->enabled ? true : false,
                 'priority' => $ruleCreateStruct->priority ?? $this->getPriority($targetGroup),
-                'comment' => trim($ruleCreateStruct->comment ?? ''),
+                'comment' => trim($ruleCreateStruct->comment),
             ]
         );
 
@@ -399,7 +390,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
                 'parentUuid' => $parentGroup !== null ? $parentGroup->uuid : null,
                 'enabled' => $ruleGroupCreateStruct->enabled ? true : false,
                 'priority' => $parentGroup !== null ? ($ruleGroupCreateStruct->priority ?? $this->getPriority($parentGroup)) : 0,
-                'comment' => trim($ruleGroupCreateStruct->comment ?? ''),
+                'comment' => trim($ruleGroupCreateStruct->comment),
             ]
         );
 

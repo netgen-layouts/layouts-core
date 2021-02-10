@@ -21,10 +21,7 @@ use function ksort;
  */
 final class QueryVisitor implements VisitorInterface
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\CollectionService
-     */
-    private $collectionService;
+    private CollectionService $collectionService;
 
     public function __construct(CollectionService $collectionService)
     {

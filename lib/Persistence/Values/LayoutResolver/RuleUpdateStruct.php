@@ -19,8 +19,6 @@ final class RuleUpdateStruct
 
     /**
      * Human readable comment of the rule.
-     *
-     * @var string|null
      */
-    public $comment;
+    public ?string $comment = null;
 }

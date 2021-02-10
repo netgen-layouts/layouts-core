@@ -13,15 +13,9 @@ use Throwable;
  */
 final class DebugErrorHandler implements ErrorHandlerInterface
 {
-    /**
-     * @var \Psr\Log\LoggerInterface
-     */
-    private $logger;
+    private LoggerInterface $logger;
 
-    /**
-     * @var bool
-     */
-    private $debug;
+    private bool $debug;
 
     public function __construct(?LoggerInterface $logger = null, bool $debug = false)
     {

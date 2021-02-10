@@ -50,6 +50,7 @@ final class CompoundParameterTypeTest extends TestCase
             CompoundParameterDefinition::fromArray(
                 [
                     'type' => new CompoundParameterType(),
+                    'isRequired' => false,
                 ]
             ),
             42
@@ -90,7 +91,7 @@ final class CompoundParameterTypeTest extends TestCase
         $this->expectExceptionMessage('Parameter with "compound_boolean" type is not supported');
 
         $this->parameterType->getConstraints(
-            CompoundParameterDefinition::fromArray(['type' => new BooleanType()]),
+            CompoundParameterDefinition::fromArray(['type' => new BooleanType(), 'isRequired' => false]),
             42
         );
     }

@@ -108,6 +108,62 @@ final class BlockValidatorTest extends TestCase
             [
                 [
                     'definition' => $this->getBlockDefinition(),
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'isTranslatable' => false,
+                    'alwaysAvailable' => true,
+                    'parameterValues' => [
+                        'css_class' => 'class',
+                        'css_id' => 'id',
+                    ],
+                ],
+                false,
+            ],
+            [
+                [
+                    'definition' => $this->getBlockDefinition(),
+                    'viewType' => 'large',
+                    'name' => 'My block',
+                    'isTranslatable' => false,
+                    'alwaysAvailable' => true,
+                    'parameterValues' => [
+                        'css_class' => 'class',
+                        'css_id' => 'id',
+                    ],
+                ],
+                false,
+            ],
+            [
+                [
+                    'definition' => $this->getBlockDefinition(),
+                    'viewType' => 'large',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'alwaysAvailable' => true,
+                    'parameterValues' => [
+                        'css_class' => 'class',
+                        'css_id' => 'id',
+                    ],
+                ],
+                false,
+            ],
+            [
+                [
+                    'definition' => $this->getBlockDefinition(),
+                    'viewType' => 'large',
+                    'itemViewType' => 'standard',
+                    'name' => 'My block',
+                    'isTranslatable' => false,
+                    'parameterValues' => [
+                        'css_class' => 'class',
+                        'css_id' => 'id',
+                    ],
+                ],
+                false,
+            ],
+            [
+                [
+                    'definition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
                     'name' => 'My block',
@@ -215,21 +271,6 @@ final class BlockValidatorTest extends TestCase
                     'definition' => $this->getBlockDefinition(),
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
-                    'name' => 42,
-                    'isTranslatable' => false,
-                    'alwaysAvailable' => true,
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
-            ],
-            [
-                [
-                    'definition' => $this->getBlockDefinition(),
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
                     'name' => 'My block',
                     'isTranslatable' => true,
                     'alwaysAvailable' => true,
@@ -239,66 +280,6 @@ final class BlockValidatorTest extends TestCase
                     ],
                 ],
                 true,
-            ],
-            [
-                [
-                    'definition' => $this->getBlockDefinition(),
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => null,
-                    'alwaysAvailable' => true,
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
-            ],
-            [
-                [
-                    'definition' => $this->getBlockDefinition(),
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => 42,
-                    'alwaysAvailable' => true,
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
-            ],
-            [
-                [
-                    'definition' => $this->getBlockDefinition(),
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => false,
-                    'alwaysAvailable' => null,
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
-            ],
-            [
-                [
-                    'definition' => $this->getBlockDefinition(),
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'isTranslatable' => false,
-                    'alwaysAvailable' => 42,
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
             ],
             [
                 [
@@ -499,35 +480,7 @@ final class BlockValidatorTest extends TestCase
             ],
             [
                 [
-                    'locale' => null,
-                    'alwaysAvailable' => true,
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
-            ],
-            [
-                [
                     'locale' => '',
-                    'alwaysAvailable' => true,
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
-            ],
-            [
-                [
-                    'locale' => 42,
                     'alwaysAvailable' => true,
                     'viewType' => 'large',
                     'itemViewType' => 'standard',
@@ -565,20 +518,6 @@ final class BlockValidatorTest extends TestCase
                     ],
                 ],
                 true,
-            ],
-            [
-                [
-                    'locale' => 'en',
-                    'alwaysAvailable' => 42,
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
-                    'name' => 'My block',
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
             ],
             [
                 [
@@ -677,20 +616,6 @@ final class BlockValidatorTest extends TestCase
                     ],
                 ],
                 true,
-            ],
-            [
-                [
-                    'locale' => 'en',
-                    'alwaysAvailable' => true,
-                    'viewType' => 'large',
-                    'itemViewType' => 'standard',
-                    'name' => 42,
-                    'parameterValues' => [
-                        'css_class' => 'class',
-                        'css_id' => 'id',
-                    ],
-                ],
-                false,
             ],
             [
                 [

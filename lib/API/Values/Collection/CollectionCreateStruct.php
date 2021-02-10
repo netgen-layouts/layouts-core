@@ -8,22 +8,16 @@ final class CollectionCreateStruct
 {
     /**
      * The offset for the collection.
-     *
-     * @var int
      */
-    public $offset = 0;
+    public int $offset = 0;
 
     /**
      * The limit for the collection.
-     *
-     * @var int|null
      */
-    public $limit;
+    public ?int $limit = null;
 
     /**
      * If set, the collection will have a query created from this query struct.
-     *
-     * @var \Netgen\Layouts\API\Values\Collection\QueryCreateStruct|null
      */
-    public $queryCreateStruct;
+    public ?QueryCreateStruct $queryCreateStruct = null;
 }

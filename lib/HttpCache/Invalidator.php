@@ -11,15 +11,9 @@ use function count;
 
 final class Invalidator implements InvalidatorInterface
 {
-    /**
-     * @var \Netgen\Layouts\HttpCache\ClientInterface
-     */
-    private $client;
+    private ClientInterface $client;
 
-    /**
-     * @var \Netgen\Layouts\HttpCache\Layout\IdProviderInterface
-     */
-    private $layoutIdProvider;
+    private IdProviderInterface $layoutIdProvider;
 
     public function __construct(ClientInterface $client, IdProviderInterface $layoutIdProvider)
     {

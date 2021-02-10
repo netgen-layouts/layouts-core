@@ -11,10 +11,7 @@ final class RuleGroupCondition extends Condition
 {
     use ValueStatusTrait;
 
-    /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    private $ruleGroupId;
+    private UuidInterface $ruleGroupId;
 
     /**
      * Returns the UUID of the rule group to which this condition belongs to.

@@ -14,7 +14,7 @@ final class LocaleProvider implements LocaleProviderInterface
     /**
      * @var string[]
      */
-    private $enabledLocales;
+    private array $enabledLocales;
 
     /**
      * @param string[] $enabledLocales

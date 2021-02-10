@@ -10,15 +10,9 @@ final class ItemViewType
 {
     use HydratorTrait;
 
-    /**
-     * @var string
-     */
-    private $identifier;
+    private string $identifier;
 
-    /**
-     * @var string
-     */
-    private $name;
+    private string $name;
 
     /**
      * Returns the item view type identifier.

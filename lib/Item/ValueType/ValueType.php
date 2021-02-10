@@ -19,25 +19,13 @@ class ValueType
 {
     use HydratorTrait;
 
-    /**
-     * @var string
-     */
-    private $identifier;
+    private string $identifier;
 
-    /**
-     * @var bool
-     */
-    private $isEnabled;
+    private bool $isEnabled;
 
-    /**
-     * @var string
-     */
-    private $name;
+    private string $name;
 
-    /**
-     * @var bool
-     */
-    private $supportsManualItems;
+    private bool $supportsManualItems;
 
     /**
      * Returns the value type identifier.

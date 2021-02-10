@@ -13,24 +13,18 @@ abstract class Condition extends Value
 
     /**
      * Condition ID.
-     *
-     * @var int
      */
-    public $id;
+    public int $id;
 
     /**
      * Condition UUID.
-     *
-     * @var string
      */
-    public $uuid;
+    public string $uuid;
 
     /**
      * Identifier of the condition type.
-     *
-     * @var string
      */
-    public $type;
+    public string $type;
 
     /**
      * Condition value. Can be a scalar or a multidimensional array of scalars.

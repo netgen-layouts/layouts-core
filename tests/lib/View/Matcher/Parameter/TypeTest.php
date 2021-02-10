@@ -38,6 +38,7 @@ final class TypeTest extends TestCase
                 'parameterDefinition' => ParameterDefinition::fromArray(
                     [
                         'type' => new TextType(),
+                        'isRequired' => false,
                     ]
                 ),
             ]

@@ -21,10 +21,7 @@ use function ksort;
  */
 final class BlockVisitor implements VisitorInterface
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\BlockService
-     */
-    private $blockService;
+    private BlockService $blockService;
 
     public function __construct(BlockService $blockService)
     {

@@ -11,10 +11,7 @@ final class RuleCondition extends Condition
 {
     use ValueStatusTrait;
 
-    /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    private $ruleId;
+    private UuidInterface $ruleId;
 
     /**
      * Returns the UUID of the rule to which this condition belongs to.

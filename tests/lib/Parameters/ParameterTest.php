@@ -12,20 +12,6 @@ final class ParameterTest extends TestCase
 {
     /**
      * @covers \Netgen\Layouts\Parameters\Parameter::__toString
-     * @covers \Netgen\Layouts\Parameters\Parameter::getValue
-     * @covers \Netgen\Layouts\Parameters\Parameter::isEmpty
-     */
-    public function testSetDefaultProperties(): void
-    {
-        $parameter = new Parameter();
-
-        self::assertNull($parameter->getValue());
-        self::assertTrue($parameter->isEmpty());
-        self::assertSame('', (string) $parameter);
-    }
-
-    /**
-     * @covers \Netgen\Layouts\Parameters\Parameter::__toString
      * @covers \Netgen\Layouts\Parameters\Parameter::getName
      * @covers \Netgen\Layouts\Parameters\Parameter::getParameterDefinition
      * @covers \Netgen\Layouts\Parameters\Parameter::getValue
@@ -33,7 +19,7 @@ final class ParameterTest extends TestCase
      */
     public function testSetProperties(): void
     {
-        $parameterDefinition = new ParameterDefinition();
+        $parameterDefinition = ParameterDefinition::fromArray(['isRequired' => false]);
 
         $parameter = Parameter::fromArray(
             [

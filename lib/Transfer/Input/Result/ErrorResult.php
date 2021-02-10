@@ -9,25 +9,16 @@ use Throwable;
 
 final class ErrorResult implements ResultInterface
 {
-    /**
-     * @var string
-     */
-    private $entityType;
+    private string $entityType;
 
     /**
      * @var array<string, mixed>
      */
-    private $data;
+    private array $data;
 
-    /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    private $entityId;
+    private UuidInterface $entityId;
 
-    /**
-     * @var \Throwable
-     */
-    private $error;
+    private Throwable $error;
 
     /**
      * @param array<string, mixed> $data

@@ -78,8 +78,15 @@ abstract class CollectionMapperTest extends CoreTestCase
     {
         $persistenceCollection = Collection::fromArray(
             [
+                'id' => 2,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'status' => Value::STATUS_PUBLISHED,
+                'blockId' => 42,
                 'blockUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
+                'offset' => 10,
+                'limit' => 20,
+                'alwaysAvailable' => false,
+                'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
             ]
@@ -99,8 +106,15 @@ abstract class CollectionMapperTest extends CoreTestCase
     {
         $persistenceCollection = Collection::fromArray(
             [
+                'id' => 2,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'status' => Value::STATUS_PUBLISHED,
+                'blockId' => 42,
                 'blockUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
+                'offset' => 10,
+                'limit' => 20,
+                'alwaysAvailable' => false,
+                'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
             ]
@@ -120,10 +134,16 @@ abstract class CollectionMapperTest extends CoreTestCase
     {
         $persistenceCollection = Collection::fromArray(
             [
+                'id' => 2,
                 'uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
+                'status' => Value::STATUS_PUBLISHED,
+                'blockId' => 42,
                 'blockUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'mainLocale' => 'en',
+                'offset' => 10,
+                'limit' => 20,
                 'alwaysAvailable' => true,
+                'isTranslatable' => true,
                 'availableLocales' => ['en', 'hr', 'de'],
             ]
         );
@@ -421,10 +441,13 @@ abstract class CollectionMapperTest extends CoreTestCase
         $persistenceQuery = Query::fromArray(
             [
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
+                'status' => Value::STATUS_PUBLISHED,
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => 'my_query_type',
+                'alwaysAvailable' => false,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
+                'isTranslatable' => true,
                 'parameters' => ['en' => [], 'hr' => [], 'de' => []],
             ]
         );
@@ -444,10 +467,13 @@ abstract class CollectionMapperTest extends CoreTestCase
         $persistenceQuery = Query::fromArray(
             [
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
+                'status' => Value::STATUS_PUBLISHED,
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => 'my_query_type',
+                'alwaysAvailable' => false,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
+                'isTranslatable' => true,
                 'parameters' => ['en' => [], 'hr' => [], 'de' => []],
             ]
         );
@@ -467,11 +493,13 @@ abstract class CollectionMapperTest extends CoreTestCase
         $persistenceQuery = Query::fromArray(
             [
                 'uuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
+                'status' => Value::STATUS_PUBLISHED,
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => 'my_query_type',
                 'alwaysAvailable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
+                'isTranslatable' => true,
                 'parameters' => ['en' => [], 'hr' => [], 'de' => []],
             ]
         );

@@ -13,50 +13,36 @@ final class LayoutCreateStruct
     /**
      * Layout UUID. If specified, layout will be created with this UUID if not
      * already taken by an existing layout.
-     *
-     * @var string|null
      */
-    public $uuid;
+    public ?string $uuid;
 
     /**
      * Identifier of the layout type for the new layout.
-     *
-     * @var string
      */
-    public $type;
+    public string $type;
 
     /**
      * Name of the new layout.
-     *
-     * @var string
      */
-    public $name;
+    public string $name;
 
     /**
      * Human readable description of the new layout.
-     *
-     * @var string|null
      */
-    public $description;
+    public string $description;
 
     /**
      * Status of the new layout. One of self::STATUS_* flags.
-     *
-     * @var int
      */
-    public $status;
+    public int $status;
 
     /**
      * Flag indicating if the layout will be shared.
-     *
-     * @var bool
      */
-    public $shared;
+    public bool $shared;
 
     /**
      * Main locale of the new layout.
-     *
-     * @var string
      */
-    public $mainLocale;
+    public string $mainLocale;
 }

@@ -119,6 +119,8 @@ abstract class LayoutMapperTest extends CoreTestCase
                 'created' => 1447065813,
                 'modified' => 1447065813,
                 'status' => Value::STATUS_PUBLISHED,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en'],
                 'shared' => true,
             ]
         );
@@ -155,6 +157,8 @@ abstract class LayoutMapperTest extends CoreTestCase
                 'created' => 1447065813,
                 'modified' => 1447065813,
                 'status' => Value::STATUS_PUBLISHED,
+                'mainLocale' => 'en',
+                'availableLocales' => ['en'],
                 'shared' => true,
             ]
         );

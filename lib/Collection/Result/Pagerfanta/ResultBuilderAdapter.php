@@ -11,35 +11,17 @@ use Pagerfanta\Adapter\AdapterInterface;
 
 final class ResultBuilderAdapter implements AdapterInterface
 {
-    /**
-     * @var \Netgen\Layouts\Collection\Result\ResultBuilderInterface
-     */
-    private $resultBuilder;
+    private ResultBuilderInterface $resultBuilder;
 
-    /**
-     * @var \Netgen\Layouts\API\Values\Collection\Collection
-     */
-    private $collection;
+    private Collection $collection;
 
-    /**
-     * @var int
-     */
-    private $startingOffset;
+    private int $startingOffset;
 
-    /**
-     * @var int|null
-     */
-    private $maxTotalCount;
+    private ?int $maxTotalCount;
 
-    /**
-     * @var int
-     */
-    private $flags;
+    private int $flags;
 
-    /**
-     * @var int
-     */
-    private $totalCount;
+    private int $totalCount;
 
     public function __construct(
         ResultBuilderInterface $resultBuilder,

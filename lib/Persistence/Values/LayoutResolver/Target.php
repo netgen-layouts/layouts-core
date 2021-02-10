@@ -13,38 +13,28 @@ final class Target extends Value
 
     /**
      * Target ID.
-     *
-     * @var int
      */
-    public $id;
+    public int $id;
 
     /**
      * Target UUID.
-     *
-     * @var string
      */
-    public $uuid;
+    public string $uuid;
 
     /**
      * ID of the rule where this target is located.
-     *
-     * @var int
      */
-    public $ruleId;
+    public int $ruleId;
 
     /**
      * UUID of the rule where this target is located.
-     *
-     * @var string
      */
-    public $ruleUuid;
+    public string $ruleUuid;
 
     /**
      * Identifier of the target type.
-     *
-     * @var string
      */
-    public $type;
+    public string $type;
 
     /**
      * Target value.

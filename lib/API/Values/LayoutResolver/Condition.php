@@ -13,15 +13,9 @@ abstract class Condition implements Value
 {
     use HydratorTrait;
 
-    /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    protected $id;
+    protected UuidInterface $id;
 
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface
-     */
-    protected $conditionType;
+    protected ConditionTypeInterface $conditionType;
 
     /**
      * @var mixed

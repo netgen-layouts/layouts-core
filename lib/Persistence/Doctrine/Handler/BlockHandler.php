@@ -29,25 +29,13 @@ use function trim;
 
 final class BlockHandler implements BlockHandlerInterface
 {
-    /**
-     * @var \Netgen\Layouts\Persistence\Doctrine\QueryHandler\BlockQueryHandler
-     */
-    private $queryHandler;
+    private BlockQueryHandler $queryHandler;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface
-     */
-    private $collectionHandler;
+    private CollectionHandlerInterface $collectionHandler;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Doctrine\Mapper\BlockMapper
-     */
-    private $blockMapper;
+    private BlockMapper $blockMapper;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper
-     */
-    private $positionHelper;
+    private PositionHelper $positionHelper;
 
     public function __construct(
         BlockQueryHandler $queryHandler,
@@ -115,11 +103,13 @@ final class BlockHandler implements BlockHandlerInterface
                 'config' => $blockCreateStruct->config,
                 'viewType' => $blockCreateStruct->viewType,
                 'itemViewType' => $blockCreateStruct->itemViewType,
-                'name' => trim($blockCreateStruct->name ?? ''),
+                'name' => trim($blockCreateStruct->name),
                 'isTranslatable' => $blockCreateStruct->isTranslatable,
                 'alwaysAvailable' => $blockCreateStruct->alwaysAvailable,
                 'mainLocale' => $layout->mainLocale,
                 'status' => $blockCreateStruct->status,
+                'parameters' => [],
+                'availableLocales' => [],
             ]
         );
 

@@ -527,6 +527,7 @@ abstract class CoreTestCase extends TestCase
                 'identifier' => 'column',
                 'configDefinitions' => ['key' => $configDefinition],
                 'handler' => new ContainerDefinitionHandler([], ['main', 'other']),
+                'isTranslatable' => false,
                 'viewTypes' => [
                     'column' => ViewType::fromArray(
                         [
@@ -544,6 +545,7 @@ abstract class CoreTestCase extends TestCase
                 'identifier' => 'two_columns',
                 'configDefinitions' => ['key' => $configDefinition],
                 'handler' => new ContainerDefinitionHandler([], ['left', 'right']),
+                'isTranslatable' => false,
                 'viewTypes' => [
                     'two_columns_50_50' => ViewType::fromArray(
                         [

@@ -12,36 +12,26 @@ final class CollectionReference
 
     /**
      * Block ID.
-     *
-     * @var int
      */
-    public $blockId;
+    public int $blockId;
 
     /**
      * Block status.
-     *
-     * @var int
      */
-    public $blockStatus;
+    public int $blockStatus;
 
     /**
      * Collection ID.
-     *
-     * @var int
      */
-    public $collectionId;
+    public int $collectionId;
 
     /**
      * Collection status.
-     *
-     * @var int
      */
-    public $collectionStatus;
+    public int $collectionStatus;
 
     /**
      * Identifier of the collection reference.
-     *
-     * @var string
      */
-    public $identifier;
+    public string $identifier;
 }

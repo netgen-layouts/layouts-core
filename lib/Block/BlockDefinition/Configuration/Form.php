@@ -10,15 +10,9 @@ final class Form
 {
     use HydratorTrait;
 
-    /**
-     * @var string
-     */
-    private $identifier;
+    private string $identifier;
 
-    /**
-     * @var string
-     */
-    private $type;
+    private string $type;
 
     /**
      * Returns the form identifier.

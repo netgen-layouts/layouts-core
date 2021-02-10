@@ -9,32 +9,11 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
-use Netgen\Layouts\API\Values\Value;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 final class RuleTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::__construct
-     */
-    public function testInstance(): void
-    {
-        self::assertInstanceOf(Value::class, new Rule());
-    }
-
-    /**
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getConditions
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getTargets
-     */
-    public function testSetDefaultProperties(): void
-    {
-        $rule = new Rule();
-
-        self::assertCount(0, $rule->getTargets());
-        self::assertCount(0, $rule->getConditions());
-    }
-
     /**
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getComment
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getConditions

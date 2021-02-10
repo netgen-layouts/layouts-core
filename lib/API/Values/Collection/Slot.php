@@ -14,25 +14,13 @@ final class Slot implements Value
     use HydratorTrait;
     use ValueStatusTrait;
 
-    /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    private $id;
+    private UuidInterface $id;
 
-    /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    private $collectionId;
+    private UuidInterface $collectionId;
 
-    /**
-     * @var int
-     */
-    private $position;
+    private int $position;
 
-    /**
-     * @var string|null
-     */
-    private $viewType;
+    private ?string $viewType;
 
     public function getId(): UuidInterface
     {

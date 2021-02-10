@@ -12,25 +12,19 @@ final class ViewType
 {
     use HydratorTrait;
 
-    /**
-     * @var string
-     */
-    private $identifier;
+    private string $identifier;
 
-    /**
-     * @var string
-     */
-    private $name;
+    private string $name;
 
     /**
      * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType[]
      */
-    private $itemViewTypes = [];
+    private array $itemViewTypes = [];
 
     /**
      * @var string[]|null
      */
-    private $validParameters;
+    private ?array $validParameters;
 
     /**
      * Returns the view type identifier.

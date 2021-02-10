@@ -30,35 +30,17 @@ use function iterator_to_array;
 
 final class BlockMapper
 {
-    /**
-     * @var \Netgen\Layouts\Persistence\Handler\BlockHandlerInterface
-     */
-    private $blockHandler;
+    private BlockHandlerInterface $blockHandler;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface
-     */
-    private $collectionHandler;
+    private CollectionHandlerInterface $collectionHandler;
 
-    /**
-     * @var \Netgen\Layouts\Core\Mapper\CollectionMapper
-     */
-    private $collectionMapper;
+    private CollectionMapper $collectionMapper;
 
-    /**
-     * @var \Netgen\Layouts\Core\Mapper\ParameterMapper
-     */
-    private $parameterMapper;
+    private ParameterMapper $parameterMapper;
 
-    /**
-     * @var \Netgen\Layouts\Core\Mapper\ConfigMapper
-     */
-    private $configMapper;
+    private ConfigMapper $configMapper;
 
-    /**
-     * @var \Netgen\Layouts\Block\Registry\BlockDefinitionRegistry
-     */
-    private $blockDefinitionRegistry;
+    private BlockDefinitionRegistry $blockDefinitionRegistry;
 
     public function __construct(
         BlockHandlerInterface $blockHandler,

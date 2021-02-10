@@ -30,6 +30,7 @@ final class ParameterViewTest extends TestCase
                 'parameterDefinition' => ParameterDefinition::fromArray(
                     [
                         'type' => new ParameterType(),
+                        'isRequired' => false,
                     ]
                 ),
             ]

@@ -16,10 +16,7 @@ use function iterator_to_array;
  */
 final class DateTimeDataMapper implements DataMapperInterface
 {
-    /**
-     * @var bool
-     */
-    private $useDateTime;
+    private bool $useDateTime;
 
     public function __construct(bool $useDateTime = true)
     {

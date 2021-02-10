@@ -15,7 +15,7 @@ final class Exception extends Mapper
     /**
      * @var array<string, int>
      */
-    private $statusCodes = [];
+    private array $statusCodes = [];
 
     public function getFormType(): string
     {

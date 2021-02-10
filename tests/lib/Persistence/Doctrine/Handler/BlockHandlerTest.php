@@ -603,6 +603,7 @@ final class BlockHandlerTest extends TestCase
     public function testCreateBlockWithNoPosition(): void
     {
         $blockCreateStruct = new BlockCreateStruct();
+        $blockCreateStruct->position = null;
         $blockCreateStruct->isTranslatable = true;
         $blockCreateStruct->alwaysAvailable = true;
         $blockCreateStruct->status = Value::STATUS_DRAFT;
@@ -721,7 +722,7 @@ final class BlockHandlerTest extends TestCase
         $blockCreateStruct->viewType = 'large';
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->name = 'My block';
-
+        $blockCreateStruct->config = [];
         $blockCreateStruct->parameters = [
             'a_param' => 'A value',
         ];
@@ -752,7 +753,7 @@ final class BlockHandlerTest extends TestCase
         $blockCreateStruct->viewType = 'large';
         $blockCreateStruct->itemViewType = 'standard';
         $blockCreateStruct->name = 'My block';
-
+        $blockCreateStruct->config = [];
         $blockCreateStruct->parameters = [
             'a_param' => 'A value',
         ];

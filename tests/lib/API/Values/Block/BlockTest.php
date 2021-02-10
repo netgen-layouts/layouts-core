@@ -8,7 +8,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\Placeholder;
 use Netgen\Layouts\API\Values\Collection\Collection;
-use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Block\BlockDefinition;
 use Netgen\Layouts\Exception\API\BlockException;
 use Netgen\Layouts\Tests\Block\Stubs\BlockDefinitionHandler;
@@ -18,28 +17,6 @@ use Ramsey\Uuid\UuidInterface;
 
 final class BlockTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\Block\Block::__construct
-     */
-    public function testInstance(): void
-    {
-        self::assertInstanceOf(Value::class, new Block());
-    }
-
-    /**
-     * @covers \Netgen\Layouts\API\Values\Block\Block::getAvailableLocales
-     * @covers \Netgen\Layouts\API\Values\Block\Block::getCollections
-     * @covers \Netgen\Layouts\API\Values\Block\Block::getPlaceholders
-     */
-    public function testDefaultProperties(): void
-    {
-        $block = new Block();
-
-        self::assertCount(0, $block->getPlaceholders());
-        self::assertCount(0, $block->getCollections());
-        self::assertSame([], $block->getAvailableLocales());
-    }
-
     /**
      * @covers \Netgen\Layouts\API\Values\Block\Block::getAvailableLocales
      * @covers \Netgen\Layouts\API\Values\Block\Block::getCollection
@@ -67,7 +44,7 @@ final class BlockTest extends TestCase
         $definition = new BlockDefinition();
 
         $placeholder = Placeholder::fromArray(['identifier' => 'main']);
-        $collection = Collection::fromArray(['id' => 42]);
+        $collection = Collection::fromArray(['id' => Uuid::uuid4()]);
 
         $blockUuid = Uuid::uuid4();
         $parentUuid = Uuid::uuid4();

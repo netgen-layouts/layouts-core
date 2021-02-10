@@ -10,8 +10,6 @@ final class SlotUpdateStruct
      * View type which will be used to render the item located at the slot.
      *
      * Set to an empty string to remove the stored view type.
-     *
-     * @var string|null
      */
-    public $viewType;
+    public ?string $viewType = null;
 }

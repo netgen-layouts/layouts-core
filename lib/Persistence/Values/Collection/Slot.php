@@ -13,43 +13,31 @@ final class Slot extends Value
 
     /**
      * Slot ID.
-     *
-     * @var int
      */
-    public $id;
+    public int $id;
 
     /**
      * Slot UUID.
-     *
-     * @var string
      */
-    public $uuid;
+    public string $uuid;
 
     /**
      * ID of the collection to which this slot belongs.
-     *
-     * @var int
      */
-    public $collectionId;
+    public int $collectionId;
 
     /**
      * UUID of the collection to which this slot belongs.
-     *
-     * @var string
      */
-    public $collectionUuid;
+    public string $collectionUuid;
 
     /**
      * Position of the slot within the collection.
-     *
-     * @var int
      */
-    public $position;
+    public int $position;
 
     /**
      * View type which will be used to render the item located at this slot.
-     *
-     * @var string|null
      */
-    public $viewType;
+    public ?string $viewType;
 }

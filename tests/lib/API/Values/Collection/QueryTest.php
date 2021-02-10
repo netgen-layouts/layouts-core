@@ -5,31 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\API\Values\Collection;
 
 use Netgen\Layouts\API\Values\Collection\Query;
-use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 final class QueryTest extends TestCase
 {
-    /**
-     * @coversNothing
-     */
-    public function testInstance(): void
-    {
-        self::assertInstanceOf(Value::class, new Query());
-    }
-
-    /**
-     * @covers \Netgen\Layouts\API\Values\Collection\Query::getAvailableLocales
-     */
-    public function testDefaultProperties(): void
-    {
-        $query = new Query();
-
-        self::assertSame([], $query->getAvailableLocales());
-    }
-
     /**
      * @covers \Netgen\Layouts\API\Values\Collection\Query::getAvailableLocales
      * @covers \Netgen\Layouts\API\Values\Collection\Query::getCollectionId

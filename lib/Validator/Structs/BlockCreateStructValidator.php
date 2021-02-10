@@ -10,9 +10,9 @@ use Netgen\Layouts\Validator\Constraint\BlockViewType;
 use Netgen\Layouts\Validator\Constraint\Structs\BlockCreateStruct as BlockCreateStructConstraint;
 use Netgen\Layouts\Validator\Constraint\Structs\ParameterStruct;
 use Symfony\Component\Validator\Constraint;
-use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use function sprintf;
 
 /**
  * Validates the complete BlockCreateStruct value.
@@ -29,6 +29,34 @@ final class BlockCreateStructValidator extends ConstraintValidator
             throw new UnexpectedTypeException($value, BlockCreateStruct::class);
         }
 
+        if (!isset($value->viewType)) {
+            $this->context->buildViolation(sprintf('"viewType" is required in %s', BlockCreateStruct::class))
+                ->addViolation();
+
+            return;
+        }
+
+        if (!isset($value->itemViewType)) {
+            $this->context->buildViolation(sprintf('"itemViewType" is required in %s', BlockCreateStruct::class))
+                ->addViolation();
+
+            return;
+        }
+
+        if (!isset($value->isTranslatable)) {
+            $this->context->buildViolation(sprintf('"isTranslatable" is required in %s', BlockCreateStruct::class))
+                ->addViolation();
+
+            return;
+        }
+
+        if (!isset($value->alwaysAvailable)) {
+            $this->context->buildViolation(sprintf('"alwaysAvailable" is required in %s', BlockCreateStruct::class))
+                ->addViolation();
+
+            return;
+        }
+
         /** @var \Symfony\Component\Validator\Validator\ContextualValidatorInterface $validator */
         $validator = $this->context->getValidator()->inContext($this->context);
 
@@ -37,8 +65,6 @@ final class BlockCreateStructValidator extends ConstraintValidator
         $validator->atPath('viewType')->validate(
             $value->viewType,
             [
-                new Constraints\NotBlank(),
-                new Constraints\Type(['type' => 'string']),
                 new BlockViewType(['definition' => $blockDefinition]),
             ]
         );
@@ -46,39 +72,12 @@ final class BlockCreateStructValidator extends ConstraintValidator
         $validator->atPath('itemViewType')->validate(
             $value->itemViewType,
             [
-                new Constraints\NotBlank(),
-                new Constraints\Type(['type' => 'string']),
                 new BlockItemViewType(
                     [
                         'viewType' => $value->viewType,
                         'definition' => $blockDefinition,
                     ]
                 ),
-            ]
-        );
-
-        if ($value->name !== null) {
-            $validator->atPath('name')->validate(
-                $value->name,
-                [
-                    new Constraints\Type(['type' => 'string']),
-                ]
-            );
-        }
-
-        $validator->atPath('isTranslatable')->validate(
-            $value->isTranslatable,
-            [
-                new Constraints\NotNull(),
-                new Constraints\Type(['type' => 'bool']),
-            ]
-        );
-
-        $validator->atPath('alwaysAvailable')->validate(
-            $value->alwaysAvailable,
-            [
-                new Constraints\NotNull(),
-                new Constraints\Type(['type' => 'bool']),
             ]
         );
 

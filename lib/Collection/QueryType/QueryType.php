@@ -16,25 +16,13 @@ class QueryType implements QueryTypeInterface
     use HydratorTrait;
     use ParameterDefinitionCollectionTrait;
 
-    /**
-     * @var string
-     */
-    private $type;
+    private string $type;
 
-    /**
-     * @var bool
-     */
-    private $isEnabled;
+    private bool $isEnabled;
 
-    /**
-     * @var string
-     */
-    private $name;
+    private string $name;
 
-    /**
-     * @var \Netgen\Layouts\Collection\QueryType\QueryTypeHandlerInterface
-     */
-    private $handler;
+    private QueryTypeHandlerInterface $handler;
 
     public function getType(): string
     {

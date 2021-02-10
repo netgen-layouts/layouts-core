@@ -16,10 +16,7 @@ use Netgen\Layouts\Collection\Item\VisibilityResolverInterface;
  */
 final class ManualCollectionRunner implements CollectionRunnerInterface
 {
-    /**
-     * @var \Netgen\Layouts\Collection\Item\VisibilityResolverInterface
-     */
-    private $visibilityResolver;
+    private VisibilityResolverInterface $visibilityResolver;
 
     public function __construct(VisibilityResolverInterface $visibilityResolver)
     {

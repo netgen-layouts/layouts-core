@@ -9,10 +9,7 @@ use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelperInterface;
 
 final class Sqlite implements ConnectionHelperInterface
 {
-    /**
-     * @var \Doctrine\DBAL\Connection
-     */
-    private $connection;
+    private Connection $connection;
 
     public function __construct(Connection $connection)
     {

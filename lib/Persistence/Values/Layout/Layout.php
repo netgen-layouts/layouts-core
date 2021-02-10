@@ -13,71 +13,53 @@ final class Layout extends Value
 
     /**
      * Layout ID.
-     *
-     * @var int
      */
-    public $id;
+    public int $id;
 
     /**
      * Layout UUID.
-     *
-     * @var string
      */
-    public $uuid;
+    public string $uuid;
 
     /**
      * Layout type.
-     *
-     * @var string
      */
-    public $type;
+    public string $type;
 
     /**
      * Human readable layout name.
-     *
-     * @var string
      */
-    public $name;
+    public string $name;
 
     /**
      * Human readable description of the layout.
-     *
-     * @var string
      */
-    public $description;
+    public string $description;
 
     /**
      * Flag indicating if this layout is shared.
-     *
-     * @var bool
      */
-    public $shared;
+    public bool $shared;
 
     /**
      * Timestamp when the layout was created.
-     *
-     * @var int
      */
-    public $created;
+    public int $created;
 
     /**
      * Timestamp when the layout was last updated.
-     *
-     * @var int
      */
-    public $modified;
+    public int $modified;
 
     /**
      * Main locale of this layout.
-     *
-     * @var string
      */
-    public $mainLocale;
+    public string $mainLocale;
 
     /**
      * List of all locales available in this layout.
      *
      * @var string[]
      */
-    public $availableLocales;
+    public array $availableLocales;
 }

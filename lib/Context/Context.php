@@ -23,7 +23,7 @@ final class Context implements IteratorAggregate, Countable, ArrayAccess
     /**
      * @var array<string, mixed>
      */
-    private $contextVariables = [];
+    private array $contextVariables = [];
 
     /**
      * Sets a variable to the context. Variable value needs to be

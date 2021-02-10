@@ -13,43 +13,31 @@ final class RuleCreateStruct
     /**
      * Rule UUID. If specified, rule will be created with this UUID if not
      * already taken by an existing rule.
-     *
-     * @var string|null
      */
-    public $uuid;
+    public ?string $uuid;
 
     /**
      * UUID of the layout mapped to new rule.
-     *
-     * @var string|null
      */
-    public $layoutId;
+    public ?string $layoutId;
 
     /**
      * Priority of the new rule.
-     *
-     * @var int|null
      */
-    public $priority;
+    public ?int $priority;
 
     /**
      * Flag indicating if the new rule will be enabled.
-     *
-     * @var bool
      */
-    public $enabled;
+    public bool $enabled;
 
     /**
      * Human readable comment of the rule.
-     *
-     * @var string|null
      */
-    public $comment;
+    public string $comment;
 
     /**
      * Rule status. One of self::STATUS_* flags.
-     *
-     * @var int
      */
-    public $status;
+    public int $status;
 }

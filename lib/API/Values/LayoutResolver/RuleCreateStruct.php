@@ -4,41 +4,33 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\API\Values\LayoutResolver;
 
+use Ramsey\Uuid\UuidInterface;
+
 final class RuleCreateStruct
 {
     /**
      * Rule UUID. If specified, rule will be created with this UUID if not
      * already taken by an existing rule.
-     *
-     * @var \Ramsey\Uuid\UuidInterface|null
      */
-    public $uuid;
+    public ?UuidInterface $uuid = null;
 
     /**
      * The UUID of the layout to which the rule will be mapped.
-     *
-     * @var \Ramsey\Uuid\UuidInterface|null
      */
-    public $layoutId;
+    public ?UuidInterface $layoutId = null;
 
     /**
      * Priority of the rule.
-     *
-     * @var int|null
      */
-    public $priority;
+    public ?int $priority = null;
 
     /**
      * Specifies if the rule will be enabled or not.
-     *
-     * @var bool
      */
-    public $enabled = true;
+    public bool $enabled = true;
 
     /**
      * Description of the rule.
-     *
-     * @var string|null
      */
-    public $comment;
+    public ?string $comment = '';
 }

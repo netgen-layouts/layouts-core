@@ -6,6 +6,7 @@ namespace Netgen\Layouts\API\Values\Collection;
 
 use Netgen\Layouts\API\Values\Config\ConfigAwareStruct;
 use Netgen\Layouts\API\Values\Config\ConfigAwareStructTrait;
+use Netgen\Layouts\Collection\Item\ItemDefinitionInterface;
 
 final class ItemCreateStruct implements ConfigAwareStruct
 {
@@ -15,10 +16,8 @@ final class ItemCreateStruct implements ConfigAwareStruct
      * The definition of the item which will be created.
      *
      * Required.
-     *
-     * @var \Netgen\Layouts\Collection\Item\ItemDefinitionInterface
      */
-    public $definition;
+    public ItemDefinitionInterface $definition;
 
     /**
      * The value stored within the item.
@@ -29,8 +28,6 @@ final class ItemCreateStruct implements ConfigAwareStruct
 
     /**
      * View type which will be used to render the item.
-     *
-     * @var string|null
      */
-    public $viewType;
+    public ?string $viewType = null;
 }

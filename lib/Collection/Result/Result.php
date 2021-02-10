@@ -13,25 +13,13 @@ use Netgen\Layouts\Item\CmsItemInterface;
  */
 final class Result
 {
-    /**
-     * @var int
-     */
-    private $position;
+    private int $position;
 
-    /**
-     * @var \Netgen\Layouts\Item\CmsItemInterface
-     */
-    private $item;
+    private CmsItemInterface $item;
 
-    /**
-     * @var \Netgen\Layouts\Item\CmsItemInterface|null
-     */
-    private $subItem;
+    private ?CmsItemInterface $subItem;
 
-    /**
-     * @var \Netgen\Layouts\API\Values\Collection\Slot|null
-     */
-    private $slot;
+    private ?Slot $slot;
 
     public function __construct(int $position, CmsItemInterface $item, ?CmsItemInterface $subItem = null, ?Slot $slot = null)
     {

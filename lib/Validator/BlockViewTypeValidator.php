@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Validator;
 
-use Netgen\Layouts\Block\BlockDefinitionInterface;
 use Netgen\Layouts\Validator\Constraint\BlockViewType;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
@@ -21,10 +20,6 @@ final class BlockViewTypeValidator extends ConstraintValidator
     {
         if (!$constraint instanceof BlockViewType) {
             throw new UnexpectedTypeException($constraint, BlockViewType::class);
-        }
-
-        if (!$constraint->definition instanceof BlockDefinitionInterface) {
-            throw new UnexpectedTypeException($constraint->definition, BlockDefinitionInterface::class);
         }
 
         if (!is_string($value)) {

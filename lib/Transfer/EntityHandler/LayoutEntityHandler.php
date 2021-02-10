@@ -36,45 +36,21 @@ use function sprintf;
 
 final class LayoutEntityHandler implements EntityHandlerInterface
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\BlockService
-     */
-    private $blockService;
+    private BlockService $blockService;
 
-    /**
-     * @var \Netgen\Layouts\API\Service\CollectionService
-     */
-    private $collectionService;
+    private CollectionService $collectionService;
 
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutService
-     */
-    private $layoutService;
+    private LayoutService $layoutService;
 
-    /**
-     * @var \Netgen\Layouts\Block\Registry\BlockDefinitionRegistry
-     */
-    private $blockDefinitionRegistry;
+    private BlockDefinitionRegistry $blockDefinitionRegistry;
 
-    /**
-     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry
-     */
-    private $layoutTypeRegistry;
+    private LayoutTypeRegistry $layoutTypeRegistry;
 
-    /**
-     * @var \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry
-     */
-    private $itemDefinitionRegistry;
+    private ItemDefinitionRegistry $itemDefinitionRegistry;
 
-    /**
-     * @var \Netgen\Layouts\Collection\Registry\QueryTypeRegistry
-     */
-    private $queryTypeRegistry;
+    private QueryTypeRegistry $queryTypeRegistry;
 
-    /**
-     * @var \Netgen\Layouts\Item\CmsItemLoaderInterface
-     */
-    private $cmsItemLoader;
+    private CmsItemLoaderInterface $cmsItemLoader;
 
     public function __construct(
         BlockService $blockService,

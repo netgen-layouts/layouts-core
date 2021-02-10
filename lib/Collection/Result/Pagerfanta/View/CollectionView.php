@@ -15,15 +15,9 @@ use function sprintf;
 
 final class CollectionView implements ViewInterface
 {
-    /**
-     * @var \Twig\Environment
-     */
-    private $twig;
+    private Environment $twig;
 
-    /**
-     * @var string
-     */
-    private $template;
+    private string $template;
 
     public function __construct(Environment $twig, string $template)
     {

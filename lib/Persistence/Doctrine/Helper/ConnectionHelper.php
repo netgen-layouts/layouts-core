@@ -10,15 +10,12 @@ use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite;
 
 final class ConnectionHelper implements ConnectionHelperInterface
 {
-    /**
-     * @var \Doctrine\DBAL\Connection
-     */
-    private $connection;
+    private Connection $connection;
 
     /**
      * @var array<string, \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelperInterface>
      */
-    private $databaseSpecificHelpers;
+    private array $databaseSpecificHelpers;
 
     public function __construct(Connection $connection)
     {

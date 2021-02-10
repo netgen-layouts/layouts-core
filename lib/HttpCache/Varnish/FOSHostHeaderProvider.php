@@ -9,7 +9,7 @@ final class FOSHostHeaderProvider implements HostHeaderProviderInterface
     /**
      * @var string[]
      */
-    private $servers;
+    private array $servers;
 
     /**
      * @param string[] $servers

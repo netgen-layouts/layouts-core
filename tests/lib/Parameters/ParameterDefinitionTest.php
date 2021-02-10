@@ -13,26 +13,6 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 final class ParameterDefinitionTest extends TestCase
 {
     /**
-     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::getConstraints
-     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::getDefaultValue
-     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::getGroups
-     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::getLabel
-     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::getOptions
-     * @covers \Netgen\Layouts\Parameters\ParameterDefinition::isRequired
-     */
-    public function testDefaultProperties(): void
-    {
-        $parameterDefinition = new ParameterDefinition();
-
-        self::assertSame([], $parameterDefinition->getOptions());
-        self::assertFalse($parameterDefinition->isRequired());
-        self::assertNull($parameterDefinition->getDefaultValue());
-        self::assertNull($parameterDefinition->getLabel());
-        self::assertSame([], $parameterDefinition->getGroups());
-        self::assertSame([], $parameterDefinition->getConstraints());
-    }
-
-    /**
      * @covers \Netgen\Layouts\Parameters\ParameterDefinition::getDefaultValue
      * @covers \Netgen\Layouts\Parameters\ParameterDefinition::getGroups
      * @covers \Netgen\Layouts\Parameters\ParameterDefinition::getLabel

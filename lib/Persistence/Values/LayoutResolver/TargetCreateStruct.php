@@ -12,10 +12,8 @@ final class TargetCreateStruct
 
     /**
      * Identifier of the type of the new target.
-     *
-     * @var string
      */
-    public $type;
+    public string $type;
 
     /**
      * Value of the new target.

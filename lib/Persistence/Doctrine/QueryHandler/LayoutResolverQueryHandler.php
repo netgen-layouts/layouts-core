@@ -27,10 +27,7 @@ use function min;
 
 final class LayoutResolverQueryHandler extends QueryHandler
 {
-    /**
-     * @var \Psr\Container\ContainerInterface
-     */
-    private $targetHandlers;
+    private ContainerInterface $targetHandlers;
 
     public function __construct(
         Connection $connection,

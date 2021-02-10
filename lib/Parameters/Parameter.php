@@ -10,25 +10,16 @@ final class Parameter
 {
     use HydratorTrait;
 
-    /**
-     * @var string
-     */
-    private $name;
+    private string $name;
 
-    /**
-     * @var \Netgen\Layouts\Parameters\ParameterDefinition
-     */
-    private $parameterDefinition;
+    private ParameterDefinition $parameterDefinition;
 
     /**
      * @var mixed
      */
     private $value;
 
-    /**
-     * @var bool
-     */
-    private $isEmpty = true;
+    private bool $isEmpty;
 
     /**
      * Returns the string representation of the parameter value.

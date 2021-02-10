@@ -11,8 +11,6 @@ abstract class Descriptor
 {
     /**
      * Format version.
-     *
-     * @var int
      */
     public const FORMAT_VERSION = 1;
 }

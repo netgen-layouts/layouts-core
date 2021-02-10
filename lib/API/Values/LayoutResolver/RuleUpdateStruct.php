@@ -17,8 +17,6 @@ final class RuleUpdateStruct
 
     /**
      * Description of the rule.
-     *
-     * @var string|null
      */
-    public $comment;
+    public ?string $comment = null;
 }

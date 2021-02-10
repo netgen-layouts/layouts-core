@@ -55,10 +55,7 @@ final class PolicyToRoleMapVoter extends Voter
      */
     private const ROLE_API = 'ROLE_NGLAYOUTS_API';
 
-    /**
-     * @var \Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface
-     */
-    private $accessDecisionManager;
+    private AccessDecisionManagerInterface $accessDecisionManager;
 
     public function __construct(AccessDecisionManagerInterface $accessDecisionManager)
     {

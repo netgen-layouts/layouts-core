@@ -12,43 +12,33 @@ final class BlockUpdateStruct
 
     /**
      * New view type of the block.
-     *
-     * @var string|null
      */
-    public $viewType;
+    public ?string $viewType = null;
 
     /**
      * New item view type of the block.
-     *
-     * @var string|null
      */
-    public $itemViewType;
+    public ?string $itemViewType = null;
 
     /**
      * New human readable name of the block.
-     *
-     * @var string|null
      */
-    public $name;
+    public ?string $name = null;
 
     /**
      * Flag indicating if the block will be always available.
-     *
-     * @var bool|null
      */
-    public $alwaysAvailable;
+    public ?bool $alwaysAvailable = null;
 
     /**
      * Flag indicating if the block will be translatable.
-     *
-     * @var bool|null
      */
-    public $isTranslatable;
+    public ?bool $isTranslatable = null;
 
     /**
      * New block configuration.
      *
      * @var array<string, array<string, mixed>>|null
      */
-    public $config;
+    public ?array $config = null;
 }

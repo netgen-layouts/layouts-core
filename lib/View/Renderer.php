@@ -9,15 +9,9 @@ namespace Netgen\Layouts\View;
  */
 class Renderer implements RendererInterface
 {
-    /**
-     * @var \Netgen\Layouts\View\ViewBuilderInterface
-     */
-    private $viewBuilder;
+    private ViewBuilderInterface $viewBuilder;
 
-    /**
-     * @var \Netgen\Layouts\View\ViewRendererInterface
-     */
-    private $viewRenderer;
+    private ViewRendererInterface $viewRenderer;
 
     public function __construct(
         ViewBuilderInterface $viewBuilder,

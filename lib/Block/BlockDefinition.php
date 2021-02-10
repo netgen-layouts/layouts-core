@@ -11,10 +11,7 @@ use Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface;
  */
 class BlockDefinition extends AbstractBlockDefinition
 {
-    /**
-     * @var \Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface
-     */
-    private $handler;
+    private BlockDefinitionHandlerInterface $handler;
 
     protected function getHandler(): BlockDefinitionHandlerInterface
     {

@@ -134,12 +134,14 @@ final class BlockCreateStructTest extends TestCase
             [
                 'name' => 'compound',
                 'type' => new ParameterType\Compound\BooleanType(),
+                'isRequired' => false,
                 'defaultValue' => true,
                 'parameterDefinitions' => [
                     'inner' => ParameterDefinition::fromArray(
                         [
                             'name' => 'inner',
                             'type' => new ParameterType\TextLineType(),
+                            'isRequired' => false,
                             'defaultValue' => 'inner_default',
                         ]
                     ),
@@ -152,6 +154,7 @@ final class BlockCreateStructTest extends TestCase
                 [
                     'name' => 'css_class',
                     'type' => new ParameterType\TextLineType(),
+                    'isRequired' => false,
                     'defaultValue' => 'css_default',
                 ]
             ),
@@ -159,6 +162,7 @@ final class BlockCreateStructTest extends TestCase
                 [
                     'name' => 'css_id',
                     'type' => new ParameterType\TextLineType(),
+                    'isRequired' => false,
                     'defaultValue' => 'id_default',
                 ]
             ),

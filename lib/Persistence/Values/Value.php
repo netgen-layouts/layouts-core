@@ -17,8 +17,6 @@ abstract class Value
 
     /**
      * Status of the value. One of self::STATUS_* flags.
-     *
-     * @var int
      */
-    public $status;
+    public int $status;
 }

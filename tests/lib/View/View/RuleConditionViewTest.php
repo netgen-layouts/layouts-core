@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Tests\View\View;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
 use Netgen\Layouts\View\View\RuleConditionView;
 use PHPUnit\Framework\TestCase;
+use Ramsey\Uuid\Uuid;
 
 final class RuleConditionViewTest extends TestCase
 {
@@ -22,7 +23,7 @@ final class RuleConditionViewTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->condition = RuleCondition::fromArray(['id' => 42]);
+        $this->condition = RuleCondition::fromArray(['id' => Uuid::uuid4()]);
 
         $this->view = new RuleConditionView($this->condition);
 

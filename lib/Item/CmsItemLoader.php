@@ -9,15 +9,9 @@ use Psr\Container\ContainerInterface;
 
 final class CmsItemLoader implements CmsItemLoaderInterface
 {
-    /**
-     * @var \Netgen\Layouts\Item\CmsItemBuilderInterface
-     */
-    private $cmsItemBuilder;
+    private CmsItemBuilderInterface $cmsItemBuilder;
 
-    /**
-     * @var \Psr\Container\ContainerInterface
-     */
-    private $valueLoaders;
+    private ContainerInterface $valueLoaders;
 
     public function __construct(CmsItemBuilderInterface $cmsItemBuilder, ContainerInterface $valueLoaders)
     {

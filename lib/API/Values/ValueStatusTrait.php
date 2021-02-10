@@ -6,10 +6,7 @@ namespace Netgen\Layouts\API\Values;
 
 trait ValueStatusTrait
 {
-    /**
-     * @var int
-     */
-    private $status;
+    private int $status;
 
     public function getStatus(): int
     {

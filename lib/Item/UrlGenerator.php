@@ -9,10 +9,7 @@ use Psr\Container\ContainerInterface;
 
 final class UrlGenerator implements UrlGeneratorInterface
 {
-    /**
-     * @var \Psr\Container\ContainerInterface
-     */
-    private $valueUrlGenerators;
+    private ContainerInterface $valueUrlGenerators;
 
     public function __construct(ContainerInterface $valueUrlGenerators)
     {

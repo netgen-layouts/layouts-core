@@ -12,7 +12,7 @@ trait ConfigAwareValueTrait
     /**
      * @var \Netgen\Layouts\API\Values\Config\Config[]
      */
-    private $configs = [];
+    private array $configs = [];
 
     /**
      * Returns all available configs.

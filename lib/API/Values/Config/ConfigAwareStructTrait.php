@@ -12,7 +12,7 @@ trait ConfigAwareStructTrait
     /**
      * @var \Netgen\Layouts\API\Values\Config\ConfigStruct[]
      */
-    private $configStructs = [];
+    private array $configStructs = [];
 
     /**
      * Sets the config struct to this struct.

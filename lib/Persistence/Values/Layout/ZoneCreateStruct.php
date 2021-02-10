@@ -12,15 +12,11 @@ final class ZoneCreateStruct
 
     /**
      * Identifier for the new zone.
-     *
-     * @var string
      */
-    public $identifier;
+    public string $identifier;
 
     /**
      * Zone that will be linked to the new zone.
-     *
-     * @var \Netgen\Layouts\Persistence\Values\Layout\Zone|null
      */
-    public $linkedZone;
+    public ?Zone $linkedZone;
 }

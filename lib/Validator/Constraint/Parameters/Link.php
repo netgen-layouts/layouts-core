@@ -10,25 +10,21 @@ final class Link extends Constraint
 {
     /**
      * If true, link value cannot be empty.
-     *
-     * @var bool
      */
-    public $required = false;
+    public bool $required = false;
 
     /**
      * If not empty, will limit valid value types to the specified list.
      *
      * @var string[]
      */
-    public $valueTypes = [];
+    public array $valueTypes = [];
 
     /**
      * If set to true, the constraint will accept values for invalid or non existing items
      * when using internal link type.
-     *
-     * @var bool
      */
-    public $allowInvalidInternal = false;
+    public bool $allowInvalidInternal = false;
 
     public function validatedBy(): string
     {

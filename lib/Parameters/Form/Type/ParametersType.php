@@ -19,10 +19,7 @@ use function count;
 
 final class ParametersType extends AbstractType
 {
-    /**
-     * @var \Psr\Container\ContainerInterface
-     */
-    private $mappers;
+    private ContainerInterface $mappers;
 
     public function __construct(ContainerInterface $mappers)
     {

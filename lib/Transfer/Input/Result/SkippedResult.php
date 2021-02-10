@@ -8,20 +8,14 @@ use Ramsey\Uuid\UuidInterface;
 
 final class SkippedResult implements ResultInterface
 {
-    /**
-     * @var string
-     */
-    private $entityType;
+    private string $entityType;
 
     /**
      * @var array<string, mixed>
      */
-    private $data;
+    private array $data;
 
-    /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    private $entityId;
+    private UuidInterface $entityId;
 
     /**
      * @param array<string, mixed> $data

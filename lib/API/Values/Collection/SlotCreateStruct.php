@@ -8,8 +8,6 @@ final class SlotCreateStruct
 {
     /**
      * View type which will be used to render the item located at the new slot.
-     *
-     * @var string|null
      */
-    public $viewType;
+    public ?string $viewType = null;
 }

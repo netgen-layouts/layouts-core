@@ -13,50 +13,36 @@ final class Rule extends Value
 
     /**
      * Rule ID.
-     *
-     * @var int
      */
-    public $id;
+    public int $id;
 
     /**
      * Rule UUID.
-     *
-     * @var string
      */
-    public $uuid;
+    public string $uuid;
 
     /**
      * ID of the rule group where this rule belongs.
-     *
-     * @var int
      */
-    public $ruleGroupId;
+    public int $ruleGroupId;
 
     /**
      * UUID of the layout mapped to this rule. Can be null if there's no mapped layout.
-     *
-     * @var string|null
      */
-    public $layoutUuid;
+    public ?string $layoutUuid;
 
     /**
      * A flag indicating if the rule is enabled or not.
-     *
-     * @var bool
      */
-    public $enabled;
+    public bool $enabled;
 
     /**
      * Rule priority.
-     *
-     * @var int
      */
-    public $priority;
+    public int $priority;
 
     /**
      * Human readable comment of the rule.
-     *
-     * @var string
      */
-    public $comment;
+    public string $comment;
 }

@@ -17,10 +17,7 @@ use function trim;
  */
 final class LayoutNameValidator extends ConstraintValidator
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutService
-     */
-    private $layoutService;
+    private LayoutService $layoutService;
 
     public function __construct(LayoutService $layoutService)
     {

@@ -10,10 +10,7 @@ namespace Netgen\Layouts\Item;
  */
 final class NullCmsItem implements CmsItemInterface
 {
-    /**
-     * @var string
-     */
-    private $valueType;
+    private string $valueType;
 
     public function __construct(string $valueType)
     {

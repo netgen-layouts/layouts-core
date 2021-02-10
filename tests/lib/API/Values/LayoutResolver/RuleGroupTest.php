@@ -8,33 +8,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupCondition;
-use Netgen\Layouts\API\Values\Value;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 final class RuleGroupTest extends TestCase
 {
-    /**
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::__construct
-     */
-    public function testInstance(): void
-    {
-        self::assertInstanceOf(Value::class, new RuleGroup());
-    }
-
-    /**
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getConditions
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getRules
-     */
-    public function testSetDefaultProperties(): void
-    {
-        $ruleGroup = new RuleGroup();
-
-        self::assertCount(0, $ruleGroup->getRules());
-        self::assertCount(0, $ruleGroup->getConditions());
-    }
-
     /**
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getComment
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getConditions

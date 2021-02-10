@@ -16,24 +16,13 @@ final class CompoundParameterDefinitionTest extends TestCase
      * @covers \Netgen\Layouts\Parameters\CompoundParameterDefinition::getParameterDefinitions
      * @covers \Netgen\Layouts\Parameters\CompoundParameterDefinition::hasParameterDefinition
      */
-    public function testDefaultProperties(): void
-    {
-        $parameterDefinition = new CompoundParameterDefinition();
-
-        self::assertSame([], $parameterDefinition->getParameterDefinitions());
-    }
-
-    /**
-     * @covers \Netgen\Layouts\Parameters\CompoundParameterDefinition::getParameterDefinition
-     * @covers \Netgen\Layouts\Parameters\CompoundParameterDefinition::getParameterDefinitions
-     * @covers \Netgen\Layouts\Parameters\CompoundParameterDefinition::hasParameterDefinition
-     */
     public function testSetProperties(): void
     {
         $innerDefinition = new ParameterDefinition();
 
         $parameterDefinition = CompoundParameterDefinition::fromArray(
             [
+                'isRequired' => false,
                 'parameterDefinitions' => ['name' => $innerDefinition],
             ]
         );

@@ -20,7 +20,7 @@ final class DateTimeType extends AbstractType
     /**
      * @var array<string, array<string, string>>
      */
-    private $timeZoneList = [];
+    private array $timeZoneList = [];
 
     public function configureOptions(OptionsResolver $resolver): void
     {

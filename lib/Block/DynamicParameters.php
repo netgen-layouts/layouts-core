@@ -18,7 +18,7 @@ final class DynamicParameters implements ArrayAccess, Countable
     /**
      * @var array<string, mixed>
      */
-    private $dynamicParameters = [];
+    private array $dynamicParameters = [];
 
     public function count(): int
     {
