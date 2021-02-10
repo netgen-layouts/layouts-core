@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php: ['7.3', '7.4']
+        php: ['7.4']
         symfony: ['~3.4.0', '~4.4.0', '~5.2.0']
         phpunit: ['phpunit.xml', 'phpunit-api.xml']
         db: ['sqlite']
@@ -39,12 +39,12 @@ jobs:
             phpunit: 'phpunit-api.xml'
             db: 'postgres'
 
-          - php: '7.3'
+          - php: '7.4'
             symfony: '~3.4.0'
             phpunit: 'phpunit.xml'
             db: 'sqlite'
             deps: 'low'
-          - php: '7.3'
+          - php: '7.4'
             symfony: '~3.4.0'
             phpunit: 'phpunit-api.xml'
             db: 'sqlite'
