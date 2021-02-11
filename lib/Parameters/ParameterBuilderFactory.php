@@ -56,13 +56,9 @@ class ParameterBuilderFactory implements ParameterBuilderFactoryInterface
 
         $optionsResolver->setNormalizer(
             'type',
-            function (Options $options, $value) {
-                if (!is_string($value)) {
-                    return $value;
-                }
-
-                return $this->parameterTypeRegistry->getParameterTypeByClass($value);
-            }
+            fn (Options $options, $value) => is_string($value) ?
+                    $this->parameterTypeRegistry->getParameterTypeByClass($value) :
+                    $value
         );
 
         return $optionsResolver->resolve($config);

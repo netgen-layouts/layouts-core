@@ -23,9 +23,7 @@ final class CollectionList extends ArrayCollection
         parent::__construct(
             array_filter(
                 $collections,
-                static function (Collection $collection): bool {
-                    return true;
-                }
+                static fn (Collection $collection): bool => true
             )
         );
     }
@@ -45,9 +43,7 @@ final class CollectionList extends ArrayCollection
     {
         return array_values(
             array_map(
-                static function (Collection $collection): UuidInterface {
-                    return $collection->getId();
-                },
+                static fn (Collection $collection): UuidInterface => $collection->getId(),
                 $this->getCollections()
             )
         );

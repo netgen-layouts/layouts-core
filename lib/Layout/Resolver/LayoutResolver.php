@@ -71,9 +71,7 @@ final class LayoutResolver implements LayoutResolverInterface
         return array_values(
             array_filter(
                 $this->innerResolveRules($currentRequest, $enabledConditions),
-                static function (Rule $rule): bool {
-                    return $rule->getLayout() instanceof Layout;
-                }
+                static fn (Rule $rule): bool => $rule->getLayout() instanceof Layout
             )
         );
     }
@@ -127,9 +125,7 @@ final class LayoutResolver implements LayoutResolverInterface
 
         usort(
             $resolvedRules,
-            static function (Rule $a, Rule $b): int {
-                return $b->getPriority() <=> $a->getPriority();
-            }
+            static fn (Rule $a, Rule $b): int => $b->getPriority() <=> $a->getPriority()
         );
 
         return $resolvedRules;

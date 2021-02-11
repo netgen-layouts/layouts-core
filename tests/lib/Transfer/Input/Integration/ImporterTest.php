@@ -61,28 +61,24 @@ abstract class ImporterTest extends CoreTestCase
             ->expects(self::any())
             ->method('loadByRemoteId')
             ->willReturnCallback(
-                static function ($remoteId): CmsItemInterface {
-                    return CmsItem::fromArray(
-                        [
-                            'value' => $remoteId,
-                            'remoteId' => $remoteId,
-                        ]
-                    );
-                }
+                static fn ($remoteId): CmsItemInterface => CmsItem::fromArray(
+                    [
+                        'value' => $remoteId,
+                        'remoteId' => $remoteId,
+                    ]
+                )
             );
 
         $this->cmsItemLoaderMock
             ->expects(self::any())
             ->method('load')
             ->willReturnCallback(
-                static function ($value): CmsItemInterface {
-                    return CmsItem::fromArray(
-                        [
-                            'value' => $value,
-                            'remoteId' => $value,
-                        ]
-                    );
-                }
+                static fn ($value): CmsItemInterface => CmsItem::fromArray(
+                    [
+                        'value' => $value,
+                        'remoteId' => $value,
+                    ]
+                )
             );
 
         $entityHandlers = [

@@ -79,24 +79,16 @@ final class LayoutResolverMapper
             'priority' => $rule->priority,
             'comment' => $rule->comment,
             'targets' => new LazyCollection(
-                function () use ($rule): array {
-                    return array_map(
-                        function (PersistenceTarget $target): Target {
-                            return $this->mapTarget($target);
-                        },
-                        $this->layoutResolverHandler->loadRuleTargets($rule)
-                    );
-                }
+                fn (): array => array_map(
+                    fn (PersistenceTarget $target): Target => $this->mapTarget($target),
+                    $this->layoutResolverHandler->loadRuleTargets($rule)
+                )
             ),
             'conditions' => new LazyCollection(
-                function () use ($rule): array {
-                    return array_map(
-                        function (PersistenceRuleCondition $condition): RuleCondition {
-                            return $this->mapRuleCondition($condition);
-                        },
-                        $this->layoutResolverHandler->loadRuleConditions($rule)
-                    );
-                }
+                fn (): array => array_map(
+                    fn (PersistenceRuleCondition $condition): RuleCondition => $this->mapRuleCondition($condition),
+                    $this->layoutResolverHandler->loadRuleConditions($rule)
+                )
             ),
         ];
 
@@ -118,24 +110,16 @@ final class LayoutResolverMapper
             'priority' => $ruleGroup->priority,
             'comment' => $ruleGroup->comment,
             'rules' => new LazyCollection(
-                function () use ($ruleGroup): array {
-                    return array_map(
-                        function (PersistenceRule $rule): Rule {
-                            return $this->mapRule($rule);
-                        },
-                        $this->layoutResolverHandler->loadRulesFromGroup($ruleGroup)
-                    );
-                }
+                fn (): array => array_map(
+                    fn (PersistenceRule $rule): Rule => $this->mapRule($rule),
+                    $this->layoutResolverHandler->loadRulesFromGroup($ruleGroup)
+                )
             ),
             'conditions' => new LazyCollection(
-                function () use ($ruleGroup): array {
-                    return array_map(
-                        function (PersistenceRuleGroupCondition $condition): RuleGroupCondition {
-                            return $this->mapRuleGroupCondition($condition);
-                        },
-                        $this->layoutResolverHandler->loadRuleGroupConditions($ruleGroup)
-                    );
-                }
+                fn (): array => array_map(
+                    fn (PersistenceRuleGroupCondition $condition): RuleGroupCondition => $this->mapRuleGroupCondition($condition),
+                    $this->layoutResolverHandler->loadRuleGroupConditions($ruleGroup)
+                )
             ),
         ];
 

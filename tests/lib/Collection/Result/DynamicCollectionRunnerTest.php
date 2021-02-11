@@ -38,9 +38,7 @@ final class DynamicCollectionRunnerTest extends TestCase
             ->expects(self::any())
             ->method('build')
             ->willReturnCallback(
-                static function ($value): CmsItemInterface {
-                    return CmsItem::fromArray(['value' => $value, 'isVisible' => true]);
-                }
+                static fn ($value): CmsItemInterface => CmsItem::fromArray(['value' => $value, 'isVisible' => true])
             );
     }
 
@@ -82,7 +80,7 @@ final class DynamicCollectionRunnerTest extends TestCase
             );
         }
 
-        $queryItems = array_map(static function (?int $value): Value { return new Value($value); }, $queryItems);
+        $queryItems = array_map(static fn (?int $value): Value => new Value($value), $queryItems);
         $query = Query::fromArray(['queryType' => new QueryType('my_query_type', $queryItems, $queryCount)]);
         $collection = Collection::fromArray(['items' => new ArrayCollection($items), 'slots' => new ArrayCollection(), 'query' => $query]);
 
@@ -94,9 +92,7 @@ final class DynamicCollectionRunnerTest extends TestCase
         $result = iterator_to_array($collectionRunner->runCollection($collection, $offset, $limit));
 
         $result = array_map(
-            static function (Result $resultItem) {
-                return $resultItem->getItem()->getValue();
-            },
+            static fn (Result $resultItem) => $resultItem->getItem()->getValue(),
             $result
         );
 

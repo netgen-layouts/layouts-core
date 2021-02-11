@@ -782,9 +782,7 @@ final class LayoutHandlerTest extends TestCase
         $layoutCreateStruct->mainLocale = 'en';
 
         $createdLayout = $this->withUuids(
-            function () use ($layoutCreateStruct): Layout {
-                return $this->layoutHandler->createLayout($layoutCreateStruct);
-            },
+            fn (): Layout => $this->layoutHandler->createLayout($layoutCreateStruct),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
@@ -948,12 +946,10 @@ final class LayoutHandlerTest extends TestCase
 
         /** @var \Netgen\Layouts\Persistence\Values\Layout\Zone $createdZone */
         $createdZone = $this->withUuids(
-            function () use ($zoneCreateStruct): Zone {
-                return $this->layoutHandler->createZone(
-                    $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
-                    $zoneCreateStruct
-                );
-            },
+            fn (): Zone => $this->layoutHandler->createZone(
+                $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
+                $zoneCreateStruct
+            ),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
@@ -1064,9 +1060,7 @@ final class LayoutHandlerTest extends TestCase
 
         /** @var \Netgen\Layouts\Persistence\Values\Layout\Layout $copiedLayout */
         $copiedLayout = $this->withUuids(
-            function () use ($originalLayout, $copyStruct): Layout {
-                return $this->layoutHandler->copyLayout($originalLayout, $copyStruct);
-            },
+            fn (): Layout => $this->layoutHandler->copyLayout($originalLayout, $copyStruct),
             [
                 'b90ece3f-9520-54e8-8f43-e625051df284',
                 'efd1d54a-5d53-518f-91a5-f4965c242a67',

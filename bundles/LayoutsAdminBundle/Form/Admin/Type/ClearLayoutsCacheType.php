@@ -31,9 +31,7 @@ final class ClearLayoutsCacheType extends AbstractType
             ChoiceType::class,
             [
                 'choices' => $options['layouts'],
-                'choice_name' => static function (Layout $layout): string {
-                    return $layout->getId()->toString();
-                },
+                'choice_name' => static fn (Layout $layout): string => $layout->getId()->toString(),
                 'choice_value' => 'id',
                 'choice_label' => 'name',
                 'translation_domain' => false,

@@ -67,9 +67,7 @@ class BlockTypeGroup
         return array_values(
             array_filter(
                 $this->blockTypes,
-                static function (BlockType $blockType): bool {
-                    return $blockType->isEnabled();
-                }
+                static fn (BlockType $blockType): bool => $blockType->isEnabled()
             )
         );
     }

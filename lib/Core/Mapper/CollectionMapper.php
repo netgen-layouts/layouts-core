@@ -95,14 +95,10 @@ final class CollectionMapper
             'offset' => $collection->offset,
             'limit' => $collection->limit,
             'items' => new LazyCollection(
-                function () use ($collection): array {
-                    return array_map(
-                        function (PersistenceItem $item): Item {
-                            return $this->mapItem($item);
-                        },
-                        $this->collectionHandler->loadCollectionItems($collection)
-                    );
-                }
+                fn (): array => array_map(
+                    fn (PersistenceItem $item): Item => $this->mapItem($item),
+                    $this->collectionHandler->loadCollectionItems($collection)
+                )
             ),
             'query' => function () use ($collection, $locales): ?Query {
                 try {
@@ -114,14 +110,10 @@ final class CollectionMapper
                 return $this->mapQuery($persistenceQuery, $locales, false);
             },
             'slots' => new LazyCollection(
-                function () use ($collection): array {
-                    return array_map(
-                        function (PersistenceSlot $slot): Slot {
-                            return $this->mapSlot($slot);
-                        },
-                        $this->collectionHandler->loadCollectionSlots($collection)
-                    );
-                }
+                fn (): array => array_map(
+                    fn (PersistenceSlot $slot): Slot => $this->mapSlot($slot),
+                    $this->collectionHandler->loadCollectionSlots($collection)
+                )
             ),
             'isTranslatable' => $collection->isTranslatable,
             'mainLocale' => $collection->mainLocale,

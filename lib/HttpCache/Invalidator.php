@@ -34,9 +34,7 @@ final class Invalidator implements InvalidatorInterface
 
         $this->client->purge(
             array_map(
-                static function (string $layoutId): string {
-                    return 'ngl-layout-' . $layoutId;
-                },
+                static fn (string $layoutId): string => 'ngl-layout-' . $layoutId,
                 array_merge(...$allLayoutIds)
             )
         );
@@ -50,9 +48,7 @@ final class Invalidator implements InvalidatorInterface
 
         $this->client->purge(
             array_map(
-                static function (string $blockId): string {
-                    return 'ngl-block-' . $blockId;
-                },
+                static fn (string $blockId): string => 'ngl-block-' . $blockId,
                 $blockIds
             )
         );
@@ -66,9 +62,7 @@ final class Invalidator implements InvalidatorInterface
 
         $this->client->purge(
             array_map(
-                static function (string $layoutId): string {
-                    return 'ngl-origin-layout-' . $layoutId;
-                },
+                static fn (string $layoutId): string => 'ngl-origin-layout-' . $layoutId,
                 $layoutIds
             )
         );

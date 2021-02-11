@@ -33,9 +33,7 @@ final class QueryTypeRegistry implements IteratorAggregate, Countable, ArrayAcce
     {
         $this->queryTypes = array_filter(
             $queryTypes,
-            static function (QueryTypeInterface $queryType): bool {
-                return true;
-            }
+            static fn (QueryTypeInterface $queryType): bool => true
         );
     }
 
@@ -74,9 +72,7 @@ final class QueryTypeRegistry implements IteratorAggregate, Countable, ArrayAcce
 
         return array_filter(
             $this->queryTypes,
-            static function (QueryTypeInterface $queryType): bool {
-                return $queryType->isEnabled();
-            }
+            static fn (QueryTypeInterface $queryType): bool => $queryType->isEnabled()
         );
     }
 

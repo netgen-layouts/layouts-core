@@ -33,8 +33,8 @@ abstract class RuleVisitorTest extends VisitorTest
     public function visitDataProvider(): array
     {
         return [
-            [function (): Rule { return $this->layoutResolverService->loadRule(Uuid::fromString('55622437-f700-5378-99c9-7dafe89a8fb6')); }, 'rule/rule_2.json'],
-            [function (): Rule { return $this->layoutResolverService->loadRule(Uuid::fromString('c6891782-9d3e-58b7-95ac-261f491cc1ae')); }, 'rule/rule_11.json'],
+            [fn (): Rule => $this->layoutResolverService->loadRule(Uuid::fromString('55622437-f700-5378-99c9-7dafe89a8fb6')), 'rule/rule_2.json'],
+            [fn (): Rule => $this->layoutResolverService->loadRule(Uuid::fromString('c6891782-9d3e-58b7-95ac-261f491cc1ae')), 'rule/rule_11.json'],
         ];
     }
 }

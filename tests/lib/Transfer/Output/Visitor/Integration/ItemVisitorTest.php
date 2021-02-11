@@ -44,8 +44,8 @@ abstract class ItemVisitorTest extends VisitorTest
     public function visitDataProvider(): array
     {
         return [
-            [function (): Item { return $this->collectionService->loadItem(Uuid::fromString('79b6f162-d801-57e0-8b2d-a4b568a74231')); }, 'item/item_4.json'],
-            [function (): Item { return $this->collectionService->loadItem(Uuid::fromString('966e55da-9671-581a-b3b4-84363f7db33d')); }, 'item/item_5.json'],
+            [fn (): Item => $this->collectionService->loadItem(Uuid::fromString('79b6f162-d801-57e0-8b2d-a4b568a74231')), 'item/item_4.json'],
+            [fn (): Item => $this->collectionService->loadItem(Uuid::fromString('966e55da-9671-581a-b3b4-84363f7db33d')), 'item/item_5.json'],
         ];
     }
 }

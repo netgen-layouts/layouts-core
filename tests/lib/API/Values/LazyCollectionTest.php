@@ -14,9 +14,7 @@ final class LazyCollectionTest extends TestCase
     protected function setUp(): void
     {
         $this->collection = new LazyCollection(
-            static function (): array {
-                return [1, 2, 3];
-            }
+            static fn (): array => [1, 2, 3]
         );
     }
 

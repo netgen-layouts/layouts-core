@@ -40,9 +40,7 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                         ->defaultValue(null)
                         ->validate()
                             ->ifTrue(
-                                static function ($v): bool {
-                                    return !($v === null || (is_string($v) && $v !== ''));
-                                }
+                                static fn ($v): bool => !($v === null || (is_string($v) && $v !== ''))
                             )
                             ->thenInvalid('Icon path needs to be a non empty string or null.')
                         ->end()
@@ -71,21 +69,13 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                                         ->defaultNull()
                                         ->validate()
                                             ->ifTrue(
-                                                static function ($v): bool {
-                                                    return $v !== null && !is_array($v);
-                                                }
+                                                static fn ($v): bool => $v !== null && !is_array($v)
                                             )
                                             ->thenInvalid('The value should be null or an array')
                                         ->end()
                                         ->validate()
                                             ->always(
-                                                static function ($v) {
-                                                    if (is_array($v)) {
-                                                        return array_values(array_unique($v));
-                                                    }
-
-                                                    return $v;
-                                                }
+                                                static fn ($v) => is_array($v) ? array_values(array_unique($v)) : $v
                                             )
                                         ->end()
                                     ->end()
@@ -93,21 +83,13 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                                         ->defaultNull()
                                         ->validate()
                                             ->ifTrue(
-                                                static function ($v): bool {
-                                                    return $v !== null && !is_array($v);
-                                                }
+                                                static fn ($v): bool => $v !== null && !is_array($v)
                                             )
                                             ->thenInvalid('The value should be null or an array')
                                         ->end()
                                         ->validate()
                                             ->always(
-                                                static function ($v) {
-                                                    if (is_array($v)) {
-                                                        return array_values(array_unique($v));
-                                                    }
-
-                                                    return $v;
-                                                }
+                                                static fn ($v) => is_array($v) ? array_values(array_unique($v)) : $v
                                             )
                                         ->end()
                                     ->end()
@@ -184,19 +166,15 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                             ->canBeDisabled()
                             ->validate()
                                 ->ifTrue(
-                                    static function (array $v): bool {
-                                        return $v['enabled'] !== true;
-                                    }
+                                    static fn (array $v): bool => $v['enabled'] !== true
                                 )
                                 ->then(
-                                    static function (array $v): array {
-                                        return [
-                                            'name' => 'Disabled',
-                                            'enabled' => false,
-                                            'item_view_types' => [],
-                                            'valid_parameters' => null,
-                                        ];
-                                    }
+                                    static fn (array $v): array => [
+                                        'name' => 'Disabled',
+                                        'enabled' => false,
+                                        'item_view_types' => [],
+                                        'valid_parameters' => null,
+                                    ]
                                 )
                             ->end()
                             ->children()
@@ -212,25 +190,19 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                                         ->canBeDisabled()
                                         ->validate()
                                             ->ifTrue(
-                                                static function (array $v): bool {
-                                                    return $v['enabled'] === true && !isset($v['name']);
-                                                }
+                                                static fn (array $v): bool => $v['enabled'] === true && !isset($v['name'])
                                             )
                                             ->thenInvalid('Item view type name must be specified')
                                         ->end()
                                         ->validate()
                                             ->ifTrue(
-                                                static function (array $v): bool {
-                                                    return $v['enabled'] !== true;
-                                                }
+                                                static fn (array $v): bool => $v['enabled'] !== true
                                             )
                                             ->then(
-                                                static function (array $v): array {
-                                                    return [
-                                                        'name' => 'Disabled',
-                                                        'enabled' => false,
-                                                    ];
-                                                }
+                                                static fn (array $v): array => [
+                                                    'name' => 'Disabled',
+                                                    'enabled' => false,
+                                                ]
                                             )
                                         ->end()
                                         ->children()
@@ -244,21 +216,13 @@ final class BlockDefinitionNode implements ConfigurationNodeInterface
                                     ->defaultNull()
                                     ->validate()
                                         ->ifTrue(
-                                            static function ($v): bool {
-                                                return $v !== null && !is_array($v);
-                                            }
+                                            static fn ($v): bool => $v !== null && !is_array($v)
                                         )
                                         ->thenInvalid('The value should be null or an array')
                                     ->end()
                                     ->validate()
                                         ->always(
-                                            static function ($v) {
-                                                if (is_array($v)) {
-                                                    return array_values(array_unique($v));
-                                                }
-
-                                                return $v;
-                                            }
+                                            static fn ($v) => is_array($v) ? array_values(array_unique($v)) : $v
                                         )
                                     ->end()
                                 ->end()

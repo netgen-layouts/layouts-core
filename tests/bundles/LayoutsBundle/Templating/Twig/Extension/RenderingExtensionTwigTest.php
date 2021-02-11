@@ -123,9 +123,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
         return [
             new FactoryRuntimeLoader(
                 [
-                    RenderingRuntime::class => function (): RenderingRuntime {
-                        return $this->runtime;
-                    },
+                    RenderingRuntime::class => fn (): RenderingRuntime => $this->runtime,
                 ]
             ),
         ];
@@ -163,13 +161,9 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
             ->expects(self::any())
             ->method('renderValue')
             ->willReturnCallback(
-                static function (ZoneReference $zoneReference, string $context): string {
-                    if ($context === 'json') {
-                        return '{"blocks":[{"id":1},{"id":2}]}';
-                    }
-
-                    return 'block1 block2';
-                }
+                static fn (ZoneReference $zoneReference, string $context): string => $context === 'json' ?
+                        '{"blocks":[{"id":1},{"id":2}]}' :
+                        'block1 block2'
             );
     }
 }

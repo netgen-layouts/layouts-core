@@ -33,9 +33,9 @@ abstract class CollectionVisitorTest extends VisitorTest
     public function visitDataProvider(): array
     {
         return [
-            [function (): Collection { return $this->collectionService->loadCollection(Uuid::fromString('45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a')); }, 'collection/collection_2.json'],
-            [function (): Collection { return $this->collectionService->loadCollection(Uuid::fromString('da050624-8ae0-5fb9-ae85-092bf8242b89')); }, 'collection/collection_3.json'],
-            [function (): Collection { return $this->collectionService->loadCollection(Uuid::fromString('00872ad1-60e2-5947-95c2-e2eb75427af6')); }, 'collection/collection_6.json'],
+            [fn (): Collection => $this->collectionService->loadCollection(Uuid::fromString('45a6e6f5-0ae7-588b-bf2a-0e4cc24ec60a')), 'collection/collection_2.json'],
+            [fn (): Collection => $this->collectionService->loadCollection(Uuid::fromString('da050624-8ae0-5fb9-ae85-092bf8242b89')), 'collection/collection_3.json'],
+            [fn (): Collection => $this->collectionService->loadCollection(Uuid::fromString('00872ad1-60e2-5947-95c2-e2eb75427af6')), 'collection/collection_6.json'],
         ];
     }
 }

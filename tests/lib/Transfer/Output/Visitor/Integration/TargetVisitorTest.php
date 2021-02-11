@@ -33,8 +33,8 @@ abstract class TargetVisitorTest extends VisitorTest
     public function visitDataProvider(): array
     {
         return [
-            [function (): Target { return $this->layoutResolverService->loadTarget(Uuid::fromString('c7c5cdca-02da-5ba5-ad9e-d25cbc4b1b46')); }, 'target/target_1.json'],
-            [function (): Target { return $this->layoutResolverService->loadTarget(Uuid::fromString('0cd23062-3fa7-582f-b022-034595ec68d5')); }, 'target/target_2.json'],
+            [fn (): Target => $this->layoutResolverService->loadTarget(Uuid::fromString('c7c5cdca-02da-5ba5-ad9e-d25cbc4b1b46')), 'target/target_1.json'],
+            [fn (): Target => $this->layoutResolverService->loadTarget(Uuid::fromString('0cd23062-3fa7-582f-b022-034595ec68d5')), 'target/target_2.json'],
         ];
     }
 }

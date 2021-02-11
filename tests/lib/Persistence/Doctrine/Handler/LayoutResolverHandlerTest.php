@@ -485,9 +485,7 @@ final class LayoutResolverHandlerTest extends TestCase
         $ruleGroup = $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Value::STATUS_PUBLISHED);
 
         $createdRule = $this->withUuids(
-            function () use ($ruleCreateStruct, $ruleGroup): Rule {
-                return $this->handler->createRule($ruleCreateStruct, $ruleGroup);
-            },
+            fn (): Rule => $this->handler->createRule($ruleCreateStruct, $ruleGroup),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
@@ -574,9 +572,7 @@ final class LayoutResolverHandlerTest extends TestCase
         $ruleGroup = $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Value::STATUS_PUBLISHED);
 
         $createdRule = $this->withUuids(
-            function () use ($ruleCreateStruct, $ruleGroup): Rule {
-                return $this->handler->createRule($ruleCreateStruct, $ruleGroup);
-            },
+            fn (): Rule => $this->handler->createRule($ruleCreateStruct, $ruleGroup),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
@@ -741,9 +737,7 @@ final class LayoutResolverHandlerTest extends TestCase
         $targetGroup = $this->handler->loadRuleGroup(1, Value::STATUS_PUBLISHED);
 
         $copiedRule = $this->withUuids(
-            function () use ($rule, $targetGroup): Rule {
-                return $this->handler->copyRule($rule, $targetGroup);
-            },
+            fn (): Rule => $this->handler->copyRule($rule, $targetGroup),
             [
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'efd1d54a-5d53-518f-91a5-f4965c242a67',
@@ -821,9 +815,7 @@ final class LayoutResolverHandlerTest extends TestCase
         $targetGroup = $this->handler->loadRuleGroup(2, Value::STATUS_PUBLISHED);
 
         $copiedRule = $this->withUuids(
-            function () use ($rule, $targetGroup): Rule {
-                return $this->handler->copyRule($rule, $targetGroup);
-            },
+            fn (): Rule => $this->handler->copyRule($rule, $targetGroup),
             [
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'efd1d54a-5d53-518f-91a5-f4965c242a67',
@@ -1196,9 +1188,7 @@ final class LayoutResolverHandlerTest extends TestCase
         $parentGroup = $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Value::STATUS_PUBLISHED);
 
         $createdRuleGroup = $this->withUuids(
-            function () use ($ruleGroupCreateStruct, $parentGroup): RuleGroup {
-                return $this->handler->createRuleGroup($ruleGroupCreateStruct, $parentGroup);
-            },
+            fn (): RuleGroup => $this->handler->createRuleGroup($ruleGroupCreateStruct, $parentGroup),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
@@ -1263,9 +1253,7 @@ final class LayoutResolverHandlerTest extends TestCase
         $parentGroup = $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Value::STATUS_PUBLISHED);
 
         $createdRuleGroup = $this->withUuids(
-            function () use ($ruleGroupCreateStruct, $parentGroup): RuleGroup {
-                return $this->handler->createRuleGroup($ruleGroupCreateStruct, $parentGroup);
-            },
+            fn (): RuleGroup => $this->handler->createRuleGroup($ruleGroupCreateStruct, $parentGroup),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
@@ -1436,9 +1424,7 @@ final class LayoutResolverHandlerTest extends TestCase
         $targetGroup = $this->handler->loadRuleGroup(1, Value::STATUS_PUBLISHED);
 
         $copiedRuleGroup = $this->withUuids(
-            function () use ($ruleGroup, $targetGroup): RuleGroup {
-                return $this->handler->copyRuleGroup($ruleGroup, $targetGroup);
-            },
+            fn (): RuleGroup => $this->handler->copyRuleGroup($ruleGroup, $targetGroup),
             [
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'efd1d54a-5d53-518f-91a5-f4965c242a67',
@@ -1499,9 +1485,7 @@ final class LayoutResolverHandlerTest extends TestCase
         $targetGroup = $this->handler->loadRuleGroup(1, Value::STATUS_PUBLISHED);
 
         $copiedRuleGroup = $this->withUuids(
-            function () use ($ruleGroup, $targetGroup): RuleGroup {
-                return $this->handler->copyRuleGroup($ruleGroup, $targetGroup, true);
-            },
+            fn (): RuleGroup => $this->handler->copyRuleGroup($ruleGroup, $targetGroup, true),
             [
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'efd1d54a-5d53-518f-91a5-f4965c242a67',
@@ -1822,12 +1806,10 @@ final class LayoutResolverHandlerTest extends TestCase
         $targetCreateStruct->value = '42';
 
         $target = $this->withUuids(
-            function () use ($targetCreateStruct): Target {
-                return $this->handler->addTarget(
-                    $this->handler->loadRule(1, Value::STATUS_PUBLISHED),
-                    $targetCreateStruct
-                );
-            },
+            fn (): Target => $this->handler->addTarget(
+                $this->handler->loadRule(1, Value::STATUS_PUBLISHED),
+                $targetCreateStruct
+            ),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
@@ -1901,12 +1883,10 @@ final class LayoutResolverHandlerTest extends TestCase
         $conditionCreateStruct->value = ['param' => 'value'];
 
         $condition = $this->withUuids(
-            function () use ($conditionCreateStruct): RuleCondition {
-                return $this->handler->addRuleCondition(
-                    $this->handler->loadRule(3, Value::STATUS_PUBLISHED),
-                    $conditionCreateStruct
-                );
-            },
+            fn (): RuleCondition => $this->handler->addRuleCondition(
+                $this->handler->loadRule(3, Value::STATUS_PUBLISHED),
+                $conditionCreateStruct
+            ),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
@@ -1936,12 +1916,10 @@ final class LayoutResolverHandlerTest extends TestCase
         $conditionCreateStruct->value = ['param' => 'value'];
 
         $condition = $this->withUuids(
-            function () use ($conditionCreateStruct): RuleGroupCondition {
-                return $this->handler->addRuleGroupCondition(
-                    $this->handler->loadRuleGroup(3, Value::STATUS_PUBLISHED),
-                    $conditionCreateStruct
-                );
-            },
+            fn (): RuleGroupCondition => $this->handler->addRuleGroupCondition(
+                $this->handler->loadRuleGroup(3, Value::STATUS_PUBLISHED),
+                $conditionCreateStruct
+            ),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 

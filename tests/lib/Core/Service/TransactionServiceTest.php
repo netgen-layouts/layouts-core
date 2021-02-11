@@ -43,9 +43,7 @@ final class TransactionServiceTest extends TestCase
             ->method('commitTransaction');
 
         $return = $this->service->transaction(
-            static function (): int {
-                return 42;
-            }
+            static fn (): int => 42
         );
 
         self::assertSame(42, $return);

@@ -126,11 +126,9 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
                                     Kernel::VERSION_ID >= 40400 && Kernel::VERSION_ID < 50000 ?
                                         new Length(['max' => 6, 'allowEmptyString' => false]) :
                                         new Length(['max' => 6]),
-                                    static function (): Constraint {
-                                        return Kernel::VERSION_ID >= 40400 && Kernel::VERSION_ID < 50000 ?
-                                            new Length(['min' => 3, 'allowEmptyString' => false]) :
-                                            new Length(['min' => 3]);
-                                    },
+                                    static fn (): Constraint => Kernel::VERSION_ID >= 40400 && Kernel::VERSION_ID < 50000 ?
+                                        new Length(['min' => 3, 'allowEmptyString' => false]) :
+                                        new Length(['min' => 3]),
                                 ],
                             ]
                         ),

@@ -24,9 +24,7 @@ final class PluginCollection
 
         $this->plugins = array_filter(
             $plugins,
-            static function (PluginInterface $plugin): bool {
-                return true;
-            }
+            static fn (PluginInterface $plugin): bool => true
         );
     }
 

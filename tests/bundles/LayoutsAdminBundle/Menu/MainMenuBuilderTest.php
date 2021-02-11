@@ -27,9 +27,7 @@ final class MainMenuBuilderTest extends TestCase
             ->expects(self::any())
             ->method('generate')
             ->willReturnCallback(
-                static function (string $route): string {
-                    return $route;
-                }
+                static fn (string $route): string => $route
             );
 
         $menuFactory = new MenuFactory();

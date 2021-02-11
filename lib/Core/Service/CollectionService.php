@@ -116,17 +116,15 @@ final class CollectionService implements APICollectionService
         $this->validator->validateCollectionUpdateStruct($collection, $collectionUpdateStruct);
 
         $updatedCollection = $this->transaction(
-            function () use ($persistenceCollection, $collectionUpdateStruct): PersistenceCollection {
-                return $this->collectionHandler->updateCollection(
-                    $persistenceCollection,
-                    CollectionUpdateStruct::fromArray(
-                        [
-                            'offset' => $collectionUpdateStruct->offset,
-                            'limit' => $collectionUpdateStruct->limit,
-                        ]
-                    )
-                );
-            }
+            fn (): PersistenceCollection => $this->collectionHandler->updateCollection(
+                $persistenceCollection,
+                CollectionUpdateStruct::fromArray(
+                    [
+                        'offset' => $collectionUpdateStruct->offset,
+                        'limit' => $collectionUpdateStruct->limit,
+                    ]
+                )
+            )
         );
 
         return $this->mapper->mapCollection($updatedCollection, [$collection->getLocale()]);
@@ -275,25 +273,23 @@ final class CollectionService implements APICollectionService
         $this->validator->validateItemCreateStruct($itemCreateStruct);
 
         $createdItem = $this->transaction(
-            function () use ($persistenceCollection, $position, $itemCreateStruct): PersistenceItem {
-                return $this->collectionHandler->addItem(
-                    $persistenceCollection,
-                    ItemCreateStruct::fromArray(
-                        [
-                            'position' => $position,
-                            'value' => $itemCreateStruct->value,
-                            'valueType' => $itemCreateStruct->definition->getValueType(),
-                            'viewType' => $itemCreateStruct->viewType,
-                            'config' => iterator_to_array(
-                                $this->configMapper->serializeValues(
-                                    $itemCreateStruct->getConfigStructs(),
-                                    $itemCreateStruct->definition->getConfigDefinitions()
-                                )
-                            ),
-                        ]
-                    )
-                );
-            }
+            fn (): PersistenceItem => $this->collectionHandler->addItem(
+                $persistenceCollection,
+                ItemCreateStruct::fromArray(
+                    [
+                        'position' => $position,
+                        'value' => $itemCreateStruct->value,
+                        'valueType' => $itemCreateStruct->definition->getValueType(),
+                        'viewType' => $itemCreateStruct->viewType,
+                        'config' => iterator_to_array(
+                            $this->configMapper->serializeValues(
+                                $itemCreateStruct->getConfigStructs(),
+                                $itemCreateStruct->definition->getConfigDefinitions()
+                            )
+                        ),
+                    ]
+                )
+            )
         );
 
         return $this->mapper->mapItem($createdItem);
@@ -312,23 +308,21 @@ final class CollectionService implements APICollectionService
         $itemDefinition = $item->getDefinition();
 
         $updatedItem = $this->transaction(
-            function () use ($itemDefinition, $persistenceItem, $itemUpdateStruct): PersistenceItem {
-                return $this->collectionHandler->updateItem(
-                    $persistenceItem,
-                    ItemUpdateStruct::fromArray(
-                        [
-                            'viewType' => $itemUpdateStruct->viewType,
-                            'config' => iterator_to_array(
-                                $this->configMapper->serializeValues(
-                                    $itemUpdateStruct->getConfigStructs(),
-                                    $itemDefinition->getConfigDefinitions(),
-                                    $persistenceItem->config
-                                )
-                            ),
-                        ]
-                    )
-                );
-            }
+            fn (): PersistenceItem => $this->collectionHandler->updateItem(
+                $persistenceItem,
+                ItemUpdateStruct::fromArray(
+                    [
+                        'viewType' => $itemUpdateStruct->viewType,
+                        'config' => iterator_to_array(
+                            $this->configMapper->serializeValues(
+                                $itemUpdateStruct->getConfigStructs(),
+                                $itemDefinition->getConfigDefinitions(),
+                                $persistenceItem->config
+                            )
+                        ),
+                    ]
+                )
+            )
         );
 
         return $this->mapper->mapItem($updatedItem);
@@ -345,12 +339,10 @@ final class CollectionService implements APICollectionService
         $this->validator->validatePosition($position, 'position', true);
 
         $movedItem = $this->transaction(
-            function () use ($persistenceItem, $position): PersistenceItem {
-                return $this->collectionHandler->moveItem(
-                    $persistenceItem,
-                    $position
-                );
-            }
+            fn (): PersistenceItem => $this->collectionHandler->moveItem(
+                $persistenceItem,
+                $position
+            )
         );
 
         return $this->mapper->mapItem($movedItem);
@@ -380,9 +372,7 @@ final class CollectionService implements APICollectionService
         $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
 
         $updatedCollection = $this->transaction(
-            function () use ($persistenceCollection): PersistenceCollection {
-                return $this->collectionHandler->deleteItems($persistenceCollection);
-            }
+            fn (): PersistenceCollection => $this->collectionHandler->deleteItems($persistenceCollection)
         );
 
         return $this->mapper->mapCollection($updatedCollection, [$collection->getLocale()]);
@@ -405,13 +395,11 @@ final class CollectionService implements APICollectionService
         $queryType = $query->getQueryType();
 
         $updatedQuery = $this->transaction(
-            function () use ($queryType, $persistenceQuery, $queryUpdateStruct): PersistenceQuery {
-                return $this->updateQueryTranslations(
-                    $queryType,
-                    $persistenceQuery,
-                    $queryUpdateStruct
-                );
-            }
+            fn (): PersistenceQuery => $this->updateQueryTranslations(
+                $queryType,
+                $persistenceQuery,
+                $queryUpdateStruct
+            )
         );
 
         return $this->mapper->mapQuery($updatedQuery, [$query->getLocale()]);
@@ -428,17 +416,15 @@ final class CollectionService implements APICollectionService
         $this->validator->validatePosition($position, 'position', true);
 
         $createdSlot = $this->transaction(
-            function () use ($persistenceCollection, $position, $slotCreateStruct): PersistenceSlot {
-                return $this->collectionHandler->addSlot(
-                    $persistenceCollection,
-                    SlotCreateStruct::fromArray(
-                        [
-                            'position' => $position,
-                            'viewType' => $slotCreateStruct->viewType,
-                        ]
-                    )
-                );
-            }
+            fn (): PersistenceSlot => $this->collectionHandler->addSlot(
+                $persistenceCollection,
+                SlotCreateStruct::fromArray(
+                    [
+                        'position' => $position,
+                        'viewType' => $slotCreateStruct->viewType,
+                    ]
+                )
+            )
         );
 
         return $this->mapper->mapSlot($createdSlot);
@@ -453,16 +439,14 @@ final class CollectionService implements APICollectionService
         $persistenceSlot = $this->collectionHandler->loadSlot($slot->getId(), Value::STATUS_DRAFT);
 
         $updatedSlot = $this->transaction(
-            function () use ($persistenceSlot, $slotUpdateStruct): PersistenceSlot {
-                return $this->collectionHandler->updateSlot(
-                    $persistenceSlot,
-                    SlotUpdateStruct::fromArray(
-                        [
-                            'viewType' => $slotUpdateStruct->viewType,
-                        ]
-                    )
-                );
-            }
+            fn (): PersistenceSlot => $this->collectionHandler->updateSlot(
+                $persistenceSlot,
+                SlotUpdateStruct::fromArray(
+                    [
+                        'viewType' => $slotUpdateStruct->viewType,
+                    ]
+                )
+            )
         );
 
         return $this->mapper->mapSlot($updatedSlot);
@@ -492,9 +476,7 @@ final class CollectionService implements APICollectionService
         $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
 
         $updatedCollection = $this->transaction(
-            function () use ($persistenceCollection): PersistenceCollection {
-                return $this->collectionHandler->deleteSlots($persistenceCollection);
-            }
+            fn (): PersistenceCollection => $this->collectionHandler->deleteSlots($persistenceCollection)
         );
 
         return $this->mapper->mapCollection($updatedCollection, [$collection->getLocale()]);

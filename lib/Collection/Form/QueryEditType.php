@@ -30,15 +30,13 @@ final class QueryEditType extends AbstractType
 
         $resolver->setDefault(
             'constraints',
-            static function (Options $options): array {
-                return [
-                    new QueryUpdateStructConstraint(
-                        [
-                            'payload' => $options['query'],
-                        ]
-                    ),
-                ];
-            }
+            static fn (Options $options): array => [
+                new QueryUpdateStructConstraint(
+                    [
+                        'payload' => $options['query'],
+                    ]
+                ),
+            ]
         );
     }
 

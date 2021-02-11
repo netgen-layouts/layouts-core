@@ -22,9 +22,7 @@ final class BlockList extends ArrayCollection
         parent::__construct(
             array_filter(
                 $blocks,
-                static function (Block $block): bool {
-                    return true;
-                }
+                static fn (Block $block): bool => true
             )
         );
     }
@@ -43,9 +41,7 @@ final class BlockList extends ArrayCollection
     public function getBlockIds(): array
     {
         return array_map(
-            static function (Block $block): UuidInterface {
-                return $block->getId();
-            },
+            static fn (Block $block): UuidInterface => $block->getId(),
             $this->getBlocks()
         );
     }

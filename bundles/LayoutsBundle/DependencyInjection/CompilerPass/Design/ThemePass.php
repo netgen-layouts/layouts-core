@@ -62,12 +62,10 @@ final class ThemePass implements CompilerPassInterface
         $bundlesMetadata = $container->getParameter('kernel.bundles_metadata');
 
         $paths = array_map(
-            static function (array $bundleMetadata): array {
-                return [
-                    $bundleMetadata['path'] . '/Resources/views/nglayouts/themes',
-                    $bundleMetadata['path'] . '/templates/nglayouts/themes',
-                ];
-            },
+            static fn (array $bundleMetadata): array => [
+                $bundleMetadata['path'] . '/Resources/views/nglayouts/themes',
+                $bundleMetadata['path'] . '/templates/nglayouts/themes',
+            ],
             // Reversing the list of bundles so bundles added at end have higher priority
             // when searching for a template
             array_reverse($bundlesMetadata)

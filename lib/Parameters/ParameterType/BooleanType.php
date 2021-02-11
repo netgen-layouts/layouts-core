@@ -24,13 +24,7 @@ final class BooleanType extends ParameterType
     {
         $optionsResolver->setDefault(
             'default_value',
-            static function (Options $options, $previousValue) {
-                if ($options['required'] === true) {
-                    return false;
-                }
-
-                return $previousValue;
-            }
+            static fn (Options $options, $previousValue) => $options['required'] === true ? false : $previousValue
         );
     }
 

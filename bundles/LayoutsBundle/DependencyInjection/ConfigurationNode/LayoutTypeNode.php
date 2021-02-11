@@ -32,9 +32,7 @@ final class LayoutTypeNode implements ConfigurationNodeInterface
                         ->defaultValue(null)
                         ->validate()
                             ->ifTrue(
-                                static function ($v): bool {
-                                    return !($v === null || (is_string($v) && $v !== ''));
-                                }
+                                static fn ($v): bool => !($v === null || (is_string($v) && $v !== ''))
                             )
                             ->thenInvalid('Icon path needs to be a non empty string or null.')
                         ->end()
@@ -52,9 +50,7 @@ final class LayoutTypeNode implements ConfigurationNodeInterface
                                 ->arrayNode('allowed_block_definitions')
                                     ->validate()
                                         ->always(
-                                            static function (array $v): array {
-                                                return array_values(array_unique($v));
-                                            }
+                                            static fn (array $v): array => array_values(array_unique($v))
                                         )
                                     ->end()
                                     ->requiresAtLeastOneElement()

@@ -86,14 +86,10 @@ final class LayoutMapper
             'mainLocale' => $layout->mainLocale,
             'availableLocales' => $layout->availableLocales,
             'zones' => new LazyCollection(
-                function () use ($layout): array {
-                    return array_map(
-                        function (PersistenceZone $zone): Zone {
-                            return $this->mapZone($zone);
-                        },
-                        $this->layoutHandler->loadLayoutZones($layout)
-                    );
-                }
+                fn (): array => array_map(
+                    fn (PersistenceZone $zone): Zone => $this->mapZone($zone),
+                    $this->layoutHandler->loadLayoutZones($layout)
+                )
             ),
         ];
 

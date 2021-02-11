@@ -33,7 +33,7 @@ abstract class ConfigVisitorTest extends VisitorTest
     public function visitDataProvider(): array
     {
         return [
-            [function (): Config { return $this->blockService->loadBlock(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'))->getConfig('key'); }, 'config/block_31.json'],
+            [fn (): Config => $this->blockService->loadBlock(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'))->getConfig('key'), 'config/block_31.json'],
         ];
     }
 }

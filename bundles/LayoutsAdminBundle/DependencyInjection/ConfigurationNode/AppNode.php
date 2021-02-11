@@ -24,9 +24,7 @@ final class AppNode implements ConfigurationNodeInterface
                         ->cannotBeEmpty()
                         ->validate()
                             ->ifTrue(
-                                static function ($v): bool {
-                                    return !is_string($v);
-                                }
+                                static fn ($v): bool => !is_string($v)
                             )
                             ->thenInvalid('The value should be a string')
                         ->end()
@@ -37,9 +35,7 @@ final class AppNode implements ConfigurationNodeInterface
                         ->cannotBeEmpty()
                         ->validate()
                             ->ifTrue(
-                                static function ($v): bool {
-                                    return !is_string($v);
-                                }
+                                static fn ($v): bool => !is_string($v)
                             )
                             ->thenInvalid('The value should be a string')
                         ->end()

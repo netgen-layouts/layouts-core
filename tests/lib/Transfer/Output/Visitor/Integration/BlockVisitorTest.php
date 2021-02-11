@@ -33,8 +33,8 @@ abstract class BlockVisitorTest extends VisitorTest
     public function visitDataProvider(): array
     {
         return [
-            [function (): Block { return $this->blockService->loadBlock(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')); }, 'block/block_31.json'],
-            [function (): Block { return $this->blockService->loadBlock(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')); }, 'block/block_33.json'],
+            [fn (): Block => $this->blockService->loadBlock(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')), 'block/block_31.json'],
+            [fn (): Block => $this->blockService->loadBlock(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')), 'block/block_33.json'],
         ];
     }
 }

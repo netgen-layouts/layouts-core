@@ -74,12 +74,10 @@ final class ChoiceMapperTest extends TestCase
                 'options' => [
                     'multiple' => true,
                     'expanded' => true,
-                    'options' => static function (): array {
-                        return [
-                            'Option 1' => 'option1',
-                            'Option 2' => 'option2',
-                        ];
-                    },
+                    'options' => static fn (): array => [
+                        'Option 1' => 'option1',
+                        'Option 2' => 'option2',
+                    ],
                 ],
             ]
         );

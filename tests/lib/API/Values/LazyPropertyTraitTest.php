@@ -14,9 +14,7 @@ final class LazyPropertyTraitTest extends TestCase
     protected function setUp(): void
     {
         $this->value = new ValueWithLazyProperty(
-            static function (): int {
-                return 42;
-            }
+            static fn (): int => 42
         );
     }
 

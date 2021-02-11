@@ -21,9 +21,7 @@ trait UuidGeneratorTrait
     private function withUuids(callable $callable, array $uuids)
     {
         $uuids = array_map(
-            static function (string $uuid): UuidInterface {
-                return Uuid::fromString($uuid);
-            },
+            static fn (string $uuid): UuidInterface => Uuid::fromString($uuid),
             $uuids
         );
 
@@ -39,9 +37,7 @@ trait UuidGeneratorTrait
         $factoryMock->expects(self::any())
             ->method('fromString')
             ->willReturnCallback(
-                static function (string $uuid) use ($originalFactory): UuidInterface {
-                    return $originalFactory->fromString($uuid);
-                }
+                static fn (string $uuid): UuidInterface => $originalFactory->fromString($uuid)
             );
 
         $factoryMock->expects(self::exactly(count($uuids)))

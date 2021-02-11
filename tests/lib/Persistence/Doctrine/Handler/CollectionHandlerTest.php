@@ -504,9 +504,7 @@ final class CollectionHandlerTest extends TestCase
         $collectionCreateStruct->alwaysAvailable = true;
 
         $createdCollection = $this->withUuids(
-            function () use ($collectionCreateStruct, $block): Collection {
-                return $this->collectionHandler->createCollection($collectionCreateStruct, $block, 'default');
-            },
+            fn (): Collection => $this->collectionHandler->createCollection($collectionCreateStruct, $block, 'default'),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
@@ -928,13 +926,11 @@ final class CollectionHandlerTest extends TestCase
         $block = $this->blockHandler->loadBlock(34, Value::STATUS_PUBLISHED);
 
         $copiedCollection = $this->withUuids(
-            function () use ($block): Collection {
-                return $this->collectionHandler->copyCollection(
-                    $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED),
-                    $block,
-                    'default'
-                );
-            },
+            fn (): Collection => $this->collectionHandler->copyCollection(
+                $this->collectionHandler->loadCollection(3, Value::STATUS_PUBLISHED),
+                $block,
+                'default'
+            ),
             [
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 '76b05000-33ac-53f7-adfd-c91936d1f6b1',
@@ -1078,13 +1074,11 @@ final class CollectionHandlerTest extends TestCase
         $block = $this->blockHandler->loadBlock(34, Value::STATUS_DRAFT);
 
         $copiedCollection = $this->withUuids(
-            function () use ($block): Collection {
-                return $this->collectionHandler->copyCollection(
-                    $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
-                    $block,
-                    'default'
-                );
-            },
+            fn (): Collection => $this->collectionHandler->copyCollection(
+                $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+                $block,
+                'default'
+            ),
             [
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 '76b05000-33ac-53f7-adfd-c91936d1f6b1',
@@ -1629,12 +1623,10 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->config = ['config' => ['value' => 42]];
 
         $item = $this->withUuids(
-            function () use ($itemCreateStruct): Item {
-                return $this->collectionHandler->addItem(
-                    $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
-                    $itemCreateStruct
-                );
-            },
+            fn (): Item => $this->collectionHandler->addItem(
+                $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+                $itemCreateStruct
+            ),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
@@ -1675,12 +1667,10 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->config = ['config' => ['value' => 42]];
 
         $item = $this->withUuids(
-            function () use ($itemCreateStruct): Item {
-                return $this->collectionHandler->addItem(
-                    $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT),
-                    $itemCreateStruct
-                );
-            },
+            fn (): Item => $this->collectionHandler->addItem(
+                $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT),
+                $itemCreateStruct
+            ),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
@@ -1727,12 +1717,10 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->config = ['config' => ['value' => 42]];
 
         $item = $this->withUuids(
-            function () use ($itemCreateStruct): Item {
-                return $this->collectionHandler->addItem(
-                    $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT),
-                    $itemCreateStruct
-                );
-            },
+            fn (): Item => $this->collectionHandler->addItem(
+                $this->collectionHandler->loadCollection(3, Value::STATUS_DRAFT),
+                $itemCreateStruct
+            ),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
@@ -1773,12 +1761,10 @@ final class CollectionHandlerTest extends TestCase
         $itemCreateStruct->viewType = null;
 
         $item = $this->withUuids(
-            function () use ($itemCreateStruct): Item {
-                return $this->collectionHandler->addItem(
-                    $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
-                    $itemCreateStruct
-                );
-            },
+            fn (): Item => $this->collectionHandler->addItem(
+                $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+                $itemCreateStruct
+            ),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
@@ -2355,12 +2341,10 @@ final class CollectionHandlerTest extends TestCase
         ];
 
         $createdQuery = $this->withUuids(
-            function () use ($collection, $queryCreateStruct): Query {
-                return $this->collectionHandler->createQuery(
-                    $collection,
-                    $queryCreateStruct
-                );
-            },
+            fn (): Query => $this->collectionHandler->createQuery(
+                $collection,
+                $queryCreateStruct
+            ),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
@@ -2590,12 +2574,10 @@ final class CollectionHandlerTest extends TestCase
         $slotCreateStruct->viewType = 'my_view_type';
 
         $slot = $this->withUuids(
-            function () use ($slotCreateStruct): Slot {
-                return $this->collectionHandler->addSlot(
-                    $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
-                    $slotCreateStruct
-                );
-            },
+            fn (): Slot => $this->collectionHandler->addSlot(
+                $this->collectionHandler->loadCollection(1, Value::STATUS_DRAFT),
+                $slotCreateStruct
+            ),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 

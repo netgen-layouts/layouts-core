@@ -322,14 +322,12 @@ final class BlockHandlerTest extends TestCase
         ];
 
         $createdBlock = $this->withUuids(
-            function () use ($blockCreateStruct): Block {
-                return $this->blockHandler->createBlock(
-                    $blockCreateStruct,
-                    $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
-                    $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
-                    'root'
-                );
-            },
+            fn (): Block => $this->blockHandler->createBlock(
+                $blockCreateStruct,
+                $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
+                $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+                'root'
+            ),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
@@ -544,12 +542,10 @@ final class BlockHandlerTest extends TestCase
         ];
 
         $block = $this->withUuids(
-            function () use ($blockCreateStruct): Block {
-                return $this->blockHandler->createBlock(
-                    $blockCreateStruct,
-                    $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT)
-                );
-            },
+            fn (): Block => $this->blockHandler->createBlock(
+                $blockCreateStruct,
+                $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT)
+            ),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
@@ -617,14 +613,12 @@ final class BlockHandlerTest extends TestCase
         ];
 
         $block = $this->withUuids(
-            function () use ($blockCreateStruct): Block {
-                return $this->blockHandler->createBlock(
-                    $blockCreateStruct,
-                    $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
-                    $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
-                    'root'
-                );
-            },
+            fn (): Block => $this->blockHandler->createBlock(
+                $blockCreateStruct,
+                $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
+                $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+                'root'
+            ),
             ['f06f245a-f951-52c8-bfa3-84c80154eadc']
         );
 
@@ -1034,13 +1028,11 @@ final class BlockHandlerTest extends TestCase
     public function testCopyBlock(): void
     {
         $copiedBlock = $this->withUuids(
-            function (): Block {
-                return $this->blockHandler->copyBlock(
-                    $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-                    $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
-                    'root'
-                );
-            },
+            fn (): Block => $this->blockHandler->copyBlock(
+                $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+                $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+                'root'
+            ),
             [
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'cf29cf92-0294-5581-abdb-58d11978186b',
@@ -1129,14 +1121,12 @@ final class BlockHandlerTest extends TestCase
     public function testCopyBlockWithPosition(): void
     {
         $copiedBlock = $this->withUuids(
-            function (): Block {
-                return $this->blockHandler->copyBlock(
-                    $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-                    $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
-                    'root',
-                    1
-                );
-            },
+            fn (): Block => $this->blockHandler->copyBlock(
+                $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+                $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+                'root',
+                1
+            ),
             [
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'cf29cf92-0294-5581-abdb-58d11978186b',
@@ -1203,14 +1193,12 @@ final class BlockHandlerTest extends TestCase
     public function testCopyBlockWithSamePosition(): void
     {
         $copiedBlock = $this->withUuids(
-            function (): Block {
-                return $this->blockHandler->copyBlock(
-                    $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-                    $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
-                    'root',
-                    0
-                );
-            },
+            fn (): Block => $this->blockHandler->copyBlock(
+                $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+                $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+                'root',
+                0
+            ),
             [
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'cf29cf92-0294-5581-abdb-58d11978186b',
@@ -1277,14 +1265,12 @@ final class BlockHandlerTest extends TestCase
     public function testCopyBlockWithLastPosition(): void
     {
         $copiedBlock = $this->withUuids(
-            function (): Block {
-                return $this->blockHandler->copyBlock(
-                    $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-                    $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
-                    'root',
-                    2
-                );
-            },
+            fn (): Block => $this->blockHandler->copyBlock(
+                $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+                $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+                'root',
+                2
+            ),
             [
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'cf29cf92-0294-5581-abdb-58d11978186b',
@@ -1351,14 +1337,12 @@ final class BlockHandlerTest extends TestCase
     public function testCopyBlockWithLowerPosition(): void
     {
         $copiedBlock = $this->withUuids(
-            function (): Block {
-                return $this->blockHandler->copyBlock(
-                    $this->blockHandler->loadBlock(35, Value::STATUS_DRAFT),
-                    $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
-                    'root',
-                    0
-                );
-            },
+            fn (): Block => $this->blockHandler->copyBlock(
+                $this->blockHandler->loadBlock(35, Value::STATUS_DRAFT),
+                $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
+                'root',
+                0
+            ),
             [
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'cf29cf92-0294-5581-abdb-58d11978186b',
@@ -1443,13 +1427,11 @@ final class BlockHandlerTest extends TestCase
     public function testCopyBlockWithChildBlocks(): void
     {
         $copiedBlock = $this->withUuids(
-            function (): Block {
-                return $this->blockHandler->copyBlock(
-                    $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
-                    $this->blockHandler->loadBlock(7, Value::STATUS_DRAFT),
-                    'root'
-                );
-            },
+            fn (): Block => $this->blockHandler->copyBlock(
+                $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
+                $this->blockHandler->loadBlock(7, Value::STATUS_DRAFT),
+                'root'
+            ),
             [
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
@@ -1545,13 +1527,11 @@ final class BlockHandlerTest extends TestCase
     public function testCopyBlockToBlockInDifferentLayout(): void
     {
         $copiedBlock = $this->withUuids(
-            function (): Block {
-                return $this->blockHandler->copyBlock(
-                    $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-                    $this->blockHandler->loadBlock(8, Value::STATUS_DRAFT),
-                    'root'
-                );
-            },
+            fn (): Block => $this->blockHandler->copyBlock(
+                $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
+                $this->blockHandler->loadBlock(8, Value::STATUS_DRAFT),
+                'root'
+            ),
             [
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'cf29cf92-0294-5581-abdb-58d11978186b',

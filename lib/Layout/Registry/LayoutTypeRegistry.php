@@ -33,9 +33,7 @@ final class LayoutTypeRegistry implements IteratorAggregate, Countable, ArrayAcc
     {
         $this->layoutTypes = array_filter(
             $layoutTypes,
-            static function (LayoutTypeInterface $layoutType): bool {
-                return true;
-            }
+            static fn (LayoutTypeInterface $layoutType): bool => true
         );
     }
 
@@ -74,9 +72,7 @@ final class LayoutTypeRegistry implements IteratorAggregate, Countable, ArrayAcc
 
         return array_filter(
             $this->layoutTypes,
-            static function (LayoutTypeInterface $layoutType): bool {
-                return $layoutType->isEnabled();
-            }
+            static fn (LayoutTypeInterface $layoutType): bool => $layoutType->isEnabled()
         );
     }
 

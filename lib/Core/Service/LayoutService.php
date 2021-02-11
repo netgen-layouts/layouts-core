@@ -101,9 +101,7 @@ final class LayoutService implements LayoutServiceInterface
 
         return new LayoutList(
             array_map(
-                function (PersistenceLayout $layout): Layout {
-                    return $this->mapper->mapLayout($layout);
-                },
+                fn (PersistenceLayout $layout): Layout => $this->mapper->mapLayout($layout),
                 $persistenceLayouts
             )
         );
@@ -124,9 +122,7 @@ final class LayoutService implements LayoutServiceInterface
 
         return new LayoutList(
             array_map(
-                function (PersistenceLayout $layout): Layout {
-                    return $this->mapper->mapLayout($layout);
-                },
+                fn (PersistenceLayout $layout): Layout => $this->mapper->mapLayout($layout),
                 $persistenceLayouts
             )
         );
@@ -147,9 +143,7 @@ final class LayoutService implements LayoutServiceInterface
 
         return new LayoutList(
             array_map(
-                function (PersistenceLayout $layout): Layout {
-                    return $this->mapper->mapLayout($layout);
-                },
+                fn (PersistenceLayout $layout): Layout => $this->mapper->mapLayout($layout),
                 $persistenceLayouts
             )
         );
@@ -174,9 +168,7 @@ final class LayoutService implements LayoutServiceInterface
 
         return new LayoutList(
             array_map(
-                function (PersistenceLayout $relatedLayout): Layout {
-                    return $this->mapper->mapLayout($relatedLayout);
-                },
+                fn (PersistenceLayout $relatedLayout): Layout => $this->mapper->mapLayout($relatedLayout),
                 $this->layoutHandler->loadRelatedLayouts($persistenceLayout)
             )
         );
@@ -337,9 +329,7 @@ final class LayoutService implements LayoutServiceInterface
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
 
         $updatedLayout = $this->transaction(
-            function () use ($persistenceLayout, $locale, $sourceLocale): PersistenceLayout {
-                return $this->layoutHandler->createLayoutTranslation($persistenceLayout, $locale, $sourceLocale);
-            }
+            fn (): PersistenceLayout => $this->layoutHandler->createLayoutTranslation($persistenceLayout, $locale, $sourceLocale)
         );
 
         return $this->mapper->mapLayout($updatedLayout);
@@ -356,9 +346,7 @@ final class LayoutService implements LayoutServiceInterface
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
 
         $updatedLayout = $this->transaction(
-            function () use ($persistenceLayout, $mainLocale): PersistenceLayout {
-                return $this->layoutHandler->setMainTranslation($persistenceLayout, $mainLocale);
-            }
+            fn (): PersistenceLayout => $this->layoutHandler->setMainTranslation($persistenceLayout, $mainLocale)
         );
 
         return $this->mapper->mapLayout($updatedLayout);
@@ -375,9 +363,7 @@ final class LayoutService implements LayoutServiceInterface
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), Value::STATUS_DRAFT);
 
         $updatedLayout = $this->transaction(
-            function () use ($persistenceLayout, $locale): PersistenceLayout {
-                return $this->layoutHandler->deleteLayoutTranslation($persistenceLayout, $locale);
-            }
+            fn (): PersistenceLayout => $this->layoutHandler->deleteLayoutTranslation($persistenceLayout, $locale)
         );
 
         return $this->mapper->mapLayout($updatedLayout);
@@ -400,17 +386,15 @@ final class LayoutService implements LayoutServiceInterface
         }
 
         $updatedLayout = $this->transaction(
-            function () use ($persistenceLayout, $layoutUpdateStruct): PersistenceLayout {
-                return $this->layoutHandler->updateLayout(
-                    $persistenceLayout,
-                    LayoutUpdateStruct::fromArray(
-                        [
-                            'name' => $layoutUpdateStruct->name,
-                            'description' => $layoutUpdateStruct->description,
-                        ]
-                    )
-                );
-            }
+            fn (): PersistenceLayout => $this->layoutHandler->updateLayout(
+                $persistenceLayout,
+                LayoutUpdateStruct::fromArray(
+                    [
+                        'name' => $layoutUpdateStruct->name,
+                        'description' => $layoutUpdateStruct->description,
+                    ]
+                )
+            )
         );
 
         return $this->mapper->mapLayout($updatedLayout);
@@ -427,17 +411,15 @@ final class LayoutService implements LayoutServiceInterface
         $persistenceLayout = $this->layoutHandler->loadLayout($layout->getId(), $layout->getStatus());
 
         $copiedLayout = $this->transaction(
-            function () use ($persistenceLayout, $layoutCopyStruct): PersistenceLayout {
-                return $this->layoutHandler->copyLayout(
-                    $persistenceLayout,
-                    LayoutCopyStruct::fromArray(
-                        [
-                            'name' => $layoutCopyStruct->name,
-                            'description' => $layoutCopyStruct->description,
-                        ]
-                    )
-                );
-            }
+            fn (): PersistenceLayout => $this->layoutHandler->copyLayout(
+                $persistenceLayout,
+                LayoutCopyStruct::fromArray(
+                    [
+                        'name' => $layoutCopyStruct->name,
+                        'description' => $layoutCopyStruct->description,
+                    ]
+                )
+            )
         );
 
         return $this->mapper->mapLayout($copiedLayout);

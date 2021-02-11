@@ -39,9 +39,7 @@ final class ItemTest extends TestCase
                 'position' => 3,
                 'value' => 32,
                 'viewType' => 'overlay',
-                'cmsItem' => static function () use ($cmsItem): CmsItemInterface {
-                    return $cmsItem;
-                },
+                'cmsItem' => static fn (): CmsItemInterface => $cmsItem,
             ]
         );
 

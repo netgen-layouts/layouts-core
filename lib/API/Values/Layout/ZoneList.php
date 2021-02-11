@@ -22,9 +22,7 @@ final class ZoneList extends ArrayCollection
         parent::__construct(
             array_filter(
                 $zones,
-                static function (Zone $zone): bool {
-                    return true;
-                }
+                static fn (Zone $zone): bool => true
             )
         );
     }
@@ -44,9 +42,7 @@ final class ZoneList extends ArrayCollection
     {
         return array_values(
             array_map(
-                static function (Zone $zone): string {
-                    return $zone->getIdentifier();
-                },
+                static fn (Zone $zone): string => $zone->getIdentifier(),
                 $this->getZones()
             )
         );

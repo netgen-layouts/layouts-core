@@ -115,14 +115,10 @@ final class BlockMapper
             'status' => $block->status,
             'placeholders' => iterator_to_array($this->mapPlaceholders($block, $blockDefinition, $locales)),
             'collections' => new LazyCollection(
-                function () use ($block, $locales): array {
-                    return array_map(
-                        function (PersistenceCollection $collection) use ($locales): Collection {
-                            return $this->collectionMapper->mapCollection($collection, $locales);
-                        },
-                        $this->collectionHandler->loadCollections($block)
-                    );
-                }
+                fn (): array => array_map(
+                    fn (PersistenceCollection $collection): Collection => $this->collectionMapper->mapCollection($collection, $locales),
+                    $this->collectionHandler->loadCollections($block)
+                )
             ),
             'configs' => iterator_to_array(
                 $this->configMapper->mapConfig(
@@ -164,14 +160,10 @@ final class BlockMapper
                 [
                     'identifier' => $placeholderIdentifier,
                     'blocks' => new LazyCollection(
-                        function () use ($block, $placeholderIdentifier, $locales): array {
-                            return array_map(
-                                function (PersistenceBlock $childBlock) use ($locales): Block {
-                                    return $this->mapBlock($childBlock, $locales, false);
-                                },
-                                $this->blockHandler->loadChildBlocks($block, $placeholderIdentifier)
-                            );
-                        }
+                        fn (): array => array_map(
+                            fn (PersistenceBlock $childBlock): Block => $this->mapBlock($childBlock, $locales, false),
+                            $this->blockHandler->loadChildBlocks($block, $placeholderIdentifier)
+                        )
                     ),
                 ]
             );

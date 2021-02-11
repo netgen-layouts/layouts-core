@@ -37,13 +37,7 @@ final class ChoiceType extends ParameterType
 
         $optionsResolver->setAllowedValues(
             'options',
-            static function ($value): bool {
-                if (is_callable($value)) {
-                    return true;
-                }
-
-                return count($value) > 0;
-            }
+            static fn ($value): bool => is_callable($value) ? true : count($value) > 0
         );
 
         $optionsResolver->setDefault(

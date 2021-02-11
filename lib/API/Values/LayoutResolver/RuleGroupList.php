@@ -22,9 +22,7 @@ final class RuleGroupList extends ArrayCollection
         parent::__construct(
             array_filter(
                 $ruleGroups,
-                static function (RuleGroup $ruleGroup): bool {
-                    return true;
-                }
+                static fn (RuleGroup $ruleGroup): bool => true
             )
         );
     }
@@ -43,9 +41,7 @@ final class RuleGroupList extends ArrayCollection
     public function getRuleGroupIds(): array
     {
         return array_map(
-            static function (RuleGroup $ruleGroup): UuidInterface {
-                return $ruleGroup->getId();
-            },
+            static fn (RuleGroup $ruleGroup): UuidInterface => $ruleGroup->getId(),
             $this->getRuleGroups()
         );
     }

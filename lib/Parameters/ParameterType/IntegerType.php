@@ -47,13 +47,9 @@ final class IntegerType extends ParameterType
 
         $optionsResolver->setDefault(
             'default_value',
-            static function (Options $options, $previousValue) {
-                if ($options['required'] === true) {
-                    return $options['min'];
-                }
-
-                return $previousValue;
-            }
+            static fn (Options $options, $previousValue) => $options['required'] === true ?
+                    $options['min'] :
+                    $previousValue
         );
     }
 

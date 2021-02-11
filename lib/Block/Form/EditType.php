@@ -60,15 +60,13 @@ abstract class EditType extends AbstractType
 
         $resolver->setDefault(
             'constraints',
-            static function (Options $options): array {
-                return [
-                    new BlockUpdateStructConstraint(
-                        [
-                            'payload' => $options['block'],
-                        ]
-                    ),
-                ];
-            }
+            static fn (Options $options): array => [
+                new BlockUpdateStructConstraint(
+                    [
+                        'payload' => $options['block'],
+                    ]
+                ),
+            ]
         );
     }
 
@@ -106,11 +104,9 @@ abstract class EditType extends AbstractType
             [
                 'label' => 'block.item_view_type',
                 'choices' => array_flip(array_merge(...array_values($this->itemViewTypes))),
-                'choice_attr' => function ($value): array {
-                    return [
-                        'data-master' => implode(',', $this->viewTypesByItemViewType[$value]),
-                    ];
-                },
+                'choice_attr' => fn ($value): array => [
+                    'data-master' => implode(',', $this->viewTypesByItemViewType[$value]),
+                ],
                 'property_path' => 'itemViewType',
             ]
         );

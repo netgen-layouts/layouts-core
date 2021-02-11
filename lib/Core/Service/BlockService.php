@@ -156,9 +156,7 @@ final class BlockService implements BlockServiceInterface
         // We filter out all root blocks, since we do not allow loading those
         $persistenceBlocks = array_filter(
             $this->blockHandler->loadLayoutBlocks($persistenceLayout),
-            static function (PersistenceBlock $persistenceBlock): bool {
-                return $persistenceBlock->parentId !== null;
-            }
+            static fn (PersistenceBlock $persistenceBlock): bool => $persistenceBlock->parentId !== null
         );
 
         return new BlockList(
@@ -334,9 +332,7 @@ final class BlockService implements BlockServiceInterface
         }
 
         $copiedBlock = $this->transaction(
-            function () use ($persistenceBlock, $persistenceTargetBlock, $placeholder, $position): PersistenceBlock {
-                return $this->blockHandler->copyBlock($persistenceBlock, $persistenceTargetBlock, $placeholder, $position);
-            }
+            fn (): PersistenceBlock => $this->blockHandler->copyBlock($persistenceBlock, $persistenceTargetBlock, $placeholder, $position)
         );
 
         return $this->mapper->mapBlock($copiedBlock, [$block->getLocale()]);
@@ -371,9 +367,7 @@ final class BlockService implements BlockServiceInterface
         $rootBlock = $this->blockHandler->loadBlock($persistenceZone->rootBlockId, $persistenceZone->status);
 
         $copiedBlock = $this->transaction(
-            function () use ($persistenceBlock, $rootBlock, $position): PersistenceBlock {
-                return $this->blockHandler->copyBlock($persistenceBlock, $rootBlock, 'root', $position);
-            }
+            fn (): PersistenceBlock => $this->blockHandler->copyBlock($persistenceBlock, $rootBlock, 'root', $position)
         );
 
         return $this->mapper->mapBlock($copiedBlock, [$block->getLocale()]);
@@ -551,9 +545,7 @@ final class BlockService implements BlockServiceInterface
         }
 
         $updatedBlock = $this->transaction(
-            function () use ($persistenceBlock): PersistenceBlock {
-                return $this->internalDisableTranslations($persistenceBlock);
-            }
+            fn (): PersistenceBlock => $this->internalDisableTranslations($persistenceBlock)
         );
 
         return $this->mapper->mapBlock($updatedBlock);

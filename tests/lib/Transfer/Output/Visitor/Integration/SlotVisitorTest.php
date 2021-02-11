@@ -33,8 +33,8 @@ abstract class SlotVisitorTest extends VisitorTest
     public function visitDataProvider(): array
     {
         return [
-            [function (): Slot { return $this->collectionService->loadSlot(Uuid::fromString('c63c9523-e579-4dc9-b1d2-f9d12470a014')); }, 'slot/slot_3.json'],
-            [function (): Slot { return $this->collectionService->loadSlot(Uuid::fromString('2e0bbc16-8f14-4740-aa58-fbf6d547e734')); }, 'slot/slot_4.json'],
+            [fn (): Slot => $this->collectionService->loadSlot(Uuid::fromString('c63c9523-e579-4dc9-b1d2-f9d12470a014')), 'slot/slot_3.json'],
+            [fn (): Slot => $this->collectionService->loadSlot(Uuid::fromString('2e0bbc16-8f14-4740-aa58-fbf6d547e734')), 'slot/slot_4.json'],
         ];
     }
 }

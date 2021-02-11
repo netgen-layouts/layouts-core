@@ -30,24 +30,16 @@ final class RangeType extends ParameterType
 
         $optionsResolver->setNormalizer(
             'max',
-            static function (Options $options, int $value): int {
-                if ($value < $options['min']) {
-                    return $options['min'];
-                }
-
-                return $value;
-            }
+            static fn (Options $options, int $value): int => $value < $options['min'] ?
+                    $options['min'] :
+                    $value
         );
 
         $optionsResolver->setDefault(
             'default_value',
-            static function (Options $options, $previousValue) {
-                if ($options['required'] === true) {
-                    return $options['min'];
-                }
-
-                return $previousValue;
-            }
+            static fn (Options $options, $previousValue) => $options['required'] === true ?
+                    $options['min'] :
+                    $previousValue
         );
     }
 

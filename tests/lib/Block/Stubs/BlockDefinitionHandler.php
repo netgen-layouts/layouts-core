@@ -63,9 +63,7 @@ final class BlockDefinitionHandler extends BaseBlockDefinitionHandler
     public function getDynamicParameters(DynamicParameters $params, Block $block): void
     {
         $params['definition_param'] = 'definition_value';
-        $params['closure_param'] = static function (): string {
-            return 'closure_value';
-        };
+        $params['closure_param'] = static fn (): string => 'closure_value';
     }
 
     public function isContextual(Block $block): bool

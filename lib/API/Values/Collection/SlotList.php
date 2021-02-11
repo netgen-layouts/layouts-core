@@ -22,9 +22,7 @@ final class SlotList extends ArrayCollection
         parent::__construct(
             array_filter(
                 $slots,
-                static function (Slot $slot): bool {
-                    return true;
-                }
+                static fn (Slot $slot): bool => true
             )
         );
     }
@@ -43,9 +41,7 @@ final class SlotList extends ArrayCollection
     public function getSlotIds(): array
     {
         return array_map(
-            static function (Slot $slot): UuidInterface {
-                return $slot->getId();
-            },
+            static fn (Slot $slot): UuidInterface => $slot->getId(),
             $this->getSlots()
         );
     }

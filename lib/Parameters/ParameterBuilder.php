@@ -269,13 +269,9 @@ class ParameterBuilder implements ParameterBuilderInterface
 
         return array_filter(
             $this->unresolvedChildren,
-            static function (ParameterBuilderInterface $builder) use ($group): bool {
-                if ($group === null) {
-                    return true;
-                }
-
-                return in_array($group, $builder->getGroups(), true);
-            }
+            static fn (ParameterBuilderInterface $builder): bool => $group !== null ?
+                    in_array($group, $builder->getGroups(), true) :
+                    true
         );
     }
 
@@ -387,9 +383,7 @@ class ParameterBuilder implements ParameterBuilderInterface
 
         $optionsResolver->setAllowedValues(
             'constraints',
-            function (array $constraints): bool {
-                return $this->validateConstraints($constraints);
-            }
+            fn (array $constraints): bool => $this->validateConstraints($constraints)
         );
 
         $optionsResolver->setNormalizer(
@@ -409,13 +403,7 @@ class ParameterBuilder implements ParameterBuilderInterface
 
         $optionsResolver->setAllowedValues(
             'label',
-            static function ($value): bool {
-                if (!is_bool($value)) {
-                    return true;
-                }
-
-                return $value === false;
-            }
+            static fn ($value): bool => is_bool($value) ? $value === false : true
         );
 
         $resolvedOptions = $optionsResolver->resolve($options);

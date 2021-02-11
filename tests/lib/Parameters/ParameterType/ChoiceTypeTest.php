@@ -73,9 +73,7 @@ final class ChoiceTypeTest extends TestCase
      */
     public function defaultValueDataProvider(): array
     {
-        $optionsClosure = static function (): array {
-            return ['Option' => 'option'];
-        };
+        $optionsClosure = static fn (): array => ['Option' => 'option'];
 
         return [
             [['options' => ['Option' => 'option']], true, null, 'option'],
@@ -264,9 +262,7 @@ final class ChoiceTypeTest extends TestCase
      */
     public function testValidationWithClosure($value, bool $isRequired, bool $isValid): void
     {
-        $closure = static function (): array {
-            return ['Null' => null, 'One' => 1, 'Two' => 2];
-        };
+        $closure = static fn (): array => ['Null' => null, 'One' => 1, 'Two' => 2];
 
         $parameter = $this->getParameterDefinition(['options' => $closure], $isRequired);
         $validator = Validation::createValidator();

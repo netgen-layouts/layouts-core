@@ -19,9 +19,7 @@ final class Hydrator
      */
     public function extract(object $object): array
     {
-        return (function (): array {
-            return get_object_vars($this);
-        })->call($object);
+        return (fn (): array => get_object_vars($this))->call($object);
     }
 
     /**
