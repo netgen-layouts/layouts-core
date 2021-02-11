@@ -16,10 +16,7 @@ use Symfony\Component\Validator\Constraints;
 
 final class CompoundParameterTypeTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Parameters\CompoundParameterTypeInterface
-     */
-    private $parameterType;
+    private CompoundParameterType $parameterType;
 
     protected function setUp(): void
     {

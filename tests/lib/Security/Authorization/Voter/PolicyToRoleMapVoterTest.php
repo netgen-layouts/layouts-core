@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Security\Authorization\Voter;
 
 use Netgen\Layouts\Security\Authorization\Voter\PolicyToRoleMapVoter;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -12,15 +13,9 @@ use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface
 
 final class PolicyToRoleMapVoterTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Security\Authorization\Voter\PolicyToRoleMapVoter
-     */
-    private $voter;
+    private PolicyToRoleMapVoter $voter;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $accessDecisionManagerMock;
+    private MockObject $accessDecisionManagerMock;
 
     protected function setUp(): void
     {

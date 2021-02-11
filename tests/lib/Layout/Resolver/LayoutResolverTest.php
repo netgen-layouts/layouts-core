@@ -18,6 +18,7 @@ use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionType2;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionType3;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\TargetType1;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\TargetType2;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,22 +29,13 @@ final class LayoutResolverTest extends TestCase
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\API\Service\LayoutResolverService
      */
-    private $layoutResolverServiceMock;
+    private MockObject $layoutResolverServiceMock;
 
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry
-     */
-    private $targetTypeRegistry;
+    private TargetTypeRegistry $targetTypeRegistry;
 
-    /**
-     * @var \Symfony\Component\HttpFoundation\RequestStack
-     */
-    private $requestStack;
+    private RequestStack $requestStack;
 
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\LayoutResolverInterface
-     */
-    private $layoutResolver;
+    private LayoutResolver $layoutResolver;
 
     protected function setUp(): void
     {

@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Tests\Persistence\Doctrine\Helper;
 use Doctrine\DBAL\Types\Types;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper;
+use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\Layouts\Persistence\Values\Value;
 use Netgen\Layouts\Tests\Persistence\Doctrine\TestCaseTrait;
 use PHPUnit\Framework\TestCase;
@@ -17,15 +18,9 @@ final class PositionHelperTest extends TestCase
 {
     use TestCaseTrait;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Doctrine\Helper\PositionHelper
-     */
-    private $positionHelper;
+    private PositionHelper $positionHelper;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface
-     */
-    private $collectionHandler;
+    private CollectionHandlerInterface $collectionHandler;
 
     protected function setUp(): void
     {

@@ -10,6 +10,7 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\HttpCache\TaggerInterface;
 use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
 use Netgen\Layouts\View\View\LayoutView;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,15 +21,9 @@ final class LayoutResponseListenerTest extends TestCase
 {
     use CreateEventTrait;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $taggerMock;
+    private MockObject $taggerMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\LayoutResponseListener
-     */
-    private $listener;
+    private LayoutResponseListener $listener;
 
     protected function setUp(): void
     {

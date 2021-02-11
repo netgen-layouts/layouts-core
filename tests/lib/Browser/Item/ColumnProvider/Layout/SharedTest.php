@@ -12,10 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 final class SharedTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Shared
-     */
-    private $provider;
+    private Shared $provider;
 
     protected function setUp(): void
     {

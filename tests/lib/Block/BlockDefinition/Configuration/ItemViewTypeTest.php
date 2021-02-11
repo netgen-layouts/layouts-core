@@ -9,10 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ItemViewTypeTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType
-     */
-    private $itemViewType;
+    private ItemViewType $itemViewType;
 
     protected function setUp(): void
     {

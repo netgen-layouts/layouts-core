@@ -12,6 +12,7 @@ use Netgen\Layouts\Item\NullCmsItem;
 use Netgen\Layouts\Tests\Item\Stubs\Value;
 use Netgen\Layouts\Tests\Item\Stubs\ValueLoader;
 use Netgen\Layouts\Tests\Stubs\Container;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -20,12 +21,9 @@ final class CmsItemLoaderTest extends TestCase
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Item\CmsItemBuilderInterface
      */
-    private $cmsItemBuilderMock;
+    private MockObject $cmsItemBuilderMock;
 
-    /**
-     * @var \Netgen\Layouts\Item\CmsItemLoaderInterface
-     */
-    private $cmsItemLoader;
+    private CmsItemLoader $cmsItemLoader;
 
     protected function setUp(): void
     {

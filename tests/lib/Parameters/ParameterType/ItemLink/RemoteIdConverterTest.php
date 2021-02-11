@@ -8,19 +8,14 @@ use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Item\NullCmsItem;
 use Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class RemoteIdConverterTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $cmsItemLoaderMock;
+    private MockObject $cmsItemLoaderMock;
 
-    /**
-     * @var \Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter
-     */
-    private $remoteIdConverter;
+    private RemoteIdConverter $remoteIdConverter;
 
     protected function setUp(): void
     {

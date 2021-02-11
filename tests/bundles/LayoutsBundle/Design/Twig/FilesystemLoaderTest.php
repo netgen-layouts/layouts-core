@@ -6,26 +6,18 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\Design\Twig;
 
 use Netgen\Bundle\LayoutsBundle\Configuration\ConfigurationInterface;
 use Netgen\Bundle\LayoutsBundle\Design\Twig\FilesystemLoader;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Twig\Loader\LoaderInterface;
 use Twig\Source;
 
 final class FilesystemLoaderTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $innerLoaderMock;
+    private MockObject $innerLoaderMock;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $configurationMock;
+    private MockObject $configurationMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\Design\Twig\FilesystemLoader
-     */
-    private $loader;
+    private FilesystemLoader $loader;
 
     protected function setUp(): void
     {

@@ -13,10 +13,7 @@ use stdClass;
 
 final class NullBlockDefinitionTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Block\NullBlockDefinition
-     */
-    private $blockDefinition;
+    private NullBlockDefinition $blockDefinition;
 
     protected function setUp(): void
     {

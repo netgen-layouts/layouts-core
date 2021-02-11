@@ -12,20 +12,11 @@ use PHPUnit\Framework\TestCase;
 
 final class ZoneReferenceTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\API\Values\Layout\Layout
-     */
-    private $layout;
+    private Layout $layout;
 
-    /**
-     * @var \Netgen\Layouts\API\Values\Layout\Zone
-     */
-    private $zone;
+    private Zone $zone;
 
-    /**
-     * @var \Netgen\Layouts\View\View\ZoneView\ZoneReference
-     */
-    private $zoneReference;
+    private ZoneReference $zoneReference;
 
     protected function setUp(): void
     {

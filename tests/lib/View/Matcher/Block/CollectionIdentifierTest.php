@@ -13,10 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 final class CollectionIdentifierTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\View\Matcher\MatcherInterface
-     */
-    private $matcher;
+    private CollectionIdentifier $matcher;
 
     protected function setUp(): void
     {

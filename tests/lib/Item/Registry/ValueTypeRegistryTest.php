@@ -13,20 +13,11 @@ use PHPUnit\Framework\TestCase;
 
 final class ValueTypeRegistryTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Item\ValueType\ValueType
-     */
-    private $valueType1;
+    private ValueType $valueType1;
 
-    /**
-     * @var \Netgen\Layouts\Item\ValueType\ValueType
-     */
-    private $valueType2;
+    private ValueType $valueType2;
 
-    /**
-     * @var \Netgen\Layouts\Item\Registry\ValueTypeRegistry
-     */
-    private $registry;
+    private ValueTypeRegistry $registry;
 
     protected function setUp(): void
     {

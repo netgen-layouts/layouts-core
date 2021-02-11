@@ -15,10 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ClearLayoutsCacheTypeTest extends FormTestCase
 {
-    /**
-     * @var \Netgen\Layouts\API\Values\Layout\LayoutList
-     */
-    private $layouts;
+    private LayoutList $layouts;
 
     protected function setUp(): void
     {

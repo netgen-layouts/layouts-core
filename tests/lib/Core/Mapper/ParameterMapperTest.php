@@ -14,10 +14,7 @@ use function iterator_to_array;
 
 final class ParameterMapperTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Core\Mapper\ParameterMapper
-     */
-    private $mapper;
+    private ParameterMapper $mapper;
 
     protected function setUp(): void
     {

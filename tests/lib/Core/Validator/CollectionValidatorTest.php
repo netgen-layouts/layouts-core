@@ -23,18 +23,13 @@ use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use Netgen\Layouts\Utils\Hydrator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class CollectionValidatorTest extends TestCase
 {
-    /**
-     * @var \Symfony\Component\Validator\Validator\ValidatorInterface
-     */
-    private $validator;
+    private ValidatorInterface $validator;
 
-    /**
-     * @var \Netgen\Layouts\Core\Validator\CollectionValidator
-     */
-    private $collectionValidator;
+    private CollectionValidator $collectionValidator;
 
     protected function setUp(): void
     {

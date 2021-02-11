@@ -18,6 +18,7 @@ use Netgen\Layouts\Block\ContainerDefinition;
 use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
 use Netgen\Layouts\Tests\Block\Stubs\ContainerDefinitionHandler;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -25,20 +26,11 @@ use Symfony\Component\Serializer\Serializer;
 
 final class BlockNormalizerTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $normalizerMock;
+    private MockObject $normalizerMock;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $blockServiceMock;
+    private MockObject $blockServiceMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\BlockNormalizer
-     */
-    private $normalizer;
+    private BlockNormalizer $normalizer;
 
     protected function setUp(): void
     {

@@ -17,10 +17,7 @@ final class ViewListenerTest extends TestCase
 {
     use CreateEventTrait;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\EventListener\ViewListener
-     */
-    private $listener;
+    private ViewListener $listener;
 
     protected function setUp(): void
     {

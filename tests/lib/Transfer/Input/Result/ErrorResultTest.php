@@ -8,23 +8,15 @@ use Exception;
 use Netgen\Layouts\Transfer\Input\Result\ErrorResult;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 final class ErrorResultTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Transfer\Input\Result\ErrorResult
-     */
-    private $result;
+    private ErrorResult $result;
 
-    /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    private $entityId;
+    private UuidInterface $entityId;
 
-    /**
-     * @var \Throwable
-     */
-    private $error;
+    private Exception $error;
 
     protected function setUp(): void
     {

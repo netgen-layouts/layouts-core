@@ -13,15 +13,9 @@ use PHPUnit\Framework\TestCase;
 
 final class ItemDefinitionRegistryTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Collection\Item\ItemDefinitionInterface
-     */
-    private $itemDefinition;
+    private ItemDefinition $itemDefinition;
 
-    /**
-     * @var \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry
-     */
-    private $registry;
+    private ItemDefinitionRegistry $registry;
 
     protected function setUp(): void
     {

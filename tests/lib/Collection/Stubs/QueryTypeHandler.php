@@ -17,17 +17,11 @@ final class QueryTypeHandler implements QueryTypeHandlerInterface
     /**
      * @var mixed[]
      */
-    private $values;
+    private array $values;
 
-    /**
-     * @var int|null
-     */
-    private $count;
+    private ?int $count;
 
-    /**
-     * @var bool
-     */
-    private $isContextual;
+    private bool $isContextual;
 
     /**
      * @param mixed[] $values

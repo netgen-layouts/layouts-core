@@ -6,6 +6,9 @@ namespace Netgen\Layouts\Tests\Persistence\Doctrine\Handler;
 
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Persistence\Handler\BlockHandlerInterface;
+use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
+use Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
 use Netgen\Layouts\Persistence\Values\Layout\LayoutCopyStruct;
 use Netgen\Layouts\Persistence\Values\Layout\LayoutCreateStruct;
@@ -26,20 +29,11 @@ final class LayoutHandlerTest extends TestCase
     use TestCaseTrait;
     use UuidGeneratorTrait;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface
-     */
-    private $layoutHandler;
+    private LayoutHandlerInterface $layoutHandler;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Handler\BlockHandlerInterface
-     */
-    private $blockHandler;
+    private BlockHandlerInterface $blockHandler;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface
-     */
-    private $collectionHandler;
+    private CollectionHandlerInterface $collectionHandler;
 
     protected function setUp(): void
     {

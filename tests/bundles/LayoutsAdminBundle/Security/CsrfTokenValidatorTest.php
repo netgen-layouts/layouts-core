@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Security;
 
 use Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidator;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -13,20 +14,14 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 final class CsrfTokenValidatorTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $csrfTokenManagerMock;
+    private MockObject $csrfTokenManagerMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject&\Symfony\Component\HttpFoundation\Session\SessionInterface
      */
-    private $sessionMock;
+    private MockObject $sessionMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidator
-     */
-    private $validator;
+    private CsrfTokenValidator $validator;
 
     protected function setUp(): void
     {

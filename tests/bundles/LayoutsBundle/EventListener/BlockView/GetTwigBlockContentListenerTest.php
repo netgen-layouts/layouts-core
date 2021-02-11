@@ -23,10 +23,7 @@ use function sprintf;
 
 final class GetTwigBlockContentListenerTest extends TestCase
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetTwigBlockContentListener
-     */
-    private $listener;
+    private GetTwigBlockContentListener $listener;
 
     protected function setUp(): void
     {

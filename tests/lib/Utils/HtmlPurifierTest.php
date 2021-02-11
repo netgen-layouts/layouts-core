@@ -9,10 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class HtmlPurifierTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Utils\HtmlPurifier
-     */
-    private $htmlPurifier;
+    private HtmlPurifier $htmlPurifier;
 
     protected function setUp(): void
     {

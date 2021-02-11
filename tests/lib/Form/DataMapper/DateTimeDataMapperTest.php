@@ -13,10 +13,7 @@ use function date_default_timezone_get;
 
 final class DateTimeDataMapperTest extends DataMapperTest
 {
-    /**
-     * @var \Netgen\Layouts\Form\DataMapper\DateTimeDataMapper
-     */
-    private $mapper;
+    private DateTimeDataMapper $mapper;
 
     protected function setUp(): void
     {

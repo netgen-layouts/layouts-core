@@ -13,20 +13,15 @@ use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\View\LayoutView;
 use Netgen\Layouts\View\ViewInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use function sprintf;
 
 final class RelatedLayoutsCountListenerTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $layoutServiceMock;
+    private MockObject $layoutServiceMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\EventListener\LayoutView\RelatedLayoutsCountListener
-     */
-    private $listener;
+    private RelatedLayoutsCountListener $listener;
 
     protected function setUp(): void
     {

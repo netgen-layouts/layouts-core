@@ -11,20 +11,11 @@ use PHPUnit\Framework\TestCase;
 
 final class ViewTypeTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType
-     */
-    private $viewType;
+    private ViewType $viewType;
 
-    /**
-     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType
-     */
-    private $itemViewType1;
+    private ItemViewType $itemViewType1;
 
-    /**
-     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\ItemViewType
-     */
-    private $itemViewType2;
+    private ItemViewType $itemViewType2;
 
     protected function setUp(): void
     {

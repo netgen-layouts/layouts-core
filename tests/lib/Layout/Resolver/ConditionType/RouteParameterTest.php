@@ -11,10 +11,7 @@ use Symfony\Component\Validator\Validation;
 
 final class RouteParameterTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\ConditionType\RouteParameter
-     */
-    private $conditionType;
+    private RouteParameter $conditionType;
 
     protected function setUp(): void
     {

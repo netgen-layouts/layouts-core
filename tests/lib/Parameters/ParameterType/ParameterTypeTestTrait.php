@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Parameters\ParameterType;
 
 use Netgen\Layouts\Parameters\ParameterDefinition;
+use Netgen\Layouts\Parameters\ParameterTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 trait ParameterTypeTestTrait
 {
-    /**
-     * @var \Netgen\Layouts\Parameters\ParameterTypeInterface
-     */
-    private $type;
+    private ParameterTypeInterface $type;
 
     /**
      * Returns the parameter under test.

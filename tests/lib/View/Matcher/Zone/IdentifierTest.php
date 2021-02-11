@@ -17,10 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 final class IdentifierTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\View\Matcher\MatcherInterface
-     */
-    private $matcher;
+    private Identifier $matcher;
 
     protected function setUp(): void
     {

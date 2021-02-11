@@ -15,10 +15,7 @@ use Symfony\Component\Form\FormTypeInterface;
 
 final class PathInfoTest extends FormTestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\TargetTypeInterface
-     */
-    private $targetType;
+    private PathInfo $targetType;
 
     protected function setUp(): void
     {

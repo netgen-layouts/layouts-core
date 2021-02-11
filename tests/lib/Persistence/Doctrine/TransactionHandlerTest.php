@@ -6,19 +6,14 @@ namespace Netgen\Layouts\Tests\Persistence\Doctrine;
 
 use Doctrine\DBAL\Connection;
 use Netgen\Layouts\Persistence\Doctrine\TransactionHandler;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class TransactionHandlerTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $connectionMock;
+    private MockObject $connectionMock;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\TransactionHandlerInterface
-     */
-    private $handler;
+    private TransactionHandler $handler;
 
     protected function setUp(): void
     {

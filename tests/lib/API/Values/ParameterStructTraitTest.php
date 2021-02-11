@@ -16,10 +16,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ParameterStructTraitTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Tests\API\Stubs\ParameterStruct
-     */
-    private $struct;
+    private ParameterStruct $struct;
 
     protected function setUp(): void
     {

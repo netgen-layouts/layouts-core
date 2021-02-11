@@ -11,10 +11,7 @@ use Symfony\Component\Form\FormInterface;
 
 final class ItemLinkDataMapperTest extends DataMapperTest
 {
-    /**
-     * @var \Netgen\Layouts\Parameters\Form\Type\DataMapper\ItemLinkDataMapper
-     */
-    private $mapper;
+    private ItemLinkDataMapper $mapper;
 
     protected function setUp(): void
     {

@@ -9,10 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class NullClientTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\HttpCache\NullClient
-     */
-    private $client;
+    private NullClient $client;
 
     protected function setUp(): void
     {

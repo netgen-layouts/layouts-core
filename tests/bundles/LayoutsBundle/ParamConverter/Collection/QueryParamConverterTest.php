@@ -7,20 +7,15 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\ParamConverter\Collection;
 use Netgen\Bundle\LayoutsBundle\ParamConverter\Collection\QueryParamConverter;
 use Netgen\Layouts\API\Service\CollectionService;
 use Netgen\Layouts\API\Values\Collection\Query;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 final class QueryParamConverterTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $collectionServiceMock;
+    private MockObject $collectionServiceMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\ParamConverter\Collection\QueryParamConverter
-     */
-    private $paramConverter;
+    private QueryParamConverter $paramConverter;
 
     protected function setUp(): void
     {

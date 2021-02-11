@@ -11,15 +11,9 @@ use PHPUnit\Framework\TestCase;
 
 final class TwigBlockDefinitionTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Block\BlockDefinition\TwigBlockDefinitionHandlerInterface
-     */
-    private $handler;
+    private TwigBlockDefinitionHandler $handler;
 
-    /**
-     * @var \Netgen\Layouts\Block\TwigBlockDefinition
-     */
-    private $blockDefinition;
+    private TwigBlockDefinition $blockDefinition;
 
     protected function setUp(): void
     {

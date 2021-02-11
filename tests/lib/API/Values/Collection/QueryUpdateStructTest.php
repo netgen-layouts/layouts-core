@@ -16,10 +16,7 @@ use PHPUnit\Framework\TestCase;
 
 final class QueryUpdateStructTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\API\Values\Collection\QueryUpdateStruct
-     */
-    private $struct;
+    private QueryUpdateStruct $struct;
 
     protected function setUp(): void
     {

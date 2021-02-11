@@ -13,6 +13,7 @@ use Netgen\Layouts\Locale\LocaleProviderInterface;
 use Netgen\Layouts\Tests\Stubs\ErrorHandler;
 use Netgen\Layouts\View\RendererInterface;
 use Netgen\Layouts\View\View\ZoneView\ZoneReference;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
@@ -22,35 +23,17 @@ use Twig\Test\IntegrationTestCase;
 
 final class RenderingExtensionTwigTest extends IntegrationTestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $blockServiceMock;
+    private MockObject $blockServiceMock;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $rendererMock;
+    private MockObject $rendererMock;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $localeProviderMock;
+    private MockObject $localeProviderMock;
 
-    /**
-     * @var \Symfony\Component\HttpFoundation\RequestStack
-     */
-    private $requestStack;
+    private RequestStack $requestStack;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\Templating\Twig\Extension\RenderingExtension
-     */
-    private $extension;
+    private RenderingExtension $extension;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime
-     */
-    private $runtime;
+    private RenderingRuntime $runtime;
 
     protected function setUp(): void
     {

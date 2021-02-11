@@ -9,10 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ZoneTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Type\Zone
-     */
-    private $zone;
+    private Zone $zone;
 
     protected function setUp(): void
     {

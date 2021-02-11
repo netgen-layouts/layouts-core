@@ -6,6 +6,8 @@ namespace Netgen\Layouts\Tests\Persistence\Doctrine\Handler;
 
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Persistence\Handler\BlockHandlerInterface;
+use Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface;
 use Netgen\Layouts\Persistence\Values\Block\CollectionReference;
 use Netgen\Layouts\Persistence\Values\Collection\Collection;
 use Netgen\Layouts\Persistence\Values\Collection\CollectionCreateStruct;
@@ -31,15 +33,9 @@ final class CollectionHandlerTest extends TestCase
     use TestCaseTrait;
     use UuidGeneratorTrait;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface
-     */
-    private $collectionHandler;
+    private CollectionHandlerInterface $collectionHandler;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Handler\BlockHandlerInterface
-     */
-    private $blockHandler;
+    private BlockHandlerInterface $blockHandler;
 
     protected function setUp(): void
     {

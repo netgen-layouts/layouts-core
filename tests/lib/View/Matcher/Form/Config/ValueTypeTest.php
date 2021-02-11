@@ -13,19 +13,14 @@ use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\Matcher\Form\Config\ValueType;
 use Netgen\Layouts\View\View\FormView;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\Forms;
 
 final class ValueTypeTest extends TestCase
 {
-    /**
-     * @var \Symfony\Component\Form\FormFactoryInterface
-     */
-    private $formFactory;
+    private FormFactoryInterface $formFactory;
 
-    /**
-     * @var \Netgen\Layouts\View\Matcher\MatcherInterface
-     */
-    private $matcher;
+    private ValueType $matcher;
 
     protected function setUp(): void
     {

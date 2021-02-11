@@ -14,10 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 final class PlaceholderViewProviderTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\View\Provider\ViewProviderInterface
-     */
-    private $placeholderViewProvider;
+    private PlaceholderViewProvider $placeholderViewProvider;
 
     protected function setUp(): void
     {

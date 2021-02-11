@@ -10,15 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 final class ConfigDefinitionTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Config\ConfigDefinitionHandlerInterface
-     */
-    private $handler;
+    private ConfigDefinitionHandler $handler;
 
-    /**
-     * @var \Netgen\Layouts\Config\ConfigDefinition
-     */
-    private $configDefinition;
+    private ConfigDefinition $configDefinition;
 
     protected function setUp(): void
     {

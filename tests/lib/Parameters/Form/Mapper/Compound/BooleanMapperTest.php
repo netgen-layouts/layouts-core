@@ -12,10 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 final class BooleanMapperTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Parameters\Form\Mapper\Compound\BooleanMapper
-     */
-    private $mapper;
+    private BooleanMapper $mapper;
 
     protected function setUp(): void
     {

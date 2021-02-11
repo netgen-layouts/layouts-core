@@ -18,10 +18,7 @@ abstract class AbstractTargetHandlerTest extends TestCase
 {
     use TestCaseTrait;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler
-     */
-    protected $handler;
+    protected LayoutResolverHandler $handler;
 
     protected function setUp(): void
     {

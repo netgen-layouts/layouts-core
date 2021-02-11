@@ -10,10 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 final class TextLineMapperTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Parameters\Form\Mapper\TextLineMapper
-     */
-    private $mapper;
+    private TextLineMapper $mapper;
 
     protected function setUp(): void
     {

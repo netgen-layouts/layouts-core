@@ -8,6 +8,7 @@ use Netgen\Bundle\LayoutsAdminBundle\EventListener\ApiCsrfValidationListener;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener;
 use Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidatorInterface;
 use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -18,20 +19,11 @@ final class ApiCsrfValidationListenerTest extends TestCase
 {
     use CreateEventTrait;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $csrfTokenValidatorMock;
+    private MockObject $csrfTokenValidatorMock;
 
-    /**
-     * @var string
-     */
-    private $csrfTokenId;
+    private string $csrfTokenId;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\EventListener\ApiCsrfValidationListener
-     */
-    private $listener;
+    private ApiCsrfValidationListener $listener;
 
     protected function setUp(): void
     {

@@ -16,10 +16,7 @@ use PHPUnit\Framework\TestCase;
 
 final class BlockUpdateStructTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\API\Values\Block\BlockUpdateStruct
-     */
-    private $struct;
+    private BlockUpdateStruct $struct;
 
     protected function setUp(): void
     {

@@ -11,6 +11,7 @@ use Netgen\Layouts\Tests\Stubs\ErrorHandler;
 use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
 use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\ViewRendererInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,15 +22,9 @@ final class ViewRendererListenerTest extends TestCase
 {
     use CreateEventTrait;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $viewRendererMock;
+    private MockObject $viewRendererMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\EventListener\ViewRendererListener
-     */
-    private $listener;
+    private ViewRendererListener $listener;
 
     protected function setUp(): void
     {

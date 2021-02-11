@@ -11,10 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 final class QueryTypeTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Collection\QueryType\QueryType
-     */
-    private $queryType;
+    private QueryType $queryType;
 
     protected function setUp(): void
     {

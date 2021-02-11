@@ -10,21 +10,16 @@ use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\Parameters\Parameter;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class CollectionQueryNormalizerTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $normalizerMock;
+    private MockObject $normalizerMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionQueryNormalizer
-     */
-    private $normalizer;
+    private CollectionQueryNormalizer $normalizer;
 
     protected function setUp(): void
     {

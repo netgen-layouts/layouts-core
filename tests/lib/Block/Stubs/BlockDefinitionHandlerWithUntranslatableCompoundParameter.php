@@ -16,7 +16,7 @@ final class BlockDefinitionHandlerWithUntranslatableCompoundParameter extends Ba
     /**
      * @var string[]
      */
-    private $parameterGroups;
+    private array $parameterGroups;
 
     /**
      * @param string[] $parameterGroups

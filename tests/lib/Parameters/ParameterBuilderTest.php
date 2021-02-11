@@ -22,20 +22,11 @@ final class ParameterBuilderTest extends TestCase
 {
     use ExportObjectTrait;
 
-    /**
-     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry
-     */
-    private $registry;
+    private ParameterTypeRegistry $registry;
 
-    /**
-     * @var \Netgen\Layouts\Parameters\ParameterBuilderFactory
-     */
-    private $factory;
+    private ParameterBuilderFactory $factory;
 
-    /**
-     * @var \Netgen\Layouts\Parameters\ParameterBuilderInterface
-     */
-    private $builder;
+    private ParameterBuilderInterface $builder;
 
     protected function setUp(): void
     {

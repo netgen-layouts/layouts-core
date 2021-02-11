@@ -11,10 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 final class HydratorTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Utils\Hydrator
-     */
-    private $hydrator;
+    private Hydrator $hydrator;
 
     protected function setUp(): void
     {

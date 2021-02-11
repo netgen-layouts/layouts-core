@@ -13,10 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ViewTypeTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\View\Matcher\MatcherInterface
-     */
-    private $matcher;
+    private ViewType $matcher;
 
     protected function setUp(): void
     {

@@ -10,10 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
 final class EmailMapperTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Parameters\Form\Mapper\EmailMapper
-     */
-    private $mapper;
+    private EmailMapper $mapper;
 
     protected function setUp(): void
     {

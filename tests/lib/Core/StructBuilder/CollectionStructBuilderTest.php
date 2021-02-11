@@ -17,10 +17,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
 {
     use ExportObjectTrait;
 
-    /**
-     * @var \Netgen\Layouts\Core\StructBuilder\CollectionStructBuilder
-     */
-    private $structBuilder;
+    private CollectionStructBuilder $structBuilder;
 
     protected function setUp(): void
     {

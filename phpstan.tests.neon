@@ -40,7 +40,7 @@ parameters:
         - '#Method .+TypeStub::buildForm\(\) has parameter \$options with no value type specified in iterable type array.#'
         - '#no value type specified in iterable type Symfony\\Component\\Form\\FormInterface#'
         - '#no value type specified in iterable type Symfony\\Component\\Form\\FormBuilder#'
-        - '#no value type specified in iterable type Knp\\Menu\\ItemInterface#'
+        - '#no value type specified in iterable type Knp\\Menu\\MenuItem#'
         - '#no value type specified in iterable type Netgen\\Bundle\\LayoutsBundle\\Templating\\Twig\\Node\\DefaultContext#'
         - '#no value type specified in iterable type Netgen\\Bundle\\LayoutsBundle\\Templating\\Twig\\Node\\RenderZone#'
 

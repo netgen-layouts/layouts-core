@@ -13,15 +13,9 @@ use PHPUnit\Framework\TestCase;
 
 final class ParameterTypeRegistryTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Parameters\ParameterType
-     */
-    private $parameterType;
+    private ParameterType $parameterType;
 
-    /**
-     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry
-     */
-    private $registry;
+    private ParameterTypeRegistry $registry;
 
     protected function setUp(): void
     {

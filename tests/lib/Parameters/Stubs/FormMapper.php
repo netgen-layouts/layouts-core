@@ -10,10 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 
 final class FormMapper extends BaseMapper
 {
-    /**
-     * @var bool
-     */
-    private $compound;
+    private bool $compound;
 
     public function __construct(bool $compound = false)
     {

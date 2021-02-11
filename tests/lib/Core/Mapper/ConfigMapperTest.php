@@ -15,15 +15,9 @@ use function iterator_to_array;
 
 final class ConfigMapperTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Config\ConfigDefinitionInterface
-     */
-    private $configDefinition;
+    private ConfigDefinition $configDefinition;
 
-    /**
-     * @var \Netgen\Layouts\Core\Mapper\ConfigMapper
-     */
-    private $mapper;
+    private ConfigMapper $mapper;
 
     protected function setUp(): void
     {

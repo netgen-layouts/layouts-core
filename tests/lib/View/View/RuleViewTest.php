@@ -11,15 +11,9 @@ use Ramsey\Uuid\Uuid;
 
 final class RuleViewTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\API\Values\LayoutResolver\Rule
-     */
-    private $rule;
+    private Rule $rule;
 
-    /**
-     * @var \Netgen\Layouts\View\View\RuleViewInterface
-     */
-    private $view;
+    private RuleView $view;
 
     protected function setUp(): void
     {

@@ -9,10 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class LazyPropertyTraitTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Tests\API\Stubs\ValueWithLazyProperty
-     */
-    private $value;
+    private ValueWithLazyProperty $value;
 
     protected function setUp(): void
     {

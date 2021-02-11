@@ -11,10 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 final class QueryParameterTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\Form\ConditionType\MapperInterface
-     */
-    private $mapper;
+    private QueryParameter $mapper;
 
     protected function setUp(): void
     {

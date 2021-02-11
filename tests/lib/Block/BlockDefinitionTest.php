@@ -20,40 +20,19 @@ use stdClass;
 
 final class BlockDefinitionTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandlerInterface
-     */
-    private $handler;
+    private BlockDefinitionHandler $handler;
 
-    /**
-     * @var \Netgen\Layouts\Block\BlockDefinition
-     */
-    private $blockDefinition;
+    private BlockDefinition $blockDefinition;
 
-    /**
-     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\Form
-     */
-    private $form;
+    private Form $form;
 
-    /**
-     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\Collection
-     */
-    private $collection;
+    private Collection $collection;
 
-    /**
-     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType
-     */
-    private $viewType1;
+    private ViewType $viewType1;
 
-    /**
-     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\ViewType
-     */
-    private $viewType2;
+    private ViewType $viewType2;
 
-    /**
-     * @var ConfigDefinition
-     */
-    private $configDefinition;
+    private ConfigDefinition $configDefinition;
 
     protected function setUp(): void
     {

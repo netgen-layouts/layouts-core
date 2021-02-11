@@ -12,10 +12,7 @@ final class SqliteTest extends TestCase
 {
     use DatabaseTrait;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper\Sqlite
-     */
-    private $helper;
+    private Sqlite $helper;
 
     protected function setUp(): void
     {

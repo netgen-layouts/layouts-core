@@ -11,10 +11,7 @@ use Symfony\Component\Validator\Validation;
 
 final class RoutePrefixTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\TargetType\RoutePrefix
-     */
-    private $targetType;
+    private RoutePrefix $targetType;
 
     protected function setUp(): void
     {

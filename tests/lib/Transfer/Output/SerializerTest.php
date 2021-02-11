@@ -17,10 +17,7 @@ use stdClass;
 
 final class SerializerTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Transfer\Output\Serializer
-     */
-    private $serializer;
+    private Serializer $serializer;
 
     protected function setUp(): void
     {

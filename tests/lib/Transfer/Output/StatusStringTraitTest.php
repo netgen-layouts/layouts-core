@@ -12,10 +12,7 @@ use PHPUnit\Framework\TestCase;
 
 final class StatusStringTraitTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Tests\Transfer\Output\Visitor\Stubs\ValueVisitor
-     */
-    private $visitor;
+    private ValueVisitor $visitor;
 
     protected function setUp(): void
     {

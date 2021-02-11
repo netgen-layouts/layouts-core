@@ -16,10 +16,7 @@ final class SetIsAdminRequestListenerTest extends TestCase
 {
     use CreateEventTrait;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsAdminRequestListener
-     */
-    private $listener;
+    private SetIsAdminRequestListener $listener;
 
     protected function setUp(): void
     {

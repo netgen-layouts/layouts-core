@@ -8,6 +8,7 @@ use Exception;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionSerializerListener;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener;
 use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -21,20 +22,11 @@ final class ExceptionSerializerListenerTest extends TestCase
 {
     use CreateEventTrait;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $serializerMock;
+    private MockObject $serializerMock;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $loggerMock;
+    private MockObject $loggerMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionSerializerListener
-     */
-    private $listener;
+    private ExceptionSerializerListener $listener;
 
     protected function setUp(): void
     {

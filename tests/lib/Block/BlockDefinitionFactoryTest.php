@@ -19,36 +19,22 @@ use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\Layouts\Tests\Block\Stubs\HandlerPlugin;
 use Netgen\Layouts\Tests\Config\Stubs\ConfigDefinitionHandler;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class BlockDefinitionFactoryTest extends TestCase
 {
     use ExportObjectTrait;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $handlerMock;
+    private MockObject $handlerMock;
 
-    /**
-     * @var \Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface
-     */
-    private $parameterBuilderFactory;
+    private ParameterBuilderFactory $parameterBuilderFactory;
 
-    /**
-     * @var \Netgen\Layouts\Block\Registry\HandlerPluginRegistry
-     */
-    private $handlerPluginRegistry;
+    private HandlerPluginRegistry $handlerPluginRegistry;
 
-    /**
-     * @var \Netgen\Layouts\Config\ConfigDefinitionFactory
-     */
-    private $configDefinitionFactory;
+    private ConfigDefinitionFactory $configDefinitionFactory;
 
-    /**
-     * @var \Netgen\Layouts\Block\BlockDefinitionFactory
-     */
-    private $factory;
+    private BlockDefinitionFactory $factory;
 
     protected function setUp(): void
     {

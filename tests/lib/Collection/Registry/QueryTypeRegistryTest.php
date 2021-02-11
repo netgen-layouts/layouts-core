@@ -13,20 +13,11 @@ use PHPUnit\Framework\TestCase;
 
 final class QueryTypeRegistryTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Collection\QueryType\QueryTypeInterface
-     */
-    private $queryType1;
+    private QueryType $queryType1;
 
-    /**
-     * @var \Netgen\Layouts\Collection\QueryType\QueryTypeInterface
-     */
-    private $queryType2;
+    private QueryType $queryType2;
 
-    /**
-     * @var \Netgen\Layouts\Collection\Registry\QueryTypeRegistry
-     */
-    private $registry;
+    private QueryTypeRegistry $registry;
 
     protected function setUp(): void
     {

@@ -10,10 +10,7 @@ use Twig\TwigFunction;
 
 final class CollectionPagerExtensionTest extends TestCase
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\Templating\Twig\Extension\CollectionPagerExtension
-     */
-    private $extension;
+    private CollectionPagerExtension $extension;
 
     protected function setUp(): void
     {

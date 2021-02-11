@@ -24,16 +24,13 @@ final class NetgenLayoutsExtensionTest extends AbstractExtensionTestCase
     /**
      * @var mixed[]
      */
-    private $minimalConfig = [
+    private array $minimalConfig = [
         'design_list' => [
             'standard' => [],
         ],
     ];
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\DependencyInjection\NetgenLayoutsExtension
-     */
-    private $extension;
+    private NetgenLayoutsExtension $extension;
 
     protected function setUp(): void
     {

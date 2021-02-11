@@ -12,6 +12,7 @@ use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\Provider\ViewProviderInterface;
 use Netgen\Layouts\View\TemplateResolverInterface;
 use Netgen\Layouts\View\ViewBuilder;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpKernel\Kernel;
@@ -23,17 +24,17 @@ final class ViewBuilderTest extends TestCase
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\View\Provider\ViewProviderInterface
      */
-    private $viewProviderMock;
+    private MockObject $viewProviderMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\View\TemplateResolverInterface
      */
-    private $templateResolverMock;
+    private MockObject $templateResolverMock;
 
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject&\Symfony\Component\EventDispatcher\EventDispatcherInterface
      */
-    private $eventDispatcherMock;
+    private MockObject $eventDispatcherMock;
 
     protected function setUp(): void
     {

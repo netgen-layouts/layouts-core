@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Parameters;
 
+use Netgen\Layouts\Parameters\ParameterBuilderInterface;
 use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory;
@@ -12,20 +13,11 @@ use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 
 final class TranslatableParameterBuilderTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry
-     */
-    private $registry;
+    private ParameterTypeRegistry $registry;
 
-    /**
-     * @var \Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory
-     */
-    private $factory;
+    private TranslatableParameterBuilderFactory $factory;
 
-    /**
-     * @var \Netgen\Layouts\Parameters\ParameterBuilderInterface
-     */
-    private $builder;
+    private ParameterBuilderInterface $builder;
 
     protected function setUp(): void
     {

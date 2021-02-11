@@ -16,12 +16,12 @@ final class ContainerDefinitionHandler extends BlockDefinitionHandler implements
     /**
      * @var string[]
      */
-    private $parameterGroups;
+    private array $parameterGroups;
 
     /**
      * @var string[]
      */
-    private $placeholderIdentifiers;
+    private array $placeholderIdentifiers;
 
     /**
      * @param string[] $parameterGroups

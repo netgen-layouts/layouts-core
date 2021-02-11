@@ -12,10 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 final class ChoiceMapperTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Parameters\Form\Mapper\ChoiceMapper
-     */
-    private $mapper;
+    private ChoiceMapper $mapper;
 
     protected function setUp(): void
     {

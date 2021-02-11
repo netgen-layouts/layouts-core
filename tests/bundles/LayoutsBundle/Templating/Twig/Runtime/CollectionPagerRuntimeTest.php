@@ -9,6 +9,7 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Exception\InvalidArgumentException;
 use Pagerfanta\Pagerfanta;
 use Pagerfanta\View\ViewInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class CollectionPagerRuntimeTest extends TestCase
@@ -18,15 +19,9 @@ final class CollectionPagerRuntimeTest extends TestCase
      */
     private $routeGenerator;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $pagerfantaViewMock;
+    private MockObject $pagerfantaViewMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\CollectionPagerRuntime
-     */
-    private $runtime;
+    private CollectionPagerRuntime $runtime;
 
     protected function setUp(): void
     {

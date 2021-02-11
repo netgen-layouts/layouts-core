@@ -11,20 +11,11 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 final class AdminMatchEventTest extends TestCase
 {
-    /**
-     * @var \Symfony\Component\HttpFoundation\Request
-     */
-    private $request;
+    private Request $request;
 
-    /**
-     * @var int
-     */
-    private $requestType;
+    private int $requestType;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\Event\AdminMatchEvent
-     */
-    private $event;
+    private AdminMatchEvent $event;
 
     protected function setUp(): void
     {

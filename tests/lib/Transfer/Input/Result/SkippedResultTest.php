@@ -7,18 +7,13 @@ namespace Netgen\Layouts\Tests\Transfer\Input\Result;
 use Netgen\Layouts\Transfer\Input\Result\SkippedResult;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 final class SkippedResultTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Transfer\Input\Result\SkippedResult
-     */
-    private $result;
+    private SkippedResult $result;
 
-    /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    private $entityId;
+    private UuidInterface $entityId;
 
     protected function setUp(): void
     {

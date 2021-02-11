@@ -11,10 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 final class NullLayoutTypeTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Type\NullLayoutType
-     */
-    private $layoutType;
+    private NullLayoutType $layoutType;
 
     protected function setUp(): void
     {

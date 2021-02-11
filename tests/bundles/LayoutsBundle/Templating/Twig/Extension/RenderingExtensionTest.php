@@ -12,10 +12,7 @@ use Twig\TwigFunction;
 
 final class RenderingExtensionTest extends TestCase
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\Templating\Twig\Extension\RenderingExtension
-     */
-    private $extension;
+    private RenderingExtension $extension;
 
     protected function setUp(): void
     {

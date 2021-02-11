@@ -10,20 +10,15 @@ use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\Exception\NotFoundException;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 final class ZoneParamConverterTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $layoutServiceMock;
+    private MockObject $layoutServiceMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\ParamConverter\Layout\ZoneParamConverter
-     */
-    private $paramConverter;
+    private ZoneParamConverter $paramConverter;
 
     protected function setUp(): void
     {

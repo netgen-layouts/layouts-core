@@ -12,15 +12,9 @@ use PHPUnit\Framework\TestCase;
 
 final class TranslatableParameterBuilderFactoryTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry
-     */
-    private $registry;
+    private ParameterTypeRegistry $registry;
 
-    /**
-     * @var \Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory
-     */
-    private $factory;
+    private TranslatableParameterBuilderFactory $factory;
 
     protected function setUp(): void
     {

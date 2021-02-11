@@ -10,15 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 final class LayoutTypeViewTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Type\LayoutType
-     */
-    private $layoutType;
+    private LayoutType $layoutType;
 
-    /**
-     * @var \Netgen\Layouts\View\View\LayoutTypeViewInterface
-     */
-    private $view;
+    private LayoutTypeView $view;
 
     protected function setUp(): void
     {

@@ -18,10 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class TargetTypeTest extends FormTestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\TargetTypeInterface
-     */
-    private $targetType;
+    private TargetType1 $targetType;
 
     protected function setUp(): void
     {

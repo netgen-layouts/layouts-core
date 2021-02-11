@@ -14,20 +14,15 @@ use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\View\RuleView;
 use Netgen\Layouts\View\ViewInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use function sprintf;
 
 final class RuleCountListenerTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $layoutResolverServiceMock;
+    private MockObject $layoutResolverServiceMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\EventListener\RuleView\RuleCountListener
-     */
-    private $listener;
+    private RuleCountListener $listener;
 
     protected function setUp(): void
     {

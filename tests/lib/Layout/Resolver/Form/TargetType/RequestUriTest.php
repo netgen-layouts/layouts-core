@@ -15,10 +15,7 @@ use Symfony\Component\Form\FormTypeInterface;
 
 final class RequestUriTest extends FormTestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\TargetTypeInterface
-     */
-    private $targetType;
+    private RequestUri $targetType;
 
     protected function setUp(): void
     {

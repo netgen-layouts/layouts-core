@@ -20,10 +20,7 @@ final class LinkDataMapperTest extends DataMapperTest
 {
     use ExportObjectTrait;
 
-    /**
-     * @var \Netgen\Layouts\Parameters\Form\Type\DataMapper\LinkDataMapper
-     */
-    private $mapper;
+    private LinkDataMapper $mapper;
 
     protected function setUp(): void
     {

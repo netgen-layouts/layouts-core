@@ -4,21 +4,20 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\Persistence\Doctrine\QueryHandler;
 
+use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use Netgen\Layouts\Persistence\Doctrine\QueryHandler\QueryHandler;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class QueryHandlerTest extends TestCase
 {
-    /**
-     * @var \Doctrine\DBAL\Connection
-     */
-    private $databaseConnection;
+    private Connection $databaseConnection;
 
     /**
-     * @var \Netgen\Layouts\Persistence\Doctrine\QueryHandler\QueryHandler
+     * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Persistence\Doctrine\QueryHandler\QueryHandler
      */
-    private $queryHandler;
+    private MockObject $queryHandler;
 
     protected function setUp(): void
     {

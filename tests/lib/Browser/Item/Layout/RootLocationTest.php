@@ -9,10 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class RootLocationTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Browser\Item\Layout\RootLocation
-     */
-    private $location;
+    private RootLocation $location;
 
     protected function setUp(): void
     {

@@ -11,10 +11,7 @@ use Symfony\Component\Validator\Validation;
 
 final class PathInfoPrefixTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\TargetType\PathInfoPrefix
-     */
-    private $targetType;
+    private PathInfoPrefix $targetType;
 
     protected function setUp(): void
     {

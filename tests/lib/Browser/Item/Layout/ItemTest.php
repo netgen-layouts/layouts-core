@@ -8,23 +8,15 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\Browser\Item\Layout\Item;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 final class ItemTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\API\Values\Layout\Layout
-     */
-    private $layout;
+    private Layout $layout;
 
-    /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    private $layoutId;
+    private UuidInterface $layoutId;
 
-    /**
-     * @var \Netgen\Layouts\Browser\Item\Layout\Item
-     */
-    private $item;
+    private Item $item;
 
     protected function setUp(): void
     {

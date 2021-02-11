@@ -10,10 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 final class IdentifierMapperTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Parameters\Form\Mapper\IdentifierMapper
-     */
-    private $mapper;
+    private IdentifierMapper $mapper;
 
     protected function setUp(): void
     {

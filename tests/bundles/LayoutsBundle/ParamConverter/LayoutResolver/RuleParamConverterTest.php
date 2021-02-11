@@ -7,20 +7,15 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\ParamConverter\LayoutResolver;
 use Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver\RuleParamConverter;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 final class RuleParamConverterTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $layoutResolverServiceMock;
+    private MockObject $layoutResolverServiceMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver\RuleParamConverter
-     */
-    private $paramConverter;
+    private RuleParamConverter $paramConverter;
 
     protected function setUp(): void
     {

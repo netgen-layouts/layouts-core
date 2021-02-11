@@ -8,19 +8,14 @@ use Netgen\Layouts\Collection\QueryType\QueryTypeFactory;
 use Netgen\Layouts\Collection\QueryType\QueryTypeHandlerInterface;
 use Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface;
 use Netgen\Layouts\Parameters\ParameterBuilderInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class QueryTypeFactoryTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $parameterBuilderFactoryMock;
+    private MockObject $parameterBuilderFactoryMock;
 
-    /**
-     * @var \Netgen\Layouts\Collection\QueryType\QueryTypeFactory
-     */
-    private $factory;
+    private QueryTypeFactory $factory;
 
     protected function setUp(): void
     {

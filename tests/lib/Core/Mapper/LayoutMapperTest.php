@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\Core\Mapper;
 
 use Netgen\Layouts\API\Values\Layout\Zone as APIZone;
 use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\Core\Mapper\LayoutMapper;
 use Netgen\Layouts\Layout\Type\NullLayoutType;
 use Netgen\Layouts\Persistence\Values\Layout\Layout;
 use Netgen\Layouts\Persistence\Values\Layout\Zone;
@@ -13,10 +14,7 @@ use Netgen\Layouts\Tests\Core\CoreTestCase;
 
 abstract class LayoutMapperTest extends CoreTestCase
 {
-    /**
-     * @var \Netgen\Layouts\Core\Mapper\LayoutMapper
-     */
-    private $mapper;
+    private LayoutMapper $mapper;
 
     protected function setUp(): void
     {

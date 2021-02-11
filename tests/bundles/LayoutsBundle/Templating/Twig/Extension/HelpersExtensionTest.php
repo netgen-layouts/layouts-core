@@ -11,10 +11,7 @@ use Twig\TwigFunction;
 
 final class HelpersExtensionTest extends TestCase
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\Templating\Twig\Extension\HelpersExtension
-     */
-    private $extension;
+    private HelpersExtension $extension;
 
     protected function setUp(): void
     {

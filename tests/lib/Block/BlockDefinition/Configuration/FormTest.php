@@ -9,10 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class FormTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\Form
-     */
-    private $form;
+    private Form $form;
 
     protected function setUp(): void
     {

@@ -10,15 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 final class ItemViewTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Item\CmsItemInterface
-     */
-    private $item;
+    private CmsItem $item;
 
-    /**
-     * @var \Netgen\Layouts\View\View\ItemViewInterface
-     */
-    private $view;
+    private ItemView $view;
 
     protected function setUp(): void
     {

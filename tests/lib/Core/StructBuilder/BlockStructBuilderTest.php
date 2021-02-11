@@ -14,10 +14,7 @@ abstract class BlockStructBuilderTest extends CoreTestCase
 {
     use ExportObjectTrait;
 
-    /**
-     * @var \Netgen\Layouts\Core\StructBuilder\BlockStructBuilder
-     */
-    private $structBuilder;
+    private BlockStructBuilder $structBuilder;
 
     protected function setUp(): void
     {

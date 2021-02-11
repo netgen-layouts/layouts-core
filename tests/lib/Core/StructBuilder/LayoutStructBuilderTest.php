@@ -14,10 +14,7 @@ abstract class LayoutStructBuilderTest extends CoreTestCase
 {
     use ExportObjectTrait;
 
-    /**
-     * @var \Netgen\Layouts\Core\StructBuilder\LayoutStructBuilder
-     */
-    private $structBuilder;
+    private LayoutStructBuilder $structBuilder;
 
     protected function setUp(): void
     {

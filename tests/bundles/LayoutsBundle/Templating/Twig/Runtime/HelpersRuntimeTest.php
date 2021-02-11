@@ -11,20 +11,15 @@ use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Item\Registry\ValueTypeRegistry;
 use Netgen\Layouts\Item\ValueType\ValueType;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 final class HelpersRuntimeTest extends TestCase
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\HelpersRuntime
-     */
-    private $runtime;
+    private HelpersRuntime $runtime;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $layoutServiceMock;
+    private MockObject $layoutServiceMock;
 
     protected function setUp(): void
     {

@@ -13,10 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 final class BlockTypeGroupNormalizerTest extends TestCase
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\BlockTypeGroupNormalizer
-     */
-    private $normalizer;
+    private BlockTypeGroupNormalizer $normalizer;
 
     protected function setUp(): void
     {

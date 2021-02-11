@@ -13,6 +13,7 @@ use Netgen\Layouts\Parameters\Form\Type\DataMapper\ItemLinkDataMapper;
 use Netgen\Layouts\Parameters\ParameterDefinition;
 use Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\Layouts\Parameters\ParameterType\ItemLinkType as ItemLinkParameterType;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormBuilder;
@@ -20,25 +21,13 @@ use Symfony\Component\Form\FormFactoryInterface;
 
 final class ItemLinkMapperTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Item\Registry\ValueTypeRegistry
-     */
-    private $valueTypeRegistry;
+    private ValueTypeRegistry $valueTypeRegistry;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $cmsItemLoaderMock;
+    private MockObject $cmsItemLoaderMock;
 
-    /**
-     * @var \Netgen\Layouts\Parameters\ParameterType\ItemLinkType
-     */
-    private $type;
+    private ItemLinkParameterType $type;
 
-    /**
-     * @var \Netgen\Layouts\Parameters\Form\Mapper\ItemLinkMapper
-     */
-    private $mapper;
+    private ItemLinkMapper $mapper;
 
     protected function setUp(): void
     {

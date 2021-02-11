@@ -15,7 +15,7 @@ final class HandlerPlugin extends Plugin
     /**
      * @var string[]
      */
-    private static $extendedHandlers = [];
+    private static array $extendedHandlers = [];
 
     /**
      * @param string[] $extendedHandlers

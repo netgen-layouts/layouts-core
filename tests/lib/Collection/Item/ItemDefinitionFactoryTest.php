@@ -14,15 +14,9 @@ use PHPUnit\Framework\TestCase;
 
 final class ItemDefinitionFactoryTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Config\ConfigDefinitionFactory
-     */
-    private $configDefinitionFactory;
+    private ConfigDefinitionFactory $configDefinitionFactory;
 
-    /**
-     * @var \Netgen\Layouts\Collection\Item\ItemDefinitionFactory
-     */
-    private $factory;
+    private ItemDefinitionFactory $factory;
 
     protected function setUp(): void
     {

@@ -8,6 +8,7 @@ use Netgen\Layouts\API\Values\Collection\Query as APIQuery;
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Collection\Item\NullItemDefinition;
 use Netgen\Layouts\Collection\QueryType\NullQueryType;
+use Netgen\Layouts\Core\Mapper\CollectionMapper;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Item\NullCmsItem;
@@ -19,10 +20,7 @@ use Netgen\Layouts\Tests\Core\CoreTestCase;
 
 abstract class CollectionMapperTest extends CoreTestCase
 {
-    /**
-     * @var \Netgen\Layouts\Core\Mapper\CollectionMapper
-     */
-    private $mapper;
+    private CollectionMapper $mapper;
 
     protected function setUp(): void
     {

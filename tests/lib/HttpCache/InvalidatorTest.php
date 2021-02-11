@@ -7,25 +7,17 @@ namespace Netgen\Layouts\Tests\HttpCache;
 use Netgen\Layouts\HttpCache\ClientInterface;
 use Netgen\Layouts\HttpCache\Invalidator;
 use Netgen\Layouts\HttpCache\Layout\IdProviderInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 final class InvalidatorTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $clientMock;
+    private MockObject $clientMock;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $idProviderMock;
+    private MockObject $idProviderMock;
 
-    /**
-     * @var \Netgen\Layouts\HttpCache\Invalidator
-     */
-    private $invalidator;
+    private Invalidator $invalidator;
 
     protected function setUp(): void
     {

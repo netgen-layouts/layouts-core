@@ -10,10 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 final class RequestUriTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\Form\TargetType\MapperInterface
-     */
-    private $mapper;
+    private RequestUri $mapper;
 
     protected function setUp(): void
     {

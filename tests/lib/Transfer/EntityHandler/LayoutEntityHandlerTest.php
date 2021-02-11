@@ -15,21 +15,16 @@ use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Layout\Registry\LayoutTypeRegistry;
 use Netgen\Layouts\Transfer\EntityHandler\LayoutEntityHandler;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use function sprintf;
 
 final class LayoutEntityHandlerTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $layoutServiceMock;
+    private MockObject $layoutServiceMock;
 
-    /**
-     * @var \Netgen\Layouts\Transfer\EntityHandler\LayoutEntityHandler
-     */
-    private $entityHandler;
+    private LayoutEntityHandler $entityHandler;
 
     protected function setUp(): void
     {

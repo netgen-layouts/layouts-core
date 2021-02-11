@@ -12,7 +12,7 @@ final class Container implements ContainerInterface
     /**
      * @var mixed[]
      */
-    private $entries;
+    private array $entries;
 
     /**
      * @param mixed[] $entries

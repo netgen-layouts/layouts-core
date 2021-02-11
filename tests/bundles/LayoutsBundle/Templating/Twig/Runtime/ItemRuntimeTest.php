@@ -10,30 +10,19 @@ use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Item\CmsItemLoaderInterface;
 use Netgen\Layouts\Item\UrlGeneratorInterface;
 use Netgen\Layouts\Tests\Stubs\ErrorHandler;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
 final class ItemRuntimeTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $cmsItemLoaderMock;
+    private MockObject $cmsItemLoaderMock;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $urlGeneratorMock;
+    private MockObject $urlGeneratorMock;
 
-    /**
-     * @var \Netgen\Layouts\Tests\Stubs\ErrorHandler
-     */
-    private $errorHandler;
+    private ErrorHandler $errorHandler;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\ItemRuntime
-     */
-    private $runtime;
+    private ItemRuntime $runtime;
 
     protected function setUp(): void
     {

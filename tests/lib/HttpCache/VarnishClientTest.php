@@ -9,25 +9,17 @@ use FOS\HttpCache\Exception\ExceptionCollection;
 use FOS\HttpCache\ProxyClient\Invalidation\TagCapable;
 use Netgen\Layouts\HttpCache\Varnish\HostHeaderProviderInterface;
 use Netgen\Layouts\HttpCache\VarnishClient;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use function interface_exists;
 
 final class VarnishClientTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $fosInvalidatorMock;
+    private MockObject $fosInvalidatorMock;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $hostHeaderProviderMock;
+    private MockObject $hostHeaderProviderMock;
 
-    /**
-     * @var \Netgen\Layouts\HttpCache\VarnishClient
-     */
-    private $client;
+    private VarnishClient $client;
 
     protected function setUp(): void
     {

@@ -10,10 +10,7 @@ use Symfony\Component\Validator\Constraints;
 
 final class ConditionType3 extends ConditionType
 {
-    /**
-     * @var bool
-     */
-    private $matches;
+    private bool $matches;
 
     public function __construct(bool $matches = true)
     {

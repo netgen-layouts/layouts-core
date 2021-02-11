@@ -24,18 +24,13 @@ use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
 use Netgen\Layouts\Utils\Hydrator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class BlockValidatorTest extends TestCase
 {
-    /**
-     * @var \Symfony\Component\Validator\Validator\ValidatorInterface
-     */
-    private $validator;
+    private ValidatorInterface $validator;
 
-    /**
-     * @var \Netgen\Layouts\Core\Validator\BlockValidator
-     */
-    private $blockValidator;
+    private BlockValidator $blockValidator;
 
     protected function setUp(): void
     {

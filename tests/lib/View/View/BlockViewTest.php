@@ -11,15 +11,9 @@ use Ramsey\Uuid\Uuid;
 
 final class BlockViewTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\API\Values\Block\Block
-     */
-    private $block;
+    private Block $block;
 
-    /**
-     * @var \Netgen\Layouts\View\View\BlockViewInterface
-     */
-    private $view;
+    private BlockView $view;
 
     protected function setUp(): void
     {

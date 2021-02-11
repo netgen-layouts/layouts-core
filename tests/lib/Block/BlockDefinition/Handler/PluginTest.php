@@ -10,24 +10,19 @@ use Netgen\Layouts\Block\DynamicParameters;
 use Netgen\Layouts\Parameters\ParameterBuilderFactory;
 use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class PluginTest extends TestCase
 {
     /**
-     * @var \Netgen\Layouts\Block\BlockDefinition\Handler\Plugin
+     * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Block\BlockDefinition\Handler\Plugin
      */
-    private $plugin;
+    private MockObject $plugin;
 
-    /**
-     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry
-     */
-    private $parameterTypeRegistry;
+    private ParameterTypeRegistry $parameterTypeRegistry;
 
-    /**
-     * @var \Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface
-     */
-    private $parameterBuilderFactory;
+    private ParameterBuilderFactory $parameterBuilderFactory;
 
     protected function setUp(): void
     {

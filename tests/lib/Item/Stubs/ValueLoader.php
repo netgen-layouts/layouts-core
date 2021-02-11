@@ -8,10 +8,7 @@ use Netgen\Layouts\Item\ValueLoaderInterface;
 
 final class ValueLoader implements ValueLoaderInterface
 {
-    /**
-     * @var bool
-     */
-    private $exists;
+    private bool $exists;
 
     public function __construct(bool $exists)
     {

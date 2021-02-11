@@ -14,15 +14,9 @@ use function class_exists;
 
 final class TaggerTest extends TestCase
 {
-    /**
-     * @var \FOS\HttpCacheBundle\Http\SymfonyResponseTagger
-     */
-    private $responseTagger;
+    private SymfonyResponseTagger $responseTagger;
 
-    /**
-     * @var \Netgen\Layouts\HttpCache\Tagger
-     */
-    private $tagger;
+    private Tagger $tagger;
 
     protected function setUp(): void
     {

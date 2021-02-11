@@ -15,6 +15,7 @@ use Netgen\Layouts\Browser\Backend\LayoutBackend;
 use Netgen\Layouts\Browser\Item\Layout\LayoutInterface;
 use Netgen\Layouts\Browser\Item\Layout\RootLocation;
 use Netgen\Layouts\Exception\NotFoundException;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use function sprintf;
@@ -24,12 +25,9 @@ final class LayoutBackendTest extends TestCase
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\API\Service\LayoutService
      */
-    private $layoutServiceMock;
+    private MockObject $layoutServiceMock;
 
-    /**
-     * @var \Netgen\Layouts\Browser\Backend\LayoutBackend
-     */
-    private $backend;
+    private LayoutBackend $backend;
 
     protected function setUp(): void
     {

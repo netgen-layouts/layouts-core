@@ -13,20 +13,11 @@ use PHPUnit\Framework\TestCase;
 
 final class LayoutTypeRegistryTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Type\LayoutType
-     */
-    private $layoutType1;
+    private LayoutType $layoutType1;
 
-    /**
-     * @var \Netgen\Layouts\Layout\Type\LayoutType
-     */
-    private $layoutType2;
+    private LayoutType $layoutType2;
 
-    /**
-     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry
-     */
-    private $registry;
+    private LayoutTypeRegistry $registry;
 
     protected function setUp(): void
     {

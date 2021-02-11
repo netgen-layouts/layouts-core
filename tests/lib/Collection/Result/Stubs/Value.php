@@ -6,10 +6,7 @@ namespace Netgen\Layouts\Tests\Collection\Result\Stubs;
 
 final class Value
 {
-    /**
-     * @var int|null
-     */
-    private $value;
+    private ?int $value;
 
     public function __construct(?int $value)
     {

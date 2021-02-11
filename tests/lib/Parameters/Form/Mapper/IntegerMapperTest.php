@@ -10,10 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 final class IntegerMapperTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Parameters\Form\Mapper\IntegerMapper
-     */
-    private $mapper;
+    private IntegerMapper $mapper;
 
     protected function setUp(): void
     {

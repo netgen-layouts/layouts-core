@@ -21,15 +21,9 @@ use function array_keys;
 
 final class QueryEditTypeTest extends FormTestCase
 {
-    /**
-     * @var \Netgen\Layouts\Collection\QueryType\QueryTypeInterface
-     */
-    private $queryType;
+    private QueryType $queryType;
 
-    /**
-     * @var \Netgen\Layouts\API\Values\Collection\Query
-     */
-    private $query;
+    private Query $query;
 
     protected function setUp(): void
     {

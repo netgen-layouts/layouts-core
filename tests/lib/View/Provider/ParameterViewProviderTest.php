@@ -14,10 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ParameterViewProviderTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\View\Provider\ViewProviderInterface
-     */
-    private $parameterViewProvider;
+    private ParameterViewProvider $parameterViewProvider;
 
     protected function setUp(): void
     {

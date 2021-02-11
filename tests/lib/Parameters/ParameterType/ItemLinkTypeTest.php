@@ -11,6 +11,7 @@ use Netgen\Layouts\Item\ValueType\ValueType;
 use Netgen\Layouts\Parameters\ParameterType\ItemLink\RemoteIdConverter;
 use Netgen\Layouts\Parameters\ParameterType\ItemLinkType;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Validation;
@@ -19,15 +20,9 @@ final class ItemLinkTypeTest extends TestCase
 {
     use ParameterTypeTestTrait;
 
-    /**
-     * @var \Netgen\Layouts\Item\Registry\ValueTypeRegistry
-     */
-    private $valueTypeRegistry;
+    private ValueTypeRegistry $valueTypeRegistry;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $cmsItemLoaderMock;
+    private MockObject $cmsItemLoaderMock;
 
     protected function setUp(): void
     {

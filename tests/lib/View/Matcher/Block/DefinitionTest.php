@@ -15,10 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 final class DefinitionTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\View\Matcher\MatcherInterface
-     */
-    private $matcher;
+    private Definition $matcher;
 
     protected function setUp(): void
     {

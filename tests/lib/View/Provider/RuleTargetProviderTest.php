@@ -14,10 +14,7 @@ use Ramsey\Uuid\Uuid;
 
 final class RuleTargetProviderTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\View\Provider\ViewProviderInterface
-     */
-    private $ruleTargetViewProvider;
+    private RuleTargetViewProvider $ruleTargetViewProvider;
 
     protected function setUp(): void
     {

@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\Core\Mapper;
 
 use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Block\NullBlockDefinition;
+use Netgen\Layouts\Core\Mapper\BlockMapper;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Persistence\Values\Block\Block;
 use Netgen\Layouts\Tests\Core\CoreTestCase;
@@ -13,10 +14,7 @@ use Ramsey\Uuid\UuidInterface;
 
 abstract class BlockMapperTest extends CoreTestCase
 {
-    /**
-     * @var \Netgen\Layouts\Core\Mapper\BlockMapper
-     */
-    private $mapper;
+    private BlockMapper $mapper;
 
     protected function setUp(): void
     {

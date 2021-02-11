@@ -8,20 +8,15 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Collection\Result\Pagerfanta\View\CollectionView;
 use Netgen\Layouts\Exception\InvalidArgumentException;
 use Pagerfanta\Pagerfanta;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 
 final class CollectionViewTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $twigMock;
+    private MockObject $twigMock;
 
-    /**
-     * @var \Netgen\Layouts\Collection\Result\Pagerfanta\View\CollectionView
-     */
-    private $collectionView;
+    private CollectionView $collectionView;
 
     protected function setUp(): void
     {

@@ -10,10 +10,7 @@ use Twig\TwigFunction;
 
 final class ItemExtensionTest extends TestCase
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\Templating\Twig\Extension\ItemExtension
-     */
-    private $extension;
+    private ItemExtension $extension;
 
     protected function setUp(): void
     {

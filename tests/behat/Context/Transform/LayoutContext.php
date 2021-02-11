@@ -11,10 +11,7 @@ use Netgen\Layouts\Exception\NotFoundException;
 
 final class LayoutContext implements Context
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutService
-     */
-    private $layoutService;
+    private LayoutService $layoutService;
 
     public function __construct(LayoutService $layoutService)
     {

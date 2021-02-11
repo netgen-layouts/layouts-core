@@ -8,6 +8,7 @@ use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\Collection\Result\Pagerfanta\ResultBuilderAdapter;
 use Netgen\Layouts\Collection\Result\ResultBuilderInterface;
 use Netgen\Layouts\Collection\Result\ResultSet;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class ResultBuilderAdapterTest extends TestCase
@@ -15,7 +16,7 @@ final class ResultBuilderAdapterTest extends TestCase
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Collection\Result\ResultBuilderInterface
      */
-    private $resultBuilderMock;
+    private MockObject $resultBuilderMock;
 
     protected function setUp(): void
     {

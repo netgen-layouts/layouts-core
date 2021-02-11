@@ -10,20 +10,11 @@ use PHPUnit\Framework\TestCase;
 
 final class PluginCollectionTest extends TestCase
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\Templating\Plugin\PluginInterface
-     */
-    private $plugin1;
+    private SimplePlugin $plugin1;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\Templating\Plugin\PluginInterface
-     */
-    private $plugin2;
+    private SimplePlugin $plugin2;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\Templating\Plugin\PluginCollection
-     */
-    private $pluginCollection;
+    private PluginCollection $pluginCollection;
 
     protected function setUp(): void
     {

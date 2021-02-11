@@ -12,20 +12,11 @@ use Ramsey\Uuid\Uuid;
 
 final class PlaceholderViewTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\API\Values\Block\Placeholder
-     */
-    private $placeholder;
+    private Placeholder $placeholder;
 
-    /**
-     * @var \Netgen\Layouts\View\View\PlaceholderViewInterface
-     */
-    private $view;
+    private PlaceholderView $view;
 
-    /**
-     * @var \Netgen\Layouts\API\Values\Block\Block
-     */
-    private $block;
+    private Block $block;
 
     protected function setUp(): void
     {

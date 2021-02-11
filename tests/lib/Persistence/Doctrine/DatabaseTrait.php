@@ -24,25 +24,13 @@ use function sprintf;
 
 trait DatabaseTrait
 {
-    /**
-     * @var \Doctrine\DBAL\Connection
-     */
-    private $databaseConnection;
+    private Connection $databaseConnection;
 
-    /**
-     * @var string
-     */
-    private $inMemoryDsn = 'sqlite:///:memory:';
+    private string $inMemoryDsn = 'sqlite:///:memory:';
 
-    /**
-     * @var string
-     */
-    private $databaseUri;
+    private string $databaseUri;
 
-    /**
-     * @var string
-     */
-    private $databaseServer;
+    private string $databaseServer;
 
     protected function insertDatabaseFixtures(string $fixturesPath): void
     {

@@ -9,10 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class TargetTypeTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\TargetTypeInterface
-     */
-    private $targetType;
+    private TargetType1 $targetType;
 
     protected function setUp(): void
     {

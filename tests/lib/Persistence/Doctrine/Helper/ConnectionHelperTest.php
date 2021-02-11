@@ -7,24 +7,16 @@ namespace Netgen\Layouts\Tests\Persistence\Doctrine\Helper;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class ConnectionHelperTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $databasePlatformMock;
+    private MockObject $databasePlatformMock;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $databaseConnectionMock;
+    private MockObject $databaseConnectionMock;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Doctrine\Helper\ConnectionHelper
-     */
-    private $connectionHelper;
+    private ConnectionHelper $connectionHelper;
 
     protected function setUp(): void
     {

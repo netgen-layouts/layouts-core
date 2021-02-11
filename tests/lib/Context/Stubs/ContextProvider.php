@@ -12,7 +12,7 @@ final class ContextProvider implements ContextProviderInterface
     /**
      * @var array<string, mixed>
      */
-    private $variables;
+    private array $variables;
 
     /**
      * @param array<string, mixed> $variables

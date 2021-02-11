@@ -15,10 +15,7 @@ final class LayoutMapperTest extends TestCase
 {
     use ExportObjectTrait;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Doctrine\Mapper\LayoutMapper
-     */
-    private $mapper;
+    private LayoutMapper $mapper;
 
     protected function setUp(): void
     {

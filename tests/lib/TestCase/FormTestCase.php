@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Netgen\Layouts\Tests\TestCase;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\Extension\Validator\Type\FormTypeValidatorExtension;
 use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\Forms;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Validator\ConstraintViolationList;
@@ -15,29 +17,15 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class FormTestCase extends TestCase
 {
-    /**
-     * @var \Symfony\Component\Form\FormTypeInterface
-     */
-    protected $formType;
+    protected FormTypeInterface $formType;
 
-    /**
-     * @var \Symfony\Component\Form\FormFactoryInterface
-     */
-    protected $factory;
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $validatorMock;
+    protected FormFactoryInterface $factory;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $dispatcherMock;
+    private MockObject $validatorMock;
 
-    /**
-     * @var \Symfony\Component\Form\FormBuilder
-     */
-    private $builder;
+    private MockObject $dispatcherMock;
+
+    private FormBuilder $builder;
 
     protected function setUp(): void
     {

@@ -11,25 +11,17 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
 use Netgen\Layouts\View\RendererInterface;
 use Netgen\Layouts\View\ViewInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class ViewNormalizerTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $viewRendererMock;
+    private MockObject $viewRendererMock;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $normalizerMock;
+    private MockObject $normalizerMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ViewNormalizer
-     */
-    private $normalizer;
+    private ViewNormalizer $normalizer;
 
     protected function setUp(): void
     {

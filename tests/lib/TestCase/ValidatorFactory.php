@@ -16,15 +16,9 @@ use Symfony\Component\Validator\ConstraintValidatorInterface;
 
 final class ValidatorFactory implements ConstraintValidatorFactoryInterface
 {
-    /**
-     * @var \PHPUnit\Framework\TestCase
-     */
-    private $testCase;
+    private TestCase $testCase;
 
-    /**
-     * @var \Symfony\Component\Validator\ConstraintValidatorFactoryInterface
-     */
-    private $baseValidatorFactory;
+    private ConstraintValidatorFactory $baseValidatorFactory;
 
     public function __construct(TestCase $testCase)
     {

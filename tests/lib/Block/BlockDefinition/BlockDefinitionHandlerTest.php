@@ -10,24 +10,19 @@ use Netgen\Layouts\Block\DynamicParameters;
 use Netgen\Layouts\Parameters\ParameterType;
 use Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry;
 use Netgen\Layouts\Parameters\TranslatableParameterBuilderFactory;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class BlockDefinitionHandlerTest extends TestCase
 {
     /**
-     * @var \Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandler
+     * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Block\BlockDefinition\BlockDefinitionHandler
      */
-    private $handler;
+    private MockObject $handler;
 
-    /**
-     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry
-     */
-    private $parameterTypeRegistry;
+    private ParameterTypeRegistry $parameterTypeRegistry;
 
-    /**
-     * @var \Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface
-     */
-    private $parameterBuilderFactory;
+    private TranslatableParameterBuilderFactory $parameterBuilderFactory;
 
     protected function setUp(): void
     {

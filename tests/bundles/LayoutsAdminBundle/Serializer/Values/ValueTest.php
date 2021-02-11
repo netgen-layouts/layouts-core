@@ -5,23 +5,20 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsAdminBundle\Tests\Serializer\Values;
 
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
+use Netgen\Layouts\Tests\API\Stubs\Value as StubValue;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Response;
 
 final class ValueTest extends TestCase
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value
-     */
-    private $value;
+    private Value $value;
 
-    /**
-     * @var \Netgen\Layouts\Tests\API\Stubs\Value
-     */
-    private $innerValue;
+    private StubValue $innerValue;
 
     protected function setUp(): void
     {
+        $this->innerValue = new StubValue();
+
         $this->value = new Value($this->innerValue, Response::HTTP_ACCEPTED);
     }
 

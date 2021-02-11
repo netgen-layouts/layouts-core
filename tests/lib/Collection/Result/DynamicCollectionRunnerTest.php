@@ -17,6 +17,7 @@ use Netgen\Layouts\Item\CmsItemInterface;
 use Netgen\Layouts\Item\NullCmsItem;
 use Netgen\Layouts\Tests\Collection\Result\Stubs\Value;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use function array_map;
 use function count;
@@ -27,7 +28,7 @@ final class DynamicCollectionRunnerTest extends TestCase
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Item\CmsItemBuilderInterface
      */
-    private $cmsItemBuilderMock;
+    private MockObject $cmsItemBuilderMock;
 
     protected function setUp(): void
     {

@@ -26,15 +26,9 @@ use const PHP_INT_MAX;
 
 final class ResultBuilderTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Item\CmsItemBuilderInterface
-     */
-    private $cmsItemBuilder;
+    private CmsItemBuilder $cmsItemBuilder;
 
-    /**
-     * @var \Netgen\Layouts\Collection\Result\ResultBuilderInterface
-     */
-    private $resultBuilder;
+    private ResultBuilderInterface $resultBuilder;
 
     protected function setUp(): void
     {

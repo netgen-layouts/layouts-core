@@ -14,10 +14,7 @@ use Symfony\Component\Serializer\Serializer;
 
 final class LayoutTypeNormalizerTest extends TestCase
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\LayoutTypeNormalizer
-     */
-    private $normalizer;
+    private LayoutTypeNormalizer $normalizer;
 
     protected function setUp(): void
     {

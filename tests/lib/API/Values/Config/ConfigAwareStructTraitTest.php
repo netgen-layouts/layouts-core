@@ -11,10 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ConfigAwareStructTraitTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Tests\API\Stubs\ConfigAwareStruct
-     */
-    private $struct;
+    private ConfigAwareStruct $struct;
 
     protected function setUp(): void
     {

@@ -13,7 +13,7 @@ final class TwigBlockDefinitionHandler extends BaseBlockDefinitionHandler implem
     /**
      * @var string[]
      */
-    private $twigBlocks;
+    private array $twigBlocks;
 
     /**
      * @param string[] $twigBlocks

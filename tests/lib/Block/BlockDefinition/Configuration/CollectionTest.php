@@ -9,10 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class CollectionTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Block\BlockDefinition\Configuration\Collection
-     */
-    private $collection;
+    private Collection $collection;
 
     protected function setUp(): void
     {

@@ -16,10 +16,7 @@ use PHPUnit\Framework\TestCase;
 
 final class TypeTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\View\Matcher\MatcherInterface
-     */
-    private $matcher;
+    private Type $matcher;
 
     protected function setUp(): void
     {

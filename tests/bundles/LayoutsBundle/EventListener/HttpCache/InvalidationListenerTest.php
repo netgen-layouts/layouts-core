@@ -8,6 +8,7 @@ use Exception;
 use Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\InvalidationListener;
 use Netgen\Layouts\HttpCache\InvalidatorInterface;
 use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\ConsoleEvents;
@@ -23,15 +24,9 @@ final class InvalidationListenerTest extends TestCase
 {
     use CreateEventTrait;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $invalidatorMock;
+    private MockObject $invalidatorMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\InvalidationListener
-     */
-    private $listener;
+    private InvalidationListener $listener;
 
     protected function setUp(): void
     {

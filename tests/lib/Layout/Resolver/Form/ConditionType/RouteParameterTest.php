@@ -15,10 +15,7 @@ use Symfony\Component\Form\FormTypeInterface;
 
 final class RouteParameterTest extends FormTestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface
-     */
-    private $conditionType;
+    private RouteParameter $conditionType;
 
     protected function setUp(): void
     {

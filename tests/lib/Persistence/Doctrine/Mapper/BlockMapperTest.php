@@ -14,10 +14,7 @@ final class BlockMapperTest extends TestCase
 {
     use ExportObjectTrait;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Doctrine\Mapper\BlockMapper
-     */
-    private $mapper;
+    private BlockMapper $mapper;
 
     protected function setUp(): void
     {

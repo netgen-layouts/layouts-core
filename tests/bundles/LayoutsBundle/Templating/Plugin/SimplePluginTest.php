@@ -9,10 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class SimplePluginTest extends TestCase
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\Templating\Plugin\SimplePlugin
-     */
-    private $plugin;
+    private SimplePlugin $plugin;
 
     protected function setUp(): void
     {

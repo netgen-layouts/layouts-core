@@ -15,10 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ParametersTypeExtensionTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Parameters\Form\Extension\ParametersTypeExtension
-     */
-    private $formTypeExtension;
+    private ParametersTypeExtension $formTypeExtension;
 
     protected function setUp(): void
     {

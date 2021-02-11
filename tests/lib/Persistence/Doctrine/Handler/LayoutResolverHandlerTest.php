@@ -6,6 +6,8 @@ namespace Netgen\Layouts\Tests\Persistence\Doctrine\Handler;
 
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
+use Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface;
+use Netgen\Layouts\Persistence\Handler\LayoutResolverHandlerInterface;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\ConditionUpdateStruct;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
@@ -33,15 +35,9 @@ final class LayoutResolverHandlerTest extends TestCase
     use TestCaseTrait;
     use UuidGeneratorTrait;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Handler\LayoutResolverHandlerInterface
-     */
-    private $handler;
+    private LayoutResolverHandlerInterface $handler;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface
-     */
-    private $layoutHandler;
+    private LayoutHandlerInterface $layoutHandler;
 
     protected function setUp(): void
     {

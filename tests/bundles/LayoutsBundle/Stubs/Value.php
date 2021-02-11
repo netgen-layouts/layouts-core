@@ -14,15 +14,9 @@ final class Value implements APIValue
     use HydratorTrait;
     use ValueStatusTrait;
 
-    /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    private $id;
+    private UuidInterface $id;
 
-    /**
-     * @var string
-     */
-    private $locale;
+    private string $locale;
 
     public function getId(): UuidInterface
     {

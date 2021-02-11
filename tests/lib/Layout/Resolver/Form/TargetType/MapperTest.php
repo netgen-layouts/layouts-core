@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Tests\Layout\Resolver\Form\TargetType;
 
 use Netgen\Layouts\Layout\Resolver\Form\TargetType\Mapper;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class MapperTest extends TestCase
 {
     /**
-     * @var \Netgen\Layouts\Layout\Resolver\Form\TargetType\MapperInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Layout\Resolver\Form\TargetType\MapperInterface
      */
-    private $mapper;
+    private MockObject $mapper;
 
     protected function setUp(): void
     {

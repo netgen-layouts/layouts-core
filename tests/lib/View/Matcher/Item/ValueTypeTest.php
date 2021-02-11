@@ -14,10 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ValueTypeTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\View\Matcher\MatcherInterface
-     */
-    private $matcher;
+    private ValueType $matcher;
 
     protected function setUp(): void
     {

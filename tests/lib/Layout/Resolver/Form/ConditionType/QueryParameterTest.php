@@ -15,10 +15,7 @@ use Symfony\Component\Form\FormTypeInterface;
 
 final class QueryParameterTest extends FormTestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface
-     */
-    private $conditionType;
+    private QueryParameter $conditionType;
 
     protected function setUp(): void
     {

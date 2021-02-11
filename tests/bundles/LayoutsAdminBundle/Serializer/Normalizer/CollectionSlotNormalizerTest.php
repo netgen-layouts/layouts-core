@@ -13,10 +13,7 @@ use Ramsey\Uuid\Uuid;
 
 final class CollectionSlotNormalizerTest extends TestCase
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionSlotNormalizer
-     */
-    private $normalizer;
+    private CollectionSlotNormalizer $normalizer;
 
     protected function setUp(): void
     {

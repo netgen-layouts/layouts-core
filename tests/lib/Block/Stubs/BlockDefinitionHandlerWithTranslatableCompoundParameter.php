@@ -16,7 +16,7 @@ final class BlockDefinitionHandlerWithTranslatableCompoundParameter extends Base
     /**
      * @var string[]
      */
-    private $parameterGroups;
+    private array $parameterGroups;
 
     /**
      * @param string[] $parameterGroups

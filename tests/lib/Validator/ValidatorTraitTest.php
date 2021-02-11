@@ -14,15 +14,9 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class ValidatorTraitTest extends TestCase
 {
-    /**
-     * @var \Symfony\Component\Validator\Validator\ValidatorInterface
-     */
-    private $baseValidator;
+    private ValidatorInterface $baseValidator;
 
-    /**
-     * @var \Netgen\Layouts\Tests\Validator\Stubs\ValueValidator
-     */
-    private $validator;
+    private ValueValidator $validator;
 
     protected function setUp(): void
     {

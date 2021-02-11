@@ -14,15 +14,9 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 final class SetAdminPageLayoutListenerTest extends TestCase
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\EventListener\SetAdminPageLayoutListener
-     */
-    private $listener;
+    private SetAdminPageLayoutListener $listener;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\Templating\Twig\GlobalVariable
-     */
-    private $globalVariable;
+    private GlobalVariable $globalVariable;
 
     protected function setUp(): void
     {

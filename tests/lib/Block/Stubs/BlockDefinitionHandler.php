@@ -15,12 +15,9 @@ final class BlockDefinitionHandler extends BaseBlockDefinitionHandler
     /**
      * @var string[]
      */
-    private $parameterGroups;
+    private array $parameterGroups;
 
-    /**
-     * @var bool
-     */
-    private $isContextual;
+    private bool $isContextual;
 
     /**
      * @param string[] $parameterGroups

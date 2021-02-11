@@ -15,15 +15,9 @@ use PHPUnit\Framework\TestCase;
 
 final class BlockTypeNormalizerTest extends TestCase
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\BlockTypeNormalizer
-     */
-    private $normalizer;
+    private BlockTypeNormalizer $normalizer;
 
-    /**
-     * @var \Netgen\Layouts\Block\BlockDefinitionInterface
-     */
-    private $blockDefinition;
+    private BlockDefinition $blockDefinition;
 
     protected function setUp(): void
     {

@@ -7,19 +7,14 @@ namespace Netgen\Layouts\Tests\View\View;
 use Netgen\Layouts\View\View\FormView;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\Forms;
 
 final class FormViewTest extends TestCase
 {
-    /**
-     * @var \Symfony\Component\Form\FormInterface
-     */
-    private $form;
+    private FormInterface $form;
 
-    /**
-     * @var \Netgen\Layouts\View\View\FormViewInterface
-     */
-    private $view;
+    private FormView $view;
 
     protected function setUp(): void
     {

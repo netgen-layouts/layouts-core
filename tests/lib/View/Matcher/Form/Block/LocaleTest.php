@@ -11,19 +11,14 @@ use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\Matcher\Form\Block\Locale;
 use Netgen\Layouts\View\View\FormView;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\Forms;
 
 final class LocaleTest extends TestCase
 {
-    /**
-     * @var \Symfony\Component\Form\FormFactoryInterface
-     */
-    private $formFactory;
+    private FormFactoryInterface $formFactory;
 
-    /**
-     * @var \Netgen\Layouts\View\Matcher\MatcherInterface
-     */
-    private $matcher;
+    private Locale $matcher;
 
     protected function setUp(): void
     {

@@ -15,20 +15,11 @@ use PHPUnit\Framework\TestCase;
 
 final class BlockCreateStructTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\API\Values\Block\BlockCreateStruct
-     */
-    private $struct;
+    private BlockCreateStruct $struct;
 
-    /**
-     * @var \Netgen\Layouts\Block\BlockDefinitionInterface
-     */
-    private $blockDefinition;
+    private BlockDefinitionInterface $blockDefinition;
 
-    /**
-     * @var \Netgen\Layouts\API\Values\Collection\CollectionCreateStruct
-     */
-    private $collectionStruct;
+    private CollectionCreateStruct $collectionStruct;
 
     protected function setUp(): void
     {

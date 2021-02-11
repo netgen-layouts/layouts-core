@@ -7,20 +7,15 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\ParamConverter\Collection;
 use Netgen\Bundle\LayoutsBundle\ParamConverter\Collection\SlotParamConverter;
 use Netgen\Layouts\API\Service\CollectionService;
 use Netgen\Layouts\API\Values\Collection\Slot;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 final class SlotParamConverterTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $collectionServiceMock;
+    private MockObject $collectionServiceMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\ParamConverter\Collection\SlotParamConverter
-     */
-    private $paramConverter;
+    private SlotParamConverter $paramConverter;
 
     protected function setUp(): void
     {

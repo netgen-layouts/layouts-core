@@ -10,10 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class NullConditionTypeTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\ConditionType\NullConditionType
-     */
-    private $conditionType;
+    private NullConditionType $conditionType;
 
     protected function setUp(): void
     {

@@ -15,10 +15,7 @@ use Symfony\Component\Form\FormTypeInterface;
 
 final class TimeTest extends FormTestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface
-     */
-    private $conditionType;
+    private Time $conditionType;
 
     protected function setUp(): void
     {

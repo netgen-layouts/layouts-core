@@ -13,10 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class ParamConverterTest extends TestCase
 {
-    /**
-     * @var \Sensio\Bundle\FrameworkExtraBundle\Request\ParamConverter\ParamConverterInterface
-     */
-    private $paramConverter;
+    private ParamConverter $paramConverter;
 
     protected function setUp(): void
     {

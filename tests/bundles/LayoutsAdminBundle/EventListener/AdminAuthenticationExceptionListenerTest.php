@@ -21,10 +21,7 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
     use CreateEventTrait;
     use ExceptionEventThrowableTrait;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\EventListener\AdminAuthenticationExceptionListener
-     */
-    private $listener;
+    private AdminAuthenticationExceptionListener $listener;
 
     protected function setUp(): void
     {

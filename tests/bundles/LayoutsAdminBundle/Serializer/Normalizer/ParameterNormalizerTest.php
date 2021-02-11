@@ -14,10 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ParameterNormalizerTest extends TestCase
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ParameterNormalizer
-     */
-    private $normalizer;
+    private ParameterNormalizer $normalizer;
 
     protected function setUp(): void
     {

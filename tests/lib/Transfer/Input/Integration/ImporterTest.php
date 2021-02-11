@@ -49,15 +49,9 @@ use const PHP_EOL;
 
 abstract class ImporterTest extends CoreTestCase
 {
-    /**
-     * @var \Netgen\Layouts\Transfer\Input\ImporterInterface
-     */
-    private $importer;
+    private Importer $importer;
 
-    /**
-     * @var \Netgen\Layouts\Transfer\Output\SerializerInterface
-     */
-    private $serializer;
+    private Serializer $serializer;
 
     protected function setUp(): void
     {

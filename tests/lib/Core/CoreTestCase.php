@@ -65,6 +65,7 @@ use Netgen\Layouts\Tests\Config\Stubs\CollectionItem\ConfigHandler as ItemConfig
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\ConditionType1;
 use Netgen\Layouts\Tests\Layout\Resolver\Stubs\TargetType1;
 use Netgen\Layouts\Utils\HtmlPurifier;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\ConstraintViolationList;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -74,92 +75,41 @@ abstract class CoreTestCase extends TestCase
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Item\CmsItemLoaderInterface
      */
-    protected $cmsItemLoaderMock;
+    protected MockObject $cmsItemLoaderMock;
 
-    /**
-     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry
-     */
-    protected $layoutTypeRegistry;
+    protected LayoutTypeRegistry $layoutTypeRegistry;
 
-    /**
-     * @var \Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry
-     */
-    protected $itemDefinitionRegistry;
+    protected ItemDefinitionRegistry $itemDefinitionRegistry;
 
-    /**
-     * @var \Netgen\Layouts\Collection\Registry\QueryTypeRegistry
-     */
-    protected $queryTypeRegistry;
+    protected QueryTypeRegistry $queryTypeRegistry;
 
-    /**
-     * @var \Netgen\Layouts\Block\Registry\BlockDefinitionRegistry
-     */
-    protected $blockDefinitionRegistry;
+    protected BlockDefinitionRegistry $blockDefinitionRegistry;
 
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry
-     */
-    protected $targetTypeRegistry;
+    protected TargetTypeRegistry $targetTypeRegistry;
 
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry
-     */
-    protected $conditionTypeRegistry;
+    protected ConditionTypeRegistry $conditionTypeRegistry;
 
-    /**
-     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry
-     */
-    protected $parameterTypeRegistry;
+    protected ParameterTypeRegistry $parameterTypeRegistry;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\TransactionHandlerInterface
-     */
-    protected $transactionHandler;
+    protected TransactionHandlerInterface $transactionHandler;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Handler\BlockHandlerInterface
-     */
-    protected $blockHandler;
+    protected BlockHandlerInterface $blockHandler;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Handler\LayoutHandlerInterface
-     */
-    protected $layoutHandler;
+    protected LayoutHandlerInterface $layoutHandler;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Handler\CollectionHandlerInterface
-     */
-    protected $collectionHandler;
+    protected CollectionHandlerInterface $collectionHandler;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Handler\LayoutResolverHandlerInterface
-     */
-    protected $layoutResolverHandler;
+    protected LayoutResolverHandlerInterface $layoutResolverHandler;
 
-    /**
-     * @var \Netgen\Layouts\API\Service\TransactionService
-     */
-    protected $transactionService;
+    protected APITransactionService $transactionService;
 
-    /**
-     * @var \Netgen\Layouts\API\Service\BlockService
-     */
-    protected $blockService;
+    protected APIBlockService $blockService;
 
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutService
-     */
-    protected $layoutService;
+    protected APILayoutService $layoutService;
 
-    /**
-     * @var \Netgen\Layouts\API\Service\CollectionService
-     */
-    protected $collectionService;
+    protected APICollectionService $collectionService;
 
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutResolverService
-     */
-    protected $layoutResolverService;
+    protected APILayoutResolverService $layoutResolverService;
 
     protected function setUp(): void
     {

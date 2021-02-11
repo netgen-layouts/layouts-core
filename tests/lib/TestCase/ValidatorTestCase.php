@@ -17,15 +17,9 @@ abstract class ValidatorTestCase extends TestCase
      */
     protected $constraint;
 
-    /**
-     * @var \Symfony\Component\Validator\Context\ExecutionContextInterface
-     */
-    private $executionContext;
+    private ExecutionContext $executionContext;
 
-    /**
-     * @var \Symfony\Component\Validator\ConstraintValidatorInterface
-     */
-    private $validator;
+    private ConstraintValidatorInterface $validator;
 
     protected function setUp(): void
     {

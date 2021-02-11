@@ -10,24 +10,16 @@ use Netgen\Layouts\View\Renderer;
 use Netgen\Layouts\View\ViewBuilderInterface;
 use Netgen\Layouts\View\ViewInterface;
 use Netgen\Layouts\View\ViewRendererInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class RendererTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $viewBuilderMock;
+    private MockObject $viewBuilderMock;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $viewRendererMock;
+    private MockObject $viewRendererMock;
 
-    /**
-     * @var \Netgen\Layouts\View\Renderer
-     */
-    private $renderer;
+    private Renderer $renderer;
 
     protected function setUp(): void
     {

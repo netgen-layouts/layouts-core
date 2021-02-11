@@ -150,6 +150,7 @@ abstract class BlockTest extends CoreTestCase
                         ]
                     ),
                 ],
+                'isTranslatable' => false,
                 'collections' => $collections,
                 'parameterDefinitions' => $filteredParameterDefinitions,
                 'configDefinitions' => [],

@@ -30,10 +30,7 @@ final class LinkTypeTest extends FormTestCase
 {
     use ExportObjectTrait;
 
-    /**
-     * @var \Netgen\Layouts\Parameters\ParameterType\LinkType
-     */
-    private $parameterType;
+    private LinkParameterType $parameterType;
 
     protected function setUp(): void
     {

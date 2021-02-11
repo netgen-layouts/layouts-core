@@ -9,10 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class GlobalVariableTest extends TestCase
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\Templating\Twig\GlobalVariable
-     */
-    private $globalVariable;
+    private GlobalVariable $globalVariable;
 
     protected function setUp(): void
     {

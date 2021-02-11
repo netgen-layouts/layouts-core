@@ -11,15 +11,9 @@ use Ramsey\Uuid\Uuid;
 
 final class LayoutViewTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\API\Values\Layout\Layout
-     */
-    private $layout;
+    private Layout $layout;
 
-    /**
-     * @var \Netgen\Layouts\View\View\LayoutViewInterface
-     */
-    private $view;
+    private LayoutView $view;
 
     protected function setUp(): void
     {

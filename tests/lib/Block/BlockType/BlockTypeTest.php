@@ -10,15 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 final class BlockTypeTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Block\BlockType\BlockType
-     */
-    private $blockType;
+    private BlockType $blockType;
 
-    /**
-     * @var \Netgen\Layouts\Block\BlockDefinitionInterface
-     */
-    private $blockDefinition;
+    private BlockDefinition $blockDefinition;
 
     protected function setUp(): void
     {

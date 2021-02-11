@@ -17,15 +17,9 @@ use Twig\Source;
 
 final class DefaultContextTest extends TestCase
 {
-    /**
-     * @var \Twig\Environment
-     */
-    private $environment;
+    private Environment $environment;
 
-    /**
-     * @var \Twig\Parser
-     */
-    private $parser;
+    private Parser $parser;
 
     protected function setUp(): void
     {

@@ -21,10 +21,7 @@ use function sprintf;
 
 final class CacheEnabledListenerTest extends TestCase
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\EventListener\LayoutView\CacheEnabledListener
-     */
-    private $listener;
+    private CacheEnabledListener $listener;
 
     protected function setUp(): void
     {

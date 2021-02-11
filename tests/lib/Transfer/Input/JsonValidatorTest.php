@@ -10,10 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class JsonValidatorTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Transfer\Input\JsonValidator
-     */
-    private $validator;
+    private JsonValidator $validator;
 
     protected function setUp(): void
     {

@@ -7,20 +7,15 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\ParamConverter\Block;
 use Netgen\Bundle\LayoutsBundle\ParamConverter\Block\BlockParamConverter;
 use Netgen\Layouts\API\Service\BlockService;
 use Netgen\Layouts\API\Values\Block\Block;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 final class BlockParamConverterTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $blockServiceMock;
+    private MockObject $blockServiceMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\ParamConverter\Block\BlockParamConverter
-     */
-    private $paramConverter;
+    private BlockParamConverter $paramConverter;
 
     protected function setUp(): void
     {

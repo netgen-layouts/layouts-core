@@ -10,10 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 final class ExceptionTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\Form\ConditionType\MapperInterface
-     */
-    private $mapper;
+    private Exception $mapper;
 
     protected function setUp(): void
     {

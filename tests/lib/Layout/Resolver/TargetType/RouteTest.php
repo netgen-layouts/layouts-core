@@ -11,10 +11,7 @@ use Symfony\Component\Validator\Validation;
 
 final class RouteTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\TargetType\Route
-     */
-    private $targetType;
+    private Route $targetType;
 
     protected function setUp(): void
     {

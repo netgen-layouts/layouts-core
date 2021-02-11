@@ -22,20 +22,15 @@ use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\View\BlockView;
 use Netgen\Layouts\View\ViewInterface;
 use Pagerfanta\Pagerfanta;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use function sprintf;
 
 final class GetCollectionResultsListenerTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $resultBuilderMock;
+    private MockObject $resultBuilderMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionResultsListener
-     */
-    private $listener;
+    private GetCollectionResultsListener $listener;
 
     protected function setUp(): void
     {

@@ -14,10 +14,7 @@ use Symfony\Component\Form\FormView;
 
 final class FormViewProviderTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\View\Provider\ViewProviderInterface
-     */
-    private $formViewProvider;
+    private FormViewProvider $formViewProvider;
 
     protected function setUp(): void
     {

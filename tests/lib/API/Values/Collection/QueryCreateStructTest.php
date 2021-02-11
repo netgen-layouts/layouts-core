@@ -14,15 +14,9 @@ use PHPUnit\Framework\TestCase;
 
 final class QueryCreateStructTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\API\Values\Collection\QueryCreateStruct
-     */
-    private $struct;
+    private QueryCreateStruct $struct;
 
-    /**
-     * @var \Netgen\Layouts\Collection\QueryType\QueryTypeInterface
-     */
-    private $queryType;
+    private QueryTypeInterface $queryType;
 
     protected function setUp(): void
     {

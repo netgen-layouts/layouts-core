@@ -7,6 +7,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Tests\EventListener;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener;
 use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener;
 use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,15 +21,9 @@ final class RequestBodyListenerTest extends TestCase
 {
     use CreateEventTrait;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $decoderMock;
+    private MockObject $decoderMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\EventListener\RequestBodyListener
-     */
-    private $listener;
+    private RequestBodyListener $listener;
 
     protected function setUp(): void
     {

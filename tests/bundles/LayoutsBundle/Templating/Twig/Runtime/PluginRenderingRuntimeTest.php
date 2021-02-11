@@ -8,24 +8,16 @@ use Exception;
 use Netgen\Bundle\LayoutsBundle\Templating\Plugin\RendererInterface;
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\PluginRenderingRuntime;
 use Netgen\Layouts\Tests\Stubs\ErrorHandler;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class PluginRenderingRuntimeTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $pluginRendererMock;
+    private MockObject $pluginRendererMock;
 
-    /**
-     * @var \Netgen\Layouts\Tests\Stubs\ErrorHandler
-     */
-    private $errorHandler;
+    private ErrorHandler $errorHandler;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\PluginRenderingRuntime
-     */
-    private $runtime;
+    private PluginRenderingRuntime $runtime;
 
     protected function setUp(): void
     {

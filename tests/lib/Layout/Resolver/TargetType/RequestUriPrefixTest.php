@@ -11,10 +11,7 @@ use Symfony\Component\Validator\Validation;
 
 final class RequestUriPrefixTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\TargetType\RequestUriPrefix
-     */
-    private $targetType;
+    private RequestUriPrefix $targetType;
 
     protected function setUp(): void
     {

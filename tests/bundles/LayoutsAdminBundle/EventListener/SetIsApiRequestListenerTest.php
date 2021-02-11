@@ -15,10 +15,7 @@ final class SetIsApiRequestListenerTest extends TestCase
 {
     use CreateEventTrait;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener
-     */
-    private $listener;
+    private SetIsApiRequestListener $listener;
 
     protected function setUp(): void
     {

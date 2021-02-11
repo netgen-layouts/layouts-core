@@ -11,15 +11,9 @@ use PHPUnit\Framework\TestCase;
 
 final class CollectViewParametersEventTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Event\CollectViewParametersEvent
-     */
-    private $event;
+    private CollectViewParametersEvent $event;
 
-    /**
-     * @var \Netgen\Layouts\Tests\View\Stubs\View
-     */
-    private $view;
+    private View $view;
 
     protected function setUp(): void
     {

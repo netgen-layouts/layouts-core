@@ -8,10 +8,7 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 
 final class GlobalVariable
 {
-    /**
-     * @var \Netgen\Layouts\API\Values\Layout\Layout
-     */
-    private $layout;
+    private Layout $layout;
 
     public function __construct(Layout $layout)
     {

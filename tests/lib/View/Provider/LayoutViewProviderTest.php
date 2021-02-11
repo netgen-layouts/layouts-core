@@ -15,10 +15,7 @@ use Ramsey\Uuid\Uuid;
 
 final class LayoutViewProviderTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\View\Provider\ViewProviderInterface
-     */
-    private $layoutViewProvider;
+    private LayoutViewProvider $layoutViewProvider;
 
     protected function setUp(): void
     {

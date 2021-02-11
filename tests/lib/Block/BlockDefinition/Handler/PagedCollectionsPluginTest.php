@@ -15,20 +15,11 @@ use function iterator_to_array;
 
 final class PagedCollectionsPluginTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsPlugin
-     */
-    private $plugin;
+    private PagedCollectionsPlugin $plugin;
 
-    /**
-     * @var \Netgen\Layouts\Parameters\Registry\ParameterTypeRegistry
-     */
-    private $parameterTypeRegistry;
+    private ParameterTypeRegistry $parameterTypeRegistry;
 
-    /**
-     * @var \Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface
-     */
-    private $parameterBuilderFactory;
+    private TranslatableParameterBuilderFactory $parameterBuilderFactory;
 
     protected function setUp(): void
     {

@@ -10,21 +10,16 @@ use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\Layouts\Transfer\EntityHandler\RuleEntityHandler;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use function sprintf;
 
 final class RuleEntityHandlerTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $layoutResolverServiceMock;
+    private MockObject $layoutResolverServiceMock;
 
-    /**
-     * @var \Netgen\Layouts\Transfer\EntityHandler\RuleEntityHandler
-     */
-    private $entityHandler;
+    private RuleEntityHandler $entityHandler;
 
     protected function setUp(): void
     {

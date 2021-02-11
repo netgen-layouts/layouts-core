@@ -17,10 +17,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ZoneViewProviderTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\View\Provider\ViewProviderInterface
-     */
-    private $ZoneViewProvider;
+    private ZoneViewProvider $ZoneViewProvider;
 
     protected function setUp(): void
     {

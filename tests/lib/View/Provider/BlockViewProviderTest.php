@@ -14,10 +14,7 @@ use Ramsey\Uuid\Uuid;
 
 final class BlockViewProviderTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\View\Provider\ViewProviderInterface
-     */
-    private $blockViewProvider;
+    private BlockViewProvider $blockViewProvider;
 
     protected function setUp(): void
     {

@@ -35,10 +35,7 @@ final class ExceptionConversionListenerTest extends TestCase
     use CreateEventTrait;
     use ExceptionEventThrowableTrait;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\EventListener\ExceptionConversionListener
-     */
-    private $listener;
+    private ExceptionConversionListener $listener;
 
     protected function setUp(): void
     {

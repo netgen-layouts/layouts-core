@@ -14,6 +14,7 @@ use Netgen\Layouts\Parameters\ParameterType\LinkType;
 use Netgen\Layouts\Parameters\Value\LinkValue;
 use Netgen\Layouts\Tests\TestCase\ExportObjectTrait;
 use Netgen\Layouts\Tests\TestCase\ValidatorFactory;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidArgumentException;
 use Symfony\Component\Validator\Validation;
@@ -23,15 +24,9 @@ final class LinkTypeTest extends TestCase
     use ExportObjectTrait;
     use ParameterTypeTestTrait;
 
-    /**
-     * @var \Netgen\Layouts\Item\Registry\ValueTypeRegistry
-     */
-    private $valueTypeRegistry;
+    private ValueTypeRegistry $valueTypeRegistry;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $cmsItemLoaderMock;
+    private MockObject $cmsItemLoaderMock;
 
     protected function setUp(): void
     {

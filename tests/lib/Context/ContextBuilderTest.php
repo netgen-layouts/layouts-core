@@ -11,15 +11,9 @@ use PHPUnit\Framework\TestCase;
 
 final class ContextBuilderTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Context\Context
-     */
-    private $context;
+    private Context $context;
 
-    /**
-     * @var \Netgen\Layouts\Context\ContextBuilder
-     */
-    private $contextBuilder;
+    private ContextBuilder $contextBuilder;
 
     protected function setUp(): void
     {

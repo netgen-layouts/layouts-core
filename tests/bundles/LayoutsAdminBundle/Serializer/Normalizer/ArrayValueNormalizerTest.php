@@ -9,20 +9,15 @@ use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\ArrayValue;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Tests\API\Stubs\Value as StubValue;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class ArrayValueNormalizerTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $normalizerMock;
+    private MockObject $normalizerMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ArrayValueNormalizer
-     */
-    private $normalizer;
+    private ArrayValueNormalizer $normalizer;
 
     protected function setUp(): void
     {

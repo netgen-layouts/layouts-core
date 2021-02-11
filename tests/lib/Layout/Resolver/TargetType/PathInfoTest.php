@@ -11,10 +11,7 @@ use Symfony\Component\Validator\Validation;
 
 final class PathInfoTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\TargetType\PathInfo
-     */
-    private $targetType;
+    private PathInfo $targetType;
 
     protected function setUp(): void
     {

@@ -9,6 +9,7 @@ use Netgen\Layouts\Event\LayoutsEvents;
 use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\ViewRenderer;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpKernel\Kernel;
@@ -18,20 +19,11 @@ use function sprintf;
 
 final class ViewRendererTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $eventDispatcherMock;
+    private MockObject $eventDispatcherMock;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $twigEnvironmentMock;
+    private MockObject $twigEnvironmentMock;
 
-    /**
-     * @var \Netgen\Layouts\View\ViewRenderer
-     */
-    private $viewRenderer;
+    private ViewRenderer $viewRenderer;
 
     protected function setUp(): void
     {

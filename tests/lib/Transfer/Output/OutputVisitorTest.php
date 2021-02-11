@@ -15,10 +15,7 @@ use stdClass;
 
 final class OutputVisitorTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Transfer\Output\OutputVisitor
-     */
-    private $visitor;
+    private OutputVisitor $visitor;
 
     protected function setUp(): void
     {

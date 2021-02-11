@@ -15,7 +15,7 @@ final class BlockDefinitionHandlerWithTranslatableParameter extends BaseBlockDef
     /**
      * @var string[]
      */
-    private $parameterGroups;
+    private array $parameterGroups;
 
     /**
      * @param string[] $parameterGroups

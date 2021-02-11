@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\Core\Mapper;
 
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Value;
+use Netgen\Layouts\Core\Mapper\LayoutResolverMapper;
 use Netgen\Layouts\Layout\Resolver\ConditionType\NullConditionType;
 use Netgen\Layouts\Layout\Resolver\TargetType\NullTargetType;
 use Netgen\Layouts\Persistence\Values\LayoutResolver\Rule;
@@ -19,10 +20,7 @@ use Ramsey\Uuid\UuidInterface;
 
 abstract class LayoutResolverMapperTest extends CoreTestCase
 {
-    /**
-     * @var \Netgen\Layouts\Core\Mapper\LayoutResolverMapper
-     */
-    private $mapper;
+    private LayoutResolverMapper $mapper;
 
     protected function setUp(): void
     {

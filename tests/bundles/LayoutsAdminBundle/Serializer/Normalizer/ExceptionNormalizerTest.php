@@ -13,10 +13,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 final class ExceptionNormalizerTest extends TestCase
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\ExceptionNormalizer
-     */
-    private $exceptionNormalizer;
+    private ExceptionNormalizer $exceptionNormalizer;
 
     protected function setUp(): void
     {

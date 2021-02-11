@@ -9,10 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class DynamicParametersTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Block\DynamicParameters
-     */
-    private $dynamicParams;
+    private DynamicParameters $dynamicParams;
 
     protected function setUp(): void
     {

@@ -18,10 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class ConditionTypeTest extends FormTestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface
-     */
-    private $conditionType;
+    private ConditionType1 $conditionType;
 
     protected function setUp(): void
     {

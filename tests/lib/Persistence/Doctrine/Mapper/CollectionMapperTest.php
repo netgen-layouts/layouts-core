@@ -18,10 +18,7 @@ final class CollectionMapperTest extends TestCase
 {
     use ExportObjectTrait;
 
-    /**
-     * @var \Netgen\Layouts\Persistence\Doctrine\Mapper\CollectionMapper
-     */
-    private $mapper;
+    private CollectionMapper $mapper;
 
     protected function setUp(): void
     {

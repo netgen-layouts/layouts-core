@@ -6,20 +6,15 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\Configuration;
 
 use Netgen\Bundle\LayoutsBundle\Configuration\ContainerConfiguration;
 use Netgen\Bundle\LayoutsBundle\Exception\ConfigurationException;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final class ContainerConfigurationTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $containerMock;
+    private MockObject $containerMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\Configuration\ContainerConfiguration
-     */
-    private $configuration;
+    private ContainerConfiguration $configuration;
 
     protected function setUp(): void
     {

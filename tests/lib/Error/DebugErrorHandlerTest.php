@@ -6,6 +6,7 @@ namespace Netgen\Layouts\Tests\Error;
 
 use Exception;
 use Netgen\Layouts\Error\DebugErrorHandler;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 
@@ -14,12 +15,9 @@ final class DebugErrorHandlerTest extends TestCase
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject&\Psr\Log\LoggerInterface
      */
-    private $loggerMock;
+    private MockObject $loggerMock;
 
-    /**
-     * @var \Netgen\Layouts\Error\DebugErrorHandler
-     */
-    private $errorHandler;
+    private DebugErrorHandler $errorHandler;
 
     protected function setUp(): void
     {

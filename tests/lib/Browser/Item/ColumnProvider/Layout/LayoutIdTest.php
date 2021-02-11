@@ -13,10 +13,7 @@ use Ramsey\Uuid\Uuid;
 
 final class LayoutIdTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Browser\Item\ColumnProvider\Layout\LayoutId
-     */
-    private $provider;
+    private LayoutId $provider;
 
     protected function setUp(): void
     {

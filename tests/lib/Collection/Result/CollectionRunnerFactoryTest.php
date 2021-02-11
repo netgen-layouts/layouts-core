@@ -12,20 +12,15 @@ use Netgen\Layouts\Collection\Result\DynamicCollectionRunner;
 use Netgen\Layouts\Collection\Result\ManualCollectionRunner;
 use Netgen\Layouts\Item\CmsItemBuilderInterface;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use const PHP_INT_MAX;
 
 final class CollectionRunnerFactoryTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $cmsItemBuilderMock;
+    private MockObject $cmsItemBuilderMock;
 
-    /**
-     * @var \Netgen\Layouts\Collection\Result\CollectionRunnerFactory
-     */
-    private $factory;
+    private CollectionRunnerFactory $factory;
 
     protected function setUp(): void
     {

@@ -9,10 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class NullValueLoaderTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Item\ValueLoader\NullValueLoader
-     */
-    private $valueLoader;
+    private NullValueLoader $valueLoader;
 
     protected function setUp(): void
     {

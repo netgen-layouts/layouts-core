@@ -14,25 +14,13 @@ use PHPUnit\Framework\TestCase;
 
 final class ZoneViewTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\API\Values\Layout\Layout
-     */
-    private $layout;
+    private Layout $layout;
 
-    /**
-     * @var \Netgen\Layouts\API\Values\Layout\Zone
-     */
-    private $zone;
+    private Zone $zone;
 
-    /**
-     * @var \Netgen\Layouts\API\Values\Block\BlockList
-     */
-    private $blocks;
+    private BlockList $blocks;
 
-    /**
-     * @var \Netgen\Layouts\View\View\ZoneViewInterface
-     */
-    private $view;
+    private ZoneView $view;
 
     protected function setUp(): void
     {

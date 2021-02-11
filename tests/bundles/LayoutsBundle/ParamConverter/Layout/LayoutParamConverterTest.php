@@ -7,20 +7,15 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\ParamConverter\Layout;
 use Netgen\Bundle\LayoutsBundle\ParamConverter\Layout\LayoutParamConverter;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 final class LayoutParamConverterTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $layoutServiceMock;
+    private MockObject $layoutServiceMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\ParamConverter\Layout\LayoutParamConverter
-     */
-    private $paramConverter;
+    private LayoutParamConverter $paramConverter;
 
     protected function setUp(): void
     {

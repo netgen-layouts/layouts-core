@@ -9,6 +9,7 @@ use Netgen\Bundle\LayoutsAdminBundle\EventListener\SetIsApiRequestListener;
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\Value;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
 use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,15 +21,9 @@ final class SerializerListenerTest extends TestCase
 {
     use CreateEventTrait;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $serializerMock;
+    private MockObject $serializerMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\EventListener\SerializerListener
-     */
-    private $listener;
+    private SerializerListener $listener;
 
     protected function setUp(): void
     {

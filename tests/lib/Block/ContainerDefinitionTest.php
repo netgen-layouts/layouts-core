@@ -11,15 +11,9 @@ use PHPUnit\Framework\TestCase;
 
 final class ContainerDefinitionTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Block\BlockDefinition\ContainerDefinitionHandlerInterface
-     */
-    private $handler;
+    private ContainerDefinitionHandler $handler;
 
-    /**
-     * @var \Netgen\Layouts\Block\ContainerDefinition
-     */
-    private $blockDefinition;
+    private ContainerDefinition $blockDefinition;
 
     protected function setUp(): void
     {

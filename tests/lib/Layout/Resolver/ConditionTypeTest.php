@@ -9,10 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ConditionTypeTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface
-     */
-    private $conditionType;
+    private ConditionType2 $conditionType;
 
     protected function setUp(): void
     {

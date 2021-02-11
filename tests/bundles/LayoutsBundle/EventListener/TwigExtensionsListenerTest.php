@@ -7,6 +7,7 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\EventListener;
 use EdiModric\Twig\VersionExtension;
 use Netgen\Bundle\LayoutsBundle\EventListener\TwigExtensionsListener;
 use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,15 +20,9 @@ final class TwigExtensionsListenerTest extends TestCase
 {
     use CreateEventTrait;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $twigMock;
+    private MockObject $twigMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\EventListener\TwigExtensionsListener
-     */
-    private $listener;
+    private TwigExtensionsListener $listener;
 
     protected function setUp(): void
     {

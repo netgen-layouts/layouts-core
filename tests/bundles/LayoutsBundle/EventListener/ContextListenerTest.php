@@ -8,6 +8,7 @@ use Netgen\Bundle\LayoutsBundle\EventListener\ContextListener;
 use Netgen\Layouts\Context\Context;
 use Netgen\Layouts\Context\ContextBuilderInterface;
 use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
@@ -18,25 +19,13 @@ final class ContextListenerTest extends TestCase
 {
     use CreateEventTrait;
 
-    /**
-     * @var \Netgen\Layouts\Context\Context
-     */
-    private $context;
+    private Context $context;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $contextBuilderMock;
+    private MockObject $contextBuilderMock;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $uriSignerMock;
+    private MockObject $uriSignerMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\EventListener\ContextListener
-     */
-    private $listener;
+    private ContextListener $listener;
 
     protected function setUp(): void
     {

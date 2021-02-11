@@ -10,10 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 final class NullTargetTypeTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\TargetType\NullTargetType
-     */
-    private $targetType;
+    private NullTargetType $targetType;
 
     protected function setUp(): void
     {

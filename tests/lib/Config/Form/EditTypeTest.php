@@ -23,10 +23,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 final class EditTypeTest extends FormTestCase
 {
-    /**
-     * @var \Netgen\Layouts\API\Values\Config\ConfigAwareValue
-     */
-    private $configurable;
+    private ConfigAwareValue $configurable;
 
     protected function setUp(): void
     {

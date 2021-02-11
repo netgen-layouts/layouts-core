@@ -14,10 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ItemViewProviderTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\View\Provider\ViewProviderInterface
-     */
-    private $itemViewProvider;
+    private ItemViewProvider $itemViewProvider;
 
     protected function setUp(): void
     {

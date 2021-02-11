@@ -13,10 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 final class SharedTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\View\Matcher\MatcherInterface
-     */
-    private $matcher;
+    private Shared $matcher;
 
     protected function setUp(): void
     {

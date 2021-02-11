@@ -15,10 +15,7 @@ use Symfony\Component\Form\FormTypeInterface;
 
 final class RoutePrefixTest extends FormTestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\TargetTypeInterface
-     */
-    private $targetType;
+    private RoutePrefix $targetType;
 
     protected function setUp(): void
     {

@@ -12,15 +12,9 @@ use function array_values;
 
 final class LayoutContext implements Context
 {
-    /**
-     * @var \Netgen\Layouts\API\Service\LayoutService
-     */
-    private $layoutService;
+    private LayoutService $layoutService;
 
-    /**
-     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry
-     */
-    private $layoutTypeRegistry;
+    private LayoutTypeRegistry $layoutTypeRegistry;
 
     public function __construct(LayoutService $layoutService, LayoutTypeRegistry $layoutTypeRegistry)
     {

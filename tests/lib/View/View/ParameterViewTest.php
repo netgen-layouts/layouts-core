@@ -12,15 +12,9 @@ use PHPUnit\Framework\TestCase;
 
 final class ParameterViewTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Parameters\Parameter
-     */
-    private $parameter;
+    private Parameter $parameter;
 
-    /**
-     * @var \Netgen\Layouts\View\View\ParameterViewInterface
-     */
-    private $view;
+    private ParameterView $view;
 
     protected function setUp(): void
     {

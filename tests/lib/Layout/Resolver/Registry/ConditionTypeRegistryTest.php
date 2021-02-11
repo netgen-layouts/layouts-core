@@ -13,15 +13,9 @@ use PHPUnit\Framework\TestCase;
 
 final class ConditionTypeRegistryTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface
-     */
-    private $conditionType;
+    private ConditionType1 $conditionType;
 
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry
-     */
-    private $registry;
+    private ConditionTypeRegistry $registry;
 
     protected function setUp(): void
     {

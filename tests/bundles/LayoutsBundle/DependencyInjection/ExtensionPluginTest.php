@@ -6,6 +6,7 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection;
 
 use Netgen\Bundle\LayoutsBundle\DependencyInjection\ExtensionPlugin;
 use Netgen\Bundle\LayoutsBundle\Tests\DependencyInjection\Stubs\ConfigurationNode;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
@@ -13,9 +14,9 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 final class ExtensionPluginTest extends TestCase
 {
     /**
-     * @var \Netgen\Bundle\LayoutsBundle\DependencyInjection\ExtensionPlugin
+     * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Bundle\LayoutsBundle\DependencyInjection\ExtensionPlugin
      */
-    private $plugin;
+    private MockObject $plugin;
 
     protected function setUp(): void
     {

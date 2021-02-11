@@ -15,15 +15,9 @@ use stdClass;
 
 final class TemplateResolverTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\View\ViewInterface
-     */
-    private $view;
+    private View $view;
 
-    /**
-     * @var \Netgen\Layouts\Tests\API\Stubs\Value
-     */
-    private $value;
+    private Value $value;
 
     protected function setUp(): void
     {

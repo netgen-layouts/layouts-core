@@ -12,10 +12,7 @@ use Symfony\Component\Form\FormInterface;
 
 final class CollectionDataMapperTest extends DataMapperTest
 {
-    /**
-     * @var \Netgen\Layouts\Collection\Form\CollectionDataMapper
-     */
-    private $mapper;
+    private CollectionDataMapper $mapper;
 
     protected function setUp(): void
     {

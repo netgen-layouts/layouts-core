@@ -13,10 +13,7 @@ use Symfony\Component\Validator\Constraints;
 
 final class ParameterTypeTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Parameters\ParameterTypeInterface
-     */
-    private $parameterType;
+    private ParameterType $parameterType;
 
     protected function setUp(): void
     {

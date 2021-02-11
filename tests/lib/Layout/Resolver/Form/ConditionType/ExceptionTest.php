@@ -15,10 +15,7 @@ use Symfony\Component\Form\FormTypeInterface;
 
 final class ExceptionTest extends FormTestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\ConditionTypeInterface
-     */
-    private $conditionType;
+    private Exception $conditionType;
 
     protected function setUp(): void
     {

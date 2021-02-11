@@ -12,20 +12,11 @@ use Webmozart\Assert\Assert;
 
 final class ManagingSharedLayoutsContext extends AdminContext
 {
-    /**
-     * @var \Netgen\Layouts\Behat\Page\Admin\SharedLayouts\IndexPage
-     */
-    private $indexPage;
+    private IndexPage $indexPage;
 
-    /**
-     * @var \Netgen\Layouts\Behat\Page\App\IndexPage
-     */
-    private $appPage;
+    private AppIndexPage $appPage;
 
-    /**
-     * @var \Netgen\Layouts\Behat\Context\Transform\LayoutContext
-     */
-    private $layoutContext;
+    private LayoutContext $layoutContext;
 
     public function __construct(IndexPage $indexPage, AppIndexPage $appPage, LayoutContext $layoutContext)
     {

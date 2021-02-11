@@ -14,10 +14,7 @@ use Ramsey\Uuid\Uuid;
 
 final class CollectionNormalizerTest extends TestCase
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionNormalizer
-     */
-    private $normalizer;
+    private CollectionNormalizer $normalizer;
 
     protected function setUp(): void
     {

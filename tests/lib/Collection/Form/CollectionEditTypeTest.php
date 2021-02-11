@@ -17,10 +17,7 @@ use function array_keys;
 
 final class CollectionEditTypeTest extends FormTestCase
 {
-    /**
-     * @var \Netgen\Layouts\API\Values\Collection\Collection
-     */
-    private $collection;
+    private Collection $collection;
 
     protected function setUp(): void
     {

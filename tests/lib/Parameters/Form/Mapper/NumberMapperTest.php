@@ -12,10 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 
 final class NumberMapperTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Parameters\Form\Mapper\NumberMapper
-     */
-    private $mapper;
+    private NumberMapper $mapper;
 
     protected function setUp(): void
     {

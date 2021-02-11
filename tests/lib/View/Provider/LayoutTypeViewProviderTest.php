@@ -14,10 +14,7 @@ use PHPUnit\Framework\TestCase;
 
 final class LayoutTypeViewProviderTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\View\Provider\ViewProviderInterface
-     */
-    private $layoutViewProvider;
+    private LayoutTypeViewProvider $layoutViewProvider;
 
     protected function setUp(): void
     {

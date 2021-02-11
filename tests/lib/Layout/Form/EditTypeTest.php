@@ -17,10 +17,7 @@ use function array_keys;
 
 final class EditTypeTest extends FormTestCase
 {
-    /**
-     * @var \Netgen\Layouts\API\Values\Layout\Layout
-     */
-    private $layout;
+    private Layout $layout;
 
     protected function setUp(): void
     {

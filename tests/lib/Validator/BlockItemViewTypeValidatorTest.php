@@ -18,10 +18,7 @@ use function sprintf;
 
 final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
 {
-    /**
-     * @var \Netgen\Layouts\Block\BlockDefinitionInterface
-     */
-    private $blockDefinition;
+    private BlockDefinition $blockDefinition;
 
     protected function setUp(): void
     {

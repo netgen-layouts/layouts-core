@@ -13,20 +13,11 @@ use PHPUnit\Framework\TestCase;
 
 final class BlockTypeRegistryTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Block\BlockType\BlockType
-     */
-    private $blockType;
+    private BlockType $blockType;
 
-    /**
-     * @var \Netgen\Layouts\Block\BlockType\BlockType
-     */
-    private $blockType2;
+    private BlockType $blockType2;
 
-    /**
-     * @var \Netgen\Layouts\Block\Registry\BlockTypeRegistry
-     */
-    private $registry;
+    private BlockTypeRegistry $registry;
 
     protected function setUp(): void
     {

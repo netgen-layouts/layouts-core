@@ -12,20 +12,11 @@ final class QueryType implements QueryTypeInterface
 {
     use ParameterDefinitionCollectionTrait;
 
-    /**
-     * @var string
-     */
-    private $type;
+    private string $type;
 
-    /**
-     * @var bool
-     */
-    private $enabled;
+    private bool $enabled;
 
-    /**
-     * @var \Netgen\Layouts\Tests\Collection\Stubs\QueryTypeHandler
-     */
-    private $handler;
+    private QueryTypeHandler $handler;
 
     /**
      * @param mixed[] $values

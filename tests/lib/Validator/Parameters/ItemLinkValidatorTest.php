@@ -10,16 +10,14 @@ use Netgen\Layouts\Item\NullCmsItem;
 use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
 use Netgen\Layouts\Validator\Constraint\Parameters\ItemLink;
 use Netgen\Layouts\Validator\Parameters\ItemLinkValidator;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 final class ItemLinkValidatorTest extends ValidatorTestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $cmsItemLoaderMock;
+    private MockObject $cmsItemLoaderMock;
 
     protected function setUp(): void
     {

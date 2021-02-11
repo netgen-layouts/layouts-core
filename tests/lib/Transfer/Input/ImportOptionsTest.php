@@ -10,10 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ImportOptionsTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Transfer\Input\ImportOptions
-     */
-    private $importOptions;
+    private ImportOptions $importOptions;
 
     protected function setUp(): void
     {

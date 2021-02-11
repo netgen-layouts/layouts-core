@@ -14,6 +14,7 @@ use Netgen\Layouts\Collection\Result\ResultSet;
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Item\CmsItemBuilderInterface;
 use Netgen\Layouts\Item\NullCmsItem;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use function array_map;
 use function iterator_to_array;
@@ -23,7 +24,7 @@ final class ManualCollectionRunnerTest extends TestCase
     /**
      * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Item\CmsItemBuilderInterface
      */
-    private $cmsItemBuilderMock;
+    private MockObject $cmsItemBuilderMock;
 
     protected function setUp(): void
     {

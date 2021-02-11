@@ -9,10 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class LazyCollectionTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\API\Values\LazyCollection
-     */
-    private $collection;
+    private LazyCollection $collection;
 
     protected function setUp(): void
     {

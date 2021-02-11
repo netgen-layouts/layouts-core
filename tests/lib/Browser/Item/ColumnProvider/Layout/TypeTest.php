@@ -13,10 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 final class TypeTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Type
-     */
-    private $provider;
+    private Type $provider;
 
     protected function setUp(): void
     {

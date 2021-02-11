@@ -9,6 +9,7 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\HttpCache\TaggerInterface;
 use Netgen\Layouts\Tests\Utils\BackwardsCompatibility\CreateEventTrait;
 use Netgen\Layouts\View\View\BlockView;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,15 +20,9 @@ final class BlockResponseListenerTest extends TestCase
 {
     use CreateEventTrait;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $taggerMock;
+    private MockObject $taggerMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\EventListener\HttpCache\BlockResponseListener
-     */
-    private $listener;
+    private BlockResponseListener $listener;
 
     protected function setUp(): void
     {

@@ -16,10 +16,7 @@ use function count;
 
 final class CreateTypeTest extends FormTestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Registry\LayoutTypeRegistry
-     */
-    private $layoutTypeRegistry;
+    private LayoutTypeRegistry $layoutTypeRegistry;
 
     protected function setUp(): void
     {

@@ -18,10 +18,7 @@ use PHPUnit\Framework\TestCase;
 
 final class LayoutTypeTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\View\Matcher\MatcherInterface
-     */
-    private $matcher;
+    private LayoutTypeMatcher $matcher;
 
     protected function setUp(): void
     {

@@ -8,19 +8,14 @@ use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory;
 use Netgen\Layouts\Collection\Result\ResultBuilderInterface;
 use Netgen\Layouts\Collection\Result\ResultSet;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class PagerFactoryTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $resultBuilderMock;
+    private MockObject $resultBuilderMock;
 
-    /**
-     * @var \Netgen\Layouts\Collection\Result\Pagerfanta\PagerFactory
-     */
-    private $pagerFactory;
+    private PagerFactory $pagerFactory;
 
     protected function setUp(): void
     {

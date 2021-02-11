@@ -7,20 +7,15 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\Templating\Plugin;
 use Exception;
 use Netgen\Bundle\LayoutsBundle\Templating\Plugin\Renderer;
 use Netgen\Bundle\LayoutsBundle\Templating\Plugin\SimplePlugin;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
 
 final class RendererTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $twigMock;
+    private MockObject $twigMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\Templating\Plugin\RendererInterface
-     */
-    private $renderer;
+    private Renderer $renderer;
 
     protected function setUp(): void
     {

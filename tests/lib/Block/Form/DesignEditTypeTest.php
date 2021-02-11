@@ -25,15 +25,9 @@ use function array_keys;
 
 final class DesignEditTypeTest extends FormTestCase
 {
-    /**
-     * @var \Netgen\Layouts\Block\BlockDefinitionInterface
-     */
-    private $definition;
+    private BlockDefinition $definition;
 
-    /**
-     * @var \Netgen\Layouts\API\Values\Block\Block
-     */
-    private $block;
+    private Block $block;
 
     protected function setUp(): void
     {

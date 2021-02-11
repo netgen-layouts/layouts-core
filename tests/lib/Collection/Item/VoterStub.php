@@ -9,10 +9,7 @@ use Netgen\Layouts\Collection\Item\VisibilityVoterInterface;
 
 final class VoterStub implements VisibilityVoterInterface
 {
-    /**
-     * @var int
-     */
-    private $vote;
+    private int $vote;
 
     public function __construct(int $vote)
     {

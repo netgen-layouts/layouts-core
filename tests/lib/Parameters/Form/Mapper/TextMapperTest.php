@@ -10,10 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 final class TextMapperTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Parameters\Form\Mapper\TextMapper
-     */
-    private $mapper;
+    private TextMapper $mapper;
 
     protected function setUp(): void
     {

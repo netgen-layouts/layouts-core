@@ -16,7 +16,7 @@ final class BlockDefinitionHandlerWithCompoundParameter extends BaseBlockDefinit
     /**
      * @var string[]
      */
-    private $parameterGroups;
+    private array $parameterGroups;
 
     /**
      * @param string[] $parameterGroups

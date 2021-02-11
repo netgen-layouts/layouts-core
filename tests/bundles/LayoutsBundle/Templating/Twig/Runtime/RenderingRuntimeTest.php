@@ -22,6 +22,7 @@ use Netgen\Layouts\Tests\Stubs\ErrorHandler;
 use Netgen\Layouts\View\RendererInterface;
 use Netgen\Layouts\View\Twig\ContextualizedTwigTemplate;
 use Netgen\Layouts\View\ViewInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -32,30 +33,15 @@ use Twig\TemplateWrapper;
 
 final class RenderingRuntimeTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $blockServiceMock;
+    private MockObject $blockServiceMock;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $rendererMock;
+    private MockObject $rendererMock;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $localeProviderMock;
+    private MockObject $localeProviderMock;
 
-    /**
-     * @var \Netgen\Layouts\Tests\Stubs\ErrorHandler
-     */
-    private $errorHandler;
+    private ErrorHandler $errorHandler;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\RenderingRuntime
-     */
-    private $runtime;
+    private RenderingRuntime $runtime;
 
     protected function setUp(): void
     {

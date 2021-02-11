@@ -10,20 +10,11 @@ use PHPUnit\Framework\TestCase;
 
 final class BlockTypeGroupTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Block\BlockType\BlockTypeGroup
-     */
-    private $blockTypeGroup;
+    private BlockTypeGroup $blockTypeGroup;
 
-    /**
-     * @var \Netgen\Layouts\Block\BlockType\BlockType
-     */
-    private $blockType1;
+    private BlockType $blockType1;
 
-    /**
-     * @var \Netgen\Layouts\Block\BlockType\BlockType
-     */
-    private $blockType2;
+    private BlockType $blockType2;
 
     protected function setUp(): void
     {

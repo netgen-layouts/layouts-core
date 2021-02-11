@@ -9,10 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class NullItemDefinitionTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Collection\Item\NullItemDefinition
-     */
-    private $itemDefinition;
+    private NullItemDefinition $itemDefinition;
 
     protected function setUp(): void
     {

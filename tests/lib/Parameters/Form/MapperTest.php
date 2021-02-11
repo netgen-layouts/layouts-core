@@ -6,14 +6,15 @@ namespace Netgen\Layouts\Tests\Parameters\Form;
 
 use Netgen\Layouts\Parameters\Form\Mapper;
 use Netgen\Layouts\Parameters\ParameterDefinition;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class MapperTest extends TestCase
 {
     /**
-     * @var \Netgen\Layouts\Parameters\Form\MapperInterface
+     * @var \PHPUnit\Framework\MockObject\MockObject&\Netgen\Layouts\Parameters\Form\MapperInterface
      */
-    private $mapper;
+    private MockObject $mapper;
 
     protected function setUp(): void
     {

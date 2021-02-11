@@ -16,10 +16,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ConfigStructTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\API\Values\Config\ConfigStruct
-     */
-    private $struct;
+    private ConfigStruct $struct;
 
     protected function setUp(): void
     {

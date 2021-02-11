@@ -9,10 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 final class ValueTypeTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Item\ValueType\ValueType
-     */
-    private $valueType;
+    private ValueType $valueType;
 
     protected function setUp(): void
     {

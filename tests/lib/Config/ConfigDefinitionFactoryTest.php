@@ -8,24 +8,16 @@ use Netgen\Layouts\Config\ConfigDefinitionFactory;
 use Netgen\Layouts\Config\ConfigDefinitionHandlerInterface;
 use Netgen\Layouts\Parameters\ParameterBuilderFactoryInterface;
 use Netgen\Layouts\Parameters\ParameterBuilderInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class ConfigDefinitionFactoryTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $handlerMock;
+    private MockObject $handlerMock;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $parameterBuilderFactoryMock;
+    private MockObject $parameterBuilderFactoryMock;
 
-    /**
-     * @var \Netgen\Layouts\Config\ConfigDefinitionFactory
-     */
-    private $factory;
+    private ConfigDefinitionFactory $factory;
 
     protected function setUp(): void
     {

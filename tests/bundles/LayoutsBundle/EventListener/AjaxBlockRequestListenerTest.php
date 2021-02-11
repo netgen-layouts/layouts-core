@@ -15,10 +15,7 @@ final class AjaxBlockRequestListenerTest extends TestCase
 {
     use CreateEventTrait;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\EventListener\AjaxBlockRequestListener
-     */
-    private $listener;
+    private AjaxBlockRequestListener $listener;
 
     protected function setUp(): void
     {

@@ -14,10 +14,7 @@ use Netgen\Layouts\Tests\Core\CoreTestCase;
 
 abstract class ConfigStructBuilderTest extends CoreTestCase
 {
-    /**
-     * @var \Netgen\Layouts\Core\StructBuilder\ConfigStructBuilder
-     */
-    private $structBuilder;
+    private ConfigStructBuilder $structBuilder;
 
     protected function setUp(): void
     {

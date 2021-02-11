@@ -13,15 +13,9 @@ use PHPUnit\Framework\TestCase;
 
 final class BlockDefinitionRegistryTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Block\BlockDefinitionInterface
-     */
-    private $blockDefinition;
+    private BlockDefinition $blockDefinition;
 
-    /**
-     * @var \Netgen\Layouts\Block\Registry\BlockDefinitionRegistry
-     */
-    private $registry;
+    private BlockDefinitionRegistry $registry;
 
     protected function setUp(): void
     {

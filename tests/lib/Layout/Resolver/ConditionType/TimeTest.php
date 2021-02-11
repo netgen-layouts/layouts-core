@@ -13,10 +13,7 @@ use Symfony\Component\Validator\Validation;
 
 final class TimeTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\ConditionType\Time
-     */
-    private $conditionType;
+    private Time $conditionType;
 
     protected function setUp(): void
     {

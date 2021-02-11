@@ -10,10 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class TimeTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\Form\ConditionType\MapperInterface
-     */
-    private $mapper;
+    private Time $mapper;
 
     protected function setUp(): void
     {

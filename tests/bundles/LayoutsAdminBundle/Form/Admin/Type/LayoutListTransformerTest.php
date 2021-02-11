@@ -12,10 +12,7 @@ use Ramsey\Uuid\Uuid;
 
 final class LayoutListTransformerTest extends TestCase
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type\LayoutListTransformer
-     */
-    private $transformer;
+    private LayoutListTransformer $transformer;
 
     protected function setUp(): void
     {

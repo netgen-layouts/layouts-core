@@ -7,6 +7,7 @@ namespace Netgen\Bundle\LayoutsBundle\Tests\Templating\Twig\Runtime\CollectionPa
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\CollectionPager\RouteGenerator;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Context\Context;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpKernel\UriSigner;
@@ -15,25 +16,13 @@ use function call_user_func;
 
 final class RouteGeneratorTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Context\Context
-     */
-    private $context;
+    private Context $context;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $uriSignerMock;
+    private MockObject $uriSignerMock;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $urlGeneratorMock;
+    private MockObject $urlGeneratorMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\CollectionPager\RouteGenerator
-     */
-    private $routeGenerator;
+    private RouteGenerator $routeGenerator;
 
     protected function setUp(): void
     {

@@ -11,20 +11,11 @@ use PHPUnit\Framework\TestCase;
 
 final class ConfigureMenuEventTest extends TestCase
 {
-    /**
-     * @var \Knp\Menu\FactoryInterface
-     */
-    private $factory;
+    private MenuFactory $factory;
 
-    /**
-     * @var \Knp\Menu\ItemInterface
-     */
-    private $menu;
+    private MenuItem $menu;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\Event\ConfigureMenuEvent
-     */
-    private $event;
+    private ConfigureMenuEvent $event;
 
     protected function setUp(): void
     {

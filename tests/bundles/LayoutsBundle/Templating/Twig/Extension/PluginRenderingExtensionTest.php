@@ -10,10 +10,7 @@ use Twig\TwigFunction;
 
 final class PluginRenderingExtensionTest extends TestCase
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\Templating\Twig\Extension\PluginRenderingExtension
-     */
-    private $extension;
+    private PluginRenderingExtension $extension;
 
     protected function setUp(): void
     {

@@ -10,10 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
 final class UrlMapperTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Parameters\Form\Mapper\UrlMapper
-     */
-    private $mapper;
+    private UrlMapper $mapper;
 
     protected function setUp(): void
     {

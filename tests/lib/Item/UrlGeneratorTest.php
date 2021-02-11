@@ -15,10 +15,7 @@ use stdClass;
 
 final class UrlGeneratorTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Item\UrlGeneratorInterface
-     */
-    private $urlGenerator;
+    private UrlGenerator $urlGenerator;
 
     protected function setUp(): void
     {

@@ -10,10 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class PageLayoutResolverTest extends TestCase
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\Templating\PageLayoutResolver
-     */
-    private $resolver;
+    private PageLayoutResolver $resolver;
 
     protected function setUp(): void
     {

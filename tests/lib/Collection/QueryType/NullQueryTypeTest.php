@@ -10,10 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class NullQueryTypeTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Collection\QueryType\NullQueryType
-     */
-    private $queryType;
+    private NullQueryType $queryType;
 
     protected function setUp(): void
     {

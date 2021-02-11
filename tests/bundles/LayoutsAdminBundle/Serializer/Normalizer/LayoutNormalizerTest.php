@@ -17,32 +17,22 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Layout\Type\LayoutTypeFactory;
+use Netgen\Layouts\Layout\Type\LayoutTypeInterface;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Serializer\Serializer;
 
 final class LayoutNormalizerTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $layoutServiceMock;
+    private MockObject $layoutServiceMock;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $blockServiceMock;
+    private MockObject $blockServiceMock;
 
-    /**
-     * @var \Netgen\Layouts\Layout\Type\LayoutTypeInterface
-     */
-    private $layoutType;
+    private LayoutTypeInterface $layoutType;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\LayoutNormalizer
-     */
-    private $normalizer;
+    private LayoutNormalizer $normalizer;
 
     protected function setUp(): void
     {

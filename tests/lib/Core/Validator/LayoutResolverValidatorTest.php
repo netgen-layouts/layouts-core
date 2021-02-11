@@ -22,28 +22,17 @@ use Netgen\Layouts\Utils\Hydrator;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Validator\Validation;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class LayoutResolverValidatorTest extends TestCase
 {
-    /**
-     * @var \Symfony\Component\Validator\Validator\ValidatorInterface
-     */
-    private $validator;
+    private ValidatorInterface $validator;
 
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry
-     */
-    private $targetTypeRegistry;
+    private TargetTypeRegistry $targetTypeRegistry;
 
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry
-     */
-    private $conditionTypeRegistry;
+    private ConditionTypeRegistry $conditionTypeRegistry;
 
-    /**
-     * @var \Netgen\Layouts\Core\Validator\LayoutResolverValidator
-     */
-    private $layoutResolverValidator;
+    private LayoutResolverValidator $layoutResolverValidator;
 
     protected function setUp(): void
     {

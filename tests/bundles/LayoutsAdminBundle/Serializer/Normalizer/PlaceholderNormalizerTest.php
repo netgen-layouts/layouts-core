@@ -16,10 +16,7 @@ use Symfony\Component\Serializer\Serializer;
 
 final class PlaceholderNormalizerTest extends TestCase
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\PlaceholderNormalizer
-     */
-    private $normalizer;
+    private PlaceholderNormalizer $normalizer;
 
     protected function setUp(): void
     {

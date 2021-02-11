@@ -8,16 +8,14 @@ use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\Tests\TestCase\ValidatorTestCase;
 use Netgen\Layouts\Validator\Constraint\LayoutName;
 use Netgen\Layouts\Validator\LayoutNameValidator;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\ConstraintValidatorInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 final class LayoutNameValidatorTest extends ValidatorTestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $layoutServiceMock;
+    private MockObject $layoutServiceMock;
 
     protected function setUp(): void
     {

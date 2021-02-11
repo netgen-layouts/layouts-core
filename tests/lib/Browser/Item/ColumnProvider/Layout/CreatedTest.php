@@ -13,10 +13,7 @@ use PHPUnit\Framework\TestCase;
 
 final class CreatedTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Browser\Item\ColumnProvider\Layout\Created
-     */
-    private $provider;
+    private Created $provider;
 
     protected function setUp(): void
     {

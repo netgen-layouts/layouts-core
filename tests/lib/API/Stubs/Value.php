@@ -14,10 +14,7 @@ final class Value implements APIValue
     use HydratorTrait;
     use ValueStatusTrait;
 
-    /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    public $id;
+    public UuidInterface $id;
 
     /**
      * @var mixed

@@ -13,15 +13,9 @@ use PHPUnit\Framework\TestCase;
 
 final class TargetTypeRegistryTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\TargetTypeInterface
-     */
-    private $targetType;
+    private TargetType1 $targetType;
 
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry
-     */
-    private $registry;
+    private TargetTypeRegistry $registry;
 
     protected function setUp(): void
     {

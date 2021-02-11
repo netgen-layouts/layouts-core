@@ -12,10 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\RangeType;
 
 final class RangeMapperTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Parameters\Form\Mapper\RangeMapper
-     */
-    private $mapper;
+    private RangeMapper $mapper;
 
     protected function setUp(): void
     {

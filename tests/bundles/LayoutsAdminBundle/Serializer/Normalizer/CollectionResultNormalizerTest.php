@@ -14,26 +14,18 @@ use Netgen\Layouts\Collection\Result\Result;
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Item\UrlGeneratorInterface;
 use Netgen\Layouts\Tests\API\Stubs\Value as APIValue;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class CollectionResultNormalizerTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $normalizerMock;
+    private MockObject $normalizerMock;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $urlGeneratorMock;
+    private MockObject $urlGeneratorMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionResultNormalizer
-     */
-    private $normalizer;
+    private CollectionResultNormalizer $normalizer;
 
     protected function setUp(): void
     {

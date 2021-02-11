@@ -14,41 +14,24 @@ use Netgen\Layouts\Layout\Resolver\LayoutResolverInterface;
 use Netgen\Layouts\View\View\LayoutView;
 use Netgen\Layouts\View\ViewBuilderInterface;
 use Netgen\Layouts\View\ViewInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 final class GlobalVariableTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $configMock;
+    private MockObject $configMock;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $layoutResolverMock;
+    private MockObject $layoutResolverMock;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $pageLayoutResolverMock;
+    private MockObject $pageLayoutResolverMock;
 
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $viewBuilderMock;
+    private MockObject $viewBuilderMock;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\Templating\Twig\GlobalVariable
-     */
-    private $globalVariable;
+    private GlobalVariable $globalVariable;
 
-    /**
-     * @var \Symfony\Component\HttpFoundation\RequestStack
-     */
-    private $requestStack;
+    private RequestStack $requestStack;
 
     protected function setUp(): void
     {

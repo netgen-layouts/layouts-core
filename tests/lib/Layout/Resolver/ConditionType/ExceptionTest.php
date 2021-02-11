@@ -15,10 +15,7 @@ use function class_exists;
 
 final class ExceptionTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\ConditionType\Exception
-     */
-    private $conditionType;
+    private ExceptionConditionType $conditionType;
 
     protected function setUp(): void
     {

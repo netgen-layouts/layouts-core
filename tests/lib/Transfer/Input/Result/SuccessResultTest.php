@@ -8,23 +8,15 @@ use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Transfer\Input\Result\SuccessResult;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
+use Ramsey\Uuid\UuidInterface;
 
 final class SuccessResultTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Transfer\Input\Result\SuccessResult
-     */
-    private $result;
+    private SuccessResult $result;
 
-    /**
-     * @var \Netgen\Layouts\Tests\API\Stubs\Value
-     */
-    private $entity;
+    private Value $entity;
 
-    /**
-     * @var \Ramsey\Uuid\UuidInterface
-     */
-    private $entityId;
+    private UuidInterface $entityId;
 
     protected function setUp(): void
     {

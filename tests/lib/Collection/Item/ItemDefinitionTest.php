@@ -11,15 +11,9 @@ use PHPUnit\Framework\TestCase;
 
 final class ItemDefinitionTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Collection\Item\ItemDefinition
-     */
-    private $itemDefinition;
+    private ItemDefinition $itemDefinition;
 
-    /**
-     * @var \Netgen\Layouts\Config\ConfigDefinition
-     */
-    private $configDefinition;
+    private ConfigDefinition $configDefinition;
 
     protected function setUp(): void
     {

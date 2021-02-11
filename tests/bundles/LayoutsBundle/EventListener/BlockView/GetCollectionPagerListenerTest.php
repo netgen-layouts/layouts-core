@@ -22,6 +22,7 @@ use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\View\BlockView;
 use Netgen\Layouts\View\ViewInterface;
 use Pagerfanta\Pagerfanta;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -29,20 +30,11 @@ use function sprintf;
 
 final class GetCollectionPagerListenerTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $resultBuilderMock;
+    private MockObject $resultBuilderMock;
 
-    /**
-     * @var \Symfony\Component\HttpFoundation\RequestStack
-     */
-    private $requestStack;
+    private RequestStack $requestStack;
 
-    /**
-     * @var \Netgen\Bundle\LayoutsBundle\EventListener\BlockView\GetCollectionPagerListener
-     */
-    private $listener;
+    private GetCollectionPagerListener $listener;
 
     protected function setUp(): void
     {

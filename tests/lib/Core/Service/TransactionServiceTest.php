@@ -8,19 +8,14 @@ use Exception;
 use Netgen\Layouts\Core\Service\TransactionService;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Persistence\TransactionHandlerInterface;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 final class TransactionServiceTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $transactionHandlerMock;
+    private MockObject $transactionHandlerMock;
 
-    /**
-     * @var \Netgen\Layouts\Core\Service\TransactionService
-     */
-    private $service;
+    private TransactionService $service;
 
     protected function setUp(): void
     {

@@ -9,20 +9,15 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\LayoutList;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\HttpCache\Layout\IdProvider;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\Uuid;
 
 final class IdProviderTest extends TestCase
 {
-    /**
-     * @var \PHPUnit\Framework\MockObject\MockObject
-     */
-    private $layoutServiceMock;
+    private MockObject $layoutServiceMock;
 
-    /**
-     * @var \Netgen\Layouts\HttpCache\Layout\IdProvider
-     */
-    private $idProvider;
+    private IdProvider $idProvider;
 
     protected function setUp(): void
     {

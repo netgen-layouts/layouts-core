@@ -11,10 +11,7 @@ use Symfony\Component\Validator\Validation;
 
 final class QueryParameterTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Resolver\ConditionType\QueryParameter
-     */
-    private $conditionType;
+    private QueryParameter $conditionType;
 
     protected function setUp(): void
     {

@@ -12,20 +12,11 @@ use PHPUnit\Framework\TestCase;
 
 final class LayoutTypeTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Layout\Type\LayoutType
-     */
-    private $layoutType;
+    private LayoutType $layoutType;
 
-    /**
-     * @var \Netgen\Layouts\Layout\Type\Zone
-     */
-    private $zone1;
+    private Zone $zone1;
 
-    /**
-     * @var \Netgen\Layouts\Layout\Type\Zone
-     */
-    private $zone2;
+    private Zone $zone2;
 
     protected function setUp(): void
     {

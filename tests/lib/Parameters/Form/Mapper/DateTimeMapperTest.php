@@ -10,10 +10,7 @@ use PHPUnit\Framework\TestCase;
 
 final class DateTimeMapperTest extends TestCase
 {
-    /**
-     * @var \Netgen\Layouts\Parameters\Form\Mapper\DateTimeMapper
-     */
-    private $mapper;
+    private DateTimeMapper $mapper;
 
     protected function setUp(): void
     {

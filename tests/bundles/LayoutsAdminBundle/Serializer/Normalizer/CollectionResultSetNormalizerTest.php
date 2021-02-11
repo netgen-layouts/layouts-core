@@ -20,10 +20,7 @@ use Symfony\Component\Serializer\Serializer;
 
 final class CollectionResultSetNormalizerTest extends TestCase
 {
-    /**
-     * @var \Netgen\Bundle\LayoutsAdminBundle\Serializer\Normalizer\CollectionResultSetNormalizer
-     */
-    private $normalizer;
+    private CollectionResultSetNormalizer $normalizer;
 
     protected function setUp(): void
     {
