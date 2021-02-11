@@ -33,7 +33,7 @@ final class RuleParamConverter extends ParamConverter
         return Rule::class;
     }
 
-    public function loadValue(array $values): object
+    public function loadValue(array $values): Rule
     {
         if ($values['status'] === self::STATUS_PUBLISHED) {
             return $this->layoutResolverService->loadRule(Uuid::fromString($values['ruleId']));

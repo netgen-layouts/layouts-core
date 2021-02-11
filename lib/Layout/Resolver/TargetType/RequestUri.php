@@ -23,7 +23,7 @@ final class RequestUri extends TargetType
         ];
     }
 
-    public function provideValue(Request $request)
+    public function provideValue(Request $request): string
     {
         return $request->getRequestUri();
     }

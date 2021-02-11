@@ -55,7 +55,6 @@ parameters:
         - '#Method .+View::render\(\) has parameter \$options with no value type specified in iterable type array.#'
         - '#Method .+Normalizer::normalize\(\) has parameter \$context with no value type specified in iterable type array.#'
         - '#Method .+Normalizer::normalize\(\) return type has no value type specified in iterable type (array|ArrayObject).#'
-        - '#Method .+Normalizer::normalize\(\) return type with generic class ArrayObject does not specify its types#'
         - '#Method .+Listener::getSubscribedEvents\(\) return type has no value type specified in iterable type array.#'
         - '#no value type specified in iterable type Symfony\\Component\\HttpFoundation\\ParameterBag#'
         - '#no value type specified in iterable type Knp\\Menu\\ItemInterface#'

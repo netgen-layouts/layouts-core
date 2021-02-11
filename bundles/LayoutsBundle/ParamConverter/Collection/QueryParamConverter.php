@@ -33,7 +33,7 @@ final class QueryParamConverter extends ParamConverter
         return Query::class;
     }
 
-    public function loadValue(array $values): object
+    public function loadValue(array $values): Query
     {
         /** @var string[] $locales */
         $locales = isset($values['locale']) ? [$values['locale']] : null;

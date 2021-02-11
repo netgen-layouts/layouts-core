@@ -25,7 +25,7 @@ final class ParamConverter extends BaseParamConverter
         return Value::class;
     }
 
-    public function loadValue(array $values): object
+    public function loadValue(array $values): Value
     {
         $status = APIValue::STATUS_DRAFT;
         if ($values['status'] === 'published') {

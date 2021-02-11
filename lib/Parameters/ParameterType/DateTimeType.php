@@ -31,7 +31,12 @@ final class DateTimeType extends ParameterType
         return !$value instanceof DateTimeInterface;
     }
 
-    public function toHash(ParameterDefinition $parameterDefinition, $value)
+    /**
+     * @param mixed $value
+     *
+     * @return array<string, string>|null
+     */
+    public function toHash(ParameterDefinition $parameterDefinition, $value): ?array
     {
         if (!$value instanceof DateTimeInterface) {
             return null;
@@ -43,7 +48,7 @@ final class DateTimeType extends ParameterType
         ];
     }
 
-    public function fromHash(ParameterDefinition $parameterDefinition, $value)
+    public function fromHash(ParameterDefinition $parameterDefinition, $value): ?DateTimeInterface
     {
         return is_array($value) ? DateTimeUtils::createFromArray($value) : null;
     }

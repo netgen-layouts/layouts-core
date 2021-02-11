@@ -16,7 +16,7 @@ final class Item implements ItemInterface, LayoutInterface
         $this->layout = $layout;
     }
 
-    public function getValue()
+    public function getValue(): string
     {
         return $this->layout->getId()->toString();
     }

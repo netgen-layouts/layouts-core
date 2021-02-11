@@ -25,6 +25,7 @@ use Netgen\Layouts\Transfer\Output\VisitorInterface;
 use Netgen\Layouts\Utils\BackwardsCompatibility\YamlFileLoader;
 use Netgen\Layouts\View\Matcher\MatcherInterface;
 use Netgen\Layouts\View\Provider\ViewProviderInterface;
+use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\Config\Loader\DelegatingLoader;
@@ -176,10 +177,8 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
 
     /**
      * @param mixed[] $config
-     *
-     * @return \Symfony\Component\Config\Definition\ConfigurationInterface
      */
-    public function getConfiguration(array $config, ContainerBuilder $container)
+    public function getConfiguration(array $config, ContainerBuilder $container): ConfigurationInterface
     {
         return new Configuration($this);
     }

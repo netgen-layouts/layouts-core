@@ -34,7 +34,7 @@ final class ZoneParamConverter extends ParamConverter
         return Zone::class;
     }
 
-    public function loadValue(array $values): object
+    public function loadValue(array $values): Zone
     {
         $layout = $values['status'] === self::STATUS_PUBLISHED ?
             $this->layoutService->loadLayout(Uuid::fromString($values['layoutId'])) :

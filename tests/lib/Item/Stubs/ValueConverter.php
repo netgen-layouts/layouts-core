@@ -41,7 +41,7 @@ final class ValueConverter implements ValueConverterInterface
         return $object->isVisible();
     }
 
-    public function getObject(object $object): object
+    public function getObject(object $object): Value
     {
         return $object;
     }

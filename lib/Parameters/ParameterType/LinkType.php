@@ -67,7 +67,12 @@ final class LinkType extends ParameterType
         );
     }
 
-    public function toHash(ParameterDefinition $parameterDefinition, $value)
+    /**
+     * @param mixed $value
+     *
+     * @return array<string, mixed>|null
+     */
+    public function toHash(ParameterDefinition $parameterDefinition, $value): ?array
     {
         if (!$value instanceof LinkValue) {
             return null;
@@ -81,7 +86,7 @@ final class LinkType extends ParameterType
         ];
     }
 
-    public function fromHash(ParameterDefinition $parameterDefinition, $value)
+    public function fromHash(ParameterDefinition $parameterDefinition, $value): LinkValue
     {
         if (!is_array($value) || ($value['link_type'] ?? '') === '') {
             return new LinkValue();
@@ -97,7 +102,12 @@ final class LinkType extends ParameterType
         );
     }
 
-    public function export(ParameterDefinition $parameterDefinition, $value)
+    /**
+     * @param mixed $value
+     *
+     * @return array<string, mixed>|null
+     */
+    public function export(ParameterDefinition $parameterDefinition, $value): ?array
     {
         if (!$value instanceof LinkValue) {
             return null;
@@ -119,7 +129,7 @@ final class LinkType extends ParameterType
         ];
     }
 
-    public function import(ParameterDefinition $parameterDefinition, $value)
+    public function import(ParameterDefinition $parameterDefinition, $value): LinkValue
     {
         if (!is_array($value) || ($value['link_type'] ?? '') === '') {
             return new LinkValue();

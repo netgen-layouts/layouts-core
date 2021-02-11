@@ -19,7 +19,7 @@ final class NullTargetType extends TargetType
         return [];
     }
 
-    public function provideValue(Request $request)
+    public function provideValue(Request $request): ?int
     {
         return null;
     }

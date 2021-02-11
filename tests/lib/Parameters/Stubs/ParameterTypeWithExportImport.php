@@ -15,12 +15,12 @@ final class ParameterTypeWithExportImport extends BaseParameterType
         return 'type';
     }
 
-    public function import(ParameterDefinition $parameterDefinition, $value)
+    public function import(ParameterDefinition $parameterDefinition, $value): string
     {
         return 'import_value';
     }
 
-    public function export(ParameterDefinition $parameterDefinition, $value)
+    public function export(ParameterDefinition $parameterDefinition, $value): string
     {
         return 'export_value';
     }

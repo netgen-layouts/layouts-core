@@ -33,7 +33,7 @@ final class TargetParamConverter extends ParamConverter
         return Target::class;
     }
 
-    public function loadValue(array $values): object
+    public function loadValue(array $values): Target
     {
         if ($values['status'] === self::STATUS_PUBLISHED) {
             return $this->layoutResolverService->loadTarget(Uuid::fromString($values['targetId']));

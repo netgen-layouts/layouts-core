@@ -22,12 +22,12 @@ final class MyValueTypeValueConverter implements ValueConverterInterface
         return 'my_value_type';
     }
 
-    public function getId(object $object)
+    public function getId(object $object): int
     {
         return $object->id;
     }
 
-    public function getRemoteId(object $object)
+    public function getRemoteId(object $object): int
     {
         return $object->id;
     }
@@ -42,7 +42,7 @@ final class MyValueTypeValueConverter implements ValueConverterInterface
         return true;
     }
 
-    public function getObject(object $object): object
+    public function getObject(object $object): Value
     {
         return $object;
     }

@@ -33,7 +33,7 @@ final class SlotParamConverter extends ParamConverter
         return Slot::class;
     }
 
-    public function loadValue(array $values): object
+    public function loadValue(array $values): Slot
     {
         if ($values['status'] === self::STATUS_PUBLISHED) {
             return $this->collectionService->loadSlot(Uuid::fromString($values['slotId']));

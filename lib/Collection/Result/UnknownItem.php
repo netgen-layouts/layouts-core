@@ -12,12 +12,12 @@ use Netgen\Layouts\Item\CmsItemInterface;
  */
 final class UnknownItem implements CmsItemInterface
 {
-    public function getValue()
+    public function getValue(): int
     {
         return 0;
     }
 
-    public function getRemoteId()
+    public function getRemoteId(): int
     {
         return 0;
     }

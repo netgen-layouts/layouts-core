@@ -32,7 +32,12 @@ final class ConditionType1 extends ConditionType
         return $this->matches;
     }
 
-    public function export($value)
+    /**
+     * @param mixed $value
+     *
+     * @return string[]
+     */
+    public function export($value): array
     {
         return ['some_value_exported'];
     }

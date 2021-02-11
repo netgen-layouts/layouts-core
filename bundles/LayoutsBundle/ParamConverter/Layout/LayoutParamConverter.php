@@ -33,7 +33,7 @@ final class LayoutParamConverter extends ParamConverter
         return Layout::class;
     }
 
-    public function loadValue(array $values): object
+    public function loadValue(array $values): Layout
     {
         if ($values['status'] === self::STATUS_PUBLISHED) {
             return $this->layoutService->loadLayout(Uuid::fromString($values['layoutId']));

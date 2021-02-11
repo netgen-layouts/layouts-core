@@ -14,7 +14,7 @@ final class LayoutListTransformer implements DataTransformerInterface
         return $value;
     }
 
-    public function reverseTransform($value)
+    public function reverseTransform($value): LayoutList
     {
         return new LayoutList($value);
     }

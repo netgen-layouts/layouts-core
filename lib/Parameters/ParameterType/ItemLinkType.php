@@ -67,7 +67,7 @@ final class ItemLinkType extends ParameterType
         );
     }
 
-    public function export(ParameterDefinition $parameterDefinition, $value)
+    public function export(ParameterDefinition $parameterDefinition, $value): ?string
     {
         if (!is_string($value)) {
             return null;
@@ -76,7 +76,7 @@ final class ItemLinkType extends ParameterType
         return $this->remoteIdConverter->convertToRemoteId($value);
     }
 
-    public function import(ParameterDefinition $parameterDefinition, $value)
+    public function import(ParameterDefinition $parameterDefinition, $value): ?string
     {
         if (!is_string($value)) {
             return null;

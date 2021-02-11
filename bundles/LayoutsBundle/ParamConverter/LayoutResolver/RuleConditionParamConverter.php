@@ -33,7 +33,7 @@ final class RuleConditionParamConverter extends ParamConverter
         return RuleCondition::class;
     }
 
-    public function loadValue(array $values): object
+    public function loadValue(array $values): RuleCondition
     {
         if ($values['status'] === self::STATUS_PUBLISHED) {
             return $this->layoutResolverService->loadCondition(Uuid::fromString($values['conditionId']));

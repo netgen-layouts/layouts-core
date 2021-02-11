@@ -108,8 +108,8 @@ final class ConnectionHelperTest extends TestCase
             ->expects(self::any())
             ->method('lastInsertId')
             ->with(self::identicalTo('s_table_id'))
-            ->willReturn(43);
+            ->willReturn('43');
 
-        self::assertSame(43, $this->connectionHelper->lastId('table'));
+        self::assertSame('43', $this->connectionHelper->lastId('table'));
     }
 }

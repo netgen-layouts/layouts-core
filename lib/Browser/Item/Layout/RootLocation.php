@@ -8,7 +8,7 @@ use Netgen\ContentBrowser\Item\LocationInterface;
 
 final class RootLocation implements LocationInterface
 {
-    public function getLocationId()
+    public function getLocationId(): int
     {
         return 0;
     }
@@ -18,7 +18,7 @@ final class RootLocation implements LocationInterface
         return 'All layouts';
     }
 
-    public function getParentId()
+    public function getParentId(): ?int
     {
         return null;
     }

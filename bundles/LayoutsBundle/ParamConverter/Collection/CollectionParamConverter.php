@@ -33,7 +33,7 @@ final class CollectionParamConverter extends ParamConverter
         return Collection::class;
     }
 
-    public function loadValue(array $values): object
+    public function loadValue(array $values): Collection
     {
         /** @var string[] $locales */
         $locales = isset($values['locale']) ? [$values['locale']] : null;
