@@ -42,6 +42,6 @@ trait HydratorTrait
      */
     private static function initHydrator(): void
     {
-        self::$__hydrator = self::$__hydrator ?? new Hydrator();
+        self::$__hydrator ??= new Hydrator();
     }
 }

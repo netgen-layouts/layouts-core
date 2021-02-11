@@ -280,6 +280,6 @@ final class Block implements Value, ParameterCollectionInterface, ConfigAwareVal
      */
     private function buildDynamicParameters(): void
     {
-        $this->dynamicParameters = $this->dynamicParameters ?? $this->definition->getDynamicParameters($this);
+        $this->dynamicParameters ??= $this->definition->getDynamicParameters($this);
     }
 }

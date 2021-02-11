@@ -121,19 +121,19 @@ abstract class CoreTestCase extends TestCase
 
         $this->cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
 
-        $this->parameterTypeRegistry = $this->parameterTypeRegistry ?? $this->createParameterTypeRegistry();
-        $this->layoutTypeRegistry = $this->layoutTypeRegistry ?? $this->createLayoutTypeRegistry();
-        $this->itemDefinitionRegistry = $this->itemDefinitionRegistry ?? $this->createItemDefinitionRegistry();
-        $this->queryTypeRegistry = $this->queryTypeRegistry ?? $this->createQueryTypeRegistry();
-        $this->blockDefinitionRegistry = $this->blockDefinitionRegistry ?? $this->createBlockDefinitionRegistry();
-        $this->targetTypeRegistry = $this->targetTypeRegistry ?? $this->createTargetTypeRegistry();
-        $this->conditionTypeRegistry = $this->conditionTypeRegistry ?? $this->createConditionTypeRegistry();
+        $this->parameterTypeRegistry ??= $this->createParameterTypeRegistry();
+        $this->layoutTypeRegistry ??= $this->createLayoutTypeRegistry();
+        $this->itemDefinitionRegistry ??= $this->createItemDefinitionRegistry();
+        $this->queryTypeRegistry ??= $this->createQueryTypeRegistry();
+        $this->blockDefinitionRegistry ??= $this->createBlockDefinitionRegistry();
+        $this->targetTypeRegistry ??= $this->createTargetTypeRegistry();
+        $this->conditionTypeRegistry ??= $this->createConditionTypeRegistry();
 
-        $this->transactionService = $this->transactionService ?? $this->createTransactionService();
-        $this->layoutService = $this->layoutService ?? $this->createLayoutService();
-        $this->blockService = $this->blockService ?? $this->createBlockService();
-        $this->collectionService = $this->collectionService ?? $this->createCollectionService();
-        $this->layoutResolverService = $this->layoutResolverService ?? $this->createLayoutResolverService();
+        $this->transactionService ??= $this->createTransactionService();
+        $this->layoutService ??= $this->createLayoutService();
+        $this->blockService ??= $this->createBlockService();
+        $this->collectionService ??= $this->createCollectionService();
+        $this->layoutResolverService ??= $this->createLayoutResolverService();
     }
 
     abstract protected function createTransactionHandler(): TransactionHandlerInterface;
