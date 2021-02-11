@@ -11,7 +11,6 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 use function array_keys;
-use function array_merge;
 use function in_array;
 use function iterator_to_array;
 use function sprintf;
@@ -67,10 +66,10 @@ final class BlockTypeGroupPass implements CompilerPassInterface
                 $missingBlockTypes[] = $blockType;
             }
 
-            $blockTypeGroups['custom']['block_types'] = array_merge(
-                $blockTypeGroups['custom']['block_types'],
-                $missingBlockTypes
-            );
+            $blockTypeGroups['custom']['block_types'] = [
+                ...$blockTypeGroups['custom']['block_types'],
+                ...$missingBlockTypes,
+            ];
         }
 
         return $blockTypeGroups;

@@ -8,7 +8,6 @@ use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\Exception\NotFoundException;
 use Ramsey\Uuid\Uuid;
 use function array_map;
-use function array_merge;
 
 /**
  * Extracts all relevant UUIDs for a given layout.
@@ -41,9 +40,9 @@ final class IdProvider implements IdProviderInterface
 
         $relatedLayouts = $this->layoutService->loadRelatedLayouts($layout);
 
-        return array_merge(
-            $layoutIds,
-            array_map('strval', $relatedLayouts->getLayoutIds())
-        );
+        return [
+            ...$layoutIds,
+            ...array_map('strval', $relatedLayouts->getLayoutIds()),
+        ];
     }
 }
