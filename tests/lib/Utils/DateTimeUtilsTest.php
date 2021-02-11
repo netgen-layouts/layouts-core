@@ -19,12 +19,12 @@ final class DateTimeUtilsTest extends TestCase
     public function testCreate(): void
     {
         // Friday March 23, 2018 21:13:20, Antarctica/Casey
-        ClockMock::withClockMock(1521800000);
+        ClockMock::withClockMock(1_521_800_000);
 
         $dateTime = DateTimeUtils::create();
 
         self::assertInstanceOf(DateTimeImmutable::class, $dateTime);
-        self::assertSame(1521800000, $dateTime->getTimestamp());
+        self::assertSame(1_521_800_000, $dateTime->getTimestamp());
         self::assertSame(date_default_timezone_get(), $dateTime->getTimezone()->getName());
 
         ClockMock::withClockMock(false);

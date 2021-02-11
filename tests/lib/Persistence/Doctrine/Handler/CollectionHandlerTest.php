@@ -89,9 +89,9 @@ final class CollectionHandlerTest extends TestCase
     public function testLoadCollectionThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find collection with identifier "999999"');
+        $this->expectExceptionMessage('Could not find collection with identifier "999"');
 
-        $this->collectionHandler->loadCollection(999999, Value::STATUS_PUBLISHED);
+        $this->collectionHandler->loadCollection(999, Value::STATUS_PUBLISHED);
     }
 
     /**
@@ -242,9 +242,9 @@ final class CollectionHandlerTest extends TestCase
     public function testLoadItemThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find item with identifier "999999"');
+        $this->expectExceptionMessage('Could not find item with identifier "999"');
 
-        $this->collectionHandler->loadItem(999999, Value::STATUS_PUBLISHED);
+        $this->collectionHandler->loadItem(999, Value::STATUS_PUBLISHED);
     }
 
     /**
@@ -352,9 +352,9 @@ final class CollectionHandlerTest extends TestCase
     public function testLoadQueryThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find query with identifier "999999"');
+        $this->expectExceptionMessage('Could not find query with identifier "999"');
 
-        $this->collectionHandler->loadQuery(999999, Value::STATUS_PUBLISHED);
+        $this->collectionHandler->loadQuery(999, Value::STATUS_PUBLISHED);
     }
 
     /**
@@ -442,9 +442,9 @@ final class CollectionHandlerTest extends TestCase
     public function testLoadSlotThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find slot with identifier "999999"');
+        $this->expectExceptionMessage('Could not find slot with identifier "999"');
 
-        $this->collectionHandler->loadSlot(999999, Value::STATUS_PUBLISHED);
+        $this->collectionHandler->loadSlot(999, Value::STATUS_PUBLISHED);
     }
 
     /**
@@ -476,7 +476,7 @@ final class CollectionHandlerTest extends TestCase
      */
     public function testCollectionNotExists(): void
     {
-        self::assertFalse($this->collectionHandler->collectionExists(999999, Value::STATUS_PUBLISHED));
+        self::assertFalse($this->collectionHandler->collectionExists(999, Value::STATUS_PUBLISHED));
     }
 
     /**

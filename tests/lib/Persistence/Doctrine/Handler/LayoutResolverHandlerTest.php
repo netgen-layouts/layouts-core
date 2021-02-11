@@ -88,9 +88,9 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testLoadRuleThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find rule with identifier "999999"');
+        $this->expectExceptionMessage('Could not find rule with identifier "999"');
 
-        $this->handler->loadRule(999999, Value::STATUS_PUBLISHED);
+        $this->handler->loadRule(999, Value::STATUS_PUBLISHED);
     }
 
     /**
@@ -128,9 +128,9 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testLoadRuleGroupThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find rule group with identifier "999999"');
+        $this->expectExceptionMessage('Could not find rule group with identifier "999"');
 
-        $this->handler->loadRuleGroup(999999, Value::STATUS_PUBLISHED);
+        $this->handler->loadRuleGroup(999, Value::STATUS_PUBLISHED);
     }
 
     /**
@@ -304,9 +304,9 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testLoadTargetThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find target with identifier "999999"');
+        $this->expectExceptionMessage('Could not find target with identifier "999"');
 
-        $this->handler->loadTarget(999999, Value::STATUS_PUBLISHED);
+        $this->handler->loadTarget(999, Value::STATUS_PUBLISHED);
     }
 
     /**
@@ -369,9 +369,9 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testLoadRuleConditionThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find condition with identifier "999999"');
+        $this->expectExceptionMessage('Could not find condition with identifier "999"');
 
-        $this->handler->loadRuleCondition(999999, Value::STATUS_PUBLISHED);
+        $this->handler->loadRuleCondition(999, Value::STATUS_PUBLISHED);
     }
 
     /**
@@ -406,9 +406,9 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testLoadRuleGroupConditionThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find condition with identifier "999999"');
+        $this->expectExceptionMessage('Could not find condition with identifier "999"');
 
-        $this->handler->loadRuleGroupCondition(999999, Value::STATUS_PUBLISHED);
+        $this->handler->loadRuleGroupCondition(999, Value::STATUS_PUBLISHED);
     }
 
     /**
@@ -454,7 +454,7 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testRuleNotExists(): void
     {
-        self::assertFalse($this->handler->ruleExists(999999, Value::STATUS_PUBLISHED));
+        self::assertFalse($this->handler->ruleExists(999, Value::STATUS_PUBLISHED));
     }
 
     /**
@@ -1166,7 +1166,7 @@ final class LayoutResolverHandlerTest extends TestCase
      */
     public function testRuleGroupNotExists(): void
     {
-        self::assertFalse($this->handler->ruleGroupExists(999999, Value::STATUS_PUBLISHED));
+        self::assertFalse($this->handler->ruleGroupExists(999, Value::STATUS_PUBLISHED));
     }
 
     /**

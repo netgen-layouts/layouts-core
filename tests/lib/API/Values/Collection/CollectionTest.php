@@ -102,7 +102,7 @@ final class CollectionTest extends TestCase
 
         self::assertSame($slots[2], $collection->getSlot(2));
         self::assertSame($slots[3], $collection->getSlot(3));
-        self::assertNull($collection->getSlot(999999));
+        self::assertNull($collection->getSlot(999));
     }
 
     /**

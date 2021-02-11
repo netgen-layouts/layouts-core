@@ -54,7 +54,7 @@ final class TimeTest extends TestCase
     public function testMatches($value, bool $matches): void
     {
         // Friday March 23, 2018 21:13:20, Antarctica/Casey
-        ClockMock::withClockMock(1521800000);
+        ClockMock::withClockMock(1_521_800_000);
 
         self::assertSame($matches, $this->conditionType->matches(Request::create('/'), $value));
 

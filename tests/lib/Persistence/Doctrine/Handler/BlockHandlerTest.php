@@ -107,9 +107,9 @@ final class BlockHandlerTest extends TestCase
     public function testLoadBlockThrowsNotFoundException(): void
     {
         $this->expectException(NotFoundException::class);
-        $this->expectExceptionMessage('Could not find block with identifier "999999"');
+        $this->expectExceptionMessage('Could not find block with identifier "999"');
 
-        $this->blockHandler->loadBlock(999999, Value::STATUS_PUBLISHED);
+        $this->blockHandler->loadBlock(999, Value::STATUS_PUBLISHED);
     }
 
     /**
@@ -127,7 +127,7 @@ final class BlockHandlerTest extends TestCase
      */
     public function testBlockNotExists(): void
     {
-        self::assertFalse($this->blockHandler->blockExists(999999, Value::STATUS_PUBLISHED));
+        self::assertFalse($this->blockHandler->blockExists(999, Value::STATUS_PUBLISHED));
     }
 
     /**
