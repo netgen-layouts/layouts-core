@@ -29,31 +29,29 @@ final class BlockMapper
             $blockId = (int) $dataItem['id'];
             $locale = $dataItem['locale'];
 
-            if (!isset($blocks[$blockId])) {
-                $blocks[$blockId] = [
-                    'id' => $blockId,
-                    'uuid' => $dataItem['uuid'],
-                    'layoutId' => (int) $dataItem['layout_id'],
-                    'layoutUuid' => $layoutUuid ?? $dataItem['layout_uuid'] ?? '',
-                    'depth' => (int) $dataItem['depth'],
-                    'path' => $dataItem['path'],
-                    'parentId' => $dataItem['parent_id'] > 0 ? (int) $dataItem['parent_id'] : null,
-                    'parentUuid' => $dataItem['parent_uuid'] ?? null,
-                    'placeholder' => $dataItem['placeholder'],
-                    'position' => $dataItem['parent_id'] > 0 ? (int) $dataItem['position'] : null,
-                    'definitionIdentifier' => $dataItem['definition_identifier'],
-                    'viewType' => $dataItem['view_type'],
-                    'itemViewType' => $dataItem['item_view_type'],
-                    'name' => $dataItem['name'],
-                    'isTranslatable' => (bool) $dataItem['translatable'],
-                    'mainLocale' => $dataItem['main_locale'],
-                    'alwaysAvailable' => (bool) $dataItem['always_available'],
-                    'status' => (int) $dataItem['status'],
-                    'config' => $this->buildParameters((string) $dataItem['config']),
-                    'parameters' => [],
-                    'availableLocales' => [],
-                ];
-            }
+            $blocks[$blockId] ??= [
+                'id' => $blockId,
+                'uuid' => $dataItem['uuid'],
+                'layoutId' => (int) $dataItem['layout_id'],
+                'layoutUuid' => $layoutUuid ?? $dataItem['layout_uuid'] ?? '',
+                'depth' => (int) $dataItem['depth'],
+                'path' => $dataItem['path'],
+                'parentId' => $dataItem['parent_id'] > 0 ? (int) $dataItem['parent_id'] : null,
+                'parentUuid' => $dataItem['parent_uuid'] ?? null,
+                'placeholder' => $dataItem['placeholder'],
+                'position' => $dataItem['parent_id'] > 0 ? (int) $dataItem['position'] : null,
+                'definitionIdentifier' => $dataItem['definition_identifier'],
+                'viewType' => $dataItem['view_type'],
+                'itemViewType' => $dataItem['item_view_type'],
+                'name' => $dataItem['name'],
+                'isTranslatable' => (bool) $dataItem['translatable'],
+                'mainLocale' => $dataItem['main_locale'],
+                'alwaysAvailable' => (bool) $dataItem['always_available'],
+                'status' => (int) $dataItem['status'],
+                'config' => $this->buildParameters((string) $dataItem['config']),
+                'parameters' => [],
+                'availableLocales' => [],
+            ];
 
             $blocks[$blockId]['parameters'][$locale] = $this->buildParameters((string) $dataItem['parameters']);
             $blocks[$blockId]['availableLocales'][] = $locale;

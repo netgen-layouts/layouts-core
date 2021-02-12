@@ -35,21 +35,19 @@ final class CollectionMapper
             $collectionId = (int) $dataItem['id'];
             $locale = $dataItem['locale'];
 
-            if (!isset($collections[$collectionId])) {
-                $collections[$collectionId] = [
-                    'id' => $collectionId,
-                    'uuid' => $dataItem['uuid'],
-                    'blockId' => (int) $dataItem['block_id'],
-                    'blockUuid' => $blockUuid ?? $dataItem['block_uuid'] ?? '',
-                    'status' => (int) $dataItem['status'],
-                    'offset' => (int) $dataItem['start'],
-                    'limit' => $dataItem['length'] !== null ? (int) $dataItem['length'] : null,
-                    'isTranslatable' => (bool) $dataItem['translatable'],
-                    'mainLocale' => $dataItem['main_locale'],
-                    'alwaysAvailable' => (bool) $dataItem['always_available'],
-                    'availableLocales' => [],
-                ];
-            }
+            $collections[$collectionId] ??= [
+                'id' => $collectionId,
+                'uuid' => $dataItem['uuid'],
+                'blockId' => (int) $dataItem['block_id'],
+                'blockUuid' => $blockUuid ?? $dataItem['block_uuid'] ?? '',
+                'status' => (int) $dataItem['status'],
+                'offset' => (int) $dataItem['start'],
+                'limit' => $dataItem['length'] !== null ? (int) $dataItem['length'] : null,
+                'isTranslatable' => (bool) $dataItem['translatable'],
+                'mainLocale' => $dataItem['main_locale'],
+                'alwaysAvailable' => (bool) $dataItem['always_available'],
+                'availableLocales' => [],
+            ];
 
             $collections[$collectionId]['availableLocales'][] = $locale;
         }
@@ -140,20 +138,18 @@ final class CollectionMapper
             $queryId = (int) $dataItem['id'];
             $locale = $dataItem['locale'];
 
-            if (!isset($queries[$queryId])) {
-                // isTranslatable, mainLocale and alwaysAvailable properties are
-                // mapped after creating the query as they are taken from the collection
-                $queries[$queryId] = [
-                    'id' => $queryId,
-                    'uuid' => $dataItem['uuid'],
-                    'collectionId' => (int) $dataItem['collection_id'],
-                    'collectionUuid' => $dataItem['collection_uuid'],
-                    'type' => $dataItem['type'],
-                    'status' => (int) $dataItem['status'],
-                    'availableLocales' => [],
-                    'parameters' => [],
-                ];
-            }
+            // isTranslatable, mainLocale and alwaysAvailable properties are
+            // mapped after creating the query as they are taken from the collection
+            $queries[$queryId] ??= [
+                'id' => $queryId,
+                'uuid' => $dataItem['uuid'],
+                'collectionId' => (int) $dataItem['collection_id'],
+                'collectionUuid' => $dataItem['collection_uuid'],
+                'type' => $dataItem['type'],
+                'status' => (int) $dataItem['status'],
+                'availableLocales' => [],
+                'parameters' => [],
+            ];
 
             $queries[$queryId]['parameters'][$locale] = $this->buildParameters((string) $dataItem['parameters']);
             $queries[$queryId]['availableLocales'][] = $locale;

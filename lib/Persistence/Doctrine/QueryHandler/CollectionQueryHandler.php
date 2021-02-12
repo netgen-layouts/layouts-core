@@ -280,9 +280,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $query->execute();
 
-        if (!isset($collection->id)) {
-            $collection->id = (int) $this->connectionHelper->lastId('nglayouts_collection');
-        }
+        $collection->id ??= (int) $this->connectionHelper->lastId('nglayouts_collection');
 
         return $collection;
     }
@@ -481,9 +479,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $query->execute();
 
-        if (!isset($item->id)) {
-            $item->id = (int) $this->connectionHelper->lastId('nglayouts_collection_item');
-        }
+        $item->id ??= (int) $this->connectionHelper->lastId('nglayouts_collection_item');
 
         return $item;
     }
@@ -538,9 +534,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $query->execute();
 
-        if (!isset($slot->id)) {
-            $slot->id = (int) $this->connectionHelper->lastId('nglayouts_collection_slot');
-        }
+        $slot->id ??= (int) $this->connectionHelper->lastId('nglayouts_collection_slot');
 
         return $slot;
     }
@@ -705,9 +699,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $dbQuery->execute();
 
-        if (!isset($query->id)) {
-            $query->id = (int) $this->connectionHelper->lastId('nglayouts_collection_query');
-        }
+        $query->id ??= (int) $this->connectionHelper->lastId('nglayouts_collection_query');
 
         return $query;
     }

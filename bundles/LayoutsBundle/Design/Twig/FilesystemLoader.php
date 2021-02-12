@@ -70,13 +70,11 @@ final class FilesystemLoader implements LoaderInterface
             return $name;
         }
 
-        if (!isset($this->templateMap[$name])) {
-            $this->templateMap[$name] = str_replace(
-                '@nglayouts/',
-                '@nglayouts_' . $this->configuration->getParameter('design') . '/',
-                $name
-            );
-        }
+        $this->templateMap[$name] ??= str_replace(
+            '@nglayouts/',
+            '@nglayouts_' . $this->configuration->getParameter('design') . '/',
+            $name
+        );
 
         return $this->templateMap[$name];
     }

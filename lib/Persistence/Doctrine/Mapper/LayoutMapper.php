@@ -27,21 +27,19 @@ final class LayoutMapper
             $layoutId = (int) $dataItem['id'];
             $locale = $dataItem['locale'];
 
-            if (!isset($layouts[$layoutId])) {
-                $layouts[$layoutId] = [
-                    'id' => $layoutId,
-                    'uuid' => $dataItem['uuid'],
-                    'type' => $dataItem['type'],
-                    'name' => $dataItem['name'],
-                    'description' => $dataItem['description'],
-                    'created' => (int) $dataItem['created'],
-                    'modified' => (int) $dataItem['modified'],
-                    'status' => (int) $dataItem['status'],
-                    'shared' => (bool) $dataItem['shared'],
-                    'mainLocale' => $dataItem['main_locale'],
-                    'availableLocales' => [],
-                ];
-            }
+            $layouts[$layoutId] ??= [
+                'id' => $layoutId,
+                'uuid' => $dataItem['uuid'],
+                'type' => $dataItem['type'],
+                'name' => $dataItem['name'],
+                'description' => $dataItem['description'],
+                'created' => (int) $dataItem['created'],
+                'modified' => (int) $dataItem['modified'],
+                'status' => (int) $dataItem['status'],
+                'shared' => (bool) $dataItem['shared'],
+                'mainLocale' => $dataItem['main_locale'],
+                'availableLocales' => [],
+            ];
 
             $layouts[$layoutId]['availableLocales'][] = $locale;
         }

@@ -74,10 +74,9 @@ final class BlockTypePass implements CompilerPassInterface
                 continue;
             }
 
+            $blockTypes[$identifier]['enabled'] ??= true;
             if (!$blockDefinition['enabled']) {
                 $blockTypes[$identifier]['enabled'] = false;
-            } elseif (!isset($blockTypes[$identifier]['enabled'])) {
-                $blockTypes[$identifier]['enabled'] = true;
             }
 
             $blockTypes[$identifier] += [

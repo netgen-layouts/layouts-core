@@ -197,12 +197,10 @@ final class BlockDefinitionFactory
                     $viewTypeConfig['item_view_types'] = [];
                 }
 
-                if (!isset($viewTypeConfig['item_view_types']['standard'])) {
-                    $viewTypeConfig['item_view_types']['standard'] = [
-                        'name' => 'Standard',
-                        'enabled' => true,
-                    ];
-                }
+                $viewTypeConfig['item_view_types']['standard'] ??= [
+                    'name' => 'Standard',
+                    'enabled' => true,
+                ];
 
                 foreach ($viewTypeConfig['item_view_types'] as $itemViewTypeIdentifier => $itemViewTypeConfig) {
                     if (!$itemViewTypeConfig['enabled']) {

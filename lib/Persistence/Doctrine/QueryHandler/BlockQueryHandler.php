@@ -200,9 +200,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $query->execute();
 
-        if (!isset($block->id)) {
-            $block->id = (int) $this->connectionHelper->lastId('nglayouts_block');
-        }
+        $block->id ??= (int) $this->connectionHelper->lastId('nglayouts_block');
 
         if (!$updatePath) {
             return $block;

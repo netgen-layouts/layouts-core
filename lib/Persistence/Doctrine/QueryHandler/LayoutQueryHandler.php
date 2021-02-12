@@ -384,9 +384,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $query->execute();
 
-        if (!isset($layout->id)) {
-            $layout->id = (int) $this->connectionHelper->lastId('nglayouts_layout');
-        }
+        $layout->id ??= (int) $this->connectionHelper->lastId('nglayouts_layout');
 
         return $layout;
     }

@@ -1092,9 +1092,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $query->execute();
 
-        if (!isset($target->id)) {
-            $target->id = (int) $this->connectionHelper->lastId('nglayouts_rule_target');
-        }
+        $target->id ??= (int) $this->connectionHelper->lastId('nglayouts_rule_target');
 
         return $target;
     }
@@ -1295,9 +1293,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $query->execute();
 
-        if (!isset($condition->id)) {
-            $condition->id = (int) $this->connectionHelper->lastId('nglayouts_rule_condition');
-        }
+        $condition->id ??= (int) $this->connectionHelper->lastId('nglayouts_rule_condition');
 
         return $condition;
     }
