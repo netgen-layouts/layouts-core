@@ -50,6 +50,9 @@ jobs:
             phpunit: 'phpunit-api.xml'
             db: 'sqlite'
             deps: 'low'
+        exclude:
+          - php: '8.0'
+            symfony: '~3.4.0'
 
     services:
       mysql:
