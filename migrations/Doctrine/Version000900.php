@@ -6,7 +6,6 @@ namespace Netgen\Layouts\Migrations\Doctrine;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\DBAL\Types\Types;
-use Doctrine\Migrations\AbstractMigration;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Utils\BackwardsCompatibility\Locales;
 use Symfony\Component\Console\Input\ArgvInput;
