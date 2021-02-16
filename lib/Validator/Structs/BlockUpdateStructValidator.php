@@ -16,7 +16,6 @@ use Symfony\Component\Validator\Constraints;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use function sprintf;
-use function trim;
 
 /**
  * Validates the complete BlockUpdateStruct value.
@@ -51,7 +50,7 @@ final class BlockUpdateStructValidator extends ConstraintValidator
         $validator = $this->context->getValidator()->inContext($this->context);
 
         $validator->atPath('locale')->validate(
-            trim($value->locale),
+            $value->locale,
             [
                 new Constraints\NotBlank(),
                 new LocaleConstraint(),
