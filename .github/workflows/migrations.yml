@@ -38,4 +38,4 @@ jobs:
 
       - run: composer update --prefer-dist
 
-      - run: php tests/application/bin/console doctrine:migrations:migrate --no-interaction --no-debug --env=prod --configuration=migrations/doctrine.yaml --ansi
+      - run: php tests/application/bin/console doctrine:migrations:migrate --no-interaction --no-debug --env=prod --configuration=migrations/doctrine.yaml --ansi -vv
