@@ -1,5 +1,7 @@
 includes:
     - vendor/phpstan/phpstan-strict-rules/rules.neon
+    - vendor/phpstan/phpstan-symfony/extension.neon
+    - vendor/phpstan/phpstan-symfony/rules.neon
     - vendor/phpstan/phpstan-phpunit/extension.neon
     - vendor/phpstan/phpstan-phpunit/rules.neon
 
@@ -40,13 +42,7 @@ parameters:
 
         # Disable errors about missing value types in various vendor classes
 
-        - '#Method .+NormalizerStub::normalize\(\) has parameter \$context with no value type specified in iterable type array.#'
-        - '#Method .+TypeStub::buildForm\(\) has parameter \$options with no value type specified in iterable type array.#'
-        - '#no value type specified in iterable type Symfony\\Component\\Form\\FormInterface#'
-        - '#no value type specified in iterable type Symfony\\Component\\Form\\FormBuilder#'
         - '#no value type specified in iterable type Knp\\Menu\\MenuItem#'
-        - '#no value type specified in iterable type Netgen\\Bundle\\LayoutsBundle\\Templating\\Twig\\Node\\DefaultContext#'
-        - '#no value type specified in iterable type Netgen\\Bundle\\LayoutsBundle\\Templating\\Twig\\Node\\RenderZone#'
 
         # Disable errors about values inferred from iterable typehints
 

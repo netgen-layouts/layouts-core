@@ -50,6 +50,10 @@ final class ClearLayoutsCacheType extends AbstractType
     {
         /** @var \Netgen\Layouts\API\Values\Layout\Layout $layout */
         foreach ($options['layouts'] as $layout) {
+            if (!isset($view['layouts'][$layout->getId()->toString()])) {
+                continue;
+            }
+
             $view['layouts'][$layout->getId()->toString()]->vars['layout'] = $layout;
         }
     }

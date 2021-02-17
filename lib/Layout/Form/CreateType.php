@@ -99,6 +99,10 @@ final class CreateType extends AbstractType
     {
         /** @var \Netgen\Layouts\Layout\Type\LayoutTypeInterface $layoutType */
         foreach ($this->layoutTypeRegistry->getLayoutTypes(true) as $layoutType) {
+            if (!isset($view['layoutType'][$layoutType->getIdentifier()])) {
+                continue;
+            }
+
             $view['layoutType'][$layoutType->getIdentifier()]->vars['layout_type'] = $layoutType;
         }
     }

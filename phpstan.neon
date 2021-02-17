@@ -1,15 +1,16 @@
 includes:
     - vendor/phpstan/phpstan-strict-rules/rules.neon
+    - vendor/phpstan/phpstan-symfony/extension.neon
+    - vendor/phpstan/phpstan-symfony/rules.neon
 
 parameters:
     dynamicConstantNames:
         - Symfony\Component\HttpKernel\Kernel::VERSION_ID
 
     ignoreErrors:
-        # Symfony Config component
-        - '#Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::requiresAtLeastOneElement\(\)#'
-        - '#Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::addDefaultsIfNotSet\(\)#'
-        - '#Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::children\(\)#'
+        # phpstan/phpstan-symfony issues
+        - '#Call to method Symfony\\Component\\HttpFoundation\\Request::hasSession\(\) will always evaluate to true.#'
+        - '#Call to method Symfony\\Component\\DependencyInjection\\ContainerBuilder::has\(\) with .+ will always evaluate to false.#'
 
         # Symfony Form component
         - '/Parameter \#1 \$iterator of function iterator_to_array expects Traversable, iterable\<Symfony\\Component\\Form\\FormInterface\> given./'
@@ -50,19 +51,10 @@ parameters:
 
         # Disable errors about missing value types in various vendor classes
 
-        - '#Method (.+Type|.+Extension)::buildForm\(\) has parameter \$options with no value type specified in iterable type array.#'
-        - '#Method (.+Type|.+Extension)::(buildView|finishView)\(\) has parameter \$options with no value type specified in iterable type array.#'
         - '#Method .+View::render\(\) has parameter \$options with no value type specified in iterable type array.#'
-        - '#Method .+Normalizer::normalize\(\) has parameter \$context with no value type specified in iterable type array.#'
         - '#Method .+Normalizer::normalize\(\) return type has no value type specified in iterable type (array|ArrayObject).#'
-        - '#Method .+Listener::getSubscribedEvents\(\) return type has no value type specified in iterable type array.#'
-        - '#no value type specified in iterable type Symfony\\Component\\HttpFoundation\\ParameterBag#'
         - '#no value type specified in iterable type Knp\\Menu\\ItemInterface#'
-        - '#no value type specified in iterable type Symfony\\Component\\Form\\FormInterface#'
-        - '#no value type specified in iterable type Symfony\\Component\\Form\\FormBuilderInterface#'
         - '#no value type specified in iterable type Pagerfanta\\Pagerfanta#'
-        - '#no value type specified in iterable type Twig\\Node\\Node#'
-        - '#no value type specified in iterable type Twig\\Node\\Expression\\AbstractExpression#'
 
         # Netgen Layouts specifics
 
