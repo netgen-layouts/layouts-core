@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime;
 
+use Closure;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Exception\InvalidArgumentException;
 use Pagerfanta\Pagerfanta;
@@ -13,16 +14,13 @@ use function sprintf;
 
 final class CollectionPagerRuntime
 {
-    /**
-     * @var callable
-     */
-    private $routeGenerator;
+    private Closure $routeGenerator;
 
     private ViewInterface $pagerfantaView;
 
     public function __construct(callable $routeGenerator, ViewInterface $pagerfantaView)
     {
-        $this->routeGenerator = $routeGenerator;
+        $this->routeGenerator = Closure::fromCallable($routeGenerator);
         $this->pagerfantaView = $pagerfantaView;
     }
 

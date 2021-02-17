@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\Tests\Templating\Twig\Runtime;
 
+use Closure;
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\CollectionPagerRuntime;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Exception\InvalidArgumentException;
@@ -14,10 +15,7 @@ use PHPUnit\Framework\TestCase;
 
 final class CollectionPagerRuntimeTest extends TestCase
 {
-    /**
-     * @var callable
-     */
-    private $routeGenerator;
+    private Closure $routeGenerator;
 
     private MockObject $pagerfantaViewMock;
 
