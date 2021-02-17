@@ -47,20 +47,16 @@ interface LayoutResolverHandlerInterface
     public function loadRuleGroup($ruleGroupId, int $status): RuleGroup;
 
     /**
-     * Loads all rules.
-     *
-     * If the layout is provided, only rules pointing to provided layout are returned.
+     * Loads all rules mapped to provided layout.
      *
      * @return \Netgen\Layouts\Persistence\Values\LayoutResolver\Rule[]
      */
-    public function loadRules(int $status, ?Layout $layout = null, int $offset = 0, ?int $limit = null): array;
+    public function loadRulesForLayout(int $status, Layout $layout, int $offset = 0, ?int $limit = null): array;
 
     /**
-     * Returns the number of published rules.
-     *
-     * If the layout is provided, the count of rules pointing to provided layout is returned.
+     * Returns the number of published rules mapped to provided layout.
      */
-    public function getRuleCount(?Layout $layout = null): int;
+    public function getRuleCountForLayout(Layout $layout): int;
 
     /**
      * Loads all rules from the provided parent group.
@@ -116,7 +112,7 @@ interface LayoutResolverHandlerInterface
     /**
      * Loads the count of targets within the rule with specified ID.
      */
-    public function getTargetCount(Rule $rule): int;
+    public function getRuleTargetCount(Rule $rule): int;
 
     /**
      * Loads a rule condition with specified ID.

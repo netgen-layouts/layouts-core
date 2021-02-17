@@ -134,33 +134,12 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRules
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRulesData
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRulesForLayout
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRulesForLayoutData
      */
-    public function testLoadRules(): void
+    public function testLoadRulesForLayout(): void
     {
-        $rules = $this->handler->loadRules(Value::STATUS_PUBLISHED);
-
-        self::assertCount(12, $rules);
-        self::assertContainsOnlyInstancesOf(Rule::class, $rules);
-
-        $previousPriority = null;
-        foreach ($rules as $index => $rule) {
-            if ($index > 0) {
-                self::assertLessThanOrEqual($previousPriority, $rule->priority);
-            }
-
-            $previousPriority = $rule->priority;
-        }
-    }
-
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::loadRules
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::loadRulesData
-     */
-    public function testLoadRulesWithLayout(): void
-    {
-        $rules = $this->handler->loadRules(
+        $rules = $this->handler->loadRulesForLayout(
             Value::STATUS_PUBLISHED,
             $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED)
         );
@@ -179,23 +158,12 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getRuleCount
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleCount
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getRuleCountForLayout
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleCountForLayout
      */
-    public function testGetRuleCount(): void
+    public function testGetRuleCountForLayout(): void
     {
-        $rules = $this->handler->getRuleCount();
-
-        self::assertSame(12, $rules);
-    }
-
-    /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getRuleCount
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleCount
-     */
-    public function testGetRuleCountWithLayout(): void
-    {
-        $rules = $this->handler->getRuleCount(
+        $rules = $this->handler->getRuleCountForLayout(
             $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED)
         );
 
@@ -324,12 +292,12 @@ final class LayoutResolverHandlerTest extends TestCase
     }
 
     /**
-     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getTargetCount
-     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getTargetCount
+     * @covers \Netgen\Layouts\Persistence\Doctrine\Handler\LayoutResolverHandler::getRuleTargetCount
+     * @covers \Netgen\Layouts\Persistence\Doctrine\QueryHandler\LayoutResolverQueryHandler::getRuleTargetCount
      */
-    public function testGetTargetCount(): void
+    public function testGetRuleTargetCount(): void
     {
-        $targets = $this->handler->getTargetCount(
+        $targets = $this->handler->getRuleTargetCount(
             $this->handler->loadRule(1, Value::STATUS_PUBLISHED)
         );
 
@@ -595,12 +563,10 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testCreateRuleWithNoPriorityAndNoRules(): void
     {
         // First delete all rules
-        $rules = $this->handler->loadRules(Value::STATUS_PUBLISHED);
-        foreach ($rules as $rule) {
-            $this->handler->deleteRule($rule->id);
-        }
+        $rules = $this->handler->loadRulesFromGroup(
+            $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Value::STATUS_PUBLISHED)
+        );
 
-        $rules = $this->handler->loadRules(Value::STATUS_DRAFT);
         foreach ($rules as $rule) {
             $this->handler->deleteRule($rule->id);
         }

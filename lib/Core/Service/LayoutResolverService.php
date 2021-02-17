@@ -173,7 +173,7 @@ final class LayoutResolverService implements APILayoutResolverService
             Value::STATUS_PUBLISHED
         );
 
-        $persistenceRules = $this->layoutResolverHandler->loadRules(
+        $persistenceRules = $this->layoutResolverHandler->loadRulesForLayout(
             Value::STATUS_PUBLISHED,
             $persistenceLayout,
             $offset,
@@ -212,7 +212,7 @@ final class LayoutResolverService implements APILayoutResolverService
             Value::STATUS_PUBLISHED
         );
 
-        return $this->layoutResolverHandler->getRuleCount($persistenceLayout);
+        return $this->layoutResolverHandler->getRuleCountForLayout($persistenceLayout);
     }
 
     public function loadRulesFromGroup(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null): RuleList

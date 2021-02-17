@@ -79,16 +79,16 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->mapper->mapRuleGroups($data)[0];
     }
 
-    public function loadRules(int $status, ?Layout $layout = null, int $offset = 0, ?int $limit = null): array
+    public function loadRulesForLayout(int $status, Layout $layout, int $offset = 0, ?int $limit = null): array
     {
-        $data = $this->queryHandler->loadRulesData($status, $layout, $offset, $limit);
+        $data = $this->queryHandler->loadRulesForLayoutData($status, $layout, $offset, $limit);
 
         return $this->mapper->mapRules($data);
     }
 
-    public function getRuleCount(?Layout $layout = null): int
+    public function getRuleCountForLayout(Layout $layout): int
     {
-        return $this->queryHandler->getRuleCount(Value::STATUS_PUBLISHED, $layout);
+        return $this->queryHandler->getRuleCountForLayout(Value::STATUS_PUBLISHED, $layout);
     }
 
     public function loadRulesFromGroup(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null): array
@@ -145,9 +145,9 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         );
     }
 
-    public function getTargetCount(Rule $rule): int
+    public function getRuleTargetCount(Rule $rule): int
     {
-        return $this->queryHandler->getTargetCount($rule);
+        return $this->queryHandler->getRuleTargetCount($rule);
     }
 
     public function loadRuleCondition($conditionId, int $status): RuleCondition

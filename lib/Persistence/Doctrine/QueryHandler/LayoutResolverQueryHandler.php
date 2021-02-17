@@ -57,22 +57,19 @@ final class LayoutResolverQueryHandler extends QueryHandler
     }
 
     /**
-     * Returns all data for all rules.
+     * Returns all data for all rules mapped to provided layout.
      *
      * @return mixed[]
      */
-    public function loadRulesData(int $status, ?Layout $layout = null, int $offset = 0, ?int $limit = null): array
+    public function loadRulesForLayoutData(int $status, Layout $layout, int $offset = 0, ?int $limit = null): array
     {
         $query = $this->getRuleSelectQuery();
 
-        if ($layout instanceof Layout) {
-            $query->andWhere(
-                $query->expr()->eq('layout_uuid', ':layout_uuid')
-            )
-            ->setParameter('layout_uuid', $layout->uuid, Types::STRING);
-        }
-
-        $query->addOrderBy('rd.priority', 'DESC');
+        $query->where(
+            $query->expr()->eq('layout_uuid', ':layout_uuid')
+        )
+        ->setParameter('layout_uuid', $layout->uuid, Types::STRING)
+        ->addOrderBy('rd.priority', 'DESC');
 
         $this->applyStatusCondition($query, $status, 'r.status');
         $this->applyOffsetAndLimit($query, $offset, $limit);
@@ -81,20 +78,17 @@ final class LayoutResolverQueryHandler extends QueryHandler
     }
 
     /**
-     * Returns the number of rules.
+     * Returns the number of rules mapped to provided layout.
      */
-    public function getRuleCount(int $ruleStatus, ?Layout $layout = null): int
+    public function getRuleCountForLayout(int $ruleStatus, Layout $layout): int
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
-            ->from('nglayouts_rule');
-
-        if ($layout instanceof Layout) {
-            $query->andWhere(
+            ->from('nglayouts_rule')
+            ->where(
                 $query->expr()->eq('layout_uuid', ':layout_uuid')
             )
             ->setParameter('layout_uuid', $layout->uuid, Types::STRING);
-        }
 
         $this->applyStatusCondition($query, $ruleStatus);
 
@@ -310,7 +304,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Returns the number of targets within the rule.
      */
-    public function getTargetCount(Rule $rule): int
+    public function getRuleTargetCount(Rule $rule): int
     {
         $query = $this->connection->createQueryBuilder();
         $query->select('count(*) AS count')
