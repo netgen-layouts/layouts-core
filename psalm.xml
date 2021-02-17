@@ -103,6 +103,12 @@
             </errorLevel>
         </MissingParamType>
 
+        <PossiblyInvalidArgument>
+            <errorLevel type="suppress">
+                <referencedFunction name="Symfony\Component\Serializer\Encoder\DecoderInterface::decode" />
+            </errorLevel>
+        </PossiblyInvalidArgument>
+
         <InvalidArgument>
             <errorLevel type="suppress">
                 <file name="lib/Collection/Form/CollectionDataMapper.php" />
