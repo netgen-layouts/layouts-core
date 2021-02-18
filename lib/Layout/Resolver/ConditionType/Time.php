@@ -36,11 +36,11 @@ final class Time extends ConditionType
             return true;
         }
 
-        $visibleFrom = isset($value['from']) && is_array($value['from']) ?
+        $visibleFrom = is_array($value['from'] ?? null) ?
             DateTimeUtils::createFromArray($value['from']) :
             null;
 
-        $visibleTo = isset($value['to']) && is_array($value['to']) ?
+        $visibleTo = is_array($value['to'] ?? null) ?
             DateTimeUtils::createFromArray($value['to']) :
             null;
 

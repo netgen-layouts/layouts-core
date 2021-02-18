@@ -50,19 +50,17 @@ final class BlockDefinitionPass implements CompilerPassInterface
                 $handlerClass = $this->getDefinitionClass($container, $blockDefinitionHandler);
 
                 foreach ($tags as $tag) {
-                    if (isset($tag['identifier']) && $tag['identifier'] === $handlerIdentifier) {
+                    if (($tag['identifier'] ?? '') === $handlerIdentifier) {
                         $foundHandler = $blockDefinitionHandler;
 
                         break 2;
                     }
                 }
 
-                if (isset($handlerClass::$defaultIdentifier)) {
-                    if ($handlerClass::$defaultIdentifier === $handlerIdentifier) {
-                        $foundHandler = $blockDefinitionHandler;
+                if (($handlerClass::$defaultIdentifier ?? '') === $handlerIdentifier) {
+                    $foundHandler = $blockDefinitionHandler;
 
-                        break;
-                    }
+                    break;
                 }
             }
 

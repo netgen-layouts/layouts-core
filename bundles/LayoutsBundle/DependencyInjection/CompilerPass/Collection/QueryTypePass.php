@@ -41,19 +41,17 @@ final class QueryTypePass implements CompilerPassInterface
                 $handlerClass = $this->getDefinitionClass($container, $queryTypeHandler);
 
                 foreach ($tags as $tag) {
-                    if (isset($tag['type']) && $tag['type'] === $handlerIdentifier) {
+                    if (($tag['type'] ?? '') === $handlerIdentifier) {
                         $foundHandler = $queryTypeHandler;
 
                         break 2;
                     }
                 }
 
-                if (isset($handlerClass::$defaultType)) {
-                    if ($handlerClass::$defaultType === $handlerIdentifier) {
-                        $foundHandler = $queryTypeHandler;
+                if (($handlerClass::$defaultType ?? '') === $handlerIdentifier) {
+                    $foundHandler = $queryTypeHandler;
 
-                        break;
-                    }
+                    break;
                 }
             }
 

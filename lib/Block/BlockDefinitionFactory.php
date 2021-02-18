@@ -158,82 +158,76 @@ final class BlockDefinitionFactory
         $forms = [];
         $viewTypes = [];
 
-        if (isset($config['collections'])) {
-            foreach ($config['collections'] as $collectionIdentifier => $collectionConfig) {
-                $collections[$collectionIdentifier] = Collection::fromArray(
-                    [
-                        'identifier' => $collectionIdentifier,
-                        'validItemTypes' => $collectionConfig['valid_item_types'],
-                        'validQueryTypes' => $collectionConfig['valid_query_types'],
-                    ]
-                );
-            }
+        foreach (($config['collections'] ?? []) as $collectionIdentifier => $collectionConfig) {
+            $collections[$collectionIdentifier] = Collection::fromArray(
+                [
+                    'identifier' => $collectionIdentifier,
+                    'validItemTypes' => $collectionConfig['valid_item_types'],
+                    'validQueryTypes' => $collectionConfig['valid_query_types'],
+                ]
+            );
         }
 
-        if (isset($config['forms'])) {
-            foreach ($config['forms'] as $formIdentifier => $formConfig) {
-                if (!$formConfig['enabled']) {
+        foreach (($config['forms'] ?? []) as $formIdentifier => $formConfig) {
+            if (!$formConfig['enabled']) {
+                continue;
+            }
+
+            $forms[$formIdentifier] = Form::fromArray(
+                [
+                    'identifier' => $formIdentifier,
+                    'type' => $formConfig['type'],
+                ]
+            );
+        }
+
+        foreach (($config['view_types'] ?? []) as $viewTypeIdentifier => $viewTypeConfig) {
+            if (!$viewTypeConfig['enabled']) {
+                continue;
+            }
+
+            $itemViewTypes = [];
+
+            if (!is_array($viewTypeConfig['item_view_types'] ?? [])) {
+                $viewTypeConfig['item_view_types'] = [];
+            }
+
+            $viewTypeConfig['item_view_types']['standard'] ??= [
+                'name' => 'Standard',
+                'enabled' => true,
+            ];
+
+            foreach ($viewTypeConfig['item_view_types'] as $itemViewTypeIdentifier => $itemViewTypeConfig) {
+                if (!$itemViewTypeConfig['enabled']) {
                     continue;
                 }
 
-                $forms[$formIdentifier] = Form::fromArray(
+                $itemViewTypes[$itemViewTypeIdentifier] = ItemViewType::fromArray(
                     [
-                        'identifier' => $formIdentifier,
-                        'type' => $formConfig['type'],
+                        'identifier' => $itemViewTypeIdentifier,
+                        'name' => $itemViewTypeConfig['name'],
                     ]
                 );
             }
-        }
 
-        if (isset($config['view_types'])) {
-            foreach ($config['view_types'] as $viewTypeIdentifier => $viewTypeConfig) {
-                if (!$viewTypeConfig['enabled']) {
-                    continue;
-                }
-
-                $itemViewTypes = [];
-
-                if (!is_array($viewTypeConfig['item_view_types'] ?? [])) {
-                    $viewTypeConfig['item_view_types'] = [];
-                }
-
-                $viewTypeConfig['item_view_types']['standard'] ??= [
-                    'name' => 'Standard',
-                    'enabled' => true,
-                ];
-
-                foreach ($viewTypeConfig['item_view_types'] as $itemViewTypeIdentifier => $itemViewTypeConfig) {
-                    if (!$itemViewTypeConfig['enabled']) {
-                        continue;
-                    }
-
-                    $itemViewTypes[$itemViewTypeIdentifier] = ItemViewType::fromArray(
-                        [
-                            'identifier' => $itemViewTypeIdentifier,
-                            'name' => $itemViewTypeConfig['name'],
-                        ]
-                    );
-                }
-
-                if (count($itemViewTypes) === 0) {
-                    throw new RuntimeException(
-                        sprintf(
-                            'You need to specify at least one enabled item view type for "%s" view type and "%s" block definition.',
-                            $viewTypeIdentifier,
-                            $identifier
-                        )
-                    );
-                }
-
-                $viewTypes[$viewTypeIdentifier] = ViewType::fromArray(
-                    [
-                        'identifier' => $viewTypeIdentifier,
-                        'name' => $viewTypeConfig['name'] ?? '',
-                        'itemViewTypes' => $itemViewTypes,
-                        'validParameters' => $viewTypeConfig['valid_parameters'] ?? null,
-                    ]
+            if (count($itemViewTypes) === 0) {
+                throw new RuntimeException(
+                    sprintf(
+                        'You need to specify at least one enabled item view type for "%s" view type and "%s" block definition.',
+                        $viewTypeIdentifier,
+                        $identifier
+                    )
                 );
             }
+
+            $viewTypes[$viewTypeIdentifier] = ViewType::fromArray(
+                [
+                    'identifier' => $viewTypeIdentifier,
+                    'name' => $viewTypeConfig['name'] ?? '',
+                    'itemViewTypes' => $itemViewTypes,
+                    'validParameters' => $viewTypeConfig['valid_parameters'] ?? null,
+                ]
+            );
         }
 
         if (count($viewTypes) === 0) {

@@ -45,7 +45,7 @@ final class CompoundBooleanType extends AbstractType
                     return;
                 }
 
-                $clearChildren = !isset($data['_self']) || !$data['_self'];
+                $clearChildren = !($data['_self'] ?? false);
                 if (($options['reverse'] ?? false) === true) {
                     $clearChildren = !$clearChildren;
                 }

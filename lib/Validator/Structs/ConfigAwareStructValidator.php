@@ -45,7 +45,7 @@ final class ConfigAwareStructValidator extends ConstraintValidator
             $constraint->payload;
 
         foreach ($value->getConfigStructs() as $configKey => $configStruct) {
-            if (!isset($configDefinitions[$configKey]) || !$configDefinitions[$configKey] instanceof ConfigDefinitionInterface) {
+            if (!($configDefinitions[$configKey] ?? null) instanceof ConfigDefinitionInterface) {
                 $this->context->buildViolation($constraint->noConfigDefinitionMessage)
                     ->setParameter('%configKey%', $configKey)
                     ->addViolation();

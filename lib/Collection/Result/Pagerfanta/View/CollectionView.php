@@ -41,7 +41,7 @@ final class CollectionView implements ViewInterface
             unset($options['template']);
         }
 
-        if (!isset($options['block']) || !($options['block'] instanceof Block)) {
+        if (!($options['block'] ?? null) instanceof Block) {
             throw new InvalidArgumentException(
                 'options',
                 sprintf(
@@ -51,7 +51,7 @@ final class CollectionView implements ViewInterface
             );
         }
 
-        if (!isset($options['collection_identifier']) || !is_string($options['collection_identifier'])) {
+        if (!is_string($options['collection_identifier'] ?? null)) {
             throw new InvalidArgumentException(
                 'options',
                 'To render the collection view, "collection_identifier" option must be a string'

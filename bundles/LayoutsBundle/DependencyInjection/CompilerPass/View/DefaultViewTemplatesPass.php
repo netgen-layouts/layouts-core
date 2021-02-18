@@ -41,7 +41,7 @@ final class DefaultViewTemplatesPass implements CompilerPassInterface
             foreach ($viewTemplates as $context => $template) {
                 $rules = [];
 
-                if (isset($allRules[$viewName][$context]) && is_array($allRules[$viewName][$context])) {
+                if (is_array($allRules[$viewName][$context] ?? null)) {
                     $rules = $allRules[$viewName][$context];
                 }
 

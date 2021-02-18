@@ -58,10 +58,7 @@ final class ConfigMapper
         foreach ($configDefinitions as $configKey => $configDefinition) {
             $configValues = [];
 
-            if (
-                isset($configStructs[$configKey])
-                && $configStructs[$configKey] instanceof ParameterStruct
-            ) {
+            if (($configStructs[$configKey] ?? null) instanceof ParameterStruct) {
                 $configValues = $configStructs[$configKey]->getParameterValues();
             }
 

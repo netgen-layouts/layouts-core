@@ -25,7 +25,7 @@ final class BlockTypeNode implements ConfigurationNodeInterface
                 ->validate()
                     ->always(
                         static function (array $v): array {
-                            if (isset($v['enabled']) && !$v['enabled']) {
+                            if (!($v['enabled'] ?? true)) {
                                 return $v;
                             }
 
