@@ -28,10 +28,6 @@ parameters:
         - '#Method .+::createViewEvent\(\) should return .+\\ViewEvent but returns .+\\GetResponseForControllerResultEvent.#'
         - '#Method .+::createTerminateEvent\(\) should return .+\\TerminateEvent but returns .+\\PostResponseEvent.#'
 
-        # Symfony
-
-        - '#Cannot cast array\|string\|false to string.#'
-
         # PHPUnit 8
 
         - "#Call to function method_exists\\(\\) with 'PHPUnit\\\\\\\\Framework\\\\\\\\Assert'#"
