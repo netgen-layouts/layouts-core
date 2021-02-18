@@ -31,6 +31,8 @@ final class CollectionItemNormalizer implements NormalizerInterface, NormalizerA
     /**
      * @param mixed $object
      * @param string|null $format
+     *
+     * @return array<string, mixed>
      */
     public function normalize($object, $format = null, array $context = []): array
     {

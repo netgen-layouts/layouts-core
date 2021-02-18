@@ -19,6 +19,6 @@ final class VisitorStub implements VisitorInterface
 
     public function visit(object $value, OutputVisitor $outputVisitor): array
     {
-        return ['visited_value'];
+        return ['visited_key' => 'visited_value'];
     }
 }

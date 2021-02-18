@@ -6,6 +6,7 @@ includes:
     - vendor/phpstan/phpstan-phpunit/rules.neon
 
 parameters:
+    treatPhpDocTypesAsCertain: false
     dynamicConstantNames:
         - Symfony\Component\HttpKernel\Kernel::VERSION_ID
 
@@ -46,10 +47,11 @@ parameters:
 
         # Disable errors about values inferred from iterable typehints
 
-        - '#Call to static method PHPUnit\\Framework\\Assert::assert\w+\(\) with .+ will always evaluate to (true|false).#'
+        -
+            message: '#Call to static method PHPUnit\\Framework\\Assert::assert\w+\(\) with .+ will always evaluate to true.#'
+            path: tests/lib/Utils/DateTimeUtilsTest.php
 
         # Disable errors for various tests that verify values have correct types
         - '/Parameter \#1 \$\w+ of class .+ constructor expects array\<.+\>, array\<.+\|stdClass\> given./'
         - '/Parameter \#1 \$\w+ of method .+ expects array\<.+\>, array\(stdClass\) given./'
         - '/Parameter \#3 \$zoneMappings of method .+::validateChangeLayoutType\(\) expects array\<string, array\<string\>\>, array\<string, int\> given./'
-        - '#Call to function is_object\(\) with object will always evaluate to true.#'

@@ -10,13 +10,13 @@
         "hr"
     ],
     "items": [
-        ["visited_value"],
-        ["visited_value"],
-        ["visited_value"]
+        {"visited_key": "visited_value"},
+        {"visited_key": "visited_value"},
+        {"visited_key": "visited_value"}
     ],
     "slots": [
-        ["visited_value"],
-        ["visited_value"]
+        {"visited_key": "visited_value"},
+        {"visited_key": "visited_value"}
     ],
-    "query": ["visited_value"]
+    "query": {"visited_key": "visited_value"}
 }

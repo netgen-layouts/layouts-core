@@ -15,6 +15,8 @@ final class BlockTypeGroupNormalizer implements NormalizerInterface
     /**
      * @param mixed $object
      * @param string|null $format
+     *
+     * @return array<string, mixed>
      */
     public function normalize($object, $format = null, array $context = []): array
     {

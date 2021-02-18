@@ -22,7 +22,7 @@ final class QueryTest extends TestCase
                 'collectionId' => 30,
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'type' => 'my_query_type',
-                'parameters' => ['param' => ['value']],
+                'parameters' => ['en' => ['param' => 'value']],
                 'status' => Value::STATUS_PUBLISHED,
                 'isTranslatable' => true,
                 'alwaysAvailable' => true,
@@ -36,7 +36,7 @@ final class QueryTest extends TestCase
         self::assertSame(30, $query->collectionId);
         self::assertSame('f06f245a-f951-52c8-bfa3-84c80154eadc', $query->collectionUuid);
         self::assertSame('my_query_type', $query->type);
-        self::assertSame(['param' => ['value']], $query->parameters);
+        self::assertSame(['en' => ['param' => 'value']], $query->parameters);
         self::assertSame(Value::STATUS_PUBLISHED, $query->status);
         self::assertSame('en', $query->mainLocale);
         self::assertTrue($query->isTranslatable);

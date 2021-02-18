@@ -5,6 +5,6 @@
     "value_type": "my_value_type",
     "view_type": null,
     "configuration": {
-        "key": ["visited_value"]
+        "key": {"visited_key": "visited_value"}
     }
 }

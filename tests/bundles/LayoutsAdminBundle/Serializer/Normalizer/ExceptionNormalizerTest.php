@@ -48,7 +48,6 @@ final class ExceptionNormalizerTest extends TestCase
         $exception = new Exception('Exception message', 123, $previousException);
         $data = $this->exceptionNormalizer->normalize($exception);
 
-        self::assertIsArray($data);
         self::assertArrayHasKey('code', $data);
         self::assertArrayHasKey('message', $data);
         self::assertArrayHasKey('debug', $data);

@@ -14,7 +14,7 @@ final class ParameterNormalizer implements NormalizerInterface
      * @param mixed $object
      * @param string|null $format
      *
-     * @return array|string|int|float|bool|null
+     * @return mixed[]|string|int|float|bool|null
      */
     public function normalize($object, $format = null, array $context = [])
     {

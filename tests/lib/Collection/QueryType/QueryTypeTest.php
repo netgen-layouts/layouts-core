@@ -8,16 +8,24 @@ use Netgen\Layouts\API\Values\Collection\Query;
 use Netgen\Layouts\Collection\QueryType\QueryType;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryTypeHandler;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 final class QueryTypeTest extends TestCase
 {
+    /**
+     * @var object[]
+     */
+    private array $values;
+
     private QueryType $queryType;
 
     protected function setUp(): void
     {
+        $this->values = [new stdClass(), new stdClass()];
+
         $this->queryType = QueryType::fromArray(
             [
-                'handler' => new QueryTypeHandler(['val1', 'val2']),
+                'handler' => new QueryTypeHandler($this->values),
                 'type' => 'query_type',
                 'isEnabled' => false,
                 'name' => 'Query type',
@@ -54,7 +62,7 @@ final class QueryTypeTest extends TestCase
      */
     public function testGetValues(): void
     {
-        self::assertSame(['val1', 'val2'], $this->queryType->getValues(new Query()));
+        self::assertSame($this->values, $this->queryType->getValues(new Query()));
     }
 
     /**

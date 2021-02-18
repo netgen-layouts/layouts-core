@@ -2,6 +2,6 @@
     "identifier": "right",
     "linked_zone": null,
     "blocks": [
-        ["visited_value"]
+        {"visited_key": "visited_value"}
     ]
 }

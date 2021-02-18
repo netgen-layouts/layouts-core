@@ -4,6 +4,7 @@ includes:
     - vendor/phpstan/phpstan-symfony/rules.neon
 
 parameters:
+    treatPhpDocTypesAsCertain: false
     dynamicConstantNames:
         - Symfony\Component\HttpKernel\Kernel::VERSION_ID
 
@@ -52,7 +53,6 @@ parameters:
         # Disable errors about missing value types in various vendor classes
 
         - '#Method .+View::render\(\) has parameter \$options with no value type specified in iterable type array.#'
-        - '#Method .+Normalizer::normalize\(\) return type has no value type specified in iterable type (array|ArrayObject).#'
         - '#no value type specified in iterable type Knp\\Menu\\ItemInterface#'
         - '#no value type specified in iterable type Pagerfanta\\Pagerfanta#'
 
@@ -60,9 +60,12 @@ parameters:
 
         - "#Call to function method_exists\\(\\) with Netgen\\\\Layouts\\\\Layout\\\\Resolver\\\\(Condition|Target)TypeInterface and '(export|import)' will always evaluate to true.#"
 
-        - '#Call to function is_string\(\) with string will always evaluate to true.#'
-        - '#Call to function is_array\(\) with array\<.+\> will always evaluate to true.#'
-        - '#Instanceof between .+ and .+ will always evaluate to true.#'
+        -
+            message: '#Call to function is_string\(\) with string will always evaluate to true.#'
+            path: lib/Utils/DateTimeUtils.php
+
+        - '#Call to function is_array\(\) with array\<Swaggest\\JsonSchema\\InvalidValue\> will always evaluate to true.#'
+        - '#Instanceof between Symfony\\Component\\Config\\Definition\\Builder\\ArrayNodeDefinition and Symfony\\Component\\Config\\Definition\\Builder\\ArrayNodeDefinition will always evaluate to true.#'
 
         -
             message: '#Variable property access on object.#'

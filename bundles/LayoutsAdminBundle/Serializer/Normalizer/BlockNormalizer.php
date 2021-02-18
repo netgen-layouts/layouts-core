@@ -28,6 +28,8 @@ final class BlockNormalizer implements NormalizerInterface, NormalizerAwareInter
     /**
      * @param mixed $object
      * @param string|null $format
+     *
+     * @return array<string, mixed>
      */
     public function normalize($object, $format = null, array $context = []): array
     {

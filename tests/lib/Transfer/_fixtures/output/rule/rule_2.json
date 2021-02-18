@@ -7,10 +7,10 @@
     "priority": 8,
     "comment": "My other comment",
     "targets": [
-        ["visited_value"],
-        ["visited_value"]
+        {"visited_key": "visited_value"},
+        {"visited_key": "visited_value"}
     ],
     "conditions": [
-        ["visited_value"]
+        {"visited_key": "visited_value"}
     ]
 }

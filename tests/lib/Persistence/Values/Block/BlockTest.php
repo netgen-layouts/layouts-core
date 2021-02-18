@@ -29,8 +29,10 @@ final class BlockTest extends TestCase
                 'position' => 4,
                 'definitionIdentifier' => 'text',
                 'parameters' => [
-                    'some_param' => 'some_value',
-                    'some_other_param' => ['some_other_value'],
+                    'en' => [
+                        'some_param' => 'some_value',
+                        'some_other_param' => ['some_other_value'],
+                    ],
                 ],
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
@@ -65,8 +67,10 @@ final class BlockTest extends TestCase
 
         self::assertSame(
             [
-                'some_param' => 'some_value',
-                'some_other_param' => ['some_other_value'],
+                'en' => [
+                    'some_param' => 'some_value',
+                    'some_other_param' => ['some_other_value'],
+                ],
             ],
             $block->parameters
         );

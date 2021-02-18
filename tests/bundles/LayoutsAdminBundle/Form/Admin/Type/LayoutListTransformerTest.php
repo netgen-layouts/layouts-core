@@ -43,7 +43,6 @@ final class LayoutListTransformerTest extends TestCase
 
         $transformedLayouts = $this->transformer->reverseTransform($layouts);
 
-        self::assertInstanceOf(LayoutList::class, $transformedLayouts);
         self::assertCount(2, $transformedLayouts);
 
         self::assertInstanceOf(Layout::class, $transformedLayouts[0]);

@@ -23,10 +23,10 @@
         }
     },
     "configuration": {
-        "key": ["visited_value"]
+        "key": {"visited_key": "visited_value"}
     },
     "collections": {
-        "default": ["visited_value"],
-        "featured": ["visited_value"]
+        "default": {"visited_key": "visited_value"},
+        "featured": {"visited_key": "visited_value"}
     }
 }

@@ -6,15 +6,23 @@ namespace Netgen\Layouts\Tests\API\Values;
 
 use Netgen\Layouts\API\Values\LazyCollection;
 use PHPUnit\Framework\TestCase;
+use stdClass;
 
 final class LazyCollectionTest extends TestCase
 {
+    /**
+     * @var object[]
+     */
+    private array $values;
+
     private LazyCollection $collection;
 
     protected function setUp(): void
     {
+        $this->values = [new stdClass(), new stdClass()];
+
         $this->collection = new LazyCollection(
-            static fn (): array => [1, 2, 3]
+            fn (): array => $this->values
         );
     }
 
@@ -26,7 +34,7 @@ final class LazyCollectionTest extends TestCase
     {
         self::assertFalse($this->collection->isInitialized());
 
-        self::assertSame([1, 2, 3], $this->collection->toArray());
+        self::assertSame($this->values, $this->collection->toArray());
 
         self::assertTrue($this->collection->isInitialized());
     }

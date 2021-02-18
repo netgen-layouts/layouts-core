@@ -42,8 +42,8 @@ final class SerializerTest extends TestCase
             [
                 '__version' => Descriptor::FORMAT_VERSION,
                 'entities' => [
-                    ['visited_value'],
-                    ['visited_value'],
+                    ['visited_key' => 'visited_value'],
+                    ['visited_key' => 'visited_value'],
                 ],
             ],
             $this->serializer->serialize('entity', [$uuid1->toString(), $uuid2->toString()])

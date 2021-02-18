@@ -28,7 +28,7 @@ final class OutputVisitorTest extends TestCase
      */
     public function testVisit(): void
     {
-        self::assertSame(['visited_value'], $this->visitor->visit(new stdClass()));
+        self::assertSame(['visited_key' => 'visited_value'], $this->visitor->visit(new stdClass()));
     }
 
     /**

@@ -13,9 +13,9 @@
     "modification_date": "@integer@",
     "is_shared": false,
     "zones": {
-        "bottom": ["visited_value"],
-        "left": ["visited_value"],
-        "right": ["visited_value"],
-        "top": ["visited_value"]
+        "bottom": {"visited_key": "visited_value"},
+        "left": {"visited_key": "visited_value"},
+        "right": {"visited_key": "visited_value"},
+        "top": {"visited_key": "visited_value"}
     }
 }

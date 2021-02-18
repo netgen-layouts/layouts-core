@@ -26,6 +26,8 @@ final class ViewNormalizer implements NormalizerInterface, NormalizerAwareInterf
     /**
      * @param mixed $object
      * @param string|null $format
+     *
+     * @return array<string, mixed>
      */
     public function normalize($object, $format = null, array $context = []): array
     {
