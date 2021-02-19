@@ -50,10 +50,6 @@ parameters:
             message: '#twig_date_converter not found.#'
             path: bundles/LayoutsBundle/Templating/Twig/Runtime/HelpersRuntime.php
 
-        # Disable errors about missing value types in various vendor classes
-
-        - '#no value type specified in iterable type Knp\\Menu\\ItemInterface#'
-
         # Netgen Layouts specifics
 
         - "#Call to function method_exists\\(\\) with Netgen\\\\Layouts\\\\Layout\\\\Resolver\\\\(Condition|Target)TypeInterface and '(export|import)' will always evaluate to true.#"

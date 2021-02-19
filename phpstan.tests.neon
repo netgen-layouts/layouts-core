@@ -37,10 +37,6 @@ parameters:
 
         - '#Method .+Test::\w+DataProvider\(\) return type has no value type specified in iterable type array.#'
 
-        # Disable errors about missing value types in various vendor classes
-
-        - '#no value type specified in iterable type Knp\\Menu\\MenuItem#'
-
         # Disable errors about values inferred from iterable typehints
 
         -
