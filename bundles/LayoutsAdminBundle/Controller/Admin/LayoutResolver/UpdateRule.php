@@ -7,16 +7,15 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\View\ViewInterface;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
-use function in_array;
 use function is_string;
 use function sprintf;
-use function trim;
 
 final class UpdateRule extends AbstractController
 {
@@ -31,7 +30,7 @@ final class UpdateRule extends AbstractController
     }
 
     /**
-     * Updates the rule.
+     * Updates the linked layout of the rule.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If provided layout does not exist
      */
@@ -40,16 +39,16 @@ final class UpdateRule extends AbstractController
         $this->denyAccessUnlessGranted('nglayouts:mapping:edit');
 
         $layoutId = $request->request->get('layout_id');
-        $layoutId = $layoutId !== null ? trim($layoutId) : null;
+        if (!is_string($layoutId)) {
+            throw new BadStateException('layout_id', 'Valid layout ID needs to be specified.');
+        }
 
-        $comment = $request->request->get('comment');
-        $comment = $comment !== null ? trim($comment) : null;
+        $layout = null;
 
-        // null means we don't update the layout
-        // empty (0, 0.0, '0', '', false) means we remove the layout from the rule
-        if (is_string($layoutId) && !in_array($layoutId, ['0', ''], true)) {
+        // '0' means we remove the layout from the rule
+        if ($layoutId !== '0') {
             try {
-                $this->layoutService->loadLayout(Uuid::fromString($layoutId));
+                $layout = $this->layoutService->loadLayout(Uuid::fromString($layoutId));
             } catch (NotFoundException $e) {
                 throw new BadStateException(
                     'layout_id',
@@ -63,13 +62,7 @@ final class UpdateRule extends AbstractController
         }
 
         $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
-        $ruleUpdateStruct->comment = $comment;
-
-        if ($layoutId !== null) {
-            $ruleUpdateStruct->layoutId = !in_array($layoutId, ['0', ''], true) ?
-                Uuid::fromString($layoutId) :
-                false;
-        }
+        $ruleUpdateStruct->layoutId = $layout instanceof Layout ? $layout->getId() : false;
 
         $updatedRule = $this->layoutResolverService->updateRule(
             $rule,
