@@ -1,6 +1,8 @@
 {% extends '@WebProfiler/Profiler/layout.html.twig' %}
 
 {% block toolbar %}
+    {% import '@NetgenLayoutsAdmin/admin/macros.html.twig' as macros %}
+
     {% set layout = collector.data.layout %}
     {% set rule = collector.data.rule %}
 
@@ -24,8 +26,6 @@
 
     {% set text %}
         {% if layout %}
-            {% import '@NetgenLayoutsAdmin/admin/macros.html.twig' as macros %}
-
             <div class="sf-toolbar-info-piece">
                 <b>Resolved layout</b>
 
@@ -94,13 +94,13 @@
 {% endblock %}
 
 {% block panel %}
+    {% import '@NetgenLayoutsAdmin/admin/macros.html.twig' as macros %}
+
     {% set layout = collector.data.layout %}
     {% set rule = collector.data.rule %}
     {% set blocks = collector.data.blocks %}
 
     <div class="sf-tabs">
-        {% import '@NetgenLayoutsAdmin/admin/macros.html.twig' as macros %}
-
         <div class="tab">
             <h3 class="tab-title">Rendered layout</h3>
 
