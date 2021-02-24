@@ -67,7 +67,7 @@ export default class NlRules {
     addRule(e) {
         e.preventDefault();
         this.showLoader();
-        fetch(`${this.baseUrl}rules`, {
+        fetch(`${this.baseUrl}groups/00000000-0000-0000-0000-000000000000/new_rule`, {
             method: 'POST',
             credentials: 'same-origin',
             headers: {

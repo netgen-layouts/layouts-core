@@ -4,9 +4,11 @@ nglayouts_admin_layout_resolver_index:
     methods: [GET]
 
 nglayouts_admin_layout_resolver_rule_create:
-    path: /rules
+    path: /groups/{ruleGroupId}/new_rule
     controller: netgen_layouts.controller.admin.layout_resolver.create_rule
     methods: [POST]
+    defaults:
+        _nglayouts_status: published
 
 nglayouts_admin_layout_resolver_rule_form_edit:
     path: /rules/{ruleId}/edit

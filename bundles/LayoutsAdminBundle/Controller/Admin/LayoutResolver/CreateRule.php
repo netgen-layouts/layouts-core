@@ -8,7 +8,6 @@ use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\View\ViewInterface;
-use Ramsey\Uuid\Uuid;
 
 final class CreateRule extends AbstractController
 {
@@ -20,15 +19,15 @@ final class CreateRule extends AbstractController
     }
 
     /**
-     * Creates a new rule.
+     * Creates a new rule in provided parent group.
      */
-    public function __invoke(): ViewInterface
+    public function __invoke(RuleGroup $ruleGroup): ViewInterface
     {
         $this->denyAccessUnlessGranted('nglayouts:mapping:edit');
 
         $createdRule = $this->layoutResolverService->createRule(
             $this->layoutResolverService->newRuleCreateStruct(),
-            $this->layoutResolverService->loadRuleGroup(Uuid::fromString(RuleGroup::ROOT_UUID))
+            $ruleGroup
         );
 
         $createdRule = $this->layoutResolverService->publishRule(
