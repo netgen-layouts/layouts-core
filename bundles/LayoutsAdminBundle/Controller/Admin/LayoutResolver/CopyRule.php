@@ -7,9 +7,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
-use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\View\ViewInterface;
-use Ramsey\Uuid\Uuid;
 
 final class CopyRule extends AbstractController
 {
@@ -31,7 +29,7 @@ final class CopyRule extends AbstractController
         $updateStruct = $this->layoutResolverService->newRuleMetadataUpdateStruct();
         $updateStruct->priority = $rule->getPriority() - 1;
 
-        $targetGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString(RuleGroup::ROOT_UUID));
+        $targetGroup = $this->layoutResolverService->loadRuleGroup($rule->getRuleGroupId());
 
         $copiedRule = $this->layoutResolverService->updateRuleMetadata(
             $this->layoutResolverService->copyRule($rule, $targetGroup),
