@@ -13,7 +13,6 @@ use Netgen\Layouts\Tests\Collection\Result\Stubs\Value;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use function iterator_to_array;
 
 final class QueryRunnerTest extends TestCase
 {
@@ -47,7 +46,7 @@ final class QueryRunnerTest extends TestCase
         $queryRunner = new QueryRunner($this->cmsItemBuilderMock);
 
         /** @var \Netgen\Layouts\Item\CmsItemInterface[] $items */
-        $items = iterator_to_array($queryRunner->runQuery($query));
+        $items = [...$queryRunner->runQuery($query)];
         self::assertContainsOnlyInstancesOf(CmsItemInterface::class, $items);
 
         foreach ($items as $item) {

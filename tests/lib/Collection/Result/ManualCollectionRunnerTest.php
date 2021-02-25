@@ -17,7 +17,6 @@ use Netgen\Layouts\Item\NullCmsItem;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use function array_map;
-use function iterator_to_array;
 
 final class ManualCollectionRunnerTest extends TestCase
 {
@@ -64,7 +63,7 @@ final class ManualCollectionRunnerTest extends TestCase
 
         $result = array_map(
             static fn (Result $result) => $result->getItem()->getValue(),
-            iterator_to_array($collectionRunner->runCollection($collection, $offset, $limit, $flags))
+            [...$collectionRunner->runCollection($collection, $offset, $limit, $flags)]
         );
 
         self::assertSame($expected, $result);

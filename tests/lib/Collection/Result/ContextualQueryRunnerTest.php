@@ -9,7 +9,6 @@ use Netgen\Layouts\Collection\Result\ContextualQueryRunner;
 use Netgen\Layouts\Collection\Result\UnknownItem;
 use PHPUnit\Framework\TestCase;
 use function intdiv;
-use function iterator_to_array;
 use const PHP_INT_MAX;
 
 final class ContextualQueryRunnerTest extends TestCase
@@ -22,7 +21,7 @@ final class ContextualQueryRunnerTest extends TestCase
     {
         $queryRunner = new ContextualQueryRunner();
 
-        $values = iterator_to_array($queryRunner->runQuery(new Query(), 0, 5));
+        $values = [...$queryRunner->runQuery(new Query(), 0, 5)];
 
         self::assertCount(5, $values);
         self::assertContainsOnlyInstancesOf(UnknownItem::class, $values);

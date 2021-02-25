@@ -86,7 +86,7 @@ final class LayoutTest extends TestCase
         self::assertSame($zones['left'], $layout->getZones()['left']);
         self::assertSame($zones['right'], $layout->getZones()['right']);
 
-        self::assertSame($zones, iterator_to_array($layout->getIterator()));
+        self::assertSame($zones, iterator_to_array($layout));
 
         self::assertCount(2, $layout);
 

@@ -24,7 +24,6 @@ use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use function array_keys;
-use function iterator_to_array;
 
 final class LinkTypeTest extends FormTestCase
 {
@@ -173,7 +172,7 @@ final class LinkTypeTest extends FormTestCase
         self::assertCount(1, $errors);
 
         /** @var \Symfony\Component\Form\FormError $firstError */
-        $firstError = iterator_to_array($errors)[0];
+        $firstError = [...$errors][0];
         self::assertSame('an error', $firstError->getMessage());
     }
 

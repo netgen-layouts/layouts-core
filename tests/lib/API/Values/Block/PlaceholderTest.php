@@ -9,7 +9,6 @@ use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\API\Values\Block\Placeholder;
 use Netgen\Layouts\Exception\RuntimeException;
 use PHPUnit\Framework\TestCase;
-use function iterator_to_array;
 
 final class PlaceholderTest extends TestCase
 {
@@ -39,7 +38,7 @@ final class PlaceholderTest extends TestCase
         self::assertCount(1, $placeholder->getBlocks());
         self::assertSame($block, $placeholder->getBlocks()[0]);
 
-        self::assertSame([$block], iterator_to_array($placeholder->getIterator()));
+        self::assertSame([$block], [...$placeholder]);
 
         self::assertCount(1, $placeholder);
 

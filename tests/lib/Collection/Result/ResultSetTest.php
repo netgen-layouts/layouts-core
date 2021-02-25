@@ -12,7 +12,6 @@ use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Tests\Collection\Stubs\QueryType;
 use PHPUnit\Framework\TestCase;
-use function iterator_to_array;
 
 final class ResultSetTest extends TestCase
 {
@@ -52,7 +51,7 @@ final class ResultSetTest extends TestCase
         self::assertSame(3, $result->getOffset());
         self::assertSame(5, $result->getLimit());
 
-        self::assertSame([$resultItem], iterator_to_array($result->getIterator()));
+        self::assertSame([$resultItem], [...$result]);
 
         self::assertCount(1, $result);
 

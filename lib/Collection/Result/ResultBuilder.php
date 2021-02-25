@@ -6,7 +6,6 @@ namespace Netgen\Layouts\Collection\Result;
 
 use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\API\Values\Collection\Query;
-use function iterator_to_array;
 
 /**
  * A builder generates the collection results. Note that in order to disable fetching unlimited
@@ -50,9 +49,7 @@ final class ResultBuilder implements ResultBuilderInterface
         $results = [];
         $totalCount = $collectionRunner->count($collection);
         if ($limit > 0 && $offset < $totalCount) {
-            $results = iterator_to_array(
-                $collectionRunner->runCollection($collection, $offset, $limit, $flags)
-            );
+            $results = [...$collectionRunner->runCollection($collection, $offset, $limit, $flags)];
         }
 
         return ResultSet::fromArray(

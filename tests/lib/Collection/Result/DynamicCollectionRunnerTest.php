@@ -21,7 +21,6 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use function array_map;
 use function count;
-use function iterator_to_array;
 
 final class DynamicCollectionRunnerTest extends TestCase
 {
@@ -89,7 +88,7 @@ final class DynamicCollectionRunnerTest extends TestCase
 
         self::assertSame($totalCount, $collectionRunner->count($collection));
 
-        $result = iterator_to_array($collectionRunner->runCollection($collection, $offset, $limit));
+        $result = [...$collectionRunner->runCollection($collection, $offset, $limit)];
 
         $result = array_map(
             static fn (Result $resultItem) => $resultItem->getItem()->getValue(),

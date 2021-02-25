@@ -41,7 +41,6 @@ use Ramsey\Uuid\UuidInterface;
 use function array_filter;
 use function array_search;
 use function array_splice;
-use function array_values;
 use function count;
 use function in_array;
 use function is_int;
@@ -134,15 +133,13 @@ final class BlockService implements BlockServiceInterface
         );
 
         return new BlockList(
-            array_values(
-                iterator_to_array(
-                    $this->filterUntranslatedBlocks(
-                        $this->blockHandler->loadChildBlocks($rootBlock),
-                        $locales,
-                        $useMainLocale
-                    )
-                )
-            )
+            [
+                ...$this->filterUntranslatedBlocks(
+                    $this->blockHandler->loadChildBlocks($rootBlock),
+                    $locales,
+                    $useMainLocale
+                ),
+            ]
         );
     }
 
@@ -160,15 +157,13 @@ final class BlockService implements BlockServiceInterface
         );
 
         return new BlockList(
-            array_values(
-                iterator_to_array(
-                    $this->filterUntranslatedBlocks(
-                        $persistenceBlocks,
-                        $locales,
-                        $useMainLocale
-                    )
-                )
-            )
+            [
+                ...$this->filterUntranslatedBlocks(
+                    $persistenceBlocks,
+                    $locales,
+                    $useMainLocale
+                ),
+            ]
         );
     }
 

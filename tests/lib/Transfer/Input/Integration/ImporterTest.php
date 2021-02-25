@@ -39,7 +39,6 @@ use Netgen\Layouts\Transfer\Output\Visitor;
 use SebastianBergmann\Diff\Differ;
 use SebastianBergmann\Diff\Output\UnifiedDiffOutputBuilder;
 use function file_get_contents;
-use function iterator_to_array;
 use function json_decode;
 use function json_encode;
 use function preg_replace;
@@ -225,7 +224,7 @@ abstract class ImporterTest extends CoreTestCase
             __DIR__ . '/../../_fixtures/input/invalid/missing_query_parameters_in_translation.json'
         );
 
-        $result = iterator_to_array($this->importer->importData($layoutData, new ImportOptions()));
+        $result = [...$this->importer->importData($layoutData, new ImportOptions())];
 
         self::assertInstanceOf(ErrorResult::class, $result[0]);
         self::assertInstanceOf(RuntimeException::class, $result[0]->getError());
@@ -242,7 +241,7 @@ abstract class ImporterTest extends CoreTestCase
             __DIR__ . '/../../_fixtures/input/invalid/missing_query_parameters_in_main_translation.json'
         );
 
-        $result = iterator_to_array($this->importer->importData($layoutData, new ImportOptions()));
+        $result = [...$this->importer->importData($layoutData, new ImportOptions())];
 
         self::assertInstanceOf(ErrorResult::class, $result[0]);
         self::assertInstanceOf(RuntimeException::class, $result[0]->getError());
@@ -259,7 +258,7 @@ abstract class ImporterTest extends CoreTestCase
             __DIR__ . '/../../_fixtures/input/invalid/missing_block_parameters_in_translation.json'
         );
 
-        $result = iterator_to_array($this->importer->importData($layoutData, new ImportOptions()));
+        $result = [...$this->importer->importData($layoutData, new ImportOptions())];
 
         self::assertInstanceOf(ErrorResult::class, $result[0]);
         self::assertInstanceOf(RuntimeException::class, $result[0]->getError());
@@ -276,7 +275,7 @@ abstract class ImporterTest extends CoreTestCase
             __DIR__ . '/../../_fixtures/input/invalid/missing_block_parameters_in_main_translation.json'
         );
 
-        $result = iterator_to_array($this->importer->importData($layoutData, new ImportOptions()));
+        $result = [...$this->importer->importData($layoutData, new ImportOptions())];
 
         self::assertInstanceOf(ErrorResult::class, $result[0]);
         self::assertInstanceOf(RuntimeException::class, $result[0]->getError());
@@ -293,7 +292,7 @@ abstract class ImporterTest extends CoreTestCase
             __DIR__ . '/../../_fixtures/input/invalid/missing_zone.json'
         );
 
-        $result = iterator_to_array($this->importer->importData($layoutData, new ImportOptions()));
+        $result = [...$this->importer->importData($layoutData, new ImportOptions())];
 
         self::assertInstanceOf(ErrorResult::class, $result[0]);
         self::assertInstanceOf(RuntimeException::class, $result[0]->getError());
