@@ -732,7 +732,7 @@ final class LayoutResolverService implements APILayoutResolverService
         $persistenceTargetGroup = $this->layoutResolverHandler->loadRuleGroup($targetGroup->getId(), Value::STATUS_PUBLISHED);
 
         $copiedRuleGroup = $this->transaction(
-            fn (): PersistenceRuleGroup => $this->layoutResolverHandler->copyRuleGroup($persistenceRuleGroup, $persistenceTargetGroup)
+            fn (): PersistenceRuleGroup => $this->layoutResolverHandler->copyRuleGroup($persistenceRuleGroup, $persistenceTargetGroup, $copyChildren)
         );
 
         return $this->mapper->mapRuleGroup($copiedRuleGroup);
