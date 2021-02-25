@@ -909,6 +909,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
             )
             ->setParameter('id', $ruleIds, Connection::PARAM_INT_ARRAY);
 
+        $query->execute();
+
         $query->delete('nglayouts_rule_data')
             ->where(
                 $query->expr()->in('rule_id', [':rule_id'])

@@ -530,7 +530,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
 
         if ($status === null || !$this->ruleGroupExists($ruleGroupId)) {
             $subGroupIds = $this->queryHandler->loadSubGroupIds($ruleGroupId);
-            $subRuleIds = $this->queryHandler->loadSubRuleIds($subGroupIds);
+            $subRuleIds = $this->queryHandler->loadSubRuleIds([$ruleGroupId, ...$subGroupIds]);
 
             $this->queryHandler->deleteRuleGroupConditions($subGroupIds);
             $this->queryHandler->deleteRuleGroups($subGroupIds);
