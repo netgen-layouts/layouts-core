@@ -9,7 +9,6 @@ use Netgen\Layouts\API\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct;
-use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Layout\Resolver\Registry\ConditionTypeRegistry;
 use Netgen\Layouts\Layout\Resolver\Registry\TargetTypeRegistry;
 use Netgen\Layouts\Transfer\EntityHandlerInterface;
@@ -34,7 +33,7 @@ final class RuleEntityHandler implements EntityHandlerInterface
         $this->conditionTypeRegistry = $conditionTypeRegistry;
     }
 
-    public function loadEntity(UuidInterface $uuid): Value
+    public function loadEntity(UuidInterface $uuid): Rule
     {
         return $this->layoutResolverService->loadRule($uuid);
     }
@@ -51,7 +50,7 @@ final class RuleEntityHandler implements EntityHandlerInterface
         );
     }
 
-    public function importEntity(array $data, bool $keepUuid): Value
+    public function importEntity(array $data, bool $keepUuid): Rule
     {
         $createStruct = $this->layoutResolverService->newRuleCreateStruct();
 

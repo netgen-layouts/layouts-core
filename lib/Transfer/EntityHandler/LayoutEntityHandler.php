@@ -15,7 +15,6 @@ use Netgen\Layouts\API\Values\Config\ConfigAwareStruct;
 use Netgen\Layouts\API\Values\Config\ConfigStruct;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
-use Netgen\Layouts\API\Values\Value;
 use Netgen\Layouts\Block\Registry\BlockDefinitionRegistry;
 use Netgen\Layouts\Collection\Registry\ItemDefinitionRegistry;
 use Netgen\Layouts\Collection\Registry\QueryTypeRegistry;
@@ -72,7 +71,7 @@ final class LayoutEntityHandler implements EntityHandlerInterface
         $this->cmsItemLoader = $cmsItemLoader;
     }
 
-    public function loadEntity(UuidInterface $uuid): Value
+    public function loadEntity(UuidInterface $uuid): Layout
     {
         return $this->layoutService->loadLayout($uuid);
     }
@@ -89,7 +88,7 @@ final class LayoutEntityHandler implements EntityHandlerInterface
         );
     }
 
-    public function importEntity(array $data, bool $keepUuid): Value
+    public function importEntity(array $data, bool $keepUuid): Layout
     {
         $createStruct = $this->layoutService->newLayoutCreateStruct(
             $this->layoutTypeRegistry->getLayoutType($data['type_identifier']),
