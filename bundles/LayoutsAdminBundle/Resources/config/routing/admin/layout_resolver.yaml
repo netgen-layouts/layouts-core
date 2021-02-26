@@ -99,7 +99,7 @@ nglayouts_admin_layout_resolver_target_delete:
     defaults:
         _nglayouts_status: draft
 
-nglayouts_admin_layout_resolver_condition_form_create:
+nglayouts_admin_layout_resolver_rule_condition_form_create:
     path: /rules/{ruleId}/condition/new/{type}
     controller: netgen_layouts.controller.admin.layout_resolver.create_condition_form
     methods: [GET, POST]
