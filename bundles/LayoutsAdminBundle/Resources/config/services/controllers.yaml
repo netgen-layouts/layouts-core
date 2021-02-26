@@ -128,8 +128,8 @@ services:
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
 
-    netgen_layouts.controller.admin.layout_resolver.create_condition_form:
-        class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\CreateConditionForm
+    netgen_layouts.controller.admin.layout_resolver.create_rule_condition_form:
+        class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\CreateRuleConditionForm
         public: true
         parent: netgen_layouts.controller.base
         arguments:

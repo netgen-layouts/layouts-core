@@ -13,7 +13,7 @@ use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-final class CreateConditionForm extends AbstractController
+final class CreateRuleConditionForm extends AbstractController
 {
     private LayoutResolverService $layoutResolverService;
 
