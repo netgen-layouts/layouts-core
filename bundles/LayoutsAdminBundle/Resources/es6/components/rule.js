@@ -305,13 +305,12 @@ export default class NlRule {
         const loaderEl = actionsEl.parentElement.getElementsByClassName('settings-loader')[0];
         const { action } = e.target.dataset;
         let url;
-        let targetType;
         if (action === 'add-target') {
-            targetType = e.target.dataset.targetType || e.target.parentElement.getElementsByClassName('js-target-type')[0].value;
+            const targetType = e.target.dataset.targetType || e.target.parentElement.getElementsByClassName('js-target-type')[0].value;
             url = `${this.rules.baseUrl}rules/${this.id}/target/new/${targetType}`;
         } else if (action === 'add-condition') {
-            targetType = e.target.parentElement.getElementsByClassName('js-condition-type')[0].value;
-            url = `${this.rules.baseUrl}rules/${this.id}/condition/new/${targetType}`;
+            const conditionType = e.target.parentElement.getElementsByClassName('js-condition-type')[0].value;
+            url = `${this.rules.baseUrl}rules/${this.id}/condition/new/${conditionType}`;
         }
         this.createDraft(() => {
             this.createDraft(() => {
