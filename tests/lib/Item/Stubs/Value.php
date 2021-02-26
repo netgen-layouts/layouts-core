@@ -6,40 +6,22 @@ namespace Netgen\Layouts\Tests\Item\Stubs;
 
 final class Value
 {
-    /**
-     * @var int|string
-     */
-    private $id;
+    private int $id;
 
-    /**
-     * @var int|string
-     */
-    private $remoteId;
+    private string $remoteId;
 
-    /**
-     * Value constructor.
-     *
-     * @param int|string $id
-     * @param int|string $remoteId
-     */
-    public function __construct($id, $remoteId)
+    public function __construct(int $id, string $remoteId)
     {
         $this->id = $id;
         $this->remoteId = $remoteId;
     }
 
-    /**
-     * @return int|string
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @return int|string
-     */
-    public function getRemoteId()
+    public function getRemoteId(): string
     {
         return $this->remoteId;
     }

@@ -246,7 +246,7 @@ final class LayoutResolverTest extends TestCase
     {
         $this->targetTypeRegistry = new TargetTypeRegistry(
             [
-                new TargetType1(null),
+                new TargetType1(),
                 new TargetType2(84),
             ]
         );
@@ -289,8 +289,8 @@ final class LayoutResolverTest extends TestCase
     {
         $this->targetTypeRegistry = new TargetTypeRegistry(
             [
-                new TargetType1(null),
-                new TargetType2(null),
+                new TargetType1(),
+                new TargetType2(),
             ]
         );
 
@@ -549,7 +549,7 @@ final class LayoutResolverTest extends TestCase
     {
         $this->targetTypeRegistry = new TargetTypeRegistry(
             [
-                new TargetType1(null),
+                new TargetType1(),
                 new TargetType2(84),
             ]
         );
@@ -592,8 +592,8 @@ final class LayoutResolverTest extends TestCase
     {
         $this->targetTypeRegistry = new TargetTypeRegistry(
             [
-                new TargetType1(null),
-                new TargetType2(null),
+                new TargetType1(),
+                new TargetType2(),
             ]
         );
 

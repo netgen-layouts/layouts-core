@@ -19,7 +19,7 @@ final class TargetTypeRegistryTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->targetType = new TargetType1('value');
+        $this->targetType = new TargetType1(42);
 
         $this->registry = new TargetTypeRegistry([$this->targetType]);
     }

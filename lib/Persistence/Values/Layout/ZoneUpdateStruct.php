@@ -13,6 +13,8 @@ final class ZoneUpdateStruct
     /**
      * New linked zone.
      *
+     * Set to "false" to remove the link.
+     *
      * @var \Netgen\Layouts\Persistence\Values\Layout\Zone|bool|null
      */
     public $linkedZone;

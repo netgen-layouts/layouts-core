@@ -23,9 +23,11 @@ final class HydratorTest extends TestCase
      */
     public function testExtract(): void
     {
+        $value = (new Value())->hydrate(['a' => 'foo', 'b' => 'bar', 'c' => 'baz']);
+
         self::assertSame(
             ['a' => 'foo', 'b' => 'bar', 'c' => 'baz'],
-            $this->hydrator->extract(new Value('foo', 'bar', 'baz'))
+            $this->hydrator->extract($value)
         );
     }
 

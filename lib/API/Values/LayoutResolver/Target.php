@@ -22,7 +22,7 @@ final class Target implements Value
     private TargetTypeInterface $targetType;
 
     /**
-     * @var mixed
+     * @var int|string
      */
     private $value;
 
@@ -50,9 +50,7 @@ final class Target implements Value
     /**
      * Returns the target value.
      *
-     * Target value is always a scalar.
-     *
-     * @return mixed
+     * @return int|string
      */
     public function getValue()
     {

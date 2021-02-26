@@ -10,15 +10,9 @@ use Symfony\Component\Validator\Constraints;
 
 final class TargetType2 extends TargetType
 {
-    /**
-     * @var mixed
-     */
-    private $value;
+    private ?int $value;
 
-    /**
-     * @param mixed $value
-     */
-    public function __construct($value = null)
+    public function __construct(?int $value = null)
     {
         $this->value = $value;
     }
@@ -33,7 +27,7 @@ final class TargetType2 extends TargetType
         return [new Constraints\NotBlank()];
     }
 
-    public function provideValue(Request $request)
+    public function provideValue(Request $request): ?int
     {
         return $this->value;
     }

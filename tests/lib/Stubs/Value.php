@@ -10,53 +10,23 @@ final class Value
 {
     use HydratorTrait;
 
-    /**
-     * @var mixed
-     */
-    public $a;
+    public string $a;
 
-    /**
-     * @var mixed
-     */
-    protected $b;
+    protected string $b;
 
-    /**
-     * @var mixed
-     */
-    private $c;
+    private string $c;
 
-    /**
-     * @param mixed $a
-     * @param mixed $b
-     * @param mixed $c
-     */
-    public function __construct($a = null, $b = null, $c = null)
-    {
-        $this->a = $a;
-        $this->b = $b;
-        $this->c = $c;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getA()
+    public function getA(): string
     {
         return $this->a;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getB()
+    public function getB(): string
     {
         return $this->b;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getC()
+    public function getC(): string
     {
         return $this->c;
     }

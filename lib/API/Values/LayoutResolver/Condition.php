@@ -38,8 +38,7 @@ abstract class Condition implements Value
     /**
      * Returns the condition value.
      *
-     * Value of the condition can be a scalar, an associative array, numeric array or a nested
-     * combination of these.
+     * Can be a scalar or a multidimensional array of scalars.
      *
      * @return mixed
      */

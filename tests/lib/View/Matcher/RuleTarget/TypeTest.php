@@ -32,7 +32,7 @@ final class TypeTest extends TestCase
     {
         $target = Target::fromArray(
             [
-                'targetType' => new TargetType1('target1'),
+                'targetType' => new TargetType1(42),
             ]
         );
 

@@ -17,11 +17,11 @@ final class ValueLoader implements ValueLoaderInterface
 
     public function load($id): ?Value
     {
-        return $this->exists ? new Value($id, '') : null;
+        return $this->exists ? new Value((int) $id, '') : null;
     }
 
     public function loadByRemoteId($remoteId): ?Value
     {
-        return $this->exists ? new Value(0, $remoteId) : null;
+        return $this->exists ? new Value(0, (string) $remoteId) : null;
     }
 }

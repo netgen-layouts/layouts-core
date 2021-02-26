@@ -16,11 +16,6 @@ final class Value implements APIValue
 
     public UuidInterface $id;
 
-    /**
-     * @var mixed
-     */
-    public $someProperty;
-
     public function getId(): UuidInterface
     {
         return $this->id;
