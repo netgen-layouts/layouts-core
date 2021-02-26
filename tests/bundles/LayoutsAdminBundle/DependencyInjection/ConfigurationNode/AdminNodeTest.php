@@ -72,6 +72,22 @@ final class AdminNodeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\LayoutsAdminBundle\DependencyInjection\ConfigurationNode\AdminNode::getConfigurationNode
      */
+    public function testJavascriptsWithEmptyJavascripts(): void
+    {
+        $config = [
+            [
+                'admin' => [
+                    'javascripts' => [],
+                ],
+            ],
+        ];
+
+        $this->assertConfigurationIsInvalid($config, 'The path "netgen_layouts.admin.javascripts" should have at least 1 element(s) defined.');
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\DependencyInjection\ConfigurationNode\AdminNode::getConfigurationNode
+     */
     public function testJavascriptsWithInvalidJavascripts(): void
     {
         $config = [
@@ -155,6 +171,22 @@ final class AdminNodeTest extends TestCase
             $expectedConfig,
             'admin.stylesheets'
         );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\DependencyInjection\ConfigurationNode\AdminNode::getConfigurationNode
+     */
+    public function testStylesheetsWithEmptyStylesheets(): void
+    {
+        $config = [
+            [
+                'admin' => [
+                    'stylesheets' => [],
+                ],
+            ],
+        ];
+
+        $this->assertConfigurationIsInvalid($config, 'The path "netgen_layouts.admin.stylesheets" should have at least 1 element(s) defined.');
     }
 
     /**

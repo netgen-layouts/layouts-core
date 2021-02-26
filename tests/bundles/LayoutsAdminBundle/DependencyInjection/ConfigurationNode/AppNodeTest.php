@@ -72,6 +72,22 @@ final class AppNodeTest extends TestCase
     /**
      * @covers \Netgen\Bundle\LayoutsAdminBundle\DependencyInjection\ConfigurationNode\AppNode::getConfigurationNode
      */
+    public function testJavascriptsWithEmptyJavascripts(): void
+    {
+        $config = [
+            [
+                'app' => [
+                    'javascripts' => [],
+                ],
+            ],
+        ];
+
+        $this->assertConfigurationIsInvalid($config, 'The path "netgen_layouts.app.javascripts" should have at least 1 element(s) defined.');
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\DependencyInjection\ConfigurationNode\AppNode::getConfigurationNode
+     */
     public function testJavascriptsWithInvalidJavascripts(): void
     {
         $config = [
@@ -155,6 +171,22 @@ final class AppNodeTest extends TestCase
             $expectedConfig,
             'app.stylesheets'
         );
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\DependencyInjection\ConfigurationNode\AppNode::getConfigurationNode
+     */
+    public function testStylesheetsWithEmptyStylesheets(): void
+    {
+        $config = [
+            [
+                'app' => [
+                    'stylesheets' => [],
+                ],
+            ],
+        ];
+
+        $this->assertConfigurationIsInvalid($config, 'The path "netgen_layouts.app.stylesheets" should have at least 1 element(s) defined.');
     }
 
     /**
