@@ -1,0 +1,24 @@
+{
+    "__type": "rule_group",
+    "id": "00000000-0000-0000-0000-000000000000",
+    "status": "PUBLISHED",
+    "is_enabled": true,
+    "priority": 0,
+    "comment": "",
+    "groups": [
+        {"visited_key": "visited_value"},
+        {"visited_key": "visited_value"}
+    ],
+    "rules": [
+        {"visited_key": "visited_value"},
+        {"visited_key": "visited_value"},
+        {"visited_key": "visited_value"},
+        {"visited_key": "visited_value"},
+        {"visited_key": "visited_value"},
+        {"visited_key": "visited_value"},
+        {"visited_key": "visited_value"},
+        {"visited_key": "visited_value"},
+        {"visited_key": "visited_value"}
+    ],
+    "conditions": []
+}

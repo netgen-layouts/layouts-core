@@ -113,7 +113,7 @@ final class LayoutResolverHandlerTest extends TestCase
                 'parentUuid' => RuleGroup::ROOT_UUID,
                 'enabled' => true,
                 'priority' => 1,
-                'comment' => '',
+                'comment' => 'My comment',
                 'status' => Value::STATUS_PUBLISHED,
             ],
             $this->exportObject($rule)

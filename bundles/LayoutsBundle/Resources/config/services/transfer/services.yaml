@@ -22,6 +22,15 @@ services:
         tags:
             - { name: netgen_layouts.transfer.entity_handler, entity_type: rule }
 
+    netgen_layouts.transfer.entity_handler.rule_group:
+        class: Netgen\Layouts\Transfer\EntityHandler\RuleGroupEntityHandler
+        arguments:
+            - "@netgen_layouts.api.service.layout_resolver"
+            - "@netgen_layouts.transfer.entity_handler.rule"
+            - "@netgen_layouts.layout.resolver.registry.condition_type"
+        tags:
+            - { name: netgen_layouts.transfer.entity_handler, entity_type: rule_group }
+
     netgen_layouts.transfer.serializer:
         class: Netgen\Layouts\Transfer\Output\Serializer
         arguments:

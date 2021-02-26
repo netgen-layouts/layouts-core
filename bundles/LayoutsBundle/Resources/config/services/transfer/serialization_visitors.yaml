@@ -58,6 +58,13 @@ services:
         tags:
             - { name: netgen_layouts.transfer_output_visitor }
 
+    netgen_layouts.transfer.serializer.visitor.rule_group:
+        class: Netgen\Layouts\Transfer\Output\Visitor\RuleGroupVisitor
+        arguments:
+            - "@netgen_layouts.api.service.layout_resolver"
+        tags:
+            - { name: netgen_layouts.transfer_output_visitor }
+
     netgen_layouts.transfer.serializer.visitor.target:
         class: Netgen\Layouts\Transfer\Output\Visitor\TargetVisitor
         tags:

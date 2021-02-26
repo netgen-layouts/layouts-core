@@ -528,6 +528,61 @@
                     }
                 }
             },
+            "rule_group": {
+                "type": "object",
+                "description": "A rule group",
+                "required": ["__type", "id", "status", "is_enabled", "priority", "comment", "groups", "rules", "conditions"],
+                "additionalProperties": false,
+                "properties": {
+                    "__type": {
+                        "type": "string",
+                        "description": "The type of the entity to import",
+                        "const": "rule_group"
+                    },
+                    "id": {
+                        "$ref": "#/definitions/simple/uuid",
+                        "description": "The UUID of the rule group"
+                    },
+                    "status": {
+                        "type": "string",
+                        "description": "The status of the rule group",
+                        "enum": ["DRAFT", "PUBLISHED", "ARCHIVED"]
+                    },
+                    "is_enabled": {
+                        "type": "boolean",
+                        "description": "The flag indicating if the rule group is active"
+                    },
+                    "priority": {
+                        "type": "integer",
+                        "description": "The rule group priority"
+                    },
+                    "comment": {
+                        "type": "string",
+                        "description": "The comment of the rule group"
+                    },
+                    "groups": {
+                        "type": "array",
+                        "description": "The list of sub groups in the rule group",
+                        "items": {
+                            "$ref": "#/definitions/complex/rule_group"
+                        }
+                    },
+                    "rules": {
+                        "type": "array",
+                        "description": "The list of rules in the rule group",
+                        "items": {
+                            "$ref": "#/definitions/complex/rule"
+                        }
+                    },
+                    "conditions": {
+                        "type": "array",
+                        "description": "The list of conditions in the rule group",
+                        "items": {
+                            "$ref": "#/definitions/complex/condition"
+                        }
+                    }
+                }
+            },
             "target": {
                 "type": "object",
                 "description": "A rule target",
@@ -558,21 +613,21 @@
             },
             "condition": {
                 "type": "object",
-                "description": "A rule condition",
+                "description": "A rule/group condition",
                 "required": ["id", "type", "value"],
                 "additionalProperties": false,
                 "properties": {
                     "id": {
                         "$ref": "#/definitions/simple/uuid",
-                        "description": "The UUID of the rule condition"
+                        "description": "The UUID of the rule/group condition"
                     },
                     "type": {
                         "type": "string",
-                        "description": "The type of the rule condition",
+                        "description": "The type of the rule/group condition",
                         "pattern": "^[A-Za-z]([A-Za-z0-9_])*$"
                     },
                     "value": {
-                        "description": "The value of the rule condition",
+                        "description": "The value of the rule/group condition",
                         "examples": [
                             null,
                             42,

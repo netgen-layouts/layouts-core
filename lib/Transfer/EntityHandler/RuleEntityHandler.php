@@ -67,7 +67,9 @@ final class RuleEntityHandler implements EntityHandlerInterface
 
         $ruleDraft = $this->layoutResolverService->createRule(
             $createStruct,
-            $this->layoutResolverService->loadRuleGroup(Uuid::fromString(RuleGroup::ROOT_UUID))
+            $this->layoutResolverService->loadRuleGroup(
+                Uuid::fromString($data['rule_group_id'] ?? RuleGroup::ROOT_UUID)
+            )
         );
 
         $this->createTargets($ruleDraft, $data['targets']);
