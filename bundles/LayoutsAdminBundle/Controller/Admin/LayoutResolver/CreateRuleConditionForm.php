@@ -28,7 +28,7 @@ final class CreateRuleConditionForm extends AbstractController
     }
 
     /**
-     * Displays the condition create form.
+     * Displays the rule condition create form.
      */
     public function __invoke(Rule $rule, string $type, Request $request): ViewInterface
     {
