@@ -1173,7 +1173,9 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('condition', 'Only draft conditions can be deleted.');
         }
 
-        $persistenceCondition = $this->layoutResolverHandler->loadRuleCondition($condition->getId(), Value::STATUS_DRAFT);
+        $persistenceCondition = $condition instanceof RuleCondition ?
+            $this->layoutResolverHandler->loadRuleCondition($condition->getId(), Value::STATUS_DRAFT) :
+            $this->layoutResolverHandler->loadRuleGroupCondition($condition->getId(), Value::STATUS_DRAFT);
 
         $this->transaction(
             function () use ($persistenceCondition): void {
