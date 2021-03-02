@@ -21,6 +21,8 @@ final class RuleCreateStruct
 
     /**
      * Priority of the rule.
+     *
+     * If not specified, rule will be placed after all other rules and rule groups at the same level.
      */
     public ?int $priority = null;
 

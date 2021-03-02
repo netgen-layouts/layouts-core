@@ -28,6 +28,8 @@ final class RuleGroupCreateStruct
 
     /**
      * Priority of the rule group.
+     *
+     * If not specified, rule group will be placed after all other rules and rule groups at the same level.
      */
     public ?int $priority = null;
 
