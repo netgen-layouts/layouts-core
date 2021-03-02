@@ -984,7 +984,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
      */
     public function testCreateRuleGroup(): void
     {
-        $ruleGroupCreateStruct = $this->layoutResolverService->newRuleGroupCreateStruct();
+        $ruleGroupCreateStruct = $this->layoutResolverService->newRuleGroupCreateStruct('Test group');
 
         $createdRuleGroup = $this->layoutResolverService->createRuleGroup(
             $ruleGroupCreateStruct,
@@ -1001,7 +1001,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
      */
     public function testCreateRuleGroupWithCustomUuid(): void
     {
-        $ruleGroupCreateStruct = $this->layoutResolverService->newRuleGroupCreateStruct();
+        $ruleGroupCreateStruct = $this->layoutResolverService->newRuleGroupCreateStruct('Test group');
         $ruleGroupCreateStruct->uuid = Uuid::fromString('0f714915-eef0-4dc1-b22b-1107cb1ab92b');
 
         $createdRuleGroup = $this->layoutResolverService->createRuleGroup(
@@ -1023,7 +1023,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "uuid" has an invalid state. Rule group with provided UUID already exists.');
 
-        $ruleGroupCreateStruct = $this->layoutResolverService->newRuleGroupCreateStruct();
+        $ruleGroupCreateStruct = $this->layoutResolverService->newRuleGroupCreateStruct('Test group');
         $ruleGroupCreateStruct->uuid = Uuid::fromString('eb6311eb-24f6-4143-b476-99979a885a7e');
 
         $this->layoutResolverService->createRuleGroup(
@@ -1040,7 +1040,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectException(BadStateException::class);
         $this->expectExceptionMessage('Argument "parentGroup" has an invalid state. Rule groups can be created only in published groups.');
 
-        $ruleGroupCreateStruct = $this->layoutResolverService->newRuleGroupCreateStruct();
+        $ruleGroupCreateStruct = $this->layoutResolverService->newRuleGroupCreateStruct('Test group');
         $ruleGroupCreateStruct->uuid = Uuid::fromString('eb6311eb-24f6-4143-b476-99979a885a7e');
 
         $this->layoutResolverService->createRuleGroup(
@@ -1898,11 +1898,12 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
      */
     public function testNewRuleGroupCreateStruct(): void
     {
-        $struct = $this->layoutResolverService->newRuleGroupCreateStruct();
+        $struct = $this->layoutResolverService->newRuleGroupCreateStruct('Test group');
 
         self::assertSame(
             [
                 'uuid' => null,
+                'name' => 'Test group',
                 'priority' => null,
                 'enabled' => true,
                 'comment' => '',
@@ -1920,6 +1921,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         self::assertSame(
             [
+                'name' => null,
                 'comment' => null,
             ],
             $this->exportObject($struct)

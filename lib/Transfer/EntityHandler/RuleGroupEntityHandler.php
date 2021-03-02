@@ -49,7 +49,7 @@ final class RuleGroupEntityHandler implements EntityHandlerInterface
 
     public function importEntity(array $data, bool $keepUuid): RuleGroup
     {
-        $createStruct = $this->layoutResolverService->newRuleGroupCreateStruct();
+        $createStruct = $this->layoutResolverService->newRuleGroupCreateStruct($data['name']);
 
         $createStruct->enabled = $data['is_enabled'];
         $createStruct->comment = $data['comment'];

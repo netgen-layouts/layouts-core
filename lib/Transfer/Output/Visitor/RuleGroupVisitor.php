@@ -43,6 +43,7 @@ final class RuleGroupVisitor implements VisitorInterface
             '__type' => self::ENTITY_TYPE,
             'id' => $value->getId()->toString(),
             'status' => $this->getStatusString($value),
+            'name' => $value->getName(),
             'is_enabled' => $value->isEnabled(),
             'priority' => $value->getPriority(),
             'comment' => $value->getComment(),

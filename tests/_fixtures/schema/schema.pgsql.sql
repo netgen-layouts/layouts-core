@@ -204,6 +204,7 @@ CREATE TABLE IF NOT EXISTS "nglayouts_rule_group" (
   "depth" integer NOT NULL,
   "path" character varying(255) NOT NULL,
   "parent_id" integer,
+  "name" character varying(255) NOT NULL,
   "comment" text NOT NULL,
   PRIMARY KEY ("id", "status")
 );

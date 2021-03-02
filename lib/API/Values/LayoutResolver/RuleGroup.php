@@ -28,6 +28,8 @@ final class RuleGroup implements Value
 
     private ?UuidInterface $parentId;
 
+    private string $name;
+
     private bool $enabled;
 
     private int $priority;
@@ -57,6 +59,14 @@ final class RuleGroup implements Value
     public function getParentId(): ?UuidInterface
     {
         return $this->parentId;
+    }
+
+    /**
+     * Returns human readable name of the rule group.
+     */
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     /**

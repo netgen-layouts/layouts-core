@@ -21,6 +21,7 @@ final class Version010300 extends AbstractMigration
               depth int(11) NOT NULL,
               path varchar(191) NOT NULL,
               parent_id int(11) DEFAULT NULL,
+              name varchar(191) NOT NULL,
               comment longtext NOT NULL,
               PRIMARY KEY (id, status),
               UNIQUE KEY idx_ngl_rule_group_uuid (uuid, status),
@@ -47,7 +48,7 @@ final class Version010300 extends AbstractMigration
             INSERT INTO nglayouts_rule_group (
               id, status, uuid, depth, path, parent_id, comment
             ) VALUES (
-              1, 1, '00000000-0000-0000-0000-000000000000', 0, '/1/', NULL, ''
+              1, 1, '00000000-0000-0000-0000-000000000000', 0, '/1/', NULL, '', ''
             )
             EOT
         );

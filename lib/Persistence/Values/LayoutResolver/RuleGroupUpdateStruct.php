@@ -11,6 +11,11 @@ final class RuleGroupUpdateStruct
     use HydratorTrait;
 
     /**
+     * New rule group name.
+     */
+    public ?string $name = null;
+
+    /**
      * Human readable comment of the rule group.
      */
     public ?string $comment = null;

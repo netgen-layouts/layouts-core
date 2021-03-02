@@ -474,13 +474,13 @@ UNLOCK TABLES;
 
 LOCK TABLES `nglayouts_rule_group` WRITE;
 /*!40000 ALTER TABLE `nglayouts_rule_group` DISABLE KEYS */;
-INSERT INTO `nglayouts_rule_group` VALUES (1,1,'00000000-0000-0000-0000-000000000000',0,'/1/',NULL,'');
-INSERT INTO `nglayouts_rule_group` VALUES (2,0,'b4f85f38-de3f-4af7-9a5f-21df63a49da9',1,'/1/2/',1,'My comment');
-INSERT INTO `nglayouts_rule_group` VALUES (2,1,'b4f85f38-de3f-4af7-9a5f-21df63a49da9',1,'/1/2/',1,'My comment');
-INSERT INTO `nglayouts_rule_group` VALUES (3,0,'eb6311eb-24f6-4143-b476-99979a885a7e',1,'/1/3/',1,'');
-INSERT INTO `nglayouts_rule_group` VALUES (3,1,'eb6311eb-24f6-4143-b476-99979a885a7e',1,'/1/3/',1,'');
-INSERT INTO `nglayouts_rule_group` VALUES (4,1,'91139748-3bf0-4c25-b45c-d3be6596c399',2,'/1/2/4/',2,'');
-INSERT INTO `nglayouts_rule_group` VALUES (4,2,'91139748-3bf0-4c25-b45c-d3be6596c399',2,'/1/2/4/',2,'');
+INSERT INTO `nglayouts_rule_group` VALUES (1,1,'00000000-0000-0000-0000-000000000000',0,'/1/',NULL,'','');
+INSERT INTO `nglayouts_rule_group` VALUES (2,0,'b4f85f38-de3f-4af7-9a5f-21df63a49da9',1,'/1/2/',1,'First group','My comment');
+INSERT INTO `nglayouts_rule_group` VALUES (2,1,'b4f85f38-de3f-4af7-9a5f-21df63a49da9',1,'/1/2/',1,'First group','My comment');
+INSERT INTO `nglayouts_rule_group` VALUES (3,0,'eb6311eb-24f6-4143-b476-99979a885a7e',1,'/1/3/',1,'Second group','');
+INSERT INTO `nglayouts_rule_group` VALUES (3,1,'eb6311eb-24f6-4143-b476-99979a885a7e',1,'/1/3/',1,'Second group','');
+INSERT INTO `nglayouts_rule_group` VALUES (4,1,'91139748-3bf0-4c25-b45c-d3be6596c399',2,'/1/2/4/',2,'Third group','');
+INSERT INTO `nglayouts_rule_group` VALUES (4,2,'91139748-3bf0-4c25-b45c-d3be6596c399',2,'/1/2/4/',2,'Third group','');
 /*!40000 ALTER TABLE `nglayouts_rule_group` ENABLE KEYS */;
 UNLOCK TABLES;
 

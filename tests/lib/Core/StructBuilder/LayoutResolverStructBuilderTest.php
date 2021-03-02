@@ -76,11 +76,12 @@ abstract class LayoutResolverStructBuilderTest extends CoreTestCase
      */
     public function testNewRuleGroupCreateStruct(): void
     {
-        $struct = $this->structBuilder->newRuleGroupCreateStruct();
+        $struct = $this->structBuilder->newRuleGroupCreateStruct('Test group');
 
         self::assertSame(
             [
                 'uuid' => null,
+                'name' => 'Test group',
                 'priority' => null,
                 'enabled' => true,
                 'comment' => '',
@@ -98,6 +99,7 @@ abstract class LayoutResolverStructBuilderTest extends CoreTestCase
 
         self::assertSame(
             [
+                'name' => null,
                 'comment' => null,
             ],
             $this->exportObject($struct)

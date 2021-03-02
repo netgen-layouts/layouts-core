@@ -648,6 +648,8 @@ final class LayoutResolverService implements APILayoutResolverService
 
     public function createRuleGroup(APIRuleGroupCreateStruct $ruleGroupCreateStruct, ?RuleGroup $parentGroup = null): RuleGroup
     {
+        $this->validator->validateRuleGroupCreateStruct($ruleGroupCreateStruct);
+
         if ($parentGroup !== null && !$parentGroup->isPublished()) {
             throw new BadStateException('parentGroup', 'Rule groups can be created only in published groups.');
         }
@@ -659,6 +661,7 @@ final class LayoutResolverService implements APILayoutResolverService
                         'uuid' => $ruleGroupCreateStruct->uuid instanceof UuidInterface ?
                             $ruleGroupCreateStruct->uuid->toString() :
                             $ruleGroupCreateStruct->uuid,
+                        'name' => $ruleGroupCreateStruct->name,
                         'priority' => $ruleGroupCreateStruct->priority,
                         'enabled' => $ruleGroupCreateStruct->enabled,
                         'comment' => $ruleGroupCreateStruct->comment,
@@ -682,11 +685,14 @@ final class LayoutResolverService implements APILayoutResolverService
 
         $persistenceRuleGroup = $this->layoutResolverHandler->loadRuleGroup($ruleGroup->getId(), Value::STATUS_DRAFT);
 
+        $this->validator->validateRuleGroupUpdateStruct($ruleGroupUpdateStruct);
+
         $updatedRuleGroup = $this->transaction(
             fn (): PersistenceRuleGroup => $this->layoutResolverHandler->updateRuleGroup(
                 $persistenceRuleGroup,
                 RuleGroupUpdateStruct::fromArray(
                     [
+                        'name' => $ruleGroupUpdateStruct->name,
                         'comment' => $ruleGroupUpdateStruct->comment,
                     ]
                 )
@@ -1199,9 +1205,9 @@ final class LayoutResolverService implements APILayoutResolverService
         return $this->structBuilder->newRuleMetadataUpdateStruct();
     }
 
-    public function newRuleGroupCreateStruct(): APIRuleGroupCreateStruct
+    public function newRuleGroupCreateStruct(string $name): APIRuleGroupCreateStruct
     {
-        return $this->structBuilder->newRuleGroupCreateStruct();
+        return $this->structBuilder->newRuleGroupCreateStruct($name);
     }
 
     public function newRuleGroupUpdateStruct(): APIRuleGroupUpdateStruct

@@ -481,7 +481,7 @@ interface LayoutResolverService extends TransactionService
     /**
      * Creates a new rule group create struct.
      */
-    public function newRuleGroupCreateStruct(): RuleGroupCreateStruct;
+    public function newRuleGroupCreateStruct(string $name): RuleGroupCreateStruct;
 
     /**
      * Creates a new rule group update struct.

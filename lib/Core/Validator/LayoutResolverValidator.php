@@ -7,6 +7,8 @@ namespace Netgen\Layouts\Core\Validator;
 use Netgen\Layouts\API\Values\LayoutResolver\Condition;
 use Netgen\Layouts\API\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\ConditionUpdateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct;
@@ -18,6 +20,7 @@ use Netgen\Layouts\Validator\ValidatorTrait;
 use Symfony\Component\Validator\Constraints;
 use function is_bool;
 use function sprintf;
+use function trim;
 
 final class LayoutResolverValidator
 {
@@ -49,6 +52,44 @@ final class LayoutResolverValidator
                     new Constraints\IdenticalTo(['value' => false]),
                 ],
                 'layoutId'
+            );
+        }
+    }
+
+    /**
+     * Validates the provided rule group create struct.
+     *
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
+     */
+    public function validateRuleGroupCreateStruct(RuleGroupCreateStruct $ruleGroupCreateStruct): void
+    {
+        if (!isset($ruleGroupCreateStruct->name)) {
+            throw ValidationException::validationFailed('name', sprintf('"name" is required in %s', RuleGroupCreateStruct::class));
+        }
+
+        $this->validate(
+            trim($ruleGroupCreateStruct->name),
+            [
+                new Constraints\NotBlank(),
+            ],
+            'name'
+        );
+    }
+
+    /**
+     * Validates the provided rule group update struct.
+     *
+     * @throws \Netgen\Layouts\Exception\Validation\ValidationException If the validation failed
+     */
+    public function validateRuleGroupUpdateStruct(RuleGroupUpdateStruct $ruleGroupUpdateStruct): void
+    {
+        if ($ruleGroupUpdateStruct->name !== null) {
+            $this->validate(
+                trim($ruleGroupUpdateStruct->name),
+                [
+                    new Constraints\NotBlank(),
+                ],
+                'name'
             );
         }
     }

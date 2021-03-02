@@ -7,6 +7,8 @@ namespace Netgen\Layouts\Tests\Core\Validator;
 use Netgen\Layouts\API\Values\LayoutResolver\ConditionCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\ConditionUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleCondition;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupCreateStruct;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroupUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleUpdateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\Target;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct;
@@ -71,6 +73,48 @@ final class LayoutResolverValidatorTest extends TestCase
         $this->addToAssertionCount(1);
 
         $this->layoutResolverValidator->validateRuleUpdateStruct($struct);
+    }
+
+    /**
+     * @param array<string, mixed> $params
+     *
+     * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::validateRuleGroupCreateStruct
+     * @dataProvider validateRuleGroupCreateStructDataProvider
+     */
+    public function testValidateRuleGroupCreateStruct(array $params, bool $isValid): void
+    {
+        if (!$isValid) {
+            $this->expectException(ValidationException::class);
+        }
+
+        $struct = new RuleGroupCreateStruct();
+        (new Hydrator())->hydrate($params, $struct);
+
+        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
+        $this->addToAssertionCount(1);
+
+        $this->layoutResolverValidator->validateRuleGroupCreateStruct($struct);
+    }
+
+    /**
+     * @param array<string, mixed> $params
+     *
+     * @covers \Netgen\Layouts\Core\Validator\LayoutResolverValidator::validateRuleGroupUpdateStruct
+     * @dataProvider validateRuleGroupUpdateStructDataProvider
+     */
+    public function testValidateRuleGroupUpdateStruct(array $params, bool $isValid): void
+    {
+        if (!$isValid) {
+            $this->expectException(ValidationException::class);
+        }
+
+        $struct = new RuleGroupUpdateStruct();
+        (new Hydrator())->hydrate($params, $struct);
+
+        // Tests without assertions are not covered by PHPUnit, so we fake the assertion count
+        $this->addToAssertionCount(1);
+
+        $this->layoutResolverValidator->validateRuleGroupUpdateStruct($struct);
     }
 
     /**
@@ -173,6 +217,30 @@ final class LayoutResolverValidatorTest extends TestCase
             [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'comment' => 'Comment'], true],
             [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'comment' => null], true],
             [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'comment' => ''], true],
+        ];
+    }
+
+    public function validateRuleGroupCreateStructDataProvider(): array
+    {
+        return [
+            [['uuid' => null, 'name' => 'Name', 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
+            [['uuid' => Uuid::uuid4(), 'name' => 'Name', 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
+            [['uuid' => null, 'name' => 'Name', 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
+            [['uuid' => null, 'name' => '', 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], false],
+            [['uuid' => null, 'name' => 'Name', 'priority' => 2, 'enabled' => false, 'comment' => 'Comment'], true],
+            [['uuid' => null, 'name' => 'Name', 'priority' => 2, 'enabled' => true, 'comment' => ''], true],
+        ];
+    }
+
+    public function validateRuleGroupUpdateStructDataProvider(): array
+    {
+        return [
+            [['name' => 'Name', 'comment' => 'Comment'], true],
+            [['name' => null, 'comment' => 'Comment'], true],
+            [['name' => '', 'comment' => 'Comment'], false],
+            [['name' => 'Name', 'comment' => 'Comment'], true],
+            [['name' => 'Name', 'comment' => null], true],
+            [['name' => 'Name', 'comment' => ''], true],
         ];
     }
 

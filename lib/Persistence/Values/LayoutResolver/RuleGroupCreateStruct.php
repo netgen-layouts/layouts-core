@@ -17,6 +17,11 @@ final class RuleGroupCreateStruct
     public ?string $uuid;
 
     /**
+     * Name of the new rule group.
+     */
+    public string $name;
+
+    /**
      * Priority of the new rule group.
      */
     public ?int $priority;

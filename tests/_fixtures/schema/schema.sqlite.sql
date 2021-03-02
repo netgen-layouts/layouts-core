@@ -256,6 +256,7 @@ CREATE TABLE `nglayouts_rule_group` (
   `depth` integer NOT NULL,
   `path` text(255) NOT NULL,
   `parent_id` integer DEFAULT NULL,
+  `name` text(255) NOT NULL,
   `comment` longtext NOT NULL,
   PRIMARY KEY (`id`, `status`),
   UNIQUE (`uuid`, `status`)

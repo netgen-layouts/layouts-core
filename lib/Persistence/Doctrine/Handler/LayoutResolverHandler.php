@@ -388,6 +388,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
                 'path' => $parentGroup !== null ? $parentGroup->path : '/',
                 'parentId' => $parentGroup !== null ? $parentGroup->id : null,
                 'parentUuid' => $parentGroup !== null ? $parentGroup->uuid : null,
+                'name' => trim($ruleGroupCreateStruct->name),
                 'enabled' => $ruleGroupCreateStruct->enabled ? true : false,
                 'priority' => $parentGroup !== null ? ($ruleGroupCreateStruct->priority ?? $this->getPriority($parentGroup)) : 0,
                 'comment' => trim($ruleGroupCreateStruct->comment),
@@ -407,6 +408,10 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
     public function updateRuleGroup(RuleGroup $ruleGroup, RuleGroupUpdateStruct $ruleGroupUpdateStruct): RuleGroup
     {
         $updatedRuleGroup = clone $ruleGroup;
+
+        if (is_string($ruleGroupUpdateStruct->name)) {
+            $updatedRuleGroup->name = trim($ruleGroupUpdateStruct->name);
+        }
 
         if (is_string($ruleGroupUpdateStruct->comment)) {
             $updatedRuleGroup->comment = trim($ruleGroupUpdateStruct->comment);

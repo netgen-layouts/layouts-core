@@ -18,6 +18,7 @@ final class RuleGroupTest extends TestCase
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getComment
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getConditions
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getId
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getName
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getParentId
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getPriority
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getRules
@@ -37,6 +38,7 @@ final class RuleGroupTest extends TestCase
             [
                 'id' => $uuid,
                 'parentId' => $parentUuid,
+                'name' => 'Name',
                 'priority' => 13,
                 'enabled' => true,
                 'comment' => 'Comment',
@@ -48,6 +50,7 @@ final class RuleGroupTest extends TestCase
         self::assertSame($uuid->toString(), $ruleGroup->getId()->toString());
         self::assertInstanceOf(UuidInterface::class, $ruleGroup->getParentId());
         self::assertSame($parentUuid->toString(), $ruleGroup->getParentId()->toString());
+        self::assertSame('Name', $ruleGroup->getName());
         self::assertSame(13, $ruleGroup->getPriority());
         self::assertTrue($ruleGroup->isEnabled());
         self::assertSame('Comment', $ruleGroup->getComment());

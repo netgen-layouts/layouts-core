@@ -15,6 +15,13 @@ final class RuleGroupCreateStruct
     public ?UuidInterface $uuid = null;
 
     /**
+     * Human readable name of the rule group.
+     *
+     * Required.
+     */
+    public string $name;
+
+    /**
      * Priority of the rule group.
      */
     public ?int $priority = null;

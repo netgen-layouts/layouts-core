@@ -101,6 +101,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
                 'path' => '/1/2/',
                 'parentId' => 1,
                 'parentUuid' => RuleGroup::ROOT_UUID,
+                'name' => 'Name',
                 'enabled' => true,
                 'priority' => 1,
                 'comment' => 'Comment',
@@ -113,6 +114,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
         self::assertInstanceOf(UuidInterface::class, $ruleGroup->getParentId());
         self::assertSame(RuleGroup::ROOT_UUID, $ruleGroup->getParentId()->toString());
         self::assertTrue($ruleGroup->isPublished());
+        self::assertSame('Name', $ruleGroup->getName());
         self::assertTrue($ruleGroup->isEnabled());
         self::assertSame(1, $ruleGroup->getPriority());
         self::assertSame('Comment', $ruleGroup->getComment());

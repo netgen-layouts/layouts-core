@@ -63,6 +63,7 @@ final class LayoutResolverMapper
                     'path' => $dataItem['path'],
                     'parentId' => $dataItem['parent_id'] > 0 ? (int) $dataItem['parent_id'] : null,
                     'parentUuid' => $dataItem['parent_uuid'] ?? null,
+                    'name' => $dataItem['name'],
                     'enabled' => (bool) $dataItem['enabled'],
                     'priority' => (int) $dataItem['priority'],
                     'comment' => $dataItem['comment'],

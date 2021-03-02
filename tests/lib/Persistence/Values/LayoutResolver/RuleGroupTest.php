@@ -23,6 +23,7 @@ final class RuleGroupTest extends TestCase
                 'path' => '/42/43/',
                 'parentId' => 42,
                 'parentUuid' => 'c3527744-3285-416e-9a4c-5bb753d43e35',
+                'name' => 'Name',
                 'enabled' => true,
                 'priority' => 3,
                 'comment' => 'Comment',
@@ -36,6 +37,7 @@ final class RuleGroupTest extends TestCase
         self::assertSame('/42/43/', $ruleGroup->path);
         self::assertSame(42, $ruleGroup->parentId);
         self::assertSame('c3527744-3285-416e-9a4c-5bb753d43e35', $ruleGroup->parentUuid);
+        self::assertSame('Name', $ruleGroup->name);
         self::assertTrue($ruleGroup->enabled);
         self::assertSame(3, $ruleGroup->priority);
         self::assertSame('Comment', $ruleGroup->comment);

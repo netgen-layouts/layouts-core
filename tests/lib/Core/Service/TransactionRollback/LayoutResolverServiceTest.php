@@ -387,8 +387,11 @@ final class LayoutResolverServiceTest extends TestCase
             ->expects(self::once())
             ->method('rollbackTransaction');
 
+        $createStruct = new RuleGroupCreateStruct();
+        $createStruct->name = 'Test group';
+
         $this->layoutResolverService->createRuleGroup(
-            new RuleGroupCreateStruct(),
+            $createStruct,
             RuleGroup::fromArray(
                 [
                     'id' => Uuid::uuid4(),

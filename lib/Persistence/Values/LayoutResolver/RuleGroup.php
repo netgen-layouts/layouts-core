@@ -49,6 +49,11 @@ final class RuleGroup extends Value
     public ?string $parentUuid;
 
     /**
+     * Human readable rule group name.
+     */
+    public string $name;
+
+    /**
      * A flag indicating if the rule group is enabled or not.
      */
     public bool $enabled;

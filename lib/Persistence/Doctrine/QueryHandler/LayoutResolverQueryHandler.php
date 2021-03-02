@@ -639,6 +639,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                     'depth' => ':depth',
                     'path' => ':path',
                     'parent_id' => ':parent_id',
+                    'name' => ':name',
                     'comment' => ':comment',
                 ]
             )
@@ -649,6 +650,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             // Materialized path is updated after rule group is created
             ->setParameter('path', $ruleGroup->path, Types::STRING)
             ->setParameter('parent_id', $ruleGroup->parentId, Types::INTEGER)
+            ->setParameter('name', $ruleGroup->name, Types::STRING)
             ->setParameter('comment', $ruleGroup->comment, Types::STRING);
 
         $query->execute();
@@ -709,6 +711,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->set('depth', ':depth')
             ->set('path', ':path')
             ->set('parent_id', ':parent_id')
+            ->set('name', ':name')
             ->set('comment', ':comment')
             ->where(
                 $query->expr()->eq('id', ':id')
@@ -718,6 +721,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->setParameter('depth', $ruleGroup->depth, Types::INTEGER)
             ->setParameter('path', $ruleGroup->path, Types::STRING)
             ->setParameter('parent_id', $ruleGroup->parentId, Types::INTEGER)
+            ->setParameter('name', $ruleGroup->name, Types::STRING)
             ->setParameter('comment', $ruleGroup->comment, Types::STRING);
 
         $this->applyStatusCondition($query, $ruleGroup->status);

@@ -106,6 +106,7 @@ final class LayoutResolverMapper
                 Uuid::fromString($ruleGroup->parentUuid) :
                 null,
             'status' => $ruleGroup->status,
+            'name' => $ruleGroup->name,
             'enabled' => $ruleGroup->enabled,
             'priority' => $ruleGroup->priority,
             'comment' => $ruleGroup->comment,

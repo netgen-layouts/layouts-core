@@ -548,6 +548,11 @@
                         "description": "The status of the rule group",
                         "enum": ["DRAFT", "PUBLISHED", "ARCHIVED"]
                     },
+                    "name": {
+                        "type": "string",
+                        "description": "The name of the rule group",
+                        "minLength": 1
+                    },
                     "is_enabled": {
                         "type": "boolean",
                         "description": "The flag indicating if the rule group is active"

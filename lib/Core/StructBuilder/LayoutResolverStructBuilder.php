@@ -44,9 +44,12 @@ final class LayoutResolverStructBuilder
     /**
      * Creates a new rule group create struct.
      */
-    public function newRuleGroupCreateStruct(): RuleGroupCreateStruct
+    public function newRuleGroupCreateStruct(string $name): RuleGroupCreateStruct
     {
-        return new RuleGroupCreateStruct();
+        $struct = new RuleGroupCreateStruct();
+        $struct->name = $name;
+
+        return $struct;
     }
 
     /**
