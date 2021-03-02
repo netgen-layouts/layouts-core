@@ -42,7 +42,7 @@ final class Rule extends Value
     public int $priority;
 
     /**
-     * Human readable comment of the rule.
+     * Human readable description of the rule.
      */
-    public string $comment;
+    public string $description;
 }

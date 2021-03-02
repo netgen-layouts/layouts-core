@@ -23,7 +23,7 @@ final class RuleTest extends TestCase
                 'layoutUuid' => '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 'enabled' => true,
                 'priority' => 3,
-                'comment' => 'Comment',
+                'description' => 'Description',
                 'status' => Value::STATUS_DRAFT,
             ]
         );
@@ -34,7 +34,7 @@ final class RuleTest extends TestCase
         self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $rule->layoutUuid);
         self::assertTrue($rule->enabled);
         self::assertSame(3, $rule->priority);
-        self::assertSame('Comment', $rule->comment);
+        self::assertSame('Description', $rule->description);
         self::assertSame(Value::STATUS_DRAFT, $rule->status);
     }
 }

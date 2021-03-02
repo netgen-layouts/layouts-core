@@ -23,15 +23,15 @@ final class RuleType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
-            'comment',
+            'description',
             TextareaType::class,
             [
-                'label' => 'rule.comment',
+                'label' => 'rule.description',
                 'required' => false,
                 'constraints' => [
                     new Constraints\Type(['type' => 'string']),
                 ],
-                'property_path' => 'comment',
+                'property_path' => 'description',
                 'empty_data' => '',
             ]
         );

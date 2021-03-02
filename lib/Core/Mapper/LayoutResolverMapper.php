@@ -77,7 +77,7 @@ final class LayoutResolverMapper
             },
             'enabled' => $rule->enabled,
             'priority' => $rule->priority,
-            'comment' => $rule->comment,
+            'description' => $rule->description,
             'targets' => new LazyCollection(
                 fn (): array => array_map(
                     fn (PersistenceTarget $target): Target => $this->mapTarget($target),

@@ -166,7 +166,7 @@ CREATE TABLE IF NOT EXISTS "nglayouts_rule" (
   "uuid" character(36) NOT NULL,
   "rule_group_id" integer NOT NULL,
   "layout_uuid" character(36),
-  "comment" text NOT NULL,
+  "description" text NOT NULL,
   PRIMARY KEY ("id", "status")
 );
 

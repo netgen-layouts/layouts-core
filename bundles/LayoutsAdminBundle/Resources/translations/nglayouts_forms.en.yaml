@@ -39,7 +39,7 @@ layout.edit.button.cancel: 'Cancel'
 layout.edit.button.save: 'Save'
 layout.edit.title: 'Edit layout name and description'
 
-rule.comment: 'Comment'
+rule.description: 'Description'
 
 rule.edit.title: 'Edit mapping'
 rule.edit.button.cancel: 'Cancel'

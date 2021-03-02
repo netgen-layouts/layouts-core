@@ -5,6 +5,7 @@
     "layout_id": null,
     "is_enabled": false,
     "priority": -1,
+    "description": "",
     "comment": "",
     "targets": [],
     "conditions": []

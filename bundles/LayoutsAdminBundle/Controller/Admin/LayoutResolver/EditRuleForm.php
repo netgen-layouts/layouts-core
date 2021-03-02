@@ -29,7 +29,7 @@ final class EditRuleForm extends AbstractController
         $this->denyAccessUnlessGranted('nglayouts:mapping:edit');
 
         $updateStruct = $this->layoutResolverService->newRuleUpdateStruct();
-        $updateStruct->comment = $rule->getComment();
+        $updateStruct->description = $rule->getDescription();
 
         $form = $this->createForm(
             RuleType::class,

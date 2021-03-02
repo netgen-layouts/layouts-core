@@ -32,9 +32,9 @@ final class RuleCreateStruct
     public bool $enabled;
 
     /**
-     * Human readable comment of the rule.
+     * Human readable description of the rule.
      */
-    public string $comment;
+    public string $description;
 
     /**
      * Rule status. One of self::STATUS_* flags.

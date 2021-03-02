@@ -20,7 +20,7 @@ final class RuleTypeTest extends FormTestCase
     public function testSubmitValidData(): void
     {
         $submittedData = [
-            'comment' => 'New comment',
+            'description' => 'New description',
         ];
 
         $struct = new RuleUpdateStruct();
@@ -31,7 +31,7 @@ final class RuleTypeTest extends FormTestCase
 
         self::assertTrue($form->isSynchronized());
 
-        self::assertSame('New comment', $struct->comment);
+        self::assertSame('New description', $struct->description);
 
         $view = $form->createView();
         $children = $view->children;

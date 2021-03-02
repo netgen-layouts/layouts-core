@@ -210,13 +210,13 @@ final class LayoutResolverValidatorTest extends TestCase
     public function validateRuleUpdateStructDataProvider(): array
     {
         return [
-            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'comment' => 'Comment'], true],
-            [['layoutId' => null, 'comment' => 'Comment'], true],
-            [['layoutId' => false, 'comment' => 'Comment'], true],
-            [['layoutId' => true, 'comment' => 'Comment'], false],
-            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'comment' => 'Comment'], true],
-            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'comment' => null], true],
-            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'comment' => ''], true],
+            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'description' => 'Description'], true],
+            [['layoutId' => null, 'description' => 'Description'], true],
+            [['layoutId' => false, 'description' => 'Description'], true],
+            [['layoutId' => true, 'description' => 'Description'], false],
+            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'description' => 'Description'], true],
+            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'description' => null], true],
+            [['layoutId' => Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'), 'description' => ''], true],
         ];
     }
 

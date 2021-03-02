@@ -216,7 +216,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
                 'layoutUuid' => $layout instanceof Layout ? $layout->uuid : null,
                 'enabled' => $ruleCreateStruct->enabled ? true : false,
                 'priority' => $ruleCreateStruct->priority ?? $this->getPriority($targetGroup),
-                'comment' => trim($ruleCreateStruct->comment),
+                'description' => trim($ruleCreateStruct->description),
             ]
         );
 
@@ -236,8 +236,8 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
             $updatedRule->layoutUuid = null;
         }
 
-        if (is_string($ruleUpdateStruct->comment)) {
-            $updatedRule->comment = trim($ruleUpdateStruct->comment);
+        if (is_string($ruleUpdateStruct->description)) {
+            $updatedRule->description = trim($ruleUpdateStruct->description);
         }
 
         $this->queryHandler->updateRule($updatedRule);

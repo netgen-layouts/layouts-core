@@ -511,7 +511,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                     'status' => ':status',
                     'rule_group_id' => ':rule_group_id',
                     'layout_uuid' => ':layout_uuid',
-                    'comment' => ':comment',
+                    'description' => ':description',
                 ]
             )
             ->setValue('id', $rule->id ?? $this->connectionHelper->nextId('nglayouts_rule'))
@@ -519,7 +519,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->setParameter('status', $rule->status, Types::INTEGER)
             ->setParameter('rule_group_id', $rule->ruleGroupId, Types::INTEGER)
             ->setParameter('layout_uuid', $rule->layoutUuid, Types::STRING)
-            ->setParameter('comment', $rule->comment, Types::STRING);
+            ->setParameter('description', $rule->description, Types::STRING);
 
         $query->execute();
 
@@ -555,14 +555,14 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->update('nglayouts_rule')
             ->set('uuid', ':uuid')
             ->set('layout_uuid', ':layout_uuid')
-            ->set('comment', ':comment')
+            ->set('description', ':description')
             ->where(
                 $query->expr()->eq('id', ':id')
             )
             ->setParameter('id', $rule->id, Types::INTEGER)
             ->setParameter('uuid', $rule->uuid, Types::STRING)
             ->setParameter('layout_uuid', $rule->layoutUuid, Types::STRING)
-            ->setParameter('comment', $rule->comment, Types::STRING);
+            ->setParameter('description', $rule->description, Types::STRING);
 
         $this->applyStatusCondition($query, $rule->status);
 

@@ -34,7 +34,7 @@ final class LayoutResolverMapper
                     'layoutUuid' => $dataItem['layout_uuid'] ?? null,
                     'enabled' => (bool) $dataItem['enabled'],
                     'priority' => (int) $dataItem['priority'],
-                    'comment' => $dataItem['comment'],
+                    'description' => $dataItem['description'],
                 ]
             );
         }

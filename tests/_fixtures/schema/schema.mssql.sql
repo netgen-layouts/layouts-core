@@ -210,7 +210,7 @@ CREATE TABLE nglayouts_rule (
   uuid nchar(36) NOT NULL,
   rule_group_id int NOT NULL,
   layout_uuid nchar(36) DEFAULT NULL,
-  comment nvarchar(max) NOT NULL,
+  description nvarchar(max) NOT NULL,
   PRIMARY KEY (id, status),
   UNIQUE (uuid, status)
 );

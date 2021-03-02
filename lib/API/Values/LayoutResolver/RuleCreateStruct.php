@@ -32,5 +32,12 @@ final class RuleCreateStruct
     /**
      * Description of the rule.
      */
+    public string $description = '';
+
+    /**
+     * Description of the rule.
+     *
+     * @deprecated use self::$description instead
+     */
     public ?string $comment = '';
 }

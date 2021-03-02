@@ -18,5 +18,12 @@ final class RuleUpdateStruct
     /**
      * Description of the rule.
      */
+    public ?string $description = null;
+
+    /**
+     * Description of the rule.
+     *
+     * @deprecated use self::$description instead
+     */
     public ?string $comment = null;
 }

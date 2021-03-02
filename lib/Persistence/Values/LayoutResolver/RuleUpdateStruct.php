@@ -20,7 +20,7 @@ final class RuleUpdateStruct
     public $layoutId;
 
     /**
-     * Human readable comment of the rule.
+     * Human readable description of the rule.
      */
-    public ?string $comment = null;
+    public ?string $description = null;
 }

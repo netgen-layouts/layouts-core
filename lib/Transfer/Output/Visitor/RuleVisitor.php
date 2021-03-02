@@ -41,7 +41,8 @@ final class RuleVisitor implements VisitorInterface
             'layout_id' => $layout instanceof Layout ? $layout->getId()->toString() : null,
             'is_enabled' => $value->isEnabled(),
             'priority' => $value->getPriority(),
-            'comment' => $value->getComment(),
+            'description' => $value->getDescription(),
+            'comment' => $value->getDescription(),
             'targets' => iterator_to_array($this->visitTargets($value, $outputVisitor)),
             'conditions' => iterator_to_array($this->visitConditions($value, $outputVisitor)),
         ];

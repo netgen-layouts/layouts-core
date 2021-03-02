@@ -42,6 +42,7 @@ final class Version010300 extends AbstractMigration
         );
 
         $this->addSql('ALTER TABLE nglayouts_rule ADD COLUMN rule_group_id int(11) NOT NULL AFTER uuid');
+        $this->addSql('ALTER TABLE nglayouts_rule RENAME COLUMN comment TO description');
 
         $this->addSql(
             <<<'EOT'

@@ -8,6 +8,7 @@
             "layout_id": "81168ed3-86f9-55ea-b153-101f96f2c136",
             "is_enabled": true,
             "priority": 120,
+            "description": "First rule",
             "comment": "First rule",
             "targets": [
                 {
@@ -25,6 +26,7 @@
             "layout_id": "71cbe281-430c-51d5-8e21-c3cc4e656dac",
             "is_enabled": true,
             "priority": 110,
+            "description": "Second rule",
             "comment": "Second rule",
             "targets": [],
             "conditions": [
@@ -48,6 +50,7 @@
             "layout_id": null,
             "is_enabled": false,
             "priority": 100,
+            "description": "Third rule",
             "comment": "Third rule",
             "targets": [],
             "conditions": []

@@ -244,7 +244,7 @@ CREATE TABLE `nglayouts_rule` (
   `uuid` text(36) NOT NULL,
   `rule_group_id` integer NOT NULL,
   `layout_uuid` text(36) DEFAULT NULL,
-  `comment` longtext NOT NULL,
+  `description` longtext NOT NULL,
   PRIMARY KEY (`id`, `status`),
   UNIQUE (`uuid`, `status`)
 );

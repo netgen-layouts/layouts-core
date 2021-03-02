@@ -5,7 +5,8 @@
     "layout_id": "71cbe281-430c-51d5-8e21-c3cc4e656dac",
     "is_enabled": true,
     "priority": 8,
-    "comment": "My other comment",
+    "description": "My other description",
+    "comment": "My other description",
     "targets": [
         {"visited_key": "visited_value"},
         {"visited_key": "visited_value"}

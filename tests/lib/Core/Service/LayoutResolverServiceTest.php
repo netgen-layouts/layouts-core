@@ -596,7 +596,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
         $ruleUpdateStruct->layoutId = Uuid::fromString('d8e55af7-cf62-5f28-ae15-331b457d82e9');
-        $ruleUpdateStruct->comment = 'Updated comment';
+        $ruleUpdateStruct->description = 'Updated description';
 
         $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
 
@@ -604,7 +604,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         self::assertInstanceOf(Layout::class, $updatedRule->getLayout());
         self::assertTrue($updatedRule->getLayout()->isPublished());
         self::assertSame('d8e55af7-cf62-5f28-ae15-331b457d82e9', $updatedRule->getLayout()->getId()->toString());
-        self::assertSame('Updated comment', $updatedRule->getComment());
+        self::assertSame('Updated description', $updatedRule->getDescription());
     }
 
     /**
@@ -615,7 +615,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $rule = $this->layoutResolverService->loadRuleDraft(Uuid::fromString('de086bdf-0014-5f4f-89e4-fc0aff21da90'));
 
         $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
-        $ruleUpdateStruct->comment = 'Updated comment';
+        $ruleUpdateStruct->description = 'Updated description';
 
         $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
 
@@ -623,7 +623,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         self::assertInstanceOf(Layout::class, $updatedRule->getLayout());
         self::assertTrue($updatedRule->getLayout()->isPublished());
         self::assertSame('71cbe281-430c-51d5-8e21-c3cc4e656dac', $updatedRule->getLayout()->getId()->toString());
-        self::assertSame('Updated comment', $updatedRule->getComment());
+        self::assertSame('Updated description', $updatedRule->getDescription());
     }
 
     /**
@@ -635,13 +635,13 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
         $ruleUpdateStruct->layoutId = false;
-        $ruleUpdateStruct->comment = 'Updated comment';
+        $ruleUpdateStruct->description = 'Updated description';
 
         $updatedRule = $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
 
         self::assertTrue($updatedRule->isDraft());
         self::assertNull($updatedRule->getLayout());
-        self::assertSame('Updated comment', $updatedRule->getComment());
+        self::assertSame('Updated description', $updatedRule->getDescription());
     }
 
     /**
@@ -656,7 +656,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
         $ruleUpdateStruct->layoutId = Uuid::fromString('d8e55af7-cf62-5f28-ae15-331b457d82e9');
-        $ruleUpdateStruct->comment = 'Updated comment';
+        $ruleUpdateStruct->description = 'Updated description';
 
         $this->layoutResolverService->updateRule($rule, $ruleUpdateStruct);
     }
@@ -1858,6 +1858,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
                 'layoutId' => null,
                 'priority' => null,
                 'enabled' => true,
+                'description' => '',
                 'comment' => '',
             ],
             $this->exportObject($struct)
@@ -1874,6 +1875,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         self::assertSame(
             [
                 'layoutId' => null,
+                'description' => null,
                 'comment' => null,
             ],
             $this->exportObject($struct)

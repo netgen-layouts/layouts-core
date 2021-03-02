@@ -384,9 +384,9 @@ UNLOCK TABLES;
 
 LOCK TABLES `nglayouts_rule` WRITE;
 /*!40000 ALTER TABLE `nglayouts_rule` DISABLE KEYS */;
-INSERT INTO `nglayouts_rule` VALUES (1,1,'26768324-03dd-5952-8a55-4b449d6cd634',1,'81168ed3-86f9-55ea-b153-101f96f2c136','My comment');
-INSERT INTO `nglayouts_rule` VALUES (2,1,'55622437-f700-5378-99c9-7dafe89a8fb6',1,'71cbe281-430c-51d5-8e21-c3cc4e656dac','My other comment');
-INSERT INTO `nglayouts_rule` VALUES (2,2,'55622437-f700-5378-99c9-7dafe89a8fb6',1,'71cbe281-430c-51d5-8e21-c3cc4e656dac','My other comment');
+INSERT INTO `nglayouts_rule` VALUES (1,1,'26768324-03dd-5952-8a55-4b449d6cd634',1,'81168ed3-86f9-55ea-b153-101f96f2c136','My description');
+INSERT INTO `nglayouts_rule` VALUES (2,1,'55622437-f700-5378-99c9-7dafe89a8fb6',1,'71cbe281-430c-51d5-8e21-c3cc4e656dac','My other description');
+INSERT INTO `nglayouts_rule` VALUES (2,2,'55622437-f700-5378-99c9-7dafe89a8fb6',1,'71cbe281-430c-51d5-8e21-c3cc4e656dac','My other description');
 INSERT INTO `nglayouts_rule` VALUES (3,1,'23eece92-8cce-5155-9fef-58fb5e3decd6',2,'d8e55af7-cf62-5f28-ae15-331b457d82e9','');
 INSERT INTO `nglayouts_rule` VALUES (4,1,'d5bcbdfc-2e75-5f06-8c47-c26d68bb7b5e',2,'81168ed3-86f9-55ea-b153-101f96f2c136','');
 INSERT INTO `nglayouts_rule` VALUES (5,0,'de086bdf-0014-5f4f-89e4-fc0aff21da90',1,'71cbe281-430c-51d5-8e21-c3cc4e656dac','');

@@ -15,8 +15,8 @@ use Ramsey\Uuid\Uuid;
 final class RuleTest extends TestCase
 {
     /**
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getComment
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getConditions
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getDescription
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getId
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getLayout
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\Rule::getPriority
@@ -43,7 +43,7 @@ final class RuleTest extends TestCase
                 'layout' => $layout,
                 'priority' => 13,
                 'enabled' => true,
-                'comment' => 'Comment',
+                'description' => 'Description',
                 'targets' => new ArrayCollection([$target1, $target2]),
                 'conditions' => new ArrayCollection([$condition]),
             ]
@@ -54,7 +54,7 @@ final class RuleTest extends TestCase
         self::assertSame($layout, $rule->getLayout());
         self::assertSame(13, $rule->getPriority());
         self::assertTrue($rule->isEnabled());
-        self::assertSame('Comment', $rule->getComment());
+        self::assertSame('Description', $rule->getDescription());
 
         self::assertCount(2, $rule->getTargets());
         self::assertCount(1, $rule->getConditions());

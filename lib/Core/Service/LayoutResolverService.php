@@ -55,6 +55,7 @@ use function array_map;
 use function count;
 use function sprintf;
 use function trigger_deprecation;
+use function trim;
 
 final class LayoutResolverService implements APILayoutResolverService
 {
@@ -389,8 +390,13 @@ final class LayoutResolverService implements APILayoutResolverService
             throw new BadStateException('targetGroup', 'Rules can be created only in published groups.');
         }
 
-        if ($ruleCreateStruct->comment === null) {
-            trigger_deprecation('netgen/layouts-core', '1.3', sprintf('Setting %s::$comment property to null is deprecated. Since 2.0, only valid value will be a string.', APIRuleCreateStruct::class));
+        $description = '';
+        if (trim($ruleCreateStruct->description) !== '') {
+            $description = $ruleCreateStruct->description;
+        } elseif ($ruleCreateStruct->comment !== null && trim($ruleCreateStruct->comment) !== '') {
+            trigger_deprecation('netgen/layouts-core', '1.3', sprintf('Using %s::$comment property is deprecated. Use RuleCreateStruct::$description instead.', APIRuleCreateStruct::class));
+
+            $description = $ruleCreateStruct->comment;
         }
 
         $createdRule = $this->transaction(
@@ -405,7 +411,7 @@ final class LayoutResolverService implements APILayoutResolverService
                             $ruleCreateStruct->layoutId,
                         'priority' => $ruleCreateStruct->priority,
                         'enabled' => $ruleCreateStruct->enabled,
-                        'comment' => $ruleCreateStruct->comment ?? '',
+                        'description' => $description,
                         'status' => Value::STATUS_DRAFT,
                     ]
                 ),
@@ -434,7 +440,7 @@ final class LayoutResolverService implements APILayoutResolverService
                         'layoutId' => $ruleUpdateStruct->layoutId instanceof UuidInterface ?
                             $ruleUpdateStruct->layoutId->toString() :
                             $ruleUpdateStruct->layoutId,
-                        'comment' => $ruleUpdateStruct->comment,
+                        'description' => $ruleUpdateStruct->description ?? $ruleUpdateStruct->comment,
                     ]
                 )
             )

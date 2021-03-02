@@ -44,7 +44,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
                 'layoutUuid' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'enabled' => true,
                 'priority' => 12,
-                'comment' => 'Comment',
+                'description' => 'Description',
             ]
         );
 
@@ -57,7 +57,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
         self::assertTrue($rule->isPublished());
         self::assertTrue($rule->isEnabled());
         self::assertSame(12, $rule->getPriority());
-        self::assertSame('Comment', $rule->getComment());
+        self::assertSame('Description', $rule->getDescription());
 
         self::assertCount(2, $rule->getTargets());
         self::assertCount(2, $rule->getConditions());
@@ -77,7 +77,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
                 'layoutUuid' => Uuid::uuid4()->toString(),
                 'enabled' => true,
                 'priority' => 12,
-                'comment' => 'Comment',
+                'description' => 'Description',
             ]
         );
 

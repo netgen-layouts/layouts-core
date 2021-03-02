@@ -31,7 +31,7 @@ final class Rule implements Value
 
     private int $priority;
 
-    private string $comment;
+    private string $description;
 
     /**
      * @var \Doctrine\Common\Collections\Collection<int, \Netgen\Layouts\API\Values\LayoutResolver\Target>
@@ -82,10 +82,20 @@ final class Rule implements Value
 
     /**
      * Returns the rule comment.
+     *
+     * @deprecated use self::getDescription
      */
     public function getComment(): string
     {
-        return $this->comment;
+        return $this->description;
+    }
+
+    /**
+     * Returns the rule description.
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
     }
 
     /**
