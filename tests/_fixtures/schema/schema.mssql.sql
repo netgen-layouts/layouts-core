@@ -253,7 +253,7 @@ CREATE TABLE nglayouts_rule_group (
   path nvarchar(255) NOT NULL,
   parent_id int DEFAULT NULL,
   name nvarchar(255) NOT NULL,
-  comment nvarchar(max) NOT NULL,
+  description nvarchar(max) NOT NULL,
   PRIMARY KEY (id, status),
   UNIQUE (uuid, status)
 );

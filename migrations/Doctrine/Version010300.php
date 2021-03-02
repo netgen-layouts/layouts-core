@@ -22,7 +22,7 @@ final class Version010300 extends AbstractMigration
               path varchar(191) NOT NULL,
               parent_id int(11) DEFAULT NULL,
               name varchar(191) NOT NULL,
-              comment longtext NOT NULL,
+              description longtext NOT NULL,
               PRIMARY KEY (id, status),
               UNIQUE KEY idx_ngl_rule_group_uuid (uuid, status),
               KEY idx_ngl_parent_rule_group (parent_id)
@@ -46,7 +46,7 @@ final class Version010300 extends AbstractMigration
         $this->addSql(
             <<<'EOT'
             INSERT INTO nglayouts_rule_group (
-              id, status, uuid, depth, path, parent_id, comment
+              id, status, uuid, depth, path, parent_id, name, description
             ) VALUES (
               1, 1, '00000000-0000-0000-0000-000000000000', 0, '/1/', NULL, '', ''
             )

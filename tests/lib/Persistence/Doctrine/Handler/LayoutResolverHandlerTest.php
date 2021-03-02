@@ -112,9 +112,9 @@ final class LayoutResolverHandlerTest extends TestCase
                 'parentId' => 1,
                 'parentUuid' => RuleGroup::ROOT_UUID,
                 'name' => 'First group',
+                'description' => 'My description',
                 'enabled' => true,
                 'priority' => 1,
-                'comment' => 'My comment',
                 'status' => Value::STATUS_PUBLISHED,
             ],
             $this->exportObject($rule)
@@ -1148,9 +1148,9 @@ final class LayoutResolverHandlerTest extends TestCase
         $ruleGroupCreateStruct = new RuleGroupCreateStruct();
         $ruleGroupCreateStruct->uuid = null;
         $ruleGroupCreateStruct->name = 'New rule group';
+        $ruleGroupCreateStruct->description = 'My rule group';
         $ruleGroupCreateStruct->priority = 5;
         $ruleGroupCreateStruct->enabled = true;
-        $ruleGroupCreateStruct->comment = 'My rule group';
         $ruleGroupCreateStruct->status = Value::STATUS_DRAFT;
 
         $parentGroup = $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Value::STATUS_PUBLISHED);
@@ -1167,9 +1167,9 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame($parentGroup->id, $createdRuleGroup->parentId);
         self::assertSame($parentGroup->uuid, $createdRuleGroup->parentUuid);
         self::assertSame('New rule group', $createdRuleGroup->name);
+        self::assertSame('My rule group', $createdRuleGroup->description);
         self::assertSame(5, $createdRuleGroup->priority);
         self::assertTrue($createdRuleGroup->enabled);
-        self::assertSame('My rule group', $createdRuleGroup->comment);
         self::assertSame(Value::STATUS_DRAFT, $createdRuleGroup->status);
     }
 
@@ -1184,9 +1184,9 @@ final class LayoutResolverHandlerTest extends TestCase
         $ruleGroupCreateStruct = new RuleGroupCreateStruct();
         $ruleGroupCreateStruct->uuid = 'f06f245a-f951-52c8-bfa3-84c80154eadc';
         $ruleGroupCreateStruct->name = 'New rule group';
+        $ruleGroupCreateStruct->description = 'My rule group';
         $ruleGroupCreateStruct->priority = 5;
         $ruleGroupCreateStruct->enabled = true;
-        $ruleGroupCreateStruct->comment = 'My rule group';
         $ruleGroupCreateStruct->status = Value::STATUS_DRAFT;
 
         $parentGroup = $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Value::STATUS_PUBLISHED);
@@ -1200,9 +1200,9 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame($parentGroup->id, $createdRuleGroup->parentId);
         self::assertSame($parentGroup->uuid, $createdRuleGroup->parentUuid);
         self::assertSame('New rule group', $createdRuleGroup->name);
+        self::assertSame('My rule group', $createdRuleGroup->description);
         self::assertSame(5, $createdRuleGroup->priority);
         self::assertTrue($createdRuleGroup->enabled);
-        self::assertSame('My rule group', $createdRuleGroup->comment);
         self::assertSame(Value::STATUS_DRAFT, $createdRuleGroup->status);
     }
 
@@ -1217,9 +1217,9 @@ final class LayoutResolverHandlerTest extends TestCase
         $ruleGroupCreateStruct = new RuleGroupCreateStruct();
         $ruleGroupCreateStruct->uuid = null;
         $ruleGroupCreateStruct->name = '';
+        $ruleGroupCreateStruct->description = '';
         $ruleGroupCreateStruct->priority = null;
         $ruleGroupCreateStruct->enabled = false;
-        $ruleGroupCreateStruct->comment = '';
         $ruleGroupCreateStruct->status = Value::STATUS_DRAFT;
 
         $parentGroup = $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Value::STATUS_PUBLISHED);
@@ -1236,9 +1236,9 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame($parentGroup->id, $createdRuleGroup->parentId);
         self::assertSame($parentGroup->uuid, $createdRuleGroup->parentUuid);
         self::assertSame('', $createdRuleGroup->name);
+        self::assertSame('', $createdRuleGroup->description);
         self::assertSame(-12, $createdRuleGroup->priority);
         self::assertFalse($createdRuleGroup->enabled);
-        self::assertSame('', $createdRuleGroup->comment);
         self::assertSame(Value::STATUS_DRAFT, $createdRuleGroup->status);
     }
 
@@ -1253,9 +1253,9 @@ final class LayoutResolverHandlerTest extends TestCase
         $ruleGroupCreateStruct = new RuleGroupCreateStruct();
         $ruleGroupCreateStruct->uuid = null;
         $ruleGroupCreateStruct->name = '';
+        $ruleGroupCreateStruct->description = '';
         $ruleGroupCreateStruct->priority = null;
         $ruleGroupCreateStruct->enabled = false;
-        $ruleGroupCreateStruct->comment = '';
         $ruleGroupCreateStruct->status = Value::STATUS_DRAFT;
 
         $ruleGroup = $this->handler->loadRuleGroup(3, Value::STATUS_PUBLISHED);
@@ -1278,9 +1278,10 @@ final class LayoutResolverHandlerTest extends TestCase
         $this->expectExceptionMessage('Root rule group already exists.');
 
         $ruleGroupCreateStruct = new RuleGroupCreateStruct();
+        $ruleGroupCreateStruct->name = 'My rule group';
+        $ruleGroupCreateStruct->description = 'My rule group';
         $ruleGroupCreateStruct->priority = 5;
         $ruleGroupCreateStruct->enabled = true;
-        $ruleGroupCreateStruct->comment = 'My rule group';
         $ruleGroupCreateStruct->status = Value::STATUS_DRAFT;
 
         $this->handler->createRuleGroup($ruleGroupCreateStruct);
@@ -1301,9 +1302,10 @@ final class LayoutResolverHandlerTest extends TestCase
 
         $ruleGroupCreateStruct = new RuleGroupCreateStruct();
         $ruleGroupCreateStruct->uuid = 'b4f85f38-de3f-4af7-9a5f-21df63a49da9';
+        $ruleGroupCreateStruct->name = 'My rule group';
+        $ruleGroupCreateStruct->description = 'My rule group';
         $ruleGroupCreateStruct->priority = 5;
         $ruleGroupCreateStruct->enabled = true;
-        $ruleGroupCreateStruct->comment = 'My rule group';
         $ruleGroupCreateStruct->status = Value::STATUS_DRAFT;
 
         $this->handler->createRuleGroup($ruleGroupCreateStruct, $ruleGroup);
@@ -1316,7 +1318,8 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testUpdateRuleGroup(): void
     {
         $ruleGroupUpdateStruct = new RuleGroupUpdateStruct();
-        $ruleGroupUpdateStruct->comment = 'New comment';
+        $ruleGroupUpdateStruct->name = 'New name';
+        $ruleGroupUpdateStruct->description = 'New description';
 
         $updatedRuleGroup = $this->handler->updateRuleGroup(
             $this->handler->loadRuleGroup(3, Value::STATUS_PUBLISHED),
@@ -1325,7 +1328,8 @@ final class LayoutResolverHandlerTest extends TestCase
 
         self::assertSame(3, $updatedRuleGroup->id);
         self::assertSame('eb6311eb-24f6-4143-b476-99979a885a7e', $updatedRuleGroup->uuid);
-        self::assertSame('New comment', $updatedRuleGroup->comment);
+        self::assertSame('New name', $updatedRuleGroup->name);
+        self::assertSame('New description', $updatedRuleGroup->description);
         self::assertSame(Value::STATUS_PUBLISHED, $updatedRuleGroup->status);
     }
 
@@ -1342,7 +1346,8 @@ final class LayoutResolverHandlerTest extends TestCase
 
         self::assertSame(3, $updatedRuleGroup->id);
         self::assertSame('eb6311eb-24f6-4143-b476-99979a885a7e', $updatedRuleGroup->uuid);
-        self::assertSame($ruleGroup->comment, $updatedRuleGroup->comment);
+        self::assertSame($ruleGroup->name, $updatedRuleGroup->name);
+        self::assertSame($ruleGroup->description, $updatedRuleGroup->description);
         self::assertSame(Value::STATUS_PUBLISHED, $updatedRuleGroup->status);
     }
 
@@ -1412,9 +1417,10 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame($targetGroup->path . $copiedRuleGroup->id . '/', $copiedRuleGroup->path);
         self::assertSame($targetGroup->id, $copiedRuleGroup->parentId);
         self::assertSame($targetGroup->uuid, $copiedRuleGroup->parentUuid);
+        self::assertSame($ruleGroup->name, $copiedRuleGroup->name);
+        self::assertSame($ruleGroup->description, $copiedRuleGroup->description);
         self::assertSame($ruleGroup->priority, $copiedRuleGroup->priority);
         self::assertSame($ruleGroup->enabled, $copiedRuleGroup->enabled);
-        self::assertSame($ruleGroup->comment, $copiedRuleGroup->comment);
         self::assertSame($ruleGroup->status, $copiedRuleGroup->status);
 
         self::assertSame(
@@ -1485,9 +1491,10 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame($targetGroup->path . $copiedRuleGroup->id . '/', $copiedRuleGroup->path);
         self::assertSame($targetGroup->id, $copiedRuleGroup->parentId);
         self::assertSame($targetGroup->uuid, $copiedRuleGroup->parentUuid);
+        self::assertSame($ruleGroup->name, $copiedRuleGroup->name);
+        self::assertSame($ruleGroup->description, $copiedRuleGroup->description);
         self::assertSame($ruleGroup->priority, $copiedRuleGroup->priority);
         self::assertSame($ruleGroup->enabled, $copiedRuleGroup->enabled);
-        self::assertSame($ruleGroup->comment, $copiedRuleGroup->comment);
         self::assertSame($ruleGroup->status, $copiedRuleGroup->status);
 
         self::assertSame(
@@ -1555,9 +1562,10 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame($targetGroup->path . $movedRuleGroup->id . '/', $movedRuleGroup->path);
         self::assertSame($targetGroup->id, $movedRuleGroup->parentId);
         self::assertSame($targetGroup->uuid, $movedRuleGroup->parentUuid);
+        self::assertSame($ruleGroup->name, $movedRuleGroup->name);
+        self::assertSame($ruleGroup->description, $movedRuleGroup->description);
         self::assertSame($ruleGroup->priority, $movedRuleGroup->priority);
         self::assertSame($ruleGroup->enabled, $movedRuleGroup->enabled);
-        self::assertSame($ruleGroup->comment, $movedRuleGroup->comment);
         self::assertSame($ruleGroup->status, $movedRuleGroup->status);
 
         self::assertSame(
@@ -1604,9 +1612,10 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame($targetGroup->path . $movedRuleGroup->id . '/', $movedRuleGroup->path);
         self::assertSame($targetGroup->id, $movedRuleGroup->parentId);
         self::assertSame($targetGroup->uuid, $movedRuleGroup->parentUuid);
+        self::assertSame($ruleGroup->name, $movedRuleGroup->name);
+        self::assertSame($ruleGroup->description, $movedRuleGroup->description);
         self::assertSame(42, $movedRuleGroup->priority);
         self::assertSame($ruleGroup->enabled, $movedRuleGroup->enabled);
-        self::assertSame($ruleGroup->comment, $movedRuleGroup->comment);
         self::assertSame($ruleGroup->status, $movedRuleGroup->status);
 
         self::assertSame(
@@ -1684,9 +1693,10 @@ final class LayoutResolverHandlerTest extends TestCase
         self::assertSame($ruleGroup->path, $copiedRuleGroup->path);
         self::assertSame($ruleGroup->parentId, $copiedRuleGroup->parentId);
         self::assertSame($ruleGroup->parentUuid, $copiedRuleGroup->parentUuid);
+        self::assertSame($ruleGroup->name, $copiedRuleGroup->name);
+        self::assertSame($ruleGroup->description, $copiedRuleGroup->description);
         self::assertSame($ruleGroup->priority, $copiedRuleGroup->priority);
         self::assertSame($ruleGroup->enabled, $copiedRuleGroup->enabled);
-        self::assertSame($ruleGroup->comment, $copiedRuleGroup->comment);
         self::assertSame(Value::STATUS_ARCHIVED, $copiedRuleGroup->status);
 
         self::assertSame(

@@ -96,9 +96,9 @@ final class LayoutResolverMapperTest extends TestCase
                 'parent_id' => '62',
                 'parent_uuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'name' => 'Name',
+                'description' => 'Description',
                 'enabled' => '1',
                 'priority' => '2',
-                'comment' => 'Comment',
                 'status' => '1',
             ],
             [
@@ -109,9 +109,9 @@ final class LayoutResolverMapperTest extends TestCase
                 'parent_id' => null,
                 'parent_uuid' => null,
                 'name' => '',
+                'description' => '',
                 'enabled' => '0',
                 'priority' => '3',
-                'comment' => '',
                 'status' => Value::STATUS_DRAFT,
             ],
         ];
@@ -125,9 +125,9 @@ final class LayoutResolverMapperTest extends TestCase
                 'parentId' => 62,
                 'parentUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'name' => 'Name',
+                'description' => 'Description',
                 'enabled' => true,
                 'priority' => 2,
-                'comment' => 'Comment',
                 'status' => Value::STATUS_PUBLISHED,
             ],
             [
@@ -138,9 +138,9 @@ final class LayoutResolverMapperTest extends TestCase
                 'parentId' => null,
                 'parentUuid' => null,
                 'name' => '',
+                'description' => '',
                 'enabled' => false,
                 'priority' => 3,
-                'comment' => '',
                 'status' => Value::STATUS_DRAFT,
             ],
         ];

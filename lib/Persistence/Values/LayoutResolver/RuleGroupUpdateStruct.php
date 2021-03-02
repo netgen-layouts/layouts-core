@@ -16,7 +16,7 @@ final class RuleGroupUpdateStruct
     public ?string $name = null;
 
     /**
-     * Human readable comment of the rule group.
+     * New human readable description of the rule group.
      */
-    public ?string $comment = null;
+    public ?string $description = null;
 }

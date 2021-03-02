@@ -54,6 +54,11 @@ final class RuleGroup extends Value
     public string $name;
 
     /**
+     * Human readable description of the rule group.
+     */
+    public string $description;
+
+    /**
      * A flag indicating if the rule group is enabled or not.
      */
     public bool $enabled;
@@ -62,9 +67,4 @@ final class RuleGroup extends Value
      * Rule group priority.
      */
     public int $priority;
-
-    /**
-     * Human readable comment of the rule group.
-     */
-    public string $comment;
 }

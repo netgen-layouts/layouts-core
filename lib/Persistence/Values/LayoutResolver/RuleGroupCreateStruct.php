@@ -22,6 +22,11 @@ final class RuleGroupCreateStruct
     public string $name;
 
     /**
+     * Human readable description of the new rule group.
+     */
+    public string $description;
+
+    /**
      * Priority of the new rule group.
      */
     public ?int $priority;
@@ -30,11 +35,6 @@ final class RuleGroupCreateStruct
      * Flag indicating if the new rule group will be enabled.
      */
     public bool $enabled;
-
-    /**
-     * Human readable comment of the rule group.
-     */
-    public string $comment;
 
     /**
      * Rule group status. One of self::STATUS_* flags.

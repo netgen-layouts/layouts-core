@@ -223,24 +223,24 @@ final class LayoutResolverValidatorTest extends TestCase
     public function validateRuleGroupCreateStructDataProvider(): array
     {
         return [
-            [['uuid' => null, 'name' => 'Name', 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
-            [['uuid' => Uuid::uuid4(), 'name' => 'Name', 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
-            [['uuid' => null, 'name' => 'Name', 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], true],
-            [['uuid' => null, 'name' => '', 'priority' => 2, 'enabled' => true, 'comment' => 'Comment'], false],
-            [['uuid' => null, 'name' => 'Name', 'priority' => 2, 'enabled' => false, 'comment' => 'Comment'], true],
-            [['uuid' => null, 'name' => 'Name', 'priority' => 2, 'enabled' => true, 'comment' => ''], true],
+            [['uuid' => null, 'name' => 'Name', 'priority' => 2, 'enabled' => true, 'description' => 'Description'], true],
+            [['uuid' => Uuid::uuid4(), 'name' => 'Name', 'priority' => 2, 'enabled' => true, 'description' => 'Description'], true],
+            [['uuid' => null, 'name' => 'Name', 'priority' => 2, 'enabled' => true, 'description' => 'Description'], true],
+            [['uuid' => null, 'name' => '', 'priority' => 2, 'enabled' => true, 'description' => 'Description'], false],
+            [['uuid' => null, 'name' => 'Name', 'priority' => 2, 'enabled' => false, 'description' => 'Description'], true],
+            [['uuid' => null, 'name' => 'Name', 'priority' => 2, 'enabled' => true, 'description' => ''], true],
         ];
     }
 
     public function validateRuleGroupUpdateStructDataProvider(): array
     {
         return [
-            [['name' => 'Name', 'comment' => 'Comment'], true],
-            [['name' => null, 'comment' => 'Comment'], true],
-            [['name' => '', 'comment' => 'Comment'], false],
-            [['name' => 'Name', 'comment' => 'Comment'], true],
-            [['name' => 'Name', 'comment' => null], true],
-            [['name' => 'Name', 'comment' => ''], true],
+            [['name' => 'Name', 'description' => 'Description'], true],
+            [['name' => null, 'description' => 'Description'], true],
+            [['name' => '', 'description' => 'Description'], false],
+            [['name' => 'Name', 'description' => 'Description'], true],
+            [['name' => 'Name', 'description' => null], true],
+            [['name' => 'Name', 'description' => ''], true],
         ];
     }
 

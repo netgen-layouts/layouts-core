@@ -640,7 +640,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                     'path' => ':path',
                     'parent_id' => ':parent_id',
                     'name' => ':name',
-                    'comment' => ':comment',
+                    'description' => ':description',
                 ]
             )
             ->setValue('id', $ruleGroup->id ?? $this->connectionHelper->nextId('nglayouts_rule_group'))
@@ -651,7 +651,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->setParameter('path', $ruleGroup->path, Types::STRING)
             ->setParameter('parent_id', $ruleGroup->parentId, Types::INTEGER)
             ->setParameter('name', $ruleGroup->name, Types::STRING)
-            ->setParameter('comment', $ruleGroup->comment, Types::STRING);
+            ->setParameter('description', $ruleGroup->description, Types::STRING);
 
         $query->execute();
 
@@ -712,7 +712,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->set('path', ':path')
             ->set('parent_id', ':parent_id')
             ->set('name', ':name')
-            ->set('comment', ':comment')
+            ->set('description', ':description')
             ->where(
                 $query->expr()->eq('id', ':id')
             )
@@ -722,7 +722,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->setParameter('path', $ruleGroup->path, Types::STRING)
             ->setParameter('parent_id', $ruleGroup->parentId, Types::INTEGER)
             ->setParameter('name', $ruleGroup->name, Types::STRING)
-            ->setParameter('comment', $ruleGroup->comment, Types::STRING);
+            ->setParameter('description', $ruleGroup->description, Types::STRING);
 
         $this->applyStatusCondition($query, $ruleGroup->status);
 

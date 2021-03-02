@@ -389,9 +389,9 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
                 'parentId' => $parentGroup !== null ? $parentGroup->id : null,
                 'parentUuid' => $parentGroup !== null ? $parentGroup->uuid : null,
                 'name' => trim($ruleGroupCreateStruct->name),
+                'description' => trim($ruleGroupCreateStruct->description),
                 'enabled' => $ruleGroupCreateStruct->enabled ? true : false,
                 'priority' => $parentGroup !== null ? ($ruleGroupCreateStruct->priority ?? $this->getPriority($parentGroup)) : 0,
-                'comment' => trim($ruleGroupCreateStruct->comment),
             ]
         );
 
@@ -413,8 +413,8 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
             $updatedRuleGroup->name = trim($ruleGroupUpdateStruct->name);
         }
 
-        if (is_string($ruleGroupUpdateStruct->comment)) {
-            $updatedRuleGroup->comment = trim($ruleGroupUpdateStruct->comment);
+        if (is_string($ruleGroupUpdateStruct->description)) {
+            $updatedRuleGroup->description = trim($ruleGroupUpdateStruct->description);
         }
 
         $this->queryHandler->updateRuleGroup($updatedRuleGroup);

@@ -22,6 +22,11 @@ final class RuleGroupCreateStruct
     public string $name;
 
     /**
+     * Description of the rule group.
+     */
+    public string $description = '';
+
+    /**
      * Priority of the rule group.
      */
     public ?int $priority = null;
@@ -30,9 +35,4 @@ final class RuleGroupCreateStruct
      * Specifies if the rule group will be enabled or not.
      */
     public bool $enabled = true;
-
-    /**
-     * Description of the rule group.
-     */
-    public string $comment = '';
 }

@@ -15,8 +15,8 @@ use Ramsey\Uuid\UuidInterface;
 final class RuleGroupTest extends TestCase
 {
     /**
-     * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getComment
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getConditions
+     * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getDescription
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getId
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getName
      * @covers \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup::getParentId
@@ -39,9 +39,9 @@ final class RuleGroupTest extends TestCase
                 'id' => $uuid,
                 'parentId' => $parentUuid,
                 'name' => 'Name',
+                'description' => 'Description',
                 'priority' => 13,
                 'enabled' => true,
-                'comment' => 'Comment',
                 'rules' => new ArrayCollection([$rule1, $rule2]),
                 'conditions' => new ArrayCollection([$condition]),
             ]
@@ -51,9 +51,9 @@ final class RuleGroupTest extends TestCase
         self::assertInstanceOf(UuidInterface::class, $ruleGroup->getParentId());
         self::assertSame($parentUuid->toString(), $ruleGroup->getParentId()->toString());
         self::assertSame('Name', $ruleGroup->getName());
+        self::assertSame('Description', $ruleGroup->getDescription());
         self::assertSame(13, $ruleGroup->getPriority());
         self::assertTrue($ruleGroup->isEnabled());
-        self::assertSame('Comment', $ruleGroup->getComment());
 
         self::assertCount(2, $ruleGroup->getRules());
         self::assertCount(1, $ruleGroup->getConditions());

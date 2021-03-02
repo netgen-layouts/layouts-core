@@ -107,9 +107,9 @@ final class LayoutResolverMapper
                 null,
             'status' => $ruleGroup->status,
             'name' => $ruleGroup->name,
+            'description' => $ruleGroup->description,
             'enabled' => $ruleGroup->enabled,
             'priority' => $ruleGroup->priority,
-            'comment' => $ruleGroup->comment,
             'rules' => new LazyCollection(
                 fn (): array => array_map(
                     fn (PersistenceRule $rule): Rule => $this->mapRule($rule),

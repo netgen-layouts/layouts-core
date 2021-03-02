@@ -531,7 +531,7 @@
             "rule_group": {
                 "type": "object",
                 "description": "A rule group",
-                "required": ["__type", "id", "status", "is_enabled", "priority", "comment", "groups", "rules", "conditions"],
+                "required": ["__type", "id", "status", "name", "description", "is_enabled", "priority", "groups", "rules", "conditions"],
                 "additionalProperties": false,
                 "properties": {
                     "__type": {
@@ -553,6 +553,10 @@
                         "description": "The name of the rule group",
                         "minLength": 1
                     },
+                    "description": {
+                        "type": "string",
+                        "description": "The description of the rule group"
+                    },
                     "is_enabled": {
                         "type": "boolean",
                         "description": "The flag indicating if the rule group is active"
@@ -560,10 +564,6 @@
                     "priority": {
                         "type": "integer",
                         "description": "The rule group priority"
-                    },
-                    "comment": {
-                        "type": "string",
-                        "description": "The comment of the rule group"
                     },
                     "groups": {
                         "type": "array",

@@ -3,9 +3,9 @@
     "id": "b4f85f38-de3f-4af7-9a5f-21df63a49da9",
     "status": "PUBLISHED",
     "name": "First group",
+    "description": "My description",
     "is_enabled": true,
     "priority": 1,
-    "comment": "My comment",
     "groups": [
         {"visited_key": "visited_value"}
     ],

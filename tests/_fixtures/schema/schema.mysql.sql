@@ -207,7 +207,7 @@ CREATE TABLE IF NOT EXISTS `nglayouts_rule_group` (
   `path` varchar(191) NOT NULL,
   `parent_id` int(11) DEFAULT NULL,
   `name` varchar(191) NOT NULL,
-  `comment` longtext NOT NULL,
+  `description` longtext NOT NULL,
   PRIMARY KEY (`id`, `status`),
   UNIQUE KEY (`uuid`, `status`)
 ) ENGINE=InnoDB;

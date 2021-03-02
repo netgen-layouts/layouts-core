@@ -82,9 +82,9 @@ abstract class LayoutResolverStructBuilderTest extends CoreTestCase
             [
                 'uuid' => null,
                 'name' => 'Test group',
+                'description' => '',
                 'priority' => null,
                 'enabled' => true,
-                'comment' => '',
             ],
             $this->exportObject($struct)
         );

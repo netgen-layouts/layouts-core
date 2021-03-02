@@ -30,11 +30,11 @@ final class RuleGroup implements Value
 
     private string $name;
 
+    private string $description;
+
     private bool $enabled;
 
     private int $priority;
-
-    private string $comment;
 
     /**
      * @var \Doctrine\Common\Collections\Collection<int, \Netgen\Layouts\API\Values\LayoutResolver\Rule>
@@ -70,6 +70,14 @@ final class RuleGroup implements Value
     }
 
     /**
+     * Return human readable description of the rule group.
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    /**
      * Returns if the rule group is enabled.
      */
     public function isEnabled(): bool
@@ -83,14 +91,6 @@ final class RuleGroup implements Value
     public function getPriority(): int
     {
         return $this->priority;
-    }
-
-    /**
-     * Returns the rule group comment.
-     */
-    public function getComment(): string
-    {
-        return $this->comment;
     }
 
     /**

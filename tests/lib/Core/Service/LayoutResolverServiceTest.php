@@ -1057,12 +1057,13 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $ruleGroup = $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
 
         $ruleGroupUpdateStruct = $this->layoutResolverService->newRuleGroupUpdateStruct();
-        $ruleGroupUpdateStruct->comment = 'Updated comment';
+        $ruleGroupUpdateStruct->name = 'Updated name';
+        $ruleGroupUpdateStruct->description = 'Updated description';
 
         $updatedRuleGroup = $this->layoutResolverService->updateRuleGroup($ruleGroup, $ruleGroupUpdateStruct);
 
         self::assertTrue($updatedRuleGroup->isDraft());
-        self::assertSame('Updated comment', $updatedRuleGroup->getComment());
+        self::assertSame('Updated description', $updatedRuleGroup->getDescription());
     }
 
     /**
@@ -1076,7 +1077,8 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'));
 
         $ruleGroupUpdateStruct = $this->layoutResolverService->newRuleGroupUpdateStruct();
-        $ruleGroupUpdateStruct->comment = 'Updated comment';
+        $ruleGroupUpdateStruct->name = 'Updated name';
+        $ruleGroupUpdateStruct->description = 'Updated description';
 
         $this->layoutResolverService->updateRuleGroup($ruleGroup, $ruleGroupUpdateStruct);
     }
@@ -1904,9 +1906,9 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
             [
                 'uuid' => null,
                 'name' => 'Test group',
+                'description' => '',
                 'priority' => null,
                 'enabled' => true,
-                'comment' => '',
             ],
             $this->exportObject($struct)
         );
@@ -1922,7 +1924,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         self::assertSame(
             [
                 'name' => null,
-                'comment' => null,
+                'description' => null,
             ],
             $this->exportObject($struct)
         );

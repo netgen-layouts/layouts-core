@@ -12,7 +12,7 @@ final class RuleGroupUpdateStruct
     public ?string $name = null;
 
     /**
-     * Description of the rule group.
+     * New description of the rule group.
      */
-    public ?string $comment = null;
+    public ?string $description = null;
 }

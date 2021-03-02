@@ -662,9 +662,9 @@ final class LayoutResolverService implements APILayoutResolverService
                             $ruleGroupCreateStruct->uuid->toString() :
                             $ruleGroupCreateStruct->uuid,
                         'name' => $ruleGroupCreateStruct->name,
+                        'description' => $ruleGroupCreateStruct->description,
                         'priority' => $ruleGroupCreateStruct->priority,
                         'enabled' => $ruleGroupCreateStruct->enabled,
-                        'comment' => $ruleGroupCreateStruct->comment,
                         'status' => Value::STATUS_DRAFT,
                     ]
                 ),
@@ -693,7 +693,7 @@ final class LayoutResolverService implements APILayoutResolverService
                 RuleGroupUpdateStruct::fromArray(
                     [
                         'name' => $ruleGroupUpdateStruct->name,
-                        'comment' => $ruleGroupUpdateStruct->comment,
+                        'description' => $ruleGroupUpdateStruct->description,
                     ]
                 )
             )
