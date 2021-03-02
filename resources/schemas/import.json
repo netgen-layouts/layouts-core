@@ -26,6 +26,11 @@
                         "else": false
                     },
                     {
+                        "if": { "type": "object", "properties": { "__type": { "const": "rule_group" } } },
+                        "then": { "$ref": "#/definitions/complex/rule_group" },
+                        "else": false
+                    },
+                    {
                         "if": { "type": "object", "properties": { "__type": { "const": "role" } } },
                         "then": { "$ref": "#/definitions/complex/role" },
                         "else": false
