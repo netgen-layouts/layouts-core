@@ -135,6 +135,8 @@ final class Version010300 extends AbstractMigration
         $this->addSql('DROP TABLE nglayouts_rule_condition_rule');
 
         $this->addSql('ALTER TABLE nglayouts_rule DROP COLUMN rule_group_id');
+        $this->addSql('ALTER TABLE nglayouts_rule RENAME COLUMN description TO comment');
+
         $this->addSql('DROP TABLE nglayouts_rule_group_data');
         $this->addSql('DROP TABLE nglayouts_rule_group');
     }
