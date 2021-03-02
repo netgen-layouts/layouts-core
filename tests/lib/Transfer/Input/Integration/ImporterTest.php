@@ -7,6 +7,7 @@ namespace Netgen\Layouts\Tests\Transfer\Input\Integration;
 use Coduo\PHPMatcher\PHPMatcher;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Block\BlockDefinition\Handler\CommonParametersPlugin;
 use Netgen\Layouts\Block\BlockDefinition\Handler\PagedCollectionsPlugin;
 use Netgen\Layouts\Block\BlockDefinitionFactory;
@@ -28,6 +29,7 @@ use Netgen\Layouts\Tests\Core\CoreTestCase;
 use Netgen\Layouts\Tests\Stubs\Container;
 use Netgen\Layouts\Transfer\EntityHandler\LayoutEntityHandler;
 use Netgen\Layouts\Transfer\EntityHandler\RuleEntityHandler;
+use Netgen\Layouts\Transfer\EntityHandler\RuleGroupEntityHandler;
 use Netgen\Layouts\Transfer\Input\Importer;
 use Netgen\Layouts\Transfer\Input\ImportOptions;
 use Netgen\Layouts\Transfer\Input\JsonValidator;
@@ -96,6 +98,15 @@ abstract class ImporterTest extends CoreTestCase
                 $this->targetTypeRegistry,
                 $this->conditionTypeRegistry
             ),
+            'rule_group' => new RuleGroupEntityHandler(
+                $this->layoutResolverService,
+                new RuleEntityHandler(
+                    $this->layoutResolverService,
+                    $this->targetTypeRegistry,
+                    $this->conditionTypeRegistry
+                ),
+                $this->conditionTypeRegistry
+            ),
         ];
 
         $this->importer = new Importer(
@@ -116,6 +127,7 @@ abstract class ImporterTest extends CoreTestCase
             new Visitor\QueryVisitor($this->collectionService),
             new Visitor\ZoneVisitor($this->blockService),
             new Visitor\RuleVisitor(),
+            new Visitor\RuleGroupVisitor($this->layoutResolverService),
             new Visitor\TargetVisitor(),
             new Visitor\ConditionVisitor(),
         ];
@@ -139,6 +151,45 @@ abstract class ImporterTest extends CoreTestCase
         foreach ($this->importer->importData($importData, new ImportOptions()) as $index => $result) {
             self::assertInstanceOf(SuccessResult::class, $result);
             self::assertInstanceOf(Rule::class, $result->getEntity());
+            self::assertSame($result->getEntity()->getId()->toString(), $result->getEntityId()->toString());
+
+            $ruleData = $decodedData['entities'][$index];
+            $exportedRuleData = $this->serializer->serialize($ruleData['__type'], [$result->getEntityId()->toString()]);
+
+            $exportedRuleData = $exportedRuleData['entities'][0];
+
+            $matcher = new PHPMatcher();
+            $matchResult = $matcher->match($exportedRuleData, $ruleData);
+
+            if (!$matchResult) {
+                $differ = new Differ(new UnifiedDiffOutputBuilder("--- Expected\n+++ Actual\n", false));
+                $diff = $differ->diff(
+                    json_encode($ruleData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR),
+                    json_encode($exportedRuleData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR)
+                );
+
+                self::fail($matcher->error() . PHP_EOL . $diff);
+            }
+        }
+
+        // We fake the assertion count to disable risky warning
+        $this->addToAssertionCount(1);
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Transfer\EntityHandler\RuleEntityHandler
+     * @covers \Netgen\Layouts\Transfer\EntityHandler\RuleGroupEntityHandler
+     * @covers \Netgen\Layouts\Transfer\Input\Importer::__construct
+     * @covers \Netgen\Layouts\Transfer\Input\Importer::importData
+     */
+    public function testImportRuleGroups(): void
+    {
+        $importData = (string) file_get_contents(__DIR__ . '/../../_fixtures/input/rule_groups.json');
+        $decodedData = json_decode((string) preg_replace('/[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}/', '@uuid@', $importData), true);
+
+        foreach ($this->importer->importData($importData, new ImportOptions()) as $index => $result) {
+            self::assertInstanceOf(SuccessResult::class, $result);
+            self::assertInstanceOf(RuleGroup::class, $result->getEntity());
             self::assertSame($result->getEntity()->getId()->toString(), $result->getEntityId()->toString());
 
             $ruleData = $decodedData['entities'][$index];
