@@ -71,8 +71,10 @@
             </div>
         </div>
         <div class="nl-rules">
-            {% for element in rules_and_groups %}
-                {{ nglayouts_render_value(element, [], 'admin') }}
+            {% for rule in rules %}
+                <div class="nl-rule nl-element">
+                    {{ nglayouts_render_rule(rule, [], 'admin') }}
+                </div>
             {% endfor %}
         </div>
         <p class="nl-no-items">{{ 'layout_resolver.no_rules'|trans }}</p>
