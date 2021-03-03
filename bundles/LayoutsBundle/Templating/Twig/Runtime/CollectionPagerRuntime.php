@@ -7,7 +7,7 @@ namespace Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime;
 use Closure;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Exception\InvalidArgumentException;
-use Pagerfanta\Pagerfanta;
+use Pagerfanta\PagerfantaInterface;
 use Pagerfanta\View\ViewInterface;
 use function call_user_func;
 use function sprintf;
@@ -29,7 +29,7 @@ final class CollectionPagerRuntime
      *
      * @param array<string, mixed> $options
      */
-    public function renderCollectionPager(Pagerfanta $pagerfanta, Block $block, string $collectionIdentifier, array $options = []): string
+    public function renderCollectionPager(PagerfantaInterface $pagerfanta, Block $block, string $collectionIdentifier, array $options = []): string
     {
         $options['block'] = $block;
         $options['collection_identifier'] = $collectionIdentifier;
@@ -40,7 +40,7 @@ final class CollectionPagerRuntime
     /**
      * Returns the URL of the provided pager and page number.
      */
-    public function getCollectionPageUrl(Pagerfanta $pagerfanta, Block $block, string $collectionIdentifier, int $page = 1): string
+    public function getCollectionPageUrl(PagerfantaInterface $pagerfanta, Block $block, string $collectionIdentifier, int $page = 1): string
     {
         if ($page < 1 || $page > $pagerfanta->getNbPages()) {
             throw new InvalidArgumentException(

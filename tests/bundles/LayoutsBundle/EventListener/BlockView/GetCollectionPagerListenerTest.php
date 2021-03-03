@@ -21,7 +21,7 @@ use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\View\BlockView;
 use Netgen\Layouts\View\ViewInterface;
-use Pagerfanta\Pagerfanta;
+use Pagerfanta\PagerfantaInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
@@ -123,7 +123,7 @@ final class GetCollectionPagerListenerTest extends TestCase
         self::assertSame($collection, $result->getCollection());
         self::assertSame(1000, $result->getTotalCount());
 
-        self::assertInstanceOf(Pagerfanta::class, $event->getParameters()['pager']);
+        self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pager']);
         self::assertSame(3, $event->getParameters()['pager']->getCurrentPage());
     }
 
@@ -196,7 +196,7 @@ final class GetCollectionPagerListenerTest extends TestCase
         self::assertSame($collection, $result->getCollection());
         self::assertSame(1000, $result->getTotalCount());
 
-        self::assertInstanceOf(Pagerfanta::class, $event->getParameters()['pager']);
+        self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pager']);
         self::assertSame(2, $event->getParameters()['pager']->getCurrentPage());
     }
 
@@ -269,7 +269,7 @@ final class GetCollectionPagerListenerTest extends TestCase
         self::assertSame($collection, $result->getCollection());
         self::assertSame(1000, $result->getTotalCount());
 
-        self::assertInstanceOf(Pagerfanta::class, $event->getParameters()['pager']);
+        self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pager']);
         self::assertSame(3, $event->getParameters()['pager']->getCurrentPage());
     }
 
@@ -341,7 +341,7 @@ final class GetCollectionPagerListenerTest extends TestCase
         self::assertSame($collection, $result->getCollection());
         self::assertSame(1000, $result->getTotalCount());
 
-        self::assertInstanceOf(Pagerfanta::class, $event->getParameters()['pager']);
+        self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pager']);
         self::assertSame(3, $event->getParameters()['pager']->getCurrentPage());
     }
 

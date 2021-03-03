@@ -7,7 +7,7 @@ namespace Netgen\Layouts\Tests\Collection\Result\Pagerfanta\View;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Collection\Result\Pagerfanta\View\CollectionView;
 use Netgen\Layouts\Exception\InvalidArgumentException;
-use Pagerfanta\Pagerfanta;
+use Pagerfanta\PagerfantaInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Twig\Environment;
@@ -40,7 +40,7 @@ final class CollectionViewTest extends TestCase
     public function testRender(): void
     {
         $block = new Block();
-        $pagerMock = $this->createMock(Pagerfanta::class);
+        $pagerMock = $this->createMock(PagerfantaInterface::class);
 
         $this->twigMock->expects(self::once())
             ->method('render')
@@ -74,7 +74,7 @@ final class CollectionViewTest extends TestCase
     public function testRenderWithOverriddenTemplate(): void
     {
         $block = new Block();
-        $pagerMock = $this->createMock(Pagerfanta::class);
+        $pagerMock = $this->createMock(PagerfantaInterface::class);
 
         $this->twigMock->expects(self::once())
             ->method('render')
@@ -111,7 +111,7 @@ final class CollectionViewTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('To render the collection view, "block" option must be an instance of Netgen\\Layouts\\API\\Values\\Block\\Block');
 
-        $pagerMock = $this->createMock(Pagerfanta::class);
+        $pagerMock = $this->createMock(PagerfantaInterface::class);
 
         $this->twigMock->expects(self::never())
             ->method('render');
@@ -133,7 +133,7 @@ final class CollectionViewTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('To render the collection view, "block" option must be an instance of Netgen\\Layouts\\API\\Values\\Block\\Block');
 
-        $pagerMock = $this->createMock(Pagerfanta::class);
+        $pagerMock = $this->createMock(PagerfantaInterface::class);
 
         $this->twigMock->expects(self::never())
             ->method('render');
@@ -156,7 +156,7 @@ final class CollectionViewTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('To render the collection view, "collection_identifier" option must be a string');
 
-        $pagerMock = $this->createMock(Pagerfanta::class);
+        $pagerMock = $this->createMock(PagerfantaInterface::class);
 
         $this->twigMock->expects(self::never())
             ->method('render');
@@ -178,7 +178,7 @@ final class CollectionViewTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('To render the collection view, "collection_identifier" option must be a string');
 
-        $pagerMock = $this->createMock(Pagerfanta::class);
+        $pagerMock = $this->createMock(PagerfantaInterface::class);
 
         $this->twigMock->expects(self::never())
             ->method('render');

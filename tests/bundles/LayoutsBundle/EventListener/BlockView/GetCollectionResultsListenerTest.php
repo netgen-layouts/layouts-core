@@ -21,7 +21,7 @@ use Netgen\Layouts\Tests\API\Stubs\Value;
 use Netgen\Layouts\Tests\View\Stubs\View;
 use Netgen\Layouts\View\View\BlockView;
 use Netgen\Layouts\View\ViewInterface;
-use Pagerfanta\Pagerfanta;
+use Pagerfanta\PagerfantaInterface;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use function sprintf;
@@ -118,8 +118,8 @@ final class GetCollectionResultsListenerTest extends TestCase
         self::assertSame($collection2, $collections['collection2']->getCollection());
         self::assertSame(0, $collections['collection2']->getTotalCount());
 
-        self::assertInstanceOf(Pagerfanta::class, $event->getParameters()['pagers']['collection1']);
-        self::assertInstanceOf(Pagerfanta::class, $event->getParameters()['pagers']['collection2']);
+        self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pagers']['collection1']);
+        self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pagers']['collection2']);
     }
 
     /**
@@ -173,7 +173,7 @@ final class GetCollectionResultsListenerTest extends TestCase
         self::assertSame($collection, $collections['collection']->getCollection());
         self::assertSame(1000, $collections['collection']->getTotalCount());
 
-        self::assertInstanceOf(Pagerfanta::class, $event->getParameters()['pagers']['collection']);
+        self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pagers']['collection']);
         self::assertSame(10, $event->getParameters()['pagers']['collection']->getNbResults());
     }
 
@@ -228,7 +228,7 @@ final class GetCollectionResultsListenerTest extends TestCase
         self::assertSame($collection, $collections['collection']->getCollection());
         self::assertSame(1000, $collections['collection']->getTotalCount());
 
-        self::assertInstanceOf(Pagerfanta::class, $event->getParameters()['pagers']['collection']);
+        self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pagers']['collection']);
         self::assertSame(997, $event->getParameters()['pagers']['collection']->getNbResults());
     }
 
@@ -282,7 +282,7 @@ final class GetCollectionResultsListenerTest extends TestCase
         self::assertSame($collection, $collections['collection']->getCollection());
         self::assertSame(1000, $collections['collection']->getTotalCount());
 
-        self::assertInstanceOf(Pagerfanta::class, $event->getParameters()['pagers']['collection']);
+        self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pagers']['collection']);
         self::assertSame(997, $event->getParameters()['pagers']['collection']->getNbResults());
     }
 
@@ -329,7 +329,7 @@ final class GetCollectionResultsListenerTest extends TestCase
         self::assertSame($collection1, $collections['collection1']->getCollection());
         self::assertSame(0, $collections['collection1']->getTotalCount());
 
-        self::assertInstanceOf(Pagerfanta::class, $event->getParameters()['pagers']['collection1']);
+        self::assertInstanceOf(PagerfantaInterface::class, $event->getParameters()['pagers']['collection1']);
     }
 
     /**

@@ -8,6 +8,7 @@ use Netgen\Layouts\API\Values\Collection\Collection;
 use Netgen\Layouts\Collection\Result\ResultBuilderInterface;
 use Pagerfanta\Adapter\AdapterInterface;
 use Pagerfanta\Pagerfanta;
+use Pagerfanta\PagerfantaInterface;
 use function is_int;
 
 final class PagerFactory
@@ -27,7 +28,7 @@ final class PagerFactory
      *
      * The pager starting page will be set to $startPage.
      */
-    public function getPager(Collection $collection, int $startPage, ?int $maxPages = null, int $flags = 0): Pagerfanta
+    public function getPager(Collection $collection, int $startPage, ?int $maxPages = null, int $flags = 0): PagerfantaInterface
     {
         $maxTotalCount = null;
         if (is_int($maxPages) && $maxPages > 0) {
@@ -48,7 +49,7 @@ final class PagerFactory
     /**
      * Builds the pager from provided adapter.
      */
-    private function buildPager(AdapterInterface $adapter, Collection $collection, int $startPage): Pagerfanta
+    private function buildPager(AdapterInterface $adapter, Collection $collection, int $startPage): PagerfantaInterface
     {
         $pager = new Pagerfanta($adapter);
 
