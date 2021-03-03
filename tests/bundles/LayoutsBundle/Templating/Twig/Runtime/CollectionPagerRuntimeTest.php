@@ -8,6 +8,7 @@ use Closure;
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\CollectionPagerRuntime;
 use Netgen\Layouts\API\Values\Block\Block;
 use Netgen\Layouts\Exception\InvalidArgumentException;
+use Pagerfanta\Pagerfanta;
 use Pagerfanta\PagerfantaInterface;
 use Pagerfanta\View\ViewInterface;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -100,7 +101,7 @@ final class CollectionPagerRuntimeTest extends TestCase
      */
     public function testGetCollectionPageUrl(): void
     {
-        $pagerfanta = $this->createMock(PagerfantaInterface::class);
+        $pagerfanta = $this->createMock(Pagerfanta::class);
         $pagerfanta->expects(self::any())
             ->method('getNbPages')
             ->willReturn(5);
@@ -124,7 +125,7 @@ final class CollectionPagerRuntimeTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessageMatches('/^Argument "page" has an invalid value\\. Page -?\\d+ is out of bounds$/');
 
-        $pagerfanta = $this->createMock(PagerfantaInterface::class);
+        $pagerfanta = $this->createMock(Pagerfanta::class);
         $pagerfanta->expects(self::any())
             ->method('getNbPages')
             ->willReturn(5);
