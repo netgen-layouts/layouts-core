@@ -104,7 +104,7 @@ abstract class EditType extends AbstractType
             [
                 'label' => 'block.item_view_type',
                 'choices' => array_flip(array_merge(...array_values($this->itemViewTypes))),
-                'choice_attr' => fn ($value): array => [
+                'choice_attr' => fn (string $value): array => [
                     'data-master' => implode(',', $this->viewTypesByItemViewType[$value]),
                 ],
                 'property_path' => 'itemViewType',
