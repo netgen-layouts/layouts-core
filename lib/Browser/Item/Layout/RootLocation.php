@@ -8,9 +8,9 @@ use Netgen\ContentBrowser\Item\LocationInterface;
 
 final class RootLocation implements LocationInterface
 {
-    public function getLocationId(): int
+    public function getLocationId(): string
     {
-        return 0;
+        return '';
     }
 
     public function getName(): string

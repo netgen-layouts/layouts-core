@@ -12,7 +12,6 @@ use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\LayoutList;
 use Netgen\Layouts\Browser\Backend\LayoutBackend;
-use Netgen\Layouts\Browser\Item\Layout\LayoutInterface;
 use Netgen\Layouts\Browser\Item\Layout\RootLocation;
 use Netgen\Layouts\Exception\NotFoundException;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -49,10 +48,13 @@ final class LayoutBackendTest extends TestCase
             ->expects(self::never())
             ->method('loadLayout');
 
-        $locations = $this->backend->getSections();
+        $locations = [...$this->backend->getSections()];
 
         self::assertCount(1, $locations);
-        self::assertContainsOnlyInstancesOf(RootLocation::class, $locations);
+
+        $location = $locations[0];
+
+        self::assertInstanceOf(RootLocation::class, $location);
     }
 
     /**
@@ -66,7 +68,7 @@ final class LayoutBackendTest extends TestCase
 
         $location = $this->backend->loadLocation(1);
 
-        self::assertInstanceOf(RootLocation::class, $location);
+        self::assertSame((new RootLocation())->getLocationId(), $location->getLocationId());
     }
 
     /**
@@ -86,7 +88,6 @@ final class LayoutBackendTest extends TestCase
 
         $item = $this->backend->loadItem($uuid->toString());
 
-        self::assertInstanceOf(LayoutInterface::class, $item);
         self::assertSame($layout, $item->getLayout());
     }
 

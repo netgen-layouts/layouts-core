@@ -21,7 +21,7 @@ final class RootLocationTest extends TestCase
      */
     public function testGetLocationId(): void
     {
-        self::assertSame(0, $this->location->getLocationId());
+        self::assertSame('', $this->location->getLocationId());
     }
 
     /**

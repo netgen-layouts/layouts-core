@@ -11,7 +11,6 @@ use Netgen\ContentBrowser\Backend\SearchResult;
 use Netgen\ContentBrowser\Backend\SearchResultInterface;
 use Netgen\ContentBrowser\Config\Configuration;
 use Netgen\ContentBrowser\Exceptions\NotFoundException;
-use Netgen\ContentBrowser\Item\ItemInterface;
 use Netgen\ContentBrowser\Item\LocationInterface;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
@@ -37,15 +36,15 @@ final class LayoutBackend implements BackendInterface
 
     public function getSections(): iterable
     {
-        return [new RootLocation()];
+        yield new RootLocation();
     }
 
-    public function loadLocation($id): LocationInterface
+    public function loadLocation($id): RootLocation
     {
         return new RootLocation();
     }
 
-    public function loadItem($value): ItemInterface
+    public function loadItem($value): Item
     {
         try {
             $layout = $this->layoutService->loadLayout(Uuid::fromString((string) $value));
