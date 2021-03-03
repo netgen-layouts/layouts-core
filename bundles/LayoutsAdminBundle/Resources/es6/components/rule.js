@@ -518,6 +518,8 @@ export default class NlRule {
                 this.clearBlockCaches(e);
             } else if (e.target.closest('.nl-rule-head .nl-rule-cell')) {
                 this.el.classList.toggle('show-body');
+            } else if (e.target.className === 'nl-rule-body-overlay') {
+                this.el.classList.toggle('show-body');
             }
         });
 
