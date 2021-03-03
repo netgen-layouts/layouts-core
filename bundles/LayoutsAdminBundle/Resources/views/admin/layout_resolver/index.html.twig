@@ -41,9 +41,11 @@
                     <button class="nl-btn nl-btn-white sorting-hide js-sort-start"><i class="material-icons">swap_vert</i> {{ 'layout_resolver.reorder_rules'|trans }}</button>
                 {% endif %}
 
-                {% if is_granted('nglayouts:mapping:edit') %}
-                    <button id="add-new-button" class="nl-btn nl-btn-primary js-add-rule"><i class="material-icons">add</i> {{ 'layout_resolver.add_new_rule'|trans }}</button>
-                {% endif %}
+                {% block main_controls %}
+                    {% if is_granted('nglayouts:mapping:edit') %}
+                        <button id="add-new-button" class="nl-btn nl-btn-primary js-add-rule"><i class="material-icons">add</i> {{ 'layout_resolver.add_new_rule'|trans }}</button>
+                    {% endif %}
+                {% endblock %}
 
                 {% if can_reorder %}
                     <button class="nl-btn nl-btn sorting-show js-sort-cancel">{{ 'layout_resolver.cancel'|trans }}</button>
@@ -70,13 +72,17 @@
                 <div class="nl-rule-cell rule-conditions">{{ 'layout_resolver.conditions'|trans }}</div>
             </div>
         </div>
-        <div class="nl-rules">
-            {% for rule in rules %}
-                <div class="nl-rule nl-element">
-                    {{ nglayouts_render_rule(rule, [], 'admin') }}
-                </div>
-            {% endfor %}
-        </div>
+
+        {% block elements %}
+            <div class="nl-rules">
+                {% for rule in rules %}
+                    <div class="nl-rule nl-element">
+                        {{ nglayouts_render_rule(rule, [], 'admin') }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endblock %}
+
         <p class="nl-no-items">{{ 'layout_resolver.no_rules'|trans }}</p>
         <p class="nl-no-filtered-items">{{ 'layout_resolver.no_filtered_rules'|trans }}</p>
     </div>
