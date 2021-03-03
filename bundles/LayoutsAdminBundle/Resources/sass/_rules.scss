@@ -125,7 +125,7 @@
         display: none;
     }
     &.show-body {
-        .nl-rule-body {
+        .nl-rule-body, .nl-rule-body-overlay {
             display: block;
             @extend %fadeIn;
         }
@@ -215,139 +215,160 @@
             }
         }
     }
-    .nl-rule-body {
+    .nl-rule-body-overlay {
+        position: fixed;
+        z-index: 1000;
+        background: rgba(0, 0, 0, 0.5);
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        padding: 15px;
+        -webkit-animation: maskFadeIn 0.2s;
+        animation: maskFadeIn 0.2s;
         display: none;
-        padding: $gutter;
-        background: hsl(0, 0, 90);
-        h4 {
-            font-size: 12px;
-            font-weight: 700;
-            margin: 0 0 1.6666666667em;
-        }
-        p.note {
-            margin: 1.5em 0 0;
-            font-style: italic;
-        }
-        .rule-layout-info {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: flex-start;
-            .rule-layout-info-icon {
-                margin-right: 12px;
-                border: 1px solid hsl(0, 0, 63);
-                padding: 2px;
-                width: 56px;
-                opacity: .65;
-                .layout-icon {
+        .nl-rule-body {
+            display: none;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40%;
+            height: 100%;
+            padding: $gutter;
+            background: hsl(0, 0, 90);
+            z-index: 1001;
+            h4 {
+                font-size: 12px;
+                font-weight: 700;
+                margin: 0 0 1.6666666667em;
+            }
+            p.note {
+                margin: 1.5em 0 0;
+                font-style: italic;
+            }
+            .rule-layout-info {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: flex-start;
+                .rule-layout-info-icon {
+                    margin-right: 12px;
+                    border: 1px solid hsl(0, 0, 63);
+                    padding: 2px;
+                    width: 56px;
+                    opacity: .65;
+                    .layout-icon {
+                        display: block;
+                        width: 100%;
+                        height: 0;
+                        padding-bottom: 150%;
+                    }
+                }
+                .rule-layout-info-text {
+                    min-width: 80px;
+                    flex: 1;
+                    p {
+                        word-break: break-word;
+                    }
+                }
+            }
+
+            form {
+                background: hsl(0, 0, 96);
+                padding: .8em;
+                margin: .5em 0;
+                font-size: 13px;
+                label {
                     display: block;
+                    margin: 0 0 .25em;
+                    font-weight: 400;
+                    font-size: .9em;
+                }
+                input[type='text'] {
+                    display: block;
+                    border: 0;
+                    padding: .5em;
+                    margin: 0 0 1em;
                     width: 100%;
-                    height: 0;
-                    padding-bottom: 150%;
+                    line-height: 1.8;
                 }
-            }
-            .rule-layout-info-text {
-                min-width: 80px;
-                flex: 1;
-                p {
-                    word-break: break-word;
+                select:not([multiple]) {
+                    @extend .nl-select;
+                    background-color: #fff;
+                    margin: 0 0 1em;
                 }
-            }
-        }
-
-        form {
-            background: hsl(0, 0, 96);
-            padding: .8em;
-            margin: .5em 0;
-            font-size: 13px;
-            label {
-                display: block;
-                margin: 0 0 .25em;
-                font-weight: 400;
-                font-size: .9em;
-            }
-            input[type='text'] {
-                display: block;
-                border: 0;
-                padding: .5em;
-                margin: 0 0 1em;
-                width: 100%;
-                line-height: 1.8;
-            }
-            select:not([multiple]) {
-                @extend .nl-select;
-                background-color: #fff;
-                margin: 0 0 1em;
-            }
-            select[multiple] {
-                width: 100%;
-                border: 0;
-                margin: 0 0 1em;
-                option {
-                    padding: .25em;
-                }
-            }
-            .form-actions {
-                text-align: right;
-            }
-            .nl-btn {
-                height: 28px;
-                line-height: 28px;
-            }
-
-            .js-input-browse {
-                .js-clear {
-                    background: #fff;
-                    border-radius: 0;
-                    border-right: 1px solid hsl(0, 0, 96);
-                    &:hover {
-                        background: hsl(0, 0, 98);
+                select[multiple] {
+                    width: 100%;
+                    border: 0;
+                    margin: 0 0 1em;
+                    option {
+                        padding: .25em;
                     }
                 }
-                .js-trigger {
-                    background: #fff;
-                    color: inherit;
-                    height: $inputHeight;
-                    font-size: 1em;
-                    border-radius: 0;
-                    span {
-                        line-height: $inputHeight;
-                    }
-                    &::after {
-                        background: $linkColor;
-                        color: #fff;
-                        line-height: $inputHeight;
-                        transition: background .15s ease, color .15s ease;
+                .form-actions {
+                    text-align: right;
+                }
+                .nl-btn {
+                    height: 28px;
+                    line-height: 28px;
+                }
+
+                .js-input-browse {
+                    .js-clear {
+                        background: #fff;
                         border-radius: 0;
-                        font-size: 20px;
+                        border-right: 1px solid hsl(0, 0, 96);
+                        &:hover {
+                            background: hsl(0, 0, 98);
+                        }
                     }
-                    &:hover {
+                    .js-trigger {
+                        background: #fff;
+                        color: inherit;
+                        height: $inputHeight;
+                        font-size: 1em;
+                        border-radius: 0;
+                        span {
+                            line-height: $inputHeight;
+                        }
                         &::after {
-                            background: darken($linkColor, 4%);
+                            background: $linkColor;
+                            color: #fff;
+                            line-height: $inputHeight;
+                            transition: background .15s ease, color .15s ease;
+                            border-radius: 0;
+                            font-size: 20px;
+                        }
+                        &:hover {
+                            &::after {
+                                background: darken($linkColor, 4%);
+                            }
                         }
                     }
                 }
-            }
 
-            .errors {
-                list-style-type: none;
-                margin: -.5em 0 1em;
-                padding: 0;
-                li {
-                    color: #f00;
+                .errors {
+                    list-style-type: none;
+                    margin: -.5em 0 1em;
+                    padding: 0;
+                    li {
+                        color: #f00;
+                    }
+                }
+                label + .errors {
+                    margin: .25em 0 .125em;
                 }
             }
-            label + .errors {
-                margin: .25em 0 .125em;
-            }
-        }
 
+        }
     }
     .nl-rule-actions {
         display: none;
-        border-top: 1px solid hsla(0, 0, 0, .075);
         padding: $gutter;
         background: #fff;
         text-align: right;
+        margin-left: auto;
+        margin-right: 20px;
     }
     .settings-loader {
         display: none;
