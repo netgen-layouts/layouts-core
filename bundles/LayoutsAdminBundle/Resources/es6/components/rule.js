@@ -518,7 +518,15 @@ export default class NlRule {
                 this.clearBlockCaches(e);
             } else if (e.target.closest('.nl-rule-head .nl-rule-cell')) {
                 this.el.classList.toggle('show-body');
+            } else if (e.target.className === 'nl-rule-description') {
+                this.el.classList.toggle('show-body');
             } else if (e.target.className === 'nl-rule-body-overlay') {
+                this.el.classList.toggle('show-body');
+            }
+        });
+
+        window.addEventListener('keyup', (e) => {
+            if (e.key === 'Escape' && this.el.classList.contains('show-body')) {
                 this.el.classList.toggle('show-body');
             }
         });
