@@ -49,7 +49,7 @@ final class Version010300 extends AbstractMigration
             INSERT INTO nglayouts_rule_group (
               id, status, uuid, depth, path, parent_id, name, description
             ) VALUES (
-              1, 1, '00000000-0000-0000-0000-000000000000', 0, '/1/', NULL, '', ''
+              1, 1, '00000000-0000-0000-0000-000000000000', 0, '/1/', NULL, 'Root', ''
             )
             EOT
         );
