@@ -146,6 +146,7 @@
                     </a>
                 </div>
             {% endif %}
+
             <div class="col-xs12">
                 <h4>{{ 'layout_resolver.rule.mapped_layout'|trans }}:</h4>
                 {% if rule.layout is not empty %}
@@ -166,8 +167,11 @@
                         {% endif %}
                     </div>
                     <div style="margin-top: 1rem;">
-                       {% if is_granted('nglayouts:layout:edit', rule.layout) %}
+                        {% if is_granted('nglayouts:layout:edit', rule.layout) %}
                             <a style="margin-right: 1rem" href="{{ macros.layout_path(rule.layout.id.toString) }}" class="js-open-ngl">{{ 'layout_resolver.rule.edit_layout'|trans }}</a>
+                        {% endif %}
+
+                        {% if can_edit %}
                             <a style="margin-right: 1rem" href="#" {% if rule.layout is empty %} disabled {% else %} class="js-rule-unlink" {% endif %}>{{ 'layout_resolver.rule.unlink_layout'|trans }}</a>
                             <a class="js-link-layout" {% if rule.layout is not empty %}data-linked-layout="{{ rule.layout.id.toString }}"{% endif %} data-browser-item-type="layout" href="#">
                                 {% if rule.layout is not empty %}
@@ -187,6 +191,7 @@
                     </div>
                 {% endif %}
             </div>
+
             <div class="col-xs12">
                 <div class="nl-grid">
                     <div class="col-xs12" style="padding-top: 1rem; margin-top:1rem; border-top: 2px solid #E0E0E0;">
