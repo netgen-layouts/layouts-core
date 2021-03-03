@@ -155,6 +155,29 @@ export default class NlRule {
         return true;
     }
 
+    discardDraft(e) {
+        e.preventDefault();
+        const url = `${this.rules.baseUrl}rules/${this.id}/discard`;
+        if (this.draftCreated) {
+            fetch(url, {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: {
+                    'X-CSRF-Token': this.rules.csrf,
+                },
+            }).then((response) => {
+                if (!response.ok) throw new Error(`HTTP error, status ${response.status}`);
+                return response.text();
+            }).then((data) => {
+                this.renderEl(data);
+                this.afterDraftRemove();
+            }).catch((error) => {
+                console.log(error); // eslint-disable-line no-console
+            });
+        }
+        return true;
+    }
+
     publishRule() {
         const url = `${this.rules.baseUrl}rules/${this.id}/publish`;
         this.rules.showLoader();
@@ -521,6 +544,7 @@ export default class NlRule {
             } else if (e.target.className === 'nl-rule-description') {
                 this.el.classList.toggle('show-body');
             } else if (e.target.className === 'nl-rule-body-overlay') {
+                this.discardDraft(e);
                 this.el.classList.toggle('show-body');
             }
         });
