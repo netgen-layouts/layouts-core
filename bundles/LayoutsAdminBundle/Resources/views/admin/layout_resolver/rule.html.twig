@@ -92,21 +92,11 @@
             </button>
             <ul class="nl-dropdown-menu">
                 {% if can_edit %}
-                    <li><a href="#" {% if rule.layout is empty %} disabled {% else %} class="js-rule-unlink" {% endif %}>{{ 'layout_resolver.rule.unlink_layout'|trans }}</a></li>
 
                     <li><a href="#" class="js-rule-edit-rule">{{ 'layout_resolver.rule.edit_rule'|trans }}</a></li>
 
                     <li><a href="#" class="js-rule-copy-rule">{{ 'layout_resolver.rule.copy_rule'|trans }}</a></li>
 
-                    <li>
-                        <a class="js-link-layout" {% if rule.layout is not empty %}data-linked-layout="{{ rule.layout.id.toString }}"{% endif %} data-browser-item-type="layout" href="#">
-                            {% if rule.layout is not empty %}
-                                {{ 'layout_resolver.rule.link_other_layout'|trans }}
-                            {% else %}
-                                {{ 'layout_resolver.rule.link_layout'|trans }}
-                            {% endif %}
-                        </a>
-                    </li>
                 {% endif %}
 
                 {% if can_activate %}
@@ -140,11 +130,23 @@
             {{ rule.description }}
         </div>
     {% endif %}
+</div>
 
+<div class = "nl-rule-body-overlay">
     <div class="nl-rule-body">
-
         <div class="nl-grid">
-            <div class="col-xs3">
+            {% if can_edit %}
+                <div class="nl-rule-actions">
+                    <a href="#" class="nl-btn js-rule-edit" data-action="discard">
+                        {{ 'layout_resolver.rule.cancel'|trans }}
+                    </a>
+
+                    <a href="#" class="nl-btn nl-btn-primary js-rule-edit" data-action="publish">
+                        {{ 'layout_resolver.rule.save_changes'|trans }}
+                    </a>
+                </div>
+            {% endif %}
+            <div class="col-xs12">
                 <h4>{{ 'layout_resolver.rule.mapped_layout'|trans }}:</h4>
                 {% if rule.layout is not empty %}
                     <div class="rule-layout-info">
@@ -155,15 +157,25 @@
                             <div class="rule-layout-info-text">
                                 <p><strong>{{ rule.layout.name }}</strong></p>
                                 <p>{{ rule.layout.description }}</p>
-                                {% if is_granted('nglayouts:layout:edit', rule.layout) %}
-                                    <a href="{{ macros.layout_path(rule.layout.id.toString) }}" class="js-open-ngl">{{ 'layout_resolver.rule.edit_layout'|trans }}</a>
-                                {% endif %}
                             </div>
                         {% else %}
                             <div class="rule-layout-info-text">
                                 <p><strong>{{ rule.layout.name }}</strong></p>
                                 <p>{{ 'layouts.layout.invalid_layout'|trans }}</p>
                             </div>
+                        {% endif %}
+                    </div>
+                    <div style="margin-top: 1rem;">
+                       {% if is_granted('nglayouts:layout:edit', rule.layout) %}
+                            <a style="margin-right: 1rem" href="{{ macros.layout_path(rule.layout.id.toString) }}" class="js-open-ngl">{{ 'layout_resolver.rule.edit_layout'|trans }}</a>
+                            <a style="margin-right: 1rem" href="#" {% if rule.layout is empty %} disabled {% else %} class="js-rule-unlink" {% endif %}>{{ 'layout_resolver.rule.unlink_layout'|trans }}</a>
+                            <a class="js-link-layout" {% if rule.layout is not empty %}data-linked-layout="{{ rule.layout.id.toString }}"{% endif %} data-browser-item-type="layout" href="#">
+                                {% if rule.layout is not empty %}
+                                    {{ 'layout_resolver.rule.link_other_layout'|trans }}
+                                {% else %}
+                                    {{ 'layout_resolver.rule.link_layout'|trans }}
+                                {% endif %}
+                            </a>
                         {% endif %}
                     </div>
                 {% else %}
@@ -175,9 +187,9 @@
                     </div>
                 {% endif %}
             </div>
-            <div class="col-xs9">
+            <div class="col-xs12">
                 <div class="nl-grid">
-                    <div class="col-xs6">
+                    <div class="col-xs12" style="padding-top: 1rem; margin-top:1rem; border-top: 2px solid #E0E0E0;">
                         {% if rule.targets is not empty %}
                             {% if target_type_identifier is not same as('null') %}
                                 <h4>{{ ('layout_resolver.rule.target_header.' ~ target_type_identifier)|trans }}:</h4>
@@ -218,7 +230,7 @@
                         <p class="note">{{ 'layout_resolver.targets.notice'|trans|raw }}</p>
                     </div>
 
-                    <div class="col-xs6">
+                    <div class="col-xs12" style="padding-top: 1rem; margin-top:1rem; border-top: 2px solid #E0E0E0;">
                         {% if rule.conditions is not empty %}
                             <h4>{{ 'layout_resolver.rule.conditions'|trans }}:</h4>
 
@@ -254,19 +266,5 @@
                 </div>
             </div>
         </div>
-
     </div>
-
-    {% if can_edit %}
-        <div class="nl-rule-actions">
-            <a href="#" class="nl-btn js-rule-edit" data-action="discard">
-                {{ 'layout_resolver.rule.cancel'|trans }}
-            </a>
-
-            <a href="#" class="nl-btn nl-btn-primary js-rule-edit" data-action="publish">
-                {{ 'layout_resolver.rule.save_changes'|trans }}
-            </a>
-        </div>
-    {% endif %}
-
 </div>
