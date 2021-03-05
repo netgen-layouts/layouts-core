@@ -158,13 +158,8 @@ final class CollectionMapper
         $queries = array_values(
             array_map(
                 static function (array $queryData): Query {
-                    if (isset($queryData['parameters'])) {
-                        ksort($queryData['parameters']);
-                    }
-
-                    if (isset($queryData['availableLocales'])) {
-                        sort($queryData['availableLocales']);
-                    }
+                    ksort($queryData['parameters']);
+                    sort($queryData['availableLocales']);
 
                     return Query::fromArray($queryData);
                 },

@@ -60,13 +60,8 @@ final class BlockMapper
         return array_values(
             array_map(
                 static function (array $blockData): Block {
-                    if (isset($blockData['parameters'])) {
-                        ksort($blockData['parameters']);
-                    }
-
-                    if (isset($blockData['availableLocales'])) {
-                        sort($blockData['availableLocales']);
-                    }
+                    ksort($blockData['parameters']);
+                    sort($blockData['availableLocales']);
 
                     return Block::fromArray($blockData);
                 },
