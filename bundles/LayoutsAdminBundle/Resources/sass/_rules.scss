@@ -553,10 +553,10 @@
         }
     }
     &.show-conditions {
-        .nl-group-condition-overlay {
+        > .nl-group-condition-overlay {
             display: block;
             @extend %fadeIn;
-            .nl-group-condition {
+            > .nl-group-condition {
                 display: block;
             }
         }
