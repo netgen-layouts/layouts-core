@@ -526,10 +526,13 @@ export default class NlRule {
             } else if (e.target.closest('.js-rule-edit-rule')) {
                 this.editRule(e);
             } else if (e.target.closest('.js-rule-copy-rule')) {
+                e.stopPropagation();
                 this.copyRule(e);
             } else if (e.target.closest('.js-setting-delete')) {
+                e.stopPropagation();
                 this.settingDelete(e);
             } else if (e.target.closest('.js-setting-edit')) {
+                e.stopPropagation();
                 this.settingEdit(e);
             } else if (e.target.closest('.js-setting-add')) {
                 this.settingAdd(e);
@@ -539,13 +542,12 @@ export default class NlRule {
                 this.clearLayoutCache(e);
             } else if (e.target.closest('.js-layout-clear-block-caches')) {
                 this.clearBlockCaches(e);
-            } else if (e.target.closest('.nl-rule-head .nl-rule-cell')) {
-                this.el.classList.toggle('show-body');
-            } else if (e.target.className === 'nl-rule-description') {
+            } else if (e.target.closest('.js-toggle-body')) {
                 this.el.classList.toggle('show-body');
             } else if (e.target.className === 'nl-rule-body-overlay') {
-                this.discardDraft(e);
                 this.el.classList.toggle('show-body');
+            } else if (e.target.closest('.nl-rule-head .nl-rule-cell')) {
+                this.el.classList.toggle('selected');
             }
         });
 
@@ -554,6 +556,8 @@ export default class NlRule {
                 this.el.classList.toggle('show-body');
             }
         });
+
+        this.el.addEventListener('blur', () => {this.el.classList.remove('selected')});
 
         if (this.selectExport) {
             this.selectExport.addEventListener('change', () => {
