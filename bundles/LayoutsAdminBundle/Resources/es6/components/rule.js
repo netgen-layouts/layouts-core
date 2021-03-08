@@ -557,7 +557,7 @@ export default class NlRule {
             }
         });
 
-        this.el.addEventListener('blur', () => {this.el.classList.remove('selected')});
+        this.el.addEventListener('blur', () => { this.el.classList.remove('selected'); });
 
         if (this.selectExport) {
             this.selectExport.addEventListener('change', () => {
