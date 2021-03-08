@@ -510,7 +510,7 @@
 
     &.selected {
         .nl-rule-head {
-            background-color: lightblue;
+            background-color: rgba(0, 0, 0, 0.08);
         }
 
         .rule-details, .nl-dropdown-toggle {
@@ -530,6 +530,7 @@
     margin: 0 0 10px;
     font-size: 12px;
     align-items: center;
+    outline: none;
     &.nl-rule-hidden {
         display: none;
     }
@@ -588,6 +589,14 @@
             font-size: 14px;
             font-weight: 700;
             color: hsl(0, 0, 20);
+
+            &:hover {
+                background: rgba(0, 0, 0, 0.08);
+                p {
+                    text-decoration: underline;
+                }
+                cursor: pointer;
+            }
         }
         .nl-dropdown {
             margin-left: auto;
@@ -759,8 +768,35 @@
     }
 
     &:hover {
-        .group-details, .nl-dropdown-toggle {
-            display: flex !important;
+        > .nl-group-content {
+            > .nl-group-head {
+                > .group-details {
+                    display: flex !important;
+                }
+        
+                > .nl-dropdown {
+                    > .nl-dropdown-toggle {
+                        display: flex;
+                    }
+                }
+            }
+        }
+    }
+
+    &.selected {
+        > .nl-group-content {
+            > .nl-group-head {
+                background-color: rgba(0, 0, 0, 0.08);
+                > .group-details {
+                    display: flex !important;
+                }
+        
+                > .nl-dropdown {
+                    > .nl-dropdown-toggle {
+                        display: flex;
+                    }
+                }
+            }
         }
     }
 }
