@@ -723,7 +723,6 @@
             }
 
             &:hover {
-                background: rgba(0, 0, 0, 0.08);
                 p {
                     text-decoration: underline;
                 }
@@ -939,6 +938,7 @@
                 > .nl-dropdown {
                     > .nl-dropdown-toggle {
                         display: flex;
+                        padding: 20px 12px;
                     }
                 }
             }
