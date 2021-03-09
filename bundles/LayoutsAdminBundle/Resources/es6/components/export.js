@@ -66,11 +66,10 @@ export default class NlExport {
         e.preventDefault();
         const selectedEntities = [];
         const layoutsAppEl = document.getElementsByClassName('ng-layouts-app')[0];
-        Object.keys(this.entities).forEach(key => this.entities[key].selected && selectedEntities.push({ [this.entities[key].id]: this.entities[key].type }));
-        console.log(selectedEntities);
+        Object.keys(this.entities).forEach(key => this.entities[key].selected && selectedEntities.push({ id: this.entities[key].id, type: this.entities[key].type }));
         layoutsAppEl.classList.add('ajax-loading');
-        const entityIds = selectedEntities.map(entity => `entity_ids[]=${entity}`);
-        const body = new URLSearchParams(entityIds.join('&'));
+        const entities = selectedEntities.map(entity => `entities[${entity.id}]=${entity.type}`);
+        const body = new URLSearchParams(entities.join('&'));
         let fileName = '';
         fetch(`${this.baseUrl}export`, {
             method: 'POST',
