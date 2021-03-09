@@ -712,6 +712,7 @@
         display: flex;
         padding-left: $gutter;
         color: hsl(0, 0, 40);
+        align-items: center;
         min-height: 60px;
         .group-title {
             font-size: 14px;
@@ -761,6 +762,18 @@
                 i {
                     color: hsl(0, 0, 70);
                     margin-right: 0.25em;
+                }
+            }
+        }
+
+        &:hover {
+            > .group-details {
+                display: flex !important;
+            }
+
+            > .nl-dropdown {
+                > .nl-dropdown-toggle {
+                    display: flex;
                 }
             }
         }
@@ -910,22 +923,6 @@
         outline-offset: 4px;
         * {
             visibility: hidden;
-        }
-    }
-
-    &:hover {
-        > .nl-group-content {
-            > .nl-group-head {
-                > .group-details {
-                    display: flex !important;
-                }
-
-                > .nl-dropdown {
-                    > .nl-dropdown-toggle {
-                        display: flex;
-                    }
-                }
-            }
         }
     }
 

@@ -14,10 +14,6 @@
 {% set can_activate = is_granted('nglayouts:mapping:activate') %}
 {% set can_delete = is_granted('nglayouts:mapping:delete') %}
 
-<div class="nl-export-checkbox">
-    <input type="checkbox" id="export{{ rule.id.toString }}" {% if not rule.published %}disabled{% endif %}>
-    <label for="export{{ rule.id.toString }}"></label>
-</div>
 <div class="rule-priority"></div>
 <div class="nl-rule-content
     {% if not rule.enabled %}disabled{% endif %}"
@@ -28,6 +24,13 @@
     >
 
     <div class="nl-rule-head">
+        <div class="nl-rule-cell">
+            <div class="nl-export-checkbox">
+                <input type="checkbox" id="export{{ rule.id.toString }}" {% if not rule.published %}disabled{% endif %}>
+                <label for="export{{ rule.id.toString }}"></label>
+            </div>
+        </div>
+
         <div class="nl-rule-cell rule-layout">
 
             {% if rule.layout is not empty %}

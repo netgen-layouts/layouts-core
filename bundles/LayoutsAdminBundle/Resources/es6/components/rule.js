@@ -50,6 +50,7 @@ export default class NlRule {
         this.id = this.attributes.id;
         this.draftCreated = false;
         [this.priorityEl] = this.el.getElementsByClassName('rule-priority');
+        this.type = 'rule';
 
         this.selectExport = document.getElementById(`export${this.id}`);
         this.selected = this.selectExport && this.selectExport.checked;
