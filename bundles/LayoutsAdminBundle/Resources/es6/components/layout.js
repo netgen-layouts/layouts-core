@@ -13,6 +13,7 @@ export default class NlLayout {
         this.shared = this.el.parentElement.classList.contains('nl-shared-layouts');
         this.selectExport = document.getElementById(`export${this.id}`);
         this.selected = this.selectExport && this.selectExport.checked;
+        this.type = 'layout';
 
         this.layouts.layouts.push(this);
 
