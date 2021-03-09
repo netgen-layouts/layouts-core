@@ -543,8 +543,8 @@
         }
     }
     &.show-actions {
-        > .nl-group-condition-overlay {
-            > .nl-group-condition {
+        > .nl-group-details-overlay {
+            > .nl-group-details {
                 > .nl-group-actions {
                     display: block;
                     @extend %fadeIn;
