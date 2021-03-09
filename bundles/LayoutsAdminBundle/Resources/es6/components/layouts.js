@@ -75,7 +75,7 @@ export default class NlLayouts {
 
     initializeLayoutsPlugin() {
         [...this.el.getElementsByClassName('nl-layout')].forEach(el => new NlLayout(el, this));
-        this.export = new NlExport(this.el, this.layouts, 'layout');
+        this.export = new NlExport(this.el, this.layouts);
     }
 
     setSorting(sort) {
