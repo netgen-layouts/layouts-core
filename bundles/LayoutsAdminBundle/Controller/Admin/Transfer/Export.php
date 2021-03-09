@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\String\Inflector\EnglishInflector;
-use function array_unique;
 use function date;
 use function json_encode;
 use function sprintf;
@@ -35,10 +34,10 @@ final class Export extends AbstractController
         $this->denyAccessUnlessGranted('nglayouts:ui:access');
 
         $entityIds = Kernel::VERSION_ID >= 50100 ?
-            $request->request->all('entity_ids') :
-            (array) ($request->request->get('entity_ids') ?? []);
+            $request->request->all('entities') :
+            (array) ($request->request->get('entities') ?? []);
 
-        $serializedEntities = $this->serializer->serialize($type, array_unique($entityIds));
+        $serializedEntities = $this->serializer->serialize($entityIds);
         $json = json_encode($serializedEntities, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
         $response = new Response($json);
 
