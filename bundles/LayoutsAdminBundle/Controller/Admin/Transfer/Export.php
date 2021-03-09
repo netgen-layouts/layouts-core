@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\String\Inflector\EnglishInflector;
+use function array_key_first;
 use function date;
 use function json_encode;
 use function sprintf;
