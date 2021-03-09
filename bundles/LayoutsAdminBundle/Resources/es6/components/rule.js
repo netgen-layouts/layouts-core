@@ -542,9 +542,11 @@ export default class NlRule {
                 this.clearLayoutCache(e);
             } else if (e.target.closest('.js-layout-clear-block-caches')) {
                 this.clearBlockCaches(e);
-            } else if (e.target.closest('.js-toggle-body')) {
+            } else if (e.target.className === '.js-toggle-body') {
+                e.stopPropagation();
                 this.el.classList.toggle('show-body');
             } else if (e.target.className === 'nl-rule-body-overlay') {
+                e.stopPropagation();
                 this.el.classList.toggle('show-body');
             } else if (e.target.closest('.nl-rule-head .nl-rule-cell')) {
                 this.el.classList.toggle('selected');
