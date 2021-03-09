@@ -29,7 +29,7 @@ final class Export extends AbstractController
     /**
      * Exports the provided list of entities.
      */
-    public function __invoke(string $type, Request $request): Response
+    public function __invoke(Request $request): Response
     {
         $this->denyAccessUnlessGranted('nglayouts:ui:access');
 
