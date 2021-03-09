@@ -783,6 +783,7 @@
         padding: $gutter;
         background: white;
         padding: 0 20px;
+        border-radius: 6px;
 
         > .nl-grid {
             > .nl-group-list {
@@ -927,9 +928,10 @@
     }
 
     &.selected {
+        border: 3px solid #3671E7;
+        border-radius: 6px;
         > .nl-group-content {
             > .nl-group-head {
-                background-color: rgba(0, 0, 0, 0.08);
                 > .group-details {
                     display: flex !important;
                 }
