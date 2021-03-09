@@ -717,6 +717,9 @@
             font-size: 14px;
             font-weight: 700;
             color: hsl(0, 0, 20);
+            i {
+                padding: 1rem;
+            }
 
             &:hover {
                 background: rgba(0, 0, 0, 0.08);
