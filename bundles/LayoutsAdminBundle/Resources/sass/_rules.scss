@@ -503,6 +503,10 @@
     }
 
     &:hover {
+        .nl-rule-head {
+            background: #F4F8FE;
+        }
+
         .rule-details, .nl-dropdown-toggle {
             display: flex !important;
         }
@@ -767,6 +771,8 @@
         }
 
         &:hover {
+            background: #F4F8FE;
+
             > .group-details {
                 display: flex !important;
             }
