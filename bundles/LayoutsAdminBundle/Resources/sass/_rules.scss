@@ -744,7 +744,7 @@
                 height: auto;
                 min-width: auto;
                 font-size: 24px;
-                padding: 0 0.75em;
+                padding: 18px 12px;
                 border-radius: 0;
                 i {
                     font-size: inherit;
@@ -945,7 +945,6 @@
                 > .nl-dropdown {
                     > .nl-dropdown-toggle {
                         display: flex;
-                        padding: 20px 12px;
                     }
                 }
             }
