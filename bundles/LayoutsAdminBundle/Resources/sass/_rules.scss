@@ -504,7 +504,7 @@
 
     &:hover {
         .nl-rule-head {
-            background: #F4F8FE;
+            background: #F4F8FE !important;
         }
 
         .rule-details, .nl-dropdown-toggle {
@@ -771,7 +771,7 @@
         }
 
         &:hover {
-            background: #F4F8FE;
+            background: #F4F8FE !important;
 
             > .group-details {
                 display: flex !important;
