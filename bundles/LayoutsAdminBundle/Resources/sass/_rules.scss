@@ -513,11 +513,9 @@
     }
 
     &.selected {
-        .nl-rule-head {
-            border: 3px solid #3671E7;
-            border-radius: 6px;
-        }
-
+        border: 3px solid #3671E7;
+        border-radius: 6px;
+        
         .rule-details, .nl-dropdown-toggle {
             display: flex !important;
         }
@@ -725,6 +723,7 @@
             color: hsl(0, 0, 20);
             i {
                 padding: 1rem;
+                color: #2565ED;
             }
 
             &:hover {
