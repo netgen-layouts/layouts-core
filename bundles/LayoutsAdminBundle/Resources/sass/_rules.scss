@@ -514,7 +514,6 @@
 
     &.selected {
         border: 3px solid #3671E7;
-        border-radius: 6px;
         
         .rule-details, .nl-dropdown-toggle {
             display: flex !important;
@@ -788,7 +787,6 @@
         padding: $gutter;
         background: white;
         padding: 0 20px;
-        border-radius: 6px;
 
         > .nl-grid {
             > .nl-group-list {
@@ -934,7 +932,6 @@
 
     &.selected {
         border: 3px solid #3671E7;
-        border-radius: 6px;
         > .nl-group-content {
             > .nl-group-head {
                 > .group-details {
@@ -955,7 +952,6 @@
     flex: 1;
     background: #fff;
     // box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-    border-radius: 6px;
     border: 1px solid #F4F4F4;
 }
 
