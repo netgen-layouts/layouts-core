@@ -519,6 +519,12 @@
             display: flex !important;
         }
     }
+
+    &.nl-dropdown-active {
+        .rule-details, .nl-dropdown-toggle {
+            display: flex !important;
+        }
+    }
 }
 
 .nl-rule-content {
@@ -930,8 +936,7 @@
         }
     }
 
-    &.selected {
-        border: 3px solid #3671E7;
+    &.selected, &.nl-dropdown-active {
         > .nl-group-content {
             > .nl-group-head {
                 > .group-details {
@@ -945,6 +950,10 @@
                 }
             }
         }
+    }
+
+    &.selected {
+        border: 3px solid #3671E7;
     }
 }
 
