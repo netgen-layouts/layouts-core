@@ -170,10 +170,11 @@ body {
 .layouts-header {
     margin:0 0 2em;
     .layouts-title {
-        font-size:21px;
-        font-weight:400;
-        margin:0;
-        float:left;
+        font-size: 32px;
+        font-weight: bold;
+        margin: 0;
+        float: left;
+        color: #2565ED;
     }
     .layouts-controls {
         float:right;
@@ -188,6 +189,8 @@ body {
     }
     p {
         clear:both;
-        font-size:14px;
+        font-size: 18px;
+        color: #9D9D9D;
+        float: left;
     }
 }
