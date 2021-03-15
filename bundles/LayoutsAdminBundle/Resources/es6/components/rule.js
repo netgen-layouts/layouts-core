@@ -549,8 +549,6 @@ export default class NlRule {
             } else if (e.target.className === 'nl-rule-body-overlay') {
                 e.stopPropagation();
                 this.el.classList.toggle('show-body');
-            } else if (e.target.closest('.nl-rule-head .nl-rule-cell')) {
-                this.el.classList.toggle('selected');
             }
         });
 
