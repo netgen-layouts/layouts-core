@@ -86,7 +86,8 @@ export default class NlRules {
 
     createRule(html, priority, shouldScroll) {
       const newRuleEl = document.createElement('div');
-      newRuleEl.className = 'nl-rule show-body';
+      newRuleEl.className = 'nl-rule';
+      newRuleEl.setAttribute('tabindex', '0');
       newRuleEl.innerHTML = html;
       priority >= this.rules.ids.length
         ? this.rulesContainer.appendChild(newRuleEl)
