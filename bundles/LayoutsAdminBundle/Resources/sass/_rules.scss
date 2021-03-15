@@ -525,7 +525,7 @@
         }
     }
 
-    &.selected {
+    &:focus {
         border: 3px solid #3671E7;
         
         .rule-details, .nl-dropdown-toggle {
@@ -959,7 +959,7 @@
         }
     }
 
-    &.selected, &.nl-dropdown-active {
+    &:focus, &.nl-dropdown-active {
         > .nl-group-content {
             > .nl-group-head {
                 > .group-details {
@@ -975,7 +975,7 @@
         }
     }
 
-    &.selected {
+    &:focus {
         border: 3px solid #3671E7;
     }
 }
