@@ -527,7 +527,7 @@
     }
 
     &:focus {
-        border: 3px solid #3671E7;
+        outline: 3px solid #3671E7;
         
         .rule-details, .nl-dropdown-toggle {
             display: flex !important;
@@ -978,7 +978,7 @@
     }
 
     &:focus {
-        border: 3px solid #3671E7;
+        outline: 3px solid #3671E7;
     }
 }
 
