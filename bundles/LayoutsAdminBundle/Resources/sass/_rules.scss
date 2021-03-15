@@ -240,6 +240,8 @@
         -webkit-animation: maskFadeIn 0.2s;
         animation: maskFadeIn 0.2s;
         display: none;
+        overflow: hidden;
+        -webkit-overflow-scrolling:touch;
         .nl-rule-body {
             display: none;
             position: absolute;
@@ -597,6 +599,8 @@
         -webkit-animation: maskFadeIn 0.2s;
         animation: maskFadeIn 0.2s;
         display: none;
+        overflow: hidden;
+        -webkit-overflow-scrolling:touch;
         .nl-group-details {
             display: none;
             position: absolute;
