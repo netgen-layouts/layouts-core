@@ -30,6 +30,18 @@
     }
 }
 
+.sorting {
+    #rules {
+        .nl-rules {
+            > .nl-element {
+                > .rule-priority {
+                    display: block;
+                }
+            }
+        }
+    }
+}
+
 .nl-rules-head {
     display: flex;
     font-size: 12px;
@@ -767,10 +779,17 @@
                     display: block;
                 }
             }
-        }
-
-        .nl-export-checkbox {
-            display: block;
+            .nl-group-body {
+                .nl-grid {
+                    .nl-group-list {
+                        .nl-element {
+                            .rule-priority {
+                                display: block;
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
