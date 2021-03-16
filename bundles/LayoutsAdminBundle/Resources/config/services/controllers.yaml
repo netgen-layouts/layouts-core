@@ -40,8 +40,8 @@ services:
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
 
-    netgen_layouts.controller.admin.layout_resolver.update_rule_priorities:
-        class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\UpdateRulePriorities
+    netgen_layouts.controller.admin.layout_resolver.update_priorities:
+        class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\UpdatePriorities
         public: true
         parent: netgen_layouts.controller.base
         arguments:
