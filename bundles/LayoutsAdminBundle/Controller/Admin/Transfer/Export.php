@@ -9,11 +9,13 @@ use Netgen\Layouts\Transfer\Output\SerializerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\String\Inflector\EnglishInflector;
-use function array_key_first;
+use function count;
 use function date;
 use function json_encode;
+use function reset;
 use function sprintf;
 use const JSON_PRETTY_PRINT;
 use const JSON_THROW_ON_ERROR;
@@ -38,11 +40,15 @@ final class Export extends AbstractController
             $request->request->all('entities') :
             (array) ($request->request->get('entities') ?? []);
 
+        if (count($entityIds) === 0) {
+            throw new BadRequestHttpException('List of entities to export cannot be empty.');
+        }
+
         $serializedEntities = $this->serializer->serialize($entityIds);
         $json = json_encode($serializedEntities, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
         $response = new Response($json);
 
-        $exportType = $this->getTypePlural($entityIds[array_key_first($entityIds)] ?? 'entity');
+        $exportType = $this->getTypePlural(reset($entityIds));
         $fileName = sprintf('netgen_layouts_export_%s_%s.json', $exportType, date('Y-m-d_H-i-s'));
         $disposition = $response->headers->makeDisposition(
             ResponseHeaderBag::DISPOSITION_ATTACHMENT,
