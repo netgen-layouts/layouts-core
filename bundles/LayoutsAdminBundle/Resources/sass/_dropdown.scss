@@ -13,8 +13,9 @@
         bottom: 100%;
         left: 0;
         border-radius: 0;
-        background: hsl(0, 0, 25);
-        color: #fff;
+        background: #fff;
+        color: #000;
+        box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
         z-index: -10;
         margin: 0;
         padding: .5em 0;
@@ -39,13 +40,14 @@
                     opacity: .2;
                     cursor: default;
                 }
+                &:hover {
+                    background: #F4F8FE;
+                    color: #3671E7;
+                }
             }
             > a,
             > button {
                 color: inherit;
-                &:hover:not([disabled]) {
-                    background: hsla(0, 0, 100, .05);
-                }
                 .note {
                     display: block;
                     font-size: .6923076923em;
@@ -70,8 +72,8 @@
         }
         .nl-dropdown-toggle,
         .nl-dropdown-toggle:hover {
-            background: hsl(0, 0, 25);
-            color: #fff;
+            background: #EEEEEE;
+            color: #9F9E9E;
         }
     }
     .checkbox {

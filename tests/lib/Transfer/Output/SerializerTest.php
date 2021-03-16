@@ -46,7 +46,7 @@ final class SerializerTest extends TestCase
                     ['visited_key' => 'visited_value'],
                 ],
             ],
-            $this->serializer->serialize('entity', [$uuid1->toString(), $uuid2->toString()])
+            $this->serializer->serialize([$uuid1->toString() => 'entity', $uuid2->toString() => 'entity'])
         );
     }
 
@@ -68,7 +68,7 @@ final class SerializerTest extends TestCase
         $uuid1 = Uuid::uuid4();
         $uuid2 = Uuid::uuid4();
 
-        $this->serializer->serialize('entity', [$uuid1->toString(), $uuid2->toString()]);
+        $this->serializer->serialize([$uuid1->toString() => 'entity', $uuid2->toString() => 'entity']);
     }
 
     /**
@@ -89,6 +89,6 @@ final class SerializerTest extends TestCase
         $uuid1 = Uuid::uuid4();
         $uuid2 = Uuid::uuid4();
 
-        $this->serializer->serialize('entity', [$uuid1->toString(), $uuid2->toString()]);
+        $this->serializer->serialize([$uuid1->toString() => 'entity', $uuid2->toString() => 'entity']);
     }
 }

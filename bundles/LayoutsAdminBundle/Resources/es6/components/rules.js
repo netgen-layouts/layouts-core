@@ -39,7 +39,7 @@ export default class NlRules {
             this.rules.ids.push(newRule.id);
         });
         this.filterMappings();
-        this.export = new NlExport(this.el, this.rules.byId, 'rule');
+        this.export = new NlExport(this.el, this.rules.byId);
     }
 
     toggleUI() {
@@ -86,7 +86,8 @@ export default class NlRules {
 
     createRule(html, priority, shouldScroll) {
       const newRuleEl = document.createElement('div');
-      newRuleEl.className = 'nl-rule show-body';
+      newRuleEl.className = 'nl-rule';
+      newRuleEl.setAttribute('tabindex', '0');
       newRuleEl.innerHTML = html;
       priority >= this.rules.ids.length
         ? this.rulesContainer.appendChild(newRuleEl)

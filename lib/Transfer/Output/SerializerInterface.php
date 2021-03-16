@@ -16,9 +16,10 @@ interface SerializerInterface
     /**
      * Serializes the entities with provided UUIDs.
      *
-     * @param string[] $entityIds
+     * @param array<string, string> $entityIds The list of entities to serialize. Keys should be
+     *                                         entity IDs, and values should be the type of entity for provided ID.
      *
      * @return array<string, mixed>
      */
-    public function serialize(string $type, array $entityIds): array;
+    public function serialize(array $entityIds): array;
 }

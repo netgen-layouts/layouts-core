@@ -31,11 +31,11 @@ final class Serializer implements SerializerInterface
         $this->entityHandlers = $entityHandlers;
     }
 
-    public function serialize(string $type, array $entityIds): array
+    public function serialize(array $entityIds): array
     {
         $data = $this->createBasicData();
 
-        foreach ($entityIds as $entityId) {
+        foreach ($entityIds as $entityId => $type) {
             $data['entities'][] = $this->visitor->visit(
                 $this->getEntityHandler($type)->loadEntity(Uuid::fromString($entityId))
             );

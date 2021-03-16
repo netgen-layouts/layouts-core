@@ -11,6 +11,9 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use function array_combine;
+use function array_fill;
+use function count;
 use function explode;
 use function is_array;
 use function is_string;
@@ -58,7 +61,7 @@ final class ExportCommand extends Command
             $ids = explode(',', $ids ?? '');
         }
 
-        $hash = $this->serializer->serialize($type, $ids);
+        $hash = $this->serializer->serialize(array_combine($ids, array_fill(0, count($ids), $type)));
 
         $this->io->writeln(json_encode($hash, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR));
 

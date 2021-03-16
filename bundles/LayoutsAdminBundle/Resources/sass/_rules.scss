@@ -121,17 +121,16 @@
     margin: 0 0 10px;
     font-size: 12px;
     align-items: center;
+    outline: none;
     &.nl-rule-hidden {
         display: none;
     }
     &.show-body {
-        .nl-rule-body {
+        .nl-rule-body-overlay {
             display: block;
             @extend %fadeIn;
-        }
-        .rule-details {
-            &::after {
-                content: 'keyboard_arrow_up';
+            .nl-rule-body {
+                display: block;
             }
         }
     }
@@ -142,13 +141,25 @@
         }
         &.show-body {
             .nl-rule-actions {
-                background: hsl(0, 0, 90);
+                background: #fff;
+
+                > .nl-btn {
+                    background: #E4E4E4;
+                    border-radius: 5px;
+                    margin-right: 20px;
+
+                    &.nl-btn-primary {
+                        background: #3671E7;
+                        border-radius: 5px;
+                        color: #fff;
+                    }
+                }
             }
         }
     }
 
     .rule-details {
-        display: flex;
+        display: none;
         cursor: pointer;
         padding: $gutter 12px;
         line-height: 1.6666666667;
@@ -161,7 +172,6 @@
             font-size: 16px;
             margin: 1px 0 0 .125em;
             @extend %material-icons;
-            content: 'keyboard_arrow_down';
         }
     }
     .nl-rule-description {
@@ -175,6 +185,7 @@
         display: flex;
         padding-left: $gutter;
         color: hsl(0, 0, 40);
+        min-height: 60px;
         .rule-layout {
             font-size: 14px;
             font-weight: 700;
@@ -184,7 +195,7 @@
             display: flex;
             align-items: stretch;
             .nl-dropdown-toggle {
-                display: flex;
+                display: none;
                 align-items: center;
                 height: auto;
                 min-width: auto;
@@ -215,139 +226,188 @@
             }
         }
     }
-    .nl-rule-body {
+
+    &.hide-checkbox {
+        .nl-rule-head {
+            > .nl-rule-cell {
+                > .nl-export-checkbox {
+                    display: none !important;
+                }
+            }
+        }
+    }
+
+    .nl-rule-body-overlay {
+        position: fixed;
+        z-index: 1000;
+        background: rgba(0, 0, 0, 0.5);
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        padding: 15px;
+        -webkit-animation: maskFadeIn 0.2s;
+        animation: maskFadeIn 0.2s;
         display: none;
-        padding: $gutter;
-        background: hsl(0, 0, 90);
-        h4 {
-            font-size: 12px;
-            font-weight: 700;
-            margin: 0 0 1.6666666667em;
-        }
-        p.note {
-            margin: 1.5em 0 0;
-            font-style: italic;
-        }
-        .rule-layout-info {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: flex-start;
-            .rule-layout-info-icon {
-                margin-right: 12px;
-                border: 1px solid hsl(0, 0, 63);
-                padding: 2px;
-                width: 56px;
-                opacity: .65;
-                .layout-icon {
+        overflow: hidden;
+        -webkit-overflow-scrolling:touch;
+        .nl-rule-body {
+            display: none;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40%;
+            height: 100%;
+            padding: $gutter;
+            background: #fff;
+            z-index: 1001;
+            h4 {
+                font-size: 12px;
+                font-weight: 700;
+                margin: 0 0 1.6666666667em;
+            }
+            p.note {
+                margin: 1.5em 0 0;
+                font-style: italic;
+            }
+            .rule-layout-info {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: flex-start;
+                .rule-layout-info-icon {
+                    margin-right: 12px;
+                    border: 1px solid hsl(0, 0, 63);
+                    padding: 2px;
+                    width: 56px;
+                    opacity: .65;
+                    .layout-icon {
+                        display: block;
+                        width: 100%;
+                        height: 0;
+                        padding-bottom: 150%;
+                    }
+                }
+                .rule-layout-info-text {
+                    min-width: 80px;
+                    flex: 1;
+                    p {
+                        word-break: break-word;
+                    }
+                }
+            }
+
+            form {
+                background: hsl(0, 0, 96);
+                padding: .8em;
+                margin: .5em 0;
+                font-size: 13px;
+                label {
                     display: block;
+                    margin: 0 0 .25em;
+                    font-weight: 400;
+                    font-size: .9em;
+                }
+                input[type='text'] {
+                    display: block;
+                    border: 0;
+                    padding: .5em;
+                    margin: 0 0 1em;
                     width: 100%;
-                    height: 0;
-                    padding-bottom: 150%;
+                    line-height: 1.8;
                 }
-            }
-            .rule-layout-info-text {
-                min-width: 80px;
-                flex: 1;
-                p {
-                    word-break: break-word;
+                select:not([multiple]) {
+                    @extend .nl-select;
+                    background-color: #fff;
+                    margin: 0 0 1em;
                 }
-            }
-        }
-
-        form {
-            background: hsl(0, 0, 96);
-            padding: .8em;
-            margin: .5em 0;
-            font-size: 13px;
-            label {
-                display: block;
-                margin: 0 0 .25em;
-                font-weight: 400;
-                font-size: .9em;
-            }
-            input[type='text'] {
-                display: block;
-                border: 0;
-                padding: .5em;
-                margin: 0 0 1em;
-                width: 100%;
-                line-height: 1.8;
-            }
-            select:not([multiple]) {
-                @extend .nl-select;
-                background-color: #fff;
-                margin: 0 0 1em;
-            }
-            select[multiple] {
-                width: 100%;
-                border: 0;
-                margin: 0 0 1em;
-                option {
-                    padding: .25em;
-                }
-            }
-            .form-actions {
-                text-align: right;
-            }
-            .nl-btn {
-                height: 28px;
-                line-height: 28px;
-            }
-
-            .js-input-browse {
-                .js-clear {
-                    background: #fff;
-                    border-radius: 0;
-                    border-right: 1px solid hsl(0, 0, 96);
-                    &:hover {
-                        background: hsl(0, 0, 98);
+                select[multiple] {
+                    width: 100%;
+                    border: 0;
+                    margin: 0 0 1em;
+                    option {
+                        padding: .25em;
                     }
                 }
-                .js-trigger {
-                    background: #fff;
-                    color: inherit;
-                    height: $inputHeight;
-                    font-size: 1em;
-                    border-radius: 0;
-                    span {
-                        line-height: $inputHeight;
-                    }
-                    &::after {
-                        background: $linkColor;
-                        color: #fff;
-                        line-height: $inputHeight;
-                        transition: background .15s ease, color .15s ease;
+                .form-actions {
+                    text-align: right;
+                }
+                .nl-btn {
+                    height: 28px;
+                    line-height: 28px;
+                }
+
+                .js-input-browse {
+                    .js-clear {
+                        background: #fff;
                         border-radius: 0;
-                        font-size: 20px;
+                        border-right: 1px solid hsl(0, 0, 96);
+                        &:hover {
+                            background: hsl(0, 0, 98);
+                        }
                     }
-                    &:hover {
+                    .js-trigger {
+                        background: #fff;
+                        color: inherit;
+                        height: $inputHeight;
+                        font-size: 1em;
+                        border-radius: 0;
+                        span {
+                            line-height: $inputHeight;
+                        }
                         &::after {
-                            background: darken($linkColor, 4%);
+                            background: $linkColor;
+                            color: #fff;
+                            line-height: $inputHeight;
+                            transition: background .15s ease, color .15s ease;
+                            border-radius: 0;
+                            font-size: 20px;
+                        }
+                        &:hover {
+                            &::after {
+                                background: darken($linkColor, 4%);
+                            }
                         }
                     }
                 }
-            }
 
-            .errors {
-                list-style-type: none;
-                margin: -.5em 0 1em;
-                padding: 0;
-                li {
-                    color: #f00;
+                .errors {
+                    list-style-type: none;
+                    margin: -.5em 0 1em;
+                    padding: 0;
+                    li {
+                        color: #f00;
+                    }
+                }
+                label + .errors {
+                    margin: .25em 0 .125em;
                 }
             }
-            label + .errors {
-                margin: .25em 0 .125em;
-            }
-        }
 
+            .nl-layout-options {
+                margin-top: 1rem;
+
+                a {
+                    font-weight: bold;
+                    margin-right: 1rem;
+                }
+            }
+
+            .nl-rule-setting {
+                padding-top: 1rem;
+                margin-top:1rem;
+                border-top: 2px solid #E0E0E0;
+            }
+
+        }
     }
     .nl-rule-actions {
         display: none;
-        border-top: 1px solid hsla(0, 0, 0, .075);
         padding: $gutter;
         background: #fff;
         text-align: right;
+        margin-left: auto;
+        margin-right: 20px;
     }
     .settings-loader {
         display: none;
@@ -364,7 +424,7 @@
             padding: .5em 2.5em .5em 1em;
             margin: 0 0 .5em;
             position: relative;
-            background-color: hsla(0, 0, 100, .5);
+            background-color: #f5f5f5;
             .remove-setting {
                 position: absolute;
                 right: 6px;
@@ -467,12 +527,534 @@
             visibility: hidden;
         }
     }
+
+    &:hover {
+        .nl-rule-head {
+            background: #F4F8FE !important;
+
+            > .nl-rule-cell {
+                > .nl-export-checkbox {
+                    display: block;
+                }
+            }
+        }
+
+        .rule-details, .nl-dropdown-toggle {
+            display: flex !important;
+        }
+    }
+
+    &:focus {
+        outline: 3px solid #3671E7;
+        
+        .rule-details, .nl-dropdown-toggle {
+            display: flex !important;
+        }
+    }
+
+    &.nl-dropdown-active {
+        .rule-details, .nl-dropdown-toggle {
+            display: flex !important;
+        }
+    }
 }
 
 .nl-rule-content {
     flex: 1;
     background: #fff;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+    // box-shadow: 0 1px 2px rgba(0, 0, 0, .2);
+}
+
+.nl-group {
+    display: flex;
+    margin: 0 0 10px;
+    font-size: 12px;
+    align-items: center;
+    outline: none;
+    &.nl-rule-hidden {
+        display: none;
+    }
+    &.show-body {
+        > .nl-group-content {
+            > .nl-group-body {
+                display: block;
+                @extend %fadeIn;
+            }
+        }
+    }
+    &.show-actions {
+        > .nl-group-details-overlay {
+            > .nl-group-details {
+                > .nl-group-actions {
+                    display: block;
+                    @extend %fadeIn;
+                }
+            }
+        }
+    }
+    &.show-details {
+        > .nl-group-details-overlay {
+            display: block;
+            @extend %fadeIn;
+            > .nl-group-details {
+                display: block;
+            }
+        }
+    }
+    &.show-move {
+        > .nl-group-content {
+            > .nl-group-head {
+                .group-move {
+                    display: block;
+                }
+            }
+        }
+    }
+    .nl-group-details-overlay {
+        position: fixed;
+        z-index: 1000;
+        background: rgba(0, 0, 0, 0.5);
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        padding: 15px;
+        -webkit-animation: maskFadeIn 0.2s;
+        animation: maskFadeIn 0.2s;
+        display: none;
+        overflow: hidden;
+        -webkit-overflow-scrolling:touch;
+        .nl-group-details {
+            display: none;
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40%;
+            height: 100%;
+            padding: $gutter;
+            background: #fff;
+            z-index: 1001;
+            h4 {
+                font-size: 12px;
+                font-weight: 700;
+                margin: 0 0 1.6666666667em;
+            }
+            p.note {
+                margin: 1.5em 0 0;
+                font-style: italic;
+            }
+
+            form {
+                background: hsl(0, 0, 96);
+                padding: .8em;
+                margin: .5em 0;
+                font-size: 13px;
+                label {
+                    display: block;
+                    margin: 0 0 .25em;
+                    font-weight: 400;
+                    font-size: .9em;
+                }
+                input[type='text'] {
+                    display: block;
+                    border: 0;
+                    padding: .5em;
+                    margin: 0 0 1em;
+                    width: 100%;
+                    line-height: 1.8;
+                }
+                select:not([multiple]) {
+                    @extend .nl-select;
+                    background-color: #fff;
+                    margin: 0 0 1em;
+                }
+                select[multiple] {
+                    width: 100%;
+                    border: 0;
+                    margin: 0 0 1em;
+                    option {
+                        padding: .25em;
+                    }
+                }
+                .form-actions {
+                    text-align: right;
+                }
+                .nl-btn {
+                    height: 28px;
+                    line-height: 28px;
+                }
+
+                .js-input-browse {
+                    .js-clear {
+                        background: #fff;
+                        border-radius: 0;
+                        border-right: 1px solid hsl(0, 0, 96);
+                        &:hover {
+                            background: hsl(0, 0, 98);
+                        }
+                    }
+                    .js-trigger {
+                        background: #fff;
+                        color: inherit;
+                        height: $inputHeight;
+                        font-size: 1em;
+                        border-radius: 0;
+                        span {
+                            line-height: $inputHeight;
+                        }
+                        &::after {
+                            background: $linkColor;
+                            color: #fff;
+                            line-height: $inputHeight;
+                            transition: background .15s ease, color .15s ease;
+                            border-radius: 0;
+                            font-size: 20px;
+                        }
+                        &:hover {
+                            &::after {
+                                background: darken($linkColor, 4%);
+                            }
+                        }
+                    }
+                }
+
+                .errors {
+                    list-style-type: none;
+                    margin: -.5em 0 1em;
+                    padding: 0;
+                    li {
+                        color: #f00;
+                    }
+                }
+                label + .errors {
+                    margin: .25em 0 .125em;
+                }
+            }
+
+        }
+    }
+
+    .group-details {
+        display: none;
+        cursor: pointer;
+        padding: $gutter 12px;
+        line-height: 1.6666666667;
+        color: hsl(0, 0, 20);
+        transition: background-color 0.2s;
+        &:hover {
+            background: hsla(0, 0, 62, 0.2);
+        }
+        &::after {
+            font-size: 16px;
+            margin: 1px 0 0 0.125em;
+            @extend %material-icons;
+        }
+    }
+
+    .nl-group-description {
+        padding: 10px 20px;
+        font-size: 12px;
+        line-height: 1.2;
+        background: hsl(0, 0, 90);
+        color: hsl(0, 0, 50);
+    }
+
+    &.sorting {
+        > .nl-group-content {
+            > .nl-group-head {
+                > .js-group-save-reorder, > .js-group-cancel-reorder {
+                    display: block;
+                }
+            }
+        }
+
+        .nl-export-checkbox {
+            display: block;
+        }
+    }
+
+    .nl-group-head {
+        display: flex;
+        padding-left: $gutter;
+        color: hsl(0, 0, 40);
+        align-items: center;
+        min-height: 60px;
+        .group-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: hsl(0, 0, 20);
+            i {
+                padding: 1rem;
+                color: #2565ED;
+            }
+
+            &:hover {
+                p {
+                    text-decoration: underline;
+                }
+                cursor: pointer;
+            }
+        }
+        .group-move {
+            display: none;
+        }
+
+        .js-group-save-reorder, .js-group-cancel-reorder {
+            display: none;
+        }
+
+        .nl-dropdown {
+            margin-left: auto;
+            display: flex;
+            align-items: stretch;
+            .nl-dropdown-toggle {
+                display: none;
+                align-items: center;
+                height: auto;
+                min-width: auto;
+                font-size: 24px;
+                padding: 18px 12px;
+                border-radius: 0;
+                i {
+                    font-size: inherit;
+                }
+            }
+        }
+        .no-layout {
+            font-weight: 400;
+            color: hsl(0, 0, 60);
+            display: flex;
+            align-items: center;
+            a {
+                border-left: 1px solid hsl(0, 0, 90);
+                padding: 0.6em 0.6em 0.6em 1em;
+                display: flex;
+                margin-left: 1em;
+                text-decoration: none;
+                align-items: center;
+                i {
+                    color: hsl(0, 0, 70);
+                    margin-right: 0.25em;
+                }
+            }
+        }
+
+        &:hover {
+            background: #F4F8FE !important;
+
+            > .nl-rule-cell {
+                > .nl-export-checkbox {
+                    display: block;
+                }
+            }
+
+            > .group-details {
+                display: flex !important;
+            }
+
+            > .nl-dropdown {
+                > .nl-dropdown-toggle {
+                    display: flex;
+                }
+            }
+        }
+    }
+
+    &.hide-checkbox {
+        .nl-group-head {
+            > .nl-rule-cell {
+                > .nl-export-checkbox {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    .nl-group-body {
+        display: none;
+        padding: $gutter;
+        background: white;
+        padding: 0 20px;
+
+        > .nl-grid {
+            > .nl-group-list {
+                padding: 0 10px;
+
+                > .nl-group {
+                    > .nl-group-content {
+                        > .nl-group-head {
+                            background: #F4F4F4;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .nl-group-actions {
+        display: none;
+        padding: $gutter;
+        background: #fff;
+        text-align: right;
+        > .nl-btn {
+            background: #E4E4E4;
+            border-radius: 5px;
+            margin-right: 20px;
+
+            &.nl-btn-primary {
+                background: #3671E7;
+                border-radius: 5px;
+                color: #fff;
+            }
+        }
+    }
+    .settings-loader {
+        display: none;
+        color: hsl(0, 0, 75);
+        font-size: 10px;
+        padding: 1em 0;
+        text-align: center;
+    }
+    .settings-list {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        > li {
+            padding: 0.5em 2.5em 0.5em 1em;
+            margin: 0 0 0.5em;
+            position: relative;
+            background-color: #f5f5f5;
+            .remove-setting {
+                position: absolute;
+                right: 6px;
+                top: 7px;
+                width: 18px;
+                text-align: center;
+                height: 18px;
+                line-height: 18px;
+                display: block;
+                color: hsl(330, 100, 50);
+                transition: background 0.15s;
+                i {
+                    font-size: 1.3333333333em;
+                    line-height: inherit;
+                }
+                &:hover {
+                    background: rgba(0, 0, 0, 0.08);
+                }
+            }
+        }
+        .settings-value {
+            display: inline-block;
+            line-height: 1.5;
+            &.editable-value {
+                cursor: pointer;
+                border-bottom: 1px dashed hsla(0, 0, 0, 0.2);
+                &::after {
+                    @extend %material-icons;
+                    content: "edit";
+                    font-size: 1.1666666667em;
+                    color: $linkColor;
+                    margin: 0 0 2px 0.5em;
+                    vertical-align: middle;
+                }
+            }
+        }
+    }
+    .disabled-label {
+        font-size: 10px;
+        text-transform: uppercase;
+        padding: 0.5em 1.25em;
+        display: inline-block;
+        margin: 0 $gutter;
+        background: $highlightColor;
+        color: #fff;
+    }
+
+    .sorting & {
+        .nl-rule-content {
+            cursor: move;
+            cursor: grab;
+            cursor: -webkit-grab;
+            box-shadow: 0 2px 4px hsla(0, 0, 0, 0.3);
+            &:active {
+                cursor: grabbing;
+                cursor: -webkit-grabbing;
+            }
+        }
+        .nl-rule-head {
+            position: relative;
+            &::before {
+                content: "";
+                position: absolute;
+                background: transparent
+                    url("data: image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAYAAABWKLW/AAAAF0lEQVQIW2NkYGD4z8DAwMgAI0AMDA4AI3EBBCKrOnQAAAAASUVORK5CYII=")
+                    repeat;
+                width: 8px;
+                left: 4px;
+                top: 8px;
+                bottom: 8px;
+                opacity: 0.25;
+            }
+            .nl-dropdown {
+                opacity: 0.3;
+                pointer-events: none;
+            }
+        }
+        .nl-rule-actions,
+        .remove-setting,
+        .settings-action,
+        a.js-link-layout,
+        .js-open-ngl {
+            display: none !important;
+        }
+        .editable-value {
+            border: 0 !important;
+            &::after {
+                display: none !important;
+            }
+        }
+        &.nl-rule-hidden {
+            display: flex;
+        }
+    }
+    &.sortable-ghost {
+        visibility: visible !important;
+        background: transparent;
+        box-shadow: none;
+        outline: 1px dashed $panelLightColor;
+        outline-offset: 4px;
+        * {
+            visibility: hidden;
+        }
+    }
+
+    &:focus, &.nl-dropdown-active {
+        > .nl-group-content {
+            > .nl-group-head {
+                > .group-details {
+                    display: flex !important;
+                }
+
+                > .nl-dropdown {
+                    > .nl-dropdown-toggle {
+                        display: flex;
+                    }
+                }
+            }
+        }
+    }
+
+    &:focus {
+        outline: 3px solid #3671E7;
+    }
+}
+
+.nl-group-content {
+    flex: 1;
+    background: #fff;
+    // box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    border: 1px solid #F4F4F4;
 }
 
 .nl-rules {
@@ -532,7 +1114,8 @@
 }
 
 .rule-priority {
-    display: inline-flex;
+    // display: inline-flex;
+    display: none;
     width: 50px;
     font-size: 12px;
     padding: 0 10px 0 0;

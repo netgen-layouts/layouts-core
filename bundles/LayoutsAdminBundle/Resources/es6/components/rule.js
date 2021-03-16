@@ -50,6 +50,7 @@ export default class NlRule {
         this.id = this.attributes.id;
         this.draftCreated = false;
         [this.priorityEl] = this.el.getElementsByClassName('rule-priority');
+        this.type = 'rule';
 
         this.selectExport = document.getElementById(`export${this.id}`);
         this.selected = this.selectExport && this.selectExport.checked;
@@ -152,6 +153,29 @@ export default class NlRule {
         }).catch((error) => {
             console.log(error); // eslint-disable-line no-console
         });
+        return true;
+    }
+
+    discardDraft(e) {
+        e.preventDefault();
+        const url = `${this.rules.baseUrl}rules/${this.id}/discard`;
+        if (this.draftCreated) {
+            fetch(url, {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: {
+                    'X-CSRF-Token': this.rules.csrf,
+                },
+            }).then((response) => {
+                if (!response.ok) throw new Error(`HTTP error, status ${response.status}`);
+                return response.text();
+            }).then((data) => {
+                this.renderEl(data);
+                this.afterDraftRemove();
+            }).catch((error) => {
+                console.log(error); // eslint-disable-line no-console
+            });
+        }
         return true;
     }
 
@@ -503,10 +527,13 @@ export default class NlRule {
             } else if (e.target.closest('.js-rule-edit-rule')) {
                 this.editRule(e);
             } else if (e.target.closest('.js-rule-copy-rule')) {
+                e.stopPropagation();
                 this.copyRule(e);
             } else if (e.target.closest('.js-setting-delete')) {
+                e.stopPropagation();
                 this.settingDelete(e);
             } else if (e.target.closest('.js-setting-edit')) {
+                e.stopPropagation();
                 this.settingEdit(e);
             } else if (e.target.closest('.js-setting-add')) {
                 this.settingAdd(e);
@@ -516,10 +543,22 @@ export default class NlRule {
                 this.clearLayoutCache(e);
             } else if (e.target.closest('.js-layout-clear-block-caches')) {
                 this.clearBlockCaches(e);
-            } else if (e.target.closest('.nl-rule-head .nl-rule-cell')) {
+            } else if (e.target.className === '.js-toggle-body') {
+                e.stopPropagation();
+                this.el.classList.toggle('show-body');
+            } else if (e.target.className === 'nl-rule-body-overlay') {
+                e.stopPropagation();
                 this.el.classList.toggle('show-body');
             }
         });
+
+        window.addEventListener('keyup', (e) => {
+            if (e.key === 'Escape' && this.el.classList.contains('show-body')) {
+                this.el.classList.toggle('show-body');
+            }
+        });
+
+        this.el.addEventListener('blur', () => { this.el.classList.remove('selected'); });
 
         if (this.selectExport) {
             this.selectExport.addEventListener('change', () => {

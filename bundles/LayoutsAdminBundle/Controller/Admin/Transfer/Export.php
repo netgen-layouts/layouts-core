@@ -9,11 +9,13 @@ use Netgen\Layouts\Transfer\Output\SerializerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\String\Inflector\EnglishInflector;
-use function array_unique;
+use function count;
 use function date;
 use function json_encode;
+use function reset;
 use function sprintf;
 use const JSON_PRETTY_PRINT;
 use const JSON_THROW_ON_ERROR;
@@ -30,19 +32,24 @@ final class Export extends AbstractController
     /**
      * Exports the provided list of entities.
      */
-    public function __invoke(string $type, Request $request): Response
+    public function __invoke(Request $request): Response
     {
         $this->denyAccessUnlessGranted('nglayouts:ui:access');
 
         $entityIds = Kernel::VERSION_ID >= 50100 ?
-            $request->request->all('entity_ids') :
-            (array) ($request->request->get('entity_ids') ?? []);
+            $request->request->all('entities') :
+            (array) ($request->request->get('entities') ?? []);
 
-        $serializedEntities = $this->serializer->serialize($type, array_unique($entityIds));
+        if (count($entityIds) === 0) {
+            throw new BadRequestHttpException('List of entities to export cannot be empty.');
+        }
+
+        $serializedEntities = $this->serializer->serialize($entityIds);
         $json = json_encode($serializedEntities, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR);
         $response = new Response($json);
 
-        $fileName = sprintf('netgen_layouts_export_%s_%s.json', $this->getTypePlural($type), date('Y-m-d_H-i-s'));
+        $exportType = $this->getTypePlural(reset($entityIds));
+        $fileName = sprintf('netgen_layouts_export_%s_%s.json', $exportType, date('Y-m-d_H-i-s'));
         $disposition = $response->headers->makeDisposition(
             ResponseHeaderBag::DISPOSITION_ATTACHMENT,
             $fileName

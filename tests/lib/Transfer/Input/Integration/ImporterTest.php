@@ -154,7 +154,7 @@ abstract class ImporterTest extends CoreTestCase
             self::assertSame($result->getEntity()->getId()->toString(), $result->getEntityId()->toString());
 
             $ruleData = $decodedData['entities'][$index];
-            $exportedRuleData = $this->serializer->serialize($ruleData['__type'], [$result->getEntityId()->toString()]);
+            $exportedRuleData = $this->serializer->serialize([$result->getEntityId()->toString() => $ruleData['__type']]);
 
             $exportedRuleData = $exportedRuleData['entities'][0];
 
@@ -193,7 +193,7 @@ abstract class ImporterTest extends CoreTestCase
             self::assertSame($result->getEntity()->getId()->toString(), $result->getEntityId()->toString());
 
             $ruleData = $decodedData['entities'][$index];
-            $exportedRuleData = $this->serializer->serialize($ruleData['__type'], [$result->getEntityId()->toString()]);
+            $exportedRuleData = $this->serializer->serialize([$result->getEntityId()->toString() => $ruleData['__type']]);
 
             $exportedRuleData = $exportedRuleData['entities'][0];
 
@@ -231,7 +231,7 @@ abstract class ImporterTest extends CoreTestCase
             self::assertSame($result->getEntity()->getId()->toString(), $result->getEntityId()->toString());
 
             $layoutData = $decodedData['entities'][$index];
-            $exportedLayoutData = $this->serializer->serialize($layoutData['__type'], [$result->getEntityId()->toString()]);
+            $exportedLayoutData = $this->serializer->serialize([$result->getEntityId()->toString() => $layoutData['__type']]);
 
             $exportedLayoutData = $exportedLayoutData['entities'][0];
 
