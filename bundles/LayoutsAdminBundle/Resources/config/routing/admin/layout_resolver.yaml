@@ -14,6 +14,8 @@ nglayouts_admin_layout_resolver_update_prorities:
     path: /groups/{ruleGroupId}/priorities
     controller: netgen_layouts.controller.admin.layout_resolver.update_priorities
     methods: [POST]
+    defaults:
+        _nglayouts_status: published
 
 nglayouts_admin_layout_resolver_rule_form_edit:
     path: /rules/{ruleId}/edit

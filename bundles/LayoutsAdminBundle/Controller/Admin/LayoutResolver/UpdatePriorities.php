@@ -12,6 +12,7 @@ use Netgen\Layouts\Validator\ValidatorTrait;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Kernel;
 use function count;
 use function sprintf;
@@ -39,6 +40,10 @@ final class UpdatePriorities extends AbstractController
         $ids = Kernel::VERSION_ID >= 50100 ?
             $request->request->all('ids') :
             (array) ($request->request->get('ids') ?? []);
+
+        if (count($ids) === 0) {
+            throw new BadRequestHttpException('List of entities to reorder cannot be empty.');
+        }
 
         $this->layoutResolverService->transaction(
             function () use ($ids, $ruleGroup): void {
