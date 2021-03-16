@@ -770,6 +770,13 @@
         line-height: 1.2;
         background: hsl(0, 0, 90);
         color: hsl(0, 0, 50);
+        min-height: 85px;
+        margin-top: 48px;
+
+        p {
+            color: #000000;
+            font-size: 14px;
+        }
     }
 
     &.sorting {
