@@ -601,6 +601,15 @@
             }
         }
     }
+    &.show-move {
+        > .nl-group-content {
+            > .nl-group-head {
+                .group-move {
+                    display: block;
+                }
+            }
+        }
+    }
     .nl-group-details-overlay {
         position: fixed;
         z-index: 1000;
@@ -771,6 +780,9 @@
                 }
                 cursor: pointer;
             }
+        }
+        .group-move {
+            display: none;
         }
         .nl-dropdown {
             margin-left: auto;
