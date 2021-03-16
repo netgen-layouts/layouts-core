@@ -226,6 +226,17 @@
             }
         }
     }
+
+    &.hide-checkbox {
+        .nl-rule-head {
+            > .nl-rule-cell {
+                > .nl-export-checkbox {
+                    display: none !important;
+                }
+            }
+        }
+    }
+
     .nl-rule-body-overlay {
         position: fixed;
         z-index: 1000;
@@ -520,6 +531,12 @@
     &:hover {
         .nl-rule-head {
             background: #F4F8FE !important;
+
+            > .nl-rule-cell {
+                > .nl-export-checkbox {
+                    display: block;
+                }
+            }
         }
 
         .rule-details, .nl-dropdown-toggle {
@@ -794,6 +811,12 @@
         &:hover {
             background: #F4F8FE !important;
 
+            > .nl-rule-cell {
+                > .nl-export-checkbox {
+                    display: block;
+                }
+            }
+
             > .group-details {
                 display: flex !important;
             }
@@ -805,6 +828,17 @@
             }
         }
     }
+
+    &.hide-checkbox {
+        .nl-group-head {
+            > .nl-rule-cell {
+                > .nl-export-checkbox {
+                    display: none;
+                }
+            }
+        }
+    }
+
     .nl-group-body {
         display: none;
         padding: $gutter;
