@@ -48,6 +48,20 @@ services:
         tags:
             - { name: request.param_converter, priority: 0 }
 
+    netgen_layouts.param_converter.layout_resolver.rule_group:
+        class: Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver\RuleGroupParamConverter
+        arguments:
+            - "@netgen_layouts.api.service.layout_resolver"
+        tags:
+            - { name: request.param_converter, priority: 0 }
+
+    netgen_layouts.param_converter.layout_resolver.rule_group_condition:
+        class: Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver\RuleGroupConditionParamConverter
+        arguments:
+            - "@netgen_layouts.api.service.layout_resolver"
+        tags:
+            - { name: request.param_converter, priority: 0 }
+
     netgen_layouts.param_converter.layout_resolver.rule:
         class: Netgen\Bundle\LayoutsBundle\ParamConverter\LayoutResolver\RuleParamConverter
         arguments:
