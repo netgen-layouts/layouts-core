@@ -759,6 +759,21 @@
         background: hsl(0, 0, 90);
         color: hsl(0, 0, 50);
     }
+
+    &.sorting {
+        > .nl-group-content {
+            > .nl-group-head {
+                > .js-group-save-reorder, > .js-group-cancel-reorder {
+                    display: block;
+                }
+            }
+        }
+
+        .nl-export-checkbox {
+            display: block;
+        }
+    }
+
     .nl-group-head {
         display: flex;
         padding-left: $gutter;
@@ -784,6 +799,11 @@
         .group-move {
             display: none;
         }
+
+        .js-group-save-reorder, .js-group-cancel-reorder {
+            display: none;
+        }
+
         .nl-dropdown {
             margin-left: auto;
             display: flex;
