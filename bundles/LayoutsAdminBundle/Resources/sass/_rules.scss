@@ -489,7 +489,6 @@
             cursor: move;
             cursor: grab;
             cursor: -webkit-grab;
-            box-shadow: 0 2px 4px hsla(0, 0, 0, .3);
             &:active {
                 cursor: grabbing;
                 cursor: -webkit-grabbing;
@@ -806,6 +805,7 @@
         color: hsl(0, 0, 40);
         align-items: center;
         min-height: 60px;
+        
         .group-title {
             font-size: 14px;
             font-weight: 700;
@@ -1008,7 +1008,7 @@
                 cursor: -webkit-grabbing;
             }
         }
-        .nl-rule-head {
+        .nl-group-head {
             position: relative;
             &::before {
                 content: "";
