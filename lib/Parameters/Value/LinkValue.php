@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Parameters\Value;
 
 use Netgen\Layouts\Utils\HydratorTrait;
+use Stringable;
 
-final class LinkValue
+final class LinkValue implements Stringable
 {
     use HydratorTrait;
 
@@ -25,6 +26,11 @@ final class LinkValue
     private ?string $linkSuffix = null;
 
     private bool $newWindow = false;
+
+    public function __toString(): string
+    {
+        return ($this->link ?? '') . ($this->linkSuffix ?? '');
+    }
 
     /**
      * Returns the link type.

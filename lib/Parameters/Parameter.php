@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace Netgen\Layouts\Parameters;
 
 use Netgen\Layouts\Utils\HydratorTrait;
+use function is_array;
+use function is_object;
+use function method_exists;
 
 final class Parameter
 {
@@ -26,6 +29,10 @@ final class Parameter
      */
     public function __toString(): string
     {
+        if (is_array($this->value) || (is_object($this->value) && !method_exists($this->value, '__toString'))) {
+            return '';
+        }
+
         return (string) $this->value;
     }
 

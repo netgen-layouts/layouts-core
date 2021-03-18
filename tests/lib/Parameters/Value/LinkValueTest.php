@@ -31,4 +31,21 @@ final class LinkValueTest extends TestCase
         self::assertSame('?suffix', $linkValue->getLinkSuffix());
         self::assertTrue($linkValue->getNewWindow());
     }
+
+    /**
+     * @covers \Netgen\Layouts\Parameters\Value\LinkValue::__toString
+     */
+    public function testToString(): void
+    {
+        $linkValue = LinkValue::fromArray(
+            [
+                'linkType' => LinkValue::LINK_TYPE_EMAIL,
+                'link' => 'info@netgen.io',
+                'linkSuffix' => '?suffix',
+                'newWindow' => true,
+            ]
+        );
+
+        self::assertSame('info@netgen.io?suffix', (string) $linkValue);
+    }
 }
