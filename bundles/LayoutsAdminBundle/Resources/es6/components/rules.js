@@ -58,10 +58,10 @@ export default class NlRules {
     }
 
     setupEvents() {
-        this.el.getElementsByClassName('js-add-rule')[0].addEventListener('click', this.addRule.bind(this));
-        this.el.getElementsByClassName('js-sort-start')[0].addEventListener('click', this.sortStart.bind(this));
-        this.el.getElementsByClassName('js-sort-save')[0].addEventListener('click', this.sortSave.bind(this));
-        this.el.getElementsByClassName('js-sort-cancel')[0].addEventListener('click', this.sortCancel.bind(this));
+        this.el.getElementsByClassName('js-add-rule')[0] && this.el.getElementsByClassName('js-add-rule')[0].addEventListener('click', this.addRule.bind(this));
+        this.el.getElementsByClassName('js-sort-start')[0] && this.el.getElementsByClassName('js-sort-start')[0].addEventListener('click', this.sortStart.bind(this));
+        this.el.getElementsByClassName('js-sort-save')[0] && this.el.getElementsByClassName('js-sort-save')[0].addEventListener('click', this.sortSave.bind(this));
+        this.el.getElementsByClassName('js-sort-cancel')[0] && this.el.getElementsByClassName('js-sort-cancel')[0].addEventListener('click', this.sortCancel.bind(this));
     }
 
     addRule(e) {
