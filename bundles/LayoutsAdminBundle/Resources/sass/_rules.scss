@@ -494,6 +494,11 @@
                 cursor: -webkit-grabbing;
             }
         }
+
+        .show-body {
+            display: none !important;
+        }
+
         .nl-rule-head {
             position: relative;
             &::before {
@@ -1008,6 +1013,11 @@
                 cursor: -webkit-grabbing;
             }
         }
+
+        .show-body {
+            display: none !important;
+        }
+
         .nl-group-head {
             position: relative;
             &::before {
