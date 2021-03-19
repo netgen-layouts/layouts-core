@@ -546,6 +546,7 @@
     }
 
     &:focus {
+        position: relative;
         outline: 3px solid #3671E7;
         
         .rule-details, .nl-dropdown-toggle {
@@ -1066,7 +1067,6 @@
     &:focus {
         position: relative;
         outline: 3px solid #3671E7;
-        z-index: 3000;
     }
 }
 
