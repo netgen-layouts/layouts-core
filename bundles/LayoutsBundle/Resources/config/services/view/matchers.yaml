@@ -98,3 +98,8 @@ services:
         class: Netgen\Layouts\View\Matcher\RuleCondition\Type
         tags:
             - { name: netgen_layouts.view_matcher, identifier: rule_condition\type }
+
+    netgen_layouts.view.matcher.rule_condition.is_group_condition:
+        class: Netgen\Layouts\View\Matcher\RuleCondition\IsGroupCondition
+        tags:
+            - { name: netgen_layouts.view_matcher, identifier: rule_condition\is_group_condition }

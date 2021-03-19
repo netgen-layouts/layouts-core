@@ -23,7 +23,14 @@ final class DeleteRuleCondition extends AbstractController
      */
     public function __invoke(RuleCondition $condition): ViewInterface
     {
-        $this->denyAccessUnlessGranted('nglayouts:mapping:edit');
+        $rule = $this->layoutResolverService->loadRule($condition->getRuleId());
+
+        $this->denyAccessUnlessGranted(
+            'nglayouts:mapping:edit',
+            [
+                'rule_group' => $rule->getRuleGroupId()->toString(),
+            ]
+        );
 
         $this->layoutResolverService->deleteCondition($condition);
 

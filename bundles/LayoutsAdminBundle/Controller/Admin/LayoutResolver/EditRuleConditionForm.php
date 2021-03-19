@@ -26,7 +26,14 @@ final class EditRuleConditionForm extends AbstractController
      */
     public function __invoke(RuleCondition $condition, Request $request): ViewInterface
     {
-        $this->denyAccessUnlessGranted('nglayouts:mapping:edit');
+        $rule = $this->layoutResolverService->loadRule($condition->getRuleId());
+
+        $this->denyAccessUnlessGranted(
+            'nglayouts:mapping:edit',
+            [
+                'rule_group' => $rule->getRuleGroupId()->toString(),
+            ]
+        );
 
         $conditionType = $condition->getConditionType();
 

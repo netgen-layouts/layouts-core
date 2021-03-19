@@ -1,10 +1,6 @@
 {% trans_default_domain 'nglayouts' %}
 
-{% set rule_group_id = rule_group_id|default(
-    nglayouts_rule_group(condition.ruleId.toString).id.toString
-) %}
-
-{% set can_edit = is_granted('nglayouts:mapping:edit', { rule_group: rule_group_id }) %}
+{% set can_edit = is_granted('nglayouts:mapping:edit_group', { rule_group: condition.ruleGroupId.toString }) %}
 
 <span class="settings-value">{{ 'layout_resolver.condition.null'|trans }}</span>
 

@@ -2,7 +2,7 @@
 
 <span class="settings-value">{{ 'layout_resolver.target.null'|trans }}</span>
 
-{% if is_granted('nglayouts:mapping:edit') %}
+{% if is_granted('nglayouts:mapping:edit', nglayouts_rule_group(target.ruleId.toString)) %}
     <a href="#" class="remove-setting js-setting-delete" data-setting-id="{{ target.id.toString }}" data-setting-type="target">
         <i class="material-icons">clear</i>
     </a>

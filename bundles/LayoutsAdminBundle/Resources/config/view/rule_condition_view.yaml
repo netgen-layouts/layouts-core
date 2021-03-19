@@ -18,7 +18,21 @@ view:
                 match:
                     rule_condition\type: time
         admin:
-            invalid:
+            rule_condition:
+                template: "@NetgenLayoutsAdmin/admin/layout_resolver/condition/condition.html.twig"
+                match:
+                    rule_condition\is_group_condition: false
+            rule_group_condition:
+                template: "@NetgenLayoutsAdmin/admin/layout_resolver/condition/group_condition.html.twig"
+                match:
+                    rule_condition\is_group_condition: true
+            rule_condition_invalid:
                 template: "@NetgenLayoutsAdmin/admin/layout_resolver/condition/invalid_condition.html.twig"
                 match:
                     rule_condition\type: "null"
+                    rule_condition\is_group_condition: false
+            rule_group_condition_invalid:
+                template: "@NetgenLayoutsAdmin/admin/layout_resolver/condition/invalid_group_condition.html.twig"
+                match:
+                    rule_condition\type: "null"
+                    rule_condition\is_group_condition: true

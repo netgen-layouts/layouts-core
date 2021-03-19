@@ -23,7 +23,12 @@ final class CreateRuleDraft extends AbstractController
      */
     public function __invoke(Rule $rule): ViewInterface
     {
-        $this->denyAccessUnlessGranted('nglayouts:mapping:edit');
+        $this->denyAccessUnlessGranted(
+            'nglayouts:mapping:edit',
+            [
+                'rule_group' => $rule->getRuleGroupId()->toString(),
+            ]
+        );
 
         $createdDraft = $this->layoutResolverService->createRuleDraft($rule, true);
 

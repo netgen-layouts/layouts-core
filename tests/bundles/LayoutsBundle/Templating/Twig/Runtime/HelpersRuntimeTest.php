@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsBundle\Tests\Templating\Twig\Runtime;
 
 use Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\HelpersRuntime;
+use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Service\LayoutService;
 use Netgen\Layouts\API\Values\Layout\Layout;
+use Netgen\Layouts\API\Values\LayoutResolver\Rule;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Exception\NotFoundException;
 use Netgen\Layouts\Item\CmsItem;
 use Netgen\Layouts\Item\Registry\ValueTypeRegistry;
@@ -21,12 +24,16 @@ final class HelpersRuntimeTest extends TestCase
 
     private MockObject $layoutServiceMock;
 
+    private MockObject $layoutResolverServiceMock;
+
     protected function setUp(): void
     {
         $this->layoutServiceMock = $this->createMock(LayoutService::class);
+        $this->layoutResolverServiceMock = $this->createMock(LayoutResolverService::class);
 
         $this->runtime = new HelpersRuntime(
             $this->layoutServiceMock,
+            $this->layoutResolverServiceMock,
             new ValueTypeRegistry(
                 [
                     'value' => ValueType::fromArray(['identifier' => 'value', 'name' => 'Value']),
@@ -76,6 +83,32 @@ final class HelpersRuntimeTest extends TestCase
             ->willThrowException(new NotFoundException('layout', $uuid->toString()));
 
         self::assertSame('', $this->runtime->getLayoutName($uuid->toString()));
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\HelpersRuntime::getRuleGroup
+     */
+    public function testGetRuleGroup(): void
+    {
+        $ruleUuid = Uuid::uuid4();
+        $groupUuid = Uuid::uuid4();
+
+        $rule = Rule::fromArray(['id' => $ruleUuid, 'ruleGroupId' => $groupUuid]);
+        $ruleGroup = RuleGroup::fromArray(['id' => $groupUuid]);
+
+        $this->layoutResolverServiceMock
+            ->expects(self::once())
+            ->method('loadRule')
+            ->with(self::equalTo($ruleUuid))
+            ->willReturn($rule);
+
+        $this->layoutResolverServiceMock
+            ->expects(self::once())
+            ->method('loadRuleGroup')
+            ->with(self::equalTo($groupUuid))
+            ->willReturn($ruleGroup);
+
+        self::assertSame($ruleGroup, $this->runtime->getRuleGroup($ruleUuid->toString()));
     }
 
     /**

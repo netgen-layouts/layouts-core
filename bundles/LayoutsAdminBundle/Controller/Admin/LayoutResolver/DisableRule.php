@@ -23,7 +23,12 @@ final class DisableRule extends AbstractController
      */
     public function __invoke(Rule $rule): ViewInterface
     {
-        $this->denyAccessUnlessGranted('nglayouts:mapping:activate');
+        $this->denyAccessUnlessGranted(
+            'nglayouts:mapping:activate',
+            [
+                'rule_group' => $rule->getRuleGroupId()->toString(),
+            ]
+        );
 
         $disabledRule = $this->layoutResolverService->disableRule($rule);
 

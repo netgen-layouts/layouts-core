@@ -35,7 +35,7 @@ final class UpdatePriorities extends AbstractController
      */
     public function __invoke(RuleGroup $ruleGroup, Request $request): Response
     {
-        $this->denyAccessUnlessGranted('nglayouts:mapping:reorder');
+        $this->denyAccessUnlessGranted('nglayouts:mapping:reorder', $ruleGroup);
 
         $ids = Kernel::VERSION_ID >= 50100 ?
             $request->request->all('ids') :

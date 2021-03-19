@@ -26,7 +26,14 @@ final class EditTargetForm extends AbstractController
      */
     public function __invoke(Target $target, Request $request): ViewInterface
     {
-        $this->denyAccessUnlessGranted('nglayouts:mapping:edit');
+        $rule = $this->layoutResolverService->loadRule($target->getRuleId());
+
+        $this->denyAccessUnlessGranted(
+            'nglayouts:mapping:edit',
+            [
+                'rule_group' => $rule->getRuleGroupId()->toString(),
+            ]
+        );
 
         $targetType = $target->getTargetType();
 

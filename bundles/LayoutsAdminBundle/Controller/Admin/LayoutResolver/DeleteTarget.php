@@ -23,7 +23,14 @@ final class DeleteTarget extends AbstractController
      */
     public function __invoke(Target $target): ViewInterface
     {
-        $this->denyAccessUnlessGranted('nglayouts:mapping:edit');
+        $rule = $this->layoutResolverService->loadRule($target->getRuleId());
+
+        $this->denyAccessUnlessGranted(
+            'nglayouts:mapping:edit',
+            [
+                'rule_group' => $rule->getRuleGroupId()->toString(),
+            ]
+        );
 
         $this->layoutResolverService->deleteTarget($target);
 

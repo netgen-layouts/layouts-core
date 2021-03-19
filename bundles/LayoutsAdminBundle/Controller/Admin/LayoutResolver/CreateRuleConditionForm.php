@@ -32,7 +32,12 @@ final class CreateRuleConditionForm extends AbstractController
      */
     public function __invoke(Rule $rule, string $type, Request $request): ViewInterface
     {
-        $this->denyAccessUnlessGranted('nglayouts:mapping:edit');
+        $this->denyAccessUnlessGranted(
+            'nglayouts:mapping:edit',
+            [
+                'rule_group' => $rule->getRuleGroupId()->toString(),
+            ]
+        );
 
         $conditionType = $this->conditionTypeRegistry->getConditionType($type);
         $createStruct = $this->layoutResolverService->newConditionCreateStruct($type);

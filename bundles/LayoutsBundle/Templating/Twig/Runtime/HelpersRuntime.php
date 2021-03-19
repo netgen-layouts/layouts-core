@@ -7,7 +7,9 @@ namespace Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime;
 use IntlDateFormatter;
 use IntlTimeZone;
 use Locale;
+use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Exception\Item\ItemException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Item\CmsItemInterface;
@@ -23,11 +25,17 @@ final class HelpersRuntime
 {
     private LayoutService $layoutService;
 
+    private LayoutResolverService $layoutResolverService;
+
     private ValueTypeRegistry $valueTypeRegistry;
 
-    public function __construct(LayoutService $layoutService, ValueTypeRegistry $valueTypeRegistry)
-    {
+    public function __construct(
+        LayoutService $layoutService,
+        LayoutResolverService $layoutResolverService,
+        ValueTypeRegistry $valueTypeRegistry
+    ) {
         $this->layoutService = $layoutService;
+        $this->layoutResolverService = $layoutResolverService;
         $this->valueTypeRegistry = $valueTypeRegistry;
     }
 
@@ -53,6 +61,16 @@ final class HelpersRuntime
         } catch (Throwable $t) {
             return '';
         }
+    }
+
+    /**
+     * Returns the rule group for the specified rule ID.
+     */
+    public function getRuleGroup(string $ruleId): RuleGroup
+    {
+        $rule = $this->layoutResolverService->loadRule(Uuid::fromString($ruleId));
+
+        return $this->layoutResolverService->loadRuleGroup($rule->getRuleGroupId());
     }
 
     /**

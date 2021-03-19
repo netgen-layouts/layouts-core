@@ -32,7 +32,12 @@ final class CreateTargetForm extends AbstractController
      */
     public function __invoke(Rule $rule, string $type, Request $request): ViewInterface
     {
-        $this->denyAccessUnlessGranted('nglayouts:mapping:edit');
+        $this->denyAccessUnlessGranted(
+            'nglayouts:mapping:edit',
+            [
+                'rule_group' => $rule->getRuleGroupId()->toString(),
+            ]
+        );
 
         $targetType = $this->targetTypeRegistry->getTargetType($type);
         $createStruct = $this->layoutResolverService->newTargetCreateStruct($type);

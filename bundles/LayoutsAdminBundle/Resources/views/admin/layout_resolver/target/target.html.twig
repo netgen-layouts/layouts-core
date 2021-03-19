@@ -1,5 +1,4 @@
-{% set can_edit = is_granted('nglayouts:mapping:edit') %}
-
+{% set can_edit = is_granted('nglayouts:mapping:edit', nglayouts_rule_group(target.ruleId.toString)) %}
 
 <span
     {% if can_edit %}

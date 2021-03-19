@@ -36,7 +36,12 @@ final class UpdateRule extends AbstractController
      */
     public function __invoke(Rule $rule, Request $request): ViewInterface
     {
-        $this->denyAccessUnlessGranted('nglayouts:mapping:edit');
+        $this->denyAccessUnlessGranted(
+            'nglayouts:mapping:edit',
+            [
+                'rule_group' => $rule->getRuleGroupId()->toString(),
+            ]
+        );
 
         $layoutId = $request->request->get('layout_id');
         if (!is_string($layoutId)) {

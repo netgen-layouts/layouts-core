@@ -24,7 +24,12 @@ final class CopyRule extends AbstractController
      */
     public function __invoke(Rule $rule): ViewInterface
     {
-        $this->denyAccessUnlessGranted('nglayouts:mapping:edit');
+        $this->denyAccessUnlessGranted(
+            'nglayouts:mapping:edit',
+            [
+                'rule_group' => $rule->getRuleGroupId()->toString(),
+            ]
+        );
 
         $updateStruct = $this->layoutResolverService->newRuleMetadataUpdateStruct();
         $updateStruct->priority = $rule->getPriority() - 1;

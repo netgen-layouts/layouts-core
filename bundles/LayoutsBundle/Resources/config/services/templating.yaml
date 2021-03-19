@@ -95,6 +95,7 @@ services:
         class: Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\HelpersRuntime
         arguments:
             - "@netgen_layouts.api.service.layout"
+            - "@netgen_layouts.api.service.layout_resolver"
             - "@netgen_layouts.item.registry.value_type"
         tags:
             - { name: twig.runtime }

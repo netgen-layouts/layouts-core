@@ -23,7 +23,12 @@ final class DiscardRuleDraft extends AbstractController
      */
     public function __invoke(Rule $rule): ViewInterface
     {
-        $this->denyAccessUnlessGranted('nglayouts:mapping:edit');
+        $this->denyAccessUnlessGranted(
+            'nglayouts:mapping:edit',
+            [
+                'rule_group' => $rule->getRuleGroupId()->toString(),
+            ]
+        );
 
         $this->layoutResolverService->discardRuleDraft($rule);
 

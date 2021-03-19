@@ -24,7 +24,12 @@ final class DeleteRule extends AbstractController
      */
     public function __invoke(Request $request, Rule $rule): Response
     {
-        $this->denyAccessUnlessGranted('nglayouts:mapping:delete');
+        $this->denyAccessUnlessGranted(
+            'nglayouts:mapping:delete',
+            [
+                'rule_group' => $rule->getRuleGroupId()->toString(),
+            ]
+        );
 
         if ($request->getMethod() !== Request::METHOD_DELETE) {
             return $this->render(

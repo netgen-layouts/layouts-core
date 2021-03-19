@@ -1,3 +1,7 @@
+
+
+
+
 {% import '@NetgenLayoutsAdmin/admin/macros.html.twig' as macros %}
 
 {% trans_default_domain 'nglayouts_admin' %}
@@ -10,9 +14,9 @@
     {% set target_type_identifier = 'null' %}
 {% endif %}
 
-{% set can_edit = is_granted('nglayouts:mapping:edit') %}
-{% set can_activate = is_granted('nglayouts:mapping:activate') %}
-{% set can_delete = is_granted('nglayouts:mapping:delete') %}
+{% set can_edit = is_granted('nglayouts:mapping:edit', { rule_group: rule.ruleGroupId.toString }) %}
+{% set can_activate = is_granted('nglayouts:mapping:activate', { rule_group: rule.ruleGroupId.toString }) %}
+{% set can_delete = is_granted('nglayouts:mapping:delete', { rule_group: rule.ruleGroupId.toString }) %}
 
 <div class="nl-rule-content
     {% if not rule.enabled %}disabled{% endif %}"
@@ -241,7 +245,7 @@
 
                             <ul class="settings-list condition-list">
                                 {% for condition in rule.conditions %}
-                                    <li>{{ nglayouts_render_rule_condition(condition) }}</li>
+                                    <li>{{ nglayouts_render_rule_condition(condition, { rule_group_id: rule.ruleGroupId.toString }) }}</li>
                                 {% endfor %}
                             </ul>
                         {% else %}
