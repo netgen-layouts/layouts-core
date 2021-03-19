@@ -14,7 +14,6 @@
 {% set can_activate = is_granted('nglayouts:mapping:activate') %}
 {% set can_delete = is_granted('nglayouts:mapping:delete') %}
 
-<div class="rule-priority"></div>
 <div class="nl-rule-content
     {% if not rule.enabled %}disabled{% endif %}"
     data-id="{{ rule.id.toString }}"
@@ -32,7 +31,7 @@
         </div>
 
         <div class="nl-rule-cell rule-layout">
-
+            <div class="rule-priority"></div>
             {% if rule.layout is not empty %}
                 {{ rule.layout.name }}
             {% else %}
