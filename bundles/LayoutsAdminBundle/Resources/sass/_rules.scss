@@ -607,6 +607,9 @@
                 .group-move {
                     display: block;
                 }
+                .group-details, .nl-dropdown {
+                    display: none !important;
+                }
             }
         }
     }
@@ -772,6 +775,9 @@
             > .nl-group-head {
                 > .js-group-save-reorder, > .js-group-cancel-reorder {
                     display: block;
+                }
+                .group-details, .nl-dropdown {
+                    display: none !important;
                 }
             }
             .nl-group-body {
@@ -1045,7 +1051,7 @@
         > .nl-group-content {
             > .nl-group-head {
                 > .group-details {
-                    display: flex !important;
+                    display: flex;
                 }
 
                 > .nl-dropdown {
