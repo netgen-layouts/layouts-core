@@ -1064,7 +1064,9 @@
     }
 
     &:focus {
+        position: relative;
         outline: 3px solid #3671E7;
+        z-index: 3000;
     }
 }
 
