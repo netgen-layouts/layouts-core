@@ -438,7 +438,7 @@
 }
 
 .nl-export-checkbox {
-    display: none;
+    visibility: hidden;
     input {
         position: absolute;
         pointer-events: all;

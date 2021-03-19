@@ -243,7 +243,7 @@
         .nl-rule-head {
             > .nl-rule-cell {
                 > .nl-export-checkbox {
-                    display: none !important;
+                    visibility: hidden !important;
                 }
             }
         }
@@ -550,7 +550,7 @@
 
             > .nl-rule-cell {
                 > .nl-export-checkbox {
-                    display: block;
+                    visibility: visible;
                 }
             }
         }
@@ -816,7 +816,7 @@
             font-weight: 700;
             color: hsl(0, 0, 20);
             i {
-                padding: 1rem;
+                padding: 1rem 1rem 1rem 0;
                 color: #2565ED;
             }
 
@@ -876,7 +876,7 @@
 
             > .nl-rule-cell {
                 > .nl-export-checkbox {
-                    display: block;
+                    visibility: visible;
                 }
             }
 
@@ -896,7 +896,7 @@
         .nl-group-head {
             > .nl-rule-cell {
                 > .nl-export-checkbox {
-                    display: none;
+                    visibility: hidden;
                 }
             }
         }
