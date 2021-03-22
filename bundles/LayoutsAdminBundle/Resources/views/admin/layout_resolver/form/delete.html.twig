@@ -1,0 +1,22 @@
+{% extends '@NetgenLayoutsAdmin/admin/modal.html.twig' %}
+
+{% trans_default_domain 'nglayouts_admin' %}
+
+{% block header %}
+    {{ 'layout_resolver.rule.delete.title'|trans }}
+{% endblock %}
+
+{% block body %}
+    {% if error %}
+        <ul class="errors">
+            <li>{{ 'layout_resolver.rule.delete.error'|trans }}</li>
+        </ul>
+    {% endif %}
+
+    <p>{{ 'layout_resolver.rule.delete.message'|trans }}</p>
+{% endblock %}
+
+{% block buttons %}
+    <button type="button" class="nl-btn action-cancel">{{ 'layout_resolver.rule.delete.button.cancel'|trans }}</button>
+    <button type="submit" class="nl-btn nl-btn-primary action-apply">{{ 'layout_resolver.rule.delete.button.delete'|trans }}</button>
+{% endblock %}

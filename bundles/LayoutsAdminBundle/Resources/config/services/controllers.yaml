@@ -106,6 +106,13 @@ services:
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
 
+    netgen_layouts.controller.admin.layout_resolver.delete:
+        class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\Delete
+        public: true
+        parent: netgen_layouts.controller.base
+        arguments:
+            - "@netgen_layouts.api.service.layout_resolver"
+
     netgen_layouts.controller.admin.layout_resolver.create_target_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\CreateTargetForm
         public: true

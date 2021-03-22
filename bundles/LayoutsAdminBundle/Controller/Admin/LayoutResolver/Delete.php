@@ -8,7 +8,6 @@ use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Exception\BadStateException;
-use Netgen\Layouts\Validator\ValidatorTrait;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,10 +15,8 @@ use Symfony\Component\HttpKernel\Kernel;
 use function count;
 use function sprintf;
 
-final class UpdatePriorities extends AbstractController
+final class Delete extends AbstractController
 {
-    use ValidatorTrait;
-
     private LayoutResolverService $layoutResolverService;
 
     public function __construct(LayoutResolverService $layoutResolverService)
@@ -28,34 +25,38 @@ final class UpdatePriorities extends AbstractController
     }
 
     /**
-     * Updates priorities in the provided group.
-     *
-     * @throws \Netgen\Layouts\Exception\BadStateException If an error occurred
+     * Deletes the provided list of rules and groups.
      */
-    public function __invoke(RuleGroup $ruleGroup, Request $request): Response
+    public function __invoke(Request $request, RuleGroup $ruleGroup): Response
     {
-        $this->denyAccessUnlessGranted('nglayouts:mapping:reorder', $ruleGroup);
+        $this->denyAccessUnlessGranted('nglayouts:mapping:delete', $ruleGroup);
+
+        if ($request->getMethod() !== Request::METHOD_DELETE) {
+            return $this->render(
+                '@NetgenLayoutsAdmin/admin/layout_resolver/form/delete.html.twig',
+                [
+                    'submitted' => false,
+                    'error' => false,
+                ]
+            );
+        }
 
         $ids = Kernel::VERSION_ID >= 50100 ?
             $request->request->all('ids') :
             (array) ($request->request->get('ids') ?? []);
 
         if (count($ids) === 0) {
-            throw new BadStateException('ids', 'List of entities to reorder cannot be empty.');
+            throw new BadStateException('ids', 'List of entities to delete cannot be empty.');
         }
 
         $this->layoutResolverService->transaction(
             function () use ($ids, $ruleGroup): void {
-                $priority = 10 * count($ids);
-
                 foreach ($ids as $id => $type) {
                     if ($type === 'rule') {
-                        $this->updateRulePriority((string) $id, $priority, $ruleGroup);
+                        $this->deleteRule((string) $id, $ruleGroup);
                     } elseif ($type === 'rule_group') {
-                        $this->updateRuleGroupPriority((string) $id, $priority, $ruleGroup);
+                        $this->deleteRuleGroup((string) $id, $ruleGroup);
                     }
-
-                    $priority -= 10;
                 }
             }
         );
@@ -64,11 +65,11 @@ final class UpdatePriorities extends AbstractController
     }
 
     /**
-     * Updates the priority of the rule with provided ID.
+     * Deletes the rule with provided ID.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException if the rule with provided ID does not belong to provided rule group
      */
-    private function updateRulePriority(string $ruleId, int $priority, RuleGroup $ruleGroup): void
+    private function deleteRule(string $ruleId, RuleGroup $ruleGroup): void
     {
         $rule = $this->layoutResolverService->loadRule(Uuid::fromString($ruleId));
 
@@ -82,18 +83,15 @@ final class UpdatePriorities extends AbstractController
             );
         }
 
-        $updateStruct = $this->layoutResolverService->newRuleMetadataUpdateStruct();
-        $updateStruct->priority = $priority;
-
-        $this->layoutResolverService->updateRuleMetadata($rule, $updateStruct);
+        $this->layoutResolverService->deleteRule($rule);
     }
 
     /**
-     * Updates the priority of the rule group with provided ID.
+     * Deletes the rule group with provided ID.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException if the rule group with provided ID does not belong to provided parent group
      */
-    private function updateRuleGroupPriority(string $ruleGroupId, int $priority, RuleGroup $parentGroup): void
+    private function deleteRuleGroup(string $ruleGroupId, RuleGroup $parentGroup): void
     {
         $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString($ruleGroupId));
 
@@ -107,9 +105,6 @@ final class UpdatePriorities extends AbstractController
             );
         }
 
-        $updateStruct = $this->layoutResolverService->newRuleGroupMetadataUpdateStruct();
-        $updateStruct->priority = $priority;
-
-        $this->layoutResolverService->updateRuleGroupMetadata($ruleGroup, $updateStruct);
+        $this->layoutResolverService->deleteRuleGroup($ruleGroup);
     }
 }
