@@ -605,7 +605,7 @@
     &.show-move {
         > .nl-group-content {
             > .nl-group-head {
-                .group-move {
+                .js-group-move {
                     display: block;
                 }
                 .group-details, .nl-dropdown {
@@ -819,7 +819,7 @@
                 cursor: pointer;
             }
         }
-        .group-move {
+        .js-group-move {
             display: none;
         }
 
