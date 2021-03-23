@@ -175,7 +175,7 @@ export default class NlRules {
         this.setSelectingId(null);
         this.rules.ids.forEach((id) => {
             this.rules.byId[id].selected = false;
-            this.rules.byId[id].selectExport.checked = false;
+            this.rules.byId[id].selectElement.checked = false;
         });
     }
 

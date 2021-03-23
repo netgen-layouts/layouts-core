@@ -21,14 +21,16 @@ export default class NlExport {
 
     init() {
         this.setupEvents();
-        this.toggleUI();
+        // this.toggleUI();
     }
 
     setupEvents() {
         this.el.addEventListener('click', (e) => {
             if (e.target.closest('.js-cancel-export')) {
+                e.stopPropagation();
                 this.endExport(e);
             } else if (e.target.closest('.js-download-export')) {
+                e.stopPropagation();
                 this.downloadExport(e);
             }
         });
@@ -54,7 +56,8 @@ export default class NlExport {
         e && e.preventDefault();
         this.el.classList.remove('export');
         Object.keys(this.entities).forEach((key) => {
-            this.entities[key].selected && this.entities[key].toggleSelected(false);
+            this.entities[key].selected = false;
+            this.entities[key].selectElement.checked = false;
             this.entities[key].checkBoxContainer.style.visibility = '';
         });
         this.toggleAllCheckbox.checked = false;
@@ -67,6 +70,7 @@ export default class NlExport {
 
     downloadExport(e) {
         e.preventDefault();
+        e.stopPropagation();
         const selectedEntities = [];
         const layoutsAppEl = document.getElementsByClassName('ng-layouts-app')[0];
         Object.keys(this.entities).forEach(key => this.entities[key].selected && selectedEntities.push({ id: this.entities[key].id, type: this.entities[key].type }));
@@ -74,24 +78,26 @@ export default class NlExport {
         const entities = selectedEntities.map(entity => `entities[${entity.id}]=${entity.type}`);
         const body = new URLSearchParams(entities.join('&'));
         let fileName = '';
-        fetch(`${this.baseUrl}export`, {
-            method: 'POST',
-            credentials: 'same-origin',
-            headers: {
-                'X-CSRF-Token': this.csrf,
-            },
-            body,
-        }).then((response) => {
-            if (!response.ok) throw new Error(`HTTP error, status ${response.status}`);
-            fileName = response.headers.get('X-Filename');
-            return response.text();
-        }).then((data) => {
-            downloadFile(fileName, data);
-            this.endExport();
-            layoutsAppEl.classList.remove('ajax-loading');
-        }).catch((error) => {
-            layoutsAppEl.classList.remove('ajax-loading');
-            console.log(error); // eslint-disable-line no-console
-        });
+        if (selectedEntities.length) {
+            fetch(`${this.baseUrl}export`, {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: {
+                    'X-CSRF-Token': this.csrf,
+                },
+                body,
+            }).then((response) => {
+                if (!response.ok) throw new Error(`HTTP error, status ${response.status}`);
+                fileName = response.headers.get('X-Filename');
+                return response.text();
+            }).then((data) => {
+                downloadFile(fileName, data);
+                this.endExport();
+                layoutsAppEl.classList.remove('ajax-loading');
+            }).catch((error) => {
+                layoutsAppEl.classList.remove('ajax-loading');
+                console.log(error); // eslint-disable-line no-console
+            });
+        }
     }
 }

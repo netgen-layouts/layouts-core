@@ -52,8 +52,8 @@ export default class NlRule {
         [this.priorityEl] = this.el.getElementsByClassName('rule-priority');
         this.type = 'rule';
 
-        this.selectExport = document.getElementById(`export${this.id}`);
-        this.selected = this.selectExport && this.selectExport.checked;
+        this.selectElement = document.getElementById(`export${this.id}`);
+        this.selected = this.selectElement && this.selectElement.checked;
         [this.checkBoxContainer] = this.el.getElementsByClassName('nl-export-checkbox');
 
         this.el.dataset.id = this.id;
@@ -204,7 +204,7 @@ export default class NlRule {
 
     handleCheckboxDisable(id) {
         if (id === null) {
-            this.selectExport.disabled = false;
+            this.selectElement.disabled = false;
             this.checkBoxContainer.style.visibility = '';
             this.el.classList.remove('hide-checkbox');
         } else if (id === '00000000-0000-0000-0000-000000000000') {
@@ -572,9 +572,9 @@ export default class NlRule {
 
         this.el.addEventListener('blur', () => { this.el.classList.remove('selected'); });
 
-        if (this.selectExport) {
-            this.selectExport.addEventListener('change', () => {
-                this.selected = this.selectExport.checked;
+        if (this.selectElement) {
+            this.selectElement.addEventListener('change', () => {
+                this.selected = this.selectElement.checked;
 
                 if (this.selected) {
                         this.rules.setSelectingId('00000000-0000-0000-0000-000000000000');
@@ -584,16 +584,16 @@ export default class NlRule {
             });
         }
 
-        if (this.selectExport) {
-            this.selectExport.addEventListener('change', () => {
-                this.selected = this.selectExport.checked;
+        if (this.selectElement) {
+            this.selectElement.addEventListener('change', () => {
+                this.selected = this.selectElement.checked;
             });
         }
     }
 
     toggleSelected(select) {
         this.selected = select;
-        this.selectExport.checked = select;
+        this.selectElement.checked = select;
     }
 
     canExport() { // eslint-disable-line class-methods-use-this

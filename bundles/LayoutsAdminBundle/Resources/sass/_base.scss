@@ -18,14 +18,19 @@ body {
     }
 }
 
+.export {
+    > .layouts-header {
+        > .export-controls {
+            display: block;
+        }
+    }
+}
+
 .export-controls {
     display: none;
     float: right;
     margin:0 0 1em;
     text-align:right;
-    .export & {
-        display: block;
-    }
 }
 
 .ng-layouts-app {
