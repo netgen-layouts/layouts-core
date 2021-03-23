@@ -54,6 +54,7 @@ export default class NlRule {
 
         this.selectExport = document.getElementById(`export${this.id}`);
         this.selected = this.selectExport && this.selectExport.checked;
+        [this.checkBoxContainer] = this.el.getElementsByClassName('nl-export-checkbox');
 
         this.el.dataset.id = this.id;
         this.setupEvents();
@@ -199,6 +200,17 @@ export default class NlRule {
             console.log(error); // eslint-disable-line no-console
             this.rules.hideLoader();
         });
+    }
+
+    handleCheckboxDisable(id) {
+        if (id === null) {
+            this.selectExport.disabled = false;
+            this.checkBoxContainer.style.visibility = '';
+            this.el.classList.remove('hide-checkbox');
+        } else if (id === '00000000-0000-0000-0000-000000000000') {
+            this.checkBoxContainer.style.visibility = 'visible';
+            this.el.classList.remove('hide-checkbox');
+        }
     }
 
     ruleUnlink(e) {
@@ -559,6 +571,18 @@ export default class NlRule {
         });
 
         this.el.addEventListener('blur', () => { this.el.classList.remove('selected'); });
+
+        if (this.selectExport) {
+            this.selectExport.addEventListener('change', () => {
+                this.selected = this.selectExport.checked;
+
+                if (this.selected) {
+                        this.rules.setSelectingId('00000000-0000-0000-0000-000000000000');
+                } else {
+                    this.rules.checkboxLoop();
+                }
+            });
+        }
 
         if (this.selectExport) {
             this.selectExport.addEventListener('change', () => {

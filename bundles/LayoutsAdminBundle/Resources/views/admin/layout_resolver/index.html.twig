@@ -46,6 +46,10 @@
                     {% if is_granted('nglayouts:mapping:edit') %}
                         <button id="add-new-button" class="nl-btn nl-btn-primary js-add-rule"><i class="material-icons">add</i> {{ 'layout_resolver.add_new_rule'|trans }}</button>
                     {% endif %}
+
+                    {% if is_granted('nglayouts:mapping:delete') %}
+                        <button style="display: none" id="delete-button" class="nl-btn nl-btn-primary js-multiple-delete">{{ 'layout_resolver.delete'|trans }}</button>
+                    {% endif %}
                 {% endblock %}
 
                 {% if can_reorder %}

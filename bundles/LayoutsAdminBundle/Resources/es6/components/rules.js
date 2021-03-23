@@ -1,6 +1,8 @@
 import Sortable from 'sortablejs';
 import NlRule from './rule';
 import NlExport from './export';
+import NlModal from './modal';
+
 
 /* nl rules app plugin */
 export default class NlRules {
@@ -15,6 +17,7 @@ export default class NlRules {
         [this.noRulesMsg] = this.el.getElementsByClassName('nl-no-items');
         [this.sortBtn] = this.el.getElementsByClassName('js-sort-start');
         [this.appContainer] = document.getElementsByClassName('ng-layouts-app');
+        [this.deleteButton] = document.getElementsByClassName('js-multiple-delete');
         this.csrf = document.querySelector('meta[name=nglayouts-admin-csrf-token]').getAttribute('content');
         this.apiUrl = `${window.location.origin}${document.querySelector('meta[name=nglayouts-admin-base-path]').getAttribute('content')}`;
         this.baseUrl = `${this.apiUrl}/mappings/`;
@@ -102,6 +105,80 @@ export default class NlRules {
       });
     }
 
+    setSelectingId(id) {
+        this.selectingId = id;
+        if (this.deleteButton) {
+            id === '00000000-0000-0000-0000-000000000000' ? this.deleteButton.style.display = 'block' : this.deleteButton.style.display = 'none';
+        }
+        Object.keys(this.rules.byId).forEach((key) => {
+            this.rules.byId[key].handleCheckboxDisable(id);
+        });
+    }
+
+    checkboxLoop() {
+        let checkBoxCount = 0;
+        Object.keys(this.rules.byId).forEach((key) => {
+            this.rules.byId[key].selected ? checkBoxCount++ : null;
+        });
+        checkBoxCount ? null : this.setSelectingId(null);
+    }
+
+    deleteMultipleElements() {
+        const url = `${this.baseUrl}groups/00000000-0000-0000-0000-000000000000/delete_items`;
+        const rulesForBody = this.rules.ids.filter(id => this.rules.byId[id].selected).map(id => `ids[${id}]=${this.rules.byId[id].type}`);
+        const rules = this.rules.ids.filter(id => this.rules.byId[id].selected).map(id => this.rules.byId[id]);
+        const body = new URLSearchParams(rulesForBody.join('&'));
+        const modal = new NlModal({
+            preload: true,
+            autoClose: false,
+        });
+        const formAction = (ev) => {
+            ev.preventDefault();
+            modal.loadingStart();
+            fetch(url, {
+                method: 'DELETE',
+                credentials: 'same-origin',
+                headers: {
+                    'X-CSRF-Token': this.csrf,
+                },
+                body,
+            }).then((response) => {
+                if (!response.ok) {
+                    return response.text().then((data) => {
+                        modal.insertModalHtml(data);
+                        throw new Error(`HTTP error, status ${response.status}`);
+                    });
+                }
+                return response.text();
+            }).then(() => {
+                modal.close();
+                rules.forEach((element) => {
+                    element.el.parentElement.removeChild(element.el);
+                    this.deleteRule(element.id);
+                });
+                return true;
+            }).catch((error) => {
+                console.log(error); // eslint-disable-line no-console
+            });
+        };
+        fetch(url, {
+            method: 'GET',
+        }).then((response) => {
+            if (!response.ok) throw new Error(`HTTP error, status ${response.status}`);
+            return response.text();
+        }).then((data) => {
+            modal.insertModalHtml(data);
+            modal.el.addEventListener('apply', formAction);
+        }).catch((error) => {
+            console.log(error); // eslint-disable-line no-console
+        });
+        this.setSelectingId(null);
+        this.rules.ids.forEach((id) => {
+            this.rules.byId[id].selected = false;
+            this.rules.byId[id].selectExport.checked = false;
+        });
+    }
+
     sortStart() {
         this.rules.ids.forEach(id => this.rules.byId[id].onSortingStart());
         this.appContainer.classList.add('sorting');
@@ -184,6 +261,7 @@ export default class NlRules {
         [...this.el.querySelectorAll('input[name=filter-mappings]')].forEach(el => el.addEventListener('change', this.updateFilter.bind(this)));
         [...this.el.getElementsByClassName('js-check-all')].forEach(el => el.addEventListener('click', this.checkAllFilters.bind(this)));
         [...this.el.getElementsByClassName('js-check-none')].forEach(el => el.addEventListener('click', this.checkNoneFilters.bind(this)));
+        [...this.el.getElementsByClassName('js-multiple-delete')].forEach(el => el.addEventListener('click', this.deleteMultipleElements.bind(this)));
     }
 
     updateFilterInputs() {
