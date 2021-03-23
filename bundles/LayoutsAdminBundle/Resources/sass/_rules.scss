@@ -58,7 +58,7 @@
     align-items: center;
     padding: 4px $gutter 4px 0;
     &.rule-layout {
-        width: 25%;
+        width: 35%;
     }
     &.rule-targets {
         width: 25%;
@@ -825,7 +825,7 @@
             font-size: 14px;
             font-weight: 700;
             color: hsl(0, 0, 20);
-            width: 25%;
+            width: 35%;
             i {
                 padding: 1rem 1rem 1rem 0;
                 color: #2565ED;
@@ -916,20 +916,20 @@
         padding: 0 20px;
 
         .rule-layout {
-            padding-left: 20px;
+            padding-left: 35px;
         }
 
         .group-title {
-            padding-left: 20px;
+            padding-left: 35px;
         }
 
         .nl-group-body {
             .rule-layout {
-                padding-left: 40px;
+                padding-left: 70px;
             }
 
             .group-title {
-                padding-left: 40px;
+                padding-left: 70px;
             }
         }
     }
