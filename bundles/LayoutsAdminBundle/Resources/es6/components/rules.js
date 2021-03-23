@@ -109,7 +109,10 @@ export default class NlRules {
     setSelectingId(id) {
         this.selectingId = id;
         if (this.deleteButton) {
-            id === '00000000-0000-0000-0000-000000000000' ? this.deleteButton.style.display = 'block' : this.deleteButton.style.display = 'none';
+            id === '00000000-0000-0000-0000-000000000000' ? this.deleteButton.style.display = 'inline-block' : this.deleteButton.style.display = 'none';
+        }
+        if (this.exportButton) {
+            id === '00000000-0000-0000-0000-000000000000' ? this.exportButton.style.display = 'inline-block' : this.exportButton.style.display = 'none';
         }
         Object.keys(this.rules.byId).forEach((key) => {
             this.rules.byId[key].handleCheckboxDisable(id);
