@@ -46,8 +46,6 @@ services:
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
-        calls:
-            - [setValidator, ["@validator"]]
 
     netgen_layouts.controller.admin.layout_resolver.update_rule:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\UpdateRule

@@ -8,7 +8,6 @@ use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Exception\BadStateException;
-use Netgen\Layouts\Validator\ValidatorTrait;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,8 +17,6 @@ use function sprintf;
 
 final class UpdatePriorities extends AbstractController
 {
-    use ValidatorTrait;
-
     private LayoutResolverService $layoutResolverService;
 
     public function __construct(LayoutResolverService $layoutResolverService)
