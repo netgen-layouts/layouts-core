@@ -47,6 +47,14 @@
     background:#fff;
     color:hsl(0, 0, 40);
     font-size:12px;
+
+
+    &:hover {
+        .nl-export-checkbox {
+            visibility: visible;
+        }
+    }
+
     .nl-layout-name {
         color:hsl(0, 0, 20);
         font-size:14px;
@@ -127,10 +135,6 @@
                 .nl-layout-actions {
                     background-color:$linkColor;
                     color:#fff;
-                }
-
-                .nl-export-checkbox {
-                    visibility: visible;
                 }
             }
             .unpublished-label {
