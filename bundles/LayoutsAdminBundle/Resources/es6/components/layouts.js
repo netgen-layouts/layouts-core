@@ -11,6 +11,7 @@ export default class NlLayouts {
         [this.noLayoutsMsg] = this.el.getElementsByClassName('nl-no-items');
         [this.layoutsHead] = this.el.getElementsByClassName('nl-layouts-head');
         [this.toggleViewBtn] = this.el.getElementsByClassName('js-change-layouts-view');
+        [this.exportButton] = document.getElementsByClassName('js-export');
         this.shared = typeof this.el.dataset.shared !== 'undefined';
         this.csrf = document.querySelector('meta[name=nglayouts-admin-csrf-token]').getAttribute('content');
         this.baseUrl = window.location.origin + document.querySelector('meta[name=nglayouts-admin-base-path]').getAttribute('content') + (this.shared ? '/shared_layouts/' : '/layouts/');
@@ -56,6 +57,23 @@ export default class NlLayouts {
         });
     }
 
+    setSelecting(state) {
+        if (this.exportButton) {
+            state ? this.exportButton.style.display = 'inline-block' : this.exportButton.style.display = 'none';
+        }
+        this.layouts.forEach((layout) => {
+            layout.handleCheckboxDisable(state);
+        });
+    }
+
+    checkboxLoop() {
+        let checkBoxCount = 0;
+        this.layouts.forEach((layout) => {
+            layout.selected ? checkBoxCount++ : null;
+        });
+        checkBoxCount ? null : this.setSelecting(false);
+    }
+
     toggleUI() {
         if (!this.layouts.length) {
             this.noLayoutsMsg.style.display = 'block';
@@ -75,7 +93,7 @@ export default class NlLayouts {
 
     initializeLayoutsPlugin() {
         [...this.el.getElementsByClassName('nl-layout')].forEach(el => new NlLayout(el, this));
-        this.export = new NlExport(this.el, this.layouts);
+        this.export = new NlExport(this.el, this.layouts, this);
     }
 
     setSorting(sort) {

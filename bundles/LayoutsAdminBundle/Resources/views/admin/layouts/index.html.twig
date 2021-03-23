@@ -13,7 +13,7 @@
         <div class="layouts-header">
             <h2 class="layouts-title">{{ 'layouts.title'|trans }}</h2>
             <div class="layouts-controls">
-                <a href="#" class="nl-btn js-export" title="{{ 'layouts.export.title'|trans }}"></a>
+                <a style="display: none" href="#" class="nl-btn js-export" title="{{ 'layouts.export.title'|trans }}"></a>
                 <a href="#" class="nl-btn js-change-layouts-view"></a>
                 {% if is_granted('nglayouts:layout:add') %}
                     <a href="{{ macros.layout_path() }}" id="add-new-button" class="nl-btn nl-btn-primary js-open-ngl">

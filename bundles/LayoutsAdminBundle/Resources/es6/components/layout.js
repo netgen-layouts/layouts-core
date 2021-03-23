@@ -11,8 +11,9 @@ export default class NlLayout {
         this.id = this.attributes.id;
         this.published = !!this.attributes.published;
         this.shared = this.el.parentElement.classList.contains('nl-shared-layouts');
-        this.selectExport = document.getElementById(`export${this.id}`);
-        this.selected = this.selectExport && this.selectExport.checked;
+        this.selectElement = document.getElementById(`export${this.id}`);
+        this.selected = this.selectElement && this.selectElement.checked;
+        [this.checkBoxContainer] = this.el.getElementsByClassName('nl-export-checkbox');
         this.type = 'layout';
 
         this.layouts.layouts.push(this);
@@ -26,6 +27,15 @@ export default class NlLayout {
         [...this.el.getElementsByClassName('nl-dropdown')].forEach((el) => {
             !el.getElementsByClassName('nl-dropdown-menu')[0].childElementCount && el.parentElement.removeChild(el);
         });
+    }
+
+    handleCheckboxDisable(state) {
+        if (state) {
+            this.checkBoxContainer.style.visibility = 'visible';
+        } else {
+            this.selectElement.disabled = false;
+            this.checkBoxContainer.style.visibility = '';
+        }
     }
 
     layoutDelete(e) {
@@ -162,9 +172,15 @@ export default class NlLayout {
             }
         });
 
-        if (this.selectExport) {
-            this.selectExport.addEventListener('change', () => {
-                this.selected = this.selectExport.checked;
+        if (this.selectElement) {
+            this.selectElement.addEventListener('change', () => {
+                this.selected = this.selectElement.checked;
+
+                if (this.selected) {
+                        this.layouts.setSelecting(true);
+                } else {
+                    this.layouts.checkboxLoop();
+                }
             });
         }
     }

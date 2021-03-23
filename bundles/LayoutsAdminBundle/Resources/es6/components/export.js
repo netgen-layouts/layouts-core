@@ -7,9 +7,9 @@ const downloadFile = (fileName, json) => {
 
 /* export plugin */
 export default class NlExport {
-    constructor(el, entities, rules) {
+    constructor(el, entities, container) {
         this.el = el;
-        this.rules = rules;
+        this.container = container;
         this.entities = entities;
         [this.exportBtn] = this.el.getElementsByClassName('js-export');
         this.toggleAllCheckbox = document.getElementById('toggleSelectAll');
@@ -61,7 +61,7 @@ export default class NlExport {
             this.entities[key].checkBoxContainer.style.visibility = '';
         });
         this.toggleAllCheckbox.checked = false;
-        this.rules.checkboxLoop();
+        this.container.checkboxLoop();
     }
 
     toggleSelectAll(e) {

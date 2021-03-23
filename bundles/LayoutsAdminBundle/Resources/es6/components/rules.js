@@ -18,6 +18,7 @@ export default class NlRules {
         [this.sortBtn] = this.el.getElementsByClassName('js-sort-start');
         [this.appContainer] = document.getElementsByClassName('ng-layouts-app');
         [this.deleteButton] = document.getElementsByClassName('js-multiple-delete');
+        [this.exportButton] = document.getElementsByClassName('js-export');
         this.csrf = document.querySelector('meta[name=nglayouts-admin-csrf-token]').getAttribute('content');
         this.apiUrl = `${window.location.origin}${document.querySelector('meta[name=nglayouts-admin-base-path]').getAttribute('content')}`;
         this.baseUrl = `${this.apiUrl}/mappings/`;
