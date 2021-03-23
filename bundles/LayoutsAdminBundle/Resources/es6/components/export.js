@@ -54,6 +54,7 @@ export default class NlExport {
         this.el.classList.remove('export');
         Object.keys(this.entities).forEach((key) => {
             this.entities[key].selected && this.entities[key].toggleSelected(false);
+            this.entities[key].checkBoxContainer.style.visibility = '';
         });
         this.toggleAllCheckbox.checked = false;
     }
