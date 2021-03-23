@@ -42,7 +42,7 @@ export default class NlRules {
             this.rules.ids.push(newRule.id);
         });
         this.filterMappings();
-        this.export = new NlExport(this.el, this.rules.byId);
+        this.export = new NlExport(this.el, this.rules.byId, this);
     }
 
     toggleUI() {
