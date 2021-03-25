@@ -76,7 +76,7 @@ interface LayoutService extends TransactionService
      * Loads all published layouts related to provided shared layout.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If provided layout is not shared
-     *                                                          If provided layout is not published
+     *                                                     If provided layout is not published
      */
     public function loadRelatedLayouts(Layout $sharedLayout): LayoutList;
 
@@ -84,7 +84,7 @@ interface LayoutService extends TransactionService
      * Returns the count of published layouts related to provided shared layout.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If provided layout is not shared
-     *                                                          If provided layout is not published
+     *                                                     If provided layout is not published
      */
     public function getRelatedLayoutsCount(Layout $sharedLayout): int;
 
@@ -111,10 +111,10 @@ interface LayoutService extends TransactionService
      * Links the zone to provided linked zone. If zone had a previous link, it will be overwritten.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If zone is not a draft
-     * @throws \Netgen\Layouts\Exception\BadStateException If linked zone is not published
-     * @throws \Netgen\Layouts\Exception\BadStateException If zone is in the shared layout
-     * @throws \Netgen\Layouts\Exception\BadStateException If linked zone is not in the shared layout
-     * @throws \Netgen\Layouts\Exception\BadStateException If zone and linked zone belong to the same layout
+     *                                                     If linked zone is not published
+     *                                                     If zone is in the shared layout
+     *                                                     If linked zone is not in the shared layout
+     *                                                     If zone and linked zone belong to the same layout
      */
     public function linkZone(Zone $zone, Zone $linkedZone): void;
 
@@ -141,8 +141,8 @@ interface LayoutService extends TransactionService
      * translation, except those that are marked as untranslatable.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If layout is not a draft
-     *                                                          If translation with provided locale already exists
-     *                                                          If translation with provided source locale does not exist
+     *                                                     If translation with provided locale already exists
+     *                                                     If translation with provided source locale does not exist
      */
     public function addTranslation(Layout $layout, string $locale, string $sourceLocale): Layout;
 
@@ -153,7 +153,7 @@ interface LayoutService extends TransactionService
      * queries.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If layout is not a draft
-     *                                                          If translation with provided locale does not exist
+     *                                                     If translation with provided locale does not exist
      */
     public function setMainTranslation(Layout $layout, string $mainLocale): Layout;
 
@@ -164,8 +164,8 @@ interface LayoutService extends TransactionService
      * translation being removed is the only one for a block, the block will be removed too.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If layout is not a draft
-     *                                                          If translation with provided locale does not exist
-     *                                                          If translation with provided locale is the main layout translation
+     *                                                     If translation with provided locale does not exist
+     *                                                     If translation with provided locale is the main layout translation
      */
     public function removeTranslation(Layout $layout, string $locale): Layout;
 
@@ -173,7 +173,7 @@ interface LayoutService extends TransactionService
      * Updates a specified layout.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If layout is not a draft
-     *                                                          If layout with provided name already exists
+     *                                                     If layout with provided name already exists
      */
     public function updateLayout(Layout $layout, LayoutUpdateStruct $layoutUpdateStruct): Layout;
 
@@ -211,7 +211,7 @@ interface LayoutService extends TransactionService
      * Creates a layout draft.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If layout is not published
-     *                                                          If draft already exists for layout and $discardExisting is set to false
+     *                                                     If draft already exists for layout and $discardExisting is set to false
      */
     public function createDraft(Layout $layout, bool $discardExisting = false): Layout;
 

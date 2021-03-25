@@ -132,7 +132,7 @@ interface CollectionHandlerInterface
      * Creates a collection translation.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If translation with provided locale already exists
-     *                                                          If translation with provided source locale does not exist
+     *                                                     If translation with provided source locale does not exist
      */
     public function createCollectionTranslation(Collection $collection, string $locale, string $sourceLocale): Collection;
 
@@ -179,7 +179,7 @@ interface CollectionHandlerInterface
      * Deletes provided collection translation.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If translation with provided locale does not exist
-     *                                                          If translation with provided locale is the main collection translation
+     *                                                     If translation with provided locale is the main collection translation
      */
     public function deleteCollectionTranslation(Collection $collection, string $locale): Collection;
 
@@ -206,7 +206,7 @@ interface CollectionHandlerInterface
      * Switch item positions within the same collection.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If items are the same
-     *                                                          If items are not within the same collection
+     *                                                     If items are not within the same collection
      */
     public function switchItemPositions(Item $item1, Item $item2): void;
 
@@ -228,7 +228,7 @@ interface CollectionHandlerInterface
     /**
      * Adds a slot to collection.
      *
-     * @throws \Netgen\Layouts\Exception\BadStateException if slot with provided position already exists
+     * @throws \Netgen\Layouts\Exception\BadStateException If slot with provided position already exists
      */
     public function addSlot(Collection $collection, SlotCreateStruct $slotCreateStruct): Slot;
 

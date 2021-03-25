@@ -124,7 +124,7 @@ interface LayoutHandlerInterface
      * Creates a layout translation.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If translation with provided locale already exists
-     *                                                          If translation with provided source locale does not exist
+     *                                                     If translation with provided source locale does not exist
      */
     public function createLayoutTranslation(Layout $layout, string $locale, string $sourceLocale): Layout;
 
@@ -176,7 +176,7 @@ interface LayoutHandlerInterface
      * Deletes provided layout translation.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If translation with provided locale does not exist
-     *                                                          If translation with provided locale is the main layout translation
+     *                                                     If translation with provided locale is the main layout translation
      */
     public function deleteLayoutTranslation(Layout $layout, string $locale): Layout;
 }

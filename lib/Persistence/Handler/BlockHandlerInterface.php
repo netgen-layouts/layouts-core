@@ -50,7 +50,7 @@ interface BlockHandlerInterface
      * Creates a block in specified target block.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If provided position is out of range
-     *                                                          If target block does not belong to layout
+     *                                                     If target block does not belong to layout
      */
     public function createBlock(BlockCreateStruct $blockCreateStruct, Layout $layout, ?Block $targetBlock = null, ?string $placeholder = null): Block;
 
@@ -58,7 +58,7 @@ interface BlockHandlerInterface
      * Creates a block translation.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If translation with provided locale already exists
-     *                                                          If translation with provided source locale does not exist
+     *                                                     If translation with provided source locale does not exist
      */
     public function createBlockTranslation(Block $block, string $locale, string $sourceLocale): Block;
 
@@ -85,7 +85,7 @@ interface BlockHandlerInterface
      * Copies a block to a specified target block and placeholder.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If provided position is out of range
-     * @throws \Netgen\Layouts\Exception\BadStateException If target block is within the provided block
+     *                                                     If target block is within the provided block
      */
     public function copyBlock(Block $block, Block $targetBlock, string $placeholder, ?int $position = null): Block;
 
@@ -93,8 +93,8 @@ interface BlockHandlerInterface
      * Moves a block to specified position in a specified target block and placeholder.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If provided position is out of range
-     * @throws \Netgen\Layouts\Exception\BadStateException If block is already in target block and placeholder
-     * @throws \Netgen\Layouts\Exception\BadStateException If target block is within the provided block
+     *                                                     If block is already in target block and placeholder
+     *                                                     If target block is within the provided block
      */
     public function moveBlock(Block $block, Block $targetBlock, string $placeholder, int $position): Block;
 
@@ -116,7 +116,7 @@ interface BlockHandlerInterface
     /**
      * Restores all block data (except placement and position) from the specified status.
      *
-     * @throws \Netgen\Layouts\Exception\BadStateException if block is already in provided status
+     * @throws \Netgen\Layouts\Exception\BadStateException If block is already in provided status
      */
     public function restoreBlock(Block $block, int $fromStatus): Block;
 
@@ -129,7 +129,7 @@ interface BlockHandlerInterface
      * Deletes provided block translation.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If translation with provided locale does not exist
-     *                                                          If translation with provided locale is the main block translation
+     *                                                     If translation with provided locale is the main block translation
      */
     public function deleteBlockTranslation(Block $block, string $locale): Block;
 

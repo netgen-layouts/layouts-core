@@ -88,10 +88,10 @@ interface BlockService extends TransactionService
      * ignoring the translatable flag from the create struct.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If target block is not a draft
-     *                                                          If target block is not a container
-     *                                                          If placeholder does not exist in the target block
-     *                                                          If new block is a container
-     *                                                          If provided position is out of range
+     *                                                     If target block is not a container
+     *                                                     If placeholder does not exist in the target block
+     *                                                     If new block is a container
+     *                                                     If provided position is out of range
      */
     public function createBlock(BlockCreateStruct $blockCreateStruct, Block $targetBlock, string $placeholder, ?int $position = null): Block;
 
@@ -101,8 +101,8 @@ interface BlockService extends TransactionService
      * If position is not provided, block is placed at the end of the zone.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If zone is not a draft
-     *                                                          If provided position is out of range
-     *                                                          If block cannot be placed in specified zone
+     *                                                     If provided position is out of range
+     *                                                     If block cannot be placed in specified zone
      */
     public function createBlockInZone(BlockCreateStruct $blockCreateStruct, Zone $zone, ?int $position = null): Block;
 
@@ -110,7 +110,7 @@ interface BlockService extends TransactionService
      * Updates a specified block.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If block is not a draft
-     *                                                          If block does not have a specified translation
+     *                                                     If block does not have a specified translation
      */
     public function updateBlock(Block $block, BlockUpdateStruct $blockUpdateStruct): Block;
 
@@ -121,11 +121,11 @@ interface BlockService extends TransactionService
      * the block is placed at the end of placeholder.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If source or target block is not a draft
-     *                                                          If target block is not a container
-     *                                                          If target block is in a different layout
-     *                                                          If placeholder does not exist in the target block
-     *                                                          If new block is a container
-     *                                                          If target block is within the provided block
+     *                                                     If target block is not a container
+     *                                                     If target block is in a different layout
+     *                                                     If placeholder does not exist in the target block
+     *                                                     If new block is a container
+     *                                                     If target block is within the provided block
      */
     public function copyBlock(Block $block, Block $targetBlock, string $placeholder, ?int $position = null): Block;
 
@@ -136,10 +136,9 @@ interface BlockService extends TransactionService
      * block is placed at the end of the zone.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If block or zone are not drafts
-     *                                                          If zone is in a different layout
-     *                                                          If block cannot be placed in specified zone
-     *                                                              as specified by the list of blocks allowed within the zone
-     *                                                          If provided position is out of range
+     *                                                     If zone is in a different layout
+     *                                                     If block cannot be placed in specified zone as specified by the list of blocks allowed within the zone
+     *                                                     If provided position is out of range
      */
     public function copyBlockToZone(Block $block, Zone $zone, ?int $position = null): Block;
 
@@ -147,12 +146,12 @@ interface BlockService extends TransactionService
      * Moves a block to specified target block.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If source or target block is not a draft
-     *                                                          If target block is not a container
-     *                                                          If target block is in a different layout
-     *                                                          If placeholder does not exist in the target block
-     *                                                          If new block is a container
-     *                                                          If target block is within the provided block
-     *                                                          If provided position is out of range
+     *                                                     If target block is not a container
+     *                                                     If target block is in a different layout
+     *                                                     If placeholder does not exist in the target block
+     *                                                     If new block is a container
+     *                                                     If target block is within the provided block
+     *                                                     If provided position is out of range
      */
     public function moveBlock(Block $block, Block $targetBlock, string $placeholder, int $position): Block;
 
@@ -160,10 +159,9 @@ interface BlockService extends TransactionService
      * Moves a block to specified position inside the zone.
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If block or zone are not drafts
-     *                                                          If zone is in a different layout
-     *                                                          If provided position is out of range
-     *                                                          If block cannot be placed in specified zone
-     *                                                              as specified by the list of blocks allowed within the zone
+     *                                                     If zone is in a different layout
+     *                                                     If provided position is out of range
+     *                                                     If block cannot be placed in specified zone as specified by the list of blocks allowed within the zone
      */
     public function moveBlockToZone(Block $block, Zone $zone, int $position): Block;
 
