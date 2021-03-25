@@ -14,27 +14,8 @@
             <h2 class="layouts-title">{{ 'menu.main_menu.layout_resolver'|trans }}</h2>
             <p>{{ 'layout_resolver.priority.notice'|trans }}</p>
             <div class="layouts-controls">
+                <a style="display: none" class="nl-rule-cell js-clear-selection"><i class="material-icons">clear</i></a>
                 <a style="display: none" href="#" class="nl-btn js-export" title="{{ 'layout_resolver.export.title'|trans }}"></a>
-                <div class="nl-dropdown nl-filter-dropdown" data-position="right">
-                    <span class="filter-checked-amount"></span>
-                    <button class="nl-btn nl-btn-white nl-dropdown-toggle"><i class="material-icons">filter_list</i> {{ 'layout_resolver.filter_by_target'|trans }}</button>
-                    <ul class="nl-dropdown-menu nl-mappings-filter">
-                        <li><a href="#" class="js-check-all">{{ 'layout_resolver.select_all'|trans }}</a></li>
-                        <li><a href="#" class="js-check-none">{{ 'layout_resolver.clear_selection'|trans }}</a></li>
-                        {% for target_type in target_types %}
-                            <li>
-                                <div class="checkbox">
-                                    <input type="checkbox" value="{{ target_type.type }}" id="filter-{{ target_type.type }}" name="filter-mappings"><label for="filter-{{ target_type.type }}">{{ ('layout_resolver.target.' ~ target_type.type)|trans({}, 'nglayouts') }}</label>
-                                </div>
-                            </li>
-                        {% endfor %}
-                        <li>
-                            <div class="checkbox">
-                                <input type="checkbox" value="undefined" id="filter-undefined" name="filter-mappings"><label for="filter-undefined">{{ 'layout_resolver.undefined_target'|trans }}</label>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
 
                 {% set can_reorder = is_granted('nglayouts:mapping:reorder') %}
 

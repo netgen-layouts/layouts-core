@@ -605,7 +605,7 @@
     &.show-move {
         > .nl-group-content {
             > .nl-group-head {
-                .js-group-move, .js-group-delete-multiple, .js-export {
+                .js-group-move, .js-group-delete-multiple, .js-export, .js-clear-selection {
                     display: block;
                 }
                 .group-details, .nl-dropdown {
@@ -616,7 +616,7 @@
     }
 
     &.export {
-        .js-group-delete-multiple, .js-group-move {
+        .js-group-delete-multiple, .js-group-move, .js-clear-selection {
             display: none !important;
         }
 
@@ -838,7 +838,7 @@
                 cursor: pointer;
             }
         }
-        .js-group-move, .js-group-delete-multiple, .js-group-save-reorder, .js-group-cancel-reorder, .js-export {
+        .js-group-move, .js-group-delete-multiple, .js-group-save-reorder, .js-group-cancel-reorder, .js-export, .js-clear-selection {
             display: none;
         }
 

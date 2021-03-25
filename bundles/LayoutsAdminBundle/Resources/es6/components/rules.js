@@ -19,6 +19,7 @@ export default class NlRules {
         [this.appContainer] = document.getElementsByClassName('ng-layouts-app');
         [this.deleteButton] = document.getElementsByClassName('js-multiple-delete');
         [this.exportButton] = document.getElementsByClassName('js-export');
+        [this.clearSelectionButton] = document.getElementsByClassName('js-clear-selection');
         this.csrf = document.querySelector('meta[name=nglayouts-admin-csrf-token]').getAttribute('content');
         this.apiUrl = `${window.location.origin}${document.querySelector('meta[name=nglayouts-admin-base-path]').getAttribute('content')}`;
         this.baseUrl = `${this.apiUrl}/mappings/`;
@@ -113,6 +114,9 @@ export default class NlRules {
         }
         if (this.exportButton) {
             id === '00000000-0000-0000-0000-000000000000' ? this.exportButton.style.display = 'inline-block' : this.exportButton.style.display = 'none';
+        }
+        if (this.clearSelectionButton) {
+            id === '00000000-0000-0000-0000-000000000000' ? this.clearSelectionButton.style.display = 'inline-block' : this.clearSelectionButton.style.display = 'none';
         }
         Object.keys(this.rules.byId).forEach((key) => {
             this.rules.byId[key].handleCheckboxDisable(id);
