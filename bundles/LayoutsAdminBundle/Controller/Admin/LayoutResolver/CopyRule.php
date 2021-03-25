@@ -36,14 +36,20 @@ final class CopyRule extends AbstractController
 
         $targetGroup = $this->layoutResolverService->loadRuleGroup($rule->getRuleGroupId());
 
-        $copiedRule = $this->layoutResolverService->updateRuleMetadata(
-            $this->layoutResolverService->copyRule($rule, $targetGroup),
-            $updateStruct
-        );
+        $copiedRule = $this->layoutResolverService->transaction(
+            function () use ($rule, $targetGroup, $updateStruct): Rule {
+                $copiedRule = $this->layoutResolverService->updateRuleMetadata(
+                    $this->layoutResolverService->copyRule($rule, $targetGroup),
+                    $updateStruct
+                );
 
-        if ($copiedRule->isEnabled()) {
-            $copiedRule = $this->layoutResolverService->disableRule($copiedRule);
-        }
+                if (!$copiedRule->isEnabled()) {
+                    return $copiedRule;
+                }
+
+                return $this->layoutResolverService->disableRule($copiedRule);
+            }
+        );
 
         return $this->buildView($copiedRule, ViewInterface::CONTEXT_ADMIN);
     }
