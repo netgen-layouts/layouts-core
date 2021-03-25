@@ -545,12 +545,16 @@
         }
     }
 
-    &:focus {
+    &.focused {
         position: relative;
         outline: 3px solid #3671E7;
         
         .rule-details, .nl-dropdown-toggle {
             display: flex !important;
+        }
+
+        .nl-export-checkbox {
+            visibility: visible;
         }
     }
 
@@ -900,10 +904,12 @@
     }
 
     &.hide-checkbox {
-        .nl-group-head {
-            > .nl-rule-cell {
-                > .nl-export-checkbox {
-                    visibility: hidden;
+        > .nl-group-content {
+            > .nl-group-head {
+                > .nl-rule-cell {
+                    > .nl-export-checkbox {
+                        visibility: hidden !important;
+                    }
                 }
             }
         }
@@ -1064,7 +1070,7 @@
         }
     }
 
-    &:focus, &.nl-dropdown-active {
+    &.focused, &.nl-dropdown-active {
         > .nl-group-content {
             > .nl-group-head {
                 > .group-details {
@@ -1076,11 +1082,17 @@
                         display: flex;
                     }
                 }
+
+                > .nl-rule-cell {
+                    > .nl-export-checkbox {
+                        visibility: visible;
+                    }
+                }
             }
         }
     }
 
-    &:focus {
+    &.focused {
         position: relative;
         outline: 3px solid #3671E7;
     }
