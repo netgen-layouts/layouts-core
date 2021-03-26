@@ -4,6 +4,7 @@ coverage/
 coverage_api/
 node_modules/
 vendor/
+.php-version
 .php_cs.cache
 .phpunit.result.cache
 .web-server-pid
