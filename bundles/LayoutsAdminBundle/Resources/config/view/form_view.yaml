@@ -50,6 +50,10 @@ view:
                 template: "@NetgenLayoutsAdmin/admin/layout_resolver/form/edit_rule.html.twig"
                 match:
                     form\type: Netgen\Layouts\Layout\Resolver\Form\RuleType
+            rule\copy:
+                template: "@NetgenLayoutsAdmin/admin/layout_resolver/form/copy_rule.html.twig"
+                match:
+                    form\type: Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type\CopyRuleType
             condition\edit:
                 template: "@NetgenLayoutsAdmin/admin/layout_resolver/form/edit_condition.html.twig"
                 match:

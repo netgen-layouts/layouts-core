@@ -1,0 +1,19 @@
+{% extends '@NetgenLayoutsAdmin/form/modal.html.twig' %}
+
+{% form_theme form '@NetgenLayoutsAdmin/form/theme/nglayouts.html.twig' %}
+
+{% trans_default_domain 'nglayouts_forms' %}
+
+{% block header %}
+    {{ 'rule.copy.title'|trans }}
+{% endblock %}
+
+{% block children %}
+    {{ form_row(form.copy_layout) }}
+    {{ form_row(form.layout_name) }}
+{% endblock %}
+
+{% block buttons %}
+    <button class="nl-btn action-cancel">{{ 'rule.copy.button.cancel'|trans }}</button>
+    <button type="submit" class="nl-btn nl-btn-primary action-apply">{{ 'rule.copy.button.save'|trans }}</button>
+{% endblock %}
