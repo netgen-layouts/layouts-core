@@ -6,8 +6,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type;
 
 use Netgen\Layouts\Validator\Constraint\LayoutName;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -41,7 +40,7 @@ final class CopyRuleType extends AbstractType
 
         $builder->add(
             'copy_layout',
-            CheckboxType::class,
+            Type\CheckboxType::class,
             [
                 'label' => 'rule.copy.copy_layout',
                 'data' => $canCopyLayout,
@@ -52,7 +51,7 @@ final class CopyRuleType extends AbstractType
 
         $builder->add(
             'layout_name',
-            TextType::class,
+            Type\TextType::class,
             [
                 'label' => 'rule.copy.layout_name',
                 'disabled' => !$canCopyLayout,
@@ -60,6 +59,20 @@ final class CopyRuleType extends AbstractType
                     new Constraints\NotBlank(['groups' => ['CopyLayout']]),
                     new LayoutName(['groups' => ['CopyLayout']]),
                 ],
+            ]
+        );
+
+        $builder->add(
+            'layout_description',
+            Type\TextareaType::class,
+            [
+                'label' => 'rule.copy.layout_description',
+                'required' => false,
+                'disabled' => !$canCopyLayout,
+                'constraints' => [
+                    new Constraints\Type(['type' => 'string', 'groups' => ['CopyLayout']]),
+                ],
+                'empty_data' => '',
             ]
         );
     }

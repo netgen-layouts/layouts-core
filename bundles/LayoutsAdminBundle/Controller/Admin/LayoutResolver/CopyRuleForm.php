@@ -51,6 +51,7 @@ final class CopyRuleForm extends AbstractController
             CopyRuleType::class,
             [
                 'layout_name' => $layoutCopyStruct->name,
+                'layout_description' => $layoutCopyStruct->description,
             ],
             [
                 'action' => $this->generateUrl(
@@ -89,6 +90,7 @@ final class CopyRuleForm extends AbstractController
                 }
 
                 $layoutCopyStruct->name = $form->get('layout_name')->getData();
+                $layoutCopyStruct->description = $form->get('layout_description')->getData();
 
                 $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
                 $ruleUpdateStruct->layoutId = $this->layoutService->copyLayout($originalLayout, $layoutCopyStruct)->getId();

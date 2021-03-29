@@ -48,6 +48,7 @@ rule.edit.button.save: 'Save mapping'
 rule.copy.title: 'Copy mapping'
 rule.copy.copy_layout: 'Copy layout'
 rule.copy.layout_name: 'Layout name'
+rule.copy.layout_description: 'Layout description'
 rule.copy.button.cancel: 'Cancel'
 rule.copy.button.save: 'Copy'
 
