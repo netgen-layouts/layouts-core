@@ -22,6 +22,7 @@ export default class NlModal {
 
         this.onKeyDown = (e) => {
             e.keyCode === 27 && this.close();
+            e.keyCode === 13 && e.preventDefault();
         };
 
         this.onKeyDown = this.onKeyDown.bind(this);
