@@ -577,8 +577,10 @@ export default class NlRule {
                 this.selected = this.selectElement.checked;
 
                 if (this.selected) {
+                        this.el.classList.add('selected');
                         this.rules.setSelectingId('00000000-0000-0000-0000-000000000000');
                 } else {
+                    this.el.classList.remove('selected');
                     this.rules.checkboxLoop();
                 }
             });
