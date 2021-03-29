@@ -59,6 +59,7 @@ export default class NlExport {
             this.entities[key].selected = false;
             this.entities[key].selectElement.checked = false;
             this.entities[key].checkBoxContainer.style.visibility = '';
+            this.entities[key].el.classList.remove('selected');
         });
         this.toggleAllCheckbox.checked = false;
         this.container.checkboxLoop();

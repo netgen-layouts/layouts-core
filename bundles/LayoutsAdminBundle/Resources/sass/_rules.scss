@@ -53,6 +53,31 @@
     }
 }
 
+.export {
+    > .floating-controls {
+        .js-multiple-delete, .js-move, .js-clear-selection, .js-export {
+            display: none !important;
+        }
+
+        > .export-controls {
+            display: block;
+        }
+    }
+}
+
+.floating-controls {
+    display: none;
+    height: 56px;
+    background: #CCDBF9;
+    border: 2px solid #3671E7;
+    flex-direction: row-reverse;
+    align-items: center;
+
+    a, button {
+        justify-self: stretch;
+    }
+}
+
 .nl-rule-cell {
     display: flex;
     align-items: center;

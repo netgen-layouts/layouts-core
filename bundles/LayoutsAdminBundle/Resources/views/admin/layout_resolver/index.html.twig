@@ -14,9 +14,6 @@
             <h2 class="layouts-title">{{ 'menu.main_menu.layout_resolver'|trans }}</h2>
             <p>{{ 'layout_resolver.priority.notice'|trans }}</p>
             <div class="layouts-controls">
-                <a style="display: none" class="nl-btn js-clear-selection"><i class="material-icons">clear</i></a>
-                <a style="display: none" href="#" class="nl-btn js-export" title="{{ 'layout_resolver.export.title'|trans }}"></a>
-
                 {% set can_reorder = is_granted('nglayouts:mapping:reorder') %}
 
                 {% if can_reorder %}
@@ -27,20 +24,12 @@
                     {% if is_granted('nglayouts:mapping:edit') %}
                         <button id="add-new-button" class="nl-btn nl-btn-primary js-add-rule"><i class="material-icons">add</i> {{ 'layout_resolver.add_new_rule'|trans }}</button>
                     {% endif %}
-
-                    {% if is_granted('nglayouts:mapping:delete') %}
-                        <button style="display: none" id="delete-button" class="nl-btn nl-btn-primary js-multiple-delete">{{ 'layout_resolver.delete'|trans }}</button>
-                    {% endif %}
                 {% endblock %}
 
                 {% if can_reorder %}
                     <button class="nl-btn nl-btn sorting-show js-sort-cancel">{{ 'layout_resolver.cancel'|trans }}</button>
                     <button class="nl-btn nl-btn-primary sorting-show js-sort-save">{{ 'layout_resolver.save_order'|trans }}</button>
                 {% endif %}
-            </div>
-            <div class="export-controls">
-                <a href="#" class="nl-btn nl-btn-primary js-download-export">{{ 'layout_resolver.export.download'|trans }}</a>
-                <a href="" class="nl-btn nl-btn-white js-cancel-export">{{ 'layout_resolver.export.cancel'|trans }}</a>
             </div>
         </div>
         <div class="nl-rules-head">
@@ -57,6 +46,21 @@
                 <div class="nl-rule-cell rule-conditions">{{ 'layout_resolver.conditions'|trans }}</div>
             </div>
         </div>
+
+            <div class="floating-controls">
+                {% block floating_controls %} 
+                    {% if is_granted('nglayouts:mapping:delete') %}
+                        <button id="delete-button" class="nl-btn nl-btn-white js-multiple-delete">{{ 'layout_resolver.delete'|trans }}</button>
+                    {% endif %}
+
+                    <a class="nl-btn js-clear-selection"><i class="material-icons">clear</i></a>
+                    <a href="#" class="nl-btn js-export" title="{{ 'layout_resolver.export.title'|trans }}"></a>
+                    <div class="export-controls">
+                        <a href="#" class="nl-btn nl-btn-primary js-download-export">{{ 'layout_resolver.export.download'|trans }}</a>
+                        <a href="" class="nl-btn nl-btn-white js-cancel-export">{{ 'layout_resolver.export.cancel'|trans }}</a>
+                    </div>
+                {% endblock %}
+            </div>
 
         {% block elements %}
             <div class="nl-rules">
