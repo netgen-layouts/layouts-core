@@ -36,7 +36,7 @@ final class LayoutList extends ArrayCollection
     }
 
     /**
-     * @return \Ramsey\Uuid\UuidInterface[]
+     * @return list<\Ramsey\Uuid\UuidInterface>
      */
     public function getLayoutIds(): array
     {

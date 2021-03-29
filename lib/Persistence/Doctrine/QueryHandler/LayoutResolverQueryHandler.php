@@ -927,7 +927,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     /**
      * Loads all sub group IDs for the provided group ID.
      *
-     * @return int[]
+     * @return list<int>
      */
     public function loadSubGroupIds(int $ruleGroupId): array
     {
