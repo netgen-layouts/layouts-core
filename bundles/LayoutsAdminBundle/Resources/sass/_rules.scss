@@ -35,6 +35,9 @@
         .rule-priority {
             display: block;
         }
+        .js-add-group, .js-add-rule {
+            display: none !important;
+        }
     }
 }
 
