@@ -35,7 +35,7 @@ export default class NlExport {
             }
         });
 
-        this.exportBtn.addEventListener('click', this.startExport.bind(this));
+        this.exportBtn && this.exportBtn.addEventListener('click', this.startExport.bind(this));
         this.toggleAllCheckbox.addEventListener('change', this.toggleSelectAll.bind(this));
     }
 

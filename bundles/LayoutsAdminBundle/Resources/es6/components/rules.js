@@ -114,8 +114,8 @@ export default class NlRules {
         this.selectingId = id;
         id === this.id ? this.floatingControls.style.display = 'flex' : this.floatingControls.style.display = 'none';
         id === this.id ? this.rulesHeader.style.display = 'none' : this.rulesHeader.style.display = 'flex';
-        id === this.id ? this.addRuleButton.style.display = 'none' : this.addRuleButton.style.display = 'inline-block';
-        id === this.id ? this.reorderButton.style.display = 'none' : this.reorderButton.style.display = 'inline-block';
+        this.addRuleButton && id === this.id ? this.addRuleButton.style.display = 'none' : this.addRuleButton.style.display = 'inline-block';
+        this.reorderButton && id === this.id ? this.reorderButton.style.display = 'none' : this.reorderButton.style.display = 'inline-block';
         Object.keys(this.rules.byId).forEach((key) => {
             this.rules.byId[key].handleCheckboxDisable(id);
         });
