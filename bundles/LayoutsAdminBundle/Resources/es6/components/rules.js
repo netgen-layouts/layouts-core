@@ -180,11 +180,8 @@ export default class NlRules {
         }).catch((error) => {
             console.log(error); // eslint-disable-line no-console
         });
-        this.setSelectingId(null);
-        this.rules.ids.forEach((id) => {
-            this.rules.byId[id].selected = false;
-            this.rules.byId[id].selectElement.checked = false;
-        });
+        modal.el.addEventListener('apply', formAction);
+        modal.el.addEventListener('cancel', () => this.clearCheckboxes());
     }
 
     sortStart() {
