@@ -612,7 +612,7 @@
         }
     }
 
-    &:not(.selected) {
+    &:not(.selected):not(.focused) {
         > .nl-group-content {
             > .nl-group-head {
                 &:hover {
