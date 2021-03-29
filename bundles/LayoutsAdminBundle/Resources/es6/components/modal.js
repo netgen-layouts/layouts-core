@@ -76,6 +76,7 @@ export default class NlModal {
 
     close(e) {
         e && e.preventDefault();
+        this.el.dispatchEvent(new Event('cancel'));
         this.destroy();
         window.removeEventListener('keydown', this.onKeyDown);
     }
