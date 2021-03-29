@@ -129,9 +129,63 @@
     font-size: 12px;
     align-items: center;
     outline: none;
+
+    &.selected {
+        .nl-rule-head {
+            background-color: #F4F8FE !important;
+
+            > .rule-layout {
+                border-left: 2px solid #2565ED;
+                background-color: #F4F8FE;
+            }
+        }
+    }
+
+    &:not(.selected) {
+        &:hover {
+            .nl-rule-head {
+                background-color: #FFF1EF !important;
+    
+                > .rule-layout {
+                    border-left: 2px solid #F97B62;
+                    background-color: #FFF1EF;
+                }
+    
+                > .nl-rule-cell {
+                    > .nl-export-checkbox {
+                        visibility: visible;
+                    }
+                }
+            }
+            .rule-details, .nl-dropdown-toggle {
+                display: flex !important;
+            }
+        }
+    }
+
+    &.focused {
+        position: relative;
+        outline: 3px solid #3671E7;
+        
+        .rule-details, .nl-dropdown-toggle {
+            display: flex !important;
+        }
+
+        .nl-export-checkbox {
+            visibility: visible;
+        }
+    }
+
+    &.nl-dropdown-active {
+        .rule-details, .nl-dropdown-toggle {
+            display: flex !important;
+        }
+    }
+
     &.nl-rule-hidden {
         display: none;
     }
+
     &.show-body {
         .nl-rule-body-overlay {
             display: block;
@@ -141,6 +195,7 @@
             }
         }
     }
+
     &.show-actions {
         .nl-rule-actions {
             display: block;
@@ -197,6 +252,8 @@
             font-size: 14px;
             font-weight: 700;
             color: hsl(0, 0, 20);
+            padding-left: 20px;
+            border-left: 2px solid transparent;
         }
         .nl-dropdown {
             display: flex;
@@ -528,41 +585,6 @@
             visibility: hidden;
         }
     }
-
-    &:hover {
-        .nl-rule-head {
-            background: #F4F8FE !important;
-
-            > .nl-rule-cell {
-                > .nl-export-checkbox {
-                    visibility: visible;
-                }
-            }
-        }
-
-        .rule-details, .nl-dropdown-toggle {
-            display: flex !important;
-        }
-    }
-
-    &.focused {
-        position: relative;
-        outline: 3px solid #3671E7;
-        
-        .rule-details, .nl-dropdown-toggle {
-            display: flex !important;
-        }
-
-        .nl-export-checkbox {
-            visibility: visible;
-        }
-    }
-
-    &.nl-dropdown-active {
-        .rule-details, .nl-dropdown-toggle {
-            display: flex !important;
-        }
-    }
 }
 
 .nl-rule-content {
@@ -576,6 +598,50 @@
     font-size: 12px;
     align-items: center;
     outline: none;
+
+    &.selected {
+        .nl-group-head {
+            background-color: #F4F8FE !important;
+
+            > .group-title {
+                border-left: 2px solid #2565ED;
+                background-color: #F4F8FE;
+            }
+        }
+    }
+
+    &:not(.selected) {
+        .nl-group-head {
+            &:hover {
+                background: #FFF1EF !important;
+    
+                &:first-child {
+                    background-color: white;
+                }
+    
+                > .group-title {
+                    border-left: 2px solid #F97B62;
+                }
+        
+                > .nl-rule-cell {
+                    > .nl-export-checkbox {
+                        visibility: visible;
+                    }
+                }
+        
+                > .group-details {
+                    display: flex !important;
+                }
+        
+                > .nl-dropdown {
+                    > .nl-dropdown-toggle {
+                        display: flex;
+                    }
+                }
+            }
+        }
+    }
+
     &.nl-rule-hidden {
         display: none;
     }
@@ -830,6 +896,9 @@
             font-weight: 700;
             color: hsl(0, 0, 20);
             width: 35%;
+            align-self: stretch;
+            border-left: 2px solid transparent;
+            padding-left: 20px;
             i {
                 padding: 1rem 1rem 1rem 0;
                 color: #2565ED;
@@ -881,26 +950,6 @@
                 }
             }
         }
-
-        &:hover {
-            background: #F4F8FE !important;
-
-            > .nl-rule-cell {
-                > .nl-export-checkbox {
-                    visibility: visible;
-                }
-            }
-
-            > .group-details {
-                display: flex !important;
-            }
-
-            > .nl-dropdown {
-                > .nl-dropdown-toggle {
-                    display: flex;
-                }
-            }
-        }
     }
 
     &.hide-checkbox {
@@ -922,20 +971,20 @@
         padding: 0 20px;
 
         .rule-layout {
-            padding-left: 35px;
+            padding-left: 55px;
         }
 
         .group-title {
-            padding-left: 35px;
+            padding-left: 55px;
         }
 
         .nl-group-body {
             .rule-layout {
-                padding-left: 70px;
+                padding-left: 90px;
             }
 
             .group-title {
-                padding-left: 70px;
+                padding-left: 90px;
             }
         }
     }
