@@ -697,6 +697,7 @@
         display: none;
     }
     &.show-body {
+        border-bottom: 1px solid #E3E3E3;
         > .nl-group-content {
             > .nl-group-body {
                 display: block;
