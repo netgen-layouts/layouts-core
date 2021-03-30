@@ -191,7 +191,7 @@
                     }
                 }
             }
-            .rule-details, .nl-dropdown-toggle {
+            .rule-details, .nl-dropdown-toggle, .rule-link-layout {
                 display: flex !important;
             }
         }
@@ -201,7 +201,7 @@
         position: relative;
         outline: 3px solid #3671E7;
         
-        .rule-details, .nl-dropdown-toggle {
+        .rule-details, .nl-dropdown-toggle, .rule-link-layout {
             display: flex !important;
         }
 
@@ -211,7 +211,7 @@
     }
 
     &.nl-dropdown-active {
-        .rule-details, .nl-dropdown-toggle {
+        .rule-details, .nl-dropdown-toggle, .rule-link-layout {
             display: flex !important;
         }
     }
@@ -270,6 +270,15 @@
             @extend %material-icons;
         }
     }
+
+    .rule-link-layout {
+        display: none;
+        padding: 10px 20px;
+        font-size: 12px;
+        line-height: 1.2;
+        color: hsl(0, 0, 50);
+    }
+
     .nl-rule-description {
         padding: 10px 20px;
         font-size: 12px;
