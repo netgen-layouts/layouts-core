@@ -79,9 +79,9 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->mapper->mapRuleGroups($data)[0];
     }
 
-    public function loadRulesForLayout(int $status, Layout $layout, int $offset = 0, ?int $limit = null): array
+    public function loadRulesForLayout(Layout $layout, int $offset = 0, ?int $limit = null, bool $ascending = false): array
     {
-        $data = $this->queryHandler->loadRulesForLayoutData($status, $layout, $offset, $limit);
+        $data = $this->queryHandler->loadRulesForLayoutData($layout, $offset, $limit, $ascending);
 
         return $this->mapper->mapRules($data);
     }
@@ -91,9 +91,9 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->queryHandler->getRuleCountForLayout(Value::STATUS_PUBLISHED, $layout);
     }
 
-    public function loadRulesFromGroup(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null): array
+    public function loadRulesFromGroup(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null, bool $ascending = false): array
     {
-        $data = $this->queryHandler->loadRulesFromGroupData($ruleGroup, $offset, $limit);
+        $data = $this->queryHandler->loadRulesFromGroupData($ruleGroup, $offset, $limit, $ascending);
 
         return $this->mapper->mapRules($data);
     }
@@ -103,9 +103,9 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
         return $this->queryHandler->getRuleCountFromGroup($ruleGroup);
     }
 
-    public function loadRuleGroups(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null): array
+    public function loadRuleGroups(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null, bool $ascending = false): array
     {
-        $data = $this->queryHandler->loadRuleGroupsData($ruleGroup, $offset, $limit);
+        $data = $this->queryHandler->loadRuleGroupsData($ruleGroup, $offset, $limit, $ascending);
 
         return $this->mapper->mapRuleGroups($data);
     }

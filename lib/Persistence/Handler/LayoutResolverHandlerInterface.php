@@ -49,9 +49,11 @@ interface LayoutResolverHandlerInterface
     /**
      * Loads all rules mapped to provided layout.
      *
+     * Rules will be sorted by priority ascending or descending based on the $ascending flag.
+     *
      * @return \Netgen\Layouts\Persistence\Values\LayoutResolver\Rule[]
      */
-    public function loadRulesForLayout(int $status, Layout $layout, int $offset = 0, ?int $limit = null): array;
+    public function loadRulesForLayout(Layout $layout, int $offset = 0, ?int $limit = null, bool $ascending = false): array;
 
     /**
      * Returns the number of published rules mapped to provided layout.
@@ -61,9 +63,11 @@ interface LayoutResolverHandlerInterface
     /**
      * Loads all rules from the provided parent group.
      *
+     * Rules will be sorted by priority ascending or descending based on the $ascending flag.
+     *
      * @return \Netgen\Layouts\Persistence\Values\LayoutResolver\Rule[]
      */
-    public function loadRulesFromGroup(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null): array;
+    public function loadRulesFromGroup(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null, bool $ascending = false): array;
 
     /**
      * Returns the number of rules from the provided parent group.
@@ -73,9 +77,11 @@ interface LayoutResolverHandlerInterface
     /**
      * Loads all rule groups from the provided parent group.
      *
+     * Rule groups will be sorted by priority ascending or descending based on the $ascending flag.
+     *
      * @return \Netgen\Layouts\Persistence\Values\LayoutResolver\RuleGroup[]
      */
-    public function loadRuleGroups(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null): array;
+    public function loadRuleGroups(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null, bool $ascending = false): array;
 
     /**
      * Returns the number of rule groups from the provided parent group.

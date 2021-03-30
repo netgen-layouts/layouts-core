@@ -61,7 +61,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return mixed[]
      */
-    public function loadRulesForLayoutData(int $status, Layout $layout, int $offset = 0, ?int $limit = null): array
+    public function loadRulesForLayoutData(Layout $layout, int $offset = 0, ?int $limit = null, bool $ascending = false): array
     {
         $query = $this->getRuleSelectQuery();
 
@@ -69,9 +69,9 @@ final class LayoutResolverQueryHandler extends QueryHandler
             $query->expr()->eq('layout_uuid', ':layout_uuid')
         )
         ->setParameter('layout_uuid', $layout->uuid, Types::STRING)
-        ->addOrderBy('rd.priority', 'DESC');
+        ->addOrderBy('rd.priority', $ascending ? 'ASC' : 'DESC');
 
-        $this->applyStatusCondition($query, $status, 'r.status');
+        $this->applyStatusCondition($query, $layout->status, 'r.status');
         $this->applyOffsetAndLimit($query, $offset, $limit);
 
         return $query->execute()->fetchAllAssociative();
@@ -102,7 +102,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return mixed[]
      */
-    public function loadRulesFromGroupData(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null): array
+    public function loadRulesFromGroupData(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null, bool $ascending = false): array
     {
         $query = $this->getRuleSelectQuery();
 
@@ -111,7 +111,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         )
         ->setParameter('rule_group_id', $ruleGroup->id, Types::INTEGER);
 
-        $query->addOrderBy('rd.priority', 'DESC');
+        $query->addOrderBy('rd.priority', $ascending ? 'ASC' : 'DESC');
 
         $this->applyStatusCondition($query, $ruleGroup->status, 'r.status');
         $this->applyOffsetAndLimit($query, $offset, $limit);
@@ -221,7 +221,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
      *
      * @return mixed[]
      */
-    public function loadRuleGroupsData(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null): array
+    public function loadRuleGroupsData(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null, bool $ascending = false): array
     {
         $query = $this->getRuleGroupSelectQuery();
 
@@ -230,7 +230,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         )
         ->setParameter('parent_id', $ruleGroup->id, Types::INTEGER);
 
-        $query->addOrderBy('rgd.priority', 'DESC');
+        $query->addOrderBy('rgd.priority', $ascending ? 'ASC' : 'DESC');
 
         $this->applyStatusCondition($query, $ruleGroup->status, 'rg.status');
         $this->applyOffsetAndLimit($query, $offset, $limit);

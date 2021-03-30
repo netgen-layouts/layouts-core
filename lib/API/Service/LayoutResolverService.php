@@ -26,7 +26,7 @@ use Netgen\Layouts\API\Values\LayoutResolver\TargetUpdateStruct;
 use Ramsey\Uuid\UuidInterface;
 
 /**
- * @method RuleList loadRulesForLayout(Layout $layout, int $offset = 0, ?int $limit = null)
+ * @method RuleList loadRulesForLayout(Layout $layout, int $offset = 0, ?int $limit = null, bool $ascending = false)
  * @method int getRuleCountForLayout(Layout $layout)
  * @method RuleCondition loadRuleCondition(UuidInterface $conditionId)
  * @method RuleCondition loadRuleConditionDraft(UuidInterface $conditionId)
@@ -94,9 +94,11 @@ interface LayoutResolverService extends TransactionService
     /**
      * Loads all published rules pointing to the provided layout.
      *
+     * Rules will be sorted by priority ascending or descending based on the $ascending flag.
+     *
      * @throws \Netgen\Layouts\Exception\BadStateException If provided layout is not published
      */
-    // public function loadRulesForLayout(Layout $layout, int $offset = 0, ?int $limit = null): RuleList;
+    // public function loadRulesForLayout(Layout $layout, int $offset = 0, ?int $limit = null, bool $ascending = false): RuleList;
 
     /**
      * Returns the number of published rules.
@@ -118,8 +120,10 @@ interface LayoutResolverService extends TransactionService
 
     /**
      * Loads all rules from the provided parent group.
+     *
+     * Rules will be sorted by priority ascending or descending based on the $ascending flag.
      */
-    public function loadRulesFromGroup(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null): RuleList;
+    public function loadRulesFromGroup(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null, bool $ascending = false): RuleList;
 
     /**
      * Returns the number of rules from the provided parent group.
@@ -128,8 +132,10 @@ interface LayoutResolverService extends TransactionService
 
     /**
      * Loads all rule groups from the provided parent group.
+     *
+     * Rule groups will be sorted by priority ascending or descending based on the $ascending flag.
      */
-    public function loadRuleGroups(RuleGroup $parentGroup, int $offset = 0, ?int $limit = null): RuleGroupList;
+    public function loadRuleGroups(RuleGroup $parentGroup, int $offset = 0, ?int $limit = null, bool $ascending = false): RuleGroupList;
 
     /**
      * Returns the number of rule groups from the provided parent group.

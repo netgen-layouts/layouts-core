@@ -163,7 +163,7 @@ final class LayoutResolverService implements APILayoutResolverService
         return $this->loadRulesForLayout($layout, $offset, $limit);
     }
 
-    public function loadRulesForLayout(Layout $layout, int $offset = 0, ?int $limit = null): RuleList
+    public function loadRulesForLayout(Layout $layout, int $offset = 0, ?int $limit = null, bool $ascending = false): RuleList
     {
         if (!$layout->isPublished()) {
             throw new BadStateException('layout', 'Only published layouts can be used in rules.');
@@ -175,10 +175,10 @@ final class LayoutResolverService implements APILayoutResolverService
         );
 
         $persistenceRules = $this->layoutResolverHandler->loadRulesForLayout(
-            Value::STATUS_PUBLISHED,
             $persistenceLayout,
             $offset,
-            $limit
+            $limit,
+            $ascending
         );
 
         return new RuleList(
@@ -216,7 +216,7 @@ final class LayoutResolverService implements APILayoutResolverService
         return $this->layoutResolverHandler->getRuleCountForLayout($persistenceLayout);
     }
 
-    public function loadRulesFromGroup(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null): RuleList
+    public function loadRulesFromGroup(RuleGroup $ruleGroup, int $offset = 0, ?int $limit = null, bool $ascending = false): RuleList
     {
         if (!$ruleGroup->isPublished()) {
             throw new BadStateException('ruleGroup', 'Rules can be loaded only from published rule groups.');
@@ -230,7 +230,8 @@ final class LayoutResolverService implements APILayoutResolverService
         $persistenceRules = $this->layoutResolverHandler->loadRulesFromGroup(
             $persistenceGroup,
             $offset,
-            $limit
+            $limit,
+            $ascending
         );
 
         return new RuleList(
@@ -255,7 +256,7 @@ final class LayoutResolverService implements APILayoutResolverService
         return $this->layoutResolverHandler->getRuleCountFromGroup($persistenceGroup);
     }
 
-    public function loadRuleGroups(RuleGroup $parentGroup, int $offset = 0, ?int $limit = null): RuleGroupList
+    public function loadRuleGroups(RuleGroup $parentGroup, int $offset = 0, ?int $limit = null, bool $ascending = false): RuleGroupList
     {
         if (!$parentGroup->isPublished()) {
             throw new BadStateException('parentGroup', 'Rule groups can be loaded only from published parent groups.');
@@ -269,7 +270,8 @@ final class LayoutResolverService implements APILayoutResolverService
         $persistenceRuleGroups = $this->layoutResolverHandler->loadRuleGroups(
             $persistenceParentGroup,
             $offset,
-            $limit
+            $limit,
+            $ascending
         );
 
         return new RuleGroupList(

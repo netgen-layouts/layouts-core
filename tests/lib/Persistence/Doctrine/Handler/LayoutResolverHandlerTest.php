@@ -141,7 +141,6 @@ final class LayoutResolverHandlerTest extends TestCase
     public function testLoadRulesForLayout(): void
     {
         $rules = $this->handler->loadRulesForLayout(
-            Value::STATUS_PUBLISHED,
             $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED)
         );
 
