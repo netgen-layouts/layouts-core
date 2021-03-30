@@ -55,6 +55,9 @@ export default class NlRule {
         this.selectElement = document.getElementById(`export${this.id}`);
         this.selected = this.selectElement && this.selectElement.checked;
         [this.checkBoxContainer] = this.el.getElementsByClassName('nl-export-checkbox');
+        this.subDirEl = this.el.querySelector('#subdirectory');
+
+        this.subDirEl.style.display = 'none';
 
         this.el.dataset.id = this.id;
         this.setupEvents();

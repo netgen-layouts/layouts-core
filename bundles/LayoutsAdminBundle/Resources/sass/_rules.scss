@@ -288,6 +288,14 @@
             color: hsl(0, 0, 20);
             padding-left: 20px;
             border-left: 2px solid transparent;
+
+            i {
+                padding: 1rem 1rem 1rem 0;
+            }
+
+            #subdirectory {
+                color: gray;
+            }
         }
         .nl-dropdown {
             display: flex;
@@ -938,6 +946,10 @@
                 color: #2565ED;
             }
 
+            #subdirectory {
+                color: gray;
+            }
+
             &:hover {
                 p {
                     text-decoration: underline;
@@ -1004,21 +1016,13 @@
         background: white;
         padding: 0 20px;
 
-        .rule-layout {
-            padding-left: 55px;
-        }
-
-        .group-title {
-            padding-left: 55px;
-        }
-
         .nl-group-body {
             .rule-layout {
-                padding-left: 90px;
+                padding-left: 55px;
             }
 
             .group-title {
-                padding-left: 90px;
+                padding-left: 55px;
             }
         }
     }
