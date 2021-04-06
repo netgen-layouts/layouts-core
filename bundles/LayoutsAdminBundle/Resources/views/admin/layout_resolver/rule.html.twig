@@ -24,6 +24,7 @@
     data-target-type="{{ target_type_identifier }}"
     data-layout-id="{% if rule.layout is not empty %}{{ rule.layout.id.toString }}{% endif %}"
     data-group-id="{{ rule.ruleGroupId.toString }}"
+    data-enabled="{{ rule.enabled }}"
     >
 
     <div class="nl-rule-head">

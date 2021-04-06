@@ -164,6 +164,38 @@
     align-items: center;
     outline: none;
 
+    &.disabled {
+        > .nl-rule-content {
+            > .nl-rule-head {
+                background: rgba(226, 2, 37, 0.1) !important;
+                > .rule-layout {
+                    opacity: 50%;
+                }
+                &:hover {
+                    > .nl-rule-cell {
+                        > .nl-export-checkbox {
+                            visibility: visible;
+                        }
+                    }
+
+                    > .rule-link-layout {
+                        display: flex;
+                    }
+    
+                    > .rule-details {
+                        display: flex !important;
+                    }
+    
+                    > .nl-dropdown {
+                        > .nl-dropdown-toggle {
+                            display: flex;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     &.selected {
         .nl-rule-head {
             background-color: #F4F8FE !important;
@@ -650,6 +682,40 @@
     align-items: center;
     outline: none;
 
+    &.disabled {
+        > .nl-group-content {
+            > .nl-group-head {
+                background: rgba(226, 2, 37, 0.1) !important;
+                > .group-title {
+                    p, i {
+                        opacity: 50%;
+                    }
+
+                    i {
+                        color: red;
+                    }
+                }
+                &:hover {
+                    > .nl-rule-cell {
+                        > .nl-export-checkbox {
+                            visibility: visible;
+                        }
+                    }
+    
+                    > .group-details {
+                        display: flex !important;
+                    }
+    
+                    > .nl-dropdown {
+                        > .nl-dropdown-toggle {
+                            display: flex;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     &.selected {
         > .nl-group-content {
             > .nl-group-head {
@@ -663,7 +729,7 @@
         }
     }
 
-    &:not(.selected):not(.focused) {
+    &:not(.selected):not(.focused):not(.disabled) {
         > .nl-group-content {
             > .nl-group-head {
                 &:hover {

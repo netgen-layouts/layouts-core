@@ -51,6 +51,7 @@ export default class NlRule {
         this.draftCreated = false;
         [this.priorityEl] = this.el.getElementsByClassName('rule-priority');
         this.type = 'rule';
+        this.enabled = this.attributes.enabled;
 
         this.selectElement = document.getElementById(`export${this.id}`);
         this.selected = this.selectElement && this.selectElement.checked;
@@ -76,6 +77,18 @@ export default class NlRule {
         [...this.el.getElementsByClassName('nl-dropdown')].forEach((el) => {
             !el.getElementsByClassName('nl-dropdown-menu')[0].childElementCount && el.parentElement.removeChild(el);
         });
+        this.attributes = this.el.getElementsByClassName('nl-rule-content')[0].dataset;
+
+        this.enabled = this.attributes.enabled;
+        this.checkEnabled();
+    }
+
+    checkEnabled() {
+        if (this.enabled !== '1') {
+            this.el.classList.add('disabled');
+        } else {
+            this.el.classList.remove('disabled');
+        }
     }
 
     createDraft(callback) {
