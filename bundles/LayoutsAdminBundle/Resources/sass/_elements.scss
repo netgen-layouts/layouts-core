@@ -50,6 +50,7 @@
     &.nl-btn-primary {
         background:$linkColor;
         color:#fff;
+        font-weight: bold;
         &:hover {
             background:darken($linkColor, 4%);
         }
@@ -77,6 +78,21 @@
         &:active {
             background:hsla(0, 0, 62, 0.4);
         }
+    }
+
+    &.nl-btn-gray {
+      background: #f2f2f2;
+      padding: 0 20px;
+      font-weight: bold;
+      &:hover {
+        background:hsla(0, 0, 62, 0.2);
+      }
+      &:focus:not(:active) {
+          background:hsla(0, 0, 62, 0.3);
+      }
+      &:active {
+          background:hsla(0, 0, 62, 0.4);
+      }
     }
 
     i {
