@@ -200,6 +200,7 @@ export default class NlRules {
             draggable: '> .nl-rule',
             direction: 'vertical',
             animation: 150,
+            forceFallback: true,
             onEnd: (e) => {
               this.moveRule(e.oldIndex, e.newIndex);
             },
