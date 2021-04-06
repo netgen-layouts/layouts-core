@@ -25,8 +25,6 @@ final class ResultSetTest extends TestCase
      * @covers \Netgen\Layouts\Collection\Result\ResultSet::getTotalCount
      * @covers \Netgen\Layouts\Collection\Result\ResultSet::offsetExists
      * @covers \Netgen\Layouts\Collection\Result\ResultSet::offsetGet
-     * @covers \Netgen\Layouts\Collection\Result\ResultSet::offsetSet
-     * @covers \Netgen\Layouts\Collection\Result\ResultSet::offsetUnset
      */
     public function testObject(): void
     {
@@ -57,20 +55,40 @@ final class ResultSetTest extends TestCase
 
         self::assertTrue(isset($result[0]));
         self::assertSame($resultItem, $result[0]);
+    }
 
-        try {
-            $result[0] = 'new';
-            self::fail('Succeeded in setting a new value to result set.');
-        } catch (RuntimeException $e) {
-            // Do nothing
-        }
+    /**
+     * @covers \Netgen\Layouts\Collection\Result\ResultSet::offsetSet
+     */
+    public function testSet(): void
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
 
-        try {
-            unset($result[0]);
-            self::fail('Succeeded in unsetting a value in result set.');
-        } catch (RuntimeException $e) {
-            // Do nothing
-        }
+        $result = ResultSet::fromArray(
+            [
+                'results' => [new Result(0, new CmsItem())],
+            ]
+        );
+
+        $result[0] = 'new';
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Collection\Result\ResultSet::offsetUnset
+     */
+    public function testUnset(): void
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
+
+        $result = ResultSet::fromArray(
+            [
+                'results' => [new Result(0, new CmsItem())],
+            ]
+        );
+
+        unset($result[0]);
     }
 
     /**

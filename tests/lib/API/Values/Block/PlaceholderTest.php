@@ -19,8 +19,6 @@ final class PlaceholderTest extends TestCase
      * @covers \Netgen\Layouts\API\Values\Block\Placeholder::getIterator
      * @covers \Netgen\Layouts\API\Values\Block\Placeholder::offsetExists
      * @covers \Netgen\Layouts\API\Values\Block\Placeholder::offsetGet
-     * @covers \Netgen\Layouts\API\Values\Block\Placeholder::offsetSet
-     * @covers \Netgen\Layouts\API\Values\Block\Placeholder::offsetUnset
      */
     public function testSetProperties(): void
     {
@@ -44,19 +42,39 @@ final class PlaceholderTest extends TestCase
 
         self::assertTrue(isset($placeholder[0]));
         self::assertSame($block, $placeholder[0]);
+    }
 
-        try {
-            $placeholder[1] = $block;
-            self::fail('Succeeded in setting a new block to placeholder.');
-        } catch (RuntimeException $e) {
-            // Do nothing
-        }
+    /**
+     * @covers \Netgen\Layouts\API\Values\Block\Placeholder::offsetSet
+     */
+    public function testSet(): void
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
 
-        try {
-            unset($placeholder[0]);
-            self::fail('Succeeded in unsetting a block in placeholder.');
-        } catch (RuntimeException $e) {
-            // Do nothing
-        }
+        $placeholder = Placeholder::fromArray(
+            [
+                'blocks' => new ArrayCollection([new Block()]),
+            ]
+        );
+
+        $placeholder[1] = new Block();
+    }
+
+    /**
+     * @covers \Netgen\Layouts\API\Values\Block\Placeholder::offsetUnset
+     */
+    public function testUnset(): void
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
+
+        $placeholder = Placeholder::fromArray(
+            [
+                'blocks' => new ArrayCollection([new Block()]),
+            ]
+        );
+
+        unset($placeholder[0]);
     }
 }

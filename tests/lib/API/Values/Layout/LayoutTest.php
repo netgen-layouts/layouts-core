@@ -8,7 +8,6 @@ use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\Layout\Zone;
-use Netgen\Layouts\Exception\API\LayoutException;
 use Netgen\Layouts\Exception\RuntimeException;
 use Netgen\Layouts\Layout\Type\LayoutType;
 use PHPUnit\Framework\TestCase;
@@ -35,8 +34,6 @@ final class LayoutTest extends TestCase
      * @covers \Netgen\Layouts\API\Values\Layout\Layout::isShared
      * @covers \Netgen\Layouts\API\Values\Layout\Layout::offsetExists
      * @covers \Netgen\Layouts\API\Values\Layout\Layout::offsetGet
-     * @covers \Netgen\Layouts\API\Values\Layout\Layout::offsetSet
-     * @covers \Netgen\Layouts\API\Values\Layout\Layout::offsetUnset
      */
     public function testSetProperties(): void
     {
@@ -92,25 +89,49 @@ final class LayoutTest extends TestCase
 
         self::assertTrue(isset($layout['left']));
         self::assertSame($zones['left'], $layout['left']);
+    }
 
-        try {
-            $layout->getZone('test');
-        } catch (LayoutException $e) {
-            // Do nothing
-        }
+    /**
+     * @covers \Netgen\Layouts\API\Values\Layout\Layout::offsetSet
+     */
+    public function testSet(): void
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
 
-        try {
-            $layout['left'] = new Zone();
-            self::fail('Succeeded in setting a new zone to layout.');
-        } catch (RuntimeException $e) {
-            // Do nothing
-        }
+        $zones = [
+            'left' => Zone::fromArray(['identifier' => 'left']),
+            'right' => Zone::fromArray(['identifier' => 'right', 'linkedZone' => new Zone()]),
+        ];
 
-        try {
-            unset($layout['left']);
-            self::fail('Succeeded in unsetting a zone in layout.');
-        } catch (RuntimeException $e) {
-            // Do nothing
-        }
+        $layout = Layout::fromArray(
+            [
+                'zones' => new ArrayCollection($zones),
+            ]
+        );
+
+        $layout['left'] = new Zone();
+    }
+
+    /**
+     * @covers \Netgen\Layouts\API\Values\Layout\Layout::offsetUnset
+     */
+    public function testUnset(): void
+    {
+        $this->expectException(RuntimeException::class);
+        $this->expectExceptionMessage('Method call not supported.');
+
+        $zones = [
+            'left' => Zone::fromArray(['identifier' => 'left']),
+            'right' => Zone::fromArray(['identifier' => 'right', 'linkedZone' => new Zone()]),
+        ];
+
+        $layout = Layout::fromArray(
+            [
+                'zones' => new ArrayCollection($zones),
+            ]
+        );
+
+        unset($layout['left']);
     }
 }

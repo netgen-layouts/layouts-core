@@ -18,7 +18,6 @@ parameters:
 
         # Doctrine DBAL
         - '#Cannot call method fetchAllAssociative\(\) on Doctrine\\DBAL\\Driver\\ResultStatement\|int#'
-        - '#Call to an undefined method Doctrine\\DBAL\\Driver\\ResultStatement::fetchAllAssociative\(\)#'
         - '#expects string\|null, Doctrine\\DBAL\\Query\\Expression\\CompositeExpression given#'
 
         # Compatibility with older versions of Symfony
