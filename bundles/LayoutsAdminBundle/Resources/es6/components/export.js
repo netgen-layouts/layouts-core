@@ -26,7 +26,13 @@ export default class NlExport {
 
     setupEvents() {
         this.el.addEventListener('click', (e) => {
-            this.downloadExport(e);
+            if (e.target.closest('.js-cancel-export')) {
+                e.stopPropagation();
+                this.endExport(e);
+            } else if (e.target.closest('.js-download-export')) {
+                e.stopPropagation();
+                this.downloadExport(e);
+            }
         });
 
         this.exportBtn && this.exportBtn.addEventListener('click', this.startExport.bind(this));
@@ -88,7 +94,9 @@ export default class NlExport {
             }).then((data) => {
                 downloadFile(fileName, data);
                 this.endExport();
+                layoutsAppEl.classList.remove('ajax-loading');
             }).catch((error) => {
+                layoutsAppEl.classList.remove('ajax-loading');
                 console.log(error); // eslint-disable-line no-console
             });
         }

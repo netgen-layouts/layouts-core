@@ -61,6 +61,10 @@
         .js-multiple-delete, .js-move, .js-clear-selection, .js-export {
             display: none !important;
         }
+
+        > .export-controls {
+            display: block;
+        }
     }
 }
 
