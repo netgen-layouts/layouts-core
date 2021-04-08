@@ -146,7 +146,16 @@ abstract class ImporterTest extends CoreTestCase
     public function testImportRules(): void
     {
         $importData = (string) file_get_contents(__DIR__ . '/../../_fixtures/input/rules.json');
-        $decodedData = json_decode((string) preg_replace('/[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}/', '@uuid@', $importData), true);
+
+        $decodedData = json_decode(
+            (string) preg_replace(
+                // @uuid@ matcher from coduo/php-matcher does not support NIL UUID
+                '/(?!00000000-0000-0000-0000-000000000000)([0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12})/',
+                '@uuid@',
+                $importData
+            ),
+            true
+        );
 
         foreach ($this->importer->importData($importData, new ImportOptions()) as $index => $result) {
             self::assertInstanceOf(SuccessResult::class, $result);
@@ -185,7 +194,16 @@ abstract class ImporterTest extends CoreTestCase
     public function testImportRuleGroups(): void
     {
         $importData = (string) file_get_contents(__DIR__ . '/../../_fixtures/input/rule_groups.json');
-        $decodedData = json_decode((string) preg_replace('/[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}/', '@uuid@', $importData), true);
+
+        $decodedData = json_decode(
+            (string) preg_replace(
+                // @uuid@ matcher from coduo/php-matcher does not support NIL UUID
+                '/(?!00000000-0000-0000-0000-000000000000)([0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12})/',
+                '@uuid@',
+                $importData
+            ),
+            true
+        );
 
         foreach ($this->importer->importData($importData, new ImportOptions()) as $index => $result) {
             self::assertInstanceOf(SuccessResult::class, $result);

@@ -498,6 +498,10 @@
                         "description": "The status of the rule",
                         "enum": ["DRAFT", "PUBLISHED", "ARCHIVED"]
                     },
+                    "rule_group_id": {
+                        "$ref": "#/definitions/simple/uuid",
+                        "description": "The ID of the group rule is located in (Not defining this property is DEPRECATED. Will become required in 2.0)"
+                    },
                     "layout_id": {
                         "oneOf": [
                             { "$ref": "#/definitions/simple/uuid" },
@@ -540,7 +544,7 @@
             "rule_group": {
                 "type": "object",
                 "description": "A rule group",
-                "required": ["__type", "id", "status", "name", "description", "is_enabled", "priority", "groups", "rules", "conditions"],
+                "required": ["__type", "id", "status", "parent_id", "name", "description", "is_enabled", "priority", "groups", "rules", "conditions"],
                 "additionalProperties": false,
                 "properties": {
                     "__type": {
@@ -556,6 +560,13 @@
                         "type": "string",
                         "description": "The status of the rule group",
                         "enum": ["DRAFT", "PUBLISHED", "ARCHIVED"]
+                    },
+                    "parent_id": {
+                        "oneOf": [
+                            { "$ref": "#/definitions/simple/uuid" },
+                            { "type": "null" }
+                        ],
+                        "description": "The ID of the parent group"
                     },
                     "name": {
                         "type": "string",

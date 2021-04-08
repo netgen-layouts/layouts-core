@@ -2,6 +2,7 @@
     "__type": "rule",
     "id": "c6891782-9d3e-58b7-95ac-261f491cc1ae",
     "status": "PUBLISHED",
+    "rule_group_id": "00000000-0000-0000-0000-000000000000",
     "layout_id": null,
     "is_enabled": false,
     "priority": -1,

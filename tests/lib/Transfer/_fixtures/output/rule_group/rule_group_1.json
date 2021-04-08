@@ -2,6 +2,7 @@
     "__type": "rule_group",
     "id": "00000000-0000-0000-0000-000000000000",
     "status": "PUBLISHED",
+    "parent_id": null,
     "name": "",
     "description": "",
     "is_enabled": true,

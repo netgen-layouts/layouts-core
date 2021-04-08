@@ -38,6 +38,7 @@ final class RuleVisitor implements VisitorInterface
             '__type' => self::ENTITY_TYPE,
             'id' => $value->getId()->toString(),
             'status' => $this->getStatusString($value),
+            'rule_group_id' => $value->getRuleGroupId()->toString(),
             'layout_id' => $layout instanceof Layout ? $layout->getId()->toString() : null,
             'is_enabled' => $value->isEnabled(),
             'priority' => $value->getPriority(),
