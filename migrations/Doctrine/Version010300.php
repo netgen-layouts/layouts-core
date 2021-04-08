@@ -116,6 +116,18 @@ final class Version010300 extends AbstractMigration
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on MySQL.');
 
+        $this->addSql('DROP TABLE nglayouts_rule_condition_rule_group');
+
+        $this->addSql(
+            <<<'EOT'
+            DELETE nglayouts_rule_condition.* FROM nglayouts_rule_condition
+            LEFT JOIN nglayouts_rule_condition_rule
+                ON nglayouts_rule_condition.id = nglayouts_rule_condition_rule.condition_id
+                AND nglayouts_rule_condition.status = nglayouts_rule_condition_rule.condition_status
+            WHERE nglayouts_rule_condition_rule.rule_id IS NULL
+            EOT
+        );
+
         $this->addSql('ALTER TABLE nglayouts_rule_condition ADD COLUMN rule_id int(11) NOT NULL AFTER uuid');
 
         $this->addSql(
@@ -128,11 +140,10 @@ final class Version010300 extends AbstractMigration
             EOT
         );
 
+        $this->addSql('DROP TABLE nglayouts_rule_condition_rule');
+
         $this->addSql('ALTER TABLE nglayouts_rule_condition ADD CONSTRAINT fk_ngl_condition_rule FOREIGN KEY (rule_id, status) REFERENCES nglayouts_rule (id, status)');
         $this->addSql('ALTER TABLE nglayouts_rule_condition ADD KEY idx_ngl_rule (rule_id, status)');
-
-        $this->addSql('DROP TABLE nglayouts_rule_condition_rule_group');
-        $this->addSql('DROP TABLE nglayouts_rule_condition_rule');
 
         $this->addSql('ALTER TABLE nglayouts_rule DROP COLUMN rule_group_id');
         $this->addSql('ALTER TABLE nglayouts_rule CHANGE description comment longtext NOT NULL');
