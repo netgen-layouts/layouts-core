@@ -26,10 +26,7 @@ export default class NlExport {
 
     setupEvents() {
         this.el.addEventListener('click', (e) => {
-            if (e.target.closest('.js-cancel-export')) {
-                e.stopPropagation();
-                this.endExport(e);
-            } else if (e.target.closest('.js-download-export')) {
+            if (e.target.closest('.js-export')) {
                 e.stopPropagation();
                 this.downloadExport(e);
             }
