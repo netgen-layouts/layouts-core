@@ -49,15 +49,21 @@
 
             <div class="floating-controls">
                 {% block floating_controls %} 
-                    {% if is_granted('nglayouts:mapping:delete') %}
-                        <button id="delete-button" class="nl-btn js-multiple-delete">{{ 'layout_resolver.delete'|trans }}</button>
-                    {% endif %}
-
                     <a class="nl-btn js-clear-selection"><i class="material-icons">clear</i></a>
                     <a href="#" class="nl-btn js-export" title="{{ 'layout_resolver.export.title'|trans }}">Export</a>
                     <div class="export-controls">
                         <a href="#" class="nl-btn nl-btn-primary js-download-export">{{ 'layout_resolver.export.download'|trans }}</a>
                         <a href="" class="nl-btn nl-btn-white js-cancel-export">{{ 'layout_resolver.export.cancel'|trans }}</a>
+                    </div>
+                    {% if is_granted('nglayouts:mapping:delete') %}
+                        <a id="delete-button" class="nl-btn js-multiple-delete">{{ 'layout_resolver.delete'|trans }}</a>
+                    {% endif %}
+                    <div class="align-right" style="margin-right: auto">
+                        <div class="nl-export-checkbox js-check-all">
+                            <input type="checkbox" id="check-all">
+                            <label for="check-all"></label>
+                        </div>
+                        <p class="selected-items"></p><p class="selected-items-text">item(s) selected</p>
                     </div>
                 {% endblock %}
             </div>

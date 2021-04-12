@@ -21,10 +21,14 @@ export default class NlRules {
         [this.appContainer] = document.getElementsByClassName('ng-layouts-app');
         [this.floatingControls] = document.getElementsByClassName('floating-controls');
         [this.clearSelectionButton] = document.getElementsByClassName('js-clear-selection');
+        [this.checkAllBoxesWrapper] = document.getElementsByClassName('js-check-all');
+        this.selectElement = document.getElementById('check-all');
         this.csrf = document.querySelector('meta[name=nglayouts-admin-csrf-token]').getAttribute('content');
         this.apiUrl = `${window.location.origin}${document.querySelector('meta[name=nglayouts-admin-base-path]').getAttribute('content')}`;
         this.baseUrl = `${this.apiUrl}/mappings/`;
         this.filter = JSON.parse(localStorage.getItem('ngMappingFilters')) || [];
+
+        [this.selectedItemsText] = this.el.getElementsByClassName('selected-items');
 
         this.id = '00000000-0000-0000-0000-000000000000';
         this.selectingId = null;
@@ -72,6 +76,16 @@ export default class NlRules {
         this.el.getElementsByClassName('js-sort-save')[0] && this.el.getElementsByClassName('js-sort-save')[0].addEventListener('click', this.sortSave.bind(this));
         this.el.getElementsByClassName('js-sort-cancel')[0] && this.el.getElementsByClassName('js-sort-cancel')[0].addEventListener('click', this.sortCancel.bind(this));
         this.el.getElementsByClassName('js-clear-selection')[0] && this.el.getElementsByClassName('js-clear-selection')[0].addEventListener('click', this.clearCheckboxes.bind(this));
+
+        this.selectElement.addEventListener('change', () => {
+            this.selected = this.selectElement.checked;
+            if (this.selected) {
+                this.selectAllCheckboxes();
+                this.checkboxLoop();
+            } else {
+                this.clearCheckboxes();
+            }
+        });
     }
 
     addRule(e) {
@@ -124,6 +138,7 @@ export default class NlRules {
         this.selectingId = id;
         id === this.id ? this.floatingControls.style.display = 'flex' : this.floatingControls.style.display = 'none';
         id === this.id ? this.rulesHeader.style.display = 'none' : this.rulesHeader.style.display = 'flex';
+        id === this.id ? this.checkAllBoxesWrapper.style.visibility = 'visible' : this.checkAllBoxesWrapper.style.visibility = 'hidden';
         this.addRuleButton && id === this.id ? this.addRuleButton.style.display = 'none' : this.addRuleButton.style.display = 'inline-block';
         this.reorderButton && id === this.id ? this.reorderButton.style.display = 'none' : this.reorderButton.style.display = 'inline-block';
         Object.keys(this.rules.byId).forEach((key) => {
@@ -142,12 +157,26 @@ export default class NlRules {
         this.checkboxLoop();
     }
 
+    selectAllCheckboxes() {
+        Object.keys(this.rules.byId).forEach((key) => {
+            this.rules.byId[key].selected = true;
+            this.rules.byId[key].selectElement.checked = true;
+            this.rules.byId[key].el.classList.add('selected');
+        });
+
+        this.checkboxLoop();
+    }
+
     checkboxLoop() {
         let checkBoxCount = 0;
         Object.keys(this.rules.byId).forEach((key) => {
             this.rules.byId[key].selected ? checkBoxCount++ : null;
         });
-        checkBoxCount ? null : this.setSelectingId(null);
+        checkBoxCount ? this.setItemNumber(checkBoxCount) : this.setSelectingId(null);
+    }
+
+    setItemNumber(checkboxCount) {
+        this.selectedItemsText.innerHTML = `${checkboxCount}&nbsp`;
     }
 
     deleteMultipleElements() {
@@ -282,8 +311,6 @@ export default class NlRules {
     initializeFilters() {
         this.updateFilterInputs();
         [...this.el.querySelectorAll('input[name=filter-mappings]')].forEach(el => el.addEventListener('change', this.updateFilter.bind(this)));
-        [...this.el.getElementsByClassName('js-check-all')].forEach(el => el.addEventListener('click', this.checkAllFilters.bind(this)));
-        [...this.el.getElementsByClassName('js-check-none')].forEach(el => el.addEventListener('click', this.checkNoneFilters.bind(this)));
         [...this.el.getElementsByClassName('js-multiple-delete')].forEach(el => el.addEventListener('click', this.deleteMultipleElements.bind(this)));
     }
 
