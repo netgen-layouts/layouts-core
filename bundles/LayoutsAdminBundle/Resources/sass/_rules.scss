@@ -50,6 +50,10 @@
         flex: 1;
         display: flex;
         padding-left: $gutter;
+
+        .rule-layout {
+            padding-left: 20px;
+        }
     }
     .rule-priority {
         text-transform: uppercase;
