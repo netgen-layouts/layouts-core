@@ -570,6 +570,11 @@ export default class NlRule {
         this.el.addEventListener('click', (e) => {
             e.stopPropagation();
             this.rules.focusCheck() && this.el.classList.add('focused');
+            document.addEventListener('click', (e2) => {
+                if (!this.el.contains(e2.target)) {
+                    this.rules.focusCheck() && this.el.classList.remove('focused');
+                }
+            }, { once: true });
         });
 
         this.el.addEventListener('click', (e) => {
@@ -612,10 +617,6 @@ export default class NlRule {
                 this.el.classList.toggle('show-body');
             }
         });
-
-        this.el.addEventListener('blur', () => {
-            this.el.classList.remove('focused');
-         });
 
         if (this.selectElement) {
             this.selectElement.addEventListener('change', () => {
