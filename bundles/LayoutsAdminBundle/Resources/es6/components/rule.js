@@ -613,7 +613,9 @@ export default class NlRule {
             }
         });
 
-        this.el.addEventListener('blur', () => { this.el.classList.remove('selected'); });
+        this.el.addEventListener('blur', () => {
+            this.el.classList.remove('focused');
+         });
 
         if (this.selectElement) {
             this.selectElement.addEventListener('change', () => {

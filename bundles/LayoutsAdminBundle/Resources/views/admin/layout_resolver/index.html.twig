@@ -65,7 +65,7 @@
         {% block elements %}
             <div class="nl-rules">
                 {% for rule in rules %}
-                    <div class="nl-rule nl-element">
+                    <div class="nl-rule nl-element" tabindex="0">
                         {{ nglayouts_render_rule(rule, [], 'admin') }}
                     </div>
                 {% endfor %}
