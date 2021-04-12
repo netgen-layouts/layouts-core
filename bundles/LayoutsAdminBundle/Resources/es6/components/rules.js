@@ -27,6 +27,8 @@ export default class NlRules {
         this.filter = JSON.parse(localStorage.getItem('ngMappingFilters')) || [];
 
         this.id = '00000000-0000-0000-0000-000000000000';
+        this.selectingId = null;
+        this.focusedId = null;
 
         this.initialize();
     }
@@ -110,6 +112,14 @@ export default class NlRules {
       });
     }
 
+    focusCheck() {
+        if (this.selectingId === null) {
+            this.appContainer.querySelectorAll('.focused').forEach(el => el.classList.remove('focused'));
+            return true;
+        }
+        return false;
+    }
+
     setSelectingId(id) {
         this.selectingId = id;
         id === this.id ? this.floatingControls.style.display = 'flex' : this.floatingControls.style.display = 'none';
@@ -119,6 +129,7 @@ export default class NlRules {
         Object.keys(this.rules.byId).forEach((key) => {
             this.rules.byId[key].handleCheckboxDisable(id);
         });
+        this.appContainer.querySelectorAll('.focused').forEach(el => el.classList.remove('focused'));
     }
 
     clearCheckboxes() {

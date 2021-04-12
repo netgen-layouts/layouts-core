@@ -568,6 +568,11 @@ export default class NlRule {
 
     setupEvents() {
         this.el.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.rules.focusCheck() && this.el.classList.add('focused');
+        });
+
+        this.el.addEventListener('click', (e) => {
             if (e.target.closest('.js-rule-edit')) {
                 this.ruleEdit(e);
             } else if (e.target.closest('.js-rule-unlink')) {
@@ -593,7 +598,7 @@ export default class NlRule {
                 this.clearLayoutCache(e);
             } else if (e.target.closest('.js-layout-clear-block-caches')) {
                 this.clearBlockCaches(e);
-            } else if (e.target.className === '.js-toggle-body') {
+            } else if (e.target.closest('.js-toggle-body')) {
                 e.stopPropagation();
                 this.el.classList.toggle('show-body');
             } else if (e.target.className === 'nl-rule-body-overlay') {
