@@ -77,12 +77,6 @@
             {% endif %}
         </div>
 
-        {% if not rule.enabled %}
-            <div class="nl-rule-cell">
-                <span class="disabled-label">{{ 'layout_resolver.rule.inactive'|trans }}</span>
-            </div>
-        {% endif %}
-
         <div class="nl-rule-cell rule-link-layout">
             <a class="js-link-layout" {% if rule.layout is not empty %}data-linked-layout="{{ rule.layout.id.toString }}"{% endif %} data-browser-item-type="layout" href="#">
                 {% if rule.layout is not empty %}
