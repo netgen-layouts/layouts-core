@@ -211,9 +211,9 @@ export default class NlRules {
     sortSave() {
         this.showLoader();
         const sorted = this.sortable.toArray();
-        const rules = sorted.map(rule => `rule_ids[]=${rule}`);
+        const rules = sorted.map(rule => `ids[${rule}]=rule`);
         const body = new URLSearchParams(rules.join('&'));
-        fetch(`${this.baseUrl}rules/priorities`, {
+        fetch(`${this.baseUrl}groups/${this.id}/priorities`, {
             method: 'POST',
             credentials: 'same-origin',
             headers: {

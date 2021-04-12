@@ -79,6 +79,27 @@ export default class NlRule {
         });
         this.attributes = this.el.getElementsByClassName('nl-rule-content')[0].dataset;
 
+        this.selectElement = document.getElementById(`export${this.id}`);
+        this.selected = this.selectElement && this.selectElement.checked;
+        [this.checkBoxContainer] = this.el.getElementsByClassName('nl-export-checkbox');
+        this.subDirEl = this.el.querySelector('#subdirectory');
+
+        this.subDirEl.style.display = 'none';
+
+        if (this.selectElement) {
+            this.selectElement.addEventListener('change', () => {
+                this.selected = this.selectElement.checked;
+
+                if (this.selected) {
+                        this.el.classList.add('selected');
+                        this.rules.setSelectingId('00000000-0000-0000-0000-000000000000');
+                } else {
+                    this.el.classList.remove('selected');
+                    this.rules.checkboxLoop();
+                }
+            });
+        }
+
         this.enabled = this.attributes.enabled;
         this.checkEnabled();
     }
@@ -422,6 +443,7 @@ export default class NlRule {
                         return response.text();
                     }).then((data) => {
                         this.renderEl(data);
+                        this.el.classList.add('show-body');
                     }).catch((error) => {
                         console.log(error); // eslint-disable-line no-console
                     });
