@@ -787,6 +787,18 @@
                 display: block;
                 @extend %fadeIn;
             }
+
+            > .nl-group-head {
+                > .group-title {
+                    > .folder {
+                        display: none;
+                    }
+    
+                    > .folder-open {
+                        display: block;
+                    }
+                }
+            }
         }
     }
     &.show-actions {
@@ -1069,10 +1081,15 @@
             align-self: stretch;
             border-left: 2px solid transparent;
             padding-left: 20px;
-            i {
+            .folder, .folder-open {
                 padding: 1rem 1rem 1rem 0;
                 color: #2565ED;
             }
+
+            .folder-open {
+                display: none;
+            }
+
 
             #subdirectory {
                 color: gray;
