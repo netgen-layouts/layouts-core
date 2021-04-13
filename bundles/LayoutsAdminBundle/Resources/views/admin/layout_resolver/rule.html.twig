@@ -38,6 +38,12 @@
         <div class="nl-rule-cell rule-layout">
             <div class="rule-priority"></div>
             <i class="material-icons" id="subdirectory">subdirectory_arrow_right</i>
+            <span class="rule-icon">
+                {% include '@NetgenLayoutsAdmin/admin/svg/rule.svg.twig' %}
+            </span>
+            <span class="rule-icon-disabled">
+                {% include '@NetgenLayoutsAdmin/admin/svg/rule_disabled.svg.twig' %}
+            </span>
             {% if rule.layout is not empty %}
                 {{ rule.layout.name }}
             {% else %}

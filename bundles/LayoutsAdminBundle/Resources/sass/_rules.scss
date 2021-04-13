@@ -188,6 +188,14 @@
                 background: rgba(226, 2, 37, 0.1) !important;
                 > .rule-layout {
                     opacity: 50%;
+
+                    .rule-icon {
+                        display: none;
+                    }
+
+                    .rule-icon-disabled {
+                        display: block;
+                    }
                 }
                 &:hover {
                     > .nl-rule-cell {
@@ -348,8 +356,14 @@
             padding-left: 20px;
             border-left: 2px solid transparent;
 
-            i {
+            .rule-icon, .rule-icon-disabled {
                 padding: 1rem 1rem 1rem 0;
+                font-size: 24px;
+                line-height: 24px;
+            }
+
+            .rule-icon-disabled {
+                display: none;
             }
 
             #subdirectory {
@@ -705,12 +719,16 @@
             > .nl-group-head {
                 background: rgba(226, 2, 37, 0.1) !important;
                 > .group-title {
-                    p, i {
+                    p{
                         opacity: 50%;
                     }
 
-                    i {
-                        color: red;
+                    .folder-disabled {
+                        display: block;
+                    }
+
+                    .folder, .folder-open, .folder-open-disabled {
+                        display: none;
                     }
                 }
                 &:hover {
@@ -727,6 +745,22 @@
                     > .nl-dropdown {
                         > .nl-dropdown-toggle {
                             display: flex;
+                        }
+                    }
+                }
+            }
+        }
+
+        &.show-body {
+            > .nl-group-content {
+                > .nl-group-head {
+                    > .group-title {
+                        .folder-open-disabled {
+                            display: block;
+                        }
+
+                        .folder, .folder-open, .folder-disabled {
+                            display: none;
                         }
                     }
                 }
@@ -790,7 +824,7 @@
 
             > .nl-group-head {
                 > .group-title {
-                    > .folder {
+                    > .folder, > .folder-disabled, > .folder-open-disabled {
                         display: none;
                     }
     
@@ -1081,12 +1115,14 @@
             align-self: stretch;
             border-left: 2px solid transparent;
             padding-left: 20px;
-            .folder, .folder-open {
+            .folder, .folder-open, .folder-disabled, .folder-open-disabled {
                 padding: 1rem 1rem 1rem 0;
                 color: #2565ED;
+                font-size: 24px;
+                line-height: 24px;
             }
 
-            .folder-open {
+            .folder-open, .folder-disabled,  .folder-open-disabled {
                 display: none;
             }
 
