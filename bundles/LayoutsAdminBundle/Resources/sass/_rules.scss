@@ -1197,6 +1197,10 @@
         background: white;
         padding: 0 20px;
 
+        .folder, .folder-disabled, .folder-open, .folder-open-disabled, .rule-icon, .rule-icon.disabled {
+            margin-left: 10px;
+        }
+
         .nl-group-body {
             .rule-layout {
                 padding-left: 55px;
