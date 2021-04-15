@@ -44,7 +44,7 @@
                 {% include '@NetgenLayoutsAdmin/admin/svg/rule_disabled.svg.twig' %}
             </span>
             {% if rule.layout is not empty %}
-                {{ rule.layout.name }}
+                <p>{{ rule.layout.name }}</p>
             {% else %}
                 <div class="no-layout" title="{{ 'layout_resolver.rule.no_mapped_layout'|trans }}">
                     <span>{{ 'layout_resolver.rule.no_mapped_layout'|trans }}</span>

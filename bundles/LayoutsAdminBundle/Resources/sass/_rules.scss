@@ -181,11 +181,12 @@
     font-size: 12px;
     align-items: center;
     outline: none;
+    border-bottom: 1px solid #e3e3e3;
 
     &.disabled {
         > .nl-rule-content {
             > .nl-rule-head {
-                background: rgba(226, 2, 37, 0.1) !important;
+                // background: rgba(226, 2, 37, 0.1) !important;
                 > .rule-layout {
                     border-left: 2px solid #F97B62;
                     // opacity: 50%;
@@ -199,6 +200,10 @@
                     }
                 }
                 &:hover {
+                    background: #FCE6E9;
+                    > .rule-layout {
+                        border-left: 2px solid #F97B62;
+                    }
                     > .nl-rule-cell {
                         > .nl-export-checkbox {
                             visibility: visible;
@@ -224,6 +229,7 @@
     }
 
     &.selected {
+        border-bottom: 1px solid white;
         .nl-rule-head {
             background-color: #F4F8FE !important;
 
@@ -237,11 +243,9 @@
     &:not(.selected) {
         &:hover {
             .nl-rule-head {
-                background-color: #FFF1EF !important;
-    
+                background: #FEF8E8;
                 > .rule-layout {
-                    border-left: 2px solid #F97B62;
-                    background-color: #FFF1EF;
+                    border-left: 2px solid #F4B81A;
                 }
     
                 > .nl-rule-cell {
@@ -389,7 +393,8 @@
         }
         .no-layout {
             font-weight: 400;
-            color: hsl(0, 0, 60);
+            // color: hsl(0, 0, 60);
+            font-style: italic;
             display: flex;
             align-items: center;
             a {
@@ -408,6 +413,14 @@
     }
 
     &.hide-checkbox {
+        .nl-rule-head {
+            &:hover {
+                background-color: #F8F8F8 !important;
+                .rule-layout {
+                    border: none !important;
+                }
+            }
+        }
         .nl-rule-head {
             > .nl-rule-cell {
                 > .nl-export-checkbox {
@@ -714,11 +727,11 @@
     font-size: 12px;
     align-items: center;
     outline: none;
+    border-bottom: 1px solid #e3e3e3;
 
     &.disabled {
         > .nl-group-content {
             > .nl-group-head {
-                background: rgba(226, 2, 37, 0.1) !important;
                 > .group-title {
                     border-left: 2px solid #F97B62;
                     p{
@@ -734,6 +747,10 @@
                     }
                 }
                 &:hover {
+                    background: #FCE6E9;
+                    > .group-title {
+                        border-left: 2px solid #F97B62;
+                    }
                     > .nl-rule-cell {
                         > .nl-export-checkbox {
                             visibility: visible;
@@ -760,6 +777,9 @@
                                  > .nl-rule-head {
                                     > .rule-layout {
                                         border-left: 2px solid #F97B62;
+                                        span, p {
+                                            opacity: 0.5;
+                                        }
                                     }
                                  }
                             }
@@ -769,6 +789,9 @@
                                 > .nl-group-head {
                                     > .group-title {
                                         border-left: 2px solid #F97B62;
+                                        span, p {
+                                            opacity: 0.5;
+                                        }
                                     }
                                 }
                             }
@@ -799,6 +822,7 @@
         > .nl-group-content {
             > .nl-group-head {
                 background-color: #F4F8FE !important;
+                border-bottom: 1px solid white;
     
                 > .group-title {
                     border-left: 2px solid #2565ED;
@@ -812,10 +836,10 @@
         > .nl-group-content {
             > .nl-group-head {
                 &:hover {
-                    background: #FFF1EF !important;
+                    background: #FEF8E8;
     
                     > .group-title {
-                        border-left: 2px solid #F97B62;
+                        border-left: 2px solid #F4B81A;
                     }
     
                     > .nl-rule-cell {
@@ -842,11 +866,17 @@
         display: none;
     }
     &.show-body {
-        border-bottom: 1px solid #E3E3E3;
         > .nl-group-content {
             > .nl-group-body {
                 display: block;
                 @extend %fadeIn;
+                > .nl-grid {
+                    > .nl-group-list {
+                        > .nl-rule, > .nl-group {
+                            border-bottom: 1px solid white;
+                        }
+                    }
+                }
             }
 
             > .nl-group-head {
@@ -1209,6 +1239,12 @@
     &.hide-checkbox {
         > .nl-group-content {
             > .nl-group-head {
+                &:hover {
+                    background-color: #F8F8F8 !important;
+                    .group-title {
+                        border: none !important;
+                    }
+                }
                 > .nl-rule-cell {
                     > .nl-export-checkbox {
                         visibility: hidden !important;
