@@ -52,7 +52,7 @@
         padding-left: $gutter;
 
         .rule-layout {
-            padding-left: 20px;
+            padding-left: 24px;
         }
     }
     .rule-priority {
@@ -187,7 +187,8 @@
             > .nl-rule-head {
                 background: rgba(226, 2, 37, 0.1) !important;
                 > .rule-layout {
-                    opacity: 50%;
+                    border-left: 2px solid #F97B62;
+                    // opacity: 50%;
 
                     .rule-icon {
                         display: none;
@@ -719,6 +720,7 @@
             > .nl-group-head {
                 background: rgba(226, 2, 37, 0.1) !important;
                 > .group-title {
+                    border-left: 2px solid #F97B62;
                     p{
                         opacity: 50%;
                     }
@@ -745,6 +747,31 @@
                     > .nl-dropdown {
                         > .nl-dropdown-toggle {
                             display: flex;
+                        }
+                    }
+                }
+            }
+
+            > .nl-group-body {
+                > .nl-grid {
+                    > .nl-group-list {
+                        > .nl-rule {
+                            > .nl-rule-content {
+                                 > .nl-rule-head {
+                                    > .rule-layout {
+                                        border-left: 2px solid #F97B62;
+                                    }
+                                 }
+                            }
+                        }
+                        > .nl-group {
+                            > .nl-group-content {
+                                > .nl-group-head {
+                                    > .group-title {
+                                        border-left: 2px solid #F97B62;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -1197,8 +1224,8 @@
         background: white;
         padding: 0 20px;
 
-        .folder, .folder-disabled, .folder-open, .folder-open-disabled, .rule-icon, .rule-icon.disabled {
-            margin-left: 10px;
+        .folder, .folder-disabled, .folder-open, .folder-open-disabled, .rule-icon, .rule-icon-disabled {
+            margin-left: 34px;
         }
 
         .nl-group-body {
