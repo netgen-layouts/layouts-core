@@ -83,10 +83,6 @@
         </div>
 
         <div class="nl-rule-cell rule-link-layout">
-            {% if can_edit %}
-                <a href="#" {% if rule.layout is empty %} disabled {% else %} class="js-rule-unlink" {% endif %}>{{ 'layout_resolver.rule.unlink_layout'|trans }}</a>
-            {% endif %}
-
             <a class="js-link-layout" {% if rule.layout is not empty %}data-linked-layout="{{ rule.layout.id.toString }}"{% endif %} data-browser-item-type="layout" href="#">
                 {% if rule.layout is not empty %}
                     {{ 'layout_resolver.rule.link_other_layout'|trans }}
@@ -183,6 +179,9 @@
                     <div class="nl-layout-options">
                         {% if is_granted('nglayouts:layout:edit', rule.layout) %}
                             <a href="{{ macros.layout_path(rule.layout.id.toString) }}" class="js-open-ngl">{{ 'layout_resolver.rule.edit_layout'|trans }}</a>
+                            {% if can_edit %}
+                                <a href="#" {% if rule.layout is empty %} disabled {% else %} class="js-rule-unlink" {% endif %}>{{ 'layout_resolver.rule.unlink_layout'|trans }}</a>
+                            {% endif %}
                         {% endif %}
                     </div>
                 {% else %}

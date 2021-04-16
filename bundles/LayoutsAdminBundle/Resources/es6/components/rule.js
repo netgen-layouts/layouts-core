@@ -56,9 +56,6 @@ export default class NlRule {
         this.selectElement = document.getElementById(`export${this.id}`);
         this.selected = this.selectElement && this.selectElement.checked;
         [this.checkBoxContainer] = this.el.getElementsByClassName('nl-export-checkbox');
-        this.subDirEl = this.el.querySelector('#subdirectory');
-
-        this.subDirEl.style.display = 'none';
 
         this.el.dataset.id = this.id;
         this.setupEvents();
@@ -82,9 +79,6 @@ export default class NlRule {
         this.selectElement = document.getElementById(`export${this.id}`);
         this.selected = this.selectElement && this.selectElement.checked;
         [this.checkBoxContainer] = this.el.getElementsByClassName('nl-export-checkbox');
-        this.subDirEl = this.el.querySelector('#subdirectory');
-
-        this.subDirEl.style.display = 'none';
 
         if (this.selectElement) {
             this.selectElement.addEventListener('change', () => {
@@ -252,20 +246,43 @@ export default class NlRule {
 
     ruleUnlink(e) {
         e.preventDefault();
-        const url = `${this.rules.baseUrl}rules/${this.id}`;
-        this.createDraft(() => {
+        const url = `${this.rules.baseUrl}rules/${this.id}/unlink_layout`;
+        const modal = new NlModal({
+            preload: true,
+            autoClose: false,
+        });
+        const confirmUnlink = () => {
             fetch(url, {
                 method: 'POST',
                 credentials: 'same-origin',
                 headers: {
                     'X-CSRF-Token': this.rules.csrf,
                 },
-                body: new URLSearchParams('layout_id=0'),
             }).then((response) => {
                 if (!response.ok) throw new Error(`HTTP error, status ${response.status}`);
                 return response.text();
             }).then((data) => {
                 this.renderEl(data);
+                this.publishRule();
+                modal.close();
+            }).catch((error) => {
+                console.log(error); // eslint-disable-line no-console
+            });
+        };
+
+        this.createDraft(() => {
+            fetch(url, {
+                method: 'GET',
+                credentials: 'same-origin',
+                headers: {
+                    'X-CSRF-Token': this.rules.csrf,
+                },
+            }).then((response) => {
+                if (!response.ok) throw new Error(`HTTP error, status ${response.status}`);
+                return response.text();
+            }).then((data) => {
+                modal.insertModalHtml(data);
+                modal.el.addEventListener('apply', confirmUnlink);
             }).catch((error) => {
                 console.log(error); // eslint-disable-line no-console
             });
@@ -431,7 +448,7 @@ export default class NlRule {
             onConfirm: (selected) => {
                 const newId = selected[0].value;
                 this.createDraft(() => {
-                    fetch(`${this.rules.baseUrl}rules/${this.id}`, {
+                    fetch(`${this.rules.baseUrl}rules/${this.id}/link_layout`, {
                         method: 'POST',
                         credentials: 'same-origin',
                         headers: {
@@ -443,7 +460,7 @@ export default class NlRule {
                         return response.text();
                     }).then((data) => {
                         this.renderEl(data);
-                        this.el.classList.add('show-body');
+                        this.publishRule();
                     }).catch((error) => {
                         console.log(error); // eslint-disable-line no-console
                     });
