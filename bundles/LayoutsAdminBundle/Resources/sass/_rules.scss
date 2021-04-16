@@ -417,7 +417,7 @@
             &:hover {
                 background-color: #F8F8F8 !important;
                 .rule-layout {
-                    border: none !important;
+                    border-left: 2px solid transparent !important;
                 }
             }
         }
@@ -769,34 +769,10 @@
                 }
             }
 
-            > .nl-group-body {
-                > .nl-grid {
-                    > .nl-group-list {
-                        > .nl-rule {
-                            > .nl-rule-content {
-                                 > .nl-rule-head {
-                                    > .rule-layout {
-                                        border-left: 2px solid #F97B62;
-                                        span, p {
-                                            opacity: 0.5;
-                                        }
-                                    }
-                                 }
-                            }
-                        }
-                        > .nl-group {
-                            > .nl-group-content {
-                                > .nl-group-head {
-                                    > .group-title {
-                                        border-left: 2px solid #F97B62;
-                                        span, p {
-                                            opacity: 0.5;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+            .rule-layout, .group-title {
+                border-left: 2px solid #F97B62;
+                span, p {
+                    opacity: 0.5;
                 }
             }
         }
@@ -1242,7 +1218,7 @@
                 &:hover {
                     background-color: #F8F8F8 !important;
                     .group-title {
-                        border: none !important;
+                        border-left: 2px solid transparent !important;
                     }
                 }
                 > .nl-rule-cell {
