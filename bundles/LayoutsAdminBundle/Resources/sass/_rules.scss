@@ -197,6 +197,12 @@
 
                     .rule-icon-disabled {
                         display: block;
+
+                        &:hover {
+                            > .disabled-tooltip {
+                                visibility: visible;
+                            }
+                        }
                     }
                 }
                 &:hover {
@@ -355,11 +361,40 @@
         color: hsl(0, 0, 40);
         min-height: 60px;
         .rule-layout {
+            position: relative;
             font-size: 14px;
             font-weight: 700;
             color: hsl(0, 0, 20);
             padding-left: 20px;
             border-left: 2px solid transparent;
+
+            .disabled-tooltip {
+                visibility: hidden;
+                width: 120px;
+                bottom: 100%;
+                right: 66%;
+                font-size: 14px;
+                background-color: black;
+                color: #fff;
+                text-align: center;
+                padding: 5px 0;
+                border-radius: 6px;
+                
+                /* Position the tooltip text - see examples below! */
+                position: absolute;
+                z-index: 1;
+
+                &::after {
+                    content: " ";
+                    position: absolute;
+                    top: 100%; /* At the bottom of the tooltip */
+                    left: 50%;
+                    margin-left: -5px;
+                    border-width: 5px;
+                    border-style: solid;
+                    border-color: black transparent transparent transparent;
+                }
+            }
 
             .rule-icon, .rule-icon-disabled {
                 padding: 1rem 1rem 1rem 0;
@@ -740,6 +775,12 @@
 
                     .folder-disabled {
                         display: block;
+
+                        &:hover {
+                            > .disabled-tooltip {
+                                visibility: visible;
+                            }
+                        }
                     }
 
                     .folder, .folder-open, .folder-open-disabled {
@@ -769,10 +810,12 @@
                 }
             }
 
-            .rule-layout, .group-title {
-                border-left: 2px solid #F97B62;
-                span, p {
-                    opacity: 0.5;
+            .nl-group-list {
+                .rule-layout, .group-title {
+                    border-left: 2px solid #F97B62;
+                    span, p {
+                        opacity: 0.5;
+                    }
                 }
             }
         }
@@ -783,6 +826,14 @@
                     > .group-title {
                         .folder-open-disabled {
                             display: block;
+
+                            &:hover {
+                                > .disabled-tooltip {
+                                    visibility: visible;
+
+                                    opacity: 1;
+                                }
+                            }
                         }
 
                         .folder, .folder-open, .folder-disabled {
@@ -1110,11 +1161,40 @@
     }
 
     .nl-group-head {
+        position: relative;
         display: flex;
         padding-left: $gutter;
         color: hsl(0, 0, 40);
         align-items: center;
         min-height: 60px;
+
+        .disabled-tooltip {
+            visibility: hidden;
+            width: 120px;
+            bottom: 100%;
+            right: 80%;
+            font-size: 14px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            padding: 5px 0;
+            border-radius: 6px;
+            
+            /* Position the tooltip text - see examples below! */
+            position: absolute;
+            z-index: 1;
+
+            &::after {
+                content: " ";
+                position: absolute;
+                top: 100%; /* At the bottom of the tooltip */
+                left: 50%;
+                margin-left: -5px;
+                border-width: 5px;
+                border-style: solid;
+                border-color: black transparent transparent transparent;
+            }
+        }
 
         .group-overlay {
             position: absolute;
