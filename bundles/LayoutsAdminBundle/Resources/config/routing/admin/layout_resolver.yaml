@@ -17,10 +17,17 @@ nglayouts_admin_layout_resolver_rule_form_edit:
     defaults:
         _nglayouts_status: draft
 
-nglayouts_admin_layout_resolver_rule_update:
-    path: /rules/{ruleId}
-    controller: netgen_layouts.controller.admin.layout_resolver.update_rule
+nglayouts_admin_layout_resolver_rule_link_layout:
+    path: /rules/{ruleId}/link_layout
+    controller: netgen_layouts.controller.admin.layout_resolver.link_layout
     methods: [POST]
+    defaults:
+        _nglayouts_status: draft
+
+nglayouts_admin_layout_resolver_rule_unlink_layout:
+    path: /rules/{ruleId}/unlink_layout
+    controller: netgen_layouts.controller.admin.layout_resolver.unlink_layout
+    methods: [GET, POST]
     defaults:
         _nglayouts_status: draft
 

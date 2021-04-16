@@ -7,7 +7,6 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver;
 use Netgen\Bundle\LayoutsBundle\Controller\AbstractController;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Service\LayoutService;
-use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\Exception\BadStateException;
 use Netgen\Layouts\Exception\NotFoundException;
@@ -17,7 +16,7 @@ use Symfony\Component\HttpFoundation\Request;
 use function is_string;
 use function sprintf;
 
-final class UpdateRule extends AbstractController
+final class LinkLayout extends AbstractController
 {
     private LayoutResolverService $layoutResolverService;
 
@@ -48,26 +47,21 @@ final class UpdateRule extends AbstractController
             throw new BadStateException('layout_id', 'Valid layout ID needs to be specified.');
         }
 
-        $layout = null;
-
-        // '0' means we remove the layout from the rule
-        if ($layoutId !== '0') {
-            try {
-                $layout = $this->layoutService->loadLayout(Uuid::fromString($layoutId));
-            } catch (NotFoundException $e) {
-                throw new BadStateException(
-                    'layout_id',
-                    sprintf(
-                        'Layout with UUID "%s" does not exist.',
-                        $layoutId
-                    ),
-                    $e
-                );
-            }
+        try {
+            $layout = $this->layoutService->loadLayout(Uuid::fromString($layoutId));
+        } catch (NotFoundException $e) {
+            throw new BadStateException(
+                'layout_id',
+                sprintf(
+                    'Layout with UUID "%s" does not exist.',
+                    $layoutId
+                ),
+                $e
+            );
         }
 
         $ruleUpdateStruct = $this->layoutResolverService->newRuleUpdateStruct();
-        $ruleUpdateStruct->layoutId = $layout instanceof Layout ? $layout->getId() : false;
+        $ruleUpdateStruct->layoutId = $layout->getId();
 
         $updatedRule = $this->layoutResolverService->updateRule(
             $rule,

@@ -47,13 +47,20 @@ services:
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
 
-    netgen_layouts.controller.admin.layout_resolver.update_rule:
-        class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\UpdateRule
+    netgen_layouts.controller.admin.layout_resolver.link_layout:
+        class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\LinkLayout
         public: true
         parent: netgen_layouts.controller.base
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
             - "@netgen_layouts.api.service.layout"
+
+    netgen_layouts.controller.admin.layout_resolver.unlink_layout:
+        class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\UnlinkLayout
+        public: true
+        parent: netgen_layouts.controller.base
+        arguments:
+            - "@netgen_layouts.api.service.layout_resolver"
 
     netgen_layouts.controller.admin.layout_resolver.enable_rule:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\EnableRule
