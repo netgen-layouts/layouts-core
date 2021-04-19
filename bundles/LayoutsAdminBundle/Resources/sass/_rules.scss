@@ -1498,7 +1498,6 @@
         .nl-group-head {
             position: relative;
             .nl-dropdown {
-                opacity: 0.3;
                 pointer-events: none;
             }
         }
@@ -1546,9 +1545,6 @@
                 > .nl-rule-cell {
                     > .nl-export-checkbox {
                         visibility: visible;
-                        > label {
-                            opacity: 0.3;
-                        }
                     }
                 }
             }
