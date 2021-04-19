@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 abstract class AbstractController extends BaseAbstractController
 {
     /**
-     * @return array<string, class-string>
+     * @return array<string, string>
      */
     public static function getSubscribedServices(): array
     {
