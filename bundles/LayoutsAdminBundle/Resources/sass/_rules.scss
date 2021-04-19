@@ -75,6 +75,8 @@
     border: 2px solid #3671E7;
     flex-direction: row-reverse;
     align-items: center;
+    position: relative;
+    z-index: 1000;
 
     .align-right {
         margin-right: auto;
@@ -892,9 +894,9 @@
     }
 
     &.hide-checkbox {
-        &:hover {
-            > .nl-group-content {
-                > .nl-group-head {
+        > .nl-group-content {
+            > .nl-group-head {
+                &:hover {
                     background-color: #F8F8F8;
         
                     .group-title {
