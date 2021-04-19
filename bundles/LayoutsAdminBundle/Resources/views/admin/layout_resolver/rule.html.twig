@@ -83,64 +83,66 @@
             {% endif %}
         </div>
 
-        <div class="nl-rule-cell rule-link-layout">
-            <a class="js-link-layout" {% if rule.layout is not empty %}data-linked-layout="{{ rule.layout.id.toString }}"{% endif %} data-browser-item-type="layout" href="#">
-                {% if rule.layout is not empty %}
-                    {{ 'layout_resolver.rule.link_other_layout'|trans }}
-                {% else %}
-                    {{ 'layout_resolver.rule.link_layout'|trans }}
-                {% endif %}
-            </a>
-        </div>
-
-        <div class="nl-rule-cell rule-details js-toggle-body">
-            {{ 'layout_resolver.rule.details'|trans }}
-        </div>
-
-        <div class="nl-dropdown" data-position="right">
-            <button class="nl-btn nl-dropdown-toggle">
-                <i class="material-icons">more_horiz</i>
-            </button>
-            <ul class="nl-dropdown-menu">
-                {% if can_edit %}
-
-                    <li><a href="#" class="js-rule-edit-rule">{{ 'layout_resolver.rule.edit_rule'|trans }}</a></li>
-
-                    <li><a href="#" class="js-rule-copy-rule">{{ 'layout_resolver.rule.copy_rule'|trans }}</a></li>
-
-                {% endif %}
-
-                {% if can_activate %}
-                    {% if rule.enabled %}
-                        <li><a href="#" {% if not rule.published %} disabled {% else %} class="js-rule-edit" data-action="disable" {% endif %}>{{ 'layout_resolver.rule.disable_rule'|trans }}</a></li>
+        <div class="hover-actions">
+            <div class="nl-rule-cell rule-link-layout">
+                <a class="js-link-layout" {% if rule.layout is not empty %}data-linked-layout="{{ rule.layout.id.toString }}"{% endif %} data-browser-item-type="layout" href="#">
+                    {% if rule.layout is not empty %}
+                        {{ 'layout_resolver.rule.link_other_layout'|trans }}
                     {% else %}
-                        <li><a href="#" {% if not rule.published %} disabled {% else %} class="js-rule-edit" data-action="enable" {% endif %}>{{ 'layout_resolver.rule.enable_rule'|trans }}</a></li>
+                        {{ 'layout_resolver.rule.link_layout'|trans }}
                     {% endif %}
-                {% endif %}
+                </a>
+            </div>
 
-                {% if can_delete %}
-                    <li><a href="#" class="js-rule-delete">{{ 'layout_resolver.rule.delete_rule'|trans }}</a></li>
-                {% endif %}
+            <div class="nl-rule-cell rule-details js-toggle-body">
+                {{ 'layout_resolver.rule.details'|trans }}
+            </div>
 
-                {% if rule.layout is empty or not rule.layout.published or is_granted('nglayouts:layout:clear_cache', rule.layout) %}
-                    <li>
-                        <button class="js-layout-clear-cache" {% if rule.layout is empty or not rule.layout.published or not http_cache_enabled %}disabled="disabled"{% endif %}>
-                            {{ 'layouts.layout.clear_cache'|trans }}
-                        </button>
-                    </li>
-                {% endif %}
+            <div class="nl-dropdown" data-position="right">
+                <button class="nl-btn nl-dropdown-toggle">
+                    <i class="material-icons">more_horiz</i>
+                </button>
+                <ul class="nl-dropdown-menu">
+                    {% if can_edit %}
 
-                {{ nglayouts_template_plugin('admin.rule.controls') }}
-            </ul>
+                        <li><a href="#" class="js-rule-edit-rule">{{ 'layout_resolver.rule.edit_rule'|trans }}</a></li>
+
+                        <li><a href="#" class="js-rule-copy-rule">{{ 'layout_resolver.rule.copy_rule'|trans }}</a></li>
+
+                    {% endif %}
+
+                    {% if can_activate %}
+                        {% if rule.enabled %}
+                            <li><a href="#" {% if not rule.published %} disabled {% else %} class="js-rule-edit" data-action="disable" {% endif %}>{{ 'layout_resolver.rule.disable_rule'|trans }}</a></li>
+                        {% else %}
+                            <li><a href="#" {% if not rule.published %} disabled {% else %} class="js-rule-edit" data-action="enable" {% endif %}>{{ 'layout_resolver.rule.enable_rule'|trans }}</a></li>
+                        {% endif %}
+                    {% endif %}
+
+                    {% if can_delete %}
+                        <li><a href="#" class="js-rule-delete">{{ 'layout_resolver.rule.delete_rule'|trans }}</a></li>
+                    {% endif %}
+
+                    {% if rule.layout is empty or not rule.layout.published or is_granted('nglayouts:layout:clear_cache', rule.layout) %}
+                        <li>
+                            <button class="js-layout-clear-cache" {% if rule.layout is empty or not rule.layout.published or not http_cache_enabled %}disabled="disabled"{% endif %}>
+                                {{ 'layouts.layout.clear_cache'|trans }}
+                            </button>
+                        </li>
+                    {% endif %}
+
+                    {{ nglayouts_template_plugin('admin.rule.controls') }}
+                </ul>
+            </div>
+
         </div>
 
+        {% if rule.description is not empty %}
+            <div class="nl-rule-description">
+                {{ rule.description }}
+            </div>
+        {% endif %}
     </div>
-
-    {% if rule.description is not empty %}
-        <div class="nl-rule-description">
-            {{ rule.description }}
-        </div>
-    {% endif %}
 </div>
 
 <div class = "nl-rule-body-overlay">
