@@ -391,6 +391,7 @@
             position: absolute;
             right: 0;
             background: white;
+            height: 100%;
         }
         .rule-layout {
             position: relative;
@@ -843,6 +844,14 @@
                                 opacity: 0.5;
                             }
                         }
+
+                        &:hover {
+                            background-color: #FCE6E9;
+
+                            .hover-actions {
+                                background-color: #FCE6E9;
+                            }
+                        }
                     }
                 }
             }
@@ -1221,6 +1230,7 @@
             position: absolute;
             right: 0;
             background: white;
+            height: 100%;
         }
 
         .disabled-tooltip {
