@@ -94,6 +94,12 @@
                 </a>
             </div>
 
+            <div class="nl-rule-cell">
+                {% if rule.layout is not empty %} 
+                    <a href="#" class="js-rule-unlink">{{ 'layout_resolver.rule.unlink_layout'|trans }}</a>
+                {% endif %}
+            </div>
+
             <div class="nl-rule-cell rule-details js-toggle-body">
                 {{ 'layout_resolver.rule.details'|trans }}
             </div>
@@ -182,9 +188,6 @@
                     <div class="nl-layout-options">
                         {% if is_granted('nglayouts:layout:edit', rule.layout) %}
                             <a href="{{ macros.layout_path(rule.layout.id.toString) }}" class="js-open-ngl">{{ 'layout_resolver.rule.edit_layout'|trans }}</a>
-                            {% if can_edit %}
-                                <a href="#" {% if rule.layout is empty %} disabled {% else %} class="js-rule-unlink" {% endif %}>{{ 'layout_resolver.rule.unlink_layout'|trans }}</a>
-                            {% endif %}
                         {% endif %}
                     </div>
                 {% else %}
