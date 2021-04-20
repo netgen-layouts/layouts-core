@@ -433,11 +433,18 @@ interface LayoutResolverService extends TransactionService
     /**
      * Adds a condition to rule.
      *
-     * @deprecated Will be renamed to addRuleCondition in 2.0.
+     * @deprecated since 1.3. Use LayoutResolverService::addRuleCondition
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If rule is not a draft
      */
     public function addCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct): RuleCondition;
+
+    /**
+     * Adds a condition to rule.
+     *
+     * @throws \Netgen\Layouts\Exception\BadStateException If rule is not a draft
+     */
+    // public function addRuleCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct): RuleCondition;
 
     /**
      * Adds a condition to rule group.
@@ -449,11 +456,18 @@ interface LayoutResolverService extends TransactionService
     /**
      * Updates a rule condition.
      *
-     * @deprecated Will be renamed to updateRuleCondition in 2.0.
+     * @deprecated since 1.3. Use LayoutResolverService::updateRuleCondition
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If condition is not a draft
      */
     public function updateCondition(RuleCondition $condition, ConditionUpdateStruct $conditionUpdateStruct): RuleCondition;
+
+    /**
+     * Updates a rule condition.
+     *
+     * @throws \Netgen\Layouts\Exception\BadStateException If condition is not a draft
+     */
+    // public function updateRuleCondition(RuleCondition $condition, ConditionUpdateStruct $conditionUpdateStruct): RuleCondition;
 
     /**
      * Updates a rule group condition.
