@@ -17,7 +17,7 @@ parameters:
     ignoreErrors:
         # Doctrine DBAL
         -
-            message: '#Cannot call method fetchAllAssociative\(\) on Doctrine\\DBAL\\Driver\\ResultStatement\|int#'
+            message: '#Cannot call method fetchAllAssociative\(\) on Doctrine\\DBAL\\ForwardCompatibility\\DriverStatement\|int#'
             path: tests/lib/Persistence/Doctrine/Helper/PositionHelperTest.php
 
         # Compatibility with Symfony 3.4

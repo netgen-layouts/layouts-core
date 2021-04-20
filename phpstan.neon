@@ -17,7 +17,7 @@ parameters:
         - '/Parameter \#1 \$iterator of function iterator_to_array expects Traversable, iterable\<Symfony\\Component\\Form\\FormInterface\> given./'
 
         # Doctrine DBAL
-        - '#Cannot call method fetchAllAssociative\(\) on Doctrine\\DBAL\\Driver\\ResultStatement\|int#'
+        - '#Cannot call method fetchAllAssociative\(\) on Doctrine\\DBAL\\ForwardCompatibility\\DriverStatement\|int#'
         - '#expects string\|null, Doctrine\\DBAL\\Query\\Expression\\CompositeExpression given#'
 
         # Compatibility with older versions of Symfony
