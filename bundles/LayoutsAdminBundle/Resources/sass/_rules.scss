@@ -294,6 +294,16 @@
             }
         }
 
+        &.disabled {
+            .nl-rule-head {
+                &:hover {    
+                    .rule-layout {
+                        border-left: 2px solid #E20225;
+                    }
+                }
+            }
+        }
+
         .nl-export-checkbox {
             visibility: visible;
             > label {
