@@ -151,8 +151,6 @@ final class LayoutResolverService implements APILayoutResolverService
     public function loadRules(?Layout $layout = null, int $offset = 0, ?int $limit = null): RuleList
     {
         if ($layout === null) {
-            trigger_deprecation('netgen/layouts-core', '1.3', 'Calling "LayoutResolverService::loadRules" method with no layout is deprecated. In 2.0, "$layout" argument will become required.');
-
             return $this->loadRulesFromGroup(
                 $this->loadRuleGroup(Uuid::fromString(RuleGroup::ROOT_UUID)),
                 $offset,
@@ -192,8 +190,6 @@ final class LayoutResolverService implements APILayoutResolverService
     public function getRuleCount(?Layout $layout = null): int
     {
         if ($layout === null) {
-            trigger_deprecation('netgen/layouts-core', '1.3', 'Calling "LayoutResolverService::getRuleCount" method with no layout is deprecated. In 2.0, "$layout" argument will become required.');
-
             return $this->getRuleCountFromGroup(
                 $this->loadRuleGroup(Uuid::fromString(RuleGroup::ROOT_UUID))
             );
