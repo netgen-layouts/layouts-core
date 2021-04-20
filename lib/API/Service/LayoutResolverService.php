@@ -25,17 +25,6 @@ use Netgen\Layouts\API\Values\LayoutResolver\TargetCreateStruct;
 use Netgen\Layouts\API\Values\LayoutResolver\TargetUpdateStruct;
 use Ramsey\Uuid\UuidInterface;
 
-/**
- * @method RuleList loadRulesForLayout(Layout $layout, int $offset = 0, ?int $limit = null, bool $ascending = false)
- * @method int getRuleCountForLayout(Layout $layout)
- * @method RuleCondition loadRuleCondition(UuidInterface $conditionId)
- * @method RuleCondition loadRuleConditionDraft(UuidInterface $conditionId)
- * @method Rule createRuleDraft(Rule $rule, bool $discardExisting = false)
- * @method void discardRuleDraft(Rule $rule)
- * @method Rule restoreRuleFromArchive(Rule $rule)
- * @method RuleCondition addRuleCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct)
- * @method RuleCondition updateRuleCondition(RuleCondition $condition, ConditionUpdateStruct $conditionUpdateStruct)
- */
 interface LayoutResolverService extends TransactionService
 {
     /**
@@ -98,7 +87,7 @@ interface LayoutResolverService extends TransactionService
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If provided layout is not published
      */
-    // public function loadRulesForLayout(Layout $layout, int $offset = 0, ?int $limit = null, bool $ascending = false): RuleList;
+    public function loadRulesForLayout(Layout $layout, int $offset = 0, ?int $limit = null, bool $ascending = false): RuleList;
 
     /**
      * Returns the number of published rules.
@@ -116,7 +105,7 @@ interface LayoutResolverService extends TransactionService
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If provided layout is not published
      */
-    // public function getRuleCountForLayout(Layout $layout): int;
+    public function getRuleCountForLayout(Layout $layout): int;
 
     /**
      * Loads all rules from the provided parent group.
@@ -177,7 +166,7 @@ interface LayoutResolverService extends TransactionService
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified UUID does not exist
      */
-    // public function loadRuleCondition(UuidInterface $conditionId): RuleCondition;
+    public function loadRuleCondition(UuidInterface $conditionId): RuleCondition;
 
     /**
      * Loads a rule condition draft by its' UUID.
@@ -193,7 +182,7 @@ interface LayoutResolverService extends TransactionService
      *
      * @throws \Netgen\Layouts\Exception\NotFoundException If condition with specified UUID does not exist
      */
-    // public function loadRuleConditionDraft(UuidInterface $conditionId): RuleCondition;
+    public function loadRuleConditionDraft(UuidInterface $conditionId): RuleCondition;
 
     /**
      * Loads a rule group condition by its' UUID.
@@ -259,7 +248,7 @@ interface LayoutResolverService extends TransactionService
      * @throws \Netgen\Layouts\Exception\BadStateException If rule is not published
      *                                                     If draft already exists for the rule and $discardExisting is set to false
      */
-    // public function createRuleDraft(Rule $rule, bool $discardExisting = false): Rule;
+    public function createRuleDraft(Rule $rule, bool $discardExisting = false): Rule;
 
     /**
      * Discards a rule draft.
@@ -275,7 +264,7 @@ interface LayoutResolverService extends TransactionService
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If rule is not a draft
      */
-    // public function discardRuleDraft(Rule $rule): void;
+    public function discardRuleDraft(Rule $rule): void;
 
     /**
      * Publishes a rule.
@@ -300,7 +289,7 @@ interface LayoutResolverService extends TransactionService
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If provided rule is not archived
      */
-    // public function restoreRuleFromArchive(Rule $rule): Rule;
+    public function restoreRuleFromArchive(Rule $rule): Rule;
 
     /**
      * Deletes a rule.
@@ -444,7 +433,7 @@ interface LayoutResolverService extends TransactionService
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If rule is not a draft
      */
-    // public function addRuleCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct): RuleCondition;
+    public function addRuleCondition(Rule $rule, ConditionCreateStruct $conditionCreateStruct): RuleCondition;
 
     /**
      * Adds a condition to rule group.
@@ -467,7 +456,7 @@ interface LayoutResolverService extends TransactionService
      *
      * @throws \Netgen\Layouts\Exception\BadStateException If condition is not a draft
      */
-    // public function updateRuleCondition(RuleCondition $condition, ConditionUpdateStruct $conditionUpdateStruct): RuleCondition;
+    public function updateRuleCondition(RuleCondition $condition, ConditionUpdateStruct $conditionUpdateStruct): RuleCondition;
 
     /**
      * Updates a rule group condition.
