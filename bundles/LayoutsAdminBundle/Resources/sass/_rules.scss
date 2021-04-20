@@ -224,10 +224,6 @@
             .nl-rule-head {
                 background-color: #FCE6E9;
 
-                .rule-layout {
-                    border-left: 2px solid #E20225;
-                }
-
                 .hover-actions {
                     background-color: #FCE6E9;
                 }
@@ -236,6 +232,7 @@
 
         .nl-rule-head {
             .rule-layout {
+                border-left: 2px solid #E20225;
                 .rule-icon {
                     display: none;
                 }
