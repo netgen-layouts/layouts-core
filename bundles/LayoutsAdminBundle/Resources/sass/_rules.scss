@@ -283,7 +283,7 @@
         .nl-rule-head {
             &:hover {
                 background-color: #F8F8F8 !important;
-    
+
                 .rule-layout {
                     border-left: 2px solid transparent;
                 }
@@ -909,6 +909,12 @@
                 &:hover {
                     background-color: #F8F8F8;
         
+                    .group-overlay {
+                        .group-controls {
+                            background-color: #F8F8F8;
+                        }
+                    }
+
                     .group-title {
                         border-left: 2px solid transparent;
                     }
@@ -1283,7 +1289,8 @@
 
             .selected-items-text {
                 padding-right: 20px;
-                color: #3671E7;
+                border-right: 1px solid black;
+                margin-right: 20px;
             }
         }
 
