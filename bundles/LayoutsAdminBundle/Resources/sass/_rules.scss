@@ -947,6 +947,10 @@
         > .nl-group-content {
             > .nl-group-head {
                 position: relative;
+
+                > .hover-actions {
+                    display: flex;
+                }
             }
         }
     }
