@@ -283,9 +283,9 @@
     }
 
     &.hide-checkbox {
-        &:hover {
-            .nl-rule-head {
-                background-color: #F8F8F8;
+        .nl-rule-head {
+            &:hover {
+                background-color: #F8F8F8 !important;
     
                 .rule-layout {
                     border-left: 2px solid transparent;
@@ -1376,7 +1376,7 @@
                 &:hover {
                     background-color: #F8F8F8 !important;
                     .group-title {
-                        border-left: 2px solid transparent !important;
+                        border-left: 2px solid transparent;
                     }
                 }
                 > .nl-rule-cell {
