@@ -855,6 +855,19 @@
                             }
                         }
                     }
+
+                    &.selected {
+                        .nl-group-head, .nl-rule-head {
+                            &:hover {
+                                background-color: #F4F8FE;
+
+                                .hover-actions {
+                                    display: none;
+                                    background-color: #F4F8FE;
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
