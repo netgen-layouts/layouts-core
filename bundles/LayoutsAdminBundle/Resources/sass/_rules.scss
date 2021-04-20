@@ -184,6 +184,11 @@
     align-items: center;
     outline: none;
 
+    .nl-export-checkbox {
+        visibility: visible;
+        opacity: 0.3;
+    }
+
     &:hover {
         .nl-rule-head {
             background-color: #FEF8E8;
@@ -198,7 +203,7 @@
             }
 
             .nl-export-checkbox {
-                visibility: visible;
+                opacity: 1;
             }
         }
     }
@@ -213,7 +218,7 @@
             }
     
             .nl-export-checkbox {
-                visibility: visible;
+                opacity: 1;
             }
         }
     }
@@ -788,6 +793,11 @@
     align-items: center;
     outline: none;
 
+    .nl-export-checkbox {
+        visibility: visible;
+        opacity: 0.3;
+    }
+
     > .nl-group-content {
         > .nl-group-head {
             &:hover {
@@ -803,7 +813,7 @@
                 }
     
                 .nl-export-checkbox {
-                    visibility: visible;
+                    opacity: 1;
                 }
             }
         }
@@ -1598,7 +1608,7 @@
 
                 > .nl-rule-cell {
                     > .nl-export-checkbox {
-                        visibility: visible;
+                        opacity: 1;
                     }
                 }
             }
