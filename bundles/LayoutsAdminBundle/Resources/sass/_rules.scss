@@ -204,8 +204,12 @@
                 background-color: #FEF8E8;
             }
 
-            .nl-export-checkbox {
-                opacity: 1;
+            > .nl-rule-cell {
+                > .nl-export-checkbox {
+                    > label {
+                        opacity: 1; 
+                    }
+                }
             }
         }
     }
@@ -219,8 +223,12 @@
                 display: flex;
             }
     
-            .nl-export-checkbox {
-                opacity: 1;
+            > .nl-rule-cell {
+                > .nl-export-checkbox {
+                    > label {
+                        opacity: 1;
+                    }
+                }
             }
         }
     }
@@ -814,8 +822,12 @@
                     background-color: #FEF8E8;
                 }
     
-                .nl-export-checkbox {
-                    opacity: 1;
+                > .nl-rule-cell {
+                    > .nl-export-checkbox {
+                        > label {
+                            opacity: 1;
+                        }
+                    }
                 }
             }
         }
@@ -1609,7 +1621,9 @@
 
                 > .nl-rule-cell {
                     > .nl-export-checkbox {
-                        opacity: 1;
+                        > label {
+                            opacity: 1;
+                        }
                     }
                 }
             }
