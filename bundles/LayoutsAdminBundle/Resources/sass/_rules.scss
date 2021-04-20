@@ -243,6 +243,7 @@
         
                 .rule-icon-disabled {
                     display: block;
+                    position: relative;
         
                     &:hover {
                         > .disabled-tooltip {
@@ -419,7 +420,7 @@
                 visibility: hidden;
                 width: 120px;
                 bottom: 100%;
-                left: -24px;
+                left: -48px;
                 font-size: 14px;
                 background-color: black;
                 color: #fff;
@@ -838,6 +839,7 @@
     
                     .folder-disabled {
                         display: block;
+                        position: relative;
     
                         &:hover {
                             > .disabled-tooltip {
@@ -858,7 +860,7 @@
                         .group-title, .rule-layout {
                             border-left: 2px solid #E20225;
 
-                            span, p {
+                            svg, p {
                                 opacity: 0.5;
                             }
                         }
@@ -1012,6 +1014,7 @@
                     > .group-title {
                         > .folder-open-disabled {
                             display: block;
+                            position: relative;
         
                             &:hover {
                                 > .disabled-tooltip {
@@ -1290,7 +1293,7 @@
             visibility: hidden;
             width: 120px;
             bottom: 100%;
-            left: 36px;
+            left: -48px;
             font-size: 14px;
             background-color: black;
             color: #fff;
