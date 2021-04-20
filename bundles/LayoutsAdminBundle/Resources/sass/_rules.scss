@@ -183,7 +183,6 @@
     font-size: 12px;
     align-items: center;
     outline: none;
-    border-bottom: 1px solid #e3e3e3;
 
     &:hover {
         .nl-rule-head {
@@ -394,6 +393,7 @@
         padding-left: $gutter;
         color: hsl(0, 0, 40);
         min-height: 60px;
+        border-bottom: 1px solid #e3e3e3;
 
         .hover-actions {
             display: none;
@@ -787,7 +787,6 @@
     font-size: 12px;
     align-items: center;
     outline: none;
-    border-bottom: 1px solid #e3e3e3;
 
     > .nl-group-content {
         > .nl-group-head {
@@ -959,21 +958,32 @@
         display: none;
     }
     &.show-body {
+        border-bottom: 1px solid #e3e3e3;
         > .nl-group-content {
             > .nl-group-body {
                 display: block;
                 @extend %fadeIn;
                 > .nl-grid {
                     > .nl-group-list {
-                        > .nl-rule, > .nl-group {
-                            border-bottom: 1px solid white;
+                        .nl-rule {
+                            .nl-rule-head {
+                                border-bottom: 1px solid transparent;
+                            }
+                        }
+                        > .nl-group {
+                            border-bottom: 1px solid transparent;
+                            > .nl-group-content {
+                                > .nl-group-head {
+                                    border-bottom: 1px solid transparent;
+                                }
+                            }
                         }
                     }
                 }
             }
 
             > .nl-group-head {
-                border-bottom: 1px solid white;
+                border-bottom: 1px solid transparent;
                 > .group-title {
                     > .folder, > .folder-disabled, > .folder-open-disabled {
                         display: none;
@@ -1256,6 +1266,7 @@
         color: hsl(0, 0, 40);
         align-items: center;
         min-height: 60px;
+        border-bottom: 1px solid #e3e3e3;
 
         .hover-actions {
             display: none;
