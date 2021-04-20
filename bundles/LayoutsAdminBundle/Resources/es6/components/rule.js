@@ -236,10 +236,10 @@ export default class NlRule {
     handleCheckboxDisable(id) {
         if (id === null) {
             this.selectElement.disabled = false;
-            this.checkBoxContainer.style.visibility = '';
+            this.checkBoxContainer.getElementsByTagName('label')[0].style.opacity = '';
             this.el.classList.remove('hide-checkbox');
         } else if (id === '00000000-0000-0000-0000-000000000000') {
-            this.checkBoxContainer.style.visibility = 'visible';
+            this.checkBoxContainer.getElementsByTagName('label')[0].style.opacity = '1';
             this.el.classList.remove('hide-checkbox');
         }
     }
