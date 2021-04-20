@@ -10,7 +10,7 @@
     beStrictAboutChangesToGlobalState="true"
 >
     <php>
-        <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[self]=0&amp;baselineFile=tests/allowed_deprecations.json" />
+        <env name="SYMFONY_DEPRECATIONS_HELPER" value="max[self]=0" />
     </php>
 
     <testsuites>
