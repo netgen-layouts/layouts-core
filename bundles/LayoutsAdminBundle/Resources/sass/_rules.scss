@@ -28,6 +28,31 @@
             }
         }
     }
+
+    .nl-more-btn {
+        background:0 0;
+        border:none;
+        border-radius:2px;
+        position:relative;
+        margin:0;
+        min-width:64px;
+        display:inline-block;
+        font-family:$baseFont;
+        font-size:13px;
+        overflow:hidden;
+        outline:none;
+        cursor:pointer;
+        text-decoration:none;
+        text-align:center;
+        line-height:$btnHeight;
+        vertical-align:middle;
+
+
+        .more {
+            font-size: 32px;
+            line-height: 32px;
+        }
+    }
 }
 
 .sorting {
@@ -35,7 +60,7 @@
         .rule-priority {
             display: block;
         }
-        .js-add-group, .js-add-rule {
+        .nl-dropdown {
             display: none !important;
         }
     }

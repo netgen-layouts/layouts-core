@@ -9,27 +9,33 @@
 {% endblock %}
 
 {% block content %}
-    <div id="rules">
+    <div id="rules" class="nl-element">
         <div class="layouts-header">
             <h2 class="layouts-title">{{ 'menu.main_menu.layout_resolver'|trans }}</h2>
-            <p>{{ 'layout_resolver.priority.notice'|trans }}</p>
             <div class="layouts-controls">
                 {% set can_reorder = is_granted('nglayouts:mapping:reorder') %}
-
-                {% if can_reorder %}
-                    <button class="nl-btn nl-btn-gray sorting-hide js-sort-start"> {{ 'layout_resolver.reorder_rules'|trans }}</button>
-                {% endif %}
-
-                {% block main_controls %}
-                    {% if is_granted('nglayouts:mapping:edit') %}
-                        <button id="add-new-button" class="nl-btn nl-btn-primary js-add-rule"><i class="material-icons">add</i> {{ 'layout_resolver.add_new_rule'|trans }}</button>
-                    {% endif %}
-                {% endblock %}
-
                 {% if can_reorder %}
                     <button class="nl-btn nl-btn sorting-show js-sort-cancel">{{ 'layout_resolver.cancel'|trans }}</button>
                     <button class="nl-btn nl-btn-primary sorting-show js-sort-save">{{ 'layout_resolver.save_order'|trans }}</button>
                 {% endif %}
+            </div>
+            <div class="nl-dropdown" data-position="right">
+                <button class="nl-more-btn nl-dropdown-toggle">
+                    <div class="more">{% include '@NetgenLayoutsAdmin/admin/svg/more.svg.twig' %}
+                </button>
+                <ul class="nl-dropdown-menu main-dropdown">
+                    {% block main_controls %}
+                        {% set can_reorder = is_granted('nglayouts:mapping:reorder') %}
+
+                        {% if can_reorder %}
+                            <li><a class="sorting-hide js-sort-start"> {{ 'layout_resolver.reorder_rules'|trans }}</a></li>
+                        {% endif %}
+
+                        {% if is_granted('nglayouts:mapping:edit') %}
+                            <li><a id="add-new-button" class="js-add-rule">{{ 'layout_resolver.add_new_rule'|trans }}</a></li>
+                        {% endif %}
+                    {% endblock %}
+                </ul>
             </div>
         </div>
         <div class="nl-rules-head">

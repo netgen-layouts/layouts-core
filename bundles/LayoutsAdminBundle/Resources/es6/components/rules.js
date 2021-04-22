@@ -89,6 +89,9 @@ export default class NlRules {
     }
 
     addRule(e) {
+        document.querySelectorAll('.nl-dropdown-active').forEach((el) => {
+            el.classList.remove('nl-dropdown-active');
+        });
         e.preventDefault();
         this.showLoader();
         fetch(`${this.baseUrl}groups/${this.id}/new_rule`, {
@@ -233,6 +236,9 @@ export default class NlRules {
     }
 
     sortStart() {
+        document.querySelectorAll('.nl-dropdown-active').forEach((el) => {
+            el.classList.remove('nl-dropdown-active');
+        });
         this.rules.ids.forEach(id => this.rules.byId[id].onSortingStart());
         this.appContainer.classList.add('sorting');
         [...document.getElementsByClassName('nl-rule-between')].forEach(el => el.parentElement.removeChild(el));
