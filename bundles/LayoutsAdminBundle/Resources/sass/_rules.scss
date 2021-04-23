@@ -216,6 +216,20 @@
         }
     }
 
+    &.blink {
+        > .nl-rule-content {
+            > .nl-rule-head {
+                background-color: #FEF8E8;
+                animation: mymove 1s 1;
+            }
+        }
+
+        @keyframes mymove {
+            from {background-color: #FEF8E8;}
+            to {background-color: white;}
+          }
+    }
+
     &:hover {
         .nl-rule-head {
             background-color: #FEF8E8;
