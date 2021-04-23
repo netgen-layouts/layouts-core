@@ -244,6 +244,13 @@ export default class NlRule {
         }
     }
 
+    linkAnimation() {
+        this.el.classList.toggle('blink');
+        setTimeout(() => {
+            this.el.classList.toggle('blink');
+        }, 1000);
+    }
+
     ruleUnlink(e) {
         e.preventDefault();
         const url = `${this.rules.baseUrl}rules/${this.id}/unlink_layout`;
@@ -265,6 +272,7 @@ export default class NlRule {
                 this.renderEl(data);
                 this.publishRule();
                 modal.close();
+                this.linkAnimation();
             }).catch((error) => {
                 console.log(error); // eslint-disable-line no-console
             });
@@ -461,6 +469,7 @@ export default class NlRule {
                     }).then((data) => {
                         this.renderEl(data);
                         this.publishRule();
+                        this.linkAnimation();
                     }).catch((error) => {
                         console.log(error); // eslint-disable-line no-console
                     });
