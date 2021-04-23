@@ -332,6 +332,12 @@
                 .hover-actions {
                     display: none;
                 }
+
+                .nl-export-checkbox {
+                    > label {
+                        opacity: 0.3;
+                    }
+                }
             }
         }
 
@@ -982,6 +988,12 @@
     
                     > .hover-actions {
                         display: none;
+                    }
+
+                    .nl-export-checkbox {
+                        > label {
+                            opacity: 0.3;
+                        }
                     }
                 }
             }
