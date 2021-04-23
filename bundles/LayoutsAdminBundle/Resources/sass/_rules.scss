@@ -60,7 +60,7 @@
         .rule-priority {
             display: block;
         }
-        .nl-dropdown {
+        .nl-dropdown, .nl-export-checkbox {
             display: none !important;
         }
     }
@@ -858,6 +858,22 @@
                     > .nl-export-checkbox {
                         > label {
                             opacity: 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.sorting {
+        > .nl-group-content {
+            > .nl-group-body {
+                > .nl-grid {
+                    > .nl-group-list {
+                        .nl-group-head, .nl-rule-head {
+                            .nl-export-checkbox {
+                                display: none;
+                            }
                         }
                     }
                 }
