@@ -1795,10 +1795,11 @@
         background-color: #fff;
         font-size: 12px;
         padding: 4px 12px 4px 6px;
-        width: 100%;
+        width: 36px;
         font-size: 12px;
         background-position: calc(100% - 9px) 50%, calc(100% - 5px) 50%;
-        background-size: 3px 4px, 4px 5px;
-        border: solid 1px;
+        background-size: 4px 4px, 4px 4px;
+        border: solid 1px lightgray;
+        appearance: none;
     }
 }
