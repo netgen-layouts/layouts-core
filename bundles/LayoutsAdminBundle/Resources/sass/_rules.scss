@@ -302,6 +302,12 @@
             .hover-actions {
                 background-color: #F4F8FE;
             }
+
+            .nl-export-checkbox {
+                > label {
+                    opacity: 1;
+                }
+            }
         }
 
         &:hover {
@@ -964,6 +970,12 @@
     
                 .hover-actions {
                     background-color: #F4F8FE;
+                }
+
+                .nl-export-checkbox {
+                    > label {
+                        opacity: 1;
+                    }
                 }
             }
         }
