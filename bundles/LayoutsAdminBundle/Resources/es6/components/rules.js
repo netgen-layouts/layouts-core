@@ -175,6 +175,7 @@ export default class NlRules {
         Object.keys(this.rules.byId).forEach((key) => {
             this.rules.byId[key].selected ? checkBoxCount++ : null;
         });
+        checkBoxCount !== Object.keys(this.rules.byId).length ? this.selectElement.checked = false : this.selectElement.checked = true;
         checkBoxCount ? this.setItemNumber(checkBoxCount) : this.setSelectingId(null);
     }
 
