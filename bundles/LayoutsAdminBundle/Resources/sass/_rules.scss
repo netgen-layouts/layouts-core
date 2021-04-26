@@ -1147,12 +1147,19 @@
     &.show-move {
         > .nl-group-content {
             > .nl-group-head {
+                position: sticky;
+                top: 0;
+                border-bottom: 2px solid #3671E7;
+                background: #CCDBF9;
+                z-index: 1001;
+
                 .group-overlay {
                     display: flex;
                 }
 
                 .group-controls {
                     display: flex;
+                    background: #CCDBF9
                 }
                 .js-group-move, .js-group-delete-multiple, .js-export, .js-clear-selection {
                     display: block;
