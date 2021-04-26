@@ -48,6 +48,9 @@
     color:hsl(0, 0, 40);
     font-size:12px;
 
+    .nl-export-checkbox {
+        display: block;
+    }
 
     &:hover {
         .nl-export-checkbox {
@@ -447,6 +450,7 @@
 
 .nl-export-checkbox {
     visibility: hidden;
+    display: none;
 
     input {
         position: absolute;
