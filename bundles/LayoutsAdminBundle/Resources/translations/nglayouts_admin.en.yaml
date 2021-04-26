@@ -1,7 +1,7 @@
 pagelayout.title: 'Netgen Layouts'
 
 layout_resolver.title: 'Mappings'
-layout_resolver.reorder_rules: 'Reorder mappings'
+layout_resolver.reorder_rules: 'Reorder'
 layout_resolver.cancel: 'Cancel'
 layout_resolver.save_order: 'Save order'
 layout_resolver.export.title: 'Export layouts'
