@@ -248,7 +248,7 @@ export default class NlRule {
         this.el.classList.toggle('blink');
         setTimeout(() => {
             this.el.classList.toggle('blink');
-        }, 1000);
+        }, 1500);
     }
 
     ruleUnlink(e) {
