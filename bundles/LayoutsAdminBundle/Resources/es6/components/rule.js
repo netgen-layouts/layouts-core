@@ -538,7 +538,7 @@ export default class NlRule {
 
     copyRule(e) {
         e.preventDefault();
-        const url = `${this.rules.baseUrl}rules/${this.id}/copy_form`;
+        const url = `${this.rules.baseUrl}rules/${this.id}/copy`;
         const modal = new NlModal({
             preload: true,
             autoClose: false,

@@ -76,13 +76,6 @@ services:
         arguments:
             - "@netgen_layouts.api.service.layout_resolver"
 
-    netgen_layouts.controller.admin.layout_resolver.copy_rule:
-        class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\CopyRule
-        public: true
-        parent: netgen_layouts.controller.base
-        arguments:
-            - "@netgen_layouts.api.service.layout_resolver"
-
     netgen_layouts.controller.admin.layout_resolver.copy_rule_form:
         class: Netgen\Bundle\LayoutsAdminBundle\Controller\Admin\LayoutResolver\CopyRuleForm
         public: true
