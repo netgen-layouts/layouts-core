@@ -37,12 +37,10 @@
 
         <div class="nl-rule-cell rule-layout">
             <div class="rule-priority"></div>
-            <span class="rule-icon">
-                {% include '@NetgenLayoutsAdmin/admin/svg/rule.svg.twig' %}
+            <span class="icon-rule">
             </span>
-            <span class="rule-icon-disabled">
+            <span class="icon-rule-disabled">
                 <div class="disabled-tooltip">Rule disabled</div>
-                {% include '@NetgenLayoutsAdmin/admin/svg/rule_disabled.svg.twig' %}
             </span>
             {% if rule.layout is not empty %}
                 <p>{{ rule.layout.name }}</p>

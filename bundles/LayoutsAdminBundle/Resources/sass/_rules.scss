@@ -286,11 +286,11 @@
         .nl-rule-head {
             .rule-layout {
                 border-left: 2px solid #E20225;
-                .rule-icon {
+                .icon-rule {
                     display: none;
                 }
         
-                .rule-icon-disabled {
+                .icon-rule-disabled {
                     display: block;
                     position: relative;
         
@@ -503,18 +503,22 @@
                 }
             }
 
-            .rule-icon, .rule-icon-disabled {
+            .icon-rule, .icon-rule-disabled {
                 padding: 1rem 1rem 1rem 0;
                 font-size: 24px;
                 line-height: 24px;
             }
 
-            .rule-icon-disabled {
-                display: none;
+            .icon-rule {
+                color: gray;
             }
 
-            #subdirectory {
-                color: gray;
+            .icon-rule-disabled {
+                color: red;
+            }
+
+            .icon-rule-disabled {
+                display: none;
             }
         }
         .nl-dropdown {
@@ -586,8 +590,8 @@
                 margin: 1em 0;
             }
 
-            h4 {
-                font-size: 12px;
+            h4, strong {
+                font-size: 14px;
                 font-weight: 700;
                 margin: 0 0 1.6666666667em;
             }
@@ -925,7 +929,7 @@
                 > .group-title {
                     border-left: 2px solid #E20225;
     
-                    .folder-disabled {
+                    .icon-group-disabled {
                         display: block;
                         position: relative;
     
@@ -936,7 +940,7 @@
                         }
                     }
     
-                    .folder, .folder-open, .folder-open-disabled {
+                    .icon-group, .icon-group-open, .icon-group-disabled-open {
                         display: none;
                     }
                 }
@@ -1098,11 +1102,11 @@
             > .nl-group-head {
                 border-bottom: 1px solid transparent;
                 > .group-title {
-                    > .folder, > .folder-disabled, > .folder-open-disabled {
+                    > .icon-group, > .icon-group-disabled, > .icon-group-disabled-open {
                         display: none;
                     }
     
-                    > .folder-open {
+                    > .icon-group-open {
                         display: block;
                     }
                 }
@@ -1113,7 +1117,7 @@
             > .nl-group-content {
                 > .nl-group-head {
                     > .group-title {
-                        > .folder-open-disabled {
+                        > .icon-group-disabled-open {
                             display: block;
                             position: relative;
         
@@ -1124,7 +1128,7 @@
                             }
                         }
         
-                        > .folder, > .folder-open, > .folder-disabled {
+                        > .icon-group, > .icon-group-open, > .icon-group-disabled {
                             display: none;
                         }
                     }
@@ -1225,7 +1229,7 @@
             right: 0;
             width: 40%;
             height: 100%;
-            padding: $gutter;
+            padding: 20px 80px;
             background: #fff;
             z-index: 1001;
 
@@ -1235,8 +1239,8 @@
                 margin: 1em 0;
             }
 
-            h4 {
-                font-size: 12px;
+            h4, strong {
+                font-size: 14px;
                 font-weight: 700;
                 margin: 0 0 1.6666666667em;
             }
@@ -1469,14 +1473,22 @@
             align-self: stretch;
             border-left: 2px solid transparent;
             padding-left: 20px;
-            .folder, .folder-open, .folder-disabled, .folder-open-disabled {
+            .icon-group, .icon-group-open, .icon-group-disabled, .icon-group-disabled-open {
                 padding: 1rem 1rem 1rem 0;
                 color: #2565ED;
                 font-size: 24px;
                 line-height: 24px;
             }
 
-            .folder-open, .folder-disabled,  .folder-open-disabled {
+            .icon-group, .icon-group-open {
+                color: #2565ED;
+            }
+
+            .icon-group-disabled, .icon-group-disabled-open {
+                color: red;
+            }
+
+            .icon-group-open, .icon-group-disabled,  .icon-group-disabled-open {
                 display: none;
             }
 
@@ -1583,7 +1595,7 @@
         background: white;
         padding: 0 20px;
 
-        .folder, .folder-disabled, .folder-open, .folder-open-disabled, .rule-icon, .rule-icon-disabled {
+        .icon-group, .icon-group-disabled, .icon-group-open, .icon-group-disabled-open, .icon-rule, .icon-rule-disabled {
             margin-left: 34px;
         }
 
@@ -1599,13 +1611,13 @@
     }
     .nl-group-actions {
         display: none;
-        padding: $gutter;
+        padding: 20px 0;
         background: #fff;
         text-align: right;
         > .nl-btn {
             background: #E4E4E4;
             border-radius: 5px;
-            margin-right: 20px;
+            margin-left: 20px;
 
             &.nl-btn-primary {
                 background: #3671E7;
