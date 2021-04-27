@@ -12,6 +12,7 @@ use Netgen\Layouts\API\Values\Layout\Layout;
 use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 final class CopyRuleForm extends AbstractController
@@ -65,8 +66,17 @@ final class CopyRuleForm extends AbstractController
 
         $form->handleRequest($request);
 
-        if (!$form->isSubmitted() || !$form->isValid()) {
+        if (!$form->isSubmitted()) {
             return $this->buildView($form, ViewInterface::CONTEXT_ADMIN);
+        }
+
+        if (!$form->isValid()) {
+            return $this->buildView(
+                $form,
+                ViewInterface::CONTEXT_ADMIN,
+                [],
+                new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
+            );
         }
 
         $copiedRule = $this->layoutResolverService->transaction(
