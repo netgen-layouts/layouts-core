@@ -537,26 +537,26 @@ export default class NlRule {
     }
 
     copyRule(e) {
-      e.preventDefault();
-      this.rules.showLoader();
-      const url = `${this.rules.baseUrl}rules/${this.id}/copy`;
-      fetch(url, {
-          method: 'POST',
-          credentials: 'same-origin',
-          headers: {
-              'X-CSRF-Token': this.rules.csrf,
-          },
-      }).then((response) => {
-          if (!response.ok) throw new Error(`HTTP error, status ${response.status}`);
-          return response.text();
-      }).then((html) => {
-          document.body.click();
-          this.rules.createRule(html, this.priority + 1);
-          this.rules.hideLoader();
-      }).catch((error) => {
-          console.log(error); // eslint-disable-line no-console
-          this.rules.hideLoader();
-      });
+        e.preventDefault();
+        const url = `${this.rules.baseUrl}rules/${this.id}/copy_form`;
+        const modal = new NlModal({
+            preload: true,
+            autoClose: false,
+        });
+        document.body.click();
+        const formAction = (ev) => {
+            ev.preventDefault();
+            modal.loadingStart();
+            const formEl = modal.el.getElementsByTagName('FORM')[0];
+
+            const afterSuccess = (html) => {
+                document.body.click();
+                this.rules.createRule(html, this.priority + 1);
+                this.rules.hideLoader();
+            };
+            submitModal(url, modal, 'POST', this.rules.csrf, new URLSearchParams(new FormData(formEl)), afterSuccess);
+        };
+        fetchModal(url, modal, formAction);
     }
 
     onSortingStart() {
