@@ -49,11 +49,17 @@ layout_resolver.rule.unlink_layout.error: 'An error occurred while unlinking the
 layout_resolver.rule.unlink_layout.button.delete: 'Unlink'
 layout_resolver.rule.unlink_layout.button.cancel: 'Cancel'
 
-layout_resolver.rule.delete.title: 'Delete mapping'
-layout_resolver.rule.delete.message: 'Are you sure you want to delete this mapping?'
-layout_resolver.rule.delete.error: 'An error occurred while deleting the mapping. Please check the log for details.'
+layout_resolver.rule.delete.title: 'Delete items'
+layout_resolver.rule.delete.message: 'Are you sure you want to delete the selected items?'
+layout_resolver.rule.delete.error: 'An error occurred while deleting the selected items. Please check the log for details.'
 layout_resolver.rule.delete.button.delete: 'Delete'
 layout_resolver.rule.delete.button.cancel: 'Cancel'
+
+layout_resolver.rule.delete_rule.title: 'Delete mapping'
+layout_resolver.rule.delete_rule.message: 'Are you sure you want to delete this mapping?'
+layout_resolver.rule.delete_rule.error: 'An error occurred while deleting the mapping. Please check the log for details.'
+layout_resolver.rule.delete_rule.button.delete: 'Delete'
+layout_resolver.rule.delete_rule.button.cancel: 'Cancel'
 
 layout_resolver.rule.target_header.path_info: 'Applied to path info'
 layout_resolver.rule.target_header.path_info_prefix: 'Applied to path info prefix'
