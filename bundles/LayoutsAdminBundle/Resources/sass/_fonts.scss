@@ -105,3 +105,49 @@
   /* Support for IE. */
   font-feature-settings: 'liga';
 }
+
+/* icomoon */
+@font-face {
+  font-family: 'netgen-layouts';
+  src:  url('assets/fonts/netgen-layouts.eot?1ps4yu');
+  src:  url('assets/fonts/netgen-layouts.eot?1ps4yu#iefix') format('embedded-opentype'),
+    url('assets/fonts/netgen-layouts.ttf?1ps4yu') format('truetype'),
+    url('assets/fonts/netgen-layouts.woff?1ps4yu') format('woff'),
+    url('assets/fonts/netgen-layouts.svg?1ps4yu#netgen-layouts') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'netgen-layouts' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-group-disabled:before {
+  content: "\e900";
+}
+.icon-group-disabled-open:before {
+  content: "\e901";
+}
+.icon-group-open:before {
+  content: "\e902";
+}
+.icon-group:before {
+  content: "\e903";
+}
+.icon-rule-disabled:before {
+  content: "\e904";
+}
+.icon-rule:before {
+  content: "\e905";
+}
