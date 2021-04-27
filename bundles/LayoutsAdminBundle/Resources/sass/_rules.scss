@@ -1148,8 +1148,8 @@
         > .nl-group-content {
             > .nl-group-head {
                 position: sticky;
-                top: -8px;
-                border-bottom: 2px solid #3671E7;
+                top: -3px;
+                outline: 3px solid #3671E7;
                 background: #CCDBF9;
                 z-index: 1001;
 
@@ -1173,6 +1173,10 @@
 
                 .group-details, .nl-dropdown {
                     display: flex !important;
+                }
+
+                &:hover {
+                    background-color: #CCDBF9;
                 }
             }
         }
@@ -1522,6 +1526,21 @@
                     &:hover {
                         .group-title {
                             border-left: 2px solid #F97B62 !important;
+                        }
+                    }
+                }
+            }
+        }
+        &.show-move {
+            > .nl-group-content {
+                > .nl-group-head {
+                    &:hover {
+                        background-color: #CCDBF9 !important;
+                    }
+
+                    > .group-overlay {
+                        > .group-controls {
+                            background-color: #CCDBF9;
                         }
                     }
                 }
