@@ -60,7 +60,7 @@ final class RuleConditionParamConverterTest extends TestCase
 
         $this->layoutResolverServiceMock
             ->expects(self::once())
-            ->method('loadCondition')
+            ->method('loadRuleCondition')
             ->with(self::equalTo($uuid))
             ->willReturn($condition);
 
@@ -86,7 +86,7 @@ final class RuleConditionParamConverterTest extends TestCase
 
         $this->layoutResolverServiceMock
             ->expects(self::once())
-            ->method('loadConditionDraft')
+            ->method('loadRuleConditionDraft')
             ->with(self::equalTo($uuid))
             ->willReturn($condition);
 
