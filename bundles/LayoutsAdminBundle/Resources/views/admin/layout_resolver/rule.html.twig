@@ -140,12 +140,6 @@
             </div>
 
         </div>
-
-        {% if rule.description is not empty %}
-            <div class="nl-rule-description">
-                {{ rule.description }}
-            </div>
-        {% endif %}
     </div>
 </div>
 
@@ -279,5 +273,10 @@
                 </div>
             </div>
         </div>
+                {% if rule.description is not empty %}
+            <div class="nl-rule-description">
+                {{ rule.description }}
+            </div>
+        {% endif %}
     </div>
 </div>

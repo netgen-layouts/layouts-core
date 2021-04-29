@@ -592,6 +592,21 @@
                 margin: 1.5em 0 0;
                 font-style: italic;
             }
+
+            .nl-rule-description {
+                padding: 10px 20px;
+                font-size: 12px;
+                line-height: 1.2;
+                background: hsl(0, 0, 90);
+                color: hsl(0, 0, 50);
+                min-height: 85px;
+                margin-top: 48px;
+        
+                p {
+                    color: #000000;
+                    font-size: 14px;
+                }
+            }
             .rule-layout-info {
                 display: flex;
                 flex-wrap: wrap;
