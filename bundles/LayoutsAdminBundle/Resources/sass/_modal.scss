@@ -216,6 +216,14 @@
 
     #nl-move-modal {
         width: 60%;
+
+        .nl-group, .nl-group-head {
+            border-bottom: 1px solid transparent;
+        }
+
+        .nl-group-body {
+            padding: 0;
+        }
     }
 }
 @keyframes maskFadeIn {
