@@ -14,10 +14,10 @@
             &::before {
                 @extend %material-icons;
                 content: 'check_box_outline_blank';
-                font-size: 18px;
+                font-size: 26px;
                 position: absolute;
                 left: 0;
-                top: 0;
+                top: -4px;
             }
         }
         &:checked {
@@ -95,7 +95,7 @@
 
 .floating-controls {
     display: none;
-    height: 52px;
+    height: 46px;
     background: #CCDBF9;
     border: 2px solid #3671E7;
     flex-direction: row-reverse;
@@ -107,6 +107,10 @@
         margin-right: auto;
         display: flex;
         align-items: center;
+
+        .selected-items {
+            margin-left: 1rem;
+        }
 
         p {
             font-size: 16px;
