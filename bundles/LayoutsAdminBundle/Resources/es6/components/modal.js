@@ -32,8 +32,11 @@ export default class NlModal {
     }
 
     deleteValidation() {
-        if (this.deleteInputValue.toLowerCase() === 'delete') {
+        const regex = new RegExp(this.deleteInput.pattern);
+        if (regex.test(this.deleteInputValue)) {
             this.applyElement.disabled = false;
+        } else {
+            this.applyElement.disabled = true;
         }
     }
 
