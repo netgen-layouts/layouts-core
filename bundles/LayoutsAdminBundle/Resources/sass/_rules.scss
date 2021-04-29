@@ -425,20 +425,7 @@
     }
 
     .rule-details {
-        display: flex;
-        cursor: pointer;
-        padding: $gutter 12px;
-        line-height: 1.6666666667;
-        color: hsl(0, 0, 20);
-        transition: background-color .2s;
-        &:hover {
-            background: hsla(0, 0, 62, .2);
-        }
-        &::after {
-            font-size: 16px;
-            margin: 1px 0 0 .125em;
-            @extend %material-icons;
-        }
+        padding-right: 0;
     }
 
     .rule-link-layout {
@@ -536,8 +523,10 @@
                 font-size: 24px;
                 padding: 0 .75em;
                 border-radius: 0;
+
                 i {
                     font-size: inherit;
+                    color: #3671E7;
                 }
             }
         }
