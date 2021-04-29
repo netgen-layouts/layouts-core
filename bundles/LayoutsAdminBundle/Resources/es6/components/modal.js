@@ -31,6 +31,12 @@ export default class NlModal {
         this.setupEvents();
     }
 
+    deleteValidation() {
+        if (this.deleteInputValue.toLowerCase() === 'delete') {
+            this.applyElement.disabled = false;
+        }
+    }
+
     loadModal() {
         this.options.preload ? this.loadingStart() : this.container.innerHTML = this.getHtml();
         this.el.appendChild(this.loader);
@@ -82,9 +88,26 @@ export default class NlModal {
         window.removeEventListener('keydown', this.onKeyDown);
     }
 
+    deleteSetup() {
+        this.deleteInput = document.getElementById('delete-verification');
+        [this.applyElement] = this.el.getElementsByClassName('action-apply');
+        this.deleteInputValue = '';
+        if (this.deleteInput) {
+            this.applyElement.disabled = true;
+        }
+
+        if (this.deleteInput) {
+            this.deleteInput.addEventListener('keyup', (e) => {
+                this.deleteInputValue = e.target.value;
+                this.deleteValidation();
+            });
+        }
+    }
+
     insertModalHtml(html) {
         this.container.innerHTML = html;
         this.loadingStop();
+        this.deleteSetup();
     }
 
     loadingStart() {
@@ -97,6 +120,6 @@ export default class NlModal {
 
     destroy() {
         this.el.dispatchEvent(new Event('close'));
-        this.el.parentElement.removeChild(this.el);
+        this.el.parentElement && this.el.parentElement.removeChild(this.el);
     }
 }

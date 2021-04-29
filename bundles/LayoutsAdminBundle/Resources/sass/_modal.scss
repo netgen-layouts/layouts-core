@@ -55,6 +55,11 @@
             padding:25px 15px;
             overflow-y:auto;
             font-size: 16px;
+
+            #delete-verification {
+                margin-top: 1rem;
+                border: 1px solid black;
+            }
         }
         .nl-modal-head {
             padding:15px 35px 15px 15px;
