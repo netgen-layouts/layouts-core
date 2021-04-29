@@ -242,6 +242,16 @@
                 border-left: 2px solid #F4B81A;
             }
 
+            @media only screen and (max-width: 1200px) {
+                .rule-targets {
+                    display: none;
+                }
+            }
+
+            .rule-conditions {
+                display: none;
+            }
+
             .hover-actions {
                 display: flex;
                 background-color: #FEF8E8;
@@ -891,6 +901,16 @@
                 .hover-actions {
                     display: flex;
                     background-color: #FEF8E8;
+                }
+
+                @media only screen and (max-width: 1200px) {
+                    .rule-targets {
+                        display: none;
+                    }
+                }
+    
+                .rule-conditions {
+                    display: none;
                 }
     
                 > .nl-rule-cell {
