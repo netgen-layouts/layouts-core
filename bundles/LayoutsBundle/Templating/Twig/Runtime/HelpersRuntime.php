@@ -9,6 +9,7 @@ use IntlTimeZone;
 use Locale;
 use Netgen\Layouts\API\Service\LayoutResolverService;
 use Netgen\Layouts\API\Service\LayoutService;
+use Netgen\Layouts\API\Values\LayoutResolver\Rule;
 use Netgen\Layouts\API\Values\LayoutResolver\RuleGroup;
 use Netgen\Layouts\Exception\Item\ItemException;
 use Netgen\Layouts\Exception\RuntimeException;
@@ -19,6 +20,7 @@ use Netgen\Layouts\Utils\FlagGenerator;
 use Ramsey\Uuid\Uuid;
 use Throwable;
 use Twig\Environment;
+use function array_unshift;
 use function twig_date_converter;
 
 final class HelpersRuntime
@@ -128,5 +130,18 @@ final class HelpersRuntime
         $formattedValue = $formatter->format($dateTime->getTimestamp());
 
         return $formattedValue !== false ? $formattedValue : '';
+    }
+
+    public function getParentRuleGroups(Rule $rule): array
+    {
+        $group = $this->layoutResolverService->loadRuleGroup($rule->getRuleGroupId());
+        $parentGroups = [$group];
+
+        while ($group->getParentId() !== null) {
+            $group = $this->layoutResolverService->loadRuleGroup($group->getParentId());
+            array_unshift($parentGroups, $group);
+        }
+
+        return $parentGroups;
     }
 }

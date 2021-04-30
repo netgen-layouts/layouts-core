@@ -36,6 +36,10 @@ final class HelpersExtension extends AbstractExtension
                     'needs_environment' => true,
                 ]
             ),
+            new TwigFunction(
+                'nglayouts_parent_rule_groups',
+                [HelpersRuntime::class, 'getParentRuleGroups']
+            ),
         ];
     }
 
