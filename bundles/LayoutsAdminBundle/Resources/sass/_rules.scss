@@ -95,7 +95,7 @@
 
 .floating-controls {
     display: none;
-    height: 46px;
+    height: 56px;
     background: #CCDBF9;
     border: 2px solid #3671E7;
     flex-direction: row-reverse;
@@ -274,6 +274,16 @@
             z-index: 5;
             .hover-actions {
                 display: flex;
+            }
+
+            @media only screen and (max-width: 1200px) {
+                .rule-targets {
+                    display: none;
+                }
+            }
+
+            .rule-conditions {
+                display: none;
             }
     
             > .nl-rule-cell {
@@ -520,6 +530,10 @@
 
             .icon-rule-disabled {
                 display: none;
+            }
+
+            p {
+                margin-top: 0.25rem;
             }
         }
         .nl-dropdown {
@@ -1101,6 +1115,16 @@
                 > .hover-actions {
                     display: flex;
                 }
+
+                @media only screen and (max-width: 1200px) {
+                    .rule-targets {
+                        display: none;
+                    }
+                }
+    
+                .rule-conditions {
+                    display: none;
+                }
             }
         }
     }
@@ -1198,8 +1222,28 @@
                 background: #CCDBF9;
                 z-index: 1001;
 
+                .group-title {
+                    width: 60%;
+                }
+
+                @media only screen and (max-width: 1200px) {
+                    .rule-targets {
+                        display: none;
+                    }
+                }
+    
+                .rule-conditions {
+                    display: none;
+                }
+
                 .group-overlay {
                     display: flex;
+                }
+                .selected-items-wrapper {
+                    display: flex;
+                    color: black;
+                    margin-left: 1rem;
+                    font-weight: normal;
                 }
 
                 .group-controls {
@@ -1208,6 +1252,10 @@
                 }
                 .js-group-move, .js-group-delete-multiple, .js-export, .js-clear-selection {
                     display: block;
+                }
+
+                .export-button {
+                    padding-right: 0;
                 }
 
                 .js-export {
@@ -1433,6 +1481,10 @@
             height: 100%;
         }
 
+        .selected-items-wrapper {
+            display: none;
+        }
+
         .disabled-tooltip {
             visibility: hidden;
             width: 120px;
@@ -1483,7 +1535,6 @@
             right: 0;
             z-index: 100;
             background: white;
-            padding-left: 200px;
         }
 
         .group-title {
@@ -1523,6 +1574,10 @@
                     text-decoration: underline;
                 }
                 cursor: pointer;
+            }
+
+            p {
+                margin-top: 0.25rem;
             }
         }
         .js-group-move, .js-group-delete-multiple, .js-group-save-reorder, .js-group-cancel-reorder, .js-export, .js-clear-selection {

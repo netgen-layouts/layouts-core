@@ -140,6 +140,7 @@ export default class NlRules {
     setSelectingId(id) {
         this.selectingId = id;
         id === this.id ? this.floatingControls.style.display = 'flex' : this.floatingControls.style.display = 'none';
+        id === this.id ? this.rulesContainer.style.top = '175px' : this.rulesContainer.style.top = '159px';
         id === this.id ? this.rulesHeader.style.display = 'none' : this.rulesHeader.style.display = 'flex';
         id === this.id ? this.checkAllBoxesWrapper.style.visibility = 'visible' : this.checkAllBoxesWrapper.style.visibility = 'hidden';
         this.addRuleButton && id === this.id ? this.addRuleButton.style.display = 'none' : this.addRuleButton.style.display = 'inline-block';
