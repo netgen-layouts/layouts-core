@@ -3,7 +3,7 @@
 // To support running PHP CS Fixer via PHAR file (e.g. in GitHub Actions)
 require_once __DIR__ . '/vendor/netgen/layouts-coding-standard/lib/PhpCsFixer/Config.php';
 
-return Netgen\Layouts\CodingStandard\PhpCsFixer\Config::create()
+return (new Netgen\Layouts\CodingStandard\PhpCsFixer\Config())
     ->addRules([
         // Makes sure "time" function is not imported to make time sensitive
         // tests working by overriding the function, which would not be possible

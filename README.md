@@ -97,7 +97,7 @@ $ composer psalm
 
 ### Coding standards
 
-This repo uses PHP CS Fixer and rules defined in `.php_cs` file to enforce coding
+This repo uses PHP CS Fixer and rules defined in `.php-cs-fixer.php` file to enforce coding
 standards. Please check the code for any CS violations before submitting patches:
 
 ```

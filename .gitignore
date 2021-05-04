@@ -6,7 +6,7 @@ node_modules/
 vendor/
 .DS_Store
 .php-version
-.php_cs.cache
+.php-cs-fixer.cache
 .phpunit.result.cache
 .web-server-pid
 composer.lock
