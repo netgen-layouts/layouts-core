@@ -66,10 +66,13 @@ body {
         width:20%;
         background:hsl(0, 0, 90);
 
-        .logo {
-          background: transparent url('assets/layouts-logo-admin.svg') no-repeat center center;
-          height: 80px;
-          cursor: pointer;
+        .logo-wrapper {
+          background: #282828;
+          .logo {
+            background: transparent url('assets/layouts-logo-admin.svg') no-repeat center center;
+            height: 80px;
+            cursor: pointer;
+          }
         }
         .main-menu {
             padding-top:$gutter*2;
