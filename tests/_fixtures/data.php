@@ -354,10 +354,9 @@ return [
         ['id' => 7, 'status' => 0, 'uuid' => '816c00bb-8253-5bba-a067-ba6de1f94a65', 'rule_group_id' => 1, 'layout_uuid' => '8626a1ca-6413-5f54-acef-de7db06272ce', 'description' => ''],
         ['id' => 7, 'status' => 1, 'uuid' => '816c00bb-8253-5bba-a067-ba6de1f94a65', 'rule_group_id' => 1, 'layout_uuid' => '8626a1ca-6413-5f54-acef-de7db06272ce', 'description' => ''],
         ['id' => 8, 'status' => 1, 'uuid' => 'bd5415cb-9447-52ec-bb81-71bb6302d52c', 'rule_group_id' => 1, 'layout_uuid' => '399ad9ac-777a-50ba-945a-06e9f57add12', 'description' => ''],
-        ['id' => 9, 'status' => 1, 'uuid' => 'af071c3d-96aa-5731-b755-bbc0d407f02d', 'rule_group_id' => 1, 'layout_uuid' => '7900306c-0351-5f0a-9b33-5d4f5a1f3943', 'description' => ''],
+        ['id' => 9, 'status' => 1, 'uuid' => 'af071c3d-96aa-5731-b755-bbc0d407f02d', 'rule_group_id' => 1, 'layout_uuid' => '4b0202b3-5d06-5962-ae0c-bbeb25ee3503', 'description' => ''],
         ['id' => 10, 'status' => 1, 'uuid' => 'e68f3641-f44a-54d7-ad8d-4649024a1fd2', 'rule_group_id' => 1, 'layout_uuid' => '4b0202b3-5d06-5962-ae0c-bbeb25ee3503', 'description' => ''],
         ['id' => 11, 'status' => 1, 'uuid' => 'c6891782-9d3e-58b7-95ac-261f491cc1ae', 'rule_group_id' => 1, 'layout_uuid' => null, 'description' => ''],
-        ['id' => 12, 'status' => 1, 'uuid' => 'bc4cbc07-37ff-5893-8176-71cb347c9e2f', 'rule_group_id' => 1, 'layout_uuid' => '4b0202b3-5d06-5962-ae0c-bbeb25ee3503', 'description' => ''],
     ],
     'nglayouts_rule_data' => [
         ['rule_id' => 1, 'enabled' => 1, 'priority' => 9],
@@ -371,7 +370,6 @@ return [
         ['rule_id' => 9, 'enabled' => 1, 'priority' => 1],
         ['rule_id' => 10, 'enabled' => 1, 'priority' => 0],
         ['rule_id' => 11, 'enabled' => 0, 'priority' => -1],
-        ['rule_id' => 12, 'enabled' => 0, 'priority' => -2],
     ],
     'nglayouts_rule_target' => [
         ['id' => 1, 'status' => 1, 'uuid' => 'c7c5cdca-02da-5ba5-ad9e-d25cbc4b1b46', 'rule_id' => 1, 'type' => 'route', 'value' => 'my_cool_route'],

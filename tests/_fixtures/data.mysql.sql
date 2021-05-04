@@ -395,10 +395,9 @@ INSERT INTO `nglayouts_rule` VALUES (6,1,'4f63660c-bd58-5efa-81a8-6c81b4484a61',
 INSERT INTO `nglayouts_rule` VALUES (7,0,'816c00bb-8253-5bba-a067-ba6de1f94a65',1,'8626a1ca-6413-5f54-acef-de7db06272ce','');
 INSERT INTO `nglayouts_rule` VALUES (7,1,'816c00bb-8253-5bba-a067-ba6de1f94a65',1,'8626a1ca-6413-5f54-acef-de7db06272ce','');
 INSERT INTO `nglayouts_rule` VALUES (8,1,'bd5415cb-9447-52ec-bb81-71bb6302d52c',1,'399ad9ac-777a-50ba-945a-06e9f57add12','');
-INSERT INTO `nglayouts_rule` VALUES (9,1,'af071c3d-96aa-5731-b755-bbc0d407f02d',1,'7900306c-0351-5f0a-9b33-5d4f5a1f3943','');
+INSERT INTO `nglayouts_rule` VALUES (9,1,'af071c3d-96aa-5731-b755-bbc0d407f02d',1,'4b0202b3-5d06-5962-ae0c-bbeb25ee3503','');
 INSERT INTO `nglayouts_rule` VALUES (10,1,'e68f3641-f44a-54d7-ad8d-4649024a1fd2',1,'4b0202b3-5d06-5962-ae0c-bbeb25ee3503','');
 INSERT INTO `nglayouts_rule` VALUES (11,1,'c6891782-9d3e-58b7-95ac-261f491cc1ae',1,NULL,'');
-INSERT INTO `nglayouts_rule` VALUES (12,1,'bc4cbc07-37ff-5893-8176-71cb347c9e2f',1,'4b0202b3-5d06-5962-ae0c-bbeb25ee3503','');
 /*!40000 ALTER TABLE `nglayouts_rule` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -464,7 +463,6 @@ INSERT INTO `nglayouts_rule_data` VALUES (8,1,2);
 INSERT INTO `nglayouts_rule_data` VALUES (9,1,1);
 INSERT INTO `nglayouts_rule_data` VALUES (10,1,0);
 INSERT INTO `nglayouts_rule_data` VALUES (11,0,-1);
-INSERT INTO `nglayouts_rule_data` VALUES (12,0,-2);
 /*!40000 ALTER TABLE `nglayouts_rule_data` ENABLE KEYS */;
 UNLOCK TABLES;
 
