@@ -132,14 +132,20 @@ final class HelpersRuntime
         return $formattedValue !== false ? $formattedValue : '';
     }
 
+    /**
+     * @return \Netgen\Layouts\API\Values\LayoutResolver\RuleGroup[]
+     */
     public function getParentRuleGroups(Rule $rule): array
     {
         $group = $this->layoutResolverService->loadRuleGroup($rule->getRuleGroupId());
         $parentGroups = [$group];
 
-        while ($group->getParentId() !== null) {
-            $group = $this->layoutResolverService->loadRuleGroup($group->getParentId());
+        $parentId = $group->getParentId();
+
+        while ($parentId !== null) {
+            $group = $this->layoutResolverService->loadRuleGroup($parentId);
             array_unshift($parentGroups, $group);
+            $parentId = $group->getParentId();
         }
 
         return $parentGroups;
