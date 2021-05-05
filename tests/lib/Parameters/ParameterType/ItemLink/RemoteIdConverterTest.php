@@ -39,8 +39,8 @@ final class RemoteIdConverterTest extends TestCase
                     [
                         'value' => 42,
                         'remoteId' => 'abc',
-                    ]
-                )
+                    ],
+                ),
             );
 
         self::assertSame('my-value-type://abc', $this->remoteIdConverter->convertToRemoteId('my-value-type://42'));
@@ -82,8 +82,8 @@ final class RemoteIdConverterTest extends TestCase
                     [
                         'value' => 42,
                         'remoteId' => 'abc',
-                    ]
-                )
+                    ],
+                ),
             );
 
         self::assertSame('my-value-type://42', $this->remoteIdConverter->convertFromRemoteId('my-value-type://abc'));

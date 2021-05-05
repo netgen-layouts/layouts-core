@@ -30,9 +30,9 @@ final class Index extends AbstractController
             '@NetgenLayoutsAdmin/admin/layout_resolver/index.html.twig',
             [
                 'rules' => $this->layoutResolverService->loadRulesFromGroup(
-                    $this->layoutResolverService->loadRuleGroup(Uuid::fromString(RuleGroup::ROOT_UUID))
+                    $this->layoutResolverService->loadRuleGroup(Uuid::fromString(RuleGroup::ROOT_UUID)),
                 ),
-            ]
+            ],
         );
     }
 }

@@ -19,26 +19,26 @@ final class HelpersExtension extends AbstractExtension
         return [
             new TwigFunction(
                 'nglayouts_layout_name',
-                [HelpersRuntime::class, 'getLayoutName']
+                [HelpersRuntime::class, 'getLayoutName'],
             ),
             new TwigFunction(
                 'nglayouts_value_type_name',
-                [HelpersRuntime::class, 'getValueTypeName']
+                [HelpersRuntime::class, 'getValueTypeName'],
             ),
             new TwigFunction(
                 'nglayouts_rule_group',
-                [HelpersRuntime::class, 'getRuleGroup']
+                [HelpersRuntime::class, 'getRuleGroup'],
             ),
             new TwigFunction(
                 'nglayouts_format_datetime',
                 [HelpersRuntime::class, 'formatDateTime'],
                 [
                     'needs_environment' => true,
-                ]
+                ],
             ),
             new TwigFunction(
                 'nglayouts_parent_rule_groups',
-                [HelpersRuntime::class, 'getParentRuleGroups']
+                [HelpersRuntime::class, 'getParentRuleGroups'],
             ),
         ];
     }
@@ -51,18 +51,18 @@ final class HelpersExtension extends AbstractExtension
         return [
             new TwigFilter(
                 'nglayouts_locale_name',
-                [HelpersRuntime::class, 'getLocaleName']
+                [HelpersRuntime::class, 'getLocaleName'],
             ),
             new TwigFilter(
                 'nglayouts_country_flag',
-                [HelpersRuntime::class, 'getCountryFlag']
+                [HelpersRuntime::class, 'getCountryFlag'],
             ),
             new TwigFilter(
                 'nglayouts_format_datetime',
                 [HelpersRuntime::class, 'formatDateTime'],
                 [
                     'needs_environment' => true,
-                ]
+                ],
             ),
         ];
     }

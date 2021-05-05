@@ -36,7 +36,7 @@ final class MoveItem extends AbstractController
 
         $this->collectionService->moveItem(
             $item,
-            $requestData->get('position')
+            $requestData->get('position'),
         );
 
         return new Response(null, Response::HTTP_NO_CONTENT);
@@ -55,7 +55,7 @@ final class MoveItem extends AbstractController
                 new Constraints\NotBlank(),
                 new Constraints\Type(['type' => 'int']),
             ],
-            'position'
+            'position',
         );
     }
 }

@@ -32,7 +32,7 @@ final class EditRuleConditionForm extends AbstractController
             'nglayouts:mapping:edit',
             [
                 'rule_group' => $rule->getRuleGroupId()->toString(),
-            ]
+            ],
         );
 
         $conditionType = $condition->getConditionType();
@@ -49,9 +49,9 @@ final class EditRuleConditionForm extends AbstractController
                     'nglayouts_admin_layout_resolver_rule_condition_form_edit',
                     [
                         'conditionId' => $condition->getId()->toString(),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $form->handleRequest($request);
@@ -65,9 +65,9 @@ final class EditRuleConditionForm extends AbstractController
 
             return $this->buildView(
                 $this->layoutResolverService->loadRuleDraft(
-                    $condition->getRuleId()
+                    $condition->getRuleId(),
                 ),
-                ViewInterface::CONTEXT_ADMIN
+                ViewInterface::CONTEXT_ADMIN,
             );
         }
 
@@ -75,7 +75,7 @@ final class EditRuleConditionForm extends AbstractController
             $form,
             ViewInterface::CONTEXT_ADMIN,
             [],
-            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
+            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY),
         );
     }
 }

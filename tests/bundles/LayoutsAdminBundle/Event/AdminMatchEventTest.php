@@ -24,7 +24,7 @@ final class AdminMatchEventTest extends TestCase
 
         $this->event = new AdminMatchEvent(
             $this->request,
-            $this->requestType
+            $this->requestType,
         );
     }
 

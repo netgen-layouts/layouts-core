@@ -40,13 +40,13 @@ final class ViewAjaxBlock extends AbstractController
                 $viewContext,
                 [
                     'collection_identifier' => $collectionIdentifier,
-                ]
+                ],
             );
         } catch (Throwable $t) {
             $message = sprintf(
                 'Error rendering an AJAX block with UUID %s and collection %s',
                 $block->getId()->toString(),
-                $collectionIdentifier
+                $collectionIdentifier,
             );
 
             $this->errorHandler->handleError($t, $message);

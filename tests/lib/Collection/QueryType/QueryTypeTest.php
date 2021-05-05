@@ -29,7 +29,7 @@ final class QueryTypeTest extends TestCase
                 'type' => 'query_type',
                 'isEnabled' => false,
                 'name' => 'Query type',
-            ]
+            ],
         );
     }
 

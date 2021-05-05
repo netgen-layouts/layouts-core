@@ -151,14 +151,14 @@ final class ViewTest extends TestCase
             [
                 'some_param' => 'some_value',
                 'some_other_param' => 'some_other_value',
-            ]
+            ],
         );
 
         $this->view->addParameters(
             [
                 'some_param' => 'new_value',
                 'third_param' => 'third_value',
-            ]
+            ],
         );
 
         self::assertSame(
@@ -168,7 +168,7 @@ final class ViewTest extends TestCase
                 'third_param' => 'third_value',
                 'some_other_param' => 'some_other_value',
             ],
-            $this->view->getParameters()
+            $this->view->getParameters(),
         );
     }
 }

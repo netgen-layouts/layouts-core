@@ -44,7 +44,7 @@ final class BlockViewTest extends TestCase
                 'block' => $this->block,
                 'param' => 'value',
             ],
-            $this->view->getParameters()
+            $this->view->getParameters(),
         );
     }
 

@@ -46,7 +46,7 @@ final class RouteParameterTest extends FormTestCase
         $form = $this->factory->create(
             ConditionType::class,
             $struct,
-            ['condition_type' => $this->conditionType]
+            ['condition_type' => $this->conditionType],
         );
 
         $valueFormConfig = $form->get('value')->getConfig();
@@ -60,7 +60,7 @@ final class RouteParameterTest extends FormTestCase
                 'parameter_name' => 'some_name',
                 'parameter_values' => ['value1', 'value1'],
             ],
-            $struct->value
+            $struct->value,
         );
 
         $formView = $form->createView();
@@ -77,8 +77,8 @@ final class RouteParameterTest extends FormTestCase
             new Container(
                 [
                     'route_parameter' => new RouteParameterMapper(),
-                ]
-            )
+                ],
+            ),
         );
     }
 }

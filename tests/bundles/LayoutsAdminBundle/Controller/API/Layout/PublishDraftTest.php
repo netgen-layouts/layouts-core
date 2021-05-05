@@ -22,7 +22,7 @@ final class PublishDraftTest extends JsonApiTestCase
             [],
             [],
             [],
-            $this->jsonEncode([])
+            $this->jsonEncode([]),
         );
 
         $this->assertEmptyResponse($this->client->getResponse());
@@ -39,13 +39,13 @@ final class PublishDraftTest extends JsonApiTestCase
             [],
             [],
             [],
-            $this->jsonEncode([])
+            $this->jsonEncode([]),
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find layout with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"'
+            'Could not find layout with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"',
         );
     }
 }

@@ -24,7 +24,7 @@ final class Postgres implements ConnectionHelperInterface
     public function lastId(string $table, string $column = 'id'): string
     {
         return $this->connection->lastInsertId(
-            $this->connection->getDatabasePlatform()->getIdentitySequenceName($table, $column)
+            $this->connection->getDatabasePlatform()->getIdentitySequenceName($table, $column),
         );
     }
 }

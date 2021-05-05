@@ -26,7 +26,7 @@ final class BlockDefinitionHandlerWithRequiredParameter extends BaseBlockDefinit
                     'options' => [
                         'translatable' => false,
                     ],
-                ]
+                ],
             ),
             'css_id' => ParameterDefinition::fromArray(
                 [
@@ -36,7 +36,7 @@ final class BlockDefinitionHandlerWithRequiredParameter extends BaseBlockDefinit
                     'options' => [
                         'translatable' => false,
                     ],
-                ]
+                ],
             ),
         ];
     }

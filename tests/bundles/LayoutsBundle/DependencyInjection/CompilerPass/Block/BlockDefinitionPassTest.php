@@ -39,7 +39,7 @@ final class BlockDefinitionPassTest extends AbstractContainerBuilderTestCase
 
         $this->setParameter(
             'netgen_layouts.block_definitions',
-            ['block_definition' => ['enabled' => true]]
+            ['block_definition' => ['enabled' => true]],
         );
 
         $this->setDefinition('netgen_layouts.block.registry.block_definition', new Definition(null, [[]]));
@@ -47,12 +47,12 @@ final class BlockDefinitionPassTest extends AbstractContainerBuilderTestCase
         $blockDefinitionHandler = new Definition($handlerClass);
         $blockDefinitionHandler->addTag(
             'netgen_layouts.block_definition_handler',
-            ['identifier' => 'block_definition']
+            ['identifier' => 'block_definition'],
         );
 
         $this->setDefinition(
             'netgen_layouts.block.block_definition.handler.test',
-            $blockDefinitionHandler
+            $blockDefinitionHandler,
         );
 
         $configHandler = new Definition();
@@ -64,7 +64,7 @@ final class BlockDefinitionPassTest extends AbstractContainerBuilderTestCase
 
         $this->assertContainerBuilderHasService(
             'netgen_layouts.block.block_definition.block_definition',
-            $definitionClass
+            $definitionClass,
         );
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
@@ -72,7 +72,7 @@ final class BlockDefinitionPassTest extends AbstractContainerBuilderTestCase
             3,
             [
                 'key' => new Reference('netgen_layouts.block.block_config_handler.key'),
-            ]
+            ],
         );
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
@@ -80,7 +80,7 @@ final class BlockDefinitionPassTest extends AbstractContainerBuilderTestCase
             0,
             [
                 'block_definition' => new Reference('netgen_layouts.block.block_definition.block_definition'),
-            ]
+            ],
         );
     }
 
@@ -96,7 +96,7 @@ final class BlockDefinitionPassTest extends AbstractContainerBuilderTestCase
 
         $this->setParameter(
             'netgen_layouts.block_definitions',
-            ['block_definition' => ['enabled' => true, 'handler' => 'custom']]
+            ['block_definition' => ['enabled' => true, 'handler' => 'custom']],
         );
 
         $this->setDefinition('netgen_layouts.block.registry.block_definition', new Definition(null, [[]]));
@@ -104,19 +104,19 @@ final class BlockDefinitionPassTest extends AbstractContainerBuilderTestCase
         $blockDefinitionHandler = new Definition($handlerClass);
         $blockDefinitionHandler->addTag(
             'netgen_layouts.block_definition_handler',
-            ['identifier' => 'custom']
+            ['identifier' => 'custom'],
         );
 
         $this->setDefinition(
             'netgen_layouts.block.block_definition.handler.test',
-            $blockDefinitionHandler
+            $blockDefinitionHandler,
         );
 
         $this->compile();
 
         $this->assertContainerBuilderHasService(
             'netgen_layouts.block.block_definition.block_definition',
-            $definitionClass
+            $definitionClass,
         );
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
@@ -124,7 +124,7 @@ final class BlockDefinitionPassTest extends AbstractContainerBuilderTestCase
             0,
             [
                 'block_definition' => new Reference('netgen_layouts.block.block_definition.block_definition'),
-            ]
+            ],
         );
     }
 
@@ -138,7 +138,7 @@ final class BlockDefinitionPassTest extends AbstractContainerBuilderTestCase
 
         $this->setParameter(
             'netgen_layouts.block_definitions',
-            ['block_definition' => ['enabled' => true]]
+            ['block_definition' => ['enabled' => true]],
         );
 
         $this->setDefinition('netgen_layouts.block.registry.block_definition', new Definition());
@@ -161,7 +161,7 @@ final class BlockDefinitionPassTest extends AbstractContainerBuilderTestCase
 
         $this->setParameter(
             'netgen_layouts.block_definitions',
-            ['block_definition' => ['enabled' => true]]
+            ['block_definition' => ['enabled' => true]],
         );
 
         $this->setDefinition('netgen_layouts.block.registry.block_definition', new Definition(null, [[]]));
@@ -169,12 +169,12 @@ final class BlockDefinitionPassTest extends AbstractContainerBuilderTestCase
         $blockDefinitionHandler = new Definition(stdClass::class);
         $blockDefinitionHandler->addTag(
             'netgen_layouts.block_definition_handler',
-            ['identifier' => 'block_definition']
+            ['identifier' => 'block_definition'],
         );
 
         $this->setDefinition(
             'netgen_layouts.block.block_definition.handler.test',
-            $blockDefinitionHandler
+            $blockDefinitionHandler,
         );
 
         $configHandler = new Definition();
@@ -195,7 +195,7 @@ final class BlockDefinitionPassTest extends AbstractContainerBuilderTestCase
 
         $this->setParameter(
             'netgen_layouts.block_definitions',
-            ['block_definition' => ['enabled' => true]]
+            ['block_definition' => ['enabled' => true]],
         );
 
         $this->setDefinition('netgen_layouts.block.registry.block_definition', new Definition());
@@ -213,7 +213,7 @@ final class BlockDefinitionPassTest extends AbstractContainerBuilderTestCase
 
         $this->setParameter(
             'netgen_layouts.block_definitions',
-            ['block_definition' => ['enabled' => true, 'handler' => 'custom']]
+            ['block_definition' => ['enabled' => true, 'handler' => 'custom']],
         );
 
         $this->setDefinition('netgen_layouts.block.registry.block_definition', new Definition());

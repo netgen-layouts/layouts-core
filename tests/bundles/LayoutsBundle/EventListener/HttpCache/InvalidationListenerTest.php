@@ -48,7 +48,7 @@ final class InvalidationListenerTest extends TestCase
                 ConsoleEvents::TERMINATE => 'onConsoleTerminate',
                 ConsoleEvents::ERROR => 'onConsoleTerminate',
             ],
-            $this->listener::getSubscribedEvents()
+            $this->listener::getSubscribedEvents(),
         );
     }
 
@@ -63,7 +63,7 @@ final class InvalidationListenerTest extends TestCase
         $event = $this->createTerminateEvent(
             $kernelMock,
             $request,
-            new Response()
+            new Response(),
         );
 
         $this->invalidatorMock
@@ -85,7 +85,7 @@ final class InvalidationListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            new Exception()
+            new Exception(),
         );
 
         $this->invalidatorMock
@@ -107,7 +107,7 @@ final class InvalidationListenerTest extends TestCase
         $event = new ConsoleEvent(
             $commandMock,
             $inputMock,
-            $outputMock
+            $outputMock,
         );
 
         $this->invalidatorMock

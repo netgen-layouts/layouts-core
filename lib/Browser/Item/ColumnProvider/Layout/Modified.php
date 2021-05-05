@@ -24,7 +24,7 @@ final class Modified implements ColumnValueProviderInterface
         }
 
         return $item->getLayout()->getModified()->format(
-            $this->dateFormat
+            $this->dateFormat,
         );
     }
 }

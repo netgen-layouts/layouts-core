@@ -18,7 +18,7 @@ final class TranslationExceptionTest extends TestCase
 
         self::assertSame(
             'Translation with "en" locale does not exist.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 }

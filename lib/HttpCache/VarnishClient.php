@@ -41,7 +41,7 @@ final class VarnishClient implements ClientInterface
                 [
                     'key' => $tag,
                     'Host' => $hostHeader,
-                ]
+                ],
             );
         }
     }

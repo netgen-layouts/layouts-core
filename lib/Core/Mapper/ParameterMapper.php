@@ -35,7 +35,7 @@ final class ParameterMapper
                     'parameterDefinition' => $parameterDefinition,
                     'value' => $value,
                     'isEmpty' => $parameterType->isValueEmpty($parameterDefinition, $value),
-                ]
+                ],
             );
 
             if ($parameterDefinition instanceof CompoundParameterDefinition) {
@@ -64,7 +64,7 @@ final class ParameterMapper
 
             yield $parameterName => $parameterDefinition->getType()->toHash(
                 $parameterDefinition,
-                $values[$parameterName]
+                $values[$parameterName],
             );
 
             if ($parameterDefinition instanceof CompoundParameterDefinition) {

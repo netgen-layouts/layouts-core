@@ -28,7 +28,7 @@ final class ParameterTest extends TestCase
                 'parameterDefinition' => $parameterDefinition,
                 'value' => 42,
                 'isEmpty' => false,
-            ]
+            ],
         );
 
         self::assertSame('param_name', $parameter->getName());
@@ -50,7 +50,7 @@ final class ParameterTest extends TestCase
                 'parameterDefinition' => $parameterDefinition,
                 'value' => 42,
                 'isEmpty' => false,
-            ]
+            ],
         );
 
         self::assertSame('42', (string) $parameter);
@@ -69,7 +69,7 @@ final class ParameterTest extends TestCase
                 'parameterDefinition' => $parameterDefinition,
                 'value' => [42],
                 'isEmpty' => false,
-            ]
+            ],
         );
 
         self::assertSame('', (string) $parameter);
@@ -88,7 +88,7 @@ final class ParameterTest extends TestCase
                 'parameterDefinition' => $parameterDefinition,
                 'value' => new DateTimeImmutable(),
                 'isEmpty' => false,
-            ]
+            ],
         );
 
         self::assertSame('', (string) $parameter);
@@ -107,7 +107,7 @@ final class ParameterTest extends TestCase
                 'link' => 'info@netgen.io',
                 'linkSuffix' => '?suffix',
                 'newWindow' => true,
-            ]
+            ],
         );
 
         $parameter = Parameter::fromArray(
@@ -116,7 +116,7 @@ final class ParameterTest extends TestCase
                 'parameterDefinition' => $parameterDefinition,
                 'value' => $linkValue,
                 'isEmpty' => false,
-            ]
+            ],
         );
 
         self::assertSame('info@netgen.io?suffix', (string) $parameter);

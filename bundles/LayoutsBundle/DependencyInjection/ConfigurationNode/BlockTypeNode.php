@@ -31,12 +31,12 @@ final class BlockTypeNode implements ConfigurationNodeInterface
 
                             if (isset($v['definition_identifier']) && !isset($v['name'])) {
                                 throw new InvalidConfigurationException(
-                                    'You must specify block type name if you specify block definition'
+                                    'You must specify block type name if you specify block definition',
                                 );
                             }
 
                             return $v;
-                        }
+                        },
                     )
                 ->end()
                 ->children()
@@ -47,7 +47,7 @@ final class BlockTypeNode implements ConfigurationNodeInterface
                         ->defaultValue(null)
                         ->validate()
                             ->ifTrue(
-                                static fn ($v): bool => !($v === null || (is_string($v) && $v !== ''))
+                                static fn ($v): bool => !($v === null || (is_string($v) && $v !== '')),
                             )
                             ->thenInvalid('Icon path needs to be a non empty string or null.')
                         ->end()

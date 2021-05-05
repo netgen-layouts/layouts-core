@@ -51,7 +51,7 @@ final class ThemePassTest extends AbstractContainerBuilderTestCase
             [
                 'App\First' => ['path' => '/tmp/nglayouts/bundles/first'],
                 'App\Second' => ['path' => '/tmp/nglayouts/bundles/second'],
-            ]
+            ],
         );
 
         $this->setParameter('kernel.project_dir', '/tmp/nglayouts');
@@ -96,7 +96,7 @@ final class ThemePassTest extends AbstractContainerBuilderTestCase
                         'twig.loader.native_filesystem',
                         'addPath',
                         [$themeDir, 'nglayouts_' . $designName],
-                        ++$index
+                        ++$index,
                     );
                 }
             }

@@ -20,7 +20,7 @@ final class CopyTest extends JsonApiTestCase
             [
                 'name' => 'My new layout name',
                 'description' => 'My new layout description',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -29,13 +29,13 @@ final class CopyTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertResponse(
             $this->client->getResponse(),
             'layouts/copy_layout',
-            Response::HTTP_CREATED
+            Response::HTTP_CREATED,
         );
     }
 
@@ -48,7 +48,7 @@ final class CopyTest extends JsonApiTestCase
             [
                 'name' => 'My new layout name',
                 'description' => 'My new layout description',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -57,13 +57,13 @@ final class CopyTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertResponse(
             $this->client->getResponse(),
             'layouts/copy_published_layout',
-            Response::HTTP_CREATED
+            Response::HTTP_CREATED,
         );
     }
 
@@ -75,7 +75,7 @@ final class CopyTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'name' => 'My new layout name',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -84,13 +84,13 @@ final class CopyTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertResponse(
             $this->client->getResponse(),
             'layouts/copy_layout_without_description',
-            Response::HTTP_CREATED
+            Response::HTTP_CREATED,
         );
     }
 
@@ -103,7 +103,7 @@ final class CopyTest extends JsonApiTestCase
             [
                 'name' => 'My new layout name',
                 'description' => '',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -112,13 +112,13 @@ final class CopyTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertResponse(
             $this->client->getResponse(),
             'layouts/copy_layout_empty_description',
-            Response::HTTP_CREATED
+            Response::HTTP_CREATED,
         );
     }
 
@@ -130,7 +130,7 @@ final class CopyTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'name' => 'My new layout name',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -139,13 +139,13 @@ final class CopyTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find layout with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"'
+            'Could not find layout with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"',
         );
     }
 
@@ -157,7 +157,7 @@ final class CopyTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'name' => 42,
-            ]
+            ],
         );
 
         $this->client->request(
@@ -166,13 +166,13 @@ final class CopyTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "name": This value should be of type string.'
+            'There was an error validating "name": This value should be of type string.',
         );
     }
 
@@ -187,13 +187,13 @@ final class CopyTest extends JsonApiTestCase
             [],
             [],
             [],
-            $this->jsonEncode([])
+            $this->jsonEncode([]),
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "name": This value should not be blank.'
+            'There was an error validating "name": This value should not be blank.',
         );
     }
 
@@ -205,7 +205,7 @@ final class CopyTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'name' => 'My other layout',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -214,13 +214,13 @@ final class CopyTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
-            'Argument "layoutCopyStruct" has an invalid state. Layout with provided name already exists.'
+            'Argument "layoutCopyStruct" has an invalid state. Layout with provided name already exists.',
         );
     }
 
@@ -233,7 +233,7 @@ final class CopyTest extends JsonApiTestCase
             [
                 'name' => 'New name',
                 'description' => 42,
-            ]
+            ],
         );
 
         $this->client->request(
@@ -242,13 +242,13 @@ final class CopyTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "description": This value should be of type string.'
+            'There was an error validating "description": This value should be of type string.',
         );
     }
 }

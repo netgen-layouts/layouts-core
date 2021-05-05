@@ -30,11 +30,11 @@ final class CreateRule extends AbstractController
             function () use ($ruleGroup): Rule {
                 $createdRule = $this->layoutResolverService->createRule(
                     $this->layoutResolverService->newRuleCreateStruct(),
-                    $ruleGroup
+                    $ruleGroup,
                 );
 
                 return $this->layoutResolverService->publishRule($createdRule);
-            }
+            },
         );
 
         return $this->buildView($createdRule, ViewInterface::CONTEXT_ADMIN);

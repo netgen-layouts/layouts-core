@@ -15,8 +15,8 @@ final class ParameterException extends InvalidArgumentException implements Excep
         return new self(
             sprintf(
                 'Parameter with "%s" name does not exist.',
-                $parameter
-            )
+                $parameter,
+            ),
         );
     }
 
@@ -25,8 +25,8 @@ final class ParameterException extends InvalidArgumentException implements Excep
         return new self(
             sprintf(
                 'Parameter definition with "%s" name does not exist.',
-                $parameter
-            )
+                $parameter,
+            ),
         );
     }
 
@@ -35,8 +35,8 @@ final class ParameterException extends InvalidArgumentException implements Excep
         return new self(
             sprintf(
                 'Option "%s" does not exist in the parameter definition.',
-                $option
-            )
+                $option,
+            ),
         );
     }
 }

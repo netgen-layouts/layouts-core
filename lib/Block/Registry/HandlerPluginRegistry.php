@@ -46,8 +46,8 @@ final class HandlerPluginRegistry
                     }
 
                     return false;
-                }
-            )
+                },
+            ),
         );
     }
 }

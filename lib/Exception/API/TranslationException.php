@@ -15,8 +15,8 @@ final class TranslationException extends InvalidArgumentException implements Exc
         return new self(
             sprintf(
                 'Translation with "%s" locale does not exist.',
-                $locale
-            )
+                $locale,
+            ),
         );
     }
 }

@@ -38,7 +38,7 @@ final class CacheEnabledListenerTest extends TestCase
                 sprintf('%s.%s', LayoutsEvents::BUILD_VIEW, 'layout') => 'onBuildView',
                 sprintf('%s.%s', LayoutsEvents::BUILD_VIEW, 'rule') => 'onBuildView',
             ],
-            $this->listener::getSubscribedEvents()
+            $this->listener::getSubscribedEvents(),
         );
     }
 
@@ -58,7 +58,7 @@ final class CacheEnabledListenerTest extends TestCase
             [
                 'http_cache_enabled' => false,
             ],
-            $event->getParameters()
+            $event->getParameters(),
         );
     }
 
@@ -78,7 +78,7 @@ final class CacheEnabledListenerTest extends TestCase
             [
                 'http_cache_enabled' => false,
             ],
-            $event->getParameters()
+            $event->getParameters(),
         );
     }
 
@@ -100,7 +100,7 @@ final class CacheEnabledListenerTest extends TestCase
             [
                 'http_cache_enabled' => true,
             ],
-            $event->getParameters()
+            $event->getParameters(),
         );
     }
 

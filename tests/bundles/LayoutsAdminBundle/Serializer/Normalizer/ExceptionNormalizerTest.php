@@ -33,7 +33,7 @@ final class ExceptionNormalizerTest extends TestCase
                 'code' => $exception->getCode(),
                 'message' => $exception->getMessage(),
             ],
-            $this->exceptionNormalizer->normalize($exception)
+            $this->exceptionNormalizer->normalize($exception),
         );
     }
 
@@ -76,7 +76,7 @@ final class ExceptionNormalizerTest extends TestCase
                 'status_code' => $exception->getStatusCode(),
                 'status_text' => Response::$statusTexts[$exception->getStatusCode()],
             ],
-            $this->exceptionNormalizer->normalize($exception)
+            $this->exceptionNormalizer->normalize($exception),
         );
     }
 

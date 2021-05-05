@@ -23,7 +23,7 @@ final class ContainerDefinitionTest extends TestCase
             [
                 'identifier' => 'block_definition',
                 'handler' => $this->handler,
-            ]
+            ],
         );
     }
 

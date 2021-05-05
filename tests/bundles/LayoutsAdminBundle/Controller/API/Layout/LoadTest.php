@@ -20,7 +20,7 @@ final class LoadTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'layouts/load_layout',
-            Response::HTTP_OK
+            Response::HTTP_OK,
         );
     }
 
@@ -34,7 +34,7 @@ final class LoadTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'layouts/load_published_layout',
-            Response::HTTP_OK
+            Response::HTTP_OK,
         );
     }
 
@@ -48,7 +48,7 @@ final class LoadTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find layout with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"'
+            'Could not find layout with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"',
         );
     }
 }

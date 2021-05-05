@@ -27,7 +27,7 @@ class ParameterBuilderFactory implements ParameterBuilderFactoryInterface
             $config['name'],
             $config['type'],
             $config['options'],
-            $config['parent']
+            $config['parent'],
         );
     }
 
@@ -58,7 +58,7 @@ class ParameterBuilderFactory implements ParameterBuilderFactoryInterface
             'type',
             fn (Options $options, $value) => is_string($value) ?
                     $this->parameterTypeRegistry->getParameterTypeByClass($value) :
-                    $value
+                    $value,
         );
 
         return $optionsResolver->resolve($config);

@@ -18,7 +18,7 @@ final class LayoutExceptionTest extends TestCase
 
         self::assertSame(
             'Zone with "zone" identifier does not exist in the layout.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 }

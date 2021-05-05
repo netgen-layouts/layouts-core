@@ -27,7 +27,7 @@ final class MapperTest extends TestCase
     {
         self::assertSame(
             [],
-            $this->mapper->getFormOptions()
+            $this->mapper->getFormOptions(),
         );
     }
 }

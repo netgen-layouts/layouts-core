@@ -58,7 +58,7 @@ final class TaggerTest extends TestCase
         self::assertTrue($this->responseTagger->hasTags());
         self::assertSame(
             'ngl-all,ngl-block-' . $blockUuid->toString() . ',ngl-origin-layout-' . $layoutUuid->toString(),
-            $this->responseTagger->getTagsHeaderValue()
+            $this->responseTagger->getTagsHeaderValue(),
         );
     }
 }

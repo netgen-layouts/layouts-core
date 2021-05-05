@@ -30,10 +30,10 @@ final class BlockItemViewTypeValidatorTest extends ValidatorTestCase
                             'itemViewTypes' => [
                                 'standard' => new ItemViewType(),
                             ],
-                        ]
+                        ],
                     ),
                 ],
-            ]
+            ],
         );
 
         $this->constraint = new BlockItemViewType(['viewType' => '', 'definition' => $this->blockDefinition]);

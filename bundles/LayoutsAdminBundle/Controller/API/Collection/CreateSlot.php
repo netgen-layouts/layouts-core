@@ -38,7 +38,7 @@ final class CreateSlot extends AbstractController
         $createdSlot = $this->collectionService->addSlot(
             $collection,
             $this->collectionService->newSlotCreateStruct(),
-            $requestData->get('position')
+            $requestData->get('position'),
         );
 
         return new Value($createdSlot, Response::HTTP_CREATED);
@@ -57,7 +57,7 @@ final class CreateSlot extends AbstractController
                 new Constraints\NotBlank(),
                 new Constraints\Type(['type' => 'int']),
             ],
-            'position'
+            'position',
         );
     }
 }

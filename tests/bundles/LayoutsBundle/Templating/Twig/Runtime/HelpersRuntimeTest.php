@@ -37,8 +37,8 @@ final class HelpersRuntimeTest extends TestCase
             new ValueTypeRegistry(
                 [
                     'value' => ValueType::fromArray(['identifier' => 'value', 'name' => 'Value']),
-                ]
-            )
+                ],
+            ),
         );
     }
 

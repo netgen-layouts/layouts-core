@@ -27,8 +27,8 @@ final class PageLayoutResolver implements PageLayoutResolverInterface
                 sprintf(
                     '%s%s',
                     'Base page layout not specified. To render the page with Netgen Layouts, ',
-                    'specify the base page layout with "netgen_layouts.pagelayout" semantic config.'
-                )
+                    'specify the base page layout with "netgen_layouts.pagelayout" semantic config.',
+                ),
             );
         }
 

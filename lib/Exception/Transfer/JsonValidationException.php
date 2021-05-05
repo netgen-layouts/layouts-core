@@ -20,8 +20,8 @@ final class JsonValidationException extends InvalidArgumentException implements 
             sprintf(
                 'Provided data is not a valid JSON string: %s (error code %s)',
                 $errorMessage,
-                $errorCode
-            )
+                $errorCode,
+            ),
         );
     }
 
@@ -30,8 +30,8 @@ final class JsonValidationException extends InvalidArgumentException implements 
         return new self(
             sprintf(
                 'Provided data is not an acceptable JSON string: %s',
-                $reason
-            )
+                $reason,
+            ),
         );
     }
 
@@ -40,10 +40,10 @@ final class JsonValidationException extends InvalidArgumentException implements 
         return new self(
             sprintf(
                 'JSON data failed to validate the schema: %s',
-                $errorMessage
+                $errorMessage,
             ),
             0,
-            $previous
+            $previous,
         );
     }
 }

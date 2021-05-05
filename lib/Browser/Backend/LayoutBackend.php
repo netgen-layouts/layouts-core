@@ -52,7 +52,7 @@ final class LayoutBackend implements BackendInterface
             throw new NotFoundException(
                 sprintf('Item with value "%s" not found.', $value),
                 0,
-                $e
+                $e,
             );
         }
 

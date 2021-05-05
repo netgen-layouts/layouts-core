@@ -23,7 +23,7 @@ final class ValueTypeFactoryTest extends TestCase
                 'name' => 'Value type',
                 'enabled' => false,
                 'manual_items' => true,
-            ]
+            ],
         );
 
         self::assertSame(
@@ -33,7 +33,7 @@ final class ValueTypeFactoryTest extends TestCase
                 'name' => 'Value type',
                 'supportsManualItems' => true,
             ],
-            $this->exportObject($valueType)
+            $this->exportObject($valueType),
         );
     }
 }

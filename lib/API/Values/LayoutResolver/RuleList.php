@@ -22,8 +22,8 @@ final class RuleList extends ArrayCollection
         parent::__construct(
             array_filter(
                 $rules,
-                static fn (Rule $rule): bool => true
-            )
+                static fn (Rule $rule): bool => true,
+            ),
         );
     }
 
@@ -42,7 +42,7 @@ final class RuleList extends ArrayCollection
     {
         return array_map(
             static fn (Rule $rule): UuidInterface => $rule->getId(),
-            $this->getRules()
+            $this->getRules(),
         );
     }
 }

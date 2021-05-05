@@ -21,8 +21,8 @@ final class Version010200 extends AbstractMigration
             sprintf(
                 '%s %s',
                 'Database migration to version 1.2 can only be executed safely after you have ran the UUID migration script from 1.0 upgrade.',
-                'Run the UUID migration script and then run Doctrine Migrations again.'
-            )
+                'Run the UUID migration script and then run Doctrine Migrations again.',
+            ),
         );
 
         $this->addSql('ALTER TABLE nglayouts_block CHANGE config config LONGTEXT NOT NULL');

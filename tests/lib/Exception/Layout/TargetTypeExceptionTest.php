@@ -18,7 +18,7 @@ final class TargetTypeExceptionTest extends TestCase
 
         self::assertSame(
             'Target type "type" does not exist.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 
@@ -31,7 +31,7 @@ final class TargetTypeExceptionTest extends TestCase
 
         self::assertSame(
             'Form mapper for "type" target type does not exist.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 }

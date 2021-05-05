@@ -94,8 +94,8 @@ final class BlockTypeGroupPass implements CompilerPassInterface
                     $blockTypeReferences[] = new Reference(
                         sprintf(
                             'netgen_layouts.block.block_type.%s',
-                            $blockTypeIdentifier
-                        )
+                            $blockTypeIdentifier,
+                        ),
                     );
                 }
             }

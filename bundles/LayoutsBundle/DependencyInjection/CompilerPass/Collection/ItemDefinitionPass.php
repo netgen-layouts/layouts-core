@@ -59,7 +59,7 @@ final class ItemDefinitionPass implements CompilerPassInterface
             foreach ($tags as $tag) {
                 if (!isset($tag['config_key'])) {
                     throw new RuntimeException(
-                        "Collection item config handler definition must have an 'config_key' attribute in its' tag."
+                        "Collection item config handler definition must have an 'config_key' attribute in its' tag.",
                     );
                 }
 

@@ -33,7 +33,7 @@ final class EditConfigForm extends AbstractController
             [
                 'block_definition' => $block->getDefinition(),
                 'layout' => $block->getLayoutId()->toString(),
-            ]
+            ],
         );
 
         $updateStruct = $this->blockService->newBlockUpdateStruct($locale, $block);
@@ -51,9 +51,9 @@ final class EditConfigForm extends AbstractController
                         'blockId' => $block->getId()->toString(),
                         'locale' => $locale,
                         'configKey' => $configKey,
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $form->handleRequest($request);
@@ -72,7 +72,7 @@ final class EditConfigForm extends AbstractController
             $form,
             ViewInterface::CONTEXT_APP,
             [],
-            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
+            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY),
         );
     }
 }

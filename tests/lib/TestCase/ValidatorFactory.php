@@ -43,7 +43,7 @@ final class ValidatorFactory implements ConstraintValidatorFactoryInterface
                 [
                     'value' => ValueType::fromArray(['isEnabled' => true]),
                     'default' => ValueType::fromArray(['isEnabled' => true]),
-                ]
+                ],
             );
 
             return new Validator\ValueTypeValidator($valueTypeRegistry);

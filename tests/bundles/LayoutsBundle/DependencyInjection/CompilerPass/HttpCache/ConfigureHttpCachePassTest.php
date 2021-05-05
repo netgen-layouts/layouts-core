@@ -33,14 +33,14 @@ final class ConfigureHttpCachePassTest extends AbstractContainerBuilderTestCase
                 'invalidation' => [
                     'enabled' => true,
                 ],
-            ]
+            ],
         );
 
         $this->compile();
 
         $this->assertContainerBuilderHasService(
             'netgen_layouts.http_cache.client',
-            stdClass::class
+            stdClass::class,
         );
     }
 
@@ -58,14 +58,14 @@ final class ConfigureHttpCachePassTest extends AbstractContainerBuilderTestCase
                 'invalidation' => [
                     'enabled' => false,
                 ],
-            ]
+            ],
         );
 
         $this->compile();
 
         $this->assertContainerBuilderHasAlias(
             'netgen_layouts.http_cache.client',
-            'netgen_layouts.http_cache.client.null'
+            'netgen_layouts.http_cache.client.null',
         );
     }
 

@@ -33,7 +33,7 @@ final class QueryTypeFactory
                 'name' => $config['name'] ?? '',
                 'handler' => $handler,
                 'parameterDefinitions' => $parameterDefinitions,
-            ]
+            ],
         );
     }
 }

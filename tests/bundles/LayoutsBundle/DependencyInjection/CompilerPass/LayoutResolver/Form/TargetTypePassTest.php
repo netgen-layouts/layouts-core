@@ -44,8 +44,8 @@ final class TargetTypePassTest extends AbstractContainerBuilderTestCase
                     [
                         'target' => new ServiceClosureArgument(new Reference('netgen_layouts.layout.resolver.form.target_type.mapper.test')),
                     ],
-                ]
-            )
+                ],
+            ),
         );
     }
 

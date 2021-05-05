@@ -22,8 +22,8 @@ final class TargetList extends ArrayCollection
         parent::__construct(
             array_filter(
                 $targets,
-                static fn (Target $target): bool => true
-            )
+                static fn (Target $target): bool => true,
+            ),
         );
     }
 
@@ -42,7 +42,7 @@ final class TargetList extends ArrayCollection
     {
         return array_map(
             static fn (Target $target): UuidInterface => $target->getId(),
-            $this->getTargets()
+            $this->getTargets(),
         );
     }
 }

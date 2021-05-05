@@ -44,10 +44,10 @@ final class GetCollectionPagerListenerTest extends TestCase
         $this->listener = new GetCollectionPagerListener(
             new PagerFactory(
                 $this->resultBuilderMock,
-                200
+                200,
             ),
             $this->requestStack,
-            [ViewInterface::CONTEXT_AJAX]
+            [ViewInterface::CONTEXT_AJAX],
         );
     }
 
@@ -58,7 +58,7 @@ final class GetCollectionPagerListenerTest extends TestCase
     {
         self::assertSame(
             [sprintf('%s.%s', LayoutsEvents::RENDER_VIEW, 'block') => 'onRenderView'],
-            $this->listener::getSubscribedEvents()
+            $this->listener::getSubscribedEvents(),
         );
     }
 
@@ -83,10 +83,10 @@ final class GetCollectionPagerListenerTest extends TestCase
                     'collections' => new ArrayCollection(
                         [
                             'default' => $collection,
-                        ]
+                        ],
                     ),
-                ]
-            )
+                ],
+            ),
         );
 
         $view->addParameter('collection_identifier', 'default');
@@ -108,11 +108,11 @@ final class GetCollectionPagerListenerTest extends TestCase
                     self::identicalTo(13),
                     self::identicalTo(5),
                     self::identicalTo(0),
-                ]
+                ],
             )
             ->willReturnOnConsecutiveCalls(
                 ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]),
-                ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])
+                ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]),
             );
 
         $this->listener->onRenderView($event);
@@ -147,7 +147,7 @@ final class GetCollectionPagerListenerTest extends TestCase
                     'definition' => BlockDefinition::fromArray(
                         [
                             'handlerPlugins' => [new PagedCollectionsPlugin([], [])],
-                        ]
+                        ],
                     ),
                     'parameters' => [
                         'paged_collections:enabled' => Parameter::fromArray(['value' => true]),
@@ -156,10 +156,10 @@ final class GetCollectionPagerListenerTest extends TestCase
                     'collections' => new ArrayCollection(
                         [
                             'default' => $collection,
-                        ]
+                        ],
                     ),
-                ]
-            )
+                ],
+            ),
         );
 
         $view->addParameter('collection_identifier', 'default');
@@ -181,11 +181,11 @@ final class GetCollectionPagerListenerTest extends TestCase
                     self::identicalTo(8),
                     self::identicalTo(5),
                     self::identicalTo(0),
-                ]
+                ],
             )
             ->willReturnOnConsecutiveCalls(
                 ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]),
-                ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])
+                ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]),
             );
 
         $this->listener->onRenderView($event);
@@ -220,7 +220,7 @@ final class GetCollectionPagerListenerTest extends TestCase
                     'definition' => BlockDefinition::fromArray(
                         [
                             'handlerPlugins' => [new PagedCollectionsPlugin([], [])],
-                        ]
+                        ],
                     ),
                     'parameters' => [
                         'paged_collections:enabled' => Parameter::fromArray(['value' => true]),
@@ -229,10 +229,10 @@ final class GetCollectionPagerListenerTest extends TestCase
                     'collections' => new ArrayCollection(
                         [
                             'default' => $collection,
-                        ]
+                        ],
                     ),
-                ]
-            )
+                ],
+            ),
         );
 
         $view->addParameter('collection_identifier', 'default');
@@ -254,11 +254,11 @@ final class GetCollectionPagerListenerTest extends TestCase
                     self::identicalTo(13),
                     self::identicalTo(5),
                     self::identicalTo(0),
-                ]
+                ],
             )
             ->willReturnOnConsecutiveCalls(
                 ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]),
-                ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])
+                ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]),
             );
 
         $this->listener->onRenderView($event);
@@ -293,7 +293,7 @@ final class GetCollectionPagerListenerTest extends TestCase
                     'definition' => BlockDefinition::fromArray(
                         [
                             'handlerPlugins' => [new PagedCollectionsPlugin([], [])],
-                        ]
+                        ],
                     ),
                     'parameters' => [
                         'paged_collections:enabled' => Parameter::fromArray(['value' => false]),
@@ -301,10 +301,10 @@ final class GetCollectionPagerListenerTest extends TestCase
                     'collections' => new ArrayCollection(
                         [
                             'default' => $collection,
-                        ]
+                        ],
                     ),
-                ]
-            )
+                ],
+            ),
         );
 
         $view->addParameter('collection_identifier', 'default');
@@ -326,11 +326,11 @@ final class GetCollectionPagerListenerTest extends TestCase
                     self::identicalTo(13),
                     self::identicalTo(5),
                     self::identicalTo(0),
-                ]
+                ],
             )
             ->willReturnOnConsecutiveCalls(
                 ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]),
-                ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection])
+                ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]),
             );
 
         $this->listener->onRenderView($event);

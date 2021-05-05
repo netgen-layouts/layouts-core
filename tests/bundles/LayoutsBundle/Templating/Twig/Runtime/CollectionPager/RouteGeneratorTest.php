@@ -33,7 +33,7 @@ final class RouteGeneratorTest extends TestCase
         $this->routeGenerator = new RouteGenerator(
             $this->context,
             $this->uriSignerMock,
-            $this->urlGeneratorMock
+            $this->urlGeneratorMock,
         );
     }
 
@@ -48,7 +48,7 @@ final class RouteGeneratorTest extends TestCase
             [
                 'id' => Uuid::uuid4(),
                 'locale' => 'en',
-            ]
+            ],
         );
 
         $this->context->set('var', 'value');
@@ -63,8 +63,8 @@ final class RouteGeneratorTest extends TestCase
                         'locale' => 'en',
                         'collectionIdentifier' => 'default',
                         'nglContext' => ['var' => 'value'],
-                    ]
-                )
+                    ],
+                ),
             )
             ->willReturn('/generated/uri');
 

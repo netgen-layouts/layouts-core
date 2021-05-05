@@ -36,14 +36,14 @@ final class Move extends AbstractController
         $this->validateRequestData($requestData);
 
         $targetBlock = $this->blockService->loadBlockDraft(
-            Uuid::fromString($requestData->get('parent_block_id'))
+            Uuid::fromString($requestData->get('parent_block_id')),
         );
 
         $this->blockService->moveBlock(
             $block,
             $targetBlock,
             $requestData->get('parent_placeholder'),
-            $requestData->get('parent_position')
+            $requestData->get('parent_position'),
         );
 
         return new Response(null, Response::HTTP_NO_CONTENT);
@@ -62,7 +62,7 @@ final class Move extends AbstractController
                 new Constraints\NotBlank(),
                 new Constraints\Uuid(),
             ],
-            'parent_block_id'
+            'parent_block_id',
         );
 
         $this->validate(
@@ -71,7 +71,7 @@ final class Move extends AbstractController
                 new Constraints\NotBlank(),
                 new Constraints\Type(['type' => 'string']),
             ],
-            'parent_placeholder'
+            'parent_placeholder',
         );
 
         $this->validate(
@@ -80,7 +80,7 @@ final class Move extends AbstractController
                 new Constraints\NotBlank(),
                 new Constraints\Type(['type' => 'int']),
             ],
-            'parent_position'
+            'parent_position',
         );
     }
 }

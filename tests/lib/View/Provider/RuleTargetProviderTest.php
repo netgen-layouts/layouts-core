@@ -38,7 +38,7 @@ final class RuleTargetProviderTest extends TestCase
             [
                 'target' => $target,
             ],
-            $view->getParameters()
+            $view->getParameters(),
         );
     }
 

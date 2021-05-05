@@ -26,7 +26,7 @@ final class InvalidatorTest extends TestCase
 
         $this->invalidator = new Invalidator(
             $this->clientMock,
-            $this->idProviderMock
+            $this->idProviderMock,
         );
     }
 
@@ -45,11 +45,11 @@ final class InvalidatorTest extends TestCase
             ->method('provideIds')
             ->withConsecutive(
                 [self::identicalTo($uuid1->toString())],
-                [self::identicalTo($uuid2->toString())]
+                [self::identicalTo($uuid2->toString())],
             )
             ->willReturnOnConsecutiveCalls(
                 [$uuid1->toString(), $uuid3->toString(), $uuid4->toString()],
-                [$uuid2->toString()]
+                [$uuid2->toString()],
             );
 
         $this->clientMock
@@ -62,8 +62,8 @@ final class InvalidatorTest extends TestCase
                         'ngl-layout-' . $uuid3->toString(),
                         'ngl-layout-' . $uuid4->toString(),
                         'ngl-layout-' . $uuid2->toString(),
-                    ]
-                )
+                    ],
+                ),
             );
 
         $this->invalidator->invalidateLayouts([$uuid1->toString(), $uuid2->toString()]);
@@ -101,8 +101,8 @@ final class InvalidatorTest extends TestCase
                     [
                         'ngl-block-' . $uuid1->toString(),
                         'ngl-block-' . $uuid2->toString(),
-                    ]
-                )
+                    ],
+                ),
             );
 
         $this->invalidator->invalidateBlocks([$uuid1->toString(), $uuid2->toString()]);
@@ -136,8 +136,8 @@ final class InvalidatorTest extends TestCase
                     [
                         'ngl-origin-layout-' . $uuid1->toString(),
                         'ngl-origin-layout-' . $uuid2->toString(),
-                    ]
-                )
+                    ],
+                ),
             );
 
         $this->invalidator->invalidateLayoutBlocks([$uuid1->toString(), $uuid2->toString()]);

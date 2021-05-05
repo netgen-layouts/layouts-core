@@ -54,7 +54,7 @@ final class UpdatePriorities extends AbstractController
 
                     $priority -= 10;
                 }
-            }
+            },
         );
 
         return new Response(null, Response::HTTP_NO_CONTENT);
@@ -74,8 +74,8 @@ final class UpdatePriorities extends AbstractController
                 'rule',
                 sprintf(
                     'Rule with ID %s does not belong to provided group.',
-                    $rule->getRuleGroupId()->toString()
-                )
+                    $rule->getRuleGroupId()->toString(),
+                ),
             );
         }
 
@@ -99,8 +99,8 @@ final class UpdatePriorities extends AbstractController
                 'rule group',
                 sprintf(
                     'Rule group with ID %s does not belong to provided group.',
-                    $ruleGroup->getId()->toString()
-                )
+                    $ruleGroup->getId()->toString(),
+                ),
             );
         }
 

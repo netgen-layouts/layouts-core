@@ -93,7 +93,7 @@ final class NetgenLayoutsExtensionTest extends AbstractExtensionTestCase
         $this->extension->prepend($this->container);
 
         $config = array_merge_recursive(
-            ...$this->container->getExtensionConfig('netgen_layouts')
+            ...$this->container->getExtensionConfig('netgen_layouts'),
         );
 
         self::assertArrayHasKey('block_types', $config);
@@ -104,7 +104,7 @@ final class NetgenLayoutsExtensionTest extends AbstractExtensionTestCase
                 'name' => 'Test type',
                 'definition_identifier' => 'title',
             ],
-            $config['block_types']['test_type']
+            $config['block_types']['test_type'],
         );
     }
 

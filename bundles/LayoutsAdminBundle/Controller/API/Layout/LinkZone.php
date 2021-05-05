@@ -61,7 +61,7 @@ final class LinkZone extends AbstractController
                 new Constraints\NotBlank(),
                 new Constraints\Uuid(),
             ],
-            'linked_layout_id'
+            'linked_layout_id',
         );
 
         $this->validate(
@@ -70,7 +70,7 @@ final class LinkZone extends AbstractController
                 new Constraints\NotBlank(),
                 new Constraints\Type(['type' => 'string']),
             ],
-            'linked_zone_identifier'
+            'linked_zone_identifier',
         );
     }
 }

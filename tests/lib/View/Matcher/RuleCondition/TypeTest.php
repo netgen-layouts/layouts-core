@@ -33,7 +33,7 @@ final class TypeTest extends TestCase
         $condition = RuleCondition::fromArray(
             [
                 'conditionType' => new ConditionType1(),
-            ]
+            ],
         );
 
         $view = new RuleConditionView($condition);
@@ -49,7 +49,7 @@ final class TypeTest extends TestCase
         $condition = RuleCondition::fromArray(
             [
                 'conditionType' => new NullConditionType(),
-            ]
+            ],
         );
 
         $view = new RuleConditionView($condition);
@@ -65,7 +65,7 @@ final class TypeTest extends TestCase
         $condition = RuleCondition::fromArray(
             [
                 'conditionType' => new NullConditionType(),
-            ]
+            ],
         );
 
         $view = new RuleConditionView($condition);

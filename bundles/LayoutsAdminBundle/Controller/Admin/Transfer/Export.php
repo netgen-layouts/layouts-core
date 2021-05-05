@@ -52,7 +52,7 @@ final class Export extends AbstractController
         $fileName = sprintf('netgen_layouts_export_%s_%s.json', $exportType, date('Y-m-d_H-i-s'));
         $disposition = $response->headers->makeDisposition(
             ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-            $fileName
+            $fileName,
         );
 
         $response->headers->set('Content-Type', 'application/json');

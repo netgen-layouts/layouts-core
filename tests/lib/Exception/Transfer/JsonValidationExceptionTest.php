@@ -19,7 +19,7 @@ final class JsonValidationExceptionTest extends TestCase
 
         self::assertSame(
             'Provided data is not a valid JSON string: Error message (error code 42)',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 
@@ -32,7 +32,7 @@ final class JsonValidationExceptionTest extends TestCase
 
         self::assertSame(
             'Provided data is not an acceptable JSON string: A reason',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 
@@ -46,7 +46,7 @@ final class JsonValidationExceptionTest extends TestCase
 
         self::assertSame(
             'JSON data failed to validate the schema: Error message',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
 
         self::assertSame($previousException, $exception->getPrevious());

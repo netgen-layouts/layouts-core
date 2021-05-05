@@ -110,7 +110,7 @@ final class BlockHandler implements BlockHandlerInterface
                 'status' => $blockCreateStruct->status,
                 'parameters' => [],
                 'availableLocales' => [],
-            ]
+            ],
         );
 
         if ($targetBlock !== null && $placeholder !== null) {
@@ -118,9 +118,9 @@ final class BlockHandler implements BlockHandlerInterface
                 $this->getPositionHelperConditions(
                     $targetBlock->id,
                     $targetBlock->status,
-                    $placeholder
+                    $placeholder,
                 ),
-                $newBlock->position
+                $newBlock->position,
             );
         }
 
@@ -196,7 +196,7 @@ final class BlockHandler implements BlockHandlerInterface
                 [
                     'alwaysAvailable' => $updatedBlock->alwaysAvailable,
                     'isTranslatable' => $updatedBlock->isTranslatable,
-                ]
+                ],
             );
 
             $this->collectionHandler->updateCollection($collection, $collectionUpdateStruct);
@@ -266,9 +266,9 @@ final class BlockHandler implements BlockHandlerInterface
             $this->getPositionHelperConditions(
                 $targetBlock->id,
                 $targetBlock->status,
-                $placeholder
+                $placeholder,
             ),
-            $position
+            $position,
         );
 
         $newBlock = $this->queryHandler->createBlock($newBlock);
@@ -302,9 +302,9 @@ final class BlockHandler implements BlockHandlerInterface
             $this->getPositionHelperConditions(
                 $targetBlock->id,
                 $targetBlock->status,
-                $placeholder
+                $placeholder,
             ),
-            $position
+            $position,
         );
 
         $this->queryHandler->moveBlock($block, $targetBlock, $placeholder, $position);
@@ -314,9 +314,9 @@ final class BlockHandler implements BlockHandlerInterface
                 $this->getPositionHelperConditions(
                     $block->parentId,
                     $block->status,
-                    $block->placeholder
+                    $block->placeholder,
                 ),
-                $block->position
+                $block->position,
             );
         }
 
@@ -335,10 +335,10 @@ final class BlockHandler implements BlockHandlerInterface
             $this->getPositionHelperConditions(
                 $block->parentId,
                 $block->status,
-                $block->placeholder
+                $block->placeholder,
             ),
             $block->position,
-            $position
+            $position,
         );
 
         $this->queryHandler->updateBlock($movedBlock);
@@ -362,18 +362,18 @@ final class BlockHandler implements BlockHandlerInterface
         foreach ($collectionReferences as $collectionReference) {
             $collection = $this->collectionHandler->loadCollection(
                 $collectionReference->collectionId,
-                $collectionReference->collectionStatus
+                $collectionReference->collectionStatus,
             );
 
             $newCollection = $this->collectionHandler->createCollectionStatus(
                 $collection,
-                $newStatus
+                $newStatus,
             );
 
             $this->collectionHandler->createCollectionReference(
                 $newCollection,
                 $newBlock,
-                $collectionReference->identifier
+                $collectionReference->identifier,
             );
         }
 
@@ -417,9 +417,9 @@ final class BlockHandler implements BlockHandlerInterface
                 $this->getPositionHelperConditions(
                     $block->parentId,
                     $block->status,
-                    $block->placeholder
+                    $block->placeholder,
                 ),
-                $block->position
+                $block->position,
             );
         }
     }
@@ -466,7 +466,7 @@ final class BlockHandler implements BlockHandlerInterface
         foreach ($collectionReferences as $collectionReference) {
             $collection = $this->collectionHandler->loadCollection(
                 $collectionReference->collectionId,
-                $collectionReference->collectionStatus
+                $collectionReference->collectionStatus,
             );
 
             $this->collectionHandler->copyCollection($collection, $targetBlock, $collectionReference->identifier);

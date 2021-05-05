@@ -49,7 +49,7 @@ final class QueryUpdateStructValidator extends ConstraintValidator
             [
                 new Constraints\NotBlank(),
                 new LocaleConstraint(),
-            ]
+            ],
         );
 
         $validator->atPath('parameterValues')->validate(
@@ -59,9 +59,9 @@ final class QueryUpdateStructValidator extends ConstraintValidator
                     [
                         'parameterDefinitions' => $constraint->payload->getQueryType(),
                         'allowMissingFields' => true,
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
     }
 }

@@ -37,7 +37,7 @@ final class IndexPage extends AdminPage
             function () use ($layoutName): void {
                 $this->getElement('actions_dropdown', ['%layout-name%' => $layoutName])->press();
                 $this->getElement('copy_layout_action', ['%layout-name%' => $layoutName])->press();
-            }
+            },
         );
     }
 
@@ -47,7 +47,7 @@ final class IndexPage extends AdminPage
             function () use ($layoutName): void {
                 $this->getElement('actions_dropdown', ['%layout-name%' => $layoutName])->press();
                 $this->getElement('delete_layout_action', ['%layout-name%' => $layoutName])->press();
-            }
+            },
         );
     }
 
@@ -78,7 +78,7 @@ final class IndexPage extends AdminPage
                 'edit_layout_action' => '.nl-layout [data-name="%layout-name%"] a.js-layout-edit',
                 'copy_layout_action' => '.nl-layout [data-name="%layout-name%"] button.js-layout-copy',
                 'delete_layout_action' => '.nl-layout [data-name="%layout-name%"] button.js-layout-delete',
-            ]
+            ],
         );
     }
 }

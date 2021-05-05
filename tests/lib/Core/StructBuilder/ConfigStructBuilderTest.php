@@ -38,12 +38,12 @@ abstract class ConfigStructBuilderTest extends CoreTestCase
                             'definition' => ConfigDefinition::fromArray(
                                 [
                                     'parameterDefinitions' => $handler->getParameterDefinitions(),
-                                ]
+                                ],
                             ),
-                        ]
+                        ],
                     ),
                 ],
-            ]
+            ],
         );
 
         $struct = new BlockUpdateStruct();

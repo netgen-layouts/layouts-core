@@ -33,7 +33,7 @@ final class DeleteLayout extends AbstractController
                     'submitted' => false,
                     'error' => false,
                     'layout' => $layout,
-                ]
+                ],
             );
         }
 

@@ -22,8 +22,8 @@ final class ConfigList extends ArrayCollection
         parent::__construct(
             array_filter(
                 $configs,
-                static fn (Config $config): bool => true
-            )
+                static fn (Config $config): bool => true,
+            ),
         );
     }
 
@@ -43,8 +43,8 @@ final class ConfigList extends ArrayCollection
         return array_values(
             array_map(
                 static fn (Config $config): string => $config->getConfigKey(),
-                $this->getConfigs()
-            )
+                $this->getConfigs(),
+            ),
         );
     }
 }

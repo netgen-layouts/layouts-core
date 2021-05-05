@@ -93,8 +93,8 @@ final class LayoutResolverService implements APILayoutResolverService
         return $this->mapper->mapRule(
             $this->layoutResolverHandler->loadRule(
                 $ruleId,
-                Value::STATUS_PUBLISHED
-            )
+                Value::STATUS_PUBLISHED,
+            ),
         );
     }
 
@@ -103,8 +103,8 @@ final class LayoutResolverService implements APILayoutResolverService
         return $this->mapper->mapRule(
             $this->layoutResolverHandler->loadRule(
                 $ruleId,
-                Value::STATUS_DRAFT
-            )
+                Value::STATUS_DRAFT,
+            ),
         );
     }
 
@@ -113,8 +113,8 @@ final class LayoutResolverService implements APILayoutResolverService
         return $this->mapper->mapRule(
             $this->layoutResolverHandler->loadRule(
                 $ruleId,
-                Value::STATUS_ARCHIVED
-            )
+                Value::STATUS_ARCHIVED,
+            ),
         );
     }
 
@@ -123,8 +123,8 @@ final class LayoutResolverService implements APILayoutResolverService
         return $this->mapper->mapRuleGroup(
             $this->layoutResolverHandler->loadRuleGroup(
                 $ruleGroupId,
-                Value::STATUS_PUBLISHED
-            )
+                Value::STATUS_PUBLISHED,
+            ),
         );
     }
 
@@ -133,8 +133,8 @@ final class LayoutResolverService implements APILayoutResolverService
         return $this->mapper->mapRuleGroup(
             $this->layoutResolverHandler->loadRuleGroup(
                 $ruleGroupId,
-                Value::STATUS_DRAFT
-            )
+                Value::STATUS_DRAFT,
+            ),
         );
     }
 
@@ -143,8 +143,8 @@ final class LayoutResolverService implements APILayoutResolverService
         return $this->mapper->mapRuleGroup(
             $this->layoutResolverHandler->loadRuleGroup(
                 $ruleGroupId,
-                Value::STATUS_ARCHIVED
-            )
+                Value::STATUS_ARCHIVED,
+            ),
         );
     }
 
@@ -154,7 +154,7 @@ final class LayoutResolverService implements APILayoutResolverService
             return $this->loadRulesFromGroup(
                 $this->loadRuleGroup(Uuid::fromString(RuleGroup::ROOT_UUID)),
                 $offset,
-                $limit
+                $limit,
             );
         }
 
@@ -169,21 +169,21 @@ final class LayoutResolverService implements APILayoutResolverService
 
         $persistenceLayout = $this->layoutHandler->loadLayout(
             $layout->getId(),
-            Value::STATUS_PUBLISHED
+            Value::STATUS_PUBLISHED,
         );
 
         $persistenceRules = $this->layoutResolverHandler->loadRulesForLayout(
             $persistenceLayout,
             $offset,
             $limit,
-            $ascending
+            $ascending,
         );
 
         return new RuleList(
             array_map(
                 fn (PersistenceRule $rule): Rule => $this->mapper->mapRule($rule),
-                $persistenceRules
-            )
+                $persistenceRules,
+            ),
         );
     }
 
@@ -191,7 +191,7 @@ final class LayoutResolverService implements APILayoutResolverService
     {
         if ($layout === null) {
             return $this->getRuleCountFromGroup(
-                $this->loadRuleGroup(Uuid::fromString(RuleGroup::ROOT_UUID))
+                $this->loadRuleGroup(Uuid::fromString(RuleGroup::ROOT_UUID)),
             );
         }
 
@@ -206,7 +206,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
         $persistenceLayout = $this->layoutHandler->loadLayout(
             $layout->getId(),
-            Value::STATUS_PUBLISHED
+            Value::STATUS_PUBLISHED,
         );
 
         return $this->layoutResolverHandler->getRuleCountForLayout($persistenceLayout);
@@ -220,21 +220,21 @@ final class LayoutResolverService implements APILayoutResolverService
 
         $persistenceGroup = $this->layoutResolverHandler->loadRuleGroup(
             $ruleGroup->getId(),
-            Value::STATUS_PUBLISHED
+            Value::STATUS_PUBLISHED,
         );
 
         $persistenceRules = $this->layoutResolverHandler->loadRulesFromGroup(
             $persistenceGroup,
             $offset,
             $limit,
-            $ascending
+            $ascending,
         );
 
         return new RuleList(
             array_map(
                 fn (PersistenceRule $rule): Rule => $this->mapper->mapRule($rule),
-                $persistenceRules
-            )
+                $persistenceRules,
+            ),
         );
     }
 
@@ -246,7 +246,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
         $persistenceGroup = $this->layoutResolverHandler->loadRuleGroup(
             $ruleGroup->getId(),
-            Value::STATUS_PUBLISHED
+            Value::STATUS_PUBLISHED,
         );
 
         return $this->layoutResolverHandler->getRuleCountFromGroup($persistenceGroup);
@@ -260,21 +260,21 @@ final class LayoutResolverService implements APILayoutResolverService
 
         $persistenceParentGroup = $this->layoutResolverHandler->loadRuleGroup(
             $parentGroup->getId(),
-            Value::STATUS_PUBLISHED
+            Value::STATUS_PUBLISHED,
         );
 
         $persistenceRuleGroups = $this->layoutResolverHandler->loadRuleGroups(
             $persistenceParentGroup,
             $offset,
             $limit,
-            $ascending
+            $ascending,
         );
 
         return new RuleGroupList(
             array_map(
                 fn (PersistenceRuleGroup $ruleGroup): RuleGroup => $this->mapper->mapRuleGroup($ruleGroup),
-                $persistenceRuleGroups
-            )
+                $persistenceRuleGroups,
+            ),
         );
     }
 
@@ -286,7 +286,7 @@ final class LayoutResolverService implements APILayoutResolverService
 
         $persistenceParentGroup = $this->layoutResolverHandler->loadRuleGroup(
             $parentGroup->getId(),
-            Value::STATUS_PUBLISHED
+            Value::STATUS_PUBLISHED,
         );
 
         return $this->layoutResolverHandler->getRuleGroupCount($persistenceParentGroup);
@@ -296,14 +296,14 @@ final class LayoutResolverService implements APILayoutResolverService
     {
         $persistenceGroup = $this->layoutResolverHandler->loadRuleGroup(
             $ruleGroup->getId(),
-            $ruleGroup->getStatus()
+            $ruleGroup->getStatus(),
         );
 
         return new RuleList(
             array_map(
                 fn (PersistenceRule $rule): Rule => $this->mapper->mapRule($rule),
-                $this->layoutResolverHandler->matchRules($persistenceGroup, $targetType, $targetValue)
-            )
+                $this->layoutResolverHandler->matchRules($persistenceGroup, $targetType, $targetValue),
+            ),
         );
     }
 
@@ -312,8 +312,8 @@ final class LayoutResolverService implements APILayoutResolverService
         return $this->mapper->mapTarget(
             $this->layoutResolverHandler->loadTarget(
                 $targetId,
-                Value::STATUS_PUBLISHED
-            )
+                Value::STATUS_PUBLISHED,
+            ),
         );
     }
 
@@ -322,8 +322,8 @@ final class LayoutResolverService implements APILayoutResolverService
         return $this->mapper->mapTarget(
             $this->layoutResolverHandler->loadTarget(
                 $targetId,
-                Value::STATUS_DRAFT
-            )
+                Value::STATUS_DRAFT,
+            ),
         );
     }
 
@@ -337,8 +337,8 @@ final class LayoutResolverService implements APILayoutResolverService
         return $this->mapper->mapRuleCondition(
             $this->layoutResolverHandler->loadRuleCondition(
                 $conditionId,
-                Value::STATUS_PUBLISHED
-            )
+                Value::STATUS_PUBLISHED,
+            ),
         );
     }
 
@@ -352,8 +352,8 @@ final class LayoutResolverService implements APILayoutResolverService
         return $this->mapper->mapRuleCondition(
             $this->layoutResolverHandler->loadRuleCondition(
                 $conditionId,
-                Value::STATUS_DRAFT
-            )
+                Value::STATUS_DRAFT,
+            ),
         );
     }
 
@@ -362,8 +362,8 @@ final class LayoutResolverService implements APILayoutResolverService
         return $this->mapper->mapRuleGroupCondition(
             $this->layoutResolverHandler->loadRuleGroupCondition(
                 $conditionId,
-                Value::STATUS_PUBLISHED
-            )
+                Value::STATUS_PUBLISHED,
+            ),
         );
     }
 
@@ -372,8 +372,8 @@ final class LayoutResolverService implements APILayoutResolverService
         return $this->mapper->mapRuleGroupCondition(
             $this->layoutResolverHandler->loadRuleGroupCondition(
                 $conditionId,
-                Value::STATUS_DRAFT
-            )
+                Value::STATUS_DRAFT,
+            ),
         );
     }
 
@@ -411,10 +411,10 @@ final class LayoutResolverService implements APILayoutResolverService
                         'enabled' => $ruleCreateStruct->enabled,
                         'description' => $description,
                         'status' => Value::STATUS_DRAFT,
-                    ]
+                    ],
                 ),
-                $this->layoutResolverHandler->loadRuleGroup($targetGroup->getId(), Value::STATUS_PUBLISHED)
-            )
+                $this->layoutResolverHandler->loadRuleGroup($targetGroup->getId(), Value::STATUS_PUBLISHED),
+            ),
         );
 
         return $this->mapper->mapRule($createdRule);
@@ -439,9 +439,9 @@ final class LayoutResolverService implements APILayoutResolverService
                             $ruleUpdateStruct->layoutId->toString() :
                             $ruleUpdateStruct->layoutId,
                         'description' => $ruleUpdateStruct->description ?? $ruleUpdateStruct->comment,
-                    ]
-                )
-            )
+                    ],
+                ),
+            ),
         );
 
         return $this->mapper->mapRule($updatedRule);
@@ -461,9 +461,9 @@ final class LayoutResolverService implements APILayoutResolverService
                 RuleMetadataUpdateStruct::fromArray(
                     [
                         'priority' => $ruleUpdateStruct->priority,
-                    ]
-                )
-            )
+                    ],
+                ),
+            ),
         );
 
         return $this->mapper->mapRule($updatedRule);
@@ -483,7 +483,7 @@ final class LayoutResolverService implements APILayoutResolverService
         $persistenceGroup = $this->layoutResolverHandler->loadRuleGroup($targetGroup->getId(), Value::STATUS_PUBLISHED);
 
         $copiedRule = $this->transaction(
-            fn (): PersistenceRule => $this->layoutResolverHandler->copyRule($persistenceRule, $persistenceGroup)
+            fn (): PersistenceRule => $this->layoutResolverHandler->copyRule($persistenceRule, $persistenceGroup),
         );
 
         return $this->mapper->mapRule($copiedRule);
@@ -506,8 +506,8 @@ final class LayoutResolverService implements APILayoutResolverService
             fn (): PersistenceRule => $this->layoutResolverHandler->moveRule(
                 $persistenceRule,
                 $persistenceTargetGroup,
-                $newPriority
-            )
+                $newPriority,
+            ),
         );
 
         return $this->mapper->mapRule($movedRule);
@@ -535,7 +535,7 @@ final class LayoutResolverService implements APILayoutResolverService
                 $this->layoutResolverHandler->deleteRule($persistenceRule->id, Value::STATUS_DRAFT);
 
                 return $this->layoutResolverHandler->createRuleStatus($persistenceRule, Value::STATUS_DRAFT);
-            }
+            },
         );
 
         return $this->mapper->mapRule($ruleDraft);
@@ -558,9 +558,9 @@ final class LayoutResolverService implements APILayoutResolverService
             function () use ($persistenceRule): void {
                 $this->layoutResolverHandler->deleteRule(
                     $persistenceRule->id,
-                    Value::STATUS_DRAFT
+                    Value::STATUS_DRAFT,
                 );
-            }
+            },
         );
     }
 
@@ -580,9 +580,9 @@ final class LayoutResolverService implements APILayoutResolverService
                     $this->layoutResolverHandler->createRuleStatus(
                         $this->layoutResolverHandler->loadRule(
                             $persistenceRule->id,
-                            Value::STATUS_PUBLISHED
+                            Value::STATUS_PUBLISHED,
                         ),
-                        Value::STATUS_ARCHIVED
+                        Value::STATUS_ARCHIVED,
                     );
 
                     $this->layoutResolverHandler->deleteRule($persistenceRule->id, Value::STATUS_PUBLISHED);
@@ -592,7 +592,7 @@ final class LayoutResolverService implements APILayoutResolverService
                 $this->layoutResolverHandler->deleteRule($persistenceRule->id, Value::STATUS_DRAFT);
 
                 return $publishedRule;
-            }
+            },
         );
 
         return $this->mapper->mapRule($publishedRule);
@@ -626,7 +626,7 @@ final class LayoutResolverService implements APILayoutResolverService
                 }
 
                 return $this->layoutResolverHandler->createRuleStatus($archivedRule, Value::STATUS_DRAFT);
-            }
+            },
         );
 
         return $this->mapper->mapRule($draftRule);
@@ -639,9 +639,9 @@ final class LayoutResolverService implements APILayoutResolverService
         $this->transaction(
             function () use ($persistenceRule): void {
                 $this->layoutResolverHandler->deleteRule(
-                    $persistenceRule->id
+                    $persistenceRule->id,
                 );
-            }
+            },
         );
     }
 
@@ -670,12 +670,12 @@ final class LayoutResolverService implements APILayoutResolverService
                         'priority' => $ruleGroupCreateStruct->priority,
                         'enabled' => $ruleGroupCreateStruct->enabled,
                         'status' => Value::STATUS_DRAFT,
-                    ]
+                    ],
                 ),
                 $parentGroup !== null ?
                     $this->layoutResolverHandler->loadRuleGroup($parentGroup->getId(), Value::STATUS_PUBLISHED) :
-                    null
-            )
+                    null,
+            ),
         );
 
         return $this->mapper->mapRuleGroup($createdRuleGroup);
@@ -698,9 +698,9 @@ final class LayoutResolverService implements APILayoutResolverService
                     [
                         'name' => $ruleGroupUpdateStruct->name,
                         'description' => $ruleGroupUpdateStruct->description,
-                    ]
-                )
-            )
+                    ],
+                ),
+            ),
         );
 
         return $this->mapper->mapRuleGroup($updatedRuleGroup);
@@ -720,9 +720,9 @@ final class LayoutResolverService implements APILayoutResolverService
                 RuleGroupMetadataUpdateStruct::fromArray(
                     [
                         'priority' => $ruleGroupUpdateStruct->priority,
-                    ]
-                )
-            )
+                    ],
+                ),
+            ),
         );
 
         return $this->mapper->mapRuleGroup($updatedRuleGroup);
@@ -742,7 +742,7 @@ final class LayoutResolverService implements APILayoutResolverService
         $persistenceTargetGroup = $this->layoutResolverHandler->loadRuleGroup($targetGroup->getId(), Value::STATUS_PUBLISHED);
 
         $copiedRuleGroup = $this->transaction(
-            fn (): PersistenceRuleGroup => $this->layoutResolverHandler->copyRuleGroup($persistenceRuleGroup, $persistenceTargetGroup, $copyChildren)
+            fn (): PersistenceRuleGroup => $this->layoutResolverHandler->copyRuleGroup($persistenceRuleGroup, $persistenceTargetGroup, $copyChildren),
         );
 
         return $this->mapper->mapRuleGroup($copiedRuleGroup);
@@ -765,8 +765,8 @@ final class LayoutResolverService implements APILayoutResolverService
             fn (): PersistenceRuleGroup => $this->layoutResolverHandler->moveRuleGroup(
                 $persistenceRuleGroup,
                 $persistenceTargetGroup,
-                $newPriority
-            )
+                $newPriority,
+            ),
         );
 
         return $this->mapper->mapRuleGroup($movedRuleGroup);
@@ -789,7 +789,7 @@ final class LayoutResolverService implements APILayoutResolverService
                 $this->layoutResolverHandler->deleteRuleGroup($persistenceRuleGroup->id, Value::STATUS_DRAFT);
 
                 return $this->layoutResolverHandler->createRuleGroupStatus($persistenceRuleGroup, Value::STATUS_DRAFT);
-            }
+            },
         );
 
         return $this->mapper->mapRuleGroup($ruleGroupDraft);
@@ -807,9 +807,9 @@ final class LayoutResolverService implements APILayoutResolverService
             function () use ($persistenceRuleGroup): void {
                 $this->layoutResolverHandler->deleteRuleGroup(
                     $persistenceRuleGroup->id,
-                    Value::STATUS_DRAFT
+                    Value::STATUS_DRAFT,
                 );
-            }
+            },
         );
     }
 
@@ -829,9 +829,9 @@ final class LayoutResolverService implements APILayoutResolverService
                     $this->layoutResolverHandler->createRuleGroupStatus(
                         $this->layoutResolverHandler->loadRuleGroup(
                             $persistenceRuleGroup->id,
-                            Value::STATUS_PUBLISHED
+                            Value::STATUS_PUBLISHED,
                         ),
-                        Value::STATUS_ARCHIVED
+                        Value::STATUS_ARCHIVED,
                     );
 
                     $this->layoutResolverHandler->deleteRuleGroup($persistenceRuleGroup->id, Value::STATUS_PUBLISHED);
@@ -841,7 +841,7 @@ final class LayoutResolverService implements APILayoutResolverService
                 $this->layoutResolverHandler->deleteRuleGroup($persistenceRuleGroup->id, Value::STATUS_DRAFT);
 
                 return $publishedRuleGroup;
-            }
+            },
         );
 
         return $this->mapper->mapRuleGroup($publishedRuleGroup);
@@ -870,7 +870,7 @@ final class LayoutResolverService implements APILayoutResolverService
                 }
 
                 return $this->layoutResolverHandler->createRuleGroupStatus($archivedRuleGroup, Value::STATUS_DRAFT);
-            }
+            },
         );
 
         return $this->mapper->mapRuleGroup($draftRuleGroup);
@@ -883,9 +883,9 @@ final class LayoutResolverService implements APILayoutResolverService
         $this->transaction(
             function () use ($persistenceRuleGroup): void {
                 $this->layoutResolverHandler->deleteRuleGroup(
-                    $persistenceRuleGroup->id
+                    $persistenceRuleGroup->id,
                 );
-            }
+            },
         );
     }
 
@@ -907,9 +907,9 @@ final class LayoutResolverService implements APILayoutResolverService
                 RuleMetadataUpdateStruct::fromArray(
                     [
                         'enabled' => true,
-                    ]
-                )
-            )
+                    ],
+                ),
+            ),
         );
 
         return $this->mapper->mapRule($updatedRule);
@@ -933,9 +933,9 @@ final class LayoutResolverService implements APILayoutResolverService
                 RuleMetadataUpdateStruct::fromArray(
                     [
                         'enabled' => false,
-                    ]
-                )
-            )
+                    ],
+                ),
+            ),
         );
 
         return $this->mapper->mapRule($updatedRule);
@@ -959,9 +959,9 @@ final class LayoutResolverService implements APILayoutResolverService
                 RuleGroupMetadataUpdateStruct::fromArray(
                     [
                         'enabled' => true,
-                    ]
-                )
-            )
+                    ],
+                ),
+            ),
         );
 
         return $this->mapper->mapRuleGroup($updatedRuleGroup);
@@ -985,9 +985,9 @@ final class LayoutResolverService implements APILayoutResolverService
                 RuleGroupMetadataUpdateStruct::fromArray(
                     [
                         'enabled' => false,
-                    ]
-                )
-            )
+                    ],
+                ),
+            ),
         );
 
         return $this->mapper->mapRuleGroup($updatedRuleGroup);
@@ -1008,8 +1008,8 @@ final class LayoutResolverService implements APILayoutResolverService
                 sprintf(
                     'Rule with UUID "%s" only accepts targets with "%s" target type.',
                     $rule->getId()->toString(),
-                    $ruleTargets[0]->type
-                )
+                    $ruleTargets[0]->type,
+                ),
             );
         }
 
@@ -1022,9 +1022,9 @@ final class LayoutResolverService implements APILayoutResolverService
                     [
                         'type' => $targetCreateStruct->type,
                         'value' => $targetCreateStruct->value,
-                    ]
-                )
-            )
+                    ],
+                ),
+            ),
         );
 
         return $this->mapper->mapTarget($createdTarget);
@@ -1046,9 +1046,9 @@ final class LayoutResolverService implements APILayoutResolverService
                 TargetUpdateStruct::fromArray(
                     [
                         'value' => $targetUpdateStruct->value,
-                    ]
-                )
-            )
+                    ],
+                ),
+            ),
         );
 
         return $this->mapper->mapTarget($updatedTarget);
@@ -1065,7 +1065,7 @@ final class LayoutResolverService implements APILayoutResolverService
         $this->transaction(
             function () use ($persistenceTarget): void {
                 $this->layoutResolverHandler->deleteTarget($persistenceTarget);
-            }
+            },
         );
     }
 
@@ -1091,9 +1091,9 @@ final class LayoutResolverService implements APILayoutResolverService
                     [
                         'type' => $conditionCreateStruct->type,
                         'value' => $conditionCreateStruct->value,
-                    ]
-                )
-            )
+                    ],
+                ),
+            ),
         );
 
         return $this->mapper->mapRuleCondition($createdCondition);
@@ -1116,9 +1116,9 @@ final class LayoutResolverService implements APILayoutResolverService
                     [
                         'type' => $conditionCreateStruct->type,
                         'value' => $conditionCreateStruct->value,
-                    ]
-                )
-            )
+                    ],
+                ),
+            ),
         );
 
         return $this->mapper->mapRuleGroupCondition($createdCondition);
@@ -1145,9 +1145,9 @@ final class LayoutResolverService implements APILayoutResolverService
                 ConditionUpdateStruct::fromArray(
                     [
                         'value' => $conditionUpdateStruct->value,
-                    ]
-                )
-            )
+                    ],
+                ),
+            ),
         );
 
         return $this->mapper->mapRuleCondition($updatedCondition);
@@ -1169,9 +1169,9 @@ final class LayoutResolverService implements APILayoutResolverService
                 ConditionUpdateStruct::fromArray(
                     [
                         'value' => $conditionUpdateStruct->value,
-                    ]
-                )
-            )
+                    ],
+                ),
+            ),
         );
 
         return $this->mapper->mapRuleGroupCondition($updatedCondition);
@@ -1190,7 +1190,7 @@ final class LayoutResolverService implements APILayoutResolverService
         $this->transaction(
             function () use ($persistenceCondition): void {
                 $this->layoutResolverHandler->deleteCondition($persistenceCondition);
-            }
+            },
         );
     }
 

@@ -21,7 +21,7 @@ final class LoadSharedLayoutsTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'layouts/shared_layouts',
-            Response::HTTP_OK
+            Response::HTTP_OK,
         );
     }
 }

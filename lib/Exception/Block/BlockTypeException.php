@@ -15,8 +15,8 @@ final class BlockTypeException extends InvalidArgumentException implements Excep
         return new self(
             sprintf(
                 'Block type with "%s" identifier does not exist.',
-                $identifier
-            )
+                $identifier,
+            ),
         );
     }
 
@@ -25,8 +25,8 @@ final class BlockTypeException extends InvalidArgumentException implements Excep
         return new self(
             sprintf(
                 'Block type group with "%s" identifier does not exist.',
-                $identifier
-            )
+                $identifier,
+            ),
         );
     }
 }

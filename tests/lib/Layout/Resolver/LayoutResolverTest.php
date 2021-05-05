@@ -76,7 +76,7 @@ final class LayoutResolverTest extends TestCase
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection(),
-            ]
+            ],
         );
 
         $rule2 = Rule::fromArray(
@@ -86,7 +86,7 @@ final class LayoutResolverTest extends TestCase
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection(),
-            ]
+            ],
         );
 
         $rule3 = Rule::fromArray(
@@ -96,7 +96,7 @@ final class LayoutResolverTest extends TestCase
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection(),
-            ]
+            ],
         );
 
         $rule4 = Rule::fromArray(
@@ -106,18 +106,18 @@ final class LayoutResolverTest extends TestCase
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection(),
-            ]
+            ],
         );
 
         $this->layoutResolverServiceMock
             ->method('matchRules')
             ->withConsecutive(
                 [self::isInstanceOf(RuleGroup::class), self::identicalTo('target1'), self::identicalTo(42)],
-                [self::isInstanceOf(RuleGroup::class), self::identicalTo('target2'), self::identicalTo(84)]
+                [self::isInstanceOf(RuleGroup::class), self::identicalTo('target2'), self::identicalTo(84)],
             )
             ->willReturnOnConsecutiveCalls(
                 new RuleList([$rule1, $rule2]),
-                new RuleList([$rule3, $rule4])
+                new RuleList([$rule3, $rule4]),
             );
 
         $resolvedRules = $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest());
@@ -148,7 +148,7 @@ final class LayoutResolverTest extends TestCase
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection(),
-            ]
+            ],
         );
 
         $rule2 = Rule::fromArray(
@@ -158,7 +158,7 @@ final class LayoutResolverTest extends TestCase
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection(),
-            ]
+            ],
         );
 
         $this->layoutResolverServiceMock
@@ -187,7 +187,7 @@ final class LayoutResolverTest extends TestCase
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection(),
-            ]
+            ],
         );
 
         $rule2 = Rule::fromArray(
@@ -197,7 +197,7 @@ final class LayoutResolverTest extends TestCase
                 'enabled' => false,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection(),
-            ]
+            ],
         );
 
         $this->layoutResolverServiceMock
@@ -226,7 +226,7 @@ final class LayoutResolverTest extends TestCase
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection(),
-            ]
+            ],
         );
 
         $rule2 = Rule::fromArray(
@@ -236,7 +236,7 @@ final class LayoutResolverTest extends TestCase
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection(),
-            ]
+            ],
         );
 
         $this->layoutResolverServiceMock
@@ -258,7 +258,7 @@ final class LayoutResolverTest extends TestCase
             [
                 new TargetType1(),
                 new TargetType2(84),
-            ]
+            ],
         );
 
         $this->createLayoutResolver();
@@ -270,7 +270,7 @@ final class LayoutResolverTest extends TestCase
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection(),
-            ]
+            ],
         );
 
         $rule2 = Rule::fromArray(
@@ -280,7 +280,7 @@ final class LayoutResolverTest extends TestCase
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection(),
-            ]
+            ],
         );
 
         $this->layoutResolverServiceMock
@@ -302,7 +302,7 @@ final class LayoutResolverTest extends TestCase
             [
                 new TargetType1(),
                 new TargetType2(),
-            ]
+            ],
         );
 
         $this->createLayoutResolver();
@@ -342,7 +342,7 @@ final class LayoutResolverTest extends TestCase
                 'targets' => new ArrayCollection(),
                 'priority' => 4,
                 'conditions' => new ArrayCollection([RuleCondition::fromArray(['conditionType' => new ConditionType2(false)])]),
-            ]
+            ],
         );
 
         $rule2 = Rule::fromArray(
@@ -352,7 +352,7 @@ final class LayoutResolverTest extends TestCase
                 'targets' => new ArrayCollection(),
                 'priority' => 2,
                 'conditions' => new ArrayCollection($conditions),
-            ]
+            ],
         );
 
         $this->layoutResolverServiceMock
@@ -363,7 +363,7 @@ final class LayoutResolverTest extends TestCase
 
         self::assertSame(
             $resolved ? [$rule2] : [],
-            $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest(), ['condition2'])
+            $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest(), ['condition2']),
         );
     }
 
@@ -394,7 +394,7 @@ final class LayoutResolverTest extends TestCase
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection($conditions),
-            ]
+            ],
         );
 
         $this->layoutResolverServiceMock
@@ -405,7 +405,7 @@ final class LayoutResolverTest extends TestCase
 
         self::assertSame(
             $resolved ? [$rule] : [],
-            $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest())
+            $this->layoutResolver->resolveRules($this->requestStack->getCurrentRequest()),
         );
     }
 
@@ -420,7 +420,7 @@ final class LayoutResolverTest extends TestCase
             [
                 new TargetType1(42),
                 new TargetType2(84),
-            ]
+            ],
         );
 
         $this->createLayoutResolver();
@@ -432,7 +432,7 @@ final class LayoutResolverTest extends TestCase
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection(),
-            ]
+            ],
         );
 
         $rule2 = Rule::fromArray(
@@ -442,7 +442,7 @@ final class LayoutResolverTest extends TestCase
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection(),
-            ]
+            ],
         );
 
         $rule3 = Rule::fromArray(
@@ -452,7 +452,7 @@ final class LayoutResolverTest extends TestCase
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection(),
-            ]
+            ],
         );
 
         $rule4 = Rule::fromArray(
@@ -462,18 +462,18 @@ final class LayoutResolverTest extends TestCase
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection(),
-            ]
+            ],
         );
 
         $this->layoutResolverServiceMock
             ->method('matchRules')
             ->withConsecutive(
                 [self::isInstanceOf(RuleGroup::class), self::identicalTo('target1'), self::identicalTo(42)],
-                [self::isInstanceOf(RuleGroup::class), self::identicalTo('target2'), self::identicalTo(84)]
+                [self::isInstanceOf(RuleGroup::class), self::identicalTo('target2'), self::identicalTo(84)],
             )
             ->willReturnOnConsecutiveCalls(
                 new RuleList([$rule1, $rule2]),
-                new RuleList([$rule3, $rule4])
+                new RuleList([$rule3, $rule4]),
             );
 
         self::assertSame($rule3, $this->layoutResolver->resolveRule($this->requestStack->getCurrentRequest()));
@@ -497,7 +497,7 @@ final class LayoutResolverTest extends TestCase
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection(),
-            ]
+            ],
         );
 
         $rule2 = Rule::fromArray(
@@ -507,7 +507,7 @@ final class LayoutResolverTest extends TestCase
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection(),
-            ]
+            ],
         );
 
         $this->layoutResolverServiceMock
@@ -536,7 +536,7 @@ final class LayoutResolverTest extends TestCase
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection(),
-            ]
+            ],
         );
 
         $rule2 = Rule::fromArray(
@@ -546,7 +546,7 @@ final class LayoutResolverTest extends TestCase
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection(),
-            ]
+            ],
         );
 
         $this->layoutResolverServiceMock
@@ -568,7 +568,7 @@ final class LayoutResolverTest extends TestCase
             [
                 new TargetType1(),
                 new TargetType2(84),
-            ]
+            ],
         );
 
         $this->createLayoutResolver();
@@ -580,7 +580,7 @@ final class LayoutResolverTest extends TestCase
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection(),
-            ]
+            ],
         );
 
         $rule2 = Rule::fromArray(
@@ -590,7 +590,7 @@ final class LayoutResolverTest extends TestCase
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection(),
-            ]
+            ],
         );
 
         $this->layoutResolverServiceMock
@@ -612,7 +612,7 @@ final class LayoutResolverTest extends TestCase
             [
                 new TargetType1(),
                 new TargetType2(),
-            ]
+            ],
         );
 
         $this->createLayoutResolver();
@@ -651,7 +651,7 @@ final class LayoutResolverTest extends TestCase
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection($conditions),
-            ]
+            ],
         );
 
         $this->layoutResolverServiceMock
@@ -664,8 +664,8 @@ final class LayoutResolverTest extends TestCase
             $resolved ? $rule : null,
             $this->layoutResolver->resolveRule(
                 $this->requestStack->getCurrentRequest(),
-                ['condition2']
-            )
+                ['condition2'],
+            ),
         );
     }
 
@@ -696,7 +696,7 @@ final class LayoutResolverTest extends TestCase
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection($conditions),
-            ]
+            ],
         );
 
         $this->layoutResolverServiceMock
@@ -729,7 +729,7 @@ final class LayoutResolverTest extends TestCase
                 'enabled' => true,
                 'targets' => new ArrayCollection(),
                 'conditions' => new ArrayCollection($conditions),
-            ]
+            ],
         );
 
         self::assertSame($isMatch, $this->layoutResolver->matches($rule, Request::create('/')));
@@ -779,7 +779,7 @@ final class LayoutResolverTest extends TestCase
         $this->layoutResolver = new LayoutResolver(
             $this->layoutResolverServiceMock,
             $this->targetTypeRegistry,
-            $this->requestStack
+            $this->requestStack,
         );
     }
 }

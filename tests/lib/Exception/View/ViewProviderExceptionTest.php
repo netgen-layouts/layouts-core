@@ -18,7 +18,7 @@ final class ViewProviderExceptionTest extends TestCase
 
         self::assertSame(
             'An error occurred while building the view.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 
@@ -31,7 +31,7 @@ final class ViewProviderExceptionTest extends TestCase
 
         self::assertSame(
             'No view providers found for "some_class" value.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 
@@ -44,7 +44,7 @@ final class ViewProviderExceptionTest extends TestCase
 
         self::assertSame(
             'To build the block view, "param" parameter needs to be provided.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 
@@ -57,7 +57,7 @@ final class ViewProviderExceptionTest extends TestCase
 
         self::assertSame(
             'To build the block view, "param" parameter needs to be of "string" type.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 }

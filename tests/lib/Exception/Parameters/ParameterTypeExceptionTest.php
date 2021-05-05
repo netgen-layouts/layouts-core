@@ -18,7 +18,7 @@ final class ParameterTypeExceptionTest extends TestCase
 
         self::assertSame(
             'Parameter type with "type" identifier does not exist.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 
@@ -31,7 +31,7 @@ final class ParameterTypeExceptionTest extends TestCase
 
         self::assertSame(
             'Parameter type with class "class" does not exist.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 
@@ -44,7 +44,7 @@ final class ParameterTypeExceptionTest extends TestCase
 
         self::assertSame(
             'Form mapper for "type" parameter type does not exist.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 
@@ -57,7 +57,7 @@ final class ParameterTypeExceptionTest extends TestCase
 
         self::assertSame(
             'Parameter with "type" type is not supported.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 }

@@ -23,7 +23,7 @@ final class BlockTypeFactory
                 'icon' => $config['icon'],
                 'definition' => $blockDefinition,
                 'defaults' => $config['defaults'],
-            ]
+            ],
         );
     }
 }

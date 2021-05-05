@@ -163,7 +163,7 @@ abstract class CoreTestCase extends TestCase
     protected function createTransactionService(): APITransactionService
     {
         return new TransactionService(
-            $this->transactionHandler
+            $this->transactionHandler,
         );
     }
 
@@ -180,7 +180,7 @@ abstract class CoreTestCase extends TestCase
             $layoutValidator,
             $this->createLayoutMapper(),
             new LayoutStructBuilder(),
-            $this->layoutHandler
+            $this->layoutHandler,
         );
     }
 
@@ -202,14 +202,14 @@ abstract class CoreTestCase extends TestCase
             $blockValidator,
             $this->createBlockMapper(),
             new BlockStructBuilder(
-                new ConfigStructBuilder()
+                new ConfigStructBuilder(),
             ),
             $this->createParameterMapper(),
             $this->createConfigMapper(),
             $this->layoutTypeRegistry,
             $this->blockHandler,
             $this->layoutHandler,
-            $this->collectionHandler
+            $this->collectionHandler,
         );
     }
 
@@ -226,11 +226,11 @@ abstract class CoreTestCase extends TestCase
             $collectionValidator,
             $this->createCollectionMapper(),
             new CollectionStructBuilder(
-                new ConfigStructBuilder()
+                new ConfigStructBuilder(),
             ),
             $this->createParameterMapper(),
             $this->createConfigMapper(),
-            $this->collectionHandler
+            $this->collectionHandler,
         );
     }
 
@@ -241,7 +241,7 @@ abstract class CoreTestCase extends TestCase
     {
         $layoutResolverValidator = new LayoutResolverValidator(
             $this->targetTypeRegistry,
-            $this->conditionTypeRegistry
+            $this->conditionTypeRegistry,
         );
 
         $layoutResolverValidator->setValidator($this->createValidator());
@@ -252,7 +252,7 @@ abstract class CoreTestCase extends TestCase
             $this->createLayoutResolverMapper(),
             new LayoutResolverStructBuilder(),
             $this->layoutResolverHandler,
-            $this->layoutHandler
+            $this->layoutHandler,
         );
     }
 
@@ -263,7 +263,7 @@ abstract class CoreTestCase extends TestCase
     {
         return new LayoutMapper(
             $this->layoutHandler,
-            $this->layoutTypeRegistry
+            $this->layoutTypeRegistry,
         );
     }
 
@@ -278,7 +278,7 @@ abstract class CoreTestCase extends TestCase
             $this->createCollectionMapper(),
             $this->createParameterMapper(),
             $this->createConfigMapper(),
-            $this->blockDefinitionRegistry
+            $this->blockDefinitionRegistry,
         );
     }
 
@@ -293,7 +293,7 @@ abstract class CoreTestCase extends TestCase
             $this->createConfigMapper(),
             $this->itemDefinitionRegistry,
             $this->queryTypeRegistry,
-            $this->cmsItemLoaderMock
+            $this->cmsItemLoaderMock,
         );
     }
 
@@ -306,7 +306,7 @@ abstract class CoreTestCase extends TestCase
             $this->layoutResolverHandler,
             $this->targetTypeRegistry,
             $this->conditionTypeRegistry,
-            $this->layoutService
+            $this->layoutService,
         );
     }
 
@@ -337,7 +337,7 @@ abstract class CoreTestCase extends TestCase
                     'right' => Zone::fromArray(['allowedBlockDefinitions' => ['title', 'list']]),
                     'bottom' => Zone::fromArray(['allowedBlockDefinitions' => ['title']]),
                 ],
-            ]
+            ],
         );
 
         $layoutType2 = LayoutType::fromArray(
@@ -349,14 +349,14 @@ abstract class CoreTestCase extends TestCase
                     'right' => new Zone(),
                     'bottom' => new Zone(),
                 ],
-            ]
+            ],
         );
 
         return new LayoutTypeRegistry(
             [
                 '4_zones_a' => $layoutType1,
                 '4_zones_b' => $layoutType2,
-            ]
+            ],
         );
     }
 
@@ -366,7 +366,7 @@ abstract class CoreTestCase extends TestCase
         $itemConfigDefinition = ConfigDefinition::fromArray(
             [
                 'parameterDefinitions' => $itemConfigHandler->getParameterDefinitions(),
-            ]
+            ],
         );
 
         $itemDefinition = ItemDefinition::fromArray(
@@ -375,7 +375,7 @@ abstract class CoreTestCase extends TestCase
                 'configDefinitions' => [
                     'key' => $itemConfigDefinition,
                 ],
-            ]
+            ],
         );
 
         return new ItemDefinitionRegistry(['my_value_type' => $itemDefinition]);
@@ -392,7 +392,7 @@ abstract class CoreTestCase extends TestCase
         $configDefinition = ConfigDefinition::fromArray(
             [
                 'parameterDefinitions' => $configHandler->getParameterDefinitions(),
-            ]
+            ],
         );
 
         $blockDefinitionHandler1 = new BlockDefinitionHandler();
@@ -410,10 +410,10 @@ abstract class CoreTestCase extends TestCase
                             'itemViewTypes' => [
                                 'standard' => new ItemViewType(),
                             ],
-                        ]
+                        ],
                     ),
                 ],
-            ]
+            ],
         );
 
         $blockDefinition2 = BlockDefinition::fromArray(
@@ -428,10 +428,10 @@ abstract class CoreTestCase extends TestCase
                             'itemViewTypes' => [
                                 'standard' => new ItemViewType(),
                             ],
-                        ]
+                        ],
                     ),
                 ],
-            ]
+            ],
         );
 
         $blockDefinition3 = BlockDefinition::fromArray(
@@ -447,10 +447,10 @@ abstract class CoreTestCase extends TestCase
                             'itemViewTypes' => [
                                 'standard' => new ItemViewType(),
                             ],
-                        ]
+                        ],
                     ),
                 ],
-            ]
+            ],
         );
 
         $blockDefinition4 = BlockDefinition::fromArray(
@@ -466,10 +466,10 @@ abstract class CoreTestCase extends TestCase
                             'itemViewTypes' => [
                                 'standard' => new ItemViewType(),
                             ],
-                        ]
+                        ],
                     ),
                 ],
-            ]
+            ],
         );
 
         $blockDefinition5 = ContainerDefinition::fromArray(
@@ -484,10 +484,10 @@ abstract class CoreTestCase extends TestCase
                             'itemViewTypes' => [
                                 'standard' => new ItemViewType(),
                             ],
-                        ]
+                        ],
                     ),
                 ],
-            ]
+            ],
         );
 
         $blockDefinition6 = ContainerDefinition::fromArray(
@@ -502,10 +502,10 @@ abstract class CoreTestCase extends TestCase
                             'itemViewTypes' => [
                                 'standard' => new ItemViewType(),
                             ],
-                        ]
+                        ],
                     ),
                 ],
-            ]
+            ],
         );
 
         return new BlockDefinitionRegistry(
@@ -516,7 +516,7 @@ abstract class CoreTestCase extends TestCase
                 'list' => $blockDefinition4,
                 'column' => $blockDefinition5,
                 'two_columns' => $blockDefinition6,
-            ]
+            ],
         );
     }
 
@@ -531,7 +531,7 @@ abstract class CoreTestCase extends TestCase
                 new TargetType\PathInfoPrefix(),
                 new TargetType\RequestUri(),
                 new TargetType\RequestUriPrefix(),
-            ]
+            ],
         );
     }
 
@@ -541,7 +541,7 @@ abstract class CoreTestCase extends TestCase
             [
                 new ConditionType1(),
                 new ConditionType\RouteParameter(),
-            ]
+            ],
         );
     }
 
@@ -566,7 +566,7 @@ abstract class CoreTestCase extends TestCase
                 new ParameterType\BooleanType(),
                 new ParameterType\DateTimeType(),
                 new ParameterType\Compound\BooleanType(),
-            ]
+            ],
         );
     }
 }

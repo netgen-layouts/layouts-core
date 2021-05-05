@@ -40,11 +40,11 @@ final class EditType extends AbstractType
                     [
                         'payload' => array_map(
                             static fn (Config $config): ConfigDefinitionInterface => $config->getDefinition(),
-                            $options['configurable']->getConfigs()->toArray()
+                            $options['configurable']->getConfigs()->toArray(),
                         ),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
     }
 
@@ -74,7 +74,7 @@ final class EditType extends AbstractType
                     'property_path' => 'configStructs[' . $configKey . ']',
                     'parameter_definitions' => $value->getConfig($configKey)->getDefinition(),
                     'label_prefix' => $options['label_prefix'] . '.' . $configKey,
-                ]
+                ],
             );
         }
     }

@@ -21,7 +21,7 @@ final class SetIsAdminRequestListenerTest extends TestCase
     protected function setUp(): void
     {
         $this->listener = new SetIsAdminRequestListener(
-            $this->createMock(EventDispatcherInterface::class)
+            $this->createMock(EventDispatcherInterface::class),
         );
     }
 
@@ -33,7 +33,7 @@ final class SetIsAdminRequestListenerTest extends TestCase
     {
         self::assertSame(
             [KernelEvents::REQUEST => ['onKernelRequest', 30]],
-            $this->listener::getSubscribedEvents()
+            $this->listener::getSubscribedEvents(),
         );
     }
 
@@ -50,7 +50,7 @@ final class SetIsAdminRequestListenerTest extends TestCase
         $this->listener->onKernelRequest($event);
 
         self::assertTrue(
-            $event->getRequest()->attributes->get(SetIsAdminRequestListener::ADMIN_FLAG_NAME)
+            $event->getRequest()->attributes->get(SetIsAdminRequestListener::ADMIN_FLAG_NAME),
         );
     }
 

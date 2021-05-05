@@ -32,9 +32,9 @@ final class ParameterTypeTest extends TestCase
                 [
                     'type' => new ParameterType(),
                     'isRequired' => false,
-                ]
+                ],
             ),
-            42
+            42,
         );
 
         self::assertCount(1, $constraints);
@@ -53,9 +53,9 @@ final class ParameterTypeTest extends TestCase
                 [
                     'type' => new ParameterType(),
                     'isRequired' => true,
-                ]
+                ],
             ),
-            42
+            42,
         );
 
         self::assertCount(2, $constraints);
@@ -73,7 +73,7 @@ final class ParameterTypeTest extends TestCase
 
         $this->parameterType->getConstraints(
             ParameterDefinition::fromArray(['type' => new TextType()]),
-            42
+            42,
         );
     }
 

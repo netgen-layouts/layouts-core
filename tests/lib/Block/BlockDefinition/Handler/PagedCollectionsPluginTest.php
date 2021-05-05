@@ -30,11 +30,11 @@ final class PagedCollectionsPluginTest extends TestCase
                 new ParameterType\IntegerType(),
                 new ParameterType\BooleanType(),
                 new ParameterType\Compound\BooleanType(),
-            ]
+            ],
         );
 
         $this->parameterBuilderFactory = new TranslatableParameterBuilderFactory(
-            $this->parameterTypeRegistry
+            $this->parameterTypeRegistry,
         );
     }
 
@@ -46,7 +46,7 @@ final class PagedCollectionsPluginTest extends TestCase
     {
         self::assertSame(
             [PagedCollectionsBlockInterface::class],
-            [...(function (): Generator { yield from $this->plugin::getExtendedHandlers(); })()]
+            [...(function (): Generator { yield from $this->plugin::getExtendedHandlers(); })()],
         );
     }
 

@@ -15,8 +15,8 @@ final class ParameterBuilderException extends InvalidArgumentException implement
         return new self(
             sprintf(
                 'Parameter with "%s" name does not exist in the builder.',
-                $parameter
-            )
+                $parameter,
+            ),
         );
     }
 
@@ -26,8 +26,8 @@ final class ParameterBuilderException extends InvalidArgumentException implement
             return new self(
                 sprintf(
                     'Option "%s" does not exist in the builder.',
-                    $option
-                )
+                    $option,
+                ),
             );
         }
 
@@ -35,8 +35,8 @@ final class ParameterBuilderException extends InvalidArgumentException implement
             sprintf(
                 'Option "%s" does not exist in the builder for "%s" parameter.',
                 $option,
-                $parameter
-            )
+                $parameter,
+            ),
         );
     }
 

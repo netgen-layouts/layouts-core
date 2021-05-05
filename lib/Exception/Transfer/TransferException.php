@@ -15,8 +15,8 @@ final class TransferException extends InvalidArgumentException implements Except
         return new self(
             sprintf(
                 'Entity handler for "%s" entity type does not exist.',
-                $entityType
-            )
+                $entityType,
+            ),
         );
     }
 }

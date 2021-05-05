@@ -36,7 +36,7 @@ final class Import extends AbstractController
             null,
             [
                 'action' => $this->generateUrl('nglayouts_admin_transfer_index'),
-            ]
+            ],
         );
 
         $form->handleRequest($request);
@@ -58,7 +58,7 @@ final class Import extends AbstractController
                     }
                 } catch (ImportException $e) {
                     $form->get('file')->addError(
-                        new FormError($e->getMessage(), null, [], null, $e)
+                        new FormError($e->getMessage(), null, [], null, $e),
                     );
                 }
             }
@@ -69,7 +69,7 @@ final class Import extends AbstractController
             [
                 'form' => $form->createView(),
                 'results' => $results,
-            ]
+            ],
         );
     }
 }

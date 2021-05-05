@@ -42,7 +42,7 @@ final class CopyTypeTest extends FormTestCase
             $struct,
             [
                 'layout' => $this->layout,
-            ]
+            ],
         );
 
         $form->submit($submittedData);
@@ -76,7 +76,7 @@ final class CopyTypeTest extends FormTestCase
             [
                 'layout' => $this->layout,
                 'data' => $struct,
-            ]
+            ],
         );
 
         self::assertSame($this->layout, $options['layout']);
@@ -115,7 +115,7 @@ final class CopyTypeTest extends FormTestCase
         $optionsResolver->resolve(
             [
                 'layout' => '',
-            ]
+            ],
         );
     }
 
@@ -136,7 +136,7 @@ final class CopyTypeTest extends FormTestCase
             [
                 'layout' => $this->layout,
                 'data' => '',
-            ]
+            ],
         );
     }
 

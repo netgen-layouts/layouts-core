@@ -30,8 +30,8 @@ final class NetgenLayoutsAdminExtension extends Extension implements PrependExte
                 [
                     new GlobFileLoader($container, $locator),
                     new YamlFileLoader($container, $locator),
-                ]
-            )
+                ],
+            ),
         );
 
         $loader->load('default_settings.yaml');

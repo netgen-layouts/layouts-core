@@ -33,7 +33,7 @@ final class ValueTypeRegistry implements IteratorAggregate, Countable, ArrayAcce
     {
         $this->valueTypes = array_filter(
             $valueTypes,
-            static fn (ValueType $valueType): bool => true
+            static fn (ValueType $valueType): bool => true,
         );
     }
 
@@ -72,7 +72,7 @@ final class ValueTypeRegistry implements IteratorAggregate, Countable, ArrayAcce
 
         return array_filter(
             $this->valueTypes,
-            static fn (ValueType $valueType): bool => $valueType->isEnabled()
+            static fn (ValueType $valueType): bool => $valueType->isEnabled(),
         );
     }
 

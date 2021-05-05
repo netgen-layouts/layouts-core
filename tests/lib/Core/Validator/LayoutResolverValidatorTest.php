@@ -48,7 +48,7 @@ final class LayoutResolverValidatorTest extends TestCase
 
         $this->layoutResolverValidator = new LayoutResolverValidator(
             $this->targetTypeRegistry,
-            $this->conditionTypeRegistry
+            $this->conditionTypeRegistry,
         );
 
         $this->layoutResolverValidator->setValidator($this->validator);
@@ -158,7 +158,7 @@ final class LayoutResolverValidatorTest extends TestCase
 
         $this->layoutResolverValidator->validateTargetUpdateStruct(
             Target::fromArray(['targetType' => new TargetType1()]),
-            $struct
+            $struct,
         );
     }
 
@@ -203,7 +203,7 @@ final class LayoutResolverValidatorTest extends TestCase
 
         $this->layoutResolverValidator->validateConditionUpdateStruct(
             RuleCondition::fromArray(['conditionType' => new ConditionType1()]),
-            $struct
+            $struct,
         );
     }
 

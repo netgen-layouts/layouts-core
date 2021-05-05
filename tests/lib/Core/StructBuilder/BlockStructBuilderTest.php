@@ -48,7 +48,7 @@ abstract class BlockStructBuilderTest extends CoreTestCase
                     'css_id' => null,
                 ],
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -69,7 +69,7 @@ abstract class BlockStructBuilderTest extends CoreTestCase
                 'configStructs' => [],
                 'parameterValues' => [],
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -103,7 +103,7 @@ abstract class BlockStructBuilderTest extends CoreTestCase
                     'css_id' => null,
                 ],
             ],
-            $this->exportObject($struct, true)
+            $this->exportObject($struct, true),
         );
     }
 }

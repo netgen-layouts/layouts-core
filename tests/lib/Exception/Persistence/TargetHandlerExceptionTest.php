@@ -18,7 +18,7 @@ final class TargetHandlerExceptionTest extends TestCase
 
         self::assertSame(
             'Doctrine target handler for "target_type" target type does not exist.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 }

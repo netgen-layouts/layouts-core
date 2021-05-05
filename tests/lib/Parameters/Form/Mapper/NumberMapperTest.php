@@ -38,14 +38,14 @@ final class NumberMapperTest extends TestCase
                 'options' => [
                     'scale' => 6,
                 ],
-            ]
+            ],
         );
 
         self::assertSame(
             [
                 'scale' => 6,
             ],
-            $this->mapper->mapOptions($parameterDefinition)
+            $this->mapper->mapOptions($parameterDefinition),
         );
     }
 }

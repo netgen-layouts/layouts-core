@@ -39,7 +39,7 @@ final class QueryTypePassTest extends AbstractContainerBuilderTestCase
         $this->compile();
 
         $this->assertContainerBuilderHasService(
-            'netgen_layouts.collection.query_type.query_type'
+            'netgen_layouts.collection.query_type.query_type',
         );
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
@@ -47,7 +47,7 @@ final class QueryTypePassTest extends AbstractContainerBuilderTestCase
             0,
             [
                 'query_type' => new Reference('netgen_layouts.collection.query_type.query_type'),
-            ]
+            ],
         );
     }
 
@@ -69,7 +69,7 @@ final class QueryTypePassTest extends AbstractContainerBuilderTestCase
         $this->compile();
 
         $this->assertContainerBuilderHasService(
-            'netgen_layouts.collection.query_type.query_type'
+            'netgen_layouts.collection.query_type.query_type',
         );
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
@@ -77,7 +77,7 @@ final class QueryTypePassTest extends AbstractContainerBuilderTestCase
             0,
             [
                 'query_type' => new Reference('netgen_layouts.collection.query_type.query_type'),
-            ]
+            ],
         );
     }
 

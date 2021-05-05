@@ -76,7 +76,7 @@ final class ExceptionConversionListener implements EventSubscriberInterface
             $convertedException = new $exceptionClass(
                 $exception->getMessage(),
                 $exception,
-                $exception->getCode()
+                $exception->getCode(),
             );
 
             $this->setThrowable($event, $convertedException);

@@ -39,7 +39,7 @@ final class CmsItemBuilderTest extends TestCase
                 'isVisible' => true,
                 'object' => $value,
             ],
-            $this->exportObject($builtItem)
+            $this->exportObject($builtItem),
         );
     }
 

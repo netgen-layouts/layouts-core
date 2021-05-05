@@ -54,9 +54,9 @@ final class CollectionItemNormalizerTest extends TestCase
                         'isVisible' => true,
                         'value' => 12,
                         'valueType' => 'my_value_type',
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $serializedConfig = [
@@ -90,7 +90,7 @@ final class CollectionItemNormalizerTest extends TestCase
                 'cms_url' => '/some/url',
                 'config' => $serializedConfig,
             ],
-            $this->normalizer->normalize(new Value($item))
+            $this->normalizer->normalize(new Value($item)),
         );
     }
 

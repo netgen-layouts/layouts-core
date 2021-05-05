@@ -20,7 +20,7 @@ final class ItemViewTest extends TestCase
             [
                 'value' => 42,
                 'valueType' => 'type',
-            ]
+            ],
         );
 
         $this->view = new ItemView($this->item, 'view_type');
@@ -42,7 +42,7 @@ final class ItemViewTest extends TestCase
                 'view_type' => 'view_type',
                 'param' => 'value',
             ],
-            $this->view->getParameters()
+            $this->view->getParameters(),
         );
     }
 

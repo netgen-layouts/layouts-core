@@ -31,7 +31,7 @@ final class ViewRendererListenerTest extends TestCase
         $this->viewRendererMock = $this->createMock(ViewRendererInterface::class);
         $this->listener = new ViewRendererListener(
             $this->viewRendererMock,
-            new ErrorHandler()
+            new ErrorHandler(),
         );
     }
 
@@ -42,7 +42,7 @@ final class ViewRendererListenerTest extends TestCase
     {
         self::assertSame(
             [KernelEvents::VIEW => ['onView', -255]],
-            $this->listener::getSubscribedEvents()
+            $this->listener::getSubscribedEvents(),
         );
     }
 
@@ -72,7 +72,7 @@ final class ViewRendererListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            $view
+            $view,
         );
 
         $this->listener->onView($event);
@@ -110,7 +110,7 @@ final class ViewRendererListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            $view
+            $view,
         );
 
         $this->listener->onView($event);
@@ -141,7 +141,7 @@ final class ViewRendererListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            $view
+            $view,
         );
 
         $this->listener->onView($event);
@@ -161,7 +161,7 @@ final class ViewRendererListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            42
+            42,
         );
 
         $this->listener->onView($event);

@@ -84,7 +84,7 @@ final class LayoutEntityHandler implements EntityHandlerInterface
     public function deleteEntity(UuidInterface $uuid): void
     {
         $this->layoutService->deleteLayout(
-            $this->layoutService->loadLayout($uuid)
+            $this->layoutService->loadLayout($uuid),
         );
     }
 
@@ -93,7 +93,7 @@ final class LayoutEntityHandler implements EntityHandlerInterface
         $createStruct = $this->layoutService->newLayoutCreateStruct(
             $this->layoutTypeRegistry->getLayoutType($data['type_identifier']),
             $data['name'],
-            $data['main_locale']
+            $data['main_locale'],
         );
 
         $createStruct->description = $data['description'];
@@ -126,7 +126,7 @@ final class LayoutEntityHandler implements EntityHandlerInterface
         foreach ($layout->getZones() as $zone) {
             if (!array_key_exists($zone->getIdentifier(), $layoutData['zones'])) {
                 throw new RuntimeException(
-                    sprintf('Missing data for zone "%s"', $zone->getIdentifier())
+                    sprintf('Missing data for zone "%s"', $zone->getIdentifier()),
                 );
             }
 
@@ -183,7 +183,7 @@ final class LayoutEntityHandler implements EntityHandlerInterface
 
             if (!array_key_exists($locale, $translationsData)) {
                 throw new RuntimeException(
-                    sprintf('Could not find locale "%s" in the given block data', $locale)
+                    sprintf('Could not find locale "%s" in the given block data', $locale),
                 );
             }
 
@@ -224,7 +224,7 @@ final class LayoutEntityHandler implements EntityHandlerInterface
 
             if (!array_key_exists($locale, $translationsData)) {
                 throw new RuntimeException(
-                    sprintf('Could not find locale "%s" in the given query data', $locale)
+                    sprintf('Could not find locale "%s" in the given query data', $locale),
                 );
             }
 
@@ -339,7 +339,7 @@ final class LayoutEntityHandler implements EntityHandlerInterface
     {
         if (!array_key_exists($blockData['main_locale'], $blockData['parameters'])) {
             throw new RuntimeException(
-                sprintf('Missing data for block main locale "%s"', $blockData['main_locale'])
+                sprintf('Missing data for block main locale "%s"', $blockData['main_locale']),
             );
         }
 
@@ -371,7 +371,7 @@ final class LayoutEntityHandler implements EntityHandlerInterface
             if (is_array($collectionData['query'])) {
                 if (!array_key_exists($collectionData['main_locale'], $collectionData['query']['parameters'])) {
                     throw new RuntimeException(
-                        sprintf('Missing data for query main locale "%s"', $collectionData['main_locale'])
+                        sprintf('Missing data for query main locale "%s"', $collectionData['main_locale']),
                     );
                 }
 
@@ -426,7 +426,7 @@ final class LayoutEntityHandler implements EntityHandlerInterface
             if ($collectionQuery instanceof Query && is_array($collectionData['query'])) {
                 $this->updateQueryTranslations(
                     $collectionQuery,
-                    $collectionData['query']['parameters']
+                    $collectionData['query']['parameters'],
                 );
             }
 
@@ -447,12 +447,12 @@ final class LayoutEntityHandler implements EntityHandlerInterface
 
             $item = $this->cmsItemLoader->loadByRemoteId(
                 $collectionItemData['value'],
-                $collectionItemData['value_type']
+                $collectionItemData['value_type'],
             );
 
             $itemCreateStruct = $this->collectionService->newItemCreateStruct(
                 $itemDefinition,
-                $item->getValue()
+                $item->getValue(),
             );
 
             $itemCreateStruct->viewType = $collectionItemData['view_type'];
@@ -460,7 +460,7 @@ final class LayoutEntityHandler implements EntityHandlerInterface
             $this->setConfigStructs(
                 $itemCreateStruct,
                 $itemDefinition,
-                $collectionItemData['configuration'] ?? []
+                $collectionItemData['configuration'] ?? [],
             );
 
             $this->collectionService->addItem($collection, $itemCreateStruct, $collectionItemData['position']);

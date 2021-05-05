@@ -18,7 +18,7 @@ final class LayoutTypeExceptionTest extends TestCase
 
         self::assertSame(
             'Layout type with "type" identifier does not exist.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 
@@ -31,7 +31,7 @@ final class LayoutTypeExceptionTest extends TestCase
 
         self::assertSame(
             'Zone "zone" does not exist in "type" layout type.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 }

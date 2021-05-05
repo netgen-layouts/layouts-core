@@ -39,9 +39,9 @@ final class CopyLayoutForm extends AbstractController
                     'nglayouts_admin_layouts_layout_copy',
                     [
                         'layoutId' => $layout->getId()->toString(),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $form->handleRequest($request);
@@ -60,7 +60,7 @@ final class CopyLayoutForm extends AbstractController
             $form,
             ViewInterface::CONTEXT_ADMIN,
             [],
-            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
+            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY),
         );
     }
 }

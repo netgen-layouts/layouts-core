@@ -55,7 +55,7 @@ final class LayoutNormalizerTest extends TestCase
                         'allowed_block_definitions' => [],
                     ],
                 ],
-            ]
+            ],
         );
 
         $this->normalizer = new LayoutNormalizer($this->layoutServiceMock, $this->blockServiceMock);
@@ -79,7 +79,7 @@ final class LayoutNormalizerTest extends TestCase
         $block = Block::fromArray(
             [
                 'id' => $blockUuid,
-            ]
+            ],
         );
 
         $uuid1 = Uuid::uuid4();
@@ -103,7 +103,7 @@ final class LayoutNormalizerTest extends TestCase
                             [
                                 'identifier' => 'left',
                                 'linkedZone' => null,
-                            ]
+                            ],
                         ),
                         'right' => Zone::fromArray(
                             [
@@ -112,18 +112,18 @@ final class LayoutNormalizerTest extends TestCase
                                     [
                                         'layoutId' => $uuid2,
                                         'identifier' => 'top',
-                                    ]
+                                    ],
                                 ),
-                            ]
+                            ],
                         ),
                         'missing' => Zone::fromArray(
                             [
                                 'identifier' => 'missing',
-                            ]
+                            ],
                         ),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $this->blockServiceMock
@@ -131,7 +131,7 @@ final class LayoutNormalizerTest extends TestCase
             ->willReturnOnConsecutiveCalls(
                 new BlockList([$block]),
                 new BlockList(),
-                new BlockList()
+                new BlockList(),
             );
 
         $this->layoutServiceMock
@@ -190,7 +190,7 @@ final class LayoutNormalizerTest extends TestCase
                     ],
                 ],
             ],
-            $this->normalizer->normalize(new Value($layout))
+            $this->normalizer->normalize(new Value($layout)),
         );
     }
 
@@ -220,7 +220,7 @@ final class LayoutNormalizerTest extends TestCase
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
                 'zones' => new ArrayCollection(),
-            ]
+            ],
         );
 
         $archivedLayout = Layout::fromArray(
@@ -236,7 +236,7 @@ final class LayoutNormalizerTest extends TestCase
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
                 'zones' => new ArrayCollection(),
-            ]
+            ],
         );
 
         $this->layoutServiceMock

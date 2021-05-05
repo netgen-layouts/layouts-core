@@ -46,7 +46,7 @@ final class QueryTypeNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'query_types'
+            'query_types',
         );
     }
 
@@ -74,7 +74,7 @@ final class QueryTypeNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'query_types.*.handler'
+            'query_types.*.handler',
         );
     }
 

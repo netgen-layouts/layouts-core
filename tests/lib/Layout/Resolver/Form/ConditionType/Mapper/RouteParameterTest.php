@@ -44,7 +44,7 @@ final class RouteParameterTest extends TestCase
                     'empty_data' => ' ',
                 ],
             ],
-            $this->mapper->getFormOptions()
+            $this->mapper->getFormOptions(),
         );
     }
 }

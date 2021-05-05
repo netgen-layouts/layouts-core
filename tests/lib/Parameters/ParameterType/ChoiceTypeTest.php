@@ -309,10 +309,10 @@ final class ChoiceTypeTest extends TestCase
                     [
                         'multiple' => $multiple,
                         'options' => [42 => 42],
-                    ]
+                    ],
                 ),
-                $value
-            )
+                $value,
+            ),
         );
     }
 

@@ -28,7 +28,7 @@ final class RendererTest extends TestCase
                     new SimplePlugin('template1.html.twig'),
                     new SimplePlugin('template2.html.twig', ['param2' => 'value2', 'param' => 'value3']),
                 ],
-            ]
+            ],
         );
     }
 
@@ -50,19 +50,19 @@ final class RendererTest extends TestCase
                 [
                     self::identicalTo('template2.html.twig'),
                     self::identicalTo(['param2' => 'value2', 'param' => 'value3']),
-                ]
+                ],
             )
             ->willReturnOnConsecutiveCalls(
                 self::returnCallback(
                     static function (): void {
                         echo 'rendered1';
-                    }
+                    },
                 ),
                 self::returnCallback(
                     static function (): void {
                         echo 'rendered2';
-                    }
-                )
+                    },
+                ),
             );
 
         self::assertSame('rendered1rendered2', $this->renderer->renderPlugins('plugin', ['param' => 'value']));

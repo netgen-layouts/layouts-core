@@ -30,15 +30,15 @@ final class TranslatableTypeTraitTest extends FormTestCase
                 'definition' => BlockDefinition::fromArray(
                     [
                         'parameterDefinitions' => $handler->getParameterDefinitions(),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $form = $this->factory->create(
             TranslatableTypeStub::class,
             new BlockUpdateStruct(),
-            ['block' => $block]
+            ['block' => $block],
         );
 
         self::assertTrue($form->get('name')->isDisabled());
@@ -64,15 +64,15 @@ final class TranslatableTypeTraitTest extends FormTestCase
                 'definition' => BlockDefinition::fromArray(
                     [
                         'parameterDefinitions' => $handler->getParameterDefinitions(),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $form = $this->factory->create(
             TranslatableTypeStub::class,
             new BlockUpdateStruct(),
-            ['block' => $block]
+            ['block' => $block],
         );
 
         self::assertTrue($form->get('name')->isDisabled());

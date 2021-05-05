@@ -47,7 +47,7 @@ final class LinkType extends AbstractType
                 ],
                 'required' => true,
                 'property_path' => 'linkType',
-            ]
+            ],
         );
 
         $builder->add(
@@ -56,7 +56,7 @@ final class LinkType extends AbstractType
             [
                 'label' => 'parameter.link.link_type.url',
                 'required' => false,
-            ]
+            ],
         );
 
         $builder->add(
@@ -64,7 +64,7 @@ final class LinkType extends AbstractType
             EmailType::class,
             [
                 'label' => 'parameter.link.link_type.email',
-            ]
+            ],
         );
 
         $builder->add(
@@ -72,7 +72,7 @@ final class LinkType extends AbstractType
             TextType::class,
             [
                 'label' => 'parameter.link.link_type.phone',
-            ]
+            ],
         );
 
         $internalLinkForm = $builder->create(
@@ -82,7 +82,7 @@ final class LinkType extends AbstractType
                 'label' => 'parameter.link.link_type.internal',
                 'item_types' => $options['value_types'],
                 'error_bubbling' => false,
-            ]
+            ],
         );
 
         $internalLinkForm->setDataMapper(new ItemLinkDataMapper());
@@ -100,7 +100,7 @@ final class LinkType extends AbstractType
                 'mapped' => false,
                 'error_bubbling' => false,
                 'property_path' => 'link',
-            ]
+            ],
         );
 
         $builder->add(
@@ -109,7 +109,7 @@ final class LinkType extends AbstractType
             [
                 'label' => 'parameter.link.link_suffix',
                 'property_path' => 'linkSuffix',
-            ]
+            ],
         );
 
         $builder->add(
@@ -119,7 +119,7 @@ final class LinkType extends AbstractType
                 'label' => 'parameter.link.new_window',
                 'required' => true,
                 'property_path' => 'newWindow',
-            ]
+            ],
         );
     }
 

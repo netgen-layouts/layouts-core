@@ -49,7 +49,7 @@ final class RequestUriPrefixTest extends TestCase
 
         self::assertSame(
             '/the/answer?a=42',
-            $this->targetType->provideValue($request)
+            $this->targetType->provideValue($request),
         );
     }
 

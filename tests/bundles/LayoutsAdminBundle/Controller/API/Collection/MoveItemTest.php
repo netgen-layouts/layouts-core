@@ -19,7 +19,7 @@ final class MoveItemTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'position' => 2,
-            ]
+            ],
         );
 
         $this->client->request(
@@ -28,7 +28,7 @@ final class MoveItemTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertEmptyResponse($this->client->getResponse());
@@ -45,13 +45,13 @@ final class MoveItemTest extends JsonApiTestCase
             [],
             [],
             [],
-            $this->jsonEncode([])
+            $this->jsonEncode([]),
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find item with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"'
+            'Could not find item with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"',
         );
     }
 
@@ -63,7 +63,7 @@ final class MoveItemTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'position' => '0',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -72,13 +72,13 @@ final class MoveItemTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            '/^There was an error validating "position": This value should be of type int(eger)?.$/'
+            '/^There was an error validating "position": This value should be of type int(eger)?.$/',
         );
     }
 
@@ -93,13 +93,13 @@ final class MoveItemTest extends JsonApiTestCase
             [],
             [],
             [],
-            $this->jsonEncode([])
+            $this->jsonEncode([]),
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "position": This value should not be blank.'
+            'There was an error validating "position": This value should not be blank.',
         );
     }
 
@@ -111,7 +111,7 @@ final class MoveItemTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'position' => -2,
-            ]
+            ],
         );
 
         $this->client->request(
@@ -120,13 +120,13 @@ final class MoveItemTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "position": This value should be greater than or equal to 0.'
+            'There was an error validating "position": This value should be greater than or equal to 0.',
         );
     }
 
@@ -138,7 +138,7 @@ final class MoveItemTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'position' => 9999,
-            ]
+            ],
         );
 
         $this->client->request(
@@ -147,13 +147,13 @@ final class MoveItemTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
-            'Argument "position" has an invalid state. Position is out of range.'
+            'Argument "position" has an invalid state. Position is out of range.',
         );
     }
 }

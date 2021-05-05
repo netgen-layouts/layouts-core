@@ -19,10 +19,10 @@ final class InvalidArgumentException extends BaseInvalidArgumentException implem
             sprintf(
                 'Argument "%s" has an invalid value. %s',
                 $argument,
-                $whatIsWrong
+                $whatIsWrong,
             ),
             0,
-            $previous
+            $previous,
         );
     }
 }

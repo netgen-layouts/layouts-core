@@ -70,8 +70,8 @@ final class BlockParamConverterTest extends TestCase
                 [
                     'blockId' => $uuid->toString(),
                     'status' => 'published',
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -96,8 +96,8 @@ final class BlockParamConverterTest extends TestCase
                 [
                     'blockId' => $uuid->toString(),
                     'status' => 'draft',
-                ]
-            )
+                ],
+            ),
         );
     }
 }

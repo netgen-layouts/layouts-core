@@ -16,10 +16,10 @@ final class ImportException extends RuntimeException implements Exception
         return new self(
             sprintf(
                 'There was an error importing entities: %s',
-                $previous->getMessage()
+                $previous->getMessage(),
             ),
             0,
-            $previous
+            $previous,
         );
     }
 }

@@ -39,9 +39,9 @@ final class GetCollectionResultsListenerTest extends TestCase
         $this->listener = new GetCollectionResultsListener(
             new PagerFactory(
                 $this->resultBuilderMock,
-                200
+                200,
             ),
-            [ViewInterface::CONTEXT_DEFAULT, ViewInterface::CONTEXT_APP]
+            [ViewInterface::CONTEXT_DEFAULT, ViewInterface::CONTEXT_APP],
         );
     }
 
@@ -52,7 +52,7 @@ final class GetCollectionResultsListenerTest extends TestCase
     {
         self::assertSame(
             [sprintf('%s.%s', LayoutsEvents::RENDER_VIEW, 'block') => 'onRenderView'],
-            $this->listener::getSubscribedEvents()
+            $this->listener::getSubscribedEvents(),
         );
     }
 
@@ -74,10 +74,10 @@ final class GetCollectionResultsListenerTest extends TestCase
                         [
                             'collection1' => $collection1,
                             'collection2' => $collection2,
-                        ]
+                        ],
                     ),
-                ]
-            )
+                ],
+            ),
         );
 
         $view->setContext(ViewInterface::CONTEXT_DEFAULT);
@@ -97,11 +97,11 @@ final class GetCollectionResultsListenerTest extends TestCase
                     self::identicalTo(5),
                     self::identicalTo(10),
                     self::identicalTo(0),
-                ]
+                ],
             )
             ->willReturnOnConsecutiveCalls(
                 ResultSet::fromArray(['collection' => $collection1, 'totalCount' => 0]),
-                ResultSet::fromArray(['collection' => $collection2, 'totalCount' => 0])
+                ResultSet::fromArray(['collection' => $collection2, 'totalCount' => 0]),
             );
 
         $this->listener->onRenderView($event);
@@ -136,7 +136,7 @@ final class GetCollectionResultsListenerTest extends TestCase
                     'definition' => BlockDefinition::fromArray(
                         [
                             'handlerPlugins' => [new PagedCollectionsPlugin([], [])],
-                        ]
+                        ],
                     ),
                     'parameters' => [
                         'paged_collections:enabled' => Parameter::fromArray(['value' => true]),
@@ -145,10 +145,10 @@ final class GetCollectionResultsListenerTest extends TestCase
                     'collections' => new ArrayCollection(
                         [
                             'collection' => $collection,
-                        ]
+                        ],
                     ),
-                ]
-            )
+                ],
+            ),
         );
 
         $view->setContext(ViewInterface::CONTEXT_DEFAULT);
@@ -160,7 +160,7 @@ final class GetCollectionResultsListenerTest extends TestCase
                 self::identicalTo($collection),
                 self::identicalTo(3),
                 self::identicalTo(5),
-                self::identicalTo(0)
+                self::identicalTo(0),
             )
             ->willReturn(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]));
 
@@ -191,7 +191,7 @@ final class GetCollectionResultsListenerTest extends TestCase
                     'definition' => BlockDefinition::fromArray(
                         [
                             'handlerPlugins' => [new PagedCollectionsPlugin([], [])],
-                        ]
+                        ],
                     ),
                     'parameters' => [
                         'paged_collections:enabled' => Parameter::fromArray(['value' => true]),
@@ -200,10 +200,10 @@ final class GetCollectionResultsListenerTest extends TestCase
                     'collections' => new ArrayCollection(
                         [
                             'collection' => $collection,
-                        ]
+                        ],
                     ),
-                ]
-            )
+                ],
+            ),
         );
 
         $view->setContext(ViewInterface::CONTEXT_DEFAULT);
@@ -215,7 +215,7 @@ final class GetCollectionResultsListenerTest extends TestCase
                 self::identicalTo($collection),
                 self::identicalTo(3),
                 self::identicalTo(5),
-                self::identicalTo(0)
+                self::identicalTo(0),
             )
             ->willReturn(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]));
 
@@ -246,7 +246,7 @@ final class GetCollectionResultsListenerTest extends TestCase
                     'definition' => BlockDefinition::fromArray(
                         [
                             'handlerPlugins' => [new PagedCollectionsPlugin([], [])],
-                        ]
+                        ],
                     ),
                     'parameters' => [
                         'paged_collections:enabled' => Parameter::fromArray(['value' => false]),
@@ -254,10 +254,10 @@ final class GetCollectionResultsListenerTest extends TestCase
                     'collections' => new ArrayCollection(
                         [
                             'collection' => $collection,
-                        ]
+                        ],
                     ),
-                ]
-            )
+                ],
+            ),
         );
 
         $view->setContext(ViewInterface::CONTEXT_DEFAULT);
@@ -269,7 +269,7 @@ final class GetCollectionResultsListenerTest extends TestCase
                 self::identicalTo($collection),
                 self::identicalTo(3),
                 self::identicalTo(5),
-                self::identicalTo(0)
+                self::identicalTo(0),
             )
             ->willReturn(ResultSet::fromArray(['totalCount' => 1000, 'collection' => $collection]));
 
@@ -301,10 +301,10 @@ final class GetCollectionResultsListenerTest extends TestCase
                     'collections' => new ArrayCollection(
                         [
                             'collection1' => $collection1,
-                        ]
+                        ],
                     ),
-                ]
-            )
+                ],
+            ),
         );
 
         $view->setContext(ViewInterface::CONTEXT_APP);
@@ -316,7 +316,7 @@ final class GetCollectionResultsListenerTest extends TestCase
                 self::identicalTo($collection1),
                 self::identicalTo(3),
                 self::identicalTo(5),
-                self::identicalTo(ResultSet::INCLUDE_UNKNOWN_ITEMS)
+                self::identicalTo(ResultSet::INCLUDE_UNKNOWN_ITEMS),
             )
             ->willReturn(ResultSet::fromArray(['collection' => $collection1, 'totalCount' => 0]));
 

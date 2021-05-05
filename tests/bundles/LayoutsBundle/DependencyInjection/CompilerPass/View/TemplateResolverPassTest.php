@@ -46,8 +46,8 @@ final class TemplateResolverPassTest extends AbstractContainerBuilderTestCase
                     [
                         'block_type' => new ServiceClosureArgument(new Reference('netgen_layouts.view.template_matcher.test')),
                     ],
-                ]
-            )
+                ],
+            ),
         );
     }
 

@@ -22,8 +22,8 @@ final class ConditionList extends ArrayCollection
         parent::__construct(
             array_filter(
                 $conditions,
-                static fn (Condition $condition): bool => true
-            )
+                static fn (Condition $condition): bool => true,
+            ),
         );
     }
 
@@ -42,7 +42,7 @@ final class ConditionList extends ArrayCollection
     {
         return array_map(
             static fn (Condition $condition): UuidInterface => $condition->getId(),
-            $this->getConditions()
+            $this->getConditions(),
         );
     }
 }

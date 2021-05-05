@@ -47,16 +47,16 @@ final class AddItems extends AbstractController
                 foreach ($requestData->get('items') as $item) {
                     $itemCreateStruct = $this->collectionService->newItemCreateStruct(
                         $this->itemDefinitionRegistry->getItemDefinition($item['value_type']),
-                        $item['value']
+                        $item['value'],
                     );
 
                     $this->collectionService->addItem(
                         $block->getCollection($collectionIdentifier),
                         $itemCreateStruct,
-                        $item['position'] ?? null
+                        $item['position'] ?? null,
                     );
                 }
-            }
+            },
         );
 
         return new Response(null, Response::HTTP_NO_CONTENT);
@@ -93,15 +93,15 @@ final class AddItems extends AbstractController
                                         [
                                             new Constraints\NotNull(),
                                             new Constraints\Type(['type' => 'int']),
-                                        ]
+                                        ],
                                     ),
                                 ],
-                            ]
+                            ],
                         ),
-                    ]
+                    ],
                 ),
             ],
-            'items'
+            'items',
         );
 
         $blockDefinition = $block->getDefinition();
@@ -117,8 +117,8 @@ final class AddItems extends AbstractController
                     'value_type',
                     sprintf(
                         'Value type "%s" is not allowed in selected block.',
-                        $item['value_type']
-                    )
+                        $item['value_type'],
+                    ),
                 );
             }
         }

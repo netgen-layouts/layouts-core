@@ -82,7 +82,7 @@ final class CollectionValidatorTest extends TestCase
 
         $this->collectionValidator->validateCollectionUpdateStruct(
             Collection::fromArray(['query' => $isDynamic ? new Query() : null]),
-            $struct
+            $struct,
         );
     }
 
@@ -133,11 +133,11 @@ final class CollectionValidatorTest extends TestCase
                             'configDefinitions' => [
                                 'key' => new ConfigDefinition(),
                             ],
-                        ]
+                        ],
                     ),
-                ]
+                ],
             ),
-            $struct
+            $struct,
         );
     }
 
@@ -182,7 +182,7 @@ final class CollectionValidatorTest extends TestCase
 
         $this->collectionValidator->validateQueryUpdateStruct(
             Query::fromArray(['queryType' => new QueryType('query_type')]),
-            $queryUpdateStruct
+            $queryUpdateStruct,
         );
     }
 

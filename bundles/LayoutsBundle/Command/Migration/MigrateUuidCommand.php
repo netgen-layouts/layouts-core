@@ -76,8 +76,8 @@ final class MigrateUuidCommand extends Command
             sprintf(
                 "%s\n%s",
                 'This script will generate UUIDs for all records in Netgen Layouts database tables.',
-                'Make sure to backup your database before running the script in case any errors occur.'
-            )
+                'Make sure to backup your database before running the script in case any errors occur.',
+            ),
         );
 
         if (!$this->io->confirm('Did you backup your database? Answering NO will cancel the script', false)) {
@@ -122,7 +122,7 @@ final class MigrateUuidCommand extends Command
         foreach ($data as $layoutData) {
             $uuid = Uuid::uuid5(
                 self::NAMESPACE_LAYOUT,
-                $layoutNames[$layoutData['id']] ?? $layoutData['name']
+                $layoutNames[$layoutData['id']] ?? $layoutData['name'],
             );
 
             $queryBuilder = $this->connection->createQueryBuilder();
@@ -132,8 +132,8 @@ final class MigrateUuidCommand extends Command
                 ->where(
                     $queryBuilder->expr()->and(
                         $queryBuilder->expr()->eq('id', ':id'),
-                        $queryBuilder->expr()->eq('status', ':status')
-                    )
+                        $queryBuilder->expr()->eq('status', ':status'),
+                    ),
                 )
                 ->setParameter('id', $layoutData['id'], Types::INTEGER)
                 ->setParameter('status', $layoutData['status'], Types::INTEGER)
@@ -168,8 +168,8 @@ final class MigrateUuidCommand extends Command
                 ->where(
                     $queryBuilder->expr()->and(
                         $queryBuilder->expr()->eq('id', ':id'),
-                        $queryBuilder->expr()->eq('status', ':status')
-                    )
+                        $queryBuilder->expr()->eq('status', ':status'),
+                    ),
                 )
                 ->setParameter('id', $dataItem['id'], Types::INTEGER)
                 ->setParameter('status', $dataItem['status'], Types::INTEGER)

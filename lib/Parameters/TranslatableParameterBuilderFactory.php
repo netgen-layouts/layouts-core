@@ -15,7 +15,7 @@ final class TranslatableParameterBuilderFactory extends ParameterBuilderFactory
             $config['name'],
             $config['type'],
             $config['options'],
-            $config['parent']
+            $config['parent'],
         );
     }
 }

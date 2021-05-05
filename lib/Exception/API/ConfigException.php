@@ -15,8 +15,8 @@ final class ConfigException extends InvalidArgumentException implements Exceptio
         return new self(
             sprintf(
                 'Configuration with "%s" config key does not exist.',
-                $configKey
-            )
+                $configKey,
+            ),
         );
     }
 
@@ -25,8 +25,8 @@ final class ConfigException extends InvalidArgumentException implements Exceptio
         return new self(
             sprintf(
                 'Config struct with config key "%s" does not exist.',
-                $configKey
-            )
+                $configKey,
+            ),
         );
     }
 }

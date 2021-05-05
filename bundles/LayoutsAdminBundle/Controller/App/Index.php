@@ -30,7 +30,7 @@ final class Index extends AbstractController
             $this->pageLayout,
             [
                 'debug' => $appEnvironment === 'dev',
-            ]
+            ],
         );
     }
 }

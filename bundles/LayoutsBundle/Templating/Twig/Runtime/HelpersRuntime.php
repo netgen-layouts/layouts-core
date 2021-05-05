@@ -120,7 +120,7 @@ final class HelpersRuntime
             Locale::getDefault(),
             $formatValues[$dateFormat],
             $formatValues[$timeFormat],
-            IntlTimeZone::createTimeZone($dateTime->getTimezone()->getName())
+            IntlTimeZone::createTimeZone($dateTime->getTimezone()->getName()),
         );
 
         if (!$formatter instanceof IntlDateFormatter) {

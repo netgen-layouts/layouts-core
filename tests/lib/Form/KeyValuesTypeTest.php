@@ -38,7 +38,7 @@ final class KeyValuesTypeTest extends FormTestCase
                 'values_constraints' => [
                     new Constraints\NotBlank(),
                 ],
-            ]
+            ],
         );
 
         $form->submit($submittedData);
@@ -51,7 +51,7 @@ final class KeyValuesTypeTest extends FormTestCase
 
         self::assertInstanceOf(
             CollectionType::class,
-            $form->get('some_value')->getConfig()->getType()->getInnerType()
+            $form->get('some_value')->getConfig()->getType()->getInnerType(),
         );
 
         $view = $form->createView();

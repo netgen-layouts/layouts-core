@@ -25,7 +25,7 @@ final class RuleTest extends TestCase
                 'priority' => 3,
                 'description' => 'Description',
                 'status' => Value::STATUS_DRAFT,
-            ]
+            ],
         );
 
         self::assertSame(43, $rule->id);

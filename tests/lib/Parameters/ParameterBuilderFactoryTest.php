@@ -22,7 +22,7 @@ final class ParameterBuilderFactoryTest extends TestCase
             [
                 new ParameterType\TextType(),
                 new ParameterType\Compound\BooleanType(),
-            ]
+            ],
         );
 
         $this->factory = new ParameterBuilderFactory($this->registry);
@@ -52,7 +52,7 @@ final class ParameterBuilderFactoryTest extends TestCase
             [
                 'name' => 'param',
                 'type' => ParameterType\TextType::class,
-            ]
+            ],
         );
 
         self::assertInstanceOf(ParameterBuilder::class, $parameterBuilder);
@@ -60,7 +60,7 @@ final class ParameterBuilderFactoryTest extends TestCase
 
         self::assertSame(
             $this->registry->getParameterTypeByClass(ParameterType\TextType::class),
-            $parameterBuilder->getType()
+            $parameterBuilder->getType(),
         );
     }
 }

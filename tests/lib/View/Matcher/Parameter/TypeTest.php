@@ -36,9 +36,9 @@ final class TypeTest extends TestCase
                     [
                         'type' => new TextType(),
                         'isRequired' => false,
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $view = new ParameterView($parameter);

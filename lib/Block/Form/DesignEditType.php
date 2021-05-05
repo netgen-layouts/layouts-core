@@ -21,7 +21,7 @@ final class DesignEditType extends EditType
         $this->addParametersForm(
             $builder,
             $options,
-            [BlockDefinitionHandler::GROUP_DESIGN]
+            [BlockDefinitionHandler::GROUP_DESIGN],
         );
 
         if ($locale !== $mainLocale) {

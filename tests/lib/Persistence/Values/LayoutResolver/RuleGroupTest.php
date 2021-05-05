@@ -28,7 +28,7 @@ final class RuleGroupTest extends TestCase
                 'enabled' => true,
                 'priority' => 3,
                 'status' => Value::STATUS_DRAFT,
-            ]
+            ],
         );
 
         self::assertSame(43, $ruleGroup->id);

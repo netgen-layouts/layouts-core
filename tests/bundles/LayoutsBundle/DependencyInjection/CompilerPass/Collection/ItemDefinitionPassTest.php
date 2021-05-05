@@ -33,7 +33,7 @@ final class ItemDefinitionPassTest extends AbstractContainerBuilderTestCase
                 'value_type' => [
                     'enabled' => true,
                 ],
-            ]
+            ],
         );
 
         $this->setDefinition('netgen_layouts.collection.item_definition_factory', new Definition());
@@ -48,7 +48,7 @@ final class ItemDefinitionPassTest extends AbstractContainerBuilderTestCase
 
         $this->assertContainerBuilderHasService(
             'netgen_layouts.collection.item_definition.value_type',
-            ItemDefinition::class
+            ItemDefinition::class,
         );
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
@@ -56,7 +56,7 @@ final class ItemDefinitionPassTest extends AbstractContainerBuilderTestCase
             1,
             [
                 'key' => new Reference('netgen_layouts.collection.item_config_handler.key'),
-            ]
+            ],
         );
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
@@ -64,7 +64,7 @@ final class ItemDefinitionPassTest extends AbstractContainerBuilderTestCase
             0,
             [
                 'value_type' => new Reference('netgen_layouts.collection.item_definition.value_type'),
-            ]
+            ],
         );
     }
 
@@ -83,7 +83,7 @@ final class ItemDefinitionPassTest extends AbstractContainerBuilderTestCase
                 'value_type' => [
                     'enabled' => true,
                 ],
-            ]
+            ],
         );
 
         $this->setDefinition('netgen_layouts.collection.registry.item_definition', new Definition(null, [[]]));

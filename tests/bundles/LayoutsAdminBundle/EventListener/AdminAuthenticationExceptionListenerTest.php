@@ -35,7 +35,7 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
     {
         self::assertSame(
             [KernelEvents::EXCEPTION => ['onException', 20]],
-            $this->listener::getSubscribedEvents()
+            $this->listener::getSubscribedEvents(),
         );
     }
 
@@ -53,7 +53,7 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            new AuthenticationException()
+            new AuthenticationException(),
         );
 
         $this->listener->onException($event);
@@ -78,7 +78,7 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            new Exception()
+            new Exception(),
         );
 
         $this->listener->onException($event);
@@ -102,7 +102,7 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            new Exception()
+            new Exception(),
         );
 
         $this->listener->onException($event);
@@ -126,7 +126,7 @@ final class AdminAuthenticationExceptionListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            new Exception()
+            new Exception(),
         );
 
         $this->listener->onException($event);

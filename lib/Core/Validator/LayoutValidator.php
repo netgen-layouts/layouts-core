@@ -47,7 +47,7 @@ final class LayoutValidator
             [
                 new Constraints\NotBlank(),
             ],
-            'name'
+            'name',
         );
 
         $this->validateLocale($layoutCreateStruct->mainLocale, 'mainLocale');
@@ -66,7 +66,7 @@ final class LayoutValidator
                 [
                     new Constraints\NotBlank(),
                 ],
-                'name'
+                'name',
             );
         }
     }
@@ -87,7 +87,7 @@ final class LayoutValidator
             [
                 new Constraints\NotBlank(),
             ],
-            'name'
+            'name',
         );
     }
 
@@ -108,8 +108,8 @@ final class LayoutValidator
                     sprintf(
                         'Zone "%s" does not exist in "%s" layout type.',
                         $newZone,
-                        $targetLayoutType->getIdentifier()
-                    )
+                        $targetLayoutType->getIdentifier(),
+                    ),
                 );
             }
 
@@ -118,8 +118,8 @@ final class LayoutValidator
                     'zoneMappings',
                     sprintf(
                         'The list of mapped zones for "%s" zone must be an array.',
-                        $newZone
-                    )
+                        $newZone,
+                    ),
                 );
             }
 
@@ -131,8 +131,8 @@ final class LayoutValidator
                         'zoneMappings',
                         sprintf(
                             'Zone "%s" is specified more than once.',
-                            $oldZone
-                        )
+                            $oldZone,
+                        ),
                     );
                 }
 
@@ -147,8 +147,8 @@ final class LayoutValidator
                             'zoneMappings',
                             sprintf(
                                 'When preserving shared layout zones, mapping for zone "%s" needs to be 1:1.',
-                                $newZone
-                            )
+                                $newZone,
+                            ),
                         );
                     }
                 }

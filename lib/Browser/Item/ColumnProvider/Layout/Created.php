@@ -24,7 +24,7 @@ final class Created implements ColumnValueProviderInterface
         }
 
         return $item->getLayout()->getCreated()->format(
-            $this->dateFormat
+            $this->dateFormat,
         );
     }
 }

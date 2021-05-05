@@ -18,7 +18,7 @@ final class ItemDefinitionExceptionTest extends TestCase
 
         self::assertSame(
             'Item definition for "type" value type does not exist.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 }

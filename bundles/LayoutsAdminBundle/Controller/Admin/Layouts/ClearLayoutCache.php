@@ -33,7 +33,7 @@ final class ClearLayoutCache extends AbstractController
                     'submitted' => false,
                     'error' => false,
                     'layout' => $layout,
-                ]
+                ],
             );
         }
 
@@ -52,7 +52,7 @@ final class ClearLayoutCache extends AbstractController
                 'error' => true,
                 'layout' => $layout,
             ],
-            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
+            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY),
         );
     }
 }

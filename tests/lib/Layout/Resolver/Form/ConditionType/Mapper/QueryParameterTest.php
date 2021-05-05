@@ -44,7 +44,7 @@ final class QueryParameterTest extends TestCase
                     'empty_data' => ' ',
                 ],
             ],
-            $this->mapper->getFormOptions()
+            $this->mapper->getFormOptions(),
         );
     }
 }

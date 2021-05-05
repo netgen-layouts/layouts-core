@@ -33,7 +33,7 @@ final class ConfigurationWithPluginTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'test_config'
+            'test_config',
         );
     }
 

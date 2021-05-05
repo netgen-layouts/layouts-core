@@ -20,7 +20,7 @@ final class RoutePrefixTest extends AbstractTargetHandlerTest
         $rules = $this->handler->matchRules(
             $this->handler->loadRuleGroup('91139748-3bf0-4c25-b45c-d3be6596c399', Value::STATUS_PUBLISHED),
             $this->getTargetIdentifier(),
-            'my_fifth_cool_route'
+            'my_fifth_cool_route',
         );
 
         self::assertCount(1, $rules);

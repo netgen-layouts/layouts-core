@@ -36,7 +36,7 @@ final class CreateRuleConditionForm extends AbstractController
             'nglayouts:mapping:edit',
             [
                 'rule_group' => $rule->getRuleGroupId()->toString(),
-            ]
+            ],
         );
 
         $conditionType = $this->conditionTypeRegistry->getConditionType($type);
@@ -52,9 +52,9 @@ final class CreateRuleConditionForm extends AbstractController
                     [
                         'ruleId' => $rule->getId()->toString(),
                         'type' => $type,
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $form->handleRequest($request);
@@ -68,9 +68,9 @@ final class CreateRuleConditionForm extends AbstractController
 
             return $this->buildView(
                 $this->layoutResolverService->loadRuleDraft(
-                    $rule->getId()
+                    $rule->getId(),
                 ),
-                ViewInterface::CONTEXT_ADMIN
+                ViewInterface::CONTEXT_ADMIN,
             );
         }
 
@@ -78,7 +78,7 @@ final class CreateRuleConditionForm extends AbstractController
             $form,
             ViewInterface::CONTEXT_ADMIN,
             [],
-            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
+            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY),
         );
     }
 }

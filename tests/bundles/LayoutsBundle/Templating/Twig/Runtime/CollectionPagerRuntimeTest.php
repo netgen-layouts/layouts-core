@@ -30,7 +30,7 @@ final class CollectionPagerRuntimeTest extends TestCase
 
         $this->runtime = new CollectionPagerRuntime(
             $this->routeGenerator,
-            $this->pagerfantaViewMock
+            $this->pagerfantaViewMock,
         );
     }
 
@@ -48,14 +48,14 @@ final class CollectionPagerRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($pagerfanta),
                 self::identicalTo($this->routeGenerator),
-                self::identicalTo(['block' => $block, 'collection_identifier' => 'default'])
+                self::identicalTo(['block' => $block, 'collection_identifier' => 'default']),
             )
             ->willReturn('rendered view');
 
         $renderedPagerfanta = $this->runtime->renderCollectionPager(
             $pagerfanta,
             $block,
-            'default'
+            'default',
         );
 
         self::assertSame('rendered view', $renderedPagerfanta);
@@ -79,8 +79,8 @@ final class CollectionPagerRuntimeTest extends TestCase
                         'var' => 'value',
                         'block' => $block,
                         'collection_identifier' => 'default',
-                    ]
-                )
+                    ],
+                ),
             )
             ->willReturn('rendered view');
 
@@ -90,7 +90,7 @@ final class CollectionPagerRuntimeTest extends TestCase
             'default',
             [
                 'var' => 'value',
-            ]
+            ],
         );
 
         self::assertSame('rendered view', $renderedPagerfanta);
@@ -110,7 +110,7 @@ final class CollectionPagerRuntimeTest extends TestCase
             $pagerfanta,
             new Block(),
             'default',
-            5
+            5,
         );
 
         self::assertSame('/generated/uri?page=5', $uri);
@@ -134,7 +134,7 @@ final class CollectionPagerRuntimeTest extends TestCase
             $pagerfanta,
             new Block(),
             'default',
-            $page
+            $page,
         );
     }
 

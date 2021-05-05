@@ -32,7 +32,7 @@ final class RelatedLayouts extends AbstractController
             [
                 'layout' => $layout,
                 'related_layouts' => $this->layoutService->loadRelatedLayouts($layout),
-            ]
+            ],
         );
     }
 }

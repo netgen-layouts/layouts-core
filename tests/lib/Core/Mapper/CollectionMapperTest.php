@@ -48,7 +48,7 @@ abstract class CollectionMapperTest extends CoreTestCase
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
                 'status' => Value::STATUS_PUBLISHED,
-            ]
+            ],
         );
 
         $collection = $this->mapper->mapCollection($persistenceCollection);
@@ -87,7 +87,7 @@ abstract class CollectionMapperTest extends CoreTestCase
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
-            ]
+            ],
         );
 
         $collection = $this->mapper->mapCollection($persistenceCollection, ['hr']);
@@ -115,7 +115,7 @@ abstract class CollectionMapperTest extends CoreTestCase
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
-            ]
+            ],
         );
 
         $collection = $this->mapper->mapCollection($persistenceCollection, ['hr', 'en']);
@@ -143,7 +143,7 @@ abstract class CollectionMapperTest extends CoreTestCase
                 'alwaysAvailable' => true,
                 'isTranslatable' => true,
                 'availableLocales' => ['en', 'hr', 'de'],
-            ]
+            ],
         );
 
         $collection = $this->mapper->mapCollection($persistenceCollection, ['fr', 'no']);
@@ -168,7 +168,7 @@ abstract class CollectionMapperTest extends CoreTestCase
                 'mainLocale' => 'en',
                 'alwaysAvailable' => true,
                 'availableLocales' => ['en', 'hr', 'de'],
-            ]
+            ],
         );
 
         $this->mapper->mapCollection($persistenceCollection, ['fr', 'no'], false);
@@ -190,7 +190,7 @@ abstract class CollectionMapperTest extends CoreTestCase
                 'mainLocale' => 'en',
                 'alwaysAvailable' => false,
                 'availableLocales' => ['en', 'hr', 'de'],
-            ]
+            ],
         );
 
         $this->mapper->mapCollection($persistenceCollection, ['fr', 'no']);
@@ -214,7 +214,7 @@ abstract class CollectionMapperTest extends CoreTestCase
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
                 'status' => Value::STATUS_PUBLISHED,
-            ]
+            ],
         );
 
         $collection = $this->mapper->mapCollection($persistenceCollection);
@@ -255,7 +255,7 @@ abstract class CollectionMapperTest extends CoreTestCase
                         'param2' => 42,
                     ],
                 ],
-            ]
+            ],
         );
 
         $cmsItem = new CmsItem();
@@ -307,7 +307,7 @@ abstract class CollectionMapperTest extends CoreTestCase
                         'param2' => 42,
                     ],
                 ],
-            ]
+            ],
         );
 
         $this->cmsItemLoaderMock
@@ -356,7 +356,7 @@ abstract class CollectionMapperTest extends CoreTestCase
                         'param2' => 42,
                     ],
                 ],
-            ]
+            ],
         );
 
         $cmsItem = new NullCmsItem('value');
@@ -403,14 +403,14 @@ abstract class CollectionMapperTest extends CoreTestCase
                         'param' => 'value',
                     ],
                 ],
-            ]
+            ],
         );
 
         $query = $this->mapper->mapQuery($persistenceQuery);
 
         self::assertSame(
             $this->queryTypeRegistry->getQueryType('my_query_type'),
-            $query->getQueryType()
+            $query->getQueryType(),
         );
 
         self::assertSame('4adf0f00-f6c2-5297-9f96-039bfabe8d3b', $query->getId()->toString());
@@ -447,7 +447,7 @@ abstract class CollectionMapperTest extends CoreTestCase
                 'availableLocales' => ['en', 'hr', 'de'],
                 'isTranslatable' => true,
                 'parameters' => ['en' => [], 'hr' => [], 'de' => []],
-            ]
+            ],
         );
 
         $query = $this->mapper->mapQuery($persistenceQuery, ['hr']);
@@ -473,7 +473,7 @@ abstract class CollectionMapperTest extends CoreTestCase
                 'availableLocales' => ['en', 'hr', 'de'],
                 'isTranslatable' => true,
                 'parameters' => ['en' => [], 'hr' => [], 'de' => []],
-            ]
+            ],
         );
 
         $query = $this->mapper->mapQuery($persistenceQuery, ['hr', 'en']);
@@ -499,7 +499,7 @@ abstract class CollectionMapperTest extends CoreTestCase
                 'availableLocales' => ['en', 'hr', 'de'],
                 'isTranslatable' => true,
                 'parameters' => ['en' => [], 'hr' => [], 'de' => []],
-            ]
+            ],
         );
 
         $query = $this->mapper->mapQuery($persistenceQuery, ['fr', 'no']);
@@ -526,7 +526,7 @@ abstract class CollectionMapperTest extends CoreTestCase
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
                 'parameters' => ['en' => [], 'hr' => [], 'de' => []],
-            ]
+            ],
         );
 
         $this->mapper->mapQuery($persistenceQuery, ['fr', 'no'], false);
@@ -550,7 +550,7 @@ abstract class CollectionMapperTest extends CoreTestCase
                 'mainLocale' => 'en',
                 'availableLocales' => ['en', 'hr', 'de'],
                 'parameters' => ['en' => [], 'hr' => [], 'de' => []],
-            ]
+            ],
         );
 
         $this->mapper->mapQuery($persistenceQuery, ['fr', 'no']);
@@ -578,7 +578,7 @@ abstract class CollectionMapperTest extends CoreTestCase
                         'param' => 'value',
                     ],
                 ],
-            ]
+            ],
         );
 
         $query = $this->mapper->mapQuery($persistenceQuery);
@@ -613,7 +613,7 @@ abstract class CollectionMapperTest extends CoreTestCase
                 'collectionUuid' => 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 'position' => 1,
                 'viewType' => 'overlay',
-            ]
+            ],
         );
 
         $slot = $this->mapper->mapSlot($persistenceSlot);

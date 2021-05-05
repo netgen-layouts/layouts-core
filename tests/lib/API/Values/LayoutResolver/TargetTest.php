@@ -30,7 +30,7 @@ final class TargetTest extends TestCase
                 'ruleId' => $ruleUuid,
                 'targetType' => $targetType,
                 'value' => 32,
-            ]
+            ],
         );
 
         self::assertSame($targetUuid->toString(), $target->getId()->toString());

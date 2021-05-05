@@ -27,7 +27,7 @@ final class DiscardRuleDraft extends AbstractController
             'nglayouts:mapping:edit',
             [
                 'rule_group' => $rule->getRuleGroupId()->toString(),
-            ]
+            ],
         );
 
         $this->layoutResolverService->discardRuleDraft($rule);

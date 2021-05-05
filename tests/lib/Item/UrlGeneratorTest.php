@@ -20,7 +20,7 @@ final class UrlGeneratorTest extends TestCase
     protected function setUp(): void
     {
         $this->urlGenerator = new UrlGenerator(
-            new Container(['value' => new ValueUrlGenerator()])
+            new Container(['value' => new ValueUrlGenerator()]),
         );
     }
 
@@ -34,8 +34,8 @@ final class UrlGeneratorTest extends TestCase
         self::assertSame(
             '/item-url',
             $this->urlGenerator->generate(
-                CmsItem::fromArray(['valueType' => 'value', 'object' => new stdClass()])
-            )
+                CmsItem::fromArray(['valueType' => 'value', 'object' => new stdClass()]),
+            ),
         );
     }
 
@@ -70,8 +70,8 @@ final class UrlGeneratorTest extends TestCase
 
         $this->urlGenerator->generate(
             CmsItem::fromArray(
-                ['valueType' => 'unknown', 'object' => new stdClass()]
-            )
+                ['valueType' => 'unknown', 'object' => new stdClass()],
+            ),
         );
     }
 
@@ -85,13 +85,13 @@ final class UrlGeneratorTest extends TestCase
         $this->expectExceptionMessage('Value URL generator for "value" value type does not exist.');
 
         $this->urlGenerator = new UrlGenerator(
-            new Container(['value' => new stdClass()])
+            new Container(['value' => new stdClass()]),
         );
 
         $this->urlGenerator->generate(
             CmsItem::fromArray(
-                ['valueType' => 'value', 'object' => new stdClass()]
-            )
+                ['valueType' => 'value', 'object' => new stdClass()],
+            ),
         );
     }
 }

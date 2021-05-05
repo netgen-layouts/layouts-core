@@ -68,8 +68,8 @@ final class BlockDefinitionPass implements CompilerPassInterface
                 throw new RuntimeException(
                     sprintf(
                         'Block definition handler for "%s" block definition does not exist.',
-                        $identifier
-                    )
+                        $identifier,
+                    ),
                 );
             }
 
@@ -114,7 +114,7 @@ final class BlockDefinitionPass implements CompilerPassInterface
             foreach ($tags as $tag) {
                 if (!isset($tag['config_key'])) {
                     throw new RuntimeException(
-                        "Block config handler definition must have an 'config_key' attribute in its' tag."
+                        "Block config handler definition must have an 'config_key' attribute in its' tag.",
                     );
                 }
 

@@ -24,8 +24,8 @@ final class ZoneListTest extends TestCase
             sprintf(
                 '/(must be an instance of|must be of type) %s, (instance of )?%s given/',
                 str_replace('\\', '\\\\', Zone::class),
-                stdClass::class
-            )
+                stdClass::class,
+            ),
         );
 
         new ZoneList(['one' => new Zone(), 'two' => new stdClass(), 'three' => new Zone()]);

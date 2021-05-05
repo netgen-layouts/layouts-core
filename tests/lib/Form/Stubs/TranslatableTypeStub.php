@@ -31,7 +31,7 @@ final class TranslatableTypeStub extends AbstractType
             TextType::class,
             [
                 'property_path' => 'name',
-            ]
+            ],
         );
 
         $builder->add(
@@ -42,7 +42,7 @@ final class TranslatableTypeStub extends AbstractType
                 'label_prefix' => 'label_prefix',
                 'property_path' => 'parameterValues',
                 'parameter_definitions' => $options['block']->getDefinition(),
-            ]
+            ],
         );
 
         $this->disableUntranslatableForms($builder);

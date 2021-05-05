@@ -25,8 +25,8 @@ final class SlotListTest extends TestCase
             sprintf(
                 '/(must be an instance of|must be of type) %s, (instance of )?%s given/',
                 str_replace('\\', '\\\\', Slot::class),
-                stdClass::class
-            )
+                stdClass::class,
+            ),
         );
 
         new SlotList([new Slot(), new stdClass(), new Slot()]);

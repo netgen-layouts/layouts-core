@@ -50,9 +50,9 @@ final class EditSlotViewTypeForm extends AbstractController
                     'nglayouts_app_collection_slot_view_type_form_edit',
                     [
                         'slotId' => $slot->getId()->toString(),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $form->handleRequest($request);
@@ -75,7 +75,7 @@ final class EditSlotViewTypeForm extends AbstractController
             $form,
             ViewInterface::CONTEXT_APP,
             [],
-            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
+            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY),
         );
     }
 }

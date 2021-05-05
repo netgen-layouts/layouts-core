@@ -39,7 +39,7 @@ final class LinkLayout extends AbstractController
             'nglayouts:mapping:edit',
             [
                 'rule_group' => $rule->getRuleGroupId()->toString(),
-            ]
+            ],
         );
 
         $layoutId = $request->request->get('layout_id');
@@ -54,9 +54,9 @@ final class LinkLayout extends AbstractController
                 'layout_id',
                 sprintf(
                     'Layout with UUID "%s" does not exist.',
-                    $layoutId
+                    $layoutId,
                 ),
-                $e
+                $e,
             );
         }
 
@@ -65,7 +65,7 @@ final class LinkLayout extends AbstractController
 
         $updatedRule = $this->layoutResolverService->updateRule(
             $rule,
-            $ruleUpdateStruct
+            $ruleUpdateStruct,
         );
 
         return $this->buildView($updatedRule, ViewInterface::CONTEXT_ADMIN);

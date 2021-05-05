@@ -40,23 +40,23 @@ final class BlockDefinitionFactoryTest extends TestCase
     {
         $parameterTypeRegistry = new ParameterTypeRegistry([new TextLineType()]);
         $this->parameterBuilderFactory = new ParameterBuilderFactory(
-            $parameterTypeRegistry
+            $parameterTypeRegistry,
         );
 
         $this->handlerPluginRegistry = new HandlerPluginRegistry(
             [
                 HandlerPlugin::instance([BlockDefinitionHandlerInterface::class]),
-            ]
+            ],
         );
 
         $this->configDefinitionFactory = new ConfigDefinitionFactory(
-            $this->parameterBuilderFactory
+            $this->parameterBuilderFactory,
         );
 
         $this->factory = new BlockDefinitionFactory(
             $this->parameterBuilderFactory,
             $this->handlerPluginRegistry,
-            $this->configDefinitionFactory
+            $this->configDefinitionFactory,
         );
     }
 
@@ -121,7 +121,7 @@ final class BlockDefinitionFactoryTest extends TestCase
             [
                 'test' => new ConfigDefinitionHandler(),
                 'test2' => new ConfigDefinitionHandler(),
-            ]
+            ],
         );
 
         self::assertSame('definition', $blockDefinition->getIdentifier());
@@ -154,7 +154,7 @@ final class BlockDefinitionFactoryTest extends TestCase
                     'validParameters' => ['param1', 'param2'],
                 ],
             ],
-            $this->exportObjectList($blockDefinition->getViewTypes(), true)
+            $this->exportObjectList($blockDefinition->getViewTypes(), true),
         );
 
         self::assertTrue($blockDefinition->hasForm('form'));
@@ -164,7 +164,7 @@ final class BlockDefinitionFactoryTest extends TestCase
                 'identifier' => 'form',
                 'type' => 'form_type',
             ],
-            $this->exportObject($blockDefinition->getForm('form'))
+            $this->exportObject($blockDefinition->getForm('form')),
         );
 
         self::assertTrue($blockDefinition->hasCollection('default'));
@@ -183,7 +183,7 @@ final class BlockDefinitionFactoryTest extends TestCase
                     'validQueryTypes' => [],
                 ],
             ],
-            $this->exportObjectList($blockDefinition->getCollections())
+            $this->exportObjectList($blockDefinition->getCollections()),
         );
 
         $configDefinitions = $blockDefinition->getConfigDefinitions();
@@ -216,7 +216,7 @@ final class BlockDefinitionFactoryTest extends TestCase
             [
                 'test' => new ConfigDefinitionHandler(),
                 'test2' => new ConfigDefinitionHandler(),
-            ]
+            ],
         );
 
         self::assertSame('definition', $blockDefinition->getIdentifier());
@@ -261,7 +261,7 @@ final class BlockDefinitionFactoryTest extends TestCase
             [
                 'test' => new ConfigDefinitionHandler(),
                 'test2' => new ConfigDefinitionHandler(),
-            ]
+            ],
         );
 
         self::assertSame('definition', $blockDefinition->getIdentifier());
@@ -301,7 +301,7 @@ final class BlockDefinitionFactoryTest extends TestCase
                     ],
                 ],
             ],
-            []
+            [],
         );
     }
 
@@ -334,7 +334,7 @@ final class BlockDefinitionFactoryTest extends TestCase
                     ],
                 ],
             ],
-            []
+            [],
         );
     }
 }

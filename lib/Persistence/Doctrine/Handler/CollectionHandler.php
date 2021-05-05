@@ -127,8 +127,8 @@ final class CollectionHandler implements CollectionHandlerInterface
                 sprintf(
                     'item in collection with ID "%s" at position %d',
                     $collection->id,
-                    $position
-                )
+                    $position,
+                ),
             );
         }
 
@@ -138,7 +138,7 @@ final class CollectionHandler implements CollectionHandlerInterface
     public function loadCollectionItems(Collection $collection): array
     {
         return $this->collectionMapper->mapItems(
-            $this->queryHandler->loadCollectionItemsData($collection)
+            $this->queryHandler->loadCollectionItemsData($collection),
         );
     }
 
@@ -196,7 +196,7 @@ final class CollectionHandler implements CollectionHandlerInterface
     public function loadCollectionSlots(Collection $collection): array
     {
         return $this->collectionMapper->mapSlots(
-            $this->queryHandler->loadCollectionSlotsData($collection)
+            $this->queryHandler->loadCollectionSlotsData($collection),
         );
     }
 
@@ -225,14 +225,14 @@ final class CollectionHandler implements CollectionHandlerInterface
                 'alwaysAvailable' => $collectionCreateStruct->alwaysAvailable,
                 'mainLocale' => $collectionCreateStruct->mainLocale,
                 'availableLocales' => [$collectionCreateStruct->mainLocale],
-            ]
+            ],
         );
 
         $newCollection = $this->queryHandler->createCollection($newCollection);
 
         $this->queryHandler->createCollectionTranslation(
             $newCollection,
-            $collectionCreateStruct->mainLocale
+            $collectionCreateStruct->mainLocale,
         );
 
         $newCollectionReference = CollectionReference::fromArray(
@@ -242,7 +242,7 @@ final class CollectionHandler implements CollectionHandlerInterface
                 'collectionId' => $newCollection->id,
                 'collectionStatus' => $newCollection->status,
                 'identifier' => $collectionIdentifier,
-            ]
+            ],
         );
 
         $this->queryHandler->createCollectionReference($newCollectionReference);
@@ -297,7 +297,7 @@ final class CollectionHandler implements CollectionHandlerInterface
                 'collectionId' => $collection->id,
                 'collectionStatus' => $collection->status,
                 'identifier' => $collectionIdentifier,
-            ]
+            ],
         );
 
         $this->queryHandler->createCollectionReference($newCollectionReference);
@@ -423,7 +423,7 @@ final class CollectionHandler implements CollectionHandlerInterface
                 'collectionId' => $newCollection->id,
                 'collectionStatus' => $newCollection->status,
                 'identifier' => $collectionIdentifier,
-            ]
+            ],
         );
 
         $this->queryHandler->createCollectionReference($newCollectionReference);
@@ -539,7 +539,7 @@ final class CollectionHandler implements CollectionHandlerInterface
                 'viewType' => $itemCreateStruct->viewType,
                 'status' => $collection->status,
                 'config' => $itemCreateStruct->config,
-            ]
+            ],
         );
 
         return $this->queryHandler->addItem($newItem);
@@ -625,9 +625,9 @@ final class CollectionHandler implements CollectionHandlerInterface
             $this->positionHelper->removePosition(
                 $this->getPositionHelperItemConditions(
                     $item->collectionId,
-                    $item->status
+                    $item->status,
                 ),
-                $item->position
+                $item->position,
             );
         }
     }
@@ -658,7 +658,7 @@ final class CollectionHandler implements CollectionHandlerInterface
                 'position' => $slotCreateStruct->position,
                 'viewType' => $slotCreateStruct->viewType,
                 'status' => $collection->status,
-            ]
+            ],
         );
 
         return $this->queryHandler->addSlot($newSlot);
@@ -712,9 +712,9 @@ final class CollectionHandler implements CollectionHandlerInterface
                 'availableLocales' => $collection->availableLocales,
                 'parameters' => array_fill_keys(
                     $collection->availableLocales,
-                    $queryCreateStruct->parameters
+                    $queryCreateStruct->parameters,
                 ),
-            ]
+            ],
         );
 
         $newQuery = $this->queryHandler->createQuery($newQuery);
@@ -779,9 +779,9 @@ final class CollectionHandler implements CollectionHandlerInterface
             return $this->positionHelper->createPosition(
                 $this->getPositionHelperItemConditions(
                     $collection->id,
-                    $collection->status
+                    $collection->status,
                 ),
-                $newPosition
+                $newPosition,
             );
         }
 
@@ -807,10 +807,10 @@ final class CollectionHandler implements CollectionHandlerInterface
             return $this->positionHelper->moveToPosition(
                 $this->getPositionHelperItemConditions(
                     $collection->id,
-                    $collection->status
+                    $collection->status,
                 ),
                 $item->position,
-                $newPosition
+                $newPosition,
             );
         }
 
@@ -850,11 +850,11 @@ final class CollectionHandler implements CollectionHandlerInterface
         return $this->positionHelper->createPosition(
             $this->getPositionHelperItemConditions(
                 $collection->id,
-                $collection->status
+                $collection->status,
             ),
             $startPosition,
             $endPosition,
-            true
+            true,
         );
     }
 

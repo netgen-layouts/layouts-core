@@ -41,7 +41,7 @@ final class HttpCacheNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'http_cache.invalidation'
+            'http_cache.invalidation',
         );
     }
 
@@ -73,7 +73,7 @@ final class HttpCacheNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'http_cache.invalidation.enabled'
+            'http_cache.invalidation.enabled',
         );
     }
 

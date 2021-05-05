@@ -66,8 +66,8 @@ abstract class ImporterTest extends CoreTestCase
                     [
                         'value' => $remoteId,
                         'remoteId' => $remoteId,
-                    ]
-                )
+                    ],
+                ),
             );
 
         $this->cmsItemLoaderMock
@@ -78,8 +78,8 @@ abstract class ImporterTest extends CoreTestCase
                     [
                         'value' => $value,
                         'remoteId' => $value,
-                    ]
-                )
+                    ],
+                ),
             );
 
         $entityHandlers = [
@@ -91,28 +91,28 @@ abstract class ImporterTest extends CoreTestCase
                 $this->layoutTypeRegistry,
                 $this->itemDefinitionRegistry,
                 $this->queryTypeRegistry,
-                $this->cmsItemLoaderMock
+                $this->cmsItemLoaderMock,
             ),
             'rule' => new RuleEntityHandler(
                 $this->layoutResolverService,
                 $this->targetTypeRegistry,
-                $this->conditionTypeRegistry
+                $this->conditionTypeRegistry,
             ),
             'rule_group' => new RuleGroupEntityHandler(
                 $this->layoutResolverService,
                 new RuleEntityHandler(
                     $this->layoutResolverService,
                     $this->targetTypeRegistry,
-                    $this->conditionTypeRegistry
+                    $this->conditionTypeRegistry,
                 ),
-                $this->conditionTypeRegistry
+                $this->conditionTypeRegistry,
             ),
         ];
 
         $this->importer = new Importer(
             $this->transactionService,
             new JsonValidator(),
-            new Container($entityHandlers)
+            new Container($entityHandlers),
         );
 
         /** @var iterable<\Netgen\Layouts\Transfer\Output\VisitorInterface<object>> $outputVisitors */
@@ -134,7 +134,7 @@ abstract class ImporterTest extends CoreTestCase
 
         $this->serializer = new Serializer(
             new OutputVisitor($outputVisitors),
-            new Container($entityHandlers)
+            new Container($entityHandlers),
         );
     }
 
@@ -152,9 +152,9 @@ abstract class ImporterTest extends CoreTestCase
                 // @uuid@ matcher from coduo/php-matcher does not support NIL UUID
                 '/(?!00000000-0000-0000-0000-000000000000)([0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12})/',
                 '@uuid@',
-                $importData
+                $importData,
             ),
-            true
+            true,
         );
 
         foreach ($this->importer->importData($importData, new ImportOptions()) as $index => $result) {
@@ -174,7 +174,7 @@ abstract class ImporterTest extends CoreTestCase
                 $differ = new Differ(new UnifiedDiffOutputBuilder("--- Expected\n+++ Actual\n", false));
                 $diff = $differ->diff(
                     json_encode($ruleData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR),
-                    json_encode($exportedRuleData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR)
+                    json_encode($exportedRuleData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR),
                 );
 
                 self::fail($matcher->error() . PHP_EOL . $diff);
@@ -200,9 +200,9 @@ abstract class ImporterTest extends CoreTestCase
                 // @uuid@ matcher from coduo/php-matcher does not support NIL UUID
                 '/(?!00000000-0000-0000-0000-000000000000)([0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12})/',
                 '@uuid@',
-                $importData
+                $importData,
             ),
-            true
+            true,
         );
 
         foreach ($this->importer->importData($importData, new ImportOptions()) as $index => $result) {
@@ -222,7 +222,7 @@ abstract class ImporterTest extends CoreTestCase
                 $differ = new Differ(new UnifiedDiffOutputBuilder("--- Expected\n+++ Actual\n", false));
                 $diff = $differ->diff(
                     json_encode($ruleData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR),
-                    json_encode($exportedRuleData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR)
+                    json_encode($exportedRuleData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR),
                 );
 
                 self::fail($matcher->error() . PHP_EOL . $diff);
@@ -272,7 +272,7 @@ abstract class ImporterTest extends CoreTestCase
                 $differ = new Differ(new UnifiedDiffOutputBuilder("--- Expected\n+++ Actual\n", false));
                 $diff = $differ->diff(
                     json_encode($layoutData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR),
-                    json_encode($exportedLayoutData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR)
+                    json_encode($exportedLayoutData, JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR),
                 );
 
                 self::fail($matcher->error() . PHP_EOL . $diff);
@@ -290,7 +290,7 @@ abstract class ImporterTest extends CoreTestCase
     public function testImportLayoutsWithMissingQueryTranslationThrowsRuntimeException(): void
     {
         $layoutData = (string) file_get_contents(
-            __DIR__ . '/../../_fixtures/input/invalid/missing_query_parameters_in_translation.json'
+            __DIR__ . '/../../_fixtures/input/invalid/missing_query_parameters_in_translation.json',
         );
 
         $result = [...$this->importer->importData($layoutData, new ImportOptions())];
@@ -307,7 +307,7 @@ abstract class ImporterTest extends CoreTestCase
     public function testImportLayoutsWithMissingMainQueryTranslationThrowsRuntimeException(): void
     {
         $layoutData = (string) file_get_contents(
-            __DIR__ . '/../../_fixtures/input/invalid/missing_query_parameters_in_main_translation.json'
+            __DIR__ . '/../../_fixtures/input/invalid/missing_query_parameters_in_main_translation.json',
         );
 
         $result = [...$this->importer->importData($layoutData, new ImportOptions())];
@@ -324,7 +324,7 @@ abstract class ImporterTest extends CoreTestCase
     public function testImportLayoutsWithMissingBlockTranslationThrowsRuntimeException(): void
     {
         $layoutData = (string) file_get_contents(
-            __DIR__ . '/../../_fixtures/input/invalid/missing_block_parameters_in_translation.json'
+            __DIR__ . '/../../_fixtures/input/invalid/missing_block_parameters_in_translation.json',
         );
 
         $result = [...$this->importer->importData($layoutData, new ImportOptions())];
@@ -341,7 +341,7 @@ abstract class ImporterTest extends CoreTestCase
     public function testImportLayoutsWithMissingMainBlockTranslationThrowsRuntimeException(): void
     {
         $layoutData = (string) file_get_contents(
-            __DIR__ . '/../../_fixtures/input/invalid/missing_block_parameters_in_main_translation.json'
+            __DIR__ . '/../../_fixtures/input/invalid/missing_block_parameters_in_main_translation.json',
         );
 
         $result = [...$this->importer->importData($layoutData, new ImportOptions())];
@@ -358,7 +358,7 @@ abstract class ImporterTest extends CoreTestCase
     public function testImportLayoutsWithMissingZoneThrowsRuntimeException(): void
     {
         $layoutData = (string) file_get_contents(
-            __DIR__ . '/../../_fixtures/input/invalid/missing_zone.json'
+            __DIR__ . '/../../_fixtures/input/invalid/missing_zone.json',
         );
 
         $result = [...$this->importer->importData($layoutData, new ImportOptions())];
@@ -377,54 +377,54 @@ abstract class ImporterTest extends CoreTestCase
             [
                 new PagedCollectionsPlugin(['pager' => 'pager', 'load_more' => 'load_more'], []),
                 new CommonParametersPlugin([]),
-            ]
+            ],
         );
 
         $blockDefinitionFactory = new BlockDefinitionFactory(
             new TranslatableParameterBuilderFactory(
-                $this->createParameterTypeRegistry()
+                $this->createParameterTypeRegistry(),
             ),
             $handlerPluginRegistry,
             new ConfigDefinitionFactory(
                 new ParameterBuilderFactory(
-                    $this->createParameterTypeRegistry()
-                )
-            )
+                    $this->createParameterTypeRegistry(),
+                ),
+            ),
         );
 
         $blockDefinition1 = $blockDefinitionFactory->buildBlockDefinition(
             'title',
             new TitleHandler(['h1' => 'h1', 'h2' => 'h2', 'h3' => 'h3'], []),
             $data,
-            $configHandlers
+            $configHandlers,
         );
 
         $blockDefinition2 = $blockDefinitionFactory->buildBlockDefinition(
             'text',
             new TextHandler(),
             $data,
-            $configHandlers
+            $configHandlers,
         );
 
         $blockDefinition3 = $blockDefinitionFactory->buildBlockDefinition(
             'list',
             new ListHandler([2 => '2', 3 => '3', 4 => '4', 6 => '6']),
             $data,
-            $configHandlers
+            $configHandlers,
         );
 
         $blockDefinition4 = $blockDefinitionFactory->buildContainerDefinition(
             'column',
             new ColumnHandler(),
             $data,
-            $configHandlers
+            $configHandlers,
         );
 
         $blockDefinition5 = $blockDefinitionFactory->buildContainerDefinition(
             'two_columns',
             new TwoColumnsHandler(),
             $data,
-            $configHandlers
+            $configHandlers,
         );
 
         return new BlockDefinitionRegistry(
@@ -434,7 +434,7 @@ abstract class ImporterTest extends CoreTestCase
                 'list' => $blockDefinition3,
                 'column' => $blockDefinition4,
                 'two_columns' => $blockDefinition5,
-            ]
+            ],
         );
     }
 }

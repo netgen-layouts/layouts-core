@@ -60,7 +60,7 @@ final class ItemRuntime
 
                 $item = $this->cmsItemLoader->load(
                     $itemUri['host'],
-                    str_replace('-', '_', $itemUri['scheme'] ?? '')
+                    str_replace('-', '_', $itemUri['scheme'] ?? ''),
                 );
             } elseif ((is_int($value) || is_string($value)) && is_string($valueType)) {
                 $item = $this->cmsItemLoader->load($value, $valueType);

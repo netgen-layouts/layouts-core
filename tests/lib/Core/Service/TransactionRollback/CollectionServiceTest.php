@@ -47,7 +47,7 @@ final class CollectionServiceTest extends TestCase
 
         $this->collectionService->changeCollectionType(
             Collection::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT, 'query' => new Query()]),
-            Collection::TYPE_MANUAL
+            Collection::TYPE_MANUAL,
         );
     }
 
@@ -76,7 +76,7 @@ final class CollectionServiceTest extends TestCase
 
         $this->collectionService->addItem(
             Collection::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]),
-            $itemCreateStruct
+            $itemCreateStruct,
         );
     }
 
@@ -102,7 +102,7 @@ final class CollectionServiceTest extends TestCase
 
         $this->collectionService->updateItem(
             Item::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT, 'definition' => new ItemDefinition()]),
-            new ItemUpdateStruct()
+            new ItemUpdateStruct(),
         );
     }
 
@@ -188,7 +188,7 @@ final class CollectionServiceTest extends TestCase
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
                 'parameters' => ['en' => []],
-            ]
+            ],
         );
 
         $this->collectionHandler
@@ -212,9 +212,9 @@ final class CollectionServiceTest extends TestCase
                     'id' => Uuid::uuid4(),
                     'status' => Value::STATUS_DRAFT,
                     'queryType' => new QueryType('type'),
-                ]
+                ],
             ),
-            $struct
+            $struct,
         );
     }
 
@@ -244,7 +244,7 @@ final class CollectionServiceTest extends TestCase
         $this->collectionService->addSlot(
             Collection::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]),
             $slotCreateStruct,
-            1
+            1,
         );
     }
 
@@ -270,7 +270,7 @@ final class CollectionServiceTest extends TestCase
 
         $this->collectionService->updateSlot(
             Slot::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]),
-            new SlotUpdateStruct()
+            new SlotUpdateStruct(),
         );
     }
 

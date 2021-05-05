@@ -440,7 +440,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
             $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
             'My new layout',
-            'en'
+            'en',
         );
 
         $createdLayout = $this->layoutService->createLayout($layoutCreateStruct);
@@ -451,7 +451,7 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertSame(
             $createdLayout->getCreated()->format(DateTimeInterface::ATOM),
-            $createdLayout->getModified()->format(DateTimeInterface::ATOM)
+            $createdLayout->getModified()->format(DateTimeInterface::ATOM),
         );
     }
 
@@ -463,7 +463,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
             $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
             'My new layout',
-            'en'
+            'en',
         );
 
         $layoutCreateStruct->uuid = Uuid::fromString('5f35d4d3-8fa7-4602-9d4c-c74c2b16e3d7');
@@ -476,7 +476,7 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertSame(
             $createdLayout->getCreated()->format(DateTimeInterface::ATOM),
-            $createdLayout->getModified()->format(DateTimeInterface::ATOM)
+            $createdLayout->getModified()->format(DateTimeInterface::ATOM),
         );
     }
 
@@ -491,7 +491,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
             $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
             'My new layout',
-            'en'
+            'en',
         );
 
         $layoutCreateStruct->uuid = Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136');
@@ -510,7 +510,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
             $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
             'My layout',
-            'en'
+            'en',
         );
 
         $this->layoutService->createLayout($layoutCreateStruct);
@@ -526,7 +526,7 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertSame(
             $layout->getCreated()->format(DateTimeInterface::ATOM),
-            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM)
+            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM),
         );
 
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
@@ -582,7 +582,7 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertSame(
             $layout->getCreated()->format(DateTimeInterface::ATOM),
-            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM)
+            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM),
         );
 
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
@@ -634,7 +634,7 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertSame(
             $layout->getCreated()->format(DateTimeInterface::ATOM),
-            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM)
+            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM),
         );
 
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
@@ -703,7 +703,7 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertSame(
             $layout->getCreated()->format(DateTimeInterface::ATOM),
-            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM)
+            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM),
         );
 
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
@@ -740,7 +740,7 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         $this->layoutService->updateLayout(
             $layout,
-            $layoutUpdateStruct
+            $layoutUpdateStruct,
         );
     }
 
@@ -762,7 +762,7 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertSame(
             $copiedLayout->getCreated()->format(DateTimeInterface::ATOM),
-            $copiedLayout->getModified()->format(DateTimeInterface::ATOM)
+            $copiedLayout->getModified()->format(DateTimeInterface::ATOM),
         );
 
         self::assertNotSame($layout->getId()->toString(), $copiedLayout->getId()->toString());
@@ -796,7 +796,7 @@ abstract class LayoutServiceTest extends CoreTestCase
             $this->layoutTypeRegistry->getLayoutType('4_zones_b'),
             [
                 'top' => ['left', 'right'],
-            ]
+            ],
         );
 
         self::assertSame($layout->getId()->toString(), $updatedLayout->getId()->toString());
@@ -805,25 +805,25 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertSame(
             $layout->getCreated()->format(DateTimeInterface::ATOM),
-            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM)
+            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM),
         );
 
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
 
         $topZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('top')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('top'),
         );
 
         $leftZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('left')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('left'),
         );
 
         $rightZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
         );
 
         $bottomZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('bottom')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('bottom'),
         );
 
         self::assertCount(3, $topZoneBlocks);
@@ -851,7 +851,7 @@ abstract class LayoutServiceTest extends CoreTestCase
             $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
             [
                 'top' => ['left', 'right'],
-            ]
+            ],
         );
 
         self::assertSame($layout->getId()->toString(), $updatedLayout->getId()->toString());
@@ -860,25 +860,25 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertSame(
             $layout->getCreated()->format(DateTimeInterface::ATOM),
-            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM)
+            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM),
         );
 
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
 
         $topZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('top')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('top'),
         );
 
         $leftZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('left')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('left'),
         );
 
         $rightZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
         );
 
         $bottomZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('bottom')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('bottom'),
         );
 
         self::assertCount(3, $topZoneBlocks);
@@ -906,7 +906,7 @@ abstract class LayoutServiceTest extends CoreTestCase
             $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
             [
                 'top' => ['top'],
-            ]
+            ],
         );
 
         self::assertSame($layout->getId()->toString(), $updatedLayout->getId()->toString());
@@ -915,7 +915,7 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertSame(
             $layout->getCreated()->format(DateTimeInterface::ATOM),
-            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM)
+            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM),
         );
 
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
@@ -924,15 +924,15 @@ abstract class LayoutServiceTest extends CoreTestCase
         $topZoneBlocks = $this->blockService->loadZoneBlocks($topZone);
 
         $leftZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('left')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('left'),
         );
 
         $rightZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('right')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('right'),
         );
 
         $bottomZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('bottom')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('bottom'),
         );
 
         self::assertCount(0, $topZoneBlocks);
@@ -962,7 +962,7 @@ abstract class LayoutServiceTest extends CoreTestCase
             $this->layoutTypeRegistry->getLayoutType('4_zones_b'),
             [
                 'top' => ['top'],
-            ]
+            ],
         );
 
         self::assertSame($layout->getId()->toString(), $updatedLayout->getId()->toString());
@@ -971,7 +971,7 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertSame(
             $layout->getCreated()->format(DateTimeInterface::ATOM),
-            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM)
+            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM),
         );
 
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
@@ -980,15 +980,15 @@ abstract class LayoutServiceTest extends CoreTestCase
         $topZoneBlocks = $this->blockService->loadZoneBlocks($topZone);
 
         $leftZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('left')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('left'),
         );
 
         $rightZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('right')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('right'),
         );
 
         $bottomZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('bottom')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('bottom'),
         );
 
         self::assertCount(0, $topZoneBlocks);
@@ -1019,7 +1019,7 @@ abstract class LayoutServiceTest extends CoreTestCase
             [
                 'top' => ['top'],
             ],
-            false
+            false,
         );
 
         self::assertSame($layout->getId()->toString(), $updatedLayout->getId()->toString());
@@ -1028,7 +1028,7 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertSame(
             $layout->getCreated()->format(DateTimeInterface::ATOM),
-            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM)
+            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM),
         );
 
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
@@ -1037,15 +1037,15 @@ abstract class LayoutServiceTest extends CoreTestCase
         $topZoneBlocks = $this->blockService->loadZoneBlocks($topZone);
 
         $leftZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('left')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('left'),
         );
 
         $rightZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('right')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('right'),
         );
 
         $bottomZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('bottom')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('bottom'),
         );
 
         self::assertCount(0, $topZoneBlocks);
@@ -1068,7 +1068,7 @@ abstract class LayoutServiceTest extends CoreTestCase
             [
                 'top' => ['top'],
             ],
-            false
+            false,
         );
 
         self::assertSame($layout->getId()->toString(), $updatedLayout->getId()->toString());
@@ -1077,7 +1077,7 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertSame(
             $layout->getCreated()->format(DateTimeInterface::ATOM),
-            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM)
+            $updatedLayout->getCreated()->format(DateTimeInterface::ATOM),
         );
 
         self::assertGreaterThan($layout->getModified(), $updatedLayout->getModified());
@@ -1086,15 +1086,15 @@ abstract class LayoutServiceTest extends CoreTestCase
         $topZoneBlocks = $this->blockService->loadZoneBlocks($topZone);
 
         $leftZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('left')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('left'),
         );
 
         $rightZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('right')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('right'),
         );
 
         $bottomZoneBlocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('bottom')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('bottom'),
         );
 
         self::assertCount(0, $topZoneBlocks);
@@ -1118,7 +1118,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->layoutService->changeLayoutType(
             $layout,
             $this->layoutTypeRegistry->getLayoutType('4_zones_b'),
-            []
+            [],
         );
     }
 
@@ -1134,7 +1134,7 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertSame(
             $layout->getCreated()->format(DateTimeInterface::ATOM),
-            $draftLayout->getCreated()->format(DateTimeInterface::ATOM)
+            $draftLayout->getCreated()->format(DateTimeInterface::ATOM),
         );
 
         self::assertGreaterThan($layout->getModified(), $draftLayout->getModified());
@@ -1152,7 +1152,7 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertSame(
             $layout->getCreated()->format(DateTimeInterface::ATOM),
-            $draftLayout->getCreated()->format(DateTimeInterface::ATOM)
+            $draftLayout->getCreated()->format(DateTimeInterface::ATOM),
         );
 
         self::assertGreaterThan($layout->getModified(), $draftLayout->getModified());
@@ -1221,7 +1221,7 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertSame(
             $layout->getCreated()->format(DateTimeInterface::ATOM),
-            $publishedLayout->getCreated()->format(DateTimeInterface::ATOM)
+            $publishedLayout->getCreated()->format(DateTimeInterface::ATOM),
         );
 
         self::assertGreaterThan($layout->getModified(), $publishedLayout->getModified());
@@ -1230,7 +1230,7 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertSame(
             $currentlyPublishedLayout->getModified()->format(DateTimeInterface::ATOM),
-            $archivedLayout->getModified()->format(DateTimeInterface::ATOM)
+            $archivedLayout->getModified()->format(DateTimeInterface::ATOM),
         );
 
         try {
@@ -1261,7 +1261,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $originalLayout = $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'));
         $publishedLayout = $this->layoutService->loadLayout(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'));
         $restoredLayout = $this->layoutService->restoreFromArchive(
-            $this->layoutService->loadLayoutArchive(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))
+            $this->layoutService->loadLayoutArchive(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac')),
         );
 
         self::assertTrue($restoredLayout->isDraft());
@@ -1269,7 +1269,7 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         self::assertSame(
             $originalLayout->getCreated()->format(DateTimeInterface::ATOM),
-            $restoredLayout->getCreated()->format(DateTimeInterface::ATOM)
+            $restoredLayout->getCreated()->format(DateTimeInterface::ATOM),
         );
 
         self::assertGreaterThan($originalLayout->getModified(), $restoredLayout->getModified());
@@ -1285,7 +1285,7 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         $publishedLayout = $this->layoutService->loadLayout(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'));
         $restoredLayout = $this->layoutService->restoreFromArchive(
-            $this->layoutService->loadLayoutArchive(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))
+            $this->layoutService->loadLayoutArchive(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac')),
         );
 
         self::assertTrue($restoredLayout->isDraft());
@@ -1301,7 +1301,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Only archived layouts can be restored.');
 
         $this->layoutService->restoreFromArchive(
-            $this->layoutService->loadLayout(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))
+            $this->layoutService->loadLayout(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac')),
         );
     }
 
@@ -1315,7 +1315,7 @@ abstract class LayoutServiceTest extends CoreTestCase
 
         $this->layoutHandler->deleteLayout(2, Layout::STATUS_PUBLISHED);
         $this->layoutService->restoreFromArchive(
-            $this->layoutService->loadLayoutArchive(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))
+            $this->layoutService->loadLayoutArchive(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac')),
         );
     }
 
@@ -1343,7 +1343,7 @@ abstract class LayoutServiceTest extends CoreTestCase
         $struct = $this->layoutService->newLayoutCreateStruct(
             $layoutType,
             'New layout',
-            'en'
+            'en',
         );
 
         self::assertSame(
@@ -1355,7 +1355,7 @@ abstract class LayoutServiceTest extends CoreTestCase
                 'shared' => false,
                 'mainLocale' => 'en',
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -1365,7 +1365,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     public function testNewLayoutUpdateStruct(): void
     {
         $struct = $this->layoutService->newLayoutUpdateStruct(
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136')),
         );
 
         self::assertSame(
@@ -1373,7 +1373,7 @@ abstract class LayoutServiceTest extends CoreTestCase
                 'name' => 'My layout',
                 'description' => 'My layout description',
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -1389,7 +1389,7 @@ abstract class LayoutServiceTest extends CoreTestCase
                 'name' => null,
                 'description' => null,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -1399,7 +1399,7 @@ abstract class LayoutServiceTest extends CoreTestCase
     public function testNewLayoutCopyStruct(): void
     {
         $struct = $this->layoutService->newLayoutCopyStruct(
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136')),
         );
 
         self::assertSame(
@@ -1407,7 +1407,7 @@ abstract class LayoutServiceTest extends CoreTestCase
                 'name' => 'My layout (copy)',
                 'description' => null,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -1423,7 +1423,7 @@ abstract class LayoutServiceTest extends CoreTestCase
                 'name' => 'Layout (copy)',
                 'description' => null,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 }

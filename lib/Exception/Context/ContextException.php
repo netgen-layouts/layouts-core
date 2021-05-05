@@ -15,8 +15,8 @@ final class ContextException extends InvalidArgumentException implements Excepti
         return new self(
             sprintf(
                 'Variable "%s" does not exist in the context.',
-                $variableName
-            )
+                $variableName,
+            ),
         );
     }
 }

@@ -21,7 +21,7 @@ final class Edit extends AbstractController
             '@NetgenLayoutsAdmin/app/block/edit.html.twig',
             [
                 'block' => $block,
-            ]
+            ],
         );
     }
 }

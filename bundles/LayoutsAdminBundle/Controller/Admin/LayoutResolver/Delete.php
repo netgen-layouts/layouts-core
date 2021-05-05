@@ -37,7 +37,7 @@ final class Delete extends AbstractController
                 [
                     'submitted' => false,
                     'error' => false,
-                ]
+                ],
             );
         }
 
@@ -58,7 +58,7 @@ final class Delete extends AbstractController
                         $this->deleteRuleGroup((string) $id, $ruleGroup);
                     }
                 }
-            }
+            },
         );
 
         return new Response(null, Response::HTTP_NO_CONTENT);
@@ -78,8 +78,8 @@ final class Delete extends AbstractController
                 'rule',
                 sprintf(
                     'Rule with ID %s does not belong to provided group.',
-                    $rule->getRuleGroupId()->toString()
-                )
+                    $rule->getRuleGroupId()->toString(),
+                ),
             );
         }
 
@@ -100,8 +100,8 @@ final class Delete extends AbstractController
                 'rule group',
                 sprintf(
                     'Rule group with ID %s does not belong to provided group.',
-                    $ruleGroup->getId()->toString()
-                )
+                    $ruleGroup->getId()->toString(),
+                ),
             );
         }
 

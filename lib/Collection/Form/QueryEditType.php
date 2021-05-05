@@ -34,9 +34,9 @@ final class QueryEditType extends AbstractType
                 new QueryUpdateStructConstraint(
                     [
                         'payload' => $options['query'],
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
     }
 
@@ -62,7 +62,7 @@ final class QueryEditType extends AbstractType
                 'property_path' => 'parameterValues',
                 'parameter_definitions' => $queryType,
                 'label_prefix' => 'query.' . $queryType->getType(),
-            ]
+            ],
         );
 
         if ($locale !== $mainLocale) {

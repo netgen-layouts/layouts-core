@@ -31,7 +31,7 @@ final class BlockTypeFactoryTest extends TestCase
                     'viewType' => 'default',
                 ],
             ],
-            $blockDefinition
+            $blockDefinition,
         );
 
         self::assertSame(
@@ -45,7 +45,7 @@ final class BlockTypeFactoryTest extends TestCase
                     'viewType' => 'default',
                 ],
             ],
-            $this->exportObject($blockType)
+            $this->exportObject($blockType),
         );
     }
 }

@@ -37,7 +37,7 @@ final class ContextListenerTest extends TestCase
         $this->listener = new ContextListener(
             $this->context,
             $this->contextBuilderMock,
-            $this->uriSignerMock
+            $this->uriSignerMock,
         );
     }
 
@@ -49,7 +49,7 @@ final class ContextListenerTest extends TestCase
     {
         self::assertSame(
             [KernelEvents::REQUEST => 'onKernelRequest'],
-            $this->listener::getSubscribedEvents()
+            $this->listener::getSubscribedEvents(),
         );
     }
 

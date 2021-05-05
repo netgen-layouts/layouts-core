@@ -32,7 +32,7 @@ final class PluginRendererPass implements CompilerPassInterface
             foreach ($tags as $tag) {
                 if (!isset($tag['plugin'])) {
                     throw new RuntimeException(
-                        "Template plugin service definition must have an 'plugin' attribute in its' tag."
+                        "Template plugin service definition must have an 'plugin' attribute in its' tag.",
                     );
                 }
 

@@ -121,10 +121,10 @@ final class BlockTypePass implements CompilerPassInterface
                         new Reference(
                             sprintf(
                                 'netgen_layouts.block.block_definition.%s',
-                                $blockType['definition_identifier']
-                            )
+                                $blockType['definition_identifier'],
+                            ),
                         ),
-                    ]
+                    ],
                 )
                 ->setLazy(true)
                 ->setPublic(false)
@@ -150,8 +150,8 @@ final class BlockTypePass implements CompilerPassInterface
                     sprintf(
                         'Block definition "%s" used in "%s" block type does not exist.',
                         $blockType['definition_identifier'],
-                        $identifier
-                    )
+                        $identifier,
+                    ),
                 );
             }
         }

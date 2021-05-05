@@ -30,14 +30,14 @@ final class LayoutServiceTest extends TestCase
             ->method('loadLayout')
             ->willReturnOnConsecutiveCalls(
                 PersistenceLayout::fromArray(['shared' => false]),
-                PersistenceLayout::fromArray(['shared' => true])
+                PersistenceLayout::fromArray(['shared' => true]),
             );
 
         $this->layoutHandler
             ->method('loadZone')
             ->willReturnOnConsecutiveCalls(
                 PersistenceZone::fromArray(['layoutId' => 1]),
-                PersistenceZone::fromArray(['layoutId' => 2])
+                PersistenceZone::fromArray(['layoutId' => 2]),
             );
 
         $this->layoutHandler
@@ -50,7 +50,7 @@ final class LayoutServiceTest extends TestCase
 
         $this->layoutService->linkZone(
             Zone::fromArray(['layoutId' => Uuid::uuid4(), 'identifier' => 'right', 'status' => Value::STATUS_DRAFT]),
-            Zone::fromArray(['layoutId' => Uuid::uuid4(), 'identifier' => 'left', 'status' => Value::STATUS_PUBLISHED])
+            Zone::fromArray(['layoutId' => Uuid::uuid4(), 'identifier' => 'left', 'status' => Value::STATUS_PUBLISHED]),
         );
     }
 
@@ -120,8 +120,8 @@ final class LayoutServiceTest extends TestCase
                     [
                         'mainLocale' => 'en',
                         'availableLocales' => ['en'],
-                    ]
-                )
+                    ],
+                ),
             );
 
         $this->layoutHandler
@@ -150,8 +150,8 @@ final class LayoutServiceTest extends TestCase
                     [
                         'mainLocale' => 'en',
                         'availableLocales' => ['en', 'hr'],
-                    ]
-                )
+                    ],
+                ),
             );
 
         $this->layoutHandler
@@ -194,7 +194,7 @@ final class LayoutServiceTest extends TestCase
 
         $this->layoutService->updateLayout(
             Layout::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]),
-            $layoutUpdateStruct
+            $layoutUpdateStruct,
         );
     }
 
@@ -227,7 +227,7 @@ final class LayoutServiceTest extends TestCase
 
         $this->layoutService->copyLayout(
             Layout::fromArray(['id' => Uuid::uuid4(), 'status' => Layout::STATUS_DRAFT]),
-            $layoutCopyStruct
+            $layoutCopyStruct,
         );
     }
 
@@ -258,7 +258,7 @@ final class LayoutServiceTest extends TestCase
         $this->layoutService->changeLayoutType(
             Layout::fromArray(['id' => Uuid::uuid4(), 'status' => Layout::STATUS_DRAFT]),
             LayoutType::fromArray(['identifier' => '4_zones_a']),
-            []
+            [],
         );
     }
 

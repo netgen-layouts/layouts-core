@@ -54,7 +54,7 @@ final class BlockDefinitionFactory
             $identifier,
             $handler,
             $config,
-            $configDefinitionHandlers
+            $configDefinitionHandlers,
         );
 
         return BlockDefinition::fromArray($commonData);
@@ -76,7 +76,7 @@ final class BlockDefinitionFactory
             $identifier,
             $handler,
             $config,
-            $configDefinitionHandlers
+            $configDefinitionHandlers,
         );
 
         return TwigBlockDefinition::fromArray($commonData);
@@ -98,7 +98,7 @@ final class BlockDefinitionFactory
             $identifier,
             $handler,
             $config,
-            $configDefinitionHandlers
+            $configDefinitionHandlers,
         );
 
         return ContainerDefinition::fromArray($commonData);
@@ -132,7 +132,7 @@ final class BlockDefinitionFactory
         foreach ($configDefinitionHandlers as $configKey => $configDefinitionHandler) {
             $configDefinitions[$configKey] = $this->configDefinitionFactory->buildConfigDefinition(
                 $configKey,
-                $configDefinitionHandler
+                $configDefinitionHandler,
             );
         }
 
@@ -164,7 +164,7 @@ final class BlockDefinitionFactory
                     'identifier' => $collectionIdentifier,
                     'validItemTypes' => $collectionConfig['valid_item_types'],
                     'validQueryTypes' => $collectionConfig['valid_query_types'],
-                ]
+                ],
             );
         }
 
@@ -177,7 +177,7 @@ final class BlockDefinitionFactory
                 [
                     'identifier' => $formIdentifier,
                     'type' => $formConfig['type'],
-                ]
+                ],
             );
         }
 
@@ -206,7 +206,7 @@ final class BlockDefinitionFactory
                     [
                         'identifier' => $itemViewTypeIdentifier,
                         'name' => $itemViewTypeConfig['name'],
-                    ]
+                    ],
                 );
             }
 
@@ -215,8 +215,8 @@ final class BlockDefinitionFactory
                     sprintf(
                         'You need to specify at least one enabled item view type for "%s" view type and "%s" block definition.',
                         $viewTypeIdentifier,
-                        $identifier
-                    )
+                        $identifier,
+                    ),
                 );
             }
 
@@ -226,7 +226,7 @@ final class BlockDefinitionFactory
                     'name' => $viewTypeConfig['name'] ?? '',
                     'itemViewTypes' => $itemViewTypes,
                     'validParameters' => $viewTypeConfig['valid_parameters'] ?? null,
-                ]
+                ],
             );
         }
 
@@ -234,8 +234,8 @@ final class BlockDefinitionFactory
             throw new RuntimeException(
                 sprintf(
                     'You need to specify at least one enabled view type for "%s" block definition.',
-                    $identifier
-                )
+                    $identifier,
+                ),
             );
         }
 

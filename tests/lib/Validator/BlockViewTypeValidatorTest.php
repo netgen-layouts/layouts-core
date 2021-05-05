@@ -26,7 +26,7 @@ final class BlockViewTypeValidatorTest extends ValidatorTestCase
                 'viewTypes' => [
                     'large' => new ViewType(),
                 ],
-            ]
+            ],
         );
 
         $this->constraint = new BlockViewType(['definition' => $this->blockDefinition]);

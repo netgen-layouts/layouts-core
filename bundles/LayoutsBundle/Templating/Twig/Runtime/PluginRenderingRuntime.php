@@ -30,7 +30,7 @@ final class PluginRenderingRuntime
         try {
             return $this->pluginRenderer->renderPlugins(
                 $pluginName,
-                $context
+                $context,
             );
         } catch (Throwable $t) {
             $this->errorHandler->handleError($t);

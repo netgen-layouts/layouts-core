@@ -18,7 +18,7 @@ final class TemplateResolverExceptionTest extends TestCase
 
         self::assertSame(
             'An error occurred while resolving the view template.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 
@@ -31,7 +31,7 @@ final class TemplateResolverExceptionTest extends TestCase
 
         self::assertSame(
             'No template matcher could be found with identifier "matcher".',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 
@@ -44,7 +44,7 @@ final class TemplateResolverExceptionTest extends TestCase
 
         self::assertSame(
             'No template match could be found for "block_view" view and context "default".',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 }

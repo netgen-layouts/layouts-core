@@ -25,7 +25,7 @@ final class CreateTypeTest extends FormTestCase
                 'name' => '4 zones A',
                 'identifier' => '4_zones_a',
                 'isEnabled' => true,
-            ]
+            ],
         );
 
         $layoutType2 = LayoutType::fromArray(
@@ -33,14 +33,14 @@ final class CreateTypeTest extends FormTestCase
                 'name' => '4 zones B',
                 'identifier' => '4_zones_b',
                 'isEnabled' => false,
-            ]
+            ],
         );
 
         $this->layoutTypeRegistry = new LayoutTypeRegistry(
             [
                 '4_zones_a' => $layoutType1,
                 '4_zones_b' => $layoutType2,
-            ]
+            ],
         );
 
         parent::setUp();
@@ -63,7 +63,7 @@ final class CreateTypeTest extends FormTestCase
 
         $form = $this->factory->create(
             CreateType::class,
-            $struct
+            $struct,
         );
 
         $form->submit($submittedData);
@@ -106,7 +106,7 @@ final class CreateTypeTest extends FormTestCase
         $options = $optionsResolver->resolve(
             [
                 'data' => $struct,
-            ]
+            ],
         );
 
         self::assertSame($struct, $options['data']);
@@ -128,7 +128,7 @@ final class CreateTypeTest extends FormTestCase
         $optionsResolver->resolve(
             [
                 'data' => '',
-            ]
+            ],
         );
     }
 

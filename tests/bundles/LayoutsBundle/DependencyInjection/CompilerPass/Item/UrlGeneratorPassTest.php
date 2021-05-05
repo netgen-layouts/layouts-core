@@ -46,8 +46,8 @@ final class UrlGeneratorPassTest extends AbstractContainerBuilderTestCase
                     [
                         'test' => new ServiceClosureArgument(new Reference('netgen_layouts.item.value_url_generator.test')),
                     ],
-                ]
-            )
+                ],
+            ),
         );
     }
 

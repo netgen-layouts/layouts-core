@@ -86,10 +86,10 @@ final class CollectionService implements APICollectionService
         return $this->mapper->mapCollection(
             $this->collectionHandler->loadCollection(
                 $collectionId,
-                Value::STATUS_PUBLISHED
+                Value::STATUS_PUBLISHED,
             ),
             $locales,
-            $useMainLocale
+            $useMainLocale,
         );
     }
 
@@ -98,10 +98,10 @@ final class CollectionService implements APICollectionService
         return $this->mapper->mapCollection(
             $this->collectionHandler->loadCollection(
                 $collectionId,
-                Value::STATUS_DRAFT
+                Value::STATUS_DRAFT,
             ),
             $locales,
-            $useMainLocale
+            $useMainLocale,
         );
     }
 
@@ -122,9 +122,9 @@ final class CollectionService implements APICollectionService
                     [
                         'offset' => $collectionUpdateStruct->offset,
                         'limit' => $collectionUpdateStruct->limit,
-                    ]
-                )
-            )
+                    ],
+                ),
+            ),
         );
 
         return $this->mapper->mapCollection($updatedCollection, [$collection->getLocale()]);
@@ -135,8 +135,8 @@ final class CollectionService implements APICollectionService
         return $this->mapper->mapItem(
             $this->collectionHandler->loadItem(
                 $itemId,
-                Value::STATUS_PUBLISHED
-            )
+                Value::STATUS_PUBLISHED,
+            ),
         );
     }
 
@@ -145,8 +145,8 @@ final class CollectionService implements APICollectionService
         return $this->mapper->mapItem(
             $this->collectionHandler->loadItem(
                 $itemId,
-                Value::STATUS_DRAFT
-            )
+                Value::STATUS_DRAFT,
+            ),
         );
     }
 
@@ -155,10 +155,10 @@ final class CollectionService implements APICollectionService
         return $this->mapper->mapQuery(
             $this->collectionHandler->loadQuery(
                 $queryId,
-                Value::STATUS_PUBLISHED
+                Value::STATUS_PUBLISHED,
             ),
             $locales,
-            $useMainLocale
+            $useMainLocale,
         );
     }
 
@@ -167,10 +167,10 @@ final class CollectionService implements APICollectionService
         return $this->mapper->mapQuery(
             $this->collectionHandler->loadQuery(
                 $queryId,
-                Value::STATUS_DRAFT
+                Value::STATUS_DRAFT,
             ),
             $locales,
-            $useMainLocale
+            $useMainLocale,
         );
     }
 
@@ -179,8 +179,8 @@ final class CollectionService implements APICollectionService
         return $this->mapper->mapSlot(
             $this->collectionHandler->loadSlot(
                 $slotId,
-                Value::STATUS_PUBLISHED
-            )
+                Value::STATUS_PUBLISHED,
+            ),
         );
     }
 
@@ -189,8 +189,8 @@ final class CollectionService implements APICollectionService
         return $this->mapper->mapSlot(
             $this->collectionHandler->loadSlot(
                 $slotId,
-                Value::STATUS_DRAFT
-            )
+                Value::STATUS_DRAFT,
+            ),
         );
     }
 
@@ -209,7 +209,7 @@ final class CollectionService implements APICollectionService
         if ($newType === Collection::TYPE_DYNAMIC && $queryCreateStruct === null) {
             throw new BadStateException(
                 'queryCreateStruct',
-                'Query create struct must be defined when converting to dynamic collection.'
+                'Query create struct must be defined when converting to dynamic collection.',
             );
         }
 
@@ -223,8 +223,8 @@ final class CollectionService implements APICollectionService
                         CollectionUpdateStruct::fromArray(
                             [
                                 'offset' => 0,
-                            ]
-                        )
+                            ],
+                        ),
                     );
 
                     foreach ($this->collectionHandler->loadCollectionItems($persistenceCollection) as $index => $item) {
@@ -241,14 +241,14 @@ final class CollectionService implements APICollectionService
                                 'parameters' => iterator_to_array(
                                     $this->parameterMapper->serializeValues(
                                         $queryType,
-                                        $queryCreateStruct->getParameterValues()
-                                    )
+                                        $queryCreateStruct->getParameterValues(),
+                                    ),
                                 ),
-                            ]
-                        )
+                            ],
+                        ),
                     );
                 }
-            }
+            },
         );
 
         $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
@@ -267,7 +267,7 @@ final class CollectionService implements APICollectionService
         $this->validator->validatePosition(
             $position,
             'position',
-            $collection->hasQuery()
+            $collection->hasQuery(),
         );
 
         $this->validator->validateItemCreateStruct($itemCreateStruct);
@@ -284,12 +284,12 @@ final class CollectionService implements APICollectionService
                         'config' => iterator_to_array(
                             $this->configMapper->serializeValues(
                                 $itemCreateStruct->getConfigStructs(),
-                                $itemCreateStruct->definition->getConfigDefinitions()
-                            )
+                                $itemCreateStruct->definition->getConfigDefinitions(),
+                            ),
                         ),
-                    ]
-                )
-            )
+                    ],
+                ),
+            ),
         );
 
         return $this->mapper->mapItem($createdItem);
@@ -317,12 +317,12 @@ final class CollectionService implements APICollectionService
                             $this->configMapper->serializeValues(
                                 $itemUpdateStruct->getConfigStructs(),
                                 $itemDefinition->getConfigDefinitions(),
-                                $persistenceItem->config
-                            )
+                                $persistenceItem->config,
+                            ),
                         ),
-                    ]
-                )
-            )
+                    ],
+                ),
+            ),
         );
 
         return $this->mapper->mapItem($updatedItem);
@@ -341,8 +341,8 @@ final class CollectionService implements APICollectionService
         $movedItem = $this->transaction(
             fn (): PersistenceItem => $this->collectionHandler->moveItem(
                 $persistenceItem,
-                $position
-            )
+                $position,
+            ),
         );
 
         return $this->mapper->mapItem($movedItem);
@@ -359,7 +359,7 @@ final class CollectionService implements APICollectionService
         $this->transaction(
             function () use ($persistenceItem): void {
                 $this->collectionHandler->deleteItem($persistenceItem);
-            }
+            },
         );
     }
 
@@ -372,7 +372,7 @@ final class CollectionService implements APICollectionService
         $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
 
         $updatedCollection = $this->transaction(
-            fn (): PersistenceCollection => $this->collectionHandler->deleteItems($persistenceCollection)
+            fn (): PersistenceCollection => $this->collectionHandler->deleteItems($persistenceCollection),
         );
 
         return $this->mapper->mapCollection($updatedCollection, [$collection->getLocale()]);
@@ -398,8 +398,8 @@ final class CollectionService implements APICollectionService
             fn (): PersistenceQuery => $this->updateQueryTranslations(
                 $queryType,
                 $persistenceQuery,
-                $queryUpdateStruct
-            )
+                $queryUpdateStruct,
+            ),
         );
 
         return $this->mapper->mapQuery($updatedQuery, [$query->getLocale()]);
@@ -422,9 +422,9 @@ final class CollectionService implements APICollectionService
                     [
                         'position' => $position,
                         'viewType' => $slotCreateStruct->viewType,
-                    ]
-                )
-            )
+                    ],
+                ),
+            ),
         );
 
         return $this->mapper->mapSlot($createdSlot);
@@ -444,9 +444,9 @@ final class CollectionService implements APICollectionService
                 SlotUpdateStruct::fromArray(
                     [
                         'viewType' => $slotUpdateStruct->viewType,
-                    ]
-                )
-            )
+                    ],
+                ),
+            ),
         );
 
         return $this->mapper->mapSlot($updatedSlot);
@@ -463,7 +463,7 @@ final class CollectionService implements APICollectionService
         $this->transaction(
             function () use ($persistenceSlot): void {
                 $this->collectionHandler->deleteSlot($persistenceSlot);
-            }
+            },
         );
     }
 
@@ -476,7 +476,7 @@ final class CollectionService implements APICollectionService
         $persistenceCollection = $this->collectionHandler->loadCollection($collection->getId(), Value::STATUS_DRAFT);
 
         $updatedCollection = $this->transaction(
-            fn (): PersistenceCollection => $this->collectionHandler->deleteSlots($persistenceCollection)
+            fn (): PersistenceCollection => $this->collectionHandler->deleteSlots($persistenceCollection),
         );
 
         return $this->mapper->mapCollection($updatedCollection, [$collection->getLocale()]);
@@ -543,19 +543,19 @@ final class CollectionService implements APICollectionService
                             $this->parameterMapper->serializeValues(
                                 $queryType,
                                 $queryUpdateStruct->getParameterValues(),
-                                $persistenceQuery->parameters[$persistenceQuery->mainLocale]
-                            )
+                                $persistenceQuery->parameters[$persistenceQuery->mainLocale],
+                            ),
                         ),
-                    ]
-                )
+                    ],
+                ),
             );
         }
 
         $untranslatableParams = iterator_to_array(
             $this->parameterMapper->extractUntranslatableParameters(
                 $queryType,
-                $persistenceQuery->parameters[$persistenceQuery->mainLocale]
-            )
+                $persistenceQuery->parameters[$persistenceQuery->mainLocale],
+            ),
         );
 
         $localesToUpdate = [$queryUpdateStruct->locale];
@@ -577,8 +577,8 @@ final class CollectionService implements APICollectionService
                     $this->parameterMapper->serializeValues(
                         $queryType,
                         $queryUpdateStruct->getParameterValues(),
-                        $params
-                    )
+                        $params,
+                    ),
                 );
             }
 
@@ -588,8 +588,8 @@ final class CollectionService implements APICollectionService
                 QueryTranslationUpdateStruct::fromArray(
                     [
                         'parameters' => $untranslatableParams + $params,
-                    ]
-                )
+                    ],
+                ),
             );
         }
 

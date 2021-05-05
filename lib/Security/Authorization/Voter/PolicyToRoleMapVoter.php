@@ -86,7 +86,7 @@ final class PolicyToRoleMapVoter extends Voter
         return $this->accessDecisionManager->decide(
             $token,
             [self::POLICY_TO_ROLE_MAP[$attribute]],
-            $subject
+            $subject,
         );
     }
 }

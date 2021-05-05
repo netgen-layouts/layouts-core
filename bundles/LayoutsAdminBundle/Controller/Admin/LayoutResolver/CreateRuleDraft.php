@@ -27,7 +27,7 @@ final class CreateRuleDraft extends AbstractController
             'nglayouts:mapping:edit',
             [
                 'rule_group' => $rule->getRuleGroupId()->toString(),
-            ]
+            ],
         );
 
         $createdDraft = $this->layoutResolverService->createRuleDraft($rule, true);

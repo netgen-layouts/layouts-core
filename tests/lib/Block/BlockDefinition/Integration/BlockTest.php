@@ -73,7 +73,7 @@ abstract class BlockTest extends CoreTestCase
         }
 
         $blockDefinition = $this->createBlockDefinition(
-            count($testedParams) > 0 ? $testedParams : array_keys($parameters)
+            count($testedParams) > 0 ? $testedParams : array_keys($parameters),
         );
 
         // We need to recreate the service due to recreating the block definition
@@ -133,7 +133,7 @@ abstract class BlockTest extends CoreTestCase
             $collections['default'] = Collection::fromArray(
                 [
                     'identifier' => 'default',
-                ]
+                ],
             );
         }
 
@@ -147,14 +147,14 @@ abstract class BlockTest extends CoreTestCase
                             'itemViewTypes' => [
                                 'standard' => new ItemViewType(),
                             ],
-                        ]
+                        ],
                     ),
                 ],
                 'isTranslatable' => false,
                 'collections' => $collections,
                 'parameterDefinitions' => $filteredParameterDefinitions,
                 'configDefinitions' => [],
-            ]
+            ],
         );
 
         $allBlockDefinitions = $this->blockDefinitionRegistry->getBlockDefinitions();

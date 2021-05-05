@@ -70,8 +70,8 @@ final class ItemParamConverterTest extends TestCase
                 [
                     'itemId' => $uuid->toString(),
                     'status' => 'published',
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -96,8 +96,8 @@ final class ItemParamConverterTest extends TestCase
                 [
                     'itemId' => $uuid->toString(),
                     'status' => 'draft',
-                ]
-            )
+                ],
+            ),
         );
     }
 }

@@ -26,7 +26,7 @@ final class ItemDefinitionFactory
         foreach ($configDefinitionHandlers as $configKey => $configDefinitionHandler) {
             $configDefinitions[$configKey] = $this->configDefinitionFactory->buildConfigDefinition(
                 $configKey,
-                $configDefinitionHandler
+                $configDefinitionHandler,
             );
         }
 
@@ -34,7 +34,7 @@ final class ItemDefinitionFactory
             [
                 'valueType' => $valueType,
                 'configDefinitions' => $configDefinitions,
-            ]
+            ],
         );
     }
 }

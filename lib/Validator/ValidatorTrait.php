@@ -35,7 +35,7 @@ trait ValidatorTrait
             new Constraints\Regex(
                 [
                     'pattern' => '/^[A-Za-z0-9_]*[A-Za-z][A-Za-z0-9_]*$/',
-                ]
+                ],
             ),
         ];
 
@@ -78,7 +78,7 @@ trait ValidatorTrait
                 new Constraints\NotBlank(),
                 new LocaleConstraint(),
             ],
-            $propertyPath
+            $propertyPath,
         );
     }
 

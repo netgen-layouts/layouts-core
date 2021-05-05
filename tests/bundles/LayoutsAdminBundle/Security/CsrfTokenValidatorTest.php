@@ -26,13 +26,13 @@ final class CsrfTokenValidatorTest extends TestCase
     protected function setUp(): void
     {
         $this->csrfTokenManagerMock = $this->createMock(
-            CsrfTokenManagerInterface::class
+            CsrfTokenManagerInterface::class,
         );
 
         $this->sessionMock = $this->createMock(SessionInterface::class);
 
         $this->validator = new CsrfTokenValidator(
-            $this->csrfTokenManagerMock
+            $this->csrfTokenManagerMock,
         );
     }
 

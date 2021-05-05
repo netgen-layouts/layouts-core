@@ -23,7 +23,7 @@ final class TwigBlockDefinitionTest extends TestCase
             [
                 'identifier' => 'block_definition',
                 'handler' => $this->handler,
-            ]
+            ],
         );
     }
 

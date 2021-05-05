@@ -64,7 +64,7 @@ final class BlockDefinitionTest extends TestCase
                     'small' => $this->viewType2,
                 ],
                 'configDefinitions' => ['config' => $this->configDefinition],
-            ]
+            ],
         );
     }
 
@@ -109,7 +109,7 @@ final class BlockDefinitionTest extends TestCase
             [
                 'content' => $this->form,
             ],
-            $this->blockDefinition->getForms()
+            $this->blockDefinition->getForms(),
         );
     }
 
@@ -129,7 +129,7 @@ final class BlockDefinitionTest extends TestCase
     {
         self::assertSame(
             $this->form,
-            $this->blockDefinition->getForm('content')
+            $this->blockDefinition->getForm('content'),
         );
     }
 
@@ -153,7 +153,7 @@ final class BlockDefinitionTest extends TestCase
             [
                 'collection' => $this->collection,
             ],
-            $this->blockDefinition->getCollections()
+            $this->blockDefinition->getCollections(),
         );
     }
 
@@ -173,7 +173,7 @@ final class BlockDefinitionTest extends TestCase
     {
         self::assertSame(
             $this->collection,
-            $this->blockDefinition->getCollection('collection')
+            $this->blockDefinition->getCollection('collection'),
         );
     }
 
@@ -198,7 +198,7 @@ final class BlockDefinitionTest extends TestCase
                 'large' => $this->viewType1,
                 'small' => $this->viewType2,
             ],
-            $this->blockDefinition->getViewTypes()
+            $this->blockDefinition->getViewTypes(),
         );
     }
 
@@ -209,7 +209,7 @@ final class BlockDefinitionTest extends TestCase
     {
         self::assertSame(
             ['large', 'small'],
-            $this->blockDefinition->getViewTypeIdentifiers()
+            $this->blockDefinition->getViewTypeIdentifiers(),
         );
     }
 
@@ -229,7 +229,7 @@ final class BlockDefinitionTest extends TestCase
     {
         self::assertSame(
             $this->viewType1,
-            $this->blockDefinition->getViewType('large')
+            $this->blockDefinition->getViewType('large'),
         );
     }
 
@@ -279,7 +279,7 @@ final class BlockDefinitionTest extends TestCase
     {
         self::assertSame(
             $this->configDefinition,
-            $this->blockDefinition->getConfigDefinition('config')
+            $this->blockDefinition->getConfigDefinition('config'),
         );
     }
 
@@ -317,7 +317,7 @@ final class BlockDefinitionTest extends TestCase
     {
         self::assertSame(
             ['config' => $this->configDefinition],
-            $this->blockDefinition->getConfigDefinitions()
+            $this->blockDefinition->getConfigDefinitions(),
         );
     }
 

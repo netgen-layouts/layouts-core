@@ -45,17 +45,17 @@ final class TimeValidator extends ConstraintValidator
                             'from' => new Constraints\Required(
                                 [
                                     new DateTimeConstraint(['allowArray' => true]),
-                                ]
+                                ],
                             ),
                             'to' => new Constraints\Required(
                                 [
                                     new DateTimeConstraint(['allowArray' => true]),
-                                ]
+                                ],
                             ),
                         ],
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $visibleFrom = is_array($value['from'] ?? null) ?

@@ -141,7 +141,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
     public function loadRuleTargets(Rule $rule): array
     {
         return $this->mapper->mapTargets(
-            $this->queryHandler->loadRuleTargetsData($rule)
+            $this->queryHandler->loadRuleTargetsData($rule),
         );
     }
 
@@ -177,14 +177,14 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
     public function loadRuleConditions(Rule $rule): array
     {
         return $this->mapper->mapRuleConditions(
-            $this->queryHandler->loadRuleConditionsData($rule)
+            $this->queryHandler->loadRuleConditionsData($rule),
         );
     }
 
     public function loadRuleGroupConditions(RuleGroup $ruleGroup): array
     {
         return $this->mapper->mapRuleGroupConditions(
-            $this->queryHandler->loadRuleGroupConditionsData($ruleGroup)
+            $this->queryHandler->loadRuleGroupConditionsData($ruleGroup),
         );
     }
 
@@ -217,7 +217,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
                 'enabled' => $ruleCreateStruct->enabled ? true : false,
                 'priority' => $ruleCreateStruct->priority ?? $this->getPriority($targetGroup),
                 'description' => trim($ruleCreateStruct->description),
-            ]
+            ],
         );
 
         return $this->queryHandler->createRule($newRule);
@@ -392,7 +392,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
                 'description' => trim($ruleGroupCreateStruct->description),
                 'enabled' => $ruleGroupCreateStruct->enabled ? true : false,
                 'priority' => $parentGroup !== null ? ($ruleGroupCreateStruct->priority ?? $this->getPriority($parentGroup)) : 0,
-            ]
+            ],
         );
 
         if ($parentGroup === null) {
@@ -556,7 +556,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
                 'ruleUuid' => $rule->uuid,
                 'type' => $targetCreateStruct->type,
                 'value' => $targetCreateStruct->value,
-            ]
+            ],
         );
 
         return $this->queryHandler->addTarget($newTarget);
@@ -587,7 +587,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
                 'ruleUuid' => $rule->uuid,
                 'type' => $conditionCreateStruct->type,
                 'value' => $conditionCreateStruct->value,
-            ]
+            ],
         );
 
         return $this->queryHandler->addRuleCondition($newCondition);
@@ -603,7 +603,7 @@ final class LayoutResolverHandler implements LayoutResolverHandlerInterface
                 'ruleGroupUuid' => $ruleGroup->uuid,
                 'type' => $conditionCreateStruct->type,
                 'value' => $conditionCreateStruct->value,
-            ]
+            ],
         );
 
         return $this->queryHandler->addRuleGroupCondition($newCondition);

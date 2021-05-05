@@ -95,7 +95,7 @@ abstract class BlockServiceTest extends CoreTestCase
     public function testLoadZoneBlocks(): void
     {
         $blocks = $this->blockService->loadZoneBlocks(
-            $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right')
+            $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
         );
 
         self::assertCount(2, $blocks);
@@ -108,7 +108,7 @@ abstract class BlockServiceTest extends CoreTestCase
     public function testLoadLayoutBlocks(): void
     {
         $blocks = $this->blockService->loadLayoutBlocks(
-            $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))
+            $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136')),
         );
 
         self::assertCount(3, $blocks);
@@ -141,7 +141,7 @@ abstract class BlockServiceTest extends CoreTestCase
     public function testCreateBlock(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('list')
+            $this->blockDefinitionRegistry->getBlockDefinition('list'),
         );
 
         $targetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
@@ -149,7 +149,7 @@ abstract class BlockServiceTest extends CoreTestCase
         /** @var \Netgen\Layouts\API\Values\Block\Block $block */
         $block = $this->withUuids(
             fn (): Block => $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'left', 0),
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
         );
 
         $targetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
@@ -178,7 +178,7 @@ abstract class BlockServiceTest extends CoreTestCase
     public function testCreateBlockWithCollection(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('list')
+            $this->blockDefinitionRegistry->getBlockDefinition('list'),
         );
 
         $blockCreateStruct->addCollectionCreateStruct('default', new CollectionCreateStruct());
@@ -211,13 +211,13 @@ abstract class BlockServiceTest extends CoreTestCase
     public function testCreateBlockWithDynamicCollection(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('list')
+            $this->blockDefinitionRegistry->getBlockDefinition('list'),
         );
 
         $blockCreateStruct->isTranslatable = true;
 
         $queryCreateStruct = new QueryCreateStruct(
-            $this->queryTypeRegistry->getQueryType('my_query_type')
+            $this->queryTypeRegistry->getQueryType('my_query_type'),
         );
 
         $collectionCreateStruct = new CollectionCreateStruct();
@@ -255,7 +255,7 @@ abstract class BlockServiceTest extends CoreTestCase
     public function testCreateTranslatableBlock(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('list')
+            $this->blockDefinitionRegistry->getBlockDefinition('list'),
         );
 
         $blockCreateStruct->isTranslatable = true;
@@ -279,18 +279,18 @@ abstract class BlockServiceTest extends CoreTestCase
     public function testCreateTranslatableBlockWithNonTranslatableTargetBlock(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('title')
+            $this->blockDefinitionRegistry->getBlockDefinition('title'),
         );
 
         $targetBlock = $this->blockService->disableTranslations(
-            $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'))
+            $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
         );
 
         $block = $this->blockService->createBlock(
             $blockCreateStruct,
             $targetBlock,
             'left',
-            0
+            0,
         );
 
         self::assertTrue($block->isDraft());
@@ -309,7 +309,7 @@ abstract class BlockServiceTest extends CoreTestCase
     public function testCreateBlockWithConfig(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('list')
+            $this->blockDefinitionRegistry->getBlockDefinition('list'),
         );
 
         $configStruct = new ConfigStruct();
@@ -318,7 +318,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $blockCreateStruct->setConfigStruct(
             'key',
-            $configStruct
+            $configStruct,
         );
 
         $targetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
@@ -345,14 +345,14 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. Blocks can only be created in blocks in draft status.');
 
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('list')
+            $this->blockDefinitionRegistry->getBlockDefinition('list'),
         );
 
         $this->blockService->createBlock(
             $blockCreateStruct,
             $this->blockService->loadBlock(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
             'left',
-            0
+            0,
         );
     }
 
@@ -365,13 +365,13 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "targetBlock" has an invalid state. Target block is not a container.');
 
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('list')
+            $this->blockDefinitionRegistry->getBlockDefinition('list'),
         );
 
         $this->blockService->createBlock(
             $blockCreateStruct,
             $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
-            'main'
+            'main',
         );
     }
 
@@ -384,13 +384,13 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "placeholder" has an invalid state. Target block does not have the specified placeholder.');
 
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('list')
+            $this->blockDefinitionRegistry->getBlockDefinition('list'),
         );
 
         $this->blockService->createBlock(
             $blockCreateStruct,
             $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
-            'non_existing'
+            'non_existing',
         );
     }
 
@@ -401,7 +401,7 @@ abstract class BlockServiceTest extends CoreTestCase
     public function testCreateBlockWithNoPosition(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('list')
+            $this->blockDefinitionRegistry->getBlockDefinition('list'),
         );
 
         $targetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
@@ -409,7 +409,7 @@ abstract class BlockServiceTest extends CoreTestCase
         /** @var \Netgen\Layouts\API\Values\Block\Block $block */
         $block = $this->withUuids(
             fn (): Block => $this->blockService->createBlock($blockCreateStruct, $targetBlock, 'left'),
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
         );
 
         $targetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59'));
@@ -431,14 +431,14 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
 
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('list')
+            $this->blockDefinitionRegistry->getBlockDefinition('list'),
         );
 
         $this->blockService->createBlock(
             $blockCreateStruct,
             $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
             'left',
-            9999
+            9999,
         );
     }
 
@@ -451,13 +451,13 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "blockCreateStruct" has an invalid state. Containers cannot be placed inside containers.');
 
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('column')
+            $this->blockDefinitionRegistry->getBlockDefinition('column'),
         );
 
         $this->blockService->createBlock(
             $blockCreateStruct,
             $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
-            'left'
+            'left',
         );
     }
 
@@ -468,7 +468,7 @@ abstract class BlockServiceTest extends CoreTestCase
     public function testCreateBlockInZone(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('list')
+            $this->blockDefinitionRegistry->getBlockDefinition('list'),
         );
 
         /** @var \Netgen\Layouts\API\Values\Block\Block $block */
@@ -476,9 +476,9 @@ abstract class BlockServiceTest extends CoreTestCase
             fn (): Block => $this->blockService->createBlockInZone(
                 $blockCreateStruct,
                 $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
-                0
+                0,
             ),
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
         );
 
         $zone = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right');
@@ -500,13 +500,13 @@ abstract class BlockServiceTest extends CoreTestCase
     public function testCreateBlockInZoneWithContainerBlock(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('column')
+            $this->blockDefinitionRegistry->getBlockDefinition('column'),
         );
 
         $block = $this->blockService->createBlockInZone(
             $blockCreateStruct,
             $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('left'),
-            0
+            0,
         );
 
         self::assertCount(2, $block->getPlaceholders());
@@ -522,7 +522,7 @@ abstract class BlockServiceTest extends CoreTestCase
     public function testCreateBlockInZoneWithoutCollection(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('title')
+            $this->blockDefinitionRegistry->getBlockDefinition('title'),
         );
 
         /** @var \Netgen\Layouts\API\Values\Block\Block $block */
@@ -530,9 +530,9 @@ abstract class BlockServiceTest extends CoreTestCase
             fn (): Block => $this->blockService->createBlockInZone(
                 $blockCreateStruct,
                 $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
-                0
+                0,
             ),
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
         );
 
         $zone = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right');
@@ -556,13 +556,13 @@ abstract class BlockServiceTest extends CoreTestCase
     public function testCreateBlockInZoneWhichDoesNotExistInLayoutType(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('title')
+            $this->blockDefinitionRegistry->getBlockDefinition('title'),
         );
 
         $block = $this->blockService->createBlockInZone(
             $blockCreateStruct,
             $this->layoutService->loadLayoutDraft(Uuid::fromString('4b0202b3-5d06-5962-ae0c-bbeb25ee3503'))->getZone('center'),
-            0
+            0,
         );
 
         self::assertTrue($block->isDraft());
@@ -577,13 +577,13 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "zone" has an invalid state. Blocks can only be created in zones in draft status.');
 
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('title')
+            $this->blockDefinitionRegistry->getBlockDefinition('title'),
         );
 
         $this->blockService->createBlockInZone(
             $blockCreateStruct,
             $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
-            0
+            0,
         );
     }
 
@@ -594,12 +594,12 @@ abstract class BlockServiceTest extends CoreTestCase
     public function testCreateBlockInZoneWithNonExistentLayoutType(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('title')
+            $this->blockDefinitionRegistry->getBlockDefinition('title'),
         );
 
         $block = $this->blockService->createBlockInZone(
             $blockCreateStruct,
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('top')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('top'),
         );
 
         self::assertTrue($block->isDraft());
@@ -612,16 +612,16 @@ abstract class BlockServiceTest extends CoreTestCase
     public function testCreateBlockInZoneWithNoPosition(): void
     {
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('title')
+            $this->blockDefinitionRegistry->getBlockDefinition('title'),
         );
 
         /** @var \Netgen\Layouts\API\Values\Block\Block $block */
         $block = $this->withUuids(
             fn (): Block => $this->blockService->createBlockInZone(
                 $blockCreateStruct,
-                $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right')
+                $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
             ),
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
         );
 
         $zone = $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right');
@@ -642,13 +642,13 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "position" has an invalid state. Position is out of range.');
 
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('title')
+            $this->blockDefinitionRegistry->getBlockDefinition('title'),
         );
 
         $this->blockService->createBlockInZone(
             $blockCreateStruct,
             $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
-            9999
+            9999,
         );
     }
 
@@ -661,12 +661,12 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "zone" has an invalid state. Block is not allowed in specified zone.');
 
         $blockCreateStruct = $this->blockService->newBlockCreateStruct(
-            $this->blockDefinitionRegistry->getBlockDefinition('gallery')
+            $this->blockDefinitionRegistry->getBlockDefinition('gallery'),
         );
 
         $this->blockService->createBlockInZone(
             $blockCreateStruct,
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
         );
     }
 
@@ -893,9 +893,9 @@ abstract class BlockServiceTest extends CoreTestCase
             fn (): Block => $this->blockService->copyBlock(
                 $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
                 $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
-                'left'
+                'left',
             ),
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5'));
@@ -917,9 +917,9 @@ abstract class BlockServiceTest extends CoreTestCase
                 $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
                 $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
                 'left',
-                1
+                1,
             ),
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5'));
@@ -941,9 +941,9 @@ abstract class BlockServiceTest extends CoreTestCase
                 $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
                 $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
                 'left',
-                0
+                0,
             ),
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
         );
 
         $firstBlockInTargetBlock = $this->blockService->loadBlockDraft(Uuid::fromString('129f51de-a535-5094-8517-45d672e06302'));
@@ -966,7 +966,7 @@ abstract class BlockServiceTest extends CoreTestCase
             $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
             $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
             'left',
-            9999
+            9999,
         );
     }
 
@@ -981,7 +981,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->blockService->copyBlock(
             $this->blockService->loadBlock(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
             $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
-            'main'
+            'main',
         );
     }
 
@@ -996,7 +996,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->blockService->copyBlock(
             $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
             $this->blockService->loadBlock(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
-            'main'
+            'main',
         );
     }
 
@@ -1011,7 +1011,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->blockService->copyBlock(
             $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
             $this->blockService->loadBlockDraft(Uuid::fromString('129f51de-a535-5094-8517-45d672e06302')),
-            'main'
+            'main',
         );
     }
 
@@ -1026,7 +1026,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->blockService->copyBlock(
             $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
             $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
-            'non_existing'
+            'non_existing',
         );
     }
 
@@ -1041,7 +1041,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->blockService->copyBlock(
             $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
             $this->blockService->loadBlockDraft(Uuid::fromString('a2806e8a-ea8c-5c3b-8f84-2cbdae1a07f6')),
-            'main'
+            'main',
         );
     }
 
@@ -1056,7 +1056,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->blockService->copyBlock(
             $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
             $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
-            'left'
+            'left',
         );
     }
 
@@ -1069,7 +1069,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $copiedBlock = $this->withUuids(
             fn (): Block => $this->blockService->copyBlockToZone(
                 $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
-                $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right')
+                $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
             ),
             [
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
@@ -1086,7 +1086,7 @@ abstract class BlockServiceTest extends CoreTestCase
                 '63326bc3-baee-49c9-82e7-7b2a9aca081a',
                 '3a17132d-9072-45f3-a0b3-b91bd4b0fcf3',
                 '29f091e0-81cc-4bd3-aec5-673cd06abce5',
-            ]
+            ],
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
@@ -1113,7 +1113,7 @@ abstract class BlockServiceTest extends CoreTestCase
             fn (): Block => $this->blockService->copyBlockToZone(
                 $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
                 $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
-                1
+                1,
             ),
             [
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
@@ -1130,7 +1130,7 @@ abstract class BlockServiceTest extends CoreTestCase
                 '63326bc3-baee-49c9-82e7-7b2a9aca081a',
                 '3a17132d-9072-45f3-a0b3-b91bd4b0fcf3',
                 '29f091e0-81cc-4bd3-aec5-673cd06abce5',
-            ]
+            ],
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
@@ -1154,7 +1154,7 @@ abstract class BlockServiceTest extends CoreTestCase
             fn (): Block => $this->blockService->copyBlockToZone(
                 $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
                 $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
-                0
+                0,
             ),
             [
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
@@ -1171,7 +1171,7 @@ abstract class BlockServiceTest extends CoreTestCase
                 '63326bc3-baee-49c9-82e7-7b2a9aca081a',
                 '3a17132d-9072-45f3-a0b3-b91bd4b0fcf3',
                 '29f091e0-81cc-4bd3-aec5-673cd06abce5',
-            ]
+            ],
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
@@ -1195,7 +1195,7 @@ abstract class BlockServiceTest extends CoreTestCase
             fn (): Block => $this->blockService->copyBlockToZone(
                 $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
                 $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
-                2
+                2,
             ),
             [
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
@@ -1212,7 +1212,7 @@ abstract class BlockServiceTest extends CoreTestCase
                 '63326bc3-baee-49c9-82e7-7b2a9aca081a',
                 '3a17132d-9072-45f3-a0b3-b91bd4b0fcf3',
                 '29f091e0-81cc-4bd3-aec5-673cd06abce5',
-            ]
+            ],
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
@@ -1236,7 +1236,7 @@ abstract class BlockServiceTest extends CoreTestCase
             fn (): Block => $this->blockService->copyBlockToZone(
                 $this->blockService->loadBlockDraft(Uuid::fromString('c2a30ea3-95ef-55b0-a584-fbcfd93cec9e')),
                 $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
-                0
+                0,
             ),
             [
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
@@ -1245,7 +1245,7 @@ abstract class BlockServiceTest extends CoreTestCase
                 '6dc13cc7-fd76-5e41-8b0c-1ed93ece7fcf',
                 '70fe4f3a-7e9d-5a1f-9e6a-b038c06ea117',
                 '3a3aa59a-76fe-532f-8a03-c04a93d803f6',
-            ]
+            ],
         );
 
         $originalBlock = $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de'));
@@ -1270,7 +1270,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->blockService->copyBlockToZone(
             $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
             $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
-            9999
+            9999,
         );
     }
 
@@ -1284,7 +1284,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $this->blockService->copyBlockToZone(
             $this->blockService->loadBlock(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('left')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('left'),
         );
     }
 
@@ -1298,7 +1298,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $this->blockService->copyBlockToZone(
             $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
-            $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('left')
+            $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('left'),
         );
     }
 
@@ -1312,7 +1312,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $this->blockService->copyBlockToZone(
             $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('bottom')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('bottom'),
         );
     }
 
@@ -1326,7 +1326,7 @@ abstract class BlockServiceTest extends CoreTestCase
 
         $this->blockService->copyBlockToZone(
             $this->blockService->loadBlockDraft(Uuid::fromString('b07d3a85-bcdb-5af2-9b6f-deba36c700e7')),
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('8626a1ca-6413-5f54-acef-de7db06272ce'))->getZone('bottom')
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('8626a1ca-6413-5f54-acef-de7db06272ce'))->getZone('bottom'),
         );
     }
 
@@ -1340,7 +1340,7 @@ abstract class BlockServiceTest extends CoreTestCase
             $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
             $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
             'left',
-            0
+            0,
         );
 
         self::assertTrue($movedBlock->isDraft());
@@ -1365,7 +1365,7 @@ abstract class BlockServiceTest extends CoreTestCase
             $this->blockService->loadBlockDraft(Uuid::fromString('129f51de-a535-5094-8517-45d672e06302')),
             $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
             'right',
-            0
+            0,
         );
 
         self::assertTrue($movedBlock->isDraft());
@@ -1392,7 +1392,7 @@ abstract class BlockServiceTest extends CoreTestCase
             $this->blockService->loadBlockDraft(Uuid::fromString('129f51de-a535-5094-8517-45d672e06302')),
             $this->blockService->loadBlockDraft(Uuid::fromString('a2806e8a-ea8c-5c3b-8f84-2cbdae1a07f6')),
             'main',
-            0
+            0,
         );
 
         self::assertTrue($movedBlock->isDraft());
@@ -1422,7 +1422,7 @@ abstract class BlockServiceTest extends CoreTestCase
             $this->blockService->loadBlock(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
             $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
             'left',
-            0
+            0,
         );
     }
 
@@ -1438,7 +1438,7 @@ abstract class BlockServiceTest extends CoreTestCase
             $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
             $this->blockService->loadBlock(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
             'left',
-            0
+            0,
         );
     }
 
@@ -1454,7 +1454,7 @@ abstract class BlockServiceTest extends CoreTestCase
             $this->blockService->loadBlockDraft(Uuid::fromString('b07d3a85-bcdb-5af2-9b6f-deba36c700e7')),
             $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
             'left',
-            0
+            0,
         );
     }
 
@@ -1470,7 +1470,7 @@ abstract class BlockServiceTest extends CoreTestCase
             $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
             $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
             'non_existing',
-            0
+            0,
         );
     }
 
@@ -1486,7 +1486,7 @@ abstract class BlockServiceTest extends CoreTestCase
             $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
             $this->blockService->loadBlockDraft(Uuid::fromString('a2806e8a-ea8c-5c3b-8f84-2cbdae1a07f6')),
             'main',
-            0
+            0,
         );
     }
 
@@ -1502,7 +1502,7 @@ abstract class BlockServiceTest extends CoreTestCase
             $this->blockService->loadBlockDraft(Uuid::fromString('42446cc9-24c3-573c-9022-6b3a764727b5')),
             $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
             'left',
-            9999
+            9999,
         );
     }
 
@@ -1518,7 +1518,7 @@ abstract class BlockServiceTest extends CoreTestCase
             $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
             $this->blockService->loadBlockDraft(Uuid::fromString('e666109d-f1db-5fd5-97fa-346f50e9ae59')),
             'left',
-            0
+            0,
         );
     }
 
@@ -1531,7 +1531,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $movedBlock = $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(Uuid::fromString('b07d3a85-bcdb-5af2-9b6f-deba36c700e7')),
             $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('left'),
-            0
+            0,
         );
 
         self::assertTrue($movedBlock->isDraft());
@@ -1554,7 +1554,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $movedBlock = $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(Uuid::fromString('b07d3a85-bcdb-5af2-9b6f-deba36c700e7')),
             $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('right'),
-            0
+            0,
         );
 
         self::assertTrue($movedBlock->isDraft());
@@ -1579,7 +1579,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->blockService->moveBlockToZone(
             $this->blockService->loadBlock(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
             $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('left'),
-            0
+            0,
         );
     }
 
@@ -1594,7 +1594,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
             $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('left'),
-            0
+            0,
         );
     }
 
@@ -1609,7 +1609,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
             $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('left'),
-            9999
+            9999,
         );
     }
 
@@ -1624,7 +1624,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(Uuid::fromString('b07d3a85-bcdb-5af2-9b6f-deba36c700e7')),
             $this->layoutService->loadLayoutDraft(Uuid::fromString('71cbe281-430c-51d5-8e21-c3cc4e656dac'))->getZone('bottom'),
-            0
+            0,
         );
     }
 
@@ -1639,7 +1639,7 @@ abstract class BlockServiceTest extends CoreTestCase
         $this->blockService->moveBlockToZone(
             $this->blockService->loadBlockDraft(Uuid::fromString('28df256a-2467-5527-b398-9269ccc652de')),
             $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))->getZone('bottom'),
-            0
+            0,
         );
     }
 
@@ -1898,7 +1898,7 @@ abstract class BlockServiceTest extends CoreTestCase
                     'css_id' => null,
                 ],
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -1919,7 +1919,7 @@ abstract class BlockServiceTest extends CoreTestCase
                 'configStructs' => [],
                 'parameterValues' => [],
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -1953,7 +1953,7 @@ abstract class BlockServiceTest extends CoreTestCase
                     'css_id' => null,
                 ],
             ],
-            $this->exportObject($struct, true)
+            $this->exportObject($struct, true),
         );
     }
 }

@@ -75,7 +75,7 @@ final class BlockMapper
     {
         try {
             $blockDefinition = $this->blockDefinitionRegistry->getBlockDefinition(
-                $block->definitionIdentifier
+                $block->definitionIdentifier,
             );
         } catch (BlockDefinitionException $e) {
             $blockDefinition = new NullBlockDefinition($block->definitionIdentifier);
@@ -96,8 +96,8 @@ final class BlockMapper
         $untranslatableParams = iterator_to_array(
             $this->parameterMapper->extractUntranslatableParameters(
                 $blockDefinition,
-                $block->parameters[$block->mainLocale]
-            )
+                $block->parameters[$block->mainLocale],
+            ),
         );
 
         $blockData = [
@@ -117,14 +117,14 @@ final class BlockMapper
             'collections' => new LazyCollection(
                 fn (): array => array_map(
                     fn (PersistenceCollection $collection): Collection => $this->collectionMapper->mapCollection($collection, $locales),
-                    $this->collectionHandler->loadCollections($block)
-                )
+                    $this->collectionHandler->loadCollections($block),
+                ),
             ),
             'configs' => iterator_to_array(
                 $this->configMapper->mapConfig(
                     $block->config,
-                    $blockDefinition->getConfigDefinitions()
-                )
+                    $blockDefinition->getConfigDefinitions(),
+                ),
             ),
             'isTranslatable' => $block->isTranslatable,
             'mainLocale' => $block->mainLocale,
@@ -134,8 +134,8 @@ final class BlockMapper
             'parameters' => iterator_to_array(
                 $this->parameterMapper->mapParameters(
                     $blockDefinition,
-                    $untranslatableParams + $block->parameters[$blockLocale]
-                )
+                    $untranslatableParams + $block->parameters[$blockLocale],
+                ),
             ),
         ];
 
@@ -162,10 +162,10 @@ final class BlockMapper
                     'blocks' => new LazyCollection(
                         fn (): array => array_map(
                             fn (PersistenceBlock $childBlock): Block => $this->mapBlock($childBlock, $locales, false),
-                            $this->blockHandler->loadChildBlocks($block, $placeholderIdentifier)
-                        )
+                            $this->blockHandler->loadChildBlocks($block, $placeholderIdentifier),
+                        ),
                     ),
-                ]
+                ],
             );
         }
     }

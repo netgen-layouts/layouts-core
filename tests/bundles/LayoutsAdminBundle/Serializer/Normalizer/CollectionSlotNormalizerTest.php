@@ -31,7 +31,7 @@ final class CollectionSlotNormalizerTest extends TestCase
                 'collectionId' => Uuid::uuid4(),
                 'position' => 3,
                 'viewType' => 'overlay',
-            ]
+            ],
         );
 
         self::assertSame(
@@ -42,7 +42,7 @@ final class CollectionSlotNormalizerTest extends TestCase
                 'view_type' => $slot->getViewType(),
                 'empty' => false,
             ],
-            $this->normalizer->normalize(new Value($slot))
+            $this->normalizer->normalize(new Value($slot)),
         );
     }
 

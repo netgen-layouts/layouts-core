@@ -64,9 +64,9 @@ abstract class EditType extends AbstractType
                 new BlockUpdateStructConstraint(
                     [
                         'payload' => $options['block'],
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
     }
 
@@ -95,7 +95,7 @@ abstract class EditType extends AbstractType
                 'label' => 'block.view_type',
                 'choices' => array_flip($this->viewTypes),
                 'property_path' => 'viewType',
-            ]
+            ],
         );
 
         $builder->add(
@@ -108,7 +108,7 @@ abstract class EditType extends AbstractType
                     'data-master' => implode(',', $this->viewTypesByItemViewType[$value]),
                 ],
                 'property_path' => 'itemViewType',
-            ]
+            ],
         );
     }
 
@@ -126,7 +126,7 @@ abstract class EditType extends AbstractType
                 'label' => 'block.name',
                 'property_path' => 'name',
                 'empty_data' => '',
-            ]
+            ],
         );
     }
 
@@ -151,7 +151,7 @@ abstract class EditType extends AbstractType
                 'parameter_definitions' => $blockDefinition,
                 'label_prefix' => 'block.' . $blockDefinition->getIdentifier(),
                 'groups' => $groups,
-            ]
+            ],
         );
     }
 

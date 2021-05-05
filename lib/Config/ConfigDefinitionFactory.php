@@ -31,7 +31,7 @@ final class ConfigDefinitionFactory
                 'configKey' => $configKey,
                 'handler' => $handler,
                 'parameterDefinitions' => $parameterDefinitions,
-            ]
+            ],
         );
     }
 }

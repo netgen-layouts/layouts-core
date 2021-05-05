@@ -30,7 +30,7 @@ final class ParameterMapperTest extends TestCase
         $blockDefinition = BlockDefinition::fromArray(
             [
                 'parameterDefinitions' => $handler->getParameterDefinitions(),
-            ]
+            ],
         );
 
         $mappedParameters = iterator_to_array(
@@ -40,8 +40,8 @@ final class ParameterMapperTest extends TestCase
                     'css_id' => 'some-id',
                     'compound' => true,
                     'inner' => 'inner-value',
-                ]
-            )
+                ],
+            ),
         );
 
         /** @var \Netgen\Layouts\Parameters\CompoundParameterDefinition $compoundParameter */
@@ -81,7 +81,7 @@ final class ParameterMapperTest extends TestCase
         $blockDefinition = BlockDefinition::fromArray(
             [
                 'parameterDefinitions' => $handler->getParameterDefinitions(),
-            ]
+            ],
         );
 
         $serializedParameters = $this->mapper->serializeValues(
@@ -94,7 +94,7 @@ final class ParameterMapperTest extends TestCase
             [
                 'css_class' => null,
                 'unknown' => 'value',
-            ]
+            ],
         );
 
         self::assertSame(
@@ -104,7 +104,7 @@ final class ParameterMapperTest extends TestCase
                 'compound' => true,
                 'inner' => 'inner-value',
             ],
-            iterator_to_array($serializedParameters)
+            iterator_to_array($serializedParameters),
         );
     }
 
@@ -117,7 +117,7 @@ final class ParameterMapperTest extends TestCase
         $blockDefinition = BlockDefinition::fromArray(
             [
                 'parameterDefinitions' => $handler->getParameterDefinitions(),
-            ]
+            ],
         );
 
         $untranslatableParams = $this->mapper->extractUntranslatableParameters(
@@ -127,7 +127,7 @@ final class ParameterMapperTest extends TestCase
                 'css_class' => 'some-class',
                 'compound' => true,
                 'inner' => 'inner-value',
-            ]
+            ],
         );
 
         self::assertSame(
@@ -137,7 +137,7 @@ final class ParameterMapperTest extends TestCase
                 'compound' => true,
                 'inner' => 'inner-value',
             ],
-            iterator_to_array($untranslatableParams)
+            iterator_to_array($untranslatableParams),
         );
     }
 }

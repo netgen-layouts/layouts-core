@@ -38,7 +38,7 @@ final class ArrayValueNormalizerTest extends TestCase
             ->with(
                 self::identicalTo($value),
                 self::identicalTo('json'),
-                self::identicalTo(['context'])
+                self::identicalTo(['context']),
             )
             ->willReturn(['key' => 'serialized']);
 

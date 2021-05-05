@@ -37,7 +37,7 @@ abstract class LayoutResolverStructBuilderTest extends CoreTestCase
                 'description' => '',
                 'comment' => '',
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -54,7 +54,7 @@ abstract class LayoutResolverStructBuilderTest extends CoreTestCase
                 'description' => null,
                 'comment' => null,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -69,7 +69,7 @@ abstract class LayoutResolverStructBuilderTest extends CoreTestCase
             [
                 'priority' => null,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -88,7 +88,7 @@ abstract class LayoutResolverStructBuilderTest extends CoreTestCase
                 'priority' => null,
                 'enabled' => true,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -104,7 +104,7 @@ abstract class LayoutResolverStructBuilderTest extends CoreTestCase
                 'name' => null,
                 'description' => null,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -119,7 +119,7 @@ abstract class LayoutResolverStructBuilderTest extends CoreTestCase
             [
                 'priority' => null,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -135,7 +135,7 @@ abstract class LayoutResolverStructBuilderTest extends CoreTestCase
                 'type' => 'target',
                 'value' => null,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -150,7 +150,7 @@ abstract class LayoutResolverStructBuilderTest extends CoreTestCase
             [
                 'value' => null,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -166,7 +166,7 @@ abstract class LayoutResolverStructBuilderTest extends CoreTestCase
                 'type' => 'condition',
                 'value' => null,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -181,7 +181,7 @@ abstract class LayoutResolverStructBuilderTest extends CoreTestCase
             [
                 'value' => null,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 }

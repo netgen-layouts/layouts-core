@@ -21,7 +21,7 @@ final class LayoutTypeFactory
                     'identifier' => $zoneIdentifier,
                     'name' => $zoneConfig['name'],
                     'allowedBlockDefinitions' => $zoneConfig['allowed_block_definitions'],
-                ]
+                ],
             );
         }
 
@@ -32,7 +32,7 @@ final class LayoutTypeFactory
                 'name' => $config['name'],
                 'icon' => $config['icon'],
                 'zones' => $zones,
-            ]
+            ],
         );
     }
 }

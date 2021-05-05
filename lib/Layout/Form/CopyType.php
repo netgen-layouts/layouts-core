@@ -37,7 +37,7 @@ final class CopyType extends AbstractType
                     new LayoutName(),
                 ],
                 'property_path' => 'name',
-            ]
+            ],
         );
 
         $builder->add(
@@ -51,7 +51,7 @@ final class CopyType extends AbstractType
                 ],
                 'property_path' => 'description',
                 'empty_data' => '',
-            ]
+            ],
         );
     }
 }

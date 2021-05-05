@@ -53,7 +53,7 @@ final class DesignListNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'design_list'
+            'design_list',
         );
     }
 
@@ -76,7 +76,7 @@ final class DesignListNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'design_list'
+            'design_list',
         );
     }
 
@@ -102,7 +102,7 @@ final class DesignListNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'design_list'
+            'design_list',
         );
     }
 

@@ -32,7 +32,7 @@ final class DateTimeDataMapperTest extends DataMapperTest
             [
                 'datetime' => $this->getForm('datetime'),
                 'timezone' => $this->getForm('timezone'),
-            ]
+            ],
         );
 
         $this->mapper->mapDataToForms($value, $forms);
@@ -59,7 +59,7 @@ final class DateTimeDataMapperTest extends DataMapperTest
             [
                 'datetime' => $this->getForm('datetime'),
                 'timezone' => $this->getForm('timezone'),
-            ]
+            ],
         );
 
         $this->mapper->mapDataToForms($input, $forms);
@@ -94,7 +94,7 @@ final class DateTimeDataMapperTest extends DataMapperTest
             [
                 'datetime' => $this->getForm('datetime'),
                 'timezone' => $this->getForm('timezone'),
-            ]
+            ],
         );
 
         $this->mapper->mapDataToForms(null, $forms);
@@ -118,7 +118,7 @@ final class DateTimeDataMapperTest extends DataMapperTest
             [
                 'datetime' => $this->getForm('datetime', '2018-02-01 15:00:00'),
                 'timezone' => $this->getForm('timezone', 'Antarctica/Casey'),
-            ]
+            ],
         );
 
         $this->mapper->mapFormsToData($forms, $data);
@@ -139,7 +139,7 @@ final class DateTimeDataMapperTest extends DataMapperTest
             [
                 'datetime' => $this->getForm('datetime', '2018-02-01 15:00:00'),
                 'timezone' => $this->getForm('timezone', 'Antarctica/Casey'),
-            ]
+            ],
         );
 
         $this->mapper->mapFormsToData($forms, $data);
@@ -149,7 +149,7 @@ final class DateTimeDataMapperTest extends DataMapperTest
                 'datetime' => '2018-02-01 15:00:00',
                 'timezone' => 'Antarctica/Casey',
             ],
-            $data
+            $data,
         );
     }
 
@@ -162,7 +162,7 @@ final class DateTimeDataMapperTest extends DataMapperTest
             [
                 'datetime' => $this->getForm('datetime', ''),
                 'timezone' => $this->getForm('timezone', 'Antarctica/Casey'),
-            ]
+            ],
         );
 
         $this->mapper->mapFormsToData($forms, $data);

@@ -15,8 +15,8 @@ final class ConfigDefinitionException extends InvalidArgumentException implement
         return new self(
             sprintf(
                 'Config definition with "%s" config key does not exist.',
-                $configKey
-            )
+                $configKey,
+            ),
         );
     }
 }

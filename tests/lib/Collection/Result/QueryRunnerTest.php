@@ -29,7 +29,7 @@ final class QueryRunnerTest extends TestCase
             ->expects(self::any())
             ->method('build')
             ->willReturnCallback(
-                static fn ($value): CmsItemInterface => CmsItem::fromArray(['value' => $value, 'isVisible' => true])
+                static fn ($value): CmsItemInterface => CmsItem::fromArray(['value' => $value, 'isVisible' => true]),
             );
     }
 

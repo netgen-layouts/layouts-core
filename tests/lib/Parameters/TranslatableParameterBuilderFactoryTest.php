@@ -22,7 +22,7 @@ final class TranslatableParameterBuilderFactoryTest extends TestCase
             [
                 new ParameterType\TextType(),
                 new ParameterType\Compound\BooleanType(),
-            ]
+            ],
         );
 
         $this->factory = new TranslatableParameterBuilderFactory($this->registry);
@@ -52,7 +52,7 @@ final class TranslatableParameterBuilderFactoryTest extends TestCase
             [
                 'name' => 'param',
                 'type' => ParameterType\TextType::class,
-            ]
+            ],
         );
 
         self::assertInstanceOf(TranslatableParameterBuilder::class, $parameterBuilder);
@@ -61,7 +61,7 @@ final class TranslatableParameterBuilderFactoryTest extends TestCase
 
         self::assertSame(
             $this->registry->getParameterTypeByClass(ParameterType\TextType::class),
-            $parameterBuilder->getType()
+            $parameterBuilder->getType(),
         );
     }
 
@@ -78,7 +78,7 @@ final class TranslatableParameterBuilderFactoryTest extends TestCase
                 'options' => [
                     'translatable' => false,
                 ],
-            ]
+            ],
         );
 
         self::assertInstanceOf(TranslatableParameterBuilder::class, $parameterBuilder);
@@ -87,7 +87,7 @@ final class TranslatableParameterBuilderFactoryTest extends TestCase
 
         self::assertSame(
             $this->registry->getParameterTypeByClass(ParameterType\TextType::class),
-            $parameterBuilder->getType()
+            $parameterBuilder->getType(),
         );
     }
 }

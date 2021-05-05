@@ -33,7 +33,7 @@ final class BlockDefinitionRegistry implements IteratorAggregate, Countable, Arr
     {
         $this->blockDefinitions = array_filter(
             $blockDefinitions,
-            static fn (BlockDefinitionInterface $blockDefinition): bool => true
+            static fn (BlockDefinitionInterface $blockDefinition): bool => true,
         );
     }
 

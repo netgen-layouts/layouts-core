@@ -43,7 +43,7 @@ final class ValueTypeTest extends TestCase
             null,
             [
                 'configurable' => new Block(),
-            ]
+            ],
         );
 
         self::assertSame($expected, $this->matcher->match(new FormView($form), $config));

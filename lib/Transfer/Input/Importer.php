@@ -80,7 +80,7 @@ final class Importer implements ImporterInterface
                         }
 
                         return $handler->importEntity($entityData, $keepUuid);
-                    }
+                    },
                 );
 
                 yield new SuccessResult($entityData['__type'], $entityData, $entity->getId(), $entity);

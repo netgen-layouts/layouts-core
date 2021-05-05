@@ -36,7 +36,7 @@ final class ValueTypePassTest extends AbstractContainerBuilderTestCase
                     'enabled' => true,
                     'manual_items' => true,
                 ],
-            ]
+            ],
         );
 
         $this->container->setDefinition('netgen_layouts.item.registry.value_type', new Definition(null, [[]]));
@@ -49,7 +49,7 @@ final class ValueTypePassTest extends AbstractContainerBuilderTestCase
             0,
             [
                 'test' => new Reference('netgen_layouts.item.value_type.test'),
-            ]
+            ],
         );
     }
 
@@ -66,7 +66,7 @@ final class ValueTypePassTest extends AbstractContainerBuilderTestCase
                     'enabled' => true,
                     'manual_items' => false,
                 ],
-            ]
+            ],
         );
 
         $this->container->setDefinition('netgen_layouts.item.registry.value_type', new Definition(null, [[]]));
@@ -79,7 +79,7 @@ final class ValueTypePassTest extends AbstractContainerBuilderTestCase
             0,
             [
                 'test' => new Reference('netgen_layouts.item.value_type.test'),
-            ]
+            ],
         );
     }
 
@@ -102,7 +102,7 @@ final class ValueTypePassTest extends AbstractContainerBuilderTestCase
                     'enabled' => true,
                     'manual_items' => true,
                 ],
-            ]
+            ],
         );
 
         $this->container->setDefinition('netgen_layouts.item.registry.value_type', new Definition());

@@ -31,7 +31,7 @@ final class ViewTypeTest extends TestCase
         $block = Block::fromArray(
             [
                 'viewType' => 'default',
-            ]
+            ],
         );
 
         $view = new BlockView($block);

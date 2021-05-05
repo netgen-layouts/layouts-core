@@ -32,14 +32,14 @@ final class RangeType extends ParameterType
             'max',
             static fn (Options $options, int $value): int => $value < $options['min'] ?
                     $options['min'] :
-                    $value
+                    $value,
         );
 
         $optionsResolver->setDefault(
             'default_value',
             static fn (Options $options, $previousValue) => $options['required'] === true ?
                     $options['min'] :
-                    $previousValue
+                    $previousValue,
         );
     }
 
@@ -51,7 +51,7 @@ final class RangeType extends ParameterType
                 [
                     'min' => $parameterDefinition->getOption('min'),
                     'max' => $parameterDefinition->getOption('max'),
-                ]
+                ],
             ),
         ];
     }

@@ -28,7 +28,7 @@ final class PlaceholderTest extends TestCase
             [
                 'identifier' => 'placeholder',
                 'blocks' => new ArrayCollection([$block]),
-            ]
+            ],
         );
 
         self::assertSame('placeholder', $placeholder->getIdentifier());
@@ -55,7 +55,7 @@ final class PlaceholderTest extends TestCase
         $placeholder = Placeholder::fromArray(
             [
                 'blocks' => new ArrayCollection([new Block()]),
-            ]
+            ],
         );
 
         $placeholder[1] = new Block();
@@ -72,7 +72,7 @@ final class PlaceholderTest extends TestCase
         $placeholder = Placeholder::fromArray(
             [
                 'blocks' => new ArrayCollection([new Block()]),
-            ]
+            ],
         );
 
         unset($placeholder[0]);

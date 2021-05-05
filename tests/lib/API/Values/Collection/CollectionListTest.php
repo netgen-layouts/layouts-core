@@ -25,8 +25,8 @@ final class CollectionListTest extends TestCase
             sprintf(
                 '/(must be an instance of|must be of type) %s, (instance of )?%s given/',
                 str_replace('\\', '\\\\', Collection::class),
-                stdClass::class
-            )
+                stdClass::class,
+            ),
         );
 
         new CollectionList(['one' => new Collection(), 'two' => new stdClass(), 'three' => new Collection()]);

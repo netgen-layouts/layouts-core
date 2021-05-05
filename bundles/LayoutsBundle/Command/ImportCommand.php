@@ -69,7 +69,7 @@ final class ImportCommand extends Command
 
         $errorCount = $this->importData(
             (string) file_get_contents($file),
-            $importMode
+            $importMode,
         );
 
         $errorCount > 0 ?
@@ -95,8 +95,8 @@ final class ImportCommand extends Command
                         'Skipped importing %1$s #%2$d with UUID %3$s',
                         $result->getEntityType(),
                         $index + 1,
-                        $result->getEntityId()->toString()
-                    )
+                        $result->getEntityId()->toString(),
+                    ),
                 );
 
                 continue;
@@ -108,8 +108,8 @@ final class ImportCommand extends Command
                         'Imported %1$s #%2$d into %1$s UUID %3$s',
                         $result->getEntityType(),
                         $index + 1,
-                        $result->getEntityId()->toString()
-                    )
+                        $result->getEntityId()->toString(),
+                    ),
                 );
 
                 continue;

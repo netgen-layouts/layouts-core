@@ -56,7 +56,7 @@ final class RuleTypeTest extends FormTestCase
         $options = $optionsResolver->resolve(
             [
                 'data' => $struct,
-            ]
+            ],
         );
 
         self::assertSame($struct, $options['data']);
@@ -78,7 +78,7 @@ final class RuleTypeTest extends FormTestCase
         $optionsResolver->resolve(
             [
                 'data' => '',
-            ]
+            ],
         );
     }
 

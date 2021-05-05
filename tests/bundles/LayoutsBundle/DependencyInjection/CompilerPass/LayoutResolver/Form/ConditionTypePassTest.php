@@ -44,8 +44,8 @@ final class ConditionTypePassTest extends AbstractContainerBuilderTestCase
                     [
                         'condition' => new ServiceClosureArgument(new Reference('netgen_layouts.layout.resolver.form.condition_type.mapper.test')),
                     ],
-                ]
-            )
+                ],
+            ),
         );
     }
 

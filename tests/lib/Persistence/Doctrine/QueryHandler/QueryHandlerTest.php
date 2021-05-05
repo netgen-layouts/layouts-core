@@ -24,7 +24,7 @@ final class QueryHandlerTest extends TestCase
         $this->databaseConnection = DriverManager::getConnection(
             [
                 'url' => 'sqlite://:memory:',
-            ]
+            ],
         );
 
         $this->queryHandler = $this->getMockBuilder(QueryHandler::class)

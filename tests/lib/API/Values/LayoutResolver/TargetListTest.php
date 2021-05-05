@@ -25,8 +25,8 @@ final class TargetListTest extends TestCase
             sprintf(
                 '/(must be an instance of|must be of type) %s, (instance of )?%s given/',
                 str_replace('\\', '\\\\', Target::class),
-                stdClass::class
-            )
+                stdClass::class,
+            ),
         );
 
         new TargetList([new Target(), new stdClass(), new Target()]);

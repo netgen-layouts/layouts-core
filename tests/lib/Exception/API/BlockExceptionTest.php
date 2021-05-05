@@ -18,7 +18,7 @@ final class BlockExceptionTest extends TestCase
 
         self::assertSame(
             'Placeholder with "placeholder" identifier does not exist in the block.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 
@@ -31,7 +31,7 @@ final class BlockExceptionTest extends TestCase
 
         self::assertSame(
             'Collection with "collection" identifier does not exist in the block.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 }

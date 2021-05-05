@@ -41,7 +41,7 @@ final class CmsItemBuilder implements CmsItemBuilderInterface
                     'name' => $valueConverter->getName($object),
                     'isVisible' => $valueConverter->getIsVisible($object),
                     'object' => $valueConverter->getObject($object),
-                ]
+                ],
             );
         }
 

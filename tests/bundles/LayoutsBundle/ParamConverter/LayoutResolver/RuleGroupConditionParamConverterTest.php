@@ -70,8 +70,8 @@ final class RuleGroupConditionParamConverterTest extends TestCase
                 [
                     'conditionId' => $uuid->toString(),
                     'status' => 'published',
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -96,8 +96,8 @@ final class RuleGroupConditionParamConverterTest extends TestCase
                 [
                     'conditionId' => $uuid->toString(),
                     'status' => 'draft',
-                ]
-            )
+                ],
+            ),
         );
     }
 }

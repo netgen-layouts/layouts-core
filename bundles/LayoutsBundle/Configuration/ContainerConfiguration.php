@@ -40,7 +40,7 @@ class ContainerConfiguration implements ConfigurationInterface
         }
 
         return $this->container->hasParameter(
-            ConfigurationInterface::PARAMETER_NAMESPACE . '.' . $parameterName
+            ConfigurationInterface::PARAMETER_NAMESPACE . '.' . $parameterName,
         );
     }
 
@@ -55,7 +55,7 @@ class ContainerConfiguration implements ConfigurationInterface
         }
 
         return $this->container->getParameter(
-            ConfigurationInterface::PARAMETER_NAMESPACE . '.' . $parameterName
+            ConfigurationInterface::PARAMETER_NAMESPACE . '.' . $parameterName,
         );
     }
 }

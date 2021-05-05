@@ -33,7 +33,7 @@ abstract class LayoutStructBuilderTest extends CoreTestCase
         $struct = $this->structBuilder->newLayoutCreateStruct(
             $layoutType,
             'New layout',
-            'en'
+            'en',
         );
 
         self::assertSame(
@@ -45,7 +45,7 @@ abstract class LayoutStructBuilderTest extends CoreTestCase
                 'shared' => false,
                 'mainLocale' => 'en',
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -55,7 +55,7 @@ abstract class LayoutStructBuilderTest extends CoreTestCase
     public function testNewLayoutUpdateStruct(): void
     {
         $struct = $this->structBuilder->newLayoutUpdateStruct(
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136')),
         );
 
         self::assertSame(
@@ -63,7 +63,7 @@ abstract class LayoutStructBuilderTest extends CoreTestCase
                 'name' => 'My layout',
                 'description' => 'My layout description',
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -79,7 +79,7 @@ abstract class LayoutStructBuilderTest extends CoreTestCase
                 'name' => null,
                 'description' => null,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -89,7 +89,7 @@ abstract class LayoutStructBuilderTest extends CoreTestCase
     public function testNewLayoutCopyStruct(): void
     {
         $struct = $this->structBuilder->newLayoutCopyStruct(
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136')),
         );
 
         self::assertSame(
@@ -97,7 +97,7 @@ abstract class LayoutStructBuilderTest extends CoreTestCase
                 'name' => 'My layout (copy)',
                 'description' => null,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -113,7 +113,7 @@ abstract class LayoutStructBuilderTest extends CoreTestCase
                 'name' => 'Layout (copy)',
                 'description' => null,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 }

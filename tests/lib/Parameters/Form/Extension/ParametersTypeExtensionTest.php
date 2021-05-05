@@ -50,7 +50,7 @@ final class ParametersTypeExtensionTest extends TestCase
         $this->formTypeExtension->buildView(
             $view,
             $this->createMock(FormInterface::class),
-            ['ngl_parameter_definition' => $parameterDefinition]
+            ['ngl_parameter_definition' => $parameterDefinition],
         );
 
         self::assertArrayHasKey('ngl_parameter_definition', $view->vars);
@@ -67,7 +67,7 @@ final class ParametersTypeExtensionTest extends TestCase
         $this->formTypeExtension->buildView(
             $view,
             $this->createMock(FormInterface::class),
-            []
+            [],
         );
 
         self::assertArrayNotHasKey('ngl_parameter_definition', $view->vars);
@@ -93,7 +93,7 @@ final class ParametersTypeExtensionTest extends TestCase
             [
                 'ngl_parameter_definition' => $parameterDefinition,
             ],
-            $resolvedOptions
+            $resolvedOptions,
         );
     }
 
@@ -123,7 +123,7 @@ final class ParametersTypeExtensionTest extends TestCase
         $optionsResolver->resolve(
             [
                 'ngl_parameter_definition' => 'parameter_definition',
-            ]
+            ],
         );
     }
 }

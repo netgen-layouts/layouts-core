@@ -44,7 +44,7 @@ final class LayoutTypeNormalizerTest extends TestCase
                         'allowed_block_definitions' => [],
                     ],
                 ],
-            ]
+            ],
         );
 
         self::assertSame(
@@ -65,7 +65,7 @@ final class LayoutTypeNormalizerTest extends TestCase
                     ],
                 ],
             ],
-            $this->normalizer->normalize(new Value($layoutType))
+            $this->normalizer->normalize(new Value($layoutType)),
         );
     }
 

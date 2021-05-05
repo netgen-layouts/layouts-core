@@ -29,7 +29,7 @@ final class BlockViewProviderTest extends TestCase
         $block = Block::fromArray(
             [
                 'id' => Uuid::uuid4(),
-            ]
+            ],
         );
 
         $view = $this->blockViewProvider->provideView($block);
@@ -42,7 +42,7 @@ final class BlockViewProviderTest extends TestCase
             [
                 'block' => $block,
             ],
-            $view->getParameters()
+            $view->getParameters(),
         );
     }
 

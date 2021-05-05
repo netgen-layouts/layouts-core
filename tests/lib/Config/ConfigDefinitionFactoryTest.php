@@ -40,7 +40,7 @@ final class ConfigDefinitionFactoryTest extends TestCase
 
         $configDefinition = $this->factory->buildConfigDefinition(
             'definition',
-            $this->handlerMock
+            $this->handlerMock,
         );
 
         self::assertSame('definition', $configDefinition->getConfigKey());

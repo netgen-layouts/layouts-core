@@ -46,7 +46,7 @@ final class ItemViewTypeEditType extends AbstractType
                         yield $itemViewType->getName() => $itemViewType->getIdentifier();
                     }
                 })(),
-            ]
+            ],
         );
     }
 

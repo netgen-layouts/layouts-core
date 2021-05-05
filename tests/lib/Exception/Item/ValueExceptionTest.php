@@ -18,7 +18,7 @@ final class ValueExceptionTest extends TestCase
 
         self::assertSame(
             'Value loader for "type" value type does not exist.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 
@@ -31,7 +31,7 @@ final class ValueExceptionTest extends TestCase
 
         self::assertSame(
             'Value converter for "type" type does not exist.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 }

@@ -16,8 +16,8 @@ final class TargetHandlerException extends RuntimeException implements Exception
             sprintf(
                 '%s target handler for "%s" target type does not exist.',
                 $persistenceType,
-                $targetType
-            )
+                $targetType,
+            ),
         );
     }
 }

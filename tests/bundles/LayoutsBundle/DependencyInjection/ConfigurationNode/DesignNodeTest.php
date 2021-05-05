@@ -33,7 +33,7 @@ final class DesignNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'design'
+            'design',
         );
     }
 
@@ -65,7 +65,7 @@ final class DesignNodeTest extends TestCase
         $this->assertConfigurationIsInvalid(
             $config,
             '/^Invalid type for path "netgen_layouts.design". Expected "?scalar"?, but got "?array"?.$/',
-            true
+            true,
         );
     }
 

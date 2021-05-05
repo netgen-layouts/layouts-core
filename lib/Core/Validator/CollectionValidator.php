@@ -43,7 +43,7 @@ final class CollectionValidator
                     new Constraints\GreaterThanOrEqual(['value' => 0]) :
                     new Constraints\EqualTo(['value' => 0]),
             ],
-            'offset'
+            'offset',
         );
 
         if ($collectionCreateStruct->limit !== null) {
@@ -52,7 +52,7 @@ final class CollectionValidator
                 [
                     new Constraints\GreaterThan(['value' => 0]),
                 ],
-                'limit'
+                'limit',
             );
         }
     }
@@ -72,7 +72,7 @@ final class CollectionValidator
                         new Constraints\GreaterThanOrEqual(['value' => 0]) :
                         new Constraints\EqualTo(['value' => 0]),
                 ],
-                'offset'
+                'offset',
             );
         }
 
@@ -82,7 +82,7 @@ final class CollectionValidator
                 [
                     new Constraints\GreaterThanOrEqual(['value' => 0]),
                 ],
-                'limit'
+                'limit',
             );
         }
     }
@@ -104,7 +104,7 @@ final class CollectionValidator
                 [
                     new Constraints\Type(['type' => 'scalar']),
                 ],
-                'value'
+                'value',
             );
         }
 
@@ -113,8 +113,8 @@ final class CollectionValidator
             new ConfigAwareStructConstraint(
                 [
                     'payload' => $itemCreateStruct->definition,
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -131,8 +131,8 @@ final class CollectionValidator
                 [
                     'payload' => $item->getDefinition(),
                     'allowMissingFields' => true,
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -149,10 +149,10 @@ final class CollectionValidator
                 new ParameterStruct(
                     [
                         'parameterDefinitions' => $queryCreateStruct->getQueryType(),
-                    ]
+                    ],
                 ),
             ],
-            'parameterValues'
+            'parameterValues',
         );
     }
 
@@ -169,9 +169,9 @@ final class CollectionValidator
                 new QueryUpdateStructConstraint(
                     [
                         'payload' => $query,
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
     }
 }

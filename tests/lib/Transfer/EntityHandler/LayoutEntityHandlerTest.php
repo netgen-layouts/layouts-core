@@ -38,7 +38,7 @@ final class LayoutEntityHandlerTest extends TestCase
             new LayoutTypeRegistry([]),
             new ItemDefinitionRegistry([]),
             new QueryTypeRegistry([]),
-            $this->createMock(CmsItemLoaderInterface::class)
+            $this->createMock(CmsItemLoaderInterface::class),
         );
     }
 

@@ -35,11 +35,11 @@ abstract class QueryHandler
         $query->andWhere(
             $isUuid ?
                 $query->expr()->eq($uuidColumn, ':' . $uuidParamName) :
-                $query->expr()->eq($idColumn, ':' . $idParamName)
+                $query->expr()->eq($idColumn, ':' . $idParamName),
         )->setParameter(
             $isUuid ? $uuidParamName : $idParamName,
             $id,
-            $isUuid ? Types::STRING : Types::INTEGER
+            $isUuid ? Types::STRING : Types::INTEGER,
         );
     }
 

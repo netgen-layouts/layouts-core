@@ -68,7 +68,7 @@ final class ThemePass implements CompilerPassInterface
             ],
             // Reversing the list of bundles so bundles added at end have higher priority
             // when searching for a template
-            array_reverse($bundlesMetadata)
+            array_reverse($bundlesMetadata),
         );
 
         $paths = array_merge(...array_values($paths));

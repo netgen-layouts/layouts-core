@@ -19,7 +19,7 @@ final class ParameterCollectionTraitTest extends TestCase
         $parameter = new Parameter();
 
         $parameters = ParameterCollection::fromArray(
-            ['parameters' => ['name' => $parameter]]
+            ['parameters' => ['name' => $parameter]],
         );
 
         self::assertSame($parameter, $parameters->getParameter('name'));
@@ -34,7 +34,7 @@ final class ParameterCollectionTraitTest extends TestCase
         $this->expectExceptionMessage('Parameter with "test" name does not exist.');
 
         $parameters = ParameterCollection::fromArray(
-            ['parameters' => ['name' => new Parameter()]]
+            ['parameters' => ['name' => new Parameter()]],
         );
 
         $parameters->getParameter('test');
@@ -48,12 +48,12 @@ final class ParameterCollectionTraitTest extends TestCase
         $parameter = new Parameter();
 
         $parameters = ParameterCollection::fromArray(
-            ['parameters' => ['name' => $parameter]]
+            ['parameters' => ['name' => $parameter]],
         );
 
         self::assertSame(
             ['name' => $parameter],
-            $parameters->getParameters()
+            $parameters->getParameters(),
         );
     }
 
@@ -63,7 +63,7 @@ final class ParameterCollectionTraitTest extends TestCase
     public function testHasParameter(): void
     {
         $parameters = ParameterCollection::fromArray(
-            ['parameters' => ['name' => new Parameter()]]
+            ['parameters' => ['name' => new Parameter()]],
         );
 
         self::assertFalse($parameters->hasParameter('test'));

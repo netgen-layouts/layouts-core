@@ -78,8 +78,8 @@ final class LayoutTypePass implements CompilerPassInterface
                             sprintf(
                                 'Block definition "%s" used in "%s" layout type does not exist.',
                                 $blockDefinition,
-                                $layoutType
-                            )
+                                $layoutType,
+                            ),
                         );
                     }
                 }

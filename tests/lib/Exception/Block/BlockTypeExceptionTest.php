@@ -18,7 +18,7 @@ final class BlockTypeExceptionTest extends TestCase
 
         self::assertSame(
             'Block type with "type" identifier does not exist.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 
@@ -31,7 +31,7 @@ final class BlockTypeExceptionTest extends TestCase
 
         self::assertSame(
             'Block type group with "type" identifier does not exist.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 }

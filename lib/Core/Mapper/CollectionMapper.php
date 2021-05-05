@@ -97,8 +97,8 @@ final class CollectionMapper
             'items' => new LazyCollection(
                 fn (): array => array_map(
                     fn (PersistenceItem $item): Item => $this->mapItem($item),
-                    $this->collectionHandler->loadCollectionItems($collection)
-                )
+                    $this->collectionHandler->loadCollectionItems($collection),
+                ),
             ),
             'query' => function () use ($collection, $locales): ?Query {
                 try {
@@ -112,8 +112,8 @@ final class CollectionMapper
             'slots' => new LazyCollection(
                 fn (): array => array_map(
                     fn (PersistenceSlot $slot): Slot => $this->mapSlot($slot),
-                    $this->collectionHandler->loadCollectionSlots($collection)
-                )
+                    $this->collectionHandler->loadCollectionSlots($collection),
+                ),
             ),
             'isTranslatable' => $collection->isTranslatable,
             'mainLocale' => $collection->mainLocale,
@@ -147,8 +147,8 @@ final class CollectionMapper
             'configs' => iterator_to_array(
                 $this->configMapper->mapConfig(
                     $item->config,
-                    $itemDefinition->getConfigDefinitions()
-                )
+                    $itemDefinition->getConfigDefinitions(),
+                ),
             ),
             'cmsItem' => function () use ($item, $itemDefinition): CmsItemInterface {
                 $valueType = !$itemDefinition instanceof NullItemDefinition ?
@@ -202,8 +202,8 @@ final class CollectionMapper
         $untranslatableParams = iterator_to_array(
             $this->parameterMapper->extractUntranslatableParameters(
                 $queryType,
-                $query->parameters[$query->mainLocale]
-            )
+                $query->parameters[$query->mainLocale],
+            ),
         );
 
         $queryData = [
@@ -219,8 +219,8 @@ final class CollectionMapper
             'parameters' => iterator_to_array(
                 $this->parameterMapper->mapParameters(
                     $queryType,
-                    $untranslatableParams + $query->parameters[$queryLocale]
-                )
+                    $untranslatableParams + $query->parameters[$queryLocale],
+                ),
             ),
         ];
 

@@ -33,7 +33,7 @@ final class RuleType extends AbstractType
                 ],
                 'property_path' => 'description',
                 'empty_data' => '',
-            ]
+            ],
         );
     }
 }

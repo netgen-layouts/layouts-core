@@ -55,7 +55,7 @@ final class QueryVisitor implements VisitorInterface
     {
         $parametersByLanguage = [
             $query->getLocale() => iterator_to_array(
-                $this->visitTranslationParameters($query)
+                $this->visitTranslationParameters($query),
             ),
         ];
 
@@ -67,11 +67,11 @@ final class QueryVisitor implements VisitorInterface
             $translatedQuery = $this->collectionService->loadQuery(
                 $query->getId(),
                 [$availableLocale],
-                false
+                false,
             );
 
             $parametersByLanguage[$availableLocale] = iterator_to_array(
-                $this->visitTranslationParameters($translatedQuery)
+                $this->visitTranslationParameters($translatedQuery),
             );
         }
 

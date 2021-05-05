@@ -35,7 +35,7 @@ final class LayoutTypePassTest extends AbstractContainerBuilderTestCase
                     'enabled' => true,
                     'zones' => [],
                 ],
-            ]
+            ],
         );
 
         $this->container->setDefinition('netgen_layouts.layout.registry.layout_type', new Definition(null, [[]]));
@@ -48,7 +48,7 @@ final class LayoutTypePassTest extends AbstractContainerBuilderTestCase
             0,
             [
                 'test' => new Reference('netgen_layouts.layout.layout_type.test'),
-            ]
+            ],
         );
     }
 
@@ -74,7 +74,7 @@ final class LayoutTypePassTest extends AbstractContainerBuilderTestCase
                         ],
                     ],
                 ],
-            ]
+            ],
         );
 
         $this->setDefinition('netgen_layouts.layout.registry.layout_type', new Definition());

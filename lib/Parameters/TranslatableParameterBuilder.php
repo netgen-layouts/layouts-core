@@ -33,8 +33,8 @@ final class TranslatableParameterBuilder extends ParameterBuilder
                             sprintf(
                                 'Parameter "%s" cannot be translatable, since its parent parameter "%s" is not translatable',
                                 $this->name ?? '',
-                                $this->parentBuilder->getName() ?? ''
-                            )
+                                $this->parentBuilder->getName() ?? '',
+                            ),
                         );
                     }
 
@@ -42,13 +42,13 @@ final class TranslatableParameterBuilder extends ParameterBuilder
                         sprintf(
                             'Parameter "%s" needs to be translatable, since its parent parameter "%s" is translatable',
                             $this->name ?? '',
-                            $this->parentBuilder->getName() ?? ''
-                        )
+                            $this->parentBuilder->getName() ?? '',
+                        ),
                     );
                 }
 
                 return true;
-            }
+            },
         );
     }
 }

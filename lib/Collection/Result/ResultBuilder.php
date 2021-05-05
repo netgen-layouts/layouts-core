@@ -59,7 +59,7 @@ final class ResultBuilder implements ResultBuilderInterface
                 'totalCount' => $totalCount,
                 'offset' => $offset,
                 'limit' => $limit,
-            ]
+            ],
         );
     }
 }

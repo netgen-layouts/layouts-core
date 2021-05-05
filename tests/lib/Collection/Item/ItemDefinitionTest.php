@@ -23,7 +23,7 @@ final class ItemDefinitionTest extends TestCase
             [
                 'valueType' => 'value_type',
                 'configDefinitions' => ['config' => $this->configDefinition],
-            ]
+            ],
         );
     }
 
@@ -42,7 +42,7 @@ final class ItemDefinitionTest extends TestCase
     {
         self::assertSame(
             $this->configDefinition,
-            $this->itemDefinition->getConfigDefinition('config')
+            $this->itemDefinition->getConfigDefinition('config'),
         );
     }
 
@@ -80,7 +80,7 @@ final class ItemDefinitionTest extends TestCase
     {
         self::assertSame(
             ['config' => $this->configDefinition],
-            $this->itemDefinition->getConfigDefinitions()
+            $this->itemDefinition->getConfigDefinitions(),
         );
     }
 }

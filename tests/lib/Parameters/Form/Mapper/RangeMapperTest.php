@@ -37,7 +37,7 @@ final class RangeMapperTest extends TestCase
                 'name' => 'name',
                 'type' => new RangeParameterType(),
                 'options' => ['min' => 3, 'max' => 5],
-            ]
+            ],
         );
 
         self::assertSame(
@@ -47,7 +47,7 @@ final class RangeMapperTest extends TestCase
                     'max' => 5,
                 ],
             ],
-            $this->mapper->mapOptions($parameterDefinition)
+            $this->mapper->mapOptions($parameterDefinition),
         );
     }
 }

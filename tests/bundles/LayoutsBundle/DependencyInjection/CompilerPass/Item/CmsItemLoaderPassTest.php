@@ -29,7 +29,7 @@ final class CmsItemLoaderPassTest extends AbstractContainerBuilderTestCase
     {
         $this->setDefinition(
             'netgen_layouts.item.item_loader',
-            new Definition(null, [[]])
+            new Definition(null, [[]]),
         );
 
         $valueLoader = new Definition();
@@ -47,8 +47,8 @@ final class CmsItemLoaderPassTest extends AbstractContainerBuilderTestCase
                     [
                         'test' => new ServiceClosureArgument(new Reference('netgen_layouts.item.value_loader.test')),
                     ],
-                ]
-            )
+                ],
+            ),
         );
     }
 

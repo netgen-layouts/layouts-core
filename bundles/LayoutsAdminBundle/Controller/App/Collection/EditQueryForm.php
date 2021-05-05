@@ -40,9 +40,9 @@ final class EditQueryForm extends AbstractController
                     [
                         'queryId' => $query->getId()->toString(),
                         'locale' => $locale,
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $form->handleRequest($request);
@@ -65,7 +65,7 @@ final class EditQueryForm extends AbstractController
             $form,
             ViewInterface::CONTEXT_APP,
             [],
-            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
+            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY),
         );
     }
 }

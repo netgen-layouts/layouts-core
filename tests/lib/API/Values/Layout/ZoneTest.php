@@ -27,7 +27,7 @@ final class ZoneTest extends TestCase
                 'identifier' => 'left',
                 'layoutId' => $layoutUuid,
                 'linkedZone' => $linkedZone,
-            ]
+            ],
         );
 
         self::assertSame('left', $zone->getIdentifier());

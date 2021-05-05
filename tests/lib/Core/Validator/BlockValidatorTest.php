@@ -91,9 +91,9 @@ final class BlockValidatorTest extends TestCase
                     'viewType' => 'large',
                     'mainLocale' => 'en',
                     'definition' => $this->getBlockDefinition(false),
-                ]
+                ],
             ),
-            $blockUpdateStruct
+            $blockUpdateStruct,
         );
     }
 
@@ -733,10 +733,10 @@ final class BlockValidatorTest extends TestCase
                             'itemViewTypes' => [
                                 'standard' => new ItemViewType(),
                             ],
-                        ]
+                        ],
                     ),
                 ],
-            ]
+            ],
         );
     }
 
@@ -753,10 +753,10 @@ final class BlockValidatorTest extends TestCase
                             'itemViewTypes' => [
                                 'standard' => new ItemViewType(),
                             ],
-                        ]
+                        ],
                     ),
                 ],
-            ]
+            ],
         );
     }
 }

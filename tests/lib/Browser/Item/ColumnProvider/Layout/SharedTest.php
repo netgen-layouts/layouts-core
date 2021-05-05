@@ -28,13 +28,13 @@ final class SharedTest extends TestCase
             Layout::fromArray(
                 [
                     'shared' => true,
-                ]
-            )
+                ],
+            ),
         );
 
         self::assertSame(
             'Yes',
-            $this->provider->getValue($item)
+            $this->provider->getValue($item),
         );
     }
 

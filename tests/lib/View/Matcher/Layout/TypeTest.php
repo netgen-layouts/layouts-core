@@ -34,7 +34,7 @@ final class TypeTest extends TestCase
         $layout = Layout::fromArray(
             [
                 'layoutType' => LayoutType::fromArray(['identifier' => '4_zones_a']),
-            ]
+            ],
         );
 
         $view = new LayoutView($layout);
@@ -50,7 +50,7 @@ final class TypeTest extends TestCase
         $layout = Layout::fromArray(
             [
                 'layoutType' => new NullLayoutType('type'),
-            ]
+            ],
         );
 
         $view = new LayoutView($layout);
@@ -66,7 +66,7 @@ final class TypeTest extends TestCase
         $layout = Layout::fromArray(
             [
                 'layoutType' => new NullLayoutType('type'),
-            ]
+            ],
         );
 
         $view = new LayoutView($layout);

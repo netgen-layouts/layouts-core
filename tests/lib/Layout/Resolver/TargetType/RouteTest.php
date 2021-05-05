@@ -50,7 +50,7 @@ final class RouteTest extends TestCase
 
         self::assertSame(
             'my_cool_route',
-            $this->targetType->provideValue($request)
+            $this->targetType->provideValue($request),
         );
     }
 

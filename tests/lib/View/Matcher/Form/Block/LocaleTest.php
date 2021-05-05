@@ -43,9 +43,9 @@ final class LocaleTest extends TestCase
                 'block' => Block::fromArray(
                     [
                         'locale' => 'en',
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         self::assertSame($expected, $this->matcher->match(new FormView($form), $config));

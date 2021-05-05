@@ -31,7 +31,7 @@ final class ViewTypeTest extends TestCase
                     'standard_with_intro' => $this->itemViewType2,
                 ],
                 'validParameters' => ['param1', 'param2'],
-            ]
+            ],
         );
     }
 
@@ -61,7 +61,7 @@ final class ViewTypeTest extends TestCase
                 'standard' => $this->itemViewType1,
                 'standard_with_intro' => $this->itemViewType2,
             ],
-            $this->viewType->getItemViewTypes()
+            $this->viewType->getItemViewTypes(),
         );
     }
 
@@ -72,7 +72,7 @@ final class ViewTypeTest extends TestCase
     {
         self::assertSame(
             ['standard', 'standard_with_intro'],
-            $this->viewType->getItemViewTypeIdentifiers()
+            $this->viewType->getItemViewTypeIdentifiers(),
         );
     }
 
@@ -92,7 +92,7 @@ final class ViewTypeTest extends TestCase
     {
         self::assertSame(
             $this->itemViewType1,
-            $this->viewType->getItemViewType('standard')
+            $this->viewType->getItemViewType('standard'),
         );
     }
 
@@ -114,7 +114,7 @@ final class ViewTypeTest extends TestCase
     {
         self::assertSame(
             ['param1', 'param2'],
-            $this->viewType->getValidParameters()
+            $this->viewType->getValidParameters(),
         );
     }
 }

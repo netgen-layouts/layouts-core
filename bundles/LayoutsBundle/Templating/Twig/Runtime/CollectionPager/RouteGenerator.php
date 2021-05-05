@@ -41,7 +41,7 @@ final class RouteGenerator
         ];
 
         $signedUri = $this->uriSigner->sign(
-            $this->urlGenerator->generate('nglayouts_ajax_block', $routeParams)
+            $this->urlGenerator->generate('nglayouts_ajax_block', $routeParams),
         );
 
         if ($page > 1) {

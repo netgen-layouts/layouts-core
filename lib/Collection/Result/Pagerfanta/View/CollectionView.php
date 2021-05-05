@@ -46,15 +46,15 @@ final class CollectionView implements ViewInterface
                 'options',
                 sprintf(
                     'To render the collection view, "block" option must be an instance of %s',
-                    Block::class
-                )
+                    Block::class,
+                ),
             );
         }
 
         if (!is_string($options['collection_identifier'] ?? null)) {
             throw new InvalidArgumentException(
                 'options',
-                'To render the collection view, "collection_identifier" option must be a string'
+                'To render the collection view, "collection_identifier" option must be a string',
             );
         }
 
@@ -62,7 +62,7 @@ final class CollectionView implements ViewInterface
             $pagerTemplate,
             [
                 'pager' => $pagerfanta,
-            ] + $options
+            ] + $options,
         );
     }
 }

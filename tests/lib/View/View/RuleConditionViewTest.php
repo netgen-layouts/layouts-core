@@ -37,7 +37,7 @@ final class RuleConditionViewTest extends TestCase
                 'condition' => $this->condition,
                 'param' => 'value',
             ],
-            $this->view->getParameters()
+            $this->view->getParameters(),
         );
     }
 

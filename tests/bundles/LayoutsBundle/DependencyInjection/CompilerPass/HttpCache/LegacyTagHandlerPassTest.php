@@ -32,7 +32,7 @@ final class LegacyTagHandlerPassTest extends AbstractContainerBuilderTestCase
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_layouts.http_cache.tagger',
             0,
-            new Reference('fos_http_cache.handler.tag_handler')
+            new Reference('fos_http_cache.handler.tag_handler'),
         );
     }
 
@@ -59,7 +59,7 @@ final class LegacyTagHandlerPassTest extends AbstractContainerBuilderTestCase
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_layouts.http_cache.tagger',
-            0
+            0,
         );
     }
 

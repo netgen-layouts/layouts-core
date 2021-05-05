@@ -37,7 +37,7 @@ final class ResultBuilderAdapterTest extends TestCase
                 self::identicalTo($collection),
                 self::identicalTo(0),
                 self::identicalTo(0),
-                self::identicalTo(0)
+                self::identicalTo(0),
             )
             ->willReturn(ResultSet::fromArray(['totalCount' => 3]));
 
@@ -60,7 +60,7 @@ final class ResultBuilderAdapterTest extends TestCase
                 self::identicalTo($collection),
                 self::identicalTo(0),
                 self::identicalTo(0),
-                self::identicalTo(0)
+                self::identicalTo(0),
             )
             ->willReturn(ResultSet::fromArray(['totalCount' => 50]));
 
@@ -82,7 +82,7 @@ final class ResultBuilderAdapterTest extends TestCase
                 self::identicalTo($collection),
                 self::identicalTo(0),
                 self::identicalTo(0),
-                self::identicalTo(0)
+                self::identicalTo(0),
             )
             ->willReturn(ResultSet::fromArray(['totalCount' => 6]));
 
@@ -104,7 +104,7 @@ final class ResultBuilderAdapterTest extends TestCase
                 self::identicalTo($collection),
                 self::identicalTo(0),
                 self::identicalTo(0),
-                self::identicalTo(0)
+                self::identicalTo(0),
             )
             ->willReturn(ResultSet::fromArray(['totalCount' => 10]));
 
@@ -128,7 +128,7 @@ final class ResultBuilderAdapterTest extends TestCase
                 self::identicalTo($collection),
                 self::identicalTo(0),
                 self::identicalTo(10),
-                self::identicalTo(0)
+                self::identicalTo(0),
             )
             ->willReturn($resultSet);
 
@@ -152,7 +152,7 @@ final class ResultBuilderAdapterTest extends TestCase
                 self::identicalTo($collection),
                 self::identicalTo(3),
                 self::identicalTo(10),
-                self::identicalTo(0)
+                self::identicalTo(0),
             )
             ->willReturn($resultSet);
 

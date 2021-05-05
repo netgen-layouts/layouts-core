@@ -28,7 +28,7 @@ final class RuleEntityHandlerTest extends TestCase
         $this->entityHandler = new RuleEntityHandler(
             $this->layoutResolverServiceMock,
             new TargetTypeRegistry([]),
-            new ConditionTypeRegistry([])
+            new ConditionTypeRegistry([]),
         );
     }
 

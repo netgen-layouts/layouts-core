@@ -35,7 +35,7 @@ final class ParametersType extends AbstractType
                 'groups',
                 'parameter_definitions',
                 'label_prefix',
-            ]
+            ],
         );
 
         $resolver->setAllowedTypes('data', ParameterStruct::class);
@@ -72,8 +72,8 @@ final class ParametersType extends AbstractType
                 $parameterName,
                 $mapper->getFormType(),
                 $mapper->mapOptions(
-                    $parameterDefinition
-                ) + $defaultOptions
+                    $parameterDefinition,
+                ) + $defaultOptions,
             );
 
             $mapper->handleForm($parameterForm, $parameterDefinition);
@@ -83,7 +83,7 @@ final class ParametersType extends AbstractType
                     $parameterForm,
                     [
                         'parameter_definitions' => $parameterDefinition,
-                    ] + $options
+                    ] + $options,
                 );
             }
 

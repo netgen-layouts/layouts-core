@@ -35,7 +35,7 @@ final class TwigExtensionsListenerTest extends TestCase
                 VersionExtension::class,
                 stdClass::class,
                 'NonExistent',
-            ]
+            ],
         );
     }
 
@@ -47,7 +47,7 @@ final class TwigExtensionsListenerTest extends TestCase
     {
         self::assertSame(
             [KernelEvents::REQUEST => 'onKernelRequest'],
-            $this->listener::getSubscribedEvents()
+            $this->listener::getSubscribedEvents(),
         );
     }
 
@@ -63,7 +63,7 @@ final class TwigExtensionsListenerTest extends TestCase
             ->method('hasExtension')
             ->withConsecutive(
                 [self::identicalTo(CoreExtension::class)],
-                [self::identicalTo(VersionExtension::class)]
+                [self::identicalTo(VersionExtension::class)],
             )
             ->willReturnOnConsecutiveCalls(true, false);
 

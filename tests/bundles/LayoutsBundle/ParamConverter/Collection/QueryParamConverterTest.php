@@ -70,8 +70,8 @@ final class QueryParamConverterTest extends TestCase
                 [
                     'queryId' => $uuid->toString(),
                     'status' => 'published',
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -96,8 +96,8 @@ final class QueryParamConverterTest extends TestCase
                 [
                     'queryId' => $uuid->toString(),
                     'status' => 'draft',
-                ]
-            )
+                ],
+            ),
         );
     }
 }

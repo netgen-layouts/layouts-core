@@ -41,7 +41,7 @@ final class AppNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'app.javascripts'
+            'app.javascripts',
         );
     }
 
@@ -65,7 +65,7 @@ final class AppNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'app.javascripts'
+            'app.javascripts',
         );
     }
 
@@ -145,7 +145,7 @@ final class AppNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'app.stylesheets'
+            'app.stylesheets',
         );
     }
 
@@ -169,7 +169,7 @@ final class AppNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'app.stylesheets'
+            'app.stylesheets',
         );
     }
 

@@ -39,12 +39,12 @@ final class EditTypeTest extends FormTestCase
                             'definition' => ConfigDefinition::fromArray(
                                 [
                                     'parameterDefinitions' => $handler->getParameterDefinitions(),
-                                ]
+                                ],
                             ),
-                        ]
+                        ],
                     ),
                 ],
-            ]
+            ],
         );
     }
 
@@ -71,7 +71,7 @@ final class EditTypeTest extends FormTestCase
             [
                 'configurable' => $this->configurable,
                 'label_prefix' => 'config.configurable',
-            ]
+            ],
         );
 
         $form->submit($submittedData);
@@ -114,7 +114,7 @@ final class EditTypeTest extends FormTestCase
                 'configurable' => $this->configurable,
                 'config_key' => 'test',
                 'label_prefix' => 'config.configurable',
-            ]
+            ],
         );
 
         $form->submit($submittedData);
@@ -155,7 +155,7 @@ final class EditTypeTest extends FormTestCase
                 'configurable' => $this->configurable,
                 'config_key' => 'unknown',
                 'label_prefix' => 'config.configurable',
-            ]
+            ],
         );
 
         $form->submit($submittedData);
@@ -191,7 +191,7 @@ final class EditTypeTest extends FormTestCase
                 'configurable' => $this->configurable,
                 'label_prefix' => 'config.configurable',
                 'data' => $struct,
-            ]
+            ],
         );
 
         self::assertSame($this->configurable, $options['configurable']);
@@ -214,7 +214,7 @@ final class EditTypeTest extends FormTestCase
         $optionsResolver->resolve(
             [
                 'label_prefix' => 'config.configurable',
-            ]
+            ],
         );
     }
 
@@ -235,7 +235,7 @@ final class EditTypeTest extends FormTestCase
             [
                 'configurable' => '',
                 'label_prefix' => 'config.configurable',
-            ]
+            ],
         );
     }
 
@@ -255,7 +255,7 @@ final class EditTypeTest extends FormTestCase
         $optionsResolver->resolve(
             [
                 'configurable' => $this->configurable,
-            ]
+            ],
         );
     }
 
@@ -276,7 +276,7 @@ final class EditTypeTest extends FormTestCase
             [
                 'configurable' => $this->configurable,
                 'label_prefix' => 42,
-            ]
+            ],
         );
     }
 
@@ -298,7 +298,7 @@ final class EditTypeTest extends FormTestCase
                 'configurable' => $this->configurable,
                 'label_prefix' => 'config.configurable',
                 'data' => '',
-            ]
+            ],
         );
     }
 

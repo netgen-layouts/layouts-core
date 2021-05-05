@@ -41,7 +41,7 @@ final class CopyToZone extends AbstractController
             [
                 'block_definition' => $block->getDefinition(),
                 'layout' => $block->getLayoutId()->toString(),
-            ]
+            ],
         );
 
         $requestData = $request->attributes->get('data');
@@ -57,7 +57,7 @@ final class CopyToZone extends AbstractController
         $copiedBlock = $this->blockService->copyBlockToZone(
             $block,
             $layout->getZone($zoneIdentifier),
-            $requestData->get('parent_position')
+            $requestData->get('parent_position'),
         );
 
         return new View($copiedBlock, Response::HTTP_CREATED);
@@ -76,7 +76,7 @@ final class CopyToZone extends AbstractController
                 new Constraints\NotBlank(),
                 new Constraints\Uuid(),
             ],
-            'layout_id'
+            'layout_id',
         );
 
         $this->validate(
@@ -85,7 +85,7 @@ final class CopyToZone extends AbstractController
                 new Constraints\NotBlank(),
                 new Constraints\Type(['type' => 'string']),
             ],
-            'zone_identifier'
+            'zone_identifier',
         );
 
         $this->validate(
@@ -93,7 +93,7 @@ final class CopyToZone extends AbstractController
             [
                 new Constraints\Type(['type' => 'int']),
             ],
-            'parent_position'
+            'parent_position',
         );
     }
 }

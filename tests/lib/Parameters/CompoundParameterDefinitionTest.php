@@ -24,7 +24,7 @@ final class CompoundParameterDefinitionTest extends TestCase
             [
                 'isRequired' => false,
                 'parameterDefinitions' => ['name' => $innerDefinition],
-            ]
+            ],
         );
 
         self::assertSame(['name' => $innerDefinition], $parameterDefinition->getParameterDefinitions());

@@ -46,7 +46,7 @@ final class SlotViewTypeEditType extends AbstractType
                         yield $itemViewType->getName() => $itemViewType->getIdentifier();
                     }
                 })(),
-            ]
+            ],
         );
     }
 

@@ -36,21 +36,21 @@ final class Copy extends AbstractController
             [
                 'block_definition' => $block->getDefinition(),
                 'layout' => $block->getLayoutId()->toString(),
-            ]
+            ],
         );
 
         $requestData = $request->attributes->get('data');
         $this->validateRequestData($requestData);
 
         $targetBlock = $this->blockService->loadBlockDraft(
-            Uuid::fromString($requestData->get('parent_block_id'))
+            Uuid::fromString($requestData->get('parent_block_id')),
         );
 
         $copiedBlock = $this->blockService->copyBlock(
             $block,
             $targetBlock,
             $requestData->get('parent_placeholder'),
-            $requestData->get('parent_position')
+            $requestData->get('parent_position'),
         );
 
         return new View($copiedBlock, Response::HTTP_CREATED);
@@ -69,7 +69,7 @@ final class Copy extends AbstractController
                 new Constraints\NotBlank(),
                 new Constraints\Uuid(),
             ],
-            'parent_block_id'
+            'parent_block_id',
         );
 
         $this->validate(
@@ -78,7 +78,7 @@ final class Copy extends AbstractController
                 new Constraints\NotBlank(),
                 new Constraints\Type(['type' => 'string']),
             ],
-            'parent_placeholder'
+            'parent_placeholder',
         );
 
         $this->validate(
@@ -86,7 +86,7 @@ final class Copy extends AbstractController
             [
                 new Constraints\Type(['type' => 'int']),
             ],
-            'parent_position'
+            'parent_position',
         );
     }
 }

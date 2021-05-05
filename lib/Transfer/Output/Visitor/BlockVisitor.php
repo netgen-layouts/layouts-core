@@ -73,7 +73,7 @@ final class BlockVisitor implements VisitorInterface
     {
         $parametersByLanguage = [
             $block->getLocale() => iterator_to_array(
-                $this->visitTranslationParameters($block)
+                $this->visitTranslationParameters($block),
             ),
         ];
 
@@ -85,11 +85,11 @@ final class BlockVisitor implements VisitorInterface
             $translatedBlock = $this->blockService->loadBlock(
                 $block->getId(),
                 [$availableLocale],
-                false
+                false,
             );
 
             $parametersByLanguage[$availableLocale] = iterator_to_array(
-                $this->visitTranslationParameters($translatedBlock)
+                $this->visitTranslationParameters($translatedBlock),
             );
         }
 

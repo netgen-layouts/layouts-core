@@ -52,9 +52,9 @@ final class LinkValidator extends ConstraintValidator
                             LinkValue::LINK_TYPE_INTERNAL,
                         ],
                         'strict' => true,
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $linkConstraints = [];
@@ -76,7 +76,7 @@ final class LinkValidator extends ConstraintValidator
                     [
                         'valueTypes' => $constraint->valueTypes,
                         'allowInvalid' => $constraint->allowInvalidInternal,
-                    ]
+                    ],
                 );
             }
         }
@@ -87,7 +87,7 @@ final class LinkValidator extends ConstraintValidator
             $value->getLinkSuffix(),
             [
                 new Constraints\Type(['type' => 'string']),
-            ]
+            ],
         );
 
         $validator->atPath('newWindow')->validate(
@@ -95,7 +95,7 @@ final class LinkValidator extends ConstraintValidator
             [
                 new Constraints\NotNull(),
                 new Constraints\Type(['type' => 'bool']),
-            ]
+            ],
         );
     }
 }

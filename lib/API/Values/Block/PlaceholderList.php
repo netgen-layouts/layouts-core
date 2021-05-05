@@ -22,8 +22,8 @@ final class PlaceholderList extends ArrayCollection
         parent::__construct(
             array_filter(
                 $placeholders,
-                static fn (Placeholder $placeholder): bool => true
-            )
+                static fn (Placeholder $placeholder): bool => true,
+            ),
         );
     }
 
@@ -43,8 +43,8 @@ final class PlaceholderList extends ArrayCollection
         return array_values(
             array_map(
                 static fn (Placeholder $placeholder): string => $placeholder->getIdentifier(),
-                $this->getPlaceholders()
-            )
+                $this->getPlaceholders(),
+            ),
         );
     }
 }

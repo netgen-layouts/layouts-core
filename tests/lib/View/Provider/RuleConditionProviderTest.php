@@ -38,7 +38,7 @@ final class RuleConditionProviderTest extends TestCase
             [
                 'condition' => $condition,
             ],
-            $view->getParameters()
+            $view->getParameters(),
         );
     }
 

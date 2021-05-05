@@ -28,7 +28,7 @@ final class Index extends AbstractController
             '@NetgenLayoutsAdmin/admin/layouts/index.html.twig',
             [
                 'layouts' => $this->layoutService->loadLayouts(true),
-            ]
+            ],
         );
     }
 }

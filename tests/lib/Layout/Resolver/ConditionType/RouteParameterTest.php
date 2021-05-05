@@ -54,7 +54,7 @@ final class RouteParameterTest extends TestCase
             '_route_params',
             [
                 'the_answer' => 42,
-            ]
+            ],
         );
 
         self::assertSame($matches, $this->conditionType->matches($request, $value));

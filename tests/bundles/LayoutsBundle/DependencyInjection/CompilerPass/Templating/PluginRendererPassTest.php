@@ -52,7 +52,7 @@ final class PluginRendererPassTest extends AbstractContainerBuilderTestCase
                     new Reference('netgen_layouts.templating.plugin.test3'),
                     new Reference('netgen_layouts.templating.plugin.test2'),
                 ],
-            ]
+            ],
         );
     }
 

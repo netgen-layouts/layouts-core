@@ -29,7 +29,7 @@ final class RouteParameter extends ConditionType
                             [
                                 new Constraints\NotBlank(),
                                 new Constraints\Type(['type' => 'string']),
-                            ]
+                            ],
                         ),
                         'parameter_values' => new Constraints\Required(
                             [
@@ -39,12 +39,12 @@ final class RouteParameter extends ConditionType
                                         'constraints' => [
                                             new Constraints\Type(['type' => 'scalar']),
                                         ],
-                                    ]
+                                    ],
                                 ),
-                            ]
+                            ],
                         ),
                     ],
-                ]
+                ],
             ),
         ];
     }
@@ -67,7 +67,7 @@ final class RouteParameter extends ConditionType
         return count($value['parameter_values']) === 0 || in_array(
             $routeParameters[$value['parameter_name']],
             $value['parameter_values'],
-            true
+            true,
         );
     }
 }

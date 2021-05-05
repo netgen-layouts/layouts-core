@@ -57,7 +57,7 @@ final class Copy extends AbstractController
                 new Constraints\NotBlank(),
                 new Constraints\Type(['type' => 'string']),
             ],
-            'name'
+            'name',
         );
 
         $this->validate(
@@ -65,7 +65,7 @@ final class Copy extends AbstractController
             [
                 new Constraints\Type(['type' => 'string']),
             ],
-            'description'
+            'description',
         );
     }
 }

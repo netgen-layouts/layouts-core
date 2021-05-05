@@ -52,7 +52,7 @@ final class CreateType extends AbstractType
                     new Constraints\NotBlank(),
                 ],
                 'property_path' => 'layoutType',
-            ]
+            ],
         );
 
         $builder->add(
@@ -66,7 +66,7 @@ final class CreateType extends AbstractType
                     new LayoutName(),
                 ],
                 'property_path' => 'name',
-            ]
+            ],
         );
 
         $builder->add(
@@ -79,7 +79,7 @@ final class CreateType extends AbstractType
                     new Constraints\Type(['type' => 'string']),
                 ],
                 'property_path' => 'description',
-            ]
+            ],
         );
 
         $builder->add(
@@ -91,7 +91,7 @@ final class CreateType extends AbstractType
                     new Constraints\NotNull(),
                 ],
                 'property_path' => 'shared',
-            ]
+            ],
         );
     }
 

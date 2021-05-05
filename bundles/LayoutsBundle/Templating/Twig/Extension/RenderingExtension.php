@@ -25,7 +25,7 @@ final class RenderingExtension extends AbstractExtension
                 [
                     'needs_context' => true,
                     'is_safe' => ['html'],
-                ]
+                ],
             ),
             new TwigFunction(
                 'nglayouts_render_result',
@@ -33,7 +33,7 @@ final class RenderingExtension extends AbstractExtension
                 [
                     'needs_context' => true,
                     'is_safe' => ['html'],
-                ]
+                ],
             ),
             new TwigFunction(
                 'nglayouts_render_layout',
@@ -41,7 +41,7 @@ final class RenderingExtension extends AbstractExtension
                 [
                     'needs_context' => true,
                     'is_safe' => ['html'],
-                ]
+                ],
             ),
             new TwigFunction(
                 'nglayouts_render_parameter',
@@ -49,7 +49,7 @@ final class RenderingExtension extends AbstractExtension
                 [
                     'needs_context' => true,
                     'is_safe' => ['html'],
-                ]
+                ],
             ),
             new TwigFunction(
                 'nglayouts_render_block',
@@ -57,7 +57,7 @@ final class RenderingExtension extends AbstractExtension
                 [
                     'needs_context' => true,
                     'is_safe' => ['html'],
-                ]
+                ],
             ),
             new TwigFunction(
                 'nglayouts_render_placeholder',
@@ -65,7 +65,7 @@ final class RenderingExtension extends AbstractExtension
                 [
                     'needs_context' => true,
                     'is_safe' => ['html'],
-                ]
+                ],
             ),
             new TwigFunction(
                 'nglayouts_render_rule',
@@ -73,7 +73,7 @@ final class RenderingExtension extends AbstractExtension
                 [
                     'needs_context' => true,
                     'is_safe' => ['html'],
-                ]
+                ],
             ),
             new TwigFunction(
                 'nglayouts_render_rule_target',
@@ -81,7 +81,7 @@ final class RenderingExtension extends AbstractExtension
                 [
                     'needs_context' => true,
                     'is_safe' => ['html'],
-                ]
+                ],
             ),
             new TwigFunction(
                 'nglayouts_render_rule_condition',
@@ -89,7 +89,7 @@ final class RenderingExtension extends AbstractExtension
                 [
                     'needs_context' => true,
                     'is_safe' => ['html'],
-                ]
+                ],
             ),
             new TwigFunction(
                 'nglayouts_render_value',
@@ -97,14 +97,14 @@ final class RenderingExtension extends AbstractExtension
                 [
                     'needs_context' => true,
                     'is_safe' => ['html'],
-                ]
+                ],
             ),
             new TwigFunction(
                 'nglayouts_render_template',
                 [RenderingRuntime::class, 'renderStringTemplate'],
                 [
                     'is_safe' => ['html'],
-                ]
+                ],
             ),
         ];
     }

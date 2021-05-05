@@ -28,7 +28,7 @@ final class Delete extends AbstractController
             [
                 'block_definition' => $block->getDefinition(),
                 'layout' => $block->getLayoutId()->toString(),
-            ]
+            ],
         );
 
         $this->blockService->deleteBlock($block);

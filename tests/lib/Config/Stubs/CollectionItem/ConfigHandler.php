@@ -22,14 +22,14 @@ final class ConfigHandler implements ConfigDefinitionHandlerInterface
                     'name' => 'param1',
                     'type' => new ParameterType\BooleanType(),
                     'isRequired' => false,
-                ]
+                ],
             ),
             'param2' => ParameterDefinition::fromArray(
                 [
                     'name' => 'param2',
                     'type' => new ParameterType\IntegerType(),
                     'isRequired' => false,
-                ]
+                ],
             ),
         ];
     }

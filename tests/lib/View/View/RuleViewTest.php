@@ -37,7 +37,7 @@ final class RuleViewTest extends TestCase
                 'rule' => $this->rule,
                 'param' => 'value',
             ],
-            $this->view->getParameters()
+            $this->view->getParameters(),
         );
     }
 

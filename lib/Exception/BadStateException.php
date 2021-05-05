@@ -19,10 +19,10 @@ final class BadStateException extends BaseException implements Exception
             sprintf(
                 'Argument "%s" has an invalid state. %s',
                 $argument,
-                $whatIsWrong
+                $whatIsWrong,
             ),
             0,
-            $previous
+            $previous,
         );
     }
 }

@@ -24,7 +24,7 @@ class Renderer implements RendererInterface
     public function renderValue($value, string $context = ViewInterface::CONTEXT_DEFAULT, array $parameters = []): string
     {
         return $this->viewRenderer->renderView(
-            $this->viewBuilder->buildView($value, $context, $parameters)
+            $this->viewBuilder->buildView($value, $context, $parameters),
         );
     }
 }

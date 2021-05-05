@@ -25,8 +25,8 @@ final class ItemListTest extends TestCase
             sprintf(
                 '/(must be an instance of|must be of type) %s, (instance of )?%s given/',
                 str_replace('\\', '\\\\', Item::class),
-                stdClass::class
-            )
+                stdClass::class,
+            ),
         );
 
         new ItemList([new Item(), new stdClass(), new Item()]);

@@ -31,7 +31,7 @@ final class ItemLinkTypeTest extends TestCase
                 'default' => ValueType::fromArray(['isEnabled' => true, 'supportsManualItems' => true]),
                 'no_manual' => ValueType::fromArray(['isEnabled' => true, 'supportsManualItems' => false]),
                 'disabled' => ValueType::fromArray(['isEnabled' => false, 'supportsManualItems' => true]),
-            ]
+            ],
         );
 
         $this->cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
@@ -44,8 +44,8 @@ final class ItemLinkTypeTest extends TestCase
                     [
                         'value' => 42,
                         'remoteId' => 'abc',
-                    ]
-                )
+                    ],
+                ),
             );
 
         $this->cmsItemLoaderMock
@@ -57,8 +57,8 @@ final class ItemLinkTypeTest extends TestCase
                     [
                         'value' => 42,
                         'remoteId' => 'abc',
-                    ]
-                )
+                    ],
+                ),
             );
 
         $this->type = new ItemLinkType($this->valueTypeRegistry, new RemoteIdConverter($this->cmsItemLoaderMock));

@@ -19,7 +19,7 @@ final class ValueTypeTest extends TestCase
                 'isEnabled' => false,
                 'name' => 'Value type',
                 'supportsManualItems' => true,
-            ]
+            ],
         );
     }
 

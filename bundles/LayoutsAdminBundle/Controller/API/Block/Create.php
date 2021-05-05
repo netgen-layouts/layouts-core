@@ -59,7 +59,7 @@ final class Create extends AbstractController
             [
                 'block_definition' => $blockType->getDefinition(),
                 'layout' => $block->getLayoutId()->toString(),
-            ]
+            ],
         );
 
         $blockCreateStruct = $this->createStructBuilder->buildCreateStruct($blockType);
@@ -68,7 +68,7 @@ final class Create extends AbstractController
             $blockCreateStruct,
             $block,
             $requestData->get('parent_placeholder'),
-            $requestData->get('parent_position')
+            $requestData->get('parent_position'),
         );
 
         return new View($createdBlock, Response::HTTP_CREATED);
@@ -87,7 +87,7 @@ final class Create extends AbstractController
                 new Constraints\NotBlank(),
                 new Constraints\Type(['type' => 'string']),
             ],
-            'block_type'
+            'block_type',
         );
 
         $this->validate(
@@ -96,7 +96,7 @@ final class Create extends AbstractController
                 new Constraints\NotBlank(),
                 new Constraints\Type(['type' => 'string']),
             ],
-            'parent_placeholder'
+            'parent_placeholder',
         );
 
         $this->validate(
@@ -104,7 +104,7 @@ final class Create extends AbstractController
             [
                 new Constraints\Type(['type' => 'int']),
             ],
-            'parent_position'
+            'parent_position',
         );
     }
 }

@@ -43,7 +43,7 @@ final class RequestUriPrefixTest extends FormTestCase
         $form = $this->factory->create(
             TargetType::class,
             $struct,
-            ['target_type' => $this->targetType]
+            ['target_type' => $this->targetType],
         );
 
         $valueFormConfig = $form->get('value')->getConfig();
@@ -68,8 +68,8 @@ final class RequestUriPrefixTest extends FormTestCase
             new Container(
                 [
                     'request_uri_prefix' => new RequestUriPrefixMapper(),
-                ]
-            )
+                ],
+            ),
         );
     }
 }

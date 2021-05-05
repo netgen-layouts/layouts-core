@@ -25,8 +25,8 @@ final class LayoutListTest extends TestCase
             sprintf(
                 '/(must be an instance of|must be of type) %s, (instance of )?%s given/',
                 str_replace('\\', '\\\\', Layout::class),
-                stdClass::class
-            )
+                stdClass::class,
+            ),
         );
 
         new LayoutList([new Layout(), new stdClass(), new Layout()]);

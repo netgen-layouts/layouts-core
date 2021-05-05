@@ -28,7 +28,7 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
             [
                 Layout::fromArray(['id' => $uuid1, 'name' => 'Layout 1']),
                 Layout::fromArray(['id' => $uuid2, 'name' => 'Layout 2']),
-            ]
+            ],
         );
     }
 
@@ -45,7 +45,7 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
         $form = $this->factory->create(
             ClearLayoutsCacheType::class,
             null,
-            ['layouts' => $this->layouts]
+            ['layouts' => $this->layouts],
         );
 
         $form->submit($submittedData);
@@ -85,7 +85,7 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
         $options = $optionsResolver->resolve(
             [
                 'layouts' => $this->layouts,
-            ]
+            ],
         );
 
         self::assertSame($this->layouts, $options['layouts']);
@@ -106,7 +106,7 @@ final class ClearLayoutsCacheTypeTest extends FormTestCase
         $optionsResolver->resolve(
             [
                 'layouts' => [],
-            ]
+            ],
         );
     }
 

@@ -19,7 +19,7 @@ final class ImportExceptionTest extends TestCase
 
         self::assertSame(
             'There was an error importing entities: Test exception',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 }

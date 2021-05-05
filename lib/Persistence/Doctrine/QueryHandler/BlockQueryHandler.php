@@ -60,7 +60,7 @@ final class BlockQueryHandler extends QueryHandler
     {
         $query = $this->getBlockSelectQuery();
         $query->where(
-            $query->expr()->eq('b.layout_id', ':layout_id')
+            $query->expr()->eq('b.layout_id', ':layout_id'),
         )
         ->setParameter('layout_id', $layout->id, Types::INTEGER);
 
@@ -97,7 +97,7 @@ final class BlockQueryHandler extends QueryHandler
     {
         $query = $this->getBlockWithLayoutSelectQuery();
         $query->where(
-            $query->expr()->eq('b.parent_id', ':parent_id')
+            $query->expr()->eq('b.parent_id', ':parent_id'),
         )
         ->setParameter('parent_id', $block->id, Types::INTEGER)
         ->addOrderBy('b.placeholder', 'ASC')
@@ -105,7 +105,7 @@ final class BlockQueryHandler extends QueryHandler
 
         if ($placeholder !== null) {
             $query->andWhere(
-                $query->expr()->eq('b.placeholder', ':placeholder')
+                $query->expr()->eq('b.placeholder', ':placeholder'),
             )
             ->setParameter('placeholder', $placeholder, Types::STRING);
         }
@@ -177,7 +177,7 @@ final class BlockQueryHandler extends QueryHandler
                     'always_available' => ':always_available',
                     'main_locale' => ':main_locale',
                     'config' => ':config',
-                ]
+                ],
             )
             ->setValue('id', $block->id ?? $this->connectionHelper->nextId('nglayouts_block'))
             ->setParameter('status', $block->status, Types::INTEGER)
@@ -215,7 +215,7 @@ final class BlockQueryHandler extends QueryHandler
             ->update('nglayouts_block')
             ->set('path', ':path')
             ->where(
-                $query->expr()->eq('id', ':id')
+                $query->expr()->eq('id', ':id'),
             )
             ->setParameter('id', $block->id, Types::INTEGER)
             ->setParameter('path', $block->path, Types::STRING);
@@ -240,7 +240,7 @@ final class BlockQueryHandler extends QueryHandler
                     'status' => ':status',
                     'locale' => ':locale',
                     'parameters' => ':parameters',
-                ]
+                ],
             )
             ->setParameter('block_id', $block->id, Types::INTEGER)
             ->setParameter('status', $block->status, Types::INTEGER)
@@ -274,7 +274,7 @@ final class BlockQueryHandler extends QueryHandler
             ->set('always_available', ':always_available')
             ->set('config', ':config')
             ->where(
-                $query->expr()->eq('id', ':id')
+                $query->expr()->eq('id', ':id'),
             )
             ->setParameter('id', $block->id, Types::INTEGER)
             ->setParameter('uuid', $block->uuid, Types::STRING)
@@ -310,8 +310,8 @@ final class BlockQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->and(
                     $query->expr()->eq('block_id', ':block_id'),
-                    $query->expr()->eq('locale', ':locale')
-                )
+                    $query->expr()->eq('locale', ':locale'),
+                ),
             )
             ->setParameter('block_id', $block->id, Types::INTEGER)
             ->setParameter('locale', $locale, Types::STRING)
@@ -336,7 +336,7 @@ final class BlockQueryHandler extends QueryHandler
             ->set('parent_id', ':parent_id')
             ->set('placeholder', ':placeholder')
             ->where(
-                $query->expr()->eq('id', ':id')
+                $query->expr()->eq('id', ':id'),
             )
             ->setParameter('id', $block->id, Types::INTEGER)
             ->setParameter('position', $position, Types::INTEGER)
@@ -357,7 +357,7 @@ final class BlockQueryHandler extends QueryHandler
             ->set('depth', 'depth - :depth_difference')
             ->set('path', 'replace(path, :old_path, :new_path)')
             ->where(
-                $query->expr()->like('path', ':path')
+                $query->expr()->like('path', ':path'),
             )
             ->setParameter('layout_id', $targetBlock->layoutId, Types::INTEGER)
             ->setParameter('depth_difference', $depthDifference, Types::INTEGER)
@@ -381,7 +381,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $query->delete('nglayouts_block')
             ->where(
-                $query->expr()->in('id', [':id'])
+                $query->expr()->in('id', [':id']),
             )
             ->setParameter('id', $blockIds, Connection::PARAM_INT_ARRAY);
 
@@ -403,7 +403,7 @@ final class BlockQueryHandler extends QueryHandler
 
         $query->delete('nglayouts_block_translation')
             ->where(
-                $query->expr()->in('block_id', [':block_id'])
+                $query->expr()->in('block_id', [':block_id']),
             )
             ->setParameter('block_id', $blockIds, Connection::PARAM_INT_ARRAY);
 
@@ -431,7 +431,7 @@ final class BlockQueryHandler extends QueryHandler
         $query->select('DISTINCT id')
             ->from('nglayouts_block')
             ->where(
-                $query->expr()->like('path', ':path')
+                $query->expr()->like('path', ':path'),
             )
             ->setParameter('path', '%/' . $blockId . '/%', Types::STRING);
 
@@ -455,7 +455,7 @@ final class BlockQueryHandler extends QueryHandler
         $query->select('DISTINCT id')
             ->from('nglayouts_block')
             ->where(
-                $query->expr()->eq('layout_id', ':layout_id')
+                $query->expr()->eq('layout_id', ':layout_id'),
             )
             ->setParameter('layout_id', $layoutId, Types::INTEGER);
 
@@ -480,7 +480,7 @@ final class BlockQueryHandler extends QueryHandler
         $query->select('b.uuid')
             ->from('nglayouts_block', 'b')
             ->where(
-                $query->expr()->eq('b.id', ':id')
+                $query->expr()->eq('b.id', ':id'),
             )
             ->setParameter('id', $blockId, Types::INTEGER);
 
@@ -509,8 +509,8 @@ final class BlockQueryHandler extends QueryHandler
                 'bt',
                 $query->expr()->and(
                     $query->expr()->eq('bt.block_id', 'b.id'),
-                    $query->expr()->eq('bt.status', 'b.status')
-                )
+                    $query->expr()->eq('bt.status', 'b.status'),
+                ),
             );
 
         return $query;
@@ -530,16 +530,16 @@ final class BlockQueryHandler extends QueryHandler
                 'bt',
                 $query->expr()->and(
                     $query->expr()->eq('bt.block_id', 'b.id'),
-                    $query->expr()->eq('bt.status', 'b.status')
-                )
+                    $query->expr()->eq('bt.status', 'b.status'),
+                ),
             )->innerJoin(
                 'b',
                 'nglayouts_layout',
                 'l',
                 $query->expr()->and(
                     $query->expr()->eq('l.id', 'b.layout_id'),
-                    $query->expr()->eq('l.status', 'b.status')
-                )
+                    $query->expr()->eq('l.status', 'b.status'),
+                ),
             );
 
         return $query;

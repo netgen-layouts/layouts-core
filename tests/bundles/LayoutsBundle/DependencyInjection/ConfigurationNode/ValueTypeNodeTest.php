@@ -55,7 +55,7 @@ final class ValueTypeNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'value_types'
+            'value_types',
         );
     }
 
@@ -74,7 +74,7 @@ final class ValueTypeNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'value_types'
+            'value_types',
         );
     }
 

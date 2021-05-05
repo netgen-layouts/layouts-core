@@ -28,7 +28,7 @@ final class ValueTypeRegistryTest extends TestCase
             [
                 'value1' => $this->valueType1,
                 'value2' => $this->valueType2,
-            ]
+            ],
         );
     }
 
@@ -43,7 +43,7 @@ final class ValueTypeRegistryTest extends TestCase
                 'value1' => $this->valueType1,
                 'value2' => $this->valueType2,
             ],
-            $this->registry->getValueTypes()
+            $this->registry->getValueTypes(),
         );
     }
 
@@ -56,7 +56,7 @@ final class ValueTypeRegistryTest extends TestCase
             [
                 'value1' => $this->valueType1,
             ],
-            $this->registry->getValueTypes(true)
+            $this->registry->getValueTypes(true),
         );
     }
 

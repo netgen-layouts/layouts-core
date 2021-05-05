@@ -39,7 +39,7 @@ final class ItemViewProviderTest extends TestCase
                 'item' => $item,
                 'view_type' => 'view_type',
             ],
-            $view->getParameters()
+            $view->getParameters(),
         );
     }
 

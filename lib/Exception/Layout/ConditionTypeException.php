@@ -15,8 +15,8 @@ final class ConditionTypeException extends InvalidArgumentException implements E
         return new self(
             sprintf(
                 'Condition type "%s" does not exist.',
-                $conditionType
-            )
+                $conditionType,
+            ),
         );
     }
 
@@ -25,8 +25,8 @@ final class ConditionTypeException extends InvalidArgumentException implements E
         return new self(
             sprintf(
                 'Form mapper for "%s" condition type does not exist.',
-                $conditionType
-            )
+                $conditionType,
+            ),
         );
     }
 }

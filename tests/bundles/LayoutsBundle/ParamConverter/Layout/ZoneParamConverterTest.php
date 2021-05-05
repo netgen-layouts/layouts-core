@@ -75,8 +75,8 @@ final class ZoneParamConverterTest extends TestCase
                     'layoutId' => $uuid->toString(),
                     'zoneIdentifier' => 'left',
                     'status' => 'published',
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -103,8 +103,8 @@ final class ZoneParamConverterTest extends TestCase
                     'layoutId' => $uuid->toString(),
                     'zoneIdentifier' => 'left',
                     'status' => 'draft',
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -132,7 +132,7 @@ final class ZoneParamConverterTest extends TestCase
                 'layoutId' => $uuid->toString(),
                 'zoneIdentifier' => 'left',
                 'status' => 'published',
-            ]
+            ],
         );
     }
 }

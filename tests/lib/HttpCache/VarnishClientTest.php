@@ -28,7 +28,7 @@ final class VarnishClientTest extends TestCase
 
         $this->client = new VarnishClient(
             $this->fosInvalidatorMock,
-            $this->hostHeaderProviderMock
+            $this->hostHeaderProviderMock,
         );
     }
 

@@ -75,13 +75,13 @@ final class RenderingRuntime
             return $this->renderer->renderValue(
                 $item,
                 $this->getViewContext($context, $viewContext),
-                ['view_type' => $viewType] + $parameters
+                ['view_type' => $viewType] + $parameters,
             );
         } catch (Throwable $t) {
             $message = sprintf(
                 'Error rendering an item with value "%s" and value type "%s"',
                 $item->getValue(),
-                $item->getValueType()
+                $item->getValueType(),
             );
 
             $this->errorHandler->handleError($t, $message);
@@ -115,7 +115,7 @@ final class RenderingRuntime
             if ($viewType === null) {
                 throw new InvalidArgumentException(
                     'fallbackViewType',
-                    'To render a result item, view type needs to be set through slot, or provided via "overrideViewType" or "fallbackViewType" parameters.'
+                    'To render a result item, view type needs to be set through slot, or provided via "overrideViewType" or "fallbackViewType" parameters.',
                 );
             }
 
@@ -124,7 +124,7 @@ final class RenderingRuntime
             $message = sprintf(
                 'Error rendering an item with value "%s" and value type "%s"',
                 $item->getValue(),
-                $item->getValueType()
+                $item->getValueType(),
             );
 
             $this->errorHandler->handleError($t, $message);
@@ -146,7 +146,7 @@ final class RenderingRuntime
             return $this->renderer->renderValue(
                 $value,
                 $this->getViewContext($context, $viewContext),
-                $parameters
+                $parameters,
             );
         } catch (Throwable $t) {
             $message = sprintf('Error rendering a value of type "%s"', get_debug_type($value));
@@ -174,7 +174,7 @@ final class RenderingRuntime
 
         $blocks = $this->blockService->loadZoneBlocks(
             $linkedZone instanceof Zone ? $linkedZone : $zone,
-            $locales
+            $locales,
         );
 
         echo $this->renderValue(
@@ -184,7 +184,7 @@ final class RenderingRuntime
                 'blocks' => $blocks,
                 'twig_template' => $twigTemplate,
             ],
-            $viewContext
+            $viewContext,
         );
     }
 
@@ -202,7 +202,7 @@ final class RenderingRuntime
                 $this->getViewContext($context, $viewContext),
                 [
                     'twig_template' => $context['twig_template'] ?? null,
-                ] + $parameters
+                ] + $parameters,
             );
         } catch (Throwable $t) {
             $message = sprintf('Error rendering a block with UUID "%s"', $block->getId()->toString());
@@ -228,13 +228,13 @@ final class RenderingRuntime
                 [
                     'block' => $block,
                     'twig_template' => $context['twig_template'] ?? null,
-                ] + $parameters
+                ] + $parameters,
             );
         } catch (Throwable $t) {
             $message = sprintf(
                 'Error rendering a placeholder "%s" in block with UUID "%s"',
                 $placeholder,
-                $block->getId()->toString()
+                $block->getId()->toString(),
             );
 
             $this->errorHandler->handleError($t, $message);

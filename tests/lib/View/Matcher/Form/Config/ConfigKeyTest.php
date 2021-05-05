@@ -40,7 +40,7 @@ final class ConfigKeyTest extends TestCase
             null,
             [
                 'config_key' => 'test',
-            ]
+            ],
         );
 
         self::assertSame($expected, $this->matcher->match(new FormView($form), $config));

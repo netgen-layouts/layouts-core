@@ -20,7 +20,7 @@ final class BlockTypeGroupFactory
                 'isEnabled' => $config['enabled'],
                 'name' => $config['name'],
                 'blockTypes' => $blockTypes,
-            ]
+            ],
         );
     }
 }

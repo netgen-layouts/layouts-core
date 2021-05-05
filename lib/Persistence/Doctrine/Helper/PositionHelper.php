@@ -50,7 +50,7 @@ final class PositionHelper
         $this->incrementPositions(
             $conditions,
             $position,
-            $endPosition
+            $endPosition,
         );
 
         return $position;
@@ -80,13 +80,13 @@ final class PositionHelper
             $this->decrementPositions(
                 $conditions,
                 $originalPosition + 1,
-                $position
+                $position,
             );
         } elseif ($position < $originalPosition) {
             $this->incrementPositions(
                 $conditions,
                 $position,
-                $originalPosition - 1
+                $originalPosition - 1,
             );
         }
 
@@ -102,7 +102,7 @@ final class PositionHelper
     {
         $this->decrementPositions(
             $conditions,
-            $removedPosition + 1
+            $removedPosition + 1,
         );
     }
 
@@ -195,7 +195,7 @@ final class PositionHelper
     {
         foreach ($conditions as $identifier => $value) {
             $query->andWhere(
-                $query->expr()->eq($identifier, ':' . $identifier)
+                $query->expr()->eq($identifier, ':' . $identifier),
             );
 
             $query->setParameter($identifier, $value, is_int($value) ? Types::INTEGER : Types::STRING);

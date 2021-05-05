@@ -61,7 +61,7 @@ final class LayoutTest extends TestCase
                 'zones' => new ArrayCollection($zones),
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
-            ]
+            ],
         );
 
         self::assertSame($uuid, $layout->getId());
@@ -107,7 +107,7 @@ final class LayoutTest extends TestCase
         $layout = Layout::fromArray(
             [
                 'zones' => new ArrayCollection($zones),
-            ]
+            ],
         );
 
         $layout['left'] = new Zone();
@@ -129,7 +129,7 @@ final class LayoutTest extends TestCase
         $layout = Layout::fromArray(
             [
                 'zones' => new ArrayCollection($zones),
-            ]
+            ],
         );
 
         unset($layout['left']);

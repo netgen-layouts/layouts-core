@@ -25,8 +25,8 @@ final class RuleGroupListTest extends TestCase
             sprintf(
                 '/(must be an instance of|must be of type) %s, (instance of )?%s given/',
                 str_replace('\\', '\\\\', RuleGroup::class),
-                stdClass::class
-            )
+                stdClass::class,
+            ),
         );
 
         new RuleGroupList([new RuleGroup(), new stdClass(), new RuleGroup()]);

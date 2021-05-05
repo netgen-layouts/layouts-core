@@ -46,7 +46,7 @@ trait ParameterTypeTestTrait
                 'options' => $options,
                 'isRequired' => $required,
                 'defaultValue' => $defaultValue,
-            ]
+            ],
         );
     }
 }

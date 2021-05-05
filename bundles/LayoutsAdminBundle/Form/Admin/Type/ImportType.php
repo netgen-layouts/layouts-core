@@ -46,10 +46,10 @@ final class ImportType extends AbstractType
                                 'text/plain',
                             ],
                             'mimeTypesMessage' => 'import.file.mime_types_message',
-                        ]
+                        ],
                     ),
                 ],
-            ]
+            ],
         );
 
         $builder->add(
@@ -64,7 +64,7 @@ final class ImportType extends AbstractType
                     'import.import_mode.overwrite' => ImportOptions::MODE_OVERWRITE,
                     'import.import_mode.skip' => ImportOptions::MODE_SKIP,
                 ],
-            ]
+            ],
         );
     }
 }

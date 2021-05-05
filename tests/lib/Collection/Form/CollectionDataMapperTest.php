@@ -32,7 +32,7 @@ final class CollectionDataMapperTest extends DataMapperTest
             [
                 'offset' => $this->getForm('offset'),
                 'limit' => $this->getForm('limit'),
-            ]
+            ],
         );
 
         $this->mapper->mapDataToForms($data, $forms);
@@ -60,7 +60,7 @@ final class CollectionDataMapperTest extends DataMapperTest
             [
                 'offset' => $this->getForm('offset'),
                 'limit' => $this->getForm('limit'),
-            ]
+            ],
         );
 
         $this->mapper->mapDataToForms($data, $forms);
@@ -84,7 +84,7 @@ final class CollectionDataMapperTest extends DataMapperTest
             [
                 'offset' => $this->getForm('offset', 10),
                 'limit' => $this->getForm('limit', 5),
-            ]
+            ],
         );
 
         $data = new CollectionUpdateStruct();
@@ -104,7 +104,7 @@ final class CollectionDataMapperTest extends DataMapperTest
             [
                 'offset' => $this->getForm('offset', 10),
                 'limit' => $this->getForm('limit'),
-            ]
+            ],
         );
 
         $data = new CollectionUpdateStruct();

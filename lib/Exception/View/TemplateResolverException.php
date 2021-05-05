@@ -25,8 +25,8 @@ final class TemplateResolverException extends RuntimeException implements Except
         return new self(
             sprintf(
                 'No template matcher could be found with identifier "%s".',
-                $identifier
-            )
+                $identifier,
+            ),
         );
     }
 
@@ -36,8 +36,8 @@ final class TemplateResolverException extends RuntimeException implements Except
             sprintf(
                 'No template match could be found for "%s" view and context "%s".',
                 $viewType,
-                $context
-            )
+                $context,
+            ),
         );
     }
 }

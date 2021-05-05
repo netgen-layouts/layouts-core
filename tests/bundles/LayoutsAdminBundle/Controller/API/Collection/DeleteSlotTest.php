@@ -22,7 +22,7 @@ final class DeleteSlotTest extends JsonApiTestCase
             [],
             [],
             [],
-            $this->jsonEncode([])
+            $this->jsonEncode([]),
         );
 
         $this->assertEmptyResponse($this->client->getResponse());
@@ -39,13 +39,13 @@ final class DeleteSlotTest extends JsonApiTestCase
             [],
             [],
             [],
-            $this->jsonEncode([])
+            $this->jsonEncode([]),
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find slot with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"'
+            'Could not find slot with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"',
         );
     }
 }

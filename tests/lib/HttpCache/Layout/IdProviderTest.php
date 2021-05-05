@@ -43,8 +43,8 @@ final class IdProviderTest extends TestCase
                     [
                         'id' => $uuid,
                         'shared' => false,
-                    ]
-                )
+                    ],
+                ),
             );
 
         $providedIds = $this->idProvider->provideIds($uuid->toString());
@@ -83,7 +83,7 @@ final class IdProviderTest extends TestCase
             [
                 'id' => $uuid1,
                 'shared' => true,
-            ]
+            ],
         );
 
         $this->layoutServiceMock
@@ -100,15 +100,15 @@ final class IdProviderTest extends TestCase
                         Layout::fromArray(
                             [
                                 'id' => $uuid2,
-                            ]
+                            ],
                         ),
                         Layout::fromArray(
                             [
                                 'id' => $uuid3,
-                            ]
+                            ],
                         ),
-                    ]
-                )
+                    ],
+                ),
             );
 
         $providedIds = $this->idProvider->provideIds($uuid1->toString());

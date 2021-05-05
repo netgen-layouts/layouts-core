@@ -35,7 +35,7 @@ final class PageLayoutNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'pagelayout'
+            'pagelayout',
         );
     }
 

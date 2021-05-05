@@ -30,7 +30,7 @@ final class RuleConditionTest extends TestCase
                 'ruleId' => $ruleUuid,
                 'conditionType' => $conditionType,
                 'value' => 32,
-            ]
+            ],
         );
 
         self::assertSame($conditionUuid->toString(), $condition->getId()->toString());

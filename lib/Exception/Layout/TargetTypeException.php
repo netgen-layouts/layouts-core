@@ -15,8 +15,8 @@ final class TargetTypeException extends InvalidArgumentException implements Exce
         return new self(
             sprintf(
                 'Target type "%s" does not exist.',
-                $targetType
-            )
+                $targetType,
+            ),
         );
     }
 
@@ -25,8 +25,8 @@ final class TargetTypeException extends InvalidArgumentException implements Exce
         return new self(
             sprintf(
                 'Form mapper for "%s" target type does not exist.',
-                $targetType
-            )
+                $targetType,
+            ),
         );
     }
 }

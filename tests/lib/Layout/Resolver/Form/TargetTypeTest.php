@@ -40,7 +40,7 @@ final class TargetTypeTest extends FormTestCase
         $this->factory->create(
             TargetTypeForm::class,
             new TargetCreateStruct(),
-            ['target_type' => $this->targetType]
+            ['target_type' => $this->targetType],
         );
     }
 
@@ -60,7 +60,7 @@ final class TargetTypeTest extends FormTestCase
             [
                 'target_type' => $this->targetType,
                 'data' => $struct,
-            ]
+            ],
         );
 
         self::assertSame($this->targetType, $options['target_type']);
@@ -99,7 +99,7 @@ final class TargetTypeTest extends FormTestCase
         $optionsResolver->resolve(
             [
                 'target_type' => '',
-            ]
+            ],
         );
     }
 
@@ -120,7 +120,7 @@ final class TargetTypeTest extends FormTestCase
             [
                 'target_type' => $this->targetType,
                 'data' => '',
-            ]
+            ],
         );
     }
 

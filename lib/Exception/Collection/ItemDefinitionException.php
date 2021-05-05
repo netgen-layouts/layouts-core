@@ -15,8 +15,8 @@ final class ItemDefinitionException extends InvalidArgumentException implements 
         return new self(
             sprintf(
                 'Item definition for "%s" value type does not exist.',
-                $valueType
-            )
+                $valueType,
+            ),
         );
     }
 }

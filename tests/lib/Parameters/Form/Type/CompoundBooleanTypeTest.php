@@ -33,7 +33,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
 
         $parentForm = $this->factory->create(
             FormType::class,
-            $struct
+            $struct,
         );
 
         $parentForm->add(
@@ -41,7 +41,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
             CompoundBooleanType::class,
             [
                 'property_path' => 'parameterValues[main_checkbox]',
-            ]
+            ],
         );
 
         $parentForm->get('main_checkbox')->add(
@@ -49,7 +49,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
             TextType::class,
             [
                 'property_path' => 'parameterValues[css_class]',
-            ]
+            ],
         );
 
         $parentForm->get('main_checkbox')->add(
@@ -57,7 +57,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
             TextType::class,
             [
                 'property_path' => 'parameterValues[css_id]',
-            ]
+            ],
         );
 
         $parentForm->submit($submittedData);
@@ -70,7 +70,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
                 'css_class' => 'Some CSS class',
                 'css_id' => 'Some CSS ID',
             ],
-            $struct->getParameterValues()
+            $struct->getParameterValues(),
         );
 
         $view = $parentForm->createView();
@@ -100,7 +100,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
 
         $parentForm = $this->factory->create(
             FormType::class,
-            $struct
+            $struct,
         );
 
         $parentForm->add(
@@ -108,7 +108,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
             CompoundBooleanType::class,
             [
                 'property_path' => 'parameterValues[main_checkbox]',
-            ]
+            ],
         );
 
         $parentForm->get('main_checkbox')->add(
@@ -116,7 +116,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
             TextType::class,
             [
                 'property_path' => 'parameterValues[css_class]',
-            ]
+            ],
         );
 
         $parentForm->get('main_checkbox')->add(
@@ -124,7 +124,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
             TextType::class,
             [
                 'property_path' => 'parameterValues[css_id]',
-            ]
+            ],
         );
 
         $parentForm->submit($submittedData);
@@ -135,7 +135,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
             [
                 'main_checkbox' => false,
             ],
-            $struct->getParameterValues()
+            $struct->getParameterValues(),
         );
 
         $view = $parentForm->createView();
@@ -162,7 +162,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
 
         $parentForm = $this->factory->create(
             FormType::class,
-            $struct
+            $struct,
         );
 
         $parentForm->add(
@@ -170,7 +170,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
             CompoundBooleanType::class,
             [
                 'property_path' => 'parameterValues[main_checkbox]',
-            ]
+            ],
         );
 
         $parentForm->get('main_checkbox')->add(
@@ -178,7 +178,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
             TextType::class,
             [
                 'property_path' => 'parameterValues[css_class]',
-            ]
+            ],
         );
 
         $parentForm->get('main_checkbox')->add(
@@ -186,7 +186,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
             TextType::class,
             [
                 'property_path' => 'parameterValues[css_id]',
-            ]
+            ],
         );
 
         $parentForm->submit($submittedData);
@@ -197,7 +197,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
             [
                 'main_checkbox' => false,
             ],
-            $struct->getParameterValues()
+            $struct->getParameterValues(),
         );
 
         $view = $parentForm->createView();
@@ -226,7 +226,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
 
         $parentForm = $this->factory->create(
             FormType::class,
-            $struct
+            $struct,
         );
 
         $parentForm->add(
@@ -235,7 +235,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
             [
                 'property_path' => 'parameterValues[main_checkbox]',
                 'reverse' => true,
-            ]
+            ],
         );
 
         $parentForm->get('main_checkbox')->add(
@@ -243,7 +243,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
             TextType::class,
             [
                 'property_path' => 'parameterValues[css_class]',
-            ]
+            ],
         );
 
         $parentForm->get('main_checkbox')->add(
@@ -251,7 +251,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
             TextType::class,
             [
                 'property_path' => 'parameterValues[css_id]',
-            ]
+            ],
         );
 
         $parentForm->submit($submittedData);
@@ -262,7 +262,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
             [
                 'main_checkbox' => true,
             ],
-            $struct->getParameterValues()
+            $struct->getParameterValues(),
         );
 
         $view = $parentForm->createView();
@@ -292,7 +292,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
 
         $parentForm = $this->factory->create(
             FormType::class,
-            $struct
+            $struct,
         );
 
         $parentForm->add(
@@ -301,7 +301,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
             [
                 'property_path' => 'parameterValues[main_checkbox]',
                 'reverse' => true,
-            ]
+            ],
         );
 
         $parentForm->get('main_checkbox')->add(
@@ -309,7 +309,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
             TextType::class,
             [
                 'property_path' => 'parameterValues[css_class]',
-            ]
+            ],
         );
 
         $parentForm->get('main_checkbox')->add(
@@ -317,7 +317,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
             TextType::class,
             [
                 'property_path' => 'parameterValues[css_id]',
-            ]
+            ],
         );
 
         $parentForm->submit($submittedData);
@@ -330,7 +330,7 @@ final class CompoundBooleanTypeTest extends FormTestCase
                 'css_class' => 'Some CSS class',
                 'css_id' => 'Some CSS ID',
             ],
-            $struct->getParameterValues()
+            $struct->getParameterValues(),
         );
 
         $view = $parentForm->createView();

@@ -18,7 +18,7 @@ final class InvalidArgumentExceptionTest extends TestCase
 
         self::assertSame(
             'Argument "test" has an invalid value. Value must be an integer.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 }

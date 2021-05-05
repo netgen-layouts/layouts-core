@@ -49,7 +49,7 @@ final class ContainerDefinitionHandler extends BlockDefinitionHandler implements
                     'options' => [
                         'translatable' => false,
                     ],
-                ]
+                ],
             ),
             'css_id' => ParameterDefinition::fromArray(
                 [
@@ -60,7 +60,7 @@ final class ContainerDefinitionHandler extends BlockDefinitionHandler implements
                     'options' => [
                         'translatable' => false,
                     ],
-                ]
+                ],
             ),
         ];
     }

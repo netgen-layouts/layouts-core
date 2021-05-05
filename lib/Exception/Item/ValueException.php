@@ -15,8 +15,8 @@ final class ValueException extends InvalidArgumentException implements Exception
         return new self(
             sprintf(
                 'Value loader for "%s" value type does not exist.',
-                $valueType
-            )
+                $valueType,
+            ),
         );
     }
 
@@ -25,8 +25,8 @@ final class ValueException extends InvalidArgumentException implements Exception
         return new self(
             sprintf(
                 'Value converter for "%s" type does not exist.',
-                $type
-            )
+                $type,
+            ),
         );
     }
 }

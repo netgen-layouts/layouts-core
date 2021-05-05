@@ -18,7 +18,7 @@ final class TransferExceptionTest extends TestCase
 
         self::assertSame(
             'Entity handler for "type" entity type does not exist.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 }

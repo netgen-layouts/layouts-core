@@ -27,7 +27,7 @@ final class HydratorTest extends TestCase
 
         self::assertSame(
             ['a' => 'foo', 'b' => 'bar', 'c' => 'baz'],
-            $this->hydrator->extract($value)
+            $this->hydrator->extract($value),
         );
     }
 

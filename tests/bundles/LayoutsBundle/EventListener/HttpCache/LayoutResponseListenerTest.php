@@ -42,7 +42,7 @@ final class LayoutResponseListenerTest extends TestCase
                 KernelEvents::RESPONSE => ['onKernelResponse', 10],
                 KernelEvents::EXCEPTION => 'onKernelException',
             ],
-            $this->listener::getSubscribedEvents()
+            $this->listener::getSubscribedEvents(),
         );
     }
 
@@ -63,7 +63,7 @@ final class LayoutResponseListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            new Response()
+            new Response(),
         );
 
         $this->taggerMock
@@ -93,7 +93,7 @@ final class LayoutResponseListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            new Response()
+            new Response(),
         );
 
         $this->taggerMock
@@ -118,7 +118,7 @@ final class LayoutResponseListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::SUB_REQUEST,
-            new Response()
+            new Response(),
         );
 
         $this->taggerMock
@@ -142,7 +142,7 @@ final class LayoutResponseListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            new Response()
+            new Response(),
         );
 
         $this->taggerMock
@@ -168,7 +168,7 @@ final class LayoutResponseListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            new Response()
+            new Response(),
         );
 
         $this->taggerMock
@@ -181,8 +181,8 @@ final class LayoutResponseListenerTest extends TestCase
                 $kernelMock,
                 $request,
                 HttpKernelInterface::MASTER_REQUEST,
-                new Exception()
-            )
+                new Exception(),
+            ),
         );
 
         $this->listener->onKernelResponse($event);
@@ -203,7 +203,7 @@ final class LayoutResponseListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::SUB_REQUEST,
-            new Response()
+            new Response(),
         );
 
         $this->taggerMock
@@ -215,8 +215,8 @@ final class LayoutResponseListenerTest extends TestCase
                 $kernelMock,
                 $request,
                 HttpKernelInterface::SUB_REQUEST,
-                new Exception()
-            )
+                new Exception(),
+            ),
         );
 
         $this->listener->onKernelResponse($event);
@@ -237,7 +237,7 @@ final class LayoutResponseListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            new Response()
+            new Response(),
         );
 
         $this->taggerMock
@@ -249,8 +249,8 @@ final class LayoutResponseListenerTest extends TestCase
                 $kernelMock,
                 $request,
                 HttpKernelInterface::MASTER_REQUEST,
-                new Exception()
-            )
+                new Exception(),
+            ),
         );
 
         $this->listener->onKernelResponse($event);

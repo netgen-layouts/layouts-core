@@ -40,7 +40,7 @@ abstract class SymfonyPage extends BaseSymfonyPage
                 $hasElement = $this->hasElement($elementName, $parameters);
 
                 return $waitForRemoval ? !$hasElement : $hasElement;
-            }
+            },
         );
     }
 }

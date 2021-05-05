@@ -45,9 +45,9 @@ final class TypeTest extends TestCase
                 'query' => Query::fromArray(
                     [
                         'queryType' => new QueryType('type'),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         self::assertSame($expected, $this->matcher->match(new FormView($form), $config));
@@ -65,9 +65,9 @@ final class TypeTest extends TestCase
                 'query' => Query::fromArray(
                     [
                         'queryType' => new NullQueryType('type'),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         self::assertTrue($this->matcher->match(new FormView($form), ['null']));
@@ -85,9 +85,9 @@ final class TypeTest extends TestCase
                 'query' => Query::fromArray(
                     [
                         'queryType' => new NullQueryType('type'),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         self::assertFalse($this->matcher->match(new FormView($form), ['test']));

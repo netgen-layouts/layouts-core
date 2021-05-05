@@ -18,7 +18,7 @@ final class CacheManagerPass implements CompilerPassInterface
         ) {
             $container->setAlias(
                 'netgen_layouts.http_cache.client',
-                'netgen_layouts.http_cache.client.null'
+                'netgen_layouts.http_cache.client.null',
             );
 
             return;
@@ -29,7 +29,7 @@ final class CacheManagerPass implements CompilerPassInterface
 
         $container->setDefinition(
             'netgen_layouts.http_cache.fos.cache_manager',
-            $cacheManager
+            $cacheManager,
         );
     }
 }

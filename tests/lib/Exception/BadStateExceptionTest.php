@@ -18,7 +18,7 @@ final class BadStateExceptionTest extends TestCase
 
         self::assertSame(
             'Argument "test" has an invalid state. Value must be an integer.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 }

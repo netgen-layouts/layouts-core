@@ -40,7 +40,7 @@ final class ClearLayoutsCacheType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 'constraints' => [new NotBlank()],
-            ]
+            ],
         );
 
         $builder->get('layouts')->addModelTransformer(new LayoutListTransformer());

@@ -31,7 +31,7 @@ final class ParametersFormPassTest extends AbstractContainerBuilderTestCase
         $formMapper = new Definition();
         $formMapper->addTag(
             'netgen_layouts.parameter_type.form_mapper',
-            ['type' => 'test']
+            ['type' => 'test'],
         );
 
         $this->setDefinition('netgen_layouts.parameters.form.mapper.test', $formMapper);
@@ -47,8 +47,8 @@ final class ParametersFormPassTest extends AbstractContainerBuilderTestCase
                     [
                         'test' => new ServiceClosureArgument(new Reference('netgen_layouts.parameters.form.mapper.test')),
                     ],
-                ]
-            )
+                ],
+            ),
         );
     }
 

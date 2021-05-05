@@ -38,7 +38,7 @@ final class RuleViewProviderTest extends TestCase
             [
                 'rule' => $rule,
             ],
-            $view->getParameters()
+            $view->getParameters(),
         );
     }
 

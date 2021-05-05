@@ -36,9 +36,9 @@ final class ManualItemTest extends TestCase
                         'name' => 'Value name',
                         'isVisible' => true,
                         'object' => $object,
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $value = new ManualItem($collectionItem);

@@ -20,7 +20,7 @@ final class LoadTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'blocks/view_block',
-            Response::HTTP_OK
+            Response::HTTP_OK,
         );
     }
 
@@ -34,7 +34,7 @@ final class LoadTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'blocks/view_published_block',
-            Response::HTTP_OK
+            Response::HTTP_OK,
         );
     }
 
@@ -48,7 +48,7 @@ final class LoadTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find block with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"'
+            'Could not find block with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"',
         );
     }
 }

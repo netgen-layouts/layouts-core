@@ -50,7 +50,7 @@ final class CollectionQueryNormalizerTest extends TestCase
                         [
                             'name' => 'param',
                             'value' => 'value',
-                        ]
+                        ],
                     ),
                     'param2' => Parameter::fromArray(
                         [
@@ -58,10 +58,10 @@ final class CollectionQueryNormalizerTest extends TestCase
                             'value' => [
                                 'param3' => 'value3',
                             ],
-                        ]
+                        ],
                     ),
                 ],
-            ]
+            ],
         );
 
         $serializedParams = [
@@ -86,7 +86,7 @@ final class CollectionQueryNormalizerTest extends TestCase
                 'always_available' => $query->isAlwaysAvailable(),
                 'parameters' => $serializedParams,
             ],
-            $this->normalizer->normalize(new Value($query))
+            $this->normalizer->normalize(new Value($query)),
         );
     }
 

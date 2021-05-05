@@ -31,7 +31,7 @@ final class LocaleTest extends TestCase
         $block = Block::fromArray(
             [
                 'locale' => 'en',
-            ]
+            ],
         );
 
         $view = new BlockView($block);

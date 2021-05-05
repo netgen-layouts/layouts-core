@@ -46,7 +46,7 @@ final class RuleEntityHandler implements EntityHandlerInterface
     public function deleteEntity(UuidInterface $uuid): void
     {
         $this->layoutResolverService->deleteRule(
-            $this->layoutResolverService->loadRule($uuid)
+            $this->layoutResolverService->loadRule($uuid),
         );
     }
 
@@ -68,8 +68,8 @@ final class RuleEntityHandler implements EntityHandlerInterface
         $ruleDraft = $this->layoutResolverService->createRule(
             $createStruct,
             $this->layoutResolverService->loadRuleGroup(
-                Uuid::fromString($data['rule_group_id'] ?? RuleGroup::ROOT_UUID)
-            )
+                Uuid::fromString($data['rule_group_id'] ?? RuleGroup::ROOT_UUID),
+            ),
         );
 
         $this->createTargets($ruleDraft, $data['targets']);

@@ -28,7 +28,7 @@ final class LayoutTypeRegistryTest extends TestCase
             [
                 'layout_type1' => $this->layoutType1,
                 'layout_type2' => $this->layoutType2,
-            ]
+            ],
         );
     }
 
@@ -43,7 +43,7 @@ final class LayoutTypeRegistryTest extends TestCase
                 'layout_type1' => $this->layoutType1,
                 'layout_type2' => $this->layoutType2,
             ],
-            $this->registry->getLayoutTypes()
+            $this->registry->getLayoutTypes(),
         );
     }
 
@@ -56,7 +56,7 @@ final class LayoutTypeRegistryTest extends TestCase
             [
                 'layout_type1' => $this->layoutType1,
             ],
-            $this->registry->getLayoutTypes(true)
+            $this->registry->getLayoutTypes(true),
         );
     }
 

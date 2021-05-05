@@ -65,7 +65,7 @@ final class BlockTest extends TestCase
                     'main' => $placeholder,
                 ],
                 'collections' => new ArrayCollection(
-                    ['default' => $collection]
+                    ['default' => $collection],
                 ),
                 'isTranslatable' => true,
                 'mainLocale' => 'en',
@@ -73,7 +73,7 @@ final class BlockTest extends TestCase
                 'availableLocales' => ['en'],
                 'locale' => 'en',
                 'parameters' => [],
-            ]
+            ],
         );
 
         self::assertSame($blockUuid->toString(), $block->getId()->toString());
@@ -129,9 +129,9 @@ final class BlockTest extends TestCase
                 'definition' => BlockDefinition::fromArray(
                     [
                         'handler' => new BlockDefinitionHandler(),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         self::assertTrue($block->hasDynamicParameter('definition_param'));
@@ -154,9 +154,9 @@ final class BlockTest extends TestCase
                 'definition' => BlockDefinition::fromArray(
                     [
                         'handler' => new BlockDefinitionHandler(),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         self::assertFalse($query->isContextual());

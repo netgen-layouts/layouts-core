@@ -50,7 +50,7 @@ final class LayoutMapper
                     $linkedZone = $this->layoutHandler->loadZone(
                         $zone->linkedLayoutUuid,
                         PersistenceValue::STATUS_PUBLISHED,
-                        $zone->linkedZoneIdentifier
+                        $zone->linkedZoneIdentifier,
                     );
 
                     return $this->mapZone($linkedZone);
@@ -88,8 +88,8 @@ final class LayoutMapper
             'zones' => new LazyCollection(
                 fn (): array => array_map(
                     fn (PersistenceZone $zone): Zone => $this->mapZone($zone),
-                    $this->layoutHandler->loadLayoutZones($layout)
-                )
+                    $this->layoutHandler->loadLayoutZones($layout),
+                ),
             ),
         ];
 

@@ -26,7 +26,7 @@ final class BlockTypeGroupFactoryTest extends TestCase
                 'enabled' => false,
                 'name' => 'Simple blocks',
             ],
-            [$blockType]
+            [$blockType],
         );
 
         self::assertSame(
@@ -36,7 +36,7 @@ final class BlockTypeGroupFactoryTest extends TestCase
                 'name' => 'Simple blocks',
                 'blockTypes' => [$blockType],
             ],
-            $this->exportObject($blockTypeGroup)
+            $this->exportObject($blockTypeGroup),
         );
     }
 }

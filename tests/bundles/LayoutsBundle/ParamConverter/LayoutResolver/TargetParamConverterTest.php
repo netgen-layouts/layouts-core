@@ -70,8 +70,8 @@ final class TargetParamConverterTest extends TestCase
                 [
                     'targetId' => $uuid->toString(),
                     'status' => 'published',
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -96,8 +96,8 @@ final class TargetParamConverterTest extends TestCase
                 [
                     'targetId' => $uuid->toString(),
                     'status' => 'draft',
-                ]
-            )
+                ],
+            ),
         );
     }
 }

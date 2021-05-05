@@ -40,7 +40,7 @@ final class PagerFactory
             $collection,
             $collection->getOffset(),
             $maxTotalCount,
-            $flags
+            $flags,
         );
 
         return $this->buildPager($pagerAdapter, $collection, $startPage);

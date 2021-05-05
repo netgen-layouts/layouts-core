@@ -34,7 +34,7 @@ final class DefinitionTest extends TestCase
         $block = Block::fromArray(
             [
                 'definition' => BlockDefinition::fromArray(['identifier' => 'text']),
-            ]
+            ],
         );
 
         $view = new BlockView($block);
@@ -51,7 +51,7 @@ final class DefinitionTest extends TestCase
         $block = Block::fromArray(
             [
                 'definition' => new NullBlockDefinition('definition'),
-            ]
+            ],
         );
 
         $view = new BlockView($block);
@@ -68,7 +68,7 @@ final class DefinitionTest extends TestCase
         $block = Block::fromArray(
             [
                 'definition' => new NullBlockDefinition('definition'),
-            ]
+            ],
         );
 
         $view = new BlockView($block);

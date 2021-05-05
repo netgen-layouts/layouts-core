@@ -35,9 +35,9 @@ final class ZoneViewProviderTest extends TestCase
                 'zones' => new ArrayCollection(
                     [
                         'zone' => $zone,
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $blocks = new BlockList();
@@ -55,7 +55,7 @@ final class ZoneViewProviderTest extends TestCase
                 'zone' => $zone,
                 'blocks' => $blocks,
             ],
-            $view->getParameters()
+            $view->getParameters(),
         );
     }
 

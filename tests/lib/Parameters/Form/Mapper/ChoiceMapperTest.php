@@ -45,7 +45,7 @@ final class ChoiceMapperTest extends TestCase
                         'Option 2' => 'option2',
                     ],
                 ],
-            ]
+            ],
         );
 
         self::assertSame(
@@ -57,7 +57,7 @@ final class ChoiceMapperTest extends TestCase
                     'Option 2' => 'option2',
                 ],
             ],
-            $this->mapper->mapOptions($parameterDefinition)
+            $this->mapper->mapOptions($parameterDefinition),
         );
     }
 
@@ -79,7 +79,7 @@ final class ChoiceMapperTest extends TestCase
                         'Option 2' => 'option2',
                     ],
                 ],
-            ]
+            ],
         );
 
         self::assertSame(
@@ -91,7 +91,7 @@ final class ChoiceMapperTest extends TestCase
                     'Option 2' => 'option2',
                 ],
             ],
-            $this->mapper->mapOptions($parameterDefinition)
+            $this->mapper->mapOptions($parameterDefinition),
         );
     }
 }

@@ -27,7 +27,7 @@ final class BlockTypeGroupTest extends TestCase
                 'isEnabled' => false,
                 'name' => 'Simple blocks',
                 'blockTypes' => [$this->blockType1, $this->blockType2],
-            ]
+            ],
         );
     }
 

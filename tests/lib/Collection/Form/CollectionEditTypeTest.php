@@ -42,7 +42,7 @@ final class CollectionEditTypeTest extends FormTestCase
         $form = $this->factory->create(
             CollectionEditType::class,
             $struct,
-            ['collection' => $this->collection]
+            ['collection' => $this->collection],
         );
 
         $form->submit($submittedData);
@@ -80,7 +80,7 @@ final class CollectionEditTypeTest extends FormTestCase
         $form = $this->factory->create(
             CollectionEditType::class,
             $struct,
-            ['collection' => $this->collection]
+            ['collection' => $this->collection],
         );
 
         $form->submit($submittedData);
@@ -117,7 +117,7 @@ final class CollectionEditTypeTest extends FormTestCase
             [
                 'collection' => $this->collection,
                 'data' => $struct,
-            ]
+            ],
         );
 
         self::assertSame($this->collection, $options['collection']);
@@ -157,7 +157,7 @@ final class CollectionEditTypeTest extends FormTestCase
         $optionsResolver->resolve(
             [
                 'collection' => '',
-            ]
+            ],
         );
     }
 
@@ -178,7 +178,7 @@ final class CollectionEditTypeTest extends FormTestCase
             [
                 'collection' => $this->collection,
                 'data' => '',
-            ]
+            ],
         );
     }
 

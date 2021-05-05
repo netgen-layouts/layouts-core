@@ -18,7 +18,7 @@ final class ConfigurationExceptionTest extends TestCase
 
         self::assertSame(
             'Parameter "test" does not exist in configuration.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 }

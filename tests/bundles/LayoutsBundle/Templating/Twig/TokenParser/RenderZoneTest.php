@@ -29,7 +29,7 @@ final class RenderZoneTest extends TestCase
                 'cache' => false,
                 'autoescape' => false,
                 'optimizations' => 0,
-            ]
+            ],
         );
 
         $this->environment->addTokenParser(new RenderZone());
@@ -59,7 +59,7 @@ final class RenderZoneTest extends TestCase
         $this->expectExceptionMessage('Unexpected token "name" of value "foo" at line 1.');
 
         $stream = $this->environment->tokenize(
-            new Source('{% nglayouts_render_zone zone foo=\'bar\' %}', '')
+            new Source('{% nglayouts_render_zone zone foo=\'bar\' %}', ''),
         );
 
         $this->parser->parse($stream);
@@ -74,7 +74,7 @@ final class RenderZoneTest extends TestCase
                     new NameExpression('zone', 1),
                     null,
                     1,
-                    'nglayouts_render_zone'
+                    'nglayouts_render_zone',
                 ),
             ],
             [
@@ -83,7 +83,7 @@ final class RenderZoneTest extends TestCase
                     new NameExpression('zone', 1),
                     new ConstantExpression('json', 1),
                     1,
-                    'nglayouts_render_zone'
+                    'nglayouts_render_zone',
                 ),
             ],
         ];

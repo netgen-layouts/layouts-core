@@ -21,7 +21,7 @@ final class ItemExtension extends AbstractExtension
                 [ItemRuntime::class, 'getItemPath'],
                 [
                     'is_safe' => ['html'],
-                ]
+                ],
             ),
         ];
     }

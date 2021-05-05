@@ -31,15 +31,15 @@ final class ParameterNormalizerTest extends TestCase
                 'parameterDefinition' => ParameterDefinition::fromArray(
                     [
                         'type' => new TextType(),
-                    ]
+                    ],
                 ),
                 'value' => 'some text',
-            ]
+            ],
         );
 
         self::assertSame(
             'some text',
-            $this->normalizer->normalize(new Value($parameter))
+            $this->normalizer->normalize(new Value($parameter)),
         );
     }
 

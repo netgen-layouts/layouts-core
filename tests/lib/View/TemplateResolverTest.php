@@ -42,7 +42,7 @@ final class TemplateResolverTest extends TestCase
             ->method('match')
             ->withConsecutive(
                 [self::identicalTo($this->view), self::identicalTo(['value'])],
-                [self::identicalTo($this->view), self::identicalTo(['value2'])]
+                [self::identicalTo($this->view), self::identicalTo(['value2'])],
             )
             ->willReturnOnConsecutiveCalls(false, true);
 
@@ -78,8 +78,8 @@ final class TemplateResolverTest extends TestCase
             new Container(
                 [
                     'matcher' => $matcherMock,
-                ]
-            )
+                ],
+            ),
         );
 
         $templateResolver->resolveTemplate($this->view);
@@ -117,7 +117,7 @@ final class TemplateResolverTest extends TestCase
 
         $templateResolver = new TemplateResolver(
             $viewConfiguration,
-            new Container()
+            new Container(),
         );
 
         $templateResolver->resolveTemplate($this->view);
@@ -154,7 +154,7 @@ final class TemplateResolverTest extends TestCase
 
         $templateResolver = new TemplateResolver(
             $viewConfiguration,
-            new Container()
+            new Container(),
         );
 
         $templateResolver->resolveTemplate($this->view);
@@ -187,7 +187,7 @@ final class TemplateResolverTest extends TestCase
 
         $templateResolver = new TemplateResolver(
             $viewConfiguration,
-            new Container()
+            new Container(),
         );
 
         $templateResolver->resolveTemplate($this->view);
@@ -217,7 +217,7 @@ final class TemplateResolverTest extends TestCase
 
         $templateResolver = new TemplateResolver(
             ['stub_view' => ['context' => []]],
-            new Container()
+            new Container(),
         );
 
         $templateResolver->resolveTemplate($this->view);
@@ -258,8 +258,8 @@ final class TemplateResolverTest extends TestCase
             new Container(
                 [
                     'matcher' => $matcherMock,
-                ]
-            )
+                ],
+            ),
         );
 
         $templateResolver->resolveTemplate($this->view);
@@ -290,7 +290,7 @@ final class TemplateResolverTest extends TestCase
 
         $templateResolver = new TemplateResolver(
             $viewConfiguration,
-            new Container()
+            new Container(),
         );
 
         $templateResolver->resolveTemplate($this->view);
@@ -324,8 +324,8 @@ final class TemplateResolverTest extends TestCase
             new Container(
                 [
                     'matcher' => new stdClass(),
-                ]
-            )
+                ],
+            ),
         );
 
         $templateResolver->resolveTemplate($this->view);

@@ -27,7 +27,7 @@ final class PublishRuleDraft extends AbstractController
             'nglayouts:mapping:edit',
             [
                 'rule_group' => $rule->getRuleGroupId()->toString(),
-            ]
+            ],
         );
 
         $publishedRule = $this->layoutResolverService->publishRule($rule);

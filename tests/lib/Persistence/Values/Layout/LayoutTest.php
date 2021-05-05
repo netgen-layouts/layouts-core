@@ -26,7 +26,7 @@ final class LayoutTest extends TestCase
                 'created' => 123,
                 'modified' => 456,
                 'status' => Value::STATUS_PUBLISHED,
-            ]
+            ],
         );
 
         self::assertSame(42, $layout->id);

@@ -174,7 +174,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     public function testLoadRulesWithLayout(): void
     {
         $rules = $this->layoutResolverService->loadRules(
-            $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))
+            $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136')),
         );
 
         self::assertCount(2, $rules);
@@ -193,7 +193,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "layout" has an invalid state. Only published layouts can be used in rules.');
 
         $this->layoutResolverService->loadRules(
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136')),
         );
     }
 
@@ -213,7 +213,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     public function testGetRuleCountWithLayout(): void
     {
         $ruleCount = $this->layoutResolverService->getRuleCount(
-            $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))
+            $this->layoutService->loadLayout(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136')),
         );
 
         self::assertSame(2, $ruleCount);
@@ -228,7 +228,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "layout" has an invalid state. Only published layouts can be used in rules.');
 
         $this->layoutResolverService->getRuleCount(
-            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136'))
+            $this->layoutService->loadLayoutDraft(Uuid::fromString('81168ed3-86f9-55ea-b153-101f96f2c136')),
         );
     }
 
@@ -238,7 +238,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     public function testLoadRulesFromGroup(): void
     {
         $rules = $this->layoutResolverService->loadRulesFromGroup(
-            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')),
         );
 
         self::assertCount(2, $rules);
@@ -257,7 +257,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Rules can be loaded only from published rule groups.');
 
         $this->layoutResolverService->loadRulesFromGroup(
-            $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+            $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')),
         );
     }
 
@@ -267,7 +267,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     public function testGetRuleCountFromGroup(): void
     {
         $ruleCount = $this->layoutResolverService->getRuleCountFromGroup(
-            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')),
         );
 
         self::assertSame(2, $ruleCount);
@@ -282,7 +282,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Rule count can be fetched only for published rule groups.');
 
         $this->layoutResolverService->getRuleCountFromGroup(
-            $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+            $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')),
         );
     }
 
@@ -292,7 +292,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     public function testLoadRuleGroups(): void
     {
         $ruleGroups = $this->layoutResolverService->loadRuleGroups(
-            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')),
         );
 
         self::assertCount(1, $ruleGroups);
@@ -311,7 +311,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "parentGroup" has an invalid state. Rule groups can be loaded only from published parent groups.');
 
         $this->layoutResolverService->loadRuleGroups(
-            $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+            $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')),
         );
     }
 
@@ -321,7 +321,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     public function testGetRuleGroupCount(): void
     {
         $ruleGroupCount = $this->layoutResolverService->getRuleGroupCount(
-            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')),
         );
 
         self::assertSame(1, $ruleGroupCount);
@@ -336,7 +336,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "parentGroup" has an invalid state. Rule group count can be fetched only for published parent groups.');
 
         $this->layoutResolverService->getRuleGroupCount(
-            $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+            $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')),
         );
     }
 
@@ -348,7 +348,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $rules = $this->layoutResolverService->matchRules(
             $this->layoutResolverService->loadRuleGroup(Uuid::fromString(RuleGroup::ROOT_UUID)),
             'route',
-            'my_cool_route'
+            'my_cool_route',
         );
 
         self::assertNotEmpty($rules);
@@ -509,7 +509,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $createdRule = $this->layoutResolverService->createRule(
             $ruleCreateStruct,
-            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')),
         );
 
         self::assertSame('b4f85f38-de3f-4af7-9a5f-21df63a49da9', $createdRule->getRuleGroupId()->toString());
@@ -526,7 +526,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $createdRule = $this->layoutResolverService->createRule(
             $ruleCreateStruct,
-            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')),
         );
 
         self::assertTrue($createdRule->isDraft());
@@ -544,7 +544,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $createdRule = $this->layoutResolverService->createRule(
             $ruleCreateStruct,
-            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')),
         );
 
         self::assertTrue($createdRule->isDraft());
@@ -566,7 +566,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $this->layoutResolverService->createRule(
             $ruleCreateStruct,
-            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')),
         );
     }
 
@@ -583,7 +583,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $this->layoutResolverService->createRule(
             $ruleCreateStruct,
-            $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+            $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')),
         );
     }
 
@@ -673,7 +673,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $updatedRule = $this->layoutResolverService->updateRuleMetadata(
             $rule,
-            $struct
+            $struct,
         );
 
         self::assertSame(50, $updatedRule->getPriority());
@@ -929,7 +929,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     public function testRestoreFromArchive(): void
     {
         $restoredRule = $this->layoutResolverService->restoreFromArchive(
-            $this->layoutResolverService->loadRuleArchive(Uuid::fromString('55622437-f700-5378-99c9-7dafe89a8fb6'))
+            $this->layoutResolverService->loadRuleArchive(Uuid::fromString('55622437-f700-5378-99c9-7dafe89a8fb6')),
         );
 
         self::assertTrue($restoredRule->isDraft());
@@ -944,7 +944,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Only archived rules can be restored.');
 
         $this->layoutResolverService->restoreFromArchive(
-            $this->layoutResolverService->loadRule(Uuid::fromString('55622437-f700-5378-99c9-7dafe89a8fb6'))
+            $this->layoutResolverService->loadRule(Uuid::fromString('55622437-f700-5378-99c9-7dafe89a8fb6')),
         );
     }
 
@@ -988,7 +988,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $createdRuleGroup = $this->layoutResolverService->createRuleGroup(
             $ruleGroupCreateStruct,
-            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')),
         );
 
         self::assertTrue($createdRuleGroup->isDraft());
@@ -1006,7 +1006,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $createdRuleGroup = $this->layoutResolverService->createRuleGroup(
             $ruleGroupCreateStruct,
-            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')),
         );
 
         self::assertTrue($createdRuleGroup->isDraft());
@@ -1028,7 +1028,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $this->layoutResolverService->createRuleGroup(
             $ruleGroupCreateStruct,
-            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')),
         );
     }
 
@@ -1045,7 +1045,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $this->layoutResolverService->createRuleGroup(
             $ruleGroupCreateStruct,
-            $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+            $this->layoutResolverService->loadRuleGroupDraft(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')),
         );
     }
 
@@ -1095,7 +1095,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $updatedRuleGroup = $this->layoutResolverService->updateRuleGroupMetadata(
             $ruleGroup,
-            $struct
+            $struct,
         );
 
         self::assertSame(50, $updatedRuleGroup->getPriority());
@@ -1354,7 +1354,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     public function testRestoreRuleGroupFromArchive(): void
     {
         $restoredRuleGroup = $this->layoutResolverService->restoreRuleGroupFromArchive(
-            $this->layoutResolverService->loadRuleGroupArchive(Uuid::fromString('91139748-3bf0-4c25-b45c-d3be6596c399'))
+            $this->layoutResolverService->loadRuleGroupArchive(Uuid::fromString('91139748-3bf0-4c25-b45c-d3be6596c399')),
         );
 
         self::assertTrue($restoredRuleGroup->isDraft());
@@ -1369,7 +1369,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Only archived rule groups can be restored.');
 
         $this->layoutResolverService->restoreRuleGroupFromArchive(
-            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9'))
+            $this->layoutResolverService->loadRuleGroup(Uuid::fromString('b4f85f38-de3f-4af7-9a5f-21df63a49da9')),
         );
     }
 
@@ -1550,7 +1550,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     public function testAddTarget(): void
     {
         $targetCreateStruct = $this->layoutResolverService->newTargetCreateStruct(
-            'route_prefix'
+            'route_prefix',
         );
 
         $targetCreateStruct->value = 'some_route_';
@@ -1559,7 +1559,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $createdTarget = $this->layoutResolverService->addTarget(
             $rule,
-            $targetCreateStruct
+            $targetCreateStruct,
         );
 
         self::assertTrue($createdTarget->isDraft());
@@ -1574,7 +1574,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "rule" has an invalid state. Targets can be added only to draft rules.');
 
         $targetCreateStruct = $this->layoutResolverService->newTargetCreateStruct(
-            'route_prefix'
+            'route_prefix',
         );
 
         $targetCreateStruct->value = 'some_route_';
@@ -1583,7 +1583,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $this->layoutResolverService->addTarget(
             $rule,
-            $targetCreateStruct
+            $targetCreateStruct,
         );
     }
 
@@ -1596,7 +1596,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "rule" has an invalid state. Rule with UUID "de086bdf-0014-5f4f-89e4-fc0aff21da90" only accepts targets with "route_prefix" target type.');
 
         $targetCreateStruct = $this->layoutResolverService->newTargetCreateStruct(
-            'route'
+            'route',
         );
 
         $targetCreateStruct->value = 'some_route';
@@ -1605,7 +1605,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $this->layoutResolverService->addTarget(
             $rule,
-            $targetCreateStruct
+            $targetCreateStruct,
         );
     }
 
@@ -1675,7 +1675,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     public function testAddCondition(): void
     {
         $conditionCreateStruct = $this->layoutResolverService->newConditionCreateStruct(
-            'condition1'
+            'condition1',
         );
 
         $conditionCreateStruct->value = 'value';
@@ -1684,7 +1684,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $createdCondition = $this->layoutResolverService->addCondition(
             $rule,
-            $conditionCreateStruct
+            $conditionCreateStruct,
         );
 
         self::assertTrue($createdCondition->isDraft());
@@ -1699,7 +1699,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "rule" has an invalid state. Conditions can be added only to draft rules.');
 
         $conditionCreateStruct = $this->layoutResolverService->newConditionCreateStruct(
-            'condition1'
+            'condition1',
         );
 
         $conditionCreateStruct->value = 'value';
@@ -1708,7 +1708,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $this->layoutResolverService->addCondition(
             $rule,
-            $conditionCreateStruct
+            $conditionCreateStruct,
         );
     }
 
@@ -1718,7 +1718,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
     public function testAddRuleGroupCondition(): void
     {
         $conditionCreateStruct = $this->layoutResolverService->newConditionCreateStruct(
-            'condition1'
+            'condition1',
         );
 
         $conditionCreateStruct->value = 'value';
@@ -1727,7 +1727,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $createdCondition = $this->layoutResolverService->addRuleGroupCondition(
             $ruleGroup,
-            $conditionCreateStruct
+            $conditionCreateStruct,
         );
 
         self::assertTrue($createdCondition->isDraft());
@@ -1742,7 +1742,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
         $this->expectExceptionMessage('Argument "ruleGroup" has an invalid state. Conditions can be added only to draft rule groups.');
 
         $conditionCreateStruct = $this->layoutResolverService->newConditionCreateStruct(
-            'condition1'
+            'condition1',
         );
 
         $conditionCreateStruct->value = 'value';
@@ -1751,7 +1751,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
 
         $this->layoutResolverService->addRuleGroupCondition(
             $ruleGroup,
-            $conditionCreateStruct
+            $conditionCreateStruct,
         );
     }
 
@@ -1861,7 +1861,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
                 'description' => '',
                 'comment' => '',
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -1878,7 +1878,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
                 'description' => null,
                 'comment' => null,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -1893,7 +1893,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
             [
                 'priority' => null,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -1912,7 +1912,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
                 'priority' => null,
                 'enabled' => true,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -1928,7 +1928,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
                 'name' => null,
                 'description' => null,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -1943,7 +1943,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
             [
                 'priority' => null,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -1959,7 +1959,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
                 'type' => 'target',
                 'value' => null,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -1974,7 +1974,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
             [
                 'value' => null,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -1990,7 +1990,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
                 'type' => 'condition',
                 'value' => null,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -2005,7 +2005,7 @@ abstract class LayoutResolverServiceTest extends CoreTestCase
             [
                 'value' => null,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 }

@@ -42,7 +42,7 @@ final class BlockTest extends TestCase
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
                 'status' => Value::STATUS_DRAFT,
-            ]
+            ],
         );
 
         self::assertSame(42, $block->id);
@@ -72,7 +72,7 @@ final class BlockTest extends TestCase
                     'some_other_param' => ['some_other_value'],
                 ],
             ],
-            $block->parameters
+            $block->parameters,
         );
     }
 }

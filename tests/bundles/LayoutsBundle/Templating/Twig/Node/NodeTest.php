@@ -19,7 +19,7 @@ abstract class NodeTest extends NodeTestCase
             $name,
             $name,
             $name,
-            $name
+            $name,
         );
     }
 }

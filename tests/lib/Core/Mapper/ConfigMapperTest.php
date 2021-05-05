@@ -26,7 +26,7 @@ final class ConfigMapperTest extends TestCase
         $this->configDefinition = ConfigDefinition::fromArray(
             [
                 'parameterDefinitions' => $handler->getParameterDefinitions(),
-            ]
+            ],
         );
 
         $this->mapper = new ConfigMapper(new ParameterMapper());
@@ -46,7 +46,7 @@ final class ConfigMapperTest extends TestCase
             ],
             [
                 'config_key' => $this->configDefinition,
-            ]
+            ],
         );
 
         $mappedConfig = iterator_to_array($mappedConfig);
@@ -83,7 +83,7 @@ final class ConfigMapperTest extends TestCase
                     'param2' => 'value2',
                     'param3' => 'value3',
                 ],
-            ]
+            ],
         );
 
         self::assertSame(
@@ -94,7 +94,7 @@ final class ConfigMapperTest extends TestCase
                     'param' => 'new_value',
                 ],
             ],
-            iterator_to_array($serializedConfig)
+            iterator_to_array($serializedConfig),
         );
     }
 }

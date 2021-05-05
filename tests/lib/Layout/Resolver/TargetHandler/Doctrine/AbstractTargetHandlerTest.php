@@ -32,10 +32,10 @@ abstract class AbstractTargetHandlerTest extends TestCase
                 new Container(
                     [
                         $this->getTargetIdentifier() => $this->getTargetHandler(),
-                    ]
-                )
+                    ],
+                ),
             ),
-            new LayoutResolverMapper()
+            new LayoutResolverMapper(),
         );
     }
 

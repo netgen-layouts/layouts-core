@@ -51,10 +51,10 @@ trait TestCaseTrait
         return new LayoutHandler(
             new LayoutQueryHandler(
                 $this->databaseConnection,
-                $connectionHelper
+                $connectionHelper,
             ),
             $this->createBlockHandler(),
-            new LayoutMapper()
+            new LayoutMapper(),
         );
     }
 
@@ -66,11 +66,11 @@ trait TestCaseTrait
         return new BlockHandler(
             new BlockQueryHandler(
                 $this->databaseConnection,
-                new ConnectionHelper($this->databaseConnection)
+                new ConnectionHelper($this->databaseConnection),
             ),
             $this->createCollectionHandler(),
             new BlockMapper(),
-            new PositionHelper($this->databaseConnection)
+            new PositionHelper($this->databaseConnection),
         );
     }
 
@@ -82,10 +82,10 @@ trait TestCaseTrait
         return new CollectionHandler(
             new CollectionQueryHandler(
                 $this->databaseConnection,
-                new ConnectionHelper($this->databaseConnection)
+                new ConnectionHelper($this->databaseConnection),
             ),
             new CollectionMapper(),
-            new PositionHelper($this->databaseConnection)
+            new PositionHelper($this->databaseConnection),
         );
     }
 
@@ -107,10 +107,10 @@ trait TestCaseTrait
                         'path_info_prefix' => new TargetHandler\Doctrine\RoutePrefix(),
                         'request_uri' => new TargetHandler\Doctrine\Route(),
                         'request_uri_prefix' => new TargetHandler\Doctrine\RoutePrefix(),
-                    ]
-                )
+                    ],
+                ),
             ),
-            new LayoutResolverMapper()
+            new LayoutResolverMapper(),
         );
     }
 }

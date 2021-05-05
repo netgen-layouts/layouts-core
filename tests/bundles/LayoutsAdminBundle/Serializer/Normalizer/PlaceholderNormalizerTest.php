@@ -35,7 +35,7 @@ final class PlaceholderNormalizerTest extends TestCase
             [
                 'identifier' => 'main',
                 'blocks' => new ArrayCollection([$block]),
-            ]
+            ],
         );
 
         self::assertSame(
@@ -43,7 +43,7 @@ final class PlaceholderNormalizerTest extends TestCase
                 'identifier' => 'main',
                 'blocks' => ['data'],
             ],
-            $this->normalizer->normalize(new Value($placeholder))
+            $this->normalizer->normalize(new Value($placeholder)),
         );
     }
 

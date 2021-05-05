@@ -32,7 +32,7 @@ final class EditTargetForm extends AbstractController
             'nglayouts:mapping:edit',
             [
                 'rule_group' => $rule->getRuleGroupId()->toString(),
-            ]
+            ],
         );
 
         $targetType = $target->getTargetType();
@@ -49,9 +49,9 @@ final class EditTargetForm extends AbstractController
                     'nglayouts_admin_layout_resolver_target_form_edit',
                     [
                         'targetId' => $target->getId()->toString(),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $form->handleRequest($request);
@@ -65,9 +65,9 @@ final class EditTargetForm extends AbstractController
 
             return $this->buildView(
                 $this->layoutResolverService->loadRuleDraft(
-                    $target->getRuleId()
+                    $target->getRuleId(),
                 ),
-                ViewInterface::CONTEXT_ADMIN
+                ViewInterface::CONTEXT_ADMIN,
             );
         }
 
@@ -75,7 +75,7 @@ final class EditTargetForm extends AbstractController
             $form,
             ViewInterface::CONTEXT_ADMIN,
             [],
-            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
+            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY),
         );
     }
 }

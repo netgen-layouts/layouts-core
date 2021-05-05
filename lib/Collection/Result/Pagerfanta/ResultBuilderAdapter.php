@@ -59,7 +59,7 @@ final class ResultBuilderAdapter implements AdapterInterface
             $this->collection,
             $offset + $this->startingOffset,
             $length,
-            $this->flags
+            $this->flags,
         );
 
         if (!isset($this->totalCount)) {

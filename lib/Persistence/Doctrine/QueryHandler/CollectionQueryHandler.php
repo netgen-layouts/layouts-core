@@ -61,7 +61,7 @@ final class CollectionQueryHandler extends QueryHandler
         $query->select('block_id', 'block_status', 'collection_id', 'collection_status', 'identifier')
             ->from('nglayouts_block_collection')
             ->where(
-                $query->expr()->eq('block_id', ':block_id')
+                $query->expr()->eq('block_id', ':block_id'),
             )
             ->setParameter('block_id', $block->id, Types::INTEGER)
             ->orderBy('identifier', 'ASC');
@@ -104,8 +104,8 @@ final class CollectionQueryHandler extends QueryHandler
         $query->where(
             $query->expr()->and(
                 $query->expr()->eq('i.collection_id', ':collection_id'),
-                $query->expr()->eq('i.position', ':position')
-            )
+                $query->expr()->eq('i.position', ':position'),
+            ),
         )
         ->setParameter('collection_id', $collection->id, Types::INTEGER)
         ->setParameter('position', $position, Types::INTEGER);
@@ -124,7 +124,7 @@ final class CollectionQueryHandler extends QueryHandler
     {
         $query = $this->getItemSelectQuery();
         $query->where(
-            $query->expr()->eq('i.collection_id', ':collection_id')
+            $query->expr()->eq('i.collection_id', ':collection_id'),
         )
         ->setParameter('collection_id', $collection->id, Types::INTEGER);
 
@@ -163,7 +163,7 @@ final class CollectionQueryHandler extends QueryHandler
         $query->select('DISTINCT id')
             ->from('nglayouts_collection_query')
             ->where(
-                $query->expr()->eq('collection_id', ':collection_id')
+                $query->expr()->eq('collection_id', ':collection_id'),
             )
             ->setParameter('collection_id', $collectionId, Types::INTEGER);
 
@@ -185,7 +185,7 @@ final class CollectionQueryHandler extends QueryHandler
     {
         $query = $this->getQuerySelectQuery();
         $query->where(
-            $query->expr()->eq('q.collection_id', ':collection_id')
+            $query->expr()->eq('q.collection_id', ':collection_id'),
         )
         ->setParameter('collection_id', $collection->id, Types::INTEGER);
 
@@ -220,7 +220,7 @@ final class CollectionQueryHandler extends QueryHandler
     {
         $query = $this->getSlotSelectQuery();
         $query->where(
-            $query->expr()->eq('s.collection_id', ':collection_id')
+            $query->expr()->eq('s.collection_id', ':collection_id'),
         )
         ->setParameter('collection_id', $collection->id, Types::INTEGER);
 
@@ -267,7 +267,7 @@ final class CollectionQueryHandler extends QueryHandler
                     'translatable' => ':translatable',
                     'main_locale' => ':main_locale',
                     'always_available' => ':always_available',
-                ]
+                ],
             )
             ->setValue('id', $collection->id ?? $this->connectionHelper->nextId('nglayouts_collection'))
             ->setParameter('uuid', $collection->uuid, Types::STRING)
@@ -297,7 +297,7 @@ final class CollectionQueryHandler extends QueryHandler
                     'collection_id' => ':collection_id',
                     'status' => ':status',
                     'locale' => ':locale',
-                ]
+                ],
             )
             ->setParameter('collection_id', $collection->id, Types::INTEGER)
             ->setParameter('status', $collection->status, Types::INTEGER)
@@ -321,7 +321,7 @@ final class CollectionQueryHandler extends QueryHandler
                     'collection_id' => ':collection_id',
                     'collection_status' => ':collection_status',
                     'identifier' => ':identifier',
-                ]
+                ],
             )
             ->setParameter('block_id', $collectionReference->blockId, Types::INTEGER)
             ->setParameter('block_status', $collectionReference->blockStatus, Types::INTEGER)
@@ -347,7 +347,7 @@ final class CollectionQueryHandler extends QueryHandler
             ->set('main_locale', ':main_locale')
             ->set('always_available', ':always_available')
             ->where(
-                $query->expr()->eq('id', ':id')
+                $query->expr()->eq('id', ':id'),
             )
             ->setParameter('id', $collection->id, Types::INTEGER)
             ->setParameter('uuid', $collection->uuid, Types::STRING)
@@ -373,7 +373,7 @@ final class CollectionQueryHandler extends QueryHandler
         $query
             ->delete('nglayouts_block_collection')
             ->where(
-                $query->expr()->eq('collection_id', ':collection_id')
+                $query->expr()->eq('collection_id', ':collection_id'),
             )
             ->setParameter('collection_id', $collectionId, Types::INTEGER);
 
@@ -388,7 +388,7 @@ final class CollectionQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder();
         $query->delete('nglayouts_collection')
             ->where(
-                $query->expr()->eq('id', ':id')
+                $query->expr()->eq('id', ':id'),
             )
             ->setParameter('id', $collectionId, Types::INTEGER);
 
@@ -408,7 +408,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $query->delete('nglayouts_collection_translation')
             ->where(
-                $query->expr()->eq('collection_id', ':collection_id')
+                $query->expr()->eq('collection_id', ':collection_id'),
             )
             ->setParameter('collection_id', $collectionId, Types::INTEGER);
 
@@ -436,7 +436,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $query->delete('nglayouts_block_collection')
             ->where(
-                $query->expr()->in('block_id', [':block_id'])
+                $query->expr()->in('block_id', [':block_id']),
             )
             ->setParameter('block_id', $blockIds, Connection::PARAM_INT_ARRAY);
 
@@ -465,7 +465,7 @@ final class CollectionQueryHandler extends QueryHandler
                     'value_type' => ':value_type',
                     'view_type' => ':view_type',
                     'config' => ':config',
-                ]
+                ],
             )
             ->setValue('id', $item->id ?? $this->connectionHelper->nextId('nglayouts_collection_item'))
             ->setParameter('uuid', $item->uuid, Types::STRING)
@@ -495,8 +495,8 @@ final class CollectionQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->and(
                     $query->expr()->eq('collection_id', ':collection_id'),
-                    $query->expr()->eq('position', ':position')
-                )
+                    $query->expr()->eq('position', ':position'),
+                ),
             )
             ->setParameter('collection_id', $collection->id, Types::INTEGER)
             ->setParameter('position', $position, Types::INTEGER);
@@ -523,7 +523,7 @@ final class CollectionQueryHandler extends QueryHandler
                     'collection_id' => ':collection_id',
                     'position' => ':position',
                     'view_type' => ':view_type',
-                ]
+                ],
             )
             ->setValue('id', $slot->id ?? $this->connectionHelper->nextId('nglayouts_collection_slot'))
             ->setParameter('uuid', $slot->uuid, Types::STRING)
@@ -556,7 +556,7 @@ final class CollectionQueryHandler extends QueryHandler
             ->set('view_type', ':view_type')
             ->set('config', ':config')
             ->where(
-                $query->expr()->eq('id', ':id')
+                $query->expr()->eq('id', ':id'),
             )
             ->setParameter('id', $item->id, Types::INTEGER)
             ->setParameter('uuid', $item->uuid, Types::STRING)
@@ -586,7 +586,7 @@ final class CollectionQueryHandler extends QueryHandler
             ->set('position', ':position')
             ->set('view_type', ':view_type')
             ->where(
-                $query->expr()->eq('id', ':id')
+                $query->expr()->eq('id', ':id'),
             )
             ->setParameter('id', $slot->id, Types::INTEGER)
             ->setParameter('uuid', $slot->uuid, Types::STRING)
@@ -608,7 +608,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $query->delete('nglayouts_collection_item')
             ->where(
-                $query->expr()->eq('id', ':id')
+                $query->expr()->eq('id', ':id'),
             )
             ->setParameter('id', $itemId, Types::INTEGER);
 
@@ -626,7 +626,7 @@ final class CollectionQueryHandler extends QueryHandler
         $query
             ->delete('nglayouts_collection_item')
             ->where(
-                $query->expr()->eq('collection_id', ':collection_id')
+                $query->expr()->eq('collection_id', ':collection_id'),
             )
             ->setParameter('collection_id', $collectionId, Types::INTEGER);
 
@@ -646,7 +646,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $query->delete('nglayouts_collection_slot')
             ->where(
-                $query->expr()->eq('id', ':id')
+                $query->expr()->eq('id', ':id'),
             )
             ->setParameter('id', $slotId, Types::INTEGER);
 
@@ -664,7 +664,7 @@ final class CollectionQueryHandler extends QueryHandler
         $query
             ->delete('nglayouts_collection_slot')
             ->where(
-                $query->expr()->eq('collection_id', ':collection_id')
+                $query->expr()->eq('collection_id', ':collection_id'),
             )
             ->setParameter('collection_id', $collectionId, Types::INTEGER);
 
@@ -689,7 +689,7 @@ final class CollectionQueryHandler extends QueryHandler
                     'status' => ':status',
                     'collection_id' => ':collection_id',
                     'type' => ':type',
-                ]
+                ],
             )
             ->setValue('id', $query->id ?? $this->connectionHelper->nextId('nglayouts_collection_query'))
             ->setParameter('uuid', $query->uuid, Types::STRING)
@@ -717,7 +717,7 @@ final class CollectionQueryHandler extends QueryHandler
                     'status' => ':status',
                     'locale' => ':locale',
                     'parameters' => ':parameters',
-                ]
+                ],
             )
             ->setParameter('query_id', $query->id, Types::INTEGER)
             ->setParameter('status', $query->status, Types::INTEGER)
@@ -740,8 +740,8 @@ final class CollectionQueryHandler extends QueryHandler
             ->where(
                 $dbQuery->expr()->and(
                     $dbQuery->expr()->eq('query_id', ':query_id'),
-                    $dbQuery->expr()->eq('locale', ':locale')
-                )
+                    $dbQuery->expr()->eq('locale', ':locale'),
+                ),
             )
             ->setParameter('query_id', $query->id, Types::INTEGER)
             ->setParameter('locale', $locale, Types::STRING)
@@ -763,7 +763,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $query->delete('nglayouts_collection_query')
             ->where(
-                $query->expr()->in('id', [':query_id'])
+                $query->expr()->in('id', [':query_id']),
             )
             ->setParameter('query_id', $queryIds, Connection::PARAM_INT_ARRAY);
 
@@ -785,7 +785,7 @@ final class CollectionQueryHandler extends QueryHandler
 
         $query->delete('nglayouts_collection_query_translation')
             ->where(
-                $query->expr()->in('query_id', [':query_id'])
+                $query->expr()->in('query_id', [':query_id']),
             )
             ->setParameter('query_id', $queryIds, Connection::PARAM_INT_ARRAY);
 
@@ -815,7 +815,7 @@ final class CollectionQueryHandler extends QueryHandler
         $query->select('DISTINCT bc.collection_id')
             ->from('nglayouts_block_collection', 'bc')
             ->where(
-                $query->expr()->in('bc.block_id', [':block_id'])
+                $query->expr()->in('bc.block_id', [':block_id']),
             )
             ->setParameter('block_id', $blockIds, Connection::PARAM_INT_ARRAY);
 
@@ -842,16 +842,16 @@ final class CollectionQueryHandler extends QueryHandler
                 'ct',
                 $query->expr()->and(
                     $query->expr()->eq('ct.collection_id', 'c.id'),
-                    $query->expr()->eq('ct.status', 'c.status')
-                )
+                    $query->expr()->eq('ct.status', 'c.status'),
+                ),
             )->innerJoin(
                 'c',
                 'nglayouts_block_collection',
                 'bc',
                 $query->expr()->and(
                     $query->expr()->eq('c.id', 'bc.collection_id'),
-                    $query->expr()->eq('c.status', 'bc.collection_status')
-                )
+                    $query->expr()->eq('c.status', 'bc.collection_status'),
+                ),
             );
 
         return $query;
@@ -871,24 +871,24 @@ final class CollectionQueryHandler extends QueryHandler
                 'ct',
                 $query->expr()->and(
                     $query->expr()->eq('ct.collection_id', 'c.id'),
-                    $query->expr()->eq('ct.status', 'c.status')
-                )
+                    $query->expr()->eq('ct.status', 'c.status'),
+                ),
             )->innerJoin(
                 'c',
                 'nglayouts_block_collection',
                 'bc',
                 $query->expr()->and(
                     $query->expr()->eq('c.id', 'bc.collection_id'),
-                    $query->expr()->eq('c.status', 'bc.collection_status')
-                )
+                    $query->expr()->eq('c.status', 'bc.collection_status'),
+                ),
             )->innerJoin(
                 'bc',
                 'nglayouts_block',
                 'b',
                 $query->expr()->and(
                     $query->expr()->eq('bc.block_id', 'b.id'),
-                    $query->expr()->eq('bc.block_status', 'b.status')
-                )
+                    $query->expr()->eq('bc.block_status', 'b.status'),
+                ),
             );
 
         return $query;
@@ -908,8 +908,8 @@ final class CollectionQueryHandler extends QueryHandler
                 'c',
                 $query->expr()->and(
                     $query->expr()->eq('c.id', 'i.collection_id'),
-                    $query->expr()->eq('c.status', 'i.status')
-                )
+                    $query->expr()->eq('c.status', 'i.status'),
+                ),
             );
 
         return $query;
@@ -929,16 +929,16 @@ final class CollectionQueryHandler extends QueryHandler
                 'qt',
                 $query->expr()->and(
                     $query->expr()->eq('qt.query_id', 'q.id'),
-                    $query->expr()->eq('qt.status', 'q.status')
-                )
+                    $query->expr()->eq('qt.status', 'q.status'),
+                ),
             )->innerJoin(
                 'q',
                 'nglayouts_collection',
                 'c',
                 $query->expr()->and(
                     $query->expr()->eq('c.id', 'q.collection_id'),
-                    $query->expr()->eq('c.status', 'q.status')
-                )
+                    $query->expr()->eq('c.status', 'q.status'),
+                ),
             );
 
         return $query;
@@ -958,8 +958,8 @@ final class CollectionQueryHandler extends QueryHandler
                 'c',
                 $query->expr()->and(
                     $query->expr()->eq('c.id', 's.collection_id'),
-                    $query->expr()->eq('c.status', 's.status')
-                )
+                    $query->expr()->eq('c.status', 's.status'),
+                ),
             );
 
         return $query;

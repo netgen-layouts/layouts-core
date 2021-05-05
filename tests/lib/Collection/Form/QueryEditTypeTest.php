@@ -52,7 +52,7 @@ final class QueryEditTypeTest extends FormTestCase
         $form = $this->factory->create(
             QueryEditType::class,
             $struct,
-            ['query' => $this->query]
+            ['query' => $this->query],
         );
 
         $form->submit($submittedData);
@@ -93,9 +93,9 @@ final class QueryEditTypeTest extends FormTestCase
                     [
                         'queryType' => $this->queryType,
                         'mainLocale' => 'en',
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         self::assertFalse($form->get('parameters')->isDisabled());
@@ -120,9 +120,9 @@ final class QueryEditTypeTest extends FormTestCase
                     [
                         'queryType' => $this->queryType,
                         'mainLocale' => 'en',
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         self::assertFalse($form->get('parameters')->isDisabled());
@@ -146,7 +146,7 @@ final class QueryEditTypeTest extends FormTestCase
             [
                 'query' => $this->query,
                 'data' => $struct,
-            ]
+            ],
         );
 
         self::assertSame($this->query, $options['query']);
@@ -185,7 +185,7 @@ final class QueryEditTypeTest extends FormTestCase
         $optionsResolver->resolve(
             [
                 'query' => '',
-            ]
+            ],
         );
     }
 
@@ -206,7 +206,7 @@ final class QueryEditTypeTest extends FormTestCase
             [
                 'query' => $this->query,
                 'data' => '',
-            ]
+            ],
         );
     }
 

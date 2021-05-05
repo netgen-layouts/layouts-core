@@ -69,7 +69,7 @@ final class GetCollectionResultsListener implements EventSubscriberInterface
                 $collection,
                 1,
                 $this->getMaxPages($block),
-                $flags
+                $flags,
             );
 
             $collections[$identifier] = $pager->getCurrentPageResults();

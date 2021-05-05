@@ -18,7 +18,7 @@ final class ConfigExceptionTest extends TestCase
 
         self::assertSame(
             'Configuration with "config" config key does not exist.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 
@@ -31,7 +31,7 @@ final class ConfigExceptionTest extends TestCase
 
         self::assertSame(
             'Config struct with config key "config" does not exist.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 }

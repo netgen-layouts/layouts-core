@@ -52,7 +52,7 @@ final class TimeTest extends FormTestCase
         $form = $this->factory->create(
             ConditionType::class,
             $struct,
-            ['condition_type' => $this->conditionType]
+            ['condition_type' => $this->conditionType],
         );
 
         $valueFormConfig = $form->get('value')->getConfig();
@@ -72,7 +72,7 @@ final class TimeTest extends FormTestCase
                     'timezone' => 'Antarctica/Casey',
                 ],
             ],
-            $struct->value
+            $struct->value,
         );
 
         $formView = $form->createView();
@@ -89,8 +89,8 @@ final class TimeTest extends FormTestCase
             new Container(
                 [
                     'time' => new TimeMapper(),
-                ]
-            )
+                ],
+            ),
         );
     }
 }

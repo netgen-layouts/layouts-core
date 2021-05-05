@@ -54,10 +54,10 @@ final class CollectionRunnerFactoryTest extends TestCase
                     'query' => Query::fromArray(
                         [
                             'queryType' => new QueryType('type'),
-                        ]
+                        ],
                     ),
-                ]
-            )
+                ],
+            ),
         );
 
         self::assertInstanceOf(DynamicCollectionRunner::class, $runner);
@@ -76,11 +76,11 @@ final class CollectionRunnerFactoryTest extends TestCase
                     'query' => Query::fromArray(
                         [
                             'queryType' => new QueryType('type', [], null, true),
-                        ]
+                        ],
                     ),
-                ]
+                ],
             ),
-            PHP_INT_MAX
+            PHP_INT_MAX,
         );
 
         self::assertInstanceOf(DynamicCollectionRunner::class, $runner);

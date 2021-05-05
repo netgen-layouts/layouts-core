@@ -43,7 +43,7 @@ final class DefaultViewTemplatesNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'default_view_templates'
+            'default_view_templates',
         );
     }
 

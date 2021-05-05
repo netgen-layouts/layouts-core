@@ -25,8 +25,8 @@ final class ViewProviderException extends RuntimeException implements Exception
         return new self(
             sprintf(
                 'No view providers found for "%s" value.',
-                $class
-            )
+                $class,
+            ),
         );
     }
 
@@ -36,8 +36,8 @@ final class ViewProviderException extends RuntimeException implements Exception
             sprintf(
                 'To build the %s view, "%s" parameter needs to be provided.',
                 $viewType,
-                $parameterName
-            )
+                $parameterName,
+            ),
         );
     }
 
@@ -48,8 +48,8 @@ final class ViewProviderException extends RuntimeException implements Exception
                 'To build the %s view, "%s" parameter needs to be of "%s" type.',
                 $viewType,
                 $parameterName,
-                $expectedType
-            )
+                $expectedType,
+            ),
         );
     }
 }

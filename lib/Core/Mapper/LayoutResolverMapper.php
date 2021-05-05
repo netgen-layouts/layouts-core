@@ -62,8 +62,8 @@ final class LayoutResolverMapper
             'ruleGroupId' => Uuid::fromString(
                 $this->layoutResolverHandler->loadRuleGroup(
                     $rule->ruleGroupId,
-                    Value::STATUS_PUBLISHED
-                )->uuid
+                    Value::STATUS_PUBLISHED,
+                )->uuid,
             ),
             'layout' => function () use ($rule): ?Layout {
                 try {
@@ -81,14 +81,14 @@ final class LayoutResolverMapper
             'targets' => new LazyCollection(
                 fn (): array => array_map(
                     fn (PersistenceTarget $target): Target => $this->mapTarget($target),
-                    $this->layoutResolverHandler->loadRuleTargets($rule)
-                )
+                    $this->layoutResolverHandler->loadRuleTargets($rule),
+                ),
             ),
             'conditions' => new LazyCollection(
                 fn (): array => array_map(
                     fn (PersistenceRuleCondition $condition): RuleCondition => $this->mapRuleCondition($condition),
-                    $this->layoutResolverHandler->loadRuleConditions($rule)
-                )
+                    $this->layoutResolverHandler->loadRuleConditions($rule),
+                ),
             ),
         ];
 
@@ -113,14 +113,14 @@ final class LayoutResolverMapper
             'rules' => new LazyCollection(
                 fn (): array => array_map(
                     fn (PersistenceRule $rule): Rule => $this->mapRule($rule),
-                    $this->layoutResolverHandler->loadRulesFromGroup($ruleGroup)
-                )
+                    $this->layoutResolverHandler->loadRulesFromGroup($ruleGroup),
+                ),
             ),
             'conditions' => new LazyCollection(
                 fn (): array => array_map(
                     fn (PersistenceRuleGroupCondition $condition): RuleGroupCondition => $this->mapRuleGroupCondition($condition),
-                    $this->layoutResolverHandler->loadRuleGroupConditions($ruleGroup)
-                )
+                    $this->layoutResolverHandler->loadRuleGroupConditions($ruleGroup),
+                ),
             ),
         ];
 
@@ -134,7 +134,7 @@ final class LayoutResolverMapper
     {
         try {
             $targetType = $this->targetTypeRegistry->getTargetType(
-                $target->type
+                $target->type,
             );
         } catch (TargetTypeException $e) {
             $targetType = new NullTargetType();
@@ -158,7 +158,7 @@ final class LayoutResolverMapper
     {
         try {
             $conditionType = $this->conditionTypeRegistry->getConditionType(
-                $condition->type
+                $condition->type,
             );
         } catch (ConditionTypeException $e) {
             $conditionType = new NullConditionType();
@@ -182,7 +182,7 @@ final class LayoutResolverMapper
     {
         try {
             $conditionType = $this->conditionTypeRegistry->getConditionType(
-                $condition->type
+                $condition->type,
             );
         } catch (ConditionTypeException $e) {
             $conditionType = new NullConditionType();

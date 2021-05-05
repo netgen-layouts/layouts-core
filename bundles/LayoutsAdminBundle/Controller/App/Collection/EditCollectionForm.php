@@ -39,9 +39,9 @@ final class EditCollectionForm extends AbstractController
                     'nglayouts_app_collection_collection_form_edit',
                     [
                         'collectionId' => $collection->getId()->toString(),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $form->handleRequest($request);
@@ -64,7 +64,7 @@ final class EditCollectionForm extends AbstractController
             $form,
             ViewInterface::CONTEXT_APP,
             [],
-            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
+            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY),
         );
     }
 }

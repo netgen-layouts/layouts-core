@@ -28,7 +28,7 @@ final class QueryTest extends TestCase
                 'alwaysAvailable' => true,
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
-            ]
+            ],
         );
 
         self::assertSame(42, $query->id);

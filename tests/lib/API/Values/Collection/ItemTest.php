@@ -40,7 +40,7 @@ final class ItemTest extends TestCase
                 'value' => 32,
                 'viewType' => 'overlay',
                 'cmsItem' => static fn (): CmsItemInterface => $cmsItem,
-            ]
+            ],
         );
 
         self::assertSame($itemUuid->toString(), $item->getId()->toString());
@@ -64,7 +64,7 @@ final class ItemTest extends TestCase
                 'collectionId' => Uuid::uuid4(),
                 'definition' => new ItemDefinition(),
                 'cmsItem' => CmsItem::fromArray(['isVisible' => $cmsItemVisible]),
-            ]
+            ],
         );
 
         self::assertSame($isValid, $item->isValid());
@@ -80,7 +80,7 @@ final class ItemTest extends TestCase
                 'id' => Uuid::uuid4(),
                 'collectionId' => Uuid::uuid4(),
                 'cmsItem' => new NullCmsItem('value'),
-            ]
+            ],
         );
 
         self::assertFalse($item->isValid());

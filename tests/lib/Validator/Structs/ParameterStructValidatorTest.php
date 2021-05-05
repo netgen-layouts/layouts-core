@@ -37,10 +37,10 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
                             'name' => 'param',
                             'type' => new ParameterType\IdentifierType(),
                             'isRequired' => true,
-                        ]
+                        ],
                     ),
                 ],
-            ]
+            ],
         );
 
         $this->constraint = new ParameterStruct(
@@ -52,13 +52,13 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
                                 'name' => 'css_id',
                                 'type' => new ParameterType\TextLineType(),
                                 'isRequired' => true,
-                            ]
+                            ],
                         ),
                         'checkbox' => $compoundParameter,
-                    ]
+                    ],
                 ),
                 'allowMissingFields' => true,
-            ]
+            ],
         );
 
         parent::setUp();
@@ -107,10 +107,10 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
                             'name' => 'param',
                             'type' => new ParameterType\IdentifierType(),
                             'isRequired' => true,
-                        ]
+                        ],
                     ),
                 ],
-            ]
+            ],
         );
 
         $this->constraint = new ParameterStruct(
@@ -130,13 +130,13 @@ final class ParameterStructValidatorTest extends ValidatorTestCase
                                         new Length(['min' => 3, 'allowEmptyString' => false]) :
                                         new Length(['min' => 3]),
                                 ],
-                            ]
+                            ],
                         ),
                         'checkbox' => $compoundParameter,
-                    ]
+                    ],
                 ),
                 'allowMissingFields' => true,
-            ]
+            ],
         );
 
         $this->constraint->allowMissingFields = !$required;

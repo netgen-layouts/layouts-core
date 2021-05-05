@@ -30,7 +30,7 @@ final class CmsItemTest extends TestCase
                 'name' => 'Value name',
                 'isVisible' => true,
                 'object' => $object,
-            ]
+            ],
         );
 
         self::assertSame(42, $value->getValue());

@@ -34,9 +34,9 @@ final class LoadConfig extends AbstractController
             [
                 'automatic_cache_clear' => $this->configuration->getParameter('app.automatic_cache_clear'),
                 'csrf_token' => $this->csrfTokenManager->getToken(
-                    $this->configuration->getParameter('app.csrf_token_id')
+                    $this->configuration->getParameter('app.csrf_token_id'),
                 )->getValue(),
-            ]
+            ],
         );
     }
 }

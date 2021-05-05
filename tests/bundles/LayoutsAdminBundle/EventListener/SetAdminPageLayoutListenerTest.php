@@ -33,7 +33,7 @@ final class SetAdminPageLayoutListenerTest extends TestCase
     {
         self::assertSame(
             [LayoutsAdminEvents::ADMIN_MATCH => ['onAdminMatch', -65535]],
-            $this->listener::getSubscribedEvents()
+            $this->listener::getSubscribedEvents(),
         );
     }
 
@@ -50,7 +50,7 @@ final class SetAdminPageLayoutListenerTest extends TestCase
 
         self::assertSame(
             'default.html.twig',
-            $this->globalVariable->getPageLayoutTemplate()
+            $this->globalVariable->getPageLayoutTemplate(),
         );
     }
 
@@ -68,7 +68,7 @@ final class SetAdminPageLayoutListenerTest extends TestCase
 
         self::assertSame(
             'template.html.twig',
-            $this->globalVariable->getPageLayoutTemplate()
+            $this->globalVariable->getPageLayoutTemplate(),
         );
     }
 }

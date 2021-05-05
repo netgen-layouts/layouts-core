@@ -22,7 +22,7 @@ trait UuidGeneratorTrait
     {
         $uuids = array_map(
             static fn (string $uuid): UuidInterface => Uuid::fromString($uuid),
-            $uuids
+            $uuids,
         );
 
         $originalFactory = Uuid::getFactory();
@@ -37,7 +37,7 @@ trait UuidGeneratorTrait
         $factoryMock->expects(self::any())
             ->method('fromString')
             ->willReturnCallback(
-                static fn (string $uuid): UuidInterface => $originalFactory->fromString($uuid)
+                static fn (string $uuid): UuidInterface => $originalFactory->fromString($uuid),
             );
 
         $factoryMock->expects(self::exactly(count($uuids)))

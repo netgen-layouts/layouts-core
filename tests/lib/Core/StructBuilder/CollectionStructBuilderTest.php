@@ -41,7 +41,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
                 'limit' => null,
                 'queryCreateStruct' => $queryCreateStruct,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -57,7 +57,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
                 'offset' => null,
                 'limit' => null,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -67,7 +67,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
     public function testNewCollectionUpdateStructWithCollection(): void
     {
         $struct = $this->structBuilder->newCollectionUpdateStruct(
-            $this->collectionService->loadCollectionDraft(Uuid::fromString('da050624-8ae0-5fb9-ae85-092bf8242b89'))
+            $this->collectionService->loadCollectionDraft(Uuid::fromString('da050624-8ae0-5fb9-ae85-092bf8242b89')),
         );
 
         self::assertSame(
@@ -75,7 +75,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
                 'offset' => 4,
                 'limit' => 2,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -85,7 +85,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
     public function testNewCollectionUpdateStructWithUnlimitedCollection(): void
     {
         $struct = $this->structBuilder->newCollectionUpdateStruct(
-            $this->collectionService->loadCollectionDraft(Uuid::fromString('a79dde13-1f5c-51a6-bea9-b766236be49e'))
+            $this->collectionService->loadCollectionDraft(Uuid::fromString('a79dde13-1f5c-51a6-bea9-b766236be49e')),
         );
 
         self::assertSame(
@@ -93,7 +93,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
                 'offset' => 0,
                 'limit' => 0,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -112,7 +112,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
                 'viewType' => null,
                 'configStructs' => [],
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -128,7 +128,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
                 'viewType' => null,
                 'configStructs' => [],
             ],
-            $this->exportObject($struct, true)
+            $this->exportObject($struct, true),
         );
     }
 
@@ -154,7 +154,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
                     ],
                 ],
             ],
-            $this->exportObject($struct, true)
+            $this->exportObject($struct, true),
         );
     }
 
@@ -180,7 +180,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
                     ],
                 ],
             ],
-            $this->exportObject($struct, true)
+            $this->exportObject($struct, true),
         );
     }
 
@@ -201,7 +201,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
                     'param2' => null,
                 ],
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -217,7 +217,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
                 'locale' => 'en',
                 'parameterValues' => [],
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -237,7 +237,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
                     'param2' => null,
                 ],
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -252,7 +252,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
             [
                 'viewType' => null,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -267,7 +267,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
             [
                 'viewType' => null,
             ],
-            $this->exportObject($struct, true)
+            $this->exportObject($struct, true),
         );
     }
 
@@ -283,7 +283,7 @@ abstract class CollectionStructBuilderTest extends CoreTestCase
             [
                 'viewType' => 'standard',
             ],
-            $this->exportObject($struct, true)
+            $this->exportObject($struct, true),
         );
     }
 }

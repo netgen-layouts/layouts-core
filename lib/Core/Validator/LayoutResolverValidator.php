@@ -51,7 +51,7 @@ final class LayoutResolverValidator
                 [
                     new Constraints\IdenticalTo(['value' => false]),
                 ],
-                'layoutId'
+                'layoutId',
             );
         }
     }
@@ -72,7 +72,7 @@ final class LayoutResolverValidator
             [
                 new Constraints\NotBlank(),
             ],
-            'name'
+            'name',
         );
     }
 
@@ -89,7 +89,7 @@ final class LayoutResolverValidator
                 [
                     new Constraints\NotBlank(),
                 ],
-                'name'
+                'name',
             );
         }
     }
@@ -110,7 +110,7 @@ final class LayoutResolverValidator
         $this->validate(
             $targetCreateStruct->value,
             $targetType->getConstraints(),
-            'value'
+            'value',
         );
     }
 
@@ -126,7 +126,7 @@ final class LayoutResolverValidator
         $this->validate(
             $targetUpdateStruct->value,
             $targetType->getConstraints(),
-            'value'
+            'value',
         );
     }
 
@@ -146,7 +146,7 @@ final class LayoutResolverValidator
         $this->validate(
             $conditionCreateStruct->value,
             $conditionType->getConstraints(),
-            'value'
+            'value',
         );
     }
 
@@ -162,7 +162,7 @@ final class LayoutResolverValidator
         $this->validate(
             $conditionUpdateStruct->value,
             $conditionType->getConstraints(),
-            'value'
+            'value',
         );
     }
 }

@@ -30,7 +30,7 @@ final class BlockTypeGroupNode implements ConfigurationNodeInterface
                     ->arrayNode('block_types')
                         ->validate()
                             ->always(
-                                static fn (array $v): array => array_values(array_unique($v))
+                                static fn (array $v): array => array_values(array_unique($v)),
                             )
                         ->end()
                         ->requiresAtLeastOneElement()

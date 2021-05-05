@@ -30,9 +30,9 @@ final class ZoneViewTest extends TestCase
                 'zones' => new ArrayCollection(
                     [
                         'zone' => $this->zone,
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $this->blocks = new BlockList();
@@ -72,7 +72,7 @@ final class ZoneViewTest extends TestCase
                 'blocks' => $this->blocks,
                 'param' => 'value',
             ],
-            $this->view->getParameters()
+            $this->view->getParameters(),
         );
     }
 

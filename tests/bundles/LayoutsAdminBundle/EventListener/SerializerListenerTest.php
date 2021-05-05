@@ -39,7 +39,7 @@ final class SerializerListenerTest extends TestCase
     {
         self::assertSame(
             [KernelEvents::VIEW => 'onView'],
-            $this->listener::getSubscribedEvents()
+            $this->listener::getSubscribedEvents(),
         );
     }
 
@@ -57,7 +57,7 @@ final class SerializerListenerTest extends TestCase
             ->with(
                 self::identicalTo($value),
                 self::identicalTo('json'),
-                self::identicalTo([])
+                self::identicalTo([]),
             )
             ->willReturn('serialized content');
 
@@ -69,19 +69,19 @@ final class SerializerListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            $value
+            $value,
         );
 
         $this->listener->onView($event);
 
         self::assertInstanceOf(
             JsonResponse::class,
-            $event->getResponse()
+            $event->getResponse(),
         );
 
         self::assertSame(
             'serialized content',
-            $event->getResponse()->getContent()
+            $event->getResponse()->getContent(),
         );
     }
 
@@ -98,7 +98,7 @@ final class SerializerListenerTest extends TestCase
             ->with(
                 self::identicalTo($value),
                 self::identicalTo('json'),
-                self::identicalTo(['disable_html' => true])
+                self::identicalTo(['disable_html' => true]),
             )
             ->willReturn('serialized content');
 
@@ -111,19 +111,19 @@ final class SerializerListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            $value
+            $value,
         );
 
         $this->listener->onView($event);
 
         self::assertInstanceOf(
             JsonResponse::class,
-            $event->getResponse()
+            $event->getResponse(),
         );
 
         self::assertSame(
             'serialized content',
-            $event->getResponse()->getContent()
+            $event->getResponse()->getContent(),
         );
     }
 
@@ -139,7 +139,7 @@ final class SerializerListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::SUB_REQUEST,
-            new Value(new APIValue())
+            new Value(new APIValue()),
         );
 
         $this->listener->onView($event);
@@ -160,7 +160,7 @@ final class SerializerListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            42
+            42,
         );
 
         $this->listener->onView($event);

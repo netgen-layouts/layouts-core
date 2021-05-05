@@ -65,7 +65,7 @@ final class CollectionTest extends TestCase
                 'items' => new ArrayCollection($items),
                 'slots' => new ArrayCollection($slots),
                 'query' => $query,
-            ]
+            ],
         );
 
         self::assertSame($uuid->toString(), $collection->getId()->toString());
@@ -114,7 +114,7 @@ final class CollectionTest extends TestCase
             [
                 'id' => Uuid::uuid4(),
                 'offset' => 5,
-            ]
+            ],
         );
 
         self::assertSame(0, $collection->getOffset());
@@ -129,7 +129,7 @@ final class CollectionTest extends TestCase
             [
                 'id' => Uuid::uuid4(),
                 'items' => new ItemList([Item::fromArray(['position' => 0])]),
-            ]
+            ],
         );
 
         self::assertNull($collection->getItem(999));

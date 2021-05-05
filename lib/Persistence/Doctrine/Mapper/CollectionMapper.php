@@ -61,8 +61,8 @@ final class CollectionMapper
 
                     return Collection::fromArray($collectionData);
                 },
-                $collections
-            )
+                $collections,
+            ),
         );
     }
 
@@ -85,7 +85,7 @@ final class CollectionMapper
                     'collectionId' => (int) $dataItem['collection_id'],
                     'collectionStatus' => (int) $dataItem['collection_status'],
                     'identifier' => $dataItem['identifier'],
-                ]
+                ],
             );
         }
 
@@ -116,7 +116,7 @@ final class CollectionMapper
                     'viewType' => $dataItem['view_type'],
                     'status' => (int) $dataItem['status'],
                     'config' => $this->buildParameters((string) $dataItem['config']),
-                ]
+                ],
             );
         }
 
@@ -163,8 +163,8 @@ final class CollectionMapper
 
                     return Query::fromArray($queryData);
                 },
-                $queries
-            )
+                $queries,
+            ),
         );
 
         return $queries;
@@ -192,7 +192,7 @@ final class CollectionMapper
                     'position' => $position,
                     'viewType' => $dataItem['view_type'],
                     'status' => (int) $dataItem['status'],
-                ]
+                ],
             );
         }
 

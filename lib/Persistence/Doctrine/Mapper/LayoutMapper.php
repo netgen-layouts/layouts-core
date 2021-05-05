@@ -53,8 +53,8 @@ final class LayoutMapper
 
                     return Layout::fromArray($layoutData);
                 },
-                $layouts
-            )
+                $layouts,
+            ),
         );
     }
 
@@ -79,7 +79,7 @@ final class LayoutMapper
                     'rootBlockId' => (int) $dataItem['root_block_id'],
                     'linkedLayoutUuid' => $dataItem['linked_layout_uuid'],
                     'linkedZoneIdentifier' => $dataItem['linked_zone_identifier'],
-                ]
+                ],
             );
         }
 

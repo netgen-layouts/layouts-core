@@ -33,7 +33,7 @@ final class Exception extends ConditionType
                         new Constraints\GreaterThanOrEqual(['value' => 400]),
                         new Constraints\LessThan(['value' => 600]),
                     ],
-                ]
+                ],
             ),
         ];
     }

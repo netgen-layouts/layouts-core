@@ -20,7 +20,7 @@ final class LinkZoneTest extends JsonApiTestCase
             [
                 'linked_layout_id' => '399ad9ac-777a-50ba-945a-06e9f57add12',
                 'linked_zone_identifier' => 'right',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -29,7 +29,7 @@ final class LinkZoneTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertEmptyResponse($this->client->getResponse());
@@ -46,13 +46,13 @@ final class LinkZoneTest extends JsonApiTestCase
             [],
             [],
             [],
-            $this->jsonEncode([])
+            $this->jsonEncode([]),
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find zone with identifier "unknown"'
+            'Could not find zone with identifier "unknown"',
         );
     }
 
@@ -67,13 +67,13 @@ final class LinkZoneTest extends JsonApiTestCase
             [],
             [],
             [],
-            $this->jsonEncode([])
+            $this->jsonEncode([]),
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find layout with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"'
+            'Could not find layout with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"',
         );
     }
 
@@ -85,7 +85,7 @@ final class LinkZoneTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'linked_zone_identifier' => 'right',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -94,13 +94,13 @@ final class LinkZoneTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "linked_layout_id": This value should not be blank.'
+            'There was an error validating "linked_layout_id": This value should not be blank.',
         );
     }
 
@@ -113,7 +113,7 @@ final class LinkZoneTest extends JsonApiTestCase
             [
                 'linked_layout_id' => 42,
                 'linked_zone_identifier' => 'right',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -122,13 +122,13 @@ final class LinkZoneTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "linked_layout_id": This is not a valid UUID.'
+            'There was an error validating "linked_layout_id": This is not a valid UUID.',
         );
     }
 
@@ -141,7 +141,7 @@ final class LinkZoneTest extends JsonApiTestCase
             [
                 'linked_layout_id' => '399ad9ac-777a-50ba-945a-06e9f57add12',
                 'linked_zone_identifier' => 'unknown',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -150,13 +150,13 @@ final class LinkZoneTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find zone with identifier "unknown"'
+            'Could not find zone with identifier "unknown"',
         );
     }
 
@@ -170,7 +170,7 @@ final class LinkZoneTest extends JsonApiTestCase
                 // This is a random UUID
                 'linked_layout_id' => 'e1513a93-e707-493a-8e6b-5d0bfb7a0594',
                 'linked_zone_identifier' => 'right',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -179,13 +179,13 @@ final class LinkZoneTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find layout with identifier "e1513a93-e707-493a-8e6b-5d0bfb7a0594"'
+            'Could not find layout with identifier "e1513a93-e707-493a-8e6b-5d0bfb7a0594"',
         );
     }
 
@@ -198,7 +198,7 @@ final class LinkZoneTest extends JsonApiTestCase
             [
                 'linked_layout_id' => '71cbe281-430c-51d5-8e21-c3cc4e656dac',
                 'linked_zone_identifier' => 'right',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -207,13 +207,13 @@ final class LinkZoneTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
-            'Argument "linkedZone" has an invalid state. Linked zone is not in the shared layout.'
+            'Argument "linkedZone" has an invalid state. Linked zone is not in the shared layout.',
         );
     }
 }

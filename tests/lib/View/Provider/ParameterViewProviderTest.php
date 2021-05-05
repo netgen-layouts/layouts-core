@@ -39,7 +39,7 @@ final class ParameterViewProviderTest extends TestCase
             [
                 'parameter' => $parameter,
             ],
-            $view->getParameters()
+            $view->getParameters(),
         );
     }
 

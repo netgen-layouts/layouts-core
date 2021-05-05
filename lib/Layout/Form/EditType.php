@@ -38,11 +38,11 @@ final class EditType extends AbstractType
                     new LayoutName(
                         [
                             'excludedLayoutId' => $options['layout']->getId(),
-                        ]
+                        ],
                     ),
                 ],
                 'property_path' => 'name',
-            ]
+            ],
         );
 
         $builder->add(
@@ -56,7 +56,7 @@ final class EditType extends AbstractType
                 ],
                 'property_path' => 'description',
                 'empty_data' => '',
-            ]
+            ],
         );
     }
 }

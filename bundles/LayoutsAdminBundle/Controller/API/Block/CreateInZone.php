@@ -67,7 +67,7 @@ final class CreateInZone extends AbstractController
             [
                 'block_definition' => $blockType->getDefinition(),
                 'layout' => $layout,
-            ]
+            ],
         );
 
         $zoneIdentifier = $requestData->get('zone_identifier');
@@ -80,7 +80,7 @@ final class CreateInZone extends AbstractController
         $createdBlock = $this->blockService->createBlockInZone(
             $blockCreateStruct,
             $layout->getZone($zoneIdentifier),
-            $requestData->get('parent_position')
+            $requestData->get('parent_position'),
         );
 
         return new View($createdBlock, Response::HTTP_CREATED);
@@ -99,7 +99,7 @@ final class CreateInZone extends AbstractController
                 new Constraints\NotBlank(),
                 new Constraints\Type(['type' => 'string']),
             ],
-            'block_type'
+            'block_type',
         );
 
         $this->validate(
@@ -108,7 +108,7 @@ final class CreateInZone extends AbstractController
                 new Constraints\NotBlank(),
                 new Constraints\Uuid(),
             ],
-            'layout_id'
+            'layout_id',
         );
 
         $this->validate(
@@ -117,7 +117,7 @@ final class CreateInZone extends AbstractController
                 new Constraints\NotBlank(),
                 new Constraints\Type(['type' => 'string']),
             ],
-            'zone_identifier'
+            'zone_identifier',
         );
 
         $this->validate(
@@ -125,7 +125,7 @@ final class CreateInZone extends AbstractController
             [
                 new Constraints\Type(['type' => 'int']),
             ],
-            'parent_position'
+            'parent_position',
         );
     }
 }

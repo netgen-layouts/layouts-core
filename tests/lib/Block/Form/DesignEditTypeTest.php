@@ -44,7 +44,7 @@ final class DesignEditTypeTest extends FormTestCase
                         [
                             'identifier' => 'design',
                             'type' => DesignEditType::class,
-                        ]
+                        ],
                     ),
                 ],
                 'viewTypes' => [
@@ -58,16 +58,16 @@ final class DesignEditTypeTest extends FormTestCase
                                     [
                                         'identifier' => 'standard',
                                         'name' => 'Standard',
-                                    ]
+                                    ],
                                 ),
                                 'other' => ItemViewType::fromArray(
                                     [
                                         'identifier' => 'other',
                                         'name' => 'Other',
-                                    ]
+                                    ],
                                 ),
                             ],
-                        ]
+                        ],
                     ),
                     'small' => ViewType::fromArray(
                         [
@@ -79,14 +79,14 @@ final class DesignEditTypeTest extends FormTestCase
                                     [
                                         'identifier' => 'standard',
                                         'name' => 'Standard',
-                                    ]
+                                    ],
                                 ),
                             ],
-                        ]
+                        ],
                     ),
                 ],
                 'parameterDefinitions' => $handler->getParameterDefinitions(),
-            ]
+            ],
         );
 
         $this->block = Block::fromArray(['definition' => $this->definition, 'mainLocale' => 'en']);
@@ -115,7 +115,7 @@ final class DesignEditTypeTest extends FormTestCase
         $form = $this->factory->create(
             DesignEditType::class,
             $struct,
-            ['block' => $this->block]
+            ['block' => $this->block],
         );
 
         $form->submit($submittedData);
@@ -159,9 +159,9 @@ final class DesignEditTypeTest extends FormTestCase
                     [
                         'definition' => $this->definition,
                         'mainLocale' => 'en',
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         self::assertTrue($form->get('view_type')->isDisabled());
@@ -193,9 +193,9 @@ final class DesignEditTypeTest extends FormTestCase
                     [
                         'definition' => $this->definition,
                         'mainLocale' => 'en',
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         self::assertFalse($form->get('view_type')->isDisabled());
@@ -222,7 +222,7 @@ final class DesignEditTypeTest extends FormTestCase
             [
                 'block' => $this->block,
                 'data' => $struct,
-            ]
+            ],
         );
 
         self::assertSame($this->block, $options['block']);
@@ -261,7 +261,7 @@ final class DesignEditTypeTest extends FormTestCase
         $optionsResolver->resolve(
             [
                 'block' => '',
-            ]
+            ],
         );
     }
 
@@ -282,7 +282,7 @@ final class DesignEditTypeTest extends FormTestCase
             [
                 'block' => $this->block,
                 'data' => '',
-            ]
+            ],
         );
     }
 

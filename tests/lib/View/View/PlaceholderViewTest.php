@@ -58,7 +58,7 @@ final class PlaceholderViewTest extends TestCase
                 'block' => $this->block,
                 'param' => 'value',
             ],
-            $this->view->getParameters()
+            $this->view->getParameters(),
         );
     }
 

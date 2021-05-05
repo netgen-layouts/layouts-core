@@ -34,7 +34,7 @@ final class BlockTypeGroupNormalizerTest extends TestCase
                     BlockType::fromArray(['isEnabled' => false, 'identifier' => 'type1']),
                     BlockType::fromArray(['isEnabled' => true, 'identifier' => 'type2']),
                 ],
-            ]
+            ],
         );
 
         self::assertSame(
@@ -44,7 +44,7 @@ final class BlockTypeGroupNormalizerTest extends TestCase
                 'name' => $blockTypeGroup->getName(),
                 'block_types' => ['type2'],
             ],
-            $this->normalizer->normalize(new Value($blockTypeGroup))
+            $this->normalizer->normalize(new Value($blockTypeGroup)),
         );
     }
 

@@ -37,7 +37,7 @@ final class Serializer implements SerializerInterface
 
         foreach ($entityIds as $entityId => $type) {
             $data['entities'][] = $this->visitor->visit(
-                $this->getEntityHandler($type)->loadEntity(Uuid::fromString($entityId))
+                $this->getEntityHandler($type)->loadEntity(Uuid::fromString($entityId)),
             );
         }
 

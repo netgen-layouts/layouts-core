@@ -37,7 +37,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
     {
         self::assertSame(
             [sprintf('%s.%s', LayoutsEvents::BUILD_VIEW, 'layout') => 'onBuildView'],
-            $this->listener::getSubscribedEvents()
+            $this->listener::getSubscribedEvents(),
         );
     }
 
@@ -64,7 +64,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
             [
                 'related_layouts_count' => 3,
             ],
-            $event->getParameters()
+            $event->getParameters(),
         );
     }
 
@@ -87,7 +87,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
             [
                 'related_layouts_count' => 0,
             ],
-            $event->getParameters()
+            $event->getParameters(),
         );
     }
 
@@ -110,7 +110,7 @@ final class RelatedLayoutsCountListenerTest extends TestCase
             [
                 'related_layouts_count' => 0,
             ],
-            $event->getParameters()
+            $event->getParameters(),
         );
     }
 

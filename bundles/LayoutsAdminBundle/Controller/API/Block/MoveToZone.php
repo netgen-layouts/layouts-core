@@ -50,7 +50,7 @@ final class MoveToZone extends AbstractController
         $this->blockService->moveBlockToZone(
             $block,
             $layout->getZone($zoneIdentifier),
-            $requestData->get('parent_position')
+            $requestData->get('parent_position'),
         );
 
         return new Response(null, Response::HTTP_NO_CONTENT);
@@ -69,7 +69,7 @@ final class MoveToZone extends AbstractController
                 new Constraints\NotBlank(),
                 new Constraints\Uuid(),
             ],
-            'layout_id'
+            'layout_id',
         );
 
         $this->validate(
@@ -78,7 +78,7 @@ final class MoveToZone extends AbstractController
                 new Constraints\NotBlank(),
                 new Constraints\Type(['type' => 'string']),
             ],
-            'zone_identifier'
+            'zone_identifier',
         );
 
         $this->validate(
@@ -87,7 +87,7 @@ final class MoveToZone extends AbstractController
                 new Constraints\NotBlank(),
                 new Constraints\Type(['type' => 'int']),
             ],
-            'parent_position'
+            'parent_position',
         );
     }
 }

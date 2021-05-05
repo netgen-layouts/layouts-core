@@ -33,7 +33,7 @@ final class PlaceholderViewProviderTest extends TestCase
             $placeholder,
             [
                 'block' => $block,
-            ]
+            ],
         );
 
         self::assertInstanceOf(PlaceholderViewInterface::class, $view);
@@ -46,7 +46,7 @@ final class PlaceholderViewProviderTest extends TestCase
                 'placeholder' => $placeholder,
                 'block' => $block,
             ],
-            $view->getParameters()
+            $view->getParameters(),
         );
     }
 

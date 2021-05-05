@@ -48,10 +48,10 @@ final class CollectionResultSetNormalizerTest extends TestCase
                 'collection' => Collection::fromArray(
                     [
                         'items' => new ArrayCollection([$item1, $item2, $item3, $item4]),
-                    ]
+                    ],
                 ),
                 'results' => [$result1, $result2],
-            ]
+            ],
         );
 
         self::assertSame(
@@ -59,7 +59,7 @@ final class CollectionResultSetNormalizerTest extends TestCase
                 'items' => ['data', 'data'],
                 'overflow_items' => ['data', 'data'],
             ],
-            $this->normalizer->normalize(new Value($result))
+            $this->normalizer->normalize(new Value($result)),
         );
     }
 

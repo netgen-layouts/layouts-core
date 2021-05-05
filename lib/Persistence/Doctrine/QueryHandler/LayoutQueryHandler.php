@@ -54,14 +54,14 @@ final class LayoutQueryHandler extends QueryHandler
                 'l2',
                 $query->expr()->and(
                     $query->expr()->eq('l.id', 'l2.id'),
-                    $query->expr()->eq('l2.status', ':status')
-                )
+                    $query->expr()->eq('l2.status', ':status'),
+                ),
             );
         }
 
         if ($shared !== null) {
             $query->where(
-                $query->expr()->eq('l.shared', ':shared')
+                $query->expr()->eq('l.shared', ':shared'),
             );
         }
 
@@ -69,7 +69,7 @@ final class LayoutQueryHandler extends QueryHandler
         if ($includeDrafts) {
             $statusExpr = $query->expr()->or(
                 $statusExpr,
-                $query->expr()->isNull('l2.id')
+                $query->expr()->isNull('l2.id'),
             );
         }
 
@@ -107,14 +107,14 @@ final class LayoutQueryHandler extends QueryHandler
                 'l2',
                 $query->expr()->and(
                     $query->expr()->eq('l.id', 'l2.id'),
-                    $query->expr()->eq('l2.status', ':status')
-                )
+                    $query->expr()->eq('l2.status', ':status'),
+                ),
             );
         }
 
         if ($shared !== null) {
             $query->where(
-                $query->expr()->eq('l.shared', ':shared')
+                $query->expr()->eq('l.shared', ':shared'),
             );
         }
 
@@ -122,7 +122,7 @@ final class LayoutQueryHandler extends QueryHandler
         if ($includeDrafts) {
             $statusExpr = $query->expr()->or(
                 $statusExpr,
-                $query->expr()->isNull('l2.id')
+                $query->expr()->isNull('l2.id'),
             );
         }
 
@@ -158,20 +158,20 @@ final class LayoutQueryHandler extends QueryHandler
                 'l2',
                 $query->expr()->and(
                     $query->expr()->eq('l.id', 'l2.id'),
-                    $query->expr()->eq('l2.status', ':status')
-                )
+                    $query->expr()->eq('l2.status', ':status'),
+                ),
             );
         }
 
         $query->where(
-            $query->expr()->in('l.id', [':layout_ids'])
+            $query->expr()->in('l.id', [':layout_ids']),
         );
 
         $statusExpr = $query->expr()->eq('l.status', ':status');
         if ($includeDrafts) {
             $statusExpr = $query->expr()->or(
                 $statusExpr,
-                $query->expr()->isNull('l2.id')
+                $query->expr()->isNull('l2.id'),
             );
         }
 
@@ -201,14 +201,14 @@ final class LayoutQueryHandler extends QueryHandler
             $query->expr()->and(
                 $query->expr()->eq('z.layout_id', 'l.id'),
                 $query->expr()->eq('z.status', 'l.status'),
-                $query->expr()->eq('z.linked_layout_uuid', ':linked_layout_uuid')
-            )
+                $query->expr()->eq('z.linked_layout_uuid', ':linked_layout_uuid'),
+            ),
         )
         ->where(
             $query->expr()->and(
                 $query->expr()->eq('l.shared', ':shared'),
-                $query->expr()->eq('l.status', ':status')
-            )
+                $query->expr()->eq('l.status', ':status'),
+            ),
         )
         ->setParameter('shared', false, Types::BOOLEAN)
         ->setParameter('status', Value::STATUS_PUBLISHED, Types::INTEGER)
@@ -234,14 +234,14 @@ final class LayoutQueryHandler extends QueryHandler
                 $query->expr()->and(
                     $query->expr()->eq('z.layout_id', 'nglayouts_layout.id'),
                     $query->expr()->eq('z.status', 'nglayouts_layout.status'),
-                    $query->expr()->eq('z.linked_layout_uuid', ':linked_layout_uuid')
-                )
+                    $query->expr()->eq('z.linked_layout_uuid', ':linked_layout_uuid'),
+                ),
             )
             ->where(
                 $query->expr()->and(
                     $query->expr()->eq('nglayouts_layout.shared', ':shared'),
-                    $query->expr()->eq('nglayouts_layout.status', ':status')
-                )
+                    $query->expr()->eq('nglayouts_layout.status', ':status'),
+                ),
             )
             ->setParameter('shared', false, Types::BOOLEAN)
             ->setParameter('status', Value::STATUS_PUBLISHED, Types::INTEGER)
@@ -263,7 +263,7 @@ final class LayoutQueryHandler extends QueryHandler
     {
         $query = $this->getZoneSelectQuery();
         $query->where(
-            $query->expr()->eq('z.identifier', ':identifier')
+            $query->expr()->eq('z.identifier', ':identifier'),
         )
         ->setParameter('identifier', $identifier, Types::STRING);
 
@@ -282,7 +282,7 @@ final class LayoutQueryHandler extends QueryHandler
     {
         $query = $this->getZoneSelectQuery();
         $query->where(
-            $query->expr()->eq('z.layout_id', ':layout_id')
+            $query->expr()->eq('z.layout_id', ':layout_id'),
         )
         ->setParameter('layout_id', $layout->id, Types::INTEGER)
         ->orderBy('z.identifier', 'ASC');
@@ -326,8 +326,8 @@ final class LayoutQueryHandler extends QueryHandler
             ->from('nglayouts_layout')
             ->where(
                 $query->expr()->and(
-                    $query->expr()->eq('name', ':name')
-                )
+                    $query->expr()->eq('name', ':name'),
+                ),
             )
             ->setParameter('name', trim($name), Types::STRING);
 
@@ -337,11 +337,11 @@ final class LayoutQueryHandler extends QueryHandler
             $query->andWhere(
                 $isUuid ?
                     $query->expr()->neq('uuid', ':uuid') :
-                    $query->expr()->neq('id', ':id')
+                    $query->expr()->neq('id', ':id'),
             )->setParameter(
                 $isUuid ? 'uuid' : 'id',
                 $excludedLayoutId,
-                $isUuid ? Types::STRING : Types::INTEGER
+                $isUuid ? Types::STRING : Types::INTEGER,
             );
         }
 
@@ -369,7 +369,7 @@ final class LayoutQueryHandler extends QueryHandler
                     'modified' => ':modified',
                     'shared' => ':shared',
                     'main_locale' => ':main_locale',
-                ]
+                ],
             )
             ->setValue('id', $layout->id ?? $this->connectionHelper->nextId('nglayouts_layout'))
             ->setParameter('status', $layout->status, Types::INTEGER)
@@ -401,7 +401,7 @@ final class LayoutQueryHandler extends QueryHandler
                     'layout_id' => ':layout_id',
                     'status' => ':status',
                     'locale' => ':locale',
-                ]
+                ],
             )
             ->setParameter('layout_id', $layout->id, Types::INTEGER)
             ->setParameter('status', $layout->status, Types::INTEGER)
@@ -425,7 +425,7 @@ final class LayoutQueryHandler extends QueryHandler
                     'root_block_id' => ':root_block_id',
                     'linked_layout_uuid' => ':linked_layout_uuid',
                     'linked_zone_identifier' => ':linked_zone_identifier',
-                ]
+                ],
             )
             ->setParameter('identifier', $zone->identifier, Types::STRING)
             ->setParameter('layout_id', $zone->layoutId, Types::INTEGER)
@@ -454,7 +454,7 @@ final class LayoutQueryHandler extends QueryHandler
             ->set('shared', ':shared')
             ->set('main_locale', ':main_locale')
             ->where(
-                $query->expr()->eq('id', ':id')
+                $query->expr()->eq('id', ':id'),
             )
             ->setParameter('id', $layout->id, Types::INTEGER)
             ->setParameter('uuid', $layout->uuid, Types::STRING)
@@ -485,8 +485,8 @@ final class LayoutQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->and(
                     $query->expr()->eq('layout_id', ':layout_id'),
-                    $query->expr()->eq('identifier', ':identifier')
-                )
+                    $query->expr()->eq('identifier', ':identifier'),
+                ),
             )
             ->setParameter('layout_id', $zone->layoutId, Types::INTEGER)
             ->setParameter('identifier', $zone->identifier, Types::STRING)
@@ -507,7 +507,7 @@ final class LayoutQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder();
         $query->delete('nglayouts_zone')
             ->where(
-                $query->expr()->eq('layout_id', ':layout_id')
+                $query->expr()->eq('layout_id', ':layout_id'),
             )
             ->setParameter('layout_id', $layoutId, Types::INTEGER);
 
@@ -526,7 +526,7 @@ final class LayoutQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder();
         $query->delete('nglayouts_layout')
             ->where(
-                $query->expr()->eq('id', ':id')
+                $query->expr()->eq('id', ':id'),
             )
             ->setParameter('id', $layoutId, Types::INTEGER);
 
@@ -547,8 +547,8 @@ final class LayoutQueryHandler extends QueryHandler
             ->where(
                 $query->expr()->and(
                     $query->expr()->eq('layout_id', ':layout_id'),
-                    $query->expr()->eq('identifier', ':identifier')
-                )
+                    $query->expr()->eq('identifier', ':identifier'),
+                ),
             )
             ->setParameter('layout_id', $layoutId, Types::INTEGER)
             ->setParameter('identifier', $zoneIdentifier, Types::STRING);
@@ -569,7 +569,7 @@ final class LayoutQueryHandler extends QueryHandler
 
         $query->delete('nglayouts_layout_translation')
             ->where(
-                $query->expr()->eq('layout_id', ':layout_id')
+                $query->expr()->eq('layout_id', ':layout_id'),
             )
             ->setParameter('layout_id', $layoutId, Types::INTEGER);
 
@@ -600,8 +600,8 @@ final class LayoutQueryHandler extends QueryHandler
                 'lt',
                 $query->expr()->and(
                     $query->expr()->eq('lt.layout_id', 'l.id'),
-                    $query->expr()->eq('lt.status', 'l.status')
-                )
+                    $query->expr()->eq('lt.status', 'l.status'),
+                ),
             );
 
         return $query;
@@ -621,8 +621,8 @@ final class LayoutQueryHandler extends QueryHandler
                 'l',
                 $query->expr()->and(
                     $query->expr()->eq('l.id', 'z.layout_id'),
-                    $query->expr()->eq('l.status', 'z.status')
-                )
+                    $query->expr()->eq('l.status', 'z.status'),
+                ),
             );
 
         return $query;

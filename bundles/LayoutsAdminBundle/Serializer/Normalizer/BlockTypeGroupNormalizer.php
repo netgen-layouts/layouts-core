@@ -29,7 +29,7 @@ final class BlockTypeGroupNormalizer implements NormalizerInterface
             'name' => $blockTypeGroup->getName(),
             'block_types' => array_map(
                 static fn (BlockType $blockType): string => $blockType->getIdentifier(),
-                $blockTypeGroup->getBlockTypes(true)
+                $blockTypeGroup->getBlockTypes(true),
             ),
         ];
     }

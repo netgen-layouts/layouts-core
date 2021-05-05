@@ -31,7 +31,7 @@ final class KeyValuesType extends AbstractType
                 'values_type',
                 'values_options',
                 'values_constraints',
-            ]
+            ],
         );
 
         $resolver->setAllowedTypes('key_name', 'string');
@@ -54,7 +54,7 @@ final class KeyValuesType extends AbstractType
             [
                 'required' => true,
                 'label' => $options['key_label'],
-            ]
+            ],
         );
 
         $valueConstraints = [];
@@ -63,7 +63,7 @@ final class KeyValuesType extends AbstractType
                 new Constraints\All(
                     [
                         'constraints' => $options['values_constraints'],
-                    ]
+                    ],
                 ),
             ];
         }
@@ -80,7 +80,7 @@ final class KeyValuesType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'delete_empty' => $options['required'],
-            ]
+            ],
         );
     }
 

@@ -99,7 +99,7 @@ final class ViewBuilderTest extends TestCase
         $viewBuilder = new ViewBuilder(
             $this->templateResolverMock,
             $this->eventDispatcherMock,
-            [$this->viewProviderMock]
+            [$this->viewProviderMock],
         );
 
         $viewParameters = ['some_param' => 'some_value'];
@@ -112,7 +112,7 @@ final class ViewBuilderTest extends TestCase
                 'some_param' => 'some_value',
                 'view_context' => $builtView->getContext(),
             ],
-            $builtView->getParameters()
+            $builtView->getParameters(),
         );
     }
 
@@ -134,7 +134,7 @@ final class ViewBuilderTest extends TestCase
         $viewBuilder = new ViewBuilder(
             $this->templateResolverMock,
             $this->eventDispatcherMock,
-            []
+            [],
         );
 
         $viewBuilder->buildView($value);
@@ -164,7 +164,7 @@ final class ViewBuilderTest extends TestCase
         $viewBuilder = new ViewBuilder(
             $this->templateResolverMock,
             $this->eventDispatcherMock,
-            [$this->viewProviderMock]
+            [$this->viewProviderMock],
         );
 
         $viewBuilder->buildView($value);

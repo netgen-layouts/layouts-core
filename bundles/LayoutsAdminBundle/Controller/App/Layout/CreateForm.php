@@ -50,9 +50,9 @@ final class CreateForm extends AbstractController
             $createStruct,
             [
                 'action' => $this->generateUrl(
-                    'nglayouts_app_layout_form_create'
+                    'nglayouts_app_layout_form_create',
                 ),
-            ]
+            ],
         );
 
         $form->handleRequest($request);
@@ -68,7 +68,7 @@ final class CreateForm extends AbstractController
                 [
                     'id' => $createdLayout->getId()->toString(),
                 ],
-                Response::HTTP_CREATED
+                Response::HTTP_CREATED,
             );
         }
 
@@ -76,7 +76,7 @@ final class CreateForm extends AbstractController
             $form,
             ViewInterface::CONTEXT_APP,
             [],
-            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
+            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY),
         );
     }
 }

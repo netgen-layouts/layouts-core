@@ -63,7 +63,7 @@ final class LinkType extends ParameterType
                 }
 
                 return $valueTypes;
-            }
+            },
         );
     }
 
@@ -98,7 +98,7 @@ final class LinkType extends ParameterType
                 'link' => $value['link'] ?? null,
                 'linkSuffix' => $value['link_suffix'] ?? null,
                 'newWindow' => $value['new_window'] ?? false,
-            ]
+            ],
         );
     }
 
@@ -149,7 +149,7 @@ final class LinkType extends ParameterType
                 'link' => $valueLink,
                 'linkSuffix' => $value['link_suffix'] ?? null,
                 'newWindow' => $value['new_window'] ?? false,
-            ]
+            ],
         );
     }
 
@@ -179,7 +179,7 @@ final class LinkType extends ParameterType
                     'required' => $parameterDefinition->isRequired(),
                     'valueTypes' => $parameterDefinition->getOption('value_types'),
                     'allowInvalidInternal' => $parameterDefinition->getOption('allow_invalid_internal'),
-                ]
+                ],
             ),
         ];
     }

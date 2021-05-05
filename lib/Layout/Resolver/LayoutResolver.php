@@ -87,7 +87,7 @@ final class LayoutResolver implements LayoutResolverInterface
     {
         $resolvedGroups = $this->layoutResolverService->loadRuleGroups($ruleGroup)->filter(
             fn (RuleGroup $ruleGroup): bool => $ruleGroup->isEnabled()
-                && $this->conditionsMatch($ruleGroup->getConditions(), $request, $enabledConditions)
+                && $this->conditionsMatch($ruleGroup->getConditions(), $request, $enabledConditions),
         );
 
         $matches = [...$resolvedGroups, ...$this->resolveGroupRules($ruleGroup, $request, $enabledConditions)];
@@ -124,7 +124,7 @@ final class LayoutResolver implements LayoutResolverInterface
 
             yield from $this->layoutResolverService->matchRules($ruleGroup, $targetType::getType(), $targetValue)->filter(
                 fn (Rule $rule): bool => $rule->isEnabled()
-                    && $this->conditionsMatch($rule->getConditions(), $request, $enabledConditions)
+                    && $this->conditionsMatch($rule->getConditions(), $request, $enabledConditions),
             );
         }
     }

@@ -22,8 +22,8 @@ final class ZoneList extends ArrayCollection
         parent::__construct(
             array_filter(
                 $zones,
-                static fn (Zone $zone): bool => true
-            )
+                static fn (Zone $zone): bool => true,
+            ),
         );
     }
 
@@ -43,8 +43,8 @@ final class ZoneList extends ArrayCollection
         return array_values(
             array_map(
                 static fn (Zone $zone): string => $zone->getIdentifier(),
-                $this->getZones()
-            )
+                $this->getZones(),
+            ),
         );
     }
 }

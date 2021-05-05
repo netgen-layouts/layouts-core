@@ -15,8 +15,8 @@ final class LayoutTypeException extends InvalidArgumentException implements Exce
         return new self(
             sprintf(
                 'Layout type with "%s" identifier does not exist.',
-                $layoutType
-            )
+                $layoutType,
+            ),
         );
     }
 
@@ -26,8 +26,8 @@ final class LayoutTypeException extends InvalidArgumentException implements Exce
             sprintf(
                 'Zone "%s" does not exist in "%s" layout type.',
                 $zoneIdentifier,
-                $layoutType
-            )
+                $layoutType,
+            ),
         );
     }
 }

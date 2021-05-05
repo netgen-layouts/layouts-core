@@ -40,7 +40,7 @@ final class DateTimeValidator extends ConstraintValidator
                 $value,
                 $constraint->allowArray ?
                     sprintf('%s or array', DateTimeInterface::class) :
-                    DateTimeInterface::class
+                    DateTimeInterface::class,
             );
         }
 
@@ -58,7 +58,7 @@ final class DateTimeValidator extends ConstraintValidator
                     new Constraints\NotBlank(),
                     new Constraints\Type(['type' => 'string']),
                     new Constraints\DateTime(['format' => self::DATE_FORMAT]),
-                ]
+                ],
             );
         }
 
@@ -84,9 +84,9 @@ final class DateTimeValidator extends ConstraintValidator
                                 ->setParameter('%timeZone%', $timeZoneName)
                                 ->addViolation();
                         },
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
     }
 }

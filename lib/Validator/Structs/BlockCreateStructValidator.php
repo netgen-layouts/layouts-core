@@ -66,7 +66,7 @@ final class BlockCreateStructValidator extends ConstraintValidator
             $value->viewType,
             [
                 new BlockViewType(['definition' => $blockDefinition]),
-            ]
+            ],
         );
 
         $validator->atPath('itemViewType')->validate(
@@ -76,9 +76,9 @@ final class BlockCreateStructValidator extends ConstraintValidator
                     [
                         'viewType' => $value->viewType,
                         'definition' => $blockDefinition,
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $validator->atPath('parameterValues')->validate(
@@ -87,9 +87,9 @@ final class BlockCreateStructValidator extends ConstraintValidator
                 new ParameterStruct(
                     [
                         'parameterDefinitions' => $blockDefinition,
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
     }
 }

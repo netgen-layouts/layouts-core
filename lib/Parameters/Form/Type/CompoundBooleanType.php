@@ -25,7 +25,7 @@ final class CompoundBooleanType extends AbstractType
         $resolver->setRequired(
             [
                 'reverse',
-            ]
+            ],
         );
 
         $resolver->setAllowedTypes('reverse', 'bool');
@@ -59,7 +59,7 @@ final class CompoundBooleanType extends AbstractType
                 }
 
                 $event->setData($data);
-            }
+            },
         );
 
         $builder->add(
@@ -69,7 +69,7 @@ final class CompoundBooleanType extends AbstractType
                 'required' => $builder->getRequired(),
                 'label' => $builder->getOption('label'),
                 'property_path' => $builder->getPropertyPath(),
-            ]
+            ],
         );
     }
 

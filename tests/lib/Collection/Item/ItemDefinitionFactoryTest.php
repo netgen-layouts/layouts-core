@@ -22,12 +22,12 @@ final class ItemDefinitionFactoryTest extends TestCase
     {
         $this->configDefinitionFactory = new ConfigDefinitionFactory(
             new ParameterBuilderFactory(
-                new ParameterTypeRegistry([])
-            )
+                new ParameterTypeRegistry([]),
+            ),
         );
 
         $this->factory = new ItemDefinitionFactory(
-            $this->configDefinitionFactory
+            $this->configDefinitionFactory,
         );
     }
 
@@ -42,7 +42,7 @@ final class ItemDefinitionFactoryTest extends TestCase
             [
                 'test' => new ConfigDefinitionHandler(),
                 'test2' => new ConfigDefinitionHandler(),
-            ]
+            ],
         );
 
         self::assertSame('value_type', $itemDefinition->getValueType());

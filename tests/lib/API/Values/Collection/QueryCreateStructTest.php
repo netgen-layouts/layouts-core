@@ -57,7 +57,7 @@ final class QueryCreateStructTest extends TestCase
                 'compound' => false,
                 'inner' => 'inner',
             ],
-            $this->struct->getParameterValues()
+            $this->struct->getParameterValues(),
         );
     }
 
@@ -80,7 +80,7 @@ final class QueryCreateStructTest extends TestCase
                 'compound' => true,
                 'inner' => 'inner',
             ],
-            $this->struct->getParameterValues()
+            $this->struct->getParameterValues(),
         );
     }
 
@@ -99,10 +99,10 @@ final class QueryCreateStructTest extends TestCase
                             'type' => new ParameterType\TextLineType(),
                             'isRequired' => false,
                             'defaultValue' => 'inner_default',
-                        ]
+                        ],
                     ),
                 ],
-            ]
+            ],
         );
 
         $parameterDefinitions = [
@@ -112,7 +112,7 @@ final class QueryCreateStructTest extends TestCase
                     'type' => new ParameterType\TextLineType(),
                     'isRequired' => false,
                     'defaultValue' => 'css_default',
-                ]
+                ],
             ),
             'css_id' => ParameterDefinition::fromArray(
                 [
@@ -120,7 +120,7 @@ final class QueryCreateStructTest extends TestCase
                     'type' => new ParameterType\TextLineType(),
                     'isRequired' => false,
                     'defaultValue' => 'id_default',
-                ]
+                ],
             ),
             'compound' => $compoundParameter,
         ];

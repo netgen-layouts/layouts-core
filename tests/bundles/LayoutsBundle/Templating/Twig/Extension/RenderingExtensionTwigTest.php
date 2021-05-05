@@ -49,7 +49,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
             $this->localeProviderMock,
             $this->requestStack,
             new ErrorHandler(),
-            new Environment(new ArrayLoader())
+            new Environment(new ArrayLoader()),
         );
     }
 
@@ -124,7 +124,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
             new FactoryRuntimeLoader(
                 [
                     RenderingRuntime::class => fn (): RenderingRuntime => $this->runtime,
-                ]
+                ],
             ),
         ];
     }
@@ -153,7 +153,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
             ->method('loadZoneBlocks')
             ->with(
                 self::isInstanceOf(Zone::class),
-                self::identicalTo($request instanceof Request ? ['en'] : null)
+                self::identicalTo($request instanceof Request ? ['en'] : null),
             )
             ->willReturn(new BlockList());
 
@@ -163,7 +163,7 @@ final class RenderingExtensionTwigTest extends IntegrationTestCase
             ->willReturnCallback(
                 static fn (ZoneReference $zoneReference, string $context): string => $context === 'json' ?
                         '{"blocks":[{"id":1},{"id":2}]}' :
-                        'block1 block2'
+                        'block1 block2',
             );
     }
 }

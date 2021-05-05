@@ -50,7 +50,7 @@ final class PagedCollectionsPlugin extends Plugin
             [
                 'label' => 'block.plugin.paged_collections.enabled',
                 'groups' => $this->defaultGroups,
-            ]
+            ],
         );
 
         $builder->get('paged_collections:enabled')->add(
@@ -60,7 +60,7 @@ final class PagedCollectionsPlugin extends Plugin
                 'options' => array_flip($this->pagerTypes),
                 'label' => 'block.plugin.paged_collections.type',
                 'groups' => $this->defaultGroups,
-            ]
+            ],
         );
 
         $builder->get('paged_collections:enabled')->add(
@@ -70,7 +70,7 @@ final class PagedCollectionsPlugin extends Plugin
                 'min' => 1,
                 'label' => 'block.plugin.paged_collections.max_pages',
                 'groups' => $this->defaultGroups,
-            ]
+            ],
         );
 
         $builder->get('paged_collections:enabled')->add(
@@ -79,7 +79,7 @@ final class PagedCollectionsPlugin extends Plugin
             [
                 'label' => 'block.plugin.paged_collections.ajax_first',
                 'groups' => $this->defaultGroups,
-            ]
+            ],
         );
     }
 }

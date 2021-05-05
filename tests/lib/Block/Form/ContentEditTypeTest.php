@@ -44,7 +44,7 @@ final class ContentEditTypeTest extends FormTestCase
                         [
                             'identifier' => 'content',
                             'type' => ContentEditType::class,
-                        ]
+                        ],
                     ),
                 ],
                 'viewTypes' => [
@@ -57,10 +57,10 @@ final class ContentEditTypeTest extends FormTestCase
                                     [
                                         'identifier' => 'standard',
                                         'name' => 'Standard',
-                                    ]
+                                    ],
                                 ),
                             ],
-                        ]
+                        ],
                     ),
                     'small' => ViewType::fromArray(
                         [
@@ -71,14 +71,14 @@ final class ContentEditTypeTest extends FormTestCase
                                     [
                                         'identifier' => 'standard',
                                         'name' => 'Standard',
-                                    ]
+                                    ],
                                 ),
                             ],
-                        ]
+                        ],
                     ),
                 ],
                 'parameterDefinitions' => $handler->getParameterDefinitions(),
-            ]
+            ],
         );
 
         $this->block = Block::fromArray(['definition' => $this->definition, 'mainLocale' => 'en']);
@@ -104,7 +104,7 @@ final class ContentEditTypeTest extends FormTestCase
         $form = $this->factory->create(
             ContentEditType::class,
             $struct,
-            ['block' => $this->block]
+            ['block' => $this->block],
         );
 
         $form->submit($submittedData);
@@ -147,9 +147,9 @@ final class ContentEditTypeTest extends FormTestCase
                     [
                         'definition' => $this->definition,
                         'mainLocale' => 'en',
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         self::assertTrue($form->get('name')->isDisabled());
@@ -180,9 +180,9 @@ final class ContentEditTypeTest extends FormTestCase
                     [
                         'definition' => $this->definition,
                         'mainLocale' => 'en',
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         self::assertFalse($form->get('name')->isDisabled());
@@ -208,7 +208,7 @@ final class ContentEditTypeTest extends FormTestCase
             [
                 'block' => $this->block,
                 'data' => $struct,
-            ]
+            ],
         );
 
         self::assertSame($this->block, $options['block']);
@@ -247,7 +247,7 @@ final class ContentEditTypeTest extends FormTestCase
         $optionsResolver->resolve(
             [
                 'block' => '',
-            ]
+            ],
         );
     }
 
@@ -268,7 +268,7 @@ final class ContentEditTypeTest extends FormTestCase
             [
                 'block' => $this->block,
                 'data' => '',
-            ]
+            ],
         );
     }
 

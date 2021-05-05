@@ -41,9 +41,9 @@ final class EditForm extends AbstractController
                         'blockId' => $block->getId()->toString(),
                         'locale' => $locale,
                         'formName' => $formName,
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $form->handleRequest($request);
@@ -59,7 +59,7 @@ final class EditForm extends AbstractController
             [
                 'block_definition' => $block->getDefinition(),
                 'layout' => $block->getLayoutId()->toString(),
-            ]
+            ],
         );
 
         if ($form->isValid()) {
@@ -72,7 +72,7 @@ final class EditForm extends AbstractController
             $form,
             ViewInterface::CONTEXT_APP,
             [],
-            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
+            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY),
         );
     }
 }

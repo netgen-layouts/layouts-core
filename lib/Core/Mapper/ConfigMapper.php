@@ -36,10 +36,10 @@ final class ConfigMapper
                     'parameters' => iterator_to_array(
                         $this->parameterMapper->mapParameters(
                             $configDefinition,
-                            $config[$configKey] ?? []
-                        )
+                            $config[$configKey] ?? [],
+                        ),
                     ),
-                ]
+                ],
             );
         }
     }
@@ -66,8 +66,8 @@ final class ConfigMapper
                 $this->parameterMapper->serializeValues(
                     $configDefinition,
                     $configValues,
-                    $fallbackValues[$configKey] ?? []
-                )
+                    $fallbackValues[$configKey] ?? [],
+                ),
             );
         }
     }

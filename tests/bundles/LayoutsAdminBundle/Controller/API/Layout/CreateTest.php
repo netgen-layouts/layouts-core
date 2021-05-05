@@ -23,7 +23,7 @@ final class CreateTest extends JsonApiTestCase
                 'name' => 'My new layout',
                 'description' => 'My new layout description',
                 'locale' => 'en',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -32,13 +32,13 @@ final class CreateTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertResponse(
             $this->client->getResponse(),
             'layouts/create_layout',
-            Response::HTTP_CREATED
+            Response::HTTP_CREATED,
         );
     }
 
@@ -53,7 +53,7 @@ final class CreateTest extends JsonApiTestCase
                 'layout_type' => '4_zones_a',
                 'name' => 'My new layout',
                 'locale' => 'en',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -62,13 +62,13 @@ final class CreateTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertResponse(
             $this->client->getResponse(),
             'layouts/create_layout_empty_description',
-            Response::HTTP_CREATED
+            Response::HTTP_CREATED,
         );
     }
 
@@ -84,7 +84,7 @@ final class CreateTest extends JsonApiTestCase
                 'name' => 'My new layout',
                 'description' => '',
                 'locale' => 'en',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -93,13 +93,13 @@ final class CreateTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertResponse(
             $this->client->getResponse(),
             'layouts/create_layout_empty_description',
-            Response::HTTP_CREATED
+            Response::HTTP_CREATED,
         );
     }
 
@@ -114,7 +114,7 @@ final class CreateTest extends JsonApiTestCase
                 'layout_type' => 42,
                 'name' => 'My new layout',
                 'locale' => 'en',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -123,13 +123,13 @@ final class CreateTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "layout_type": This value should be of type string.'
+            'There was an error validating "layout_type": This value should be of type string.',
         );
     }
 
@@ -143,7 +143,7 @@ final class CreateTest extends JsonApiTestCase
             [
                 'name' => 'My new layout',
                 'locale' => 'en',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -152,13 +152,13 @@ final class CreateTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "layout_type": This value should not be blank.'
+            'There was an error validating "layout_type": This value should not be blank.',
         );
     }
 
@@ -173,7 +173,7 @@ final class CreateTest extends JsonApiTestCase
                 'layout_type' => 'unknown',
                 'name' => 'My new layout',
                 'locale' => 'en',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -182,13 +182,13 @@ final class CreateTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
-            'Argument "layout_type" has an invalid state. Layout type does not exist.'
+            'Argument "layout_type" has an invalid state. Layout type does not exist.',
         );
     }
 
@@ -203,7 +203,7 @@ final class CreateTest extends JsonApiTestCase
                 'layout_type' => '4_zones_a',
                 'name' => 42,
                 'locale' => 'en',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -212,13 +212,13 @@ final class CreateTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "name": This value should be of type string.'
+            'There was an error validating "name": This value should be of type string.',
         );
     }
 
@@ -233,7 +233,7 @@ final class CreateTest extends JsonApiTestCase
                 'layout_type' => '4_zones_a',
                 'name' => '',
                 'locale' => 'en',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -242,13 +242,13 @@ final class CreateTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "name": This value should not be blank.'
+            'There was an error validating "name": This value should not be blank.',
         );
     }
 
@@ -262,7 +262,7 @@ final class CreateTest extends JsonApiTestCase
             [
                 'layout_type' => '4_zones_a',
                 'locale' => 'en',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -271,13 +271,13 @@ final class CreateTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "name": This value should not be blank.'
+            'There was an error validating "name": This value should not be blank.',
         );
     }
 
@@ -292,7 +292,7 @@ final class CreateTest extends JsonApiTestCase
                 'layout_type' => '4_zones_a',
                 'name' => 'My layout',
                 'locale' => 'en',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -301,13 +301,13 @@ final class CreateTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
-            'Argument "name" has an invalid state. Layout with provided name already exists.'
+            'Argument "name" has an invalid state. Layout with provided name already exists.',
         );
     }
 
@@ -323,7 +323,7 @@ final class CreateTest extends JsonApiTestCase
                 'name' => 'My name',
                 'description' => 42,
                 'locale' => 'en',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -332,13 +332,13 @@ final class CreateTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "description": This value should be of type string.'
+            'There was an error validating "description": This value should be of type string.',
         );
     }
 
@@ -354,7 +354,7 @@ final class CreateTest extends JsonApiTestCase
                 'name' => 'My new layout',
                 'description' => 'My new layout description',
                 'locale' => 42,
-            ]
+            ],
         );
 
         $this->client->request(
@@ -363,13 +363,13 @@ final class CreateTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            '/^There was an error validating "locale": Expected argument of type "string", "int(eger)?" given$/'
+            '/^There was an error validating "locale": Expected argument of type "string", "int(eger)?" given$/',
         );
     }
 
@@ -384,7 +384,7 @@ final class CreateTest extends JsonApiTestCase
                 'layout_type' => '4_zones_a',
                 'name' => 'My new layout',
                 'description' => 'My new layout description',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -393,13 +393,13 @@ final class CreateTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "locale": This value should not be blank.'
+            'There was an error validating "locale": This value should not be blank.',
         );
     }
 
@@ -415,7 +415,7 @@ final class CreateTest extends JsonApiTestCase
                 'name' => 'My new layout',
                 'description' => 'My new layout description',
                 'locale' => 'unknown',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -424,13 +424,13 @@ final class CreateTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "locale": This value is not a valid locale.'
+            'There was an error validating "locale": This value is not a valid locale.',
         );
     }
 }

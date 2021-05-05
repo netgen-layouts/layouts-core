@@ -44,7 +44,7 @@ final class RuleGroupTest extends TestCase
                 'enabled' => true,
                 'rules' => new ArrayCollection([$rule1, $rule2]),
                 'conditions' => new ArrayCollection([$condition]),
-            ]
+            ],
         );
 
         self::assertSame($uuid->toString(), $ruleGroup->getId()->toString());

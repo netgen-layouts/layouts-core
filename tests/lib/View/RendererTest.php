@@ -31,7 +31,7 @@ final class RendererTest extends TestCase
 
         $this->renderer = new Renderer(
             $this->viewBuilderMock,
-            $this->viewRendererMock
+            $this->viewRendererMock,
         );
     }
 
@@ -53,7 +53,7 @@ final class RendererTest extends TestCase
             ->with(
                 self::identicalTo($value),
                 self::identicalTo(ViewInterface::CONTEXT_APP),
-                self::identicalTo(['some_param' => 'some_value'])
+                self::identicalTo(['some_param' => 'some_value']),
             )
             ->willReturn($view);
 
@@ -66,7 +66,7 @@ final class RendererTest extends TestCase
         $renderedTemplate = $this->renderer->renderValue(
             $value,
             ViewInterface::CONTEXT_APP,
-            ['some_param' => 'some_value']
+            ['some_param' => 'some_value'],
         );
 
         self::assertSame('rendered template', $renderedTemplate);

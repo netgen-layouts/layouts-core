@@ -54,7 +54,7 @@ final class BlockUpdateStructValidator extends ConstraintValidator
             [
                 new Constraints\NotBlank(),
                 new LocaleConstraint(),
-            ]
+            ],
         );
 
         if ($value->viewType !== null) {
@@ -62,7 +62,7 @@ final class BlockUpdateStructValidator extends ConstraintValidator
                 $value->viewType,
                 [
                     new BlockViewType(['definition' => $blockDefinition]),
-                ]
+                ],
             );
         }
 
@@ -74,9 +74,9 @@ final class BlockUpdateStructValidator extends ConstraintValidator
                         [
                             'viewType' => $value->viewType ?? $block->getViewType(),
                             'definition' => $blockDefinition,
-                        ]
+                        ],
                     ),
-                ]
+                ],
             );
         }
 
@@ -87,9 +87,9 @@ final class BlockUpdateStructValidator extends ConstraintValidator
                     [
                         'parameterDefinitions' => $blockDefinition,
                         'allowMissingFields' => true,
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
     }
 }

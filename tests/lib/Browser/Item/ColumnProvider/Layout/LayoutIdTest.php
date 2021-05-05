@@ -31,8 +31,8 @@ final class LayoutIdTest extends TestCase
             Layout::fromArray(
                 [
                     'id' => $uuid,
-                ]
-            )
+                ],
+            ),
         );
 
         self::assertSame($uuid->toString(), $this->provider->getValue($item));

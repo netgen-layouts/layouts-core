@@ -15,8 +15,8 @@ final class ConfigurationException extends InvalidArgumentException implements E
         return new self(
             sprintf(
                 'Parameter "%s" does not exist in configuration.',
-                $parameterName
-            )
+                $parameterName,
+            ),
         );
     }
 }

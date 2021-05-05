@@ -58,7 +58,7 @@ final class ChangeCollectionType extends AbstractController
             }
         } elseif ($newType === Collection::TYPE_DYNAMIC) {
             $queryCreateStruct = $this->collectionService->newQueryCreateStruct(
-                $this->queryTypeRegistry->getQueryType($requestData->get('query_type'))
+                $this->queryTypeRegistry->getQueryType($requestData->get('query_type')),
             );
         }
 
@@ -88,10 +88,10 @@ final class ChangeCollectionType extends AbstractController
                             Collection::TYPE_DYNAMIC,
                         ],
                         'strict' => true,
-                    ]
+                    ],
                 ),
             ],
-            'new_type'
+            'new_type',
         );
 
         $queryTypeConstraints = [
@@ -117,15 +117,15 @@ final class ChangeCollectionType extends AbstractController
                     'new_type',
                     sprintf(
                         'Query type "%s" is not allowed in selected block.',
-                        $queryType
-                    )
+                        $queryType,
+                    ),
                 );
             }
         } elseif ($newType === Collection::TYPE_MANUAL) {
             if ($collectionConfig->getValidItemTypes() === []) {
                 throw ValidationException::validationFailed(
                     'new_type',
-                    'Selected block does not allow manual collections.'
+                    'Selected block does not allow manual collections.',
                 );
             }
         }

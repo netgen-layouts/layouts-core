@@ -37,7 +37,7 @@ final class CopyRuleForm extends AbstractController
             'nglayouts:mapping:edit',
             [
                 'rule_group' => $rule->getRuleGroupId()->toString(),
-            ]
+            ],
         );
 
         $originalLayout = $rule->getLayout();
@@ -59,9 +59,9 @@ final class CopyRuleForm extends AbstractController
                     'nglayouts_admin_layout_resolver_rule_copy_form',
                     [
                         'ruleId' => $rule->getId()->toString(),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $form->handleRequest($request);
@@ -75,7 +75,7 @@ final class CopyRuleForm extends AbstractController
                 $form,
                 ViewInterface::CONTEXT_ADMIN,
                 [],
-                new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
+                new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY),
             );
         }
 
@@ -88,7 +88,7 @@ final class CopyRuleForm extends AbstractController
 
                 $copiedRule = $this->layoutResolverService->updateRuleMetadata(
                     $this->layoutResolverService->copyRule($rule, $targetGroup),
-                    $ruleMetadataUpdateStruct
+                    $ruleMetadataUpdateStruct,
                 );
 
                 if ($copiedRule->isEnabled()) {
@@ -107,11 +107,11 @@ final class CopyRuleForm extends AbstractController
 
                 $draftRule = $this->layoutResolverService->updateRule(
                     $this->layoutResolverService->createRuleDraft($copiedRule),
-                    $ruleUpdateStruct
+                    $ruleUpdateStruct,
                 );
 
                 return $this->layoutResolverService->publishRule($draftRule);
-            }
+            },
         );
 
         return $this->buildView($copiedRule, ViewInterface::CONTEXT_ADMIN);

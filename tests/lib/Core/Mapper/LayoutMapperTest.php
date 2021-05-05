@@ -38,7 +38,7 @@ abstract class LayoutMapperTest extends CoreTestCase
                 'rootBlockId' => 3,
                 'linkedLayoutUuid' => 'd8e55af7-cf62-5f28-ae15-331b457d82e9',
                 'linkedZoneIdentifier' => 'right',
-            ]
+            ],
         );
 
         $zone = $this->mapper->mapZone($persistenceZone);
@@ -66,7 +66,7 @@ abstract class LayoutMapperTest extends CoreTestCase
                 'rootBlockId' => 3,
                 'linkedLayoutUuid' => null,
                 'linkedZoneIdentifier' => null,
-            ]
+            ],
         );
 
         $zone = $this->mapper->mapZone($persistenceZone);
@@ -91,7 +91,7 @@ abstract class LayoutMapperTest extends CoreTestCase
                 'rootBlockId' => 3,
                 'linkedLayoutUuid' => 'd8e55af7-cf62-5f28-ae15-331b457d82e9',
                 'linkedZoneIdentifier' => 'unknown',
-            ]
+            ],
         );
 
         $zone = $this->mapper->mapZone($persistenceZone);
@@ -120,14 +120,14 @@ abstract class LayoutMapperTest extends CoreTestCase
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
                 'shared' => true,
-            ]
+            ],
         );
 
         $layout = $this->mapper->mapLayout($persistenceLayout);
 
         self::assertSame(
             $this->layoutTypeRegistry->getLayoutType('4_zones_a'),
-            $layout->getLayoutType()
+            $layout->getLayoutType(),
         );
 
         self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $layout->getId()->toString());
@@ -158,7 +158,7 @@ abstract class LayoutMapperTest extends CoreTestCase
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
                 'shared' => true,
-            ]
+            ],
         );
 
         $layout = $this->mapper->mapLayout($persistenceLayout);

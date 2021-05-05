@@ -258,8 +258,8 @@ abstract class CollectionServiceTest extends CoreTestCase
             $collection,
             Collection::TYPE_DYNAMIC,
             $this->collectionService->newQueryCreateStruct(
-                new QueryType('my_query_type')
-            )
+                new QueryType('my_query_type'),
+            ),
         );
 
         self::assertTrue($updatedCollection->isDraft());
@@ -276,7 +276,7 @@ abstract class CollectionServiceTest extends CoreTestCase
 
         $updatedCollection = $this->collectionService->changeCollectionType(
             $collection,
-            Collection::TYPE_MANUAL
+            Collection::TYPE_MANUAL,
         );
 
         self::assertTrue($updatedCollection->isDraft());
@@ -302,7 +302,7 @@ abstract class CollectionServiceTest extends CoreTestCase
 
         $this->collectionService->changeCollectionType(
             $collection,
-            Collection::TYPE_MANUAL
+            Collection::TYPE_MANUAL,
         );
     }
 
@@ -320,8 +320,8 @@ abstract class CollectionServiceTest extends CoreTestCase
             $collection,
             999,
             $this->collectionService->newQueryCreateStruct(
-                new QueryType('my_query_type')
-            )
+                new QueryType('my_query_type'),
+            ),
         );
     }
 
@@ -337,7 +337,7 @@ abstract class CollectionServiceTest extends CoreTestCase
 
         $this->collectionService->changeCollectionType(
             $collection,
-            Collection::TYPE_DYNAMIC
+            Collection::TYPE_DYNAMIC,
         );
     }
 
@@ -348,7 +348,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     {
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
             ItemDefinition::fromArray(['valueType' => 'my_value_type']),
-            '66'
+            '66',
         );
 
         $collection = $this->collectionService->loadCollectionDraft(Uuid::fromString('a79dde13-1f5c-51a6-bea9-b766236be49e'));
@@ -356,7 +356,7 @@ abstract class CollectionServiceTest extends CoreTestCase
         $createdItem = $this->collectionService->addItem(
             $collection,
             $itemCreateStruct,
-            1
+            1,
         );
 
         self::assertTrue($createdItem->isDraft());
@@ -372,7 +372,7 @@ abstract class CollectionServiceTest extends CoreTestCase
 
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
             ItemDefinition::fromArray(['valueType' => 'my_value_type']),
-            '66'
+            '66',
         );
 
         $collection = $this->collectionService->loadCollection(Uuid::fromString('08937ca0-18f4-5806-84df-8c132c36cabe'));
@@ -380,7 +380,7 @@ abstract class CollectionServiceTest extends CoreTestCase
         $this->collectionService->addItem(
             $collection,
             $itemCreateStruct,
-            1
+            1,
         );
     }
 
@@ -394,7 +394,7 @@ abstract class CollectionServiceTest extends CoreTestCase
 
         $itemCreateStruct = $this->collectionService->newItemCreateStruct(
             ItemDefinition::fromArray(['valueType' => 'my_value_type']),
-            '66'
+            '66',
         );
 
         $collection = $this->collectionService->loadCollectionDraft(Uuid::fromString('a79dde13-1f5c-51a6-bea9-b766236be49e'));
@@ -447,7 +447,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     {
         $movedItem = $this->collectionService->moveItem(
             $this->collectionService->loadItemDraft(Uuid::fromString('8ae55a69-8633-51dd-9ff5-d820d040c1c1')),
-            1
+            1,
         );
 
         self::assertTrue($movedItem->isDraft());
@@ -467,7 +467,7 @@ abstract class CollectionServiceTest extends CoreTestCase
 
         $this->collectionService->moveItem(
             $this->collectionService->loadItem(Uuid::fromString('79b6f162-d801-57e0-8b2d-a4b568a74231')),
-            1
+            1,
         );
     }
 
@@ -481,7 +481,7 @@ abstract class CollectionServiceTest extends CoreTestCase
 
         $this->collectionService->moveItem(
             $this->collectionService->loadItemDraft(Uuid::fromString('8ae55a69-8633-51dd-9ff5-d820d040c1c1')),
-            9999
+            9999,
         );
     }
 
@@ -644,7 +644,7 @@ abstract class CollectionServiceTest extends CoreTestCase
         $createdSlot = $this->collectionService->addSlot(
             $collection,
             $slotCreateStruct,
-            1
+            1,
         );
 
         self::assertTrue($createdSlot->isDraft());
@@ -667,7 +667,7 @@ abstract class CollectionServiceTest extends CoreTestCase
         $this->collectionService->addSlot(
             $collection,
             $slotCreateStruct,
-            1
+            1,
         );
     }
 
@@ -764,7 +764,7 @@ abstract class CollectionServiceTest extends CoreTestCase
                 'limit' => null,
                 'queryCreateStruct' => $queryCreateStruct,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -780,7 +780,7 @@ abstract class CollectionServiceTest extends CoreTestCase
                 'offset' => null,
                 'limit' => null,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -790,7 +790,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     public function testNewCollectionUpdateStructWithCollection(): void
     {
         $struct = $this->collectionService->newCollectionUpdateStruct(
-            $this->collectionService->loadCollectionDraft(Uuid::fromString('da050624-8ae0-5fb9-ae85-092bf8242b89'))
+            $this->collectionService->loadCollectionDraft(Uuid::fromString('da050624-8ae0-5fb9-ae85-092bf8242b89')),
         );
 
         self::assertSame(
@@ -798,7 +798,7 @@ abstract class CollectionServiceTest extends CoreTestCase
                 'offset' => 4,
                 'limit' => 2,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -808,7 +808,7 @@ abstract class CollectionServiceTest extends CoreTestCase
     public function testNewCollectionUpdateStructWithUnlimitedCollection(): void
     {
         $struct = $this->collectionService->newCollectionUpdateStruct(
-            $this->collectionService->loadCollectionDraft(Uuid::fromString('a79dde13-1f5c-51a6-bea9-b766236be49e'))
+            $this->collectionService->loadCollectionDraft(Uuid::fromString('a79dde13-1f5c-51a6-bea9-b766236be49e')),
         );
 
         self::assertSame(
@@ -816,7 +816,7 @@ abstract class CollectionServiceTest extends CoreTestCase
                 'offset' => 0,
                 'limit' => 0,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -835,7 +835,7 @@ abstract class CollectionServiceTest extends CoreTestCase
                 'viewType' => null,
                 'configStructs' => [],
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -851,7 +851,7 @@ abstract class CollectionServiceTest extends CoreTestCase
                 'viewType' => null,
                 'configStructs' => [],
             ],
-            $this->exportObject($struct, true)
+            $this->exportObject($struct, true),
         );
     }
 
@@ -877,7 +877,7 @@ abstract class CollectionServiceTest extends CoreTestCase
                     ],
                 ],
             ],
-            $this->exportObject($struct, true)
+            $this->exportObject($struct, true),
         );
     }
 
@@ -903,7 +903,7 @@ abstract class CollectionServiceTest extends CoreTestCase
                     ],
                 ],
             ],
-            $this->exportObject($struct, true)
+            $this->exportObject($struct, true),
         );
     }
 
@@ -924,7 +924,7 @@ abstract class CollectionServiceTest extends CoreTestCase
                     'param2' => null,
                 ],
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -940,7 +940,7 @@ abstract class CollectionServiceTest extends CoreTestCase
                 'locale' => 'en',
                 'parameterValues' => [],
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -960,7 +960,7 @@ abstract class CollectionServiceTest extends CoreTestCase
                     'param2' => null,
                 ],
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -975,7 +975,7 @@ abstract class CollectionServiceTest extends CoreTestCase
             [
                 'viewType' => null,
             ],
-            $this->exportObject($struct)
+            $this->exportObject($struct),
         );
     }
 
@@ -990,7 +990,7 @@ abstract class CollectionServiceTest extends CoreTestCase
             [
                 'viewType' => null,
             ],
-            $this->exportObject($struct, true)
+            $this->exportObject($struct, true),
         );
     }
 
@@ -1006,7 +1006,7 @@ abstract class CollectionServiceTest extends CoreTestCase
             [
                 'viewType' => 'standard',
             ],
-            $this->exportObject($struct, true)
+            $this->exportObject($struct, true),
         );
     }
 }

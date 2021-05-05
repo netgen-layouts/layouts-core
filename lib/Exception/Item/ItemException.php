@@ -15,8 +15,8 @@ final class ItemException extends InvalidArgumentException implements Exception
         return new self(
             sprintf(
                 'Value type "%s" does not exist.',
-                $valueType
-            )
+                $valueType,
+            ),
         );
     }
 
@@ -25,8 +25,8 @@ final class ItemException extends InvalidArgumentException implements Exception
         return new self(
             sprintf(
                 'Value loader for "%s" value type does not exist.',
-                $valueType
-            )
+                $valueType,
+            ),
         );
     }
 
@@ -35,8 +35,8 @@ final class ItemException extends InvalidArgumentException implements Exception
         return new self(
             sprintf(
                 'Value URL generator for "%s" value type does not exist.',
-                $valueType
-            )
+                $valueType,
+            ),
         );
     }
 
@@ -48,8 +48,8 @@ final class ItemException extends InvalidArgumentException implements Exception
         return new self(
             sprintf(
                 'Value with (remote) ID %s does not exist.',
-                $value
-            )
+                $value,
+            ),
         );
     }
 
@@ -61,8 +61,8 @@ final class ItemException extends InvalidArgumentException implements Exception
         return new self(
             sprintf(
                 'Item "%s" is not valid.',
-                $value
-            )
+                $value,
+            ),
         );
     }
 

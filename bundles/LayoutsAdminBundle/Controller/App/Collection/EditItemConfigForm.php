@@ -44,9 +44,9 @@ final class EditItemConfigForm extends AbstractController
                     [
                         'itemId' => $item->getId(),
                         'configKey' => $configKey,
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $form->handleRequest($request);
@@ -65,7 +65,7 @@ final class EditItemConfigForm extends AbstractController
             $form,
             ViewInterface::CONTEXT_APP,
             [],
-            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
+            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY),
         );
     }
 }

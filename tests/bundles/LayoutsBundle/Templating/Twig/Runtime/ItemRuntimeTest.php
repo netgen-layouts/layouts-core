@@ -33,7 +33,7 @@ final class ItemRuntimeTest extends TestCase
         $this->runtime = new ItemRuntime(
             $this->cmsItemLoaderMock,
             $this->urlGeneratorMock,
-            $this->errorHandler
+            $this->errorHandler,
         );
     }
 

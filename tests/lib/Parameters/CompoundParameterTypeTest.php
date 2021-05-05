@@ -48,9 +48,9 @@ final class CompoundParameterTypeTest extends TestCase
                 [
                     'type' => new CompoundParameterType(),
                     'isRequired' => false,
-                ]
+                ],
             ),
-            42
+            42,
         );
 
         self::assertCount(1, $constraints);
@@ -69,9 +69,9 @@ final class CompoundParameterTypeTest extends TestCase
                 [
                     'type' => new CompoundParameterType(),
                     'isRequired' => true,
-                ]
+                ],
             ),
-            42
+            42,
         );
 
         self::assertCount(2, $constraints);
@@ -89,7 +89,7 @@ final class CompoundParameterTypeTest extends TestCase
 
         $this->parameterType->getConstraints(
             CompoundParameterDefinition::fromArray(['type' => new BooleanType(), 'isRequired' => false]),
-            42
+            42,
         );
     }
 

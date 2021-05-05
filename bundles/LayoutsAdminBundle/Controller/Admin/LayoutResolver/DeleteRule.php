@@ -28,7 +28,7 @@ final class DeleteRule extends AbstractController
             'nglayouts:mapping:delete',
             [
                 'rule_group' => $rule->getRuleGroupId()->toString(),
-            ]
+            ],
         );
 
         if ($request->getMethod() !== Request::METHOD_DELETE) {
@@ -38,7 +38,7 @@ final class DeleteRule extends AbstractController
                     'submitted' => false,
                     'error' => false,
                     'rule' => $rule,
-                ]
+                ],
             );
         }
 

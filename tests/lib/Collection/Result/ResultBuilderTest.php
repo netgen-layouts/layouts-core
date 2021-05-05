@@ -46,7 +46,7 @@ final class ResultBuilderTest extends TestCase
     public function testBuildForManualCollection(): void
     {
         $collection = $this->buildCollection(
-            [42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54]
+            [42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54],
         );
 
         $resultSet = $this->resultBuilder->build($collection, 0, 5);
@@ -71,7 +71,7 @@ final class ResultBuilderTest extends TestCase
         $resultBuilder = $this->buildResultBuilder(3);
 
         $collection = $this->buildCollection(
-            [42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54]
+            [42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54],
         );
 
         $resultSet = $resultBuilder->build($collection, 0, 5);
@@ -95,7 +95,7 @@ final class ResultBuilderTest extends TestCase
         $collection = $this->buildCollection(
             [2 => 10, 7 => 14, 8 => 16, 11 => 20],
             [42, 43, 44, 45, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            13
+            13,
         );
 
         $result = $this->resultBuilder->build($collection, 0, 5);
@@ -120,7 +120,7 @@ final class ResultBuilderTest extends TestCase
             [2 => 10, 7 => 14, 8 => 16, 11 => 20],
             [42, 43, 44, 45, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             13,
-            true
+            true,
         );
 
         $result = $this->resultBuilder->build($collection, 0, 20, PHP_INT_MAX);
@@ -145,7 +145,7 @@ final class ResultBuilderTest extends TestCase
             [2 => 10, 7 => 14, 8 => 16, 11 => 20],
             [42, 43, 44, 45, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             13,
-            true
+            true,
         );
 
         $result = $this->resultBuilder->build($collection, 0, 5, PHP_INT_MAX);
@@ -166,7 +166,7 @@ final class ResultBuilderTest extends TestCase
         return new ResultBuilder(
             new CollectionRunnerFactory($this->cmsItemBuilder, new VisibilityResolver([])),
             12,
-            $maxLimit
+            $maxLimit,
         );
     }
 
@@ -191,7 +191,7 @@ final class ResultBuilderTest extends TestCase
                     'value' => $id,
                     'definition' => ItemDefinition::fromArray(['valueType' => 'value']),
                     'cmsItem' => CmsItem::fromArray(['value' => $id, 'valueType' => 'value', 'isVisible' => true]),
-                ]
+                ],
             );
         }
 
@@ -205,11 +205,11 @@ final class ResultBuilderTest extends TestCase
                             'my_query_type',
                             $this->buildQueryValues($queryValues),
                             $queryCount,
-                            $contextual
+                            $contextual,
                         ),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
     }
 
@@ -224,7 +224,7 @@ final class ResultBuilderTest extends TestCase
     {
         return array_map(
             static fn ($id): Value => new Value($id, ''),
-            $ids
+            $ids,
         );
     }
 }

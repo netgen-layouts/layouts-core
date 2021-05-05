@@ -37,7 +37,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
     {
         self::assertSame(
             [sprintf('%s.%s', LayoutsEvents::RENDER_VIEW, 'block') => 'onRenderView'],
-            $this->listener::getSubscribedEvents()
+            $this->listener::getSubscribedEvents(),
         );
     }
 
@@ -53,9 +53,9 @@ final class GetTwigBlockContentListenerTest extends TestCase
                 'definition' => TwigBlockDefinition::fromArray(
                     [
                         'handler' => new TwigBlockDefinitionHandler(),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $blockView = new BlockView($block);
@@ -75,7 +75,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
             ->willReturnCallback(
                 static function (): void {
                     echo 'rendered twig block';
-                }
+                },
             );
 
         $blockView->addParameter('twig_template', new ContextualizedTwigTemplate($twigTemplateMock));
@@ -99,9 +99,9 @@ final class GetTwigBlockContentListenerTest extends TestCase
                 'definition' => TwigBlockDefinition::fromArray(
                     [
                         'handler' => new TwigBlockDefinitionHandler(['block1', 'block2']),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $blockView = new BlockView($block);
@@ -113,7 +113,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
             ->withConsecutive(
                 [self::identicalTo('block1')],
                 [self::identicalTo('block2')],
-                [self::identicalTo('block2')]
+                [self::identicalTo('block2')],
             )
             ->willReturnOnConsecutiveCalls(false, true, true);
 
@@ -124,7 +124,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
             ->willReturnCallback(
                 static function (): void {
                     echo 'rendered twig block';
-                }
+                },
             );
 
         $blockView->addParameter('twig_template', new ContextualizedTwigTemplate($twigTemplateMock));
@@ -148,9 +148,9 @@ final class GetTwigBlockContentListenerTest extends TestCase
                 'definition' => TwigBlockDefinition::fromArray(
                     [
                         'handler' => new TwigBlockDefinitionHandler(['block1', 'block2']),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $blockView = new BlockView($block);
@@ -161,7 +161,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
             ->method('hasBlock')
             ->withConsecutive(
                 [self::identicalTo('block1')],
-                [self::identicalTo('block2')]
+                [self::identicalTo('block2')],
             )
             ->willReturn(false);
 
@@ -187,7 +187,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
             [
                 'id' => Uuid::uuid4(),
                 'definition' => new BlockDefinition(),
-            ]
+            ],
         );
 
         $blockView = new BlockView($block);
@@ -207,7 +207,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
             [
                 'id' => Uuid::uuid4(),
                 'definition' => new TwigBlockDefinition(),
-            ]
+            ],
         );
 
         $blockView = new BlockView($block);
@@ -230,7 +230,7 @@ final class GetTwigBlockContentListenerTest extends TestCase
             [
                 'id' => Uuid::uuid4(),
                 'definition' => new TwigBlockDefinition(),
-            ]
+            ],
         );
 
         $blockView = new BlockView($block);

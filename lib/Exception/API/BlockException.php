@@ -15,8 +15,8 @@ final class BlockException extends InvalidArgumentException implements Exception
         return new self(
             sprintf(
                 'Placeholder with "%s" identifier does not exist in the block.',
-                $placeholder
-            )
+                $placeholder,
+            ),
         );
     }
 
@@ -25,8 +25,8 @@ final class BlockException extends InvalidArgumentException implements Exception
         return new self(
             sprintf(
                 'Collection with "%s" identifier does not exist in the block.',
-                $collection
-            )
+                $collection,
+            ),
         );
     }
 }

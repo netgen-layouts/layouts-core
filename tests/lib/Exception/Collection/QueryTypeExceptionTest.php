@@ -18,7 +18,7 @@ final class QueryTypeExceptionTest extends TestCase
 
         self::assertSame(
             'Query type with "type" identifier does not exist.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 
@@ -31,7 +31,7 @@ final class QueryTypeExceptionTest extends TestCase
 
         self::assertSame(
             'Form "form" does not exist in "type" query type.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 }

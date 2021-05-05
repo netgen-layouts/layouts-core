@@ -18,7 +18,7 @@ abstract class ParameterType implements ParameterTypeInterface
     {
         if ($parameterDefinition->getType()::getIdentifier() !== $this::getIdentifier()) {
             throw ParameterTypeException::unsupportedParameterType(
-                $parameterDefinition->getType()::getIdentifier()
+                $parameterDefinition->getType()::getIdentifier(),
             );
         }
 

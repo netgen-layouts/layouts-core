@@ -29,16 +29,16 @@ final class DeleteTarget extends AbstractController
             'nglayouts:mapping:edit',
             [
                 'rule_group' => $rule->getRuleGroupId()->toString(),
-            ]
+            ],
         );
 
         $this->layoutResolverService->deleteTarget($target);
 
         return $this->buildView(
             $this->layoutResolverService->loadRuleDraft(
-                $target->getRuleId()
+                $target->getRuleId(),
             ),
-            ViewInterface::CONTEXT_ADMIN
+            ViewInterface::CONTEXT_ADMIN,
         );
     }
 }

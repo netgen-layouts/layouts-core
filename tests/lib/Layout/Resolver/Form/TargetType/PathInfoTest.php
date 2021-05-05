@@ -43,7 +43,7 @@ final class PathInfoTest extends FormTestCase
         $form = $this->factory->create(
             TargetType::class,
             $struct,
-            ['target_type' => $this->targetType]
+            ['target_type' => $this->targetType],
         );
 
         $valueFormConfig = $form->get('value')->getConfig();
@@ -68,8 +68,8 @@ final class PathInfoTest extends FormTestCase
             new Container(
                 [
                     'path_info' => new PathInfoMapper(),
-                ]
-            )
+                ],
+            ),
         );
     }
 }

@@ -18,7 +18,7 @@ final class LocaleExceptionTest extends TestCase
 
         self::assertSame(
             'No locales available in the current context.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 }

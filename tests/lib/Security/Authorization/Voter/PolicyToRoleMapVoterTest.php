@@ -42,7 +42,7 @@ final class PolicyToRoleMapVoterTest extends TestCase
         $vote = $this->voter->vote(
             $token,
             null,
-            ['nglayouts:layout:add']
+            ['nglayouts:layout:add'],
         );
 
         self::assertSame($vote, $this->voter::ACCESS_GRANTED);

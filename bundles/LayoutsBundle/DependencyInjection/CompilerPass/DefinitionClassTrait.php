@@ -16,7 +16,7 @@ trait DefinitionClassTrait
     private function getDefinitionClass(ContainerBuilder $container, string $serviceId): string
     {
         $this->definitionClasses[$serviceId] ??= $container->getParameterBag()->resolveValue(
-            $container->findDefinition($serviceId)->getClass()
+            $container->findDefinition($serviceId)->getClass(),
         );
 
         return $this->definitionClasses[$serviceId];

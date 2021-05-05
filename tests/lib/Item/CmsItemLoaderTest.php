@@ -45,12 +45,12 @@ final class CmsItemLoaderTest extends TestCase
                 'valueType' => 'value',
                 'isVisible' => true,
                 'object' => new Value(42, 'abc'),
-            ]
+            ],
         );
 
         $this->cmsItemLoader = new CmsItemLoader(
             $this->cmsItemBuilderMock,
-            new Container(['value' => new ValueLoader(true)])
+            new Container(['value' => new ValueLoader(true)]),
         );
 
         $this->cmsItemBuilderMock
@@ -69,7 +69,7 @@ final class CmsItemLoaderTest extends TestCase
     {
         $this->cmsItemLoader = new CmsItemLoader(
             $this->cmsItemBuilderMock,
-            new Container(['value' => new ValueLoader(false)])
+            new Container(['value' => new ValueLoader(false)]),
         );
 
         $loadedValue = $this->cmsItemLoader->load(42, 'value');
@@ -106,12 +106,12 @@ final class CmsItemLoaderTest extends TestCase
                 'valueType' => 'value',
                 'isVisible' => true,
                 'object' => new Value(42, 'abc'),
-            ]
+            ],
         );
 
         $this->cmsItemLoader = new CmsItemLoader(
             $this->cmsItemBuilderMock,
-            new Container(['value' => new ValueLoader(true)])
+            new Container(['value' => new ValueLoader(true)]),
         );
 
         $this->cmsItemBuilderMock
@@ -130,7 +130,7 @@ final class CmsItemLoaderTest extends TestCase
     {
         $this->cmsItemLoader = new CmsItemLoader(
             $this->cmsItemBuilderMock,
-            new Container(['value' => new ValueLoader(false)])
+            new Container(['value' => new ValueLoader(false)]),
         );
 
         $loadedValue = $this->cmsItemLoader->loadByRemoteId(42, 'value');

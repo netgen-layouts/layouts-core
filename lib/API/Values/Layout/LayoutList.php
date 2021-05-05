@@ -22,8 +22,8 @@ final class LayoutList extends ArrayCollection
         parent::__construct(
             array_filter(
                 $layouts,
-                static fn (Layout $layout): bool => true
-            )
+                static fn (Layout $layout): bool => true,
+            ),
         );
     }
 
@@ -42,7 +42,7 @@ final class LayoutList extends ArrayCollection
     {
         return array_map(
             static fn (Layout $layout): UuidInterface => $layout->getId(),
-            $this->getLayouts()
+            $this->getLayouts(),
         );
     }
 }

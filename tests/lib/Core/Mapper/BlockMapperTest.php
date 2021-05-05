@@ -61,14 +61,14 @@ abstract class BlockMapperTest extends CoreTestCase
                         'param2' => 400,
                     ],
                 ],
-            ]
+            ],
         );
 
         $block = $this->mapper->mapBlock($persistenceBlock);
 
         self::assertSame(
             $this->blockDefinitionRegistry->getBlockDefinition('text'),
-            $block->getDefinition()
+            $block->getDefinition(),
         );
 
         self::assertSame('28df256a-2467-5527-b398-9269ccc652de', $block->getId()->toString());
@@ -127,7 +127,7 @@ abstract class BlockMapperTest extends CoreTestCase
                 'status' => Value::STATUS_PUBLISHED,
                 'parameters' => ['en' => []],
                 'config' => [],
-            ]
+            ],
         );
 
         $block = $this->mapper->mapBlock($persistenceBlock);
@@ -165,7 +165,7 @@ abstract class BlockMapperTest extends CoreTestCase
                 'status' => Value::STATUS_PUBLISHED,
                 'parameters' => ['en' => [], 'hr' => [], 'de' => []],
                 'config' => [],
-            ]
+            ],
         );
 
         $block = $this->mapper->mapBlock($persistenceBlock, ['hr']);
@@ -202,7 +202,7 @@ abstract class BlockMapperTest extends CoreTestCase
                 'status' => Value::STATUS_PUBLISHED,
                 'parameters' => ['en' => [], 'hr' => [], 'de' => []],
                 'config' => [],
-            ]
+            ],
         );
 
         $block = $this->mapper->mapBlock($persistenceBlock, ['hr', 'en']);
@@ -239,7 +239,7 @@ abstract class BlockMapperTest extends CoreTestCase
                 'status' => Value::STATUS_PUBLISHED,
                 'parameters' => ['en' => [], 'hr' => [], 'de' => []],
                 'config' => [],
-            ]
+            ],
         );
 
         $block = $this->mapper->mapBlock($persistenceBlock, ['fr', 'no']);
@@ -279,7 +279,7 @@ abstract class BlockMapperTest extends CoreTestCase
                 'status' => Value::STATUS_PUBLISHED,
                 'parameters' => ['en' => [], 'hr' => [], 'de' => []],
                 'config' => [],
-            ]
+            ],
         );
 
         $this->mapper->mapBlock($persistenceBlock, ['fr', 'no'], false);
@@ -306,7 +306,7 @@ abstract class BlockMapperTest extends CoreTestCase
                 'availableLocales' => ['en', 'hr', 'de'],
                 'parameters' => ['en' => [], 'hr' => [], 'de' => []],
                 'config' => [],
-            ]
+            ],
         );
 
         $this->mapper->mapBlock($persistenceBlock, ['fr', 'no']);
@@ -350,7 +350,7 @@ abstract class BlockMapperTest extends CoreTestCase
                         'param2' => 400,
                     ],
                 ],
-            ]
+            ],
         );
 
         $block = $this->mapper->mapBlock($persistenceBlock);
@@ -411,14 +411,14 @@ abstract class BlockMapperTest extends CoreTestCase
                         'param2' => 400,
                     ],
                 ],
-            ]
+            ],
         );
 
         $block = $this->mapper->mapBlock($persistenceBlock);
 
         self::assertSame(
             $this->blockDefinitionRegistry->getBlockDefinition('two_columns'),
-            $block->getDefinition()
+            $block->getDefinition(),
         );
 
         self::assertTrue($block->hasPlaceholder('left'));
@@ -468,14 +468,14 @@ abstract class BlockMapperTest extends CoreTestCase
                         'param2' => 400,
                     ],
                 ],
-            ]
+            ],
         );
 
         $block = $this->mapper->mapBlock($persistenceBlock);
 
         self::assertSame(
             $this->blockDefinitionRegistry->getBlockDefinition('text'),
-            $block->getDefinition()
+            $block->getDefinition(),
         );
 
         self::assertTrue($block->hasCollection('default'));

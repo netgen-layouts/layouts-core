@@ -70,8 +70,8 @@ final class CollectionParamConverterTest extends TestCase
                 [
                     'collectionId' => $uuid->toString(),
                     'status' => 'published',
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -96,8 +96,8 @@ final class CollectionParamConverterTest extends TestCase
                 [
                     'collectionId' => $uuid->toString(),
                     'status' => 'draft',
-                ]
-            )
+                ],
+            ),
         );
     }
 }

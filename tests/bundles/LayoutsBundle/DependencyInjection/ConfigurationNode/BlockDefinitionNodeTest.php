@@ -174,7 +174,7 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_definitions'
+            'block_definitions',
         );
     }
 
@@ -204,7 +204,7 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_definitions.*.icon'
+            'block_definitions.*.icon',
         );
     }
 
@@ -236,7 +236,7 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_definitions.*.icon'
+            'block_definitions.*.icon',
         );
     }
 
@@ -264,7 +264,7 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_definitions.*.handler'
+            'block_definitions.*.handler',
         );
     }
 
@@ -297,7 +297,7 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_definitions.*.enabled'
+            'block_definitions.*.enabled',
         );
     }
 
@@ -328,7 +328,7 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_definitions.*.translatable'
+            'block_definitions.*.translatable',
         );
     }
 
@@ -361,7 +361,7 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_definitions.*.translatable'
+            'block_definitions.*.translatable',
         );
     }
 
@@ -390,7 +390,7 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_definitions.*.collections'
+            'block_definitions.*.collections',
         );
     }
 
@@ -430,7 +430,7 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_definitions.*.collections'
+            'block_definitions.*.collections',
         );
     }
 
@@ -471,7 +471,7 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_definitions.*.collections.default.valid_query_types'
+            'block_definitions.*.collections.default.valid_query_types',
         );
     }
 
@@ -512,7 +512,7 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_definitions.*.collections.default.valid_query_types'
+            'block_definitions.*.collections.default.valid_query_types',
         );
     }
 
@@ -553,7 +553,7 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_definitions.*.collections.default.valid_query_types'
+            'block_definitions.*.collections.default.valid_query_types',
         );
     }
 
@@ -594,7 +594,7 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_definitions.*.collections.default.valid_item_types'
+            'block_definitions.*.collections.default.valid_item_types',
         );
     }
 
@@ -635,7 +635,7 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_definitions.*.collections.default.valid_item_types'
+            'block_definitions.*.collections.default.valid_item_types',
         );
     }
 
@@ -676,7 +676,7 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_definitions.*.collections.default.valid_item_types'
+            'block_definitions.*.collections.default.valid_item_types',
         );
     }
 
@@ -734,7 +734,7 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_definitions.*.forms'
+            'block_definitions.*.forms',
         );
     }
 
@@ -835,7 +835,7 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_definitions.*.view_types'
+            'block_definitions.*.view_types',
         );
     }
 
@@ -911,7 +911,7 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_definitions.*.view_types'
+            'block_definitions.*.view_types',
         );
     }
 
@@ -966,7 +966,7 @@ final class BlockDefinitionNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_definitions.*.view_types.*'
+            'block_definitions.*.view_types.*',
         );
     }
 

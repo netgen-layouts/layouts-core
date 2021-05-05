@@ -45,7 +45,7 @@ final class CollectionPagerRuntime
         if ($page < 1 || $page > $pagerfanta->getNbPages()) {
             throw new InvalidArgumentException(
                 'page',
-                sprintf('Page %d is out of bounds', $page)
+                sprintf('Page %d is out of bounds', $page),
             );
         }
 

@@ -25,9 +25,9 @@ final class ParameterViewTest extends TestCase
                     [
                         'type' => new ParameterType(),
                         'isRequired' => false,
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $this->view = new ParameterView($this->parameter);
@@ -55,7 +55,7 @@ final class ParameterViewTest extends TestCase
                 'parameter' => $this->parameter,
                 'param' => 'value',
             ],
-            $this->view->getParameters()
+            $this->view->getParameters(),
         );
     }
 

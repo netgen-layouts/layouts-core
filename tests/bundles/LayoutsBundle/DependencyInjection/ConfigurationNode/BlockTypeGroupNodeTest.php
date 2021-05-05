@@ -45,7 +45,7 @@ final class BlockTypeGroupNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_type_groups'
+            'block_type_groups',
         );
     }
 
@@ -86,7 +86,7 @@ final class BlockTypeGroupNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_type_groups.*.block_types'
+            'block_type_groups.*.block_types',
         );
     }
 
@@ -119,7 +119,7 @@ final class BlockTypeGroupNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_type_groups.*.block_types'
+            'block_type_groups.*.block_types',
         );
     }
 
@@ -152,7 +152,7 @@ final class BlockTypeGroupNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_type_groups.*.block_types'
+            'block_type_groups.*.block_types',
         );
     }
 

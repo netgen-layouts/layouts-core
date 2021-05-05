@@ -61,8 +61,8 @@ class TemplateResolver implements TemplateResolverInterface
                 $view->setTemplate($config['template']);
                 $view->addParameters(
                     iterator_to_array(
-                        $this->evaluateParameters($view, $config['parameters'])
-                    )
+                        $this->evaluateParameters($view, $config['parameters']),
+                    ),
                 );
 
                 return;
@@ -108,7 +108,7 @@ class TemplateResolver implements TemplateResolverInterface
                     mb_substr($value, 2),
                     [
                         'view' => $view,
-                    ] + $view->getParameters()
+                    ] + $view->getParameters(),
                 );
             }
 

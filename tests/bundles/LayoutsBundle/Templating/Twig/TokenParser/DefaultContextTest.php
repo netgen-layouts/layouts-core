@@ -29,7 +29,7 @@ final class DefaultContextTest extends TestCase
                 'cache' => false,
                 'autoescape' => false,
                 'optimizations' => 0,
-            ]
+            ],
         );
 
         $this->environment->addTokenParser(new DefaultContext());
@@ -59,7 +59,7 @@ final class DefaultContextTest extends TestCase
         $this->expectExceptionMessage('Unexpected token "string" of value "bar" ("end of statement block" expected) at line 1.');
 
         $stream = $this->environment->tokenize(
-            new Source('{% nglayouts_default_context \'foo\' \'bar\' %}', '')
+            new Source('{% nglayouts_default_context \'foo\' \'bar\' %}', ''),
         );
 
         $this->parser->parse($stream);
@@ -73,7 +73,7 @@ final class DefaultContextTest extends TestCase
                 new DefaultContextNode(
                     new NameExpression('foo', 1),
                     1,
-                    'nglayouts_default_context'
+                    'nglayouts_default_context',
                 ),
             ],
             [
@@ -81,7 +81,7 @@ final class DefaultContextTest extends TestCase
                 new DefaultContextNode(
                     new ConstantExpression('foo', 1),
                     1,
-                    'nglayouts_default_context'
+                    'nglayouts_default_context',
                 ),
             ],
         ];

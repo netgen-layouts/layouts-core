@@ -41,7 +41,7 @@ abstract class ParamConverter implements ParamConverterInterface
 
                 throw new InvalidArgumentException(
                     $sourceAttributeName,
-                    'Required request attribute is empty.'
+                    'Required request attribute is empty.',
                 );
             }
         }
@@ -62,7 +62,7 @@ abstract class ParamConverter implements ParamConverterInterface
 
         $request->attributes->set(
             $this->getDestinationAttributeName(),
-            $this->loadValue($values)
+            $this->loadValue($values),
         );
 
         return true;

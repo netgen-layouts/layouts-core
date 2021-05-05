@@ -40,7 +40,7 @@ final class GetTwigBlockContentListener implements EventSubscriberInterface
         $twigContent = $this->getTwigBlockContent(
             $blockDefinition,
             $block,
-            $view->getParameters()
+            $view->getParameters(),
         );
 
         $event->addParameter('twig_content', $twigContent);

@@ -28,11 +28,11 @@ final class CommonParametersPluginTest extends TestCase
             [
                 new ParameterType\TextLineType(),
                 new ParameterType\BooleanType(),
-            ]
+            ],
         );
 
         $this->parameterBuilderFactory = new TranslatableParameterBuilderFactory(
-            $this->parameterTypeRegistry
+            $this->parameterTypeRegistry,
         );
     }
 
@@ -44,7 +44,7 @@ final class CommonParametersPluginTest extends TestCase
     {
         self::assertSame(
             [BlockDefinitionHandlerInterface::class],
-            [...(function (): Generator { yield from $this->plugin::getExtendedHandlers(); })()]
+            [...(function (): Generator { yield from $this->plugin::getExtendedHandlers(); })()],
         );
     }
 

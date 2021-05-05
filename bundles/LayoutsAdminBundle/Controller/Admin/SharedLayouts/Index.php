@@ -28,7 +28,7 @@ final class Index extends AbstractController
             '@NetgenLayoutsAdmin/admin/shared_layouts/index.html.twig',
             [
                 'shared_layouts' => $this->layoutService->loadSharedLayouts(true),
-            ]
+            ],
         );
     }
 }

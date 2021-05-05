@@ -58,8 +58,8 @@ final class LayoutResolverServiceTest extends TestCase
                 [
                     'id' => Uuid::uuid4(),
                     'status' => Value::STATUS_PUBLISHED,
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -85,7 +85,7 @@ final class LayoutResolverServiceTest extends TestCase
 
         $this->layoutResolverService->updateRule(
             Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]),
-            new RuleUpdateStruct()
+            new RuleUpdateStruct(),
         );
     }
 
@@ -111,7 +111,7 @@ final class LayoutResolverServiceTest extends TestCase
 
         $this->layoutResolverService->updateRuleMetadata(
             Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_PUBLISHED]),
-            new RuleMetadataUpdateStruct()
+            new RuleMetadataUpdateStruct(),
         );
     }
 
@@ -145,8 +145,8 @@ final class LayoutResolverServiceTest extends TestCase
                 [
                     'id' => Uuid::uuid4(),
                     'status' => Value::STATUS_PUBLISHED,
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -180,8 +180,8 @@ final class LayoutResolverServiceTest extends TestCase
                 [
                     'id' => Uuid::uuid4(),
                     'status' => Value::STATUS_PUBLISHED,
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -323,8 +323,8 @@ final class LayoutResolverServiceTest extends TestCase
                     [
                         'layoutUuid' => Uuid::uuid4()->toString(),
                         'enabled' => false,
-                    ]
-                )
+                    ],
+                ),
             );
 
         $this->layoutResolverHandler
@@ -352,8 +352,8 @@ final class LayoutResolverServiceTest extends TestCase
                 PersistenceRule::fromArray(
                     [
                         'enabled' => true,
-                    ]
-                )
+                    ],
+                ),
             );
 
         $this->layoutResolverHandler
@@ -396,8 +396,8 @@ final class LayoutResolverServiceTest extends TestCase
                 [
                     'id' => Uuid::uuid4(),
                     'status' => Value::STATUS_PUBLISHED,
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -423,7 +423,7 @@ final class LayoutResolverServiceTest extends TestCase
 
         $this->layoutResolverService->updateRuleGroup(
             RuleGroup::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]),
-            new RuleGroupUpdateStruct()
+            new RuleGroupUpdateStruct(),
         );
     }
 
@@ -449,7 +449,7 @@ final class LayoutResolverServiceTest extends TestCase
 
         $this->layoutResolverService->updateRuleGroupMetadata(
             RuleGroup::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_PUBLISHED]),
-            new RuleGroupMetadataUpdateStruct()
+            new RuleGroupMetadataUpdateStruct(),
         );
     }
 
@@ -479,8 +479,8 @@ final class LayoutResolverServiceTest extends TestCase
                 [
                     'id' => Uuid::uuid4(),
                     'status' => Value::STATUS_PUBLISHED,
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -510,8 +510,8 @@ final class LayoutResolverServiceTest extends TestCase
                 [
                     'id' => Uuid::uuid4(),
                     'status' => Value::STATUS_PUBLISHED,
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -540,7 +540,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->createRuleGroupDraft(
-            RuleGroup::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_PUBLISHED])
+            RuleGroup::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_PUBLISHED]),
         );
     }
 
@@ -565,7 +565,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->discardRuleGroupDraft(
-            RuleGroup::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT])
+            RuleGroup::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]),
         );
     }
 
@@ -590,7 +590,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->publishRuleGroup(
-            RuleGroup::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT])
+            RuleGroup::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]),
         );
     }
 
@@ -619,7 +619,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->restoreRuleGroupFromArchive(
-            RuleGroup::fromArray(['id' => Uuid::uuid4(), 'status' => RuleGroup::STATUS_ARCHIVED])
+            RuleGroup::fromArray(['id' => Uuid::uuid4(), 'status' => RuleGroup::STATUS_ARCHIVED]),
         );
     }
 
@@ -644,7 +644,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->deleteRuleGroup(
-            RuleGroup::fromArray(['id' => Uuid::uuid4(), 'status' => RuleGroup::STATUS_DRAFT])
+            RuleGroup::fromArray(['id' => Uuid::uuid4(), 'status' => RuleGroup::STATUS_DRAFT]),
         );
     }
 
@@ -662,8 +662,8 @@ final class LayoutResolverServiceTest extends TestCase
                 PersistenceRuleGroup::fromArray(
                     [
                         'enabled' => false,
-                    ]
-                )
+                    ],
+                ),
             );
 
         $this->layoutResolverHandler
@@ -675,7 +675,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->enableRuleGroup(
-            RuleGroup::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_PUBLISHED])
+            RuleGroup::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_PUBLISHED]),
         );
     }
 
@@ -693,8 +693,8 @@ final class LayoutResolverServiceTest extends TestCase
                 PersistenceRuleGroup::fromArray(
                     [
                         'enabled' => true,
-                    ]
-                )
+                    ],
+                ),
             );
 
         $this->layoutResolverHandler
@@ -706,7 +706,7 @@ final class LayoutResolverServiceTest extends TestCase
             ->method('rollbackTransaction');
 
         $this->layoutResolverService->disableRuleGroup(
-            RuleGroup::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_PUBLISHED])
+            RuleGroup::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_PUBLISHED]),
         );
     }
 
@@ -739,7 +739,7 @@ final class LayoutResolverServiceTest extends TestCase
 
         $this->layoutResolverService->addTarget(
             Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]),
-            $targetCreateStruct
+            $targetCreateStruct,
         );
     }
 
@@ -765,7 +765,7 @@ final class LayoutResolverServiceTest extends TestCase
 
         $this->layoutResolverService->updateTarget(
             Target::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT, 'targetType' => new Route()]),
-            new TargetUpdateStruct()
+            new TargetUpdateStruct(),
         );
     }
 
@@ -817,7 +817,7 @@ final class LayoutResolverServiceTest extends TestCase
 
         $this->layoutResolverService->addCondition(
             Rule::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]),
-            $conditionCreateStruct
+            $conditionCreateStruct,
         );
     }
 
@@ -846,7 +846,7 @@ final class LayoutResolverServiceTest extends TestCase
 
         $this->layoutResolverService->addRuleGroupCondition(
             RuleGroup::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT]),
-            $conditionCreateStruct
+            $conditionCreateStruct,
         );
     }
 
@@ -872,7 +872,7 @@ final class LayoutResolverServiceTest extends TestCase
 
         $this->layoutResolverService->updateCondition(
             RuleCondition::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT, 'conditionType' => new RouteParameter()]),
-            new ConditionUpdateStruct()
+            new ConditionUpdateStruct(),
         );
     }
 
@@ -898,7 +898,7 @@ final class LayoutResolverServiceTest extends TestCase
 
         $this->layoutResolverService->updateRuleGroupCondition(
             RuleGroupCondition::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT, 'conditionType' => new RouteParameter()]),
-            new ConditionUpdateStruct()
+            new ConditionUpdateStruct(),
         );
     }
 

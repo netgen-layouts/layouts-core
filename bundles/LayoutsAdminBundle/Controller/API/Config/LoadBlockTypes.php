@@ -48,7 +48,7 @@ final class LoadBlockTypes extends AbstractController
             [
                 'block_type_groups' => $blockTypeGroups,
                 'block_types' => $blockTypes,
-            ]
+            ],
         );
     }
 }

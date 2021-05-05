@@ -20,7 +20,7 @@ final class LoadItemTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'collections/load_item',
-            Response::HTTP_OK
+            Response::HTTP_OK,
         );
     }
 
@@ -34,7 +34,7 @@ final class LoadItemTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find item with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"'
+            'Could not find item with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"',
         );
     }
 }

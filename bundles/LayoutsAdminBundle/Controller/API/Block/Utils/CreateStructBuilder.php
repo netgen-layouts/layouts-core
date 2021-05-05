@@ -41,7 +41,7 @@ final class CreateStructBuilder
         foreach ($blockDefinition->getCollections() as $collectionConfig) {
             $blockCreateStruct->addCollectionCreateStruct(
                 $collectionConfig->getIdentifier(),
-                new CollectionCreateStruct()
+                new CollectionCreateStruct(),
             );
         }
 

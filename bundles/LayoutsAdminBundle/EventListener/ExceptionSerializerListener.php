@@ -60,9 +60,9 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
                     get_debug_type($exception),
                     $exception->getMessage(),
                     $exception->getFile(),
-                    $exception->getLine()
+                    $exception->getLine(),
                 ),
-                ['exception' => $exception]
+                ['exception' => $exception],
             );
         }
 

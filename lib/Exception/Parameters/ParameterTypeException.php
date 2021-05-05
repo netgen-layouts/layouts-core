@@ -15,8 +15,8 @@ final class ParameterTypeException extends InvalidArgumentException implements E
         return new self(
             sprintf(
                 'Parameter type with "%s" identifier does not exist.',
-                $parameterType
-            )
+                $parameterType,
+            ),
         );
     }
 
@@ -25,8 +25,8 @@ final class ParameterTypeException extends InvalidArgumentException implements E
         return new self(
             sprintf(
                 'Parameter type with class "%s" does not exist.',
-                $class
-            )
+                $class,
+            ),
         );
     }
 
@@ -35,8 +35,8 @@ final class ParameterTypeException extends InvalidArgumentException implements E
         return new self(
             sprintf(
                 'Form mapper for "%s" parameter type does not exist.',
-                $parameterType
-            )
+                $parameterType,
+            ),
         );
     }
 
@@ -45,8 +45,8 @@ final class ParameterTypeException extends InvalidArgumentException implements E
         return new self(
             sprintf(
                 'Parameter with "%s" type is not supported.',
-                $parameterType
-            )
+                $parameterType,
+            ),
         );
     }
 }

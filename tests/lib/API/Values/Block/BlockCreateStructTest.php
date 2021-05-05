@@ -46,7 +46,7 @@ final class BlockCreateStructTest extends TestCase
     {
         self::assertSame(
             ['default' => $this->collectionStruct],
-            $this->struct->getCollectionCreateStructs()
+            $this->struct->getCollectionCreateStructs(),
         );
     }
 
@@ -67,7 +67,7 @@ final class BlockCreateStructTest extends TestCase
                 'default' => $collectionStruct1,
                 'featured' => $collectionStruct2,
             ],
-            $this->struct->getCollectionCreateStructs()
+            $this->struct->getCollectionCreateStructs(),
         );
     }
 
@@ -92,7 +92,7 @@ final class BlockCreateStructTest extends TestCase
                 'compound' => false,
                 'inner' => 'inner',
             ],
-            $this->struct->getParameterValues()
+            $this->struct->getParameterValues(),
         );
     }
 
@@ -115,7 +115,7 @@ final class BlockCreateStructTest extends TestCase
                 'compound' => true,
                 'inner' => 'inner',
             ],
-            $this->struct->getParameterValues()
+            $this->struct->getParameterValues(),
         );
     }
 
@@ -134,10 +134,10 @@ final class BlockCreateStructTest extends TestCase
                             'type' => new ParameterType\TextLineType(),
                             'isRequired' => false,
                             'defaultValue' => 'inner_default',
-                        ]
+                        ],
                     ),
                 ],
-            ]
+            ],
         );
 
         $parameterDefinitions = [
@@ -147,7 +147,7 @@ final class BlockCreateStructTest extends TestCase
                     'type' => new ParameterType\TextLineType(),
                     'isRequired' => false,
                     'defaultValue' => 'css_default',
-                ]
+                ],
             ),
             'css_id' => ParameterDefinition::fromArray(
                 [
@@ -155,7 +155,7 @@ final class BlockCreateStructTest extends TestCase
                     'type' => new ParameterType\TextLineType(),
                     'isRequired' => false,
                     'defaultValue' => 'id_default',
-                ]
+                ],
             ),
             'compound' => $compoundParameter,
         ];

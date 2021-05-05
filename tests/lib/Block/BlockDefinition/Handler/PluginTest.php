@@ -32,11 +32,11 @@ final class PluginTest extends TestCase
             [
                 new ParameterType\TextLineType(),
                 new ParameterType\BooleanType(),
-            ]
+            ],
         );
 
         $this->parameterBuilderFactory = new ParameterBuilderFactory(
-            $this->parameterTypeRegistry
+            $this->parameterTypeRegistry,
         );
     }
 

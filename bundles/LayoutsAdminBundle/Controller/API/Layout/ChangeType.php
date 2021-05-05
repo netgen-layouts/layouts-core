@@ -43,7 +43,7 @@ final class ChangeType extends AbstractController
         $updatedLayout = $this->layoutService->changeLayoutType(
             $layout,
             $this->layoutTypeRegistry->getLayoutType($requestData->get('new_type')),
-            $zoneMappings ?? []
+            $zoneMappings ?? [],
         );
 
         return new View($updatedLayout);
@@ -62,7 +62,7 @@ final class ChangeType extends AbstractController
                 new Constraints\NotBlank(),
                 new Constraints\Type(['type' => 'string']),
             ],
-            'new_type'
+            'new_type',
         );
 
         $this->validate(
@@ -70,7 +70,7 @@ final class ChangeType extends AbstractController
             [
                 new Constraints\Type(['type' => 'array']),
             ],
-            'zone_mappings'
+            'zone_mappings',
         );
     }
 }

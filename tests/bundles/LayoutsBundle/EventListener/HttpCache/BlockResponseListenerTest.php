@@ -38,7 +38,7 @@ final class BlockResponseListenerTest extends TestCase
     {
         self::assertSame(
             [KernelEvents::RESPONSE => ['onKernelResponse', 10]],
-            $this->listener::getSubscribedEvents()
+            $this->listener::getSubscribedEvents(),
         );
     }
 
@@ -58,7 +58,7 @@ final class BlockResponseListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            new Response()
+            new Response(),
         );
 
         $this->taggerMock
@@ -83,7 +83,7 @@ final class BlockResponseListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::SUB_REQUEST,
-            new Response()
+            new Response(),
         );
 
         $this->taggerMock
@@ -107,7 +107,7 @@ final class BlockResponseListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            new Response()
+            new Response(),
         );
 
         $this->taggerMock

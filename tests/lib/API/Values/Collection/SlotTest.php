@@ -28,7 +28,7 @@ final class SlotTest extends TestCase
                 'collectionId' => $collectionUuid,
                 'position' => 3,
                 'viewType' => 'overlay',
-            ]
+            ],
         );
 
         self::assertSame($slotUuid->toString(), $slot->getId()->toString());

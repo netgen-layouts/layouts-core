@@ -26,7 +26,7 @@ final class PluginRenderingRuntimeTest extends TestCase
 
         $this->runtime = new PluginRenderingRuntime(
             $this->pluginRendererMock,
-            $this->errorHandler
+            $this->errorHandler,
         );
     }
 
@@ -41,7 +41,7 @@ final class PluginRenderingRuntimeTest extends TestCase
             ->method('renderPlugins')
             ->with(
                 self::identicalTo('plugin_name'),
-                self::identicalTo(['param' => 'value'])
+                self::identicalTo(['param' => 'value']),
             )
             ->willReturn('rendered plugin');
 
@@ -49,8 +49,8 @@ final class PluginRenderingRuntimeTest extends TestCase
             'rendered plugin',
             $this->runtime->renderPlugins(
                 ['param' => 'value'],
-                'plugin_name'
-            )
+                'plugin_name',
+            ),
         );
     }
 
@@ -69,13 +69,13 @@ final class PluginRenderingRuntimeTest extends TestCase
             ->method('renderPlugins')
             ->with(
                 self::identicalTo('plugin_name'),
-                self::identicalTo(['param' => 'value'])
+                self::identicalTo(['param' => 'value']),
             )
             ->willThrowException(new Exception('Test exception text'));
 
         $this->runtime->renderPlugins(
             ['param' => 'value'],
-            'plugin_name'
+            'plugin_name',
         );
     }
 
@@ -89,7 +89,7 @@ final class PluginRenderingRuntimeTest extends TestCase
             ->method('renderPlugins')
             ->with(
                 self::identicalTo('plugin_name'),
-                self::identicalTo(['param' => 'value'])
+                self::identicalTo(['param' => 'value']),
             )
             ->willThrowException(new Exception('Test exception text'));
 

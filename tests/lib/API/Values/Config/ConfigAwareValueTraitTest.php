@@ -35,7 +35,7 @@ final class ConfigAwareValueTraitTest extends TestCase
                 'configs' => [
                     'config' => $config,
                 ],
-            ]
+            ],
         );
 
         self::assertCount(1, $value->getConfigs());

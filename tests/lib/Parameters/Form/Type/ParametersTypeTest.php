@@ -52,7 +52,7 @@ final class ParametersTypeTest extends FormTestCase
 
         $parentForm = $this->factory->create(
             FormType::class,
-            $struct
+            $struct,
         );
 
         $compoundParameter = CompoundParameterDefinition::fromArray(
@@ -67,10 +67,10 @@ final class ParametersTypeTest extends FormTestCase
                         [
                             'name' => 'inner',
                             'type' => new ParameterType\TextLineType(),
-                        ]
+                        ],
                     ),
                 ],
-            ]
+            ],
         );
 
         $parameterDefinitions = new ParameterDefinitionCollection(
@@ -80,17 +80,17 @@ final class ParametersTypeTest extends FormTestCase
                         'name' => 'css_class',
                         'type' => new ParameterType\TextLineType(),
                         'label' => false,
-                    ]
+                    ],
                 ),
                 'css_id' => ParameterDefinition::fromArray(
                     [
                         'name' => 'css_id',
                         'type' => new ParameterType\TextLineType(),
                         'label' => 'custom label',
-                    ]
+                    ],
                 ),
                 'compound' => $compoundParameter,
-            ]
+            ],
         );
 
         $parentForm->add(
@@ -101,7 +101,7 @@ final class ParametersTypeTest extends FormTestCase
                 'parameter_definitions' => $parameterDefinitions,
                 'label_prefix' => 'label',
                 'property_path' => 'parameterValues',
-            ]
+            ],
         );
 
         $parentForm->submit($submittedData);
@@ -115,7 +115,7 @@ final class ParametersTypeTest extends FormTestCase
                 'compound' => true,
                 'inner' => 'Inner value',
             ],
-            $struct->getParameterValues()
+            $struct->getParameterValues(),
         );
 
         self::assertCount(3, $parentForm->get('parameter_values')->all());
@@ -126,12 +126,12 @@ final class ParametersTypeTest extends FormTestCase
             self::assertSame('parameterValues[' . $key . ']', (string) $paramForm->getPropertyPath());
             self::assertInstanceOf(
                 $key === 'compound' ? CompoundBooleanType::class : TextType::class,
-                $paramForm->getConfig()->getType()->getInnerType()
+                $paramForm->getConfig()->getType()->getInnerType(),
             );
 
             self::assertSame(
                 $parameterDefinitions->getParameterDefinition($key)->getLabel() ?? 'label.' . $key,
-                $paramForm->getConfig()->getOption('label')
+                $paramForm->getConfig()->getOption('label'),
             );
         }
 
@@ -158,7 +158,7 @@ final class ParametersTypeTest extends FormTestCase
 
         $parentForm = $this->factory->create(
             FormType::class,
-            new ParameterStruct()
+            new ParameterStruct(),
         );
 
         $parameterDefinitions = new ParameterDefinitionCollection(
@@ -167,9 +167,9 @@ final class ParametersTypeTest extends FormTestCase
                     [
                         'name' => 'test',
                         'type' => new ParameterType\TextType(),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $parentForm->add(
@@ -180,7 +180,7 @@ final class ParametersTypeTest extends FormTestCase
                 'parameter_definitions' => $parameterDefinitions,
                 'label_prefix' => 'label',
                 'property_path' => 'parameterValues',
-            ]
+            ],
         );
 
         $parentForm->submit([]);
@@ -203,7 +203,7 @@ final class ParametersTypeTest extends FormTestCase
 
         $parentForm = $this->factory->create(
             FormType::class,
-            $struct
+            $struct,
         );
 
         $parameterDefinitions = new ParameterDefinitionCollection(
@@ -213,16 +213,16 @@ final class ParametersTypeTest extends FormTestCase
                         'name' => 'excluded',
                         'type' => new ParameterType\TextLineType(),
                         'groups' => ['excluded'],
-                    ]
+                    ],
                 ),
                 'css_id' => ParameterDefinition::fromArray(
                     [
                         'name' => 'css_id',
                         'type' => new ParameterType\TextLineType(),
                         'groups' => ['group'],
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $parentForm->add(
@@ -234,7 +234,7 @@ final class ParametersTypeTest extends FormTestCase
                 'label_prefix' => 'label',
                 'property_path' => 'parameterValues',
                 'groups' => ['group'],
-            ]
+            ],
         );
 
         $parentForm->submit($submittedData);
@@ -274,7 +274,7 @@ final class ParametersTypeTest extends FormTestCase
                 'parameter_definitions' => $parameterDefinitions,
                 'label_prefix' => 'label',
             ],
-            $resolvedOptions
+            $resolvedOptions,
         );
     }
 
@@ -311,7 +311,7 @@ final class ParametersTypeTest extends FormTestCase
             [
                 'parameter_definitions' => null,
                 'label_prefix' => 'label',
-            ]
+            ],
         );
     }
 
@@ -333,7 +333,7 @@ final class ParametersTypeTest extends FormTestCase
                 'parameter_definitions' => new ParameterDefinitionCollection(),
                 'label_prefix' => 'label',
                 'groups' => [42],
-            ]
+            ],
         );
     }
 
@@ -344,8 +344,8 @@ final class ParametersTypeTest extends FormTestCase
                 [
                     'text_line' => new TextLineMapper(),
                     'compound_boolean' => new BooleanMapper(),
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -360,8 +360,8 @@ final class ParametersTypeTest extends FormTestCase
             new Container(
                 [
                     'text' => new stdClass(),
-                ]
-            )
+                ],
+            ),
         );
     }
 }

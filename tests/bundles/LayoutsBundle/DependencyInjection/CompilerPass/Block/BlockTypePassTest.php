@@ -36,7 +36,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                     'icon' => '/icon.svg',
                     'definition_identifier' => 'test',
                 ],
-            ]
+            ],
         );
 
         $this->setParameter(
@@ -47,7 +47,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                     'icon' => '/icon.svg',
                     'enabled' => true,
                 ],
-            ]
+            ],
         );
 
         $this->setDefinition('netgen_layouts.block.block_definition.test', new Definition());
@@ -61,7 +61,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
             0,
             [
                 'test' => new Reference('netgen_layouts.block.block_type.test'),
-            ]
+            ],
         );
     }
 
@@ -81,7 +81,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                     'icon' => '/icon2.svg',
                     'definition_identifier' => 'other',
                 ],
-            ]
+            ],
         );
 
         $this->setParameter(
@@ -97,7 +97,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                     'icon' => '/icon.svg',
                     'enabled' => true,
                 ],
-            ]
+            ],
         );
 
         $this->setDefinition('netgen_layouts.block.block_definition.test', new Definition());
@@ -117,7 +117,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                 'icon' => '/icon2.svg',
                 'definition_identifier' => 'other',
             ],
-            $blockTypes['test']
+            $blockTypes['test'],
         );
 
         $this->assertContainerBuilderHasService('netgen_layouts.block.block_type.test');
@@ -127,7 +127,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
             [
                 'test' => new Reference('netgen_layouts.block.block_type.test'),
                 'other' => new Reference('netgen_layouts.block.block_type.other'),
-            ]
+            ],
         );
     }
 
@@ -143,7 +143,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
             'netgen_layouts.block_types',
             [
                 'test' => [],
-            ]
+            ],
         );
 
         $this->setParameter(
@@ -154,7 +154,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                     'icon' => '/icon.svg',
                     'enabled' => true,
                 ],
-            ]
+            ],
         );
 
         $this->setDefinition('netgen_layouts.block.block_definition.test', new Definition());
@@ -174,7 +174,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                 'icon' => '/icon.svg',
                 'definition_identifier' => 'test',
             ],
-            $blockTypes['test']
+            $blockTypes['test'],
         );
 
         $this->assertContainerBuilderHasService('netgen_layouts.block.block_type.test');
@@ -183,7 +183,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
             0,
             [
                 'test' => new Reference('netgen_layouts.block.block_type.test'),
-            ]
+            ],
         );
     }
 
@@ -205,7 +205,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                     'icon' => '/icon.svg',
                     'enabled' => true,
                 ],
-            ]
+            ],
         );
 
         $this->setDefinition('netgen_layouts.block.block_definition.test', new Definition());
@@ -225,7 +225,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                 'definition_identifier' => 'test',
                 'defaults' => [],
             ],
-            $blockTypes['test']
+            $blockTypes['test'],
         );
 
         $this->assertContainerBuilderHasService('netgen_layouts.block.block_type.test');
@@ -234,7 +234,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
             0,
             [
                 'test' => new Reference('netgen_layouts.block.block_type.test'),
-            ]
+            ],
         );
     }
 
@@ -254,7 +254,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                     'icon' => '/icon.svg',
                     'definition_identifier' => 'title',
                 ],
-            ]
+            ],
         );
 
         $this->setParameter(
@@ -265,7 +265,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                     'icon' => '/icon.svg',
                     'enabled' => true,
                 ],
-            ]
+            ],
         );
 
         $this->setDefinition('netgen_layouts.block.block_definition.title', new Definition());
@@ -284,7 +284,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                 'icon' => '/icon.svg',
                 'definition_identifier' => 'title',
             ],
-            $blockTypes['type']
+            $blockTypes['type'],
         );
 
         $this->assertContainerBuilderHasService('netgen_layouts.block.block_type.type');
@@ -294,7 +294,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
             [
                 'type' => new Reference('netgen_layouts.block.block_type.type'),
                 'title' => new Reference('netgen_layouts.block.block_type.title'),
-            ]
+            ],
         );
     }
 
@@ -314,7 +314,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                     'icon' => '/icon.svg',
                     'definition_identifier' => 'title',
                 ],
-            ]
+            ],
         );
 
         $this->setParameter(
@@ -325,7 +325,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                     'icon' => '/icon.svg',
                     'enabled' => false,
                 ],
-            ]
+            ],
         );
 
         $this->setDefinition('netgen_layouts.block.block_definition.title', new Definition());
@@ -345,7 +345,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                 'definition_identifier' => 'title',
                 'name' => 'Title',
             ],
-            $blockTypes['title']
+            $blockTypes['title'],
         );
 
         $this->assertContainerBuilderHasService('netgen_layouts.block.block_type.title');
@@ -354,7 +354,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
             0,
             [
                 'title' => new Reference('netgen_layouts.block.block_type.title'),
-            ]
+            ],
         );
     }
 
@@ -374,7 +374,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                     'icon' => '/icon.svg',
                     'definition_identifier' => 'title',
                 ],
-            ]
+            ],
         );
 
         $this->setParameter(
@@ -385,7 +385,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                     'icon' => '/icon.svg',
                     'enabled' => false,
                 ],
-            ]
+            ],
         );
 
         $this->setDefinition('netgen_layouts.block.block_definition.title', new Definition());
@@ -404,7 +404,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                 'icon' => '/icon.svg',
                 'definition_identifier' => 'title',
             ],
-            $blockTypes['type']
+            $blockTypes['type'],
         );
 
         $this->assertContainerBuilderHasService('netgen_layouts.block.block_type.type');
@@ -414,7 +414,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
             [
                 'type' => new Reference('netgen_layouts.block.block_type.type'),
                 'title' => new Reference('netgen_layouts.block.block_type.title'),
-            ]
+            ],
         );
     }
 
@@ -437,7 +437,7 @@ final class BlockTypePassTest extends AbstractContainerBuilderTestCase
                     'icon' => '/icon.svg',
                     'definition_identifier' => 'title',
                 ],
-            ]
+            ],
         );
 
         $this->setParameter('netgen_layouts.block_definitions', []);

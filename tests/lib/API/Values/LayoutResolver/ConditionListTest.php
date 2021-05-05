@@ -26,8 +26,8 @@ final class ConditionListTest extends TestCase
             sprintf(
                 '/(must be an instance of|must be of type) %s, (instance of )?%s given/',
                 str_replace('\\', '\\\\', Condition::class),
-                stdClass::class
-            )
+                stdClass::class,
+            ),
         );
 
         new ConditionList([new RuleCondition(), new stdClass(), new RuleCondition()]);

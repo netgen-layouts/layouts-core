@@ -55,7 +55,7 @@ final class BlockNormalizerTest extends TestCase
                 'status' => APIValue::STATUS_PUBLISHED,
                 'offset' => 10,
                 'limit' => 5,
-            ]
+            ],
         );
 
         $placeholder = Placeholder::fromArray(['identifier' => 'main']);
@@ -74,7 +74,7 @@ final class BlockNormalizerTest extends TestCase
                     'main' => $placeholder,
                 ],
                 'collections' => new ArrayCollection(
-                    ['default' => $collection]
+                    ['default' => $collection],
                 ),
                 'isTranslatable' => true,
                 'alwaysAvailable' => true,
@@ -90,10 +90,10 @@ final class BlockNormalizerTest extends TestCase
                             'parameters' => [
                                 'param' => new Parameter(),
                             ],
-                        ]
+                        ],
                     ),
                 ],
-            ]
+            ],
         );
 
         $this->blockServiceMock
@@ -130,7 +130,7 @@ final class BlockNormalizerTest extends TestCase
                 ],
                 'config' => ['config_key' => ['param' => 'data']],
             ],
-            $this->normalizer->normalize(new Value($block))
+            $this->normalizer->normalize(new Value($block)),
         );
     }
 
@@ -148,7 +148,7 @@ final class BlockNormalizerTest extends TestCase
                     [
                         'identifier' => 'definition',
                         'handler' => new ContainerDefinitionHandler(),
-                    ]
+                    ],
                 ),
                 'viewType' => 'default',
                 'itemViewType' => 'standard',
@@ -163,7 +163,7 @@ final class BlockNormalizerTest extends TestCase
                 'mainLocale' => 'en',
                 'locale' => 'en',
                 'parameters' => [],
-            ]
+            ],
         );
 
         $data = $this->normalizer->normalize(new Value($block));

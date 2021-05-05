@@ -70,8 +70,8 @@ final class SlotParamConverterTest extends TestCase
                 [
                     'slotId' => $uuid->toString(),
                     'status' => 'published',
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -96,8 +96,8 @@ final class SlotParamConverterTest extends TestCase
                 [
                     'slotId' => $uuid->toString(),
                     'status' => 'draft',
-                ]
-            )
+                ],
+            ),
         );
     }
 }

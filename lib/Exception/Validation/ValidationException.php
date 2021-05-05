@@ -17,10 +17,10 @@ final class ValidationException extends BaseInvalidArgumentException implements 
             sprintf(
                 'There was an error validating "%s": %s',
                 $propertyPath,
-                $message
+                $message,
             ),
             0,
-            $previous
+            $previous,
         );
     }
 }

@@ -254,7 +254,7 @@ final class GlobalVariable
             $currentRequest->attributes->has('exception') ?
                 'nglExceptionLayoutView' :
                 'nglLayoutView',
-            $layoutView
+            $layoutView,
         );
 
         return $layoutView;

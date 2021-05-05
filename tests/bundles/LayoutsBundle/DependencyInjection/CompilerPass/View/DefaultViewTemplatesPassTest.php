@@ -34,7 +34,7 @@ final class DefaultViewTemplatesPassTest extends AbstractContainerBuilderTestCas
                         ],
                     ],
                 ],
-            ]
+            ],
         );
 
         $this->container->setParameter(
@@ -48,7 +48,7 @@ final class DefaultViewTemplatesPassTest extends AbstractContainerBuilderTestCas
                     'default' => 'default2.html.twig',
                     'app' => 'app2.html.twig',
                 ],
-            ]
+            ],
         );
 
         $this->compile();
@@ -91,7 +91,7 @@ final class DefaultViewTemplatesPassTest extends AbstractContainerBuilderTestCas
                         ],
                     ],
                 ],
-            ]
+            ],
         );
     }
 

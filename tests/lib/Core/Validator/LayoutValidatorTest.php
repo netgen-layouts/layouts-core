@@ -115,7 +115,7 @@ final class LayoutValidatorTest extends TestCase
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
             $this->getLayoutType(),
-            $zoneMapping
+            $zoneMapping,
         );
     }
 
@@ -131,7 +131,7 @@ final class LayoutValidatorTest extends TestCase
             $this->getLayout(),
             $this->getLayoutType(),
             ['left' => ['top', 'shared']],
-            false
+            false,
         );
     }
 
@@ -146,7 +146,7 @@ final class LayoutValidatorTest extends TestCase
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
             $this->getLayoutType(),
-            ['unknown' => []]
+            ['unknown' => []],
         );
     }
 
@@ -161,7 +161,7 @@ final class LayoutValidatorTest extends TestCase
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
             $this->getLayoutType(),
-            ['left' => 42]
+            ['left' => 42],
         );
     }
 
@@ -176,7 +176,7 @@ final class LayoutValidatorTest extends TestCase
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
             $this->getLayoutType(),
-            ['left' => ['top'], 'right' => ['top']]
+            ['left' => ['top'], 'right' => ['top']],
         );
     }
 
@@ -191,7 +191,7 @@ final class LayoutValidatorTest extends TestCase
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
             $this->getLayoutType(),
-            ['left' => ['unknown']]
+            ['left' => ['unknown']],
         );
     }
 
@@ -206,7 +206,7 @@ final class LayoutValidatorTest extends TestCase
         $this->layoutValidator->validateChangeLayoutType(
             $this->getLayout(),
             $this->getLayoutType(),
-            ['left' => ['top', 'shared']]
+            ['left' => ['top', 'shared']],
         );
     }
 
@@ -383,9 +383,9 @@ final class LayoutValidatorTest extends TestCase
                         'top' => new Zone(),
                         'bottom' => new Zone(),
                         'shared' => Zone::fromArray(['linkedZone' => new Zone()]),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
     }
 
@@ -398,7 +398,7 @@ final class LayoutValidatorTest extends TestCase
                     'left' => new LayoutTypeZone(),
                     'right' => new LayoutTypeZone(),
                 ],
-            ]
+            ],
         );
     }
 }

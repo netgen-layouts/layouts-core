@@ -77,7 +77,7 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
 
         $clientContainer->mock(
             'netgen_layouts.collection.registry.query_type',
-            new QueryTypeRegistry($allQueryTypes)
+            new QueryTypeRegistry($allQueryTypes),
         );
     }
 

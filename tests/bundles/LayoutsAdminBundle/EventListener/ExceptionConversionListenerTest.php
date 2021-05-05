@@ -49,7 +49,7 @@ final class ExceptionConversionListenerTest extends TestCase
     {
         self::assertSame(
             [KernelEvents::EXCEPTION => ['onException', 10]],
-            $this->listener::getSubscribedEvents()
+            $this->listener::getSubscribedEvents(),
         );
     }
 
@@ -69,7 +69,7 @@ final class ExceptionConversionListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            $exception
+            $exception,
         );
 
         $this->listener->onException($event);
@@ -103,7 +103,7 @@ final class ExceptionConversionListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            $exception
+            $exception,
         );
 
         $this->listener->onException($event);
@@ -127,7 +127,7 @@ final class ExceptionConversionListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::SUB_REQUEST,
-            $exception
+            $exception,
         );
 
         $this->listener->onException($event);
@@ -150,7 +150,7 @@ final class ExceptionConversionListenerTest extends TestCase
             $kernelMock,
             $request,
             HttpKernelInterface::MASTER_REQUEST,
-            $exception
+            $exception,
         );
 
         $this->listener->onException($event);

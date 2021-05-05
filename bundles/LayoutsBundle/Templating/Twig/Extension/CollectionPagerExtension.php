@@ -21,11 +21,11 @@ final class CollectionPagerExtension extends AbstractExtension
                 [CollectionPagerRuntime::class, 'renderCollectionPager'],
                 [
                     'is_safe' => ['html'],
-                ]
+                ],
             ),
             new TwigFunction(
                 'nglayouts_collection_page_url',
-                [CollectionPagerRuntime::class, 'getCollectionPageUrl']
+                [CollectionPagerRuntime::class, 'getCollectionPageUrl'],
             ),
         ];
     }

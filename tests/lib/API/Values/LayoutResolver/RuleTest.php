@@ -46,7 +46,7 @@ final class RuleTest extends TestCase
                 'description' => 'Description',
                 'targets' => new ArrayCollection([$target1, $target2]),
                 'conditions' => new ArrayCollection([$condition]),
-            ]
+            ],
         );
 
         self::assertSame($uuid->toString(), $rule->getId()->toString());

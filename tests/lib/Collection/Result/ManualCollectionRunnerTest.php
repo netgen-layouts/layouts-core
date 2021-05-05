@@ -51,7 +51,7 @@ final class ManualCollectionRunnerTest extends TestCase
                         CmsItem::fromArray(['value' => $itemValue, 'isVisible' => true]) :
                         new NullCmsItem('value'),
                     'position' => $position,
-                ]
+                ],
             );
         }
 
@@ -63,7 +63,7 @@ final class ManualCollectionRunnerTest extends TestCase
 
         $result = array_map(
             static fn (Result $result) => $result->getItem()->getValue(),
-            [...$collectionRunner->runCollection($collection, $offset, $limit, $flags)]
+            [...$collectionRunner->runCollection($collection, $offset, $limit, $flags)],
         );
 
         self::assertSame($expected, $result);

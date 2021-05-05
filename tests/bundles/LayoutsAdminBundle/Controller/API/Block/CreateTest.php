@@ -23,7 +23,7 @@ final class CreateTest extends JsonApiTestCase
                 'block_type' => 'list',
                 'parent_placeholder' => 'left',
                 'parent_position' => 0,
-            ]
+            ],
         );
 
         $this->client->request(
@@ -32,13 +32,13 @@ final class CreateTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertResponse(
             $this->client->getResponse(),
             'blocks/create_block',
-            Response::HTTP_CREATED
+            Response::HTTP_CREATED,
         );
     }
 
@@ -53,7 +53,7 @@ final class CreateTest extends JsonApiTestCase
                 'block_type' => 'grid',
                 'parent_placeholder' => 'left',
                 'parent_position' => 0,
-            ]
+            ],
         );
 
         $this->client->request(
@@ -62,13 +62,13 @@ final class CreateTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertResponse(
             $this->client->getResponse(),
             'blocks/create_block_with_view_type',
-            Response::HTTP_CREATED
+            Response::HTTP_CREATED,
         );
     }
 
@@ -83,7 +83,7 @@ final class CreateTest extends JsonApiTestCase
                 'block_type' => 'grid',
                 'parent_placeholder' => 'left',
                 'parent_position' => 0,
-            ]
+            ],
         );
 
         $this->client->request(
@@ -92,13 +92,13 @@ final class CreateTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertResponse(
             $this->client->getResponse(),
             'blocks/create_block_with_item_view_type',
-            Response::HTTP_CREATED
+            Response::HTTP_CREATED,
         );
     }
 
@@ -112,7 +112,7 @@ final class CreateTest extends JsonApiTestCase
             [
                 'block_type' => 'list',
                 'parent_placeholder' => 'left',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -121,13 +121,13 @@ final class CreateTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertResponse(
             $this->client->getResponse(),
             'blocks/create_block_at_end',
-            Response::HTTP_CREATED
+            Response::HTTP_CREATED,
         );
     }
 
@@ -141,7 +141,7 @@ final class CreateTest extends JsonApiTestCase
                 'block_type' => 'list',
                 'parent_placeholder' => 'main',
                 'parent_position' => 0,
-            ]
+            ],
         );
 
         $this->client->request(
@@ -150,13 +150,13 @@ final class CreateTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
-            'Argument "targetBlock" has an invalid state. Target block is not a container.'
+            'Argument "targetBlock" has an invalid state. Target block is not a container.',
         );
     }
 
@@ -170,7 +170,7 @@ final class CreateTest extends JsonApiTestCase
                 'block_type' => 'column',
                 'parent_placeholder' => 'left',
                 'parent_position' => 0,
-            ]
+            ],
         );
 
         $this->client->request(
@@ -179,13 +179,13 @@ final class CreateTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
-            'Argument "blockCreateStruct" has an invalid state. Containers cannot be placed inside containers.'
+            'Argument "blockCreateStruct" has an invalid state. Containers cannot be placed inside containers.',
         );
     }
 
@@ -199,7 +199,7 @@ final class CreateTest extends JsonApiTestCase
                 'block_type' => 'unknown',
                 'parent_placeholder' => 'main',
                 'parent_position' => 0,
-            ]
+            ],
         );
 
         $this->client->request(
@@ -208,13 +208,13 @@ final class CreateTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
-            'Argument "block_type" has an invalid state. Block type does not exist.'
+            'Argument "block_type" has an invalid state. Block type does not exist.',
         );
     }
 
@@ -228,7 +228,7 @@ final class CreateTest extends JsonApiTestCase
                 'block_type' => 'title',
                 'parent_placeholder' => 'unknown',
                 'parent_position' => 0,
-            ]
+            ],
         );
 
         $this->client->request(
@@ -237,13 +237,13 @@ final class CreateTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
-            'Argument "placeholder" has an invalid state. Target block does not have the specified placeholder.'
+            'Argument "placeholder" has an invalid state. Target block does not have the specified placeholder.',
         );
     }
 
@@ -257,7 +257,7 @@ final class CreateTest extends JsonApiTestCase
                 'block_type' => 'list',
                 'parent_placeholder' => 'left',
                 'parent_position' => 9999,
-            ]
+            ],
         );
 
         $this->client->request(
@@ -266,13 +266,13 @@ final class CreateTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
-            'Argument "position" has an invalid state. Position is out of range.'
+            'Argument "position" has an invalid state. Position is out of range.',
         );
     }
 }

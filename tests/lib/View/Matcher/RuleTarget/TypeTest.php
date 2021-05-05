@@ -33,7 +33,7 @@ final class TypeTest extends TestCase
         $target = Target::fromArray(
             [
                 'targetType' => new TargetType1(42),
-            ]
+            ],
         );
 
         $view = new RuleTargetView($target);
@@ -49,7 +49,7 @@ final class TypeTest extends TestCase
         $target = Target::fromArray(
             [
                 'targetType' => new NullTargetType(),
-            ]
+            ],
         );
 
         $view = new RuleTargetView($target);
@@ -65,7 +65,7 @@ final class TypeTest extends TestCase
         $target = Target::fromArray(
             [
                 'targetType' => new NullTargetType(),
-            ]
+            ],
         );
 
         $view = new RuleTargetView($target);

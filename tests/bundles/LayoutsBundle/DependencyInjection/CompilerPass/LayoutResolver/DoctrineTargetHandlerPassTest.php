@@ -37,7 +37,7 @@ final class DoctrineTargetHandlerPassTest extends AbstractContainerBuilderTestCa
             'netgen_layouts.target_type.doctrine_handler',
             [
                 'target_type' => 'test',
-            ]
+            ],
         );
         $this->setDefinition('netgen_layouts.layout.resolver.target_handler.doctrine.test', $targetHandler);
 
@@ -52,8 +52,8 @@ final class DoctrineTargetHandlerPassTest extends AbstractContainerBuilderTestCa
                     [
                         'test' => new ServiceClosureArgument(new Reference('netgen_layouts.layout.resolver.target_handler.doctrine.test')),
                     ],
-                ]
-            )
+                ],
+            ),
         );
     }
 

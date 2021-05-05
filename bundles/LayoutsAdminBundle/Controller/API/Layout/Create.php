@@ -54,7 +54,7 @@ final class Create extends AbstractController
         $layoutCreateStruct = $this->layoutService->newLayoutCreateStruct(
             $layoutType,
             $requestData->get('name'),
-            $requestData->get('locale')
+            $requestData->get('locale'),
         );
 
         $layoutCreateStruct->description = $requestData->get('description', '');
@@ -77,7 +77,7 @@ final class Create extends AbstractController
                 new Constraints\NotBlank(),
                 new Constraints\Type(['type' => 'string']),
             ],
-            'layout_type'
+            'layout_type',
         );
 
         $this->validate(
@@ -86,7 +86,7 @@ final class Create extends AbstractController
                 new Constraints\NotBlank(),
                 new Constraints\Type(['type' => 'string']),
             ],
-            'name'
+            'name',
         );
 
         $this->validate(
@@ -94,7 +94,7 @@ final class Create extends AbstractController
             [
                 new Constraints\Type(['type' => 'string']),
             ],
-            'description'
+            'description',
         );
 
         $this->validate(
@@ -104,7 +104,7 @@ final class Create extends AbstractController
                 new Constraints\Type(['type' => 'string']),
                 new LocaleConstraint(),
             ],
-            'locale'
+            'locale',
         );
     }
 }

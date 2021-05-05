@@ -30,7 +30,7 @@ final class CopyRuleType extends AbstractType
             'validation_groups',
             static fn (FormInterface $form): array => ((bool) $form->get('copy_layout')->getData()) ?
                 ['Default', 'CopyLayout'] :
-                ['Default']
+                ['Default'],
         );
     }
 
@@ -46,7 +46,7 @@ final class CopyRuleType extends AbstractType
                 'data' => $canCopyLayout,
                 'required' => false,
                 'disabled' => !$canCopyLayout,
-            ]
+            ],
         );
 
         $builder->add(
@@ -59,7 +59,7 @@ final class CopyRuleType extends AbstractType
                     new Constraints\NotBlank(['groups' => ['CopyLayout']]),
                     new LayoutName(['groups' => ['CopyLayout']]),
                 ],
-            ]
+            ],
         );
 
         $builder->add(
@@ -73,7 +73,7 @@ final class CopyRuleType extends AbstractType
                     new Constraints\Type(['type' => 'string', 'groups' => ['CopyLayout']]),
                 ],
                 'empty_data' => '',
-            ]
+            ],
         );
     }
 }

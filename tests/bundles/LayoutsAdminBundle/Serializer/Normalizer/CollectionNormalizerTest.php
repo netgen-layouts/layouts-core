@@ -34,7 +34,7 @@ final class CollectionNormalizerTest extends TestCase
                 'alwaysAvailable' => true,
                 'availableLocales' => ['en'],
                 'mainLocale' => 'en',
-            ]
+            ],
         );
 
         self::assertSame(
@@ -46,7 +46,7 @@ final class CollectionNormalizerTest extends TestCase
                 'always_available' => $collection->isAlwaysAvailable(),
                 'available_locales' => $collection->getAvailableLocales(),
             ],
-            $this->normalizer->normalize(new Value($collection))
+            $this->normalizer->normalize(new Value($collection)),
         );
     }
 

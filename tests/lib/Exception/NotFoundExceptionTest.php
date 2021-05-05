@@ -28,7 +28,7 @@ final class NotFoundExceptionTest extends TestCase
 
         self::assertSame(
             'Could not find test with identifier "1"',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 }

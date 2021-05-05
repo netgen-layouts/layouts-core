@@ -48,7 +48,7 @@ final class GlobalVariableTest extends TestCase
             $this->pageLayoutResolverMock,
             $this->viewBuilderMock,
             $this->requestStack,
-            true
+            true,
         );
     }
 
@@ -64,7 +64,7 @@ final class GlobalVariableTest extends TestCase
 
         self::assertSame(
             'pagelayout.html.twig',
-            $this->globalVariable->getPageLayoutTemplate()
+            $this->globalVariable->getPageLayoutTemplate(),
         );
     }
 
@@ -497,11 +497,11 @@ final class GlobalVariableTest extends TestCase
 
         self::assertSame(
             'pagelayout.html.twig',
-            $this->globalVariable->getLayoutTemplate()
+            $this->globalVariable->getLayoutTemplate(),
         );
 
         self::assertFalse(
-            $request->attributes->get('nglLayoutView')
+            $request->attributes->get('nglLayoutView'),
         );
     }
 

@@ -30,7 +30,7 @@ final class EditRuleForm extends AbstractController
             'nglayouts:mapping:edit',
             [
                 'rule_group' => $rule->getRuleGroupId()->toString(),
-            ]
+            ],
         );
 
         $updateStruct = $this->layoutResolverService->newRuleUpdateStruct();
@@ -44,9 +44,9 @@ final class EditRuleForm extends AbstractController
                     'nglayouts_admin_layout_resolver_rule_form_edit',
                     [
                         'ruleId' => $rule->getId()->toString(),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $form->handleRequest($request);
@@ -60,7 +60,7 @@ final class EditRuleForm extends AbstractController
 
             return $this->buildView(
                 $this->layoutResolverService->loadRuleDraft($rule->getId()),
-                ViewInterface::CONTEXT_ADMIN
+                ViewInterface::CONTEXT_ADMIN,
             );
         }
 
@@ -68,7 +68,7 @@ final class EditRuleForm extends AbstractController
             $form,
             ViewInterface::CONTEXT_ADMIN,
             [],
-            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
+            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY),
         );
     }
 }

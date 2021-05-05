@@ -56,7 +56,7 @@ final class RenderingRuntimeTest extends TestCase
             $this->localeProviderMock,
             new RequestStack(),
             $this->errorHandler,
-            new Environment(new ArrayLoader())
+            new Environment(new ArrayLoader()),
         );
     }
 
@@ -80,8 +80,8 @@ final class RenderingRuntimeTest extends TestCase
                     [
                         'twig_template' => $twigTemplate,
                         'param' => 'value',
-                    ]
-                )
+                    ],
+                ),
             )
             ->willReturn('rendered block');
 
@@ -92,8 +92,8 @@ final class RenderingRuntimeTest extends TestCase
                     'twig_template' => $twigTemplate,
                 ],
                 $block,
-                ['param' => 'value']
-            )
+                ['param' => 'value'],
+            ),
         );
     }
 
@@ -115,8 +115,8 @@ final class RenderingRuntimeTest extends TestCase
                     [
                         'twig_template' => null,
                         'param' => 'value',
-                    ]
-                )
+                    ],
+                ),
             )
             ->willReturn('rendered block');
 
@@ -125,8 +125,8 @@ final class RenderingRuntimeTest extends TestCase
             $this->runtime->renderBlock(
                 [],
                 $block,
-                ['param' => 'value']
-            )
+                ['param' => 'value'],
+            ),
         );
     }
 
@@ -149,8 +149,8 @@ final class RenderingRuntimeTest extends TestCase
                     [
                         'twig_template' => $twigTemplate,
                         'param' => 'value',
-                    ]
-                )
+                    ],
+                ),
             )
             ->willReturn('rendered block');
 
@@ -162,8 +162,8 @@ final class RenderingRuntimeTest extends TestCase
                 ],
                 $block,
                 ['param' => 'value'],
-                ViewInterface::CONTEXT_APP
-            )
+                ViewInterface::CONTEXT_APP,
+            ),
         );
     }
 
@@ -186,8 +186,8 @@ final class RenderingRuntimeTest extends TestCase
                     [
                         'twig_template' => $twigTemplate,
                         'param' => 'value',
-                    ]
-                )
+                    ],
+                ),
             )
             ->willReturn('rendered block');
 
@@ -199,8 +199,8 @@ final class RenderingRuntimeTest extends TestCase
                     'twig_template' => $twigTemplate,
                 ],
                 $block,
-                ['param' => 'value']
-            )
+                ['param' => 'value'],
+            ),
         );
     }
 
@@ -220,10 +220,10 @@ final class RenderingRuntimeTest extends TestCase
         $renderedBlock = $this->runtime->renderBlock(
             [
                 'twig_template' => new ContextualizedTwigTemplate(
-                    $this->createMock(Template::class)
+                    $this->createMock(Template::class),
                 ),
             ],
-            $block
+            $block,
         );
 
         self::assertSame('', $renderedBlock);
@@ -249,10 +249,10 @@ final class RenderingRuntimeTest extends TestCase
         $this->runtime->renderBlock(
             [
                 'twig_template' => new ContextualizedTwigTemplate(
-                    $this->createMock(Template::class)
+                    $this->createMock(Template::class),
                 ),
             ],
-            $block
+            $block,
         );
     }
 
@@ -269,7 +269,7 @@ final class RenderingRuntimeTest extends TestCase
                 'placeholders' => [
                     'main' => $placeholder,
                 ],
-            ]
+            ],
         );
 
         $twigTemplate = new ContextualizedTwigTemplate($this->createMock(Template::class));
@@ -285,8 +285,8 @@ final class RenderingRuntimeTest extends TestCase
                         'block' => $block,
                         'twig_template' => $twigTemplate,
                         'param' => 'value',
-                    ]
-                )
+                    ],
+                ),
             )
             ->willReturn('rendered placeholder');
 
@@ -301,8 +301,8 @@ final class RenderingRuntimeTest extends TestCase
                 [
                     'block' => $block,
                     'param' => 'value',
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -319,7 +319,7 @@ final class RenderingRuntimeTest extends TestCase
                 'placeholders' => [
                     'main' => $placeholder,
                 ],
-            ]
+            ],
         );
 
         $this->rendererMock
@@ -333,8 +333,8 @@ final class RenderingRuntimeTest extends TestCase
                         'block' => $block,
                         'twig_template' => null,
                         'param' => 'value',
-                    ]
-                )
+                    ],
+                ),
             )
             ->willReturn('rendered placeholder');
 
@@ -347,8 +347,8 @@ final class RenderingRuntimeTest extends TestCase
                 [
                     'block' => $block,
                     'param' => 'value',
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -365,7 +365,7 @@ final class RenderingRuntimeTest extends TestCase
                 'placeholders' => [
                     'main' => $placeholder,
                 ],
-            ]
+            ],
         );
 
         $twigTemplate = new ContextualizedTwigTemplate($this->createMock(Template::class));
@@ -381,8 +381,8 @@ final class RenderingRuntimeTest extends TestCase
                         'block' => $block,
                         'twig_template' => $twigTemplate,
                         'param' => 'value',
-                    ]
-                )
+                    ],
+                ),
             )
             ->willReturn('rendered placeholder');
 
@@ -398,8 +398,8 @@ final class RenderingRuntimeTest extends TestCase
                     'block' => $block,
                     'param' => 'value',
                 ],
-                ViewInterface::CONTEXT_APP
-            )
+                ViewInterface::CONTEXT_APP,
+            ),
         );
     }
 
@@ -416,7 +416,7 @@ final class RenderingRuntimeTest extends TestCase
                 'placeholders' => [
                     'main' => $placeholder,
                 ],
-            ]
+            ],
         );
 
         $twigTemplate = new ContextualizedTwigTemplate($this->createMock(Template::class));
@@ -432,8 +432,8 @@ final class RenderingRuntimeTest extends TestCase
                         'block' => $block,
                         'twig_template' => $twigTemplate,
                         'param' => 'value',
-                    ]
-                )
+                    ],
+                ),
             )
             ->willReturn('rendered placeholder');
 
@@ -449,8 +449,8 @@ final class RenderingRuntimeTest extends TestCase
                 [
                     'block' => $block,
                     'param' => 'value',
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -470,11 +470,11 @@ final class RenderingRuntimeTest extends TestCase
         $renderedBlock = $this->runtime->renderPlaceholder(
             [
                 'twig_template' => new ContextualizedTwigTemplate(
-                    $this->createMock(Template::class)
+                    $this->createMock(Template::class),
                 ),
             ],
             $block,
-            'main'
+            'main',
         );
 
         self::assertSame('', $renderedBlock);
@@ -500,11 +500,11 @@ final class RenderingRuntimeTest extends TestCase
         $this->runtime->renderPlaceholder(
             [
                 'twig_template' => new ContextualizedTwigTemplate(
-                    $this->createMock(Template::class)
+                    $this->createMock(Template::class),
                 ),
             ],
             $block,
-            'main'
+            'main',
         );
     }
 
@@ -521,7 +521,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($cmsItem),
                 self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
+                self::identicalTo(['view_type' => 'view_type', 'param' => 'value']),
             )
             ->willReturn('rendered item');
 
@@ -531,8 +531,8 @@ final class RenderingRuntimeTest extends TestCase
                 [],
                 $cmsItem,
                 'view_type',
-                ['param' => 'value']
-            )
+                ['param' => 'value'],
+            ),
         );
     }
 
@@ -549,7 +549,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($cmsItem),
                 self::identicalTo(ViewInterface::CONTEXT_APP),
-                self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
+                self::identicalTo(['view_type' => 'view_type', 'param' => 'value']),
             )
             ->willReturn('rendered item');
 
@@ -560,8 +560,8 @@ final class RenderingRuntimeTest extends TestCase
                 $cmsItem,
                 'view_type',
                 ['param' => 'value'],
-                ViewInterface::CONTEXT_APP
-            )
+                ViewInterface::CONTEXT_APP,
+            ),
         );
     }
 
@@ -578,7 +578,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($cmsItem),
                 self::identicalTo(ViewInterface::CONTEXT_APP),
-                self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
+                self::identicalTo(['view_type' => 'view_type', 'param' => 'value']),
             )
             ->willReturn('rendered item');
 
@@ -590,8 +590,8 @@ final class RenderingRuntimeTest extends TestCase
                 ],
                 $cmsItem,
                 'view_type',
-                ['param' => 'value']
-            )
+                ['param' => 'value'],
+            ),
         );
     }
 
@@ -608,7 +608,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($cmsItem),
                 self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
+                self::identicalTo(['view_type' => 'view_type', 'param' => 'value']),
             )
             ->willThrowException(new Exception());
 
@@ -618,8 +618,8 @@ final class RenderingRuntimeTest extends TestCase
                 [],
                 $cmsItem,
                 'view_type',
-                ['param' => 'value']
-            )
+                ['param' => 'value'],
+            ),
         );
     }
 
@@ -641,7 +641,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($cmsItem),
                 self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
+                self::identicalTo(['view_type' => 'view_type', 'param' => 'value']),
             )
             ->willThrowException(new Exception('Test exception text'));
 
@@ -649,7 +649,7 @@ final class RenderingRuntimeTest extends TestCase
             [],
             $cmsItem,
             'view_type',
-            ['param' => 'value']
+            ['param' => 'value'],
         );
     }
 
@@ -667,7 +667,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($item),
                 self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['view_type' => 'standard', 'param' => 'value'])
+                self::identicalTo(['view_type' => 'standard', 'param' => 'value']),
             )
             ->willReturn('rendered result');
 
@@ -678,8 +678,8 @@ final class RenderingRuntimeTest extends TestCase
                 $result,
                 null,
                 'view_type',
-                ['param' => 'value']
-            )
+                ['param' => 'value'],
+            ),
         );
     }
 
@@ -697,7 +697,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($item),
                 self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['view_type' => 'overlay', 'param' => 'value'])
+                self::identicalTo(['view_type' => 'overlay', 'param' => 'value']),
             )
             ->willReturn('rendered result');
 
@@ -708,8 +708,8 @@ final class RenderingRuntimeTest extends TestCase
                 $result,
                 null,
                 'view_type',
-                ['param' => 'value']
-            )
+                ['param' => 'value'],
+            ),
         );
     }
 
@@ -727,7 +727,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($item),
                 self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
+                self::identicalTo(['view_type' => 'view_type', 'param' => 'value']),
             )
             ->willReturn('rendered result');
 
@@ -738,8 +738,8 @@ final class RenderingRuntimeTest extends TestCase
                 $result,
                 'view_type',
                 'fallback_view_type',
-                ['param' => 'value']
-            )
+                ['param' => 'value'],
+            ),
         );
     }
 
@@ -757,7 +757,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($item),
                 self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
+                self::identicalTo(['view_type' => 'view_type', 'param' => 'value']),
             )
             ->willReturn('rendered result');
 
@@ -768,8 +768,8 @@ final class RenderingRuntimeTest extends TestCase
                 $result,
                 null,
                 'view_type',
-                ['param' => 'value']
-            )
+                ['param' => 'value'],
+            ),
         );
     }
 
@@ -792,8 +792,8 @@ final class RenderingRuntimeTest extends TestCase
                 $result,
                 null,
                 null,
-                ['param' => 'value']
-            )
+                ['param' => 'value'],
+            ),
         );
     }
 
@@ -819,7 +819,7 @@ final class RenderingRuntimeTest extends TestCase
             $result,
             null,
             null,
-            ['param' => 'value']
+            ['param' => 'value'],
         );
     }
 
@@ -837,7 +837,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($item),
                 self::identicalTo(ViewInterface::CONTEXT_APP),
-                self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
+                self::identicalTo(['view_type' => 'view_type', 'param' => 'value']),
             )
             ->willReturn('rendered result');
 
@@ -849,8 +849,8 @@ final class RenderingRuntimeTest extends TestCase
                 null,
                 'view_type',
                 ['param' => 'value'],
-                ViewInterface::CONTEXT_APP
-            )
+                ViewInterface::CONTEXT_APP,
+            ),
         );
     }
 
@@ -868,7 +868,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($item),
                 self::identicalTo(ViewInterface::CONTEXT_APP),
-                self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
+                self::identicalTo(['view_type' => 'view_type', 'param' => 'value']),
             )
             ->willReturn('rendered result');
 
@@ -881,8 +881,8 @@ final class RenderingRuntimeTest extends TestCase
                 $result,
                 null,
                 'view_type',
-                ['param' => 'value']
-            )
+                ['param' => 'value'],
+            ),
         );
     }
 
@@ -900,7 +900,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($item),
                 self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
+                self::identicalTo(['view_type' => 'view_type', 'param' => 'value']),
             )
             ->willThrowException(new Exception());
 
@@ -911,8 +911,8 @@ final class RenderingRuntimeTest extends TestCase
                 $result,
                 null,
                 'view_type',
-                ['param' => 'value']
-            )
+                ['param' => 'value'],
+            ),
         );
     }
 
@@ -935,7 +935,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($item),
                 self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['view_type' => 'view_type', 'param' => 'value'])
+                self::identicalTo(['view_type' => 'view_type', 'param' => 'value']),
             )
             ->willThrowException(new Exception('Test exception text'));
 
@@ -944,7 +944,7 @@ final class RenderingRuntimeTest extends TestCase
             $result,
             null,
             'view_type',
-            ['param' => 'value']
+            ['param' => 'value'],
         );
     }
 
@@ -962,7 +962,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($condition),
                 self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['param' => 'value'])
+                self::identicalTo(['param' => 'value']),
             )
             ->willReturn('rendered value');
 
@@ -971,8 +971,8 @@ final class RenderingRuntimeTest extends TestCase
             $this->runtime->renderValue(
                 [],
                 $condition,
-                ['param' => 'value']
-            )
+                ['param' => 'value'],
+            ),
         );
     }
 
@@ -990,7 +990,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($condition),
                 self::identicalTo(ViewInterface::CONTEXT_APP),
-                self::identicalTo(['param' => 'value'])
+                self::identicalTo(['param' => 'value']),
             )
             ->willReturn('rendered value');
 
@@ -1000,8 +1000,8 @@ final class RenderingRuntimeTest extends TestCase
                 [],
                 $condition,
                 ['param' => 'value'],
-                ViewInterface::CONTEXT_APP
-            )
+                ViewInterface::CONTEXT_APP,
+            ),
         );
     }
 
@@ -1019,7 +1019,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($condition),
                 self::identicalTo(ViewInterface::CONTEXT_APP),
-                self::identicalTo(['param' => 'value'])
+                self::identicalTo(['param' => 'value']),
             )
             ->willReturn('rendered value');
 
@@ -1030,8 +1030,8 @@ final class RenderingRuntimeTest extends TestCase
                     'view_context' => ViewInterface::CONTEXT_APP,
                 ],
                 $condition,
-                ['param' => 'value']
-            )
+                ['param' => 'value'],
+            ),
         );
     }
 
@@ -1049,7 +1049,7 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($condition),
                 self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['param' => 'value'])
+                self::identicalTo(['param' => 'value']),
             )
             ->willThrowException(new Exception());
 
@@ -1058,8 +1058,8 @@ final class RenderingRuntimeTest extends TestCase
             $this->runtime->renderValue(
                 [],
                 $condition,
-                ['param' => 'value']
-            )
+                ['param' => 'value'],
+            ),
         );
     }
 
@@ -1082,14 +1082,14 @@ final class RenderingRuntimeTest extends TestCase
             ->with(
                 self::identicalTo($condition),
                 self::identicalTo(ViewInterface::CONTEXT_DEFAULT),
-                self::identicalTo(['param' => 'value'])
+                self::identicalTo(['param' => 'value']),
             )
             ->willThrowException(new Exception('Test exception text'));
 
         $this->runtime->renderValue(
             [],
             $condition,
-            ['param' => 'value']
+            ['param' => 'value'],
         );
     }
 
@@ -1116,14 +1116,14 @@ final class RenderingRuntimeTest extends TestCase
                 'block' => $objectWithoutCast,
                 'tpl3' => new ContextualizedTwigTemplate(
                     $this->createMock(Template::class),
-                    ['string2' => 'baz']
+                    ['string2' => 'baz'],
                 ),
                 'tpl1' => $this->createMock(Template::class),
                 'tpl2' => new TemplateWrapper(
                     $this->createMock(Environment::class),
-                    $this->createMock(Template::class)
+                    $this->createMock(Template::class),
                 ),
-            ]
+            ],
         );
 
         self::assertSame(' foo bar baz 42   ', $renderedTemplate);

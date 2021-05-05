@@ -20,7 +20,7 @@ final class CopyToZoneTest extends JsonApiTestCase
             [
                 'layout_id' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'zone_identifier' => 'left',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -29,13 +29,13 @@ final class CopyToZoneTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertResponse(
             $this->client->getResponse(),
             'blocks/copy_block_to_zone',
-            Response::HTTP_CREATED
+            Response::HTTP_CREATED,
         );
     }
 
@@ -50,13 +50,13 @@ final class CopyToZoneTest extends JsonApiTestCase
             [],
             [],
             [],
-            $this->jsonEncode([])
+            $this->jsonEncode([]),
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find block with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"'
+            'Could not find block with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"',
         );
     }
 
@@ -70,7 +70,7 @@ final class CopyToZoneTest extends JsonApiTestCase
                 // This is a random UUID.
                 'layout_id' => 'd37383cc-fb37-46d5-9d3d-936970331dab',
                 'zone_identifier' => 'left',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -79,13 +79,13 @@ final class CopyToZoneTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find layout with identifier "d37383cc-fb37-46d5-9d3d-936970331dab"'
+            'Could not find layout with identifier "d37383cc-fb37-46d5-9d3d-936970331dab"',
         );
     }
 
@@ -98,7 +98,7 @@ final class CopyToZoneTest extends JsonApiTestCase
             [
                 'layout_id' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'zone_identifier' => 'unknown',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -107,13 +107,13 @@ final class CopyToZoneTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find zone with identifier "unknown"'
+            'Could not find zone with identifier "unknown"',
         );
     }
 
@@ -126,7 +126,7 @@ final class CopyToZoneTest extends JsonApiTestCase
             [
                 'layout_id' => '81168ed3-86f9-55ea-b153-101f96f2c136',
                 'zone_identifier' => 'top',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -135,13 +135,13 @@ final class CopyToZoneTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
-            'Argument "zone" has an invalid state. Block is not allowed in specified zone.'
+            'Argument "zone" has an invalid state. Block is not allowed in specified zone.',
         );
     }
 
@@ -154,7 +154,7 @@ final class CopyToZoneTest extends JsonApiTestCase
             [
                 'layout_id' => 42,
                 'zone_identifier' => 'left',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -163,13 +163,13 @@ final class CopyToZoneTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "layout_id": This is not a valid UUID.'
+            'There was an error validating "layout_id": This is not a valid UUID.',
         );
     }
 
@@ -181,7 +181,7 @@ final class CopyToZoneTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'zone_identifier' => 'left',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -190,13 +190,13 @@ final class CopyToZoneTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "layout_id": This value should not be blank.'
+            'There was an error validating "layout_id": This value should not be blank.',
         );
     }
 }

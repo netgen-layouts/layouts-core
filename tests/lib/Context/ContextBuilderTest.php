@@ -30,7 +30,7 @@ final class ContextBuilderTest extends TestCase
             [
                 new ContextProvider(['var1' => 'value1']),
                 new ContextProvider(['var2' => 'value2']),
-            ]
+            ],
         );
 
         $this->contextBuilder->buildContext($this->context);
@@ -40,7 +40,7 @@ final class ContextBuilderTest extends TestCase
                 'var2' => 'value2',
                 'var1' => 'value1',
             ],
-            $this->context->all()
+            $this->context->all(),
         );
     }
 }

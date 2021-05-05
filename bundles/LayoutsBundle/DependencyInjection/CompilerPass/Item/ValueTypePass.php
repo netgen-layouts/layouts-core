@@ -71,8 +71,8 @@ final class ValueTypePass implements CompilerPassInterface
         throw new RuntimeException(
             sprintf(
                 'Netgen Content Browser backend for "%s" value type does not exist.',
-                $valueType
-            )
+                $valueType,
+            ),
         );
     }
 }

@@ -24,7 +24,7 @@ final class RuleConditionTest extends TestCase
                 'type' => 'condition',
                 'value' => 32,
                 'status' => Value::STATUS_PUBLISHED,
-            ]
+            ],
         );
 
         self::assertSame(42, $condition->id);

@@ -19,7 +19,7 @@ final class ParameterDefinitionCollectionTraitTest extends TestCase
         $definition = new ParameterDefinition();
 
         $parameterDefinitions = new ParameterDefinitionCollection(
-            ['name' => $definition]
+            ['name' => $definition],
         );
 
         self::assertSame($definition, $parameterDefinitions->getParameterDefinition('name'));
@@ -34,7 +34,7 @@ final class ParameterDefinitionCollectionTraitTest extends TestCase
         $this->expectExceptionMessage('Parameter definition with "test" name does not exist.');
 
         $parameterDefinitions = new ParameterDefinitionCollection(
-            ['name' => new ParameterDefinition()]
+            ['name' => new ParameterDefinition()],
         );
 
         $parameterDefinitions->getParameterDefinition('test');
@@ -48,12 +48,12 @@ final class ParameterDefinitionCollectionTraitTest extends TestCase
         $definition = new ParameterDefinition();
 
         $parameterDefinitions = new ParameterDefinitionCollection(
-            ['name' => $definition]
+            ['name' => $definition],
         );
 
         self::assertSame(
             ['name' => $definition],
-            $parameterDefinitions->getParameterDefinitions()
+            $parameterDefinitions->getParameterDefinitions(),
         );
     }
 
@@ -63,7 +63,7 @@ final class ParameterDefinitionCollectionTraitTest extends TestCase
     public function testHasParameterDefinition(): void
     {
         $parameterDefinitions = new ParameterDefinitionCollection(
-            ['name' => new ParameterDefinition()]
+            ['name' => new ParameterDefinition()],
         );
 
         self::assertFalse($parameterDefinitions->hasParameterDefinition('test'));

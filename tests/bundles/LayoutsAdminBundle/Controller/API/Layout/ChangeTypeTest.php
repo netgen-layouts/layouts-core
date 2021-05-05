@@ -23,7 +23,7 @@ final class ChangeTypeTest extends JsonApiTestCase
                     'left' => ['left'],
                     'right' => ['right'],
                 ],
-            ]
+            ],
         );
 
         $this->client->request(
@@ -32,13 +32,13 @@ final class ChangeTypeTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertResponse(
             $this->client->getResponse(),
             'layouts/change_type',
-            Response::HTTP_OK
+            Response::HTTP_OK,
         );
     }
 
@@ -55,7 +55,7 @@ final class ChangeTypeTest extends JsonApiTestCase
                     'left' => ['left'],
                     'right' => ['right'],
                 ],
-            ]
+            ],
         );
 
         $this->client->request(
@@ -64,13 +64,13 @@ final class ChangeTypeTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "new_type": This value should be of type string.'
+            'There was an error validating "new_type": This value should be of type string.',
         );
     }
 
@@ -86,7 +86,7 @@ final class ChangeTypeTest extends JsonApiTestCase
                     'left' => ['left'],
                     'right' => ['right'],
                 ],
-            ]
+            ],
         );
 
         $this->client->request(
@@ -95,13 +95,13 @@ final class ChangeTypeTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "new_type": This value should not be blank.'
+            'There was an error validating "new_type": This value should not be blank.',
         );
     }
 
@@ -115,7 +115,7 @@ final class ChangeTypeTest extends JsonApiTestCase
             [
                 'new_type' => '4_zones_b',
                 'zone_mappings' => 42,
-            ]
+            ],
         );
 
         $this->client->request(
@@ -124,13 +124,13 @@ final class ChangeTypeTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "zone_mappings": This value should be of type array.'
+            'There was an error validating "zone_mappings": This value should be of type array.',
         );
     }
 
@@ -142,7 +142,7 @@ final class ChangeTypeTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'new_type' => '4_zones_b',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -151,13 +151,13 @@ final class ChangeTypeTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertResponse(
             $this->client->getResponse(),
             'layouts/change_type_without_mappings',
-            Response::HTTP_OK
+            Response::HTTP_OK,
         );
     }
 }

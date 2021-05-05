@@ -66,7 +66,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query = $this->getRuleSelectQuery();
 
         $query->where(
-            $query->expr()->eq('layout_uuid', ':layout_uuid')
+            $query->expr()->eq('layout_uuid', ':layout_uuid'),
         )
         ->setParameter('layout_uuid', $layout->uuid, Types::STRING)
         ->addOrderBy('rd.priority', $ascending ? 'ASC' : 'DESC');
@@ -86,7 +86,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query->select('count(*) AS count')
             ->from('nglayouts_rule')
             ->where(
-                $query->expr()->eq('layout_uuid', ':layout_uuid')
+                $query->expr()->eq('layout_uuid', ':layout_uuid'),
             )
             ->setParameter('layout_uuid', $layout->uuid, Types::STRING);
 
@@ -107,7 +107,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query = $this->getRuleSelectQuery();
 
         $query->andWhere(
-            $query->expr()->eq('rule_group_id', ':rule_group_id')
+            $query->expr()->eq('rule_group_id', ':rule_group_id'),
         )
         ->setParameter('rule_group_id', $ruleGroup->id, Types::INTEGER);
 
@@ -129,7 +129,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->from('nglayouts_rule');
 
         $query->andWhere(
-            $query->expr()->eq('rule_group_id', ':rule_group_id')
+            $query->expr()->eq('rule_group_id', ':rule_group_id'),
         )
         ->setParameter('rule_group_id', $ruleGroup->id, Types::INTEGER);
 
@@ -157,15 +157,15 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 'rt',
                 $query->expr()->and(
                     $query->expr()->eq('r.id', 'rt.rule_id'),
-                    $query->expr()->eq('r.status', 'rt.status')
-                )
+                    $query->expr()->eq('r.status', 'rt.status'),
+                ),
             )
             ->where(
                 $query->expr()->and(
                     $query->expr()->eq('r.rule_group_id', ':rule_group_id'),
                     $query->expr()->eq('rd.enabled', ':enabled'),
-                    $query->expr()->eq('rt.type', ':target_type')
-                )
+                    $query->expr()->eq('rt.type', ':target_type'),
+                ),
             )
             ->setParameter('rule_group_id', $ruleGroup->id, Types::INTEGER)
             ->setParameter('target_type', $targetType, Types::STRING)
@@ -226,7 +226,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query = $this->getRuleGroupSelectQuery();
 
         $query->andWhere(
-            $query->expr()->eq('parent_id', ':parent_id')
+            $query->expr()->eq('parent_id', ':parent_id'),
         )
         ->setParameter('parent_id', $ruleGroup->id, Types::INTEGER);
 
@@ -254,7 +254,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->from('nglayouts_rule_group');
 
         $query->andWhere(
-            $query->expr()->eq('parent_id', ':parent_id')
+            $query->expr()->eq('parent_id', ':parent_id'),
         )
         ->setParameter('parent_id', $ruleGroup->id, Types::INTEGER);
 
@@ -291,7 +291,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     {
         $query = $this->getTargetSelectQuery();
         $query->where(
-            $query->expr()->eq('t.rule_id', ':rule_id')
+            $query->expr()->eq('t.rule_id', ':rule_id'),
         )
         ->setParameter('rule_id', $rule->id, Types::INTEGER)
         ->orderBy('t.id', 'ASC');
@@ -310,7 +310,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query->select('count(*) AS count')
             ->from('nglayouts_rule_target')
             ->where(
-                $query->expr()->eq('rule_id', ':rule_id')
+                $query->expr()->eq('rule_id', ':rule_id'),
             )
             ->setParameter('rule_id', $rule->id, Types::INTEGER);
 
@@ -347,7 +347,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     {
         $query = $this->getRuleConditionSelectQuery();
         $query->where(
-            $query->expr()->eq('cr.rule_id', ':rule_id')
+            $query->expr()->eq('cr.rule_id', ':rule_id'),
         )
         ->setParameter('rule_id', $rule->id, Types::INTEGER)
         ->orderBy('c.id', 'ASC');
@@ -383,7 +383,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
     {
         $query = $this->getRuleGroupConditionSelectQuery();
         $query->where(
-            $query->expr()->eq('crg.rule_group_id', ':rule_group_id')
+            $query->expr()->eq('crg.rule_group_id', ':rule_group_id'),
         )
         ->setParameter('rule_group_id', $ruleGroup->id, Types::INTEGER)
         ->orderBy('c.id', 'ASC');
@@ -451,10 +451,10 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 'rd',
                 'nglayouts_rule',
                 'r',
-                $query->expr()->eq('rd.rule_id', 'r.id')
+                $query->expr()->eq('rd.rule_id', 'r.id'),
             )
             ->where(
-                $query->expr()->eq('r.rule_group_id', ':rule_group_id')
+                $query->expr()->eq('r.rule_group_id', ':rule_group_id'),
             )
             ->setParameter('rule_group_id', $parentGroup->id, Types::INTEGER);
 
@@ -474,10 +474,10 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 'rgd',
                 'nglayouts_rule_group',
                 'rg',
-                $query->expr()->eq('rgd.rule_group_id', 'rg.id')
+                $query->expr()->eq('rgd.rule_group_id', 'rg.id'),
             )
             ->where(
-                $query->expr()->eq('rg.parent_id', ':parent_id')
+                $query->expr()->eq('rg.parent_id', ':parent_id'),
             )
             ->setParameter('parent_id', $parentGroup->id, Types::INTEGER);
 
@@ -512,7 +512,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                     'rule_group_id' => ':rule_group_id',
                     'layout_uuid' => ':layout_uuid',
                     'description' => ':description',
-                ]
+                ],
             )
             ->setValue('id', $rule->id ?? $this->connectionHelper->nextId('nglayouts_rule'))
             ->setParameter('uuid', $rule->uuid, Types::STRING)
@@ -533,7 +533,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                         'rule_id' => ':rule_id',
                         'enabled' => ':enabled',
                         'priority' => ':priority',
-                    ]
+                    ],
                 )
                 ->setParameter('rule_id', $rule->id, Types::INTEGER)
                 ->setParameter('enabled', $rule->enabled, Types::BOOLEAN)
@@ -557,7 +557,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->set('layout_uuid', ':layout_uuid')
             ->set('description', ':description')
             ->where(
-                $query->expr()->eq('id', ':id')
+                $query->expr()->eq('id', ':id'),
             )
             ->setParameter('id', $rule->id, Types::INTEGER)
             ->setParameter('uuid', $rule->uuid, Types::STRING)
@@ -580,7 +580,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->set('enabled', ':enabled')
             ->set('priority', ':priority')
             ->where(
-                $query->expr()->eq('rule_id', ':rule_id')
+                $query->expr()->eq('rule_id', ':rule_id'),
             )
             ->setParameter('rule_id', $rule->id, Types::INTEGER)
             ->setParameter('enabled', $rule->enabled, Types::BOOLEAN)
@@ -600,7 +600,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->update('nglayouts_rule')
             ->set('rule_group_id', ':rule_group_id')
             ->where(
-                $query->expr()->eq('id', ':id')
+                $query->expr()->eq('id', ':id'),
             )
             ->setParameter('id', $rule->id, Types::INTEGER)
             ->setParameter('rule_group_id', $targetGroup->id, Types::INTEGER);
@@ -615,7 +615,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 ->update('nglayouts_rule_data')
                 ->set('priority', ':priority')
                 ->where(
-                    $query->expr()->eq('rule_id', ':rule_id')
+                    $query->expr()->eq('rule_id', ':rule_id'),
                 )
                 ->setParameter('rule_id', $rule->id, Types::INTEGER)
                 ->setParameter('priority', $newPriority, Types::INTEGER);
@@ -641,7 +641,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                     'parent_id' => ':parent_id',
                     'name' => ':name',
                     'description' => ':description',
-                ]
+                ],
             )
             ->setValue('id', $ruleGroup->id ?? $this->connectionHelper->nextId('nglayouts_rule_group'))
             ->setParameter('uuid', $ruleGroup->uuid, Types::STRING)
@@ -665,7 +665,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                         'rule_group_id' => ':rule_group_id',
                         'enabled' => ':enabled',
                         'priority' => ':priority',
-                    ]
+                    ],
                 )
                 ->setParameter('rule_group_id', $ruleGroup->id, Types::INTEGER)
                 ->setParameter('enabled', $ruleGroup->enabled, Types::BOOLEAN)
@@ -687,7 +687,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->update('nglayouts_rule_group')
             ->set('path', ':path')
             ->where(
-                $query->expr()->eq('id', ':id')
+                $query->expr()->eq('id', ':id'),
             )
             ->setParameter('id', $ruleGroup->id, Types::INTEGER)
             ->setParameter('path', $ruleGroup->path, Types::STRING);
@@ -714,7 +714,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->set('name', ':name')
             ->set('description', ':description')
             ->where(
-                $query->expr()->eq('id', ':id')
+                $query->expr()->eq('id', ':id'),
             )
             ->setParameter('id', $ruleGroup->id, Types::INTEGER)
             ->setParameter('uuid', $ruleGroup->uuid, Types::STRING)
@@ -740,7 +740,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->set('enabled', ':enabled')
             ->set('priority', ':priority')
             ->where(
-                $query->expr()->eq('rule_group_id', ':rule_group_id')
+                $query->expr()->eq('rule_group_id', ':rule_group_id'),
             )
             ->setParameter('rule_group_id', $ruleGroup->id, Types::INTEGER)
             ->setParameter('enabled', $ruleGroup->enabled, Types::BOOLEAN)
@@ -760,7 +760,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->update('nglayouts_rule_group')
             ->set('parent_id', ':parent_id')
             ->where(
-                $query->expr()->eq('id', ':id')
+                $query->expr()->eq('id', ':id'),
             )
             ->setParameter('id', $ruleGroup->id, Types::INTEGER)
             ->setParameter('parent_id', $targetGroup->id, Types::INTEGER);
@@ -778,7 +778,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->set('depth', 'depth - :depth_difference')
             ->set('path', 'replace(path, :old_path, :new_path)')
             ->where(
-                $query->expr()->like('path', ':path')
+                $query->expr()->like('path', ':path'),
             )
             ->setParameter('depth_difference', $depthDifference, Types::INTEGER)
             ->setParameter('old_path', $ruleGroup->path, Types::STRING)
@@ -795,7 +795,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 ->update('nglayouts_rule_group_data')
                 ->set('priority', ':priority')
                 ->where(
-                    $query->expr()->eq('rule_group_id', ':rule_group_id')
+                    $query->expr()->eq('rule_group_id', ':rule_group_id'),
                 )
                 ->setParameter('rule_group_id', $ruleGroup->id, Types::INTEGER)
                 ->setParameter('priority', $newPriority, Types::INTEGER);
@@ -815,7 +815,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query
             ->delete('nglayouts_rule_target')
             ->where(
-                $query->expr()->in('rule_id', [':rule_id'])
+                $query->expr()->in('rule_id', [':rule_id']),
             )
             ->setParameter('rule_id', $ruleIds, Connection::PARAM_INT_ARRAY);
 
@@ -841,7 +841,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query
             ->delete('nglayouts_rule_condition_rule')
             ->where(
-                $query->expr()->in('condition_id', [':condition_id'])
+                $query->expr()->in('condition_id', [':condition_id']),
             )
             ->setParameter('condition_id', $conditionIds, Connection::PARAM_INT_ARRAY);
 
@@ -857,7 +857,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query
             ->delete('nglayouts_rule_condition')
             ->where(
-                $query->expr()->in('id', [':id'])
+                $query->expr()->in('id', [':id']),
             )
             ->setParameter('id', $conditionIds, Connection::PARAM_INT_ARRAY);
 
@@ -876,7 +876,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder();
         $query->delete('nglayouts_rule')
             ->where(
-                $query->expr()->eq('id', ':id')
+                $query->expr()->eq('id', ':id'),
             )
             ->setParameter('id', $ruleId, Types::INTEGER);
 
@@ -890,7 +890,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             $query = $this->connection->createQueryBuilder();
             $query->delete('nglayouts_rule_data')
                 ->where(
-                    $query->expr()->eq('rule_id', ':rule_id')
+                    $query->expr()->eq('rule_id', ':rule_id'),
                 )
                 ->setParameter('rule_id', $ruleId, Types::INTEGER);
 
@@ -909,7 +909,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $query->delete('nglayouts_rule')
             ->where(
-                $query->expr()->in('id', [':id'])
+                $query->expr()->in('id', [':id']),
             )
             ->setParameter('id', $ruleIds, Connection::PARAM_INT_ARRAY);
 
@@ -917,7 +917,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $query->delete('nglayouts_rule_data')
             ->where(
-                $query->expr()->in('rule_id', [':rule_id'])
+                $query->expr()->in('rule_id', [':rule_id']),
             )
             ->setParameter('rule_id', $ruleIds, Connection::PARAM_INT_ARRAY);
 
@@ -935,7 +935,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query->select('DISTINCT id')
             ->from('nglayouts_rule_group')
             ->where(
-                $query->expr()->like('path', ':path')
+                $query->expr()->like('path', ':path'),
             )
             ->setParameter('path', '%/' . $ruleGroupId . '/%', Types::STRING);
 
@@ -957,7 +957,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query->select('DISTINCT id')
             ->from('nglayouts_rule')
             ->where(
-                $query->expr()->in('rule_group_id', [':rule_group_id'])
+                $query->expr()->in('rule_group_id', [':rule_group_id']),
             )
             ->setParameter('rule_group_id', $ruleGroupIds, Connection::PARAM_INT_ARRAY);
 
@@ -981,7 +981,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query
             ->delete('nglayouts_rule_condition_rule_group')
             ->where(
-                $query->expr()->in('condition_id', [':condition_id'])
+                $query->expr()->in('condition_id', [':condition_id']),
             )
             ->setParameter('condition_id', $conditionIds, Connection::PARAM_INT_ARRAY);
 
@@ -997,7 +997,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query
             ->delete('nglayouts_rule_condition')
             ->where(
-                $query->expr()->in('id', [':id'])
+                $query->expr()->in('id', [':id']),
             )
             ->setParameter('id', $conditionIds, Connection::PARAM_INT_ARRAY);
 
@@ -1016,7 +1016,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query = $this->connection->createQueryBuilder();
         $query->delete('nglayouts_rule_group')
             ->where(
-                $query->expr()->eq('id', ':id')
+                $query->expr()->eq('id', ':id'),
             )
             ->setParameter('id', $ruleGroupId, Types::INTEGER);
 
@@ -1030,7 +1030,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             $query = $this->connection->createQueryBuilder();
             $query->delete('nglayouts_rule_group_data')
                 ->where(
-                    $query->expr()->eq('rule_group_id', ':rule_group_id')
+                    $query->expr()->eq('rule_group_id', ':rule_group_id'),
                 )
                 ->setParameter('rule_group_id', $ruleGroupId, Types::INTEGER);
 
@@ -1049,7 +1049,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $query->delete('nglayouts_rule_group')
             ->where(
-                $query->expr()->in('id', [':id'])
+                $query->expr()->in('id', [':id']),
             )
             ->setParameter('id', $ruleGroupIds, Connection::PARAM_INT_ARRAY);
 
@@ -1059,7 +1059,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $query->delete('nglayouts_rule_group_data')
             ->where(
-                $query->expr()->in('rule_group_id', [':rule_group_id'])
+                $query->expr()->in('rule_group_id', [':rule_group_id']),
             )
             ->setParameter('rule_group_id', $ruleGroupIds, Connection::PARAM_INT_ARRAY);
 
@@ -1081,7 +1081,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                     'rule_id' => ':rule_id',
                     'type' => ':type',
                     'value' => ':value',
-                ]
+                ],
             )
             ->setValue('id', $target->id ?? $this->connectionHelper->nextId('nglayouts_rule_target'))
             ->setParameter('uuid', $target->uuid, Types::STRING)
@@ -1110,7 +1110,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->set('type', ':type')
             ->set('value', ':value')
             ->where(
-                $query->expr()->eq('id', ':id')
+                $query->expr()->eq('id', ':id'),
             )
             ->setParameter('id', $target->id, Types::INTEGER)
             ->setParameter('uuid', $target->uuid, Types::STRING)
@@ -1132,7 +1132,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $query->delete('nglayouts_rule_target')
             ->where(
-                $query->expr()->eq('id', ':id')
+                $query->expr()->eq('id', ':id'),
             )
             ->setParameter('id', $targetId, Types::INTEGER);
 
@@ -1157,7 +1157,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                     'condition_status' => ':condition_status',
                     'rule_id' => ':rule_id',
                     'rule_status' => ':rule_status',
-                ]
+                ],
             )
             ->setParameter('condition_id', $ruleCondition->id, Types::INTEGER)
             ->setParameter('condition_status', $ruleCondition->status, Types::INTEGER)
@@ -1185,7 +1185,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                     'condition_status' => ':condition_status',
                     'rule_group_id' => ':rule_group_id',
                     'rule_group_status' => ':rule_group_status',
-                ]
+                ],
             )
             ->setParameter('condition_id', $ruleGroupCondition->id, Types::INTEGER)
             ->setParameter('condition_status', $ruleGroupCondition->status, Types::INTEGER)
@@ -1209,7 +1209,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
             ->set('type', ':type')
             ->set('value', ':value')
             ->where(
-                $query->expr()->eq('id', ':id')
+                $query->expr()->eq('id', ':id'),
             )
             ->setParameter('id', $condition->id, Types::INTEGER)
             ->setParameter('uuid', $condition->uuid, Types::STRING)
@@ -1232,7 +1232,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $query->delete('nglayouts_rule_condition_rule')
             ->where(
-                $query->expr()->eq('condition_id', ':condition_id')
+                $query->expr()->eq('condition_id', ':condition_id'),
             )
             ->setParameter('condition_id', $conditionId, Types::INTEGER);
 
@@ -1246,7 +1246,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $query->delete('nglayouts_rule_condition_rule_group')
             ->where(
-                $query->expr()->eq('condition_id', ':condition_id')
+                $query->expr()->eq('condition_id', ':condition_id'),
             )
             ->setParameter('condition_id', $conditionId, Types::INTEGER);
 
@@ -1260,7 +1260,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
 
         $query->delete('nglayouts_rule_condition')
             ->where(
-                $query->expr()->eq('id', ':id')
+                $query->expr()->eq('id', ':id'),
             )
             ->setParameter('id', $conditionId, Types::INTEGER);
 
@@ -1283,7 +1283,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                     'status' => ':status',
                     'type' => ':type',
                     'value' => ':value',
-                ]
+                ],
             )
             ->setValue('id', $condition->id ?? $this->connectionHelper->nextId('nglayouts_rule_condition'))
             ->setParameter('uuid', $condition->uuid, Types::STRING)
@@ -1311,7 +1311,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query->select('DISTINCT condition_id')
             ->from('nglayouts_rule_condition_rule')
             ->where(
-                $query->expr()->in('rule_id', [':rule_id'])
+                $query->expr()->in('rule_id', [':rule_id']),
             )
             ->setParameter('rule_id', $ruleIds, Connection::PARAM_INT_ARRAY);
 
@@ -1333,7 +1333,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query->select('DISTINCT condition_id')
             ->from('nglayouts_rule_condition_rule_group')
             ->where(
-                $query->expr()->in('rule_group_id', [':rule_group_id'])
+                $query->expr()->in('rule_group_id', [':rule_group_id']),
             )
             ->setParameter('rule_group_id', $ruleGroupIds, Connection::PARAM_INT_ARRAY);
 
@@ -1354,7 +1354,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
         $query->select('rg.uuid')
             ->from('nglayouts_rule_group', 'rg')
             ->where(
-                $query->expr()->eq('rg.id', ':id')
+                $query->expr()->eq('rg.id', ':id'),
             )
             ->setParameter('id', $ruleGroupId, Types::INTEGER);
 
@@ -1381,15 +1381,15 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 'r',
                 'nglayouts_rule_data',
                 'rd',
-                $query->expr()->eq('rd.rule_id', 'r.id')
+                $query->expr()->eq('rd.rule_id', 'r.id'),
             )->leftJoin(
                 'r',
                 'nglayouts_layout',
                 'l',
                 $query->expr()->and(
                     $query->expr()->eq('r.layout_uuid', 'l.uuid'),
-                    $query->expr()->eq('l.status', Value::STATUS_PUBLISHED)
-                )
+                    $query->expr()->eq('l.status', Value::STATUS_PUBLISHED),
+                ),
             );
 
         return $query;
@@ -1407,7 +1407,7 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 'rg',
                 'nglayouts_rule_group_data',
                 'rgd',
-                $query->expr()->eq('rgd.rule_group_id', 'rg.id')
+                $query->expr()->eq('rgd.rule_group_id', 'rg.id'),
             );
 
         return $query;
@@ -1427,8 +1427,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 'r',
                 $query->expr()->and(
                     $query->expr()->eq('r.id', 't.rule_id'),
-                    $query->expr()->eq('r.status', 't.status')
-                )
+                    $query->expr()->eq('r.status', 't.status'),
+                ),
             );
 
         return $query;
@@ -1448,8 +1448,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 'cr',
                 $query->expr()->and(
                     $query->expr()->eq('cr.condition_id', 'c.id'),
-                    $query->expr()->eq('cr.condition_status', 'c.status')
-                )
+                    $query->expr()->eq('cr.condition_status', 'c.status'),
+                ),
             )
             ->innerJoin(
                 'cr',
@@ -1457,8 +1457,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 'r',
                 $query->expr()->and(
                     $query->expr()->eq('r.id', 'cr.rule_id'),
-                    $query->expr()->eq('r.status', 'cr.rule_status')
-                )
+                    $query->expr()->eq('r.status', 'cr.rule_status'),
+                ),
             );
 
         return $query;
@@ -1478,8 +1478,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 'crg',
                 $query->expr()->and(
                     $query->expr()->eq('crg.condition_id', 'c.id'),
-                    $query->expr()->eq('crg.condition_status', 'c.status')
-                )
+                    $query->expr()->eq('crg.condition_status', 'c.status'),
+                ),
             )
             ->innerJoin(
                 'crg',
@@ -1487,8 +1487,8 @@ final class LayoutResolverQueryHandler extends QueryHandler
                 'rg',
                 $query->expr()->and(
                     $query->expr()->eq('rg.id', 'crg.rule_group_id'),
-                    $query->expr()->eq('rg.status', 'crg.rule_group_status')
-                )
+                    $query->expr()->eq('rg.status', 'crg.rule_group_status'),
+                ),
             );
 
         return $query;

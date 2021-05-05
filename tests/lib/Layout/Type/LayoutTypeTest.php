@@ -25,7 +25,7 @@ final class LayoutTypeTest extends TestCase
                 'identifier' => 'left',
                 'name' => 'Left',
                 'allowedBlockDefinitions' => ['title', 'text'],
-            ]
+            ],
         );
 
         $this->zone2 = Zone::fromArray(
@@ -33,7 +33,7 @@ final class LayoutTypeTest extends TestCase
                 'identifier' => 'right',
                 'name' => 'Right',
                 'allowedBlockDefinitions' => [],
-            ]
+            ],
         );
 
         $this->layoutType = LayoutType::fromArray(
@@ -46,7 +46,7 @@ final class LayoutTypeTest extends TestCase
                     'left' => $this->zone1,
                     'right' => $this->zone2,
                 ],
-            ]
+            ],
         );
     }
 
@@ -92,7 +92,7 @@ final class LayoutTypeTest extends TestCase
                 'left' => $this->zone1,
                 'right' => $this->zone2,
             ],
-            $this->layoutType->getZones()
+            $this->layoutType->getZones(),
         );
     }
 

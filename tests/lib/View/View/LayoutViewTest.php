@@ -37,7 +37,7 @@ final class LayoutViewTest extends TestCase
                 'layout' => $this->layout,
                 'param' => 'value',
             ],
-            $this->view->getParameters()
+            $this->view->getParameters(),
         );
     }
 

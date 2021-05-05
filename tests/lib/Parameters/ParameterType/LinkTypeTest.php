@@ -35,7 +35,7 @@ final class LinkTypeTest extends TestCase
                 'default' => ValueType::fromArray(['isEnabled' => true, 'supportsManualItems' => true]),
                 'no_manual' => ValueType::fromArray(['isEnabled' => true, 'supportsManualItems' => false]),
                 'disabled' => ValueType::fromArray(['isEnabled' => false, 'supportsManualItems' => true]),
-            ]
+            ],
         );
 
         $this->cmsItemLoaderMock = $this->createMock(CmsItemLoaderInterface::class);
@@ -222,7 +222,7 @@ final class LinkTypeTest extends TestCase
                         'link' => 'https://netgen.io',
                         'linkSuffix' => '?suffix',
                         'newWindow' => true,
-                    ]
+                    ],
                 ),
                 [
                     'link_type' => 'url',
@@ -319,8 +319,8 @@ final class LinkTypeTest extends TestCase
                     [
                         'value' => 42,
                         'remoteId' => 'abc',
-                    ]
-                )
+                    ],
+                ),
             );
 
         self::assertSame($convertedValue, $this->type->export($this->getParameterDefinition(), $value));
@@ -353,9 +353,9 @@ final class LinkTypeTest extends TestCase
                         'link' => 'my_value_type://24',
                         'linkSuffix' => '?suffix',
                         'newWindow' => true,
-                    ]
-                )
-            )
+                    ],
+                ),
+            ),
         );
     }
 
@@ -373,7 +373,7 @@ final class LinkTypeTest extends TestCase
                         'link' => 'https://netgen.io',
                         'linkSuffix' => '?suffix',
                         'newWindow' => true,
-                    ]
+                    ],
                 ),
                 [
                     'link_type' => 'url',
@@ -389,7 +389,7 @@ final class LinkTypeTest extends TestCase
                         'link' => 'my-value-type://42',
                         'linkSuffix' => '?suffix',
                         'newWindow' => true,
-                    ]
+                    ],
                 ),
                 [
                     'link_type' => 'internal',
@@ -405,7 +405,7 @@ final class LinkTypeTest extends TestCase
                         'link' => 'invalid',
                         'linkSuffix' => '?suffix',
                         'newWindow' => true,
-                    ]
+                    ],
                 ),
                 [
                     'link_type' => 'internal',
@@ -437,8 +437,8 @@ final class LinkTypeTest extends TestCase
                     [
                         'value' => 42,
                         'remoteId' => 'abc',
-                    ]
-                )
+                    ],
+                ),
             );
 
         $convertedValue = $this->type->import($this->getParameterDefinition(), $value);
@@ -466,7 +466,7 @@ final class LinkTypeTest extends TestCase
                 'link' => 'my_value_type://def',
                 'link_suffix' => '?suffix',
                 'new_window' => true,
-            ]
+            ],
         );
 
         self::assertInstanceOf(LinkValue::class, $importedValue);
@@ -478,7 +478,7 @@ final class LinkTypeTest extends TestCase
                 'linkSuffix' => '?suffix',
                 'newWindow' => true,
             ],
-            $this->exportObject($importedValue)
+            $this->exportObject($importedValue),
         );
     }
 

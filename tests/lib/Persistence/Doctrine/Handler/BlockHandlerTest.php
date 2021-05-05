@@ -94,7 +94,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_PUBLISHED,
             ],
-            $this->exportObject($block)
+            $this->exportObject($block),
         );
     }
 
@@ -147,7 +147,7 @@ final class BlockHandlerTest extends TestCase
     public function testLoadLayoutBlocks(): void
     {
         $blocks = $this->blockHandler->loadLayoutBlocks(
-            $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED)
+            $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED),
         );
 
         self::assertCount(7, $blocks);
@@ -161,7 +161,7 @@ final class BlockHandlerTest extends TestCase
     public function testLoadChildBlocks(): void
     {
         $blocks = $this->blockHandler->loadChildBlocks(
-            $this->blockHandler->loadBlock(3, Value::STATUS_PUBLISHED)
+            $this->blockHandler->loadBlock(3, Value::STATUS_PUBLISHED),
         );
 
         self::assertContainsOnlyInstancesOf(Block::class, $blocks);
@@ -226,7 +226,7 @@ final class BlockHandlerTest extends TestCase
                     'status' => Value::STATUS_PUBLISHED,
                 ],
             ],
-            $this->exportObjectList($blocks)
+            $this->exportObjectList($blocks),
         );
     }
 
@@ -239,7 +239,7 @@ final class BlockHandlerTest extends TestCase
     {
         $blocks = $this->blockHandler->loadChildBlocks(
             $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
-            'left'
+            'left',
         );
 
         self::assertContainsOnlyInstancesOf(Block::class, $blocks);
@@ -274,7 +274,7 @@ final class BlockHandlerTest extends TestCase
                     'status' => Value::STATUS_DRAFT,
                 ],
             ],
-            $this->exportObjectList($blocks)
+            $this->exportObjectList($blocks),
         );
     }
 
@@ -288,8 +288,8 @@ final class BlockHandlerTest extends TestCase
         self::assertEmpty(
             $this->blockHandler->loadChildBlocks(
                 $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
-                'unknown'
-            )
+                'unknown',
+            ),
         );
     }
 
@@ -326,9 +326,9 @@ final class BlockHandlerTest extends TestCase
                 $blockCreateStruct,
                 $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
                 $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
-                'root'
+                'root',
             ),
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
         );
 
         self::assertSame(
@@ -366,7 +366,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObject($createdBlock)
+            $this->exportObject($createdBlock),
         );
 
         $secondBlock = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
@@ -382,7 +382,7 @@ final class BlockHandlerTest extends TestCase
         $block = $this->blockHandler->createBlockTranslation(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
             'de',
-            'en'
+            'en',
         );
 
         self::assertSame(
@@ -424,7 +424,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObject($block)
+            $this->exportObject($block),
         );
     }
 
@@ -437,7 +437,7 @@ final class BlockHandlerTest extends TestCase
         $block = $this->blockHandler->createBlockTranslation(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
             'de',
-            'hr'
+            'hr',
         );
 
         self::assertSame(
@@ -478,7 +478,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObject($block)
+            $this->exportObject($block),
         );
     }
 
@@ -494,7 +494,7 @@ final class BlockHandlerTest extends TestCase
         $this->blockHandler->createBlockTranslation(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
             'en',
-            'hr'
+            'hr',
         );
     }
 
@@ -510,7 +510,7 @@ final class BlockHandlerTest extends TestCase
         $this->blockHandler->createBlockTranslation(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
             'de',
-            'fr'
+            'fr',
         );
     }
 
@@ -544,9 +544,9 @@ final class BlockHandlerTest extends TestCase
         $block = $this->withUuids(
             fn (): Block => $this->blockHandler->createBlock(
                 $blockCreateStruct,
-                $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT)
+                $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
             ),
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
         );
 
         self::assertSame(
@@ -581,7 +581,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObject($block)
+            $this->exportObject($block),
         );
     }
 
@@ -617,9 +617,9 @@ final class BlockHandlerTest extends TestCase
                 $blockCreateStruct,
                 $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
                 $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
-                'root'
+                'root',
             ),
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
         );
 
         self::assertSame(
@@ -657,7 +657,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObject($block)
+            $this->exportObject($block),
         );
     }
 
@@ -688,7 +688,7 @@ final class BlockHandlerTest extends TestCase
             $blockCreateStruct,
             $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
             $this->blockHandler->loadBlock(5, Value::STATUS_DRAFT),
-            'root'
+            'root',
         );
     }
 
@@ -719,7 +719,7 @@ final class BlockHandlerTest extends TestCase
             $blockCreateStruct,
             $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
             $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
-            'root'
+            'root',
         );
     }
 
@@ -750,7 +750,7 @@ final class BlockHandlerTest extends TestCase
             $blockCreateStruct,
             $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
             $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
-            'root'
+            'root',
         );
     }
 
@@ -774,7 +774,7 @@ final class BlockHandlerTest extends TestCase
 
         $updatedBlock = $this->blockHandler->updateBlock(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-            $blockUpdateStruct
+            $blockUpdateStruct,
         );
 
         self::assertSame(
@@ -815,7 +815,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => false,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObject($updatedBlock)
+            $this->exportObject($updatedBlock),
         );
     }
 
@@ -829,7 +829,7 @@ final class BlockHandlerTest extends TestCase
 
         $updatedBlock = $this->blockHandler->updateBlock(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-            $blockUpdateStruct
+            $blockUpdateStruct,
         );
 
         self::assertSame(
@@ -866,7 +866,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObject($updatedBlock)
+            $this->exportObject($updatedBlock),
         );
     }
 
@@ -886,7 +886,7 @@ final class BlockHandlerTest extends TestCase
         $updatedBlock = $this->blockHandler->updateBlockTranslation(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
             'en',
-            $translationUpdateStruct
+            $translationUpdateStruct,
         );
 
         self::assertSame(
@@ -922,7 +922,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObject($updatedBlock)
+            $this->exportObject($updatedBlock),
         );
     }
 
@@ -937,7 +937,7 @@ final class BlockHandlerTest extends TestCase
         $updatedBlock = $this->blockHandler->updateBlockTranslation(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
             'en',
-            $translationUpdateStruct
+            $translationUpdateStruct,
         );
 
         self::assertSame(
@@ -974,7 +974,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObject($updatedBlock)
+            $this->exportObject($updatedBlock),
         );
     }
 
@@ -990,7 +990,7 @@ final class BlockHandlerTest extends TestCase
         $this->blockHandler->updateBlockTranslation(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
             'de',
-            new BlockTranslationUpdateStruct()
+            new BlockTranslationUpdateStruct(),
         );
     }
 
@@ -1031,7 +1031,7 @@ final class BlockHandlerTest extends TestCase
             fn (): Block => $this->blockHandler->copyBlock(
                 $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
                 $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
-                'root'
+                'root',
             ),
             [
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
@@ -1048,7 +1048,7 @@ final class BlockHandlerTest extends TestCase
                 '63326bc3-baee-49c9-82e7-7b2a9aca081a',
                 '3a17132d-9072-45f3-a0b3-b91bd4b0fcf3',
                 '29f091e0-81cc-4bd3-aec5-673cd06abce5',
-            ]
+            ],
         );
 
         self::assertSame(
@@ -1085,7 +1085,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObject($copiedBlock)
+            $this->exportObject($copiedBlock),
         );
 
         self::assertSame(
@@ -1106,8 +1106,8 @@ final class BlockHandlerTest extends TestCase
                 ],
             ],
             $this->exportObjectList(
-                $this->collectionHandler->loadCollectionReferences($copiedBlock)
-            )
+                $this->collectionHandler->loadCollectionReferences($copiedBlock),
+            ),
         );
     }
 
@@ -1125,7 +1125,7 @@ final class BlockHandlerTest extends TestCase
                 $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
                 $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
                 'root',
-                1
+                1,
             ),
             [
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
@@ -1142,7 +1142,7 @@ final class BlockHandlerTest extends TestCase
                 '63326bc3-baee-49c9-82e7-7b2a9aca081a',
                 '3a17132d-9072-45f3-a0b3-b91bd4b0fcf3',
                 '29f091e0-81cc-4bd3-aec5-673cd06abce5',
-            ]
+            ],
         );
 
         self::assertSame(
@@ -1179,7 +1179,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObject($copiedBlock)
+            $this->exportObject($copiedBlock),
         );
     }
 
@@ -1197,7 +1197,7 @@ final class BlockHandlerTest extends TestCase
                 $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
                 $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
                 'root',
-                0
+                0,
             ),
             [
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
@@ -1214,7 +1214,7 @@ final class BlockHandlerTest extends TestCase
                 '63326bc3-baee-49c9-82e7-7b2a9aca081a',
                 '3a17132d-9072-45f3-a0b3-b91bd4b0fcf3',
                 '29f091e0-81cc-4bd3-aec5-673cd06abce5',
-            ]
+            ],
         );
 
         self::assertSame(
@@ -1251,7 +1251,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObject($copiedBlock)
+            $this->exportObject($copiedBlock),
         );
     }
 
@@ -1269,7 +1269,7 @@ final class BlockHandlerTest extends TestCase
                 $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
                 $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
                 'root',
-                2
+                2,
             ),
             [
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
@@ -1286,7 +1286,7 @@ final class BlockHandlerTest extends TestCase
                 '63326bc3-baee-49c9-82e7-7b2a9aca081a',
                 '3a17132d-9072-45f3-a0b3-b91bd4b0fcf3',
                 '29f091e0-81cc-4bd3-aec5-673cd06abce5',
-            ]
+            ],
         );
 
         self::assertSame(
@@ -1323,7 +1323,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObject($copiedBlock)
+            $this->exportObject($copiedBlock),
         );
     }
 
@@ -1341,7 +1341,7 @@ final class BlockHandlerTest extends TestCase
                 $this->blockHandler->loadBlock(35, Value::STATUS_DRAFT),
                 $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
                 'root',
-                0
+                0,
             ),
             [
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
@@ -1350,7 +1350,7 @@ final class BlockHandlerTest extends TestCase
                 '6dc13cc7-fd76-5e41-8b0c-1ed93ece7fcf',
                 '70fe4f3a-7e9d-5a1f-9e6a-b038c06ea117',
                 '3a3aa59a-76fe-532f-8a03-c04a93d803f6',
-            ]
+            ],
         );
 
         self::assertSame(
@@ -1381,7 +1381,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObject($copiedBlock)
+            $this->exportObject($copiedBlock),
         );
     }
 
@@ -1397,7 +1397,7 @@ final class BlockHandlerTest extends TestCase
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
             $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
             'root',
-            -1
+            -1,
         );
     }
 
@@ -1413,7 +1413,7 @@ final class BlockHandlerTest extends TestCase
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
             $this->blockHandler->loadBlock(3, Value::STATUS_DRAFT),
             'root',
-            9999
+            9999,
         );
     }
 
@@ -1430,13 +1430,13 @@ final class BlockHandlerTest extends TestCase
             fn (): Block => $this->blockHandler->copyBlock(
                 $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
                 $this->blockHandler->loadBlock(7, Value::STATUS_DRAFT),
-                'root'
+                'root',
             ),
             [
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
                 '4adf0f00-f6c2-5297-9f96-039bfabe8d3b',
                 '805895b2-6292-5243-a0c0-06a6ec0e28a2',
-            ]
+            ],
         );
 
         self::assertSame(
@@ -1465,7 +1465,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObject($copiedBlock)
+            $this->exportObject($copiedBlock),
         );
 
         $copiedSubBlock = $this->blockHandler->loadBlock(40, Value::STATUS_DRAFT);
@@ -1498,7 +1498,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObject($copiedSubBlock)
+            $this->exportObject($copiedSubBlock),
         );
 
         self::assertSame(
@@ -1512,8 +1512,8 @@ final class BlockHandlerTest extends TestCase
                 ],
             ],
             $this->exportObjectList(
-                $this->collectionHandler->loadCollectionReferences($copiedSubBlock)
-            )
+                $this->collectionHandler->loadCollectionReferences($copiedSubBlock),
+            ),
         );
     }
 
@@ -1530,7 +1530,7 @@ final class BlockHandlerTest extends TestCase
             fn (): Block => $this->blockHandler->copyBlock(
                 $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
                 $this->blockHandler->loadBlock(8, Value::STATUS_DRAFT),
-                'root'
+                'root',
             ),
             [
                 'f06f245a-f951-52c8-bfa3-84c80154eadc',
@@ -1547,7 +1547,7 @@ final class BlockHandlerTest extends TestCase
                 '63326bc3-baee-49c9-82e7-7b2a9aca081a',
                 '3a17132d-9072-45f3-a0b3-b91bd4b0fcf3',
                 '29f091e0-81cc-4bd3-aec5-673cd06abce5',
-            ]
+            ],
         );
 
         self::assertSame(
@@ -1584,7 +1584,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObject($copiedBlock)
+            $this->exportObject($copiedBlock),
         );
 
         self::assertSame(
@@ -1604,7 +1604,7 @@ final class BlockHandlerTest extends TestCase
                     'identifier' => 'featured',
                 ],
             ],
-            $this->exportObjectList($this->collectionHandler->loadCollectionReferences($copiedBlock))
+            $this->exportObjectList($this->collectionHandler->loadCollectionReferences($copiedBlock)),
         );
     }
 
@@ -1619,7 +1619,7 @@ final class BlockHandlerTest extends TestCase
         $this->blockHandler->copyBlock(
             $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
             $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
-            'main'
+            'main',
         );
     }
 
@@ -1634,7 +1634,7 @@ final class BlockHandlerTest extends TestCase
         $this->blockHandler->copyBlock(
             $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
             $this->blockHandler->loadBlock(37, Value::STATUS_DRAFT),
-            'main'
+            'main',
         );
     }
 
@@ -1649,7 +1649,7 @@ final class BlockHandlerTest extends TestCase
             $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
             $this->blockHandler->loadBlock(4, Value::STATUS_DRAFT),
             'root',
-            0
+            0,
         );
 
         self::assertSame(
@@ -1678,7 +1678,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObject($movedBlock)
+            $this->exportObject($movedBlock),
         );
 
         self::assertSame(
@@ -1709,7 +1709,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObject($this->blockHandler->loadBlock(37, Value::STATUS_DRAFT))
+            $this->exportObject($this->blockHandler->loadBlock(37, Value::STATUS_DRAFT)),
         );
     }
 
@@ -1725,7 +1725,7 @@ final class BlockHandlerTest extends TestCase
             $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
             $this->blockHandler->loadBlock(7, Value::STATUS_DRAFT),
             'root',
-            0
+            0,
         );
     }
 
@@ -1741,7 +1741,7 @@ final class BlockHandlerTest extends TestCase
             $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
             $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
             'main',
-            0
+            0,
         );
     }
 
@@ -1757,7 +1757,7 @@ final class BlockHandlerTest extends TestCase
             $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
             $this->blockHandler->loadBlock(37, Value::STATUS_DRAFT),
             'main',
-            0
+            0,
         );
     }
 
@@ -1773,7 +1773,7 @@ final class BlockHandlerTest extends TestCase
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
             $this->blockHandler->loadBlock(4, Value::STATUS_DRAFT),
             'root',
-            -1
+            -1,
         );
     }
 
@@ -1789,7 +1789,7 @@ final class BlockHandlerTest extends TestCase
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
             $this->blockHandler->loadBlock(4, Value::STATUS_DRAFT),
             'root',
-            9999
+            9999,
         );
     }
 
@@ -1802,7 +1802,7 @@ final class BlockHandlerTest extends TestCase
     {
         $movedBlock = $this->blockHandler->moveBlockToPosition(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-            1
+            1,
         );
 
         self::assertSame(
@@ -1839,7 +1839,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObject($movedBlock)
+            $this->exportObject($movedBlock),
         );
 
         $firstBlock = $this->blockHandler->loadBlock(32, Value::STATUS_DRAFT);
@@ -1855,7 +1855,7 @@ final class BlockHandlerTest extends TestCase
     {
         $movedBlock = $this->blockHandler->moveBlockToPosition(
             $this->blockHandler->loadBlock(35, Value::STATUS_DRAFT),
-            0
+            0,
         );
 
         self::assertSame(
@@ -1886,7 +1886,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObject($movedBlock)
+            $this->exportObject($movedBlock),
         );
 
         $firstBlock = $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT);
@@ -1905,7 +1905,7 @@ final class BlockHandlerTest extends TestCase
 
         $this->blockHandler->moveBlockToPosition(
             $this->blockHandler->loadBlock(1, Value::STATUS_DRAFT),
-            1
+            1,
         );
     }
 
@@ -1920,7 +1920,7 @@ final class BlockHandlerTest extends TestCase
 
         $this->blockHandler->moveBlockToPosition(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-            -1
+            -1,
         );
     }
 
@@ -1935,7 +1935,7 @@ final class BlockHandlerTest extends TestCase
 
         $this->blockHandler->moveBlockToPosition(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-            9999
+            9999,
         );
     }
 
@@ -1946,12 +1946,12 @@ final class BlockHandlerTest extends TestCase
     public function testCreateBlockStatus(): void
     {
         $this->blockHandler->deleteBlock(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT)
+            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
         );
 
         $block = $this->blockHandler->createBlockStatus(
             $this->blockHandler->loadBlock(31, Value::STATUS_PUBLISHED),
-            Value::STATUS_DRAFT
+            Value::STATUS_DRAFT,
         );
 
         self::assertSame(
@@ -1985,7 +1985,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObject($block)
+            $this->exportObject($block),
         );
 
         $collectionReferences = $this->collectionHandler->loadCollectionReferences($block);
@@ -2012,7 +2012,7 @@ final class BlockHandlerTest extends TestCase
             $block,
             $this->blockHandler->loadBlock(2, Value::STATUS_DRAFT),
             'root',
-            1
+            1,
         );
 
         $restoredBlock = $this->blockHandler->restoreBlock($movedBlock, Value::STATUS_PUBLISHED);
@@ -2048,7 +2048,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObject($restoredBlock)
+            $this->exportObject($restoredBlock),
         );
     }
 
@@ -2074,7 +2074,7 @@ final class BlockHandlerTest extends TestCase
     public function testDeleteBlock(): void
     {
         $this->blockHandler->deleteBlock(
-            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT)
+            $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
         );
 
         $secondBlock = $this->blockHandler->loadBlock(32, Value::STATUS_DRAFT);
@@ -2107,7 +2107,7 @@ final class BlockHandlerTest extends TestCase
     public function testDeleteBlockWithSubBlocks(): void
     {
         $this->blockHandler->deleteBlock(
-            $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT)
+            $this->blockHandler->loadBlock(33, Value::STATUS_DRAFT),
         );
 
         try {
@@ -2140,7 +2140,7 @@ final class BlockHandlerTest extends TestCase
     {
         $block = $this->blockHandler->deleteBlockTranslation(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-            'hr'
+            'hr',
         );
 
         self::assertSame(
@@ -2173,7 +2173,7 @@ final class BlockHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObject($block)
+            $this->exportObject($block),
         );
     }
 
@@ -2188,7 +2188,7 @@ final class BlockHandlerTest extends TestCase
 
         $this->blockHandler->deleteBlockTranslation(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-            'de'
+            'de',
         );
     }
 
@@ -2203,7 +2203,7 @@ final class BlockHandlerTest extends TestCase
 
         $this->blockHandler->deleteBlockTranslation(
             $this->blockHandler->loadBlock(31, Value::STATUS_DRAFT),
-            'en'
+            'en',
         );
     }
 
@@ -2225,8 +2225,8 @@ final class BlockHandlerTest extends TestCase
             ->where(
                 $query->expr()->and(
                     $query->expr()->eq('layout_id', ':layout_id'),
-                    $query->expr()->eq('status', ':status')
-                )
+                    $query->expr()->eq('status', ':status'),
+                ),
             )
             ->setParameter('layout_id', $layout->id, Types::INTEGER)
             ->setParameter('status', $layout->status, Types::INTEGER);
@@ -2255,8 +2255,8 @@ final class BlockHandlerTest extends TestCase
             self::fail(
                 sprintf(
                     'Draft block %d still available after deleting',
-                    31
-                )
+                    31,
+                ),
             );
         } catch (NotFoundException $e) {
             // Do nothing
@@ -2267,8 +2267,8 @@ final class BlockHandlerTest extends TestCase
             self::fail(
                 sprintf(
                     'Draft block %d still available after deleting',
-                    32
-                )
+                    32,
+                ),
             );
         } catch (NotFoundException $e) {
             // Do nothing
@@ -2279,8 +2279,8 @@ final class BlockHandlerTest extends TestCase
             self::fail(
                 sprintf(
                     'Published block %d still available after deleting',
-                    31
-                )
+                    31,
+                ),
             );
         } catch (NotFoundException $e) {
             // Do nothing
@@ -2291,8 +2291,8 @@ final class BlockHandlerTest extends TestCase
             self::fail(
                 sprintf(
                     'Published block %d still available after deleting',
-                    32
-                )
+                    32,
+                ),
             );
         } catch (NotFoundException $e) {
             // Do nothing
@@ -2318,8 +2318,8 @@ final class BlockHandlerTest extends TestCase
             self::fail(
                 sprintf(
                     'Published block %d still available after deleting',
-                    31
-                )
+                    31,
+                ),
             );
         } catch (NotFoundException $e) {
             // Do nothing
@@ -2330,8 +2330,8 @@ final class BlockHandlerTest extends TestCase
             self::fail(
                 sprintf(
                     'Published block %d still available after deleting',
-                    32
-                )
+                    32,
+                ),
             );
         } catch (NotFoundException $e) {
             // Do nothing

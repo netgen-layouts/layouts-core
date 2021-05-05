@@ -77,7 +77,7 @@ final class LayoutHandlerTest extends TestCase
                 'availableLocales' => ['en', 'hr'],
                 'status' => Value::STATUS_PUBLISHED,
             ],
-            $this->exportObject($layout)
+            $this->exportObject($layout),
         );
     }
 
@@ -112,7 +112,7 @@ final class LayoutHandlerTest extends TestCase
                 'linkedZoneIdentifier' => 'top',
                 'status' => Value::STATUS_PUBLISHED,
             ],
-            $this->exportObject($zone)
+            $this->exportObject($zone),
         );
     }
 
@@ -182,7 +182,7 @@ final class LayoutHandlerTest extends TestCase
                     'status' => Value::STATUS_PUBLISHED,
                 ],
             ],
-            $this->exportObjectList($layouts)
+            $this->exportObjectList($layouts),
         );
     }
 
@@ -266,7 +266,7 @@ final class LayoutHandlerTest extends TestCase
                     'status' => Value::STATUS_PUBLISHED,
                 ],
             ],
-            $this->exportObjectList($layouts)
+            $this->exportObjectList($layouts),
         );
     }
 
@@ -311,7 +311,7 @@ final class LayoutHandlerTest extends TestCase
                     'status' => Value::STATUS_PUBLISHED,
                 ],
             ],
-            $this->exportObjectList($layouts)
+            $this->exportObjectList($layouts),
         );
     }
 
@@ -369,7 +369,7 @@ final class LayoutHandlerTest extends TestCase
                     'status' => Value::STATUS_PUBLISHED,
                 ],
             ],
-            $this->exportObjectList($layouts)
+            $this->exportObjectList($layouts),
         );
     }
 
@@ -432,7 +432,7 @@ final class LayoutHandlerTest extends TestCase
                     'status' => Value::STATUS_PUBLISHED,
                 ],
             ],
-            $this->exportObjectList($layouts)
+            $this->exportObjectList($layouts),
         );
     }
 
@@ -525,7 +525,7 @@ final class LayoutHandlerTest extends TestCase
                     'status' => Value::STATUS_PUBLISHED,
                 ],
             ],
-            $this->exportObjectList($layouts)
+            $this->exportObjectList($layouts),
         );
     }
 
@@ -546,7 +546,7 @@ final class LayoutHandlerTest extends TestCase
     public function testLoadRelatedLayouts(): void
     {
         $layouts = $this->layoutHandler->loadRelatedLayouts(
-            $this->layoutHandler->loadLayout(3, Value::STATUS_PUBLISHED)
+            $this->layoutHandler->loadLayout(3, Value::STATUS_PUBLISHED),
         );
 
         self::assertContainsOnlyInstancesOf(Layout::class, $layouts);
@@ -567,7 +567,7 @@ final class LayoutHandlerTest extends TestCase
                     'status' => Value::STATUS_PUBLISHED,
                 ],
             ],
-            $this->exportObjectList($layouts)
+            $this->exportObjectList($layouts),
         );
     }
 
@@ -578,7 +578,7 @@ final class LayoutHandlerTest extends TestCase
     public function testGetRelatedLayoutsCount(): void
     {
         $count = $this->layoutHandler->getRelatedLayoutsCount(
-            $this->layoutHandler->loadLayout(3, Value::STATUS_PUBLISHED)
+            $this->layoutHandler->loadLayout(3, Value::STATUS_PUBLISHED),
         );
 
         self::assertSame(1, $count);
@@ -654,7 +654,7 @@ final class LayoutHandlerTest extends TestCase
     public function testLoadLayoutZones(): void
     {
         $zones = $this->layoutHandler->loadLayoutZones(
-            $this->layoutHandler->loadLayout(2, Value::STATUS_PUBLISHED)
+            $this->layoutHandler->loadLayout(2, Value::STATUS_PUBLISHED),
         );
 
         self::assertContainsOnlyInstancesOf(Zone::class, $zones);
@@ -698,7 +698,7 @@ final class LayoutHandlerTest extends TestCase
                     'status' => Value::STATUS_PUBLISHED,
                 ],
             ],
-            $this->exportObjectList($zones)
+            $this->exportObjectList($zones),
         );
     }
 
@@ -716,8 +716,8 @@ final class LayoutHandlerTest extends TestCase
             ZoneUpdateStruct::fromArray(
                 [
                     'linkedZone' => $linkedZone,
-                ]
-            )
+                ],
+            ),
         );
 
         self::assertSame(
@@ -730,7 +730,7 @@ final class LayoutHandlerTest extends TestCase
                 'linkedZoneIdentifier' => 'top',
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObject($updatedZone)
+            $this->exportObject($updatedZone),
         );
     }
 
@@ -747,8 +747,8 @@ final class LayoutHandlerTest extends TestCase
             ZoneUpdateStruct::fromArray(
                 [
                     'linkedZone' => false,
-                ]
-            )
+                ],
+            ),
         );
 
         self::assertSame(
@@ -761,7 +761,7 @@ final class LayoutHandlerTest extends TestCase
                 'linkedZoneIdentifier' => null,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObject($updatedZone)
+            $this->exportObject($updatedZone),
         );
     }
 
@@ -783,7 +783,7 @@ final class LayoutHandlerTest extends TestCase
 
         $createdLayout = $this->withUuids(
             fn (): Layout => $this->layoutHandler->createLayout($layoutCreateStruct),
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
         );
 
         self::assertSame(8, $createdLayout->id);
@@ -882,7 +882,7 @@ final class LayoutHandlerTest extends TestCase
         $this->layoutHandler->createLayoutTranslation(
             $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
             'en',
-            'hr'
+            'hr',
         );
     }
 
@@ -898,7 +898,7 @@ final class LayoutHandlerTest extends TestCase
         $this->layoutHandler->createLayoutTranslation(
             $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
             'de',
-            'fr'
+            'fr',
         );
     }
 
@@ -948,9 +948,9 @@ final class LayoutHandlerTest extends TestCase
         $createdZone = $this->withUuids(
             fn (): Zone => $this->layoutHandler->createZone(
                 $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
-                $zoneCreateStruct
+                $zoneCreateStruct,
             ),
-            ['f06f245a-f951-52c8-bfa3-84c80154eadc']
+            ['f06f245a-f951-52c8-bfa3-84c80154eadc'],
         );
 
         self::assertSame(1, $createdZone->layoutId);
@@ -987,7 +987,7 @@ final class LayoutHandlerTest extends TestCase
                 'alwaysAvailable' => true,
                 'status' => Value::STATUS_DRAFT,
             ],
-            $this->exportObject($rootBlock)
+            $this->exportObject($rootBlock),
         );
     }
 
@@ -1005,7 +1005,7 @@ final class LayoutHandlerTest extends TestCase
         $originalLayout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
         $updatedLayout = $this->layoutHandler->updateLayout(
             $originalLayout,
-            $layoutUpdateStruct
+            $layoutUpdateStruct,
         );
 
         self::assertSame('New name', $updatedLayout->name);
@@ -1025,7 +1025,7 @@ final class LayoutHandlerTest extends TestCase
         $originalLayout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
         $updatedLayout = $this->layoutHandler->updateLayout(
             $originalLayout,
-            $layoutUpdateStruct
+            $layoutUpdateStruct,
         );
 
         self::assertSame('My layout', $updatedLayout->name);
@@ -1048,8 +1048,8 @@ final class LayoutHandlerTest extends TestCase
             ZoneUpdateStruct::fromArray(
                 [
                     'linkedZone' => $this->layoutHandler->loadZone(3, Value::STATUS_PUBLISHED, 'left'),
-                ]
-            )
+                ],
+            ),
         );
 
         $copyStruct = new LayoutCopyStruct();
@@ -1089,7 +1089,7 @@ final class LayoutHandlerTest extends TestCase
                 '63326bc3-baee-49c9-82e7-7b2a9aca081a',
                 '3a17132d-9072-45f3-a0b3-b91bd4b0fcf3',
                 '29f091e0-81cc-4bd3-aec5-673cd06abce5',
-            ]
+            ],
         );
 
         self::assertSame(8, $copiedLayout->id);
@@ -1145,8 +1145,8 @@ final class LayoutHandlerTest extends TestCase
                 ],
             ],
             $this->exportObjectList(
-                $this->layoutHandler->loadLayoutZones($copiedLayout)
-            )
+                $this->layoutHandler->loadLayoutZones($copiedLayout),
+            ),
         );
 
         $rootBlock = $this->blockHandler->loadBlock(40, Value::STATUS_PUBLISHED);
@@ -1189,8 +1189,8 @@ final class LayoutHandlerTest extends TestCase
                 ],
             ],
             $this->exportObjectList(
-                $this->blockHandler->loadChildBlocks($rootBlock)
-            )
+                $this->blockHandler->loadChildBlocks($rootBlock),
+            ),
         );
 
         $rootBlock = $this->blockHandler->loadBlock(42, Value::STATUS_PUBLISHED);
@@ -1256,8 +1256,8 @@ final class LayoutHandlerTest extends TestCase
                 ],
             ],
             $this->exportObjectList(
-                $this->blockHandler->loadChildBlocks($rootBlock)
-            )
+                $this->blockHandler->loadChildBlocks($rootBlock),
+            ),
         );
 
         // Verify that collections were copied
@@ -1268,14 +1268,14 @@ final class LayoutHandlerTest extends TestCase
 
         // First block
         $references = $this->collectionHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(41, Value::STATUS_PUBLISHED)
+            $this->blockHandler->loadBlock(41, Value::STATUS_PUBLISHED),
         );
 
         self::assertCount(0, $references);
 
         // Second block
         $references = $this->collectionHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(43, Value::STATUS_PUBLISHED)
+            $this->blockHandler->loadBlock(43, Value::STATUS_PUBLISHED),
         );
 
         self::assertCount(2, $references);
@@ -1284,7 +1284,7 @@ final class LayoutHandlerTest extends TestCase
 
         // Third block
         $references = $this->collectionHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(44, Value::STATUS_PUBLISHED)
+            $this->blockHandler->loadBlock(44, Value::STATUS_PUBLISHED),
         );
 
         self::assertCount(1, $references);
@@ -1304,8 +1304,8 @@ final class LayoutHandlerTest extends TestCase
             ZoneUpdateStruct::fromArray(
                 [
                     'linkedZone' => $this->layoutHandler->loadZone(3, Value::STATUS_PUBLISHED, 'left'),
-                ]
-            )
+                ],
+            ),
         );
 
         $originalLayout = $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT);
@@ -1317,7 +1317,7 @@ final class LayoutHandlerTest extends TestCase
                 'left' => [],
                 'right' => [],
                 'bottom' => [],
-            ]
+            ],
         );
 
         self::assertSame(1, $updatedLayout->id);
@@ -1371,8 +1371,8 @@ final class LayoutHandlerTest extends TestCase
                 ],
             ],
             $this->exportObjectList(
-                $this->layoutHandler->loadLayoutZones($updatedLayout)
-            )
+                $this->layoutHandler->loadLayoutZones($updatedLayout),
+            ),
         );
 
         $rootBlock = $this->blockHandler->loadBlock(39, Value::STATUS_DRAFT);
@@ -1475,26 +1475,26 @@ final class LayoutHandlerTest extends TestCase
                 ],
             ],
             $this->exportObjectList(
-                $this->blockHandler->loadChildBlocks($rootBlock)
-            )
+                $this->blockHandler->loadChildBlocks($rootBlock),
+            ),
         );
 
         self::assertEmpty(
             $this->blockHandler->loadChildBlocks(
-                $this->blockHandler->loadBlock(40, Value::STATUS_DRAFT)
-            )
+                $this->blockHandler->loadBlock(40, Value::STATUS_DRAFT),
+            ),
         );
 
         self::assertEmpty(
             $this->blockHandler->loadChildBlocks(
-                $this->blockHandler->loadBlock(41, Value::STATUS_DRAFT)
-            )
+                $this->blockHandler->loadBlock(41, Value::STATUS_DRAFT),
+            ),
         );
 
         self::assertEmpty(
             $this->blockHandler->loadChildBlocks(
-                $this->blockHandler->loadBlock(42, Value::STATUS_DRAFT)
-            )
+                $this->blockHandler->loadBlock(42, Value::STATUS_DRAFT),
+            ),
         );
     }
 
@@ -1510,14 +1510,14 @@ final class LayoutHandlerTest extends TestCase
             ZoneUpdateStruct::fromArray(
                 [
                     'linkedZone' => $this->layoutHandler->loadZone(3, Value::STATUS_PUBLISHED, 'left'),
-                ]
-            )
+                ],
+            ),
         );
 
         $originalLayout = $this->layoutHandler->loadLayout(1, Value::STATUS_PUBLISHED);
         $copiedLayout = $this->layoutHandler->createLayoutStatus(
             $originalLayout,
-            Value::STATUS_ARCHIVED
+            Value::STATUS_ARCHIVED,
         );
 
         self::assertSame(1, $copiedLayout->id);
@@ -1573,8 +1573,8 @@ final class LayoutHandlerTest extends TestCase
                 ],
             ],
             $this->exportObjectList(
-                $this->layoutHandler->loadLayoutZones($copiedLayout)
-            )
+                $this->layoutHandler->loadLayoutZones($copiedLayout),
+            ),
         );
 
         self::assertSame(
@@ -1616,9 +1616,9 @@ final class LayoutHandlerTest extends TestCase
             ],
             $this->exportObjectList(
                 $this->blockHandler->loadChildBlocks(
-                    $this->blockHandler->loadBlock(2, Value::STATUS_ARCHIVED)
-                )
-            )
+                    $this->blockHandler->loadBlock(2, Value::STATUS_ARCHIVED),
+                ),
+            ),
         );
 
         self::assertSame(
@@ -1683,9 +1683,9 @@ final class LayoutHandlerTest extends TestCase
             ],
             $this->exportObjectList(
                 $this->blockHandler->loadChildBlocks(
-                    $this->blockHandler->loadBlock(3, Value::STATUS_ARCHIVED)
-                )
-            )
+                    $this->blockHandler->loadBlock(3, Value::STATUS_ARCHIVED),
+                ),
+            ),
         );
 
         // Verify that the collection status was copied
@@ -1693,7 +1693,7 @@ final class LayoutHandlerTest extends TestCase
 
         // Verify the state of the collection references
         $archivedReferences = $this->collectionHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(31, Value::STATUS_ARCHIVED)
+            $this->blockHandler->loadBlock(31, Value::STATUS_ARCHIVED),
         );
 
         self::assertCount(2, $archivedReferences);
@@ -1702,7 +1702,7 @@ final class LayoutHandlerTest extends TestCase
 
         // Second block
         $archivedReferences = $this->collectionHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(35, Value::STATUS_ARCHIVED)
+            $this->blockHandler->loadBlock(35, Value::STATUS_ARCHIVED),
         );
 
         self::assertCount(1, $archivedReferences);
@@ -1770,7 +1770,7 @@ final class LayoutHandlerTest extends TestCase
 
         // Verify the state of the collection references
         $publishedReferences = $this->collectionHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(31, Value::STATUS_PUBLISHED)
+            $this->blockHandler->loadBlock(31, Value::STATUS_PUBLISHED),
         );
 
         self::assertCount(2, $publishedReferences);
@@ -1779,7 +1779,7 @@ final class LayoutHandlerTest extends TestCase
 
         // Second block
         $publishedReferences = $this->collectionHandler->loadCollectionReferences(
-            $this->blockHandler->loadBlock(35, Value::STATUS_PUBLISHED)
+            $this->blockHandler->loadBlock(35, Value::STATUS_PUBLISHED),
         );
 
         self::assertCount(1, $publishedReferences);
@@ -1847,7 +1847,7 @@ final class LayoutHandlerTest extends TestCase
 
         $this->layoutHandler->deleteLayoutTranslation(
             $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
-            'de'
+            'de',
         );
     }
 
@@ -1862,7 +1862,7 @@ final class LayoutHandlerTest extends TestCase
 
         $this->layoutHandler->deleteLayoutTranslation(
             $this->layoutHandler->loadLayout(1, Value::STATUS_DRAFT),
-            'en'
+            'en',
         );
     }
 }

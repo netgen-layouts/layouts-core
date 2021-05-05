@@ -24,7 +24,7 @@ final class ZoneTest extends TestCase
                 'rootBlockId' => 42,
                 'linkedLayoutUuid' => 'd8e55af7-cf62-5f28-ae15-331b457d82e9',
                 'linkedZoneIdentifier' => 'top',
-            ]
+            ],
         );
 
         self::assertSame('left', $zone->identifier);

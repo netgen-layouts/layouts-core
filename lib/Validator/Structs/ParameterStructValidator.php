@@ -43,12 +43,12 @@ final class ParameterStructValidator extends ConstraintValidator
                 [
                     'fields' => iterator_to_array($this->buildConstraintFields($value, $constraint)),
                     'allowMissingFields' => $constraint->allowMissingFields,
-                ]
-            )
+                ],
+            ),
         );
 
         $allParameterValues = iterator_to_array(
-            $this->getAllValues($constraint->parameterDefinitions, $value)
+            $this->getAllValues($constraint->parameterDefinitions, $value),
         );
 
         // Then we validate with runtime constraints coming from parameter definition
@@ -62,9 +62,9 @@ final class ParameterStructValidator extends ConstraintValidator
                     $this->getRuntimeParameterConstraints(
                         $parameterDefinition,
                         $parameterValue,
-                        $allParameterValues
-                    )
-                )
+                        $allParameterValues,
+                    ),
+                ),
             );
         }
     }
@@ -93,7 +93,7 @@ final class ParameterStructValidator extends ConstraintValidator
                     yield $subParameterDefinition->getName() => new Constraints\Optional(
                         // Sub parameter values are always optional (either missing or set to null)
                         // so we don't have to validate empty values
-                        $this->getParameterConstraints($subParameterDefinition, $parameterStruct, false)
+                        $this->getParameterConstraints($subParameterDefinition, $parameterStruct, false),
                     );
                 }
             }
@@ -114,7 +114,7 @@ final class ParameterStructValidator extends ConstraintValidator
         bool $validateEmptyValue = true
     ): array {
         $parameterValue = $parameterStruct->getParameterValue(
-            $parameterDefinition->getName()
+            $parameterDefinition->getName(),
         );
 
         if (!$validateEmptyValue && $parameterValue === null) {
@@ -123,7 +123,7 @@ final class ParameterStructValidator extends ConstraintValidator
 
         return $parameterDefinition->getType()->getConstraints(
             $parameterDefinition,
-            $parameterValue
+            $parameterValue,
         );
     }
 

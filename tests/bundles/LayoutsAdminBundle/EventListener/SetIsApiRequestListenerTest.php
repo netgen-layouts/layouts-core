@@ -29,7 +29,7 @@ final class SetIsApiRequestListenerTest extends TestCase
     {
         self::assertSame(
             [KernelEvents::REQUEST => ['onKernelRequest', 30]],
-            $this->listener::getSubscribedEvents()
+            $this->listener::getSubscribedEvents(),
         );
     }
 

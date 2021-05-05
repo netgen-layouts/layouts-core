@@ -37,7 +37,7 @@ final class ItemLinkMapperTest extends TestCase
 
         $this->type = new ItemLinkParameterType(
             $this->valueTypeRegistry,
-            new RemoteIdConverter($this->cmsItemLoaderMock)
+            new RemoteIdConverter($this->cmsItemLoaderMock),
         );
 
         $this->mapper = new ItemLinkMapper();
@@ -62,14 +62,14 @@ final class ItemLinkMapperTest extends TestCase
                 'options' => [
                     'value_types' => ['value'],
                 ],
-            ]
+            ],
         );
 
         self::assertSame(
             [
                 'item_types' => ['value'],
             ],
-            $this->mapper->mapOptions($parameterDefinition)
+            $this->mapper->mapOptions($parameterDefinition),
         );
     }
 
@@ -84,14 +84,14 @@ final class ItemLinkMapperTest extends TestCase
                 'options' => [
                     'value_types' => ['default'],
                 ],
-            ]
+            ],
         );
 
         self::assertSame(
             [
                 'item_types' => ['default'],
             ],
-            $this->mapper->mapOptions($parameterDefinition)
+            $this->mapper->mapOptions($parameterDefinition),
         );
     }
 
@@ -103,7 +103,7 @@ final class ItemLinkMapperTest extends TestCase
         $parameterDefinition = ParameterDefinition::fromArray(
             [
                 'type' => $this->type,
-            ]
+            ],
         );
 
         $dispatcher = $this->createMock(EventDispatcherInterface::class);

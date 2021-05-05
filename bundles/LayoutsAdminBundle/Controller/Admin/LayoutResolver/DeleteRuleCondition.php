@@ -29,16 +29,16 @@ final class DeleteRuleCondition extends AbstractController
             'nglayouts:mapping:edit',
             [
                 'rule_group' => $rule->getRuleGroupId()->toString(),
-            ]
+            ],
         );
 
         $this->layoutResolverService->deleteCondition($condition);
 
         return $this->buildView(
             $this->layoutResolverService->loadRuleDraft(
-                $condition->getRuleId()
+                $condition->getRuleId(),
             ),
-            ViewInterface::CONTEXT_ADMIN
+            ViewInterface::CONTEXT_ADMIN,
         );
     }
 }

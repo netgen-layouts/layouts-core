@@ -49,7 +49,7 @@ final class PathInfoPrefixTest extends TestCase
 
         self::assertSame(
             '/the/answer',
-            $this->targetType->provideValue($request)
+            $this->targetType->provideValue($request),
         );
     }
 

@@ -29,13 +29,13 @@ final class EntityHandlerPass implements CompilerPassInterface
             foreach ($tags as $tag) {
                 if (!isset($tag['entity_type'])) {
                     throw new RuntimeException(
-                        "Entity handler service definition must have a 'entity_type' attribute in its' tag."
+                        "Entity handler service definition must have a 'entity_type' attribute in its' tag.",
                     );
                 }
 
                 if (preg_match('/^[A-Za-z]([A-Za-z0-9_])*$/', $tag['entity_type']) !== 1) {
                     throw new RuntimeException(
-                        'Entity type must begin with a letter and be followed by any combination of letters, digits and underscore.'
+                        'Entity type must begin with a letter and be followed by any combination of letters, digits and underscore.',
                     );
                 }
 

@@ -18,7 +18,7 @@ final class ConditionTypeExceptionTest extends TestCase
 
         self::assertSame(
             'Condition type "type" does not exist.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 
@@ -31,7 +31,7 @@ final class ConditionTypeExceptionTest extends TestCase
 
         self::assertSame(
             'Form mapper for "type" condition type does not exist.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 }

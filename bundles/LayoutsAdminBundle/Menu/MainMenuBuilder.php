@@ -61,7 +61,7 @@ final class MainMenuBuilder
 
         $this->eventDispatcher->dispatch(
             new ConfigureMenuEvent($this->factory, $menu),
-            LayoutsAdminEvents::CONFIGURE_MENU
+            LayoutsAdminEvents::CONFIGURE_MENU,
         );
 
         return $menu;

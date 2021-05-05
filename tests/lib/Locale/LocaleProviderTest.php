@@ -23,7 +23,7 @@ final class LocaleProviderTest extends TestCase
                 'en' => 'English',
                 'hr' => 'Croatian',
             ],
-            $localeProvider->getAvailableLocales()
+            $localeProvider->getAvailableLocales(),
         );
     }
 
@@ -39,7 +39,7 @@ final class LocaleProviderTest extends TestCase
             [
                 'en' => 'English',
             ],
-            $localeProvider->getAvailableLocales()
+            $localeProvider->getAvailableLocales(),
         );
     }
 

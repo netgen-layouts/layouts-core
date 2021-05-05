@@ -39,7 +39,7 @@ final class QueryTest extends TestCase
                 'availableLocales' => ['en'],
                 'locale' => 'en',
                 'parameters' => [],
-            ]
+            ],
         );
 
         self::assertSame($queryUuid->toString(), $query->getId()->toString());
@@ -62,7 +62,7 @@ final class QueryTest extends TestCase
                 'id' => Uuid::uuid4(),
                 'collectionId' => Uuid::uuid4(),
                 'queryType' => new QueryType('query_type'),
-            ]
+            ],
         );
 
         self::assertFalse($query->isContextual());

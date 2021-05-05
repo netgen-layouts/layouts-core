@@ -87,16 +87,16 @@ final class MigrateQueryOffsetLimitCommand extends Command
                 "%s\n%s\n%s",
                 'This script will ask you for names of offset and limit parameters for each of your query types.',
                 'Once you answer the questions for all query types, the migration will start.',
-                'You will have a choice to cancel the script before starting the migration.'
-            )
+                'You will have a choice to cancel the script before starting the migration.',
+            ),
         );
 
         $this->io->caution(
             sprintf(
                 "%s\n%s",
                 'This script will perform changes to data in your database.',
-                'Make sure to backup your database before running the script in case any errors occur.'
-            )
+                'Make sure to backup your database before running the script in case any errors occur.',
+            ),
         );
 
         if (!$this->io->confirm('Did you backup your database? Answering NO will cancel the script', false)) {
@@ -126,7 +126,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
                         " Your '{$queryTypeIdentifier}' query type has a limit parameter named '{$mapping['limit']}'.\n" :
                         " Your '{$queryTypeIdentifier}' query type DOES NOT have a limit parameter.\n") .
                     ' Is this correct?',
-                    true
+                    true,
                 )
             );
 
@@ -171,9 +171,9 @@ final class MigrateQueryOffsetLimitCommand extends Command
                     'Select the %1$s parameter from the "%2$s" (%3$s) query type (Use "NO PARAMETER" option if your query type does not have the %1$s parameter)',
                     $parameter,
                     $queryType->getType(),
-                    $queryType->getName()
+                    $queryType->getName(),
                 ),
-                $queryTypeParameters
+                $queryTypeParameters,
             );
 
             yield $parameter => $parameterName !== 'NO PARAMETER' ? $parameterName : null;
@@ -232,7 +232,7 @@ final class MigrateQueryOffsetLimitCommand extends Command
 
                     $this->io->progressAdvance();
                 }
-            }
+            },
         );
 
         $this->io->progressFinish();
@@ -255,8 +255,8 @@ final class MigrateQueryOffsetLimitCommand extends Command
                 'q',
                 $queryBuilder->expr()->and(
                     $queryBuilder->expr()->eq('c.id', 'q.collection_id'),
-                    $queryBuilder->expr()->eq('c.status', 'q.status')
-                )
+                    $queryBuilder->expr()->eq('c.status', 'q.status'),
+                ),
             )
             ->innerJoin(
                 'q',
@@ -265,8 +265,8 @@ final class MigrateQueryOffsetLimitCommand extends Command
                 $queryBuilder->expr()->and(
                     $queryBuilder->expr()->eq('q.id', 'qt.query_id'),
                     $queryBuilder->expr()->eq('q.status', 'qt.status'),
-                    $queryBuilder->expr()->eq('c.main_locale', 'qt.locale')
-                )
+                    $queryBuilder->expr()->eq('c.main_locale', 'qt.locale'),
+                ),
             );
 
         return $queryBuilder->execute()->fetchAllAssociative();
@@ -285,8 +285,8 @@ final class MigrateQueryOffsetLimitCommand extends Command
             ->where(
                 $queryBuilder->expr()->and(
                     $queryBuilder->expr()->eq('id', ':id'),
-                    $queryBuilder->expr()->eq('status', ':status')
-                )
+                    $queryBuilder->expr()->eq('status', ':status'),
+                ),
             )
             ->setParameter('id', $id, Types::INTEGER)
             ->setParameter('status', $status, Types::INTEGER)

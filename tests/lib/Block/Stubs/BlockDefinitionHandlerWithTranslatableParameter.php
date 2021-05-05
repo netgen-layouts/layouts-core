@@ -41,7 +41,7 @@ final class BlockDefinitionHandlerWithTranslatableParameter extends BaseBlockDef
                     'options' => [
                         'translatable' => true,
                     ],
-                ]
+                ],
             ),
             'css_id' => ParameterDefinition::fromArray(
                 [
@@ -52,7 +52,7 @@ final class BlockDefinitionHandlerWithTranslatableParameter extends BaseBlockDef
                     'options' => [
                         'translatable' => false,
                     ],
-                ]
+                ],
             ),
         ];
     }

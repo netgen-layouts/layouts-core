@@ -35,7 +35,7 @@ final class LayoutResolverMapper
                     'enabled' => (bool) $dataItem['enabled'],
                     'priority' => (int) $dataItem['priority'],
                     'description' => $dataItem['description'],
-                ]
+                ],
             );
         }
 
@@ -67,7 +67,7 @@ final class LayoutResolverMapper
                     'description' => $dataItem['description'],
                     'enabled' => (bool) $dataItem['enabled'],
                     'priority' => (int) $dataItem['priority'],
-                ]
+                ],
             );
         }
 
@@ -95,7 +95,7 @@ final class LayoutResolverMapper
                     'ruleUuid' => $dataItem['rule_uuid'],
                     'type' => $dataItem['type'],
                     'value' => $dataItem['value'],
-                ]
+                ],
             );
         }
 
@@ -123,7 +123,7 @@ final class LayoutResolverMapper
                     'ruleUuid' => $dataItem['rule_uuid'],
                     'type' => $dataItem['type'],
                     'value' => json_decode($dataItem['value'], true),
-                ]
+                ],
             );
         }
 
@@ -151,7 +151,7 @@ final class LayoutResolverMapper
                     'ruleGroupUuid' => $dataItem['rule_group_uuid'],
                     'type' => $dataItem['type'],
                     'value' => json_decode($dataItem['value'], true),
-                ]
+                ],
             );
         }
 

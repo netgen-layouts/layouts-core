@@ -22,7 +22,7 @@ final class PluginRenderingExtension extends AbstractExtension
                 [
                     'needs_context' => true,
                     'is_safe' => ['html'],
-                ]
+                ],
             ),
         ];
     }

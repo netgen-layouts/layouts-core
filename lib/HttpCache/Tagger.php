@@ -41,7 +41,7 @@ final class Tagger implements TaggerInterface
                     'ngl-all',
                     'ngl-block-' . $block->getId()->toString(),
                     'ngl-origin-layout-' . $block->getLayoutId()->toString(),
-                ]
+                ],
             );
         }
     }

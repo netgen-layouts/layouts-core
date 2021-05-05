@@ -73,7 +73,7 @@ final class FilesystemLoader implements LoaderInterface
         $this->templateMap[$name] ??= str_replace(
             '@nglayouts/',
             '@nglayouts_' . $this->configuration->getParameter('design') . '/',
-            $name
+            $name,
         );
 
         return $this->templateMap[$name];

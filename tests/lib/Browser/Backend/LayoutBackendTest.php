@@ -34,7 +34,7 @@ final class LayoutBackendTest extends TestCase
 
         $this->backend = new LayoutBackend(
             $this->layoutServiceMock,
-            new Configuration('layout', 'Layout', [])
+            new Configuration('layout', 'Layout', []),
         );
     }
 
@@ -145,7 +145,7 @@ final class LayoutBackendTest extends TestCase
             ->with(
                 self::identicalTo(false),
                 self::identicalTo(0),
-                self::identicalTo(25)
+                self::identicalTo(25),
             )
             ->willReturn(new LayoutList([new Layout(), new Layout()]));
 
@@ -172,7 +172,7 @@ final class LayoutBackendTest extends TestCase
             ->with(
                 self::identicalTo(false),
                 self::identicalTo(5),
-                self::identicalTo(10)
+                self::identicalTo(10),
             )
             ->willReturn(new LayoutList([new Layout(), new Layout()]));
 
@@ -195,7 +195,7 @@ final class LayoutBackendTest extends TestCase
     {
         $this->backend = new LayoutBackend(
             $this->layoutServiceMock,
-            new Configuration('layout', 'Layout', [], ['include_shared_layouts' => 'true'])
+            new Configuration('layout', 'Layout', [], ['include_shared_layouts' => 'true']),
         );
 
         $this->layoutServiceMock
@@ -204,7 +204,7 @@ final class LayoutBackendTest extends TestCase
             ->with(
                 self::identicalTo(false),
                 self::identicalTo(0),
-                self::identicalTo(25)
+                self::identicalTo(25),
             )
             ->willReturn(new LayoutList([new Layout(), new Layout()]));
 
@@ -241,7 +241,7 @@ final class LayoutBackendTest extends TestCase
     {
         $this->backend = new LayoutBackend(
             $this->layoutServiceMock,
-            new Configuration('layout', 'Layout', [], ['include_shared_layouts' => 'true'])
+            new Configuration('layout', 'Layout', [], ['include_shared_layouts' => 'true']),
         );
 
         $this->layoutServiceMock

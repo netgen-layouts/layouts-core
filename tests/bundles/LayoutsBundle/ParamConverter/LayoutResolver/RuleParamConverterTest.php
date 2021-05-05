@@ -70,8 +70,8 @@ final class RuleParamConverterTest extends TestCase
                 [
                     'ruleId' => $uuid->toString(),
                     'status' => 'published',
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -96,8 +96,8 @@ final class RuleParamConverterTest extends TestCase
                 [
                     'ruleId' => $uuid->toString(),
                     'status' => 'archived',
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -122,8 +122,8 @@ final class RuleParamConverterTest extends TestCase
                 [
                     'ruleId' => $uuid->toString(),
                     'status' => 'draft',
-                ]
-            )
+                ],
+            ),
         );
     }
 }

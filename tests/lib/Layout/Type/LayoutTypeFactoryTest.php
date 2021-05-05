@@ -29,7 +29,7 @@ final class LayoutTypeFactoryTest extends TestCase
                         'allowed_block_definitions' => ['title', 'text'],
                     ],
                 ],
-            ]
+            ],
         );
 
         self::assertTrue($layoutType->hasZone('left'));
@@ -48,7 +48,7 @@ final class LayoutTypeFactoryTest extends TestCase
                     ],
                 ],
             ],
-            $this->exportObject($layoutType, true)
+            $this->exportObject($layoutType, true),
         );
     }
 }

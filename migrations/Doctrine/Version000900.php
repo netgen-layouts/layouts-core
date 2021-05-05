@@ -186,7 +186,7 @@ final class Version000900 extends AbstractMigration
                 }
 
                 return $locale;
-            }
+            },
         );
     }
 }

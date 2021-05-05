@@ -24,7 +24,7 @@ final class SlotTest extends TestCase
                 'position' => 3,
                 'viewType' => 'my_view_type',
                 'status' => Value::STATUS_PUBLISHED,
-            ]
+            ],
         );
 
         self::assertSame(42, $slot->id);

@@ -27,7 +27,7 @@ final class MainMenuBuilderTest extends TestCase
             ->expects(self::any())
             ->method('generate')
             ->willReturnCallback(
-                static fn (string $route): string => $route
+                static fn (string $route): string => $route,
             );
 
         $menuFactory = new MenuFactory();
@@ -38,7 +38,7 @@ final class MainMenuBuilderTest extends TestCase
         $this->builder = new MainMenuBuilder(
             $menuFactory,
             $this->authorizationCheckerMock,
-            $this->createMock(EventDispatcherInterface::class)
+            $this->createMock(EventDispatcherInterface::class),
         );
     }
 
@@ -61,25 +61,25 @@ final class MainMenuBuilderTest extends TestCase
         self::assertInstanceOf(ItemInterface::class, $menu->getChild('layout_resolver'));
         self::assertSame(
             'nglayouts_admin_layout_resolver_index',
-            $menu->getChild('layout_resolver')->getUri()
+            $menu->getChild('layout_resolver')->getUri(),
         );
 
         self::assertInstanceOf(ItemInterface::class, $menu->getChild('layouts'));
         self::assertSame(
             'nglayouts_admin_layouts_index',
-            $menu->getChild('layouts')->getUri()
+            $menu->getChild('layouts')->getUri(),
         );
 
         self::assertInstanceOf(ItemInterface::class, $menu->getChild('shared_layouts'));
         self::assertSame(
             'nglayouts_admin_shared_layouts_index',
-            $menu->getChild('shared_layouts')->getUri()
+            $menu->getChild('shared_layouts')->getUri(),
         );
 
         self::assertInstanceOf(ItemInterface::class, $menu->getChild('transfer'));
         self::assertSame(
             'nglayouts_admin_transfer_index',
-            $menu->getChild('transfer')->getUri()
+            $menu->getChild('transfer')->getUri(),
         );
     }
 

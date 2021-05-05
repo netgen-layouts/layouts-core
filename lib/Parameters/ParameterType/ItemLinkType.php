@@ -63,7 +63,7 @@ final class ItemLinkType extends ParameterType
                 }
 
                 return $valueTypes;
-            }
+            },
         );
     }
 
@@ -107,7 +107,7 @@ final class ItemLinkType extends ParameterType
                 [
                     'valueTypes' => $parameterDefinition->getOption('value_types'),
                     'allowInvalid' => $parameterDefinition->getOption('allow_invalid'),
-                ]
+                ],
             ),
         ];
     }

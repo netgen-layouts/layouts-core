@@ -15,8 +15,8 @@ final class BlockDefinitionException extends InvalidArgumentException implements
         return new self(
             sprintf(
                 'Block definition with "%s" identifier does not exist.',
-                $identifier
-            )
+                $identifier,
+            ),
         );
     }
 
@@ -26,8 +26,8 @@ final class BlockDefinitionException extends InvalidArgumentException implements
             sprintf(
                 'Collection "%s" does not exist in "%s" block definition.',
                 $collection,
-                $blockDefinition
-            )
+                $blockDefinition,
+            ),
         );
     }
 
@@ -37,8 +37,8 @@ final class BlockDefinitionException extends InvalidArgumentException implements
             sprintf(
                 'View type "%s" does not exist in "%s" block definition.',
                 $viewType,
-                $blockDefinition
-            )
+                $blockDefinition,
+            ),
         );
     }
 
@@ -48,8 +48,8 @@ final class BlockDefinitionException extends InvalidArgumentException implements
             sprintf(
                 'Item view type "%s" does not exist in "%s" view type.',
                 $itemViewType,
-                $viewType
-            )
+                $viewType,
+            ),
         );
     }
 
@@ -59,8 +59,8 @@ final class BlockDefinitionException extends InvalidArgumentException implements
             sprintf(
                 'Form "%s" does not exist in "%s" block definition.',
                 $form,
-                $blockDefinition
-            )
+                $blockDefinition,
+            ),
         );
     }
 }

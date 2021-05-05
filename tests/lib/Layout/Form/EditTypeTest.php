@@ -43,7 +43,7 @@ final class EditTypeTest extends FormTestCase
             $struct,
             [
                 'layout' => $this->layout,
-            ]
+            ],
         );
 
         $form->submit($submittedData);
@@ -77,7 +77,7 @@ final class EditTypeTest extends FormTestCase
             [
                 'layout' => $this->layout,
                 'data' => $struct,
-            ]
+            ],
         );
 
         self::assertSame($this->layout, $options['layout']);
@@ -116,7 +116,7 @@ final class EditTypeTest extends FormTestCase
         $optionsResolver->resolve(
             [
                 'layout' => '',
-            ]
+            ],
         );
     }
 
@@ -137,7 +137,7 @@ final class EditTypeTest extends FormTestCase
             [
                 'layout' => $this->layout,
                 'data' => '',
-            ]
+            ],
         );
     }
 

@@ -33,7 +33,7 @@ final class ItemDefinitionRegistry implements IteratorAggregate, Countable, Arra
     {
         $this->itemDefinitions = array_filter(
             $itemDefinitions,
-            static fn (ItemDefinitionInterface $itemDefinition): bool => true
+            static fn (ItemDefinitionInterface $itemDefinition): bool => true,
         );
     }
 

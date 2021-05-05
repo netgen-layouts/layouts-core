@@ -27,7 +27,7 @@ final class EnableRule extends AbstractController
             'nglayouts:mapping:activate',
             [
                 'rule_group' => $rule->getRuleGroupId()->toString(),
-            ]
+            ],
         );
 
         $enabledRule = $this->layoutResolverService->enableRule($rule);

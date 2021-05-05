@@ -23,7 +23,7 @@ final class LinkValueTest extends TestCase
                 'link' => 'info@netgen.io',
                 'linkSuffix' => '?suffix',
                 'newWindow' => true,
-            ]
+            ],
         );
 
         self::assertSame(LinkValue::LINK_TYPE_EMAIL, $linkValue->getLinkType());
@@ -43,7 +43,7 @@ final class LinkValueTest extends TestCase
                 'link' => 'info@netgen.io',
                 'linkSuffix' => '?suffix',
                 'newWindow' => true,
-            ]
+            ],
         );
 
         self::assertSame('info@netgen.io?suffix', (string) $linkValue);

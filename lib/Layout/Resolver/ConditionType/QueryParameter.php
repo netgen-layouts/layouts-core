@@ -30,7 +30,7 @@ final class QueryParameter extends ConditionType
                             [
                                 new Constraints\NotBlank(),
                                 new Constraints\Type(['type' => 'string']),
-                            ]
+                            ],
                         ),
                         'parameter_values' => new Constraints\Required(
                             [
@@ -40,12 +40,12 @@ final class QueryParameter extends ConditionType
                                         'constraints' => [
                                             new Constraints\Type(['type' => 'scalar']),
                                         ],
-                                    ]
+                                    ],
                                 ),
-                            ]
+                            ],
                         ),
                     ],
-                ]
+                ],
             ),
         ];
     }
@@ -70,7 +70,7 @@ final class QueryParameter extends ConditionType
         return count($parameterValues) === 0 || in_array(
             $queryParameters->get($value['parameter_name']),
             $parameterValues,
-            true
+            true,
         );
     }
 }

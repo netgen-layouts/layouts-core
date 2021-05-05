@@ -16,8 +16,8 @@ final class ViewException extends RuntimeException implements Exception
             sprintf(
                 'Parameter with "%s" name was not found in "%s" view.',
                 $parameterName,
-                $viewType
-            )
+                $viewType,
+            ),
         );
     }
 }

@@ -23,7 +23,7 @@ final class SerializerTest extends TestCase
     {
         $this->serializer = new Serializer(
             new OutputVisitor([new VisitorStub()]),
-            new Container(['entity' => new EntityHandlerStub()])
+            new Container(['entity' => new EntityHandlerStub()]),
         );
     }
 
@@ -46,7 +46,7 @@ final class SerializerTest extends TestCase
                     ['visited_key' => 'visited_value'],
                 ],
             ],
-            $this->serializer->serialize([$uuid1->toString() => 'entity', $uuid2->toString() => 'entity'])
+            $this->serializer->serialize([$uuid1->toString() => 'entity', $uuid2->toString() => 'entity']),
         );
     }
 
@@ -62,7 +62,7 @@ final class SerializerTest extends TestCase
 
         $this->serializer = new Serializer(
             new OutputVisitor([new VisitorStub()]),
-            new Container()
+            new Container(),
         );
 
         $uuid1 = Uuid::uuid4();
@@ -83,7 +83,7 @@ final class SerializerTest extends TestCase
 
         $this->serializer = new Serializer(
             new OutputVisitor([new VisitorStub()]),
-            new Container(['entity' => new stdClass()])
+            new Container(['entity' => new stdClass()]),
         );
 
         $uuid1 = Uuid::uuid4();

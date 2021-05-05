@@ -41,7 +41,7 @@ final class ParameterStructTraitTest extends TestCase
             [
                 'some_param' => 'some_value',
                 'some_other_param' => 'some_other_value',
-            ]
+            ],
         );
 
         self::assertSame(
@@ -49,7 +49,7 @@ final class ParameterStructTraitTest extends TestCase
                 'some_param' => 'some_value',
                 'some_other_param' => 'some_other_value',
             ],
-            $this->struct->getParameterValues()
+            $this->struct->getParameterValues(),
         );
     }
 
@@ -66,7 +66,7 @@ final class ParameterStructTraitTest extends TestCase
                 'some_param' => 'some_value',
                 'some_other_param' => 'some_other_value',
             ],
-            $this->struct->getParameterValues()
+            $this->struct->getParameterValues(),
         );
     }
 
@@ -135,7 +135,7 @@ final class ParameterStructTraitTest extends TestCase
                 'compound' => true,
                 'inner' => 'inner_default',
             ],
-            $this->struct->getParameterValues()
+            $this->struct->getParameterValues(),
         );
     }
 
@@ -156,16 +156,16 @@ final class ParameterStructTraitTest extends TestCase
                         [
                             'value' => 'css',
                             'parameterDefinition' => $parameterDefinitions->getParameterDefinition('css_class'),
-                        ]
+                        ],
                     ),
                     'inner' => Parameter::fromArray(
                         [
                             'value' => 'inner',
                             'parameterDefinition' => $compoundParameter->getParameterDefinition('inner'),
-                        ]
+                        ],
                     ),
                 ],
-            ]
+            ],
         );
 
         $this->struct->fillParametersFromCollection($parameterDefinitions, $parameters);
@@ -177,7 +177,7 @@ final class ParameterStructTraitTest extends TestCase
                 'compound' => null,
                 'inner' => 'inner',
             ],
-            $this->struct->getParameterValues()
+            $this->struct->getParameterValues(),
         );
     }
 
@@ -204,7 +204,7 @@ final class ParameterStructTraitTest extends TestCase
                 'compound' => false,
                 'inner' => 'inner',
             ],
-            $this->struct->getParameterValues()
+            $this->struct->getParameterValues(),
         );
     }
 
@@ -229,7 +229,7 @@ final class ParameterStructTraitTest extends TestCase
                 'compound' => true,
                 'inner' => 'inner',
             ],
-            $this->struct->getParameterValues()
+            $this->struct->getParameterValues(),
         );
     }
 
@@ -256,7 +256,7 @@ final class ParameterStructTraitTest extends TestCase
                 'compound' => false,
                 'inner' => 'inner',
             ],
-            $this->struct->getParameterValues()
+            $this->struct->getParameterValues(),
         );
     }
 
@@ -281,7 +281,7 @@ final class ParameterStructTraitTest extends TestCase
                 'compound' => true,
                 'inner' => 'inner',
             ],
-            $this->struct->getParameterValues()
+            $this->struct->getParameterValues(),
         );
     }
 
@@ -300,10 +300,10 @@ final class ParameterStructTraitTest extends TestCase
                             'type' => new ParameterType\TextLineType(),
                             'isRequired' => false,
                             'defaultValue' => 'inner_default',
-                        ]
+                        ],
                     ),
                 ],
-            ]
+            ],
         );
 
         $parameterDefinitions = [
@@ -313,7 +313,7 @@ final class ParameterStructTraitTest extends TestCase
                     'type' => new ParameterType\TextLineType(),
                     'isRequired' => false,
                     'defaultValue' => 'css_default',
-                ]
+                ],
             ),
             'css_id' => ParameterDefinition::fromArray(
                 [
@@ -321,7 +321,7 @@ final class ParameterStructTraitTest extends TestCase
                     'type' => new ParameterType\TextLineType(),
                     'isRequired' => false,
                     'defaultValue' => 'id_default',
-                ]
+                ],
             ),
             'compound' => $compoundParameter,
         ];

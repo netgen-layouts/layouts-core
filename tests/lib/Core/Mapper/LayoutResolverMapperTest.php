@@ -45,7 +45,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
                 'enabled' => true,
                 'priority' => 12,
                 'description' => 'Description',
-            ]
+            ],
         );
 
         $rule = $this->mapper->mapRule($persistenceRule);
@@ -78,7 +78,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
                 'enabled' => true,
                 'priority' => 12,
                 'description' => 'Description',
-            ]
+            ],
         );
 
         $rule = $this->mapper->mapRule($persistenceRule);
@@ -105,7 +105,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
                 'description' => 'Description',
                 'enabled' => true,
                 'priority' => 1,
-            ]
+            ],
         );
 
         $ruleGroup = $this->mapper->mapRuleGroup($persistenceRuleGroup);
@@ -137,14 +137,14 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
                 'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
                 'type' => 'target1',
                 'value' => 42,
-            ]
+            ],
         );
 
         $target = $this->mapper->mapTarget($persistenceTarget);
 
         self::assertSame(
             $this->targetTypeRegistry->getTargetType('target1'),
-            $target->getTargetType()
+            $target->getTargetType(),
         );
 
         self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $target->getId()->toString());
@@ -167,7 +167,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
                 'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
                 'type' => 'unknown',
                 'value' => 42,
-            ]
+            ],
         );
 
         $target = $this->mapper->mapTarget($persistenceTarget);
@@ -194,14 +194,14 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
                 'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
                 'type' => 'condition1',
                 'value' => 42,
-            ]
+            ],
         );
 
         $condition = $this->mapper->mapRuleCondition($persistenceCondition);
 
         self::assertSame(
             $this->conditionTypeRegistry->getConditionType('condition1'),
-            $condition->getConditionType()
+            $condition->getConditionType(),
         );
 
         self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $condition->getId()->toString());
@@ -224,7 +224,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
                 'ruleUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
                 'type' => 'unknown',
                 'value' => 42,
-            ]
+            ],
         );
 
         $condition = $this->mapper->mapRuleCondition($persistenceCondition);
@@ -251,14 +251,14 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
                 'ruleGroupUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
                 'type' => 'condition1',
                 'value' => 42,
-            ]
+            ],
         );
 
         $condition = $this->mapper->mapRuleGroupCondition($persistenceCondition);
 
         self::assertSame(
             $this->conditionTypeRegistry->getConditionType('condition1'),
-            $condition->getConditionType()
+            $condition->getConditionType(),
         );
 
         self::assertSame('81168ed3-86f9-55ea-b153-101f96f2c136', $condition->getId()->toString());
@@ -281,7 +281,7 @@ abstract class LayoutResolverMapperTest extends CoreTestCase
                 'ruleGroupUuid' => '23eece92-8cce-5155-9fef-58fb5e3decd6',
                 'type' => 'unknown',
                 'value' => 42,
-            ]
+            ],
         );
 
         $condition = $this->mapper->mapRuleGroupCondition($persistenceCondition);

@@ -18,7 +18,7 @@ final class ItemExceptionTest extends TestCase
 
         self::assertSame(
             'Value type "type" does not exist.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 
@@ -31,7 +31,7 @@ final class ItemExceptionTest extends TestCase
 
         self::assertSame(
             'Value loader for "type" value type does not exist.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 
@@ -44,7 +44,7 @@ final class ItemExceptionTest extends TestCase
 
         self::assertSame(
             'Value URL generator for "type" value type does not exist.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 
@@ -57,7 +57,7 @@ final class ItemExceptionTest extends TestCase
 
         self::assertSame(
             'Value with (remote) ID 42 does not exist.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 
@@ -70,7 +70,7 @@ final class ItemExceptionTest extends TestCase
 
         self::assertSame(
             'Item "type" is not valid.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 
@@ -83,7 +83,7 @@ final class ItemExceptionTest extends TestCase
 
         self::assertSame(
             'Item could not be loaded.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 }

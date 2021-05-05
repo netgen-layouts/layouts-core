@@ -22,13 +22,13 @@ final class RestoreTest extends JsonApiTestCase
             [],
             [],
             [],
-            $this->jsonEncode([])
+            $this->jsonEncode([]),
         );
 
         $this->assertResponse(
             $this->client->getResponse(),
             'blocks/restore_block',
-            Response::HTTP_OK
+            Response::HTTP_OK,
         );
     }
 
@@ -43,13 +43,13 @@ final class RestoreTest extends JsonApiTestCase
             [],
             [],
             [],
-            $this->jsonEncode([])
+            $this->jsonEncode([]),
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find block with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"'
+            'Could not find block with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"',
         );
     }
 }

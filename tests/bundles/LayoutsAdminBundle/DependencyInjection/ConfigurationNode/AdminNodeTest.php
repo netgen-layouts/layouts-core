@@ -41,7 +41,7 @@ final class AdminNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'admin.javascripts'
+            'admin.javascripts',
         );
     }
 
@@ -65,7 +65,7 @@ final class AdminNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'admin.javascripts'
+            'admin.javascripts',
         );
     }
 
@@ -145,7 +145,7 @@ final class AdminNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'admin.stylesheets'
+            'admin.stylesheets',
         );
     }
 
@@ -169,7 +169,7 @@ final class AdminNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'admin.stylesheets'
+            'admin.stylesheets',
         );
     }
 

@@ -39,12 +39,12 @@ final class BlockUpdateStructValidatorTest extends ValidatorTestCase
                                     'itemViewTypes' => [
                                         'standard' => new ItemViewType(),
                                     ],
-                                ]
+                                ],
                             ),
                         ],
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         parent::setUp();

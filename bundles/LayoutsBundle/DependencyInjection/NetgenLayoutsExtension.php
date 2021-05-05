@@ -82,8 +82,8 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
             throw new RuntimeException(
                 sprintf(
                     'Extension plugin "%s" does not exist',
-                    $pluginName
-                )
+                    $pluginName,
+                ),
             );
         }
 
@@ -139,7 +139,7 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
     {
         $container->setParameter(
             'netgen_layouts.asset_version',
-            PrettyVersions::getVersion('netgen/layouts-core')->getShortReference()
+            PrettyVersions::getVersion('netgen/layouts-core')->getShortReference(),
         );
 
         $prependConfigs = [
@@ -195,8 +195,8 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
                 [
                     new GlobFileLoader($container, $locator),
                     new YamlFileLoader($container, $locator),
-                ]
-            )
+                ],
+            ),
         );
 
         $loader->load('default_settings.yaml');
@@ -218,8 +218,8 @@ final class NetgenLayoutsExtension extends Extension implements PrependExtension
                 sprintf(
                     'Design "%s" does not exist. Available designs are: %s',
                     $currentDesign,
-                    implode(', ', $designList)
-                )
+                    implode(', ', $designList),
+                ),
             );
         }
     }

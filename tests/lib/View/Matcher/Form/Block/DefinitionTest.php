@@ -45,9 +45,9 @@ final class DefinitionTest extends TestCase
                 'block' => Block::fromArray(
                     [
                         'definition' => BlockDefinition::fromArray(['identifier' => 'block']),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         self::assertSame($expected, $this->matcher->match(new FormView($form), $config));
@@ -66,9 +66,9 @@ final class DefinitionTest extends TestCase
                 'block' => Block::fromArray(
                     [
                         'definition' => new NullBlockDefinition('definition'),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         self::assertTrue($this->matcher->match(new FormView($form), ['null']));
@@ -87,9 +87,9 @@ final class DefinitionTest extends TestCase
                 'block' => Block::fromArray(
                     [
                         'definition' => new NullBlockDefinition('definition'),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         self::assertFalse($this->matcher->match(new FormView($form), ['test']));

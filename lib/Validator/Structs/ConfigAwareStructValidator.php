@@ -29,7 +29,7 @@ final class ConfigAwareStructValidator extends ConstraintValidator
         if (!$constraint->payload instanceof ConfigDefinitionAwareInterface && !is_array($constraint->payload)) {
             throw new UnexpectedTypeException(
                 $constraint->payload,
-                sprintf('%s or %s', ConfigDefinitionAwareInterface::class, 'array')
+                sprintf('%s or %s', ConfigDefinitionAwareInterface::class, 'array'),
             );
         }
 
@@ -60,9 +60,9 @@ final class ConfigAwareStructValidator extends ConstraintValidator
                         [
                             'parameterDefinitions' => $configDefinitions[$configKey],
                             'allowMissingFields' => $constraint->allowMissingFields,
-                        ]
+                        ],
                     ),
-                ]
+                ],
             );
         }
     }

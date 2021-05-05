@@ -33,7 +33,7 @@ final class FOSHostHeaderProviderPassTest extends AbstractContainerBuilderTestCa
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_layouts.http_cache.varnish.host_header_provider.fos',
             0,
-            ['http://localhost:4242', 'http://localhost:2424']
+            ['http://localhost:4242', 'http://localhost:2424'],
         );
     }
 
@@ -54,7 +54,7 @@ final class FOSHostHeaderProviderPassTest extends AbstractContainerBuilderTestCa
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_layouts.http_cache.varnish.host_header_provider.fos',
             0,
-            ['http://localhost:4242', 'http://localhost:2424']
+            ['http://localhost:4242', 'http://localhost:2424'],
         );
     }
 
@@ -69,7 +69,7 @@ final class FOSHostHeaderProviderPassTest extends AbstractContainerBuilderTestCa
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_layouts.http_cache.varnish.host_header_provider.fos',
-            0
+            0,
         );
     }
 

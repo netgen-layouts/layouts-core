@@ -43,7 +43,7 @@ final class FormViewProviderTest extends TestCase
                 'form_object' => $form,
                 'form' => $formView,
             ],
-            $view->getParameters()
+            $view->getParameters(),
         );
     }
 

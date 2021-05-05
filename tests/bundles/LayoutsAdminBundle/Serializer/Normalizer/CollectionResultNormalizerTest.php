@@ -54,9 +54,9 @@ final class CollectionResultNormalizerTest extends TestCase
                         'name' => 'Value name',
                         'valueType' => 'value_type',
                         'isVisible' => true,
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $serializedConfig = [
@@ -95,7 +95,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'slot_id' => $slotUuid->toString(),
                 'slot_view_type' => 'standard',
             ],
-            $this->normalizer->normalize(new Value($result))
+            $this->normalizer->normalize(new Value($result)),
         );
     }
 
@@ -117,9 +117,9 @@ final class CollectionResultNormalizerTest extends TestCase
                         'name' => 'Value name',
                         'valueType' => 'value_type',
                         'isVisible' => true,
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $serializedConfig = [
@@ -157,7 +157,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'slot_id' => null,
                 'slot_view_type' => null,
             ],
-            $this->normalizer->normalize(new Value($result))
+            $this->normalizer->normalize(new Value($result)),
         );
     }
 
@@ -172,7 +172,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'name' => 'Value name',
                 'valueType' => 'value_type',
                 'isVisible' => true,
-            ]
+            ],
         );
 
         $result = new Result(3, $item);
@@ -204,7 +204,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'slot_id' => null,
                 'slot_view_type' => null,
             ],
-            $this->normalizer->normalize(new Value($result))
+            $this->normalizer->normalize(new Value($result)),
         );
     }
 
@@ -219,7 +219,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'name' => 'Value name',
                 'valueType' => 'value_type',
                 'isVisible' => true,
-            ]
+            ],
         );
 
         $collectionItem = Item::fromArray(
@@ -228,7 +228,7 @@ final class CollectionResultNormalizerTest extends TestCase
                 'collectionId' => Uuid::uuid4(),
                 'viewType' => 'overlay',
                 'cmsItem' => $item,
-            ]
+            ],
         );
 
         $serializedConfig = [
@@ -242,7 +242,7 @@ final class CollectionResultNormalizerTest extends TestCase
             ->method('normalize')
             ->willReturnOnConsecutiveCalls(
                 [],
-                $serializedConfig
+                $serializedConfig,
             );
 
         $result = new Result(3, new ManualItem($collectionItem), $item);
@@ -282,7 +282,7 @@ final class CollectionResultNormalizerTest extends TestCase
                     'config' => $serializedConfig,
                 ],
             ],
-            $this->normalizer->normalize(new Value($result))
+            $this->normalizer->normalize(new Value($result)),
         );
     }
 

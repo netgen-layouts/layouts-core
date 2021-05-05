@@ -89,7 +89,7 @@ final class DateTimeTypeTest extends TestCase
             [
                 'datetime' => '2018-02-01 15:00:00.000000',
                 'timezone' => 'Antarctica/Casey',
-            ]
+            ],
         );
 
         self::assertInstanceOf(DateTimeImmutable::class, $convertedValue);

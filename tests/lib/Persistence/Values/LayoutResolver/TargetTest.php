@@ -24,7 +24,7 @@ final class TargetTest extends TestCase
                 'type' => 'target',
                 'value' => 32,
                 'status' => Value::STATUS_PUBLISHED,
-            ]
+            ],
         );
 
         self::assertSame(42, $target->id);

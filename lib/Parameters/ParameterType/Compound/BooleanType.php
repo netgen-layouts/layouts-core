@@ -37,7 +37,7 @@ final class BooleanType extends CompoundParameterType
             'default_value',
             static fn (Options $options, $previousValue) => $options['required'] === true ?
                     false :
-                    $previousValue
+                    $previousValue,
         );
     }
 

@@ -61,11 +61,11 @@ final class BlockServiceTest extends TestCase
                                 'itemViewTypes' => [
                                     'standard' => new ItemViewType(),
                                 ],
-                            ]
+                            ],
                         ),
                     ],
-                ]
-            )
+                ],
+            ),
         );
 
         $this->blockService->createBlock(
@@ -78,11 +78,11 @@ final class BlockServiceTest extends TestCase
                     'definition' => ContainerDefinition::fromArray(
                         [
                             'handler' => new ContainerDefinitionHandler([], ['main']),
-                        ]
+                        ],
                     ),
-                ]
+                ],
             ),
-            'main'
+            'main',
         );
     }
 
@@ -126,16 +126,16 @@ final class BlockServiceTest extends TestCase
                                 'itemViewTypes' => [
                                     'standard' => new ItemViewType(),
                                 ],
-                            ]
+                            ],
                         ),
                     ],
-                ]
-            )
+                ],
+            ),
         );
 
         $this->blockService->createBlockInZone(
             $createStruct,
-            Zone::fromArray(['layoutId' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT, 'identifier' => 'left'])
+            Zone::fromArray(['layoutId' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT, 'identifier' => 'left']),
         );
     }
 
@@ -153,7 +153,7 @@ final class BlockServiceTest extends TestCase
                 'mainLocale' => 'en',
                 'availableLocales' => ['en'],
                 'parameters' => ['en' => []],
-            ]
+            ],
         );
 
         $this->blockHandler
@@ -178,9 +178,9 @@ final class BlockServiceTest extends TestCase
                     'status' => Value::STATUS_DRAFT,
                     'definition' => new BlockDefinition(),
                     'configs' => [],
-                ]
+                ],
             ),
-            $struct
+            $struct,
         );
     }
 
@@ -217,11 +217,11 @@ final class BlockServiceTest extends TestCase
                     'definition' => ContainerDefinition::fromArray(
                         [
                             'handler' => new ContainerDefinitionHandler([], ['main']),
-                        ]
+                        ],
                     ),
-                ]
+                ],
             ),
-            'main'
+            'main',
         );
     }
 
@@ -259,7 +259,7 @@ final class BlockServiceTest extends TestCase
 
         $this->blockService->copyBlockToZone(
             Block::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT, 'definition' => new BlockDefinition()]),
-            Zone::fromArray(['layoutId' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT, 'identifier' => 'left'])
+            Zone::fromArray(['layoutId' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT, 'identifier' => 'left']),
         );
     }
 
@@ -276,7 +276,7 @@ final class BlockServiceTest extends TestCase
             ->method('loadBlock')
             ->willReturnOnConsecutiveCalls(
                 PersistenceBlock::fromArray(['parentId' => 1, 'placeholder' => 'main', 'layoutId' => 42]),
-                PersistenceBlock::fromArray(['id' => 1, 'layoutId' => 42])
+                PersistenceBlock::fromArray(['id' => 1, 'layoutId' => 42]),
             );
 
         $this->blockHandler
@@ -296,12 +296,12 @@ final class BlockServiceTest extends TestCase
                     'definition' => ContainerDefinition::fromArray(
                         [
                             'handler' => new ContainerDefinitionHandler([], ['main']),
-                        ]
+                        ],
                     ),
-                ]
+                ],
             ),
             'main',
-            0
+            0,
         );
     }
 
@@ -318,7 +318,7 @@ final class BlockServiceTest extends TestCase
             ->method('loadBlock')
             ->willReturnOnConsecutiveCalls(
                 PersistenceBlock::fromArray(['parentId' => 1, 'placeholder' => 'root', 'layoutId' => 42]),
-                PersistenceBlock::fromArray(['id' => 1, 'layoutId' => 42])
+                PersistenceBlock::fromArray(['id' => 1, 'layoutId' => 42]),
             );
 
         $this->layoutHandler
@@ -340,7 +340,7 @@ final class BlockServiceTest extends TestCase
         $this->blockService->moveBlockToZone(
             Block::fromArray(['id' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT, 'definition' => new BlockDefinition()]),
             Zone::fromArray(['layoutId' => Uuid::uuid4(), 'status' => Value::STATUS_DRAFT, 'identifier' => 'left']),
-            0
+            0,
         );
     }
 
@@ -383,7 +383,7 @@ final class BlockServiceTest extends TestCase
             ->method('loadBlock')
             ->willReturnOnConsecutiveCalls(
                 PersistenceBlock::fromArray(['isTranslatable' => false, 'parentId' => 42, 'layoutId' => 24]),
-                PersistenceBlock::fromArray(['isTranslatable' => true, 'depth' => 1])
+                PersistenceBlock::fromArray(['isTranslatable' => true, 'depth' => 1]),
             );
 
         $this->layoutHandler

@@ -28,7 +28,7 @@ final class Restore extends AbstractController
             [
                 'block_definition' => $block->getDefinition(),
                 'layout' => $block->getLayoutId()->toString(),
-            ]
+            ],
         );
 
         $restoredBlock = $this->blockService->restoreBlock($block);

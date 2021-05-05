@@ -33,10 +33,10 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
                     'config' => ConfigDefinition::fromArray(
                         [
                             'parameterDefinitions' => $handler->getParameterDefinitions(),
-                        ]
+                        ],
                     ),
                 ],
-            ]
+            ],
         );
 
         parent::setUp();
@@ -104,7 +104,7 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
                                     'param' => 'value',
                                 ],
                             ],
-                            new ConfigStruct()
+                            new ConfigStruct(),
                         ),
                         'other' => (new Hydrator())->hydrate(
                             [
@@ -112,7 +112,7 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
                                     'param' => null,
                                 ],
                             ],
-                            new ConfigStruct()
+                            new ConfigStruct(),
                         ),
                     ],
                 ],
@@ -127,7 +127,7 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
                                     'param' => 'value',
                                 ],
                             ],
-                            new ConfigStruct()
+                            new ConfigStruct(),
                         ),
                     ],
                 ],
@@ -142,7 +142,7 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
                                     'param' => null,
                                 ],
                             ],
-                            new ConfigStruct()
+                            new ConfigStruct(),
                         ),
                     ],
                 ],
@@ -157,7 +157,7 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
                                     'param' => 42,
                                 ],
                             ],
-                            new ConfigStruct()
+                            new ConfigStruct(),
                         ),
                     ],
                 ],
@@ -170,7 +170,7 @@ final class ConfigAwareStructValidatorTest extends ValidatorTestCase
                             [
                                 'parameterValues' => [],
                             ],
-                            new ConfigStruct()
+                            new ConfigStruct(),
                         ),
                     ],
                 ],

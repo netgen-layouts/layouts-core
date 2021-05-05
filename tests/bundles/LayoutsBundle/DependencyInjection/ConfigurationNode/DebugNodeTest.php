@@ -35,7 +35,7 @@ final class DebugNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'debug'
+            'debug',
         );
     }
 
@@ -58,7 +58,7 @@ final class DebugNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'debug'
+            'debug',
         );
     }
 
@@ -76,7 +76,7 @@ final class DebugNodeTest extends TestCase
         $this->assertConfigurationIsInvalid(
             $config,
             '/^Invalid type for path "netgen_layouts.debug". Expected "?bool(ean)?"?, but got "?array"?.$/',
-            true
+            true,
         );
     }
 

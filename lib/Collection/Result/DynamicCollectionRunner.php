@@ -89,7 +89,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
                 $collectionItem->getPosition(),
                 $queryValue,
                 new ManualItem($collectionItem),
-                $collection->getSlot($collectionItem->getPosition())
+                $collection->getSlot($collectionItem->getPosition()),
             );
         }
 
@@ -97,7 +97,7 @@ final class DynamicCollectionRunner implements CollectionRunnerInterface
             $collectionItem->getPosition(),
             new ManualItem($collectionItem),
             null,
-            $collection->getSlot($collectionItem->getPosition())
+            $collection->getSlot($collectionItem->getPosition()),
         );
     }
 

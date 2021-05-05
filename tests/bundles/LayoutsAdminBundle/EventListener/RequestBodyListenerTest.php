@@ -39,7 +39,7 @@ final class RequestBodyListenerTest extends TestCase
     {
         self::assertSame(
             [KernelEvents::REQUEST => 'onKernelRequest'],
-            $this->listener::getSubscribedEvents()
+            $this->listener::getSubscribedEvents(),
         );
     }
 

@@ -52,7 +52,7 @@ final class QueryTypeHandler implements QueryTypeHandlerInterface
                     'options' => [
                         'translatable' => false,
                     ],
-                ]
+                ],
             ),
             'param2' => ParameterDefinition::fromArray(
                 [
@@ -62,7 +62,7 @@ final class QueryTypeHandler implements QueryTypeHandlerInterface
                     'options' => [
                         'translatable' => true,
                     ],
-                ]
+                ],
             ),
         ];
     }

@@ -24,8 +24,8 @@ final class ConfigListTest extends TestCase
             sprintf(
                 '/(must be an instance of|must be of type) %s, (instance of )?%s given/',
                 str_replace('\\', '\\\\', Config::class),
-                stdClass::class
-            )
+                stdClass::class,
+            ),
         );
 
         new ConfigList(['key1' => new Config(), 'key2' => new stdClass(), 'key3' => new Config()]);

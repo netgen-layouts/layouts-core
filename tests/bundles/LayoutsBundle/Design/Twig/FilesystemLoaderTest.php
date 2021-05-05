@@ -32,7 +32,7 @@ final class FilesystemLoaderTest extends TestCase
 
         $this->loader = new FilesystemLoader(
             $this->innerLoaderMock,
-            $this->configurationMock
+            $this->configurationMock,
         );
     }
 

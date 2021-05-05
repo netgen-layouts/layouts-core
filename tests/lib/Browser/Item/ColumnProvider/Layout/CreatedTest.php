@@ -34,13 +34,13 @@ final class CreatedTest extends TestCase
             Layout::fromArray(
                 [
                     'created' => $date,
-                ]
-            )
+                ],
+            ),
         );
 
         self::assertSame(
             '17.07.2016 18:15:42',
-            $this->provider->getValue($item)
+            $this->provider->getValue($item),
         );
     }
 

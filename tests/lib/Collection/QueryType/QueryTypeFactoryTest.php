@@ -40,7 +40,7 @@ final class QueryTypeFactoryTest extends TestCase
             [
                 'enabled' => false,
                 'name' => 'Query type',
-            ]
+            ],
         );
 
         self::assertSame('type', $queryType->getType());
@@ -60,7 +60,7 @@ final class QueryTypeFactoryTest extends TestCase
             $this->createMock(QueryTypeHandlerInterface::class),
             [
                 'enabled' => true,
-            ]
+            ],
         );
 
         self::assertSame('type', $queryType->getType());

@@ -27,7 +27,7 @@ final class ItemLinkDataMapperTest extends DataMapperTest
             [
                 'item_value' => $this->getForm('item_value'),
                 'item_type' => $this->getForm('item_type'),
-            ]
+            ],
         );
 
         $this->mapper->mapDataToForms('value://42', $forms);
@@ -51,7 +51,7 @@ final class ItemLinkDataMapperTest extends DataMapperTest
             [
                 'item_value' => $this->getForm('item_value'),
                 'item_type' => $this->getForm('item_type'),
-            ]
+            ],
         );
 
         $this->mapper->mapDataToForms('value://', $forms);
@@ -75,7 +75,7 @@ final class ItemLinkDataMapperTest extends DataMapperTest
             [
                 'item_value' => $this->getForm('item_value'),
                 'item_type' => $this->getForm('item_type'),
-            ]
+            ],
         );
 
         $this->mapper->mapDataToForms(42, $forms);
@@ -99,7 +99,7 @@ final class ItemLinkDataMapperTest extends DataMapperTest
             [
                 'item_value' => $this->getForm('item_value', '42'),
                 'item_type' => $this->getForm('item_type', 'value'),
-            ]
+            ],
         );
 
         $this->mapper->mapFormsToData($forms, $data);
@@ -116,7 +116,7 @@ final class ItemLinkDataMapperTest extends DataMapperTest
             [
                 'item_value' => $this->getForm('item_value'),
                 'item_type' => $this->getForm('item_type', 'value'),
-            ]
+            ],
         );
 
         $this->mapper->mapFormsToData($forms, $data);
@@ -133,7 +133,7 @@ final class ItemLinkDataMapperTest extends DataMapperTest
             [
                 'item_value' => $this->getForm('item_value', '42'),
                 'item_type' => $this->getForm('item_type'),
-            ]
+            ],
         );
 
         $this->mapper->mapFormsToData($forms, $data);

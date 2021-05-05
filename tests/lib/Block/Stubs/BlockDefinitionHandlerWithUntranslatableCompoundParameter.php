@@ -50,10 +50,10 @@ final class BlockDefinitionHandlerWithUntranslatableCompoundParameter extends Ba
                             'options' => [
                                 'translatable' => false,
                             ],
-                        ]
+                        ],
                     ),
                 ],
-            ]
+            ],
         );
 
         return [
@@ -67,7 +67,7 @@ final class BlockDefinitionHandlerWithUntranslatableCompoundParameter extends Ba
                     'options' => [
                         'translatable' => true,
                     ],
-                ]
+                ],
             ),
             'other' => ParameterDefinition::fromArray(
                 [
@@ -78,7 +78,7 @@ final class BlockDefinitionHandlerWithUntranslatableCompoundParameter extends Ba
                     'options' => [
                         'translatable' => false,
                     ],
-                ]
+                ],
             ),
             'css_id' => ParameterDefinition::fromArray(
                 [
@@ -89,7 +89,7 @@ final class BlockDefinitionHandlerWithUntranslatableCompoundParameter extends Ba
                     'options' => [
                         'translatable' => false,
                     ],
-                ]
+                ],
             ),
             'compound' => $compoundParam,
         ];

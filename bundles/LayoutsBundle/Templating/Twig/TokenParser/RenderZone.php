@@ -35,10 +35,10 @@ final class RenderZone extends AbstractTokenParser
                 sprintf(
                     'Unexpected token "%s" of value "%s".',
                     Token::typeToEnglish($token->getType()),
-                    $token->getValue()
+                    $token->getValue(),
                 ),
                 $token->getLine(),
-                $stream->getSourceContext()
+                $stream->getSourceContext(),
             );
         }
 

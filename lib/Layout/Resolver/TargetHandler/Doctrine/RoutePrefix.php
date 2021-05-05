@@ -18,18 +18,18 @@ final class RoutePrefix implements TargetHandlerInterface
             $query->expr()->and(
                 $query->expr()->gt(
                     $databasePlatform->getLengthExpression(
-                        $databasePlatform->getTrimExpression('rt.value')
+                        $databasePlatform->getTrimExpression('rt.value'),
                     ),
-                    0
+                    0,
                 ),
                 $query->expr()->like(
                     ':target_value',
                     $databasePlatform->getConcatExpression(
                         $databasePlatform->getTrimExpression('rt.value'),
-                        "'%'"
-                    )
-                )
-            )
+                        "'%'",
+                    ),
+                ),
+            ),
         )
         ->setParameter('target_value', $value, Types::STRING);
     }

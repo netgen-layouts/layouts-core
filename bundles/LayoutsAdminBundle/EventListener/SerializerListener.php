@@ -48,7 +48,7 @@ final class SerializerListener implements EventSubscriberInterface
 
         $response = new JsonResponse(null, $value->getStatusCode());
         $response->setContent(
-            $this->serializer->serialize($value, 'json', $context)
+            $this->serializer->serialize($value, 'json', $context),
         );
 
         $event->setResponse($response);

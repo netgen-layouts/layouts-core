@@ -57,7 +57,7 @@ final class LayoutTypeNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'layout_types'
+            'layout_types',
         );
     }
 
@@ -87,7 +87,7 @@ final class LayoutTypeNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'layout_types.*.icon'
+            'layout_types.*.icon',
         );
     }
 
@@ -119,7 +119,7 @@ final class LayoutTypeNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'layout_types.*.icon'
+            'layout_types.*.icon',
         );
     }
 
@@ -182,7 +182,7 @@ final class LayoutTypeNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'layout_types.*.zones'
+            'layout_types.*.zones',
         );
     }
 
@@ -223,7 +223,7 @@ final class LayoutTypeNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'layout_types.*.zones.*.allowed_block_definitions'
+            'layout_types.*.zones.*.allowed_block_definitions',
         );
     }
 
@@ -264,7 +264,7 @@ final class LayoutTypeNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'layout_types.*.zones.*.allowed_block_definitions'
+            'layout_types.*.zones.*.allowed_block_definitions',
         );
     }
 

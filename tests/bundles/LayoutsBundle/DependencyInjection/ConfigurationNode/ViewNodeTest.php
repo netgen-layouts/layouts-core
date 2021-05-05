@@ -63,7 +63,7 @@ final class ViewNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'view'
+            'view',
         );
     }
 
@@ -104,7 +104,7 @@ final class ViewNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'view.*.*.*.match'
+            'view.*.*.*.match',
         );
     }
 
@@ -145,7 +145,7 @@ final class ViewNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'view.*.*.*.match'
+            'view.*.*.*.match',
         );
     }
 
@@ -184,7 +184,7 @@ final class ViewNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'view.*.*.*.parameters'
+            'view.*.*.*.parameters',
         );
     }
 

@@ -33,7 +33,7 @@ final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
                     'enabled' => true,
                     'block_types' => [],
                 ],
-            ]
+            ],
         );
 
         $this->setParameter('netgen_layouts.block_types', []);
@@ -48,7 +48,7 @@ final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
             0,
             [
                 'test' => new Reference('netgen_layouts.block.block_type_group.test'),
-            ]
+            ],
         );
     }
 
@@ -66,7 +66,7 @@ final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
                     'enabled' => true,
                     'block_types' => ['test1', 'test2'],
                 ],
-            ]
+            ],
         );
 
         $this->setParameter(
@@ -75,7 +75,7 @@ final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
                 'test1' => [
                     'enabled' => true,
                 ],
-            ]
+            ],
         );
 
         $this->setDefinition('netgen_layouts.block.block_type.test1', new Definition());
@@ -89,7 +89,7 @@ final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
             2,
             [
                 new Reference('netgen_layouts.block.block_type.test1'),
-            ]
+            ],
         );
     }
 
@@ -111,7 +111,7 @@ final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
                     'enabled' => true,
                     'block_types' => [],
                 ],
-            ]
+            ],
         );
 
         $this->setParameter(
@@ -129,7 +129,7 @@ final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
                     'enabled' => true,
                     'definition_identifier' => 'test',
                 ],
-            ]
+            ],
         );
 
         $this->setDefinition('netgen_layouts.block.block_type.test1', new Definition());
@@ -148,7 +148,7 @@ final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
                 'enabled' => true,
                 'block_types' => ['test2', 'test3'],
             ],
-            $blockTypeGroups['custom']
+            $blockTypeGroups['custom'],
         );
     }
 
@@ -166,7 +166,7 @@ final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
                     'enabled' => false,
                     'block_types' => [],
                 ],
-            ]
+            ],
         );
 
         $this->setParameter('netgen_layouts.block_types', []);
@@ -184,7 +184,7 @@ final class BlockTypeGroupPassTest extends AbstractContainerBuilderTestCase
                 'enabled' => false,
                 'block_types' => [],
             ],
-            $blockTypeGroups['test']
+            $blockTypeGroups['test'],
         );
     }
 

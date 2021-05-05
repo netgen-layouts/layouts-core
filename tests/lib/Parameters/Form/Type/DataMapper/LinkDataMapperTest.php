@@ -28,9 +28,9 @@ final class LinkDataMapperTest extends DataMapperTest
             [
                 'type' => new LinkType(
                     new ValueTypeRegistry([]),
-                    new RemoteIdConverter($this->createMock(CmsItemLoaderInterface::class))
+                    new RemoteIdConverter($this->createMock(CmsItemLoaderInterface::class)),
                 ),
-            ]
+            ],
         );
 
         $this->mapper = new LinkDataMapper($parameterDefinition);
@@ -48,7 +48,7 @@ final class LinkDataMapperTest extends DataMapperTest
                 'link' => 'https://netgen.io',
                 'linkSuffix' => '?suffix',
                 'newWindow' => true,
-            ]
+            ],
         );
 
         $forms = new ArrayIterator(
@@ -57,7 +57,7 @@ final class LinkDataMapperTest extends DataMapperTest
                 'link_suffix' => $this->getForm('link_suffix'),
                 'new_window' => $this->getForm('new_window'),
                 'url' => $this->getForm('url'),
-            ]
+            ],
         );
 
         $this->mapper->mapDataToForms($linkValue, $forms);
@@ -90,7 +90,7 @@ final class LinkDataMapperTest extends DataMapperTest
                 'link_type' => $this->getForm('link_type'),
                 'link_suffix' => $this->getForm('link_suffix'),
                 'new_window' => $this->getForm('new_window'),
-            ]
+            ],
         );
 
         $this->mapper->mapDataToForms($linkValue, $forms);
@@ -119,7 +119,7 @@ final class LinkDataMapperTest extends DataMapperTest
                 'link_suffix' => $this->getForm('link_suffix', '?suffix'),
                 'new_window' => $this->getForm('new_window', '1'),
                 'url' => $this->getForm('url', 'https://netgen.io'),
-            ]
+            ],
         );
 
         $this->mapper->mapFormsToData($forms, $data);
@@ -133,7 +133,7 @@ final class LinkDataMapperTest extends DataMapperTest
                 'linkSuffix' => '?suffix',
                 'newWindow' => true,
             ],
-            $this->exportObject($data)
+            $this->exportObject($data),
         );
     }
 
@@ -147,7 +147,7 @@ final class LinkDataMapperTest extends DataMapperTest
                 'link_type' => $this->getForm('link_type'),
                 'link_suffix' => $this->getForm('link_suffix'),
                 'new_window' => $this->getForm('new_window'),
-            ]
+            ],
         );
 
         $this->mapper->mapFormsToData($forms, $data);
@@ -161,7 +161,7 @@ final class LinkDataMapperTest extends DataMapperTest
                 'linkSuffix' => null,
                 'newWindow' => false,
             ],
-            $this->exportObject($data)
+            $this->exportObject($data),
         );
     }
 }

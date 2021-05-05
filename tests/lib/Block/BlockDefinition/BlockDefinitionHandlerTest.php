@@ -32,11 +32,11 @@ final class BlockDefinitionHandlerTest extends TestCase
             [
                 new ParameterType\TextLineType(),
                 new ParameterType\BooleanType(),
-            ]
+            ],
         );
 
         $this->parameterBuilderFactory = new TranslatableParameterBuilderFactory(
-            $this->parameterTypeRegistry
+            $this->parameterTypeRegistry,
         );
     }
 

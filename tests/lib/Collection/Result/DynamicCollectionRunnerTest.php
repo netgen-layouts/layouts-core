@@ -37,7 +37,7 @@ final class DynamicCollectionRunnerTest extends TestCase
             ->expects(self::any())
             ->method('build')
             ->willReturnCallback(
-                static fn ($value): CmsItemInterface => CmsItem::fromArray(['value' => $value, 'isVisible' => true])
+                static fn ($value): CmsItemInterface => CmsItem::fromArray(['value' => $value, 'isVisible' => true]),
             );
     }
 
@@ -75,7 +75,7 @@ final class DynamicCollectionRunnerTest extends TestCase
                         CmsItem::fromArray(['value' => $itemValueObject, 'isVisible' => true]) :
                         new NullCmsItem('value'),
                     'position' => $position,
-                ]
+                ],
             );
         }
 
@@ -92,7 +92,7 @@ final class DynamicCollectionRunnerTest extends TestCase
 
         $result = array_map(
             static fn (Result $resultItem) => $resultItem->getItem()->getValue(),
-            $result
+            $result,
         );
 
         self::assertCount(count($expected), $result);

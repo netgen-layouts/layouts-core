@@ -124,12 +124,12 @@ final class BlockService implements BlockServiceInterface
         $persistenceZone = $this->layoutHandler->loadZone(
             $zone->getLayoutId(),
             $zone->getStatus(),
-            $zone->getIdentifier()
+            $zone->getIdentifier(),
         );
 
         $rootBlock = $this->blockHandler->loadBlock(
             $persistenceZone->rootBlockId,
-            $persistenceZone->status
+            $persistenceZone->status,
         );
 
         return new BlockList(
@@ -137,9 +137,9 @@ final class BlockService implements BlockServiceInterface
                 ...$this->filterUntranslatedBlocks(
                     $this->blockHandler->loadChildBlocks($rootBlock),
                     $locales,
-                    $useMainLocale
+                    $useMainLocale,
                 ),
-            ]
+            ],
         );
     }
 
@@ -147,13 +147,13 @@ final class BlockService implements BlockServiceInterface
     {
         $persistenceLayout = $this->layoutHandler->loadLayout(
             $layout->getId(),
-            $layout->getStatus()
+            $layout->getStatus(),
         );
 
         // We filter out all root blocks, since we do not allow loading those
         $persistenceBlocks = array_filter(
             $this->blockHandler->loadLayoutBlocks($persistenceLayout),
-            static fn (PersistenceBlock $persistenceBlock): bool => $persistenceBlock->parentId !== null
+            static fn (PersistenceBlock $persistenceBlock): bool => $persistenceBlock->parentId !== null,
         );
 
         return new BlockList(
@@ -161,9 +161,9 @@ final class BlockService implements BlockServiceInterface
                 ...$this->filterUntranslatedBlocks(
                     $persistenceBlocks,
                     $locales,
-                    $useMainLocale
+                    $useMainLocale,
                 ),
-            ]
+            ],
         );
     }
 
@@ -223,7 +223,7 @@ final class BlockService implements BlockServiceInterface
         if (
             !$layoutType->isBlockAllowedInZone(
                 $blockCreateStruct->getDefinition(),
-                $persistenceZone->identifier
+                $persistenceZone->identifier,
             )
         ) {
             throw new BadStateException('zone', 'Block is not allowed in specified zone.');
@@ -231,7 +231,7 @@ final class BlockService implements BlockServiceInterface
 
         $rootBlock = $this->blockHandler->loadBlock(
             $persistenceZone->rootBlockId,
-            $persistenceZone->status
+            $persistenceZone->status,
         );
 
         return $this->internalCreateBlock($blockCreateStruct, $persistenceLayout, $rootBlock, 'root', $position);
@@ -258,7 +258,7 @@ final class BlockService implements BlockServiceInterface
                 $persistenceBlock = $this->updateBlockTranslations(
                     $blockDefinition,
                     $persistenceBlock,
-                    $blockUpdateStruct
+                    $blockUpdateStruct,
                 );
 
                 $updatedBlock = $this->blockHandler->updateBlock(
@@ -273,11 +273,11 @@ final class BlockService implements BlockServiceInterface
                                 $this->configMapper->serializeValues(
                                     $blockUpdateStruct->getConfigStructs(),
                                     $blockDefinition->getConfigDefinitions(),
-                                    $persistenceBlock->config
-                                )
+                                    $persistenceBlock->config,
+                                ),
                             ),
-                        ]
-                    )
+                        ],
+                    ),
                 );
 
                 if ($persistenceBlock->viewType !== $updatedBlock->viewType) {
@@ -286,7 +286,7 @@ final class BlockService implements BlockServiceInterface
                 }
 
                 return $updatedBlock;
-            }
+            },
         );
 
         return $this->mapper->mapBlock($updatedBlock, [$block->getLocale()]);
@@ -327,7 +327,7 @@ final class BlockService implements BlockServiceInterface
         }
 
         $copiedBlock = $this->transaction(
-            fn (): PersistenceBlock => $this->blockHandler->copyBlock($persistenceBlock, $persistenceTargetBlock, $placeholder, $position)
+            fn (): PersistenceBlock => $this->blockHandler->copyBlock($persistenceBlock, $persistenceTargetBlock, $placeholder, $position),
         );
 
         return $this->mapper->mapBlock($copiedBlock, [$block->getLocale()]);
@@ -362,7 +362,7 @@ final class BlockService implements BlockServiceInterface
         $rootBlock = $this->blockHandler->loadBlock($persistenceZone->rootBlockId, $persistenceZone->status);
 
         $copiedBlock = $this->transaction(
-            fn (): PersistenceBlock => $this->blockHandler->copyBlock($persistenceBlock, $rootBlock, 'root', $position)
+            fn (): PersistenceBlock => $this->blockHandler->copyBlock($persistenceBlock, $rootBlock, 'root', $position),
         );
 
         return $this->mapper->mapBlock($copiedBlock, [$block->getLocale()]);
@@ -458,7 +458,7 @@ final class BlockService implements BlockServiceInterface
                         $draftBlock = $this->blockHandler->createBlockTranslation(
                             $draftBlock,
                             $locale,
-                            $draftBlock->mainLocale
+                            $draftBlock->mainLocale,
                         );
                     }
                 }
@@ -472,7 +472,7 @@ final class BlockService implements BlockServiceInterface
                 }
 
                 return $draftBlock;
-            }
+            },
         );
 
         return $this->mapper->mapBlock($draftBlock);
@@ -506,8 +506,8 @@ final class BlockService implements BlockServiceInterface
                     BlockUpdateStruct::fromArray(
                         [
                             'isTranslatable' => true,
-                        ]
-                    )
+                        ],
+                    ),
                 );
 
                 foreach ($persistenceLayout->availableLocales as $locale) {
@@ -515,13 +515,13 @@ final class BlockService implements BlockServiceInterface
                         $updatedBlock = $this->blockHandler->createBlockTranslation(
                             $updatedBlock,
                             $locale,
-                            $updatedBlock->mainLocale
+                            $updatedBlock->mainLocale,
                         );
                     }
                 }
 
                 return $updatedBlock;
-            }
+            },
         );
 
         return $this->mapper->mapBlock($updatedBlock);
@@ -540,7 +540,7 @@ final class BlockService implements BlockServiceInterface
         }
 
         $updatedBlock = $this->transaction(
-            fn (): PersistenceBlock => $this->internalDisableTranslations($persistenceBlock)
+            fn (): PersistenceBlock => $this->internalDisableTranslations($persistenceBlock),
         );
 
         return $this->mapper->mapBlock($updatedBlock);
@@ -557,7 +557,7 @@ final class BlockService implements BlockServiceInterface
         $this->transaction(
             function () use ($persistenceBlock): void {
                 $this->blockHandler->deleteBlock($persistenceBlock);
-            }
+            },
         );
     }
 
@@ -664,20 +664,20 @@ final class BlockService implements BlockServiceInterface
                             'parameters' => iterator_to_array(
                                 $this->parameterMapper->serializeValues(
                                     $blockDefinition,
-                                    $blockCreateStruct->getParameterValues()
-                                )
+                                    $blockCreateStruct->getParameterValues(),
+                                ),
                             ),
                             'config' => iterator_to_array(
                                 $this->configMapper->serializeValues(
                                     $blockCreateStruct->getConfigStructs(),
-                                    $blockDefinition->getConfigDefinitions()
-                                )
+                                    $blockDefinition->getConfigDefinitions(),
+                                ),
                             ),
-                        ]
+                        ],
                     ),
                     $layout,
                     $targetBlock,
-                    $placeholder
+                    $placeholder,
                 );
 
                 $collectionCreateStructs = $blockCreateStruct->getCollectionCreateStructs();
@@ -692,10 +692,10 @@ final class BlockService implements BlockServiceInterface
                                     'alwaysAvailable' => $blockCreateStruct->alwaysAvailable,
                                     'isTranslatable' => $blockCreateStruct->isTranslatable,
                                     'mainLocale' => $layout->mainLocale,
-                                ]
+                                ],
                             ),
                             $createdBlock,
-                            (string) $identifier
+                            (string) $identifier,
                         );
 
                         if ($collectionCreateStruct->queryCreateStruct instanceof APIQueryCreateStruct) {
@@ -708,11 +708,11 @@ final class BlockService implements BlockServiceInterface
                                         'parameters' => iterator_to_array(
                                             $this->parameterMapper->serializeValues(
                                                 $queryType,
-                                                $collectionCreateStruct->queryCreateStruct->getParameterValues()
-                                            )
+                                                $collectionCreateStruct->queryCreateStruct->getParameterValues(),
+                                            ),
                                         ),
-                                    ]
-                                )
+                                    ],
+                                ),
                             );
                         }
 
@@ -722,7 +722,7 @@ final class BlockService implements BlockServiceInterface
                                     $createdCollection = $this->collectionHandler->createCollectionTranslation(
                                         $createdCollection,
                                         $locale,
-                                        $createdCollection->mainLocale
+                                        $createdCollection->mainLocale,
                                     );
                                 }
                             }
@@ -731,7 +731,7 @@ final class BlockService implements BlockServiceInterface
                 }
 
                 return $createdBlock;
-            }
+            },
         );
 
         return $this->mapper->mapBlock($createdBlock);
@@ -754,9 +754,9 @@ final class BlockService implements BlockServiceInterface
                     $block,
                     $targetBlock,
                     $placeholder,
-                    $position
+                    $position,
                 );
-            }
+            },
         );
     }
 
@@ -771,15 +771,15 @@ final class BlockService implements BlockServiceInterface
             BlockUpdateStruct::fromArray(
                 [
                     'isTranslatable' => false,
-                ]
-            )
+                ],
+            ),
         );
 
         foreach ($block->availableLocales as $locale) {
             if ($locale !== $block->mainLocale) {
                 $block = $this->blockHandler->deleteBlockTranslation(
                     $block,
-                    $locale
+                    $locale,
                 );
             }
         }
@@ -815,19 +815,19 @@ final class BlockService implements BlockServiceInterface
                             $this->parameterMapper->serializeValues(
                                 $blockDefinition,
                                 $blockUpdateStruct->getParameterValues(),
-                                $persistenceBlock->parameters[$persistenceBlock->mainLocale]
-                            )
+                                $persistenceBlock->parameters[$persistenceBlock->mainLocale],
+                            ),
                         ),
-                    ]
-                )
+                    ],
+                ),
             );
         }
 
         $untranslatableParams = iterator_to_array(
             $this->parameterMapper->extractUntranslatableParameters(
                 $blockDefinition,
-                $persistenceBlock->parameters[$persistenceBlock->mainLocale]
-            )
+                $persistenceBlock->parameters[$persistenceBlock->mainLocale],
+            ),
         );
 
         $localesToUpdate = [$blockUpdateStruct->locale];
@@ -849,8 +849,8 @@ final class BlockService implements BlockServiceInterface
                     $this->parameterMapper->serializeValues(
                         $blockDefinition,
                         $blockUpdateStruct->getParameterValues(),
-                        $params
-                    )
+                        $params,
+                    ),
                 );
             }
 
@@ -860,8 +860,8 @@ final class BlockService implements BlockServiceInterface
                 BlockTranslationUpdateStruct::fromArray(
                     [
                         'parameters' => $untranslatableParams + $params,
-                    ]
-                )
+                    ],
+                ),
             );
         }
 

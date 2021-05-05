@@ -19,7 +19,7 @@ final class ContextualizedTwigTemplateTest extends TestCase
     {
         $template = new ContextualizedTwigTemplate(
             $this->createMock(Template::class),
-            ['param' => 'value']
+            ['param' => 'value'],
         );
 
         self::assertSame(['param' => 'value'], $template->getContext());
@@ -81,7 +81,7 @@ final class ContextualizedTwigTemplateTest extends TestCase
             ->willReturnCallback(
                 static function (string $blockName): void {
                     echo 'rendered';
-                }
+                },
             );
 
         $template = new ContextualizedTwigTemplate($templateMock);

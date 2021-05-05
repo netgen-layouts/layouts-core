@@ -65,8 +65,8 @@ final class BlockMapper
 
                     return Block::fromArray($blockData);
                 },
-                $blocks
-            )
+                $blocks,
+            ),
         );
     }
 

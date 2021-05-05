@@ -47,9 +47,9 @@ final class ClearRelatedLayoutsCache extends AbstractController
                     'nglayouts_admin_shared_layouts_cache_related_layouts',
                     [
                         'layoutId' => $layout->getId()->toString(),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $form->handleRequest($request);
@@ -78,8 +78,8 @@ final class ClearRelatedLayoutsCache extends AbstractController
                 null,
                 $form->isSubmitted() || !$cacheCleared ?
                     Response::HTTP_UNPROCESSABLE_ENTITY :
-                    Response::HTTP_OK
-            )
+                    Response::HTTP_OK,
+            ),
         );
     }
 }

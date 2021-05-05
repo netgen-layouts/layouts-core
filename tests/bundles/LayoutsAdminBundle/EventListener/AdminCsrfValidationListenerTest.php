@@ -28,14 +28,14 @@ final class AdminCsrfValidationListenerTest extends TestCase
     protected function setUp(): void
     {
         $this->csrfTokenValidatorMock = $this->createMock(
-            CsrfTokenValidatorInterface::class
+            CsrfTokenValidatorInterface::class,
         );
 
         $this->csrfTokenId = 'token_id';
 
         $this->listener = new AdminCsrfValidationListener(
             $this->csrfTokenValidatorMock,
-            $this->csrfTokenId
+            $this->csrfTokenId,
         );
     }
 
@@ -46,7 +46,7 @@ final class AdminCsrfValidationListenerTest extends TestCase
     {
         self::assertSame(
             [KernelEvents::REQUEST => 'onKernelRequest'],
-            $this->listener::getSubscribedEvents()
+            $this->listener::getSubscribedEvents(),
         );
     }
 

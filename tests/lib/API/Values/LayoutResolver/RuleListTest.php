@@ -25,8 +25,8 @@ final class RuleListTest extends TestCase
             sprintf(
                 '/(must be an instance of|must be of type) %s, (instance of )?%s given/',
                 str_replace('\\', '\\\\', Rule::class),
-                stdClass::class
-            )
+                stdClass::class,
+            ),
         );
 
         new RuleList([new Rule(), new stdClass(), new Rule()]);

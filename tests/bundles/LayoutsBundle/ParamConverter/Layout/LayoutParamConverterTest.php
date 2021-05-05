@@ -70,8 +70,8 @@ final class LayoutParamConverterTest extends TestCase
                 [
                     'layoutId' => $uuid->toString(),
                     'status' => 'published',
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -96,8 +96,8 @@ final class LayoutParamConverterTest extends TestCase
                 [
                     'layoutId' => $uuid->toString(),
                     'status' => 'archived',
-                ]
-            )
+                ],
+            ),
         );
     }
 
@@ -122,8 +122,8 @@ final class LayoutParamConverterTest extends TestCase
                 [
                     'layoutId' => $uuid->toString(),
                     'status' => 'draft',
-                ]
-            )
+                ],
+            ),
         );
     }
 }

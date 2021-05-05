@@ -50,10 +50,10 @@ final class BlockDefinitionHandlerWithCompoundParameter extends BaseBlockDefinit
                             'options' => [
                                 'translatable' => false,
                             ],
-                        ]
+                        ],
                     ),
                 ],
-            ]
+            ],
         );
 
         return [
@@ -67,7 +67,7 @@ final class BlockDefinitionHandlerWithCompoundParameter extends BaseBlockDefinit
                     'options' => [
                         'translatable' => false,
                     ],
-                ]
+                ],
             ),
             'css_id' => ParameterDefinition::fromArray(
                 [
@@ -78,7 +78,7 @@ final class BlockDefinitionHandlerWithCompoundParameter extends BaseBlockDefinit
                     'options' => [
                         'translatable' => false,
                     ],
-                ]
+                ],
             ),
             'compound' => $compoundParam,
         ];

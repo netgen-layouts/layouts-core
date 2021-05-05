@@ -66,7 +66,7 @@ final class BlockTypeNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_types'
+            'block_types',
         );
     }
 
@@ -96,7 +96,7 @@ final class BlockTypeNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_types.*.icon'
+            'block_types.*.icon',
         );
     }
 
@@ -128,7 +128,7 @@ final class BlockTypeNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_types.*.icon'
+            'block_types.*.icon',
         );
     }
 
@@ -157,7 +157,7 @@ final class BlockTypeNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_types.*.name'
+            'block_types.*.name',
         );
     }
 
@@ -200,7 +200,7 @@ final class BlockTypeNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_types.*'
+            'block_types.*',
         );
     }
 
@@ -229,7 +229,7 @@ final class BlockTypeNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_types.*.definition_identifier'
+            'block_types.*.definition_identifier',
         );
     }
 
@@ -264,7 +264,7 @@ final class BlockTypeNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_types.*.defaults.name'
+            'block_types.*.defaults.name',
         );
     }
 
@@ -299,7 +299,7 @@ final class BlockTypeNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_types.*.defaults.view_type'
+            'block_types.*.defaults.view_type',
         );
     }
 
@@ -334,7 +334,7 @@ final class BlockTypeNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_types.*.defaults.item_view_type'
+            'block_types.*.defaults.item_view_type',
         );
     }
 
@@ -369,7 +369,7 @@ final class BlockTypeNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_types.*.defaults.parameters'
+            'block_types.*.defaults.parameters',
         );
     }
 
@@ -421,7 +421,7 @@ final class BlockTypeNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_types.*.defaults.parameters'
+            'block_types.*.defaults.parameters',
         );
     }
 
@@ -455,7 +455,7 @@ final class BlockTypeNodeTest extends TestCase
         $this->assertProcessedConfigurationEquals(
             $config,
             $expectedConfig,
-            'block_types.*.defaults'
+            'block_types.*.defaults',
         );
     }
 

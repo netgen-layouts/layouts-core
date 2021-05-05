@@ -24,8 +24,8 @@ final class PlaceholderListTest extends TestCase
             sprintf(
                 '/(must be an instance of|must be of type) %s, (instance of )?%s given/',
                 str_replace('\\', '\\\\', Placeholder::class),
-                stdClass::class
-            )
+                stdClass::class,
+            ),
         );
 
         new PlaceholderList(['one' => new Placeholder(), 'two' => new stdClass(), 'three' => new Placeholder()]);

@@ -48,7 +48,7 @@ final class DateTimeType extends AbstractType
                 'input' => 'string',
                 'empty_data' => '',
                 'property_path' => 'datetime',
-            ]
+            ],
         );
 
         $builder->add(
@@ -59,7 +59,7 @@ final class DateTimeType extends AbstractType
                 'choices' => $this->getTimeZoneList(),
                 'choice_translation_domain' => false,
                 'property_path' => 'timezone',
-            ]
+            ],
         );
     }
 

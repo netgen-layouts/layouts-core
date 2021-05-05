@@ -43,7 +43,7 @@ trait DatabaseTrait
                         ->values(array_fill_keys(array_keys($tableRow), '?'))
                         ->setParameters(
                             array_values($tableRow),
-                            array_fill_keys(array_keys($tableRow), Types::STRING)
+                            array_fill_keys(array_keys($tableRow), Types::STRING),
                         )
                         ->execute();
                 }
@@ -66,7 +66,7 @@ trait DatabaseTrait
         $this->databaseConnection = DriverManager::getConnection(
             [
                 'url' => $this->databaseUri,
-            ]
+            ],
         );
 
         return $this->databaseConnection;

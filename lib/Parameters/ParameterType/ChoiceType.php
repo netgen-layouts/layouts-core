@@ -37,7 +37,7 @@ final class ChoiceType extends ParameterType
 
         $optionsResolver->setAllowedValues(
             'options',
-            static fn ($value): bool => is_callable($value) ? true : count($value) > 0
+            static fn ($value): bool => is_callable($value) ? true : count($value) > 0,
         );
 
         $optionsResolver->setDefault(
@@ -50,7 +50,7 @@ final class ChoiceType extends ParameterType
                 }
 
                 return $previousValue;
-            }
+            },
         );
     }
 
@@ -94,7 +94,7 @@ final class ChoiceType extends ParameterType
                     'choices' => array_values(is_callable($options) ? $options() : $options),
                     'multiple' => $parameterDefinition->getOption('multiple'),
                     'strict' => true,
-                ]
+                ],
             ),
         ];
     }

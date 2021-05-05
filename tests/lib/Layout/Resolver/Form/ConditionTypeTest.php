@@ -40,7 +40,7 @@ final class ConditionTypeTest extends FormTestCase
         $this->factory->create(
             ConditionTypeForm::class,
             new ConditionCreateStruct(),
-            ['condition_type' => $this->conditionType]
+            ['condition_type' => $this->conditionType],
         );
     }
 
@@ -60,7 +60,7 @@ final class ConditionTypeTest extends FormTestCase
             [
                 'condition_type' => $this->conditionType,
                 'data' => $struct,
-            ]
+            ],
         );
 
         self::assertSame($this->conditionType, $options['condition_type']);
@@ -99,7 +99,7 @@ final class ConditionTypeTest extends FormTestCase
         $optionsResolver->resolve(
             [
                 'condition_type' => '',
-            ]
+            ],
         );
     }
 
@@ -120,7 +120,7 @@ final class ConditionTypeTest extends FormTestCase
             [
                 'condition_type' => $this->conditionType,
                 'data' => '',
-            ]
+            ],
         );
     }
 

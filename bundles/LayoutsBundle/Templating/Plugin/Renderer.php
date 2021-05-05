@@ -32,7 +32,7 @@ final class Renderer implements RendererInterface
         foreach ($pluginsByPluginName as $pluginName => $plugins) {
             $this->pluginCollections[$pluginName] = new PluginCollection(
                 $pluginName,
-                $plugins
+                $plugins,
             );
         }
     }
@@ -50,7 +50,7 @@ final class Renderer implements RendererInterface
             foreach ($this->pluginCollections[$pluginName]->getPlugins() as $plugin) {
                 $this->twig->display(
                     $plugin->getTemplateName(),
-                    $plugin->getParameters() + $parameters
+                    $plugin->getParameters() + $parameters,
                 );
             }
         } catch (Throwable $t) {

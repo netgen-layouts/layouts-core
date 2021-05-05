@@ -43,7 +43,7 @@ final class RouteTest extends FormTestCase
         $form = $this->factory->create(
             TargetType::class,
             $struct,
-            ['target_type' => $this->targetType]
+            ['target_type' => $this->targetType],
         );
 
         $valueFormConfig = $form->get('value')->getConfig();
@@ -68,8 +68,8 @@ final class RouteTest extends FormTestCase
             new Container(
                 [
                     'route' => new RouteMapper(),
-                ]
-            )
+                ],
+            ),
         );
     }
 }

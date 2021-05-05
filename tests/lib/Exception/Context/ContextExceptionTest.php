@@ -18,7 +18,7 @@ final class ContextExceptionTest extends TestCase
 
         self::assertSame(
             'Variable "var" does not exist in the context.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 }

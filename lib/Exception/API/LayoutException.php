@@ -15,8 +15,8 @@ final class LayoutException extends InvalidArgumentException implements Exceptio
         return new self(
             sprintf(
                 'Zone with "%s" identifier does not exist in the layout.',
-                $zone
-            )
+                $zone,
+            ),
         );
     }
 }

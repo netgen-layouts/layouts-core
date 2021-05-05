@@ -21,7 +21,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'new_type' => Collection::TYPE_MANUAL,
-            ]
+            ],
         );
 
         $this->client->request(
@@ -30,7 +30,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertEmptyResponse($this->client->getResponse());
@@ -46,7 +46,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
             [
                 'new_type' => Collection::TYPE_DYNAMIC,
                 'query_type' => 'my_query_type',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -55,7 +55,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertEmptyResponse($this->client->getResponse());
@@ -70,7 +70,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'new_type' => Collection::TYPE_MANUAL,
-            ]
+            ],
         );
 
         $this->client->request(
@@ -79,7 +79,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertEmptyResponse($this->client->getResponse());
@@ -95,7 +95,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
             [
                 'new_type' => Collection::TYPE_DYNAMIC,
                 'query_type' => 'my_query_type',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -104,7 +104,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertEmptyResponse($this->client->getResponse());
@@ -120,7 +120,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
             [
                 'new_type' => '1',
                 'query_type' => 'my_query_type',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -129,13 +129,13 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "new_type": The value you selected is not a valid choice.'
+            'There was an error validating "new_type": The value you selected is not a valid choice.',
         );
     }
 
@@ -148,7 +148,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'query_type' => 'my_query_type',
-            ]
+            ],
         );
 
         $this->client->request(
@@ -157,13 +157,13 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "new_type": This value should not be blank.'
+            'There was an error validating "new_type": This value should not be blank.',
         );
     }
 
@@ -177,7 +177,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
             [
                 'new_type' => Collection::TYPE_DYNAMIC,
                 'query_type' => 42,
-            ]
+            ],
         );
 
         $this->client->request(
@@ -186,13 +186,13 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "query_type": This value should be of type string.'
+            'There was an error validating "query_type": This value should be of type string.',
         );
     }
 
@@ -205,7 +205,7 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'new_type' => Collection::TYPE_DYNAMIC,
-            ]
+            ],
         );
 
         $this->client->request(
@@ -214,13 +214,13 @@ final class ChangeCollectionTypeTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "query_type": This value should not be blank.'
+            'There was an error validating "query_type": This value should not be blank.',
         );
     }
 }

@@ -35,16 +35,16 @@ final class ViewNormalizer implements NormalizerInterface, NormalizerAwareInterf
         $normalizedData = $this->normalizer->normalize(
             new Value(
                 $object->getValue(),
-                $object->getStatusCode()
+                $object->getStatusCode(),
             ),
             $format,
-            $context
+            $context,
         );
 
         if (($context['disable_html'] ?? false) !== true) {
             $normalizedData['html'] = $this->viewRenderer->renderValue(
                 $object->getValue(),
-                ViewInterface::CONTEXT_APP
+                ViewInterface::CONTEXT_APP,
             );
         }
 

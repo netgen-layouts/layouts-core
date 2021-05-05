@@ -24,7 +24,7 @@ final class ConfigureMenuEventTest extends TestCase
 
         $this->event = new ConfigureMenuEvent(
             $this->factory,
-            $this->menu
+            $this->menu,
         );
     }
 

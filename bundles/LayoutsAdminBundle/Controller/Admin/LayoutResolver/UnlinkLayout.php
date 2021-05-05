@@ -34,7 +34,7 @@ final class UnlinkLayout extends AbstractController
             'nglayouts:mapping:edit',
             [
                 'rule_group' => $rule->getRuleGroupId()->toString(),
-            ]
+            ],
         );
 
         if (!$rule->getLayout() instanceof Layout) {
@@ -48,7 +48,7 @@ final class UnlinkLayout extends AbstractController
                     'submitted' => false,
                     'error' => false,
                     'rule' => $rule,
-                ]
+                ],
             );
         }
 
@@ -57,7 +57,7 @@ final class UnlinkLayout extends AbstractController
 
         $updatedRule = $this->layoutResolverService->updateRule(
             $rule,
-            $ruleUpdateStruct
+            $ruleUpdateStruct,
         );
 
         return $this->buildView($updatedRule, ViewInterface::CONTEXT_ADMIN);

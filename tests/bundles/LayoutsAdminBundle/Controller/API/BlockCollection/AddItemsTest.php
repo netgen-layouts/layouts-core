@@ -31,7 +31,7 @@ final class AddItemsTest extends JsonApiTestCase
                         'value_type' => 'my_value_type',
                     ],
                 ],
-            ]
+            ],
         );
 
         $this->client->request(
@@ -40,7 +40,7 @@ final class AddItemsTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertEmptyResponse($this->client->getResponse());
@@ -65,7 +65,7 @@ final class AddItemsTest extends JsonApiTestCase
                         'value_type' => 'my_value_type',
                     ],
                 ],
-            ]
+            ],
         );
 
         $this->client->request(
@@ -74,13 +74,13 @@ final class AddItemsTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find block with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"'
+            'Could not find block with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"',
         );
     }
 
@@ -103,7 +103,7 @@ final class AddItemsTest extends JsonApiTestCase
                         'value_type' => 'my_value_type',
                     ],
                 ],
-            ]
+            ],
         );
 
         $this->client->request(
@@ -112,13 +112,13 @@ final class AddItemsTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'Collection with "unknown" identifier does not exist in the block.'
+            'Collection with "unknown" identifier does not exist in the block.',
         );
     }
 
@@ -131,7 +131,7 @@ final class AddItemsTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'items' => [],
-            ]
+            ],
         );
 
         $this->client->request(
@@ -140,13 +140,13 @@ final class AddItemsTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "items": This value should not be blank.'
+            'There was an error validating "items": This value should not be blank.',
         );
     }
 
@@ -159,7 +159,7 @@ final class AddItemsTest extends JsonApiTestCase
         $data = $this->jsonEncode(
             [
                 'items' => 42,
-            ]
+            ],
         );
 
         $this->client->request(
@@ -168,7 +168,7 @@ final class AddItemsTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
@@ -176,7 +176,7 @@ final class AddItemsTest extends JsonApiTestCase
             Response::HTTP_BAD_REQUEST,
             Kernel::VERSION_ID >= 40200 ?
                 'There was an error validating "items": This value should be of type array.' :
-                'There was an error validating "items": Expected argument of type "array or Traversable", "integer" given'
+                'There was an error validating "items": Expected argument of type "array or Traversable", "integer" given',
         );
     }
 
@@ -192,13 +192,13 @@ final class AddItemsTest extends JsonApiTestCase
             [],
             [],
             [],
-            $this->jsonEncode([])
+            $this->jsonEncode([]),
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "items": This value should not be blank.'
+            'There was an error validating "items": This value should not be blank.',
         );
     }
 
@@ -217,7 +217,7 @@ final class AddItemsTest extends JsonApiTestCase
                         'position' => 3,
                     ],
                 ],
-            ]
+            ],
         );
 
         $this->client->request(
@@ -226,13 +226,13 @@ final class AddItemsTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "items[0][value]": This value should be of type scalar.'
+            'There was an error validating "items[0][value]": This value should be of type scalar.',
         );
     }
 
@@ -250,7 +250,7 @@ final class AddItemsTest extends JsonApiTestCase
                         'position' => 3,
                     ],
                 ],
-            ]
+            ],
         );
 
         $this->client->request(
@@ -259,13 +259,13 @@ final class AddItemsTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "items[0][value]": This field is missing.'
+            'There was an error validating "items[0][value]": This field is missing.',
         );
     }
 
@@ -284,7 +284,7 @@ final class AddItemsTest extends JsonApiTestCase
                         'position' => 3,
                     ],
                 ],
-            ]
+            ],
         );
 
         $this->client->request(
@@ -293,13 +293,13 @@ final class AddItemsTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "items[0][value_type]": This value should be of type string.'
+            'There was an error validating "items[0][value_type]": This value should be of type string.',
         );
     }
 
@@ -317,7 +317,7 @@ final class AddItemsTest extends JsonApiTestCase
                         'position' => 3,
                     ],
                 ],
-            ]
+            ],
         );
 
         $this->client->request(
@@ -326,13 +326,13 @@ final class AddItemsTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "items[0][value_type]": This field is missing.'
+            'There was an error validating "items[0][value_type]": This field is missing.',
         );
     }
 
@@ -351,7 +351,7 @@ final class AddItemsTest extends JsonApiTestCase
                         'position' => '3',
                     ],
                 ],
-            ]
+            ],
         );
 
         $this->client->request(
@@ -360,13 +360,13 @@ final class AddItemsTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "items[0][position]": This value should be of type int.'
+            'There was an error validating "items[0][position]": This value should be of type int.',
         );
     }
 
@@ -384,7 +384,7 @@ final class AddItemsTest extends JsonApiTestCase
                         'value_type' => 'my_value_type',
                     ],
                 ],
-            ]
+            ],
         );
 
         $this->client->request(
@@ -393,13 +393,13 @@ final class AddItemsTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'There was an error validating "position": This value should not be blank.'
+            'There was an error validating "position": This value should not be blank.',
         );
     }
 
@@ -418,7 +418,7 @@ final class AddItemsTest extends JsonApiTestCase
                         'position' => 9999,
                     ],
                 ],
-            ]
+            ],
         );
 
         $this->client->request(
@@ -427,13 +427,13 @@ final class AddItemsTest extends JsonApiTestCase
             [],
             [],
             [],
-            $data
+            $data,
         );
 
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_UNPROCESSABLE_ENTITY,
-            'Argument "position" has an invalid state. Position is out of range.'
+            'Argument "position" has an invalid state. Position is out of range.',
         );
     }
 }

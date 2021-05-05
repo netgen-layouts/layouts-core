@@ -21,7 +21,7 @@ final class LoadCollectionResultTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'block_collections/load_collection_result',
-            Response::HTTP_OK
+            Response::HTTP_OK,
         );
     }
 
@@ -35,7 +35,7 @@ final class LoadCollectionResultTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find block with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"'
+            'Could not find block with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"',
         );
     }
 
@@ -49,7 +49,7 @@ final class LoadCollectionResultTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_BAD_REQUEST,
-            'Collection with "unknown" identifier does not exist in the block.'
+            'Collection with "unknown" identifier does not exist in the block.',
         );
     }
 }

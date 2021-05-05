@@ -25,7 +25,7 @@ final class TimeType extends AbstractType
                 'required' => false,
                 'use_datetime' => false,
                 'label' => 'condition_type.time.from',
-            ]
+            ],
         );
 
         $builder->add(
@@ -35,7 +35,7 @@ final class TimeType extends AbstractType
                 'required' => false,
                 'use_datetime' => false,
                 'label' => 'condition_type.time.to',
-            ]
+            ],
         );
     }
 

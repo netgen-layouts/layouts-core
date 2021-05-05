@@ -22,7 +22,7 @@ final class ConfigDefinitionTest extends TestCase
             [
                 'configKey' => 'config_definition',
                 'handler' => $this->handler,
-            ]
+            ],
         );
     }
 

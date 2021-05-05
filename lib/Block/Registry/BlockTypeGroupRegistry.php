@@ -33,7 +33,7 @@ final class BlockTypeGroupRegistry implements IteratorAggregate, Countable, Arra
     {
         $this->blockTypeGroups = array_filter(
             $blockTypeGroups,
-            static fn (BlockTypeGroup $blockTypeGroup): bool => true
+            static fn (BlockTypeGroup $blockTypeGroup): bool => true,
         );
     }
 
@@ -72,7 +72,7 @@ final class BlockTypeGroupRegistry implements IteratorAggregate, Countable, Arra
 
         return array_filter(
             $this->blockTypeGroups,
-            static fn (BlockTypeGroup $blockTypeGroup): bool => $blockTypeGroup->isEnabled()
+            static fn (BlockTypeGroup $blockTypeGroup): bool => $blockTypeGroup->isEnabled(),
         );
     }
 

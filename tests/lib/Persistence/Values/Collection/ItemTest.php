@@ -27,7 +27,7 @@ final class ItemTest extends TestCase
                 'viewType' => 'my_view_type',
                 'config' => ['key' => ['param' => 'value']],
                 'status' => Value::STATUS_PUBLISHED,
-            ]
+            ],
         );
 
         self::assertSame(42, $item->id);

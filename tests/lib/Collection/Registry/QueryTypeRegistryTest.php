@@ -28,7 +28,7 @@ final class QueryTypeRegistryTest extends TestCase
             [
                 'query_type1' => $this->queryType1,
                 'query_type2' => $this->queryType2,
-            ]
+            ],
         );
     }
 
@@ -41,7 +41,7 @@ final class QueryTypeRegistryTest extends TestCase
             [
                 'query_type1' => $this->queryType1,
             ],
-            $this->registry->getQueryTypes(true)
+            $this->registry->getQueryTypes(true),
         );
     }
 
@@ -56,7 +56,7 @@ final class QueryTypeRegistryTest extends TestCase
                 'query_type1' => $this->queryType1,
                 'query_type2' => $this->queryType2,
             ],
-            $this->registry->getQueryTypes()
+            $this->registry->getQueryTypes(),
         );
     }
 

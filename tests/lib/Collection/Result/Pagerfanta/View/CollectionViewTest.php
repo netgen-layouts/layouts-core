@@ -51,8 +51,8 @@ final class CollectionViewTest extends TestCase
                         'pager' => $pagerMock,
                         'block' => $block,
                         'collection_identifier' => 'default',
-                    ]
-                )
+                    ],
+                ),
             )
             ->willReturn('rendered template');
 
@@ -62,7 +62,7 @@ final class CollectionViewTest extends TestCase
             [
                 'block' => $block,
                 'collection_identifier' => 'default',
-            ]
+            ],
         );
 
         self::assertSame('rendered template', $renderedTemplate);
@@ -85,8 +85,8 @@ final class CollectionViewTest extends TestCase
                         'pager' => $pagerMock,
                         'block' => $block,
                         'collection_identifier' => 'default',
-                    ]
-                )
+                    ],
+                ),
             )
             ->willReturn('rendered template');
 
@@ -97,7 +97,7 @@ final class CollectionViewTest extends TestCase
                 'block' => $block,
                 'collection_identifier' => 'default',
                 'template' => 'template.html.twig',
-            ]
+            ],
         );
 
         self::assertSame('rendered template', $renderedTemplate);
@@ -121,7 +121,7 @@ final class CollectionViewTest extends TestCase
             $this->getRouteGenerator(),
             [
                 'collection_identifier' => 'default',
-            ]
+            ],
         );
     }
 
@@ -144,7 +144,7 @@ final class CollectionViewTest extends TestCase
             [
                 'block' => 'block',
                 'collection_identifier' => 'default',
-            ]
+            ],
         );
     }
 
@@ -166,7 +166,7 @@ final class CollectionViewTest extends TestCase
             $this->getRouteGenerator(),
             [
                 'block' => new Block(),
-            ]
+            ],
         );
     }
 
@@ -189,7 +189,7 @@ final class CollectionViewTest extends TestCase
             [
                 'block' => new Block(),
                 'collection_identifier' => 42,
-            ]
+            ],
         );
     }
 

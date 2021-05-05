@@ -37,7 +37,7 @@ final class RuleCountListenerTest extends TestCase
     {
         self::assertSame(
             [sprintf('%s.%s', LayoutsEvents::BUILD_VIEW, 'layout') => 'onBuildView'],
-            $this->listener::getSubscribedEvents()
+            $this->listener::getSubscribedEvents(),
         );
     }
 
@@ -64,7 +64,7 @@ final class RuleCountListenerTest extends TestCase
             [
                 'rule_count' => 3,
             ],
-            $event->getParameters()
+            $event->getParameters(),
         );
     }
 
@@ -87,7 +87,7 @@ final class RuleCountListenerTest extends TestCase
             [
                 'rule_count' => 0,
             ],
-            $event->getParameters()
+            $event->getParameters(),
         );
     }
 

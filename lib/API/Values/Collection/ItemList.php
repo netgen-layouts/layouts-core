@@ -22,8 +22,8 @@ final class ItemList extends ArrayCollection
         parent::__construct(
             array_filter(
                 $items,
-                static fn (Item $item): bool => true
-            )
+                static fn (Item $item): bool => true,
+            ),
         );
     }
 
@@ -42,7 +42,7 @@ final class ItemList extends ArrayCollection
     {
         return array_map(
             static fn (Item $item): UuidInterface => $item->getId(),
-            $this->getItems()
+            $this->getItems(),
         );
     }
 }

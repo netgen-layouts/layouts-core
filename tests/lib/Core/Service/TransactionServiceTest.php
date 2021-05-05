@@ -43,7 +43,7 @@ final class TransactionServiceTest extends TestCase
             ->method('commitTransaction');
 
         $return = $this->service->transaction(
-            static fn (): int => 42
+            static fn (): int => 42,
         );
 
         self::assertSame(42, $return);
@@ -72,7 +72,7 @@ final class TransactionServiceTest extends TestCase
         $this->service->transaction(
             static function (): void {
                 throw new RuntimeException('Test exception');
-            }
+            },
         );
     }
 

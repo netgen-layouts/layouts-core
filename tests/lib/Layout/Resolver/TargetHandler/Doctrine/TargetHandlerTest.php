@@ -21,7 +21,7 @@ final class TargetHandlerTest extends AbstractTargetHandlerTest
         $rules = $this->handler->matchRules(
             $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Value::STATUS_PUBLISHED),
             $this->getTargetIdentifier(),
-            'some_non_existent_route'
+            'some_non_existent_route',
         );
 
         self::assertEmpty($rules);
@@ -39,7 +39,7 @@ final class TargetHandlerTest extends AbstractTargetHandlerTest
         $this->handler->matchRules(
             $this->handler->loadRuleGroup(RuleGroup::ROOT_UUID, Value::STATUS_PUBLISHED),
             'non_existent',
-            'value'
+            'value',
         );
     }
 

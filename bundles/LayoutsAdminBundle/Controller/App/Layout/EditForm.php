@@ -41,9 +41,9 @@ final class EditForm extends AbstractController
                     'nglayouts_app_layout_form_edit',
                     [
                         'layoutId' => $layout->getId()->toString(),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $form->handleRequest($request);
@@ -62,7 +62,7 @@ final class EditForm extends AbstractController
             $form,
             ViewInterface::CONTEXT_APP,
             [],
-            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY)
+            new Response(null, Response::HTTP_UNPROCESSABLE_ENTITY),
         );
     }
 }

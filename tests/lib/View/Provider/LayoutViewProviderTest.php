@@ -39,7 +39,7 @@ final class LayoutViewProviderTest extends TestCase
             [
                 'layout' => $layout,
             ],
-            $view->getParameters()
+            $view->getParameters(),
         );
     }
 

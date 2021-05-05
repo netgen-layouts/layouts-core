@@ -57,7 +57,7 @@ final class ExtensionPluginTest extends TestCase
             true,
             true,
             true,
-            ['getConfigurationNodes']
+            ['getConfigurationNodes'],
         );
 
         $this->plugin

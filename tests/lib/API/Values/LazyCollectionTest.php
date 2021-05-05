@@ -22,7 +22,7 @@ final class LazyCollectionTest extends TestCase
         $this->values = [new stdClass(), new stdClass()];
 
         $this->collection = new LazyCollection(
-            fn (): array => $this->values
+            fn (): array => $this->values,
         );
     }
 

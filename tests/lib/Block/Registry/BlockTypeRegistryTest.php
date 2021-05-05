@@ -28,7 +28,7 @@ final class BlockTypeRegistryTest extends TestCase
             [
                 'block_type' => $this->blockType,
                 'block_type2' => $this->blockType2,
-            ]
+            ],
         );
     }
 
@@ -43,7 +43,7 @@ final class BlockTypeRegistryTest extends TestCase
                 'block_type' => $this->blockType,
                 'block_type2' => $this->blockType2,
             ],
-            $this->registry->getBlockTypes()
+            $this->registry->getBlockTypes(),
         );
     }
 
@@ -56,7 +56,7 @@ final class BlockTypeRegistryTest extends TestCase
             [
                 'block_type' => $this->blockType,
             ],
-            $this->registry->getBlockTypes(true)
+            $this->registry->getBlockTypes(true),
         );
     }
 

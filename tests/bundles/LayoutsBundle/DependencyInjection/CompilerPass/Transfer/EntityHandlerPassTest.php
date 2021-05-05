@@ -29,12 +29,12 @@ final class EntityHandlerPassTest extends AbstractContainerBuilderTestCase
     {
         $this->setDefinition(
             'netgen_layouts.transfer.importer',
-            new Definition(null, [[]])
+            new Definition(null, [[]]),
         );
 
         $this->setDefinition(
             'netgen_layouts.transfer.serializer',
-            new Definition(null, [[]])
+            new Definition(null, [[]]),
         );
 
         $entityHandler = new Definition();
@@ -49,19 +49,19 @@ final class EntityHandlerPassTest extends AbstractContainerBuilderTestCase
                 [
                     'test' => new ServiceClosureArgument(new Reference('netgen_layouts.transfer.entity_handler.test')),
                 ],
-            ]
+            ],
         );
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_layouts.transfer.importer',
             1,
-            $argument
+            $argument,
         );
 
         $this->assertContainerBuilderHasServiceDefinitionWithArgument(
             'netgen_layouts.transfer.serializer',
             1,
-            $argument
+            $argument,
         );
     }
 

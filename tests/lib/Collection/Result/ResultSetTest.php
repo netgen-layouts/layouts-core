@@ -39,7 +39,7 @@ final class ResultSetTest extends TestCase
                 'totalCount' => 15,
                 'offset' => 3,
                 'limit' => 5,
-            ]
+            ],
         );
 
         self::assertSame($collection, $result->getCollection());
@@ -68,7 +68,7 @@ final class ResultSetTest extends TestCase
         $result = ResultSet::fromArray(
             [
                 'results' => [new Result(0, new CmsItem())],
-            ]
+            ],
         );
 
         $result[0] = 'new';
@@ -85,7 +85,7 @@ final class ResultSetTest extends TestCase
         $result = ResultSet::fromArray(
             [
                 'results' => [new Result(0, new CmsItem())],
-            ]
+            ],
         );
 
         unset($result[0]);
@@ -101,9 +101,9 @@ final class ResultSetTest extends TestCase
                 'collection' => Collection::fromArray(
                     [
                         'query' => new Query(),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         self::assertTrue($result->isDynamic());
@@ -117,7 +117,7 @@ final class ResultSetTest extends TestCase
         $result = ResultSet::fromArray(
             [
                 'collection' => new Collection(),
-            ]
+            ],
         );
 
         self::assertFalse($result->isDynamic());
@@ -135,11 +135,11 @@ final class ResultSetTest extends TestCase
                         'query' => Query::fromArray(
                             [
                                 'queryType' => new QueryType('type', [], null, false),
-                            ]
+                            ],
                         ),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         self::assertFalse($result->isContextual());
@@ -153,7 +153,7 @@ final class ResultSetTest extends TestCase
         $result = ResultSet::fromArray(
             [
                 'collection' => new Collection(),
-            ]
+            ],
         );
 
         self::assertFalse($result->isContextual());
@@ -171,11 +171,11 @@ final class ResultSetTest extends TestCase
                         'query' => Query::fromArray(
                             [
                                 'queryType' => new QueryType('type', [], null, true),
-                            ]
+                            ],
                         ),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         self::assertTrue($result->isContextual());

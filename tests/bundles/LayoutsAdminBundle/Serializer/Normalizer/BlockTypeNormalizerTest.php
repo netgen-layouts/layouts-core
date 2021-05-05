@@ -43,7 +43,7 @@ final class BlockTypeNormalizerTest extends TestCase
                     'view_type' => 'Default view type',
                     'parameters' => ['param' => 'value'],
                 ],
-            ]
+            ],
         );
 
         self::assertSame(
@@ -56,7 +56,7 @@ final class BlockTypeNormalizerTest extends TestCase
                 'is_container' => false,
                 'defaults' => $blockType->getDefaults(),
             ],
-            $this->normalizer->normalize(new Value($blockType))
+            $this->normalizer->normalize(new Value($blockType)),
         );
     }
 
@@ -75,9 +75,9 @@ final class BlockTypeNormalizerTest extends TestCase
                     [
                         'identifier' => 'definition',
                         'handler' => new ContainerDefinitionHandler(),
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         $data = $this->normalizer->normalize(new Value($blockType));

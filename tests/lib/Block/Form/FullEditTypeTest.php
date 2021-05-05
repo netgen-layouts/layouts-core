@@ -48,10 +48,10 @@ final class FullEditTypeTest extends FormTestCase
                                     [
                                         'name' => 'standard',
                                         'identifier' => 'standard',
-                                    ]
+                                    ],
                                 ),
                             ],
-                        ]
+                        ],
                     ),
                     'small' => ViewType::fromArray(
                         [
@@ -63,13 +63,13 @@ final class FullEditTypeTest extends FormTestCase
                                     [
                                         'name' => 'standard',
                                         'identifier' => 'standard',
-                                    ]
+                                    ],
                                 ),
                             ],
-                        ]
+                        ],
                     ),
                 ],
-            ]
+            ],
         );
 
         $this->block = Block::fromArray(['definition' => $this->definition, 'mainLocale' => 'en']);
@@ -101,7 +101,7 @@ final class FullEditTypeTest extends FormTestCase
         $form = $this->factory->create(
             FullEditType::class,
             $struct,
-            ['block' => $this->block]
+            ['block' => $this->block],
         );
 
         $form->submit($submittedData);
@@ -114,7 +114,7 @@ final class FullEditTypeTest extends FormTestCase
 
         self::assertSame(
             ['css_class' => 'Some CSS class', 'css_id' => 'Some CSS ID'],
-            $struct->getParameterValues()
+            $struct->getParameterValues(),
         );
 
         $view = $form->createView();
@@ -155,9 +155,9 @@ final class FullEditTypeTest extends FormTestCase
                     [
                         'definition' => $this->definition,
                         'mainLocale' => 'en',
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         self::assertTrue($form->get('name')->isDisabled());
@@ -190,9 +190,9 @@ final class FullEditTypeTest extends FormTestCase
                     [
                         'definition' => $this->definition,
                         'mainLocale' => 'en',
-                    ]
+                    ],
                 ),
-            ]
+            ],
         );
 
         self::assertFalse($form->get('name')->isDisabled());
@@ -220,7 +220,7 @@ final class FullEditTypeTest extends FormTestCase
             [
                 'block' => $this->block,
                 'data' => $struct,
-            ]
+            ],
         );
 
         self::assertSame($this->block, $options['block']);
@@ -259,7 +259,7 @@ final class FullEditTypeTest extends FormTestCase
         $optionsResolver->resolve(
             [
                 'block' => '',
-            ]
+            ],
         );
     }
 
@@ -280,7 +280,7 @@ final class FullEditTypeTest extends FormTestCase
             [
                 'block' => $this->block,
                 'data' => '',
-            ]
+            ],
         );
     }
 

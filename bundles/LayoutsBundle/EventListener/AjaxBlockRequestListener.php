@@ -48,7 +48,7 @@ final class AjaxBlockRequestListener implements EventSubscriberInterface
         $requestUri = preg_replace(
             ['/&page=\d+/', '/\?page=\d+&/', '/\?page=\d+/'],
             ['', '?', ''],
-            $request->getRequestUri()
+            $request->getRequestUri(),
         );
 
         $request->attributes->set('nglContextUri', $requestUri);

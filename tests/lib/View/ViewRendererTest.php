@@ -35,7 +35,7 @@ final class ViewRendererTest extends TestCase
 
         $this->viewRenderer = new ViewRenderer(
             $this->eventDispatcherMock,
-            $this->twigEnvironmentMock
+            $this->twigEnvironmentMock,
         );
     }
 
@@ -85,8 +85,8 @@ final class ViewRendererTest extends TestCase
                     [
                         'value' => $value,
                         'some_param' => 'some_value',
-                    ]
-                )
+                    ],
+                ),
             )
             ->willReturn('rendered template');
 

@@ -31,7 +31,7 @@ final class BlockTypeTest extends TestCase
                     'item_view_type' => 'standard',
                     'parameters' => ['tag' => 'h3'],
                 ],
-            ]
+            ],
         );
     }
 
@@ -87,7 +87,7 @@ final class BlockTypeTest extends TestCase
                 'item_view_type' => 'standard',
                 'parameters' => ['tag' => 'h3'],
             ],
-            $this->blockType->getDefaults()
+            $this->blockType->getDefaults(),
         );
     }
 

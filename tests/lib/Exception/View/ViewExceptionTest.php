@@ -18,7 +18,7 @@ final class ViewExceptionTest extends TestCase
 
         self::assertSame(
             'Parameter with "param" name was not found in "view" view.',
-            $exception->getMessage()
+            $exception->getMessage(),
         );
     }
 }

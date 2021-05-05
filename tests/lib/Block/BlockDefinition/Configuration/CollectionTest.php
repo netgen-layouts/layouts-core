@@ -18,7 +18,7 @@ final class CollectionTest extends TestCase
                 'identifier' => 'collection',
                 'validItemTypes' => ['item'],
                 'validQueryTypes' => ['query'],
-            ]
+            ],
         );
     }
 
@@ -55,7 +55,7 @@ final class CollectionTest extends TestCase
         $this->collection = Collection::fromArray(
             [
                 'validQueryTypes' => null,
-            ]
+            ],
         );
 
         self::assertTrue($this->collection->isValidQueryType('query'));
@@ -70,7 +70,7 @@ final class CollectionTest extends TestCase
         $this->collection = Collection::fromArray(
             [
                 'validQueryTypes' => [],
-            ]
+            ],
         );
 
         self::assertFalse($this->collection->isValidQueryType('query'));
@@ -102,7 +102,7 @@ final class CollectionTest extends TestCase
         $this->collection = Collection::fromArray(
             [
                 'validItemTypes' => null,
-            ]
+            ],
         );
 
         self::assertTrue($this->collection->isValidItemType('item'));
@@ -117,7 +117,7 @@ final class CollectionTest extends TestCase
         $this->collection = Collection::fromArray(
             [
                 'validItemTypes' => [],
-            ]
+            ],
         );
 
         self::assertFalse($this->collection->isValidItemType('item'));

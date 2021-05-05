@@ -388,10 +388,10 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
                             'itemViewTypes' => [
                                 'standard' => new ItemViewType(),
                             ],
-                        ]
+                        ],
                     ),
                 ],
-            ]
+            ],
         );
     }
 
@@ -408,10 +408,10 @@ final class BlockCreateStructValidatorTest extends ValidatorTestCase
                             'itemViewTypes' => [
                                 'standard' => new ItemViewType(),
                             ],
-                        ]
+                        ],
                     ),
                 ],
-            ]
+            ],
         );
     }
 }

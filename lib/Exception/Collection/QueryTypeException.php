@@ -15,8 +15,8 @@ final class QueryTypeException extends InvalidArgumentException implements Excep
         return new self(
             sprintf(
                 'Query type with "%s" identifier does not exist.',
-                $identifier
-            )
+                $identifier,
+            ),
         );
     }
 
@@ -26,8 +26,8 @@ final class QueryTypeException extends InvalidArgumentException implements Excep
             sprintf(
                 'Form "%s" does not exist in "%s" query type.',
                 $form,
-                $queryType
-            )
+                $queryType,
+            ),
         );
     }
 }

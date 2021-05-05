@@ -38,7 +38,7 @@ final class ParameterDefinitionTest extends TestCase
                 'label' => 'Custom label',
                 'groups' => ['group'],
                 'constraints' => $constraints,
-            ]
+            ],
         );
 
         self::assertSame('name', $parameterDefinition->getName());

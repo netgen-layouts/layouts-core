@@ -21,7 +21,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'layouts/load_zone_blocks',
-            Response::HTTP_OK
+            Response::HTTP_OK,
         );
     }
 
@@ -35,7 +35,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
         $this->assertResponse(
             $this->client->getResponse(),
             'layouts/load_published_zone_blocks',
-            Response::HTTP_OK
+            Response::HTTP_OK,
         );
     }
 
@@ -49,7 +49,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find zone with identifier "unknown"'
+            'Could not find zone with identifier "unknown"',
         );
     }
 
@@ -63,7 +63,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find layout with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"'
+            'Could not find layout with identifier "ffffffff-ffff-ffff-ffff-ffffffffffff"',
         );
     }
 
@@ -77,7 +77,7 @@ final class LoadZoneBlocksTest extends JsonApiTestCase
         $this->assertException(
             $this->client->getResponse(),
             Response::HTTP_NOT_FOUND,
-            'Could not find layout with identifier "81168ed3-86f9-55ea-b153-101f96f2c136"'
+            'Could not find layout with identifier "81168ed3-86f9-55ea-b153-101f96f2c136"',
         );
     }
 }

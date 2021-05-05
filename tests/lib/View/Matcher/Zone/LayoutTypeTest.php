@@ -37,7 +37,7 @@ final class LayoutTypeTest extends TestCase
             [
                 'layoutType' => LayoutType::fromArray(['identifier' => '4_zones_a']),
                 'zones' => new ZoneList(['left' => Zone::fromArray(['identifier' => 'left'])]),
-            ]
+            ],
         );
 
         $view = new ZoneView(new ZoneReference($layout, 'left'), new BlockList());

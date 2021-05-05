@@ -41,16 +41,16 @@ final class BlockUpdateStructTest extends TestCase
                         [
                             'value' => 'css',
                             'parameterDefinition' => $blockDefinition->getParameterDefinition('css_class'),
-                        ]
+                        ],
                     ),
                     'inner' => Parameter::fromArray(
                         [
                             'value' => 'inner',
                             'parameterDefinition' => $compoundDefinition->getParameterDefinition('inner'),
-                        ]
+                        ],
                     ),
                 ],
-            ]
+            ],
         );
 
         $this->struct->fillParametersFromBlock($block);
@@ -62,7 +62,7 @@ final class BlockUpdateStructTest extends TestCase
                 'compound' => null,
                 'inner' => 'inner',
             ],
-            $this->struct->getParameterValues()
+            $this->struct->getParameterValues(),
         );
     }
 
@@ -89,7 +89,7 @@ final class BlockUpdateStructTest extends TestCase
                 'compound' => false,
                 'inner' => 'inner',
             ],
-            $this->struct->getParameterValues()
+            $this->struct->getParameterValues(),
         );
     }
 
@@ -114,7 +114,7 @@ final class BlockUpdateStructTest extends TestCase
                 'compound' => true,
                 'inner' => 'inner',
             ],
-            $this->struct->getParameterValues()
+            $this->struct->getParameterValues(),
         );
     }
 
@@ -133,10 +133,10 @@ final class BlockUpdateStructTest extends TestCase
                             'type' => new ParameterType\TextLineType(),
                             'isRequired' => false,
                             'defaultValue' => 'inner_default',
-                        ]
+                        ],
                     ),
                 ],
-            ]
+            ],
         );
 
         $parameterDefinitions = [
@@ -146,7 +146,7 @@ final class BlockUpdateStructTest extends TestCase
                     'type' => new ParameterType\TextLineType(),
                     'isRequired' => false,
                     'defaultValue' => 'css_default',
-                ]
+                ],
             ),
             'css_id' => ParameterDefinition::fromArray(
                 [
@@ -154,7 +154,7 @@ final class BlockUpdateStructTest extends TestCase
                     'type' => new ParameterType\TextLineType(),
                     'isRequired' => false,
                     'defaultValue' => 'id_default',
-                ]
+                ],
             ),
             'compound' => $compoundParameter,
         ];

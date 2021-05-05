@@ -26,7 +26,7 @@ final class PluginCollectionTest extends TestCase
             [
                 $this->plugin1,
                 $this->plugin2,
-            ]
+            ],
         );
     }
 

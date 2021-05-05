@@ -48,7 +48,7 @@ final class CollectionEditType extends AbstractType
                     new Constraints\Type(['type' => 'int']),
                     new Constraints\GreaterThanOrEqual(['value' => 0]),
                 ],
-            ]
+            ],
         );
 
         $builder->add(
@@ -61,7 +61,7 @@ final class CollectionEditType extends AbstractType
                     new Constraints\Type(['type' => 'int']),
                     new Constraints\GreaterThanOrEqual(['value' => 0]),
                 ],
-            ]
+            ],
         );
 
         $builder->setDataMapper(new CollectionDataMapper());

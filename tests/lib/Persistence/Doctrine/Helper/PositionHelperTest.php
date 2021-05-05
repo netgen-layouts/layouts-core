@@ -51,7 +51,7 @@ final class PositionHelperTest extends TestCase
 
         self::assertSame(
             [0, 2, 3],
-            $this->getPositionData()
+            $this->getPositionData(),
         );
     }
 
@@ -68,7 +68,7 @@ final class PositionHelperTest extends TestCase
 
         self::assertSame(
             [0, 1, 2],
-            $this->getPositionData()
+            $this->getPositionData(),
         );
     }
 
@@ -115,7 +115,7 @@ final class PositionHelperTest extends TestCase
 
         self::assertSame(
             [0, 0, 1],
-            $this->getPositionData()
+            $this->getPositionData(),
         );
     }
 
@@ -129,7 +129,7 @@ final class PositionHelperTest extends TestCase
 
         self::assertSame(
             [1, 2, 2],
-            $this->getPositionData()
+            $this->getPositionData(),
         );
     }
 
@@ -167,8 +167,8 @@ final class PositionHelperTest extends TestCase
             ->where(
                 $query->expr()->and(
                     $query->expr()->eq('id', ':id'),
-                    $query->expr()->eq('status', ':status')
-                )
+                    $query->expr()->eq('status', ':status'),
+                ),
             )
             ->setParameter('id', 2, Types::INTEGER)
             ->setParameter('status', Value::STATUS_DRAFT, Types::INTEGER);
@@ -179,7 +179,7 @@ final class PositionHelperTest extends TestCase
 
         self::assertSame(
             [0, 1],
-            $this->getPositionData()
+            $this->getPositionData(),
         );
     }
 
@@ -222,8 +222,8 @@ final class PositionHelperTest extends TestCase
             ->where(
                 $query->expr()->and(
                     $query->expr()->eq('collection_id', ':collection_id'),
-                    $query->expr()->eq('status', ':status')
-                )
+                    $query->expr()->eq('status', ':status'),
+                ),
             )
             ->setParameter('collection_id', 1, Types::INTEGER)
             ->setParameter('status', Value::STATUS_DRAFT, Types::INTEGER)

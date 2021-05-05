@@ -18,7 +18,7 @@ final class ZoneTest extends TestCase
                 'identifier' => 'left',
                 'name' => 'Left',
                 'allowedBlockDefinitions' => ['title'],
-            ]
+            ],
         );
     }
 

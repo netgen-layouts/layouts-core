@@ -35,7 +35,7 @@ final class LinkTypeTest extends FormTestCase
     {
         $this->parameterType = new LinkParameterType(
             new ValueTypeRegistry([]),
-            new RemoteIdConverter($this->createMock(CmsItemLoaderInterface::class))
+            new RemoteIdConverter($this->createMock(CmsItemLoaderInterface::class)),
         );
 
         parent::setUp();
@@ -56,7 +56,7 @@ final class LinkTypeTest extends FormTestCase
         $parameterDefinition = ParameterDefinition::fromArray(
             [
                 'type' => $this->parameterType,
-            ]
+            ],
         );
 
         $formBuilder = $this->factory->createBuilder(LinkType::class);
@@ -78,7 +78,7 @@ final class LinkTypeTest extends FormTestCase
                 'linkSuffix' => '?suffix',
                 'newWindow' => true,
             ],
-            $this->exportObject($formData)
+            $this->exportObject($formData),
         );
 
         // View test
@@ -106,7 +106,7 @@ final class LinkTypeTest extends FormTestCase
         $parameterDefinition = ParameterDefinition::fromArray(
             [
                 'type' => $this->parameterType,
-            ]
+            ],
         );
 
         $formBuilder = $this->factory->createBuilder(LinkType::class);
@@ -128,7 +128,7 @@ final class LinkTypeTest extends FormTestCase
                 'linkSuffix' => null,
                 'newWindow' => false,
             ],
-            $this->exportObject($formData)
+            $this->exportObject($formData),
         );
 
         // View test
@@ -149,7 +149,7 @@ final class LinkTypeTest extends FormTestCase
         $parameterDefinition = ParameterDefinition::fromArray(
             [
                 'type' => $this->parameterType,
-            ]
+            ],
         );
 
         $formBuilder = $this->factory->createBuilder(LinkType::class);
@@ -162,7 +162,7 @@ final class LinkTypeTest extends FormTestCase
                 'link_suffix' => '?suffix',
                 'new_window' => true,
                 'url' => 'https://netgen.io',
-            ]
+            ],
         );
 
         $form->get('link')->addError(new FormError('an error'));
@@ -184,7 +184,7 @@ final class LinkTypeTest extends FormTestCase
         $parameterDefinition = ParameterDefinition::fromArray(
             [
                 'type' => $this->parameterType,
-            ]
+            ],
         );
 
         $formBuilder = $this->factory->createBuilder(LinkType::class);
@@ -197,7 +197,7 @@ final class LinkTypeTest extends FormTestCase
                 'link_suffix' => '?suffix',
                 'new_window' => true,
                 'url' => 'https://netgen.io',
-            ]
+            ],
         );
 
         $form->get('link')->addError(new FormError('an error'));
@@ -226,7 +226,7 @@ final class LinkTypeTest extends FormTestCase
                 'translation_domain' => 'nglayouts_forms',
                 'value_types' => ['value'],
             ],
-            $resolvedOptions
+            $resolvedOptions,
         );
     }
 
@@ -261,7 +261,7 @@ final class LinkTypeTest extends FormTestCase
                 'translation_domain' => 'nglayouts_forms',
                 'value_types' => [],
             ],
-            $resolvedOptions
+            $resolvedOptions,
         );
     }
 
@@ -280,7 +280,7 @@ final class LinkTypeTest extends FormTestCase
         $optionsResolver->resolve(
             [
                 'value_types' => 42,
-            ]
+            ],
         );
     }
 

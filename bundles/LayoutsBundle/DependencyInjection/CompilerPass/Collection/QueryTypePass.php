@@ -59,8 +59,8 @@ final class QueryTypePass implements CompilerPassInterface
                 throw new RuntimeException(
                     sprintf(
                         'Query type handler for "%s" query type does not exist.',
-                        $type
-                    )
+                        $type,
+                    ),
                 );
             }
 
