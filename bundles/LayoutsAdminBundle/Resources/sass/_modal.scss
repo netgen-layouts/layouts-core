@@ -57,8 +57,15 @@
             font-size: 16px;
 
             #delete-verification {
-                margin-top: 1rem;
-                border: 1px solid black;
+                display: block;
+                margin: 0 0 1em;
+                border-radius: 2px;
+                width: 100%;
+                padding: 0 0.75em;
+                font-size: 14px;
+                height: 44px;
+                border: 1px solid #b3b3b3;
+                background: #fff;
             }
         }
         .nl-modal-head {
