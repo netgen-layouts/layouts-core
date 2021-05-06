@@ -413,6 +413,10 @@
         .rule-details, .nl-dropdown-toggle, .rule-link-layout {
             display: flex !important;
         }
+
+        .nl-dropdown-toggle {
+            background-color: inherit;
+        }
     }
 
     &.nl-rule-hidden {
@@ -1603,7 +1607,7 @@
                 height: auto;
                 min-width: auto;
                 font-size: 24px;
-                padding: 18px 12px;
+                padding: 0 0.75em;
                 border-radius: 0;
 
                 i {
@@ -1853,6 +1857,12 @@
                     }
                 }
             }
+        }
+    }
+
+    &.nl-dropdown-active {
+        .nl-dropdown-toggle {
+            background-color: inherit;
         }
     }
 
