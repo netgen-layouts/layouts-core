@@ -52,6 +52,11 @@ body {
     -moz-osx-font-smoothing: grayscale;
     a:not(.nl-btn) {
         color:$linkColor;
+        text-decoration: none;
+        &:hover {
+            cursor: pointer;
+            text-decoration: underline;
+        }
     }
     h1 {
         font-size:1.625em;
