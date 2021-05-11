@@ -69,7 +69,7 @@
         .rule-priority {
             display: block;
         }
-        .nl-dropdown, .nl-export-checkbox {
+        .nl-dropdown, .nl-export-checkbox, .hover-actions {
             display: none !important;
         }
     }
@@ -1465,7 +1465,7 @@
                 > .js-group-save-reorder, > .js-group-cancel-reorder {
                     display: block;
                 }
-                .group-details, .nl-dropdown {
+                .group-details, .nl-dropdown, .hover-actions {
                     display: none !important;
                 }
             }
