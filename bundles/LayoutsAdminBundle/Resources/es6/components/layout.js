@@ -31,10 +31,10 @@ export default class NlLayout {
 
     handleCheckboxDisable(state) {
         if (state) {
-            this.checkBoxContainer.style.visibility = 'visible';
+            this.checkBoxContainer.style.opacity = '1';
         } else {
             this.selectElement.disabled = false;
-            this.checkBoxContainer.style.visibility = '';
+            this.checkBoxContainer.style.opacity = '';
         }
     }
 

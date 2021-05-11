@@ -51,7 +51,7 @@
 
     &:hover {
         .nl-export-checkbox {
-            visibility: visible;
+            opacity: 1;
         }
     }
 
@@ -244,7 +244,7 @@
             padding:0 $gutter 0 0;
             width:30%;
             .nl-export-checkbox {
-                vertical-align: middle;
+                display: none;
             }
         }
         .nl-layout-description {
@@ -340,7 +340,7 @@
         }
 
         .nl-export-checkbox {
-            display: none;
+            opacity: 0.3;
         }
 
         .js-reorder-layouts {
@@ -451,7 +451,7 @@
 }
 
 .nl-export-checkbox {
-    visibility: hidden;
+    opacity: 0.3;
 
     input {
         position: absolute;
