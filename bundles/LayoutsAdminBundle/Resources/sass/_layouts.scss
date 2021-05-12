@@ -51,7 +51,9 @@
 
     &:hover {
         .nl-export-checkbox {
-            opacity: 1;
+            > label {
+                opacity: 1;
+            }
         }
     }
 
@@ -340,7 +342,9 @@
         }
 
         .nl-export-checkbox {
-            opacity: 0.3;
+            > label {
+                opacity: 0.3;
+            }
         }
 
         .js-reorder-layouts {
@@ -451,7 +455,9 @@
 }
 
 .nl-export-checkbox {
-    opacity: 0.3;
+    > label {
+        opacity: 0.3;
+    }
 
     input {
         position: absolute;

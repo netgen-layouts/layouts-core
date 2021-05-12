@@ -14,6 +14,7 @@ export default class NlLayout {
         this.selectElement = document.getElementById(`export${this.id}`);
         this.selected = this.selectElement && this.selectElement.checked;
         [this.checkBoxContainer] = this.el.getElementsByClassName('nl-export-checkbox');
+        [this.checkbox] = this.checkBoxContainer.getElementsByTagName('label');
         this.type = 'layout';
 
         this.layouts.layouts.push(this);
@@ -31,10 +32,10 @@ export default class NlLayout {
 
     handleCheckboxDisable(state) {
         if (state) {
-            this.checkBoxContainer.style.opacity = '1';
+            this.checkbox.style.opacity = '1';
         } else {
             this.selectElement.disabled = false;
-            this.checkBoxContainer.style.opacity = '';
+            this.checkbox.style.opacity = '';
         }
     }
 

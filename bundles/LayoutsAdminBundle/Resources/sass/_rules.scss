@@ -85,6 +85,10 @@
         display: flex;
         padding-left: $gutter;
 
+        .nl-export-checkbox {
+            display: none;
+        }
+
         .rule-layout {
             padding-left: 24px;
         }
@@ -136,6 +140,10 @@
         margin-right: auto;
         padding-left: 20px;
         padding-top: 5px;
+
+        label {
+            opacity: 1;
+        }
     }
 
     .js-export {
