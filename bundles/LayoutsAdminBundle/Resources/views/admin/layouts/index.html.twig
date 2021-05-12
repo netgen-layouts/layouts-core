@@ -12,14 +12,17 @@
     <div id="layouts" class="nl-layouts-view-grid">
         <div class="layouts-header">
             <h2 class="layouts-title">{{ 'layouts.title'|trans }}</h2>
+
             <div class="layouts-controls">
                 <a style="display: none" href="#" class="nl-btn js-export" title="{{ 'layouts.export.title'|trans }}"></a>
                 <a href="#" class="nl-btn js-change-layouts-view"></a>
+
                 {% if is_granted('nglayouts:layout:add') %}
                     <a href="{{ macros.layout_path() }}" id="add-new-button" class="nl-btn nl-btn-primary js-open-ngl">
                         <i class="material-icons">add</i> {{ 'layouts.new_layout'|trans }}
                     </a>
                 {% endif %}
+
                 <div class="layout-sorting-controls">
                     <label for="layout-sorting-sort"><i class="material-icons">sort_by_alpha</i></label>
                     <select id="layout-sorting-sort" class="nl-select">
@@ -29,20 +32,21 @@
                         <option value="type">{{ 'layouts.layout.layout_type'|trans }}</option>
                         <option value="mappings">{{ 'layouts.layout.mappings'|trans }}</option>
                     </select>
+
                     <select id="layout-sorting-direction" class="nl-select">
                         <option value="asc">{{ 'layouts.layout.sort.ascending'|trans }}</option>
                         <option value="desc">{{ 'layouts.layout.sort.descending'|trans }}</option>
                     </select>
                 </div>
             </div>
-            <div class="export-controls">
-                <a href="#" class="nl-btn nl-btn-primary js-download-export">{{ 'layouts.export.download'|trans }}</a>
-                <a href="" class="nl-btn nl-btn-white js-cancel-export">{{ 'layouts.export.cancel'|trans }}</a>
-            </div>
         </div>
+
         <div class="nl-layouts-head">
             <div class="nl-layout-info">
-                <div class="nl-layout-type"><a class="js-reorder-layouts" data-sorting="type">{{ 'layouts.layout.layout_type'|trans }}<i class="sort-icon"></i></a></div>
+                <div class="nl-layout-type">
+                    <a class="js-reorder-layouts" data-sorting="type">{{ 'layouts.layout.layout_type'|trans }}<i class="sort-icon"></i></a>
+                </div>
+
                 <div class="nl-layout-text">
                     <div class="nl-layout-name">
                         <div class="nl-export-checkbox">
@@ -51,14 +55,19 @@
                         </div>
                         <a class="js-reorder-layouts" data-sorting="name">{{ 'layouts.layout.name'|trans }}<i class="sort-icon"></i></a>
                     </div>
+
                     <div class="nl-layout-description"><a class="js-reorder-layouts" data-sorting="description">{{ 'layouts.layout.description'|trans }}<i class="sort-icon"></i></a></div>
                     <div class="nl-layout-modified"><a class="js-reorder-layouts" data-sorting="modified">{{ 'layouts.layout.modified'|trans }}<i class="sort-icon"></i></a></div>
                 </div>
             </div>
+
             <div class="nl-layout-actions">
-                <div class="nl-layout-data"><a class="js-reorder-layouts" data-sorting="mappings">{{ 'layouts.layout.mappings'|trans }}<i class="sort-icon"></i></a></div>
+                <div class="nl-layout-data">
+                    <a class="js-reorder-layouts" data-sorting="mappings">{{ 'layouts.layout.mappings'|trans }}<i class="sort-icon"></i></a>
+                </div>
             </div>
         </div>
+
         <div class="nl-layouts">
             {% for layout in layouts %}
                 <div class="nl-layout">
@@ -66,6 +75,7 @@
                 </div>
             {% endfor %}
         </div>
+
         <p class="nl-no-items">{{ 'layouts.no_layouts'|trans }}</p>
     </div>
 {% endblock %}

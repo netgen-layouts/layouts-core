@@ -1,7 +1,3 @@
-
-
-
-
 {% import '@NetgenLayoutsAdmin/admin/macros.html.twig' as macros %}
 
 {% trans_default_domain 'nglayouts_admin' %}
@@ -37,11 +33,12 @@
 
         <div class="nl-rule-cell rule-layout">
             <div class="rule-priority"></div>
-            <span class="icon-rule">
-            </span>
+            <span class="icon-rule"></span>
+
             <span class="icon-rule-disabled">
-                <div class="disabled-tooltip">Rule disabled</div>
+                <div class="disabled-tooltip">{{ 'layout_resolver.rule.inactive'|trans }}</div>
             </span>
+
             {% if rule.layout is not empty %}
                 <p>{{ rule.layout.name }}</p>
             {% else %}
@@ -49,8 +46,8 @@
                     <span>{{ 'layout_resolver.rule.no_mapped_layout'|trans }}</span>
                 </div>
             {% endif %}
-
         </div>
+
         <div class="nl-rule-cell rule-targets">
             {% if rule.targets is not empty %}
                 {% if target_type_identifier is same as('null') %}
@@ -69,6 +66,7 @@
                 {% endif %}
             {% endif %}
         </div>
+
         <div class="nl-rule-cell rule-conditions">
             {% if rule.conditions is not empty %}
                 <ul class="{% if rule.conditions|length == 2 %}nl-ellipsis{% elseif rule.conditions|length > 2 %}nl-inline{% endif %}">
@@ -82,21 +80,23 @@
         </div>
 
         <div class="hover-actions">
-            <div class="nl-rule-cell rule-link-layout">
-                <a class="js-link-layout" {% if rule.layout is not empty %}data-linked-layout="{{ rule.layout.id.toString }}"{% endif %} data-browser-item-type="layout" href="#">
-                    {% if rule.layout is not empty %}
-                        {{ 'layout_resolver.rule.link_other_layout'|trans }}
-                    {% else %}
-                        {{ 'layout_resolver.rule.link_layout'|trans }}
-                    {% endif %}
-                </a>
-            </div>
+            {% if can_edit %}
+                <div class="nl-rule-cell rule-link-layout">
+                    <a class="js-link-layout" {% if rule.layout is not empty %}data-linked-layout="{{ rule.layout.id.toString }}"{% endif %} data-browser-item-type="layout" href="#">
+                        {% if rule.layout is not empty %}
+                            {{ 'layout_resolver.rule.link_other_layout'|trans }}
+                        {% else %}
+                            {{ 'layout_resolver.rule.link_layout'|trans }}
+                        {% endif %}
+                    </a>
+                </div>
+            {% endif %}
 
-            <div class="nl-rule-cell rule-unlink-layout">
-                {% if rule.layout is not empty %} 
+            {% if can_edit and rule.layout is not empty %}
+                <div class="nl-rule-cell rule-unlink-layout">
                     <a href="#" class="js-rule-unlink">{{ 'layout_resolver.rule.unlink_layout'|trans }}</a>
-                {% endif %}
-            </div>
+                </div>
+            {% endif %}
 
             <div class="nl-rule-cell rule-details">
                 <a href="#" class="js-toggle-body">{{ 'layout_resolver.rule.details'|trans }}</a>
@@ -108,11 +108,8 @@
                 </button>
                 <ul class="nl-dropdown-menu">
                     {% if can_edit %}
-
                         <li><a href="#" class="js-rule-edit-rule">{{ 'layout_resolver.rule.edit_rule'|trans }}</a></li>
-
                         <li><a href="#" class="js-rule-copy-rule">{{ 'layout_resolver.rule.copy_rule'|trans }}</a></li>
-
                     {% endif %}
 
                     {% if can_activate %}
@@ -138,7 +135,6 @@
                     {{ nglayouts_template_plugin('admin.rule.controls') }}
                 </ul>
             </div>
-
         </div>
     </div>
 </div>
@@ -159,18 +155,19 @@
             {% endif %}
 
             <div class="col-xs12 sidebar-title">
-                <h1>Editing mapping</h1>
+                <h1>{{ 'layout_resolver.rule.details'|trans }}</h1>
             </div>
-
 
             <div class="col-xs12">
                 <h4>{{ 'layout_resolver.rule.mapped_layout'|trans }}:</h4>
+
                 {% if rule.layout is not empty %}
                     <div class="rule-layout-info">
                         {% if rule.layout.layoutType.zones is not empty %}
                             <div class="rule-layout-info-icon">
                                 <i class="layout-icon {{ rule.layout.layoutType.identifier }}" {% if rule.layout.layoutType.icon is not null %}style="background-image:url({{ asset(rule.layout.layoutType.icon) }})"{% endif %}></i>
                             </div>
+
                             <div class="rule-layout-info-text">
                                 <p><strong>{{ rule.layout.name }}</strong></p>
                                 <p>{{ rule.layout.description }}</p>
@@ -182,6 +179,7 @@
                             </div>
                         {% endif %}
                     </div>
+
                     <div class="nl-layout-options">
                         {% if is_granted('nglayouts:layout:edit', rule.layout) %}
                             <a href="{{ macros.layout_path(rule.layout.id.toString) }}" class="js-open-ngl">{{ 'layout_resolver.rule.edit_layout'|trans }}</a>
@@ -273,7 +271,8 @@
                 </div>
             </div>
         </div>
-                {% if rule.description is not empty %}
+
+        {% if rule.description is not empty %}
             <div class="nl-rule-description">
                 <p>{{ rule.description }}</p>
             </div>
