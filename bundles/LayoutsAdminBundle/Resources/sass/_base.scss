@@ -53,6 +53,7 @@ body {
     a:not(.nl-btn) {
         color:$linkColor;
         text-decoration: none;
+        font-size: 13px;
         &:hover {
             cursor: pointer;
             text-decoration: underline;

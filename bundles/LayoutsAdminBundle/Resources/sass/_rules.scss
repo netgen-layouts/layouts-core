@@ -121,14 +121,21 @@
     position: relative;
     z-index: 1000;
 
+    .selected-items, .selected-items-text {
+        font-size: 13px;
+        line-height: inherit;
+    }
+
+    .selected-items-text {
+        padding-right: 20px;
+        border-right: 1px solid black;
+        margin-right: 20px;
+    }
+
     .align-right {
         margin-right: auto;
         display: flex;
         align-items: center;
-
-        .selected-items {
-            margin-left: 1rem;
-        }
 
         p {
             font-size: 16px;
@@ -1263,8 +1270,12 @@
                 .selected-items-wrapper {
                     display: flex;
                     color: black;
-                    margin-left: 1rem;
                     font-weight: normal;
+                    
+                    p {
+                        line-height: 13px;
+                        font-size: 13px;
+                    }
                 }
 
                 .group-controls {
@@ -1549,6 +1560,7 @@
                 padding-right: 20px;
                 border-right: 1px solid black;
                 margin-right: 20px;
+                font-size: 13px;
             }
         }
 
@@ -1559,6 +1571,7 @@
             right: 0;
             z-index: 100;
             background: white;
+            margin-right: 20px;
         }
 
         .group-title {
