@@ -18,7 +18,8 @@ const dropdownInit = () => {
         }
         btn.blur();
         const dropdownEl = e.target.closest('.nl-dropdown');
-        const parentEl = e.target.closest('.nl-element');
+        let parentEl = e.target.closest('.nl-element');
+        parentEl ? null : parentEl = e.target.closest('.nl-layout');
         if (!dropdownEl) return;
         if (dropdownEl.classList.contains('nl-dropdown-active')) {
             dropdownEl.classList.remove('nl-dropdown-active');

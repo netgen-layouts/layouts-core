@@ -97,6 +97,7 @@
     .nl-dropdown {
         display:flex;
         align-items:stretch;
+        visibility: hidden;
         .nl-btn {
             display:flex;
             align-items:center;
@@ -106,7 +107,18 @@
             border-radius:0;
             i {
                 font-size:inherit;
+                color: #3671E7;
             }
+            &:hover {
+                background-color: white;
+            }
+        }
+    }
+
+    .nl-dropdown-active {
+        visibility: visible;
+        .nl-btn {
+            background-color: white;
         }
     }
 }
@@ -128,7 +140,7 @@
         padding:0 0.75*$gutter;
         display:flex;
         .nl-layout-content {
-            box-shadow:0 1px 2px hsla(0, 0, 0 , .2);
+            border: 1px solid #d9d9d9;
             margin:0 0 1.5*$gutter;
             display:flex;
             flex:1;
@@ -188,7 +200,6 @@
                 position:static;
                 .nl-btn {
                     padding:0 10px;
-                    color:inherit;
                 }
                 .nl-dropdown-menu {
                     left:0;
@@ -277,11 +288,31 @@
     }
 
     .nl-layout {
+        &:first-child {
+            .nl-layout-content {
+                border-top: 1px solid #d9d9d9;
+            }
+        }
+
+        &:last-child {
+            .nl-layout-content {
+                border-bottom: 1px solid #d9d9d9;
+            }
+        }
+
         .nl-layout-content {
-            border:1px solid hsl(0, 0, 85);
+            border-left: 1px solid #d9d9d9;
+            border-right: 1px solid #d9d9d9;
             margin:0 0 -1px;
             display:flex;
             min-height:60px;
+
+            &:hover {
+                .nl-dropdown {
+                    visibility: visible;
+                }
+            }
+
             .nl-layout-name {
                 padding:.25em $gutter .25em 0;
             }
