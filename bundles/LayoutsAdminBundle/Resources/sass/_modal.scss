@@ -226,6 +226,10 @@
         max-height: 90vh;
         flex-direction: column;
 
+        @media only screen and (min-width: 1200px) {
+            width: 40%;
+        }
+
         .nl-group, .nl-group-head {
             border-bottom: 1px solid transparent;
         }
