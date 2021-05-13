@@ -647,6 +647,7 @@
             padding: $gutter;
             background: #fff;
             z-index: 1001;
+            padding: 60px;
 
             h1 {
                 font-size: 24px;
@@ -810,11 +811,9 @@
     }
     .nl-rule-actions {
         display: none;
-        padding: $gutter;
         background: #fff;
         text-align: right;
         margin-left: auto;
-        margin-right: 20px;
     }
     .settings-loader {
         display: none;
@@ -1346,6 +1345,7 @@
             padding: 20px;
             background: #fff;
             z-index: 1001;
+            padding: 60px;
 
             h1 {
                 font-size: 24px;
