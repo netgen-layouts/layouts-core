@@ -69,7 +69,7 @@
         .rule-priority {
             display: block;
         }
-        .nl-dropdown, .nl-export-checkbox, .hover-actions {
+        .nl-dropdown, .hover-actions {
             display: none !important;
         }
     }
@@ -83,10 +83,10 @@
     .nl-rules-head-wrapper {
         flex: 1;
         display: flex;
-        padding-left: $gutter;
+        padding-left: 20px;
 
         .nl-export-checkbox {
-            display: none;
+            visibility: hidden;
         }
 
         .rule-layout {
@@ -381,6 +381,12 @@
         }
     }
 
+    &.disable-checkbox {
+        .nl-export-checkbox {
+            visibility: hidden;
+        }
+    }
+
     &.hide-checkbox {
         .nl-rule-head {
             &:hover {
@@ -410,10 +416,6 @@
                     }
                 }
             }
-        }
-
-        .nl-export-checkbox {
-            visibility: visible;
         }
     }
 
@@ -971,22 +973,6 @@
         }
     }
 
-    &.sorting {
-        > .nl-group-content {
-            > .nl-group-body {
-                > .nl-grid {
-                    > .nl-group-list {
-                        .nl-group-head, .nl-rule-head {
-                            .nl-export-checkbox {
-                                display: none;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     &.disabled {
         > .nl-group-content {
             > .nl-group-head {
@@ -1098,6 +1084,12 @@
         }
     }
 
+    &.disable-checkbox {
+        .nl-export-checkbox {
+            visibility: hidden;
+        }
+    }
+
     &.hide-checkbox {
         > .nl-group-content {
             > .nl-group-head {
@@ -1125,10 +1117,6 @@
                     }
                 }
             }
-        }
-
-        .nl-export-checkbox {
-            visibility: visible;
         }
     }
 
@@ -1470,8 +1458,10 @@
     &.sorting {
         > .nl-group-content {
             > .nl-group-head {
-                > .js-group-save-reorder, > .js-group-cancel-reorder {
-                    display: block;
+                > .sorting-actions {
+                    position: absolute;
+                    display: flex;
+                    right: 0;
                 }
                 .group-details, .nl-dropdown, .hover-actions {
                     display: none !important;
@@ -1608,7 +1598,7 @@
                 margin-top: 0.25rem;
             }
         }
-        .js-group-move, .js-group-delete-multiple, .js-group-save-reorder, .js-group-cancel-reorder, .js-export, .js-clear-selection {
+        .js-group-move, .js-group-delete-multiple, .sorting-actions, .js-export, .js-clear-selection {
             display: none;
         }
 
@@ -1692,11 +1682,6 @@
                         border-left: 2px solid transparent;
                     }
                 }
-                > .nl-rule-cell {
-                    > .nl-export-checkbox {
-                        visibility: visible;
-                    }
-                }
             }
         }
     }
@@ -1707,7 +1692,7 @@
         background: white;
         padding: 0 20px;
 
-        .icon-group, .icon-group-disabled, .icon-group-open, .icon-group-disabled-open, .icon-rule, .icon-rule-disabled {
+        .rule-layout, .group-title {
             margin-left: 34px;
         }
 

@@ -241,7 +241,10 @@ export default class NlRules {
         document.querySelectorAll('.nl-dropdown-active').forEach((el) => {
             el.classList.remove('nl-dropdown-active');
         });
-        this.rules.ids.forEach(id => this.rules.byId[id].onSortingStart());
+        this.rules.ids.forEach((id) => {
+            this.rules.byId[id].onSortingStart();
+            this.rules.byId[id].el.classList.add('disable-checkbox');
+        });
         this.appContainer.classList.add('sorting');
         [...document.getElementsByClassName('nl-rule-between')].forEach(el => el.parentElement.removeChild(el));
         this.sortable = new Sortable(this.rulesContainer, {
@@ -258,6 +261,9 @@ export default class NlRules {
 
     sortSave() {
         this.showLoader();
+        this.rules.ids.forEach((id) => {
+            this.rules.byId[id].el.classList.remove('disable-checkbox');
+        });
         const sorted = this.sortable.toArray();
         const rules = sorted.map(rule => `ids[${rule}]=rule`);
         const body = new URLSearchParams(rules.join('&'));
@@ -283,6 +289,9 @@ export default class NlRules {
     }
 
     sortCancel() {
+        this.rules.ids.forEach((id) => {
+            this.rules.byId[id].el.classList.remove('disable-checkbox');
+        });
         this.rules.ids = this.initialOrder;
         this.rules.ids.forEach((id, i) => this.rules.byId[id].onSortingCancel(i));
         this.sortable.sort(this.initialOrder);
