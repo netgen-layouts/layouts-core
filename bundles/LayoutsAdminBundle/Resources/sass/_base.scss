@@ -135,7 +135,7 @@ body {
     .multientry-items {
         .multientry-item {
             position:relative;
-            .icon-close {
+            .close {
                 position:absolute;
                 right:6px;
                 top:9px;
@@ -154,7 +154,7 @@ body {
                 padding-right:3em;
             }
             &:first-child:nth-last-child(1) {
-                .icon-close {
+                .close {
                     display: none;
                 }
             }
@@ -163,7 +163,7 @@ body {
     .multientry[data-last_item_can_be_removed="true"] {
         .multientry-items {
             .multientry-item {
-                .icon-close {
+                .close {
                     display: block;
 
                 }
