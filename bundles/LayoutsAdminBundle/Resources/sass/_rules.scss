@@ -917,6 +917,7 @@
         box-shadow: none;
         outline: 1px dashed $panelLightColor;
         outline-offset: 4px;
+        cursor: grabbing;
         * {
             visibility: hidden;
         }
@@ -1836,6 +1837,7 @@
         box-shadow: none;
         outline: 1px dashed $panelLightColor;
         outline-offset: 4px;
+        cursor: grabbing;
         * {
             visibility: hidden;
         }
