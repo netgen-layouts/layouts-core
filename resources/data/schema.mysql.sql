@@ -288,6 +288,7 @@ INSERT INTO `nglayouts_migration_versions` VALUES ('001200','2019-06-15 12:00:00
 INSERT INTO `nglayouts_migration_versions` VALUES ('001300','2019-06-15 12:00:00');
 INSERT INTO `nglayouts_migration_versions` VALUES ('010000','2019-06-15 12:00:00');
 INSERT INTO `nglayouts_migration_versions` VALUES ('010200','2019-06-15 12:00:00');
+INSERT INTO `nglayouts_migration_versions` VALUES ('010300','2019-06-15 12:00:00');
 /*!40000 ALTER TABLE `nglayouts_migration_versions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -455,6 +456,16 @@ CREATE TABLE `nglayouts_rule_group` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `nglayouts_rule_group`
+--
+
+LOCK TABLES `nglayouts_rule_group` WRITE;
+/*!40000 ALTER TABLE `nglayouts_rule_group` DISABLE KEYS */;
+INSERT INTO `nglayouts_rule_group` VALUES (1,1,'00000000-0000-0000-0000-000000000000',0,'/1/',NULL,'Root','');
+/*!40000 ALTER TABLE `nglayouts_rule_group` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `nglayouts_rule_group_data`
 --
 
@@ -468,6 +479,16 @@ CREATE TABLE `nglayouts_rule_group_data` (
   PRIMARY KEY (`rule_group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `nglayouts_rule_group_data`
+--
+
+LOCK TABLES `nglayouts_rule_group_data` WRITE;
+/*!40000 ALTER TABLE `nglayouts_rule_group_data` DISABLE KEYS */;
+INSERT INTO `nglayouts_rule_group_data` VALUES (1,1,0);
+/*!40000 ALTER TABLE `nglayouts_rule_group_data` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `nglayouts_rule_target`
