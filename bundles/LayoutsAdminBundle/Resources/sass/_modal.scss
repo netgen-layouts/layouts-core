@@ -222,13 +222,21 @@
     }
 
     #nl-move-modal {
-        width: 60%;
         max-height: 90vh;
         flex-direction: column;
 
         @media only screen and (min-width: 1200px) {
-            width: 40%;
+            width: 33%;
         }
+
+        @media only screen and (max-width: 1366px) {
+            width: 50%;
+        }
+
+        @media only screen and (max-width: 900px) {
+            width: 60%;
+        }
+
 
         .nl-group, .nl-group-head {
             border-bottom: 1px solid transparent;

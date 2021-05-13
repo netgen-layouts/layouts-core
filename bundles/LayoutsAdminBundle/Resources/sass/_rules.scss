@@ -29,6 +29,7 @@
         }
     }
 
+
     .nl-more-btn {
         background:0 0;
         border:none;
@@ -62,6 +63,10 @@
             }
         }
     }
+}
+
+.js-content-browser {
+    z-index: 1200;
 }
 
 .sorting {
@@ -261,12 +266,12 @@
 
             @media only screen and (max-width: 1200px) {
                 .rule-targets {
-                    display: none;
+                    visibility: hidden;
                 }
             }
 
             .rule-conditions {
-                display: none;
+                visibility: hidden;
             }
 
             .hover-actions {
@@ -954,12 +959,12 @@
 
                 @media only screen and (max-width: 1200px) {
                     .rule-targets {
-                        display: none;
+                        visibility: hidden;
                     }
                 }
     
                 .rule-conditions {
-                    display: none;
+                    visibility: hidden;
                 }
     
                 > .nl-rule-cell {
@@ -1133,12 +1138,12 @@
 
                 @media only screen and (max-width: 1200px) {
                     .rule-targets {
-                        display: none;
+                        visibility: hidden;
                     }
                 }
     
                 .rule-conditions {
-                    display: none;
+                    visibility: hidden;
                 }
             }
         }
@@ -1243,12 +1248,12 @@
 
                 @media only screen and (max-width: 1200px) {
                     .rule-targets {
-                        display: none;
+                        visibility: hidden;
                     }
                 }
     
                 .rule-conditions {
-                    display: none;
+                    visibility: hidden;
                 }
 
                 .group-overlay {
