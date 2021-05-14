@@ -664,6 +664,10 @@
                 height: 42px;
             }
 
+            .js-setting-add {
+                font-weight: bold;
+            }
+
             h1 {
                 font-size: 24px;
                 font-weight: bold;
@@ -1385,6 +1389,10 @@
             p.note {
                 margin: 1.5em 0 0;
                 font-style: italic;
+            }
+            
+            .js-setting-add-group {
+                font-weight: bold;
             }
 
             form {
