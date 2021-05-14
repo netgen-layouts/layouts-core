@@ -289,12 +289,6 @@
             }
         }
 
-        &:last-child {
-            .nl-layout-content {
-                border-bottom: 0;
-            }
-        }
-
         .nl-layout-content {
             border-top: 1px solid #d9d9d9;
             border-bottom: 1px solid #d9d9d9;
@@ -364,6 +358,7 @@
     .nl-layouts-head {
         display:flex;
         font-size:12px;
+        margin-bottom: 1rem;
         > * {
             display:flex;
         }

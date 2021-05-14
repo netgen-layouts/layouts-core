@@ -161,6 +161,8 @@
     .js-export {
         &::before {
             content: "";
+            margin: 0;
+            padding: 0;
         }
     }
 }
@@ -299,7 +301,7 @@
     &.focused {
         .nl-rule-head {
             position: relative;
-            outline: 3px solid #3671E7;
+            outline: 2px solid #3671E7;
             z-index: 5;
             .hover-actions {
                 display: flex;
@@ -1151,7 +1153,7 @@
     }
 
     &.focused {
-        outline: 3px solid #3671E7;
+        outline: 2px solid #3671E7;
         z-index: 10;
         > .nl-group-content {
             > .nl-group-head {
@@ -1263,7 +1265,7 @@
             > .nl-group-head {
                 position: sticky;
                 top: -3px;
-                outline: 3px solid #3671E7;
+                outline: 2px solid #3671E7;
                 background: #CCDBF9;
                 z-index: 1001;
 
@@ -1286,6 +1288,7 @@
                 }
                 .selected-items-wrapper {
                     display: flex;
+                    align-self: center;
                     color: black;
                     font-weight: normal;
                     
@@ -1310,6 +1313,8 @@
                 .js-export {
                     &::before {
                         content: "";
+                        margin: 0;
+                        padding: 0;
                     }
                 }
 
@@ -1735,16 +1740,16 @@
         }
 
         .rule-layout, .group-title {
-            padding-left: 34px;
+            padding-left: 55px;
         }
 
-        .nl-group-details {
+        .nl-group-body {
             .rule-layout {
-                padding-left: 55px;
+                padding-left: 90px;
             }
 
             .group-title {
-                padding-left: 55px;
+                padding-left: 90px;
             }
         }
     }
