@@ -21,6 +21,7 @@
     &::before {
         content:"file_download";
         font-size: 18px;
+        padding-right: 6px;
     }
 }
 
@@ -145,12 +146,6 @@
             display:flex;
             flex:1;
             flex-direction:column;
-            &:hover {
-                .nl-layout-actions {
-                    background-color:$linkColor;
-                    color:#fff;
-                }
-            }
             .unpublished-label {
                 margin:10px 0 0;
             }
@@ -290,24 +285,25 @@
     .nl-layout {
         &:first-child {
             .nl-layout-content {
-                border-top: 1px solid #d9d9d9;
+                border-top: 0;
             }
         }
 
         &:last-child {
             .nl-layout-content {
-                border-bottom: 1px solid #d9d9d9;
+                border-bottom: 0;
             }
         }
 
         .nl-layout-content {
-            border-left: 1px solid #d9d9d9;
-            border-right: 1px solid #d9d9d9;
+            border-top: 1px solid #d9d9d9;
+            border-bottom: 1px solid #d9d9d9;
             margin:0 0 -1px;
             display:flex;
             min-height:60px;
 
             &:hover {
+                background-color: #F8F8F8;
                 .nl-dropdown {
                     visibility: visible;
                 }

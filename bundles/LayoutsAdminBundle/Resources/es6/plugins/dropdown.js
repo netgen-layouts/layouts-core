@@ -20,6 +20,7 @@ const dropdownInit = () => {
         const dropdownEl = e.target.closest('.nl-dropdown');
         let parentEl = e.target.closest('.nl-element');
         parentEl ? null : parentEl = e.target.closest('.nl-layout');
+        parentEl ? null : parentEl = e.target.closest('.nl-role');
         if (!dropdownEl) return;
         if (dropdownEl.classList.contains('nl-dropdown-active')) {
             dropdownEl.classList.remove('nl-dropdown-active');

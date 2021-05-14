@@ -648,6 +648,15 @@
             background: #fff;
             z-index: 1001;
             padding: 60px;
+            padding-top: 40px;
+
+            .nl-grid {
+                margin: 0;
+
+                .nl-rule-body-rules {
+                    padding-left: 0;
+                }
+            }
 
             h1 {
                 font-size: 24px;
@@ -805,6 +814,11 @@
                 padding-top: 1rem;
                 margin-top:1rem;
                 border-top: 2px solid #E0E0E0;
+                padding-left: 0;
+            }
+
+            .sidebar-title, .layout-body {
+                padding-left: 0;
             }
 
         }
@@ -1346,6 +1360,7 @@
             background: #fff;
             z-index: 1001;
             padding: 60px;
+            padding-top: 40px;
 
             h1 {
                 font-size: 24px;
@@ -1712,7 +1727,7 @@
         padding: 0 20px;
 
         .rule-layout, .group-title {
-            margin-left: 34px;
+            padding-left: 34px;
         }
 
         .nl-group-body {

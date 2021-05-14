@@ -59,7 +59,7 @@ export default class NlLayouts {
 
     setSelecting(state) {
         if (this.exportButton) {
-            state ? this.exportButton.style.display = 'inline-block' : this.exportButton.style.display = 'none';
+            state ? this.exportButton.style.display = 'inline-flex' : this.exportButton.style.display = 'none';
         }
         this.layouts.forEach((layout) => {
             layout.handleCheckboxDisable(state);
