@@ -825,6 +825,22 @@
                 margin-top:1rem;
                 border-top: 2px solid #E0E0E0;
                 padding-left: 0;
+                padding-right: 0;
+
+                .condition-title {
+                    display: flex;
+                    align-items: baseline;
+
+                    h4 {
+                        flex-grow: 1;
+                    }
+
+                    .note {
+                        color: #9D9D9D;
+                        font-weight: normal;
+                        font-size: 13px;
+                    }
+                }
             }
 
             .sidebar-title, .layout-body {
@@ -851,27 +867,18 @@
         margin: 0;
         padding: 0;
         > li {
-            padding: 1em 2.5em 1em 1em;
-            margin: 0 0 .5em;
-            position: relative;
-            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
             .remove-setting {
-                position: absolute;
-                right: 6px;
-                top: 14px;
-                width: 18px;
+                margin-left: 20px;
+                font-size: 13px;
                 text-align: center;
-                height: 18px;
-                line-height: 18px;
+                line-height: 13px;
                 display: block;
-                color: hsl(330, 100, 50);
-                transition: background .15s;
-                i {
-                    font-size: 1.3333333333em;
-                    line-height: inherit;
-                }
+                color: #9D9D9D;
+                margin-bottom: 0.5em;
                 &:hover {
-                    background: rgba(0, 0, 0, .08);
+                    text-decoration: underline;
                 }
             }
         }
@@ -881,6 +888,11 @@
             &.editable-value {
                 cursor: pointer;
                 border-bottom: 1px dashed hsla(0, 0, 0, .2);
+                padding: 1em 0em 1em 1em;
+                margin: 0 0 .5em;
+                position: relative;
+                background: #f5f5f5;
+                flex-grow: 1;
                 &::after {
                     @extend %material-icons;
                     content: 'edit';
@@ -1395,6 +1407,21 @@
                 font-weight: bold;
             }
 
+            .condition-title {
+                display: flex;
+                align-items: baseline;
+
+                h4 {
+                    flex-grow: 1;
+                }
+
+                .note {
+                    color: #9D9D9D;
+                    font-weight: normal;
+                    font-size: 13px;
+                }
+            }
+
             form {
                 background: hsl(0, 0, 96);
                 padding: .8em;
@@ -1790,27 +1817,18 @@
         margin: 0;
         padding: 0;
         > li {
-            padding: 1em 2.5em 1em 1em;
-            margin: 0 0 0.5em;
-            position: relative;
-            background-color: #f5f5f5;
+            display: flex;
+            align-items: center;
             .remove-setting {
-                position: absolute;
-                right: 6px;
-                top: 14px;
-                width: 18px;
+                margin-left: 20px;
+                font-size: 13px;
                 text-align: center;
-                height: 18px;
-                line-height: 18px;
+                line-height: 13px;
                 display: block;
-                color: hsl(330, 100, 50);
-                transition: background 0.15s;
-                i {
-                    font-size: 1.3333333333em;
-                    line-height: inherit;
-                }
+                color: #9D9D9D;
+                margin-bottom: 0.5em;
                 &:hover {
-                    background: rgba(0, 0, 0, 0.08);
+                    text-decoration: underline;
                 }
             }
         }
@@ -1819,7 +1837,12 @@
             line-height: 1.5;
             &.editable-value {
                 cursor: pointer;
-                border-bottom: 1px dashed hsla(0, 0, 0, 0.2);
+                border-bottom: 1px dashed hsla(0, 0, 0, .2);
+                padding: 1em 0em 1em 1em;
+                margin: 0 0 .5em;
+                position: relative;
+                background: #f5f5f5;
+                flex-grow: 1;
                 &::after {
                     @extend %material-icons;
                     content: "edit";

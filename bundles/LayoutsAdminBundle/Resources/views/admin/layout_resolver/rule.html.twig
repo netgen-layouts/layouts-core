@@ -197,7 +197,10 @@
                     <div class="col-xs12 nl-rule-setting">
                         {% if rule.targets is not empty %}
                             {% if target_type_identifier is not same as('null') %}
-                                <h4>{{ ('layout_resolver.rule.target_header.' ~ target_type_identifier)|trans }}:</h4>
+                                    <div class="condition-title">
+                                        <h4>{{ ('layout_resolver.rule.target_header.' ~ target_type_identifier)|trans }}:</h4>
+                                        <p class="note">{{ 'layout_resolver.targets.notice'|trans|raw }}</p>
+                                    </div>
                             {% endif %}
 
                             <ul class="settings-list target-list">
@@ -206,7 +209,11 @@
                                 {% endfor %}
                             </ul>
                         {% else %}
-                            <h4>{{ 'layout_resolver.rule.no_targets'|trans }}</h4>
+                            <div class="condition-title">
+                                <h4>{{ 'layout_resolver.rule.no_targets'|trans }}</h4>
+                                <p class="note">{{ 'layout_resolver.targets.notice'|trans|raw }}</p>
+                            </div>
+
                         {% endif %}
 
                         {% if target_types is not empty %}
@@ -232,12 +239,14 @@
                                 </div>
                             {% endif %}
                         {% endif %}
-                        <p class="note">{{ 'layout_resolver.targets.notice'|trans|raw }}</p>
                     </div>
 
                     <div class="col-xs12 nl-rule-setting">
                         {% if rule.conditions is not empty %}
-                            <h4>{{ 'layout_resolver.rule.conditions'|trans }}:</h4>
+                            <div class="condition-title">
+                                <h4>{{ 'layout_resolver.rule.conditions'|trans }}:</h4>
+                                <p class="note">{{ 'layout_resolver.conditions.notice'|trans|raw }}</p>
+                            </div>
 
                             <ul class="settings-list condition-list">
                                 {% for condition in rule.conditions %}
@@ -266,7 +275,6 @@
                                 </div>
                             {% endif %}
                         {% endif %}
-                        <p class="note">{{ 'layout_resolver.conditions.notice'|trans|raw }}</p>
                     </div>
                 </div>
             </div>
