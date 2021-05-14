@@ -149,6 +149,13 @@
             .unpublished-label {
                 margin:10px 0 0;
             }
+
+            &:hover {
+                background-color: #F8F8F8;
+                .nl-dropdown {
+                    visibility: visible;
+                }
+            }
         }
         .nl-layout-info {
             padding:10px 10px 15px;
