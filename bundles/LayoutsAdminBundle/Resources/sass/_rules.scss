@@ -1279,13 +1279,9 @@
         }
     }
     &.show-actions {
-        > .nl-group-details-overlay {
-            > .nl-group-details {
-                > .nl-group-actions {
-                    display: block;
-                    @extend %fadeIn;
-                }
-            }
+        .nl-group-actions {
+            display: block;
+            @extend %fadeIn;
         }
     }
     &.show-details {
@@ -1838,7 +1834,7 @@
         > .nl-btn {
             background: #E4E4E4;
             border-radius: 5px;
-            margin-left: 20px;
+            margin-right: 20px;
 
             &.nl-btn-primary {
                 background: #3671E7;
