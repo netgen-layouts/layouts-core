@@ -837,8 +837,8 @@
             }
 
             .nl-rule-setting {
-                padding-top: 1rem;
-                margin-top:1rem;
+                padding-top: 2rem;
+                margin-top: 2rem;
                 border-top: 2px solid #E0E0E0;
                 padding-left: 0;
                 padding-right: 0;
@@ -916,11 +916,13 @@
                 flex-grow: 1;
                 &::after {
                     @extend %material-icons;
+                    position: absolute;
                     content: 'edit';
                     font-size: 1.1666666667em;
                     color: $linkColor;
                     margin: 0 0 2px .5em;
                     vertical-align: middle;
+                    right: 10px;
                 }
             }
         }
@@ -1434,6 +1436,7 @@
                 align-items: center;
                 border-bottom: 2px solid #E0E0E0;
                 margin-bottom: 2rem;
+                padding-right: 0;
 
                 h1 {
                     flex-grow: 1;
