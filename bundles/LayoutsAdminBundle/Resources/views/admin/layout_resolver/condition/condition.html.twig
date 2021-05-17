@@ -20,6 +20,6 @@
 
 {% if can_edit %}
     <a href="#" class="remove-setting js-setting-delete" data-setting-id="{{ condition.id.toString }}" data-setting-type="condition">
-        Delete
+        {{ 'layout_resolver.rule_condition.delete'|trans }}
     </a>
 {% endif %}

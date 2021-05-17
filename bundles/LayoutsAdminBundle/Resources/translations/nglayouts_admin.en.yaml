@@ -70,6 +70,10 @@ layout_resolver.condition_type.exception.all: 'All error codes'
 layout_resolver.condition_type.time.from: 'From'
 layout_resolver.condition_type.time.to: 'Until'
 
+layout_resolver.target.delete: 'Delete'
+layout_resolver.rule_condition.delete: 'Delete'
+layout_resolver.group_condition.delete: 'Delete'
+
 layouts.title: 'Layouts'
 layouts.new_layout: 'New layout'
 layouts.no_layouts: 'There are no layouts defined'

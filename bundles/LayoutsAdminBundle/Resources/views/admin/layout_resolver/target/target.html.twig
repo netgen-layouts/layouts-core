@@ -1,3 +1,5 @@
+{% trans_default_domain 'nglayouts_admin' %}
+
 {% set can_edit = is_granted('nglayouts:mapping:edit', nglayouts_rule_group(target.ruleId.toString)) %}
 
 <span
@@ -12,6 +14,6 @@
 
 {% if can_edit %}
     <a href="#" class="remove-setting js-setting-delete" data-setting-id="{{ target.id.toString }}" data-setting-type="target">
-        Delete
+        {{ 'layout_resolver.target.delete'|trans }}
     </a>
 {% endif %}
