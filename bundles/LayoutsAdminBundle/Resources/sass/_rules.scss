@@ -908,12 +908,12 @@
             line-height: 1.5;
             &.editable-value {
                 cursor: pointer;
-                border-bottom: 1px dashed hsla(0, 0, 0, .2);
                 padding: 1em 0em 1em 1em;
                 margin: 0 0 .5em;
                 position: relative;
                 background: #f5f5f5;
                 flex-grow: 1;
+                border-radius: 2px;
                 &::after {
                     @extend %material-icons;
                     position: absolute;
@@ -1878,12 +1878,12 @@
             line-height: 1.5;
             &.editable-value {
                 cursor: pointer;
-                border-bottom: 1px dashed hsla(0, 0, 0, .2);
                 padding: 1em 0em 1em 1em;
                 margin: 0 0 .5em;
                 position: relative;
                 background: #f5f5f5;
                 flex-grow: 1;
+                border-radius: 2px;
                 &::after {
                     @extend %material-icons;
                     content: "edit";
@@ -1891,6 +1891,8 @@
                     color: $linkColor;
                     margin: 0 0 2px 0.5em;
                     vertical-align: middle;
+                    position: absolute;
+                    right: 10px;
                 }
             }
         }
