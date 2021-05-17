@@ -684,6 +684,21 @@
                 font-style: italic;
             }
 
+            .sidebar-title {
+                display: flex;
+                align-items: center;
+                border-bottom: 2px solid #E0E0E0;
+
+                h1 {
+                    flex-grow: 1;
+                    font-size: 28px;
+                }
+
+                i {
+                    color: black;
+                }
+            }
+
             .nl-rule-description {
                 padding: 10px 20px;
                 font-size: 12px;
@@ -691,7 +706,7 @@
                 background: hsl(0, 0, 90);
                 color: hsl(0, 0, 50);
                 min-height: 85px;
-                margin-top: 48px;
+                margin-top: 2rem;
         
                 p {
                     color: #000000;
@@ -826,6 +841,11 @@
                 border-top: 2px solid #E0E0E0;
                 padding-left: 0;
                 padding-right: 0;
+
+                &:last-child {
+                    border-bottom: 2px solid #E0E0E0;
+                    padding-bottom: 2rem;
+                }
 
                 .sidemenu-subtitle {
                     display: flex;
@@ -1407,6 +1427,27 @@
                 font-weight: bold;
             }
 
+            .settings-action {
+                border-bottom: 2px solid #E0E0E0;
+                padding-bottom: 2rem;
+            }
+
+            .sidebar-title {
+                display: flex;
+                align-items: center;
+                border-bottom: 2px solid #E0E0E0;
+
+
+                h1 {
+                    flex-grow: 1;
+                    font-size: 28px;
+                }
+
+                i {
+                    color: black;
+                }
+            }
+
             .sidemenu-subtitle {
                 display: flex;
                 align-items: baseline;
@@ -1523,7 +1564,7 @@
         background: hsl(0, 0, 90);
         color: hsl(0, 0, 50);
         min-height: 85px;
-        margin-top: 48px;
+        margin-top: 2rem;
 
         p {
             color: #000000;
