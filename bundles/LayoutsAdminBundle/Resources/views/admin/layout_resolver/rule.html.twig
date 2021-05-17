@@ -142,20 +142,19 @@
 <div class = "nl-rule-body-overlay">
     <div class="nl-rule-body">
         <div class="nl-grid">
-            {% if can_edit %}
-                <div class="nl-rule-actions">
-                    <a href="#" class="nl-btn js-rule-edit" data-action="discard">
-                        {{ 'layout_resolver.rule.cancel'|trans }}
-                    </a>
-
-                    <a href="#" class="nl-btn nl-btn-primary js-rule-edit" data-action="publish">
-                        {{ 'layout_resolver.rule.save_changes'|trans }}
-                    </a>
-                </div>
-            {% endif %}
-
             <div class="col-xs12 sidebar-title">
                 <h1>{{ 'layout_resolver.rule.details'|trans }}</h1>
+                {% if can_edit %}
+                    <div class="nl-rule-actions">
+                        <a href="#" class="nl-btn js-rule-edit" data-action="discard">
+                            {{ 'layout_resolver.rule.cancel'|trans }}
+                        </a>
+
+                        <a href="#" class="nl-btn nl-btn-primary js-rule-edit" data-action="publish">
+                            {{ 'layout_resolver.rule.save_changes'|trans }}
+                        </a>
+                    </div>
+                {% endif %}
                 <a class="js-toggle-body"><i class="material-icons">clear</i></a>
             </div>
 
