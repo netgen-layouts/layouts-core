@@ -49,7 +49,7 @@
         "sensio/framework-extra-bundle": "^5.4 || ^6.1",
         "doctrine/dbal": "^2.13 || ^3.1",
         "doctrine/doctrine-bundle": "^1.12 || ^2.3",
-        "doctrine/doctrine-migrations-bundle": "^2.2 || ^3.1",
+        "doctrine/doctrine-migrations-bundle": "^2.2 || ^3.0",
         "doctrine/collections": "^1.6",
         "ramsey/uuid": "^3.9 || ^4.1",
         "egulias/email-validator": "^2.1.25 || ^3.1",
