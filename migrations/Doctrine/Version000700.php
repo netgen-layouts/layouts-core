@@ -172,7 +172,6 @@ final class Version000700 extends AbstractMigration
         $collectionQueryTable->addForeignKeyConstraint('ngbm_collection', ['collection_id', 'status'], ['id', 'status'], [], 'fk_ngl_query_collection');
 
         $collectionQueryTable->addIndex(['collection_id', 'status'], 'idx_ngl_collection');
-        $collectionQueryTable->addIndex(['collection_id', 'status', 'identifier'], 'idx_ngl_collection_identifier');
 
         // ngbm_block_collection table
 
