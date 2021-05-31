@@ -18,10 +18,10 @@ interface ParameterCollectionInterface
      *
      * @throws \Netgen\Layouts\Exception\Parameters\ParameterException If the requested parameter does not exist
      */
-    public function getParameter(string $parameter): Parameter;
+    public function getParameter(string $parameterName): Parameter;
 
     /**
      * Returns if the parameter definition with provided name exists in the collection.
      */
-    public function hasParameter(string $parameter): bool;
+    public function hasParameter(string $parameterName): bool;
 }
