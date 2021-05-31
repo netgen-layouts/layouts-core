@@ -1,5 +1,12 @@
 #layouts {
     display:none;
+
+    
+    .js-change-layouts-view {
+        &:hover {
+            background-color: transparent;
+        }
+    }
 }
 
 .js-change-layouts-view,
