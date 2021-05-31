@@ -36,6 +36,7 @@ final class Export extends AbstractController
     {
         $this->denyAccessUnlessGranted('nglayouts:ui:access');
 
+        /** @var string[] $entityIds */
         $entityIds = Kernel::VERSION_ID >= 50100 ?
             $request->request->all('entities') :
             (array) ($request->request->get('entities') ?? []);
