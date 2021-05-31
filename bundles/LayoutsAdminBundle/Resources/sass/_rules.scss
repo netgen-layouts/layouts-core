@@ -158,6 +158,12 @@
         }
     }
 
+    .js-clear-selection {
+        &:hover {
+            background-color: transparent;
+        }
+    }
+
     .js-export {
         &::before {
             content: "";
@@ -1674,6 +1680,12 @@
             z-index: 100;
             background: white;
             margin-right: 20px;
+
+            .js-clear-selection {
+                &:hover {
+                    background-color: transparent;
+                }
+            }
         }
 
         .group-title {
