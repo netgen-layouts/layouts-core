@@ -13,9 +13,6 @@ parameters:
         - '#Call to method Symfony\\Component\\HttpFoundation\\Request::hasSession\(\) will always evaluate to true.#'
         - '#Call to method Symfony\\Component\\DependencyInjection\\ContainerBuilder::has\(\) with .+ will always evaluate to false.#'
 
-        # Symfony Form component
-        - '/Parameter \#1 \$iterator of function iterator_to_array expects Traversable, iterable\<Symfony\\Component\\Form\\FormInterface\> given./'
-
         # Doctrine DBAL
         - '#Cannot call method fetchAllAssociative\(\) on Doctrine\\DBAL\\ForwardCompatibility\\DriverStatement\|int#'
         - '#expects string\|null, Doctrine\\DBAL\\Query\\Expression\\CompositeExpression given#'
@@ -44,6 +41,7 @@ parameters:
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\Console\\\\Application and 'renderThrowable'#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Exception' will always evaluate to false.#"
         - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpKernel\\\\Event\\\\ExceptionEvent and '(get|set)Throwable' will always evaluate to true.#"
+        - "#Call to function method_exists\\(\\) with Symfony\\\\Component\\\\HttpFoundation\\\\RequestStack and 'getMainRequest' will always evaluate to true.#"
 
         -
             message: '#twig_date_converter not found.#'

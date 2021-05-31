@@ -14,6 +14,7 @@ use Netgen\Layouts\View\ViewBuilderInterface;
 use Netgen\Layouts\View\ViewInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
+use function method_exists;
 
 /**
  * This global variable injected into all templates serves two purposes.
@@ -92,23 +93,26 @@ final class GlobalVariable
     public function getLayoutView()
     {
         $currentRequest = $this->requestStack->getCurrentRequest();
-        $masterRequest = $this->requestStack->getMasterRequest();
+        $mainRequest = method_exists($this->requestStack, 'getMainRequest') ?
+            $this->requestStack->getMainRequest() :
+            // Deprecated since Symfony 5.3
+            $this->requestStack->getMasterRequest();
 
-        if (!$currentRequest instanceof Request || !$masterRequest instanceof Request) {
+        if (!$currentRequest instanceof Request || !$mainRequest instanceof Request) {
             return null;
         }
 
-        if ($masterRequest->attributes->has('nglOverrideLayoutView')) {
-            return $masterRequest->attributes->get('nglOverrideLayoutView');
+        if ($mainRequest->attributes->has('nglOverrideLayoutView')) {
+            return $mainRequest->attributes->get('nglOverrideLayoutView');
         }
 
-        if ($masterRequest->attributes->has('nglExceptionLayoutView')) {
-            if ($currentRequest !== $masterRequest || !$masterRequest->attributes->has('nglLayoutView')) {
-                return $masterRequest->attributes->get('nglExceptionLayoutView');
+        if ($mainRequest->attributes->has('nglExceptionLayoutView')) {
+            if ($currentRequest !== $mainRequest || !$mainRequest->attributes->has('nglLayoutView')) {
+                return $mainRequest->attributes->get('nglExceptionLayoutView');
             }
         }
 
-        return $masterRequest->attributes->get('nglLayoutView');
+        return $mainRequest->attributes->get('nglLayoutView');
     }
 
     /**
@@ -202,17 +206,20 @@ final class GlobalVariable
     public function buildLayoutView(string $context = ViewInterface::CONTEXT_DEFAULT, ?Layout $layout = null)
     {
         $currentRequest = $this->requestStack->getCurrentRequest();
-        $masterRequest = $this->requestStack->getMasterRequest();
+        $mainRequest = method_exists($this->requestStack, 'getMainRequest') ?
+            $this->requestStack->getMainRequest() :
+            // Deprecated since Symfony 5.3
+            $this->requestStack->getMasterRequest();
 
-        if (!$currentRequest instanceof Request || !$masterRequest instanceof Request) {
+        if (!$currentRequest instanceof Request || !$mainRequest instanceof Request) {
             return null;
         }
 
-        if ($masterRequest->attributes->has('nglOverrideLayoutView')) {
+        if ($mainRequest->attributes->has('nglOverrideLayoutView')) {
             return $currentRequest->attributes->get('nglOverrideLayoutView');
         }
 
-        if ($masterRequest->attributes->has('nglExceptionLayoutView')) {
+        if ($mainRequest->attributes->has('nglExceptionLayoutView')) {
             // After an exception layout is resolved, this case either means that
             // the main layout does not exist at all (because the error
             // happened before the rendering) or that it is already resolved
@@ -223,7 +230,7 @@ final class GlobalVariable
 
         if (
             !$currentRequest->attributes->has('exception')
-            && $masterRequest->attributes->has('nglLayoutView')
+            && $mainRequest->attributes->has('nglLayoutView')
         ) {
             // This is the case where we request the main layout more than once
             // within the regular page display, without the exception, so again
@@ -250,7 +257,7 @@ final class GlobalVariable
             $layoutView = $this->viewBuilder->buildView($usedLayout, $context, $viewParams);
         }
 
-        $masterRequest->attributes->set(
+        $mainRequest->attributes->set(
             $currentRequest->attributes->has('exception') ?
                 'nglExceptionLayoutView' :
                 'nglLayoutView',

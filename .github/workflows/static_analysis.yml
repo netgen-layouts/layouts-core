@@ -28,7 +28,7 @@ jobs:
       # while keeping Flex recipes from applying
       - run: composer global require --no-scripts symfony/flex
 
-      - run: composer config extra.symfony.require ~5.2.0
+      - run: composer config extra.symfony.require ~5.3.0
 
       - run: composer update --prefer-dist
 
