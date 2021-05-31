@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsBundle\EventListener;
 
+use Netgen\Layouts\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
 use function preg_replace;
 
 final class AjaxBlockRequestListener implements EventSubscriberInterface
 {
+    use MainRequestEventTrait;
+
     public static function getSubscribedEvents(): array
     {
         // Must happen before ContextListener
@@ -29,7 +32,7 @@ final class AjaxBlockRequestListener implements EventSubscriberInterface
      */
     public function onKernelRequest($event): void
     {
-        if (!$event->isMasterRequest()) {
+        if (!$this->isMainRequest($event)) {
             return;
         }
 

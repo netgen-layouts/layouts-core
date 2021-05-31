@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 
+use Netgen\Layouts\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,6 +17,8 @@ use function is_array;
 
 final class RequestBodyListener implements EventSubscriberInterface
 {
+    use MainRequestEventTrait;
+
     private DecoderInterface $decoder;
 
     public function __construct(DecoderInterface $decoder)
@@ -37,7 +40,7 @@ final class RequestBodyListener implements EventSubscriberInterface
     {
         $request = $event->getRequest();
 
-        if (!$event->isMasterRequest()) {
+        if (!$this->isMainRequest($event)) {
             return;
         }
 

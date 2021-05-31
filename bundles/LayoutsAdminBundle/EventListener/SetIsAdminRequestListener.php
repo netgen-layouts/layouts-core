@@ -7,6 +7,7 @@ namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 use Netgen\Bundle\LayoutsAdminBundle\Event\AdminMatchEvent;
 use Netgen\Bundle\LayoutsAdminBundle\Event\LayoutsAdminEvents;
 use Netgen\Layouts\Utils\BackwardsCompatibility\EventDispatcherProxy;
+use Netgen\Layouts\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -14,6 +15,8 @@ use function str_starts_with;
 
 final class SetIsAdminRequestListener implements EventSubscriberInterface
 {
+    use MainRequestEventTrait;
+
     public const ADMIN_FLAG_NAME = 'nglayouts_is_admin_request';
 
     private const ADMIN_ROUTE_PREFIX = 'nglayouts_admin_';
@@ -37,7 +40,7 @@ final class SetIsAdminRequestListener implements EventSubscriberInterface
      */
     public function onKernelRequest($event): void
     {
-        if (!$event->isMasterRequest()) {
+        if (!$this->isMainRequest($event)) {
             return;
         }
 

@@ -6,6 +6,7 @@ namespace Netgen\Bundle\LayoutsBundle\EventListener;
 
 use Netgen\Layouts\Context\Context;
 use Netgen\Layouts\Context\ContextBuilderInterface;
+use Netgen\Layouts\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Kernel;
@@ -15,6 +16,8 @@ use function is_array;
 
 final class ContextListener implements EventSubscriberInterface
 {
+    use MainRequestEventTrait;
+
     private Context $context;
 
     private ContextBuilderInterface $contextBuilder;
@@ -46,7 +49,7 @@ final class ContextListener implements EventSubscriberInterface
      */
     public function onKernelRequest($event): void
     {
-        if (!$event->isMasterRequest()) {
+        if (!$this->isMainRequest($event)) {
             return;
         }
 

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 
 use Netgen\Bundle\LayoutsAdminBundle\Serializer\Values\AbstractValue;
+use Netgen\Layouts\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -12,6 +13,8 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 final class SerializerListener implements EventSubscriberInterface
 {
+    use MainRequestEventTrait;
+
     private SerializerInterface $serializer;
 
     public function __construct(SerializerInterface $serializer)
@@ -31,7 +34,7 @@ final class SerializerListener implements EventSubscriberInterface
      */
     public function onView($event): void
     {
-        if (!$event->isMasterRequest()) {
+        if (!$this->isMainRequest($event)) {
             return;
         }
 

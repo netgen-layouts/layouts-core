@@ -5,12 +5,15 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 
 use Netgen\Bundle\LayoutsAdminBundle\Security\CsrfTokenValidatorInterface;
+use Netgen\Layouts\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 final class AdminCsrfValidationListener implements EventSubscriberInterface
 {
+    use MainRequestEventTrait;
+
     private CsrfTokenValidatorInterface $csrfTokenValidator;
 
     private string $csrfTokenId;
@@ -35,7 +38,7 @@ final class AdminCsrfValidationListener implements EventSubscriberInterface
      */
     public function onKernelRequest($event): void
     {
-        if (!$event->isMasterRequest()) {
+        if (!$this->isMainRequest($event)) {
             return;
         }
 

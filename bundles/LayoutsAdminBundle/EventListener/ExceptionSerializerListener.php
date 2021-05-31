@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Netgen\Bundle\LayoutsAdminBundle\EventListener;
 
 use Netgen\Layouts\Utils\BackwardsCompatibility\ExceptionEventThrowableTrait;
+use Netgen\Layouts\Utils\BackwardsCompatibility\MainRequestEventTrait;
 use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -18,6 +19,7 @@ use function sprintf;
 final class ExceptionSerializerListener implements EventSubscriberInterface
 {
     use ExceptionEventThrowableTrait;
+    use MainRequestEventTrait;
 
     private SerializerInterface $serializer;
 
@@ -43,7 +45,7 @@ final class ExceptionSerializerListener implements EventSubscriberInterface
      */
     public function onException($event): void
     {
-        if (!$event->isMasterRequest()) {
+        if (!$this->isMainRequest($event)) {
             return;
         }
 

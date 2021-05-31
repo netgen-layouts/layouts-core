@@ -16,7 +16,7 @@ final class AdminMatchEvent extends Event
 
     /**
      * The request type the kernel is currently processing.  One of
-     * HttpKernelInterface::MASTER_REQUEST and HttpKernelInterface::SUB_REQUEST.
+     * HttpKernelInterface::MAIN_REQUEST and HttpKernelInterface::SUB_REQUEST.
      */
     private int $requestType;
 
