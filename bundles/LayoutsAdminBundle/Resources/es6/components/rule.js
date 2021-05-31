@@ -389,7 +389,7 @@ export default class NlRule {
                 formEl.getElementsByClassName('js-cancel-add')[0].addEventListener('click', (ev) => {
                     ev.preventDefault();
                     formEl.parentElement.removeChild(formEl);
-                    conditionEl.style.display = 'block';
+                    conditionEl.style.display = 'flex';
                 });
             }).catch((error) => {
                 console.log(error); // eslint-disable-line no-console
