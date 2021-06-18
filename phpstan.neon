@@ -35,6 +35,10 @@ parameters:
             path: lib/Utils/BackwardsCompatibility/EventDispatcherProxy.php
 
         -
+            message: '/Unable to resolve the template type TEvent/'
+            path: lib/Utils/BackwardsCompatibility/EventDispatcherProxy.php
+
+        -
             message: '#Call to an undefined static method Symfony\\Component\\Intl\\Intl::getLocaleBundle\(\).#'
             path: lib/Utils/BackwardsCompatibility/Locales.php
 
