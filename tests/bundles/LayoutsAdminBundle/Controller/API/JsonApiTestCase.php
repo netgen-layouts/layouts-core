@@ -61,21 +61,21 @@ abstract class JsonApiTestCase extends BaseJsonApiTestCase
 
     protected function mockQueryType(): void
     {
-        $clientContainer = $this->client->getContainer();
-        if (!$clientContainer instanceof MockerContainer) {
+        $container = $this->client->getKernel()->getContainer();
+        if (!$container instanceof MockerContainer) {
             throw new RuntimeException('Symfony kernel is not configured yet.');
         }
 
         $searchResults = [new Value(140), new Value(79), new Value(78)];
 
         /** @var \Netgen\Layouts\Collection\Registry\QueryTypeRegistry $queryTypeRegistry */
-        $queryTypeRegistry = $clientContainer->get('netgen_layouts.collection.registry.query_type');
+        $queryTypeRegistry = $container->get('netgen_layouts.collection.registry.query_type');
 
         $queryType = new QueryType('my_query_type', $searchResults, count($searchResults));
         $allQueryTypes = $queryTypeRegistry->getQueryTypes();
         $allQueryTypes['my_query_type'] = $queryType;
 
-        $clientContainer->mock(
+        $container->mock(
             'netgen_layouts.collection.registry.query_type',
             new QueryTypeRegistry($allQueryTypes),
         );

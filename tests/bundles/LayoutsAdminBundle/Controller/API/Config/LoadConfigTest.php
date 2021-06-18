@@ -20,16 +20,16 @@ final class LoadConfigTest extends JsonApiTestCase
      */
     public function testLoadConfig(): void
     {
-        $clientContainer = $this->client->getContainer();
-        if (!$clientContainer instanceof MockerContainer) {
+        $container = $this->client->getKernel()->getContainer();
+        if (!$container instanceof MockerContainer) {
             throw new RuntimeException('Symfony kernel is not configured yet.');
         }
 
         /** @var \Symfony\Component\Security\Csrf\CsrfTokenManagerInterface $tokenManager */
-        $tokenManager = $clientContainer->get('test.security.csrf.token_manager');
+        $tokenManager = $container->get('test.security.csrf.token_manager');
 
         /** @var string $tokenId */
-        $tokenId = $clientContainer->getParameter('netgen_layouts.app.csrf_token_id');
+        $tokenId = $container->getParameter('netgen_layouts.app.csrf_token_id');
         $currentToken = $tokenManager->getToken($tokenId);
 
         $this->client->request(Request::METHOD_GET, '/nglayouts/app/api/config');
