@@ -79,6 +79,7 @@
         "sebastian/diff": "^3.0 || ^4.0",
         "matthiasnoback/symfony-dependency-injection-test": "^4.2",
         "matthiasnoback/symfony-config-test": "^4.2",
+        "laminas/laminas-zendframework-bridge": "^1.2",
         "lchrusciel/api-test-case": "^4.1 || ^5.1",
         "webmozart/assert": "^1.10",
         "behat/behat": "^3.7",
