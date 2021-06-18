@@ -93,6 +93,11 @@ jobs:
 
       - run: composer config extra.symfony.require ${{ matrix.symfony }}
 
+      # Adds a dependency required for Symfony 3.4 tests due to incompatibility
+      # of symfony/proxy-manager-bridge and laminas/laminas-code
+      - run: composer require --dev --no-update laminas/laminas-zendframework-bridge
+        if: ${{ matrix.symfony == '~3.4.0' }}
+
       -
         run: composer update --prefer-dist
         if: ${{ matrix.deps != 'low' }}
