@@ -5,7 +5,7 @@ security:
                 users:
                     admin:
                         password: admin
-                        roles: ROLE_NGLAYOUTS_ADMIN
+                        roles: [ROLE_NGLAYOUTS_ADMIN]
 
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
