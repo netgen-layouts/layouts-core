@@ -1,7 +1,2 @@
 imports:
     - { resource: ../../behat/Resources/config/services.yaml }
-
-services:
-    test.security.csrf.token_manager:
-        alias: security.csrf.token_manager
-        public: true
