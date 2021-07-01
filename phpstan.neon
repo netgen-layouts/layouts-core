@@ -9,10 +9,6 @@ parameters:
         - Symfony\Component\HttpKernel\Kernel::VERSION_ID
 
     ignoreErrors:
-        # phpstan/phpstan-symfony issues
-        - '#Call to method Symfony\\Component\\HttpFoundation\\Request::hasSession\(\) will always evaluate to true.#'
-        - '#Call to method Symfony\\Component\\DependencyInjection\\ContainerBuilder::has\(\) with .+ will always evaluate to false.#'
-
         # Doctrine DBAL
         - '#Cannot call method fetchAllAssociative\(\) on Doctrine\\DBAL\\ForwardCompatibility\\DriverStatement\|int#'
         - '#expects string\|null, Doctrine\\DBAL\\Query\\Expression\\CompositeExpression given#'
