@@ -285,8 +285,10 @@
                 }
             }
 
-            .rule-conditions {
-                visibility: hidden;
+            @media only screen and (max-width: 1680px) {
+                .rule-conditions {
+                    visibility: hidden;
+                }
             }
 
             .hover-actions {
@@ -319,8 +321,10 @@
                 }
             }
 
-            .rule-conditions {
-                display: none;
+            @media only screen and (max-width: 1680px) {
+                .rule-conditions {
+                    display: none;
+                }
             }
     
             > .nl-rule-cell {
@@ -1035,9 +1039,11 @@
                         visibility: hidden;
                     }
                 }
-    
-                .rule-conditions {
-                    visibility: hidden;
+
+                @media only screen and (max-width: 1680px) {
+                    .rule-conditions {
+                        visibility: hidden;
+                    }
                 }
     
                 > .nl-rule-cell {
@@ -1214,9 +1220,11 @@
                         visibility: hidden;
                     }
                 }
-    
-                .rule-conditions {
-                    visibility: hidden;
+
+                @media only screen and (max-width: 1680px) {
+                    .rule-conditions {
+                        visibility: hidden;
+                    }
                 }
             }
         }
