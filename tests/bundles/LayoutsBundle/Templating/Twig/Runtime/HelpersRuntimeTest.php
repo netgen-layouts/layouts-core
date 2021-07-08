@@ -112,6 +112,38 @@ final class HelpersRuntimeTest extends TestCase
     }
 
     /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\HelpersRuntime::getRuleGroupName
+     */
+    public function testGetRuleGroupName(): void
+    {
+        $uuid = Uuid::uuid4();
+
+        $this->layoutResolverServiceMock
+            ->expects(self::once())
+            ->method('loadRuleGroup')
+            ->with(self::equalTo($uuid))
+            ->willReturn(RuleGroup::fromArray(['name' => 'Test rule group']));
+
+        self::assertSame('Test rule group', $this->runtime->getRuleGroupName($uuid->toString()));
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\HelpersRuntime::getRuleGroupName
+     */
+    public function testGetRuleGroupNameWithNonExistingRuleGroup(): void
+    {
+        $uuid = Uuid::uuid4();
+
+        $this->layoutResolverServiceMock
+            ->expects(self::once())
+            ->method('loadRuleGroup')
+            ->with(self::equalTo($uuid))
+            ->willThrowException(new NotFoundException('rule group', $uuid->toString()));
+
+        self::assertSame('', $this->runtime->getRuleGroupName($uuid->toString()));
+    }
+
+    /**
      * @covers \Netgen\Bundle\LayoutsBundle\Templating\Twig\Runtime\HelpersRuntime::getValueTypeName
      */
     public function testGetValueTypeName(): void

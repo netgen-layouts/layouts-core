@@ -76,6 +76,20 @@ final class HelpersRuntime
     }
 
     /**
+     * Returns the rule group name for specified rule group ID.
+     */
+    public function getRuleGroupName(string $ruleGroupId): string
+    {
+        try {
+            $ruleGroup = $this->layoutResolverService->loadRuleGroup(Uuid::fromString($ruleGroupId));
+
+            return $ruleGroup->getName();
+        } catch (Throwable $t) {
+            return '';
+        }
+    }
+
+    /**
      * Returns the the name of the value type that the specified item wraps.
      */
     public function getValueTypeName(CmsItemInterface $cmsItem): string

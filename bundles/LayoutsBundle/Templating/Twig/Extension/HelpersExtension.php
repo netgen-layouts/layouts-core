@@ -30,6 +30,10 @@ final class HelpersExtension extends AbstractExtension
                 [HelpersRuntime::class, 'getRuleGroup'],
             ),
             new TwigFunction(
+                'nglayouts_rule_group_name',
+                [HelpersRuntime::class, 'getRuleGroupName'],
+            ),
+            new TwigFunction(
                 'nglayouts_format_datetime',
                 [HelpersRuntime::class, 'formatDateTime'],
                 [
