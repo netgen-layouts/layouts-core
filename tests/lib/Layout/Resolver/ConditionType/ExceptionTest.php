@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\Debug\Exception\FlattenException as DebugFlattenException;
 use Symfony\Component\ErrorHandler\Exception\FlattenException as ErrorHandlerFlattenException;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\Validator\Validation;
 use function class_exists;
 
@@ -52,6 +53,23 @@ final class ExceptionTest extends TestCase
      * @dataProvider matchesDataProvider
      */
     public function testMatches($value, bool $matches): void
+    {
+        $request = Request::create('/');
+
+        $exception = new HttpException(404);
+        $request->attributes->set('exception', $exception);
+
+        self::assertSame($matches, $this->conditionType->matches($request, $value));
+    }
+
+    /**
+     * @covers \Netgen\Layouts\Layout\Resolver\ConditionType\Exception::matches
+     *
+     * @param mixed $value
+     *
+     * @dataProvider matchesDataProvider
+     */
+    public function testMatchesWithoutHttpException($value, bool $matches): void
     {
         $request = Request::create('/');
 

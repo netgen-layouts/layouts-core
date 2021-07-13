@@ -8,6 +8,7 @@ use Netgen\Layouts\Layout\Resolver\ConditionType;
 use Symfony\Component\Debug\Exception\FlattenException as DebugFlattenException;
 use Symfony\Component\ErrorHandler\Exception\FlattenException as ErrorHandlerFlattenException;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\Validator\Constraints;
 use function class_exists;
 use function count;
@@ -49,16 +50,19 @@ final class Exception extends ConditionType
         }
 
         $exception = $request->attributes->get('exception');
-        if (class_exists(ErrorHandlerFlattenException::class)) {
-            if (!$exception instanceof ErrorHandlerFlattenException) {
-                return false;
-            }
-        } elseif (class_exists(DebugFlattenException::class)) {
-            if (!$exception instanceof DebugFlattenException) {
-                return false;
+
+        if (!$exception instanceof HttpExceptionInterface) {
+            if (class_exists(ErrorHandlerFlattenException::class)) {
+                if (!$exception instanceof ErrorHandlerFlattenException) {
+                    return false;
+                }
+            } elseif (class_exists(DebugFlattenException::class)) {
+                if (!$exception instanceof DebugFlattenException) {
+                    return false;
+                }
             }
         }
 
-        return count($value) === 0 || in_array($exception->getStatusCode(), $value, true);
+        return count($value) === 0 || in_array((int) $exception->getStatusCode(), $value, true);
     }
 }
