@@ -53,7 +53,7 @@ parameters:
         - "#Call to function method_exists\\(\\) with Netgen\\\\Layouts\\\\Layout\\\\Resolver\\\\(Condition|Target)TypeInterface and '(export|import)' will always evaluate to true.#"
 
         -
-            message: '#Call to function is_string\(\) with string will always evaluate to true.#'
+            message: '#Call to function is_string\(\) with non-empty-string will always evaluate to true.#'
             path: lib/Utils/DateTimeUtils.php
 
         - '#Call to function is_array\(\) with array\<Swaggest\\JsonSchema\\InvalidValue\> will always evaluate to true.#'
