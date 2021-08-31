@@ -48,7 +48,7 @@ final class LayoutBackend implements BackendInterface
     {
         try {
             $layout = $this->layoutService->loadLayout(Uuid::fromString((string) $value));
-        } catch (BaseNotFoundException | InvalidUuidStringException $e) {
+        } catch (BaseNotFoundException|InvalidUuidStringException $e) {
             throw new NotFoundException(
                 sprintf('Item with value "%s" not found.', $value),
                 0,
