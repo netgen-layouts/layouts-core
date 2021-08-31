@@ -625,7 +625,7 @@ final class ParameterBuilderTest extends TestCase
             ],
         );
 
-        $this::assertTrue($this->builder->has('test'));
+        self::assertTrue($this->builder->has('test'));
         $this->builder->get('test');
     }
 
