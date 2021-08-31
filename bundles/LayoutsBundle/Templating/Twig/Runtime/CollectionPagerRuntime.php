@@ -27,6 +27,7 @@ final class CollectionPagerRuntime
     /**
      * Renders the provided Pagerfanta view.
      *
+     * @param PagerfantaInterface<\Netgen\Layouts\Collection\Result\Result> $pagerfanta
      * @param array<string, mixed> $options
      */
     public function renderCollectionPager(PagerfantaInterface $pagerfanta, Block $block, string $collectionIdentifier, array $options = []): string
@@ -39,6 +40,8 @@ final class CollectionPagerRuntime
 
     /**
      * Returns the URL of the provided pager and page number.
+     *
+     * @param PagerfantaInterface<\Netgen\Layouts\Collection\Result\Result> $pagerfanta
      */
     public function getCollectionPageUrl(PagerfantaInterface $pagerfanta, Block $block, string $collectionIdentifier, int $page = 1): string
     {
