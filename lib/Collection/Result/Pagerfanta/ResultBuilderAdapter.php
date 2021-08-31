@@ -51,7 +51,7 @@ final class ResultBuilderAdapter implements AdapterInterface
      * @param int $offset
      * @param int $length
      *
-     * @return iterable<\Netgen\Layouts\Collection\Result\Result>
+     * @return iterable<int, \Netgen\Layouts\Collection\Result\Result>
      */
     public function getSlice($offset, $length): iterable
     {
