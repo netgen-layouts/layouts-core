@@ -34,7 +34,7 @@ abstract class AbstractController extends BaseAbstractController
         ?Response $response = null
     ): ViewInterface {
         /** @var \Netgen\Layouts\View\ViewBuilderInterface $viewBuilder */
-        $viewBuilder = $this->get('netgen_layouts.view.view_builder');
+        $viewBuilder = $this->container->get('netgen_layouts.view.view_builder');
         $view = $viewBuilder->buildView($value, $context, $parameters);
 
         $view->setResponse($response instanceof Response ? $response : new Response());
