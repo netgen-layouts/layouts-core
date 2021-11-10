@@ -17,12 +17,21 @@ final class ResultBuilderAdapter implements AdapterInterface
 
     private int $startingOffset;
 
+    /**
+     * @var int<0, max>|null
+     */
     private ?int $maxTotalCount;
 
     private int $flags;
 
+    /**
+     * @var int<0, max>
+     */
     private int $totalCount;
 
+    /**
+     * @param int<0, max>|null $maxTotalCount
+     */
     public function __construct(
         ResultBuilderInterface $resultBuilder,
         Collection $collection,
@@ -75,8 +84,9 @@ final class ResultBuilderAdapter implements AdapterInterface
      */
     private function setTotalCount(ResultSet $result): void
     {
-        $this->totalCount = $result->getTotalCount() - $this->startingOffset;
-        $this->totalCount = $this->totalCount > 0 ? $this->totalCount : 0;
+        /** @var int<0, max> $totalCount */
+        $totalCount = $result->getTotalCount() - $this->startingOffset;
+        $this->totalCount = $totalCount > 0 ? $totalCount : 0;
 
         if ($this->maxTotalCount !== null && $this->totalCount >= $this->maxTotalCount) {
             $this->totalCount = $this->maxTotalCount;

@@ -55,9 +55,7 @@ final class CollectionMapper
         return array_values(
             array_map(
                 static function (array $collectionData): Collection {
-                    if (isset($collectionData['availableLocales'])) {
-                        sort($collectionData['availableLocales']);
-                    }
+                    sort($collectionData['availableLocales']);
 
                     return Collection::fromArray($collectionData);
                 },

@@ -10,14 +10,15 @@ parameters:
     dynamicConstantNames:
         - Symfony\Component\HttpKernel\Kernel::VERSION_ID
 
-    excludes_analyse:
+    excludePaths:
         - tests/application/public/bundles/
         - tests/application/config/bootstrap.php
+        - tests/application/src/LegacyKernel.php
 
     ignoreErrors:
         # Doctrine DBAL
         -
-            message: '#Cannot call method fetchAllAssociative\(\) on Doctrine\\DBAL\\ForwardCompatibility\\DriverStatement\|int#'
+            message: '#Cannot call method fetchAllAssociative\(\) on Doctrine\\DBAL\\Result\|int#'
             path: tests/lib/Persistence/Doctrine/Helper/PositionHelperTest.php
 
         # Compatibility with Symfony 3.4
@@ -45,6 +46,11 @@ parameters:
 
         # Disable errors for various tests that verify values have correct types or arrays not having certain elements
         - '/Parameter \#1 \$\w+ of class .+ constructor expects array\<.+\>, array\<.+\|stdClass\> given./'
-        - '/Parameter \#1 \$\w+ of method .+ expects array\<.+\>, array\(stdClass\) given./'
         - '/Parameter \#3 \$zoneMappings of method .+::validateChangeLayoutType\(\) expects array\<string, array\<string\>\>, array\<string, int\> given./'
         - '#Call to static method PHPUnit\\Framework\\Assert::assertArrayHasKey\(\)#'
+        - '#expects array<Closure\|Symfony\\Component\\Validator\\Constraint>, array{stdClass} given.#'
+
+        # Disable errors for various "only read/written" properties
+        - '#\$\w+ is never (written|read), only (read|written).#'
+
+        - '#JsonApiTestCase::\$client is not the same as PHPDoc type#'

@@ -44,10 +44,10 @@ final class BlockTypePass implements CompilerPassInterface
     /**
      * Generates the block type configuration from provided block definitions.
      *
-     * @param array<string, array> $blockTypes
-     * @param array<string, array> $blockDefinitions
+     * @param array<string, mixed[]> $blockTypes
+     * @param array<string, mixed[]> $blockDefinitions
      *
-     * @return array<string, array>
+     * @return array<string, mixed[]>
      */
     private function generateBlockTypeConfig(array $blockTypes, array $blockDefinitions): array
     {
@@ -75,7 +75,7 @@ final class BlockTypePass implements CompilerPassInterface
             }
 
             $blockTypes[$identifier]['enabled'] ??= true;
-            if (!$blockDefinition['enabled']) {
+            if ($blockDefinition['enabled'] === false) {
                 $blockTypes[$identifier]['enabled'] = false;
             }
 
@@ -93,7 +93,7 @@ final class BlockTypePass implements CompilerPassInterface
                 continue;
             }
 
-            if (!$blockDefinitions[$definitionIdentifier]['enabled']) {
+            if ($blockDefinitions[$definitionIdentifier]['enabled'] === false) {
                 $blockTypes[$identifier]['enabled'] = false;
             }
         }
@@ -104,7 +104,7 @@ final class BlockTypePass implements CompilerPassInterface
     /**
      * Builds the block type objects from provided configuration.
      *
-     * @param array<string, array> $blockTypes
+     * @param array<string, mixed[]> $blockTypes
      *
      * @return \Generator<string, \Symfony\Component\DependencyInjection\Reference>
      */
@@ -137,8 +137,8 @@ final class BlockTypePass implements CompilerPassInterface
     /**
      * Validates block type config.
      *
-     * @param array<string, array> $blockTypes
-     * @param array<string, array> $blockDefinitions
+     * @param array<string, mixed[]> $blockTypes
+     * @param array<string, mixed[]> $blockDefinitions
      *
      * @throws \Netgen\Layouts\Exception\RuntimeException If validation failed
      */

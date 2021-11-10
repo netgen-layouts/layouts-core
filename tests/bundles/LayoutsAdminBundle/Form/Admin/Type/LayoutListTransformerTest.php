@@ -28,7 +28,15 @@ final class LayoutListTransformerTest extends TestCase
     {
         $layoutList = new LayoutList();
 
-        self::assertSame($layoutList, $this->transformer->transform($layoutList));
+        self::assertSame($layoutList->getLayouts(), $this->transformer->transform($layoutList));
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type\LayoutListTransformer::transform
+     */
+    public function testTransformWithNullValue(): void
+    {
+        self::assertNull($this->transformer->transform(null));
     }
 
     /**
@@ -43,6 +51,7 @@ final class LayoutListTransformerTest extends TestCase
 
         $transformedLayouts = $this->transformer->reverseTransform($layouts);
 
+        self::assertInstanceOf(LayoutList::class, $transformedLayouts);
         self::assertCount(2, $transformedLayouts);
 
         self::assertInstanceOf(Layout::class, $transformedLayouts[0]);
@@ -50,5 +59,13 @@ final class LayoutListTransformerTest extends TestCase
 
         self::assertSame($uuid1->toString(), $transformedLayouts[0]->getId()->toString());
         self::assertSame($uuid2->toString(), $transformedLayouts[1]->getId()->toString());
+    }
+
+    /**
+     * @covers \Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type\LayoutListTransformer::reverseTransform
+     */
+    public function testReverseTransformWithNullValue(): void
+    {
+        self::assertNull($this->transformer->reverseTransform(null));
     }
 }

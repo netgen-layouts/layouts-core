@@ -47,9 +47,7 @@ final class LayoutMapper
         return array_values(
             array_map(
                 static function (array $layoutData): Layout {
-                    if (isset($layoutData['availableLocales'])) {
-                        sort($layoutData['availableLocales']);
-                    }
+                    sort($layoutData['availableLocales']);
 
                     return Layout::fromArray($layoutData);
                 },

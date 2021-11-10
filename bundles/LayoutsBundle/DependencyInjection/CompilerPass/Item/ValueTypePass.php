@@ -36,14 +36,14 @@ final class ValueTypePass implements CompilerPassInterface
     /**
      * Builds the value type objects from provided configuration.
      *
-     * @param array<string, array> $valueTypes
+     * @param array<string, mixed[]> $valueTypes
      *
      * @return \Generator<string, \Symfony\Component\DependencyInjection\Reference>
      */
     private function buildValueTypes(ContainerBuilder $container, array $valueTypes): Generator
     {
         foreach ($valueTypes as $identifier => $valueType) {
-            if ($valueType['manual_items']) {
+            if ($valueType['manual_items'] === true) {
                 $this->validateBrowserType($container, $identifier);
             }
 

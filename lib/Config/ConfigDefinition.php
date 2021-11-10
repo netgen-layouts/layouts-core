@@ -17,8 +17,6 @@ class ConfigDefinition implements ConfigDefinitionInterface
 
     private string $configKey;
 
-    private ConfigDefinitionHandlerInterface $handler;
-
     public function getConfigKey(): string
     {
         return $this->configKey;

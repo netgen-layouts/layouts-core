@@ -27,7 +27,7 @@ interface PluginInterface
      * which this plugin extends. If you wish to extend every existing handler,
      * return the list with FQCN of the block handler interface.
      *
-     * @return iterable<string>
+     * @return iterable<class-string>
      */
     public static function getExtendedHandlers(): iterable;
 
