@@ -29,7 +29,6 @@ final class ConfigDefinitionFactory
         return ConfigDefinition::fromArray(
             [
                 'configKey' => $configKey,
-                'handler' => $handler,
                 'parameterDefinitions' => $parameterDefinitions,
             ],
         );

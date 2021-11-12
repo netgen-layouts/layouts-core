@@ -15,8 +15,14 @@ final class PagerFactory
 {
     private ResultBuilderInterface $resultBuilder;
 
+    /**
+     * @var int<1, max>
+     */
     private int $maxLimit;
 
+    /**
+     * @param int<1, max> $maxLimit
+     */
     public function __construct(ResultBuilderInterface $resultBuilder, int $maxLimit)
     {
         $this->resultBuilder = $resultBuilder;
@@ -67,6 +73,8 @@ final class PagerFactory
     /**
      * Returns the maximum number of items per page for the provided collection,
      * while taking into account the injected maximum number of items.
+     *
+     * @return int<1, max>
      */
     private function getMaxPerPage(Collection $collection): int
     {

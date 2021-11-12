@@ -10,8 +10,11 @@ parameters:
 
     ignoreErrors:
         # Doctrine DBAL
-        - '#Cannot call method fetchAllAssociative\(\) on Doctrine\\DBAL\\ForwardCompatibility\\DriverStatement\|int#'
+        - '#Cannot call method fetchAllAssociative\(\) on Doctrine\\DBAL\\Result\|int#'
         - '#expects string\|null, Doctrine\\DBAL\\Query\\Expression\\CompositeExpression given#'
+
+        # Disable errors for various "only read/written" properties
+        - '#\$\w+ is never (written|read), only (read|written).#'
 
         # Compatibility with older versions of Symfony
         -

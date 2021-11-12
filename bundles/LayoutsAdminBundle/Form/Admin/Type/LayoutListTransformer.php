@@ -7,15 +7,21 @@ namespace Netgen\Bundle\LayoutsAdminBundle\Form\Admin\Type;
 use Netgen\Layouts\API\Values\Layout\LayoutList;
 use Symfony\Component\Form\DataTransformerInterface;
 
+/**
+ * @implements \Symfony\Component\Form\DataTransformerInterface<
+ *     \Netgen\Layouts\API\Values\Layout\LayoutList,
+ *     \Netgen\Layouts\API\Values\Layout\Layout[]
+ * >
+ */
 final class LayoutListTransformer implements DataTransformerInterface
 {
-    public function transform($value)
+    public function transform($value): ?array
     {
-        return $value;
+        return $value !== null ? $value->getLayouts() : null;
     }
 
-    public function reverseTransform($value): LayoutList
+    public function reverseTransform($value): ?LayoutList
     {
-        return new LayoutList($value);
+        return $value !== null ? new LayoutList($value) : null;
     }
 }

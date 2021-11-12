@@ -114,6 +114,8 @@ interface BlockDefinitionInterface extends ParameterDefinitionCollectionInterfac
 
     /**
      * Returns if the block definition has a plugin with provided FQCN.
+     *
+     * @param class-string $className
      */
     public function hasPlugin(string $className): bool;
 }

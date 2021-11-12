@@ -87,6 +87,8 @@ abstract class ParamConverter implements ParamConverterInterface
 
     /**
      * Returns the supported class.
+     *
+     * @return class-string
      */
     abstract public function getSupportedClass(): string;
 

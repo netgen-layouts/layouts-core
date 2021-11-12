@@ -169,7 +169,7 @@ final class BlockDefinitionFactory
         }
 
         foreach (($config['forms'] ?? []) as $formIdentifier => $formConfig) {
-            if (!$formConfig['enabled']) {
+            if ($formConfig['enabled'] === false) {
                 continue;
             }
 
@@ -182,7 +182,7 @@ final class BlockDefinitionFactory
         }
 
         foreach (($config['view_types'] ?? []) as $viewTypeIdentifier => $viewTypeConfig) {
-            if (!$viewTypeConfig['enabled']) {
+            if ($viewTypeConfig['enabled'] === false) {
                 continue;
             }
 
@@ -198,7 +198,7 @@ final class BlockDefinitionFactory
             ];
 
             foreach ($viewTypeConfig['item_view_types'] as $itemViewTypeIdentifier => $itemViewTypeConfig) {
-                if (!$itemViewTypeConfig['enabled']) {
+                if ($itemViewTypeConfig['enabled'] === false) {
                     continue;
                 }
 

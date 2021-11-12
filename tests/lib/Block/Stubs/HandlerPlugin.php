@@ -13,12 +13,12 @@ use Netgen\Layouts\Parameters\ParameterType;
 final class HandlerPlugin extends Plugin
 {
     /**
-     * @var string[]
+     * @var class-string[]
      */
     private static array $extendedHandlers = [];
 
     /**
-     * @param string[] $extendedHandlers
+     * @param class-string[] $extendedHandlers
      */
     public static function instance(array $extendedHandlers): self
     {
