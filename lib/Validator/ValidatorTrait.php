@@ -104,6 +104,6 @@ trait ValidatorTrait
 
         $propertyPath = sprintf('%s%s', $propertyPath ?? '', $violations[0]->getPropertyPath() ?? '');
 
-        throw ValidationException::validationFailed($propertyPath, $violations[0]->getMessage());
+        throw ValidationException::validationFailed($propertyPath, (string) $violations[0]->getMessage());
     }
 }
