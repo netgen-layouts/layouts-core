@@ -23,7 +23,7 @@ final class YamlFileLoader extends BaseYamlFileLoader
      */
     protected function loadFile($file): array
     {
-        $content = parent::loadFile($file);
+        $content = (array) parent::loadFile($file);
 
         if (Kernel::VERSION_ID < 40400 || !array_key_exists('services', $content)) {
             return $content;
