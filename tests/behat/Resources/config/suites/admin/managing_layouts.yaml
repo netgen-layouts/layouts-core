@@ -21,4 +21,4 @@ default:
                 - netgen_layouts.behat.context.admin.managing_layouts
 
             filters:
-                tags: "@admin && @managing_layouts"
+                tags: "@admin&&@managing_layouts"
