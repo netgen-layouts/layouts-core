@@ -105,6 +105,7 @@ final class Context implements IteratorAggregate, Countable, ArrayAccess
      *
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->get($offset);
