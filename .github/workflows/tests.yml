@@ -30,6 +30,15 @@ jobs:
             phpunit: 'phpunit-api.xml'
             db: 'mysql'
 
+          - php: '7.4'
+            symfony: '~3.4.0'
+            phpunit: 'phpunit.xml'
+            db: 'postgres'
+          - php: '7.4'
+            symfony: '~3.4.0'
+            phpunit: 'phpunit-api.xml'
+            db: 'postgres'
+
           - php: '8.0'
             symfony: '~5.4.0'
             phpunit: 'phpunit.xml'
