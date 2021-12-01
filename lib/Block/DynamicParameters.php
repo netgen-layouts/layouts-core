@@ -38,6 +38,7 @@ final class DynamicParameters implements ArrayAccess, Countable
      *
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         if (!$this->offsetExists($offset)) {
